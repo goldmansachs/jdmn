@@ -17,6 +17,8 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
+
 public class DefaultDMNValidatorTest extends AbstractValidatorTest {
     private final DMNValidator validator = new DefaultDMNValidator();
 
@@ -45,8 +47,9 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
         validate(validator, "dmn/input/test-dmn.dmn", expectedErrors);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testValidateDefinitionsWhenNull() {
-        validator.validate(null);
+        List<String> actualErrors = validator.validate(null);
+        assertTrue(actualErrors.isEmpty());
     }
 }

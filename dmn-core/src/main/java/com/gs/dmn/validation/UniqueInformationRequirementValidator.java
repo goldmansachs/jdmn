@@ -32,9 +32,9 @@ public class UniqueInformationRequirementValidator extends SimpleDMNValidator {
     @Override
     public List<String> validate(DMNModelRepository dmnModelRepository) {
         List<String> errors = new ArrayList<>();
-
-        if (dmnModelRepository == null) {
-            throw new IllegalArgumentException("Missing definitions");
+        if (isEmpty(dmnModelRepository)) {
+            logger.warn("DMN repository is empty; validator will not run");
+            return errors;
         }
 
         for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {

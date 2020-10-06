@@ -55,12 +55,12 @@ public class TypeRefValidator extends SimpleDMNValidator {
 
     @Override
     public List<String> validate(DMNModelRepository dmnModelRepository) {
-        if (dmnModelRepository == null) {
-            throw new IllegalArgumentException("Missing definitions");
+        if (isEmpty(dmnModelRepository)) {
+            logger.warn("DMN repository is empty; validator will not run");
+            return new ArrayList<>();
         }
 
         List<Pair<TDRGElement, Type>> errorReport = makeErrorReport(dmnModelRepository);
-
         return errorReport.stream().map(p -> makeError(p, dmnModelRepository)).collect(Collectors.toList());
     }
 

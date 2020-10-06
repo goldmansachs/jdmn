@@ -18,6 +18,8 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
+
 public class TypeRefValidatorTest extends AbstractValidatorTest {
     private final TypeRefValidator validator = new TypeRefValidator();
 
@@ -35,8 +37,9 @@ public class TypeRefValidatorTest extends AbstractValidatorTest {
         validate(validator, "dmn/input/test-dmn-with-missing-type-ref.dmn", expectedErrors);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testValidateDefinitionsWhenNull() {
-        validator.validate(null);
+        List<String> actualErrors = validator.validate(null);
+        assertTrue(actualErrors.isEmpty());
     }
 }
