@@ -18,6 +18,7 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.environment.Parameter;
+import com.gs.dmn.feel.analysis.semantics.type.FEELFunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -335,7 +336,10 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             Expression body = ((FunctionDefinition) literalExpression).getBody();
             String javaCode;
             if (((FunctionDefinition) literalExpression).isExternal()) {
-                Type type = this.dmnEnvironmentFactory.externalFunctionReturnFEELType(element, body);
+                Type type = literalExpression.getType();
+                if (type instanceof FEELFunctionType) {
+                    type = ((FEELFunctionType) type).getReturnType();
+                }
                 String returnNativeType = toNativeType(type);
                 String className = externalFunctionClassName(body);
                 String methodName = externalFunctionMethodName(body);
