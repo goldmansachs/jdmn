@@ -128,11 +128,10 @@
             <requiredDecision href="#id-9bc027574845882aabcbef16b9124927"/>
         </informationRequirement>
         <literalExpression expressionLanguage="free_text">
-            <text>function(a:transaction, b:boolean) external {
+            <text>function(a:transaction, b:boolean) : fetchForexRate external {
 java: {
        class: "com.gs.opstech.rto.tax.transaction_tax.calculator.ForexRateService",
-       methodSignature: "fetchECBForexRateFor(a, b)",
-       returnType : "fetchForexRate"
+       methodSignature: "fetchECBForexRateFor(a, b)"
 }}</text>
         </literalExpression>
     </decision>
