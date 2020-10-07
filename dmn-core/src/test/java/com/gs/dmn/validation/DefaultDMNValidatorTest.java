@@ -31,10 +31,10 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateDefinitionsWhenNotUniqueNames() {
         List<String> expectedErrors = Arrays.asList(
-                "The 'name' of a 'DRGElement' must be unique. Found duplicates for 'CIP Assessments, Input'.",
-                "The 'name' of a 'ItemDefinition' must be unique. Found duplicates for 'itemDefinition'.",
-                "Missing variable for 'CIP Assessments'",
-                "Missing variable for 'CIP Assessments'"
+                "(model='definitions'): error: The 'name' of a 'DRGElement' must be unique. Found duplicates for 'CIP Assessments, Input'.",
+                "(model='definitions'): error: The 'name' of a 'ItemDefinition' must be unique. Found duplicates for 'itemDefinition'.",
+                "(model='definitions', name='CIP Assessments', id='cip-assessments'): error: Missing variable",
+                "(model='definitions', name='CIP Assessments', id='cip-assessments1'): error: Missing variable"
         );
         validate(validator, "dmn/input/test-dmn-with-duplicates.dmn", expectedErrors);
     }
@@ -42,7 +42,7 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateDefinitionsWithError() {
         List<String> expectedErrors = Arrays.asList(
-                "Missing variable for 'CIP Assessments'"
+                "(model='test-dmn', name='CIP Assessments', id='cip-assessments'): error: Missing variable"
         );
         validate(validator, "dmn/input/test-dmn.dmn", expectedErrors);
     }
