@@ -31,9 +31,9 @@ public class UniqueNameValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateDefinitionsWhenNotUniqueNames() {
         List<String> expectedErrors = Arrays.asList(
-                "The 'name' of a 'DRGElement' must be unique. Found 3 duplicates for 'CIP Assessments'.",
-                "The 'name' of a 'DRGElement' must be unique. Found 2 duplicates for 'Input'.",
-                "The 'name' of a 'ItemDefinition' must be unique. Found 2 duplicates for 'itemDefinition'."
+                "(model='definitions'): error: The 'name' of a 'DRGElement' must be unique. Found 3 duplicates for 'CIP Assessments'.",
+                "(model='definitions'): error: The 'name' of a 'DRGElement' must be unique. Found 2 duplicates for 'Input'.",
+                "(model='definitions'): error: The 'name' of a 'ItemDefinition' must be unique. Found 2 duplicates for 'itemDefinition'."
         );
         validate(validator, "dmn/input/test-dmn-with-duplicates.dmn", expectedErrors);
     }
