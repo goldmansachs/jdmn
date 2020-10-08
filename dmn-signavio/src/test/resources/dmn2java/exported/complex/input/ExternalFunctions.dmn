@@ -128,11 +128,11 @@
             <requiredDecision href="#id-9bc027574845882aabcbef16b9124927"/>
         </informationRequirement>
         <literalExpression expressionLanguage="free_text">
-            <text>function(a:transaction, b:boolean) : fetchForexRate external {
-java: {
-       class: "com.gs.opstech.rto.tax.transaction_tax.calculator.ForexRateService",
-       methodSignature: "fetchECBForexRateFor(a, b)"
-}}</text>
+            <text>
+                {
+                    f : function(a:transaction, b:boolean) : fetchForexRate external { java: { class: "com.gs.dmn.generated.external_functions.ForexRateService", methodSignature: "fetchECBForexRateFor(com.gs.dmn.generated.external_functions.type.Transaction, java.lang.Boolean)" }}
+                }.f(transaction, isForexRateRequired)
+            </text>
         </literalExpression>
     </decision>
     <decision name="isForexRateRequired" id="id-9bc027574845882aabcbef16b9124927" label="IsForexRateRequired" sigExt:shapeId="sid-005E834B-D602-4C88-A803-053528C9DF64" sigExt:diagramId="1b49e2cbacaf470fb5d093be73afd27e">
