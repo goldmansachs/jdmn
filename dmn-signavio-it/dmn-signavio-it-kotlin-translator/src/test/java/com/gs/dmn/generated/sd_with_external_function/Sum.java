@@ -15,7 +15,7 @@ package com.gs.dmn.generated.sd_with_external_function;
 import java.math.BigDecimal;
 
 public class Sum {
-    public BigDecimal add(BigDecimal a, BigDecimal b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public BigDecimal add(BigDecimal a, BigDecimal b) {
         return a.add(b);
     }
 }
