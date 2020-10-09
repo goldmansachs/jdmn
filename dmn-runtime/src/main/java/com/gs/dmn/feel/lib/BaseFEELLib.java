@@ -16,6 +16,7 @@ import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.LazyEval;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.Rule;
 
@@ -506,63 +507,57 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     public List<BigDecimal> rangeToList(boolean isOpenStart, BigDecimal start, boolean isOpenEnd, BigDecimal end) {
-        if (start == null || end == null) {
-            return new ArrayList<>();
-        }
-        int startValue = isOpenStart ? start.intValue() + 1 : start.intValue();
-        int endValue = isOpenEnd ? end.intValue() - 1 : end.intValue();
-        return decimalRangeToList(startValue, endValue);
+        Pair<Integer, Integer> intRange = intRange(isOpenStart, start, isOpenEnd, end);
+        return numericRangeToList(intRange, BigDecimal::valueOf);
     }
 
     public List<Double> rangeToList(boolean isOpenStart, Double start, boolean isOpenEnd, Double end) {
-        if (start == null || end == null) {
-            return new ArrayList<>();
-        }
-        int startValue = isOpenStart ? start.intValue() + 1 : start.intValue();
-        int endValue = isOpenEnd ? end.intValue() - 1 : end.intValue();
-        return doubleRangeToList(startValue, endValue);
+        Pair<Integer, Integer> intRange = intRange(isOpenStart, start, isOpenEnd, end);
+        return numericRangeToList(intRange, Double::valueOf);
     }
 
     public List<BigDecimal> rangeToList(BigDecimal start, BigDecimal end) {
-        if (start == null || end == null) {
-            return new ArrayList<>();
-        }
-        int startValue = start.intValue();
-        int endValue = end.intValue();
-        return decimalRangeToList(startValue, endValue);
+        Pair<Integer, Integer> intRange = intRange(start, end);
+        return numericRangeToList(intRange, BigDecimal::valueOf);
     }
+
     public List<Double> rangeToList(Double start, Double end) {
+        Pair<Integer, Integer> intRange = intRange(start, end);
+        return numericRangeToList(intRange, Double::valueOf);
+    }
+
+    private Pair<Integer, Integer> intRange(boolean isOpenStart, Number start, boolean isOpenEnd, Number end) {
         if (start == null || end == null) {
-            return new ArrayList<>();
+            return null;
+        }
+        int startValue = isOpenStart ? start.intValue() + 1 : start.intValue();
+        int endValue = isOpenEnd ? end.intValue() - 1 : end.intValue();
+        return new Pair<>(startValue, endValue);
+    }
+
+    private Pair<Integer, Integer> intRange(Number start, Number end) {
+        if (start == null || end == null) {
+            return null;
         }
         int startValue = start.intValue();
         int endValue = end.intValue();
-        return doubleRangeToList(startValue, endValue);
+        return new Pair<>(startValue, endValue);
     }
 
-    private List<BigDecimal> decimalRangeToList(int startValue, int endValue) {
-        List<BigDecimal> result = new ArrayList<>();
-        if (startValue <= endValue) {
-            for (int i = startValue; i <= endValue; i++) {
-                result.add(BigDecimal.valueOf(i));
-            }
-        } else {
-            for (int i = startValue; i >= endValue; i--) {
-                result.add(BigDecimal.valueOf(i));
-            }
+    private <T> List<T> numericRangeToList(Pair<Integer, Integer> intRange, java.util.function.Function<Integer, T> fromInt) {
+        List<T> result = new ArrayList<>();
+        if (intRange == null) {
+            return result;
         }
-        return result;
-    }
-
-    private List<Double> doubleRangeToList(int startValue, int endValue) {
-        List<Double> result = new ArrayList<>();
+        int startValue = intRange.getLeft();
+        int endValue = intRange.getRight();
         if (startValue <= endValue) {
             for (int i = startValue; i <= endValue; i++) {
-                result.add(Double.valueOf(i));
+                result.add(fromInt.apply(i));
             }
         } else {
             for (int i = startValue; i >= endValue; i--) {
-                result.add(Double.valueOf(i));
+                result.add(fromInt.apply(i));
             }
         }
         return result;
