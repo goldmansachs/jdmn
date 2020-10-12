@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
+import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.DateType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
@@ -21,11 +22,19 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-public class DefaultDateType extends DefaultXMLCalendarType implements DateType<XMLGregorianCalendar, Duration> {
+public class DefaultDateType extends BaseType implements DateType<XMLGregorianCalendar, Duration> {
+    private final DatatypeFactory datatypeFactory;
+    private final XMLCalendarComparator xmlCalendarComparator;
     private final BooleanType booleanType;
 
     public DefaultDateType(Logger logger, DatatypeFactory datatypeFactory) {
-        super(logger, datatypeFactory);
+        this(logger, datatypeFactory, new DefaultXMLCalendarComparator());
+    }
+
+    public DefaultDateType(Logger logger, DatatypeFactory datatypeFactory, XMLCalendarComparator xmlCalendarComparator) {
+        super(logger);
+        this.datatypeFactory = datatypeFactory;
+        this.xmlCalendarComparator = xmlCalendarComparator;
         this.booleanType = new DefaultBooleanType(logger);
     }
 
@@ -35,32 +44,32 @@ public class DefaultDateType extends DefaultXMLCalendarType implements DateType<
 
     @Override
     public Boolean dateEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return xmlCalendarEqual(first, second);
+        return this.xmlCalendarComparator.xmlCalendarEqual(first, second);
     }
 
     @Override
     public Boolean dateNotEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return booleanType.booleanNot(dateEqual(first, second));
+        return this.booleanType.booleanNot(dateEqual(first, second));
     }
 
     @Override
     public Boolean dateLessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return xmlCalendarLessThan(first, second);
+        return this.xmlCalendarComparator.xmlCalendarLessThan(first, second);
     }
 
     @Override
     public Boolean dateGreaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return xmlCalendarGreaterThan(first, second);
+        return this.xmlCalendarComparator.xmlCalendarGreaterThan(first, second);
     }
 
     @Override
     public Boolean dateLessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return xmlCalendarLessEqualThan(first, second);
+        return this.xmlCalendarComparator.xmlCalendarLessEqualThan(first, second);
     }
 
     @Override
     public Boolean dateGreaterEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return xmlCalendarGreaterEqualThan(first, second);
+        return this.xmlCalendarComparator.xmlCalendarGreaterEqualThan(first, second);
     }
 
     @Override
@@ -70,7 +79,7 @@ public class DefaultDateType extends DefaultXMLCalendarType implements DateType<
         }
 
         try {
-            return datatypeFactory.newDuration(getDurationInMilliSeconds(first, second));
+            return this.datatypeFactory.newDuration(this.xmlCalendarComparator.getDurationInMilliSeconds(first, second));
         } catch (Exception e) {
             String message = String.format("dateSubtract(%s, %s)", first, second);
             logError(message, e);
