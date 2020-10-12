@@ -13,14 +13,11 @@
 package com.gs.dmn.feel.lib.type.numeric;
 
 import com.gs.dmn.feel.lib.type.BaseType;
-import com.gs.dmn.feel.lib.type.BooleanType;
+import com.gs.dmn.feel.lib.type.ComparableComparator;
 import com.gs.dmn.feel.lib.type.NumericType;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import org.slf4j.Logger;
 
 public class DoubleNumericType extends BaseType implements NumericType<Double> {
-    private final BooleanType booleanType;
-
     public static Double doubleNumericDivide(Double first, Double second) {
         if (first == null || second == null) {
             return null;
@@ -32,9 +29,16 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
         return first / second;
     }
 
+    private final ComparableComparator<Double> numericComparator;
+
+    @Deprecated
     public DoubleNumericType(Logger logger) {
+        this(logger, new ComparableComparator<>(logger));
+    }
+
+    public DoubleNumericType(Logger logger, ComparableComparator<Double> numericComparator) {
         super(logger);
-        this.booleanType = new DefaultBooleanType(logger);
+        this.numericComparator = numericComparator;
     }
 
     @Override
@@ -125,76 +129,31 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
 
     @Override
     public Boolean numericEqual(Double first, Double second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return false;
-        } else if (second == null) {
-            return false;
-        } else {
-            int result = first.compareTo(second);
-            return result == 0;
-        }
+        return this.numericComparator.equal(first, second);
     }
 
     @Override
     public Boolean numericNotEqual(Double first, Double second) {
-        return booleanType.booleanNot(numericEqual(first, second));
+        return this.numericComparator.notEqual(first, second);
     }
 
     @Override
     public Boolean numericLessThan(Double first, Double second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo(second);
-            return result < 0;
-        }
+        return this.numericComparator.lessThan(first, second);
     }
 
     @Override
     public Boolean numericGreaterThan(Double first, Double second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo(second);
-            return result > 0;
-        }
+        return this.numericComparator.greaterThan(first, second);
     }
 
     @Override
     public Boolean numericLessEqualThan(Double first, Double second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo(second);
-            return result <= 0;
-        }
+        return this.numericComparator.lessEqualThan(first, second);
     }
 
     @Override
     public Boolean numericGreaterEqualThan(Double first, Double second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo(second);
-            return result >= 0;
-        }
+        return this.numericComparator.greaterEqualThan(first, second);
     }
 }
