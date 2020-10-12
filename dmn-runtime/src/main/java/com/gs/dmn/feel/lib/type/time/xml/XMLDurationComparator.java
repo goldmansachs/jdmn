@@ -10,17 +10,22 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.signavio.feel.lib.type.time.xml;
+package com.gs.dmn.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.type.DurationType;
-import com.gs.dmn.feel.lib.type.time.xml.DoubleDurationType;
-import org.slf4j.Logger;
-
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 
-public class DoubleSignavioDurationType extends DoubleDurationType implements DurationType<Duration, Double> {
-    public DoubleSignavioDurationType(Logger logger,  DatatypeFactory dataTypeFactory) {
-        super(logger, dataTypeFactory, new DefaultSignavioDurationComparator(logger));
-    }
- }
+public interface XMLDurationComparator {
+    int compare(Duration first, Duration second);
+
+    Boolean durationEqual(Duration first, Duration second);
+
+    Boolean durationNotEqual(Duration first, Duration second);
+
+    Boolean durationLessThan(Duration first, Duration second);
+
+    Boolean durationGreaterThan(Duration first, Duration second);
+
+    Boolean durationLessEqualThan(Duration first, Duration second);
+
+    Boolean durationGreaterEqualThan(Duration first, Duration second);
+}
