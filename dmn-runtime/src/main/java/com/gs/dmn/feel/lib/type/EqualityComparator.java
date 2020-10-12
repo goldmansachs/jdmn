@@ -10,22 +10,10 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.lib.type.time.xml;
+package com.gs.dmn.feel.lib.type;
 
-import javax.xml.datatype.Duration;
+public interface EqualityComparator<T> {
+    Boolean equal(T first, T second);
 
-public interface XMLDurationComparator {
-    int compare(Duration first, Duration second);
-
-    Boolean durationEqual(Duration first, Duration second);
-
-    Boolean durationNotEqual(Duration first, Duration second);
-
-    Boolean durationLessThan(Duration first, Duration second);
-
-    Boolean durationGreaterThan(Duration first, Duration second);
-
-    Boolean durationLessEqualThan(Duration first, Duration second);
-
-    Boolean durationGreaterEqualThan(Duration first, Duration second);
+    Boolean notEqual(T first, T second);
 }

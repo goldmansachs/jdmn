@@ -12,15 +12,20 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.type.time.xml.XMLCalendarComparator;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultXMLCalendarComparator;
+import org.slf4j.Logger;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import static javax.xml.datatype.DatatypeConstants.*;
 
-public class DefaultSignavioXMLCalendarComparator implements XMLCalendarComparator {
+public class DefaultSignavioXMLCalendarComparator extends DefaultXMLCalendarComparator {
+    public DefaultSignavioXMLCalendarComparator(Logger logger) {
+        super(logger);
+    }
+
     @Override
-    public Boolean xmlCalendarEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    public Boolean equal(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
             return true;
         } else if (first == null) {
@@ -34,7 +39,7 @@ public class DefaultSignavioXMLCalendarComparator implements XMLCalendarComparat
     }
 
     @Override
-    public Boolean xmlCalendarLessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    public Boolean lessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
             return null;
         } else if (first == null) {
@@ -48,7 +53,7 @@ public class DefaultSignavioXMLCalendarComparator implements XMLCalendarComparat
     }
 
     @Override
-    public Boolean xmlCalendarGreaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    public Boolean greaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
             return null;
         } else if (first == null) {
@@ -62,7 +67,7 @@ public class DefaultSignavioXMLCalendarComparator implements XMLCalendarComparat
     }
 
     @Override
-    public Boolean xmlCalendarLessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    public Boolean lessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
             return null;
         } else if (first == null) {
@@ -76,7 +81,7 @@ public class DefaultSignavioXMLCalendarComparator implements XMLCalendarComparat
     }
 
     @Override
-    public Boolean xmlCalendarGreaterEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    public Boolean greaterEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
             return null;
         } else if (first == null) {

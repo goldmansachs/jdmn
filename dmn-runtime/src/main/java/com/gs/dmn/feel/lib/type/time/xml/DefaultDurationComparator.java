@@ -12,13 +12,14 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
+import com.gs.dmn.feel.lib.type.RelationalComparator;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 
-public class DefaultDurationComparator implements XMLDurationComparator {
+public class DefaultDurationComparator implements RelationalComparator<Duration> {
     private final DefaultBooleanType booleanType;
 
     public DefaultDurationComparator(Logger logger) {
@@ -33,7 +34,7 @@ public class DefaultDurationComparator implements XMLDurationComparator {
     }
 
     @Override
-    public Boolean durationEqual(Duration first, Duration second) {
+    public Boolean equal(Duration first, Duration second) {
         if (first == null && second == null) {
             return true;
         } else if (first == null) {
@@ -46,12 +47,12 @@ public class DefaultDurationComparator implements XMLDurationComparator {
     }
 
     @Override
-    public Boolean durationNotEqual(Duration first, Duration second) {
-        return this.booleanType.booleanNot(durationEqual(first, second));
+    public Boolean notEqual(Duration first, Duration second) {
+        return this.booleanType.booleanNot(equal(first, second));
     }
 
     @Override
-    public Boolean durationLessThan(Duration first, Duration second) {
+    public Boolean lessThan(Duration first, Duration second) {
         if (first == null && second == null) {
             return false;
         } else if (first == null) {
@@ -64,7 +65,7 @@ public class DefaultDurationComparator implements XMLDurationComparator {
     }
 
     @Override
-    public Boolean durationGreaterThan(Duration first, Duration second) {
+    public Boolean greaterThan(Duration first, Duration second) {
         if (first == null && second == null) {
             return false;
         } else if (first == null) {
@@ -77,7 +78,7 @@ public class DefaultDurationComparator implements XMLDurationComparator {
     }
 
     @Override
-    public Boolean durationLessEqualThan(Duration first, Duration second) {
+    public Boolean lessEqualThan(Duration first, Duration second) {
         if (first == null && second == null) {
             return false;
         } else if (first == null) {
@@ -91,7 +92,7 @@ public class DefaultDurationComparator implements XMLDurationComparator {
     }
 
     @Override
-    public Boolean durationGreaterEqualThan(Duration first, Duration second) {
+    public Boolean greaterEqualThan(Duration first, Duration second) {
         if (first == null && second == null) {
             return false;
         } else if (first == null) {

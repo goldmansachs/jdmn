@@ -14,6 +14,7 @@ package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.type.DurationType;
+import com.gs.dmn.feel.lib.type.RelationalComparator;
 import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeFactory;
@@ -30,7 +31,7 @@ public class DoubleDurationType extends BaseDefaultDurationType implements Durat
         this(logger, dataTypeFactory, new DefaultDurationComparator(logger));
     }
 
-    public DoubleDurationType(Logger logger, DatatypeFactory dataTypeFactory, XMLDurationComparator durationComparator) {
+    public DoubleDurationType(Logger logger, DatatypeFactory dataTypeFactory, RelationalComparator<Duration> durationComparator) {
         super(logger, dataTypeFactory, durationComparator);
     }
 

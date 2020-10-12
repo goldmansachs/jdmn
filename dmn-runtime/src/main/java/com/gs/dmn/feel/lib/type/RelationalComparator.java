@@ -10,17 +10,16 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.lib.type.time.xml;
+package com.gs.dmn.feel.lib.type;
 
-import com.gs.dmn.feel.lib.type.RelationalComparator;
+public interface RelationalComparator<T> extends EqualityComparator<T> {
+    int compare(T first, T second);
 
-import javax.xml.datatype.XMLGregorianCalendar;
+    Boolean lessThan(T first, T second);
 
-public interface XMLCalendarComparator extends RelationalComparator<XMLGregorianCalendar> {
-    @Override
-    default int compare(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return (int) this.getDurationInMilliSeconds(first, second);
-    }
+    Boolean greaterThan(T first, T second);
 
-    long getDurationInMilliSeconds(XMLGregorianCalendar first, XMLGregorianCalendar second);
+    Boolean lessEqualThan(T first, T second);
+
+    Boolean greaterEqualThan(T first, T second);
 }
