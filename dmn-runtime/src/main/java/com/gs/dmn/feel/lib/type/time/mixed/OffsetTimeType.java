@@ -12,9 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.TimeType;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import org.slf4j.Logger;
 
@@ -27,11 +25,16 @@ import java.time.ZonedDateTime;
 public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<OffsetTime, Duration> {
     private static final LocalDate EPOCH = LocalDate.of(1970, 1, 1);
 
-    private final BooleanType booleanType;
+    private final OffsetTimeComparator comparator;
 
+    @Deprecated
     public OffsetTimeType(Logger logger, DatatypeFactory datatypeFactory) {
+        this(logger, datatypeFactory, new OffsetTimeComparator(logger));
+    }
+
+    public OffsetTimeType(Logger logger, DatatypeFactory datatypeFactory, OffsetTimeComparator comparator) {
         super(logger, datatypeFactory);
-        this.booleanType = new DefaultBooleanType(logger);
+        this.comparator = comparator;
     }
 
     //
@@ -40,32 +43,32 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
 
     @Override
     public Boolean timeEqual(OffsetTime first, OffsetTime second) {
-        return offsetTimeEqual(first, second);
+        return this.comparator.equal(first, second);
     }
 
     @Override
     public Boolean timeNotEqual(OffsetTime first, OffsetTime second) {
-        return booleanType.booleanNot(timeEqual(first, second));
+        return this.comparator.notEqual(first, second);
     }
 
     @Override
     public Boolean timeLessThan(OffsetTime first, OffsetTime second) {
-        return offsetTimeLessThan(first, second);
+        return this.comparator.lessThan(first, second);
     }
 
     @Override
     public Boolean timeGreaterThan(OffsetTime first, OffsetTime second) {
-        return offsetTimeGreaterThan(first, second);
+        return this.comparator.greaterThan(first, second);
     }
 
     @Override
     public Boolean timeLessEqualThan(OffsetTime first, OffsetTime second) {
-        return offsetTimeLessEqualThan(first, second);
+        return this.comparator.lessEqualThan(first, second);
     }
 
     @Override
     public Boolean timeGreaterEqualThan(OffsetTime first, OffsetTime second) {
-        return offsetTimeGreaterEqualThan(first, second);
+        return this.comparator.greaterEqualThan(first, second);
     }
 
     @Override
@@ -111,75 +114,6 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
             logError(message, e);
             return null;
         }
-    }
-
-    protected Boolean offsetTimeEqual(OffsetTime first, OffsetTime second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return false;
-        } else if (second == null) {
-            return false;
-        } else {
-            int result = compare(first, second);
-            return result == 0;
-        }
-    }
-
-    protected Boolean offsetTimeLessThan(OffsetTime first, OffsetTime second) {
-        if (first == null && second == null) {
-            return false;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result < 0;
-        }
-    }
-
-    protected Boolean offsetTimeGreaterThan(OffsetTime first, OffsetTime second) {
-        if (first == null && second == null) {
-            return false;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result > 0;
-        }
-    }
-
-    protected Boolean offsetTimeLessEqualThan(OffsetTime first, OffsetTime second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result <= 0;
-        }
-    }
-
-    protected Boolean offsetTimeGreaterEqualThan(OffsetTime first, OffsetTime second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result >= 0;
-        }
-    }
-
-    protected int compare(OffsetTime first, OffsetTime second) {
-        return first.compareTo(second);
     }
 
     protected Duration toDuration(OffsetTime first, OffsetTime second) {

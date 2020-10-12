@@ -22,62 +22,6 @@ import java.time.OffsetTime;
 
 public class SignavioOffsetTimeType extends OffsetTimeType implements TimeType<OffsetTime, Duration> {
     public SignavioOffsetTimeType(Logger logger, DatatypeFactory datatypeFactory) {
-        super(logger, datatypeFactory);
-    }
-
-    @Override
-    protected Boolean offsetTimeLessThan(OffsetTime first, OffsetTime second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result < 0;
-        }
-    }
-
-    @Override
-    protected Boolean offsetTimeGreaterThan(OffsetTime first, OffsetTime second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result > 0;
-        }
-    }
-
-    @Override
-    protected Boolean offsetTimeLessEqualThan(OffsetTime first, OffsetTime second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result <= 0;
-        }
-    }
-
-    @Override
-    protected Boolean offsetTimeGreaterEqualThan(OffsetTime first, OffsetTime second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result >= 0;
-        }
+        super(logger, datatypeFactory, new SignavioOffsetTimeComparator(logger));
     }
 }
