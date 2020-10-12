@@ -22,6 +22,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 public class DefaultSignavioDateTimeType extends DefaultDateTimeType implements DateTimeType<XMLGregorianCalendar, Duration> {
     public DefaultSignavioDateTimeType(Logger logger, DatatypeFactory datatypeFactory) {
-        super(logger, datatypeFactory, new DefaultSignavioXMLCalendarComparator());
+        super(logger, datatypeFactory, new DefaultSignavioXMLCalendarComparator(logger));
     }
 }

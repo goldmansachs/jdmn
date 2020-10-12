@@ -28,7 +28,7 @@ public class DefaultDateType extends BaseType implements DateType<XMLGregorianCa
     private final BooleanType booleanType;
 
     public DefaultDateType(Logger logger, DatatypeFactory datatypeFactory) {
-        this(logger, datatypeFactory, new DefaultXMLCalendarComparator());
+        this(logger, datatypeFactory, new DefaultXMLCalendarComparator(logger));
     }
 
     public DefaultDateType(Logger logger, DatatypeFactory datatypeFactory, XMLCalendarComparator xmlCalendarComparator) {
@@ -44,7 +44,7 @@ public class DefaultDateType extends BaseType implements DateType<XMLGregorianCa
 
     @Override
     public Boolean dateEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return this.xmlCalendarComparator.xmlCalendarEqual(first, second);
+        return this.xmlCalendarComparator.equal(first, second);
     }
 
     @Override
@@ -54,22 +54,22 @@ public class DefaultDateType extends BaseType implements DateType<XMLGregorianCa
 
     @Override
     public Boolean dateLessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return this.xmlCalendarComparator.xmlCalendarLessThan(first, second);
+        return this.xmlCalendarComparator.lessThan(first, second);
     }
 
     @Override
     public Boolean dateGreaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return this.xmlCalendarComparator.xmlCalendarGreaterThan(first, second);
+        return this.xmlCalendarComparator.greaterThan(first, second);
     }
 
     @Override
     public Boolean dateLessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return this.xmlCalendarComparator.xmlCalendarLessEqualThan(first, second);
+        return this.xmlCalendarComparator.lessEqualThan(first, second);
     }
 
     @Override
     public Boolean dateGreaterEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return this.xmlCalendarComparator.xmlCalendarGreaterEqualThan(first, second);
+        return this.xmlCalendarComparator.greaterEqualThan(first, second);
     }
 
     @Override

@@ -12,20 +12,20 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.time.xml;
 
+import com.gs.dmn.feel.lib.type.RelationalComparator;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationComparator;
-import com.gs.dmn.feel.lib.type.time.xml.XMLDurationComparator;
 import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 
-public class DefaultSignavioDurationComparator extends DefaultDurationComparator implements XMLDurationComparator {
+public class DefaultSignavioDurationComparator extends DefaultDurationComparator implements RelationalComparator<Duration> {
     public DefaultSignavioDurationComparator(Logger logger) {
         super(logger);
     }
 
     @Override
-    public Boolean durationLessThan(Duration first, Duration second) {
+    public Boolean lessThan(Duration first, Duration second) {
         if (first == null && second == null) {
             return null;
         } else if (first == null) {
@@ -38,7 +38,7 @@ public class DefaultSignavioDurationComparator extends DefaultDurationComparator
     }
 
     @Override
-    public Boolean durationGreaterThan(Duration first, Duration second) {
+    public Boolean greaterThan(Duration first, Duration second) {
         if (first == null && second == null) {
             return null;
         } else if (first == null) {
@@ -51,7 +51,7 @@ public class DefaultSignavioDurationComparator extends DefaultDurationComparator
     }
 
     @Override
-    public Boolean durationLessEqualThan(Duration first, Duration second) {
+    public Boolean lessEqualThan(Duration first, Duration second) {
         if (first == null && second == null) {
             return null;
         } else if (first == null) {
@@ -65,7 +65,7 @@ public class DefaultSignavioDurationComparator extends DefaultDurationComparator
     }
 
     @Override
-    public Boolean durationGreaterEqualThan(Duration first, Duration second) {
+    public Boolean greaterEqualThan(Duration first, Duration second) {
         if (first == null && second == null) {
             return null;
         } else if (first == null) {

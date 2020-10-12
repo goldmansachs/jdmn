@@ -28,7 +28,7 @@ public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCa
     protected final XMLCalendarComparator xmlCalendarComparator;
 
     public DefaultTimeType(Logger logger, DatatypeFactory datatypeFactory) {
-        this(logger, datatypeFactory, new DefaultXMLCalendarComparator());
+        this(logger, datatypeFactory, new DefaultXMLCalendarComparator(logger));
     }
 
     public DefaultTimeType(Logger logger, DatatypeFactory datatypeFactory, XMLCalendarComparator xmlCalendarComparator) {
@@ -43,7 +43,7 @@ public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCa
     //
     @Override
     public Boolean timeEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return this.xmlCalendarComparator.xmlCalendarEqual(first, second);
+        return this.xmlCalendarComparator.equal(first, second);
     }
 
     @Override
@@ -53,22 +53,22 @@ public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCa
 
     @Override
     public Boolean timeLessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return this.xmlCalendarComparator.xmlCalendarLessThan(first, second);
+        return this.xmlCalendarComparator.lessThan(first, second);
     }
 
     @Override
     public Boolean timeGreaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return this.xmlCalendarComparator.xmlCalendarGreaterThan(first, second);
+        return this.xmlCalendarComparator.greaterThan(first, second);
     }
 
     @Override
     public Boolean timeLessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return this.xmlCalendarComparator.xmlCalendarLessEqualThan(first, second);
+        return this.xmlCalendarComparator.lessEqualThan(first, second);
     }
 
     @Override
     public Boolean timeGreaterEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return this.xmlCalendarComparator.xmlCalendarGreaterEqualThan(first, second);
+        return this.xmlCalendarComparator.greaterEqualThan(first, second);
     }
 
     @Override

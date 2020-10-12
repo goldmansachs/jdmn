@@ -12,13 +12,22 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
+import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import org.slf4j.Logger;
+
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import static javax.xml.datatype.DatatypeConstants.*;
 
 public class DefaultXMLCalendarComparator implements XMLCalendarComparator {
+    private final DefaultBooleanType booleanType;
+
+    public DefaultXMLCalendarComparator(Logger logger) {
+        this.booleanType = new DefaultBooleanType(logger);
+    }
+
     @Override
-    public Boolean xmlCalendarEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    public Boolean equal(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
             return true;
         } else if (first == null) {
@@ -31,7 +40,12 @@ public class DefaultXMLCalendarComparator implements XMLCalendarComparator {
     }
 
     @Override
-    public Boolean xmlCalendarLessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    public Boolean notEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+        return this.booleanType.booleanNot(equal(first, second));
+    }
+
+    @Override
+    public Boolean lessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
             return false;
         } else if (first == null) {
@@ -45,7 +59,7 @@ public class DefaultXMLCalendarComparator implements XMLCalendarComparator {
     }
 
     @Override
-    public Boolean xmlCalendarGreaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    public Boolean greaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
             return false;
         } else if (first == null) {
@@ -59,7 +73,7 @@ public class DefaultXMLCalendarComparator implements XMLCalendarComparator {
     }
 
     @Override
-    public Boolean xmlCalendarLessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    public Boolean lessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
             return true;
         } else if (first == null) {
@@ -73,7 +87,7 @@ public class DefaultXMLCalendarComparator implements XMLCalendarComparator {
     }
 
     @Override
-    public Boolean xmlCalendarGreaterEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    public Boolean greaterEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
             return true;
         } else if (first == null) {
@@ -90,5 +104,4 @@ public class DefaultXMLCalendarComparator implements XMLCalendarComparator {
     public long getDurationInMilliSeconds(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         return first.toGregorianCalendar().getTimeInMillis() - second.toGregorianCalendar().getTimeInMillis();
     }
-
 }
