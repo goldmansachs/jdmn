@@ -12,25 +12,26 @@
  */
 package com.gs.dmn.feel.lib.type.time.pure;
 
-import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.DateTimeType;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.time.JavaTimeType;
 import org.slf4j.Logger;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZonedDateTime;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
 public class TemporalDateTimeType extends JavaTimeType implements DateTimeType<Temporal, TemporalAmount> {
-    private final BooleanType booleanType;
+    private final TemporalComparator comparator;
 
+    @Deprecated
     public TemporalDateTimeType(Logger logger) {
         super(logger);
-        this.booleanType = new DefaultBooleanType(logger);
+        this.comparator = new TemporalComparator(logger);
+    }
+
+    public TemporalDateTimeType(Logger logger, TemporalComparator comparator) {
+        super(logger);
+        this.comparator = comparator;
     }
 
     //
@@ -39,32 +40,32 @@ public class TemporalDateTimeType extends JavaTimeType implements DateTimeType<T
 
     @Override
     public Boolean dateTimeEqual(Temporal first, Temporal second) {
-        return temporalDateTimeEqual(first, second);
+        return this.comparator.equal(first, second);
     }
 
     @Override
     public Boolean dateTimeNotEqual(Temporal first, Temporal second) {
-        return booleanType.booleanNot(dateTimeEqual(first, second));
+        return this.comparator.notEqual(first, second);
     }
 
     @Override
     public Boolean dateTimeLessThan(Temporal first, Temporal second) {
-        return temporalDateTimeLessThan(first, second);
+        return this.comparator.lessThan(first, second);
     }
 
     @Override
     public Boolean dateTimeGreaterThan(Temporal first, Temporal second) {
-        return temporalDateTimeGreaterThan(first, second);
+        return this.comparator.greaterThan(first, second);
     }
 
     @Override
     public Boolean dateTimeLessEqualThan(Temporal first, Temporal second) {
-        return temporalDateTimeLessEqualThan(first, second);
+        return this.comparator.lessEqualThan(first, second);
     }
 
     @Override
     public Boolean dateTimeGreaterEqualThan(Temporal first, Temporal second) {
-        return temporalDateTimeGreaterEqualThan(first, second);
+        return this.comparator.greaterEqualThan(first, second);
     }
 
     @Override
@@ -110,111 +111,5 @@ public class TemporalDateTimeType extends JavaTimeType implements DateTimeType<T
             logError(message, e);
             return null;
         }
-    }
-
-    protected Boolean temporalDateTimeEqual(Temporal first, Temporal second) {
-        try {
-            if (first == null && second == null) {
-                return true;
-            } else if (first == null) {
-                return false;
-            } else if (second == null) {
-                return false;
-            } else {
-                Integer result = compare(first, second);
-                return result != null && result == 0;
-            }
-        } catch (Exception e) {
-            String message = String.format("=(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    protected Boolean temporalDateTimeLessThan(Temporal first, Temporal second) {
-        try {
-            if (first == null && second == null) {
-                return false;
-            } else if (first == null) {
-                return null;
-            } else if (second == null) {
-                return null;
-            } else {
-                Integer result = compare(first, second);
-                return result != null && result < 0;
-            }
-        } catch (Exception e) {
-            String message = String.format("<(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    protected Boolean temporalDateTimeGreaterThan(Temporal first, Temporal second) {
-        try {
-            if (first == null && second == null) {
-                return false;
-            } else if (first == null) {
-                return null;
-            } else if (second == null) {
-                return null;
-            } else {
-                Integer result = compare(first, second);
-                return result != null && result > 0;
-            }
-        } catch (Exception e) {
-            String message = String.format(">(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    protected Boolean temporalDateTimeLessEqualThan(Temporal first, Temporal second) {
-        try {
-            if (first == null && second == null) {
-                return true;
-            } else if (first == null) {
-                return null;
-            } else if (second == null) {
-                return null;
-            } else {
-                Integer result = compare(first, second);
-                return result != null && result <= 0;
-            }
-        } catch (Exception e) {
-            String message = String.format("<=(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    protected Boolean temporalDateTimeGreaterEqualThan(Temporal first, Temporal second) {
-        try {
-            if (first == null && second == null) {
-                return true;
-            } else if (first == null) {
-                return null;
-            } else if (second == null) {
-                return null;
-            } else {
-                Integer result = compare(first, second);
-                return result != null && result >= 0;
-            }
-        } catch (Exception e) {
-            String message = String.format(">=(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    private Integer compare(Temporal first, Temporal second) {
-        if (first instanceof LocalDateTime && second instanceof LocalDateTime) {
-            return ((LocalDateTime) first).compareTo((LocalDateTime) second);
-        } else if (first instanceof OffsetDateTime && second instanceof OffsetDateTime) {
-            return ((OffsetDateTime) first).compareTo((OffsetDateTime) second);
-        } else if (first instanceof ZonedDateTime && second instanceof ZonedDateTime) {
-            return ((ZonedDateTime) first).compareTo((ZonedDateTime) second);
-        }
-        return null;
     }
 }

@@ -29,16 +29,16 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
         return first / second;
     }
 
-    private final ComparableComparator<Double> numericComparator;
+    private final ComparableComparator<Double> comparator;
 
     @Deprecated
     public DoubleNumericType(Logger logger) {
         this(logger, new ComparableComparator<>(logger));
     }
 
-    public DoubleNumericType(Logger logger, ComparableComparator<Double> numericComparator) {
+    public DoubleNumericType(Logger logger, ComparableComparator<Double> comparator) {
         super(logger);
-        this.numericComparator = numericComparator;
+        this.comparator = comparator;
     }
 
     @Override
@@ -129,31 +129,31 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
 
     @Override
     public Boolean numericEqual(Double first, Double second) {
-        return this.numericComparator.equal(first, second);
+        return this.comparator.equal(first, second);
     }
 
     @Override
     public Boolean numericNotEqual(Double first, Double second) {
-        return this.numericComparator.notEqual(first, second);
+        return this.comparator.notEqual(first, second);
     }
 
     @Override
     public Boolean numericLessThan(Double first, Double second) {
-        return this.numericComparator.lessThan(first, second);
+        return this.comparator.lessThan(first, second);
     }
 
     @Override
     public Boolean numericGreaterThan(Double first, Double second) {
-        return this.numericComparator.greaterThan(first, second);
+        return this.comparator.greaterThan(first, second);
     }
 
     @Override
     public Boolean numericLessEqualThan(Double first, Double second) {
-        return this.numericComparator.lessEqualThan(first, second);
+        return this.comparator.lessEqualThan(first, second);
     }
 
     @Override
     public Boolean numericGreaterEqualThan(Double first, Double second) {
-        return this.numericComparator.greaterEqualThan(first, second);
+        return this.comparator.greaterEqualThan(first, second);
     }
 }

@@ -34,16 +34,16 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
         return first.divide(second, MathContext.DECIMAL128);
     }
 
-    private final ComparableComparator<BigDecimal> numericComparator;
+    private final ComparableComparator<BigDecimal> comparator;
 
     @Deprecated
     public DefaultNumericType(Logger logger) {
         this(logger, new ComparableComparator<>(logger));
     }
 
-    public DefaultNumericType(Logger logger, ComparableComparator<BigDecimal> numericComparator) {
+    public DefaultNumericType(Logger logger, ComparableComparator<BigDecimal> comparator) {
         super(logger);
-        this.numericComparator = numericComparator;
+        this.comparator = comparator;
     }
 
     @Override
@@ -159,31 +159,31 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
 
     @Override
     public Boolean numericEqual(BigDecimal first, BigDecimal second) {
-        return this.numericComparator.equal(first, second);
+        return this.comparator.equal(first, second);
     }
 
     @Override
     public Boolean numericNotEqual(BigDecimal first, BigDecimal second) {
-        return this.numericComparator.notEqual(first, second);
+        return this.comparator.notEqual(first, second);
     }
 
     @Override
     public Boolean numericLessThan(BigDecimal first, BigDecimal second) {
-        return this.numericComparator.lessThan(first, second);
+        return this.comparator.lessThan(first, second);
     }
 
     @Override
     public Boolean numericGreaterThan(BigDecimal first, BigDecimal second) {
-        return this.numericComparator.greaterThan(first, second);
+        return this.comparator.greaterThan(first, second);
     }
 
     @Override
     public Boolean numericLessEqualThan(BigDecimal first, BigDecimal second) {
-        return this.numericComparator.lessEqualThan(first, second);
+        return this.comparator.lessEqualThan(first, second);
     }
 
     @Override
     public Boolean numericGreaterEqualThan(BigDecimal first, BigDecimal second) {
-        return this.numericComparator.greaterEqualThan(first, second);
+        return this.comparator.greaterEqualThan(first, second);
     }
 }

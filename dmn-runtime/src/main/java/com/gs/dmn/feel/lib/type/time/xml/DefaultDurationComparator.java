@@ -27,7 +27,7 @@ public class DefaultDurationComparator implements RelationalComparator<Duration>
     }
 
     @Override
-    public int compare(Duration first, Duration second) {
+    public Integer compare(Duration first, Duration second) {
         javax.xml.datatype.Duration lhs = BaseDefaultDurationType.normalize(first);
         javax.xml.datatype.Duration rhs = BaseDefaultDurationType.normalize(second);
         return lhs.compare(rhs);

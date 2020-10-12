@@ -13,7 +13,7 @@
 package com.gs.dmn.feel.lib.type;
 
 public interface RelationalComparator<T> extends EqualityComparator<T> {
-    int compare(T first, T second);
+    Integer compare(T first, T second);
 
     Boolean lessThan(T first, T second);
 

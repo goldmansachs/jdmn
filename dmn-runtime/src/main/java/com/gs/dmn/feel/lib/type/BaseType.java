@@ -22,10 +22,10 @@ public abstract class BaseType {
     }
 
     protected void logError(String message) {
-        logger.error(message);
+        this.logger.error(message);
     }
 
     protected void logError(String message, Throwable e) {
-        logger.error(message, e);
+        this.logger.error(message, e);
     }
 }

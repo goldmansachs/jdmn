@@ -10,25 +10,29 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.lib.type;
+package com.gs.dmn.feel.lib.type.time.mixed;
 
+import com.gs.dmn.feel.lib.type.RelationalComparator;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import org.slf4j.Logger;
 
-public class ComparableComparator<T> implements RelationalComparator<Comparable<T>> {
-    private final BooleanType booleanType;
+import java.time.ZonedDateTime;
 
-    public ComparableComparator(Logger logger) {
+public class ZonedDateTimeComparator implements RelationalComparator<ZonedDateTime> {
+    private final DefaultBooleanType booleanType;
+
+    public ZonedDateTimeComparator(Logger logger) {
         this.booleanType = new DefaultBooleanType(logger);
     }
 
     @Override
-    public Integer compare(Comparable<T> first, Comparable<T> second) {
-        return first.compareTo((T) second);
+    public Integer compare(ZonedDateTime first, ZonedDateTime second) {
+        return first.withZoneSameInstant(DefaultDateTimeLib.UTC).compareTo(second.withZoneSameInstant(DefaultDateTimeLib.UTC));
     }
 
     @Override
-    public Boolean equal(Comparable<T> first, Comparable<T> second) {
+    public Boolean equal(ZonedDateTime first, ZonedDateTime second) {
         if (first == null && second == null) {
             return true;
         } else if (first == null) {
@@ -36,46 +40,46 @@ public class ComparableComparator<T> implements RelationalComparator<Comparable<
         } else if (second == null) {
             return false;
         } else {
-            int result = first.compareTo((T) second);
+            int result = compare(first, second);
             return result == 0;
         }
     }
 
     @Override
-    public Boolean notEqual(Comparable<T> first, Comparable<T> second) {
+    public Boolean notEqual(ZonedDateTime first, ZonedDateTime second) {
         return this.booleanType.booleanNot(equal(first, second));
     }
 
     @Override
-    public Boolean lessThan(Comparable<T> first, Comparable<T> second) {
+    public Boolean lessThan(ZonedDateTime first, ZonedDateTime second) {
         if (first == null && second == null) {
-            return null;
+            return false;
         } else if (first == null) {
             return null;
         } else if (second == null) {
             return null;
         } else {
-            int result = first.compareTo((T) second);
+            int result = compare(first, second);
             return result < 0;
         }
     }
 
     @Override
-    public Boolean greaterThan(Comparable<T> first, Comparable<T> second) {
+    public Boolean greaterThan(ZonedDateTime first, ZonedDateTime second) {
         if (first == null && second == null) {
-            return null;
+            return false;
         } else if (first == null) {
             return null;
         } else if (second == null) {
             return null;
         } else {
-            int result = first.compareTo((T) second);
+            int result = compare(first, second);
             return result > 0;
         }
     }
 
     @Override
-    public Boolean lessEqualThan(Comparable<T> first, Comparable<T> second) {
+    public Boolean lessEqualThan(ZonedDateTime first, ZonedDateTime second) {
         if (first == null && second == null) {
             return true;
         } else if (first == null) {
@@ -83,13 +87,13 @@ public class ComparableComparator<T> implements RelationalComparator<Comparable<
         } else if (second == null) {
             return null;
         } else {
-            int result = first.compareTo((T) second);
+            int result = compare(first, second);
             return result <= 0;
         }
     }
 
     @Override
-    public Boolean greaterEqualThan(Comparable<T> first, Comparable<T> second) {
+    public Boolean greaterEqualThan(ZonedDateTime first, ZonedDateTime second) {
         if (first == null && second == null) {
             return true;
         } else if (first == null) {
@@ -97,7 +101,7 @@ public class ComparableComparator<T> implements RelationalComparator<Comparable<
         } else if (second == null) {
             return null;
         } else {
-            int result = first.compareTo((T) second);
+            int result = compare(first, second);
             return result >= 0;
         }
     }

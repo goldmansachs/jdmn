@@ -18,7 +18,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 public interface XMLCalendarComparator extends RelationalComparator<XMLGregorianCalendar> {
     @Override
-    default int compare(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    default Integer compare(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         return (int) this.getDurationInMilliSeconds(first, second);
     }
 
