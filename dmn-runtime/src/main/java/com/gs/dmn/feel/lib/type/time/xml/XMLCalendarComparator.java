@@ -1,0 +1,29 @@
+/*
+ * Copyright 2016 Goldman Sachs.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
+package com.gs.dmn.feel.lib.type.time.xml;
+
+import javax.xml.datatype.XMLGregorianCalendar;
+
+public interface XMLCalendarComparator {
+    Boolean xmlCalendarEqual(XMLGregorianCalendar first, XMLGregorianCalendar second);
+
+    Boolean xmlCalendarLessThan(XMLGregorianCalendar first, XMLGregorianCalendar second);
+
+    Boolean xmlCalendarGreaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second);
+
+    Boolean xmlCalendarLessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second);
+
+    Boolean xmlCalendarGreaterEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second);
+
+    long getDurationInMilliSeconds(XMLGregorianCalendar first, XMLGregorianCalendar second);
+}

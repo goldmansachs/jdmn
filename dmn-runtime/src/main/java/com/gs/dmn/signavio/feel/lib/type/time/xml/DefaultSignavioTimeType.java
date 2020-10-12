@@ -12,102 +12,16 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.TimeType;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultTimeType;
 import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-public class DefaultSignavioTimeType extends DefaultSignavioXMLCalendarType implements TimeType<XMLGregorianCalendar, Duration> {
-    private final BooleanType booleanType;
-
+public class DefaultSignavioTimeType extends DefaultTimeType implements TimeType<XMLGregorianCalendar, Duration> {
     public DefaultSignavioTimeType(Logger logger, DatatypeFactory datatypeFactory) {
-        super(logger, datatypeFactory);
-        this.booleanType = new DefaultBooleanType(logger);
-    }
-
-    //
-    // Time operators
-    //
-    @Override
-    public Boolean timeEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return xmlCalendarEqual(first, second);
-    }
-
-    @Override
-    public Boolean timeNotEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return booleanType.booleanNot(timeEqual(first, second));
-    }
-
-    @Override
-    public Boolean timeLessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return xmlCalendarLessThan(first, second);
-    }
-
-    @Override
-    public Boolean timeGreaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return xmlCalendarGreaterThan(first, second);
-    }
-
-    @Override
-    public Boolean timeLessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return xmlCalendarLessEqualThan(first, second);
-    }
-
-    @Override
-    public Boolean timeGreaterEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return xmlCalendarGreaterEqualThan(first, second);
-    }
-
-    @Override
-    public Duration timeSubtract(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        if (first == null || second == null) {
-            return null;
-        }
-
-        try {
-            return datatypeFactory.newDuration(getDurationInMilliSeconds(first, second));
-        } catch (Exception e) {
-            String message = String.format("timeSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public XMLGregorianCalendar timeAddDuration(XMLGregorianCalendar time, Duration duration) {
-        if (time == null || duration == null) {
-            return null;
-        }
-
-        try {
-            XMLGregorianCalendar clone = (XMLGregorianCalendar) time.clone();
-            clone.add(duration);
-            return clone;
-        } catch (Exception e) {
-            String message = String.format("timeAdd(%s, %s)", time, duration);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public XMLGregorianCalendar timeSubtractDuration(XMLGregorianCalendar time, Duration duration) {
-        if (time == null || duration == null) {
-            return null;
-        }
-
-        try {
-            XMLGregorianCalendar clone = (XMLGregorianCalendar) time.clone();
-            clone.add(duration.negate());
-            return clone;
-        } catch (Exception e) {
-            String message = String.format("timeSubtract(%s, %s)", time, duration);
-            logError(message, e);
-            return null;
-        }
+        super(logger, datatypeFactory, new DefaultSignavioXMLCalendarComparator());
     }
 }

@@ -10,25 +10,15 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.signavio.feel.lib.type.time.xml;
+package com.gs.dmn.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.type.BaseType;
-import org.slf4j.Logger;
-
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import static javax.xml.datatype.DatatypeConstants.*;
 
-public abstract class DefaultSignavioXMLCalendarType extends BaseType {
-    protected final DatatypeFactory datatypeFactory;
-
-    public DefaultSignavioXMLCalendarType(Logger logger, DatatypeFactory datatypeFactory) {
-        super(logger);
-        this.datatypeFactory = datatypeFactory;
-    }
-
-    protected Boolean xmlCalendarEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+public class DefaultXMLCalendarComparator implements XMLCalendarComparator {
+    @Override
+    public Boolean xmlCalendarEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
             return true;
         } else if (first == null) {
@@ -36,14 +26,14 @@ public abstract class DefaultSignavioXMLCalendarType extends BaseType {
         } else if (second == null) {
             return false;
         } else {
-            int result = first.compare(second);
-            return result == EQUAL;
+            return ((FEELXMLGregorianCalendar)first).same(second);
         }
     }
 
-    protected Boolean xmlCalendarLessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    @Override
+    public Boolean xmlCalendarLessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
-            return null;
+            return false;
         } else if (first == null) {
             return null;
         } else if (second == null) {
@@ -54,9 +44,10 @@ public abstract class DefaultSignavioXMLCalendarType extends BaseType {
         }
     }
 
-    protected Boolean xmlCalendarGreaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    @Override
+    public Boolean xmlCalendarGreaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
-            return null;
+            return false;
         } else if (first == null) {
             return null;
         } else if (second == null) {
@@ -67,9 +58,10 @@ public abstract class DefaultSignavioXMLCalendarType extends BaseType {
         }
     }
 
-    protected Boolean xmlCalendarLessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    @Override
+    public Boolean xmlCalendarLessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
-            return null;
+            return true;
         } else if (first == null) {
             return null;
         } else if (second == null) {
@@ -80,9 +72,10 @@ public abstract class DefaultSignavioXMLCalendarType extends BaseType {
         }
     }
 
-    protected Boolean xmlCalendarGreaterEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    @Override
+    public Boolean xmlCalendarGreaterEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
-            return null;
+            return true;
         } else if (first == null) {
             return null;
         } else if (second == null) {
@@ -93,7 +86,8 @@ public abstract class DefaultSignavioXMLCalendarType extends BaseType {
         }
     }
 
-    protected long getDurationInMilliSeconds(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    @Override
+    public long getDurationInMilliSeconds(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         return first.toGregorianCalendar().getTimeInMillis() - second.toGregorianCalendar().getTimeInMillis();
     }
 

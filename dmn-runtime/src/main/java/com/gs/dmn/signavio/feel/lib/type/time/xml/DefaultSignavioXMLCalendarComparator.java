@@ -10,25 +10,17 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.lib.type.time.xml;
+package com.gs.dmn.signavio.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.type.BaseType;
-import org.slf4j.Logger;
+import com.gs.dmn.feel.lib.type.time.xml.XMLCalendarComparator;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import static javax.xml.datatype.DatatypeConstants.*;
 
-public abstract class DefaultXMLCalendarType extends BaseType {
-    protected final DatatypeFactory datatypeFactory;
-
-    public DefaultXMLCalendarType(Logger logger, DatatypeFactory datatypeFactory) {
-        super(logger);
-        this.datatypeFactory = datatypeFactory;
-    }
-
-    protected Boolean xmlCalendarEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+public class DefaultSignavioXMLCalendarComparator implements XMLCalendarComparator {
+    @Override
+    public Boolean xmlCalendarEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
             return true;
         } else if (first == null) {
@@ -36,13 +28,15 @@ public abstract class DefaultXMLCalendarType extends BaseType {
         } else if (second == null) {
             return false;
         } else {
-            return ((FEELXMLGregorianCalendar)first).same(second);
+            int result = first.compare(second);
+            return result == EQUAL;
         }
     }
 
-    protected Boolean xmlCalendarLessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    @Override
+    public Boolean xmlCalendarLessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
-            return false;
+            return null;
         } else if (first == null) {
             return null;
         } else if (second == null) {
@@ -53,9 +47,10 @@ public abstract class DefaultXMLCalendarType extends BaseType {
         }
     }
 
-    protected Boolean xmlCalendarGreaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    @Override
+    public Boolean xmlCalendarGreaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
-            return false;
+            return null;
         } else if (first == null) {
             return null;
         } else if (second == null) {
@@ -66,9 +61,10 @@ public abstract class DefaultXMLCalendarType extends BaseType {
         }
     }
 
-    protected Boolean xmlCalendarLessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    @Override
+    public Boolean xmlCalendarLessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
-            return true;
+            return null;
         } else if (first == null) {
             return null;
         } else if (second == null) {
@@ -79,9 +75,10 @@ public abstract class DefaultXMLCalendarType extends BaseType {
         }
     }
 
-    protected Boolean xmlCalendarGreaterEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    @Override
+    public Boolean xmlCalendarGreaterEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
-            return true;
+            return null;
         } else if (first == null) {
             return null;
         } else if (second == null) {
@@ -92,7 +89,8 @@ public abstract class DefaultXMLCalendarType extends BaseType {
         }
     }
 
-    protected long getDurationInMilliSeconds(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    @Override
+    public long getDurationInMilliSeconds(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         return first.toGregorianCalendar().getTimeInMillis() - second.toGregorianCalendar().getTimeInMillis();
     }
 
