@@ -13,9 +13,8 @@
 package com.gs.dmn.feel.lib.type.numeric;
 
 import com.gs.dmn.feel.lib.type.BaseType;
-import com.gs.dmn.feel.lib.type.BooleanType;
+import com.gs.dmn.feel.lib.type.ComparableComparator;
 import com.gs.dmn.feel.lib.type.NumericType;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import org.slf4j.Logger;
 
 import java.math.BigDecimal;
@@ -23,8 +22,6 @@ import java.math.MathContext;
 
 public class DefaultNumericType extends BaseType implements NumericType<BigDecimal> {
     public static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
-
-    private final BooleanType booleanType;
 
     public static BigDecimal decimalNumericDivide(BigDecimal first, BigDecimal second) {
         if (first == null || second == null) {
@@ -37,9 +34,16 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
         return first.divide(second, MathContext.DECIMAL128);
     }
 
+    private final ComparableComparator<BigDecimal> numericComparator;
+
+    @Deprecated
     public DefaultNumericType(Logger logger) {
+        this(logger, new ComparableComparator<>(logger));
+    }
+
+    public DefaultNumericType(Logger logger, ComparableComparator<BigDecimal> numericComparator) {
         super(logger);
-        this.booleanType = new DefaultBooleanType(logger);
+        this.numericComparator = numericComparator;
     }
 
     @Override
@@ -155,76 +159,31 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
 
     @Override
     public Boolean numericEqual(BigDecimal first, BigDecimal second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return false;
-        } else if (second == null) {
-            return false;
-        } else {
-            int result = first.compareTo(second);
-            return result == 0;
-        }
+        return this.numericComparator.equal(first, second);
     }
 
     @Override
     public Boolean numericNotEqual(BigDecimal first, BigDecimal second) {
-        return booleanType.booleanNot(numericEqual(first, second));
+        return this.numericComparator.notEqual(first, second);
     }
 
     @Override
     public Boolean numericLessThan(BigDecimal first, BigDecimal second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo(second);
-            return result < 0;
-        }
+        return this.numericComparator.lessThan(first, second);
     }
 
     @Override
     public Boolean numericGreaterThan(BigDecimal first, BigDecimal second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo(second);
-            return result > 0;
-        }
+        return this.numericComparator.greaterThan(first, second);
     }
 
     @Override
     public Boolean numericLessEqualThan(BigDecimal first, BigDecimal second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo(second);
-            return result <= 0;
-        }
+        return this.numericComparator.lessEqualThan(first, second);
     }
 
     @Override
     public Boolean numericGreaterEqualThan(BigDecimal first, BigDecimal second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo(second);
-            return result >= 0;
-        }
+        return this.numericComparator.greaterEqualThan(first, second);
     }
 }
