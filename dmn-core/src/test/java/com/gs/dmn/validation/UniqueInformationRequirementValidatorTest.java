@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
+
 public class UniqueInformationRequirementValidatorTest extends AbstractValidatorTest {
     private final UniqueInformationRequirementValidator validator = new UniqueInformationRequirementValidator();
 
@@ -29,14 +31,15 @@ public class UniqueInformationRequirementValidatorTest extends AbstractValidator
     @Test
     public void testValidateDefinitionsWhenNotUniqueNames() {
         List<String> expectedErrors = Arrays.asList(
-                "Duplicated InformationRequirement 'decision-1' in element 'CIP Assessments'",
-                "Duplicated InformationRequirement 'input-1' in element 'CIP Assessments'"
+                "(model='test-dmn', name='CIP Assessments', id='cip-assessments'): error: Duplicated InformationRequirement 'decision-1'",
+                "(model='test-dmn', name='CIP Assessments', id='cip-assessments'): error: Duplicated InformationRequirement 'input-1'"
         );
         validate(validator, "dmn/input/test-dmn-with-duplicated-information-requirements.dmn", expectedErrors);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testValidateDefinitionsWhenNull() {
-        validator.validate(null);
+        List<String> actualErrors = validator.validate(null);
+        assertTrue(actualErrors.isEmpty());
     }
 }

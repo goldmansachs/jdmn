@@ -29,6 +29,10 @@ public class CompositeDMNTransformer<T> implements DMNTransformer<T> {
 
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
+        if (isEmpty(repository)) {
+            return repository;
+        }
+
         for(DMNTransformer<T> transformer: this.transformers) {
             repository = transformer.transform(repository);
         }
@@ -37,6 +41,10 @@ public class CompositeDMNTransformer<T> implements DMNTransformer<T> {
 
     @Override
     public Pair<DMNModelRepository, List<T>> transform(DMNModelRepository repository, List<T> testCasesList) {
+        if (isEmpty(repository, testCasesList)) {
+            return new Pair<>(repository, testCasesList);
+        }
+
         Pair<DMNModelRepository, List<T>> result = new Pair<>(repository, testCasesList);
         for(DMNTransformer<T> transformer: this.transformers) {
             result = transformer.transform(result.getLeft(), result.getRight());

@@ -42,16 +42,11 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
         } else if (element instanceof TDecision && this.dmnModelRepository.isFreeTextLiteralExpression(element)) {
             Expression feelExpression = analyzeExpression(element);
             if (feelExpression instanceof FunctionDefinition) {
-                if (((FunctionDefinition) feelExpression).isExternal()) {
-                    Expression body = ((FunctionDefinition) feelExpression).getBody();
-                    return externalFunctionReturnFEELType(element, body);
-                } else {
-                    Type type = feelExpression.getType();
-                    if (type instanceof FEELFunctionType) {
-                        type = ((FEELFunctionType) type).getReturnType();
-                    }
-                    return type;
+                Type type = feelExpression.getType();
+                if (type instanceof FEELFunctionType) {
+                    type = ((FEELFunctionType) type).getReturnType();
                 }
+                return type;
             }
             return feelExpression.getType();
         } else {

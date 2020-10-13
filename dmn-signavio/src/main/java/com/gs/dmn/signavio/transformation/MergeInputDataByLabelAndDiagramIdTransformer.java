@@ -40,6 +40,6 @@ public class MergeInputDataByLabelAndDiagramIdTransformer extends AbstractMergeI
 
     private String diagramId(TInputData inputData, DMNModelRepository repository) {
         SignavioDMNModelRepository signavioRepository = (SignavioDMNModelRepository) repository;
-        return inputData.getOtherAttributes().get(signavioRepository.getDiagramIdQName());
+        return signavioRepository.getDiagramId(inputData);
     }
 }

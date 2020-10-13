@@ -22,7 +22,8 @@ public class LabelDuplicationDRGElementValidator extends LabelDuplicationValidat
     @Override
     public List<String> validate(DMNModelRepository dmnModelRepository) {
         List<String> errors = new ArrayList<>();
-        if (dmnModelRepository == null) {
+        if (isEmpty(dmnModelRepository)) {
+            logger.warn("DMN repository is empty; validator will not run");
             return errors;
         }
 

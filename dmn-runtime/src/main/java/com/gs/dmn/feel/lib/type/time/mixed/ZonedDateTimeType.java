@@ -12,10 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.DateTimeType;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeFactory;
@@ -23,11 +20,16 @@ import javax.xml.datatype.Duration;
 import java.time.ZonedDateTime;
 
 public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeType<ZonedDateTime, Duration> {
-    private final BooleanType booleanType;
+    private final ZonedDateTimeComparator comparator;
 
+    @Deprecated
     public ZonedDateTimeType(Logger logger, DatatypeFactory datatypeFactory) {
+        this(logger, datatypeFactory, new ZonedDateTimeComparator());
+    }
+
+    public ZonedDateTimeType(Logger logger, DatatypeFactory datatypeFactory, ZonedDateTimeComparator comparator) {
         super(logger, datatypeFactory);
-        this.booleanType = new DefaultBooleanType(logger);
+        this.comparator = comparator;
     }
 
     //
@@ -36,32 +38,32 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
 
     @Override
     public Boolean dateTimeEqual(ZonedDateTime first, ZonedDateTime second) {
-        return zonedDateTimeEqual(first, second);
+        return this.comparator.equal(first, second);
     }
 
     @Override
     public Boolean dateTimeNotEqual(ZonedDateTime first, ZonedDateTime second) {
-        return booleanType.booleanNot(dateTimeEqual(first, second));
+        return this.comparator.notEqual(first, second);
     }
 
     @Override
     public Boolean dateTimeLessThan(ZonedDateTime first, ZonedDateTime second) {
-        return zonedDateTimeLessThan(first, second);
+        return this.comparator.lessThan(first, second);
     }
 
     @Override
     public Boolean dateTimeGreaterThan(ZonedDateTime first, ZonedDateTime second) {
-        return zonedDateTimeGreaterThan(first, second);
+        return this.comparator.greaterThan(first, second);
     }
 
     @Override
     public Boolean dateTimeLessEqualThan(ZonedDateTime first, ZonedDateTime second) {
-        return zonedDateTimeLessEqualThan(first, second);
+        return this.comparator.lessEqualThan(first, second);
     }
 
     @Override
     public Boolean dateTimeGreaterEqualThan(ZonedDateTime first, ZonedDateTime second) {
-        return zonedDateTimeGreaterEqualThan(first, second);
+        return this.comparator.greaterEqualThan(first, second);
     }
 
     @Override
@@ -113,75 +115,6 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
             logError(message, e);
             return null;
         }
-    }
-
-    protected Boolean zonedDateTimeEqual(ZonedDateTime first, ZonedDateTime second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return false;
-        } else if (second == null) {
-            return false;
-        } else {
-            int result = compare(first, second);
-            return result == 0;
-        }
-    }
-
-    protected Boolean zonedDateTimeLessThan(ZonedDateTime first, ZonedDateTime second) {
-        if (first == null && second == null) {
-            return false;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result < 0;
-        }
-    }
-
-    protected Boolean zonedDateTimeGreaterThan(ZonedDateTime first, ZonedDateTime second) {
-        if (first == null && second == null) {
-            return false;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result > 0;
-        }
-    }
-
-    protected Boolean zonedDateTimeLessEqualThan(ZonedDateTime first, ZonedDateTime second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result <= 0;
-        }
-    }
-
-    protected Boolean zonedDateTimeGreaterEqualThan(ZonedDateTime first, ZonedDateTime second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result >= 0;
-        }
-    }
-
-    protected int compare(ZonedDateTime first, ZonedDateTime second) {
-        return first.withZoneSameInstant(DefaultDateTimeLib.UTC).compareTo(second.withZoneSameInstant(DefaultDateTimeLib.UTC));
     }
 
     protected Duration toDuration(ZonedDateTime first, ZonedDateTime second) {

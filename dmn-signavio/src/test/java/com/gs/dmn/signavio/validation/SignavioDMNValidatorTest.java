@@ -27,19 +27,19 @@ public class SignavioDMNValidatorTest extends AbstractSignavioValidatorTest {
         String diagramName = "Linked Decision Test.dmn";
 
         List<String> expectedErrors = Arrays.asList(
-                "Decision name and variable name should be the same. Found 'assessApplicantAge' and 'Assess applicant age'",
-                "Decision name and variable name should be the same. Found 'assessApplicantAge2' and 'Assess applicant age'",
-                "Decision name and variable name should be the same. Found 'assessIssue' and 'Assess issue'",
-                "Not supported expression language 'http://www.omg.org/spec/FEEL/20140401' in decision 'assessIssue'",
-                "Decision name and variable name should be the same. Found 'assessIssueRisk' and 'Assess issue risk'",
-                "Decision name and variable name should be the same. Found 'compareAgainstLendingThreshold' and 'Compare against lending threshold'",
-                "Decision name and variable name should be the same. Found 'generateOutputData' and 'Generate output data'",
-                "Not supported expression language 'http://www.omg.org/spec/FEEL/20140401' in decision 'generateOutputData'",
-                "Decision name and variable name should be the same. Found 'makeCreditDecision' and 'Make credit decision'",
-                "Decision name and variable name should be the same. Found 'makeCreditDecision2' and 'Make credit decision'",
-                "Decision name and variable name should be the same. Found 'makeCreditDecision3' and 'Make credit decision'",
-                "Decision name and variable name should be the same. Found 'processPriorIssues' and 'Process prior issues'",
-                "Decision name and variable name should be the same. Found 'root' and 'Root'"
+                "(model='Linked Decision Test', label='Assess applicant age', name='assessApplicantAge', id='id-98f1b72e74edaaae8d7fd9043f7e1bc4'): error: Decision name and variable name should be the same. Found 'assessApplicantAge' and 'Assess applicant age'",
+                "(model='Linked Decision Test', label='Assess applicant age', name='assessApplicantAge2', id='id-06eb38446e6385a69e74fcd503660971'): error: Decision name and variable name should be the same. Found 'assessApplicantAge2' and 'Assess applicant age'",
+                "(model='Linked Decision Test', label='Assess issue', name='assessIssue', id='id-0f2f9823e96f0599d2739fda4c5b3c79'): error: Decision name and variable name should be the same. Found 'assessIssue' and 'Assess issue'",
+                "(model='Linked Decision Test', label='Assess issue', name='assessIssue', id='id-0f2f9823e96f0599d2739fda4c5b3c79'): error: Not supported expression language 'http://www.omg.org/spec/FEEL/20140401'",
+                "(model='Linked Decision Test', label='Assess issue risk', name='assessIssueRisk', id='id-90d13f677a4e3f0f8230a12f15301f00'): error: Decision name and variable name should be the same. Found 'assessIssueRisk' and 'Assess issue risk'",
+                "(model='Linked Decision Test', label='Compare against lending threshold', name='compareAgainstLendingThreshold', id='id-8369770df890b566296308a9deebec47'): error: Decision name and variable name should be the same. Found 'compareAgainstLendingThreshold' and 'Compare against lending threshold'",
+                "(model='Linked Decision Test', label='Generate output data', name='generateOutputData', id='id-f3dfdd3ac42c255265e190eaf50dd65d'): error: Decision name and variable name should be the same. Found 'generateOutputData' and 'Generate output data'",
+                "(model='Linked Decision Test', label='Generate output data', name='generateOutputData', id='id-f3dfdd3ac42c255265e190eaf50dd65d'): error: Not supported expression language 'http://www.omg.org/spec/FEEL/20140401'",
+                "(model='Linked Decision Test', label='Make credit decision', name='makeCreditDecision', id='id-5b83918d6fc820d73123e7ca0e6d3ca6'): error: Decision name and variable name should be the same. Found 'makeCreditDecision' and 'Make credit decision'",
+                "(model='Linked Decision Test', label='Make credit decision', name='makeCreditDecision2', id='id-53305251d2d6fb14173b439b019adeda'): error: Decision name and variable name should be the same. Found 'makeCreditDecision2' and 'Make credit decision'",
+                "(model='Linked Decision Test', label='Make credit decision', name='makeCreditDecision3', id='id-75d5270913befc4881b90708206b1e9e'): error: Decision name and variable name should be the same. Found 'makeCreditDecision3' and 'Make credit decision'",
+                "(model='Linked Decision Test', label='Process prior issues', name='processPriorIssues', id='id-bdfc5bfa4ce80fd221463ee66b277220'): error: Decision name and variable name should be the same. Found 'processPriorIssues' and 'Process prior issues'",
+                "(model='Linked Decision Test', label='Root', name='root', id='id-dd34e15633241b301d7c512a35c9493a'): error: Decision name and variable name should be the same. Found 'root' and 'Root'"
         );
         validate(validator, path + diagramName, expectedErrors);
     }

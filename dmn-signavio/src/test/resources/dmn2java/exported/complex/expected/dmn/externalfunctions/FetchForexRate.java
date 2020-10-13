@@ -83,6 +83,6 @@ public class FetchForexRate extends com.gs.dmn.signavio.runtime.DefaultSignavioB
     }
 
     protected String evaluate(Boolean isForexRateRequired, type.Transaction transaction, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return (String)externalExecutor_.execute("com.gs.opstech.rto.tax.transaction_tax.calculator.ForexRateService", "fetchECBForexRateFor", new Object[] {isForexRateRequired, transaction, annotationSet_, eventListener_, externalExecutor_, cache_});
+        return ((com.gs.dmn.runtime.external.JavaExternalFunction<String>)((com.gs.dmn.runtime.Context)new com.gs.dmn.runtime.Context().add("f", new com.gs.dmn.runtime.external.JavaExternalFunction<>(new com.gs.dmn.runtime.external.JavaFunctionInfo("com.gs.dmn.generated.external_functions.ForexRateService", "fetchECBForexRateFor", Arrays.asList("com.gs.dmn.generated.external_functions.type.Transaction", "java.lang.Boolean")), externalExecutor_, String.class))).get("f")).apply(transaction, isForexRateRequired);
     }
 }

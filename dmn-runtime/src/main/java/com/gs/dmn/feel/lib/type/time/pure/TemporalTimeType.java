@@ -12,9 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.time.pure;
 
-import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.TimeType;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.time.JavaTimeType;
 import org.slf4j.Logger;
 
@@ -24,11 +22,17 @@ import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
 public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal, TemporalAmount> {
-    private final BooleanType booleanType;
+    private final TemporalComparator comparator;
 
+    @Deprecated
     public TemporalTimeType(Logger logger) {
         super(logger);
-        this.booleanType = new DefaultBooleanType(logger);
+        this.comparator = new TemporalComparator(logger);
+    }
+
+    public TemporalTimeType(Logger logger, TemporalComparator comparator) {
+        super(logger);
+        this.comparator = comparator;
     }
 
     //
@@ -37,32 +41,32 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
 
     @Override
     public Boolean timeEqual(Temporal first, Temporal second) {
-        return temporalTimeEqual(first, second);
+        return this.comparator.equal(first, second);
     }
 
     @Override
     public Boolean timeNotEqual(Temporal first, Temporal second) {
-        return booleanType.booleanNot(timeEqual(first, second));
+        return this.comparator.notEqual(first, second);
     }
 
     @Override
     public Boolean timeLessThan(Temporal first, Temporal second) {
-        return temporalTimeLessThan(first, second);
+        return this.comparator.lessThan(first, second);
     }
 
     @Override
     public Boolean timeGreaterThan(Temporal first, Temporal second) {
-        return temporalTimeGreaterThan(first, second);
+        return this.comparator.greaterThan(first, second);
     }
 
     @Override
     public Boolean timeLessEqualThan(Temporal first, Temporal second) {
-        return temporalTimeLessEqualThan(first, second);
+        return this.comparator.lessEqualThan(first, second);
     }
 
     @Override
     public Boolean timeGreaterEqualThan(Temporal first, Temporal second) {
-        return temporalTimeGreaterEqualThan(first, second);
+        return this.comparator.greaterEqualThan(first, second);
     }
 
     @Override
@@ -105,101 +109,6 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
             return time.minus(duration);
         } catch (Exception e) {
             String message = String.format("timeSubtractDuration(%s, %s)", time, duration);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    protected Boolean temporalTimeEqual(Temporal first, Temporal second) {
-        try {
-            if (first == null && second == null) {
-                return true;
-            } else if (first == null) {
-                return false;
-            } else if (second == null) {
-                return false;
-            } else {
-                Integer result = compare(first, second);
-                return result != null && result == 0;
-            }
-        } catch (Exception e) {
-            String message = String.format("=(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    protected Boolean temporalTimeLessThan(Temporal first, Temporal second) {
-        try {
-            if (first == null && second == null) {
-                return false;
-            } else if (first == null) {
-                return null;
-            } else if (second == null) {
-                return null;
-            } else {
-                Integer result = compare(first, second);
-                return result != null && result < 0;
-            }
-        } catch (Exception e) {
-            String message = String.format("<(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    protected Boolean temporalTimeGreaterThan(Temporal first, Temporal second) {
-        try {
-            if (first == null && second == null) {
-                return false;
-            } else if (first == null) {
-                return null;
-            } else if (second == null) {
-                return null;
-            } else {
-                Integer result = compare(first, second);
-                return result != null && result > 0;
-            }
-        } catch (Exception e) {
-            String message = String.format(">(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    protected Boolean temporalTimeLessEqualThan(Temporal first, Temporal second) {
-        try {
-            if (first == null && second == null) {
-                return true;
-            } else if (first == null) {
-                return null;
-            } else if (second == null) {
-                return null;
-            } else {
-                Integer result = compare(first, second);
-                return result != null && result <= 0;
-            }
-        } catch (Exception e) {
-            String message = String.format("<=(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    protected Boolean temporalTimeGreaterEqualThan(Temporal first, Temporal second) {
-        try {
-            if (first == null && second == null) {
-                return true;
-            } else if (first == null) {
-                return null;
-            } else if (second == null) {
-                return null;
-            } else {
-                Integer result = compare(first, second);
-                return result != null && result >= 0;
-            }
-        } catch (Exception e) {
-            String message = String.format(">=(%s, %s)", first, second);
             logError(message, e);
             return null;
         }

@@ -2,6 +2,8 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
+  "dmnNamespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
+  "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
     "allowedValues" : null,
@@ -133,28 +135,33 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
+    "diagramId" : null,
     "id" : "sid-B180B170-4226-4CB8-B6EE-51D4307DCA61",
     "javaParameterName" : "employed",
     "javaTypeName" : "Boolean",
     "label" : "Employed",
     "name" : "employed",
+    "shapeId" : null,
     "typeRef" : {
       "localName" : "employed",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : null,
     "id" : "sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264",
     "javaParameterName" : "person",
     "javaTypeName" : "type.Person",
     "label" : "Person",
     "name" : "person",
+    "shapeId" : null,
     "typeRef" : {
       "localName" : "person",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : null,
     "extensions" : [ ],
     "id" : "sid-C52224F3-4EC1-4AAC-88AE-F5F51F285ED0",
     "informationReferences" : [ {
@@ -170,24 +177,29 @@
     "name" : "decision",
     "protoRequestName" : "proto.DecisionRequest",
     "protoResponseName" : "proto.DecisionResponse",
+    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : null,
       "id" : "sid-B180B170-4226-4CB8-B6EE-51D4307DCA61",
       "javaParameterName" : "employed",
       "javaTypeName" : "Boolean",
       "label" : "Employed",
       "name" : "employed",
+      "shapeId" : null,
       "typeRef" : {
         "localName" : "employed",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : null,
       "id" : "sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264",
       "javaParameterName" : "person",
       "javaTypeName" : "type.Person",
       "label" : "Person",
       "name" : "person",
+      "shapeId" : null,
       "typeRef" : {
         "localName" : "person",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"

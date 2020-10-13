@@ -18,7 +18,7 @@ public class InputData extends DRGElement {
         super();
     }
 
-    public InputData(String id, String name, String label, String javaParameterName, String javaTypeName, QName typeRef) {
-        super(id, name, label, javaParameterName, javaTypeName, typeRef);
+    public InputData(String id, String name, String label, String diagramId, String shapeId, String javaParameterName, String javaTypeName, QName typeRef) {
+        super(id, name, label, diagramId, shapeId, javaParameterName, javaTypeName, typeRef);
     }
 }

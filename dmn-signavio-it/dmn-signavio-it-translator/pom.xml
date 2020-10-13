@@ -1376,7 +1376,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/ExternalFunctions.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_with_external_function_complex_type</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.external_functions</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>

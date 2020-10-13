@@ -14,38 +14,11 @@ package com.gs.dmn.signavio.feel.lib.type.numeric;
 
 import com.gs.dmn.feel.lib.type.NumericType;
 import com.gs.dmn.feel.lib.type.numeric.DoubleNumericType;
+import com.gs.dmn.signavio.feel.lib.type.SignavioComparableComparator;
 import org.slf4j.Logger;
 
 public class DoubleSignavioNumericType extends DoubleNumericType implements NumericType<Double> {
     public DoubleSignavioNumericType(Logger logger) {
-        super(logger);
-    }
-
-    @Override
-    public Boolean numericLessEqualThan(Double first, Double second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo(second);
-            return result <= 0;
-        }
-    }
-
-    @Override
-    public Boolean numericGreaterEqualThan(Double first, Double second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo(second);
-            return result >= 0;
-        }
+        super(logger, new SignavioComparableComparator<>());
     }
 }

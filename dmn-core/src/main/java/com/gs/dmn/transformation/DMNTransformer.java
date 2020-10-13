@@ -23,5 +23,17 @@ public interface DMNTransformer<T> {
 
     Pair<DMNModelRepository, List<T>> transform(DMNModelRepository repository, List<T> testCasesList);
 
+    default boolean isEmpty(DMNModelRepository repository) {
+        return repository == null || repository.getAllDefinitions().isEmpty();
+    }
+
+    default boolean isEmpty(List<T> testCasesList) {
+        return testCasesList == null || testCasesList.isEmpty();
+    }
+
+    default boolean isEmpty(DMNModelRepository repository, List<T> testCasesList) {
+        return isEmpty(repository) || isEmpty(testCasesList);
+    }
+
     default void configure(Map<String, Object> configuration) { }
 }

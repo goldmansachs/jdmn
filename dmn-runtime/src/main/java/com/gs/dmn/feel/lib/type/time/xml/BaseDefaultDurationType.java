@@ -12,45 +12,147 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
+import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.type.BaseType;
+import com.gs.dmn.feel.lib.type.RelationalComparator;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public abstract class BaseDefaultDurationType extends BaseType {
-    static final ThreadLocal<GregorianCalendar> GREGORIAN = ThreadLocal.withInitial(() -> new GregorianCalendar(
-        1970,
+    private static final ThreadLocal<GregorianCalendar> GREGORIAN = ThreadLocal.withInitial(() -> new GregorianCalendar(
+            1970,
             Calendar.JANUARY,
-        1,
-        0,
-        0,
-        0));
+            1,
+            0,
+            0,
+            0));
 
+    public static Duration normalize(Duration duration) {
+        return duration == null ? null : duration.normalizeWith(GREGORIAN.get());
+    }
+
+    protected final DatatypeFactory dataTypeFactory;
+    private final RelationalComparator<Duration> comparator;
+
+    @Deprecated
     public BaseDefaultDurationType(Logger logger) {
+        this(logger, DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator());
+    }
+
+    public BaseDefaultDurationType(Logger logger, DatatypeFactory dataTypeFactory, RelationalComparator<Duration> comparator) {
         super(logger);
+        this.dataTypeFactory = dataTypeFactory;
+        this.comparator = comparator;
     }
 
-    protected int compare(javax.xml.datatype.Duration duration1, javax.xml.datatype.Duration duration2) {
-        javax.xml.datatype.Duration lhs = normalize(duration1);
-        javax.xml.datatype.Duration rhs = normalize(duration2);
-        return lhs.compare(rhs);
+    //
+    // Duration operators
+    //
+    public Boolean durationEqual(Duration first, Duration second) {
+        return this.comparator.equal(first, second);
     }
 
-    public static javax.xml.datatype.Duration normalize(javax.xml.datatype.Duration duration) {
-        return duration.normalizeWith(GREGORIAN.get());
+    public Boolean durationNotEqual(Duration first, Duration second) {
+        return this.comparator.notEqual(first, second);
     }
 
-    protected boolean isYearsAndMonths(Duration duration) {
+    public Boolean durationLessThan(Duration first, Duration second) {
+        return this.comparator.lessThan(first, second);
+    }
+
+    public Boolean durationGreaterThan(Duration first, Duration second) {
+        return this.comparator.greaterThan(first, second);
+    }
+
+    public Boolean durationLessEqualThan(Duration first, Duration second) {
+        return this.comparator.lessEqualThan(first, second);
+    }
+
+    public Boolean durationGreaterEqualThan(Duration first, Duration second) {
+        return this.comparator.greaterEqualThan(first, second);
+    }
+
+    public Duration durationAdd(Duration first, Duration second) {
+        if (first == null || second == null) {
+            return null;
+        }
+
+        try {
+            return first.add(second);
+        } catch (Exception e) {
+            String message = String.format("durationAdd(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    public Duration durationSubtract(Duration first, Duration second) {
+        if (first == null || second == null) {
+            return null;
+        }
+
+        try {
+            return first.subtract(second);
+        } catch (Exception e) {
+            String message = String.format("durationSubtract(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    protected Duration durationMultiply(Duration first, Number second) {
+        if (first == null || second == null) {
+            return null;
+        }
+
+        try {
+            return first.multiply(second.intValue());
+        } catch (Exception e) {
+            String message = String.format("durationMultiply(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    protected Duration durationDivide(Duration first, Number second) {
+        if (first == null || second == null) {
+            return null;
+        }
+
+        try {
+            if (isYearsAndMonths(first)) {
+                long months = (first.getYears() * 12 + first.getMonths()) / second.intValue();
+                return this.dataTypeFactory.newDurationYearMonth(String.format("P%dM", months));
+            } else if (isDaysAndTime(first)) {
+                long hours = 24L * first.getDays() + first.getHours();
+                long minutes = 60L * hours + first.getMinutes();
+                long seconds = 60L * minutes + first.getSeconds();
+                seconds = seconds / second.intValue();
+                return this.dataTypeFactory.newDurationDayTime(seconds * 1000L);
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+            }
+        } catch (Exception e) {
+            String message = String.format("durationDivide(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    private boolean isYearsAndMonths(Duration duration) {
         if (duration == null) {
             return false;
         }
         return duration.isSet(DatatypeConstants.YEARS) || duration.isSet(DatatypeConstants.MONTHS);
     }
 
-    protected boolean isDaysAndTime(Duration duration) {
+    private boolean isDaysAndTime(Duration duration) {
         if (duration == null) {
             return false;
         }

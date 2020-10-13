@@ -15,7 +15,14 @@ package com.gs.dmn.validation;
 import com.gs.dmn.DMNModelRepository;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DMNValidator {
     List<String> validate(DMNModelRepository dmnModelRepository);
+
+    default boolean isEmpty(DMNModelRepository repository) {
+        return repository == null || repository.getAllDefinitions().isEmpty();
+    }
+
+    default void configure(Map<String, Object> configuration) { }
 }
