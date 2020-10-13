@@ -13,9 +13,8 @@
 package com.gs.dmn.signavio.feel.lib.type;
 
 import com.gs.dmn.feel.lib.type.ComparableComparator;
-import com.gs.dmn.feel.lib.type.RelationalComparator;
 
-public class SignavioComparableComparator<T> extends ComparableComparator<T> implements RelationalComparator<Comparable<T>> {
+public class SignavioComparableComparator<T> extends ComparableComparator<T> {
     @Override
     public Boolean lessEqualThan(Comparable<T> first, Comparable<T> second) {
         if (first == null && second == null) {
