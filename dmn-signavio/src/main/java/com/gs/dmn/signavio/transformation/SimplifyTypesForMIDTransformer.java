@@ -41,7 +41,7 @@ import java.util.Map;
 
 public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab> {
     private static final Logger LOGGER = LoggerFactory.getLogger(SimplifyTypesForMIDTransformer.class);
-    private static final DMNDialectDefinition SIGNAVIO_DIALECT = new SignavioDMNDialectDefinition();
+    private static final DMNDialectDefinition<?, ?, ?, ?, ?, ?> SIGNAVIO_DIALECT = new SignavioDMNDialectDefinition();
 
     private final BuildLogger logger;
     private Map<String, Pair<TInputData, List<TInputData>>> inputDataClasses;
@@ -56,18 +56,28 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
 
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
-        this.inputDataClasses = new LinkedHashMap<>();
+        if (isEmpty(repository)) {
+            logger.warn("DMN repository is empty; transformer will not run");
+            return repository;
+        }
 
+        this.inputDataClasses = new LinkedHashMap<>();
         return removeDuplicateInformationRequirements(repository, logger);
     }
 
     @Override
-    public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testLabList) {
+    public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testCasesList) {
+        if (isEmpty(repository, testCasesList)) {
+            logger.warn("DMN repository or test cases list is empty; transformer will not run");
+            return new Pair<>(repository, testCasesList);
+        }
+
+        // Transform model
         if (inputDataClasses == null) {
             transform(repository);
         }
 
-        return new Pair<>(repository, testLabList);
+        return new Pair<>(repository, testCasesList);
     }
 
     private DMNModelRepository removeDuplicateInformationRequirements(DMNModelRepository repository, BuildLogger logger) {

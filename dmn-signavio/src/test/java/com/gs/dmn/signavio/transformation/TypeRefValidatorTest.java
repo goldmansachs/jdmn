@@ -34,16 +34,16 @@ public class TypeRefValidatorTest extends AbstractFileTransformerTest {
     @Test
     public void testValidation() {
         List<String> expectedErrors = Arrays.asList(
-                "Error:(label='Assess applicant age', name='assessApplicantAge', id='id-1454118466a747091e601b188b2b5c7b') Cannot find typeRef 'QualifiedName(null, assessApplicantAge)'. The inferred type is 'number'",
-                "Error:(label='Assess issue', name='assessIssue', id='id-f2562ba74063028327a13930c969145c') Cannot find typeRef 'QualifiedName(null, assessIssue)'. The inferred type is 'number'",
-                "Error:(label='Assess issue risk', name='assessIssueRisk', id='id-11e61e8750fa5f9973ad4928a3841475') Cannot find typeRef 'QualifiedName(null, assessIssueRisk)'",
-                "Error:(label='Make credit decision', name='makeCreditDecision', id='id-99379862982a9a0a4ba92985d1eea607') Cannot find typeRef 'QualifiedName(null, makeCreditDecision)'. The inferred type is 'string'",
-                "Error:(label='Process prior issues', name='processPriorIssues', id='id-b7fa3f2fe2a2f47a77bfd440c827a301') Cannot find typeRef 'QualifiedName(null, processPriorIssues)'. The inferred type is 'ListType(number)'"
+                "(model='Example credit decision', label='Assess applicant age', name='assessApplicantAge', id='id-1454118466a747091e601b188b2b5c7b'): error: Cannot find typeRef 'QualifiedName(null, assessApplicantAge)'. The inferred type is 'number'",
+                "(model='Example credit decision', label='Assess issue', name='assessIssue', id='id-f2562ba74063028327a13930c969145c'): error: Cannot find typeRef 'QualifiedName(null, assessIssue)'. The inferred type is 'number'",
+                "(model='Example credit decision', label='Assess issue risk', name='assessIssueRisk', id='id-11e61e8750fa5f9973ad4928a3841475'): error: Cannot find typeRef 'QualifiedName(null, assessIssueRisk)'",
+                "(model='Example credit decision', label='Make credit decision', name='makeCreditDecision', id='id-99379862982a9a0a4ba92985d1eea607'): error: Cannot find typeRef 'QualifiedName(null, makeCreditDecision)'. The inferred type is 'string'",
+                "(model='Example credit decision', label='Process prior issues', name='processPriorIssues', id='id-b7fa3f2fe2a2f47a77bfd440c827a301'): error: Cannot find typeRef 'QualifiedName(null, processPriorIssues)'. The inferred type is 'ListType(number)'"
         );
         List<String> actualErrors = executeValidation(
                 resourcePath("input/credit-decision-missing-some-definitions.dmn"));
 
-        assertExpectedErrors(expectedErrors, actualErrors);
+        assertEquals(expectedErrors, actualErrors);
     }
 
     private List<String> executeValidation(String dmnFilePath) {
@@ -58,10 +58,4 @@ public class TypeRefValidatorTest extends AbstractFileTransformerTest {
         return String.format("%s/%s", BASE_PATH, relativePath);
     }
 
-    private void assertExpectedErrors(List<String> expectedErrors, List<String> actualErrors) {
-        assertEquals("Same size", expectedErrors.size(), actualErrors.size());
-        for (int i=0; i<expectedErrors.size(); i++) {
-            assertEquals(expectedErrors.get(i), actualErrors.get(i));
-        }
-    }
 }

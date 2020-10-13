@@ -2,6 +2,8 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
+  "dmnNamespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
+  "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
     "allowedValues" : null,
@@ -60,50 +62,59 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
+    "diagramId" : "0cad6eb96bfc4b638250c73ff90f439b",
     "id" : "id-6941daac7dedcf760459bef259f2b83c",
     "javaParameterName" : "a",
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "A",
     "name" : "a",
+    "shapeId" : "sid-F2486B26-F187-43CA-8687-DF0893AD1D27",
     "typeRef" : {
       "localName" : "a",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "2521256910f54d44b0a90fa88a1aa917",
     "id" : "id-f1336e666ce4588d576ac630e3a0935c",
     "javaParameterName" : "a2",
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "A",
     "name" : "a2",
+    "shapeId" : "sid-51423E05-DA13-44BF-9227-7AA7B88C67AC",
     "typeRef" : {
       "localName" : "a2",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "0cad6eb96bfc4b638250c73ff90f439b",
     "id" : "id-3448371157c12df721ef54d01a2a01e0",
     "javaParameterName" : "b",
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "B",
     "name" : "b",
+    "shapeId" : "sid-F50F4E8B-4C8A-4CA6-81FD-A5B3AEE8DD05",
     "typeRef" : {
       "localName" : "b",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "2521256910f54d44b0a90fa88a1aa917",
     "id" : "id-dd388ae24612b67597f5220a2c6a1985",
     "javaParameterName" : "b3",
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "B",
     "name" : "b3",
+    "shapeId" : "sid-8D4FB4D7-6503-4FC2-B91A-A12B8C72FA3B",
     "typeRef" : {
       "localName" : "b2",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
     }
   }, {
     "@kind" : "bkm",
+    "diagramId" : null,
     "id" : "id-74659018eb94601d9ccd8bcb2443688e",
     "javaOutputTypeName" : "java.math.BigDecimal",
     "javaParameterName" : "bKM",
@@ -111,12 +122,14 @@
     "knowledgeReferences" : [ ],
     "label" : null,
     "name" : "bKM",
+    "shapeId" : null,
     "typeRef" : {
       "localName" : "sUM",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "0cad6eb96bfc4b638250c73ff90f439b",
     "extensions" : [ ],
     "id" : "id-806148ab1843f34bf4e461a8ed442b97",
     "informationReferences" : [ {
@@ -132,24 +145,29 @@
     "name" : "sUM",
     "protoRequestName" : "proto.SUMRequest",
     "protoResponseName" : "proto.SUMResponse",
+    "shapeId" : "sid-5B841B13-C828-4A7C-8E59-AABED865A8FA",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "0cad6eb96bfc4b638250c73ff90f439b",
       "id" : "id-6941daac7dedcf760459bef259f2b83c",
       "javaParameterName" : "a",
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "A",
       "name" : "a",
+      "shapeId" : "sid-F2486B26-F187-43CA-8687-DF0893AD1D27",
       "typeRef" : {
         "localName" : "a",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "0cad6eb96bfc4b638250c73ff90f439b",
       "id" : "id-3448371157c12df721ef54d01a2a01e0",
       "javaParameterName" : "b",
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "B",
       "name" : "b",
+      "shapeId" : "sid-F50F4E8B-4C8A-4CA6-81FD-A5B3AEE8DD05",
       "typeRef" : {
         "localName" : "b",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
@@ -161,6 +179,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "2521256910f54d44b0a90fa88a1aa917",
     "extensions" : [ ],
     "id" : "id-c9af84da6920472f7e8311c719099aac",
     "informationReferences" : [ {
@@ -180,24 +199,29 @@
     "name" : "sign",
     "protoRequestName" : "proto.SignRequest",
     "protoResponseName" : "proto.SignResponse",
+    "shapeId" : "sid-D8E2188A-C75B-406C-85C9-3C1B2E1B149D",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "2521256910f54d44b0a90fa88a1aa917",
       "id" : "id-f1336e666ce4588d576ac630e3a0935c",
       "javaParameterName" : "a2",
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "A",
       "name" : "a2",
+      "shapeId" : "sid-51423E05-DA13-44BF-9227-7AA7B88C67AC",
       "typeRef" : {
         "localName" : "a2",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "2521256910f54d44b0a90fa88a1aa917",
       "id" : "id-dd388ae24612b67597f5220a2c6a1985",
       "javaParameterName" : "b3",
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "B",
       "name" : "b3",
+      "shapeId" : "sid-8D4FB4D7-6503-4FC2-B91A-A12B8C72FA3B",
       "typeRef" : {
         "localName" : "b2",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"

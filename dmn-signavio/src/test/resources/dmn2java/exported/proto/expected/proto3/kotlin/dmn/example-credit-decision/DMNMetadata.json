@@ -2,6 +2,8 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
+  "dmnNamespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+  "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "compositeType",
     "id" : "id-5bf135bcd0f2d1d6dabfb49f463ee763",
@@ -206,50 +208,59 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
     "id" : "id-d2376567fde3c9400ee327ecec21e36d",
     "javaParameterName" : "applicant",
     "javaTypeName" : "type.Applicant?",
     "label" : "Applicant",
     "name" : "applicant",
+    "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
     "typeRef" : {
       "localName" : "applicant",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
     "id" : "id-5dc69eb6de3b736e08d2029ca5ae436c",
     "javaParameterName" : "currentRiskAppetite",
     "javaTypeName" : "java.math.BigDecimal?",
     "label" : "Current risk appetite",
     "name" : "currentRiskAppetite",
+    "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
     "typeRef" : {
       "localName" : "currentRiskAppetite",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
     "id" : "id-5a7daa825c6a7542e30184a94034b435",
     "javaParameterName" : "lendingThreshold",
     "javaTypeName" : "java.math.BigDecimal?",
     "label" : "Lending threshold",
     "name" : "lendingThreshold",
+    "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
     "typeRef" : {
       "localName" : "lendingThreshold",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
     "id" : "id-78d6a4b25e15dc5d22fe0cce65554804",
     "javaParameterName" : "priorIssue_iterator",
     "javaTypeName" : "java.math.BigDecimal?",
     "label" : "Prior issue",
     "name" : "priorIssue_iterator",
+    "shapeId" : "sid-671C977F-DF5F-4FF5-99D9-75D98516D4CD",
     "typeRef" : {
       "localName" : "priorIssue",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
     "extensions" : [ ],
     "id" : "id-98f1b72e74edaaae8d7fd9043f7e1bc4",
     "informationReferences" : [ {
@@ -263,13 +274,16 @@
     "name" : "assessApplicantAge",
     "protoRequestName" : "proto.AssessApplicantAgeRequest",
     "protoResponseName" : "proto.AssessApplicantAgeResponse",
+    "shapeId" : "sid-0C363FE4-468D-4273-9416-D1BCACB6248A",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
       "id" : "id-d2376567fde3c9400ee327ecec21e36d",
       "javaParameterName" : "applicant",
       "javaTypeName" : "type.Applicant?",
       "label" : "Applicant",
       "name" : "applicant",
+      "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
         "localName" : "applicant",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -281,6 +295,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
     "extensions" : [ ],
     "id" : "id-0f2f9823e96f0599d2739fda4c5b3c79",
     "informationReferences" : [ {
@@ -296,24 +311,29 @@
     "name" : "assessIssue",
     "protoRequestName" : "proto.AssessIssueRequest",
     "protoResponseName" : "proto.AssessIssueResponse",
+    "shapeId" : "sid-A4BAB8ED-94DC-48C4-8C4C-7C81DB1D8B9D",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
       "id" : "id-5dc69eb6de3b736e08d2029ca5ae436c",
       "javaParameterName" : "currentRiskAppetite",
       "javaTypeName" : "java.math.BigDecimal?",
       "label" : "Current risk appetite",
       "name" : "currentRiskAppetite",
+      "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
       "typeRef" : {
         "localName" : "currentRiskAppetite",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
       "id" : "id-78d6a4b25e15dc5d22fe0cce65554804",
       "javaParameterName" : "priorIssue_iterator",
       "javaTypeName" : "java.math.BigDecimal?",
       "label" : "Prior issue",
       "name" : "priorIssue_iterator",
+      "shapeId" : "sid-671C977F-DF5F-4FF5-99D9-75D98516D4CD",
       "typeRef" : {
         "localName" : "priorIssue",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -325,6 +345,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
     "extensions" : [ {
       "@kind" : "multiInstanceDecisionLogic",
       "aggregationFunction" : "SUM",
@@ -344,24 +365,29 @@
     "name" : "assessIssueRisk",
     "protoRequestName" : "proto.AssessIssueRiskRequest",
     "protoResponseName" : "proto.AssessIssueRiskResponse",
+    "shapeId" : "sid-CB938C3D-5F0A-427B-83A7-94DDDD5E8FC6",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
       "id" : "id-d2376567fde3c9400ee327ecec21e36d",
       "javaParameterName" : "applicant",
       "javaTypeName" : "type.Applicant?",
       "label" : "Applicant",
       "name" : "applicant",
+      "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
         "localName" : "applicant",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
       "id" : "id-5dc69eb6de3b736e08d2029ca5ae436c",
       "javaParameterName" : "currentRiskAppetite",
       "javaTypeName" : "java.math.BigDecimal?",
       "label" : "Current risk appetite",
       "name" : "currentRiskAppetite",
+      "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
       "typeRef" : {
         "localName" : "currentRiskAppetite",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -373,6 +399,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
     "extensions" : [ ],
     "id" : "id-8369770df890b566296308a9deebec47",
     "informationReferences" : [ {
@@ -390,35 +417,42 @@
     "name" : "compareAgainstLendingThreshold",
     "protoRequestName" : "proto.CompareAgainstLendingThresholdRequest",
     "protoResponseName" : "proto.CompareAgainstLendingThresholdResponse",
+    "shapeId" : "sid-9E6EC21D-3D3D-4038-8D76-94613B753F13",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
       "id" : "id-d2376567fde3c9400ee327ecec21e36d",
       "javaParameterName" : "applicant",
       "javaTypeName" : "type.Applicant?",
       "label" : "Applicant",
       "name" : "applicant",
+      "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
         "localName" : "applicant",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
       "id" : "id-5dc69eb6de3b736e08d2029ca5ae436c",
       "javaParameterName" : "currentRiskAppetite",
       "javaTypeName" : "java.math.BigDecimal?",
       "label" : "Current risk appetite",
       "name" : "currentRiskAppetite",
+      "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
       "typeRef" : {
         "localName" : "currentRiskAppetite",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
       "id" : "id-5a7daa825c6a7542e30184a94034b435",
       "javaParameterName" : "lendingThreshold",
       "javaTypeName" : "java.math.BigDecimal?",
       "label" : "Lending threshold",
       "name" : "lendingThreshold",
+      "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
       "typeRef" : {
         "localName" : "lendingThreshold",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -430,6 +464,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
     "extensions" : [ ],
     "id" : "id-f3dfdd3ac42c255265e190eaf50dd65d",
     "informationReferences" : [ {
@@ -447,35 +482,42 @@
     "name" : "generateOutputData",
     "protoRequestName" : "proto.GenerateOutputDataRequest",
     "protoResponseName" : "proto.GenerateOutputDataResponse",
+    "shapeId" : "sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
       "id" : "id-d2376567fde3c9400ee327ecec21e36d",
       "javaParameterName" : "applicant",
       "javaTypeName" : "type.Applicant?",
       "label" : "Applicant",
       "name" : "applicant",
+      "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
         "localName" : "applicant",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
       "id" : "id-5dc69eb6de3b736e08d2029ca5ae436c",
       "javaParameterName" : "currentRiskAppetite",
       "javaTypeName" : "java.math.BigDecimal?",
       "label" : "Current risk appetite",
       "name" : "currentRiskAppetite",
+      "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
       "typeRef" : {
         "localName" : "currentRiskAppetite",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
       "id" : "id-5a7daa825c6a7542e30184a94034b435",
       "javaParameterName" : "lendingThreshold",
       "javaTypeName" : "java.math.BigDecimal?",
       "label" : "Lending threshold",
       "name" : "lendingThreshold",
+      "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
       "typeRef" : {
         "localName" : "lendingThreshold",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -487,6 +529,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
     "extensions" : [ ],
     "id" : "id-5b83918d6fc820d73123e7ca0e6d3ca6",
     "informationReferences" : [ {
@@ -500,35 +543,42 @@
     "name" : "makeCreditDecision",
     "protoRequestName" : "proto.MakeCreditDecisionRequest",
     "protoResponseName" : "proto.MakeCreditDecisionResponse",
+    "shapeId" : "sid-31214799-6743-4B69-98A5-8C4D9C1BE010",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
       "id" : "id-d2376567fde3c9400ee327ecec21e36d",
       "javaParameterName" : "applicant",
       "javaTypeName" : "type.Applicant?",
       "label" : "Applicant",
       "name" : "applicant",
+      "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
         "localName" : "applicant",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
       "id" : "id-5dc69eb6de3b736e08d2029ca5ae436c",
       "javaParameterName" : "currentRiskAppetite",
       "javaTypeName" : "java.math.BigDecimal?",
       "label" : "Current risk appetite",
       "name" : "currentRiskAppetite",
+      "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
       "typeRef" : {
         "localName" : "currentRiskAppetite",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
       "id" : "id-5a7daa825c6a7542e30184a94034b435",
       "javaParameterName" : "lendingThreshold",
       "javaTypeName" : "java.math.BigDecimal?",
       "label" : "Lending threshold",
       "name" : "lendingThreshold",
+      "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
       "typeRef" : {
         "localName" : "lendingThreshold",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -540,6 +590,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
     "extensions" : [ ],
     "id" : "id-bdfc5bfa4ce80fd221463ee66b277220",
     "informationReferences" : [ {
@@ -553,13 +604,16 @@
     "name" : "processPriorIssues",
     "protoRequestName" : "proto.ProcessPriorIssuesRequest",
     "protoResponseName" : "proto.ProcessPriorIssuesResponse",
+    "shapeId" : "sid-F7FAA264-FA92-4952-A302-2BEADD9DCC59",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
       "id" : "id-d2376567fde3c9400ee327ecec21e36d",
       "javaParameterName" : "applicant",
       "javaTypeName" : "type.Applicant?",
       "label" : "Applicant",
       "name" : "applicant",
+      "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
         "localName" : "applicant",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"

@@ -71,6 +71,6 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     protected java.math.BigDecimal evaluate(java.math.BigDecimal a, java.math.BigDecimal b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return (java.math.BigDecimal)externalExecutor_.execute("com.gs.dmn.simple_decision_with_external_function.Sum", "add", new Object[] {a, b, annotationSet_, eventListener_, externalExecutor_, cache_});
+        return ((com.gs.dmn.runtime.external.JavaExternalFunction<java.math.BigDecimal>)((com.gs.dmn.runtime.Context)new com.gs.dmn.runtime.Context().add("f", new com.gs.dmn.runtime.external.JavaExternalFunction<>(new com.gs.dmn.runtime.external.JavaFunctionInfo("com.gs.dmn.generated.sd_with_external_function.Sum", "add", Arrays.asList("java.math.BigDecimal", "java.math.BigDecimal")), externalExecutor_, java.math.BigDecimal.class))).get("f")).apply(a, b);
     }
 }

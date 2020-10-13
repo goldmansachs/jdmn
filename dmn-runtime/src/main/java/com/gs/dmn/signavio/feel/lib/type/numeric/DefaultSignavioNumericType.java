@@ -14,40 +14,13 @@ package com.gs.dmn.signavio.feel.lib.type.numeric;
 
 import com.gs.dmn.feel.lib.type.NumericType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
+import com.gs.dmn.signavio.feel.lib.type.SignavioComparableComparator;
 import org.slf4j.Logger;
 
 import java.math.BigDecimal;
 
 public class DefaultSignavioNumericType extends DefaultNumericType implements NumericType<BigDecimal> {
     public DefaultSignavioNumericType(Logger logger) {
-        super(logger);
-    }
-
-    @Override
-    public Boolean numericLessEqualThan(BigDecimal first, BigDecimal second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo(second);
-            return result <= 0;
-        }
-    }
-
-    @Override
-    public Boolean numericGreaterEqualThan(BigDecimal first, BigDecimal second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo(second);
-            return result >= 0;
-        }
+        super(logger, new SignavioComparableComparator<>());
     }
 }

@@ -16,67 +16,12 @@ import com.gs.dmn.feel.lib.type.DurationType;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationType;
 import org.slf4j.Logger;
 
-import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 
 public class DefaultSignavioDurationType extends DefaultDurationType implements DurationType<Duration, BigDecimal> {
     public DefaultSignavioDurationType(Logger logger, DatatypeFactory dataTypeFactory) {
-        super(logger, dataTypeFactory);
-    }
-
-    @Override
-    public Boolean durationLessThan(Duration first, Duration second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            return compare(first, second) == DatatypeConstants.LESSER;
-        }
-    }
-
-    @Override
-    public Boolean durationGreaterThan(Duration first, Duration second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            return compare(first, second) == DatatypeConstants.GREATER;
-        }
-    }
-
-    @Override
-    public Boolean durationLessEqualThan(Duration first, Duration second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int compare = compare(first, second);
-            return compare == DatatypeConstants.LESSER || compare == DatatypeConstants.EQUAL;
-        }
-    }
-
-    @Override
-    public Boolean durationGreaterEqualThan(Duration first, Duration second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int compare = compare(first, second);
-            return compare == DatatypeConstants.GREATER || compare == DatatypeConstants.EQUAL;
-        }
+        super(logger, dataTypeFactory, new DefaultSignavioDurationComparator());
     }
 }

@@ -168,6 +168,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     //
     // Date and time
     //
+    @Override
     @Test
     public void testDate() {
         assertNull(getLib().date(makeNumber("2016"), null, null));

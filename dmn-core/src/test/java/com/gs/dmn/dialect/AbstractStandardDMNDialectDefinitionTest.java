@@ -19,10 +19,12 @@ import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 public abstract class AbstractStandardDMNDialectDefinitionTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNDialectDefinitionTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
 
+    @Override
     protected DMNModelRepository makeRepository() {
         return new DMNModelRepository();
     }
 
+    @Override
     protected TemplateProvider makeTemplateProvider() {
         return new TreeTemplateProvider();
     }

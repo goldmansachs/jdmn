@@ -13,32 +13,16 @@
 package com.gs.dmn.feel.lib.type.string;
 
 import com.gs.dmn.feel.lib.type.BaseType;
+import com.gs.dmn.feel.lib.type.ComparableComparator;
 import com.gs.dmn.feel.lib.type.StringType;
 import org.slf4j.Logger;
 
 public class DefaultStringType extends BaseType implements StringType {
+    private final ComparableComparator<String> comparator;
+
     public DefaultStringType(Logger logger) {
         super(logger);
-    }
-
-    @Override
-    public Boolean stringEqual(String first, String second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return false;
-        } else if (second == null) {
-            return false;
-        } else {
-            int result = first.compareTo(second);
-            return result == 0;
-        }
-    }
-
-    @Override
-    public Boolean stringNotEqual(String first, String second) {
-        Boolean equal = stringEqual(first, second);
-        return equal == null ? null : !equal;
+        this.comparator = new ComparableComparator<>();
     }
 
     @Override
@@ -51,58 +35,32 @@ public class DefaultStringType extends BaseType implements StringType {
     }
 
     @Override
+    public Boolean stringEqual(String first, String second) {
+        return this.comparator.equal(first, second);
+    }
+
+    @Override
+    public Boolean stringNotEqual(String first, String second) {
+        return this.comparator.notEqual(first, second);
+    }
+
+    @Override
     public Boolean stringLessThan(String first, String second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo(second);
-            return result < 0;
-        }
+        return this.comparator.lessThan(first, second);
     }
 
     @Override
     public Boolean stringGreaterThan(String first, String second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo(second);
-            return result > 0;
-        }
+        return this.comparator.greaterThan(first, second);
     }
 
     @Override
     public Boolean stringLessEqualThan(String first, String second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo(second);
-            return result <= 0;
-        }
+        return this.comparator.lessEqualThan(first, second);
     }
 
     @Override
     public Boolean stringGreaterEqualThan(String first, String second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo(second);
-            return result >= 0;
-        }
+        return this.comparator.greaterEqualThan(first, second);
     }
 }

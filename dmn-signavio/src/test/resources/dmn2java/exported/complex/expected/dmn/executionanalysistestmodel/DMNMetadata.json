@@ -2,6 +2,8 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
+  "dmnNamespace" : "http://www.provider.com/dmn/1.1/diagram/afb776a3dcf84f12b17e44405f5c80c5.xml",
+  "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
     "allowedValues" : null,
@@ -27,17 +29,20 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
+    "diagramId" : "afb776a3dcf84f12b17e44405f5c80c5",
     "id" : "id-6930c8ee3021fb2c24a1d2caefc53607",
     "javaParameterName" : "inputValue",
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "InputValue",
     "name" : "inputValue",
+    "shapeId" : "sid-C95450B4-8181-4AD3-A178-27E6D6AE9AFB",
     "typeRef" : {
       "localName" : "inputValue",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/afb776a3dcf84f12b17e44405f5c80c5.xml"
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "afb776a3dcf84f12b17e44405f5c80c5",
     "extensions" : [ ],
     "id" : "id-ee3f38c075678c97d13964afb28201c0",
     "informationReferences" : [ {
@@ -51,13 +56,16 @@
     "name" : "outputExecutionAnalysisResult",
     "protoRequestName" : "proto.OutputExecutionAnalysisResultRequest",
     "protoResponseName" : "proto.OutputExecutionAnalysisResultResponse",
+    "shapeId" : "sid-7B2CED2F-3433-4517-AAB4-08447E0A3C6C",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "afb776a3dcf84f12b17e44405f5c80c5",
       "id" : "id-6930c8ee3021fb2c24a1d2caefc53607",
       "javaParameterName" : "inputValue",
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "InputValue",
       "name" : "inputValue",
+      "shapeId" : "sid-C95450B4-8181-4AD3-A178-27E6D6AE9AFB",
       "typeRef" : {
         "localName" : "inputValue",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/afb776a3dcf84f12b17e44405f5c80c5.xml"

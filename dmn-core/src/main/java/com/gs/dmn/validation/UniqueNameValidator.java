@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.validation;
 
-import com.google.common.base.Function;
+import java.util.function.Function;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
@@ -37,29 +37,29 @@ public class UniqueNameValidator extends SimpleDMNValidator {
     @Override
     public List<String> validate(DMNModelRepository dmnModelRepository) {
         List<String> errors = new ArrayList<>();
-
-        if (dmnModelRepository == null) {
-            throw new IllegalArgumentException("Missing definitions");
+        if (isEmpty(dmnModelRepository)) {
+            logger.warn("DMN repository is empty; validator will not run");
+            return errors;
         }
 
         for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
             logger.debug("Validate unique 'DRGElement.name'");
-            validateUnique(
-                    "DRGElement", "name", false,
-                    new ArrayList<>(dmnModelRepository.findDRGElements(definitions)), TNamedElement::getName, null, errors
-            );
+            validateUnique(definitions,
+                    new ArrayList<>(dmnModelRepository.findDRGElements(definitions)), "DRGElement", "name",
+                    false, TNamedElement::getName, null,
+                    errors);
 
             logger.debug("Validate unique 'ItemDefinition.name'");
-            validateUnique(
-                    "ItemDefinition", "name", false,
-                    new ArrayList<>(dmnModelRepository.findItemDefinitions(definitions)), TNamedElement::getName, null, errors
-            );
+            validateUnique(definitions,
+                    new ArrayList<>(dmnModelRepository.findItemDefinitions(definitions)), "ItemDefinition", "name",
+                    false, TNamedElement::getName, null,
+                    errors);
         }
 
         return errors;
     }
 
-    private void validateUnique(String elementType, String property, boolean isOptionalProperty, List<TNamedElement> elements, Function<TNamedElement, String> accessor, String errorMessage, List<String> errors) {
+    private void validateUnique(TDefinitions definitions, List<TNamedElement> elements, String elementType, String property, boolean isOptionalProperty, Function<TNamedElement, String> accessor, String errorMessage, List<String> errors) {
         if (errorMessage == null) {
             errorMessage = String.format("The '%s' of a '%s' must be unique.", property, elementType);
         }
@@ -82,7 +82,7 @@ public class UniqueNameValidator extends SimpleDMNValidator {
         for (Map.Entry<String, List<TDMNElement>> entry : map.entrySet()) {
             String key = entry.getKey();
             if(entry.getValue().size() > 1){
-                errors.add(String.format("%s Found %d duplicates for '%s'.", errorMessage, entry.getValue().size(), key));
+                errors.add(makeError(definitions, null, String.format("%s Found %d duplicates for '%s'.", errorMessage, entry.getValue().size(), key)));
             }
         }
     }

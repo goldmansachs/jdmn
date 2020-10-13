@@ -51,6 +51,11 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
 
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
+        if (isEmpty(repository)) {
+            logger.warn("DMN repository is empty; transformer will not run");
+            return repository;
+        }
+
         inferAndAddMissingDefinitions(repository);
         return repository;
     }

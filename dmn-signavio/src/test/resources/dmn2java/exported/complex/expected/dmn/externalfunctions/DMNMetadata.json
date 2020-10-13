@@ -2,6 +2,8 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
+  "dmnNamespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
+  "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
     "allowedValues" : "\"EQUITIES\",\"DERIVATIVES\"",
@@ -316,50 +318,59 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
+    "diagramId" : "1b49e2cbacaf470fb5d093be73afd27e",
     "id" : "id-cd18a7511e0016ba97f30d8448473110",
     "javaParameterName" : "derivativeType",
     "javaTypeName" : "String",
     "label" : "DerivativeType",
     "name" : "derivativeType",
+    "shapeId" : "sid-67EA63E3-0F40-42DA-BD7E-9760D9C9937C",
     "typeRef" : {
       "localName" : "derivativeType",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "1b49e2cbacaf470fb5d093be73afd27e",
     "id" : "id-7acb1164f0150d3768556594816682ea",
     "javaParameterName" : "taxChargeType",
     "javaTypeName" : "String",
     "label" : "TaxChargeType",
     "name" : "taxChargeType",
+    "shapeId" : "sid-142C3BE5-CBAD-4FDE-B256-114E217FFDDC",
     "typeRef" : {
       "localName" : "taxChargeType",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "1b49e2cbacaf470fb5d093be73afd27e",
     "id" : "id-2f33ede6cf73874d2adc0c7b93b1f310",
     "javaParameterName" : "transaction",
     "javaTypeName" : "type.Transaction",
     "label" : "Transaction",
     "name" : "transaction",
+    "shapeId" : "sid-7BA09DF1-5D8E-412D-A3F3-072F5005755A",
     "typeRef" : {
       "localName" : "transaction",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "1b49e2cbacaf470fb5d093be73afd27e",
     "id" : "id-891be9d7cc75911daea588a9a342b6af",
     "javaParameterName" : "transactionTaxMetaData",
     "javaTypeName" : "type.TransactionTaxMetaData",
     "label" : "TransactionTaxMetaData",
     "name" : "transactionTaxMetaData",
+    "shapeId" : "sid-31E24965-CB4B-4E6C-9471-64CDAF957DAF",
     "typeRef" : {
       "localName" : "transactionTaxMetaData",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "1b49e2cbacaf470fb5d093be73afd27e",
     "extensions" : [ ],
     "id" : "id-4f18f3443d3d744beac363432b71a024",
     "informationReferences" : [ {
@@ -375,46 +386,55 @@
     "name" : "fetchForexRate",
     "protoRequestName" : "proto.FetchForexRateRequest",
     "protoResponseName" : "proto.FetchForexRateResponse",
+    "shapeId" : "sid-F740C68E-AC6E-4788-9290-94F1098DEB48",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "1b49e2cbacaf470fb5d093be73afd27e",
       "id" : "id-cd18a7511e0016ba97f30d8448473110",
       "javaParameterName" : "derivativeType",
       "javaTypeName" : "String",
       "label" : "DerivativeType",
       "name" : "derivativeType",
+      "shapeId" : "sid-67EA63E3-0F40-42DA-BD7E-9760D9C9937C",
       "typeRef" : {
         "localName" : "derivativeType",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "1b49e2cbacaf470fb5d093be73afd27e",
       "id" : "id-7acb1164f0150d3768556594816682ea",
       "javaParameterName" : "taxChargeType",
       "javaTypeName" : "String",
       "label" : "TaxChargeType",
       "name" : "taxChargeType",
+      "shapeId" : "sid-142C3BE5-CBAD-4FDE-B256-114E217FFDDC",
       "typeRef" : {
         "localName" : "taxChargeType",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "1b49e2cbacaf470fb5d093be73afd27e",
       "id" : "id-2f33ede6cf73874d2adc0c7b93b1f310",
       "javaParameterName" : "transaction",
       "javaTypeName" : "type.Transaction",
       "label" : "Transaction",
       "name" : "transaction",
+      "shapeId" : "sid-7BA09DF1-5D8E-412D-A3F3-072F5005755A",
       "typeRef" : {
         "localName" : "transaction",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "1b49e2cbacaf470fb5d093be73afd27e",
       "id" : "id-891be9d7cc75911daea588a9a342b6af",
       "javaParameterName" : "transactionTaxMetaData",
       "javaTypeName" : "type.TransactionTaxMetaData",
       "label" : "TransactionTaxMetaData",
       "name" : "transactionTaxMetaData",
+      "shapeId" : "sid-31E24965-CB4B-4E6C-9471-64CDAF957DAF",
       "typeRef" : {
         "localName" : "transactionTaxMetaData",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
@@ -426,6 +446,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "1b49e2cbacaf470fb5d093be73afd27e",
     "extensions" : [ ],
     "id" : "id-9bc027574845882aabcbef16b9124927",
     "informationReferences" : [ {
@@ -443,35 +464,42 @@
     "name" : "isForexRateRequired",
     "protoRequestName" : "proto.IsForexRateRequiredRequest",
     "protoResponseName" : "proto.IsForexRateRequiredResponse",
+    "shapeId" : "sid-005E834B-D602-4C88-A803-053528C9DF64",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "1b49e2cbacaf470fb5d093be73afd27e",
       "id" : "id-cd18a7511e0016ba97f30d8448473110",
       "javaParameterName" : "derivativeType",
       "javaTypeName" : "String",
       "label" : "DerivativeType",
       "name" : "derivativeType",
+      "shapeId" : "sid-67EA63E3-0F40-42DA-BD7E-9760D9C9937C",
       "typeRef" : {
         "localName" : "derivativeType",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "1b49e2cbacaf470fb5d093be73afd27e",
       "id" : "id-7acb1164f0150d3768556594816682ea",
       "javaParameterName" : "taxChargeType",
       "javaTypeName" : "String",
       "label" : "TaxChargeType",
       "name" : "taxChargeType",
+      "shapeId" : "sid-142C3BE5-CBAD-4FDE-B256-114E217FFDDC",
       "typeRef" : {
         "localName" : "taxChargeType",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "1b49e2cbacaf470fb5d093be73afd27e",
       "id" : "id-891be9d7cc75911daea588a9a342b6af",
       "javaParameterName" : "transactionTaxMetaData",
       "javaTypeName" : "type.TransactionTaxMetaData",
       "label" : "TransactionTaxMetaData",
       "name" : "transactionTaxMetaData",
+      "shapeId" : "sid-31E24965-CB4B-4E6C-9471-64CDAF957DAF",
       "typeRef" : {
         "localName" : "transactionTaxMetaData",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"

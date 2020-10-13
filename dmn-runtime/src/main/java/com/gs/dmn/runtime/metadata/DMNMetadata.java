@@ -21,11 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@JsonPropertyOrder(value = {"dmnVersion", "modelVersion", "platformVersion", "types", "elements"})
+@JsonPropertyOrder(value = {"dmnVersion", "modelVersion", "platformVersion", "dmnNamespace", "nativeNamespace", "types", "elements"})
 public class DMNMetadata {
     private String dmnVersion;
     private String modelVersion;
     private String platformVersion;
+    private String dmnNamespace;
+    private String nativeNamespace;
     private final List<Type> types = new ArrayList<>();
     private final List<DRGElement> elements = new ArrayList<>();
 
@@ -33,10 +35,22 @@ public class DMNMetadata {
     public DMNMetadata() {
     }
 
-    public DMNMetadata(String dmnVersion, String modelVersion, String platformVersion) {
+    public DMNMetadata(String dmnNamespace, String nativeNamespace, String dmnVersion, String modelVersion, String platformVersion) {
         this.dmnVersion = dmnVersion;
         this.modelVersion = modelVersion;
         this.platformVersion = platformVersion;
+        this.dmnNamespace = dmnNamespace;
+        this.nativeNamespace = nativeNamespace;
+    }
+
+    @JsonGetter("dmnNamespace")
+    public String getDmnNamespace() {
+        return dmnNamespace;
+    }
+
+    @JsonGetter("nativeNamespace")
+    public String getNativeNamespace() {
+        return nativeNamespace;
     }
 
     @JsonGetter("dmnVersion")

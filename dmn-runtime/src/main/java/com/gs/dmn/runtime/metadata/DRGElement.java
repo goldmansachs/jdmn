@@ -15,6 +15,12 @@ package com.gs.dmn.runtime.metadata;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public abstract class DRGElement extends NamedElement {
+    @JsonProperty("diagramId")
+    private String diagramId;
+
+    @JsonProperty("shapeId")
+    private String shapeId;
+
     @JsonProperty("javaParameterName")
     private String javaParameterName;
 
@@ -28,11 +34,21 @@ public abstract class DRGElement extends NamedElement {
     DRGElement() {
     }
 
-    public DRGElement(String id, String name, String label, String javaParameterName, String javaTypeName, QName typeRef) {
+    public DRGElement(String id, String name, String label, String diagramId, String shapeId, String javaParameterName, String javaTypeName, QName typeRef) {
         super(id, name, label);
+        this.diagramId = diagramId;
+        this.shapeId = shapeId;
         this.javaParameterName = javaParameterName;
         this.javaTypeName = javaTypeName;
         this.typeRef = typeRef;
+    }
+
+    public String getDiagramId() {
+        return diagramId;
+    }
+
+    public String getShapeId() {
+        return shapeId;
     }
 
     public QName getTypeRef() {

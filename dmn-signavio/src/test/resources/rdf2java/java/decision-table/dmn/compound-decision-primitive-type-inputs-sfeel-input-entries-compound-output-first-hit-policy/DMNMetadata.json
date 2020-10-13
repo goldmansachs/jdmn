@@ -2,6 +2,8 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
+  "dmnNamespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
+  "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
     "allowedValues" : null,
@@ -136,50 +138,59 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
+    "diagramId" : null,
     "id" : "sid-DD33B3B6-0C84-4568-A0ED-424855D08836",
     "javaParameterName" : "booleanInput",
     "javaTypeName" : "Boolean",
     "label" : "BooleanInput",
     "name" : "booleanInput",
+    "shapeId" : null,
     "typeRef" : {
       "localName" : "booleanInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : null,
     "id" : "sid-6DEE5C38-4409-4A43-8E10-A759DF55056E",
     "javaParameterName" : "dD1TextInput",
     "javaTypeName" : "String",
     "label" : "DD1 Text Input",
     "name" : "dD1TextInput",
+    "shapeId" : null,
     "typeRef" : {
       "localName" : "dD1TextInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : null,
     "id" : "sid-3C445DAC-1B0D-4D22-9FD3-EB4E617D00CF",
     "javaParameterName" : "dD2NumberInput",
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "DD2 Number Input",
     "name" : "dD2NumberInput",
+    "shapeId" : null,
     "typeRef" : {
       "localName" : "dD2NumberInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : null,
     "id" : "sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20",
     "javaParameterName" : "enumerationInput",
     "javaTypeName" : "String",
     "label" : "EnumerationInput",
     "name" : "enumerationInput",
+    "shapeId" : null,
     "typeRef" : {
       "localName" : "enumerationInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : null,
     "extensions" : [ ],
     "id" : "sid-4A7C793A-882C-4867-94B9-AD88D6D6970D",
     "informationReferences" : [ {
@@ -199,46 +210,55 @@
     "name" : "compoundOutputCompoundDecision",
     "protoRequestName" : "proto.CompoundOutputCompoundDecisionRequest",
     "protoResponseName" : "proto.CompoundOutputCompoundDecisionResponse",
+    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : null,
       "id" : "sid-DD33B3B6-0C84-4568-A0ED-424855D08836",
       "javaParameterName" : "booleanInput",
       "javaTypeName" : "Boolean",
       "label" : "BooleanInput",
       "name" : "booleanInput",
+      "shapeId" : null,
       "typeRef" : {
         "localName" : "booleanInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : null,
       "id" : "sid-6DEE5C38-4409-4A43-8E10-A759DF55056E",
       "javaParameterName" : "dD1TextInput",
       "javaTypeName" : "String",
       "label" : "DD1 Text Input",
       "name" : "dD1TextInput",
+      "shapeId" : null,
       "typeRef" : {
         "localName" : "dD1TextInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : null,
       "id" : "sid-3C445DAC-1B0D-4D22-9FD3-EB4E617D00CF",
       "javaParameterName" : "dD2NumberInput",
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "DD2 Number Input",
       "name" : "dD2NumberInput",
+      "shapeId" : null,
       "typeRef" : {
         "localName" : "dD2NumberInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : null,
       "id" : "sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20",
       "javaParameterName" : "enumerationInput",
       "javaTypeName" : "String",
       "label" : "EnumerationInput",
       "name" : "enumerationInput",
+      "shapeId" : null,
       "typeRef" : {
         "localName" : "enumerationInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -250,6 +270,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : null,
     "extensions" : [ ],
     "id" : "sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9",
     "informationReferences" : [ {
@@ -263,13 +284,16 @@
     "name" : "dependentDecision1",
     "protoRequestName" : "proto.DependentDecision1Request",
     "protoResponseName" : "proto.DependentDecision1Response",
+    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : null,
       "id" : "sid-6DEE5C38-4409-4A43-8E10-A759DF55056E",
       "javaParameterName" : "dD1TextInput",
       "javaTypeName" : "String",
       "label" : "DD1 Text Input",
       "name" : "dD1TextInput",
+      "shapeId" : null,
       "typeRef" : {
         "localName" : "dD1TextInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -281,6 +305,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : null,
     "extensions" : [ ],
     "id" : "sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8",
     "informationReferences" : [ {
@@ -294,13 +319,16 @@
     "name" : "dependentDecision2",
     "protoRequestName" : "proto.DependentDecision2Request",
     "protoResponseName" : "proto.DependentDecision2Response",
+    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : null,
       "id" : "sid-3C445DAC-1B0D-4D22-9FD3-EB4E617D00CF",
       "javaParameterName" : "dD2NumberInput",
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "DD2 Number Input",
       "name" : "dD2NumberInput",
+      "shapeId" : null,
       "typeRef" : {
         "localName" : "dD2NumberInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"

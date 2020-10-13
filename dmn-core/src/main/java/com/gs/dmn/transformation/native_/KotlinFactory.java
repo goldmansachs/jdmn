@@ -89,6 +89,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
         return String.format("%s?.filter({ %s -> %s })", source, parameterName, filter);
     }
 
+    @Override
     public String makeCollectionNumericFilter(String javaElementType, String source, String filter) {
         String nullableType = this.typeFactory.nullableType(javaElementType);
         return String.format("(elementAt(%s, %s) as %s)", source, filter, nullableType);
@@ -202,6 +203,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
         return applyMethod(returnType, signature, parametersAssignment, body);
     }
 
+    @Override
     protected String applyMethod(String returnType, String signature, String parametersAssignment, String body) {
         return String.format(
                 "%s" +

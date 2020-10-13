@@ -55,12 +55,12 @@ public class TypeRefValidator extends SimpleDMNValidator {
 
     @Override
     public List<String> validate(DMNModelRepository dmnModelRepository) {
-        if (dmnModelRepository == null) {
-            throw new IllegalArgumentException("Missing definitions");
+        if (isEmpty(dmnModelRepository)) {
+            logger.warn("DMN repository is empty; validator will not run");
+            return new ArrayList<>();
         }
 
         List<Pair<TDRGElement, Type>> errorReport = makeErrorReport(dmnModelRepository);
-
         return errorReport.stream().map(p -> makeError(p, dmnModelRepository)).collect(Collectors.toList());
     }
 
@@ -72,8 +72,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
         QualifiedName typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
 
         String hint = type == null ? "" : String.format(". The inferred type is '%s'", type.toString());
-        String error = makeError(element, String.format("Cannot find typeRef '%s'", typeRef.toString()) + hint);
-        return error;
+        return makeError(model, element, String.format("Cannot find typeRef '%s'", typeRef.toString()) + hint);
     }
 
     public List<Pair<TDRGElement, Type>> makeErrorReport(DMNModelRepository dmnModelRepository) {
@@ -130,6 +129,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
                 type = dmnEnvironmentFactory.expressionType(element, expression, environment);
             }
         } catch (Exception e) {
+            logger.warn(String.format("Cannot infer type for element '%s'", element.getName()));
         }
         return type;
     }

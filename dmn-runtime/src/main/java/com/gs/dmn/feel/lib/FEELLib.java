@@ -67,7 +67,7 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     Object elementAt(List list, NUMBER index);
     Boolean listContains(List list, Object value);
     List flattenFirstLevel(List list);
-    NUMBER count(List<NUMBER> numbers);
+    NUMBER count(List numbers);
     NUMBER min(List<NUMBER> numbers);
     NUMBER max(List<NUMBER> numbers);
     NUMBER sum(List<NUMBER> numbers);

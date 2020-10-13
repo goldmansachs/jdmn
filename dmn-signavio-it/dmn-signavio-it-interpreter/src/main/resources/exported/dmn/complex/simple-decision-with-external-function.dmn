@@ -25,23 +25,11 @@
             <requiredInput href="#id-03d7d97de170aa50fc00252ea2e72589"/>
         </informationRequirement>
         <literalExpression expressionLanguage="free_text">
-            <text>function(a: number, b: number) external {
-java: {
-       class: "com.gs.dmn.generated.sd_with_external_function.Sum",
-       methodSignature: "add(a, b)",
-       returnType : "number",
-       technicalAttributes : {
-            aString: "val1",
-            aNumber: 123,
-            aBoolean: true,
-            nested: {
-                simple: "val2",
-                nested: {
-                      simple: "val2"
-                }
-            }
-      }
-}}</text>
+            <text>
+                {
+                    f : function(a: number, b: number) : number external { java: { class: "com.gs.dmn.generated.sd_with_external_function.Sum", methodSignature: "add(java.math.BigDecimal, java.math.BigDecimal)" }}
+                }.f(a, b)
+            </text>
         </literalExpression>
     </decision>
 </definitions>

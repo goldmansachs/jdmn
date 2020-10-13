@@ -32,21 +32,21 @@ public class UniqueInformationRequirementValidator extends SimpleDMNValidator {
     @Override
     public List<String> validate(DMNModelRepository dmnModelRepository) {
         List<String> errors = new ArrayList<>();
-
-        if (dmnModelRepository == null) {
-            throw new IllegalArgumentException("Missing definitions");
+        if (isEmpty(dmnModelRepository)) {
+            logger.warn("DMN repository is empty; validator will not run");
+            return errors;
         }
 
         for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
             for (TDRGElement element : dmnModelRepository.findDRGElements(definitions)) {
                 if (element instanceof TDecision) {
                     List<TInformationRequirement> irList = ((TDecision) element).getInformationRequirement();
-                    validate(getReferences(irList), element, "InformationRequirement", errors);
+                    validate(definitions, element, getReferences(irList), "InformationRequirement", errors);
                 } else if (element instanceof TDecisionService) {
                     List<TDMNElementReference> inputData = ((TDecisionService) element).getInputData();
-                    validate(inputData, element, "InputData", errors);
+                    validate(definitions, element, inputData, "InputData", errors);
                     List<TDMNElementReference> inputDecision = ((TDecisionService) element).getInputDecision();
-                    validate(inputDecision, element, "InputDecision", errors);
+                    validate(definitions, element, inputDecision, "InputDecision", errors);
                 }
             }
         }
@@ -54,14 +54,14 @@ public class UniqueInformationRequirementValidator extends SimpleDMNValidator {
         return errors;
     }
 
-    private void validate(List<TDMNElementReference> references, TDRGElement element, String property, List<String> errors) {
+    private void validate(TDefinitions definitions, TDRGElement element, List<TDMNElementReference> references, String property, List<String> errors) {
         List<String> existingIds = new ArrayList<>();
         for (TDMNElementReference ir: references) {
             String id = ir.getHref();
             if (id != null) {
                 if (existingIds.contains(id)) {
-                    String error = String.format("Duplicated %s '%s' in element '%s'", property, id, element.getName());
-                    errors.add(error);
+                    String errorMessage = String.format("Duplicated %s '%s'", property, id);
+                    errors.add(makeError(definitions, element, errorMessage));
                 } else {
                     existingIds.add(id);
                 }

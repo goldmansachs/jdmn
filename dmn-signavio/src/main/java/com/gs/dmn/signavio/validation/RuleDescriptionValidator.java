@@ -48,9 +48,9 @@ public class RuleDescriptionValidator extends SimpleDMNValidator {
     @Override
     public List<String> validate(DMNModelRepository dmnModelRepository) {
         List<String> errors = new ArrayList<>();
-
-        if (dmnModelRepository == null) {
-            throw new IllegalArgumentException("Missing definitions");
+        if (isEmpty(dmnModelRepository)) {
+            logger.warn("DMN repository is empty; validator will not run");
+            return errors;
         }
 
         for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
@@ -60,7 +60,7 @@ public class RuleDescriptionValidator extends SimpleDMNValidator {
                     List<TDecisionRule> rules = ((TDecisionTable) expression).getRule();
                     for (int i = 0; i < rules.size(); i++) {
                         TDecisionRule rule = rules.get(i);
-                        validate(rule.getDescription(), i, decision, errors);
+                        validate(definitions, decision, i, rule.getDescription(), errors);
                     }
                 }
             }
@@ -69,12 +69,12 @@ public class RuleDescriptionValidator extends SimpleDMNValidator {
         return errors;
     }
 
-    protected void validate(String description, int ruleIndex, TDecision decision, List<String> errors) {
+    protected void validate(TDefinitions definitions, TDecision decision, int ruleIndex, String description, List<String> errors) {
         if (StringUtils.isNotBlank(description)) {
             for (Map.Entry<String, String> entry : PATTERNS.entrySet()) {
                 if (description.contains(entry.getKey())) {
-                    String error = String.format("Description of rule %d in decision '%s' contains illegal sequence '%s'", ruleIndex, decision.getName(), entry.getValue());
-                    errors.add(error);
+                    String errorMessage = String.format("Description of rule %d in decision '%s' contains illegal sequence '%s'", ruleIndex, decision.getName(), entry.getValue());
+                    errors.add(makeError(definitions, decision, errorMessage));
                 }
             }
         }

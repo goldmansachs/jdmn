@@ -16,6 +16,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.TDMNElement;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.omg.spec.dmn._20180521.model.TNamedElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,32 +37,39 @@ public abstract class SimpleDMNValidator implements DMNValidator {
         this.logger = logger;
     }
 
-    protected String makeError(TDMNElement element, String message) {
-        String location = makeLocation(element);
+    protected String makeError(TDefinitions definitions, TDMNElement element, String message) {
+        String location = makeLocation(definitions, element);
         if (location == null) {
             return message;
         } else {
-            return String.format("Error:%s %s", location, message);
+            return String.format("%s: error: %s", location, message);
         }
     }
 
-    private String makeLocation(TDMNElement element) {
-        if (element == null) {
+    private String makeLocation(TDefinitions definitions, TDMNElement element) {
+        if (definitions == null && element == null) {
             return null;
         }
 
-        String id = element.getId();
-        String label = element.getLabel();
-        String name = element instanceof TNamedElement ? ((TNamedElement) element).getName() : null;
         List<String> locationParts = new ArrayList<>();
-        if (!StringUtils.isBlank(label)) {
-            locationParts.add(String.format("label='%s'", label));
+        if (definitions != null) {
+            if (!StringUtils.isBlank(definitions.getName())) {
+                locationParts.add(String.format("model='%s'", definitions.getName()));
+            }
         }
-        if (!StringUtils.isBlank(name)) {
-            locationParts.add(String.format("name='%s'", name));
-        }
-        if (!StringUtils.isBlank(id)) {
-            locationParts.add(String.format("id='%s'", id));
+        if (element != null) {
+            String id = element.getId();
+            String label = element.getLabel();
+            String name = element instanceof TNamedElement ? ((TNamedElement) element).getName() : null;
+            if (!StringUtils.isBlank(label)) {
+                locationParts.add(String.format("label='%s'", label));
+            }
+            if (!StringUtils.isBlank(name)) {
+                locationParts.add(String.format("name='%s'", name));
+            }
+            if (!StringUtils.isBlank(id)) {
+                locationParts.add(String.format("id='%s'", id));
+            }
         }
         return locationParts.isEmpty() ? null : String.format("(%s)", String.join(", ", locationParts));
     }
