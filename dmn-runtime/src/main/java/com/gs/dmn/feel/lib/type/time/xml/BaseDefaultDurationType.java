@@ -38,44 +38,44 @@ public abstract class BaseDefaultDurationType extends BaseType {
     }
 
     protected final DatatypeFactory dataTypeFactory;
-    private final RelationalComparator<Duration> durationComparator;
+    private final RelationalComparator<Duration> comparator;
 
     @Deprecated
     public BaseDefaultDurationType(Logger logger) {
         this(logger, DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator());
     }
 
-    public BaseDefaultDurationType(Logger logger, DatatypeFactory dataTypeFactory, RelationalComparator<Duration> durationComparator) {
+    public BaseDefaultDurationType(Logger logger, DatatypeFactory dataTypeFactory, RelationalComparator<Duration> comparator) {
         super(logger);
         this.dataTypeFactory = dataTypeFactory;
-        this.durationComparator = durationComparator;
+        this.comparator = comparator;
     }
 
     //
     // Duration operators
     //
     public Boolean durationEqual(Duration first, Duration second) {
-        return this.durationComparator.equal(first, second);
+        return this.comparator.equal(first, second);
     }
 
     public Boolean durationNotEqual(Duration first, Duration second) {
-        return this.durationComparator.notEqual(first, second);
+        return this.comparator.notEqual(first, second);
     }
 
     public Boolean durationLessThan(Duration first, Duration second) {
-        return this.durationComparator.lessThan(first, second);
+        return this.comparator.lessThan(first, second);
     }
 
     public Boolean durationGreaterThan(Duration first, Duration second) {
-        return this.durationComparator.greaterThan(first, second);
+        return this.comparator.greaterThan(first, second);
     }
 
     public Boolean durationLessEqualThan(Duration first, Duration second) {
-        return this.durationComparator.lessEqualThan(first, second);
+        return this.comparator.lessEqualThan(first, second);
     }
 
     public Boolean durationGreaterEqualThan(Duration first, Duration second) {
-        return this.durationComparator.greaterEqualThan(first, second);
+        return this.comparator.greaterEqualThan(first, second);
     }
 
     public Duration durationAdd(Duration first, Duration second) {

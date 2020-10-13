@@ -12,11 +12,18 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
+import com.gs.dmn.feel.lib.type.RelationalComparator;
+
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import static javax.xml.datatype.DatatypeConstants.*;
 
-public class DefaultXMLCalendarComparator implements XMLCalendarComparator {
+public class DefaultXMLCalendarComparator implements RelationalComparator<XMLGregorianCalendar> {
+    @Override
+    public Integer compare(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+        return (int) this.getDurationInMilliSeconds(first, second);
+    }
+
     @Override
     public Boolean equal(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
@@ -86,7 +93,6 @@ public class DefaultXMLCalendarComparator implements XMLCalendarComparator {
         }
     }
 
-    @Override
     public long getDurationInMilliSeconds(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         return first.toGregorianCalendar().getTimeInMillis() - second.toGregorianCalendar().getTimeInMillis();
     }

@@ -25,16 +25,16 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCalendar, Duration> {
     private final BooleanType booleanType;
     private final DatatypeFactory datatypeFactory;
-    protected final XMLCalendarComparator xmlCalendarComparator;
+    protected final DefaultXMLCalendarComparator comparator;
 
     public DefaultTimeType(Logger logger, DatatypeFactory datatypeFactory) {
         this(logger, datatypeFactory, new DefaultXMLCalendarComparator());
     }
 
-    public DefaultTimeType(Logger logger, DatatypeFactory datatypeFactory, XMLCalendarComparator xmlCalendarComparator) {
+    public DefaultTimeType(Logger logger, DatatypeFactory datatypeFactory, DefaultXMLCalendarComparator comparator) {
         super(logger);
         this.datatypeFactory = datatypeFactory;
-        this.xmlCalendarComparator = xmlCalendarComparator;
+        this.comparator = comparator;
         this.booleanType = new DefaultBooleanType(logger);
     }
 
@@ -43,7 +43,7 @@ public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCa
     //
     @Override
     public Boolean timeEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return this.xmlCalendarComparator.equal(first, second);
+        return this.comparator.equal(first, second);
     }
 
     @Override
@@ -53,22 +53,22 @@ public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCa
 
     @Override
     public Boolean timeLessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return this.xmlCalendarComparator.lessThan(first, second);
+        return this.comparator.lessThan(first, second);
     }
 
     @Override
     public Boolean timeGreaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return this.xmlCalendarComparator.greaterThan(first, second);
+        return this.comparator.greaterThan(first, second);
     }
 
     @Override
     public Boolean timeLessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return this.xmlCalendarComparator.lessEqualThan(first, second);
+        return this.comparator.lessEqualThan(first, second);
     }
 
     @Override
     public Boolean timeGreaterEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return this.xmlCalendarComparator.greaterEqualThan(first, second);
+        return this.comparator.greaterEqualThan(first, second);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCa
         }
 
         try {
-            return this.datatypeFactory.newDuration(this.xmlCalendarComparator.getDurationInMilliSeconds(first, second));
+            return this.datatypeFactory.newDuration(this.comparator.getDurationInMilliSeconds(first, second));
         } catch (Exception e) {
             String message = String.format("timeSubtract(%s, %s)", first, second);
             logError(message, e);
