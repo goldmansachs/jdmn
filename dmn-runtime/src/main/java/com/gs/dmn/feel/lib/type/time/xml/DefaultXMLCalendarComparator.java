@@ -15,7 +15,10 @@ package com.gs.dmn.feel.lib.type.time.xml;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
 
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.util.function.Supplier;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 import static javax.xml.datatype.DatatypeConstants.*;
 
 public class DefaultXMLCalendarComparator implements RelationalComparator<XMLGregorianCalendar> {
@@ -26,15 +29,12 @@ public class DefaultXMLCalendarComparator implements RelationalComparator<XMLGre
 
     @Override
     public Boolean equal(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return false;
-        } else if (second == null) {
-            return false;
-        } else {
-            return ((FEELXMLGregorianCalendar)first).same(second);
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> FALSE,
+                () -> FALSE,
+                () -> ((FEELXMLGregorianCalendar)first).same(second)
+        });
     }
 
     @Override

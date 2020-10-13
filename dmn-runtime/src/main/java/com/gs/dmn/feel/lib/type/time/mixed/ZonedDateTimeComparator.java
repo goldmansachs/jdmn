@@ -16,6 +16,10 @@ import com.gs.dmn.feel.lib.type.RelationalComparator;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 
 import java.time.ZonedDateTime;
+import java.util.function.Supplier;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 public class ZonedDateTimeComparator implements RelationalComparator<ZonedDateTime> {
     @Override
@@ -25,16 +29,12 @@ public class ZonedDateTimeComparator implements RelationalComparator<ZonedDateTi
 
     @Override
     public Boolean equal(ZonedDateTime first, ZonedDateTime second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return false;
-        } else if (second == null) {
-            return false;
-        } else {
-            int result = compare(first, second);
-            return result == 0;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> FALSE,
+                () -> FALSE,
+                () -> first.compareTo(second) == 0
+        });
     }
 
     @Override

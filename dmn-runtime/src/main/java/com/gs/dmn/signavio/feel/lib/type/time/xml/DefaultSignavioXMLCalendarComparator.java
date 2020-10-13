@@ -15,22 +15,21 @@ package com.gs.dmn.signavio.feel.lib.type.time.xml;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultXMLCalendarComparator;
 
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.util.function.Supplier;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 import static javax.xml.datatype.DatatypeConstants.*;
 
 public class DefaultSignavioXMLCalendarComparator extends DefaultXMLCalendarComparator {
     @Override
     public Boolean equal(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return false;
-        } else if (second == null) {
-            return false;
-        } else {
-            int result = first.compare(second);
-            return result == EQUAL;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> FALSE,
+                () -> FALSE,
+                () -> first.compare(second) == EQUAL
+        });
     }
 
     @Override

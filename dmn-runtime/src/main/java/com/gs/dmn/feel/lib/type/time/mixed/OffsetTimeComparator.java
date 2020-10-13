@@ -17,6 +17,10 @@ import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import org.slf4j.Logger;
 
 import java.time.OffsetTime;
+import java.util.function.Supplier;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 public class OffsetTimeComparator implements RelationalComparator<OffsetTime> {
     private final DefaultBooleanType booleanType;
@@ -32,16 +36,12 @@ public class OffsetTimeComparator implements RelationalComparator<OffsetTime> {
 
     @Override
     public Boolean equal(OffsetTime first, OffsetTime second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return false;
-        } else if (second == null) {
-            return false;
-        } else {
-            int result = compare(first, second);
-            return result == 0;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> FALSE,
+                () -> FALSE,
+                () -> first.compareTo(second) == 0
+        });
     }
 
     @Override

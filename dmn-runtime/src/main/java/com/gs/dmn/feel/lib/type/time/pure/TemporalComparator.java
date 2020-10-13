@@ -17,6 +17,10 @@ import org.slf4j.Logger;
 
 import java.time.*;
 import java.time.temporal.Temporal;
+import java.util.function.Supplier;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 public class TemporalComparator implements RelationalComparator<Temporal> {
     private final Logger logger;
@@ -47,16 +51,12 @@ public class TemporalComparator implements RelationalComparator<Temporal> {
     @Override
     public Boolean equal(Temporal first, Temporal second) {
         try {
-            if (first == null && second == null) {
-                return true;
-            } else if (first == null) {
-                return false;
-            } else if (second == null) {
-                return false;
-            } else {
-                Integer result = compare(first, second);
-                return result != null && result == 0;
-            }
+            return applyOperator(first, second, new Supplier[] {
+                    () -> TRUE,
+                    () -> FALSE,
+                    () -> FALSE,
+                    () -> compare(first, second) == 0
+            });
         } catch (Exception e) {
             String message = String.format("=(%s, %s)", first, second);
             logError(message, e);
