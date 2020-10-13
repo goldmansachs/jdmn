@@ -16,6 +16,10 @@ import com.gs.dmn.feel.lib.type.RelationalComparator;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
+import java.util.function.Supplier;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 public class DefaultDurationComparator implements RelationalComparator<Duration> {
     @Override
@@ -27,15 +31,12 @@ public class DefaultDurationComparator implements RelationalComparator<Duration>
 
     @Override
     public Boolean equal(Duration first, Duration second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return false;
-        } else if (second == null) {
-            return false;
-        } else {
-            return compare(first, second) == DatatypeConstants.EQUAL;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> FALSE,
+                () -> FALSE,
+                () -> compare(first, second) == DatatypeConstants.EQUAL
+        });
     }
 
     @Override

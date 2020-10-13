@@ -12,11 +12,25 @@
  */
 package com.gs.dmn.feel.lib.type;
 
+import java.util.function.Supplier;
+
 public interface EqualityComparator<T> {
     Boolean equal(T first, T second);
 
     default Boolean notEqual(T first, T second) {
         Boolean equal = equal(first, second);
         return equal == null ? null : ! equal;
+    }
+
+    default Boolean applyOperator(T first, T second, Supplier<Boolean>[] result) {
+        if (first == null && second == null) {
+            return result[0].get();
+        } else if (first == null) {
+            return result[1].get();
+        } else if (second == null) {
+            return result[2].get();
+        } else {
+            return result[3].get();
+        }
     }
 }

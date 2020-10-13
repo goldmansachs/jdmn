@@ -12,6 +12,11 @@
  */
 package com.gs.dmn.feel.lib.type;
 
+import java.util.function.Supplier;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+
 public class ComparableComparator<T> implements RelationalComparator<Comparable<T>> {
     @Override
     public Integer compare(Comparable<T> first, Comparable<T> second) {
@@ -20,16 +25,12 @@ public class ComparableComparator<T> implements RelationalComparator<Comparable<
 
     @Override
     public Boolean equal(Comparable<T> first, Comparable<T> second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return false;
-        } else if (second == null) {
-            return false;
-        } else {
-            int result = first.compareTo((T) second);
-            return result == 0;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> FALSE,
+                () -> FALSE,
+                () -> first.compareTo((T) second) == 0
+        });
     }
 
     @Override

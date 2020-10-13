@@ -15,6 +15,10 @@ package com.gs.dmn.feel.lib.type.time.mixed;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
 
 import java.time.LocalDate;
+import java.util.function.Supplier;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 public class LocalDateComparator implements RelationalComparator<LocalDate> {
     @Override
@@ -24,16 +28,12 @@ public class LocalDateComparator implements RelationalComparator<LocalDate> {
 
     @Override
     public Boolean equal(LocalDate first, LocalDate second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return false;
-        } else if (second == null) {
-            return false;
-        } else {
-            int result = compare(first, second);
-            return result == 0;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> FALSE,
+                () -> FALSE,
+                () -> first.compareTo(second) == 0
+        });
     }
 
     @Override
