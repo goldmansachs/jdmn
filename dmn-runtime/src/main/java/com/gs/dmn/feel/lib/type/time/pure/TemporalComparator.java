@@ -55,7 +55,7 @@ public class TemporalComparator implements RelationalComparator<Temporal> {
                     () -> TRUE,
                     () -> FALSE,
                     () -> FALSE,
-                    () -> compare(first, second) == 0
+                    () -> { Integer result = compare(first, second); return result != null && result == 0; }
             });
         } catch (Exception e) {
             String message = String.format("=(%s, %s)", first, second);
@@ -67,16 +67,12 @@ public class TemporalComparator implements RelationalComparator<Temporal> {
     @Override
     public Boolean lessThan(Temporal first, Temporal second) {
         try {
-            if (first == null && second == null) {
-                return false;
-            } else if (first == null) {
-                return null;
-            } else if (second == null) {
-                return null;
-            } else {
-                Integer result = compare(first, second);
-                return result != null && result < 0;
-            }
+            return applyOperator(first, second, new Supplier[] {
+                    () -> FALSE,
+                    () -> null,
+                    () -> null,
+                    () -> { Integer result = compare(first, second); return result != null && result < 0; }
+            });
         } catch (Exception e) {
             String message = String.format("<(%s, %s)", first, second);
             logError(message, e);
@@ -87,16 +83,12 @@ public class TemporalComparator implements RelationalComparator<Temporal> {
     @Override
     public Boolean greaterThan(Temporal first, Temporal second) {
         try {
-            if (first == null && second == null) {
-                return false;
-            } else if (first == null) {
-                return null;
-            } else if (second == null) {
-                return null;
-            } else {
-                Integer result = compare(first, second);
-                return result != null && result > 0;
-            }
+            return applyOperator(first, second, new Supplier[] {
+                    () -> FALSE,
+                    () -> null,
+                    () -> null,
+                    () -> { Integer result = compare(first, second); return result != null && result > 0; }
+            });
         } catch (Exception e) {
             String message = String.format(">(%s, %s)", first, second);
             logError(message, e);
@@ -107,16 +99,12 @@ public class TemporalComparator implements RelationalComparator<Temporal> {
     @Override
     public Boolean lessEqualThan(Temporal first, Temporal second) {
         try {
-            if (first == null && second == null) {
-                return true;
-            } else if (first == null) {
-                return null;
-            } else if (second == null) {
-                return null;
-            } else {
-                Integer result = compare(first, second);
-                return result != null && result <= 0;
-            }
+            return applyOperator(first, second, new Supplier[] {
+                    () -> TRUE,
+                    () -> null,
+                    () -> null,
+                    () -> { Integer result = compare(first, second); return result != null && result <= 0; }
+            });
         } catch (Exception e) {
             String message = String.format("<=(%s, %s)", first, second);
             logError(message, e);
@@ -127,16 +115,12 @@ public class TemporalComparator implements RelationalComparator<Temporal> {
     @Override
     public Boolean greaterEqualThan(Temporal first, Temporal second) {
         try {
-            if (first == null && second == null) {
-                return true;
-            } else if (first == null) {
-                return null;
-            } else if (second == null) {
-                return null;
-            } else {
-                Integer result = compare(first, second);
-                return result != null && result >= 0;
-            }
+            return applyOperator(first, second, new Supplier[] {
+                    () -> TRUE,
+                    () -> null,
+                    () -> null,
+                    () -> { Integer result = compare(first, second); return result != null && result >= 0; }
+            });
         } catch (Exception e) {
             String message = String.format(">=(%s, %s)", first, second);
             logError(message, e);

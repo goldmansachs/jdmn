@@ -34,58 +34,42 @@ public class DefaultSignavioXMLCalendarComparator extends DefaultXMLCalendarComp
 
     @Override
     public Boolean lessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compare(second);
-            return result == LESSER;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> null,
+                () -> null,
+                () -> null,
+                () -> first.compare(second) == LESSER
+        });
     }
 
     @Override
     public Boolean greaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compare(second);
-            return result == GREATER;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> null,
+                () -> null,
+                () -> null,
+                () -> first.compare(second) == GREATER
+        });
     }
 
     @Override
     public Boolean lessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compare(second);
-            return result == LESSER || result == EQUAL;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> null,
+                () -> null,
+                () -> null,
+                () -> { Integer result = first.compare(second); return result == LESSER || result == EQUAL; }
+        });
     }
 
     @Override
     public Boolean greaterEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compare(second);
-            return result == GREATER || result == EQUAL;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> null,
+                () -> null,
+                () -> null,
+                () -> { Integer result = first.compare(second); return result == GREATER || result == EQUAL; }
+        });
     }
 
     @Override

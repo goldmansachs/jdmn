@@ -35,57 +35,41 @@ public class ComparableComparator<T> implements RelationalComparator<Comparable<
 
     @Override
     public Boolean lessThan(Comparable<T> first, Comparable<T> second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo((T) second);
-            return result < 0;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> null,
+                () -> null,
+                () -> null,
+                () -> first.compareTo((T) second) < 0
+        });
     }
 
     @Override
     public Boolean greaterThan(Comparable<T> first, Comparable<T> second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo((T) second);
-            return result > 0;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> null,
+                () -> null,
+                () -> null,
+                () -> first.compareTo((T) second) > 0
+        });
     }
 
     @Override
     public Boolean lessEqualThan(Comparable<T> first, Comparable<T> second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo((T) second);
-            return result <= 0;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> null,
+                () -> null,
+                () -> first.compareTo((T) second) <= 0
+        });
     }
 
     @Override
     public Boolean greaterEqualThan(Comparable<T> first, Comparable<T> second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = first.compareTo((T) second);
-            return result >= 0;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> null,
+                () -> null,
+                () -> first.compareTo((T) second) >= 0
+        });
     }
 }

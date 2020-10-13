@@ -41,55 +41,41 @@ public class DefaultDurationComparator implements RelationalComparator<Duration>
 
     @Override
     public Boolean lessThan(Duration first, Duration second) {
-        if (first == null && second == null) {
-            return false;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            return compare(first, second) == DatatypeConstants.LESSER;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> FALSE,
+                () -> null,
+                () -> null,
+                () -> compare(first, second) == DatatypeConstants.LESSER
+        });
     }
 
     @Override
     public Boolean greaterThan(Duration first, Duration second) {
-        if (first == null && second == null) {
-            return false;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            return compare(first, second) == DatatypeConstants.GREATER;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> FALSE,
+                () -> null,
+                () -> null,
+                () -> compare(first, second) == DatatypeConstants.GREATER
+        });
     }
 
     @Override
     public Boolean lessEqualThan(Duration first, Duration second) {
-        if (first == null && second == null) {
-            return false;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int compare = compare(first, second);
-            return compare == DatatypeConstants.LESSER || compare == DatatypeConstants.EQUAL;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> FALSE,
+                () -> null,
+                () -> null,
+                () -> { Integer result = compare(first, second); return result == DatatypeConstants.LESSER || result == DatatypeConstants.EQUAL; }
+        });
     }
 
     @Override
     public Boolean greaterEqualThan(Duration first, Duration second) {
-        if (first == null && second == null) {
-            return false;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int compare = compare(first, second);
-            return compare == DatatypeConstants.GREATER || compare == DatatypeConstants.EQUAL;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> FALSE,
+                () -> null,
+                () -> null,
+                () -> { Integer result = compare(first, second); return result == DatatypeConstants.GREATER || result == DatatypeConstants.EQUAL; }
+        });
     }
 }

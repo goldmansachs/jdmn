@@ -18,7 +18,7 @@ import java.time.LocalDate;
 
 public class SignavioLocalDateComparator extends LocalDateComparator {
     @Override
-    public  Boolean lessThan(LocalDate first, LocalDate second) {
+    public Boolean lessThan(LocalDate first, LocalDate second) {
         if (first == null && second == null) {
             return null;
         } else {
@@ -27,7 +27,7 @@ public class SignavioLocalDateComparator extends LocalDateComparator {
     }
 
     @Override
-    public  Boolean greaterThan(LocalDate first, LocalDate second) {
+    public Boolean greaterThan(LocalDate first, LocalDate second) {
         if (first == null && second == null) {
             return null;
         } else {
@@ -36,7 +36,7 @@ public class SignavioLocalDateComparator extends LocalDateComparator {
     }
 
     @Override
-    public  Boolean lessEqualThan(LocalDate first, LocalDate second) {
+    public Boolean lessEqualThan(LocalDate first, LocalDate second) {
         if (first == null && second == null) {
             return null;
         } else {

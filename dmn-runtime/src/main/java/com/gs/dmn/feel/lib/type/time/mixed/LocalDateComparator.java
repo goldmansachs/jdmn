@@ -38,57 +38,41 @@ public class LocalDateComparator implements RelationalComparator<LocalDate> {
 
     @Override
     public  Boolean lessThan(LocalDate first, LocalDate second) {
-        if (first == null && second == null) {
-            return false;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result < 0;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> FALSE,
+                () -> null,
+                () -> null,
+                () -> first.compareTo(second) < 0
+        });
     }
 
     @Override
     public  Boolean greaterThan(LocalDate first, LocalDate second) {
-        if (first == null && second == null) {
-            return false;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result > 0;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> FALSE,
+                () -> null,
+                () -> null,
+                () -> first.compareTo(second) > 0
+        });
     }
 
     @Override
     public  Boolean lessEqualThan(LocalDate first, LocalDate second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result <= 0;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> null,
+                () -> null,
+                () -> first.compareTo(second) <= 0
+        });
     }
 
     @Override
     public  Boolean greaterEqualThan(LocalDate first, LocalDate second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result >= 0;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> null,
+                () -> null,
+                () -> first.compareTo(second) >= 0
+        });
     }
 }
