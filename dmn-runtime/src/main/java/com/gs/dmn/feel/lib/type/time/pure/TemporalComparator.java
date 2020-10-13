@@ -13,18 +13,15 @@
 package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.RelationalComparator;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import org.slf4j.Logger;
 
 import java.time.*;
 import java.time.temporal.Temporal;
 
 public class TemporalComparator implements RelationalComparator<Temporal> {
-    private final DefaultBooleanType booleanType;
     private final Logger logger;
 
     public TemporalComparator(Logger logger) {
-        this.booleanType = new DefaultBooleanType(logger);
         this.logger = logger;
     }
 
@@ -65,11 +62,6 @@ public class TemporalComparator implements RelationalComparator<Temporal> {
             logError(message, e);
             return null;
         }
-    }
-
-    @Override
-    public Boolean notEqual(Temporal first, Temporal second) {
-        return this.booleanType.booleanNot(equal(first, second));
     }
 
     @Override

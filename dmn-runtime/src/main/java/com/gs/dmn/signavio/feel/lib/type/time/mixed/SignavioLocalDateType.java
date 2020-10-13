@@ -22,6 +22,6 @@ import java.time.LocalDate;
 
 public class SignavioLocalDateType extends LocalDateType implements DateType<LocalDate, Duration> {
     public SignavioLocalDateType(Logger logger, DatatypeFactory datatypeFactory) {
-        super(logger, datatypeFactory, new SignavioLocalDateComparator(logger));
+        super(logger, datatypeFactory, new SignavioLocalDateComparator());
     }
 }

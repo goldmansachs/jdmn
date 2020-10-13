@@ -15,5 +15,8 @@ package com.gs.dmn.feel.lib.type;
 public interface EqualityComparator<T> {
     Boolean equal(T first, T second);
 
-    Boolean notEqual(T first, T second);
+    default Boolean notEqual(T first, T second) {
+        Boolean equal = equal(first, second);
+        return equal == null ? null : ! equal;
+    }
 }

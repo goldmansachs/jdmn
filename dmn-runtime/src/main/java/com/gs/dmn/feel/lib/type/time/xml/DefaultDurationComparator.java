@@ -13,19 +13,11 @@
 package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.RelationalComparator;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
-import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 
 public class DefaultDurationComparator implements RelationalComparator<Duration> {
-    private final DefaultBooleanType booleanType;
-
-    public DefaultDurationComparator(Logger logger) {
-        this.booleanType = new DefaultBooleanType(logger);
-    }
-
     @Override
     public Integer compare(Duration first, Duration second) {
         javax.xml.datatype.Duration lhs = BaseDefaultDurationType.normalize(first);
@@ -44,11 +36,6 @@ public class DefaultDurationComparator implements RelationalComparator<Duration>
         } else {
             return compare(first, second) == DatatypeConstants.EQUAL;
         }
-    }
-
-    @Override
-    public Boolean notEqual(Duration first, Duration second) {
-        return this.booleanType.booleanNot(equal(first, second));
     }
 
     @Override

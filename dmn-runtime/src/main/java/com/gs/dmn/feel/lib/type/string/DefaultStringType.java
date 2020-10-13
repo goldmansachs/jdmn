@@ -18,11 +18,11 @@ import com.gs.dmn.feel.lib.type.StringType;
 import org.slf4j.Logger;
 
 public class DefaultStringType extends BaseType implements StringType {
-    private final ComparableComparator<String> numericComparator;
+    private final ComparableComparator<String> comparator;
 
     public DefaultStringType(Logger logger) {
         super(logger);
-        this.numericComparator = new ComparableComparator<>(logger);
+        this.comparator = new ComparableComparator<>();
     }
 
     @Override
@@ -36,31 +36,31 @@ public class DefaultStringType extends BaseType implements StringType {
 
     @Override
     public Boolean stringEqual(String first, String second) {
-        return this.numericComparator.equal(first, second);
+        return this.comparator.equal(first, second);
     }
 
     @Override
     public Boolean stringNotEqual(String first, String second) {
-        return this.numericComparator.notEqual(first, second);
+        return this.comparator.notEqual(first, second);
     }
 
     @Override
     public Boolean stringLessThan(String first, String second) {
-        return this.numericComparator.lessThan(first, second);
+        return this.comparator.lessThan(first, second);
     }
 
     @Override
     public Boolean stringGreaterThan(String first, String second) {
-        return this.numericComparator.greaterThan(first, second);
+        return this.comparator.greaterThan(first, second);
     }
 
     @Override
     public Boolean stringLessEqualThan(String first, String second) {
-        return this.numericComparator.lessEqualThan(first, second);
+        return this.comparator.lessEqualThan(first, second);
     }
 
     @Override
     public Boolean stringGreaterEqualThan(String first, String second) {
-        return this.numericComparator.greaterEqualThan(first, second);
+        return this.comparator.greaterEqualThan(first, second);
     }
 }

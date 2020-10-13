@@ -38,7 +38,7 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
 
     @Deprecated
     public DefaultNumericType(Logger logger) {
-        this(logger, new ComparableComparator<>(logger));
+        this(logger, new ComparableComparator<>());
     }
 
     public DefaultNumericType(Logger logger, ComparableComparator<BigDecimal> comparator) {

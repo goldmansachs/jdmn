@@ -42,7 +42,7 @@ public abstract class BaseDefaultDurationType extends BaseType {
 
     @Deprecated
     public BaseDefaultDurationType(Logger logger) {
-        this(logger, DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator(logger));
+        this(logger, DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator());
     }
 
     public BaseDefaultDurationType(Logger logger, DatatypeFactory dataTypeFactory, RelationalComparator<Duration> durationComparator) {

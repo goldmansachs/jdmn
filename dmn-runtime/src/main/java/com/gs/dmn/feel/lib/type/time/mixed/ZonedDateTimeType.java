@@ -24,7 +24,7 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
 
     @Deprecated
     public ZonedDateTimeType(Logger logger, DatatypeFactory datatypeFactory) {
-        this(logger, datatypeFactory, new ZonedDateTimeComparator(logger));
+        this(logger, datatypeFactory, new ZonedDateTimeComparator());
     }
 
     public ZonedDateTimeType(Logger logger, DatatypeFactory datatypeFactory, ZonedDateTimeComparator comparator) {

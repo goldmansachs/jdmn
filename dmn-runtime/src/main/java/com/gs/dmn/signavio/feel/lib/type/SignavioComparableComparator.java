@@ -14,13 +14,8 @@ package com.gs.dmn.signavio.feel.lib.type;
 
 import com.gs.dmn.feel.lib.type.ComparableComparator;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
-import org.slf4j.Logger;
 
 public class SignavioComparableComparator<T> extends ComparableComparator<T> implements RelationalComparator<Comparable<T>> {
-    public SignavioComparableComparator(Logger logger) {
-        super(logger);
-    }
-
     @Override
     public Boolean lessEqualThan(Comparable<T> first, Comparable<T> second) {
         if (first == null && second == null) {

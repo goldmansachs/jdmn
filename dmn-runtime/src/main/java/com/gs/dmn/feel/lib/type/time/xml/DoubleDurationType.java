@@ -23,12 +23,12 @@ import javax.xml.datatype.Duration;
 public class DoubleDurationType extends BaseDefaultDurationType implements DurationType<Duration, Double> {
     @Deprecated
     public DoubleDurationType(Logger logger) {
-        this(logger, DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator(logger));
+        this(logger, DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator());
     }
 
     @Deprecated
     public DoubleDurationType(Logger logger, DatatypeFactory dataTypeFactory) {
-        this(logger, dataTypeFactory, new DefaultDurationComparator(logger));
+        this(logger, dataTypeFactory, new DefaultDurationComparator());
     }
 
     public DoubleDurationType(Logger logger, DatatypeFactory dataTypeFactory, RelationalComparator<Duration> durationComparator) {

@@ -13,15 +13,10 @@
 package com.gs.dmn.signavio.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.time.mixed.LocalDateComparator;
-import org.slf4j.Logger;
 
 import java.time.LocalDate;
 
 public class SignavioLocalDateComparator extends LocalDateComparator {
-    public SignavioLocalDateComparator(Logger logger) {
-        super(logger);
-    }
-
     @Override
     public  Boolean lessThan(LocalDate first, LocalDate second) {
         if (first == null && second == null) {
