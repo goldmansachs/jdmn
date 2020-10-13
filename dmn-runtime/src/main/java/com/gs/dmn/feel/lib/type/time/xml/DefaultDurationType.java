@@ -24,12 +24,12 @@ import java.math.BigDecimal;
 public class DefaultDurationType extends BaseDefaultDurationType implements DurationType<Duration, BigDecimal> {
     @Deprecated
     public DefaultDurationType(Logger logger) {
-        this(logger, DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator(logger));
+        this(logger, DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator());
     }
 
     @Deprecated
     public DefaultDurationType(Logger logger, DatatypeFactory dataTypeFactory) {
-        this(logger, dataTypeFactory, new DefaultDurationComparator(logger));
+        this(logger, dataTypeFactory, new DefaultDurationComparator());
     }
 
     public DefaultDurationType(Logger logger, DatatypeFactory dataTypeFactory, RelationalComparator<Duration> durationComparator) {

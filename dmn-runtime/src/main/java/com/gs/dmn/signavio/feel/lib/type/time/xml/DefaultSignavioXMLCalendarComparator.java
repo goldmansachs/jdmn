@@ -13,17 +13,12 @@
 package com.gs.dmn.signavio.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.time.xml.DefaultXMLCalendarComparator;
-import org.slf4j.Logger;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import static javax.xml.datatype.DatatypeConstants.*;
 
 public class DefaultSignavioXMLCalendarComparator extends DefaultXMLCalendarComparator {
-    public DefaultSignavioXMLCalendarComparator(Logger logger) {
-        super(logger);
-    }
-
     @Override
     public Boolean equal(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {

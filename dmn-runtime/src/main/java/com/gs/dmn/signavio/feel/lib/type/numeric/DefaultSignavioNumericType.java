@@ -21,6 +21,6 @@ import java.math.BigDecimal;
 
 public class DefaultSignavioNumericType extends DefaultNumericType implements NumericType<BigDecimal> {
     public DefaultSignavioNumericType(Logger logger) {
-        super(logger, new SignavioComparableComparator<>(logger));
+        super(logger, new SignavioComparableComparator<>());
     }
 }

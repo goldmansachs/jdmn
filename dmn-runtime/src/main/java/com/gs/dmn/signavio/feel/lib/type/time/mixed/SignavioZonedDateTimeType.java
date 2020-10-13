@@ -22,6 +22,6 @@ import java.time.ZonedDateTime;
 
 public class SignavioZonedDateTimeType extends ZonedDateTimeType implements DateTimeType<ZonedDateTime, Duration> {
     public SignavioZonedDateTimeType(Logger logger, DatatypeFactory datatypeFactory) {
-        super(logger, datatypeFactory, new SignavioZonedDateTimeComparator(logger));
+        super(logger, datatypeFactory, new SignavioZonedDateTimeComparator());
     }
 }

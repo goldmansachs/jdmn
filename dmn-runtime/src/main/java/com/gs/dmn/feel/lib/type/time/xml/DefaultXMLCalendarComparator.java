@@ -12,20 +12,11 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
-import org.slf4j.Logger;
-
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import static javax.xml.datatype.DatatypeConstants.*;
 
 public class DefaultXMLCalendarComparator implements XMLCalendarComparator {
-    private final DefaultBooleanType booleanType;
-
-    public DefaultXMLCalendarComparator(Logger logger) {
-        this.booleanType = new DefaultBooleanType(logger);
-    }
-
     @Override
     public Boolean equal(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
@@ -37,11 +28,6 @@ public class DefaultXMLCalendarComparator implements XMLCalendarComparator {
         } else {
             return ((FEELXMLGregorianCalendar)first).same(second);
         }
-    }
-
-    @Override
-    public Boolean notEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return this.booleanType.booleanNot(equal(first, second));
     }
 
     @Override

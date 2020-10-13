@@ -12,16 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type;
 
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
-import org.slf4j.Logger;
-
 public class ComparableComparator<T> implements RelationalComparator<Comparable<T>> {
-    private final BooleanType booleanType;
-
-    public ComparableComparator(Logger logger) {
-        this.booleanType = new DefaultBooleanType(logger);
-    }
-
     @Override
     public Integer compare(Comparable<T> first, Comparable<T> second) {
         return first.compareTo((T) second);
@@ -39,11 +30,6 @@ public class ComparableComparator<T> implements RelationalComparator<Comparable<
             int result = first.compareTo((T) second);
             return result == 0;
         }
-    }
-
-    @Override
-    public Boolean notEqual(Comparable<T> first, Comparable<T> second) {
-        return this.booleanType.booleanNot(equal(first, second));
     }
 
     @Override

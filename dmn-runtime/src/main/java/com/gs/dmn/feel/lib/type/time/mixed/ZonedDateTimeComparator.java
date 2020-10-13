@@ -13,19 +13,11 @@
 package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.RelationalComparator;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
-import org.slf4j.Logger;
 
 import java.time.ZonedDateTime;
 
 public class ZonedDateTimeComparator implements RelationalComparator<ZonedDateTime> {
-    private final DefaultBooleanType booleanType;
-
-    public ZonedDateTimeComparator(Logger logger) {
-        this.booleanType = new DefaultBooleanType(logger);
-    }
-
     @Override
     public Integer compare(ZonedDateTime first, ZonedDateTime second) {
         return first.withZoneSameInstant(DefaultDateTimeLib.UTC).compareTo(second.withZoneSameInstant(DefaultDateTimeLib.UTC));
@@ -43,11 +35,6 @@ public class ZonedDateTimeComparator implements RelationalComparator<ZonedDateTi
             int result = compare(first, second);
             return result == 0;
         }
-    }
-
-    @Override
-    public Boolean notEqual(ZonedDateTime first, ZonedDateTime second) {
-        return this.booleanType.booleanNot(equal(first, second));
     }
 
     @Override

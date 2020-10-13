@@ -28,7 +28,7 @@ public class DefaultDateType extends BaseType implements DateType<XMLGregorianCa
     private final BooleanType booleanType;
 
     public DefaultDateType(Logger logger, DatatypeFactory datatypeFactory) {
-        this(logger, datatypeFactory, new DefaultXMLCalendarComparator(logger));
+        this(logger, datatypeFactory, new DefaultXMLCalendarComparator());
     }
 
     public DefaultDateType(Logger logger, DatatypeFactory datatypeFactory, XMLCalendarComparator xmlCalendarComparator) {

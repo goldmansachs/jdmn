@@ -45,11 +45,6 @@ public class OffsetTimeComparator implements RelationalComparator<OffsetTime> {
     }
 
     @Override
-    public Boolean notEqual(OffsetTime first, OffsetTime second) {
-        return this.booleanType.booleanNot(equal(first, second));
-    }
-
-    @Override
     public  Boolean lessThan(OffsetTime first, OffsetTime second) {
         if (first == null && second == null) {
             return false;

@@ -13,15 +13,10 @@
 package com.gs.dmn.signavio.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.time.mixed.ZonedDateTimeComparator;
-import org.slf4j.Logger;
 
 import java.time.ZonedDateTime;
 
 public class SignavioZonedDateTimeComparator extends ZonedDateTimeComparator {
-    public SignavioZonedDateTimeComparator(Logger logger) {
-        super(logger);
-    }
-
     @Override
     public Boolean lessThan(ZonedDateTime first, ZonedDateTime second) {
         if (first == null && second == null) {

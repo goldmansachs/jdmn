@@ -28,7 +28,7 @@ public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCa
     protected final XMLCalendarComparator xmlCalendarComparator;
 
     public DefaultTimeType(Logger logger, DatatypeFactory datatypeFactory) {
-        this(logger, datatypeFactory, new DefaultXMLCalendarComparator(logger));
+        this(logger, datatypeFactory, new DefaultXMLCalendarComparator());
     }
 
     public DefaultTimeType(Logger logger, DatatypeFactory datatypeFactory, XMLCalendarComparator xmlCalendarComparator) {

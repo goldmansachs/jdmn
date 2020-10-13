@@ -28,7 +28,7 @@ public class DefaultDateTimeType extends BaseType implements DateTimeType<XMLGre
     private final BooleanType booleanType;
 
     public DefaultDateTimeType(Logger logger, DatatypeFactory datatypeFactory) {
-        this(logger, datatypeFactory, new DefaultXMLCalendarComparator(logger));
+        this(logger, datatypeFactory, new DefaultXMLCalendarComparator());
     }
 
     public DefaultDateTimeType(Logger logger, DatatypeFactory datatypeFactory, XMLCalendarComparator xmlCalendarComparator) {

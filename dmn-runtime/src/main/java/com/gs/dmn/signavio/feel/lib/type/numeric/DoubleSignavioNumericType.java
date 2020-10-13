@@ -19,6 +19,6 @@ import org.slf4j.Logger;
 
 public class DoubleSignavioNumericType extends DoubleNumericType implements NumericType<Double> {
     public DoubleSignavioNumericType(Logger logger) {
-        super(logger, new SignavioComparableComparator<>(logger));
+        super(logger, new SignavioComparableComparator<>());
     }
 }

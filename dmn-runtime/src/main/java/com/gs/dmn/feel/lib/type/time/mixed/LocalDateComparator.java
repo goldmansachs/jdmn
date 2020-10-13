@@ -13,18 +13,10 @@
 package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.RelationalComparator;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
-import org.slf4j.Logger;
 
 import java.time.LocalDate;
 
 public class LocalDateComparator implements RelationalComparator<LocalDate> {
-    private final DefaultBooleanType booleanType;
-
-    public LocalDateComparator(Logger logger) {
-        this.booleanType = new DefaultBooleanType(logger);
-    }
-
     @Override
     public Integer compare(LocalDate first, LocalDate second) {
         return first.compareTo(second);
@@ -42,11 +34,6 @@ public class LocalDateComparator implements RelationalComparator<LocalDate> {
             int result = compare(first, second);
             return result == 0;
         }
-    }
-
-    @Override
-    public Boolean notEqual(LocalDate first, LocalDate second) {
-        return this.booleanType.booleanNot(equal(first, second));
     }
 
     @Override

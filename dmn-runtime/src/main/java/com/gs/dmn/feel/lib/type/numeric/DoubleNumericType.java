@@ -33,7 +33,7 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
 
     @Deprecated
     public DoubleNumericType(Logger logger) {
-        this(logger, new ComparableComparator<>(logger));
+        this(logger, new ComparableComparator<>());
     }
 
     public DoubleNumericType(Logger logger, ComparableComparator<Double> comparator) {

@@ -14,16 +14,11 @@ package com.gs.dmn.signavio.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.RelationalComparator;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationComparator;
-import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 
 public class DefaultSignavioDurationComparator extends DefaultDurationComparator implements RelationalComparator<Duration> {
-    public DefaultSignavioDurationComparator(Logger logger) {
-        super(logger);
-    }
-
     @Override
     public Boolean lessThan(Duration first, Duration second) {
         if (first == null && second == null) {

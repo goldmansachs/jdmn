@@ -22,6 +22,6 @@ import java.math.BigDecimal;
 
 public class DefaultSignavioDurationType extends DefaultDurationType implements DurationType<Duration, BigDecimal> {
     public DefaultSignavioDurationType(Logger logger, DatatypeFactory dataTypeFactory) {
-        super(logger, dataTypeFactory, new DefaultSignavioDurationComparator(logger));
+        super(logger, dataTypeFactory, new DefaultSignavioDurationComparator());
     }
 }

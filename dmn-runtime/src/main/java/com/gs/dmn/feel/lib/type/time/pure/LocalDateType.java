@@ -26,7 +26,7 @@ public class LocalDateType extends JavaTimeType implements DateType<LocalDate, T
 
     @Deprecated
     public LocalDateType(Logger logger) {
-        this(logger, new LocalDateComparator(logger));
+        this(logger, new LocalDateComparator());
     }
 
     public LocalDateType(Logger logger, LocalDateComparator comparator) {
