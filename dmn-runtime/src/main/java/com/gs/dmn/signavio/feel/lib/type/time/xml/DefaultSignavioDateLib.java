@@ -25,7 +25,7 @@ import java.util.Calendar;
 
 import static com.gs.dmn.feel.lib.DefaultFEELLib.DATA_TYPE_FACTORY;
 
-public class DefaultSignavioDateLib extends SignavioBaseDateTimeLib implements SignavioDateLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar> {
+public class DefaultSignavioDateLib extends SignavioBaseDateTimeLib implements SignavioDateLib<BigDecimal, XMLGregorianCalendar> {
     @Override
     public XMLGregorianCalendar yearAdd(XMLGregorianCalendar dateTime, BigDecimal yearsToAdd) {
         XMLGregorianCalendar result = (XMLGregorianCalendar) dateTime.clone();

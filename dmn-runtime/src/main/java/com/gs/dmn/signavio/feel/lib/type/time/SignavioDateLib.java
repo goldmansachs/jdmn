@@ -12,12 +12,12 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.time;
 
-public interface SignavioDateLib<NUMBER, DATE, DATE_TIME> {
-    DATE_TIME yearAdd(DATE dateTime, NUMBER yearsToAdd);
+public interface SignavioDateLib<NUMBER, DATE> {
+    DATE yearAdd(DATE dateTime, NUMBER yearsToAdd);
 
     NUMBER yearDiff(DATE dateTime1, DATE dateTime2);
 
-    DATE_TIME monthAdd(DATE dateTime, NUMBER monthsToAdd);
+    DATE monthAdd(DATE dateTime, NUMBER monthsToAdd);
 
     Long monthDiff(DATE dateTime1, DATE dateTime2);
 
