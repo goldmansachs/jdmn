@@ -35,7 +35,7 @@ public class OffsetTimeComparator implements RelationalComparator<OffsetTime> {
     }
 
     @Override
-    public Boolean equal(OffsetTime first, OffsetTime second) {
+    public Boolean equalTo(OffsetTime first, OffsetTime second) {
         return applyOperator(first, second, new Supplier[] {
                 () -> TRUE,
                 () -> FALSE,

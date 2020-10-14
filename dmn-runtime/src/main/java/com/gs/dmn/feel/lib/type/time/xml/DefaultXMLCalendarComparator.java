@@ -28,7 +28,7 @@ public class DefaultXMLCalendarComparator implements RelationalComparator<XMLGre
     }
 
     @Override
-    public Boolean equal(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    public Boolean equalTo(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         return applyOperator(first, second, new Supplier[] {
                 () -> TRUE,
                 () -> FALSE,

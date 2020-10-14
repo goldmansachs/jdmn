@@ -39,12 +39,12 @@ public class LocalDateType extends JavaTimeCalendarType implements DateType<Loca
 
     @Override
     public Boolean dateEqual(LocalDate first, LocalDate second) {
-        return this.comparator.equal(first, second);
+        return this.comparator.equalTo(first, second);
     }
 
     @Override
     public Boolean dateNotEqual(LocalDate first, LocalDate second) {
-        return this.comparator.notEqual(first, second);
+        return this.comparator.notEqualTo(first, second);
     }
 
     @Override

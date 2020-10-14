@@ -36,12 +36,12 @@ public class DefaultStringType extends BaseType implements StringType {
 
     @Override
     public Boolean stringEqual(String first, String second) {
-        return this.comparator.equal(first, second);
+        return this.comparator.equalTo(first, second);
     }
 
     @Override
     public Boolean stringNotEqual(String first, String second) {
-        return this.comparator.notEqual(first, second);
+        return this.comparator.notEqualTo(first, second);
     }
 
     @Override
