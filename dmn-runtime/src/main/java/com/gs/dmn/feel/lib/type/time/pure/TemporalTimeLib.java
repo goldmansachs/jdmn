@@ -14,6 +14,7 @@ package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
+import com.gs.dmn.feel.lib.type.time.TimeLib;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultTimeLib;
 import org.apache.commons.lang3.StringUtils;
 
@@ -22,9 +23,10 @@ import java.time.*;
 import java.time.temporal.*;
 import java.util.TimeZone;
 
-public class TemporalTimeLib extends BaseDateTimeLib {
+public class TemporalTimeLib extends BaseDateTimeLib implements TimeLib<BigDecimal, Temporal, TemporalAmount> {
     private final DefaultTimeLib timeLib = new DefaultTimeLib(DefaultFEELLib.DATA_TYPE_FACTORY);
 
+    @Override
     public Temporal time(String literal) {
         if (StringUtils.isBlank(literal)) {
             return null;
@@ -44,6 +46,7 @@ public class TemporalTimeLib extends BaseDateTimeLib {
         }
     }
 
+    @Override
     public OffsetTime time(BigDecimal hour, BigDecimal minute, BigDecimal second, TemporalAmount offset) {
         if (hour == null || minute == null || second == null || offset == null) {
             return null;
@@ -55,6 +58,7 @@ public class TemporalTimeLib extends BaseDateTimeLib {
         return OffsetTime.of(hour.intValue(), minute.intValue(), second.intValue(), 0, zoneOffset);
     }
 
+    @Override
     public Temporal time(Temporal from) {
         if (from == null) {
             return null;
@@ -83,23 +87,28 @@ public class TemporalTimeLib extends BaseDateTimeLib {
         return null;
     }
 
+    @Override
     public Integer hour(Temporal time) {
         return time.get(ChronoField.HOUR_OF_DAY);
     }
 
+    @Override
     public Integer minute(Temporal time) {
         return time.get(ChronoField.MINUTE_OF_HOUR);
     }
 
+    @Override
     public Integer second(Temporal time) {
         return time.get(ChronoField.SECOND_OF_MINUTE);
     }
 
+    @Override
     public TemporalAmount timeOffset(Temporal time) {
         int secondsOffset = time.get(ChronoField.OFFSET_SECONDS);
         return duration((long) secondsOffset * 1000);
     }
 
+    @Override
     public String timezone(Temporal time) {
         return time.query(TemporalQueries.zone()).getId();
     }
