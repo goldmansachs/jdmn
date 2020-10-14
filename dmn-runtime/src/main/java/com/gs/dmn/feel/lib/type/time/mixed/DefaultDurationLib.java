@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
+import com.gs.dmn.feel.lib.type.time.DurationLib;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.DatatypeFactory;
@@ -20,7 +21,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-public class DefaultDurationLib {
+public class DefaultDurationLib implements DurationLib<ZonedDateTime, Duration> {
     private final DatatypeFactory dataTypeFactory;
     private final LocalDateLib dateLib = new LocalDateLib();
 
@@ -28,6 +29,7 @@ public class DefaultDurationLib {
         this.dataTypeFactory = dataTypeFactory;
     }
 
+    @Override
     public javax.xml.datatype.Duration duration(String from) {
         if (StringUtils.isBlank(from)) {
             return null;
@@ -36,6 +38,7 @@ public class DefaultDurationLib {
         return this.dataTypeFactory.newDuration(from);
     }
 
+    @Override
     public javax.xml.datatype.Duration yearsAndMonthsDuration(ZonedDateTime from, ZonedDateTime to) {
         if (from == null || to == null) {
             return null;
@@ -43,7 +46,6 @@ public class DefaultDurationLib {
 
         return this.toYearsMonthDuration(this.dataTypeFactory, toDate(to), toDate(from));
     }
-
     public javax.xml.datatype.Duration yearsAndMonthsDuration(LocalDate from, LocalDate to) {
         if (from == null || to == null) {
             return null;
@@ -51,7 +53,6 @@ public class DefaultDurationLib {
 
         return this.toYearsMonthDuration(this.dataTypeFactory, to, from);
     }
-
     public javax.xml.datatype.Duration yearsAndMonthsDuration(ZonedDateTime from, LocalDate to) {
         if (from == null || to == null) {
             return null;
@@ -59,7 +60,6 @@ public class DefaultDurationLib {
 
         return this.toYearsMonthDuration(this.dataTypeFactory, to, toDate(from));
     }
-
     public Duration yearsAndMonthsDuration(LocalDate from, ZonedDateTime to) {
         if (from == null || to == null) {
             return null;
@@ -86,6 +86,7 @@ public class DefaultDurationLib {
         return (LocalDate) object;
     }
 
+    @Override
     public Integer years(Duration duration) {
         if (duration == null) {
             return null;
@@ -94,6 +95,7 @@ public class DefaultDurationLib {
         return duration.getYears();
     }
 
+    @Override
     public Integer months(Duration duration) {
         if (duration == null) {
             return null;
@@ -102,6 +104,7 @@ public class DefaultDurationLib {
         return duration.getMonths();
     }
 
+    @Override
     public Integer days(Duration duration) {
         if (duration == null) {
             return null;
@@ -110,6 +113,7 @@ public class DefaultDurationLib {
         return duration.getDays();
     }
 
+    @Override
     public Integer hours(Duration duration) {
         if (duration == null) {
             return null;
@@ -118,6 +122,7 @@ public class DefaultDurationLib {
         return duration.getHours();
     }
 
+    @Override
     public Integer minutes(Duration duration) {
         if (duration == null) {
             return null;
@@ -126,6 +131,7 @@ public class DefaultDurationLib {
         return duration.getMinutes();
     }
 
+    @Override
     public Integer seconds(Duration duration) {
         if (duration == null) {
             return null;

@@ -24,7 +24,7 @@ public class ComparableComparator<T> implements RelationalComparator<Comparable<
     }
 
     @Override
-    public Boolean equal(Comparable<T> first, Comparable<T> second) {
+    public Boolean equalTo(Comparable<T> first, Comparable<T> second) {
         return applyOperator(first, second, new Supplier[] {
                 () -> TRUE,
                 () -> FALSE,

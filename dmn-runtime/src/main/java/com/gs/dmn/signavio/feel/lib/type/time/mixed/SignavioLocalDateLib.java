@@ -12,25 +12,27 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioBaseDateTimeLib;
+import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateLib;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-public class SignavioLocalDateLib extends SignavioBaseDateTimeLib {
+public class SignavioLocalDateLib extends SignavioBaseDateTimeLib implements SignavioDateLib<Number, LocalDate> {
     public ZonedDateTime yearAdd(ZonedDateTime dateTime, Number yearsToAdd) {
         return dateTime.plusYears(yearsToAdd.longValue());
     }
-    public ZonedDateTime yearAdd(LocalDate localDate, Number yearsToAdd) {
-        return localDate.plusYears(yearsToAdd.longValue()).atStartOfDay(DefaultDateTimeLib.UTC);
+    @Override
+    public LocalDate yearAdd(LocalDate localDate, Number yearsToAdd) {
+        return localDate.plusYears(yearsToAdd.longValue());
     }
 
     public Integer yearDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         Period period = periodBetween(dateTime1, dateTime2);
         return period.getYears();
     }
+    @Override
     public Integer yearDiff(LocalDate dateTime1, LocalDate dateTime2) {
         Period period = periodBetween(dateTime1, dateTime2);
         return period.getYears();
@@ -39,14 +41,15 @@ public class SignavioLocalDateLib extends SignavioBaseDateTimeLib {
     public ZonedDateTime monthAdd(ZonedDateTime dateTime, Number monthsToAdd) {
         return dateTime.plusMonths(monthsToAdd.longValue());
     }
-    public ZonedDateTime monthAdd(LocalDate date, Number monthsToAdd) {
-        return date.plusMonths(monthsToAdd.longValue()).atStartOfDay(DefaultDateTimeLib.UTC);
+    public LocalDate monthAdd(LocalDate date, Number monthsToAdd) {
+        return date.plusMonths(monthsToAdd.longValue());
     }
 
     public Long monthDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         Period period = periodBetween(dateTime1, dateTime2);
         return period.toTotalMonths();
     }
+    @Override
     public Long monthDiff(LocalDate date1, LocalDate date2) {
         Period period = periodBetween(date1, date2);
         return period.toTotalMonths();
@@ -55,6 +58,7 @@ public class SignavioLocalDateLib extends SignavioBaseDateTimeLib {
     public LocalDate dayAdd(ZonedDateTime dateTime, Number daysToAdd) {
         return dateTime.plusDays(daysToAdd.intValue()).toLocalDate();
     }
+    @Override
     public LocalDate dayAdd(LocalDate date, Number daysToAdd) {
         return date.plusDays(daysToAdd.intValue());
     }
@@ -63,11 +67,13 @@ public class SignavioLocalDateLib extends SignavioBaseDateTimeLib {
         long diff = durationBetween(dateTime1, dateTime2).getSeconds() / (60 * 60 * 24);
         return diff;
     }
+    @Override
     public Long dayDiff(LocalDate date1, LocalDate date2) {
         long diff = durationBetween(date1, date2).getSeconds() / (60 * 60 * 24);
         return diff;
     }
 
+    @Override
     public Integer weekday(LocalDate date) {
         int weekDay = date.getDayOfWeek().getValue();
         return weekDay;
@@ -77,6 +83,7 @@ public class SignavioLocalDateLib extends SignavioBaseDateTimeLib {
         return weekDay;
     }
 
+    @Override
     public LocalDate today() {
         return LocalDate.now();
     }

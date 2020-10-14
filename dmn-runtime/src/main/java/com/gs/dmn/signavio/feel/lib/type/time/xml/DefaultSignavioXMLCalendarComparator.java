@@ -23,7 +23,7 @@ import static javax.xml.datatype.DatatypeConstants.*;
 
 public class DefaultSignavioXMLCalendarComparator extends DefaultXMLCalendarComparator {
     @Override
-    public Boolean equal(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    public Boolean equalTo(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         return applyOperator(first, second, new Supplier[] {
                 () -> TRUE,
                 () -> FALSE,

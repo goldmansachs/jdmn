@@ -14,6 +14,7 @@ package com.gs.dmn.signavio.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.time.xml.FEELXMLGregorianCalendar;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioBaseDateTimeLib;
+import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateLib;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -24,7 +25,8 @@ import java.util.Calendar;
 
 import static com.gs.dmn.feel.lib.DefaultFEELLib.DATA_TYPE_FACTORY;
 
-public class DefaultSignavioDateLib extends SignavioBaseDateTimeLib {
+public class DefaultSignavioDateLib extends SignavioBaseDateTimeLib implements SignavioDateLib<BigDecimal, XMLGregorianCalendar> {
+    @Override
     public XMLGregorianCalendar yearAdd(XMLGregorianCalendar dateTime, BigDecimal yearsToAdd) {
         XMLGregorianCalendar result = (XMLGregorianCalendar) dateTime.clone();
         int months = yearsToAdd.intValue();
@@ -36,11 +38,13 @@ public class DefaultSignavioDateLib extends SignavioBaseDateTimeLib {
         return result;
     }
 
+    @Override
     public BigDecimal yearDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
         Period period = periodBetween(dateTime1, dateTime2);
         return BigDecimal.valueOf(period.getYears());
     }
 
+    @Override
     public XMLGregorianCalendar monthAdd(XMLGregorianCalendar dateTime, BigDecimal monthsToAdd) {
         XMLGregorianCalendar result = (XMLGregorianCalendar) dateTime.clone();
         int months = monthsToAdd.intValue();
@@ -52,11 +56,13 @@ public class DefaultSignavioDateLib extends SignavioBaseDateTimeLib {
         return result;
     }
 
+    @Override
     public Long monthDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
         Period period = periodBetween(dateTime1, dateTime2);
         return period.toTotalMonths();
     }
 
+    @Override
     public XMLGregorianCalendar dayAdd(XMLGregorianCalendar dateTime, BigDecimal daysToAdd) {
         XMLGregorianCalendar result = (XMLGregorianCalendar) dateTime.clone();
         int days = daysToAdd.intValue();
@@ -68,12 +74,14 @@ public class DefaultSignavioDateLib extends SignavioBaseDateTimeLib {
         return result;
     }
 
+    @Override
     public Long dayDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
         java.time.Duration duration = durationBetween(dateTime1, dateTime2);
         Long diff = duration == null ? null : duration.getSeconds() / (60 * 60 * 24);
         return diff;
     }
 
+    @Override
     public Integer weekday(XMLGregorianCalendar dateTime) {
         if (dateTime == null) {
             return null;
@@ -87,6 +95,7 @@ public class DefaultSignavioDateLib extends SignavioBaseDateTimeLib {
         return weekDay;
     }
 
+    @Override
     public XMLGregorianCalendar today() {
         return FEELXMLGregorianCalendar.makeXMLCalendar(LocalDate.now());
     }

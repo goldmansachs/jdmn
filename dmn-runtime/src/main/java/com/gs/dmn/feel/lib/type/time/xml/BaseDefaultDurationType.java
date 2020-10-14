@@ -55,11 +55,11 @@ public abstract class BaseDefaultDurationType extends BaseType {
     // Duration operators
     //
     public Boolean durationEqual(Duration first, Duration second) {
-        return this.comparator.equal(first, second);
+        return this.comparator.equalTo(first, second);
     }
 
     public Boolean durationNotEqual(Duration first, Duration second) {
-        return this.comparator.notEqual(first, second);
+        return this.comparator.notEqualTo(first, second);
     }
 
     public Boolean durationLessThan(Duration first, Duration second) {

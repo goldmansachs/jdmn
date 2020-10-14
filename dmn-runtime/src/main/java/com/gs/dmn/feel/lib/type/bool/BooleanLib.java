@@ -10,17 +10,24 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.signavio.feel.lib.type.time.xml;
+package com.gs.dmn.feel.lib.type.bool;
 
-import com.gs.dmn.feel.lib.type.time.xml.FEELXMLGregorianCalendar;
-import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
+import java.util.List;
 
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.time.ZonedDateTime;
+public interface BooleanLib {
+    Boolean and(List<Object> list);
 
-public class DefaultSignavioDateTimeLib implements SignavioDateTimeLib<XMLGregorianCalendar> {
-    @Override
-    public XMLGregorianCalendar now() {
-        return FEELXMLGregorianCalendar.makeXMLCalendar(ZonedDateTime.now());
-    }
+    Boolean and(Object... args);
+
+    Boolean all(List<Object> list);
+
+    Boolean all(Object... args);
+
+    Boolean or(List<Object> list);
+
+    Boolean or(Object... args);
+
+    Boolean any(List<Object> list);
+
+    Boolean any(Object... args);
 }

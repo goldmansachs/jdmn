@@ -10,17 +10,20 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.signavio.feel.lib.type.time.xml;
+package com.gs.dmn.feel.lib.type.time;
 
-import com.gs.dmn.feel.lib.type.time.xml.FEELXMLGregorianCalendar;
-import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
+public interface DateLib<NUMBER, DATE> {
+    DATE date(String literal);
 
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.time.ZonedDateTime;
+    DATE date(NUMBER year, NUMBER month, NUMBER day);
 
-public class DefaultSignavioDateTimeLib implements SignavioDateTimeLib<XMLGregorianCalendar> {
-    @Override
-    public XMLGregorianCalendar now() {
-        return FEELXMLGregorianCalendar.makeXMLCalendar(ZonedDateTime.now());
-    }
+    DATE date(DATE from);
+
+    Integer year(DATE date);
+
+    Integer month(DATE date);
+
+    Integer day(DATE date);
+
+    Integer weekday(DATE date);
 }

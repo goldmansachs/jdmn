@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
+import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigInteger;
@@ -21,9 +22,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalQueries;
 
-public class DefaultDateTimeLib extends BaseDateTimeLib {
+public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar> {
     public static final ZoneId UTC = ZoneId.of("UTC");
 
+    @Override
     public XMLGregorianCalendar dateAndTime(String literal) {
         if (literal == null) {
             return null;
@@ -34,6 +36,7 @@ public class DefaultDateTimeLib extends BaseDateTimeLib {
         return this.isValidDateTime(calendar) ? calendar : null;
     }
 
+    @Override
     public XMLGregorianCalendar dateAndTime(XMLGregorianCalendar date, XMLGregorianCalendar time) {
         if (date == null || time == null) {
             return null;

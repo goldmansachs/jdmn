@@ -159,12 +159,12 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
 
     @Override
     public Boolean numericEqual(BigDecimal first, BigDecimal second) {
-        return this.comparator.equal(first, second);
+        return this.comparator.equalTo(first, second);
     }
 
     @Override
     public Boolean numericNotEqual(BigDecimal first, BigDecimal second) {
-        return this.comparator.notEqual(first, second);
+        return this.comparator.notEqualTo(first, second);
     }
 
     @Override

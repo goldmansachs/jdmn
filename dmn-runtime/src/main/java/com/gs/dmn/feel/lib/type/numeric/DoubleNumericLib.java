@@ -18,7 +18,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
-public class DoubleNumericLib {
+public class DoubleNumericLib implements NumericLib<Double> {
+    @Override
     public Double number(String literal) {
         if (StringUtils.isBlank(literal)) {
             return null;
@@ -27,6 +28,7 @@ public class DoubleNumericLib {
         return Double.parseDouble(literal);
     }
 
+    @Override
     public Double number(String from, String groupingSeparator, String decimalSeparator) {
         if (StringUtils.isBlank(from)) {
             return null;
@@ -53,6 +55,7 @@ public class DoubleNumericLib {
         return number(from);
     }
 
+    @Override
     public Double decimal(Double n, Double scale) {
         if (n == null || scale == null) {
             return null;
@@ -61,6 +64,7 @@ public class DoubleNumericLib {
         return BigDecimal.valueOf(n).setScale(scale.intValue(), RoundingMode.HALF_EVEN).doubleValue();
     }
 
+    @Override
     public Double floor(Double number) {
         if (number == null) {
             return null;
@@ -69,6 +73,7 @@ public class DoubleNumericLib {
         return BigDecimal.valueOf(number).setScale(0, BigDecimal.ROUND_FLOOR).doubleValue();
     }
 
+    @Override
     public Double ceiling(Double number) {
         if (number == null) {
             return null;
@@ -77,6 +82,7 @@ public class DoubleNumericLib {
         return BigDecimal.valueOf(number).setScale(0, BigDecimal.ROUND_CEILING).doubleValue();
     }
 
+    @Override
     public Double abs(Double number) {
         if (number == null) {
             return null;
@@ -85,6 +91,7 @@ public class DoubleNumericLib {
         return Math.abs(number);
     }
 
+    @Override
     public Double intModulo(Double dividend, Double divisor) {
         if (dividend == null || divisor == null) {
             return null;
@@ -93,6 +100,7 @@ public class DoubleNumericLib {
         return Double.valueOf(dividend.intValue() % divisor.intValue());
     }
 
+    @Override
     public Double modulo(Double dividend, Double divisor) {
         if (dividend == null || divisor == null) {
             return null;
@@ -101,6 +109,7 @@ public class DoubleNumericLib {
         return dividend - divisor * floor(dividend/divisor);
     }
 
+    @Override
     public Double sqrt(Double number) {
         if (number == null) {
             return null;
@@ -114,6 +123,7 @@ public class DoubleNumericLib {
         }
     }
 
+    @Override
     public Double log(Double number) {
         if (number == null) {
             return null;
@@ -127,6 +137,7 @@ public class DoubleNumericLib {
         }
     }
 
+    @Override
     public Double exp(Double number) {
         if (number == null) {
             return null;
@@ -140,6 +151,7 @@ public class DoubleNumericLib {
         }
     }
 
+    @Override
     public Boolean odd(Double number) {
         if (!isIntegerValue(number)) {
             return null;
@@ -148,6 +160,7 @@ public class DoubleNumericLib {
         return number.intValue() % 2 != 0;
     }
 
+    @Override
     public Boolean even(Double number) {
         if (!isIntegerValue(number)) {
             return null;
@@ -167,10 +180,12 @@ public class DoubleNumericLib {
     //
     // List functions
     //
+    @Override
     public Double count(List list) {
         return list == null ? Double.valueOf(0) : Double.valueOf(list.size());
     }
 
+    @Override
     public Double min(List list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -186,6 +201,7 @@ public class DoubleNumericLib {
         return result;
     }
 
+    @Override
     public Double min(Object... args) {
         if (args == null || args.length < 1) {
             return null;
@@ -194,6 +210,7 @@ public class DoubleNumericLib {
         return min(Arrays.asList(args));
     }
 
+    @Override
     public Double max(List list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -209,6 +226,7 @@ public class DoubleNumericLib {
         return result;
     }
 
+    @Override
     public Double max(Object... args) {
         if (args == null || args.length < 1) {
             return null;
@@ -217,6 +235,7 @@ public class DoubleNumericLib {
         return max(Arrays.asList(args));
     }
 
+    @Override
     public Double sum(List list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -230,6 +249,7 @@ public class DoubleNumericLib {
         return result;
     }
 
+    @Override
     public Double sum(Object... args) {
         if (args == null || args.length < 1) {
             return null;
@@ -238,6 +258,7 @@ public class DoubleNumericLib {
         return sum(Arrays.asList(args));
     }
 
+    @Override
     public Double mean(List list) {
         if (list == null) {
             return null;
@@ -247,6 +268,7 @@ public class DoubleNumericLib {
         return DoubleNumericType.doubleNumericDivide(sum, Double.valueOf(list.size()));
     }
 
+    @Override
     public Double mean(Object... args) {
         if (args == null || args.length < 1) {
             return null;
@@ -255,6 +277,7 @@ public class DoubleNumericLib {
         return mean(Arrays.asList(args));
     }
 
+    @Override
     public Double product(List list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -268,6 +291,7 @@ public class DoubleNumericLib {
         return result;
     }
 
+    @Override
     public Double product(Object... numbers) {
         if (numbers == null || numbers.length < 1) {
             return null;
@@ -276,6 +300,7 @@ public class DoubleNumericLib {
         return product(Arrays.asList(numbers));
     }
 
+    @Override
     public Double median(List list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -294,6 +319,7 @@ public class DoubleNumericLib {
         return median;
     }
 
+    @Override
     public Double median(Object... numbers) {
         if (numbers == null || numbers.length < 1) {
             return null;
@@ -302,6 +328,7 @@ public class DoubleNumericLib {
         return median(Arrays.asList(numbers));
     }
 
+    @Override
     public Double stddev(List list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -321,6 +348,7 @@ public class DoubleNumericLib {
         return stddev;
     }
 
+    @Override
     public Double stddev(Object... numbers) {
         if (numbers == null || numbers.length < 1) {
             return null;
@@ -329,6 +357,7 @@ public class DoubleNumericLib {
         return stddev(Arrays.asList(numbers));
     }
 
+    @Override
     public List mode(List list) {
         if (list == null) {
             return null;
@@ -368,6 +397,7 @@ public class DoubleNumericLib {
         return modes;
     }
 
+    @Override
     public List mode(Object... numbers) {
         if (numbers == null) {
             return null;

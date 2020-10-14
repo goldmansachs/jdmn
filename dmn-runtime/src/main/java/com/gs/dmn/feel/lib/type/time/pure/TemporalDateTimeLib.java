@@ -13,15 +13,17 @@
 package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
+import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.*;
 import java.time.temporal.Temporal;
 
-public class TemporalDateTimeLib extends BaseDateTimeLib {
+public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<LocalDate, Temporal, Temporal> {
     private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib();
 
+    @Override
     public Temporal dateAndTime(String literal) {
         if (StringUtils.isBlank(literal)) {
             return null;
@@ -31,6 +33,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib {
         return (Temporal) this.dateTimeLib.temporalAccessor(literal);
     }
 
+    @Override
     public Temporal dateAndTime(LocalDate date, Temporal time) {
         if (date == null || time == null) {
             return null;

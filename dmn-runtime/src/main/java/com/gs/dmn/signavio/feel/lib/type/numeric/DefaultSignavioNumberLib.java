@@ -17,7 +17,8 @@ import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class DefaultSignavioNumberLib extends DefaultNumericLib {
+public class DefaultSignavioNumberLib extends DefaultNumericLib implements SignavioNumberLib<BigDecimal> {
+    @Override
     public BigDecimal number(String text, BigDecimal defaultValue) {
         if (text == null || defaultValue ==  null) {
             return null;
@@ -40,6 +41,7 @@ public class DefaultSignavioNumberLib extends DefaultNumericLib {
         return BigDecimal.valueOf(list.size());
     }
 
+    @Override
     public BigDecimal round(BigDecimal number, BigDecimal digits) {
         if (number == null || digits == null) {
             return null;
@@ -48,6 +50,7 @@ public class DefaultSignavioNumberLib extends DefaultNumericLib {
         return number.setScale(digits.intValue(), BigDecimal.ROUND_HALF_UP);
     }
 
+    @Override
     public BigDecimal roundDown(BigDecimal number, BigDecimal digits) {
         if (number == null || digits == null) {
             return null;
@@ -56,6 +59,7 @@ public class DefaultSignavioNumberLib extends DefaultNumericLib {
         return number.setScale(digits.intValue(), BigDecimal.ROUND_DOWN);
     }
 
+    @Override
     public BigDecimal roundUp(BigDecimal number, BigDecimal digits) {
         if (number == null || digits == null) {
             return null;
@@ -64,6 +68,7 @@ public class DefaultSignavioNumberLib extends DefaultNumericLib {
         return number.setScale(digits.intValue(), BigDecimal.ROUND_UP);
     }
 
+    @Override
     public BigDecimal integer(BigDecimal number) {
         return BigDecimal.valueOf(number.intValue());
     }

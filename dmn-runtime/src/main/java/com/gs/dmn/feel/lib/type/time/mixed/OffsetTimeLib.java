@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
+import com.gs.dmn.feel.lib.type.time.TimeLib;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.DatatypeFactory;
@@ -23,13 +24,14 @@ import java.time.OffsetTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
-public class OffsetTimeLib extends BaseDateTimeLib {
+public class OffsetTimeLib extends BaseDateTimeLib implements TimeLib<Double, OffsetTime, Duration> {
     private final DatatypeFactory dataTypeFactory;
 
     public OffsetTimeLib(DatatypeFactory dataTypeFactory) {
         this.dataTypeFactory = dataTypeFactory;
     }
 
+    @Override
     public OffsetTime time(String literal) {
         if (StringUtils.isBlank(literal)) {
             return null;
@@ -38,6 +40,7 @@ public class OffsetTimeLib extends BaseDateTimeLib {
         return this.makeOffsetTime(literal);
     }
 
+    @Override
     public OffsetTime time(Double hour, Double minute, Double second, Duration offset) {
         if (hour == null || minute == null || second == null) {
             return null;
@@ -100,6 +103,7 @@ public class OffsetTimeLib extends BaseDateTimeLib {
         }
         return from.atStartOfDay(ZoneOffset.UTC).toOffsetDateTime().toOffsetTime();
     }
+    @Override
     public OffsetTime time(OffsetTime from) {
         if (from == null) {
             return null;
@@ -116,6 +120,7 @@ public class OffsetTimeLib extends BaseDateTimeLib {
         return (OffsetTime) object;
     }
 
+    @Override
     public Integer hour(OffsetTime time) {
         if (time == null) {
             return null;
@@ -131,6 +136,7 @@ public class OffsetTimeLib extends BaseDateTimeLib {
         return dateTime.getHour();
     }
 
+    @Override
     public Integer minute(OffsetTime time) {
         if (time == null) {
             return null;
@@ -146,6 +152,7 @@ public class OffsetTimeLib extends BaseDateTimeLib {
         return dateTime.getMinute();
     }
 
+    @Override
     public Integer second(OffsetTime time) {
         if (time == null) {
             return null;
@@ -161,6 +168,7 @@ public class OffsetTimeLib extends BaseDateTimeLib {
         return dateTime.getSecond();
     }
 
+    @Override
     public Duration timeOffset(OffsetTime time) {
         if (time == null) {
             return null;
@@ -180,6 +188,7 @@ public class OffsetTimeLib extends BaseDateTimeLib {
         return computeDuration(secondsOffset);
     }
 
+    @Override
     public String timezone(OffsetTime time) {
         if (time == null) {
             return null;

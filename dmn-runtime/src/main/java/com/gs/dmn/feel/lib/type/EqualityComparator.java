@@ -15,10 +15,10 @@ package com.gs.dmn.feel.lib.type;
 import java.util.function.Supplier;
 
 public interface EqualityComparator<T> {
-    Boolean equal(T first, T second);
+    Boolean equalTo(T first, T second);
 
-    default Boolean notEqual(T first, T second) {
-        Boolean equal = equal(first, second);
+    default Boolean notEqualTo(T first, T second) {
+        Boolean equal = equalTo(first, second);
         return equal == null ? null : ! equal;
     }
 

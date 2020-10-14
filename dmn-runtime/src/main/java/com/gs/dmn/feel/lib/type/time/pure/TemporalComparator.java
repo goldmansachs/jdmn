@@ -49,7 +49,7 @@ public class TemporalComparator implements RelationalComparator<Temporal> {
     }
 
     @Override
-    public Boolean equal(Temporal first, Temporal second) {
+    public Boolean equalTo(Temporal first, Temporal second) {
         try {
             return applyOperator(first, second, new Supplier[] {
                     () -> TRUE,
