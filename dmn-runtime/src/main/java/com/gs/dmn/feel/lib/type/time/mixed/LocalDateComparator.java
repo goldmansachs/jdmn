@@ -27,7 +27,7 @@ public class LocalDateComparator implements RelationalComparator<LocalDate> {
     }
 
     @Override
-    public Boolean equal(LocalDate first, LocalDate second) {
+    public Boolean equalTo(LocalDate first, LocalDate second) {
         return applyOperator(first, second, new Supplier[] {
                 () -> TRUE,
                 () -> FALSE,

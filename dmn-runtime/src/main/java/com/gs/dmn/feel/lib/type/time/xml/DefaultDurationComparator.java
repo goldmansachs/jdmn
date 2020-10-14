@@ -30,7 +30,7 @@ public class DefaultDurationComparator implements RelationalComparator<Duration>
     }
 
     @Override
-    public Boolean equal(Duration first, Duration second) {
+    public Boolean equalTo(Duration first, Duration second) {
         return applyOperator(first, second, new Supplier[] {
                 () -> TRUE,
                 () -> FALSE,
