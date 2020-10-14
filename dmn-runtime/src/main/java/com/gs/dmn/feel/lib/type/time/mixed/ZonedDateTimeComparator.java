@@ -28,7 +28,7 @@ public class ZonedDateTimeComparator implements RelationalComparator<ZonedDateTi
     }
 
     @Override
-    public Boolean equal(ZonedDateTime first, ZonedDateTime second) {
+    public Boolean equalTo(ZonedDateTime first, ZonedDateTime second) {
         return applyOperator(first, second, new Supplier[] {
                 () -> TRUE,
                 () -> FALSE,

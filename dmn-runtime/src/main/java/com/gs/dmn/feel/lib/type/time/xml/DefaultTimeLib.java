@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
+import com.gs.dmn.feel.lib.type.time.TimeLib;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
@@ -25,13 +26,14 @@ import java.time.OffsetTime;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalQueries;
 
-public class DefaultTimeLib extends BaseDateTimeLib {
+public class DefaultTimeLib extends BaseDateTimeLib implements TimeLib<BigDecimal, XMLGregorianCalendar, Duration> {
     private final DatatypeFactory dataTypeFactory;
 
     public DefaultTimeLib(DatatypeFactory dataTypeFactory) {
         this.dataTypeFactory = dataTypeFactory;
     }
 
+    @Override
     public XMLGregorianCalendar time(String literal) {
         if (literal == null) {
             return null;
@@ -42,6 +44,7 @@ public class DefaultTimeLib extends BaseDateTimeLib {
         return this.isValidTime(calendar) ? calendar : null;
     }
 
+    @Override
     public XMLGregorianCalendar time(BigDecimal hour, BigDecimal minute, BigDecimal second, Duration offset) {
         if (hour == null || minute == null || second == null) {
             return null;
@@ -66,6 +69,7 @@ public class DefaultTimeLib extends BaseDateTimeLib {
         return this.isValidTime(calendar) ? calendar : null;
     }
 
+    @Override
     public XMLGregorianCalendar time(XMLGregorianCalendar from) {
         if (from == null) {
             return null;
@@ -96,6 +100,7 @@ public class DefaultTimeLib extends BaseDateTimeLib {
         return time((XMLGregorianCalendar) object);
     }
 
+    @Override
     public Integer hour(XMLGregorianCalendar date) {
         if (date == null) {
             return null;
@@ -104,6 +109,7 @@ public class DefaultTimeLib extends BaseDateTimeLib {
         return date.getHour();
     }
 
+    @Override
     public Integer minute(XMLGregorianCalendar date) {
         if (date == null) {
             return null;
@@ -112,6 +118,7 @@ public class DefaultTimeLib extends BaseDateTimeLib {
         return date.getMinute();
     }
 
+    @Override
     public Integer second(XMLGregorianCalendar date) {
         if (date == null) {
             return null;
@@ -120,6 +127,7 @@ public class DefaultTimeLib extends BaseDateTimeLib {
         return date.getSecond();
     }
 
+    @Override
     public Duration timeOffset(XMLGregorianCalendar date) {
         if (date == null) {
             return null;
@@ -133,6 +141,7 @@ public class DefaultTimeLib extends BaseDateTimeLib {
         }
     }
 
+    @Override
     public String timezone(XMLGregorianCalendar date) {
         if (date == null) {
             return null;

@@ -43,12 +43,12 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
 
     @Override
     public Boolean timeEqual(OffsetTime first, OffsetTime second) {
-        return this.comparator.equal(first, second);
+        return this.comparator.equalTo(first, second);
     }
 
     @Override
     public Boolean timeNotEqual(OffsetTime first, OffsetTime second) {
-        return this.comparator.notEqual(first, second);
+        return this.comparator.notEqualTo(first, second);
     }
 
     @Override

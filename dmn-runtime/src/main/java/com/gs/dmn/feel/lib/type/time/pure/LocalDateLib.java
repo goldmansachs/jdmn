@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
+import com.gs.dmn.feel.lib.type.time.DateLib;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
@@ -22,7 +23,8 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
 import java.time.temporal.Temporal;
 
-public class LocalDateLib extends BaseDateTimeLib {
+public class LocalDateLib extends BaseDateTimeLib implements DateLib<Number, LocalDate> {
+    @Override
     public LocalDate date(String literal) {
         if (StringUtils.isBlank(literal)) {
             return null;
@@ -35,6 +37,7 @@ public class LocalDateLib extends BaseDateTimeLib {
         }
     }
 
+    @Override
     public LocalDate date(Number year, Number month, Number day) {
         if (year == null || month == null || day == null) {
             return null;
@@ -43,6 +46,10 @@ public class LocalDateLib extends BaseDateTimeLib {
         return LocalDate.of(year.intValue(), month.intValue(), day.intValue());
     }
 
+    @Override
+    public LocalDate date(LocalDate from) {
+        return from;
+    }
     public LocalDate date(Temporal from) {
         if (from == null) {
             return null;
@@ -67,6 +74,7 @@ public class LocalDateLib extends BaseDateTimeLib {
         return null;
     }
 
+    @Override
     public Integer year(LocalDate date) {
         if (date == null) {
             return null;
@@ -82,6 +90,7 @@ public class LocalDateLib extends BaseDateTimeLib {
         return dateTime.get(ChronoField.YEAR);
     }
 
+    @Override
     public Integer month(LocalDate date) {
         if (date == null) {
             return null;
@@ -97,6 +106,7 @@ public class LocalDateLib extends BaseDateTimeLib {
         return dateTime.get(ChronoField.MONTH_OF_YEAR);
     }
 
+    @Override
     public Integer day(LocalDate date) {
         if (date == null) {
             return null;
@@ -111,6 +121,7 @@ public class LocalDateLib extends BaseDateTimeLib {
 
         return dateTime.get(ChronoField.DAY_OF_MONTH);
     }
+    @Override
     public Integer weekday(LocalDate date) {
         if (date == null) {
             return null;

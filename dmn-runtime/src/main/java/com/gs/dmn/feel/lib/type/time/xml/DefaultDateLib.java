@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
+import com.gs.dmn.feel.lib.type.time.DateLib;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.DatatypeConstants;
@@ -25,7 +26,8 @@ import java.time.temporal.TemporalAccessor;
 import java.util.Calendar;
 
 
-public class DefaultDateLib extends BaseDateTimeLib {
+public class DefaultDateLib extends BaseDateTimeLib implements DateLib<BigDecimal, XMLGregorianCalendar> {
+    @Override
     public XMLGregorianCalendar date(String literal) {
         if (StringUtils.isBlank(literal)) {
             return null;
@@ -35,6 +37,7 @@ public class DefaultDateLib extends BaseDateTimeLib {
         return this.isValidDate(calendar) ? calendar : null;
     }
 
+    @Override
     public XMLGregorianCalendar date(BigDecimal year, BigDecimal month, BigDecimal day) {
         if (year == null || month == null || day == null) {
             return null;
@@ -44,6 +47,7 @@ public class DefaultDateLib extends BaseDateTimeLib {
         return this.isValidDate(calendar) ? calendar : null;
     }
 
+    @Override
     public XMLGregorianCalendar date(XMLGregorianCalendar from) {
         if (from == null) {
             return null;
@@ -82,6 +86,7 @@ public class DefaultDateLib extends BaseDateTimeLib {
         return date(calendar);
     }
 
+    @Override
     public Integer year(XMLGregorianCalendar date) {
         if (date == null) {
             return null;
@@ -90,6 +95,7 @@ public class DefaultDateLib extends BaseDateTimeLib {
         return date.getYear();
     }
 
+    @Override
     public Integer month(XMLGregorianCalendar date) {
         if (date == null) {
             return null;
@@ -98,6 +104,7 @@ public class DefaultDateLib extends BaseDateTimeLib {
         return date.getMonth();
     }
 
+    @Override
     public Integer day(XMLGregorianCalendar date) {
         if (date == null) {
             return null;
@@ -106,6 +113,7 @@ public class DefaultDateLib extends BaseDateTimeLib {
         return date.getDay();
     }
 
+    @Override
     public Integer weekday(XMLGregorianCalendar date) {
         if (date == null) {
             return null;

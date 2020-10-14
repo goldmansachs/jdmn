@@ -10,17 +10,23 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.signavio.feel.lib.type.time.xml;
+package com.gs.dmn.signavio.feel.lib.type.numeric;
 
-import com.gs.dmn.feel.lib.type.time.xml.FEELXMLGregorianCalendar;
-import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
+import java.util.List;
 
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.time.ZonedDateTime;
+public interface SignavioNumberLib<NUMBER> {
+    NUMBER number(String text, NUMBER defaultValue);
 
-public class DefaultSignavioDateTimeLib implements SignavioDateTimeLib<XMLGregorianCalendar> {
-    @Override
-    public XMLGregorianCalendar now() {
-        return FEELXMLGregorianCalendar.makeXMLCalendar(ZonedDateTime.now());
-    }
+    NUMBER count(List list);
+
+    NUMBER round(NUMBER number, NUMBER digits);
+
+    NUMBER integer(NUMBER number);
+
+    NUMBER modulo(NUMBER dividend, NUMBER divisor);
+
+    NUMBER roundDown(NUMBER number, NUMBER digits);
+
+    NUMBER roundUp(NUMBER number, NUMBER digits);
 }
+

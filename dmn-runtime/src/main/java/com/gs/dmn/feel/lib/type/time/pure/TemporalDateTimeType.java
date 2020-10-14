@@ -40,12 +40,12 @@ public class TemporalDateTimeType extends JavaTimeType implements DateTimeType<T
 
     @Override
     public Boolean dateTimeEqual(Temporal first, Temporal second) {
-        return this.comparator.equal(first, second);
+        return this.comparator.equalTo(first, second);
     }
 
     @Override
     public Boolean dateTimeNotEqual(Temporal first, Temporal second) {
-        return this.comparator.notEqual(first, second);
+        return this.comparator.notEqualTo(first, second);
     }
 
     @Override

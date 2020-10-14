@@ -142,11 +142,11 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
 
     @Override
-    public BigDecimal modulo(BigDecimal divident, BigDecimal divisor) {
+    public BigDecimal modulo(BigDecimal dividend, BigDecimal divisor) {
         try {
-            return this.numberLib.modulo(divident, divisor);
+            return this.numberLib.modulo(dividend, divisor);
         } catch (Exception e) {
-            String message = String.format("modulo(%s, %s)", divident, divisor);
+            String message = String.format("modulo(%s, %s)", dividend, divisor);
             logError(message, e);
             return null;
         }
@@ -451,7 +451,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
             return null;
         }
     }
-    public ZonedDateTime monthAdd(LocalDate date, BigDecimal monthsToAdd) {
+    public LocalDate monthAdd(LocalDate date, BigDecimal monthsToAdd) {
         try {
             return this.dateLib.monthAdd(date, monthsToAdd);
         } catch (Exception e) {
@@ -541,7 +541,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
             return null;
         }
     }
-    public ZonedDateTime yearAdd(LocalDate localDate, BigDecimal yearsToAdd) {
+    public LocalDate yearAdd(LocalDate localDate, BigDecimal yearsToAdd) {
         try {
             return this.dateLib.yearAdd(localDate, yearsToAdd);
         } catch (Exception e) {

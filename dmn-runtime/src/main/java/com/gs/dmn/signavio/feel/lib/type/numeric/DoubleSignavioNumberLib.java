@@ -17,7 +17,8 @@ import com.gs.dmn.feel.lib.type.numeric.DoubleNumericLib;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class DoubleSignavioNumberLib extends DoubleNumericLib {
+public class DoubleSignavioNumberLib extends DoubleNumericLib implements SignavioNumberLib<Double>{
+    @Override
     public Double number(String text, Double defaultValue) {
         if (text == null || defaultValue ==  null) {
             return null;
@@ -40,6 +41,7 @@ public class DoubleSignavioNumberLib extends DoubleNumericLib {
         return Double.valueOf(list.size());
     }
 
+    @Override
     public Double round(Double number, Double digits) {
         if (number == null || digits == null) {
             return null;
@@ -48,6 +50,7 @@ public class DoubleSignavioNumberLib extends DoubleNumericLib {
         return BigDecimal.valueOf(number).setScale(digits.intValue(), BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
+    @Override
     public Double roundDown(Double number, Double digits) {
         if (number == null || digits == null) {
             return null;
@@ -56,6 +59,7 @@ public class DoubleSignavioNumberLib extends DoubleNumericLib {
         return BigDecimal.valueOf(number).setScale(digits.intValue(), BigDecimal.ROUND_DOWN).doubleValue();
     }
 
+    @Override
     public Double roundUp(Double number, Double digits) {
         if (number == null || digits == null) {
             return null;
@@ -64,6 +68,7 @@ public class DoubleSignavioNumberLib extends DoubleNumericLib {
         return BigDecimal.valueOf(number).setScale(digits.intValue(), BigDecimal.ROUND_UP).doubleValue();
     }
 
+    @Override
     public Double integer(Double number) {
         return Double.valueOf(number.intValue());
     }

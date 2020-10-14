@@ -38,12 +38,12 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
 
     @Override
     public Boolean dateTimeEqual(ZonedDateTime first, ZonedDateTime second) {
-        return this.comparator.equal(first, second);
+        return this.comparator.equalTo(first, second);
     }
 
     @Override
     public Boolean dateTimeNotEqual(ZonedDateTime first, ZonedDateTime second) {
-        return this.comparator.notEqual(first, second);
+        return this.comparator.notEqualTo(first, second);
     }
 
     @Override

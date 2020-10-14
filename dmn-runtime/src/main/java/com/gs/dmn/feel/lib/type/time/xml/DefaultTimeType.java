@@ -43,7 +43,7 @@ public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCa
     //
     @Override
     public Boolean timeEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return this.comparator.equal(first, second);
+        return this.comparator.equalTo(first, second);
     }
 
     @Override
