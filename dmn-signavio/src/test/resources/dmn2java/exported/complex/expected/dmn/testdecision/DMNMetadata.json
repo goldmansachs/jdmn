@@ -75,5 +75,25 @@
       "localName" : "test",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml"
     }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : "85f2dd29e4774c2f84b883545afdd8cc",
+    "extensions" : [ ],
+    "id" : "id-fada51ce664c63874c99e6e7cf630c33",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "test1",
+    "javaTypeName" : "Test1",
+    "knowledgeReferences" : [ ],
+    "label" : "Test1",
+    "name" : "test1",
+    "protoRequestName" : "proto.Test1Request",
+    "protoResponseName" : "proto.Test1Response",
+    "shapeId" : "sid-C2D7E836-74E5-4BA8-801D-F6CBAA950677",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "stringInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml"
+    }
   } ]
 }
