@@ -18,15 +18,18 @@ import java.util.List;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
-public class DefaultBooleanLib {
+public class DefaultBooleanLib implements BooleanLib {
+    @Override
     public Boolean and(List<Object> list) {
         return all(list);
     }
 
+    @Override
     public Boolean and(Object... args) {
         return all(args);
     }
 
+    @Override
     public Boolean all(List<Object> list) {
         if (list == null) {
             return null;
@@ -41,6 +44,7 @@ public class DefaultBooleanLib {
         }
     }
 
+    @Override
     public Boolean all(Object... args) {
         if (args == null) {
             return null;
@@ -49,14 +53,17 @@ public class DefaultBooleanLib {
         return all(Arrays.asList(args));
     }
 
+    @Override
     public Boolean or(List<Object> list) {
         return any(list);
     }
 
+    @Override
     public Boolean or(Object... args) {
         return any(args);
     }
 
+    @Override
     public Boolean any(List<Object> list) {
         if (list == null) {
             return null;
@@ -71,6 +78,7 @@ public class DefaultBooleanLib {
         }
     }
 
+    @Override
     public Boolean any(Object... args) {
         if (args == null) {
             return null;

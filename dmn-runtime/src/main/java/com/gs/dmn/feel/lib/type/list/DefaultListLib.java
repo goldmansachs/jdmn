@@ -18,11 +18,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class DefaultListLib {
+public class DefaultListLib implements ListLib {
+    @Override
     public Boolean listContains(List list, Object element) {
         return list == null ? null : list.contains(element);
     }
 
+    @Override
     public List append(List list, Object... items) {
         List result = new ArrayList<>();
         if (list != null) {
@@ -38,6 +40,7 @@ public class DefaultListLib {
         return result;
     }
 
+    @Override
     public List sublist(List list, int position) {
         List result = new ArrayList<>();
         if (list == null || isOutOfBounds(list, position)) {
@@ -57,6 +60,7 @@ public class DefaultListLib {
         return result;
     }
 
+    @Override
     public List sublist(List list, int position, int length) {
         List result = new ArrayList<>();
         if (list == null || isOutOfBounds(list, position)) {
@@ -86,6 +90,7 @@ public class DefaultListLib {
         }
     }
 
+    @Override
     public List concatenate(Object... lists) {
         List result = new ArrayList<>();
         if (lists != null) {
@@ -96,6 +101,7 @@ public class DefaultListLib {
         return result;
     }
 
+    @Override
     public List insertBefore(List list, int position, Object newItem) {
         List result = new ArrayList<>();
         if (list != null) {
@@ -113,6 +119,7 @@ public class DefaultListLib {
         return result;
     }
 
+    @Override
     public List remove(List list, int position) {
         List result = new ArrayList<>();
         if (list != null) {
@@ -122,6 +129,7 @@ public class DefaultListLib {
         return result;
     }
 
+    @Override
     public List reverse(List list) {
         List result = new ArrayList<>();
         if (list != null) {
@@ -132,6 +140,7 @@ public class DefaultListLib {
         return result;
     }
 
+    @Override
     public List union(Object... lists) {
         List result = new ArrayList<>();
         if (lists != null) {
@@ -142,6 +151,7 @@ public class DefaultListLib {
         return distinctValues(result);
     }
 
+    @Override
     public List distinctValues(List list1) {
         List result = new ArrayList<>();
         if (list1 != null) {
@@ -154,6 +164,7 @@ public class DefaultListLib {
         return result;
     }
 
+    @Override
     public List flatten(List list1) {
         if (list1 == null) {
             return null;
@@ -163,6 +174,7 @@ public class DefaultListLib {
         return result;
     }
 
+    @Override
     public void collect(List result, List list) {
         if (list != null) {
             for (Object object : list) {
@@ -175,6 +187,7 @@ public class DefaultListLib {
         }
     }
 
+    @Override
     public <T> List<T> sort(List<T> list, LambdaExpression<Boolean> comparator) {
         List<T> clone = new ArrayList<>(list);
         Comparator<? super T> comp = (Comparator<T>) (o1, o2) -> {

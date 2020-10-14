@@ -38,9 +38,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DefaultStringLib {
+public class DefaultStringLib implements StringLib {
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.########");
 
+    @Override
     public String string(Object from) {
         if (from == null) {
             return "null";
@@ -61,6 +62,7 @@ public class DefaultStringLib {
         }
     }
 
+    @Override
     public Boolean contains(String string, String match) {
         if (string == null || match == null) {
             return null;
@@ -69,6 +71,7 @@ public class DefaultStringLib {
         return string.contains(match);
     }
 
+    @Override
     public Boolean startsWith(String string, String match) {
         if (string == null || match == null) {
             return null;
@@ -77,6 +80,7 @@ public class DefaultStringLib {
         return string.startsWith(match);
     }
 
+    @Override
     public Boolean endsWith(String string, String match) {
         if (string == null || match == null) {
             return null;
@@ -85,6 +89,7 @@ public class DefaultStringLib {
         return string.endsWith(match);
     }
 
+    @Override
     public Integer stringLength(String string) {
         if (string == null) {
             return null;
@@ -92,6 +97,7 @@ public class DefaultStringLib {
         return string.length();
     }
 
+    @Override
     public String substring(String string, Number startPosition) {
         if (string == null || startPosition == null) {
             return null;
@@ -110,6 +116,7 @@ public class DefaultStringLib {
         return result;
     }
 
+    @Override
     public String substring(String string, Number startPosition, Number length) {
         if (string == null || startPosition == null || length == null) {
             return null;
@@ -137,6 +144,7 @@ public class DefaultStringLib {
         return result.toString();
     }
 
+    @Override
     public String upperCase(String string) {
         if (string == null) {
             return null;
@@ -145,6 +153,7 @@ public class DefaultStringLib {
         return string.toUpperCase();
     }
 
+    @Override
     public String lowerCase(String string) {
         if (string == null) {
             return null;
@@ -153,6 +162,7 @@ public class DefaultStringLib {
         return string.toLowerCase();
     }
 
+    @Override
     public String substringBefore(String string, String match) {
         if (string == null || match == null) {
             return null;
@@ -162,6 +172,7 @@ public class DefaultStringLib {
         return i == -1 ? "" : string.substring(0, i);
     }
 
+    @Override
     public String substringAfter(String string, String match) {
         if (string == null || match == null) {
             return null;
@@ -171,6 +182,7 @@ public class DefaultStringLib {
         return i == -1 ? "" : string.substring(i + match.length());
     }
 
+    @Override
     public String replace(String input, String pattern, String replacement, String flags) throws Exception {
         if (input == null || pattern == null || replacement == null) {
             return null;
@@ -183,6 +195,7 @@ public class DefaultStringLib {
         return evaluateXPath(input, expression);
     }
 
+    @Override
     public Boolean matches(String input, String pattern, String flags) throws Exception {
         if (input == null || pattern == null) {
             return false;
@@ -196,6 +209,7 @@ public class DefaultStringLib {
         return input.equals(value);
     }
 
+    @Override
     public List split(String string, String delimiter) {
         if (string == null || delimiter == null) {
             return null;

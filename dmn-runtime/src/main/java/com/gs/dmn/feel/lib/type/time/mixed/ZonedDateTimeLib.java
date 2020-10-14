@@ -12,11 +12,15 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
+import com.gs.dmn.feel.lib.type.DateTimeType;
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
+import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 
+import javax.xml.datatype.Duration;
 import java.time.*;
 
-public class ZonedDateTimeLib extends BaseDateTimeLib {
+public class ZonedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<LocalDate, OffsetTime, ZonedDateTime> {
+    @Override
     public ZonedDateTime dateAndTime(String from) {
         if (from == null) {
             return null;
@@ -31,6 +35,7 @@ public class ZonedDateTimeLib extends BaseDateTimeLib {
         return makeZonedDateTime(from);
     }
 
+    @Override
     public ZonedDateTime dateAndTime(LocalDate date, OffsetTime time) {
         if (date == null || time == null) {
             return null;

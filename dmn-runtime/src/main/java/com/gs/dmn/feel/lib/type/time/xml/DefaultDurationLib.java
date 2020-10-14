@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
+import com.gs.dmn.feel.lib.type.time.DurationLib;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.DatatypeConstants;
@@ -25,13 +26,14 @@ import java.time.temporal.TemporalAmount;
 import java.util.Arrays;
 import java.util.List;
 
-public class DefaultDurationLib {
+public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, javax.xml.datatype.Duration> {
     private final DatatypeFactory dataTypeFactory;
 
     public DefaultDurationLib(DatatypeFactory dataTypeFactory) {
         this.dataTypeFactory = dataTypeFactory;
     }
 
+    @Override
     public javax.xml.datatype.Duration duration(String from) {
         if (StringUtils.isBlank(from)) {
             return null;
@@ -40,6 +42,7 @@ public class DefaultDurationLib {
         return this.dataTypeFactory.newDuration(from);
     }
 
+    @Override
     public javax.xml.datatype.Duration yearsAndMonthsDuration(XMLGregorianCalendar from, XMLGregorianCalendar to) {
         if (from == null || to == null) {
             return null;
@@ -50,6 +53,7 @@ public class DefaultDurationLib {
         return this.toYearsMonthDuration(this.dataTypeFactory, toLocalDate, fromLocalDate);
     }
 
+    @Override
     public Integer years(javax.xml.datatype.Duration duration) {
         if (duration == null) {
             return null;
@@ -62,6 +66,7 @@ public class DefaultDurationLib {
         }
     }
 
+    @Override
     public Integer months(javax.xml.datatype.Duration duration) {
         if (duration == null) {
             return null;
@@ -74,6 +79,7 @@ public class DefaultDurationLib {
         }
     }
 
+    @Override
     public Integer days(javax.xml.datatype.Duration duration) {
         if (duration == null) {
             return null;
@@ -86,6 +92,7 @@ public class DefaultDurationLib {
         }
     }
 
+    @Override
     public Integer hours(javax.xml.datatype.Duration duration) {
         if (duration == null) {
             return null;
@@ -98,6 +105,7 @@ public class DefaultDurationLib {
         }
     }
 
+    @Override
     public Integer minutes(javax.xml.datatype.Duration duration) {
         if (duration == null) {
             return null;
@@ -110,6 +118,7 @@ public class DefaultDurationLib {
         }
     }
 
+    @Override
     public Integer seconds(javax.xml.datatype.Duration duration) {
         if (duration == null) {
             return null;
