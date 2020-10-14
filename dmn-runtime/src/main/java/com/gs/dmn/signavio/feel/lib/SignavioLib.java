@@ -73,9 +73,9 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     NUMBER integer(NUMBER number);
 
     //    Modulo(divident, divisor):NUMERIC
-    //    Returns the remainder of the divident divided by the divisor.
+    //    Returns the remainder of the dividend divided by the divisor.
     //    Example: Modulo(4, 3) returns 1.
-    NUMBER modulo(NUMBER divident, NUMBER divisor);
+    NUMBER modulo(NUMBER dividend, NUMBER divisor);
 
     //    Percent(number):NUMERIC
     //    Returns the number divided by .

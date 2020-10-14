@@ -139,11 +139,11 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     }
 
     @Override
-    public BigDecimal modulo(BigDecimal divident, BigDecimal divisor) {
+    public BigDecimal modulo(BigDecimal dividend, BigDecimal divisor) {
         try {
-            return this.numberLib.modulo(divident, divisor);
+            return this.numberLib.modulo(dividend, divisor);
         } catch (Exception e) {
-            String message = String.format("modulo(%s, %s)", divident, divisor);
+            String message = String.format("modulo(%s, %s)", dividend, divisor);
             logError(message, e);
             return null;
         }

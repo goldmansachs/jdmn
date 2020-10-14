@@ -13,15 +13,17 @@
 package com.gs.dmn.signavio.feel.lib.type.time.mixed;
 
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioBaseDateTimeLib;
+import com.gs.dmn.signavio.feel.lib.type.time.SignavioTimeLib;
 
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
-public class SignavioOffsetTimeLib extends SignavioBaseDateTimeLib {
+public class SignavioOffsetTimeLib extends SignavioBaseDateTimeLib implements SignavioTimeLib<OffsetTime> {
     public Long hourDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         long diff = durationBetween(dateTime1, dateTime2).getSeconds() / (60 * 60);
         return diff;
     }
+    @Override
     public Long hourDiff(OffsetTime time1, OffsetTime time2) {
         long diff = durationBetween(time1, time2).getSeconds() / (60 * 60);
         return diff;
@@ -31,6 +33,7 @@ public class SignavioOffsetTimeLib extends SignavioBaseDateTimeLib {
         long diff = durationBetween(dateTime1, dateTime2).getSeconds() / 60;
         return diff;
     }
+    @Override
     public Long minutesDiff(OffsetTime time1, OffsetTime time2) {
         long diff = durationBetween(time1, time2).getSeconds() / 60;
         return diff;
