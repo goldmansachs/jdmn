@@ -17,7 +17,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class DefaultSignavioStringLib {
+public class DefaultSignavioStringLib implements SignavioStringLib {
+    @Override
     public String stringAdd(String first, String second) {
         if (first == null && second == null) {
             return "";
@@ -30,6 +31,7 @@ public class DefaultSignavioStringLib {
         }
     }
 
+    @Override
     public String concat(List<String> texts) {
         if (texts == null || texts.isEmpty()) {
             return null;
@@ -47,6 +49,7 @@ public class DefaultSignavioStringLib {
         return result.toString();
     }
 
+    @Override
     public String mid(String text, Number start, Number numChar) {
         if (text == null || start == null || numChar == null) {
             return null;
@@ -65,6 +68,7 @@ public class DefaultSignavioStringLib {
         return text.substring(start.intValue(), endIndex);
     }
 
+    @Override
     public String left(String text, Number numChar) {
         if (text == null || numChar == null) {
             return null;
@@ -77,6 +81,7 @@ public class DefaultSignavioStringLib {
         return text.substring(0, length);
     }
 
+    @Override
     public String right(String text, Number numChar) {
         if (text == null || numChar == null) {
             return null;
@@ -89,11 +94,13 @@ public class DefaultSignavioStringLib {
         return text.substring(text.length() - length);
     }
 
+    @Override
     public String text(Number num, String formatText) {
         DecimalFormat df = new DecimalFormat(formatText);
         return df.format(num);
     }
 
+    @Override
     public Integer textOccurrences(String findText, String withinText) {
         if (findText == null || withinText == null) {
             return null;
@@ -111,6 +118,7 @@ public class DefaultSignavioStringLib {
         return count;
     }
 
+    @Override
     public Boolean isAlpha(String text) {
         if (text == null) {
             return null;
@@ -119,6 +127,7 @@ public class DefaultSignavioStringLib {
         return StringUtils.isAlpha(text);
     }
 
+    @Override
     public Boolean isAlphanumeric(String text) {
         if (text == null) {
             return null;
@@ -127,6 +136,7 @@ public class DefaultSignavioStringLib {
         return StringUtils.isAlphanumeric(text);
     }
 
+    @Override
     public Boolean isNumeric(String text) {
         if (text == null) {
             return null;
@@ -135,6 +145,7 @@ public class DefaultSignavioStringLib {
         return StringUtils.isNumeric(text);
     }
 
+    @Override
     public Boolean isSpaces(String text) {
         if (text == null) {
             return null;
@@ -146,14 +157,17 @@ public class DefaultSignavioStringLib {
         return StringUtils.isBlank(text);
     }
 
+    @Override
     public String lower(String text) {
         return text == null ? null : text.toLowerCase();
     }
 
+    @Override
     public String trim(String text) {
         return text == null ? null : text.trim();
     }
 
+    @Override
     public String upper(String text) {
         return text == null ? null : text.toUpperCase();
     }

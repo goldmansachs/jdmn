@@ -140,11 +140,11 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
     }
 
     @Override
-    public Double modulo(Double divident, Double divisor) {
+    public Double modulo(Double dividend, Double divisor) {
         try {
-            return this.numberLib.modulo(divident, divisor);
+            return this.numberLib.modulo(dividend, divisor);
         } catch (Exception e) {
-            String message = String.format("modulo(%s, %s)", divident, divisor);
+            String message = String.format("modulo(%s, %s)", dividend, divisor);
             logError(message, e);
             return null;
         }

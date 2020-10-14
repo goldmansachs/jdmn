@@ -12,9 +12,12 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.time.mixed;
 
+import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
+
 import java.time.ZonedDateTime;
 
-public class SignavioZonedDateTimeLib {
+public class SignavioZonedDateTimeLib implements SignavioDateTimeLib<ZonedDateTime> {
+    @Override
     public ZonedDateTime now() {
         return ZonedDateTime.now();
     }
