@@ -451,7 +451,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
             return null;
         }
     }
-    public ZonedDateTime monthAdd(LocalDate date, BigDecimal monthsToAdd) {
+    public LocalDate monthAdd(LocalDate date, BigDecimal monthsToAdd) {
         try {
             return this.dateLib.monthAdd(date, monthsToAdd);
         } catch (Exception e) {
@@ -541,7 +541,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
             return null;
         }
     }
-    public ZonedDateTime yearAdd(LocalDate localDate, BigDecimal yearsToAdd) {
+    public LocalDate yearAdd(LocalDate localDate, BigDecimal yearsToAdd) {
         try {
             return this.dateLib.yearAdd(localDate, yearsToAdd);
         } catch (Exception e) {

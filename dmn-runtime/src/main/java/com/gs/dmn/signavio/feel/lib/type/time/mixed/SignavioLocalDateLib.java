@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioBaseDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateLib;
 
@@ -20,13 +19,13 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-public class SignavioLocalDateLib extends SignavioBaseDateTimeLib implements SignavioDateLib<Number, LocalDate, ZonedDateTime> {
+public class SignavioLocalDateLib extends SignavioBaseDateTimeLib implements SignavioDateLib<Number, LocalDate> {
     public ZonedDateTime yearAdd(ZonedDateTime dateTime, Number yearsToAdd) {
         return dateTime.plusYears(yearsToAdd.longValue());
     }
     @Override
-    public ZonedDateTime yearAdd(LocalDate localDate, Number yearsToAdd) {
-        return localDate.plusYears(yearsToAdd.longValue()).atStartOfDay(DefaultDateTimeLib.UTC);
+    public LocalDate yearAdd(LocalDate localDate, Number yearsToAdd) {
+        return localDate.plusYears(yearsToAdd.longValue());
     }
 
     public Integer yearDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
@@ -42,8 +41,8 @@ public class SignavioLocalDateLib extends SignavioBaseDateTimeLib implements Sig
     public ZonedDateTime monthAdd(ZonedDateTime dateTime, Number monthsToAdd) {
         return dateTime.plusMonths(monthsToAdd.longValue());
     }
-    public ZonedDateTime monthAdd(LocalDate date, Number monthsToAdd) {
-        return date.plusMonths(monthsToAdd.longValue()).atStartOfDay(DefaultDateTimeLib.UTC);
+    public LocalDate monthAdd(LocalDate date, Number monthsToAdd) {
+        return date.plusMonths(monthsToAdd.longValue());
     }
 
     public Long monthDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {

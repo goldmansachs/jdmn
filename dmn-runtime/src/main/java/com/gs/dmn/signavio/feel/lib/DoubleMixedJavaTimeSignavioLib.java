@@ -449,7 +449,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
             return null;
         }
     }
-    public ZonedDateTime monthAdd(LocalDate date, Double monthsToAdd) {
+    public LocalDate monthAdd(LocalDate date, Double monthsToAdd) {
         try {
             return this.dateLib.monthAdd(date, monthsToAdd);
         } catch (Exception e) {
@@ -539,7 +539,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
             return null;
         }
     }
-    public ZonedDateTime yearAdd(LocalDate localDate, Double yearsToAdd) {
+    public LocalDate yearAdd(LocalDate localDate, Double yearsToAdd) {
         try {
             return this.dateLib.yearAdd(localDate, yearsToAdd);
         } catch (Exception e) {
