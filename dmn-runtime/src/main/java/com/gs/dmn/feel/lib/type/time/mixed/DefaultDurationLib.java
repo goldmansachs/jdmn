@@ -23,10 +23,11 @@ import java.time.ZonedDateTime;
 
 public class DefaultDurationLib implements DurationLib<ZonedDateTime, Duration> {
     private final DatatypeFactory dataTypeFactory;
-    private final LocalDateLib dateLib = new LocalDateLib();
+    private final MixedDateTimeLib dateTimeLib;
 
     public DefaultDurationLib(DatatypeFactory dataTypeFactory) {
         this.dataTypeFactory = dataTypeFactory;
+        this.dateTimeLib = new MixedDateTimeLib(dataTypeFactory);
     }
 
     @Override
@@ -81,7 +82,7 @@ public class DefaultDurationLib implements DurationLib<ZonedDateTime, Duration> 
 
     private LocalDate toDate(Object object) {
         if (object instanceof ZonedDateTime) {
-            return this.dateLib.date((ZonedDateTime) object);
+            return this.dateTimeLib.date((ZonedDateTime) object);
         }
         return (LocalDate) object;
     }

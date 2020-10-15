@@ -38,9 +38,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     private final DefaultNumericLib numberLib = new DefaultNumericLib();
     private final DefaultStringLib stringLib = new DefaultStringLib();
     private final DefaultBooleanLib booleanLib = new DefaultBooleanLib();
-    private final DefaultDateLib dateLib = new DefaultDateLib();
-    private final DefaultTimeLib timeLib = new DefaultTimeLib(DATA_TYPE_FACTORY);
-    private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib();
+    private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib(DATA_TYPE_FACTORY);
     private final DefaultDurationLib durationLib = new DefaultDurationLib(DATA_TYPE_FACTORY);
     private final DefaultListLib listLib = new DefaultListLib();
 
@@ -97,7 +95,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     @Override
     public XMLGregorianCalendar date(String literal) {
         try {
-            return this.dateLib.date(literal);
+            return this.dateTimeLib.date(literal);
         } catch (Exception e) {
             String message = String.format("date(%s)", literal);
             logError(message, e);
@@ -108,7 +106,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     @Override
     public XMLGregorianCalendar date(BigDecimal year, BigDecimal month, BigDecimal day) {
         try {
-            return this.dateLib.date(year, month, day);
+            return this.dateTimeLib.date(year, month, day);
         } catch (Exception e) {
             String message = String.format("date(%s, %s, %s)", year, month, day);
             logError(message, e);
@@ -119,7 +117,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     @Override
     public XMLGregorianCalendar date(XMLGregorianCalendar from) {
         try {
-            return this.dateLib.date(from);
+            return this.dateTimeLib.date(from);
         } catch (Exception e) {
             String message = String.format("date(%s)", from);
             logError(message, e);
@@ -130,7 +128,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     @Override
     public XMLGregorianCalendar time(String literal) {
         try {
-            return this.timeLib.time(literal);
+            return this.dateTimeLib.time(literal);
         } catch (Exception e) {
             String message = String.format("time(%s)", literal);
             logError(message, e);
@@ -141,7 +139,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     @Override
     public XMLGregorianCalendar time(BigDecimal hour, BigDecimal minute, BigDecimal second, Duration offset) {
         try {
-            return this.timeLib.time(hour, minute, second, offset);
+            return this.dateTimeLib.time(hour, minute, second, offset);
         } catch (Exception e) {
             String message = String.format("time(%s, %s, %s, %s)", hour, minute, second, offset);
             logError(message, e);
@@ -152,7 +150,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     @Override
     public XMLGregorianCalendar time(XMLGregorianCalendar from) {
         try {
-            return this.timeLib.time(from);
+            return this.dateTimeLib.time(from);
         } catch (Exception e) {
             String message = String.format("time(%s)", from);
             logError(message, e);
@@ -207,7 +205,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     @Override
     public XMLGregorianCalendar toDate(Object object) {
         try {
-            return this.dateLib.toDate(object);
+            return this.dateTimeLib.toDate(object);
         } catch (Exception e) {
             String message = String.format("toDate(%s)", object);
             logError(message, e);
@@ -218,7 +216,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     @Override
     public XMLGregorianCalendar toTime(Object object) {
         try {
-            return this.timeLib.toTime(object);
+            return this.dateTimeLib.toTime(object);
         } catch (Exception e) {
             String message = String.format("toTime(%s)", object);
             logError(message, e);
@@ -636,7 +634,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     @Override
     public BigDecimal year(XMLGregorianCalendar date) {
         try {
-            return BigDecimal.valueOf(this.dateLib.year(date));
+            return BigDecimal.valueOf(this.dateTimeLib.year(date));
         } catch (Exception e) {
             String message = String.format("year(%s)", date);
             logError(message, e);
@@ -647,7 +645,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     @Override
     public BigDecimal month(XMLGregorianCalendar date) {
         try {
-            return BigDecimal.valueOf(this.dateLib.month(date));
+            return BigDecimal.valueOf(this.dateTimeLib.month(date));
         } catch (Exception e) {
             String message = String.format("month(%s)", date);
             logError(message, e);
@@ -658,7 +656,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     @Override
     public BigDecimal day(XMLGregorianCalendar date) {
         try {
-            return BigDecimal.valueOf(this.dateLib.day(date));
+            return BigDecimal.valueOf(this.dateTimeLib.day(date));
         } catch (Exception e) {
             String message = String.format("day(%s)", date);
             logError(message, e);
@@ -669,7 +667,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     @Override
     public BigDecimal weekday(XMLGregorianCalendar date) {
         try {
-            return BigDecimal.valueOf(this.dateLib.weekday(date));
+            return BigDecimal.valueOf(this.dateTimeLib.weekday(date));
         } catch (Exception e) {
             String message = String.format("weekday(%s)", date);
             logError(message, e);
@@ -683,7 +681,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     @Override
     public BigDecimal hour(XMLGregorianCalendar date) {
         try {
-            return BigDecimal.valueOf(this.timeLib.hour(date));
+            return BigDecimal.valueOf(this.dateTimeLib.hour(date));
         } catch (Exception e) {
             String message = String.format("hour(%s)", date);
             logError(message, e);
@@ -694,7 +692,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     @Override
     public BigDecimal minute(XMLGregorianCalendar date) {
         try {
-            return BigDecimal.valueOf(this.timeLib.minute(date));
+            return BigDecimal.valueOf(this.dateTimeLib.minute(date));
         } catch (Exception e) {
             String message = String.format("minute(%s)", date);
             logError(message, e);
@@ -705,7 +703,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     @Override
     public BigDecimal second(XMLGregorianCalendar date) {
         try {
-            return BigDecimal.valueOf(this.timeLib.second(date));
+            return BigDecimal.valueOf(this.dateTimeLib.second(date));
         } catch (Exception e) {
             String message = String.format("second(%s)", date);
             logError(message, e);
@@ -716,7 +714,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     @Override
     public Duration timeOffset(XMLGregorianCalendar date) {
         try {
-            return this.timeLib.timeOffset(date);
+            return this.dateTimeLib.timeOffset(date);
         } catch (Exception e) {
             String message = String.format("timeOffset(%s)", date);
             logError(message, e);
@@ -727,7 +725,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     @Override
     public String timezone(XMLGregorianCalendar date) {
         try {
-            return this.timeLib.timezone(date);
+            return this.dateTimeLib.timezone(date);
         } catch (Exception e) {
             String message = String.format("timezone(%s)", date);
             logError(message, e);

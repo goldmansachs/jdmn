@@ -13,22 +13,53 @@
 package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
-import com.gs.dmn.feel.lib.type.time.TimeLib;
+import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.OffsetTime;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
+import java.time.*;
 
-public class OffsetTimeLib extends BaseDateTimeLib implements TimeLib<Double, OffsetTime, Duration> {
-    private final DatatypeFactory dataTypeFactory;
+public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Number, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+    private final DatatypeFactory datatypeFactory;
 
-    public OffsetTimeLib(DatatypeFactory dataTypeFactory) {
-        this.dataTypeFactory = dataTypeFactory;
+    public MixedDateTimeLib(DatatypeFactory datatypeFactory) {
+        this.datatypeFactory = datatypeFactory;
+    }
+
+    @Override
+    public LocalDate date(String literal) {
+        if (StringUtils.isBlank(literal)) {
+            return null;
+        }
+
+        if (this.hasTime(literal) || this.hasZone(literal)) {
+            return null;
+        } else {
+            return this.makeLocalDate(literal);
+        }
+    }
+
+    @Override
+    public LocalDate date(Number year, Number month, Number day) {
+        if (year == null || month == null || day == null) {
+            return null;
+        }
+
+        return LocalDate.of(year.intValue(), month.intValue(), day.intValue());
+    }
+
+    public LocalDate date(ZonedDateTime from) {
+        if (from == null) {
+            return null;
+        }
+
+        return from.toLocalDate();
+    }
+    @Override
+    public LocalDate date(LocalDate from) {
+        return from;
     }
 
     @Override
@@ -41,7 +72,7 @@ public class OffsetTimeLib extends BaseDateTimeLib implements TimeLib<Double, Of
     }
 
     @Override
-    public OffsetTime time(Double hour, Double minute, Double second, Duration offset) {
+    public OffsetTime time(Number hour, Number minute, Number second, Duration offset) {
         if (hour == null || minute == null || second == null) {
             return null;
         }
@@ -54,14 +85,14 @@ public class OffsetTimeLib extends BaseDateTimeLib implements TimeLib<Double, Of
 
             // Make OffsetTime and add nanos
             OffsetTime offsetTime = OffsetTime.of(hour.intValue(), minute.intValue(), second.intValue(), 0, zoneOffset);
-            Double secondFraction = second - second.intValue();
+            Double secondFraction = second.doubleValue() - second.intValue();
             double nanos = secondFraction * 1E9;
             offsetTime = offsetTime.plusNanos((long) nanos);
             return offsetTime;
         } else {
             // Make OffsetTime and add nanos
             OffsetTime offsetTime = OffsetTime.of(hour.intValue(), minute.intValue(), second.intValue(), 0, ZoneOffset.UTC);
-            Double secondFraction = second - second.intValue();
+            Double secondFraction = second.doubleValue() - second.intValue();
             double nanos = secondFraction * 1E9;
             offsetTime = offsetTime.plusNanos((long) nanos);
             return offsetTime;
@@ -111,13 +142,104 @@ public class OffsetTimeLib extends BaseDateTimeLib implements TimeLib<Double, Of
         return from;
     }
 
-    public OffsetTime toTime(Object object) {
-        if (object instanceof ZonedDateTime) {
-            return time((ZonedDateTime) object);
-        } else if (object instanceof LocalDate) {
-            return time((LocalDate) object);
+    @Override
+    public ZonedDateTime dateAndTime(String from) {
+        if (from == null) {
+            return null;
         }
-        return (OffsetTime) object;
+        if (this.hasZone(from) && this.hasOffset(from)) {
+            return null;
+        }
+        if (this.invalidYear(from)) {
+            return null;
+        }
+
+        return makeZonedDateTime(from);
+    }
+
+    @Override
+    public ZonedDateTime dateAndTime(LocalDate date, OffsetTime time) {
+        if (date == null || time == null) {
+            return null;
+        }
+
+        ZoneOffset offset = time.getOffset();
+        LocalDateTime localDateTime = LocalDateTime.of(date, time.toLocalTime());
+        return ZonedDateTime.ofInstant(localDateTime, offset, ZoneId.of(offset.getId()));
+    }
+    public ZonedDateTime dateAndTime(Object date, OffsetTime time) {
+        if (date == null || time == null) {
+            return null;
+        }
+
+        if (date instanceof ZonedDateTime) {
+            return dateAndTime(((ZonedDateTime) date).toLocalDate(), time);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Integer year(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
+        return date.getYear();
+    }
+    public Integer year(ZonedDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+
+        return dateTime.getYear();
+    }
+
+    @Override
+    public Integer month(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
+        return date.getMonth().getValue();
+    }
+    public Integer month(ZonedDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+
+        return dateTime.getMonth().getValue();
+    }
+
+    @Override
+    public Integer day(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
+        return date.getDayOfMonth();
+    }
+    public Integer day(ZonedDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+
+        return dateTime.getDayOfMonth();
+    }
+    @Override
+    public Integer weekday(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
+        return date.getDayOfWeek().getValue();
+    }
+    public Integer weekday(ZonedDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+
+        return dateTime.getDayOfWeek().getValue();
     }
 
     @Override
@@ -204,7 +326,26 @@ public class OffsetTimeLib extends BaseDateTimeLib implements TimeLib<Double, Of
         return dateTime.getZone().getId();
     }
 
+    public LocalDate toDate(Object object) {
+        if (object instanceof ZonedDateTime) {
+            return date((ZonedDateTime) object);
+        }
+        if (object instanceof LocalDate) {
+            return date((LocalDate) object);
+        }
+        return null;
+    }
+
+    public OffsetTime toTime(Object object) {
+        if (object instanceof ZonedDateTime) {
+            return time((ZonedDateTime) object);
+        } else if (object instanceof LocalDate) {
+            return time((LocalDate) object);
+        }
+        return (OffsetTime) object;
+    }
+
     private Duration computeDuration(int secondsOffset) {
-        return this.dataTypeFactory.newDuration((long) secondsOffset * 1000);
+        return this.datatypeFactory.newDuration((long) secondsOffset * 1000);
     }
 }
