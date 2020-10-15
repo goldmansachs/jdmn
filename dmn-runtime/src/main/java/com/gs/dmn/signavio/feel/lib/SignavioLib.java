@@ -122,7 +122,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Returns the date plus the provided number of days.
     //    Example: DayAdd(2015-12-24T12:15:00.000+01:00, 1) returns
     //    2015-12-25T12:15:00.000+01:00.
-    DATE dayAdd(DATE_TIME dateTime, NUMBER daysToAdd);
+    DATE dayAdd(DATE dateTime, NUMBER daysToAdd);
 
     //    DayDiff(datetime1, datetime2):NUMERIC
     //    Returns the amount of days between two days.
