@@ -15,7 +15,7 @@ package com.gs.dmn.signavio.feel.lib.type.time;
 public interface SignavioDateTimeLib<NUMBER, DATE, TIME, DATE_TIME> {
     DATE yearAdd(DATE dateTime, NUMBER yearsToAdd);
 
-    NUMBER yearDiff(DATE dateTime1, DATE dateTime2);
+    Long yearDiff(DATE dateTime1, DATE dateTime2);
 
     DATE monthAdd(DATE dateTime, NUMBER monthsToAdd);
 

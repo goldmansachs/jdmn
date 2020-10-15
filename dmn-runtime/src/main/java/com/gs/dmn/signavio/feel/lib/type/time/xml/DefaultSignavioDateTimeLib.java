@@ -40,9 +40,9 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     }
 
     @Override
-    public BigDecimal yearDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
+    public Long yearDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
         Period period = periodBetween(dateTime1, dateTime2);
-        return BigDecimal.valueOf(period.getYears());
+        return (long) period.getYears();
     }
 
     @Override

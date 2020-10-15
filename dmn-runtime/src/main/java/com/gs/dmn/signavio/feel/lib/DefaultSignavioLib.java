@@ -452,7 +452,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     @Override
     public BigDecimal yearDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
         try {
-            return this.dateTimeLib.yearDiff(dateTime1, dateTime2);
+            return BigDecimal.valueOf(this.dateTimeLib.yearDiff(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("yearDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
