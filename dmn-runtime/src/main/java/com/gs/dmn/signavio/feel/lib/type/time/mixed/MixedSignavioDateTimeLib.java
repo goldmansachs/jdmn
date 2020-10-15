@@ -30,9 +30,9 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
     }
 
     @Override
-    public Integer yearDiff(LocalDate dateTime1, LocalDate dateTime2) {
+    public Long yearDiff(LocalDate dateTime1, LocalDate dateTime2) {
         Period period = periodBetween(dateTime1, dateTime2);
-        return period.getYears();
+        return (long) period.getYears();
     }
     public Integer yearDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         Period period = periodBetween(dateTime1, dateTime2);
