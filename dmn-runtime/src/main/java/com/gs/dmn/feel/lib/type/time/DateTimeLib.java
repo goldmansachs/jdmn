@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.time;
 
-public interface DateTimeLib<DATE, TIME, DATE_TIME> {
+public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends DateLib<NUMBER, DATE>, TimeLib<NUMBER, TIME, DURATION> {
     DATE_TIME dateAndTime(String literal);
 
     DATE_TIME dateAndTime(DATE date, TIME time);

@@ -40,9 +40,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     private final DoubleNumericLib numberLib = new DoubleNumericLib();
     private final DefaultStringLib stringLib = new DefaultStringLib();
     private final DefaultBooleanLib booleanLib = new DefaultBooleanLib();
-    private final LocalDateLib dateLib = new LocalDateLib();
-    private final OffsetTimeLib timeLib = new OffsetTimeLib(DATA_TYPE_FACTORY);
-    private final ZonedDateTimeLib dateTimeLib = new ZonedDateTimeLib();
+    private final MixedDateTimeLib dateTimeLib = new MixedDateTimeLib(DATA_TYPE_FACTORY);
     private final DefaultDurationLib durationLib = new DefaultDurationLib(DATA_TYPE_FACTORY);
     private final DefaultListLib listLib = new DefaultListLib();
 
@@ -99,7 +97,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     @Override
     public LocalDate date(String literal) {
         try {
-            return this.dateLib.date(literal);
+            return this.dateTimeLib.date(literal);
         } catch (Exception e) {
             String message = String.format("date(%s)", literal);
             logError(message, e);
@@ -110,7 +108,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     @Override
     public LocalDate date(Double year, Double month, Double day) {
         try {
-            return this.dateLib.date(year, month, day);
+            return this.dateTimeLib.date(year, month, day);
         } catch (Exception e) {
             String message = String.format("date(%s, %s, %s)", year, month, day);
             logError(message, e);
@@ -121,7 +119,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     @Override
     public LocalDate date(ZonedDateTime from) {
         try {
-            return this.dateLib.date(from);
+            return this.dateTimeLib.date(from);
         } catch (Exception e) {
             String message = String.format("date(%s)", from);
             logError(message, e);
@@ -130,7 +128,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
     public LocalDate date(LocalDate from) {
         try {
-            return this.dateLib.date(from);
+            return this.dateTimeLib.date(from);
         } catch (Exception e) {
             String message = String.format("date(%s)", from);
             logError(message, e);
@@ -141,7 +139,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     @Override
     public OffsetTime time(String literal) {
         try {
-            return this.timeLib.time(literal);
+            return this.dateTimeLib.time(literal);
         } catch (Exception e) {
             String message = String.format("time(%s)", literal);
             logError(message, e);
@@ -152,7 +150,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     @Override
     public OffsetTime time(Double hour, Double minute, Double second, Duration offset) {
         try {
-            return this.timeLib.time(hour, minute, second, offset);
+            return this.dateTimeLib.time(hour, minute, second, offset);
         } catch (Exception e) {
             String message = String.format("time(%s, %s, %s, %s)", hour, minute, second, offset);
             logError(message, e);
@@ -163,7 +161,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     @Override
     public OffsetTime time(ZonedDateTime from) {
         try {
-            return this.timeLib.time(from);
+            return this.dateTimeLib.time(from);
         } catch (Exception e) {
             String message = String.format("time(%s)", from);
             logError(message, e);
@@ -172,7 +170,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
     public OffsetTime time(LocalDate from) {
         try {
-            return this.timeLib.time(from);
+            return this.dateTimeLib.time(from);
         } catch (Exception e) {
             String message = String.format("time(%s)", from);
             logError(message, e);
@@ -181,7 +179,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
     public OffsetTime time(OffsetTime from) {
         try {
-            return this.timeLib.time(from);
+            return this.dateTimeLib.time(from);
         } catch (Exception e) {
             String message = String.format("time(%s)", from);
             logError(message, e);
@@ -275,7 +273,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     @Override
     public LocalDate toDate(Object object) {
         try {
-            return this.dateLib.toDate(object);
+            return this.dateTimeLib.toDate(object);
         } catch (Exception e) {
             String message = String.format("toDate(%s)", object);
             logError(message, e);
@@ -286,7 +284,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     @Override
     public OffsetTime toTime(Object object) {
         try {
-            return this.timeLib.toTime(object);
+            return this.dateTimeLib.toTime(object);
         } catch (Exception e) {
             String message = String.format("toTime(%s)", object);
             logError(message, e);
@@ -704,7 +702,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     @Override
     public Double year(LocalDate date) {
         try {
-            return Double.valueOf(this.dateLib.year(date));
+            return Double.valueOf(this.dateTimeLib.year(date));
         } catch (Exception e) {
             String message = String.format("year(%s)", date);
             logError(message, e);
@@ -713,7 +711,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
     public Double year(ZonedDateTime dateTime) {
         try {
-            return Double.valueOf(this.dateLib.year(dateTime));
+            return Double.valueOf(this.dateTimeLib.year(dateTime));
         } catch (Exception e) {
             String message = String.format("year(%s)", dateTime);
             logError(message, e);
@@ -724,7 +722,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     @Override
     public Double month(LocalDate date) {
         try {
-            return Double.valueOf(this.dateLib.month(date));
+            return Double.valueOf(this.dateTimeLib.month(date));
         } catch (Exception e) {
             String message = String.format("month(%s)", date);
             logError(message, e);
@@ -733,7 +731,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
     public Double month(ZonedDateTime dateTime) {
         try {
-            return Double.valueOf(this.dateLib.month(dateTime));
+            return Double.valueOf(this.dateTimeLib.month(dateTime));
         } catch (Exception e) {
             String message = String.format("month(%s)", dateTime);
             logError(message, e);
@@ -744,7 +742,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     @Override
     public Double day(LocalDate date) {
         try {
-            return Double.valueOf(this.dateLib.day(date));
+            return Double.valueOf(this.dateTimeLib.day(date));
         } catch (Exception e) {
             String message = String.format("day(%s)", date);
             logError(message, e);
@@ -753,7 +751,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
     public Double day(ZonedDateTime dateTime) {
         try {
-            return Double.valueOf(this.dateLib.day(dateTime));
+            return Double.valueOf(this.dateTimeLib.day(dateTime));
         } catch (Exception e) {
             String message = String.format("day(%s)", dateTime);
             logError(message, e);
@@ -763,7 +761,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     @Override
     public Double weekday(LocalDate date) {
         try {
-            return Double.valueOf(this.dateLib.weekday(date));
+            return Double.valueOf(this.dateTimeLib.weekday(date));
         } catch (Exception e) {
             String message = String.format("weekday(%s)", date);
             logError(message, e);
@@ -772,7 +770,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
     public Double weekday(ZonedDateTime dateTime) {
         try {
-            return Double.valueOf(this.dateLib.weekday(dateTime));
+            return Double.valueOf(this.dateTimeLib.weekday(dateTime));
         } catch (Exception e) {
             String message = String.format("weekday(%s)", dateTime);
             logError(message, e);
@@ -786,7 +784,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     @Override
     public Double hour(OffsetTime time) {
         try {
-            return Double.valueOf(this.timeLib.hour(time));
+            return Double.valueOf(this.dateTimeLib.hour(time));
         } catch (Exception e) {
             String message = String.format("hour(%s)", time);
             logError(message, e);
@@ -795,7 +793,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
     public Double hour(ZonedDateTime dateTime) {
         try {
-            return Double.valueOf(this.timeLib.hour(dateTime));
+            return Double.valueOf(this.dateTimeLib.hour(dateTime));
         } catch (Exception e) {
             String message = String.format("hour(%s)", dateTime);
             logError(message, e);
@@ -806,7 +804,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     @Override
     public Double minute(OffsetTime time) {
         try {
-            return Double.valueOf(this.timeLib.minute(time));
+            return Double.valueOf(this.dateTimeLib.minute(time));
         } catch (Exception e) {
             String message = String.format("minute(%s)", time);
             logError(message, e);
@@ -815,7 +813,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
     public Double minute(ZonedDateTime dateTime) {
         try {
-            return Double.valueOf(this.timeLib.minute(dateTime));
+            return Double.valueOf(this.dateTimeLib.minute(dateTime));
         } catch (Exception e) {
             String message = String.format("minute(%s)", dateTime);
             logError(message, e);
@@ -826,7 +824,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     @Override
     public Double second(OffsetTime time) {
         try {
-            return Double.valueOf(this.timeLib.second(time));
+            return Double.valueOf(this.dateTimeLib.second(time));
         } catch (Exception e) {
             String message = String.format("second(%s)", time);
             logError(message, e);
@@ -835,7 +833,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
     public Double second(ZonedDateTime dateTime) {
         try {
-            return Double.valueOf(this.timeLib.second(dateTime));
+            return Double.valueOf(this.dateTimeLib.second(dateTime));
         } catch (Exception e) {
             String message = String.format("second(%s)", dateTime);
             logError(message, e);
@@ -846,7 +844,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     @Override
     public Duration timeOffset(OffsetTime time) {
         try {
-            return this.timeLib.timeOffset(time);
+            return this.dateTimeLib.timeOffset(time);
         } catch (Exception e) {
             String message = String.format("timeOffset(%s)", time);
             logError(message, e);
@@ -855,7 +853,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
     public Duration timeOffset(ZonedDateTime dateTime) {
         try {
-            return this.timeLib.timeOffset(dateTime);
+            return this.dateTimeLib.timeOffset(dateTime);
         } catch (Exception e) {
             String message = String.format("timeOffset(%s)", dateTime);
             logError(message, e);
@@ -866,7 +864,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     @Override
     public String timezone(OffsetTime time) {
         try {
-            return this.timeLib.timezone(time);
+            return this.dateTimeLib.timezone(time);
         } catch (Exception e) {
             String message = String.format("timezone(%s)", time);
             logError(message, e);
@@ -875,7 +873,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
     public String timezone(ZonedDateTime dateTime) {
         try {
-            return this.timeLib.timezone(dateTime);
+            return this.dateTimeLib.timezone(dateTime);
         } catch (Exception e) {
             String message = String.format("timezone(%s)", dateTime);
             logError(message, e);

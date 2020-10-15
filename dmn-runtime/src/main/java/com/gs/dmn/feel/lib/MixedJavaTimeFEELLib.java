@@ -41,9 +41,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     private final DefaultNumericLib numberLib = new DefaultNumericLib();
     private final DefaultStringLib stringLib = new DefaultStringLib();
     private final DefaultBooleanLib booleanLib = new DefaultBooleanLib();
-    private final LocalDateLib dateLib = new LocalDateLib();
-    private final OffsetTimeLib timeLib = new OffsetTimeLib(DATA_TYPE_FACTORY);
-    private final ZonedDateTimeLib dateTimeLib = new ZonedDateTimeLib();
+    private final MixedDateTimeLib dateTimeLib = new MixedDateTimeLib(DATA_TYPE_FACTORY);
     private final DefaultDurationLib durationLib = new DefaultDurationLib(DATA_TYPE_FACTORY);
     private final DefaultListLib listLib = new DefaultListLib();
 
@@ -100,7 +98,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     @Override
     public LocalDate date(String literal) {
         try {
-            return this.dateLib.date(literal);
+            return this.dateTimeLib.date(literal);
         } catch (Exception e) {
             String message = String.format("date(%s)", literal);
             logError(message, e);
@@ -111,7 +109,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     @Override
     public LocalDate date(BigDecimal year, BigDecimal month, BigDecimal day) {
         try {
-            return this.dateLib.date(year, month, day);
+            return this.dateTimeLib.date(year, month, day);
         } catch (Exception e) {
             String message = String.format("date(%s, %s, %s)", year, month, day);
             logError(message, e);
@@ -122,7 +120,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     @Override
     public LocalDate date(ZonedDateTime from) {
         try {
-            return this.dateLib.date(from);
+            return this.dateTimeLib.date(from);
         } catch (Exception e) {
             String message = String.format("date(%s)", from);
             logError(message, e);
@@ -131,7 +129,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public LocalDate date(LocalDate from) {
         try {
-            return this.dateLib.date(from);
+            return this.dateTimeLib.date(from);
         } catch (Exception e) {
             String message = String.format("date(%s)", from);
             logError(message, e);
@@ -142,7 +140,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     @Override
     public OffsetTime time(String literal) {
         try {
-            return this.timeLib.time(literal);
+            return this.dateTimeLib.time(literal);
         } catch (Exception e) {
             String message = String.format("time(%s)", literal);
             logError(message, e);
@@ -153,7 +151,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     @Override
     public OffsetTime time(BigDecimal hour, BigDecimal minute, BigDecimal second, Duration offset) {
         try {
-            return this.timeLib.time(hour, minute, second, offset);
+            return this.dateTimeLib.time(hour, minute, second, offset);
         } catch (Exception e) {
             String message = String.format("time(%s, %s, %s, %s)", hour, minute, second, offset);
             logError(message, e);
@@ -164,7 +162,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     @Override
     public OffsetTime time(ZonedDateTime from) {
         try {
-            return this.timeLib.time(from);
+            return this.dateTimeLib.time(from);
         } catch (Exception e) {
             String message = String.format("time(%s)", from);
             logError(message, e);
@@ -173,7 +171,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public OffsetTime time(LocalDate from) {
         try {
-            return this.timeLib.time(from);
+            return this.dateTimeLib.time(from);
         } catch (Exception e) {
             String message = String.format("time(%s)", from);
             logError(message, e);
@@ -182,7 +180,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public OffsetTime time(OffsetTime from) {
         try {
-            return this.timeLib.time(from);
+            return this.dateTimeLib.time(from);
         } catch (Exception e) {
             String message = String.format("time(%s)", from);
             logError(message, e);
@@ -276,7 +274,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     @Override
     public LocalDate toDate(Object object) {
         try {
-            return this.dateLib.toDate(object);
+            return this.dateTimeLib.toDate(object);
         } catch (Exception e) {
             String message = String.format("toDate(%s)", object);
             logError(message, e);
@@ -287,7 +285,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     @Override
     public OffsetTime toTime(Object object) {
         try {
-            return this.timeLib.toTime(object);
+            return this.dateTimeLib.toTime(object);
         } catch (Exception e) {
             String message = String.format("toTime(%s)", object);
             logError(message, e);
@@ -705,7 +703,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     @Override
     public BigDecimal year(LocalDate date) {
         try {
-            return BigDecimal.valueOf(this.dateLib.year(date));
+            return BigDecimal.valueOf(this.dateTimeLib.year(date));
         } catch (Exception e) {
             String message = String.format("year(%s)", date);
             logError(message, e);
@@ -714,7 +712,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public BigDecimal year(ZonedDateTime dateTime) {
         try {
-            return BigDecimal.valueOf(this.dateLib.year(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.year(dateTime));
         } catch (Exception e) {
             String message = String.format("year(%s)", dateTime);
             logError(message, e);
@@ -725,7 +723,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     @Override
     public BigDecimal month(LocalDate date) {
         try {
-            return BigDecimal.valueOf(this.dateLib.month(date));
+            return BigDecimal.valueOf(this.dateTimeLib.month(date));
         } catch (Exception e) {
             String message = String.format("month(%s)", date);
             logError(message, e);
@@ -734,7 +732,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public BigDecimal month(ZonedDateTime dateTime) {
         try {
-            return BigDecimal.valueOf(this.dateLib.month(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.month(dateTime));
         } catch (Exception e) {
             String message = String.format("month(%s)", dateTime);
             logError(message, e);
@@ -745,7 +743,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     @Override
     public BigDecimal day(LocalDate date) {
         try {
-            return BigDecimal.valueOf(this.dateLib.day(date));
+            return BigDecimal.valueOf(this.dateTimeLib.day(date));
         } catch (Exception e) {
             String message = String.format("day(%s)", date);
             logError(message, e);
@@ -754,7 +752,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public BigDecimal day(ZonedDateTime dateTime) {
         try {
-            return BigDecimal.valueOf(this.dateLib.day(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.day(dateTime));
         } catch (Exception e) {
             String message = String.format("day(%s)", dateTime);
             logError(message, e);
@@ -764,7 +762,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     @Override
     public BigDecimal weekday(LocalDate date) {
         try {
-            return BigDecimal.valueOf(this.dateLib.weekday(date));
+            return BigDecimal.valueOf(this.dateTimeLib.weekday(date));
         } catch (Exception e) {
             String message = String.format("weekday(%s)", date);
             logError(message, e);
@@ -773,7 +771,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public BigDecimal weekday(ZonedDateTime dateTime) {
         try {
-            return BigDecimal.valueOf(this.dateLib.weekday(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.weekday(dateTime));
         } catch (Exception e) {
             String message = String.format("weekday(%s)", dateTime);
             logError(message, e);
@@ -787,7 +785,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     @Override
     public BigDecimal hour(OffsetTime time) {
         try {
-            return BigDecimal.valueOf(this.timeLib.hour(time));
+            return BigDecimal.valueOf(this.dateTimeLib.hour(time));
         } catch (Exception e) {
             String message = String.format("hour(%s)", time);
             logError(message, e);
@@ -796,7 +794,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public BigDecimal hour(ZonedDateTime dateTime) {
         try {
-            return BigDecimal.valueOf(this.timeLib.hour(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.hour(dateTime));
         } catch (Exception e) {
             String message = String.format("hour(%s)", dateTime);
             logError(message, e);
@@ -807,7 +805,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     @Override
     public BigDecimal minute(OffsetTime time) {
         try {
-            return BigDecimal.valueOf(this.timeLib.minute(time));
+            return BigDecimal.valueOf(this.dateTimeLib.minute(time));
         } catch (Exception e) {
             String message = String.format("minute(%s)", time);
             logError(message, e);
@@ -816,7 +814,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public BigDecimal minute(ZonedDateTime dateTime) {
         try {
-            return BigDecimal.valueOf(this.timeLib.minute(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.minute(dateTime));
         } catch (Exception e) {
             String message = String.format("minute(%s)", dateTime);
             logError(message, e);
@@ -827,7 +825,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     @Override
     public BigDecimal second(OffsetTime time) {
         try {
-            return BigDecimal.valueOf(this.timeLib.second(time));
+            return BigDecimal.valueOf(this.dateTimeLib.second(time));
         } catch (Exception e) {
             String message = String.format("second(%s)", time);
             logError(message, e);
@@ -836,7 +834,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public BigDecimal second(ZonedDateTime dateTime) {
         try {
-            return BigDecimal.valueOf(this.timeLib.second(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.second(dateTime));
         } catch (Exception e) {
             String message = String.format("second(%s)", dateTime);
             logError(message, e);
@@ -847,7 +845,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     @Override
     public Duration timeOffset(OffsetTime time) {
         try {
-            return this.timeLib.timeOffset(time);
+            return this.dateTimeLib.timeOffset(time);
         } catch (Exception e) {
             String message = String.format("timeOffset(%s)", time);
             logError(message, e);
@@ -856,7 +854,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public Duration timeOffset(ZonedDateTime dateTime) {
         try {
-            return this.timeLib.timeOffset(dateTime);
+            return this.dateTimeLib.timeOffset(dateTime);
         } catch (Exception e) {
             String message = String.format("timeOffset(%s)", dateTime);
             logError(message, e);
@@ -867,7 +865,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     @Override
     public String timezone(OffsetTime time) {
         try {
-            return this.timeLib.timezone(time);
+            return this.dateTimeLib.timezone(time);
         } catch (Exception e) {
             String message = String.format("timezone(%s)", time);
             logError(message, e);
@@ -876,7 +874,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public String timezone(ZonedDateTime dateTime) {
         try {
-            return this.timeLib.timezone(dateTime);
+            return this.dateTimeLib.timezone(dateTime);
         } catch (Exception e) {
             String message = String.format("timezone(%s)", dateTime);
             logError(message, e);
