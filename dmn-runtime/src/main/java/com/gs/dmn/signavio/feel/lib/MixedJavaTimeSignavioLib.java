@@ -23,7 +23,10 @@ import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumericType;
 import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringLib;
 import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringType;
-import com.gs.dmn.signavio.feel.lib.type.time.mixed.*;
+import com.gs.dmn.signavio.feel.lib.type.time.mixed.MixedSignavioDateTimeLib;
+import com.gs.dmn.signavio.feel.lib.type.time.mixed.SignavioLocalDateType;
+import com.gs.dmn.signavio.feel.lib.type.time.mixed.SignavioOffsetTimeType;
+import com.gs.dmn.signavio.feel.lib.type.time.mixed.SignavioZonedDateTimeType;
 import com.gs.dmn.signavio.feel.lib.type.time.xml.DefaultSignavioDurationType;
 
 import javax.xml.datatype.Duration;
@@ -42,9 +45,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
 
     private final DefaultSignavioNumberLib numberLib = new DefaultSignavioNumberLib();
     private final DefaultSignavioStringLib stringLib = new DefaultSignavioStringLib();
-    private final SignavioLocalDateLib dateLib = new SignavioLocalDateLib();
-    private final SignavioOffsetTimeLib timeLib = new SignavioOffsetTimeLib();
-    private final SignavioZonedDateTimeLib dateTimeLib = new SignavioZonedDateTimeLib();
+    private final MixedSignavioDateTimeLib dateTimeLib = new MixedSignavioDateTimeLib();
     private final SignavioListLib listLib = new SignavioListLib();
     
     public MixedJavaTimeSignavioLib() {
@@ -218,19 +219,19 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     // Date and time operations
     //
 
-    @Override
     public LocalDate dayAdd(ZonedDateTime dateTime, BigDecimal daysToAdd) {
         try {
-            return this.dateLib.dayAdd(dateTime, daysToAdd);
+            return this.dateTimeLib.dayAdd(dateTime, daysToAdd);
         } catch (Exception e) {
             String message = String.format("dayAdd(%s, %s)", dateTime, daysToAdd);
             logError(message, e);
             return null;
         }
     }
+    @Override
     public LocalDate dayAdd(LocalDate date, BigDecimal daysToAdd) {
         try {
-            return this.dateLib.dayAdd(date, daysToAdd);
+            return this.dateTimeLib.dayAdd(date, daysToAdd);
         } catch (Exception e) {
             String message = String.format("dayAdd(%s, %s)", date, daysToAdd);
             logError(message, e);
@@ -241,7 +242,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     @Override
     public BigDecimal dayDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         try {
-            return BigDecimal.valueOf(this.dateLib.dayDiff(dateTime1, dateTime2));
+            return BigDecimal.valueOf(this.dateTimeLib.dayDiff(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("dayDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
@@ -250,7 +251,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
     public BigDecimal dayDiff(LocalDate date1, LocalDate date2) {
         try {
-            return BigDecimal.valueOf(this.dateLib.dayDiff(date1, date2));
+            return BigDecimal.valueOf(this.dateTimeLib.dayDiff(date1, date2));
         } catch (Exception e) {
             String message = String.format("dayDiff(%s, %s)", date1, date2);
             logError(message, e);
@@ -328,7 +329,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     @Override
     public BigDecimal hourDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         try {
-            return BigDecimal.valueOf(this.timeLib.hourDiff(dateTime1, dateTime2));
+            return BigDecimal.valueOf(this.dateTimeLib.hourDiff(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("hourDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
@@ -337,7 +338,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
     public BigDecimal hourDiff(OffsetTime time1, OffsetTime time2) {
         try {
-            return BigDecimal.valueOf(this.timeLib.hourDiff(time1, time2));
+            return BigDecimal.valueOf(this.dateTimeLib.hourDiff(time1, time2));
         } catch (Exception e) {
             String message = String.format("hourDiff(%s, %s)", time1, time2);
             logError(message, e);
@@ -415,7 +416,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     @Override
     public BigDecimal minutesDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         try {
-            return BigDecimal.valueOf(this.timeLib.minutesDiff(dateTime1, dateTime2));
+            return BigDecimal.valueOf(this.dateTimeLib.minutesDiff(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("minutesDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
@@ -424,7 +425,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
     public BigDecimal minutesDiff(OffsetTime time1, OffsetTime time2) {
         try {
-            return BigDecimal.valueOf(this.timeLib.minutesDiff(time1, time2));
+            return BigDecimal.valueOf(this.dateTimeLib.minutesDiff(time1, time2));
         } catch (Exception e) {
             String message = String.format("minutesDiff(%s, %s)", time1, time2);
             logError(message, e);
@@ -444,7 +445,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     @Override
     public ZonedDateTime monthAdd(ZonedDateTime dateTime, BigDecimal monthsToAdd) {
         try {
-            return this.dateLib.monthAdd(dateTime, monthsToAdd);
+            return this.dateTimeLib.monthAdd(dateTime, monthsToAdd);
         } catch (Exception e) {
             String message = String.format("monthAdd(%s, %s)", dateTime, monthsToAdd);
             logError(message, e);
@@ -453,7 +454,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
     public LocalDate monthAdd(LocalDate date, BigDecimal monthsToAdd) {
         try {
-            return this.dateLib.monthAdd(date, monthsToAdd);
+            return this.dateTimeLib.monthAdd(date, monthsToAdd);
         } catch (Exception e) {
             String message = String.format("monthAdd(%s, %s)", date, monthsToAdd);
             logError(message, e);
@@ -464,7 +465,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     @Override
     public BigDecimal monthDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         try {
-            return BigDecimal.valueOf(this.dateLib.monthDiff(dateTime1, dateTime2));
+            return BigDecimal.valueOf(this.dateTimeLib.monthDiff(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("monthDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
@@ -473,7 +474,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
     public BigDecimal monthDiff(LocalDate date1, LocalDate date2) {
         try {
-            return BigDecimal.valueOf(this.dateLib.monthDiff(date1, date2));
+            return BigDecimal.valueOf(this.dateTimeLib.monthDiff(date1, date2));
         } catch (Exception e) {
             String message = String.format("monthDiff(%s, %s)", date1, date2);
             logError(message, e);
@@ -495,7 +496,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     @Override
     public LocalDate today() {
         try {
-            return this.dateLib.today();
+            return this.dateTimeLib.today();
         } catch (Exception e) {
             String message = "today()";
             logError(message, e);
@@ -506,7 +507,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     @Override
     public BigDecimal weekday(LocalDate date) {
         try {
-            return BigDecimal.valueOf(this.dateLib.weekday(date));
+            return BigDecimal.valueOf(this.dateTimeLib.weekday(date));
         } catch (Exception e) {
             String message = String.format("weekday(%s)", date);
             logError(message, e);
@@ -515,7 +516,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
     public BigDecimal weekday(ZonedDateTime dateTime) {
         try {
-            return BigDecimal.valueOf(this.dateLib.weekday(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.weekday(dateTime));
         } catch (Exception e) {
             String message = String.format("weekday(%s)", dateTime);
             logError(message, e);
@@ -534,7 +535,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     @Override
     public ZonedDateTime yearAdd(ZonedDateTime dateTime, BigDecimal yearsToAdd) {
         try {
-            return this.dateLib.yearAdd(dateTime, yearsToAdd);
+            return this.dateTimeLib.yearAdd(dateTime, yearsToAdd);
         } catch (Exception e) {
             String message = String.format("yearAdd(%s, %s)", dateTime, yearsToAdd);
             logError(message, e);
@@ -543,7 +544,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
     public LocalDate yearAdd(LocalDate localDate, BigDecimal yearsToAdd) {
         try {
-            return this.dateLib.yearAdd(localDate, yearsToAdd);
+            return this.dateTimeLib.yearAdd(localDate, yearsToAdd);
         } catch (Exception e) {
             String message = String.format("yearAdd(%s, %s)", localDate, yearsToAdd);
             logError(message, e);
@@ -554,7 +555,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     @Override
     public BigDecimal yearDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         try {
-            return BigDecimal.valueOf(this.dateLib.yearDiff(dateTime1, dateTime2));
+            return BigDecimal.valueOf(this.dateTimeLib.yearDiff(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("yearDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
@@ -563,7 +564,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
     public BigDecimal yearDiff(LocalDate dateTime1, LocalDate dateTime2) {
         try {
-            return BigDecimal.valueOf(this.dateLib.yearDiff(dateTime1, dateTime2));
+            return BigDecimal.valueOf(this.dateTimeLib.yearDiff(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("yearDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
