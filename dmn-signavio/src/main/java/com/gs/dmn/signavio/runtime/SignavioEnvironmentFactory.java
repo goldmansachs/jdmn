@@ -21,7 +21,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
-import static com.gs.dmn.feel.analysis.semantics.type.ListType.*;
+import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
@@ -127,7 +127,7 @@ public class SignavioEnvironmentFactory implements EnvironmentFactory {
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("mode", new BuiltinFunctionType(NUMBER, new Parameter("list", ANY_LIST))));
 
         // String functions
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("concat", new BuiltinFunctionType(STRING, new Parameter("list", STRING_LIST))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("concat", new BuiltinFunctionType(STRING, new Parameter("list", ANY_LIST))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("isAlpha", new BuiltinFunctionType(BOOLEAN, new Parameter("text", STRING))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("isAlphanumeric", new BuiltinFunctionType(BOOLEAN, new Parameter("text", STRING))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("isNumeric", new BuiltinFunctionType(BOOLEAN, new Parameter("text", STRING))));
