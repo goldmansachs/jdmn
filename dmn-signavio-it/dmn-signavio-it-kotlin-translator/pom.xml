@@ -17,7 +17,7 @@
     <parent>
         <groupId>com.goldmansachs.jdmn</groupId>
         <artifactId>jdmn-signavio-integration-tests</artifactId>
-        <version>3.10.1-SNAPSHOT</version>
+        <version>3.10.1</version>
     </parent>
 
     <artifactId>jdmn-signavio-integration-tests-kotlin-translator</artifactId>
