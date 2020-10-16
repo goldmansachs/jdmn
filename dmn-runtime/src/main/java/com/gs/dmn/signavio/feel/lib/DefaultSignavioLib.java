@@ -214,22 +214,22 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     //
 
     @Override
-    public XMLGregorianCalendar dayAdd(XMLGregorianCalendar dateTime, BigDecimal daysToAdd) {
+    public XMLGregorianCalendar dayAdd(XMLGregorianCalendar date, BigDecimal daysToAdd) {
         try {
-            return this.dateTimeLib.dayAdd(dateTime, daysToAdd);
+            return this.dateTimeLib.dayAdd(date, daysToAdd);
         } catch (Exception e) {
-            String message = String.format("dayAdd(%s, %s)", dateTime, daysToAdd);
+            String message = String.format("dayAdd(%s, %s)", date, daysToAdd);
             logError(message, e);
             return null;
         }
     }
 
     @Override
-    public BigDecimal dayDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
+    public BigDecimal dayDiff(XMLGregorianCalendar date1, XMLGregorianCalendar date2) {
         try {
-            return BigDecimal.valueOf(this.dateTimeLib.dayDiff(dateTime1, dateTime2));
+            return BigDecimal.valueOf(this.dateTimeLib.dayDiff(date1, date2));
         } catch (Exception e) {
-            String message = String.format("dayDiff(%s, %s)", dateTime1, dateTime2);
+            String message = String.format("dayDiff(%s, %s)", date1, date2);
             logError(message, e);
             return null;
         }
@@ -295,16 +295,16 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     }
 
     @Override
-    public BigDecimal hour(XMLGregorianCalendar dateTime) {
-        return this.feelLib.hour(dateTime);
+    public BigDecimal hour(XMLGregorianCalendar time) {
+        return this.feelLib.hour(time);
     }
 
     @Override
-    public BigDecimal hourDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
+    public BigDecimal hourDiff(XMLGregorianCalendar time1, XMLGregorianCalendar time2) {
         try {
-            return BigDecimal.valueOf(this.dateTimeLib.hourDiff(dateTime1, dateTime2));
+            return BigDecimal.valueOf(this.dateTimeLib.hourDiff(time1, time2));
         } catch (Exception e) {
-            String message = String.format("hourDiff(%s, %s)", dateTime1, dateTime2);
+            String message = String.format("hourDiff(%s, %s)", time1, time2);
             logError(message, e);
             return null;
         }
@@ -366,38 +366,38 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     }
 
     @Override
-    public BigDecimal minutesDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
+    public BigDecimal minutesDiff(XMLGregorianCalendar time1, XMLGregorianCalendar time2) {
         try {
-            return BigDecimal.valueOf(this.dateTimeLib.minutesDiff(dateTime1, dateTime2));
+            return BigDecimal.valueOf(this.dateTimeLib.minutesDiff(time1, time2));
         } catch (Exception e) {
-            String message = String.format("minutesDiff(%s, %s)", dateTime1, dateTime2);
+            String message = String.format("minutesDiff(%s, %s)", time1, time2);
             logError(message, e);
             return null;
         }
     }
 
     @Override
-    public BigDecimal month(XMLGregorianCalendar dateTime) {
-        return this.feelLib.month(dateTime);
+    public BigDecimal month(XMLGregorianCalendar date) {
+        return this.feelLib.month(date);
     }
 
     @Override
-    public XMLGregorianCalendar monthAdd(XMLGregorianCalendar dateTime, BigDecimal monthsToAdd) {
+    public XMLGregorianCalendar monthAdd(XMLGregorianCalendar date, BigDecimal monthsToAdd) {
         try {
-            return this.dateTimeLib.monthAdd(dateTime, monthsToAdd);
+            return this.dateTimeLib.monthAdd(date, monthsToAdd);
         } catch (Exception e) {
-            String message = String.format("monthAdd(%s, %s)", dateTime, monthsToAdd);
+            String message = String.format("monthAdd(%s, %s)", date, monthsToAdd);
             logError(message, e);
             return null;
         }
     }
 
     @Override
-    public BigDecimal monthDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
+    public BigDecimal monthDiff(XMLGregorianCalendar date1, XMLGregorianCalendar date2) {
         try {
-            return BigDecimal.valueOf(this.dateTimeLib.monthDiff(dateTime1, dateTime2));
+            return BigDecimal.valueOf(this.dateTimeLib.monthDiff(date1, date2));
         } catch (Exception e) {
-            String message = String.format("monthDiff(%s, %s)", dateTime1, dateTime2);
+            String message = String.format("monthDiff(%s, %s)", date1, date2);
             logError(message, e);
             return null;
         }
@@ -437,27 +437,27 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     }
 
     @Override
-    public BigDecimal year(XMLGregorianCalendar dateTime) {
-        return this.feelLib.year(dateTime);
+    public BigDecimal year(XMLGregorianCalendar date) {
+        return this.feelLib.year(date);
     }
 
     @Override
-    public XMLGregorianCalendar yearAdd(XMLGregorianCalendar dateTime, BigDecimal yearsToAdd) {
+    public XMLGregorianCalendar yearAdd(XMLGregorianCalendar date, BigDecimal yearsToAdd) {
         try {
-            return this.dateTimeLib.yearAdd(dateTime, yearsToAdd);
+            return this.dateTimeLib.yearAdd(date, yearsToAdd);
         } catch (Exception e) {
-            String message = String.format("yearAdd(%s, %s)", dateTime, yearsToAdd);
+            String message = String.format("yearAdd(%s, %s)", date, yearsToAdd);
             logError(message, e);
             return null;
         }
     }
 
     @Override
-    public BigDecimal yearDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
+    public BigDecimal yearDiff(XMLGregorianCalendar date1, XMLGregorianCalendar date2) {
         try {
-            return BigDecimal.valueOf(this.dateTimeLib.yearDiff(dateTime1, dateTime2));
+            return BigDecimal.valueOf(this.dateTimeLib.yearDiff(date1, date2));
         } catch (Exception e) {
-            String message = String.format("yearDiff(%s, %s)", dateTime1, dateTime2);
+            String message = String.format("yearDiff(%s, %s)", date1, date2);
             logError(message, e);
             return null;
         }
