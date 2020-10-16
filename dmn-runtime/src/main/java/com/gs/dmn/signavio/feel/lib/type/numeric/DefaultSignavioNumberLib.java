@@ -81,4 +81,24 @@ public class DefaultSignavioNumberLib extends DefaultNumericLib implements Signa
 
         return dividend.remainder(divisor);
     }
+
+    @Override
+    public BigDecimal power(BigDecimal base, BigDecimal exponent) {
+        return BigDecimal.valueOf(Math.pow(base.doubleValue(), exponent.intValue()));
+    }
+
+    @Override
+    public BigDecimal valueOf(long number) {
+        return BigDecimal.valueOf(number);
+    }
+
+    @Override
+    public int intValue(BigDecimal number) {
+        return number.intValue();
+    }
+
+    @Override
+    public Number toNumber(BigDecimal number) {
+        return number;
+    }
 }

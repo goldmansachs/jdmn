@@ -81,4 +81,24 @@ public class DoubleSignavioNumberLib extends DoubleNumericLib implements Signavi
 
         return dividend % divisor;
     }
+
+    @Override
+    public Double power(Double base, Double exponent) {
+        return Math.pow(base, exponent.intValue());
+    }
+
+    @Override
+    public Double valueOf(long number) {
+        return (double) number;
+    }
+
+    @Override
+    public int intValue(Double number) {
+        return number.intValue();
+    }
+
+    @Override
+    public Number toNumber(Double number) {
+        return number;
+    }
 }
