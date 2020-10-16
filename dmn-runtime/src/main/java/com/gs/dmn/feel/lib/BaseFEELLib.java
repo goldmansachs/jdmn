@@ -611,6 +611,6 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         }
     }
 
-    protected abstract NUMBER valueOf(int number);
+    protected abstract NUMBER valueOf(long number);
     protected abstract int intValue(NUMBER number);
 }
