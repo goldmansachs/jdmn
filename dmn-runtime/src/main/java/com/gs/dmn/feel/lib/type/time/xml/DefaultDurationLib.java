@@ -54,78 +54,78 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
     }
 
     @Override
-    public Integer years(javax.xml.datatype.Duration duration) {
+    public Long years(javax.xml.datatype.Duration duration) {
         if (duration == null) {
             return null;
         }
 
         if (isYearMonthsTime(duration)) {
-            return duration.getYears();
+            return (long) duration.getYears();
         } else {
             return null;
         }
     }
 
     @Override
-    public Integer months(javax.xml.datatype.Duration duration) {
+    public Long months(javax.xml.datatype.Duration duration) {
         if (duration == null) {
             return null;
         }
 
         if (isYearMonthsTime(duration)) {
-            return duration.getMonths();
+            return (long) duration.getMonths();
         } else {
             return null;
         }
     }
 
     @Override
-    public Integer days(javax.xml.datatype.Duration duration) {
+    public Long days(javax.xml.datatype.Duration duration) {
         if (duration == null) {
             return null;
         }
 
         if (isDayTime(duration)) {
-            return duration.getDays();
+            return (long) duration.getDays();
         } else {
             return null;
         }
     }
 
     @Override
-    public Integer hours(javax.xml.datatype.Duration duration) {
+    public Long hours(javax.xml.datatype.Duration duration) {
         if (duration == null) {
             return null;
         }
 
         if (isDayTime(duration)) {
-            return duration.getHours();
+            return (long) duration.getHours();
         } else {
             return null;
         }
     }
 
     @Override
-    public Integer minutes(javax.xml.datatype.Duration duration) {
+    public Long minutes(javax.xml.datatype.Duration duration) {
         if (duration == null) {
             return null;
         }
 
         if (isDayTime(duration)) {
-            return duration.getMinutes();
+            return (long) duration.getMinutes();
         } else {
             return null;
         }
     }
 
     @Override
-    public Integer seconds(javax.xml.datatype.Duration duration) {
+    public Long seconds(javax.xml.datatype.Duration duration) {
         if (duration == null) {
             return null;
         }
 
         if (isDayTime(duration)) {
-            return duration.getSeconds();
+            return (long) duration.getSeconds();
         } else {
             return null;
         }

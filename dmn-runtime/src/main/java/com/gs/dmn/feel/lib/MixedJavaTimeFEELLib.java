@@ -25,6 +25,7 @@ import com.gs.dmn.feel.lib.type.numeric.NumericLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
+import com.gs.dmn.feel.lib.type.time.DurationLib;
 import com.gs.dmn.feel.lib.type.time.mixed.*;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationType;
 import com.gs.dmn.runtime.LambdaExpression;
@@ -46,7 +47,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     private final StringLib stringLib = new DefaultStringLib();
     private final BooleanLib booleanLib = new DefaultBooleanLib();
     private final MixedDateTimeLib dateTimeLib = new MixedDateTimeLib(DATA_TYPE_FACTORY);
-    private final DefaultDurationLib durationLib = new DefaultDurationLib(DATA_TYPE_FACTORY);
+    private final DurationLib<LocalDate, Duration> durationLib = new MixedDurationLib(DATA_TYPE_FACTORY);
     private final ListLib listLib = new DefaultListLib();
 
     public MixedJavaTimeFEELLib() {
@@ -235,16 +236,6 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
 
     @Override
-    public Duration yearsAndMonthsDuration(ZonedDateTime from, ZonedDateTime to) {
-        try {
-            return this.durationLib.yearsAndMonthsDuration(from, to);
-        } catch (Exception e) {
-            String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
-            logError(message, e);
-            return null;
-        }
-    }
-
     public Duration yearsAndMonthsDuration(LocalDate from, LocalDate to) {
         try {
             return this.durationLib.yearsAndMonthsDuration(from, to);
@@ -254,20 +245,27 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
             return null;
         }
     }
-
-    public Duration yearsAndMonthsDuration(ZonedDateTime from, LocalDate to) {
+    public Duration yearsAndMonthsDuration(ZonedDateTime from, ZonedDateTime to) {
         try {
-            return this.durationLib.yearsAndMonthsDuration(from, to);
+            return this.durationLib.yearsAndMonthsDuration(toDate(from), toDate(to));
         } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
             return null;
         }
     }
-
+    public Duration yearsAndMonthsDuration(ZonedDateTime from, LocalDate to) {
+        try {
+            return this.durationLib.yearsAndMonthsDuration(toDate(from), to);
+        } catch (Exception e) {
+            String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
+            logError(message, e);
+            return null;
+        }
+    }
     public Duration yearsAndMonthsDuration(LocalDate from, ZonedDateTime to) {
         try {
-            return this.durationLib.yearsAndMonthsDuration(from, to);
+            return this.durationLib.yearsAndMonthsDuration(from, toDate(to));
         } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
