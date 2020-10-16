@@ -383,4 +383,9 @@ public class DefaultNumericLib implements NumericLib<BigDecimal> {
 
         return mode(Arrays.asList(numbers));
     }
+
+    @Override
+    public Number toNumber(BigDecimal number) {
+        return number;
+    }
 }

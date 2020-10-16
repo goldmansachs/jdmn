@@ -99,6 +99,7 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
         assertEqualsDateTime("11:00:00.001+01:00", getLib().time("11:00:00.001+01:00"));
         assertEqualsDateTime("11:00:00+01:00", getLib().time("11:00:00+01:00"));
 
+        assertEqualsDateTime("00:00:00Z", getLib().time(getLib().date("2017-08-10")));
         assertEqualsDateTime("11:00:00Z", getLib().time(makeDateAndTime("2016-08-01T11:00:00Z")));
 
 //        assertEqualsTime("12:00:00+01:10", getLib().time(
@@ -109,6 +110,10 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
 //        assertEqualsTime("12:00:00Z", getLib().time(
 //                makeNumber("12"), makeNumber("00"), makeNumber("00"),
 //                null));
+
+        assertEqualsDateTime("12:00:00Z", getLib().time(makeTime("12:00:00Z")));
+        assertEqualsDateTime("00:00:00Z", getLib().time(getLib().date("2017-08-10")));
+        assertEqualsDateTime("11:00:00Z", getLib().time(makeDateAndTime("2016-08-01T11:00:00Z")));
     }
 
     @Override
@@ -149,7 +154,15 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
     @Override
     @Test
     public void testYearsAndMonthsDuration() {
-        assertEqualsDateTime("PT0S", getLib().yearsAndMonthsDuration(getLib().dateAndTime("2015-12-24T12:15:00.000+01:00"), getLib().dateAndTime("2015-12-24T12:15:00.000+01:00")).toString());
+        assertNull(getLib().yearsAndMonthsDuration(null, null));
+
+        assertEquals("P0D", getLib().yearsAndMonthsDuration(makeDate("2015-12-24"), makeDate("2015-12-24")).toString());
+        assertEquals("P1Y2M", getLib().yearsAndMonthsDuration(makeDate("2016-09-30"), makeDate("2017-12-28")).toString());
+        assertEquals("P7Y6M", getLib().yearsAndMonthsDuration(makeDate("2010-05-30"), makeDate("2017-12-15")).toString());
+        assertEquals("P-4033Y-2M", getLib().yearsAndMonthsDuration(makeDate("2014-12-31"), makeDate("-2019-10-01")).toString());
+        assertEquals("P-4035Y-11M", getLib().yearsAndMonthsDuration(makeDate("2017-09-05"), makeDate("-2019-10-01")).toString());
+
+        assertEqualsDateTime("P0D", getLib().yearsAndMonthsDuration(getLib().dateAndTime("2015-12-24T12:15:00.000+01:00"), getLib().dateAndTime("2015-12-24T12:15:00.000+01:00")).toString());
     }
 
     @Test

@@ -2120,7 +2120,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "FunctionInvocation(Name(date) -> PositionalParameters(NullLiteral()))",
                 "date",
                 "contains(null)",
-                lib.date((DATE_TIME) null),
+                lib.date((DATE) null),
                 true);
     }
 

@@ -20,7 +20,6 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.Rule;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -506,24 +505,16 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         }
     }
 
-    public List<BigDecimal> rangeToList(boolean isOpenStart, BigDecimal start, boolean isOpenEnd, BigDecimal end) {
-        Pair<Integer, Integer> intRange = intRange(isOpenStart, start, isOpenEnd, end);
-        return numericRangeToList(intRange, BigDecimal::valueOf);
+    @Override
+    public List<NUMBER> rangeToList(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end) {
+        Pair<Integer, Integer> intRange = intRange(isOpenStart, (Number) start, isOpenEnd, (Number) end);
+        return numericRangeToList(intRange);
     }
 
-    public List<Double> rangeToList(boolean isOpenStart, Double start, boolean isOpenEnd, Double end) {
-        Pair<Integer, Integer> intRange = intRange(isOpenStart, start, isOpenEnd, end);
-        return numericRangeToList(intRange, Double::valueOf);
-    }
-
-    public List<BigDecimal> rangeToList(BigDecimal start, BigDecimal end) {
-        Pair<Integer, Integer> intRange = intRange(start, end);
-        return numericRangeToList(intRange, BigDecimal::valueOf);
-    }
-
-    public List<Double> rangeToList(Double start, Double end) {
-        Pair<Integer, Integer> intRange = intRange(start, end);
-        return numericRangeToList(intRange, Double::valueOf);
+    @Override
+    public List<NUMBER> rangeToList(NUMBER start, NUMBER end) {
+        Pair<Integer, Integer> intRange = intRange((Number) start, (Number) end);
+        return numericRangeToList(intRange);
     }
 
     private Pair<Integer, Integer> intRange(boolean isOpenStart, Number start, boolean isOpenEnd, Number end) {
@@ -544,20 +535,21 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         return new Pair<>(startValue, endValue);
     }
 
-    private <T> List<T> numericRangeToList(Pair<Integer, Integer> intRange, java.util.function.Function<Integer, T> fromInt) {
-        List<T> result = new ArrayList<>();
+    private List<NUMBER> numericRangeToList(Pair<Integer, Integer> intRange) {
+        List<NUMBER> result = new ArrayList<>();
         if (intRange == null) {
             return result;
         }
+
         int startValue = intRange.getLeft();
         int endValue = intRange.getRight();
         if (startValue <= endValue) {
             for (int i = startValue; i <= endValue; i++) {
-                result.add(fromInt.apply(i));
+                result.add(valueOf(i));
             }
         } else {
             for (int i = startValue; i >= endValue; i--) {
-                result.add(fromInt.apply(i));
+                result.add(valueOf(i));
             }
         }
         return result;
@@ -579,12 +571,9 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         return result;
     }
 
-    public Object elementAt(List list, BigDecimal index) {
-        return elementAt(list, index.intValue());
-    }
-
-    public Object elementAt(List list, Double index) {
-        return elementAt(list, index.intValue());
+    @Override
+    public Object elementAt(List list, NUMBER index) {
+        return elementAt(list, intValue(index));
     }
 
     private Object elementAt(List list, int index) {
@@ -621,4 +610,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
             return true;
         }
     }
+
+    protected abstract NUMBER valueOf(long number);
+    protected abstract int intValue(NUMBER number);
 }

@@ -45,7 +45,8 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         assertEqualsDateTime("2016-08-01", getLib().date("2016-08-01"));
         assertEqualsDateTime("2016-08-01", getLib().date("2016-08-01"));
 
-        assertEqualsDateTime("2016-08-01", getLib().date(makeDateAndTime("2016-08-01T12:00:00Z")));
+        assertEqualsDateTime("2016-08-01", getLib().date(makeDate("2016-08-01")));
+        assertEqualsDateTime("2017-10-11", getLib().date(getLib().date("2017-10-11")));
 
         assertEqualsDateTime("2016-08-01", getLib().date(makeNumber("2016"), makeNumber("8"), makeNumber("1")));
 
@@ -72,8 +73,6 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
         assertEqualsDateTime("11:00:00.001+01:00", getLib().time("11:00:00.001+01:00"));
         assertEqualsDateTime("11:00:00+01:00", getLib().time("11:00:00+01:00"));
-
-        assertEqualsDateTime("11:00:00Z", getLib().time(makeDateAndTime("2016-08-01T11:00:00Z")));
 
         assertEqualsDateTime("12:00:00+01:10", getLib().time(
                 makeNumber("12"), makeNumber("00"), makeNumber("00"),

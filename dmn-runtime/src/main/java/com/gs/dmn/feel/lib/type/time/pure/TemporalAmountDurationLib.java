@@ -12,15 +12,17 @@
  */
 package com.gs.dmn.feel.lib.type.time.pure;
 
+import com.gs.dmn.feel.lib.type.time.DurationLib;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
-public class TemporalAmountDurationLib {
+public class TemporalAmountDurationLib implements DurationLib<LocalDate, TemporalAmount> {
+    @Override
    public TemporalAmount duration(String from) {
         if (StringUtils.isBlank(from)) {
             return null;
@@ -36,22 +38,26 @@ public class TemporalAmountDurationLib {
         return ta;
     }
 
-    public TemporalAmount yearsAndMonthsDuration(Temporal from, Temporal to) {
+    @Override
+    public TemporalAmount yearsAndMonthsDuration(LocalDate from, LocalDate to) {
         if (from == null || to == null) {
             return null;
         }
 
-        return Duration.between(from, to);
+        return Period.between(from, to).withDays(0);
     }
 
+    @Override
     public Long years(TemporalAmount duration) {
         return duration.get(ChronoUnit.YEARS);
     }
 
+    @Override
     public Long months(TemporalAmount duration) {
         return duration.get(ChronoUnit.MONTHS);
     }
 
+    @Override
     public Long days(TemporalAmount duration) {
        if (duration instanceof Period) {
            return duration.get(ChronoUnit.DAYS);
@@ -66,6 +72,7 @@ public class TemporalAmountDurationLib {
        }
     }
 
+    @Override
     public Long hours(TemporalAmount duration) {
         if (duration instanceof Period) {
             return duration.get(ChronoUnit.HOURS);
@@ -79,6 +86,7 @@ public class TemporalAmountDurationLib {
         }
     }
 
+    @Override
     public Long minutes(TemporalAmount duration) {
         if (duration instanceof Period) {
             return duration.get(ChronoUnit.MINUTES);
@@ -91,6 +99,7 @@ public class TemporalAmountDurationLib {
         }
     }
 
+    @Override
     public Long seconds(TemporalAmount duration) {
         if (duration instanceof Period) {
             return duration.get(ChronoUnit.SECONDS);
