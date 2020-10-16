@@ -22,28 +22,31 @@ import java.time.ZonedDateTime;
 
 public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements SignavioDateTimeLib<Number, LocalDate, OffsetTime, ZonedDateTime> {
     @Override
-    public LocalDate yearAdd(LocalDate localDate, Number yearsToAdd) {
-        return localDate.plusYears(yearsToAdd.longValue());
+    public LocalDate yearAdd(LocalDate date, Number yearsToAdd) {
+        return date.plusYears(yearsToAdd.longValue());
     }
-    public ZonedDateTime yearAdd(ZonedDateTime dateTime, Number yearsToAdd) {
+    @Override
+    public ZonedDateTime yearAddDateTime(ZonedDateTime dateTime, Number yearsToAdd) {
         return dateTime.plusYears(yearsToAdd.longValue());
     }
 
     @Override
-    public Long yearDiff(LocalDate dateTime1, LocalDate dateTime2) {
-        Period period = periodBetween(dateTime1, dateTime2);
+    public Long yearDiff(LocalDate date1, LocalDate date2) {
+        Period period = periodBetween(date1, date2);
         return (long) period.getYears();
     }
-    public Integer yearDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
+    @Override
+    public Long yearDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         Period period = periodBetween(dateTime1, dateTime2);
-        return period.getYears();
+        return (long) period.getYears();
     }
 
     @Override
     public LocalDate monthAdd(LocalDate date, Number monthsToAdd) {
         return date.plusMonths(monthsToAdd.longValue());
     }
-    public ZonedDateTime monthAdd(ZonedDateTime dateTime, Number monthsToAdd) {
+    @Override
+    public ZonedDateTime monthAddDateTime(ZonedDateTime dateTime, Number monthsToAdd) {
         return dateTime.plusMonths(monthsToAdd.longValue());
     }
 
@@ -52,7 +55,8 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
         Period period = periodBetween(date1, date2);
         return period.toTotalMonths();
     }
-    public Long monthDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
+    @Override
+    public Long monthDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         Period period = periodBetween(dateTime1, dateTime2);
         return period.toTotalMonths();
     }
@@ -61,7 +65,8 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
     public LocalDate dayAdd(LocalDate date, Number daysToAdd) {
         return date.plusDays(daysToAdd.intValue());
     }
-    public LocalDate dayAdd(ZonedDateTime dateTime, Number daysToAdd) {
+    @Override
+    public LocalDate dayAddDateTime(ZonedDateTime dateTime, Number daysToAdd) {
         return dateTime.plusDays(daysToAdd.intValue()).toLocalDate();
     }
 
@@ -70,7 +75,8 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
         long diff = durationBetween(date1, date2).getSeconds() / (60 * 60 * 24);
         return diff;
     }
-    public Long dayDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
+    @Override
+    public Long dayDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         long diff = durationBetween(dateTime1, dateTime2).getSeconds() / (60 * 60 * 24);
         return diff;
     }
@@ -80,7 +86,8 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
         long diff = durationBetween(time1, time2).getSeconds() / (60 * 60);
         return diff;
     }
-    public Long hourDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
+    @Override
+    public Long hourDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         long diff = durationBetween(dateTime1, dateTime2).getSeconds() / (60 * 60);
         return diff;
     }
@@ -90,7 +97,8 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
         long diff = durationBetween(time1, time2).getSeconds() / 60;
         return diff;
     }
-    public Long minutesDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
+    @Override
+    public Long minutesDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         long diff = durationBetween(dateTime1, dateTime2).getSeconds() / 60;
         return diff;
     }
@@ -100,7 +108,8 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
         int weekDay = date.getDayOfWeek().getValue();
         return weekDay;
     }
-    public Integer weekday(ZonedDateTime dateTime) {
+    @Override
+    public Integer weekdayDateTime(ZonedDateTime dateTime) {
         int weekDay = dateTime.getDayOfWeek().getValue();
         return weekDay;
     }
