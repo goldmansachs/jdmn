@@ -187,7 +187,8 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
 
         return date.getYear();
     }
-    public Integer year(ZonedDateTime dateTime) {
+    @Override
+    public Integer yearDateTime(ZonedDateTime dateTime) {
         if (dateTime == null) {
             return null;
         }
@@ -203,7 +204,8 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
 
         return date.getMonth().getValue();
     }
-    public Integer month(ZonedDateTime dateTime) {
+    @Override
+    public Integer monthDateTime(ZonedDateTime dateTime) {
         if (dateTime == null) {
             return null;
         }
@@ -219,13 +221,15 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
 
         return date.getDayOfMonth();
     }
-    public Integer day(ZonedDateTime dateTime) {
+    @Override
+    public Integer dayDateTime(ZonedDateTime dateTime) {
         if (dateTime == null) {
             return null;
         }
 
         return dateTime.getDayOfMonth();
     }
+
     @Override
     public Integer weekday(LocalDate date) {
         if (date == null) {
@@ -234,7 +238,8 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
 
         return date.getDayOfWeek().getValue();
     }
-    public Integer weekday(ZonedDateTime dateTime) {
+    @Override
+    public Integer weekdayDateTime(ZonedDateTime dateTime) {
         if (dateTime == null) {
             return null;
         }
@@ -250,7 +255,8 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
 
         return time.getHour();
     }
-    public Integer hour(ZonedDateTime dateTime) {
+    @Override
+    public Integer hourDateTime(ZonedDateTime dateTime) {
         if (dateTime == null) {
             return null;
         }
@@ -266,7 +272,8 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
 
         return time.getMinute();
     }
-    public Integer minute(ZonedDateTime dateTime) {
+    @Override
+    public Integer minuteDateTime(ZonedDateTime dateTime) {
         if (dateTime == null) {
             return null;
         }
@@ -282,7 +289,8 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
 
         return time.getSecond();
     }
-    public Integer second(ZonedDateTime dateTime) {
+    @Override
+    public Integer secondDateTime(ZonedDateTime dateTime) {
         if (dateTime == null) {
             return null;
         }
@@ -300,7 +308,8 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         int secondsOffset = time.getOffset().getTotalSeconds();
         return computeDuration(secondsOffset);
     }
-    public Duration timeOffset(ZonedDateTime dateTime) {
+    @Override
+    public Duration timeOffsetDateTime(ZonedDateTime dateTime) {
         if (dateTime == null) {
             return null;
         }
@@ -318,7 +327,8 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
 
         return time.getOffset().getId();
     }
-    public String timezone(ZonedDateTime dateTime) {
+    @Override
+    public String timezoneDateTime(ZonedDateTime dateTime) {
         if (dateTime == null) {
             return null;
         }

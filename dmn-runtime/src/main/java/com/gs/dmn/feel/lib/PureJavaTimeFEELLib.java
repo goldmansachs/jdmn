@@ -116,7 +116,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     @Override
     public LocalDate date(Temporal from) {
         try {
-            return this.dateTimeLib.date(from);
+            return this.dateTimeLib.dateDateTime(from);
         } catch (Exception e) {
             String message = String.format("date(%s)", from);
             logError(message, e);
@@ -642,7 +642,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     }
     public BigDecimal year(Temporal dateTime) {
         try {
-            return BigDecimal.valueOf(this.dateTimeLib.year(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.yearDateTime(dateTime));
         } catch (Exception e) {
             String message = String.format("year(%s)", dateTime);
             logError(message, e);
@@ -662,7 +662,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     }
     public BigDecimal month(Temporal dateTime) {
         try {
-            return BigDecimal.valueOf(this.dateTimeLib.month(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.monthDateTime(dateTime));
         } catch (Exception e) {
             String message = String.format("month(%s)", dateTime);
             logError(message, e);
@@ -682,7 +682,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     }
     public BigDecimal day(Temporal dateTime) {
         try {
-            return BigDecimal.valueOf(this.dateTimeLib.day(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.dayDateTime(dateTime));
         } catch (Exception e) {
             String message = String.format("day(%s)", dateTime);
             logError(message, e);
@@ -702,7 +702,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     }
     public BigDecimal weekday(Temporal dateTime) {
         try {
-            return BigDecimal.valueOf(this.dateTimeLib.weekday(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.weekdayDateTime(dateTime));
         } catch (Exception e) {
             String message = String.format("weekday(%s)", dateTime);
             logError(message, e);

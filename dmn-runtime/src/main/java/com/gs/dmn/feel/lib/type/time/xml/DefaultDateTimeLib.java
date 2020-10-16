@@ -161,6 +161,10 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
 
         return date.getYear();
     }
+    @Override
+    public Integer yearDateTime(XMLGregorianCalendar dateTime) {
+        return year(dateTime);
+    }
 
     @Override
     public Integer month(XMLGregorianCalendar date) {
@@ -169,6 +173,10 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         }
 
         return date.getMonth();
+    }
+    @Override
+    public Integer monthDateTime(XMLGregorianCalendar dateTime) {
+        return month(dateTime);
     }
 
     @Override
@@ -179,6 +187,10 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
 
         return date.getDay();
     }
+    @Override
+    public Integer dayDateTime(XMLGregorianCalendar dateTime) {
+        return day(dateTime);
+    }
 
     @Override
     public Integer weekday(XMLGregorianCalendar date) {
@@ -187,6 +199,10 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         }
 
         return date.toGregorianCalendar().get(Calendar.DAY_OF_WEEK) - 1;
+    }
+    @Override
+    public Integer weekdayDateTime(XMLGregorianCalendar dateTime) {
+        return weekday(dateTime);
     }
 
     @Override
@@ -197,6 +213,10 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
 
         return date.getHour();
     }
+    @Override
+    public Integer hourDateTime(XMLGregorianCalendar dateTime) {
+        return hour(dateTime);
+    }
 
     @Override
     public Integer minute(XMLGregorianCalendar date) {
@@ -206,6 +226,10 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
 
         return date.getMinute();
     }
+    @Override
+    public Integer minuteDateTime(XMLGregorianCalendar dateTime) {
+        return minute(dateTime);
+    }
 
     @Override
     public Integer second(XMLGregorianCalendar date) {
@@ -214,6 +238,10 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         }
 
         return date.getSecond();
+    }
+    @Override
+    public Integer secondDateTime(XMLGregorianCalendar dateTime) {
+        return second(dateTime);
     }
 
     @Override
@@ -229,6 +257,10 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
             return this.dataTypeFactory.newDuration((long) secondsOffset * 1000);
         }
     }
+    @Override
+    public Duration timeOffsetDateTime(XMLGregorianCalendar dateTime) {
+        return timeOffset(dateTime);
+    }
 
     @Override
     public String timezone(XMLGregorianCalendar date) {
@@ -237,6 +269,10 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         }
 
         return ((FEELXMLGregorianCalendar) date).getZoneID();
+    }
+    @Override
+    public String timezoneDateTime(XMLGregorianCalendar dateTime) {
+        return timezone(dateTime);
     }
 
     public XMLGregorianCalendar toDate(Object object) {

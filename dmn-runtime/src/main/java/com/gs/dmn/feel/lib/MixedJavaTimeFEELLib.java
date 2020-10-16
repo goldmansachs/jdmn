@@ -712,7 +712,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public BigDecimal year(ZonedDateTime dateTime) {
         try {
-            return BigDecimal.valueOf(this.dateTimeLib.year(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.yearDateTime(dateTime));
         } catch (Exception e) {
             String message = String.format("year(%s)", dateTime);
             logError(message, e);
@@ -732,7 +732,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public BigDecimal month(ZonedDateTime dateTime) {
         try {
-            return BigDecimal.valueOf(this.dateTimeLib.month(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.monthDateTime(dateTime));
         } catch (Exception e) {
             String message = String.format("month(%s)", dateTime);
             logError(message, e);
@@ -752,7 +752,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public BigDecimal day(ZonedDateTime dateTime) {
         try {
-            return BigDecimal.valueOf(this.dateTimeLib.day(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.dayDateTime(dateTime));
         } catch (Exception e) {
             String message = String.format("day(%s)", dateTime);
             logError(message, e);
@@ -771,7 +771,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public BigDecimal weekday(ZonedDateTime dateTime) {
         try {
-            return BigDecimal.valueOf(this.dateTimeLib.weekday(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.weekdayDateTime(dateTime));
         } catch (Exception e) {
             String message = String.format("weekday(%s)", dateTime);
             logError(message, e);
@@ -794,7 +794,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public BigDecimal hour(ZonedDateTime dateTime) {
         try {
-            return BigDecimal.valueOf(this.dateTimeLib.hour(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.hourDateTime(dateTime));
         } catch (Exception e) {
             String message = String.format("hour(%s)", dateTime);
             logError(message, e);
@@ -814,7 +814,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public BigDecimal minute(ZonedDateTime dateTime) {
         try {
-            return BigDecimal.valueOf(this.dateTimeLib.minute(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.minuteDateTime(dateTime));
         } catch (Exception e) {
             String message = String.format("minute(%s)", dateTime);
             logError(message, e);
@@ -834,7 +834,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public BigDecimal second(ZonedDateTime dateTime) {
         try {
-            return BigDecimal.valueOf(this.dateTimeLib.second(dateTime));
+            return BigDecimal.valueOf(this.dateTimeLib.secondDateTime(dateTime));
         } catch (Exception e) {
             String message = String.format("second(%s)", dateTime);
             logError(message, e);
@@ -854,7 +854,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public Duration timeOffset(ZonedDateTime dateTime) {
         try {
-            return this.dateTimeLib.timeOffset(dateTime);
+            return this.dateTimeLib.timeOffsetDateTime(dateTime);
         } catch (Exception e) {
             String message = String.format("timeOffset(%s)", dateTime);
             logError(message, e);
@@ -874,7 +874,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
     public String timezone(ZonedDateTime dateTime) {
         try {
-            return this.dateTimeLib.timezone(dateTime);
+            return this.dateTimeLib.timezoneDateTime(dateTime);
         } catch (Exception e) {
             String message = String.format("timezone(%s)", dateTime);
             logError(message, e);
