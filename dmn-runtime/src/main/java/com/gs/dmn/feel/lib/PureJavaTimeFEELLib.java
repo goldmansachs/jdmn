@@ -25,6 +25,7 @@ import com.gs.dmn.feel.lib.type.numeric.NumericLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
+import com.gs.dmn.feel.lib.type.time.DurationLib;
 import com.gs.dmn.feel.lib.type.time.pure.*;
 import com.gs.dmn.runtime.LambdaExpression;
 
@@ -42,7 +43,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     private final StringLib stringLib = new DefaultStringLib();
     private final BooleanLib booleanLib = new DefaultBooleanLib();
     private final TemporalDateTimeLib dateTimeLib = new TemporalDateTimeLib(DefaultFEELLib.DATA_TYPE_FACTORY);
-    private final TemporalAmountDurationLib durationLib = new TemporalAmountDurationLib();
+    private final DurationLib<LocalDate, TemporalAmount> durationLib = new TemporalAmountDurationLib();
     private final ListLib listLib = new DefaultListLib();
 
     public PureJavaTimeFEELLib() {
@@ -195,9 +196,18 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     }
 
     @Override
-    public TemporalAmount yearsAndMonthsDuration(Temporal from, Temporal to) {
+    public TemporalAmount yearsAndMonthsDuration(LocalDate from, LocalDate to) {
         try {
             return this.durationLib.yearsAndMonthsDuration(from, to);
+        } catch (Exception e) {
+            String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
+            logError(message, e);
+            return null;
+        }
+    }
+    public TemporalAmount yearsAndMonthsDuration(Temporal from, Temporal to) {
+        try {
+            return this.durationLib.yearsAndMonthsDuration(toDate(from), toDate(to));
         } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);

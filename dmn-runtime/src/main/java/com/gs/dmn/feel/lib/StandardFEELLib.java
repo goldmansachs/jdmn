@@ -62,7 +62,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     @Override
     DURATION duration(String literal);
 
-    DURATION yearsAndMonthsDuration(DATE_TIME from, DATE_TIME to);
+    DURATION yearsAndMonthsDuration(DATE from, DATE to);
 
     //
     // Numeric functions
