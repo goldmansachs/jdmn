@@ -28,8 +28,8 @@ import static com.gs.dmn.feel.lib.DefaultFEELLib.DATA_TYPE_FACTORY;
 
 public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implements SignavioDateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar> {
     @Override
-    public XMLGregorianCalendar yearAdd(XMLGregorianCalendar dateTime, BigDecimal yearsToAdd) {
-        XMLGregorianCalendar result = (XMLGregorianCalendar) dateTime.clone();
+    public XMLGregorianCalendar yearAdd(XMLGregorianCalendar date, BigDecimal yearsToAdd) {
+        XMLGregorianCalendar result = (XMLGregorianCalendar) date.clone();
         int months = yearsToAdd.intValue();
         boolean isPositive = months > 0;
         javax.xml.datatype.Duration duration;
@@ -40,14 +40,24 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     }
 
     @Override
-    public Long yearDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
-        Period period = periodBetween(dateTime1, dateTime2);
+    public XMLGregorianCalendar yearAddDateTime(XMLGregorianCalendar dateTime, BigDecimal yearsToAdd) {
+        return yearAdd(dateTime, yearsToAdd);
+    }
+
+    @Override
+    public Long yearDiff(XMLGregorianCalendar date1, XMLGregorianCalendar date2) {
+        Period period = periodBetween(date1, date2);
         return (long) period.getYears();
     }
 
     @Override
-    public XMLGregorianCalendar monthAdd(XMLGregorianCalendar dateTime, BigDecimal monthsToAdd) {
-        XMLGregorianCalendar result = (XMLGregorianCalendar) dateTime.clone();
+    public Long yearDiffDateTime(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
+        return yearDiff(dateTime1, dateTime2);
+    }
+
+    @Override
+    public XMLGregorianCalendar monthAdd(XMLGregorianCalendar date, BigDecimal monthsToAdd) {
+        XMLGregorianCalendar result = (XMLGregorianCalendar) date.clone();
         int months = monthsToAdd.intValue();
         boolean isPositive = months > 0;
         javax.xml.datatype.Duration duration;
@@ -58,14 +68,24 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     }
 
     @Override
-    public Long monthDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
-        Period period = periodBetween(dateTime1, dateTime2);
+    public XMLGregorianCalendar monthAddDateTime(XMLGregorianCalendar dateTime, BigDecimal monthsToAdd) {
+        return monthAdd(dateTime, monthsToAdd);
+    }
+
+    @Override
+    public Long monthDiff(XMLGregorianCalendar date1, XMLGregorianCalendar date2) {
+        Period period = periodBetween(date1, date2);
         return period.toTotalMonths();
     }
 
     @Override
-    public XMLGregorianCalendar dayAdd(XMLGregorianCalendar dateTime, BigDecimal daysToAdd) {
-        XMLGregorianCalendar result = (XMLGregorianCalendar) dateTime.clone();
+    public Long monthDiffDateTime(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
+        return monthDiff(dateTime1, dateTime2);
+    }
+
+    @Override
+    public XMLGregorianCalendar dayAdd(XMLGregorianCalendar date, BigDecimal daysToAdd) {
+        XMLGregorianCalendar result = (XMLGregorianCalendar) date.clone();
         int days = daysToAdd.intValue();
         boolean isPositive = days > 0;
         javax.xml.datatype.Duration duration;
@@ -76,19 +96,29 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     }
 
     @Override
-    public Long dayDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
-        java.time.Duration duration = durationBetween(dateTime1, dateTime2);
+    public XMLGregorianCalendar dayAddDateTime(XMLGregorianCalendar dateTime, BigDecimal daysToAdd) {
+        return dayAdd(dateTime, daysToAdd);
+    }
+
+    @Override
+    public Long dayDiff(XMLGregorianCalendar date1, XMLGregorianCalendar date2) {
+        java.time.Duration duration = durationBetween(date1, date2);
         Long diff = duration == null ? null : duration.getSeconds() / (60 * 60 * 24);
         return diff;
     }
 
     @Override
-    public Integer weekday(XMLGregorianCalendar dateTime) {
-        if (dateTime == null) {
+    public Long dayDiffDateTime(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
+        return dayDiff(dateTime1, dateTime2);
+    }
+
+    @Override
+    public Integer weekday(XMLGregorianCalendar date) {
+        if (date == null) {
             return null;
         }
 
-        int weekDay = dateTime.toGregorianCalendar().get(Calendar.DAY_OF_WEEK);
+        int weekDay = date.toGregorianCalendar().get(Calendar.DAY_OF_WEEK);
         weekDay--;
         if (weekDay == 0) {
             weekDay = 7;
@@ -97,17 +127,32 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     }
 
     @Override
-    public Long hourDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
-        Duration duration = durationBetween(dateTime1, dateTime2);
+    public Integer weekdayDateTime(XMLGregorianCalendar dateTime) {
+        return weekday(dateTime);
+    }
+
+    @Override
+    public Long hourDiff(XMLGregorianCalendar time1, XMLGregorianCalendar time2) {
+        Duration duration = durationBetween(time1, time2);
         Long diff = duration == null ? null : duration.getSeconds() / (60 * 60);
         return diff;
     }
 
     @Override
-    public Long minutesDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
-        Duration duration = durationBetween(dateTime1, dateTime2);
+    public Long hourDiffDateTime(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
+        return hourDiff(dateTime1, dateTime2);
+    }
+
+    @Override
+    public Long minutesDiff(XMLGregorianCalendar time1, XMLGregorianCalendar time2) {
+        Duration duration = durationBetween(time1, time2);
         long diff = duration == null ? null : duration.getSeconds() / 60;
         return diff;
+    }
+
+    @Override
+    public Long minutesDiffDateTime(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
+        return minutesDiff(dateTime1, dateTime2);
     }
 
     @Override

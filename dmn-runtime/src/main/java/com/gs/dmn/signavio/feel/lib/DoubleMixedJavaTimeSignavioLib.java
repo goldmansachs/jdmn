@@ -219,7 +219,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
 
     public LocalDate dayAdd(ZonedDateTime dateTime, Double daysToAdd) {
         try {
-            return this.dateTimeLib.dayAdd(dateTime, daysToAdd);
+            return this.dateTimeLib.dayAddDateTime(dateTime, daysToAdd);
         } catch (Exception e) {
             String message = String.format("dayAdd(%s, %s)", dateTime, daysToAdd);
             logError(message, e);
@@ -240,7 +240,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
     @Override
     public Double dayDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         try {
-            return Double.valueOf(this.dateTimeLib.dayDiff(dateTime1, dateTime2));
+            return Double.valueOf(this.dateTimeLib.dayDiffDateTime(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("dayDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
@@ -327,7 +327,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
     @Override
     public Double hourDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         try {
-            return Double.valueOf(this.dateTimeLib.hourDiff(dateTime1, dateTime2));
+            return Double.valueOf(this.dateTimeLib.hourDiffDateTime(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("hourDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
@@ -414,7 +414,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
     @Override
     public Double minutesDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         try {
-            return Double.valueOf(this.dateTimeLib.minutesDiff(dateTime1, dateTime2));
+            return Double.valueOf(this.dateTimeLib.minutesDiffDateTime(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("minutesDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
@@ -443,7 +443,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
     @Override
     public ZonedDateTime monthAdd(ZonedDateTime dateTime, Double monthsToAdd) {
         try {
-            return this.dateTimeLib.monthAdd(dateTime, monthsToAdd);
+            return this.dateTimeLib.monthAddDateTime(dateTime, monthsToAdd);
         } catch (Exception e) {
             String message = String.format("monthAdd(%s, %s)", dateTime, monthsToAdd);
             logError(message, e);
@@ -463,7 +463,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
     @Override
     public Double monthDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         try {
-            return Double.valueOf(this.dateTimeLib.monthDiff(dateTime1, dateTime2));
+            return Double.valueOf(this.dateTimeLib.monthDiffDateTime(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("monthDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
@@ -514,7 +514,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
     }
     public Double weekday(ZonedDateTime dateTime) {
         try {
-            return Double.valueOf(this.dateTimeLib.weekday(dateTime));
+            return Double.valueOf(this.dateTimeLib.weekdayDateTime(dateTime));
         } catch (Exception e) {
             String message = String.format("weekday(%s)", dateTime);
             logError(message, e);
@@ -533,7 +533,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
     @Override
     public ZonedDateTime yearAdd(ZonedDateTime dateTime, Double yearsToAdd) {
         try {
-            return this.dateTimeLib.yearAdd(dateTime, yearsToAdd);
+            return this.dateTimeLib.yearAddDateTime(dateTime, yearsToAdd);
         } catch (Exception e) {
             String message = String.format("yearAdd(%s, %s)", dateTime, yearsToAdd);
             logError(message, e);
@@ -553,7 +553,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
     @Override
     public Double yearDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         try {
-            return Double.valueOf(this.dateTimeLib.yearDiff(dateTime1, dateTime2));
+            return Double.valueOf(this.dateTimeLib.yearDiffDateTime(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("yearDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
