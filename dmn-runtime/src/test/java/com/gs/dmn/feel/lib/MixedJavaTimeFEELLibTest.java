@@ -51,8 +51,7 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
     public void testDate() {
         super.testDate();
 
-        assertEqualsDateTime("2016-08-01", getLib().date(makeDate("2016-08-01")));
-        assertEqualsDateTime("2017-10-11", getLib().date(getLib().date("2017-10-11")));
+        assertEqualsDateTime("2016-08-01", getLib().date(makeDateAndTime("2016-08-01T12:00:00Z")));
     }
 
     @Override
@@ -61,10 +60,12 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
         super.testTime();
 
         assertEqualsDateTime("12:00:00Z", getLib().time(makeTime("12:00:00Z")));
+        assertEqualsDateTime("00:00:00Z", getLib().time(getLib().date("2017-08-10")));
+        assertEqualsDateTime("11:00:00Z", getLib().time(makeDateAndTime("2016-08-01T11:00:00Z")));
+
         assertEqualsDateTime("12:00:00Z", getLib().time(
                 makeNumber("12"), makeNumber("00"), makeNumber("00"),
                 null));
-        assertEqualsDateTime("00:00:00Z", getLib().time(getLib().date("2017-08-10")));
     }
 
     @Override

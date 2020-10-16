@@ -275,6 +275,7 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         return timezone(dateTime);
     }
 
+    @Override
     public XMLGregorianCalendar toDate(Object object) {
         if (!(object instanceof XMLGregorianCalendar)) {
             return null;
@@ -284,6 +285,7 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         return date(calendar);
     }
 
+    @Override
     public XMLGregorianCalendar toTime(Object object) {
         if (!(object instanceof XMLGregorianCalendar)) {
             return null;

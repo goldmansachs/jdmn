@@ -99,6 +99,7 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
         assertEqualsDateTime("11:00:00.001+01:00", getLib().time("11:00:00.001+01:00"));
         assertEqualsDateTime("11:00:00+01:00", getLib().time("11:00:00+01:00"));
 
+        assertEqualsDateTime("00:00:00Z", getLib().time(getLib().date("2017-08-10")));
         assertEqualsDateTime("11:00:00Z", getLib().time(makeDateAndTime("2016-08-01T11:00:00Z")));
 
 //        assertEqualsTime("12:00:00+01:10", getLib().time(
@@ -109,6 +110,10 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
 //        assertEqualsTime("12:00:00Z", getLib().time(
 //                makeNumber("12"), makeNumber("00"), makeNumber("00"),
 //                null));
+
+        assertEqualsDateTime("12:00:00Z", getLib().time(makeTime("12:00:00Z")));
+        assertEqualsDateTime("00:00:00Z", getLib().time(getLib().date("2017-08-10")));
+        assertEqualsDateTime("11:00:00Z", getLib().time(makeDateAndTime("2016-08-01T11:00:00Z")));
     }
 
     @Override

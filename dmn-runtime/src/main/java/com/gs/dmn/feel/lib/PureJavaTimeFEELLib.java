@@ -25,6 +25,7 @@ import com.gs.dmn.feel.lib.type.numeric.NumericLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
+import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DurationLib;
 import com.gs.dmn.feel.lib.type.time.pure.*;
 import com.gs.dmn.runtime.LambdaExpression;
@@ -42,7 +43,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     private final NumericLib<BigDecimal> numberLib = new DefaultNumericLib();
     private final StringLib stringLib = new DefaultStringLib();
     private final BooleanLib booleanLib = new DefaultBooleanLib();
-    private final TemporalDateTimeLib dateTimeLib = new TemporalDateTimeLib(DefaultFEELLib.DATA_TYPE_FACTORY);
+    private final DateTimeLib<Number, LocalDate, Temporal, Temporal, TemporalAmount> dateTimeLib = new TemporalDateTimeLib(DefaultFEELLib.DATA_TYPE_FACTORY);
     private final DurationLib<LocalDate, TemporalAmount> durationLib = new TemporalAmountDurationLib();
     private final ListLib listLib = new DefaultListLib();
 
@@ -119,9 +120,9 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     }
 
     @Override
-    public LocalDate date(Temporal from) {
+    public LocalDate date(LocalDate from) {
         try {
-            return this.dateTimeLib.dateDateTime(from);
+            return this.dateTimeLib.date(from);
         } catch (Exception e) {
             String message = String.format("date(%s)", from);
             logError(message, e);

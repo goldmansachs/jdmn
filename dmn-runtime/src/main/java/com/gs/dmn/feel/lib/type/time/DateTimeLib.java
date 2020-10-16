@@ -55,4 +55,8 @@ public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     String timezone(TIME date);
     String timezoneDateTime(DATE_TIME dateTime);
+
+    DATE toDate(Object object);
+
+    TIME toTime(Object object);
 }
