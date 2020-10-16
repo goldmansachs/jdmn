@@ -973,7 +973,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             for (int i = 0; i < list.size(); i++) {
                 Object o = list.get(i);
                 if (o == null && match == null || o!= null && o.equals(match)) {
-                    result.add(valueOf(i + 1));
+                    result.add(valueOf((long) i + 1));
                 }
             }
         }
