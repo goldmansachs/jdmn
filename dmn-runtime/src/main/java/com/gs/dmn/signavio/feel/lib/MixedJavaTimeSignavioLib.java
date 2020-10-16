@@ -243,20 +243,20 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
 
     @Override
-    public BigDecimal dayDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        try {
-            return BigDecimal.valueOf(this.dateTimeLib.dayDiffDateTime(dateTime1, dateTime2));
-        } catch (Exception e) {
-            String message = String.format("dayDiff(%s, %s)", dateTime1, dateTime2);
-            logError(message, e);
-            return null;
-        }
-    }
     public BigDecimal dayDiff(LocalDate date1, LocalDate date2) {
         try {
             return BigDecimal.valueOf(this.dateTimeLib.dayDiff(date1, date2));
         } catch (Exception e) {
             String message = String.format("dayDiff(%s, %s)", date1, date2);
+            logError(message, e);
+            return null;
+        }
+    }
+    public BigDecimal dayDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
+        try {
+            return BigDecimal.valueOf(this.dateTimeLib.dayDiffDateTime(dateTime1, dateTime2));
+        } catch (Exception e) {
+            String message = String.format("dayDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
             return null;
         }
@@ -330,20 +330,20 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
 
     @Override
-    public BigDecimal hourDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        try {
-            return BigDecimal.valueOf(this.dateTimeLib.hourDiffDateTime(dateTime1, dateTime2));
-        } catch (Exception e) {
-            String message = String.format("hourDiff(%s, %s)", dateTime1, dateTime2);
-            logError(message, e);
-            return null;
-        }
-    }
     public BigDecimal hourDiff(OffsetTime time1, OffsetTime time2) {
         try {
             return BigDecimal.valueOf(this.dateTimeLib.hourDiff(time1, time2));
         } catch (Exception e) {
             String message = String.format("hourDiff(%s, %s)", time1, time2);
+            logError(message, e);
+            return null;
+        }
+    }
+    public BigDecimal hourDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
+        try {
+            return BigDecimal.valueOf(this.dateTimeLib.hourDiffDateTime(dateTime1, dateTime2));
+        } catch (Exception e) {
+            String message = String.format("hourDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
             return null;
         }
@@ -417,15 +417,6 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
 
     @Override
-    public BigDecimal minutesDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        try {
-            return BigDecimal.valueOf(this.dateTimeLib.minutesDiffDateTime(dateTime1, dateTime2));
-        } catch (Exception e) {
-            String message = String.format("minutesDiff(%s, %s)", dateTime1, dateTime2);
-            logError(message, e);
-            return null;
-        }
-    }
     public BigDecimal minutesDiff(OffsetTime time1, OffsetTime time2) {
         try {
             return BigDecimal.valueOf(this.dateTimeLib.minutesDiff(time1, time2));
@@ -435,26 +426,25 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
             return null;
         }
     }
+    public BigDecimal minutesDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
+        try {
+            return BigDecimal.valueOf(this.dateTimeLib.minutesDiffDateTime(dateTime1, dateTime2));
+        } catch (Exception e) {
+            String message = String.format("minutesDiff(%s, %s)", dateTime1, dateTime2);
+            logError(message, e);
+            return null;
+        }
+    }
 
     @Override
     public BigDecimal month(LocalDate date) {
         return this.feelLib.month(date);
     }
-
     public BigDecimal month(ZonedDateTime dateTime) {
         return this.feelLib.month(dateTime);
     }
 
     @Override
-    public ZonedDateTime monthAdd(ZonedDateTime dateTime, BigDecimal monthsToAdd) {
-        try {
-            return this.dateTimeLib.monthAddDateTime(dateTime, monthsToAdd);
-        } catch (Exception e) {
-            String message = String.format("monthAdd(%s, %s)", dateTime, monthsToAdd);
-            logError(message, e);
-            return null;
-        }
-    }
     public LocalDate monthAdd(LocalDate date, BigDecimal monthsToAdd) {
         try {
             return this.dateTimeLib.monthAdd(date, monthsToAdd);
@@ -464,22 +454,31 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
             return null;
         }
     }
-
-    @Override
-    public BigDecimal monthDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
+    public ZonedDateTime monthAdd(ZonedDateTime dateTime, BigDecimal monthsToAdd) {
         try {
-            return BigDecimal.valueOf(this.dateTimeLib.monthDiffDateTime(dateTime1, dateTime2));
+            return this.dateTimeLib.monthAddDateTime(dateTime, monthsToAdd);
         } catch (Exception e) {
-            String message = String.format("monthDiff(%s, %s)", dateTime1, dateTime2);
+            String message = String.format("monthAdd(%s, %s)", dateTime, monthsToAdd);
             logError(message, e);
             return null;
         }
     }
+
+    @Override
     public BigDecimal monthDiff(LocalDate date1, LocalDate date2) {
         try {
             return BigDecimal.valueOf(this.dateTimeLib.monthDiff(date1, date2));
         } catch (Exception e) {
             String message = String.format("monthDiff(%s, %s)", date1, date2);
+            logError(message, e);
+            return null;
+        }
+    }
+    public BigDecimal monthDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
+        try {
+            return BigDecimal.valueOf(this.dateTimeLib.monthDiffDateTime(dateTime1, dateTime2));
+        } catch (Exception e) {
+            String message = String.format("monthDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
             return null;
         }
@@ -536,6 +535,15 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
 
     @Override
+    public LocalDate yearAdd(LocalDate date, BigDecimal yearsToAdd) {
+        try {
+            return this.dateTimeLib.yearAdd(date, yearsToAdd);
+        } catch (Exception e) {
+            String message = String.format("yearAdd(%s, %s)", date, yearsToAdd);
+            logError(message, e);
+            return null;
+        }
+    }
     public ZonedDateTime yearAdd(ZonedDateTime dateTime, BigDecimal yearsToAdd) {
         try {
             return this.dateTimeLib.yearAddDateTime(dateTime, yearsToAdd);
@@ -545,29 +553,20 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
             return null;
         }
     }
-    public LocalDate yearAdd(LocalDate localDate, BigDecimal yearsToAdd) {
+
+    @Override
+    public BigDecimal yearDiff(LocalDate date1, LocalDate date2) {
         try {
-            return this.dateTimeLib.yearAdd(localDate, yearsToAdd);
+            return BigDecimal.valueOf(this.dateTimeLib.yearDiff(date1, date2));
         } catch (Exception e) {
-            String message = String.format("yearAdd(%s, %s)", localDate, yearsToAdd);
+            String message = String.format("yearDiff(%s, %s)", date1, date2);
             logError(message, e);
             return null;
         }
     }
-
-    @Override
     public BigDecimal yearDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         try {
             return BigDecimal.valueOf(this.dateTimeLib.yearDiffDateTime(dateTime1, dateTime2));
-        } catch (Exception e) {
-            String message = String.format("yearDiff(%s, %s)", dateTime1, dateTime2);
-            logError(message, e);
-            return null;
-        }
-    }
-    public BigDecimal yearDiff(LocalDate dateTime1, LocalDate dateTime2) {
-        try {
-            return BigDecimal.valueOf(this.dateTimeLib.yearDiff(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("yearDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
