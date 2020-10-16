@@ -12,15 +12,19 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanLib;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListLib;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
+import com.gs.dmn.feel.lib.type.list.ListLib;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
+import com.gs.dmn.feel.lib.type.numeric.NumericLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
+import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.time.mixed.*;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationType;
 import com.gs.dmn.runtime.LambdaExpression;
@@ -38,12 +42,12 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     private static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
     public static MixedJavaTimeFEELLib INSTANCE = new MixedJavaTimeFEELLib();
 
-    private final DefaultNumericLib numberLib = new DefaultNumericLib();
-    private final DefaultStringLib stringLib = new DefaultStringLib();
-    private final DefaultBooleanLib booleanLib = new DefaultBooleanLib();
+    private final NumericLib<BigDecimal> numberLib = new DefaultNumericLib();
+    private final StringLib stringLib = new DefaultStringLib();
+    private final BooleanLib booleanLib = new DefaultBooleanLib();
     private final MixedDateTimeLib dateTimeLib = new MixedDateTimeLib(DATA_TYPE_FACTORY);
     private final DefaultDurationLib durationLib = new DefaultDurationLib(DATA_TYPE_FACTORY);
-    private final DefaultListLib listLib = new DefaultListLib();
+    private final ListLib listLib = new DefaultListLib();
 
     public MixedJavaTimeFEELLib() {
         super(new DefaultNumericType(LOGGER),

@@ -12,15 +12,19 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanLib;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListLib;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
+import com.gs.dmn.feel.lib.type.list.ListLib;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
+import com.gs.dmn.feel.lib.type.numeric.NumericLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
+import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.time.xml.*;
 import com.gs.dmn.runtime.LambdaExpression;
 
@@ -35,12 +39,12 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
     public static DefaultFEELLib INSTANCE = new DefaultFEELLib();
 
-    private final DefaultNumericLib numberLib = new DefaultNumericLib();
-    private final DefaultStringLib stringLib = new DefaultStringLib();
-    private final DefaultBooleanLib booleanLib = new DefaultBooleanLib();
+    private final NumericLib<BigDecimal> numberLib = new DefaultNumericLib();
+    private final StringLib stringLib = new DefaultStringLib();
+    private final BooleanLib booleanLib = new DefaultBooleanLib();
     private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib(DATA_TYPE_FACTORY);
     private final DefaultDurationLib durationLib = new DefaultDurationLib(DATA_TYPE_FACTORY);
-    private final DefaultListLib listLib = new DefaultListLib();
+    private final ListLib listLib = new DefaultListLib();
 
     public DefaultFEELLib() {
         super(new DefaultNumericType(LOGGER),
