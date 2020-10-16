@@ -67,7 +67,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "PositiveUnaryTests(ExpressionTest(Relational(<=,Name(?),FunctionInvocation(Name(date) -> PositionalParameters(Addition(-,DateTimeLiteral(date, \"2020-01-01\"),DateTimeLiteral(duration, \"P5Y\")))))))",
                 "TupleType(boolean)",
                 "(dateLessEqualThan(date, date(dateSubtractDuration(date(\"2020-01-01\"), duration(\"P5Y\")))))",
-                (lib.dateLessEqualThan(date, lib.date((DATE_TIME) lib.dateSubtractDuration(lib.date("2020-01-01"), lib.duration("P5Y"))))),
+                (lib.dateLessEqualThan(date, lib.date(lib.dateSubtractDuration(lib.date("2020-01-01"), lib.duration("P5Y"))))),
                 true);
         doUnaryTestsTest(entries, "date", "? <= date(\"2020-01-01\") - duration(\"P5Y\")",
                 "PositiveUnaryTests(ExpressionTest(Relational(<=,Name(?),Addition(-,DateTimeLiteral(date, \"2020-01-01\"),DateTimeLiteral(duration, \"P5Y\")))))",

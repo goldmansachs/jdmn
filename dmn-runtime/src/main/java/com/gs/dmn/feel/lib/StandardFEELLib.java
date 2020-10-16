@@ -42,7 +42,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     DATE date(NUMBER year, NUMBER month, NUMBER day);
 
     @Override
-    DATE date(DATE_TIME from);
+    DATE date(DATE from);
 
     @Override
     TIME time(String from);
@@ -51,7 +51,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     TIME time(NUMBER hour, NUMBER minute, NUMBER second, DURATION offset);
 
     @Override
-    TIME time(DATE_TIME time);
+    TIME time(TIME time);
 
     @Override
     DATE_TIME dateAndTime(String from);

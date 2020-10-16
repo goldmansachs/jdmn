@@ -25,6 +25,7 @@ import com.gs.dmn.feel.lib.type.numeric.NumericLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
+import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DurationLib;
 import com.gs.dmn.feel.lib.type.time.xml.*;
 import com.gs.dmn.runtime.LambdaExpression;
@@ -43,7 +44,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     private final NumericLib<BigDecimal> numberLib = new DefaultNumericLib();
     private final StringLib stringLib = new DefaultStringLib();
     private final BooleanLib booleanLib = new DefaultBooleanLib();
-    private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib(DATA_TYPE_FACTORY);
+    private final DateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> dateTimeLib = new DefaultDateTimeLib(DATA_TYPE_FACTORY);
     private final DurationLib<XMLGregorianCalendar, Duration> durationLib = new DefaultDurationLib(DATA_TYPE_FACTORY);
     private final ListLib listLib = new DefaultListLib();
 

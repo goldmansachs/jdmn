@@ -548,7 +548,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public DATE date(DATE_TIME dateTime) {
+    public DATE date(DATE dateTime) {
         return this.feelLib.date(dateTime);
     }
 
@@ -558,7 +558,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public TIME time(DATE_TIME dateTime) {
+    public TIME time(TIME dateTime) {
         return this.feelLib.time(dateTime);
     }
 
