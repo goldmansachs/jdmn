@@ -25,7 +25,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public abstract class BaseDefaultDurationType extends BaseType {
-    private static final ThreadLocal<GregorianCalendar> GREGORIAN = ThreadLocal.withInitial(() -> new GregorianCalendar(
+    static final ThreadLocal<GregorianCalendar> GREGORIAN = ThreadLocal.withInitial(() -> new GregorianCalendar(
             1970,
             Calendar.JANUARY,
             1,
