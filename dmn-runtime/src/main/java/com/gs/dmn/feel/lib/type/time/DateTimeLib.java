@@ -12,8 +12,38 @@
  */
 package com.gs.dmn.feel.lib.type.time;
 
-public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends DateLib<NUMBER, DATE>, TimeLib<NUMBER, TIME, DURATION> {
+public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+    DATE date(String literal);
+
+    DATE date(NUMBER year, NUMBER month, NUMBER day);
+
+    DATE date(DATE from);
+
+    TIME time(String literal);
+
+    TIME time(NUMBER hour, NUMBER minute, NUMBER second, DURATION offset);
+
+    TIME time(TIME from);
+
     DATE_TIME dateAndTime(String literal);
 
     DATE_TIME dateAndTime(DATE date, TIME time);
+
+    Integer year(DATE date);
+
+    Integer month(DATE date);
+
+    Integer day(DATE date);
+
+    Integer weekday(DATE date);
+
+    Integer hour(TIME date);
+
+    Integer minute(TIME date);
+
+    Integer second(TIME date);
+
+    DURATION timeOffset(TIME date);
+
+    String timezone(TIME date);
 }
