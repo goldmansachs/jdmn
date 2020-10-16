@@ -55,7 +55,8 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
     public LocalDate date(LocalDate from) {
         return from;
     }
-    public LocalDate date(Temporal from) {
+
+    public LocalDate dateDateTime(Temporal from) {
         if (from == null) {
             return null;
         }
@@ -158,7 +159,8 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
 
         return date.getYear();
     }
-    public Integer year(Temporal dateTime) {
+    @Override
+    public Integer yearDateTime(Temporal dateTime) {
         if (dateTime == null) {
             return null;
         }
@@ -174,7 +176,8 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
 
         return date.getMonth().getValue();
     }
-    public Integer month(Temporal dateTime) {
+    @Override
+    public Integer monthDateTime(Temporal dateTime) {
         if (dateTime == null) {
             return null;
         }
@@ -190,13 +193,15 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
 
         return date.getDayOfMonth();
     }
-    public Integer day(Temporal dateTime) {
+    @Override
+    public Integer dayDateTime(Temporal dateTime) {
         if (dateTime == null) {
             return null;
         }
 
         return dateTime.get(ChronoField.DAY_OF_MONTH);
     }
+
     @Override
     public Integer weekday(LocalDate date) {
         if (date == null) {
@@ -205,7 +210,8 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
 
         return date.getDayOfWeek().getValue();
     }
-    public Integer weekday(Temporal dateTime) {
+    @Override
+    public Integer weekdayDateTime(Temporal dateTime) {
         if (dateTime == null) {
             return null;
         }
@@ -217,15 +223,27 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
     public Integer hour(Temporal time) {
         return time.get(ChronoField.HOUR_OF_DAY);
     }
+    @Override
+    public Integer hourDateTime(Temporal dateTime) {
+        return hour(dateTime);
+    }
 
     @Override
     public Integer minute(Temporal time) {
         return time.get(ChronoField.MINUTE_OF_HOUR);
     }
+    @Override
+    public Integer minuteDateTime(Temporal dateTime) {
+        return minute(dateTime);
+    }
 
     @Override
     public Integer second(Temporal time) {
         return time.get(ChronoField.SECOND_OF_MINUTE);
+    }
+    @Override
+    public Integer secondDateTime(Temporal dateTime) {
+        return second(dateTime);
     }
 
     @Override
@@ -233,15 +251,23 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         int secondsOffset = time.get(ChronoField.OFFSET_SECONDS);
         return duration((long) secondsOffset * 1000);
     }
+    @Override
+    public TemporalAmount timeOffsetDateTime(Temporal dateTime) {
+        return timeOffset(dateTime);
+    }
 
     @Override
     public String timezone(Temporal time) {
         return time.query(TemporalQueries.zone()).getId();
     }
+    @Override
+    public String timezoneDateTime(Temporal dateTime) {
+        return timezone(dateTime);
+    }
 
     public LocalDate toDate(Object object) {
         if (object instanceof Temporal) {
-            return date((Temporal) object);
+            return dateDateTime((Temporal) object);
         }
         return null;
     }

@@ -30,20 +30,29 @@ public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     DATE_TIME dateAndTime(DATE date, TIME time);
 
     Integer year(DATE date);
+    Integer yearDateTime(DATE_TIME dateTime);
 
     Integer month(DATE date);
+    Integer monthDateTime(DATE_TIME dateTime);
 
     Integer day(DATE date);
+    Integer dayDateTime(DATE_TIME dateTime);
 
     Integer weekday(DATE date);
+    Integer weekdayDateTime(DATE_TIME dateTime);
 
     Integer hour(TIME date);
+    Integer hourDateTime(DATE_TIME dateTime);
 
     Integer minute(TIME date);
+    Integer minuteDateTime(DATE_TIME dateTime);
 
     Integer second(TIME date);
+    Integer secondDateTime(DATE_TIME dateTime);
 
     DURATION timeOffset(TIME date);
+    DURATION timeOffsetDateTime(DATE_TIME dateTime);
 
     String timezone(TIME date);
+    String timezoneDateTime(DATE_TIME dateTime);
 }
