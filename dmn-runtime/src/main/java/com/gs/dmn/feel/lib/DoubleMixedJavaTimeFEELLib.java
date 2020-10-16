@@ -1273,4 +1273,14 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
             return null;
         }
     }
+
+    @Override
+    protected Double valueOf(int number) {
+        return Double.valueOf(number);
+    }
+
+    @Override
+    protected int intValue(Double number) {
+        return number.intValue();
+    }
 }

@@ -1125,4 +1125,14 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
             return null;
         }
     }
+
+    @Override
+    protected BigDecimal valueOf(int number) {
+        return BigDecimal.valueOf(number);
+    }
+
+    @Override
+    protected int intValue(BigDecimal number) {
+        return number.intValue();
+    }
 }
