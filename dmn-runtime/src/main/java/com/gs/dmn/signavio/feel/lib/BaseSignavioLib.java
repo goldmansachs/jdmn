@@ -847,7 +847,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    protected NUMBER valueOf(int number) {
+    protected NUMBER valueOf(long number) {
         return this.numberLib.valueOf(number);
     }
 

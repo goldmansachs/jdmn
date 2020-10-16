@@ -405,4 +405,9 @@ public class DoubleNumericLib implements NumericLib<Double> {
 
         return mode(Arrays.asList(numbers));
     }
+
+    @Override
+    public Number toNumber(Double number) {
+        return number;
+    }
 }
