@@ -21,8 +21,11 @@ import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumericType;
+import com.gs.dmn.signavio.feel.lib.type.numeric.SignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringLib;
 import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringType;
+import com.gs.dmn.signavio.feel.lib.type.string.SignavioStringLib;
+import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.type.time.xml.*;
 
 import javax.xml.datatype.Duration;
@@ -37,9 +40,9 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     private final DefaultFEELLib feelLib = new DefaultFEELLib();
 
-    private final DefaultSignavioNumberLib numberLib = new DefaultSignavioNumberLib();
-    private final DefaultSignavioStringLib stringLib = new DefaultSignavioStringLib();
-    private final DefaultSignavioDateTimeLib dateTimeLib = new DefaultSignavioDateTimeLib();
+    private final SignavioNumberLib<BigDecimal> numberLib = new DefaultSignavioNumberLib();
+    private final SignavioStringLib stringLib = new DefaultSignavioStringLib();
+    private final SignavioDateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar> dateTimeLib = new DefaultSignavioDateTimeLib();
     private final SignavioListLib listLib = new SignavioListLib();
     
     public DefaultSignavioLib() {
@@ -85,7 +88,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     @Override
     public BigDecimal abs(BigDecimal number) {
         try {
-            return this.numberLib.abs(number);
+            return this.feelLib.abs(number);
         } catch (Exception e) {
             String message = String.format("abs(%s)", number);
             logError(message, e);
@@ -817,7 +820,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     @Override
     public BigDecimal number(String text) {
         try {
-            return this.numberLib.number(text);
+            return this.feelLib.number(text);
         } catch (Exception e) {
             String message = String.format("number(%s)", text);
             logError(message, e);
