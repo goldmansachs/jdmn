@@ -20,8 +20,11 @@ import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DoubleSignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DoubleSignavioNumericType;
+import com.gs.dmn.signavio.feel.lib.type.numeric.SignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringLib;
 import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringType;
+import com.gs.dmn.signavio.feel.lib.type.string.SignavioStringLib;
+import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.type.time.mixed.MixedSignavioDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.type.time.mixed.SignavioLocalDateType;
 import com.gs.dmn.signavio.feel.lib.type.time.mixed.SignavioOffsetTimeType;
@@ -41,9 +44,9 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
 
     private final DoubleMixedJavaTimeFEELLib feelLib = new DoubleMixedJavaTimeFEELLib();
 
-    private final DoubleSignavioNumberLib numberLib = new DoubleSignavioNumberLib();
-    private final DefaultSignavioStringLib stringLib = new DefaultSignavioStringLib();
-    private final MixedSignavioDateTimeLib dateTimeLib = new MixedSignavioDateTimeLib();
+    private final SignavioNumberLib<Double> numberLib = new DoubleSignavioNumberLib();
+    private final SignavioStringLib stringLib = new DefaultSignavioStringLib();
+    private final SignavioDateTimeLib<Number, LocalDate, OffsetTime, ZonedDateTime> dateTimeLib = new MixedSignavioDateTimeLib();
     private final SignavioListLib listLib = new SignavioListLib();
     
     public DoubleMixedJavaTimeSignavioLib() {
@@ -89,7 +92,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
     @Override
     public Double abs(Double number) {
         try {
-            return this.numberLib.abs(number);
+            return this.feelLib.abs(number);
         } catch (Exception e) {
             String message = String.format("abs(%s)", number);
             logError(message, e);

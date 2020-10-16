@@ -21,8 +21,11 @@ import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumericType;
+import com.gs.dmn.signavio.feel.lib.type.numeric.SignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringLib;
 import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringType;
+import com.gs.dmn.signavio.feel.lib.type.string.SignavioStringLib;
+import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.type.time.mixed.MixedSignavioDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.type.time.mixed.SignavioLocalDateType;
 import com.gs.dmn.signavio.feel.lib.type.time.mixed.SignavioOffsetTimeType;
@@ -43,9 +46,9 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
 
     private final MixedJavaTimeFEELLib feelLib = new MixedJavaTimeFEELLib();
 
-    private final DefaultSignavioNumberLib numberLib = new DefaultSignavioNumberLib();
-    private final DefaultSignavioStringLib stringLib = new DefaultSignavioStringLib();
-    private final MixedSignavioDateTimeLib dateTimeLib = new MixedSignavioDateTimeLib();
+    private final SignavioNumberLib<BigDecimal> numberLib = new DefaultSignavioNumberLib();
+    private final SignavioStringLib stringLib = new DefaultSignavioStringLib();
+    private final SignavioDateTimeLib<Number, LocalDate, OffsetTime, ZonedDateTime> dateTimeLib = new MixedSignavioDateTimeLib();
     private final SignavioListLib listLib = new SignavioListLib();
     
     public MixedJavaTimeSignavioLib() {
@@ -91,7 +94,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     @Override
     public BigDecimal abs(BigDecimal number) {
         try {
-            return this.numberLib.abs(number);
+            return this.feelLib.abs(number);
         } catch (Exception e) {
             String message = String.format("abs(%s)", number);
             logError(message, e);
@@ -935,7 +938,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     @Override
     public BigDecimal number(String text) {
         try {
-            return this.numberLib.number(text);
+            return this.feelLib.number(text);
         } catch (Exception e) {
             String message = String.format("number(%s)", text);
             logError(message, e);
