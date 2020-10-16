@@ -28,5 +28,13 @@ public interface SignavioNumberLib<NUMBER> {
     NUMBER roundDown(NUMBER number, NUMBER digits);
 
     NUMBER roundUp(NUMBER number, NUMBER digits);
+
+    NUMBER power(NUMBER base, NUMBER exponent);
+
+    NUMBER valueOf(long number);
+
+    int intValue(NUMBER number);
+
+    Number toNumber(NUMBER number);
 }
 

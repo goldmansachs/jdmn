@@ -21,12 +21,13 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-public class DefaultDurationLib implements DurationLib<ZonedDateTime, Duration> {
+public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
     private final DatatypeFactory dataTypeFactory;
-    private final LocalDateLib dateLib = new LocalDateLib();
+    private final MixedDateTimeLib dateTimeLib;
 
-    public DefaultDurationLib(DatatypeFactory dataTypeFactory) {
+    public MixedDurationLib(DatatypeFactory dataTypeFactory) {
         this.dataTypeFactory = dataTypeFactory;
+        this.dateTimeLib = new MixedDateTimeLib(dataTypeFactory);
     }
 
     @Override
@@ -39,19 +40,19 @@ public class DefaultDurationLib implements DurationLib<ZonedDateTime, Duration> 
     }
 
     @Override
-    public javax.xml.datatype.Duration yearsAndMonthsDuration(ZonedDateTime from, ZonedDateTime to) {
-        if (from == null || to == null) {
-            return null;
-        }
-
-        return this.toYearsMonthDuration(this.dataTypeFactory, toDate(to), toDate(from));
-    }
     public javax.xml.datatype.Duration yearsAndMonthsDuration(LocalDate from, LocalDate to) {
         if (from == null || to == null) {
             return null;
         }
 
         return this.toYearsMonthDuration(this.dataTypeFactory, to, from);
+    }
+    public javax.xml.datatype.Duration yearsAndMonthsDuration(ZonedDateTime from, ZonedDateTime to) {
+        if (from == null || to == null) {
+            return null;
+        }
+
+        return this.toYearsMonthDuration(this.dataTypeFactory, toDate(to), toDate(from));
     }
     public javax.xml.datatype.Duration yearsAndMonthsDuration(ZonedDateTime from, LocalDate to) {
         if (from == null || to == null) {
@@ -81,62 +82,62 @@ public class DefaultDurationLib implements DurationLib<ZonedDateTime, Duration> 
 
     private LocalDate toDate(Object object) {
         if (object instanceof ZonedDateTime) {
-            return this.dateLib.date((ZonedDateTime) object);
+            return this.dateTimeLib.date((ZonedDateTime) object);
         }
         return (LocalDate) object;
     }
 
     @Override
-    public Integer years(Duration duration) {
+    public Long years(Duration duration) {
         if (duration == null) {
             return null;
         }
 
-        return duration.getYears();
+        return (long) duration.getYears();
     }
 
     @Override
-    public Integer months(Duration duration) {
+    public Long months(Duration duration) {
         if (duration == null) {
             return null;
         }
 
-        return duration.getMonths();
+        return (long) duration.getMonths();
     }
 
     @Override
-    public Integer days(Duration duration) {
+    public Long days(Duration duration) {
         if (duration == null) {
             return null;
         }
 
-        return duration.getDays();
+        return (long) duration.getDays();
     }
 
     @Override
-    public Integer hours(Duration duration) {
+    public Long hours(Duration duration) {
         if (duration == null) {
             return null;
         }
 
-        return duration.getHours();
+        return (long) duration.getHours();
     }
 
     @Override
-    public Integer minutes(Duration duration) {
+    public Long minutes(Duration duration) {
         if (duration == null) {
             return null;
         }
 
-        return duration.getMinutes();
+        return (long) duration.getMinutes();
     }
 
     @Override
-    public Integer seconds(Duration duration) {
+    public Long seconds(Duration duration) {
         if (duration == null) {
             return null;
         }
 
-        return duration.getSeconds();
+        return (long) duration.getSeconds();
     }
 }

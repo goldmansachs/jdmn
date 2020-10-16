@@ -18,9 +18,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.gs.dmn.feel.lib.DefaultFEELLib;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateLib;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultTimeLib;
 import com.gs.dmn.feel.lib.type.time.xml.FEELXMLGregorianCalendar;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
@@ -28,9 +26,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.IOException;
 
 public class XMLGregorianCalendarDeserializer extends JsonDeserializer<XMLGregorianCalendar> {
-    private final DefaultDateLib dateLib = new DefaultDateLib();
-    private final DefaultTimeLib timeLib = new DefaultTimeLib(DefaultFEELLib.DATA_TYPE_FACTORY);
-    private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib();
+    private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib(DefaultFEELLib.DATA_TYPE_FACTORY);
 
     public XMLGregorianCalendarDeserializer() {
     }
@@ -46,13 +42,13 @@ public class XMLGregorianCalendarDeserializer extends JsonDeserializer<XMLGregor
                 return null;
             } else {
                 if (literal.contains("T")) {
-                    return FEELXMLGregorianCalendar.makeXMLCalendar(this.dateTimeLib.temporalAccessor(literal));
+                    return FEELXMLGregorianCalendar.makeXMLCalendar(this.dateTimeLib.dateTimeTemporalAccessor(literal));
                 } else {
                     try {
-                        return FEELXMLGregorianCalendar.makeXMLCalendar(this.dateLib.temporalAccessor(literal));
+                        return FEELXMLGregorianCalendar.makeXMLCalendar(this.dateTimeLib.dateTemporalAccessor(literal));
                     } catch (Exception e) {
                     }
-                    return FEELXMLGregorianCalendar.makeXMLCalendar(this.timeLib.temporalAccessor(literal));
+                    return FEELXMLGregorianCalendar.makeXMLCalendar(this.dateTimeLib.timeTemporalAccessor(literal));
                 }
             }
         } catch (Exception e) {

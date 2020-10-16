@@ -74,10 +74,7 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
     public void testDate() {
         super.testDate();
 
-        assertNull(getLib().date("01211-12-31"));
-
-        assertEqualsDateTime("2016-08-01", getLib().date(makeDate("2016-08-01")));
-        assertEqualsDateTime("2017-10-11", getLib().date(getLib().date("2017-10-11")));
+        assertEqualsDateTime("2016-08-01", getLib().date(makeDateAndTime("2016-08-01T12:00:00Z")));
     }
 
     @Override
@@ -86,10 +83,12 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
         super.testTime();
 
         assertEqualsDateTime("12:00:00Z", getLib().time(makeTime("12:00:00Z")));
+        assertEqualsDateTime("00:00:00Z", getLib().time(getLib().date("2017-08-10")));
+        assertEqualsDateTime("11:00:00Z", getLib().time(makeDateAndTime("2016-08-01T11:00:00Z")));
+
         assertEqualsDateTime("12:00:00", getLib().time(
                 makeNumber("12"), makeNumber("00"), makeNumber("00"),
                 null));
-        assertEqualsDateTime("00:00:00Z", getLib().time(getLib().date("2017-08-10")));
     }
 
     @Override
@@ -118,6 +117,12 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
     @Test
     public void testYearsAndMonthsDuration() {
         super.testYearsAndMonthsDuration();
+
+        assertEquals("P0Y0M", getLib().yearsAndMonthsDuration(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-24T12:15:00.000+01:00")).toString());
+        assertEquals("P1Y2M", getLib().yearsAndMonthsDuration(makeDateAndTime("2016-09-30T23:25:00"), makeDateAndTime("2017-12-28T12:12:12")).toString());
+        assertEquals("P7Y6M", getLib().yearsAndMonthsDuration(makeDateAndTime("2010-05-30T03:55:58"), makeDateAndTime("2017-12-15T00:59:59")).toString());
+        assertEquals("-P4033Y2M", getLib().yearsAndMonthsDuration(makeDateAndTime("2014-12-31T23:59:59"), makeDateAndTime("-2019-10-01T12:32:59")).toString());
+        assertEquals("-P4035Y11M", getLib().yearsAndMonthsDuration(makeDateAndTime("2017-09-05T10:20:00-01:00"), makeDateAndTime("-2019-10-01T12:32:59+02:00")).toString());
     }
 
     @Test

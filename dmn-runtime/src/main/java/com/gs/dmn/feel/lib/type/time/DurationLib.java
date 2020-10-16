@@ -12,20 +12,20 @@
  */
 package com.gs.dmn.feel.lib.type.time;
 
-public interface DurationLib<DATE_TIME, DURATION> {
+public interface DurationLib<DATE, DURATION> {
     DURATION duration(String from);
 
-    DURATION yearsAndMonthsDuration(DATE_TIME from, DATE_TIME to);
+    DURATION yearsAndMonthsDuration(DATE from, DATE to);
 
-    Integer years(DURATION duration);
+    Long years(DURATION duration);
 
-    Integer months(DURATION duration);
+    Long months(DURATION duration);
 
-    Integer days(DURATION duration);
+    Long days(DURATION duration);
 
-    Integer hours(DURATION duration);
+    Long hours(DURATION duration);
 
-    Integer minutes(DURATION duration);
+    Long minutes(DURATION duration);
 
-    Integer seconds(DURATION duration);
+    Long seconds(DURATION duration);
 }

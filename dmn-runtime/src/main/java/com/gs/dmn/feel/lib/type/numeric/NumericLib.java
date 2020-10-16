@@ -77,4 +77,6 @@ public interface NumericLib<NUMBER> {
     List mode(List list);
 
     List mode(Object... NUMBERs);
+
+    Number toNumber(NUMBER number);
 }

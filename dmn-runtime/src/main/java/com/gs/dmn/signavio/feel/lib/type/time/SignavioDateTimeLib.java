@@ -12,6 +12,35 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.time;
 
-public interface SignavioDateTimeLib<DATE_TIME> {
+public interface SignavioDateTimeLib<NUMBER, DATE, TIME, DATE_TIME> {
+    DATE yearAdd(DATE date, NUMBER yearsToAdd);
+    DATE_TIME yearAddDateTime(DATE_TIME dateTime, NUMBER yearsToAdd);
+
+    Long yearDiff(DATE date1, DATE date2);
+    Long yearDiffDateTime(DATE_TIME dateTime1, DATE_TIME dateTime2);
+
+    DATE monthAdd(DATE date, NUMBER monthsToAdd);
+    DATE_TIME monthAddDateTime(DATE_TIME dateTime, NUMBER monthsToAdd);
+
+    Long monthDiff(DATE date1, DATE date2);
+    Long monthDiffDateTime(DATE_TIME dateTime1, DATE_TIME dateTime2);
+
+    DATE dayAdd(DATE date, NUMBER daysToAdd);
+    DATE dayAddDateTime(DATE_TIME dateTime, NUMBER daysToAdd);
+
+    Long dayDiff(DATE date1, DATE date2);
+    Long dayDiffDateTime(DATE_TIME dateTime1, DATE_TIME dateTime2);
+
+    Long hourDiff(TIME time1, TIME time2);
+    Long hourDiffDateTime(DATE_TIME dateTime1, DATE_TIME dateTime2);
+
+    Long minutesDiff(TIME time1, TIME time2);
+    Long minutesDiffDateTime(DATE_TIME dateTime1, DATE_TIME dateTime2);
+
+    Integer weekday(DATE date);
+    Integer weekdayDateTime(DATE_TIME dateTime);
+
+    DATE today();
+
     DATE_TIME now();
 }

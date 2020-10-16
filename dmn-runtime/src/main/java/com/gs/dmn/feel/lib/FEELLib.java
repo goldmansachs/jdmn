@@ -30,10 +30,10 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     NUMBER number(String literal);
 
     DATE date(String literal);
-    DATE date(DATE_TIME dateTime);
+    DATE date(DATE dateTime);
 
     TIME time(String literal);
-    TIME time(DATE_TIME dateTime);
+    TIME time(TIME dateTime);
     TIME time(NUMBER hour, NUMBER minute, NUMBER second, DURATION offset);
 
     DATE_TIME dateAndTime(String literal);
