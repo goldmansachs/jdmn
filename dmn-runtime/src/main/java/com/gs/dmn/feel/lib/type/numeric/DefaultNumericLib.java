@@ -19,7 +19,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.*;
 
-public class DefaultNumericLib implements NumericLib<BigDecimal> {
+public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements NumericLib<BigDecimal> {
     @Override
     public BigDecimal number(String literal) {
         if (StringUtils.isBlank(literal)) {
@@ -27,33 +27,6 @@ public class DefaultNumericLib implements NumericLib<BigDecimal> {
         }
 
         return new BigDecimal(literal, DefaultNumericType.MATH_CONTEXT);
-    }
-
-    @Override
-    public BigDecimal number(String from, String groupingSeparator, String decimalSeparator) {
-        if (StringUtils.isBlank(from)) {
-            return null;
-        }
-        if (! (" ".equals(groupingSeparator) || ".".equals(groupingSeparator) || ",".equals(groupingSeparator) || null == groupingSeparator)) {
-            return null;
-        }
-        if (! (".".equals(decimalSeparator) || ",".equals(decimalSeparator) || null == decimalSeparator)) {
-            return null;
-        }
-        if (groupingSeparator != null && groupingSeparator.equals(decimalSeparator)) {
-            return null;
-        }
-
-        if (groupingSeparator != null) {
-            if (groupingSeparator.equals(".")) {
-                groupingSeparator = "\\" + groupingSeparator;
-            }
-            from = from.replaceAll(groupingSeparator, "");
-        }
-        if (decimalSeparator != null && !decimalSeparator.equals(".")) {
-            from = from.replaceAll(decimalSeparator, ".");
-        }
-        return number(from);
     }
 
     @Override
@@ -188,15 +161,6 @@ public class DefaultNumericLib implements NumericLib<BigDecimal> {
     }
 
     @Override
-    public BigDecimal min(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        return min(Arrays.asList(args));
-    }
-
-    @Override
     public BigDecimal max(List list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -210,15 +174,6 @@ public class DefaultNumericLib implements NumericLib<BigDecimal> {
             }
         }
         return result;
-    }
-
-    @Override
-    public BigDecimal max(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        return max(Arrays.asList(args));
     }
 
     @Override
@@ -236,15 +191,6 @@ public class DefaultNumericLib implements NumericLib<BigDecimal> {
     }
 
     @Override
-    public BigDecimal sum(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        return sum(Arrays.asList(args));
-    }
-
-    @Override
     public BigDecimal mean(List list) {
         if (list == null) {
             return null;
@@ -252,15 +198,6 @@ public class DefaultNumericLib implements NumericLib<BigDecimal> {
 
         BigDecimal sum = sum(list);
         return DefaultNumericType.decimalNumericDivide(sum, BigDecimal.valueOf(list.size()));
-    }
-
-    @Override
-    public BigDecimal mean(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        return mean(Arrays.asList(args));
     }
 
     @Override
@@ -275,15 +212,6 @@ public class DefaultNumericLib implements NumericLib<BigDecimal> {
             result = result.multiply(number);
         }
         return result;
-    }
-
-    @Override
-    public BigDecimal product(Object... numbers) {
-        if (numbers == null || numbers.length < 1) {
-            return null;
-        }
-
-        return product(Arrays.asList(numbers));
     }
 
     @Override
@@ -306,15 +234,6 @@ public class DefaultNumericLib implements NumericLib<BigDecimal> {
     }
 
     @Override
-    public BigDecimal median(Object... numbers) {
-        if (numbers == null || numbers.length < 1) {
-            return null;
-        }
-
-        return median(Arrays.asList(numbers));
-    }
-
-    @Override
     public BigDecimal stddev(List list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -332,15 +251,6 @@ public class DefaultNumericLib implements NumericLib<BigDecimal> {
         variance = variance.divide(length, MathContext.DECIMAL128);
         BigDecimal stddev = sqrt(variance);
         return stddev;
-    }
-
-    @Override
-    public BigDecimal stddev(Object... numbers) {
-        if (numbers == null || numbers.length < 1) {
-            return null;
-        }
-
-        return stddev(Arrays.asList(numbers));
     }
 
     @Override
@@ -373,15 +283,6 @@ public class DefaultNumericLib implements NumericLib<BigDecimal> {
 
         Collections.sort(modes);
         return modes;
-    }
-
-    @Override
-    public List mode(Object... numbers) {
-        if (numbers == null) {
-            return null;
-        }
-
-        return mode(Arrays.asList(numbers));
     }
 
     @Override
