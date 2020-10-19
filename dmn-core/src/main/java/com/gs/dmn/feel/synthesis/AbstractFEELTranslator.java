@@ -12,80 +12,20 @@
  */
 package com.gs.dmn.feel.synthesis;
 
+import com.gs.dmn.feel.AbstractFEELProcessor;
 import com.gs.dmn.feel.analysis.FEELAnalyzer;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 
-class AbstractFEELTranslator implements FEELTranslator {
-    private final FEELAnalyzer feelAnalyzer;
+class AbstractFEELTranslator extends AbstractFEELProcessor implements FEELTranslator {
     private final FEELToNativeVisitor expressionVisitor;
     private final SimpleExpressionsToNativeVisitor simpleExpressionsVisitor;
 
     public AbstractFEELTranslator(FEELAnalyzer feelAnalyzer, FEELToNativeVisitor expressionVisitor, SimpleExpressionsToNativeVisitor simpleExpressionsVisitor) {
-        this.feelAnalyzer = feelAnalyzer;
+        super(feelAnalyzer);
         this.expressionVisitor = expressionVisitor;
         this.simpleExpressionsVisitor = simpleExpressionsVisitor;
-    }
-
-    @Override
-    public UnaryTests parseUnaryTests(String text) {
-        return feelAnalyzer.parseUnaryTests(text);
-    }
-
-    @Override
-    public UnaryTests parseSimpleUnaryTests(String text) {
-        return feelAnalyzer.parseSimpleUnaryTests(text);
-    }
-
-    @Override
-    public UnaryTests analyzeUnaryTests(String text, FEELContext context) {
-        return feelAnalyzer.analyzeUnaryTests(text, context);
-    }
-
-    @Override
-    public UnaryTests analyzeSimpleUnaryTests(String text, FEELContext context) {
-        return feelAnalyzer.analyzeSimpleUnaryTests(text, context);
-    }
-
-    @Override
-    public Expression parseExpression(String text) {
-        return feelAnalyzer.parseExpression(text);
-    }
-
-    @Override
-    public Expression parseSimpleExpressions(String text) {
-        return feelAnalyzer.parseSimpleExpressions(text);
-    }
-
-    @Override
-    public Expression parseTextualExpressions(String text) {
-        return feelAnalyzer.parseTextualExpressions(text);
-    }
-
-    @Override
-    public Expression parseBoxedExpression(String text) {
-        return feelAnalyzer.parseBoxedExpression(text);
-    }
-
-    @Override
-    public Expression analyzeExpression(String text, FEELContext context) {
-        return feelAnalyzer.analyzeExpression(text, context);
-    }
-
-    @Override
-    public Expression analyzeSimpleExpressions(String text, FEELContext context) {
-        return feelAnalyzer.analyzeSimpleExpressions(text, context);
-    }
-
-    @Override
-    public Expression analyzeTextualExpressions(String text, FEELContext context) {
-        return feelAnalyzer.analyzeTextualExpressions(text, context);
-    }
-
-    @Override
-    public Expression analyzeBoxedExpression(String text, FEELContext context) {
-        return feelAnalyzer.analyzeBoxedExpression(text, context);
     }
 
     @Override
