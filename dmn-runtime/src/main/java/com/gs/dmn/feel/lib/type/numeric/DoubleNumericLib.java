@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
-public class DoubleNumericLib implements NumericLib<Double> {
+public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericLib<Double> {
     @Override
     public Double number(String literal) {
         if (StringUtils.isBlank(literal)) {
@@ -26,33 +26,6 @@ public class DoubleNumericLib implements NumericLib<Double> {
         }
 
         return Double.parseDouble(literal);
-    }
-
-    @Override
-    public Double number(String from, String groupingSeparator, String decimalSeparator) {
-        if (StringUtils.isBlank(from)) {
-            return null;
-        }
-        if (! (" ".equals(groupingSeparator) || ".".equals(groupingSeparator) || ",".equals(groupingSeparator) || null == groupingSeparator)) {
-            return null;
-        }
-        if (! (".".equals(decimalSeparator) || ",".equals(decimalSeparator) || null == decimalSeparator)) {
-            return null;
-        }
-        if (groupingSeparator != null && groupingSeparator.equals(decimalSeparator)) {
-            return null;
-        }
-
-        if (groupingSeparator != null) {
-            if (groupingSeparator.equals(".")) {
-                groupingSeparator = "\\" + groupingSeparator;
-            }
-            from = from.replaceAll(groupingSeparator, "");
-        }
-        if (decimalSeparator != null && !decimalSeparator.equals(".")) {
-            from = from.replaceAll(decimalSeparator, ".");
-        }
-        return number(from);
     }
 
     @Override
@@ -202,15 +175,6 @@ public class DoubleNumericLib implements NumericLib<Double> {
     }
 
     @Override
-    public Double min(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        return min(Arrays.asList(args));
-    }
-
-    @Override
     public Double max(List list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -224,15 +188,6 @@ public class DoubleNumericLib implements NumericLib<Double> {
             }
         }
         return result;
-    }
-
-    @Override
-    public Double max(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        return max(Arrays.asList(args));
     }
 
     @Override
@@ -250,15 +205,6 @@ public class DoubleNumericLib implements NumericLib<Double> {
     }
 
     @Override
-    public Double sum(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        return sum(Arrays.asList(args));
-    }
-
-    @Override
     public Double mean(List list) {
         if (list == null) {
             return null;
@@ -266,15 +212,6 @@ public class DoubleNumericLib implements NumericLib<Double> {
 
         Double sum = sum(list);
         return DoubleNumericType.doubleNumericDivide(sum, Double.valueOf(list.size()));
-    }
-
-    @Override
-    public Double mean(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        return mean(Arrays.asList(args));
     }
 
     @Override
@@ -289,15 +226,6 @@ public class DoubleNumericLib implements NumericLib<Double> {
             result = result * number;
         }
         return result;
-    }
-
-    @Override
-    public Double product(Object... numbers) {
-        if (numbers == null || numbers.length < 1) {
-            return null;
-        }
-
-        return product(Arrays.asList(numbers));
     }
 
     @Override
@@ -317,15 +245,6 @@ public class DoubleNumericLib implements NumericLib<Double> {
             median = (Double) list.get(size / 2);
         }
         return median;
-    }
-
-    @Override
-    public Double median(Object... numbers) {
-        if (numbers == null || numbers.length < 1) {
-            return null;
-        }
-
-        return median(Arrays.asList(numbers));
     }
 
     @Override
@@ -349,15 +268,6 @@ public class DoubleNumericLib implements NumericLib<Double> {
     }
 
     @Override
-    public Double stddev(Object... numbers) {
-        if (numbers == null || numbers.length < 1) {
-            return null;
-        }
-
-        return stddev(Arrays.asList(numbers));
-    }
-
-    @Override
     public List mode(List list) {
         if (list == null) {
             return null;
@@ -374,7 +284,6 @@ public class DoubleNumericLib implements NumericLib<Double> {
                 return null;
             }
             int count;
-
             if (countMap.containsKey(n)) {
                 count = countMap.get(n) + 1;
             } else {
@@ -395,15 +304,6 @@ public class DoubleNumericLib implements NumericLib<Double> {
 
         Collections.sort(modes);
         return modes;
-    }
-
-    @Override
-    public List mode(Object... numbers) {
-        if (numbers == null) {
-            return null;
-        }
-
-        return mode(Arrays.asList(numbers));
     }
 
     @Override
