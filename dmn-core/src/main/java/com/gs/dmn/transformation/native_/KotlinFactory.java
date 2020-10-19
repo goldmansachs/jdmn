@@ -14,8 +14,6 @@ package com.gs.dmn.transformation.native_;
 
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.type.*;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
@@ -197,13 +195,6 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String applyMethod(FunctionType functionType, String signature, boolean convertTypeToContext, String body) {
-        String returnType = transformer.toNativeType(transformer.convertType(functionType.getReturnType(), convertTypeToContext));
-        String parametersAssignment = parametersAssignment(functionType.getParameters(), convertTypeToContext);
-        return applyMethod(returnType, signature, parametersAssignment, body);
-    }
-
-    @Override
     protected String applyMethod(String returnType, String signature, String parametersAssignment, String body) {
         return String.format(
                 "%s" +
@@ -301,16 +292,8 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String conversionFunction(Conversion conversion, String javaType) {
-        if (conversion.getKind() == ConversionKind.NONE) {
-            return null;
-        } else if (conversion.getKind() == ConversionKind.ELEMENT_TO_LIST) {
-            return "asList";
-        } else if (conversion.getKind() == ConversionKind.LIST_TO_ELEMENT) {
-            return "asElement";
-        } else {
-            throw new DMNRuntimeException(String.format("Conversion '%s' is not supported yet", conversion));
-        }
+    protected String listToElementConversionFunction(String javaType) {
+        return String.format("asElement");
     }
 
     @Override
@@ -321,102 +304,18 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext) {
-        if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
-            if (type == NumberType.NUMBER) {
-                String qNativeType = this.transformer.getNativeTypeFactory().toQualifiedNativeType(((DataType) type).getName());
-                return String.format("%s.valueOf(%s)", qNativeType, protoValue);
-            } else if (type == BooleanType.BOOLEAN) {
-                return protoValue;
-            } else if (type == StringType.STRING) {
-                return protoValue;
-            } else {
-                // Date time types
-                String stringValue = String.format("%s", protoValue);
-                String conversionMethod = getConversionMethod(type, staticContext);
-                if (conversionMethod != null) {
-                    return String.format("%s(%s)", conversionMethod, stringValue);
-                }
-                throw new DMNRuntimeException(String.format("Cannot convert type '%s' to proto type", type));
-            }
-        } else if (type instanceof ListType) {
-            Type elementType = ((ListType) type).getElementType();
-            String mapFunction;
-            if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(elementType)) {
-                if (elementType == NumberType.NUMBER) {
-                    String qNativeType = this.transformer.getNativeTypeFactory().toQualifiedNativeType(((DataType) elementType).getName());
-                    mapFunction = String.format("e -> %s.valueOf(e)", qNativeType);
-                } else if (elementType == BooleanType.BOOLEAN) {
-                    mapFunction =  "e -> e";
-                } else if (elementType == StringType.STRING) {
-                    mapFunction =  "e -> e";
-                } else {
-                    // Date time types
-                    String conversionMethod = getConversionMethod(type, staticContext);
-                    if (conversionMethod != null) {
-                        mapFunction = String.format("e -> %s(e)", conversionMethod);
-                    } else {
-                        throw new DMNRuntimeException(String.format("Cannot convert type '%s' to proto type", type));
-                    }
-                }
-            } else if (elementType instanceof ItemDefinitionType) {
-                String qNativeType = this.transformer.toNativeType(elementType);
-                String convertFunction = convertMethodName((ItemDefinitionType) elementType);
-                mapFunction = String.format("e -> %s.%s(e)", qNativeType, convertFunction);
-            } else {
-                throw new DMNRuntimeException(String.format("Cannot convert type '%s' to proto type", type));
-            }
-            String qNativeType = this.transformer.toNativeType(type);
-            return cast(qNativeType, String.format("%s?.stream()?.map({%s})?.collect(java.util.stream.Collectors.toList())", protoValue, mapFunction));
-        } else if (type instanceof ItemDefinitionType) {
-            String qNativeType = this.transformer.toNativeType(type);
-            String convertFunction = convertMethodName((ItemDefinitionType) type);
-            return String.format("%s.%s(%s)", qNativeType, convertFunction, protoValue);
-        }
-        throw new DMNRuntimeException(String.format("Cannot convert type '%s' to proto type", type));
+    protected String itemDefinitionConversionLambda(String qNativeType, String convertFunction) {
+        return String.format("e -> %s.%s(e)", qNativeType, convertFunction);
     }
 
     @Override
-    public String convertValueToProtoNativeType(String value, Type type, boolean staticContext) {
-        if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
-            if (type == NumberType.NUMBER) {
-                return toProtoNumber(value);
-            } else if (type == BooleanType.BOOLEAN) {
-                return toProtoBoolean(value);
-            } else if (type == StringType.STRING) {
-                return toProtoString(value);
-            } else {
-                // DATE TIME: Return string
-                String conversionMethod = getConversionMethod("string", staticContext);
-                return String.format("%s(%s)", conversionMethod, value);
-            }
-        } else if (type instanceof ListType) {
-            Type elementType = ((ListType) type).getElementType();
-            String mapFunction;
-            if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(elementType)) {
-                if (elementType == NumberType.NUMBER) {
-                    mapFunction = String.format("e -> %s", toProtoNumber("e"));
-                } else if (elementType == BooleanType.BOOLEAN) {
-                    mapFunction = String.format("e -> %s", toProtoBoolean("e"));
-                } else if (elementType == StringType.STRING) {
-                    mapFunction = String.format("e -> %s", toProtoString("e"));
-                } else {
-                    // DATE TIME: Return string
-                    String conversionMethod = getConversionMethod("string", staticContext);
-                    mapFunction = String.format("e -> %s(e)", conversionMethod);
-                }
-            } else if (elementType instanceof ItemDefinitionType) {
-                String nativeType = this.transformer.toNativeType(elementType);
-                mapFunction = String.format("e -> %s.%s(e)", nativeType, TO_PROTO_CONVERSION_METHOD);
-            } else {
-                throw new DMNRuntimeException(String.format("Cannot convert type '%s' to proto type", type));
-            }
-            return String.format("%s?.stream()?.map({%s})?.collect(java.util.stream.Collectors.toList())", value, mapFunction);
-        } else if (type instanceof ItemDefinitionType) {
-            String nativeType = this.transformer.toNativeType(type);
-            return String.format("%s.%s(%s)", nativeType, TO_PROTO_CONVERSION_METHOD, value);
-        }
-        throw new DMNRuntimeException(String.format("Conversion from '%s' to proto types is not supported yet", type));
+    protected String extractListMemberFromProto(String protoSource, String mapFunction, String qNativeType) {
+        return cast(qNativeType, String.format("%s?.stream()?.map({%s})?.collect(java.util.stream.Collectors.toList())", protoSource, mapFunction));
+    }
+
+    @Override
+    protected String convertListMemberToProto(String protoSource, String mapFunction) {
+        return String.format("%s?.stream()?.map({%s})?.collect(java.util.stream.Collectors.toList())", protoSource, mapFunction);
     }
 
     @Override
@@ -436,6 +335,6 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
 
     @Override
     protected String cast(String type, String value) {
-        return String.format("(%s as %s)", value, type);
+        return StringUtils.isBlank(type) ? value : String.format("(%s as %s)", value, type);
     }
 }

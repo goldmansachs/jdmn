@@ -25,6 +25,7 @@ import com.gs.dmn.serialization.JsonSerializer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.native_.statement.*;
 import com.gs.dmn.transformation.proto.ProtoBufferFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
@@ -360,12 +361,20 @@ public class JavaFactory implements NativeFactory {
         if (conversion.getKind() == ConversionKind.NONE) {
             return null;
         } else if (conversion.getKind() == ConversionKind.ELEMENT_TO_LIST) {
-            return "asList";
+            return elementToListConversionFunction();
         } else if (conversion.getKind() == ConversionKind.LIST_TO_ELEMENT) {
-            return String.format("this.<%s>asElement", javaType);
+            return listToElementConversionFunction(javaType);
         } else {
             throw new DMNRuntimeException(String.format("Conversion '%s' is not supported yet", conversion));
         }
+    }
+
+    protected String elementToListConversionFunction() {
+        return "asList";
+    }
+
+    protected String listToElementConversionFunction(String javaType) {
+        return String.format("this.<%s>asElement", javaType);
     }
 
     @Override
@@ -435,18 +444,26 @@ public class JavaFactory implements NativeFactory {
             } else if (elementType instanceof ItemDefinitionType) {
                 String qNativeType = this.transformer.toNativeType(elementType);
                 String convertFunction = convertMethodName((ItemDefinitionType) elementType);
-                mapFunction = String.format("%s::%s", qNativeType, convertFunction);
+                mapFunction = itemDefinitionConversionLambda(qNativeType, convertFunction);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot convert type '%s' to proto type", type));
             }
             String qNativeType = this.transformer.toNativeType(type);
-            return cast(qNativeType, String.format("(%s == null ? null : %s.stream().map(%s).collect(java.util.stream.Collectors.toList()))", protoValue, protoValue, mapFunction));
+            return extractListMemberFromProto(protoValue, mapFunction, qNativeType);
         } else if (type instanceof ItemDefinitionType) {
             String qNativeType = this.transformer.toNativeType(type);
             String convertFunction = convertMethodName((ItemDefinitionType) type);
             return String.format("%s.%s(%s)", qNativeType, convertFunction, protoValue);
         }
         throw new DMNRuntimeException(String.format("Cannot convert type '%s' to proto type", type));
+    }
+
+    protected String itemDefinitionConversionLambda(String qNativeType, String convertFunction) {
+        return String.format("%s::%s", qNativeType, convertFunction);
+    }
+
+    protected String extractListMemberFromProto(String protoSource, String mapFunction, String qNativeType) {
+        return cast(qNativeType, String.format("(%s == null ? null : %s.stream().map(%s).collect(java.util.stream.Collectors.toList()))", protoSource, protoSource, mapFunction));
     }
 
     protected String getConversionMethod(Type type, boolean staticContext) {
@@ -496,16 +513,20 @@ public class JavaFactory implements NativeFactory {
                 }
             } else if (elementType instanceof ItemDefinitionType) {
                 String nativeType = this.transformer.toNativeType(elementType);
-                mapFunction = String.format("%s::%s", nativeType, TO_PROTO_CONVERSION_METHOD);
+                mapFunction = itemDefinitionConversionLambda(nativeType, TO_PROTO_CONVERSION_METHOD);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot convert type '%s' to proto type", type));
             }
-            return cast("List", String.format("(%s == null ? null : %s.stream().map(%s).collect(java.util.stream.Collectors.toList()))", value, value, mapFunction));
+            return convertListMemberToProto(value, mapFunction);
         } else if (type instanceof ItemDefinitionType) {
             String nativeType = this.transformer.toNativeType(type);
             return String.format("%s.%s(%s)", nativeType, TO_PROTO_CONVERSION_METHOD, value);
         }
         throw new DMNRuntimeException(String.format("Conversion from '%s' to proto types is not supported yet", type));
+    }
+
+    protected String convertListMemberToProto(String protoSource, String mapFunction) {
+        return cast("List", String.format("(%s == null ? null : %s.stream().map(%s).collect(java.util.stream.Collectors.toList()))", protoSource, protoSource, mapFunction));
     }
 
     protected String toProtoNumber(String value) {
@@ -521,7 +542,7 @@ public class JavaFactory implements NativeFactory {
     }
 
     protected String cast(String type, String value) {
-        return String.format("((%s) %s)", type, value);
+        return StringUtils.isBlank(type) ? value : String.format("((%s) %s)", type, value);
     }
 
     protected String objectMapper() {
