@@ -27,23 +27,27 @@ import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.CompositeDMNValidator;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.NopDMNValidator;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.project.MavenProject;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractMojo {
-    @Parameter(defaultValue = "${project}", readonly = true, required = true)
-    public MavenProject project;
+public abstract class AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractFileTransformerMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
+    @Parameter(required = false)
+    public String[] dmnValidators;
 
-    protected void checkMandatoryField(Object fieldValue, String fieldName) {
-        if (fieldValue == null) {
-            throw new IllegalArgumentException(String.format("'%s' is mandatory.", fieldName));
-        }
-    }
+    @Parameter(required = false)
+    public DMNTransformerComponent[] dmnTransformers;
+
+    @Parameter(required = false)
+    public String[] lazyEvaluationDetectors;
+
+    @Parameter(required = false, defaultValue = "com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer")
+    public String typeDeserializationConfigurer;
+
+    @Parameter(required = false)
+    public Map<String, String> inputParameters;
 
     protected DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> makeDialect(Class<?> dialectClass) throws InstantiationException, IllegalAccessException {
         return (DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST>) dialectClass.newInstance();
