@@ -37,6 +37,12 @@ public class ItemDefinitionType extends NamedType implements CompositeDataType {
         return this.modelName;
     }
 
+    public ContextType toContextType() {
+        ContextType contextType = new ContextType();
+        members.forEach((key, value) -> contextType.addMember(key, aliases.get(key), value));
+        return contextType;
+    }
+
     @Override
     public ItemDefinitionType addMember(String name, List<String> aliases, Type type) {
         this.members.put(name, type);
@@ -62,81 +68,12 @@ public class ItemDefinitionType extends NamedType implements CompositeDataType {
 
     @Override
     public boolean equivalentTo(Type other) {
-        if (other instanceof ContextType) {
-            Set<String> thisNames = this.getMembers();
-            Set<String> otherNames = ((ContextType) other).getMembers();
-            if (!thisNames.equals(otherNames)) {
-                return false;
-            }
-            for (String name : thisNames) {
-                Type thisType = this.getMemberType(name);
-                Type otherType = ((ContextType) other).getMemberType(name);
-                if (!thisType.equivalentTo(otherType)) {
-                    return false;
-                }
-            }
-            return true;
-        } else if (other instanceof ItemDefinitionType) {
-            Set<String> thisNames = this.getMembers();
-            Set<String> otherNames = ((ItemDefinitionType) other).getMembers();
-            if (!thisNames.equals(otherNames)) {
-                return false;
-            }
-            for (String name : thisNames) {
-                Type thisType = this.getMemberType(name);
-                Type otherType = ((ItemDefinitionType) other).getMemberType(name);
-                if (!thisType.equivalentTo(otherType)) {
-                    return false;
-                }
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public ContextType toContextType() {
-        ContextType contextType = new ContextType();
-        members.forEach((key, value) -> contextType.addMember(key, aliases.get(key), value));
-        return contextType;
+        return CompositeDataType.equivalentTo(this, other);
     }
 
     @Override
     public boolean conformsTo(Type other) {
-        if (other == ANY) {
-            return true;
-        }
-        if (other instanceof ContextType) {
-            Set<String> thisNames = this.getMembers();
-            Set<String> otherNames = ((ContextType) other).getMembers();
-            if (!thisNames.containsAll(otherNames)) {
-                return false;
-            }
-            for (String name : otherNames) {
-                Type thisType = this.getMemberType(name);
-                Type otherType = ((ContextType) other).getMemberType(name);
-                if (!thisType.conformsTo(otherType)) {
-                    return false;
-                }
-            }
-            return true;
-        } else if (other instanceof ItemDefinitionType) {
-            Set<String> thisNames = this.getMembers();
-            Set<String> otherNames = ((ItemDefinitionType) other).getMembers();
-            if (!thisNames.containsAll(otherNames)) {
-                return false;
-            }
-            for (String name : otherNames) {
-                Type thisType = this.getMemberType(name);
-                Type otherType = ((ItemDefinitionType) other).getMemberType(name);
-                if (!thisType.conformsTo(otherType)) {
-                    return false;
-                }
-            }
-            return true;
-        } else {
-            return false;
-        }
+        return CompositeDataType.conformsTo(this, other);
     }
 
     @Override
