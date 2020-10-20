@@ -26,7 +26,7 @@ import java.util.Map;
 
 @SuppressWarnings("CanBeFinal")
 @Mojo(name = "rdf-to-dmn", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
-public class RDFToDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
+public class RDFToDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractFileTransformerMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     @Parameter(required = false)
     public Map<String, String> inputParameters;
 

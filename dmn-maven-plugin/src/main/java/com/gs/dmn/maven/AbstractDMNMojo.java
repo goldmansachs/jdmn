@@ -19,7 +19,6 @@ import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.CompositeDMNTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
-import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.NopDMNTransformer;
 import com.gs.dmn.transformation.lazy.CompositeLazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
@@ -28,45 +27,12 @@ import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.CompositeDMNValidator;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.NopDMNValidator;
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.project.MavenProject;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractMojo {
-    @Parameter(defaultValue = "${project}", readonly = true, required = true)
-    public MavenProject project;
-
-    protected void transform(File inputFileDirectory, File outputFileDirectory) throws MojoExecutionException {
-        checkMandatoryFields();
-
-        try {
-            // Create transformer
-            FileTransformer transformer = makeTransformer(new MavenBuildLogger(this.getLog()));
-
-            // Transform
-            this.getLog().info(String.format("Transforming '%s' to '%s' ...", inputFileDirectory, outputFileDirectory));
-            transformer.transform(inputFileDirectory.toPath(), outputFileDirectory.toPath());
-
-            // Add sources
-            addSourceRoot(outputFileDirectory);
-        } catch (Exception e) {
-            throw new MojoExecutionException("", e);
-        }
-    }
-
-    protected void checkMandatoryField(Object fieldValue, String fieldName) {
-        if (fieldValue == null) {
-            throw new IllegalArgumentException(String.format("'%s' is mandatory.", fieldName));
-        }
-    }
-
+public abstract class AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractFileTransformerMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     protected DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> makeDialect(Class<?> dialectClass) throws InstantiationException, IllegalAccessException {
         return (DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST>) dialectClass.newInstance();
     }
@@ -145,10 +111,4 @@ public abstract class AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
             throw new IllegalArgumentException(String.format("Cannot build template provider '%s'", templateProviderClass));
         }
     }
-
-    protected abstract void addSourceRoot(File outputFileDirectory) throws IOException;
-
-    protected abstract FileTransformer makeTransformer(BuildLogger logger) throws Exception;
-
-    protected abstract void checkMandatoryFields();
 }
