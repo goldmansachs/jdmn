@@ -28,6 +28,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 @SuppressWarnings("CanBeFinal")
@@ -65,43 +66,44 @@ public class TCKToKotlinJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> exten
 
     @Override
     public void execute() throws MojoExecutionException {
-        checkMandatoryField(inputTestFileDirectory, "inputTestFileDirectory");
-        checkMandatoryField(inputModelFileDirectory, "inputModelFileDirectory");
-        checkMandatoryField(outputFileDirectory, "outputFileDirectory");
-        checkMandatoryField(dmnDialect, "dmnDialect");
+        transform(this.inputTestFileDirectory, this.outputFileDirectory);
+    }
 
-        try {
-            // Create arguments
-            MavenBuildLogger logger = new MavenBuildLogger(this.getLog());
-            Class<?> dialectClass = Class.forName(dmnDialect);
-            DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dmnDialect = makeDialect(dialectClass);
-            DMNValidator dmnValidator = makeDMNValidator(this.dmnValidators, logger);
-            DMNTransformer<TestCases> dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
-            TemplateProvider templateProvider = makeTemplateProvider(this.templateProvider, logger);
-            LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, this.inputParameters);
-            TypeDeserializationConfigurer typeDeserializationConfigurer = makeTypeDeserializationConfigurer(this.typeDeserializationConfigurer, logger);
+    @Override
+    protected void checkMandatoryFields() {
+        checkMandatoryField(this.inputTestFileDirectory, "inputTestFileDirectory");
+        checkMandatoryField(this.inputModelFileDirectory, "inputModelFileDirectory");
+        checkMandatoryField(this.outputFileDirectory, "outputFileDirectory");
+        checkMandatoryField(this.dmnDialect, "dmnDialect");
+    }
 
-            // Create transformer
-            FileTransformer transformer = new TCKTestCasesToKotlinJUnitTransformer<>(
-                    dmnDialect,
-                    dmnValidator,
-                    dmnTransformer,
-                    templateProvider,
-                    lazyEvaluationDetector,
-                    typeDeserializationConfigurer,
-                    inputModelFileDirectory.toPath(),
-                    inputParameters,
-                    logger
-            );
+    @Override
+    protected FileTransformer makeTransformer(com.gs.dmn.log.BuildLogger logger) throws Exception {
+        Class<?> dialectClass = Class.forName(dmnDialect);
+        DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dmnDialect = makeDialect(dialectClass);
+        DMNValidator dmnValidator = makeDMNValidator(this.dmnValidators, logger);
+        DMNTransformer<TestCases> dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
+        TemplateProvider templateProvider = makeTemplateProvider(this.templateProvider, logger);
+        LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, this.inputParameters);
+        TypeDeserializationConfigurer typeDeserializationConfigurer = makeTypeDeserializationConfigurer(this.typeDeserializationConfigurer, logger);
 
-            // Transform
-            this.getLog().info(String.format("Transforming '%s' to '%s' ...", this.inputTestFileDirectory, this.outputFileDirectory));
-            transformer.transform(inputTestFileDirectory.toPath(), outputFileDirectory.toPath());
+        // Create transformer
+        FileTransformer transformer = new TCKTestCasesToKotlinJUnitTransformer<>(
+                dmnDialect,
+                dmnValidator,
+                dmnTransformer,
+                templateProvider,
+                lazyEvaluationDetector,
+                typeDeserializationConfigurer,
+                this.inputModelFileDirectory.toPath(),
+                this.inputParameters,
+                logger
+        );
+        return transformer;
+    }
 
-            // Add sources
-            this.project.addTestCompileSourceRoot(this.outputFileDirectory.getCanonicalPath());
-        } catch (Exception e) {
-            throw new MojoExecutionException("", e);
-        }
+    @Override
+    protected void addSourceRoot(File outputFileDirectory) throws IOException {
+        this.project.addTestCompileSourceRoot(outputFileDirectory.getCanonicalPath());
     }
 }

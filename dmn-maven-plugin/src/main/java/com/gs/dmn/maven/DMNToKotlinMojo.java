@@ -29,6 +29,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 @SuppressWarnings("CanBeFinal")
@@ -63,43 +64,45 @@ public class DMNToKotlinMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
 
     @Override
     public void execute() throws MojoExecutionException {
-        checkMandatoryField(project, "project");
-        checkMandatoryField(inputFileDirectory, "inputFileDirectory");
-        checkMandatoryField(outputFileDirectory, "outputFileDirectory");
-        checkMandatoryField(dmnDialect, "dmnDialect");
+        transform(this.inputFileDirectory, this.outputFileDirectory);
+    }
 
-        try {
-            // Create and validate arguments
-            BuildLogger logger = new MavenBuildLogger(this.getLog());
-            Class<?> dialectClass = Class.forName(dmnDialect);
-            DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dmnDialect = makeDialect(dialectClass);
-            DMNValidator dmnValidator = makeDMNValidator(this.dmnValidators, logger);
-            DMNTransformer<TestCases> dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
-            TemplateProvider templateProvider = makeTemplateProvider(this.templateProvider, logger);
-            LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, this.inputParameters);
-            TypeDeserializationConfigurer typeDeserializationConfigurer = makeTypeDeserializationConfigurer(this.typeDeserializationConfigurer, logger);
-            validateParameters(dmnDialect, dmnValidator, dmnTransformer, templateProvider, inputParameters);
+    @Override
+    protected void checkMandatoryFields() {
+        checkMandatoryField(this.project, "project");
+        checkMandatoryField(this.inputFileDirectory, "inputFileDirectory");
+        checkMandatoryField(this.outputFileDirectory, "outputFileDirectory");
+        checkMandatoryField(this.dmnDialect, "dmnDialect");
+    }
 
-            // Create transformer
-            FileTransformer transformer = dmnDialect.createDMNToNativeTransformer(
-                    dmnValidator,
-                    dmnTransformer,
-                    templateProvider,
-                    lazyEvaluationDetector,
-                    typeDeserializationConfigurer,
-                    inputParameters,
-                    logger
-            );
+    @Override
+    protected FileTransformer makeTransformer(BuildLogger logger) throws Exception {
+        // Create and validate arguments
+        Class<?> dialectClass = Class.forName(this.dmnDialect);
+        DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dmnDialect = makeDialect(dialectClass);
+        DMNValidator dmnValidator = makeDMNValidator(this.dmnValidators, logger);
+        DMNTransformer<TestCases> dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
+        TemplateProvider templateProvider = makeTemplateProvider(this.templateProvider, logger);
+        LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, this.inputParameters);
+        TypeDeserializationConfigurer typeDeserializationConfigurer = makeTypeDeserializationConfigurer(this.typeDeserializationConfigurer, logger);
+        validateParameters(dmnDialect, dmnValidator, dmnTransformer, templateProvider, this.inputParameters);
 
-            // Transform
-            transformer.transform(inputFileDirectory.toPath(), outputFileDirectory.toPath());
-            this.getLog().info(String.format("Transforming '%s' to '%s' ...", this.inputFileDirectory, this.outputFileDirectory));
+        // Create transformer
+        FileTransformer transformer = dmnDialect.createDMNToNativeTransformer(
+                dmnValidator,
+                dmnTransformer,
+                templateProvider,
+                lazyEvaluationDetector,
+                typeDeserializationConfigurer,
+                this.inputParameters,
+                logger
+        );
+        return transformer;
+    }
 
-            // Add sources
-            this.project.addCompileSourceRoot(this.outputFileDirectory.getCanonicalPath());
-        } catch (Exception e) {
-            throw new MojoExecutionException("", e);
-        }
+    @Override
+    protected void addSourceRoot(File outputFileDirectory) throws IOException {
+        this.project.addCompileSourceRoot(outputFileDirectory.getCanonicalPath());
     }
 
     private void validateParameters(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dmnDialect, DMNValidator dmnValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters) {
