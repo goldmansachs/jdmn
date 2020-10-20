@@ -21,31 +21,16 @@ import com.gs.dmn.transformation.InputParamUtil;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
 @SuppressWarnings("CanBeFinal")
-public abstract class AbstractDMNToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
-    @Parameter(required = true, defaultValue = "${project.basedir}/src/main/resources/dmn")
-    public File inputFileDirectory;
-
-    @Parameter(required = true, defaultValue = "${project.build.directory}/generated-sources/dmn")
-    public File outputFileDirectory;
-
+public abstract class AbstractTestToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     @Override
-    public void execute() throws MojoExecutionException {
-        transform(this.inputFileDirectory, this.outputFileDirectory);
-    }
-
-    @Override
-    protected void checkMandatoryFields() {
-        checkMandatoryField(this.project, "project");
-        checkMandatoryField(this.inputFileDirectory, "inputFileDirectory");
-        checkMandatoryField(this.outputFileDirectory, "outputFileDirectory");
+    protected void addSourceRoot(File outputFileDirectory) throws IOException {
+        this.project.addTestCompileSourceRoot(outputFileDirectory.getCanonicalPath());
     }
 
     protected FileTransformer makeTransformer(BuildLogger logger, String dmnDialectName, String templateProviderName) throws Exception {
@@ -60,7 +45,8 @@ public abstract class AbstractDMNToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DURA
         validateParameters(dmnDialect, dmnValidator, dmnTransformer, templateProvider, this.inputParameters);
 
         // Create transformer
-        FileTransformer transformer = dmnDialect.createDMNToNativeTransformer(
+        FileTransformer transformer = makeTransformer(
+                dmnDialect,
                 dmnValidator,
                 dmnTransformer,
                 templateProvider,
@@ -70,11 +56,6 @@ public abstract class AbstractDMNToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DURA
                 logger
         );
         return transformer;
-    }
-
-    @Override
-    protected void addSourceRoot(File outputFileDirectory) throws IOException {
-        this.project.addTestCompileSourceRoot(outputFileDirectory.getCanonicalPath());
     }
 
     private void validateParameters(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dmnDialect, DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters) {
@@ -88,4 +69,6 @@ public abstract class AbstractDMNToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DURA
             this.getLog().error(String.format("Incompatible 'singletonInputData=%s' and 'caching=%s'", singletonInputData, caching));
         }
     }
+
+    protected abstract FileTransformer makeTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dmnDialect, DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger);
 }
