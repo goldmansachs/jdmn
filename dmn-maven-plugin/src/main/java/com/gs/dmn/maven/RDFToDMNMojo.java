@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.maven;
 
+import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.signavio.rdf2dmn.RDFToDMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -25,7 +26,7 @@ import java.util.Map;
 
 @SuppressWarnings("CanBeFinal")
 @Mojo(name = "rdf-to-dmn", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
-public class RDFToDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
+public class RDFToDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractFileTransformerMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     @Parameter(required = false)
     public Map<String, String> inputParameters;
 
@@ -37,22 +38,26 @@ public class RDFToDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends
 
     @Override
     public void execute() throws MojoExecutionException {
-        checkMandatoryField(inputFileDirectory, "inputFileDirectory");
-        checkMandatoryField(outputFileDirectory, "outputFileDirectory");
+        transform(this.inputFileDirectory, this.outputFileDirectory);
+    }
 
-        this.getLog().info(String.format("Transforming '%s' to '%s' ...", this.inputFileDirectory, this.outputFileDirectory));
+    @Override
+    protected void checkMandatoryFields() {
+        checkMandatoryField(this.inputFileDirectory, "inputFileDirectory");
+        checkMandatoryField(this.outputFileDirectory, "outputFileDirectory");
+    }
 
-        MavenBuildLogger logger = new MavenBuildLogger(this.getLog());
+    @Override
+    protected FileTransformer makeTransformer(BuildLogger logger) {
         FileTransformer transformer = new RDFToDMNTransformer(
                 inputParameters,
                 logger
         );
-        transformer.transform(inputFileDirectory.toPath(), outputFileDirectory.toPath());
+        return transformer;
+    }
 
-        try {
-            this.project.addCompileSourceRoot(this.outputFileDirectory.getCanonicalPath());
-        } catch (IOException e) {
-            throw new MojoExecutionException("", e);
-        }
+    @Override
+    protected void addSourceRoot(File outputFileDirectory) throws IOException {
+        this.project.addCompileSourceRoot(outputFileDirectory.getCanonicalPath());
     }
 }

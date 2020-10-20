@@ -13,7 +13,7 @@
 package com.gs.dmn.maven;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.maven.configuration.components.DMNTransformerComponent;
+import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.testlab.TestLabToKotlinJUnitTransformer;
@@ -32,27 +32,12 @@ import java.util.Map;
 
 @SuppressWarnings("CanBeFinal")
 @Mojo(name = "testlab-to-kotlin", defaultPhase = LifecyclePhase.GENERATE_TEST_SOURCES, configurator = "dmn-mojo-configurator")
-public class TestLabToKotlinJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
+public class TestLabToKotlinJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
     @Parameter(required = true, defaultValue = "com.gs.dmn.signavio.dialect.KotlinSignavioDMNDialectDefinition")
     public String dmnDialect;
 
-    @Parameter(required = false)
-    public String[] dmnValidators;
-
-    @Parameter(required = false)
-    public DMNTransformerComponent[] dmnTransformers;
-
     @Parameter(required = true, defaultValue = "com.gs.dmn.signavio.transformation.template.KotlinSignavioTreeTemplateProvider")
     public String templateProvider;
-
-    @Parameter(required = false)
-    public String[] lazyEvaluationDetectors;
-
-    @Parameter(required = false, defaultValue = "com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer")
-    public String typeDeserializationConfigurer;
-
-    @Parameter(required = false)
-    public Map<String, String> inputParameters;
 
     @Parameter(required = true, defaultValue = "${project.basedir}/src/main/resources/signavio")
     public File inputTestFileDirectory;
@@ -65,36 +50,35 @@ public class TestLabToKotlinJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
     @Override
     public void execute() throws MojoExecutionException {
-        checkMandatoryField(inputTestFileDirectory, "inputTestFileDirectory");
-        checkMandatoryField(inputModelFileDirectory, "inputModelFileDirectory");
-        checkMandatoryField(outputFileDirectory, "outputFileDirectory");
-        checkMandatoryField(dmnDialect, "dmnDialect");
+        transform(this.inputTestFileDirectory, this.outputFileDirectory);
+    }
 
-        try {
-            // Create transformer
-            MavenBuildLogger logger = new MavenBuildLogger(this.getLog());
-            Class<?> dialectClass = Class.forName(dmnDialect);
-            DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dmnDialect = makeDialect(dialectClass);
-            DMNValidator dmnValidator = makeDMNValidator(this.dmnValidators, logger);
-            DMNTransformer<TestLab> dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
-            TemplateProvider templateProvider = makeTemplateProvider(this.templateProvider, logger);
-            LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, this.inputParameters);
-            TypeDeserializationConfigurer typeDeserializationConfigurer = makeTypeDeserializationConfigurer(this.typeDeserializationConfigurer, logger);
+    @Override
+    protected void checkMandatoryFields() {
+        checkMandatoryField(this.inputTestFileDirectory, "inputTestFileDirectory");
+        checkMandatoryField(this.inputModelFileDirectory, "inputModelFileDirectory");
+        checkMandatoryField(this.outputFileDirectory, "outputFileDirectory");
+        checkMandatoryField(this.dmnDialect, "dmnDialect");
+    }
 
-            FileTransformer transformer = new TestLabToKotlinJUnitTransformer<>(
-                    dmnDialect, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer,
-                    inputModelFileDirectory.toPath(), inputParameters,
-                    logger
-            );
+    @Override
+    protected FileTransformer makeTransformer(com.gs.dmn.log.BuildLogger logger) throws Exception {
+        return super.makeTransformer(logger, this.dmnDialect, this.templateProvider);
+    }
 
-            // Transform
-            this.getLog().info(String.format("Transforming '%s' to '%s' ...", this.inputTestFileDirectory, this.outputFileDirectory));
-            transformer.transform(inputTestFileDirectory.toPath(), outputFileDirectory.toPath());
-
-            // Add sources
-            this.project.addTestCompileSourceRoot(this.outputFileDirectory.getCanonicalPath());
-        } catch (Exception e) {
-            throw new MojoExecutionException("", e);
-        }
+    @Override
+    protected FileTransformer makeTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dmnDialect, DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
+        FileTransformer transformer = new TestLabToKotlinJUnitTransformer<>(
+                dmnDialect,
+                dmnValidator,
+                dmnTransformer,
+                templateProvider,
+                lazyEvaluationDetector,
+                typeDeserializationConfigurer,
+                this.inputModelFileDirectory.toPath(),
+                this.inputParameters,
+                logger
+        );
+        return transformer;
     }
 }
