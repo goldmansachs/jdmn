@@ -12,14 +12,9 @@
  */
 package com.gs.dmn.signavio.extension;
 
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Context;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ContextEntry;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.metadata.ExtensionElement;
 import com.gs.dmn.runtime.metadata.MultiInstanceDecisionLogicExtension;
-import com.gs.dmn.runtime.metadata.TechnicalAttributesExtension;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
@@ -29,7 +24,6 @@ import org.w3c.dom.NodeList;
 import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static com.gs.dmn.serialization.DMNVersion.DMN_12;
 
@@ -120,31 +114,6 @@ public class SignavioExtension {
         String iteratorId = multiInstanceDecisionLogic.getIterator().getId();
         String iterationExpression = multiInstanceDecisionLogic.getIterationExpression();
         return new MultiInstanceDecisionLogicExtension(iterationExpression, iteratorId, aggregator, topLevelDecisionId);
-    }
-
-    public ExtensionElement makeTechnicalAttributesExtension(Expression literalExpression) {
-        ExtensionElement extensionElement = null;
-        if (literalExpression instanceof FunctionDefinition) {
-            if (((FunctionDefinition) literalExpression).isExternal()) {
-                Expression body = ((FunctionDefinition) literalExpression).getBody();
-                if (body instanceof Context) {
-                    Context context = (Context) body;
-                    ContextEntry entry = context.entry("java");
-                    Expression javaContext = entry.getExpression();
-                    if (javaContext instanceof Context) {
-                        ContextEntry technicalAttributes = ((Context) javaContext).entry("technicalAttributes");
-                        if (technicalAttributes != null) {
-                            Expression techContext = technicalAttributes.getExpression();
-                            if (techContext instanceof Context) {
-                                Map<String, Object> map = ((Context) techContext).toMap();
-                                extensionElement = new TechnicalAttributesExtension(map);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return extensionElement;
     }
 
     //
