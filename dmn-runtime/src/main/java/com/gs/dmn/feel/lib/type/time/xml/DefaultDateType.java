@@ -98,7 +98,7 @@ public class DefaultDateType extends BaseType implements DateType<XMLGregorianCa
             clone.add(duration);
             return clone;
         } catch (Exception e) {
-            String message = String.format("dateAdd(%s, %s)", date, duration);
+            String message = String.format("dateAddDuration(%s, %s)", date, duration);
             logError(message, e);
             return null;
         }
@@ -115,7 +115,7 @@ public class DefaultDateType extends BaseType implements DateType<XMLGregorianCa
             clone.add(duration.negate());
             return clone;
         } catch (Exception e) {
-            String message = String.format("dateSubtract(%s, %s)", date, duration);
+            String message = String.format("dateSubtractDuration(%s, %s)", date, duration);
             logError(message, e);
             return null;
         }

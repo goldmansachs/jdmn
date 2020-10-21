@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind", visible = false)
 @JsonSubTypes({
-        @JsonSubTypes.Type(name = "multiInstanceDecisionLogic", value = MultiInstanceDecisionLogicExtension.class),
-        @JsonSubTypes.Type(name = "technicalAttributes", value = TechnicalAttributesExtension.class),
+        @JsonSubTypes.Type(name = "multiInstanceDecisionLogic", value = MultiInstanceDecisionLogicExtension.class)
 })
 @JsonPropertyOrder(alphabetic=true)
 public abstract class ExtensionElement {
