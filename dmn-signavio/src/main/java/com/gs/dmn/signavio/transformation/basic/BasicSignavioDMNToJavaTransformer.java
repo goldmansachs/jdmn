@@ -257,14 +257,6 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
         if (this.dmnModelRepository.isMultiInstanceDecision(decision)) {
             ExtensionElement extensionElement = this.dmnModelRepository.getExtension().makeMultiInstanceExtension(decision);
             extensions.add(extensionElement);
-        } else if (this.dmnModelRepository.isLiteralExpression(decision)) {
-            TLiteralExpression expression = (TLiteralExpression) this.dmnModelRepository.expression(decision);
-            Environment environment = this.makeEnvironment(decision);
-            Expression literalExpression = this.feelTranslator.analyzeExpression(expression.getText(), FEELContext.makeContext(decision, environment));
-            ExtensionElement extensionElement = this.dmnModelRepository.getExtension().makeTechnicalAttributesExtension(literalExpression);
-            if (extensionElement != null) {
-                extensions.add(extensionElement);
-            }
         }
         return extensions;
     }
