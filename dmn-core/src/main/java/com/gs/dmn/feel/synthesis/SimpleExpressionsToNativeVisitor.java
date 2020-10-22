@@ -12,15 +12,10 @@
  */
 package com.gs.dmn.feel.synthesis;
 
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
-import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.comparison.BetweenExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.comparison.InExpression;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.comparison.Relational;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Conjunction;
@@ -30,9 +25,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 class SimpleExpressionsToNativeVisitor extends FEELToNativeVisitor {
     public SimpleExpressionsToNativeVisitor(BasicDMNToNativeTransformer dmnTransformer) {
         super(dmnTransformer);
@@ -41,12 +33,6 @@ class SimpleExpressionsToNativeVisitor extends FEELToNativeVisitor {
     //
     // Tests
     //
-    @Override
-    public Object visit(PositiveUnaryTests element, FEELContext context) {
-        List<PositiveUnaryTest> positiveUnaryTests = element.getPositiveUnaryTests();
-        return positiveUnaryTests.stream().map(put -> (String) put.accept(this, context)).collect(Collectors.joining(", "));
-    }
-
     @Override
     public Object visit(NegatedPositiveUnaryTests element, FEELContext context) {
         return handleNotSupportedElement(element);
@@ -63,23 +49,8 @@ class SimpleExpressionsToNativeVisitor extends FEELToNativeVisitor {
     }
 
     @Override
-    public Object visit(Any element, FEELContext context) {
-        return "-";
-    }
-
-    @Override
     public Object visit(NullTest element, FEELContext context) {
         return handleNotSupportedElement(element);
-    }
-
-    @Override
-    public Object visit(ExpressionTest element, FEELContext context) {
-        return element.getExpression().accept(this, context);
-    }
-
-    @Override
-    public Object visit(OperatorTest element, FEELContext context) {
-        return element.getEndpoint().accept(this, context);
     }
 
     @Override
@@ -175,11 +146,6 @@ class SimpleExpressionsToNativeVisitor extends FEELToNativeVisitor {
     // Comparison expressions
     //
     @Override
-    public Object visit(Relational element, FEELContext context) {
-        return super.visit(element, context);
-    }
-
-    @Override
     public Object visit(BetweenExpression element, FEELContext context) {
         return handleNotSupportedElement(element);
     }
@@ -187,42 +153,5 @@ class SimpleExpressionsToNativeVisitor extends FEELToNativeVisitor {
     @Override
     public Object visit(InExpression element, FEELContext context) {
         return handleNotSupportedElement(element);
-    }
-
-    //
-    // Primary expressions
-    //
-    @Override
-    public Object visit(QualifiedName element, FEELContext context) {
-        List<String> names = element.getNames();
-        if (names.size() == 1) {
-            return javaFriendlyVariableName(names.get(0));
-        } else if (names.size() == 2) {
-            String sourceName = names.get(0);
-            String memberName = names.get(1);
-            return makeNavigationPath(element, sourceName, memberName, context);
-        }
-        throw new SemanticError(element, String.format("Cannot compute navigation path '%s'", element.toString()));
-    }
-
-    @Override
-    public Object visit(Name element, FEELContext context) {
-        String name = element.getName();
-        String javaName = javaFriendlyVariableName(name);
-        return this.dmnTransformer.lazyEvaluation(name, javaName);
-    }
-
-    private String makeNavigationPath(Expression element, String sourceName, String memberName, FEELContext params) {
-        Environment environment = params.getEnvironment();
-
-        // Look up source declaration
-        Declaration sourceDeclaration = environment.lookupVariableDeclaration(sourceName);
-        if (sourceDeclaration instanceof VariableDeclaration) {
-            com.gs.dmn.feel.analysis.semantics.type.Type sourceType = sourceDeclaration.getType();
-            String sourceVariableName = javaFriendlyVariableName(sourceName);
-            String memberVariableName = javaFriendlyVariableName(memberName);
-            return makeNavigation(element, sourceType, sourceVariableName, memberName, memberVariableName);
-        }
-        throw new SemanticError(element, String.format("Cannot generate navigation path '%s'", element.toString()));
     }
 }
