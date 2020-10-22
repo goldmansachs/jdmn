@@ -28,7 +28,6 @@ import static com.gs.dmn.serialization.DMNVersion.DMN_11;
 import static com.gs.dmn.serialization.DMNVersion.DMN_12;
 
 public class DMNWriter extends DMNSerializer {
-
     public DMNWriter(BuildLogger logger) {
         super(logger);
     }

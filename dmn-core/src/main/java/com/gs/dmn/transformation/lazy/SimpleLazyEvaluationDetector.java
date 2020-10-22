@@ -25,11 +25,11 @@ public abstract class SimpleLazyEvaluationDetector implements LazyEvaluationDete
     protected final Map<String, String> inputParameters;
     protected final BuildLogger logger;
 
-    public SimpleLazyEvaluationDetector() {
+    protected SimpleLazyEvaluationDetector() {
         this(null, new Slf4jBuildLogger(LOGGER));
     }
 
-    public SimpleLazyEvaluationDetector(Map<String, String> inputParameters, BuildLogger logger) {
+    protected SimpleLazyEvaluationDetector(Map<String, String> inputParameters, BuildLogger logger) {
         this.inputParameters = inputParameters;
         this.logger = logger;
     }

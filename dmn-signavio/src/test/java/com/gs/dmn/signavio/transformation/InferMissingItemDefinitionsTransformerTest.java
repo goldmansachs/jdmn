@@ -168,7 +168,6 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractFileTran
 
     private void assertExpectedTransformResult(RepositoryTransformResult transformResult,
                                                List<Pair<String, String>> expectedNewDefinitions, List<String> expectedRemovedDefinitions) {
-
         List<TItemDefinition> newDefinitions = identifyNewDefinitions(transformResult.getBeforeTransform(), transformResult.getAfterTransform());
         assertEquals("Incorrect number of new definitions", expectedNewDefinitions.size(), newDefinitions.size());
         for (int i=0; i<expectedNewDefinitions.size(); i++) {

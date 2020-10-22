@@ -18,7 +18,6 @@ import com.gs.dmn.maven.configuration.OptionallyConfigurableMojoComponent;
 import java.util.Map;
 
 public class DMNTransformerComponent extends OptionallyConfigurableMojoComponent {
-
     public DMNTransformerComponent() {
         super();
     }

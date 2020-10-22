@@ -15,7 +15,7 @@ package com.gs.dmn.feel.analysis.semantics.type;
 public abstract class NamedType extends Type {
     protected final String name;
 
-    public NamedType(String name) {
+    protected NamedType(String name) {
         this.name = name;
     }
 

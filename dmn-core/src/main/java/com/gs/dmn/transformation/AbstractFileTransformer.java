@@ -25,7 +25,7 @@ public abstract class AbstractFileTransformer implements FileTransformer {
     protected final Map<String, String> inputParameters;
     protected final BuildLogger logger;
 
-    public AbstractFileTransformer(Map<String, String> inputParameters, BuildLogger logger) {
+    protected AbstractFileTransformer(Map<String, String> inputParameters, BuildLogger logger) {
         this.inputParameters = inputParameters;
         this.logger = logger;
     }

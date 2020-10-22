@@ -19,7 +19,7 @@ public abstract class ArithmeticExpression extends Expression {
     private final Expression leftOperand;
     private final Expression rightOperand;
 
-    public ArithmeticExpression(String operator, Expression leftOperand, Expression rightOperand) {
+    protected ArithmeticExpression(String operator, Expression leftOperand, Expression rightOperand) {
         this.operator = operator;
         this.leftOperand = leftOperand;
         this.rightOperand = rightOperand;

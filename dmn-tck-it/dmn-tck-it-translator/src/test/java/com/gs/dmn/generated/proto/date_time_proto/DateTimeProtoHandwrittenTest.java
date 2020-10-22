@@ -1,7 +1,6 @@
 package com.gs.dmn.generated.proto.date_time_proto;
 
 public class DateTimeProtoHandwrittenTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
-
     private Date dateDecision = new Date();
     private Time timeDecision = new Time();
     private DateTime dateTimeDecision = new DateTime();

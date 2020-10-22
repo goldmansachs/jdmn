@@ -30,7 +30,6 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     private String applyDecision(
             String booleanString, String dateAndTimeString, String dateString, String enumerationString,
             String numberString, String text, String timeString) {
-
         AnnotationSet annotationSet = new AnnotationSet();
 
         return decision.apply(booleanString, dateAndTimeString, dateString, enumerationString, numberString, text, timeString, annotationSet);

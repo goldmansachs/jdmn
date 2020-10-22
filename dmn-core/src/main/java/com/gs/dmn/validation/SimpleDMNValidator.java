@@ -29,11 +29,11 @@ public abstract class SimpleDMNValidator implements DMNValidator {
 
     protected final BuildLogger logger;
 
-    public SimpleDMNValidator() {
+    protected SimpleDMNValidator() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
-    public SimpleDMNValidator(BuildLogger logger) {
+    protected SimpleDMNValidator(BuildLogger logger) {
         this.logger = logger;
     }
 

@@ -34,7 +34,7 @@ import java.time.ZonedDateTime;
 public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELLib<NUMBER, LocalDate, OffsetTime, ZonedDateTime, Duration> implements StandardFEELLib<NUMBER, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     protected static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
 
-    public BaseMixedJavaTimeFEELLib(NumericType<NUMBER> numericType, DurationType<Duration, NUMBER> durationType, NumericLib<NUMBER> numericLib) {
+    protected BaseMixedJavaTimeFEELLib(NumericType<NUMBER> numericType, DurationType<Duration, NUMBER> durationType, NumericLib<NUMBER> numericLib) {
         super(numericType,
                 new DefaultBooleanType(LOGGER),
                 new DefaultStringType(LOGGER),

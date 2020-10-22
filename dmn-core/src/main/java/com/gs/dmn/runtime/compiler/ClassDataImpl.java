@@ -16,7 +16,7 @@ public abstract class ClassDataImpl implements ClassData {
     final String packageName;
     final String className;
 
-    public ClassDataImpl(String packageName, String className) {
+    protected ClassDataImpl(String packageName, String className) {
         this.packageName = packageName;
         this.className = className;
     }
