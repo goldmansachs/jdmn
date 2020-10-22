@@ -17,7 +17,7 @@ import java.util.List;
 public abstract class RuleOutput {
     protected boolean matched;
 
-    public RuleOutput(boolean matched) {
+    protected RuleOutput(boolean matched) {
         this.matched = matched;
     }
 

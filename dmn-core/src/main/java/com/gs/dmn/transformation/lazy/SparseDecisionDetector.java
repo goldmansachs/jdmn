@@ -44,7 +44,6 @@ public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
                 JAXBElement<? extends TExpression> element = decision.getExpression();
                 TExpression expression = element == null ? null : element.getValue();
                 if (expression instanceof TDecisionTable && isSparseDecisionTable((TDecisionTable) expression, sparsityThreshold)) {
-
                     logger.info(String.format("Found sparse decision '%s'", decision.getName()));
 
                     for (TInformationRequirement ir : decision.getInformationRequirement()) {

@@ -20,7 +20,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class InterpretedRuleOutputTest {
-
     @Test
     public void testEquals() {
         assertTrue(new InterpretedRuleOutput(true, "123").equals(new InterpretedRuleOutput(true, "123")));

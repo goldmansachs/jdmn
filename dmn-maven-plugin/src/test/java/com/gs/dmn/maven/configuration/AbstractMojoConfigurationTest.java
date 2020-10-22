@@ -19,7 +19,6 @@ import org.codehaus.plexus.configuration.PlexusConfiguration;
 import org.junit.Assert;
 
 public abstract class AbstractMojoConfigurationTest {
-
     private static final ObjectMapper mapper = new ObjectMapper();
     private static final OptionallyConfigurableComponentConverter converter = new OptionallyConfigurableComponentConverter();
 

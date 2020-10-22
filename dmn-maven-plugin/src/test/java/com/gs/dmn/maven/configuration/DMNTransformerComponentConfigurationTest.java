@@ -20,7 +20,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class DMNTransformerComponentConfigurationTest extends AbstractMojoConfigurationTest {
-
     private static final String ELEMENT_NAME = (new DMNTransformerComponent().getElementName());
 
     @Test

@@ -24,7 +24,7 @@ public abstract class FunctionType extends Type {
     protected final List<Type> parameterTypes = new ArrayList<>();
     protected Type returnType;
 
-    public FunctionType(List<FormalParameter> parameters, Type returnType) {
+    protected FunctionType(List<FormalParameter> parameters, Type returnType) {
         this.returnType = returnType;
         if (parameters != null) {
             this.parameters.addAll(parameters);

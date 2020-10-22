@@ -230,7 +230,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(ForExpression element, FEELContext context) {
         Environment forEnvironment = this.environmentFactory.makeEnvironment(context.getEnvironment());
         FEELContext forContext = FEELContext.makeContext(context.getElement(), forEnvironment);
-        forContext.getEnvironment().addDeclaration(this.environmentFactory.makeVariableDeclaration(ForExpression.PARTIAL_PARAMTER_NAME, element.getType()));
+        forContext.getEnvironment().addDeclaration(this.environmentFactory.makeVariableDeclaration(ForExpression.PARTIAL_PARAMETER_NAME, element.getType()));
 
         List<Iterator> iterators = element.getIterators();
         List<Pair<String, String>> domainIterators = new ArrayList<>();
@@ -646,6 +646,6 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
     }
 
     protected Object handleNotSupportedElement(Element element) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        throw new UnsupportedOperationException("FEEL '" + (element == null ? null : element.getClass().getSimpleName()) + "' is not supported yet");
     }
 }

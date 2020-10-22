@@ -38,7 +38,7 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
     private Map<String, Pair<TInputData, List<TInputData>>> inputDataClasses;
     private boolean forceMerge = true;
 
-    public AbstractMergeInputDataTransformer() {
+    protected AbstractMergeInputDataTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 

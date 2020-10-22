@@ -19,11 +19,11 @@ public abstract class Type extends NamedElement {
     private boolean isCollection;
 
     // Required by ObjectMapper
-    Type() {
+    protected Type() {
         super();
     }
 
-    public Type(String id, String name, String label, boolean isCollection) {
+    protected Type(String id, String name, String label, boolean isCollection) {
         super(id, name, label);
         this.isCollection = isCollection;
     }

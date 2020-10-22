@@ -17,7 +17,7 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 public abstract class Declaration {
     protected final String name;
 
-    Declaration(String name) {
+    protected Declaration(String name) {
         this.name = name;
     }
 

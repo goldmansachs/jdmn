@@ -17,7 +17,7 @@ import org.slf4j.Logger;
 public abstract class BaseType {
     private final Logger logger;
 
-    public BaseType(Logger logger) {
+    protected BaseType(Logger logger) {
         this.logger = logger;
     }
 

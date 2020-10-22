@@ -30,9 +30,13 @@ public class ReplaceItemFilterVisitor extends CloneVisitor {
     //
     @Override
     public Object visit(Name element, FEELContext context) {
+        if (element == null) {
+            return null;
+        }
+
         String name = element.getName();
-        if (oldLambdaParameterName.equals(name)) {
-            element.setName(newLambdaParameterName);
+        if (this.oldLambdaParameterName.equals(name)) {
+            element.setName(this.newLambdaParameterName);
         }
         return element;
     }
