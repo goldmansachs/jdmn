@@ -22,6 +22,10 @@ public enum DRGElementKind {
 
     public static DRGElementKind kindByClass(Class drgElementClass) {
         String className = drgElementClass.getSimpleName();
+        return kindByName(className);
+    }
+
+    static DRGElementKind kindByName(String className) {
         if ("TDecision".equals(className)) {
             return DECISION;
         } else if ("TDecisionService".equals(className)) {
