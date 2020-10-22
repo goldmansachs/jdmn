@@ -24,6 +24,10 @@ public enum ExpressionKind {
 
     public static ExpressionKind kindByClass(Class expClass) {
         String expClassName = expClass.getSimpleName();
+        return kindByName(expClassName);
+    }
+
+    static ExpressionKind kindByName(String expClassName) {
         if ("TFunctionDefinition".equals(expClassName)) {
             return FUNCTION_DEFINITION;
         } else if ("TDecisionTable".equals(expClassName)) {
