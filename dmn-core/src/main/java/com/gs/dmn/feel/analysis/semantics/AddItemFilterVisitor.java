@@ -41,9 +41,9 @@ public class AddItemFilterVisitor extends CloneVisitor {
         Expression source = element.getSource();
         if (source instanceof Name) {
             String name = ((Name) source).getName();
-            if (isMember(name, lambdaParameterType)) {
-                Expression newSource = astFactory.toPathExpression(astFactory.toName(lambdaParameterName), name);
-                return astFactory.toPathExpression(newSource, element.getMember());
+            if (isMember(name, this.lambdaParameterType)) {
+                Expression newSource = this.astFactory.toPathExpression(this.astFactory.toName(this.lambdaParameterName), name);
+                return this.astFactory.toPathExpression(newSource, element.getMember());
             }
         }
         return element;
@@ -54,10 +54,14 @@ public class AddItemFilterVisitor extends CloneVisitor {
     //
     @Override
     public Object visit(Name element, FEELContext context) {
+        if (element == null) {
+            return null;
+        }
+
         String name = element.getName();
-        if (isMember(name, lambdaParameterType)) {
-            Expression source = astFactory.toName(lambdaParameterName);
-            return astFactory.toPathExpression(source, element.getName());
+        if (isMember(name, this.lambdaParameterType)) {
+            Expression source = this.astFactory.toName(this.lambdaParameterName);
+            return this.astFactory.toPathExpression(source, element.getName());
         } else {
             return element;
         }

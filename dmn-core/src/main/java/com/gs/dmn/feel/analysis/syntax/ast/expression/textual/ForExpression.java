@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ForExpression extends Expression {
-    public static final String PARTIAL_PARAMTER_NAME = "partial";
+    public static final String PARTIAL_PARAMETER_NAME = "partial";
 
     private final List<Iterator> iterators;
     private final Expression body;
@@ -38,12 +38,12 @@ public class ForExpression extends Expression {
     }
 
     public Expression getBody() {
-        return body;
+        return this.body;
     }
 
     @Override
     public void deriveType(FEELContext context) {
-        setType(new ListType(body.getType()));
+        setType(new ListType(this.body.getType()));
     }
 
     @Override
@@ -52,12 +52,12 @@ public class ForExpression extends Expression {
     }
 
     public ForExpression toNestedForExpression() {
-        if (iterators.size() == 1) {
+        if (this.iterators.size() == 1) {
             return this;
         } else {
             Expression newBody = this.body;
-            for(int i=iterators.size()-1; i>=0; i--) {
-                newBody = new ForExpression(Arrays.asList(iterators.get(i)), newBody);
+            for(int i=this.iterators.size()-1; i>=0; i--) {
+                newBody = new ForExpression(Arrays.asList(this.iterators.get(i)), newBody);
             }
             return (ForExpression) newBody;
         }
@@ -66,6 +66,6 @@ public class ForExpression extends Expression {
     @Override
     public String toString() {
         String iterators = this.iterators.stream().map(Iterator::toString).collect(Collectors.joining(","));
-        return String.format("ForExpression(%s -> %s)", iterators, body.toString());
+        return String.format("ForExpression(%s -> %s)", iterators, this.body.toString());
     }
 }
