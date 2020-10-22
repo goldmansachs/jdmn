@@ -12,9 +12,9 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
-public class NopVisitorTest extends BaseVisitorTest {
+public class CloneVisitorTest extends BaseVisitorTest {
     @Override
     protected Visitor getVisitor() {
-        return new NopVisitor();
+        return new CloneVisitor();
     }
 }

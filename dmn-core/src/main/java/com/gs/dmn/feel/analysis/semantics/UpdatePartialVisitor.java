@@ -30,8 +30,12 @@ public class UpdatePartialVisitor extends CloneVisitor {
     //
     @Override
     public Object visit(Name element, FEELContext context) {
+        if (element == null) {
+            return null;
+        }
+
         String name = element.getName();
-        if (ForExpression.PARTIAL_PARAMTER_NAME.equals(name)) {
+        if (ForExpression.PARTIAL_PARAMETER_NAME.equals(name)) {
             element.setType(partialType);
         }
         return element;
