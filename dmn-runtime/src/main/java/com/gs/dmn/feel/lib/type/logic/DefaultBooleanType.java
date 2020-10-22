@@ -22,7 +22,6 @@ import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
 public class DefaultBooleanType extends BaseType implements BooleanType {
-
     public DefaultBooleanType(Logger logger) {
         super(logger);
     }

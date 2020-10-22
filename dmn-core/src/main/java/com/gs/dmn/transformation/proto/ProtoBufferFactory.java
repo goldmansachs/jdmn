@@ -63,7 +63,7 @@ public abstract class ProtoBufferFactory {
     private final BasicDMNToNativeTransformer transformer;
     private final DMNModelRepository repository;
 
-    public ProtoBufferFactory(BasicDMNToJavaTransformer transformer) {
+    protected ProtoBufferFactory(BasicDMNToJavaTransformer transformer) {
         this.transformer = transformer;
         this.repository = transformer.getDMNModelRepository();
     }

@@ -157,7 +157,6 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
 
     private void assertExpectedTransformResult(RepositoryTransformResult transformResult,
                                                List<String> expectedNewDefinitions, List<String> expectedRemovedDefinitions) {
-
         List<String> newDefinitions = identifyNewDefinitions(transformResult.getBeforeTransform(), transformResult.getAfterTransform());
         Assert.assertTrue("Missing expected new definition", newDefinitions.containsAll(expectedNewDefinitions));
         Assert.assertEquals("Incorrect number of new definitions", expectedNewDefinitions.size(), newDefinitions.size());

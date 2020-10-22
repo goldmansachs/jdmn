@@ -30,7 +30,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     protected final SignavioDateTimeLib<NUMBER, DATE, TIME, DATE_TIME> dateTimeLib;
     private final SignavioListLib listLib;
 
-    public BaseSignavioLib(
+    protected BaseSignavioLib(
             NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType,
             DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType,
             ListType listType, ContextType contextType,

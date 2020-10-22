@@ -5,7 +5,6 @@ import org.junit.Assert;
 
 
 public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
-
     private final EsmaEquityOptionIndicator decision = new EsmaEquityOptionIndicator();
 
     @org.junit.Test

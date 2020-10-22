@@ -20,6 +20,7 @@ import java.util.Map;
 public abstract class OptionallyConfigurableMojoComponent {
     public static final String ELEMENT_NAME = "name";
     public static final String ELEMENT_CONFIGURATION = "configuration";
+
     @Parameter(required = false)
     private String name;
 

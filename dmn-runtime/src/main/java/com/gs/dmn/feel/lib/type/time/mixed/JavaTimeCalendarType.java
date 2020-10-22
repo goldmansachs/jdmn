@@ -26,7 +26,7 @@ import java.time.temporal.TemporalAmount;
 public abstract class JavaTimeCalendarType extends JavaTimeType {
     protected final DatatypeFactory datatypeFactory;
 
-    public JavaTimeCalendarType(Logger logger, DatatypeFactory datatypeFactory) {
+    protected JavaTimeCalendarType(Logger logger, DatatypeFactory datatypeFactory) {
         super(logger);
         this.datatypeFactory = datatypeFactory;
     }

@@ -38,7 +38,7 @@ public abstract class AbstractMissingItemDefinitionsTransformer extends SimpleDM
         this(new Slf4jBuildLogger(LOGGER));
     }
 
-    public AbstractMissingItemDefinitionsTransformer(BuildLogger logger) {
+    protected AbstractMissingItemDefinitionsTransformer(BuildLogger logger) {
         this.logger = logger;
     }
 

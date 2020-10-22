@@ -15,7 +15,7 @@ package com.gs.dmn.feel.analysis.semantics.type;
 public abstract class DataType extends NamedType {
     private final String conversionFunction;
 
-    public DataType(String name, String conversionFunction) {
+    protected DataType(String name, String conversionFunction) {
         super(name);
         this.conversionFunction = conversionFunction;
     }

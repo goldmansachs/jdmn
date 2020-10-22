@@ -21,7 +21,7 @@ public abstract class LogicExpression extends Expression {
     private final Expression leftOperand;
     private final Expression rightOperand;
 
-    public LogicExpression(String operator, Expression leftOperand, Expression rightOperand) {
+    protected LogicExpression(String operator, Expression leftOperand, Expression rightOperand) {
         this.operator = operator;
         this.leftOperand = leftOperand;
         this.rightOperand = rightOperand;
