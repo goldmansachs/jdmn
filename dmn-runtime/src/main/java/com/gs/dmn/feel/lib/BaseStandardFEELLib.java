@@ -32,7 +32,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     protected final DurationLib<DATE, DURATION> durationLib;
     private final ListLib listLib;
 
-    public BaseStandardFEELLib(
+    protected BaseStandardFEELLib(
             NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType,
             DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType,
             ListType listType, ContextType contextType,

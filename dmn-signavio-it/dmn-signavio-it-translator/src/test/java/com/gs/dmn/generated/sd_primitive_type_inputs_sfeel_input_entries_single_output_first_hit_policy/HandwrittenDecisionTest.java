@@ -19,7 +19,6 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
-
     private final Decision decision = new Decision();
 
     @Test

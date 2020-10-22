@@ -15,7 +15,7 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.literal;
 public abstract class SimpleLiteral extends Literal {
     protected final String lexeme;
 
-    public SimpleLiteral(String lexeme) {
+    protected SimpleLiteral(String lexeme) {
         this.lexeme = lexeme;
     }
 

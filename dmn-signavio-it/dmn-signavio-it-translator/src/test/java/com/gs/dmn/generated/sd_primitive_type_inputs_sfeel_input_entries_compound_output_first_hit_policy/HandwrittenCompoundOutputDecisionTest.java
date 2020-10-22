@@ -31,7 +31,6 @@ public class HandwrittenCompoundOutputDecisionTest extends AbstractHandwrittenDe
     private com.gs.dmn.generated.sd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy.type.CompoundOutputDecision applyDecision(
             String booleanString, String dateAndTimeString, String dateString, String enumerationString,
             String numberString, String text, String timeString) {
-
         AnnotationSet annotationSet = new AnnotationSet();
 
         return decision.apply(booleanString, dateAndTimeString, dateString, enumerationString, numberString, text, timeString, annotationSet);

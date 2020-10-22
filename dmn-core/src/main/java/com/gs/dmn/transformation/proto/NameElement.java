@@ -18,7 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 public abstract class NameElement {
     protected final String name;
 
-    public NameElement(String name) {
+    protected NameElement(String name) {
         if (StringUtils.isBlank(name)) {
             throw new DMNRuntimeException(String.format("Mandatory proto field name. Found '%s'", name));
         }

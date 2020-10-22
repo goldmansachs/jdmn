@@ -12,9 +12,26 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
-public class NopVisitorTest extends BaseVisitorTest {
+import com.gs.dmn.feel.analysis.semantics.UpdatePartialVisitor;
+import com.gs.dmn.feel.analysis.semantics.type.StringType;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+public class UpdatePartialVisitorTest extends BaseVisitorTest {
+    private final Type partialType = StringType.STRING;
+
     @Override
     protected Visitor getVisitor() {
-        return new NopVisitor();
+        return new UpdatePartialVisitor(partialType);
+    }
+
+    @Test
+    public void testVisitName() {
+        super.testVisitName();
+
+        assertEquals(partialType, ((Name) getVisitor().visit(new Name("partial"), null)).getType());
     }
 }

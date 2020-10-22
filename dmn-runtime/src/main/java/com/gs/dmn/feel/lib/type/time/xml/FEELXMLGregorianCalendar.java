@@ -538,7 +538,6 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
             return internalCompare(lhs, rhs);
         } else if (lhs.getTimezone() != DatatypeConstants.FIELD_UNDEFINED &&
                 rhs.getTimezone() != DatatypeConstants.FIELD_UNDEFINED) {
-
             // Both instances have different timezones.
             // Normalize to UTC time and compare.
             lhs = (FEELXMLGregorianCalendar) lhs.normalize();

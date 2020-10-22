@@ -25,7 +25,6 @@ public class DMNMojoComponentConfigurator extends BasicComponentConfigurator {
     public void configureComponent(final Object component, final PlexusConfiguration configuration,
                                    final ExpressionEvaluator evaluator, final ClassRealm realm,
                                    final ConfigurationListener listener) throws ComponentConfigurationException {
-
         // Register custom type conversion for optionally-configurable types, i.e. those which can be specified as a
         // simple string or as a components with a name and configuration
         converterLookup.registerConverter(new OptionallyConfigurableComponentConverter());

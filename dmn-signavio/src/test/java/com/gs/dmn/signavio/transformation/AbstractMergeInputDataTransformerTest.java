@@ -44,7 +44,6 @@ public abstract class AbstractMergeInputDataTransformerTest extends AbstractFile
     protected final DMNWriter dmnWriter = new DMNWriter(LOGGER);
     protected final TestLabReader testReader = new TestLabReader();
 
-
     @Test
     public void testTransform() throws Exception {
         String path = "dmn/input/";

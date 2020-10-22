@@ -31,10 +31,10 @@ public abstract class DRGElement extends NamedElement {
     private QName typeRef;
 
     // Required by ObjectMapper
-    DRGElement() {
+    protected DRGElement() {
     }
 
-    public DRGElement(String id, String name, String label, String diagramId, String shapeId, String javaParameterName, String javaTypeName, QName typeRef) {
+    protected DRGElement(String id, String name, String label, String diagramId, String shapeId, String javaParameterName, String javaTypeName, QName typeRef) {
         super(id, name, label);
         this.diagramId = diagramId;
         this.shapeId = shapeId;

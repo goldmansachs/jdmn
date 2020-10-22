@@ -41,11 +41,11 @@ public abstract class BaseDefaultDurationType extends BaseType {
     private final RelationalComparator<Duration> comparator;
 
     @Deprecated
-    public BaseDefaultDurationType(Logger logger) {
+    protected BaseDefaultDurationType(Logger logger) {
         this(logger, DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator());
     }
 
-    public BaseDefaultDurationType(Logger logger, DatatypeFactory dataTypeFactory, RelationalComparator<Duration> comparator) {
+    protected BaseDefaultDurationType(Logger logger, DatatypeFactory dataTypeFactory, RelationalComparator<Duration> comparator) {
         super(logger);
         this.dataTypeFactory = dataTypeFactory;
         this.comparator = comparator;

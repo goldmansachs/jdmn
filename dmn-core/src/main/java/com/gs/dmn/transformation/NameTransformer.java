@@ -61,11 +61,11 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     private boolean transformDefinition = true;
     private final Set<TDMNElement> renamedElements = new LinkedHashSet<>();
 
-    public NameTransformer() {
+    protected NameTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
-    public NameTransformer(BuildLogger logger) {
+    protected NameTransformer(BuildLogger logger) {
         this.logger = logger;
     }
 

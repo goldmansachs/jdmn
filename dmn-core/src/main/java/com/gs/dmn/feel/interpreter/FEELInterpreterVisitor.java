@@ -63,7 +63,6 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -361,7 +360,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         // Loop over domain and evaluate body
         FEELContext forContext = FEELContext.makeContext(context.getElement(), context.getEnvironment(), runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment()));
         List result = new ArrayList<>();
-        forContext.getRuntimeEnvironment().bind(ForExpression.PARTIAL_PARAMTER_NAME, result);
+        forContext.getRuntimeEnvironment().bind(ForExpression.PARTIAL_PARAMETER_NAME, result);
         if (expressionDomain instanceof ExpressionIteratorDomain) {
             for (Object value : (List) domain) {
                 forContext.runtimeBind(iterator.getName(), value);
