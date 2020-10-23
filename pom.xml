@@ -767,6 +767,7 @@ specific language governing permissions and limitations under the License.]]></i
                         </goals>
                         <configuration>
                             <excludePackageNames>org.omg.*</excludePackageNames>
+                            <source>${java.version}</source>
                         </configuration>
                     </execution>
                 </executions>
