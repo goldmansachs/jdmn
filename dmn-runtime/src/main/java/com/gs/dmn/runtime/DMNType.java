@@ -17,9 +17,4 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public interface DMNType {
     @JsonIgnore
     Context toContext();
-
-    @JsonIgnore
-    default boolean isEquivalent(DMNType other) {
-        return other != null && this.toContext().isEquivalent(other.toContext());
-    }
 }

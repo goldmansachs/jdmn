@@ -18,8 +18,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertNull;
 
-public class DoubleMixedJavaTimeDMNBaseDecisionTest {
-    private final DoubleMixedJavaTimeDMNBaseDecision baseDecision = new DoubleMixedJavaTimeDMNBaseDecision();
+public class PureJavaTimeDMNBaseDecisionTest {
+    private final PureJavaTimeDMNBaseDecision baseDecision = new PureJavaTimeDMNBaseDecision();
 
     @Test
     public void testGetDRGElementAnnotation() {
@@ -32,5 +32,4 @@ public class DoubleMixedJavaTimeDMNBaseDecisionTest {
         Rule ruleAnnotation = this.baseDecision.getRuleAnnotation(0);
         assertNull(ruleAnnotation);
     }
-
 }
