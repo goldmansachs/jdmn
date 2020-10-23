@@ -23,13 +23,13 @@ public class MixedJavaTimeDMNBaseDecisionTest {
 
     @Test
     public void testGetDRGElementAnnotation() {
-        DRGElement drgElementAnnotation = baseDecision.getDRGElementAnnotation();
+        DRGElement drgElementAnnotation = this.baseDecision.getDRGElementAnnotation();
         assertNull(drgElementAnnotation);
     }
 
     @Test
     public void testGetRuleAnnotation() {
-        Rule ruleAnnotation = baseDecision.getRuleAnnotation(0);
+        Rule ruleAnnotation = this.baseDecision.getRuleAnnotation(0);
         assertNull(ruleAnnotation);
     }
 
