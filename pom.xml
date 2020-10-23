@@ -84,7 +84,7 @@
         <java.version>1.8</java.version>
 
         <jaxb.version>2.3.0</jaxb.version>
-        <jaxb.plugin.version>2.4</jaxb.plugin.version>
+        <jaxb.plugin.version>2.5.0</jaxb.plugin.version>
         <antlr4.version>4.7.2</antlr4.version>
 
         <jackson.version>2.11.0</jackson.version>
@@ -464,6 +464,12 @@ specific language governing permissions and limitations under the License.]]></i
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>1.3.5</version>
+        </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
