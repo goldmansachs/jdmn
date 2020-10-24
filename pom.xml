@@ -83,7 +83,6 @@
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
         <java.version>1.8</java.version>
 
-        <jaxb.version>2.3.0</jaxb.version>
         <jaxb.plugin.version>2.5.0</jaxb.plugin.version>
         <antlr4.version>4.7.2</antlr4.version>
 
