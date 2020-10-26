@@ -83,7 +83,6 @@
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
         <java.version>1.8</java.version>
 
-        <jaxb.version>2.3.0</jaxb.version>
         <jaxb.plugin.version>2.5.0</jaxb.plugin.version>
         <antlr4.version>4.7.2</antlr4.version>
 
@@ -438,7 +437,7 @@ specific language governing permissions and limitations under the License.]]></i
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.12</version>
+                <version>4.13.1</version>
                 <scope>test</scope>
             </dependency>
 
@@ -598,7 +597,7 @@ specific language governing permissions and limitations under the License.]]></i
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M3</version>
+                    <version>3.0.0-M5</version>
                     <configuration>
                         <!-- for integration w/ sonar unit coverage -->
                         <argLine>${surefire.argLine} -Dfile.encoding=UTF-8</argLine>
@@ -612,7 +611,7 @@ specific language governing permissions and limitations under the License.]]></i
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>3.0.0-M3</version>
+                    <version>3.0.0-M5</version>
                     <configuration>
                         <!-- for integration w/ sonar integration coverage -->
                         <argLine>${failsafe.argLine}</argLine>
