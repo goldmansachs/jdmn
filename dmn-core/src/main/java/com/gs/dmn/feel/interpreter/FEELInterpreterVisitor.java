@@ -807,7 +807,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             Object[] args = JavaFunctionInfo.makeArgs(declaredMethod, argList);
             return declaredMethod.invoke(object, args);
         } catch (Exception e) {
-            handleError(String.format("Cannot evaluate function '%s'", functionName), e);
+            handleError(String.format("Cannot invoke function '%s.%s(%s)'", cls.getName(), functionName, argList), e);
             return null;
         }
     }
