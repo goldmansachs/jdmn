@@ -76,13 +76,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
     @Override
     public NUMBER abs(NUMBER number) {
-        try {
-            return this.feelLib.abs(number);
-        } catch (Exception e) {
-            String message = String.format("abs(%s)", number);
-            logError(message, e);
-            return null;
-        }
+        return this.feelLib.abs(number);
     }
 
     @Override
@@ -108,13 +102,13 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER ceiling(NUMBER aNUMBER) {
-        return this.feelLib.ceiling(aNUMBER);
+    public NUMBER ceiling(NUMBER aNumber) {
+        return this.feelLib.ceiling(aNumber);
     }
 
     @Override
-    public NUMBER floor(NUMBER aNUMBER) {
-        return this.feelLib.floor(aNUMBER);
+    public NUMBER floor(NUMBER aNumber) {
+        return this.feelLib.floor(aNumber);
     }
 
     @Override
@@ -539,7 +533,13 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
     @Override
     public Boolean not(Boolean bool) {
-        return this.booleanType.booleanNot(bool);
+        try {
+            return this.booleanType.booleanNot(bool);
+        } catch (Exception e) {
+            String message = String.format("not(%s)", bool);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
@@ -807,13 +807,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
     @Override
     public NUMBER number(String text) {
-        try {
-            return this.feelLib.number(text);
-        } catch (Exception e) {
-            String message = String.format("number(%s)", text);
-            logError(message, e);
-            return null;
-        }
+        return this.feelLib.number(text);
     }
 
     @Override
