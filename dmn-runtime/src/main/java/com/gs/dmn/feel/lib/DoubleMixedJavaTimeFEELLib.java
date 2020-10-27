@@ -12,17 +12,44 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.*;
+import com.gs.dmn.feel.lib.type.bool.BooleanLib;
+import com.gs.dmn.feel.lib.type.list.ListLib;
 import com.gs.dmn.feel.lib.type.numeric.DoubleNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DoubleNumericType;
+import com.gs.dmn.feel.lib.type.numeric.NumericLib;
+import com.gs.dmn.feel.lib.type.string.StringLib;
+import com.gs.dmn.feel.lib.type.time.DateTimeLib;
+import com.gs.dmn.feel.lib.type.time.DurationLib;
 import com.gs.dmn.feel.lib.type.time.xml.DoubleDurationType;
+
+import javax.xml.datatype.Duration;
+import java.time.LocalDate;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 
 public class DoubleMixedJavaTimeFEELLib extends BaseMixedJavaTimeFEELLib<Double> {
     public static DoubleMixedJavaTimeFEELLib INSTANCE = new DoubleMixedJavaTimeFEELLib();
 
     public DoubleMixedJavaTimeFEELLib() {
-        super(new DoubleNumericType(LOGGER),
+        this(new DoubleNumericType(LOGGER),
                 new DoubleDurationType(LOGGER, DATA_TYPE_FACTORY),
                 new DoubleNumericLib()
+        );
+    }
+
+    protected DoubleMixedJavaTimeFEELLib(
+            NumericType<Double> numericType,
+            DurationType<Duration, Double> durationType,
+            NumericLib<Double> numericLib) {
+        super(numericType, durationType, numericLib);
+    }
+
+    protected DoubleMixedJavaTimeFEELLib(NumericType<Double> numericType, BooleanType booleanType, StringType stringType, DateType<LocalDate, Duration> dateType, TimeType<OffsetTime, Duration> timeType, DateTimeType<ZonedDateTime, Duration> dateTimeType, DurationType<Duration, Double> durationType, ListType listType, ContextType contextType, NumericLib<Double> numericLib, StringLib stringLib, BooleanLib booleanLib, DateTimeLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> dateTimeLib, DurationLib<LocalDate, Duration> durationLib, ListLib listLib) {
+        super(numericType, booleanType, stringType,
+                dateType, timeType, dateTimeType, durationType,
+                listType, contextType,
+                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib
         );
     }
 

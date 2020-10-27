@@ -98,7 +98,7 @@
         <io.grpc.version>1.31.1</io.grpc.version>
         <google.protobuf.version>3.12.0</google.protobuf.version>
 
-        <jacoco.version>0.8.5</jacoco.version>
+        <jacoco.plugin.version>0.8.5</jacoco.plugin.version>
         <sonar.language>java</sonar.language>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
@@ -247,7 +247,7 @@ specific language governing permissions and limitations under the License.]]></i
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>${jacoco.version}</version>
+                        <version>${jacoco.plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>prepare-agent</id>

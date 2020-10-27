@@ -12,16 +12,22 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.*;
+import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanLib;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListLib;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
+import com.gs.dmn.feel.lib.type.list.ListLib;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
+import com.gs.dmn.feel.lib.type.numeric.NumericLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
+import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
+import com.gs.dmn.feel.lib.type.time.DurationLib;
 import com.gs.dmn.feel.lib.type.time.pure.*;
 
 import java.math.BigDecimal;
@@ -33,7 +39,7 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
     public static PureJavaTimeFEELLib INSTANCE = new PureJavaTimeFEELLib();
 
     public PureJavaTimeFEELLib() {
-        super(new DefaultNumericType(LOGGER),
+        this(new DefaultNumericType(LOGGER),
                 new DefaultBooleanType(LOGGER),
                 new DefaultStringType(LOGGER),
                 new LocalDateType(LOGGER),
@@ -48,6 +54,28 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
                 (DateTimeLib) new TemporalDateTimeLib(DefaultFEELLib.DATA_TYPE_FACTORY),
                 new TemporalAmountDurationLib(),
                 new DefaultListLib()
+        );
+    }
+
+    protected PureJavaTimeFEELLib(
+            NumericType<BigDecimal> numericType,
+            BooleanType booleanType,
+            StringType stringType,
+            DateType<LocalDate, TemporalAmount> dateType,
+            TimeType<Temporal, TemporalAmount> timeType,
+            DateTimeType<Temporal, TemporalAmount> dateTimeType,
+            DurationType<TemporalAmount, BigDecimal> durationType,
+            ListType listType, ContextType contextType,
+            NumericLib<BigDecimal> numericLib,
+            StringLib stringLib,
+            BooleanLib booleanLib,
+            DateTimeLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> dateTimeLib,
+            DurationLib<LocalDate, TemporalAmount> durationLib,
+            ListLib listLib) {
+        super(numericType, booleanType, stringType,
+                dateType, timeType, dateTimeType, durationType,
+                listType, contextType,
+                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib
         );
     }
 

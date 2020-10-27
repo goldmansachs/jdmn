@@ -122,7 +122,7 @@
         <dependency>
             <groupId>org.fitnesse</groupId>
             <artifactId>fitnesse</artifactId>
-            <version>20190428</version>
+            <version>20200501</version>
             <scope>test</scope>
         </dependency>
 

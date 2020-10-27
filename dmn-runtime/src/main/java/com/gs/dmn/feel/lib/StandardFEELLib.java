@@ -17,14 +17,6 @@ import com.gs.dmn.runtime.LambdaExpression;
 import java.util.List;
 
 public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
-    default void logError(String message) {
-        LOGGER.error(message);
-    }
-
-    default void logError(String message, Throwable e) {
-        LOGGER.error(message, e);
-    }
-
     //
     // Conversion functions
     //

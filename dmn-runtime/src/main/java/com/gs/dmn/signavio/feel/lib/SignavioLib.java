@@ -17,14 +17,6 @@ import com.gs.dmn.feel.lib.FEELLib;
 import java.util.List;
 
 public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
-    default void logError(String message) {
-        LOGGER.error(message);
-    }
-
-    default void logError(String message, Throwable e) {
-        LOGGER.error(message, e);
-    }
-
     //
     // Data acceptance functions
     //
