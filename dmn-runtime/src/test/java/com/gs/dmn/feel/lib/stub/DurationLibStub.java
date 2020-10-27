@@ -12,28 +12,47 @@
  */
 package com.gs.dmn.feel.lib.stub;
 
-import com.gs.dmn.feel.lib.type.ContextType;
+import com.gs.dmn.feel.lib.type.time.DurationLib;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
-import java.util.List;
-
-public class ContextTypeStub implements ContextType {
+public class DurationLibStub<DATE, DURATION> implements DurationLib<DATE, DURATION> {
     @Override
-    public Boolean contextEqual(Object c1, Object c2) {
+    public DURATION duration(String from) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean contextNotEqual(Object c1, Object c2) {
+    public DURATION yearsAndMonthsDuration(DATE from, DATE to) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public List getEntries(Object context) {
-        throw new DMNRuntimeException("Not supported yet");    }
+    public Long years(DURATION duration) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
 
     @Override
-    public Object getValue(Object context, Object key) {
+    public Long months(DURATION duration) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Long days(DURATION duration) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Long hours(DURATION duration) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Long minutes(DURATION duration) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Long seconds(DURATION duration) {
         throw new DMNRuntimeException("Not supported yet");
     }
 }

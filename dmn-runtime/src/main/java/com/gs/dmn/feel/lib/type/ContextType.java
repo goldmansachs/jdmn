@@ -12,8 +12,14 @@
  */
 package com.gs.dmn.feel.lib.type;
 
+import java.util.List;
+
 public interface ContextType {
     Boolean contextEqual(Object c1, Object c2);
 
     Boolean contextNotEqual(Object c1, Object c2);
+
+    List getEntries(Object context);
+
+    Object getValue(Object context, Object key);
 }

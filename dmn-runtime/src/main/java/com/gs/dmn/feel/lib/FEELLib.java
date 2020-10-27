@@ -23,6 +23,14 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
         DateType<DATE, DURATION>, TimeType<TIME, DURATION>, DateTimeType<DATE_TIME, DURATION>, DurationType<DURATION, NUMBER> {
     Logger LOGGER = LoggerFactory.getLogger(FEELLib.class);
 
+    default void logError(String message) {
+        LOGGER.error(message);
+    }
+
+    default void logError(String message, Throwable e) {
+        LOGGER.error(message, e);
+    }
+
     //
     // Constructors
     //

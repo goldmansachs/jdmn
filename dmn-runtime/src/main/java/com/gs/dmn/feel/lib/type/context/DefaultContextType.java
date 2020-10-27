@@ -16,7 +16,12 @@ import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.ContextType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.runtime.Context;
 import org.slf4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class DefaultContextType extends BaseType implements ContextType {
     private final BooleanType booleanType;
@@ -42,5 +47,30 @@ public class DefaultContextType extends BaseType implements ContextType {
     @Override
     public Boolean contextNotEqual(Object c1, Object c2) {
         return booleanType.booleanNot(contextEqual(c1, c2));
+    }
+
+    @Override
+    public List getEntries(Object m) {
+        if (m instanceof Context) {
+            List result = new ArrayList<>();
+            Context context = (Context) m;
+            Set keys = context.getBindings().keySet();
+            for (Object key: keys) {
+                Context c = new Context().add("key", key).add("value", context.get(key));
+                result.add(c);
+            }
+            return result;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Object getValue(Object context, Object key) {
+        if (context instanceof Context) {
+            return ((Context) context).get(key);
+        } else {
+            return null;
+        }
     }
 }

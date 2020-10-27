@@ -12,28 +12,49 @@
  */
 package com.gs.dmn.feel.lib.stub;
 
-import com.gs.dmn.feel.lib.type.ContextType;
+import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.List;
 
-public class ContextTypeStub implements ContextType {
+public class BooleanLibStub implements BooleanLib {
     @Override
-    public Boolean contextEqual(Object c1, Object c2) {
+    public Boolean and(List<Object> list) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean contextNotEqual(Object c1, Object c2) {
+    public Boolean and(Object... args) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public List getEntries(Object context) {
-        throw new DMNRuntimeException("Not supported yet");    }
+    public Boolean all(List<Object> list) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
 
     @Override
-    public Object getValue(Object context, Object key) {
+    public Boolean all(Object... args) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Boolean or(List<Object> list) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Boolean or(Object... args) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Boolean any(List<Object> list) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Boolean any(Object... args) {
         throw new DMNRuntimeException("Not supported yet");
     }
 }
