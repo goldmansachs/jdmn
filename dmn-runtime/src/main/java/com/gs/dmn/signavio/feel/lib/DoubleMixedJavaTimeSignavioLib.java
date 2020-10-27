@@ -13,14 +13,18 @@
 package com.gs.dmn.signavio.feel.lib;
 
 import com.gs.dmn.feel.lib.DoubleMixedJavaTimeFEELLib;
+import com.gs.dmn.feel.lib.StandardFEELLib;
+import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DoubleSignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DoubleSignavioNumericType;
+import com.gs.dmn.signavio.feel.lib.type.numeric.SignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringLib;
 import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringType;
+import com.gs.dmn.signavio.feel.lib.type.string.SignavioStringLib;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.type.time.mixed.MixedSignavioDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.type.time.mixed.SignavioLocalDateType;
@@ -41,7 +45,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
     private final DoubleMixedJavaTimeFEELLib mixedFeelLib;
 
     public DoubleMixedJavaTimeSignavioLib() {
-        super(new DoubleSignavioNumericType(LOGGER),
+        this(new DoubleSignavioNumericType(LOGGER),
                 new DefaultBooleanType(LOGGER),
                 new DefaultSignavioStringType(LOGGER),
                 new SignavioLocalDateType(LOGGER, DATA_TYPE_FACTORY),
@@ -56,6 +60,21 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
                 (SignavioDateTimeLib) new MixedSignavioDateTimeLib(),
                 new SignavioListLib()
         );
+    }
+
+    protected DoubleMixedJavaTimeSignavioLib(
+            NumericType<Double> numericType, BooleanType booleanType, StringType stringType,
+            DateType<LocalDate, Duration> dateType, TimeType<OffsetTime, Duration> timeType, DateTimeType<ZonedDateTime, Duration> dateTimeType, DurationType<Duration, Double> durationType,
+            ListType listType, ContextType contextType,
+            StandardFEELLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> feelLib,
+            SignavioNumberLib<Double> numberLib,
+            SignavioStringLib stringLib,
+            SignavioDateTimeLib<Double, LocalDate, OffsetTime, ZonedDateTime> dateTimeLib,
+            SignavioListLib listLib) {
+        super(numericType, booleanType, stringType,
+                dateType, timeType, dateTimeType, durationType,
+                listType, contextType,
+                feelLib, numberLib, stringLib, dateTimeLib, listLib);
         this.mixedFeelLib = (DoubleMixedJavaTimeFEELLib) this.feelLib;
     }
 
