@@ -12,15 +12,22 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.*;
+import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanLib;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListLib;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
+import com.gs.dmn.feel.lib.type.list.ListLib;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
+import com.gs.dmn.feel.lib.type.numeric.NumericLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
+import com.gs.dmn.feel.lib.type.string.StringLib;
+import com.gs.dmn.feel.lib.type.time.DateTimeLib;
+import com.gs.dmn.feel.lib.type.time.DurationLib;
 import com.gs.dmn.feel.lib.type.time.xml.*;
 
 import javax.xml.datatype.DatatypeFactory;
@@ -33,7 +40,7 @@ public class DefaultFEELLib extends BaseStandardFEELLib<BigDecimal, XMLGregorian
     public static DefaultFEELLib INSTANCE = new DefaultFEELLib();
 
     public DefaultFEELLib() {
-        super(new DefaultNumericType(LOGGER),
+        this(new DefaultNumericType(LOGGER),
                 new DefaultBooleanType(LOGGER),
                 new DefaultStringType(LOGGER),
                 new DefaultDateType(LOGGER, DATA_TYPE_FACTORY),
@@ -48,6 +55,29 @@ public class DefaultFEELLib extends BaseStandardFEELLib<BigDecimal, XMLGregorian
                 new DefaultDateTimeLib(DATA_TYPE_FACTORY),
                 new DefaultDurationLib(DATA_TYPE_FACTORY),
                 new DefaultListLib()
+        );
+    }
+
+    protected DefaultFEELLib(
+            NumericType<BigDecimal> numericType,
+            BooleanType booleanType,
+            StringType stringType,
+            DateType<XMLGregorianCalendar, Duration> dateType,
+            TimeType<XMLGregorianCalendar, Duration> timeType,
+            DateTimeType<XMLGregorianCalendar, Duration> dateTimeType,
+            DurationType<Duration, BigDecimal> durationType,
+            ListType listType,
+            ContextType contextType,
+            NumericLib<BigDecimal> numericLib,
+            StringLib stringLib,
+            BooleanLib booleanLib,
+            DateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> dateTimeLib,
+            DurationLib<XMLGregorianCalendar, Duration> durationLib,
+            ListLib listLib) {
+        super(numericType, booleanType, stringType,
+                dateType, timeType, dateTimeType, durationType,
+                listType, contextType,
+                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib
         );
     }
 

@@ -12,17 +12,20 @@
  */
 package com.gs.dmn.feel.lib;
 
-import com.gs.dmn.feel.lib.type.DurationType;
-import com.gs.dmn.feel.lib.type.NumericType;
+import com.gs.dmn.feel.lib.type.*;
+import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanLib;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListLib;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
+import com.gs.dmn.feel.lib.type.list.ListLib;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
+import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
+import com.gs.dmn.feel.lib.type.time.DurationLib;
 import com.gs.dmn.feel.lib.type.time.mixed.*;
 
 import javax.xml.datatype.DatatypeFactory;
@@ -35,7 +38,7 @@ public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELL
     protected static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
 
     protected BaseMixedJavaTimeFEELLib(NumericType<NUMBER> numericType, DurationType<Duration, NUMBER> durationType, NumericLib<NUMBER> numericLib) {
-        super(numericType,
+        this(numericType,
                 new DefaultBooleanType(LOGGER),
                 new DefaultStringType(LOGGER),
                 new LocalDateType(LOGGER, DATA_TYPE_FACTORY),
@@ -50,6 +53,29 @@ public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELL
                 (DateTimeLib) new MixedDateTimeLib(DATA_TYPE_FACTORY),
                 new MixedDurationLib(DATA_TYPE_FACTORY),
                 new DefaultListLib()
+        );
+    }
+
+    protected BaseMixedJavaTimeFEELLib(
+            NumericType<NUMBER> numericType,
+            BooleanType booleanType,
+            StringType stringType,
+            DateType<LocalDate, Duration> dateType,
+            TimeType<OffsetTime, Duration> timeType,
+            DateTimeType<ZonedDateTime, Duration> dateTimeType,
+            DurationType<Duration, NUMBER> durationType,
+            ListType listType,
+            ContextType contextType,
+            NumericLib<NUMBER> numericLib,
+            StringLib stringLib,
+            BooleanLib booleanLib,
+            DateTimeLib<NUMBER, LocalDate, OffsetTime, ZonedDateTime, Duration> dateTimeLib,
+            DurationLib<LocalDate, Duration> durationLib,
+            ListLib listLib) {
+        super(numericType, booleanType, stringType,
+                dateType, timeType, dateTimeType, durationType,
+                listType, contextType,
+                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib
         );
     }
 
