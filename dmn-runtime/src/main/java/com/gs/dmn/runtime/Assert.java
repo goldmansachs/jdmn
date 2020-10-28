@@ -171,8 +171,4 @@ public class Assert {
         }
         return object;
     }
-
-    public static Object roundUp(BigDecimal bigDecimal) {
-        return bigDecimal.setScale(ASSERT_SCALE, java.math.BigDecimal.ROUND_UP).stripTrailingZeros();
-    }
 }
