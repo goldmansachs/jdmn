@@ -14,28 +14,19 @@ package com.gs.dmn.feel;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
-import com.gs.dmn.feel.interpreter.FEELInterpreterImpl;
 import com.gs.dmn.feel.lib.StandardFEELLib;
-import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
-import org.junit.Before;
 import org.junit.Test;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
-import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 
 public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     protected final StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib = (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) this.dmnInterpreter.getFeelLib();
-
-    @Before
-    public void setUp() {
-        this.feelTranslator = new FEELTranslatorImpl(dmnTransformer);
-        this.feelInterpreter = new FEELInterpreterImpl<>(dmnInterpreter);
-    }
 
     @Override
     protected DMNModelRepository makeRepository() {
@@ -120,6 +111,18 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", STRING, input));
 
+        doExpressionTest(entries, "", "and([true, false, true])",
+                "FunctionInvocation(Name(and) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(false),BooleanLiteral(true))))",
+                "boolean",
+                "and(asList(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE))",
+                lib.and(lib.asList(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE)),
+                false);
+        doExpressionTest(entries, "", "or([true, false, true])",
+                "FunctionInvocation(Name(or) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(false),BooleanLiteral(true))))",
+                "boolean",
+                "or(asList(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE))",
+                lib.or(lib.asList(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE)),
+                true);
         doExpressionTest(entries, "", "contains(\"abc\", \"a\")",
                 "FunctionInvocation(Name(contains) -> PositionalParameters(StringLiteral(\"abc\"), StringLiteral(\"a\")))",
                 "boolean",

@@ -13,6 +13,7 @@
 package com.gs.dmn.dialect;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.interpreter.FEELInterpreter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
@@ -33,6 +34,8 @@ public interface DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
     //
     // FEEL Processors
     //
+    EnvironmentFactory createEnvironmentFactory();
+
     FEELInterpreter createFEELInterpreter(DMNModelRepository repository, Map<String, String> inputParameters);
 
     FEELTranslator createFEELTranslator(DMNModelRepository repository, Map<String, String> inputParameters);
