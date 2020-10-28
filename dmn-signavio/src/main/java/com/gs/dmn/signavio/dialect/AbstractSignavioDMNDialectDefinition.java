@@ -33,7 +33,8 @@ public abstract class AbstractSignavioDMNDialectDefinition<NUMBER, DATE, TIME, D
         return new SignavioDMNInterpreter<>(createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>()), createFEELLib());
     }
 
-    protected EnvironmentFactory createEnvironmentFactory() {
+    @Override
+    public EnvironmentFactory createEnvironmentFactory() {
         return SignavioEnvironmentFactory.instance();
     }
 }

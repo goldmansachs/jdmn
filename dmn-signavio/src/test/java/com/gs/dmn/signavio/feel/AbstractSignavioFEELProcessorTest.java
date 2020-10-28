@@ -16,12 +16,9 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.AbstractFEELProcessorTest;
 import com.gs.dmn.feel.EnvironmentEntry;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
-import com.gs.dmn.feel.interpreter.FEELInterpreterImpl;
-import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.feel.lib.SignavioLib;
 import com.gs.dmn.signavio.testlab.TestLab;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -32,12 +29,6 @@ import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 
 public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
     protected final SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib = (SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) this.dmnInterpreter.getFeelLib();
-
-    @Before
-    public void setUp() {
-        this.feelTranslator = new FEELTranslatorImpl(dmnTransformer);
-        this.feelInterpreter = new FEELInterpreterImpl<>(dmnInterpreter);
-    }
 
     @Override
     protected DMNModelRepository makeRepository() {

@@ -31,7 +31,8 @@ public abstract class AbstractStandardDMNDialectDefinition<NUMBER, DATE, TIME, D
         return new StandardDMNInterpreter<>(createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters), createFEELLib());
     }
 
-    protected EnvironmentFactory createEnvironmentFactory() {
+    @Override
+    public EnvironmentFactory createEnvironmentFactory() {
         return StandardEnvironmentFactory.instance();
     }
 }
