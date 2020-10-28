@@ -1,9 +1,0 @@
-# Choose Slim protocol
-!define TEST_SYSTEM {slim}
-
-!1 Numeric Functions
-!|FEEL Expression Fixture     |
-|expression     |scope|output?|
-|decimal(100, 2)|     |1E+2   |
-|floor(100)     |     |1E+2   |
-|ceiling(100)   |     |1E+2   |
