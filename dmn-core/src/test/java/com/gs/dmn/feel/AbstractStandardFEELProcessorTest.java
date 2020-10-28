@@ -120,6 +120,18 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", STRING, input));
 
+        doExpressionTest(entries, "", "and([true, false, true])",
+                "FunctionInvocation(Name(and) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(false),BooleanLiteral(true))))",
+                "boolean",
+                "and(asList(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE))",
+                lib.and(lib.asList(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE)),
+                false);
+        doExpressionTest(entries, "", "or([true, false, true])",
+                "FunctionInvocation(Name(or) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(false),BooleanLiteral(true))))",
+                "boolean",
+                "or(asList(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE))",
+                lib.or(lib.asList(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE)),
+                true);
         doExpressionTest(entries, "", "contains(\"abc\", \"a\")",
                 "FunctionInvocation(Name(contains) -> PositionalParameters(StringLiteral(\"abc\"), StringLiteral(\"a\")))",
                 "boolean",
