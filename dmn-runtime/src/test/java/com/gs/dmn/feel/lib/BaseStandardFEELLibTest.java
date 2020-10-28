@@ -539,6 +539,10 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertNull(getLib().insertBefore(null, null, null));
 
         assertEquals(makeNumberList("2", "1", "3"), getLib().insertBefore(makeNumberList(1, 3), makeNumber("1"), makeNumber("2")));
+        assertEquals(makeNumberList("1", "2", "4", "3"), getLib().insertBefore(makeNumberList(1, 2, 3), makeNumber("-1"), makeNumber("4")));
+        // Out of bounds
+        assertEquals(makeNumberList("1", "2", "3"), getLib().insertBefore(makeNumberList(1, 2, 3), makeNumber("5"), makeNumber("4")));
+        assertEquals(makeNumberList("1", "2", "3"), getLib().insertBefore(makeNumberList(1, 2, 3), makeNumber("-5"), makeNumber("4")));
     }
 
     @Test
