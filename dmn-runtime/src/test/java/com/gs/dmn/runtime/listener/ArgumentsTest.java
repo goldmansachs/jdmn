@@ -12,13 +12,17 @@
  */
 package com.gs.dmn.runtime.listener;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
+import org.junit.Test;
 
-public class Arguments extends LinkedHashMap<String, Object> {
-    @Override
-    public String toString() {
-        return this.entrySet().stream().map(entry -> String.format("%s='%s'", entry.getKey(), entry.getValue())).collect(Collectors.joining(", "));
+import static org.junit.Assert.*;
+
+public class ArgumentsTest {
+
+    @Test
+    public void testToString() {
+        Arguments arguments = new Arguments();
+        arguments.put("key1", "value1");
+        arguments.put("key2", "value2");
+        assertEquals("key1='value1', key2='value2'", arguments.toString());
     }
 }

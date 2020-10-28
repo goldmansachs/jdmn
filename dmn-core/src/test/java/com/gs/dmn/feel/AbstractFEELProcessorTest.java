@@ -31,7 +31,6 @@ import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
-import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -49,17 +48,27 @@ import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
-    private final DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition = makeDialect();
+    protected final FEELTranslator feelTranslator;
+    protected final DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter;
+    protected final FEELInterpreter feelInterpreter;
 
-    private final RuntimeEnvironmentFactory runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
+    protected final EnvironmentFactory environmentFactory;
+    private final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib;
+    private final RuntimeEnvironmentFactory runtimeEnvironmentFactory;
 
-    protected final DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter = this.dialectDefinition.createDMNInterpreter(makeRepository(), new LinkedHashMap<>());
-    protected final BasicDMNToNativeTransformer dmnTransformer = this.dmnInterpreter.getBasicDMNTransformer();
-    protected final EnvironmentFactory environmentFactory = this.dmnTransformer.getEnvironmentFactory();
-    private final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib = this.dmnInterpreter.getFeelLib();
+    protected AbstractFEELProcessorTest() {
+        DMNModelRepository repository = makeRepository();
+        LinkedHashMap<String, String> inputParameters = new LinkedHashMap<>();
 
-    protected FEELTranslator feelTranslator;
-    protected FEELInterpreter feelInterpreter;
+        DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition = makeDialect();
+
+        this.environmentFactory = dialectDefinition.createEnvironmentFactory();
+        this.runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
+        this.lib = dialectDefinition.createFEELLib();
+        this.feelTranslator = dialectDefinition.createFEELTranslator(repository, inputParameters);
+        this.dmnInterpreter = dialectDefinition.createDMNInterpreter(repository, inputParameters);
+        this.feelInterpreter = dialectDefinition.createFEELInterpreter(repository, inputParameters);
+    }
 
     @Test
     public void testSimpleUnaryTests() {
