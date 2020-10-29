@@ -18,26 +18,17 @@ import com.gs.dmn.transformation.ToSimpleNameTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
 import com.gs.dmn.validation.NopDMNValidator;
-import org.apache.maven.project.MavenProject;
 import org.junit.Test;
 
 import java.io.File;
 
 import static org.junit.Assert.assertTrue;
 
-public class DMNToJavaMojoTest extends AbstractMojoTest {
-    private final DMNToJavaMojo mojo = new DMNToJavaMojo();
-    private final MavenProject project = new MavenProject();
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testExecuteWhenMissingInput() throws Exception {
-        mojo.inputParameters = makeParams();
-        mojo.execute();
-        assertTrue(true);
-    }
-
+public class DMNToJavaMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractDMNMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     @Test
     public void testExecute() throws Exception {
+        DMNToJavaMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> mojo = getMojo();
+
         String input = this.getClass().getClassLoader().getResource("input/0004-lending.dmn").getFile();
         mojo.project = project;
         mojo.dmnDialect = StandardDMNDialectDefinition.class.getName();
@@ -50,5 +41,10 @@ public class DMNToJavaMojoTest extends AbstractMojoTest {
         mojo.inputParameters = makeParams();
         mojo.execute();
         assertTrue(true);
+    }
+
+    @Override
+    protected DMNToJavaMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> getMojo() {
+        return new DMNToJavaMojo<>();
     }
 }

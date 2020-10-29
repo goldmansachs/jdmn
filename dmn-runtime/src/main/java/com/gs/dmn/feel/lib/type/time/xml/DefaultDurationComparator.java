@@ -16,6 +16,7 @@ import com.gs.dmn.feel.lib.type.RelationalComparator;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
+import java.math.BigDecimal;
 import java.util.function.Supplier;
 
 import static java.lang.Boolean.FALSE;
@@ -24,9 +25,9 @@ import static java.lang.Boolean.TRUE;
 public class DefaultDurationComparator implements RelationalComparator<Duration> {
     @Override
     public Integer compare(Duration first, Duration second) {
-        javax.xml.datatype.Duration lhs = BaseDefaultDurationType.normalize(first);
-        javax.xml.datatype.Duration rhs = BaseDefaultDurationType.normalize(second);
-        return lhs.compare(rhs);
+        BigDecimal firstValue = BaseDefaultDurationType.normalize(first);
+        BigDecimal secondValue = BaseDefaultDurationType.normalize(second);
+        return compare(firstValue, secondValue);
     }
 
     @Override
@@ -77,5 +78,16 @@ public class DefaultDurationComparator implements RelationalComparator<Duration>
                 () -> null,
                 () -> { Integer result = compare(first, second); return result == DatatypeConstants.GREATER || result == DatatypeConstants.EQUAL; }
         });
+    }
+
+    private Integer compare(BigDecimal first, BigDecimal second) {
+        int diff = first.subtract(second).intValue();
+        if (diff == 0) {
+            return DatatypeConstants.EQUAL;
+        } else if (diff < 0) {
+            return DatatypeConstants.LESSER;
+        } else {
+            return DatatypeConstants.GREATER;
+        }
     }
 }

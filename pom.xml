@@ -429,7 +429,7 @@ specific language governing permissions and limitations under the License.]]></i
             <dependency>
                 <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
-                <version>3.26.0-GA</version>
+                <version>3.27.0-GA</version>
             </dependency>
 
             <dependency>

@@ -14,28 +14,20 @@ package com.gs.dmn.maven;
 
 import com.gs.dmn.maven.configuration.components.DMNTransformerComponent;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
+import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider;
 import com.gs.dmn.transformation.NopDMNTransformer;
-import org.apache.maven.project.MavenProject;
 import org.junit.Test;
 
 import java.io.File;
 
 import static org.junit.Assert.assertTrue;
 
-public class TestLabToKotlinJUnitMojoTest extends AbstractMojoTest {
-    private final TestLabToKotlinJUnitMojo mojo = new TestLabToKotlinJUnitMojo();
-    private final MavenProject project = new MavenProject();
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testExecuteWhenMissingInput() throws Exception {
-        mojo.inputParameters = makeParams();
-        mojo.execute();
-        assertTrue(true);
-    }
-
+public class TestLabToKotlinJUnitMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
     @Test
     public void testExecute() throws Exception {
+        TestLabToKotlinJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> mojo = getMojo();
+
         String inputModel = this.getClass().getClassLoader().getResource("input/NPEValidation2.dmn").getFile();
         String inputTest = this.getClass().getClassLoader().getResource("input/NPEValidation2.json").getFile();
         mojo.project = project;
@@ -48,5 +40,10 @@ public class TestLabToKotlinJUnitMojoTest extends AbstractMojoTest {
         mojo.inputParameters = makeParams();
         mojo.execute();
         assertTrue(true);
+    }
+
+    @Override
+    protected TestLabToKotlinJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> getMojo() {
+        return new TestLabToKotlinJUnitMojo<>();
     }
 }

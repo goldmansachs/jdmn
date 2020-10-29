@@ -17,26 +17,18 @@ import com.gs.dmn.maven.configuration.components.DMNTransformerComponent;
 import com.gs.dmn.transformation.ToSimpleNameTransformer;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
 import com.gs.dmn.validation.NopDMNValidator;
-import org.apache.maven.project.MavenProject;
 import org.junit.Test;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.io.File;
 
 import static org.junit.Assert.assertTrue;
 
-public class TCKToJavaJUnitMojoTest extends AbstractMojoTest {
-    private final TCKToJavaJUnitMojo mojo = new TCKToJavaJUnitMojo();
-    private final MavenProject project = new MavenProject();
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testExecuteWhenMissingInput() throws Exception {
-        mojo.inputParameters = makeParams();
-        mojo.execute();
-        assertTrue(true);
-    }
-
+public class TCKToJavaJUnitMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     @Test
     public void testExecute() throws Exception {
+        TCKToJavaJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> mojo = getMojo();
+
         String inputModel = this.getClass().getClassLoader().getResource("input/0004-lending.dmn").getFile();
         String inputTest = this.getClass().getClassLoader().getResource("input/0004-lending-test-01.xml").getFile();
         mojo.project = project;
@@ -50,5 +42,10 @@ public class TCKToJavaJUnitMojoTest extends AbstractMojoTest {
         mojo.inputParameters = makeParams();
         mojo.execute();
         assertTrue(true);
+    }
+
+    @Override
+    protected TCKToJavaJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> getMojo() {
+        return new TCKToJavaJUnitMojo<>();
     }
 }
