@@ -697,7 +697,7 @@ public class DMNDialectTransformer {
         addImportProperties(element, result);
         result.setImportedElement(element.getImportedElement());
         result.setExpressionLanguage(element.getExpressionLanguage());
-        return null;
+        return result;
     }
 
     private TDecisionTableOrientation transform(org.omg.spec.dmn._20151101.model.TDecisionTableOrientation element) {

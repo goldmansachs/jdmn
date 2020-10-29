@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.runtime.LambdaExpression;
+import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -52,6 +53,21 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertEquals("P1Y8M", getLib().duration("P1Y8M").toString());
         assertEquals("P2DT20H", getLib().duration("P2DT20H").toString());
         assertEquals("-PT2H", getLib().duration("-PT2H").toString());
+
+        List<Pair<String, String>> pairs = Arrays.asList(
+//                new Pair<>("P83333333Y3M", "P999999999M"),
+//                new Pair<>("-P83333333Y3M","-P999999999M"),
+                new Pair<>("P367DT6H58M59S","P1Y0M2DT6H58M59.000S")
+// Overflow in duration(from)
+//                new Pair<>("P99999999Y", "P11999999988M"),
+//                new Pair<>("-P99999999Y", "P2129706043D")
+        );
+        for (Pair<String, String> pair: pairs) {
+            DURATION duration = makeDuration(pair.getLeft());
+            DURATION normalizedDuration = makeDuration(pair.getRight());
+            assertTrue(String.format("Error for '%s'", pair.toString()), getLib().durationEqual(duration, normalizedDuration));
+        }
+
     }
 
     @Test
