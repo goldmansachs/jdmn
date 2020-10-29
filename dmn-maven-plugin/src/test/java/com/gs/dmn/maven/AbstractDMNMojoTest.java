@@ -12,20 +12,17 @@
  */
 package com.gs.dmn.maven;
 
-import org.apache.maven.project.MavenProject;
+import org.junit.Test;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import static org.junit.Assert.assertTrue;
 
-public abstract class AbstractMojoTest {
-    protected final MavenProject project = new MavenProject();
+public abstract class AbstractDMNMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractMojoTest {
+    protected abstract AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> getMojo();
 
-    protected Map<String, String> makeParams() {
-        Map<String, String> map = new LinkedHashMap<>();
-
-        map.put("dmnVersion", "1.1");
-        map.put("modelVersion", "2.0");
-        map.put("platformVersion", "1.0");
-        return map;
+    @Test(expected = IllegalArgumentException.class)
+    public void testExecuteWhenMissingInput() throws Exception {
+        getMojo().inputParameters = makeParams();
+        getMojo().execute();
+        assertTrue(true);
     }
 }
