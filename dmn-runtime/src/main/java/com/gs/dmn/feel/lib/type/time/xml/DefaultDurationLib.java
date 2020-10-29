@@ -59,7 +59,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
             return null;
         }
 
-        if (isYearMonthsTime(duration)) {
+        if (hasYearsOrMonths(duration)) {
             return (long) duration.getYears();
         } else {
             return null;
@@ -72,7 +72,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
             return null;
         }
 
-        if (isYearMonthsTime(duration)) {
+        if (hasYearsOrMonths(duration)) {
             return (long) duration.getMonths();
         } else {
             return null;
@@ -85,7 +85,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
             return null;
         }
 
-        if (isDayTime(duration)) {
+        if (hasDayOrTime(duration)) {
             return (long) duration.getDays();
         } else {
             return null;
@@ -98,7 +98,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
             return null;
         }
 
-        if (isDayTime(duration)) {
+        if (hasDayOrTime(duration)) {
             return (long) duration.getHours();
         } else {
             return null;
@@ -111,7 +111,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
             return null;
         }
 
-        if (isDayTime(duration)) {
+        if (hasDayOrTime(duration)) {
             return (long) duration.getMinutes();
         } else {
             return null;
@@ -124,20 +124,20 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
             return null;
         }
 
-        if (isDayTime(duration)) {
+        if (hasDayOrTime(duration)) {
             return (long) duration.getSeconds();
         } else {
             return null;
         }
     }
 
-    private boolean isYearMonthsTime(javax.xml.datatype.Duration duration) {
+    private boolean hasYearsOrMonths(javax.xml.datatype.Duration duration) {
         return duration.isSet(DatatypeConstants.YEARS)
                 || duration.isSet(DatatypeConstants.MONTHS)
                 ;
     }
 
-    private boolean isDayTime(javax.xml.datatype.Duration duration) {
+    private boolean hasDayOrTime(javax.xml.datatype.Duration duration) {
         return duration.isSet(DatatypeConstants.DAYS)
                 || duration.isSet(DatatypeConstants.HOURS)
                 || duration.isSet(DatatypeConstants.MINUTES)

@@ -21,6 +21,8 @@ import org.slf4j.Logger;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
+import javax.xml.namespace.QName;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -33,8 +35,55 @@ public abstract class BaseDefaultDurationType extends BaseType {
             0,
             0));
 
-    public static Duration normalize(Duration duration) {
-        return duration == null ? null : duration.normalizeWith(GREGORIAN.get());
+    public static BigDecimal normalize(Duration duration) {
+        if (isDuration(duration)) {
+            return BigDecimal.valueOf(duration.getTimeInMillis(GREGORIAN.get()));
+        } else if (isYearMonthDuration(duration)) {
+            BigDecimal years = BigDecimal.valueOf(duration.getYears());
+            BigDecimal months = BigDecimal.valueOf(duration.getMonths());
+            BigDecimal totalMonths = years.multiply(BigDecimal.valueOf(12)).add(months);
+            if (duration.getSign() < 0) {
+                totalMonths = totalMonths.negate();
+            }
+            return totalMonths;
+        } else if (isDayTimeDuration(duration)) {
+            return BigDecimal.valueOf(duration.getTimeInMillis(GREGORIAN.get()));
+        } else {
+            return BigDecimal.valueOf(duration.getTimeInMillis(GREGORIAN.get()));
+        }
+    }
+
+    private static boolean isDuration(Duration duration) {
+        return getXMLSchemaType(duration) == DatatypeConstants.DURATION;
+    }
+
+    private static boolean isYearMonthDuration(Duration duration) {
+        return getXMLSchemaType(duration) == DatatypeConstants.DURATION_YEARMONTH;
+    }
+
+    private static boolean isDayTimeDuration(Duration duration) {
+        return getXMLSchemaType(duration) == DatatypeConstants.DURATION_DAYTIME;
+    }
+
+    private static QName getXMLSchemaType(Duration duration) {
+        if (duration == null) {
+            return DatatypeConstants.DURATION;
+        }
+
+        boolean yearSet = duration.isSet(DatatypeConstants.YEARS);
+        boolean monthSet = duration.isSet(DatatypeConstants.MONTHS);
+        boolean daySet = duration.isSet(DatatypeConstants.DAYS);
+        boolean hourSet = duration.isSet(DatatypeConstants.HOURS);
+        boolean minuteSet = duration.isSet(DatatypeConstants.MINUTES);
+        boolean secondSet = duration.isSet(DatatypeConstants.SECONDS);
+
+        if ((yearSet || monthSet) && !(daySet || hourSet || minuteSet || secondSet)) {
+            return DatatypeConstants.DURATION_YEARMONTH;
+        } else if (!(yearSet || monthSet) && (daySet || hourSet || minuteSet || secondSet)) {
+            return DatatypeConstants.DURATION_DAYTIME;
+        } else {
+            return DatatypeConstants.DURATION;
+        }
     }
 
     protected final DatatypeFactory dataTypeFactory;
@@ -126,10 +175,10 @@ public abstract class BaseDefaultDurationType extends BaseType {
         }
 
         try {
-            if (isYearsAndMonths(first)) {
+            if (isYearMonthDuration(first)) {
                 long months = (first.getYears() * 12 + first.getMonths()) / second.intValue();
                 return this.dataTypeFactory.newDurationYearMonth(String.format("P%dM", months));
-            } else if (isDaysAndTime(first)) {
+            } else if (isDayTimeDuration(first)) {
                 long hours = 24L * first.getDays() + first.getHours();
                 long minutes = 60L * hours + first.getMinutes();
                 long seconds = 60L * minutes + first.getSeconds();
@@ -143,20 +192,5 @@ public abstract class BaseDefaultDurationType extends BaseType {
             logError(message, e);
             return null;
         }
-    }
-
-    private boolean isYearsAndMonths(Duration duration) {
-        if (duration == null) {
-            return false;
-        }
-        return duration.isSet(DatatypeConstants.YEARS) || duration.isSet(DatatypeConstants.MONTHS);
-    }
-
-    private boolean isDaysAndTime(Duration duration) {
-        if (duration == null) {
-            return false;
-        }
-        return duration.isSet(DatatypeConstants.DAYS) || duration.isSet(DatatypeConstants.HOURS) ||
-                duration.isSet(DatatypeConstants.MINUTES) || duration.isSet(DatatypeConstants.SECONDS);
     }
 }
