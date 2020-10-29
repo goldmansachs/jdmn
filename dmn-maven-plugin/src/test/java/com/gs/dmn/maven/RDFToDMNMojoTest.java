@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.maven;
 
-import org.apache.maven.project.MavenProject;
 import org.junit.Test;
 
 import java.io.File;
@@ -21,9 +20,8 @@ import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 
-public class RDFToDMNMojoTest extends AbstractMojoTest {
-    private final RDFToDMNMojo mojo = new RDFToDMNMojo();
-    private final MavenProject project = new MavenProject();
+public class RDFToDMNMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractMojoTest {
+    private final RDFToDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> mojo = new RDFToDMNMojo<>();
 
     @Test(expected = IllegalArgumentException.class)
     public void testExecuteWhenMissingInput() throws Exception {
