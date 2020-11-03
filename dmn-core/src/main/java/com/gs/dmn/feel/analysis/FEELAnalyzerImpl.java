@@ -37,7 +37,7 @@ public class FEELAnalyzerImpl extends AbstractFEELAnalyzer {
     @Override
     public UnaryTests parseSimpleUnaryTests(String text) {
         FEELParser parser = makeParser(text);
-        return parser.simpleUnaryTests().ast;
+        return parser.simpleUnaryTestsRoot().ast;
     }
 
     @Override

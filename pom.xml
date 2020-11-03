@@ -13,7 +13,8 @@
     specific language governing permissions and limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.goldmansachs.jdmn</groupId>
     <artifactId>jdmn-parent</artifactId>
@@ -52,7 +53,7 @@
         <url>https://github.com/goldmansachs/jdmn/</url>
         <connection>scm:git:https://github.com/goldmansachs/jdmn.git</connection>
         <developerConnection>scm:git:https://github.com/goldmansachs/jdmn.git</developerConnection>
-      <tag>HEAD</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
@@ -136,6 +137,7 @@
             </activation>
             <properties>
                 <surefire.argLine>-Xmx1024m</surefire.argLine>
+                <failsafe.argLine>-Xmx1024m</failsafe.argLine>
             </properties>
         </profile>
 
@@ -211,7 +213,7 @@ specific language governing permissions and limitations under the License.]]></i
                                 <exclude>**/LICENSE.txt</exclude>
                                 <exclude>**/NOTICE.txt</exclude>
                                 <exclude>**/.travis.yml</exclude>
-                                
+
                                 <!-- Excluding the resources  -->
                                 <exclude>**/test/resources/**</exclude>
                                 <exclude>**/main/resources/**</exclude>
@@ -239,6 +241,7 @@ specific language governing permissions and limitations under the License.]]></i
             <id>sonar-coverage</id>
             <properties>
                 <surefire.argLine>${surefireArgLine} -Xmx1024m</surefire.argLine>
+                <failsafe.argLine>${failsafeArgLine} -Xmx1024m</failsafe.argLine>
             </properties>
             <build>
                 <plugins>
@@ -529,13 +532,15 @@ specific language governing permissions and limitations under the License.]]></i
                                     <requireJavaVersion>
                                         <version>${java.version}</version>
                                     </requireJavaVersion>
-                                    <DependencyConvergence />
+                                    <DependencyConvergence/>
                                     <requirePluginVersions>
                                         <banLatest>true</banLatest>
                                         <banRelease>true</banRelease>
                                         <banSnapshots>${ban.snapshot}</banSnapshots>
                                         <phases>clean,deploy,site</phases>`
-                                        <unCheckedPluginList>com.goldmansachs.jdmn:jdmn-maven-plugin, org.jetbrains.kotlin:kotlin-maven-plugin</unCheckedPluginList>
+                                        <unCheckedPluginList>com.goldmansachs.jdmn:jdmn-maven-plugin,
+                                            org.jetbrains.kotlin:kotlin-maven-plugin
+                                        </unCheckedPluginList>
                                     </requirePluginVersions>
                                 </rules>
                             </configuration>
@@ -604,6 +609,28 @@ specific language governing permissions and limitations under the License.]]></i
                         </excludes>
                         <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>3.0.0-M5</version>
+                    <configuration>
+                        <!-- for integration w/ sonar integration coverage -->
+                        <argLine>${failsafe.argLine}</argLine>
+                        <includes>
+                            <include>**/*IT.java</include>
+                        </includes>
+                        <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>integration-test</goal>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
 
                 <plugin>
@@ -714,6 +741,11 @@ specific language governing permissions and limitations under the License.]]></i
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
             </plugin>
 
             <plugin>

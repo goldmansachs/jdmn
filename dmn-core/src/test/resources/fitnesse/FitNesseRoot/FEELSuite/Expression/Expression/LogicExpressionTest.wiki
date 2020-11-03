@@ -1,0 +1,30 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Conjunction
+!|FEEL Expression Fixture                                |
+|expression   |output?                                   |
+|x and true   |Conjunction(Name(x),BooleanLiteral(true)) |
+|x and false  |Conjunction(Name(x),BooleanLiteral(false))|
+|x and null   |Conjunction(Name(x),NullLiteral())        |
+|null and null|Conjunction(NullLiteral(),NullLiteral())  |
+
+!1 Disjunction
+!|FEEL Expression Fixture                               |
+|expression  |output?                                   |
+|x or true   |Disjunction(Name(x),BooleanLiteral(true)) |
+|x or false  |Disjunction(Name(x),BooleanLiteral(false))|
+|x or null   |Disjunction(Name(x),NullLiteral())        |
+|null or null|Disjunction(NullLiteral(),NullLiteral())  |
+
+!1 Negation
+!|FEEL Expression Fixture               |
+|expression|output?                     |
+|not x     |LogicNegation(Name(x))      |
+|not null  |LogicNegation(NullLiteral())|
+
+!1 Mixed
+!|FEEL Expression Fixture                                                                          |
+|expression           |output?                                                                     |
+|x or true and false  |Disjunction(Name(x),Conjunction(BooleanLiteral(true),BooleanLiteral(false)))|
+|(x or true) and false|Conjunction(Disjunction(Name(x),BooleanLiteral(true)),BooleanLiteral(false))|
