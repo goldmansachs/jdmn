@@ -1,0 +1,13 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Simple Expressions
+!|FEEL Simple Expressions Fixture                              |
+|expression|output?                                            |
+|1         |NumericLiteral(1)                                  |
+|true      |BooleanLiteral(true)                               |
+|"abc"     |StringLiteral("abc")                               |
+|a.b.c     |PathExpression(PathExpression(Name(a), b), c)      |
+|1, 2      |ExpressionList(NumericLiteral(1),NumericLiteral(2))|
+
+

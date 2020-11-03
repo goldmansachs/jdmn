@@ -1,0 +1,24 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Boolean Filter Expressions
+!|FEEL Expression Fixture                                                                                                                                                 |
+|expression            |output?                                                                                                                                           |
+|[1, 2][true]          |FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), BooleanLiteral(true))                                                          |
+|1[true]               |FilterExpression(NumericLiteral(1), BooleanLiteral(true))                                                                                         |
+|[1, 2, 3, 4][item > 2]|FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)), Relational(>,Name(item),NumericLiteral(2)))|
+
+!1 Numeric Filter Expressions
+!|FEEL Expression Fixture                                                                                            |
+|expression|output?                                                                                                  |
+|[1, 2][0] |FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), NumericLiteral(0))                    |
+|[1, 2][-1]|FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), ArithmeticNegation(NumericLiteral(1)))|
+|[1, 2][-2]|FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), ArithmeticNegation(NumericLiteral(2)))|
+|1[1]      |FilterExpression(NumericLiteral(1), NumericLiteral(1))                                                   |
+
+!1 Context Filter Expressions
+!|FEEL Expression Fixture                                                                                                                                                                                                                                                                                                                                                         |
+|expression                                   |output?                                                                                                                                                                                                                                                                                                                            |
+|[{x:1, y:2}, {x:2, y:3}] [item.x = 1]        |FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(1)),ContextEntry(ContextEntryKey(y) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(2)),ContextEntry(ContextEntryKey(y) = NumericLiteral(3)))), Relational(=,PathExpression(Name(item), x),NumericLiteral(1)))|
+|[{"x":1, "y":2}, {"x":2, "y":3}] [item.x = 1]|FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(1)),ContextEntry(ContextEntryKey(y) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(2)),ContextEntry(ContextEntryKey(y) = NumericLiteral(3)))), Relational(=,PathExpression(Name(item), x),NumericLiteral(1)))|
+

@@ -1,0 +1,10 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Numeric Functions
+!|FEEL Expression Fixture                                                                                              |
+|expression          |output?                                                                                          |
+|decimal(100, 2)     |FunctionInvocation(Name(decimal) -> PositionalParameters(NumericLiteral(100), NumericLiteral(2)))|
+|floor(100)          |FunctionInvocation(Name(floor) -> PositionalParameters(NumericLiteral(100)))                     |
+|ceiling(100)        |FunctionInvocation(Name(ceiling) -> PositionalParameters(NumericLiteral(100)))                   |
+|ceiling(number: 100)|FunctionInvocation(Name(ceiling) -> NamedParameters(number : NumericLiteral(100)))               |

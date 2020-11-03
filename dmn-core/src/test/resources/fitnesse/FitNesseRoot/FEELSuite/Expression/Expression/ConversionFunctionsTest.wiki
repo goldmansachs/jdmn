@@ -1,0 +1,13 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Conversion Functions
+!|FEEL Expression Fixture                                                                                                                                      |
+|expression                           |output?                                                                                                                 |
+|date("2016-03-01")                   |DateTimeLiteral(date, "2016-03-01")                                                                                     |
+|time("12:00:00Z")                    |DateTimeLiteral(time, "12:00:00Z")                                                                                      |
+|time("2016-03-01T12:00:00Z")         |DateTimeLiteral(time, "2016-03-01T12:00:00Z")                                                                           |
+|date and time("2016-03-01T12:00:00Z")|DateTimeLiteral(date and time, "2016-03-01T12:00:00Z")                                                                  |
+|duration("P1Y1M")                    |DateTimeLiteral(duration, "P1Y1M")                                                                                      |
+|number("1 000", " ", ".")            |FunctionInvocation(Name(number) -> PositionalParameters(StringLiteral("1 000"), StringLiteral(" "), StringLiteral(".")))|
+|string(1.1)                          |FunctionInvocation(Name(string) -> PositionalParameters(NumericLiteral(1.1)))                                           |

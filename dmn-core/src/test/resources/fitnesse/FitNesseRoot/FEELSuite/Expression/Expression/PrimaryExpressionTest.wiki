@@ -1,0 +1,39 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Numeric literal
+!|FEEL Expression Fixture         |
+|expression|output?               |
+|123       |NumericLiteral(123)   |
+|123.45    |NumericLiteral(123.45)|
+|.45       |NumericLiteral(.45)   |
+
+!1 String literal
+!|FEEL Expression Fixture       |
+|expression|output?             |
+|"a"       |StringLiteral("a")  |
+|"123"     |StringLiteral("123")|
+
+!1 Boolean literal
+!|FEEL Expression Fixture        |
+|expression|output?              |
+|true      |BooleanLiteral(true) |
+|false     |BooleanLiteral(false)|
+
+!1 Date and time literal
+!|FEEL Expression Fixture                                                                    |
+|expression                           |output?                                               |
+|date("2016-08-01")                   |DateTimeLiteral(date, "2016-08-01")                   |
+|time("12:00:00Z")                    |DateTimeLiteral(time, "12:00:00Z")                    |
+|date and time("2016-08-01T12:00:00Z")|DateTimeLiteral(date and time, "2016-08-01T12:00:00Z")|
+
+!1 Duration literal
+!|FEEL Expression Fixture                              |
+|expression        |output?                            |
+|duration("P1Y2M") |DateTimeLiteral(duration, "P1Y2M") |
+|duration("PT1H2M")|DateTimeLiteral(duration, "PT1H2M")|
+
+!1 Simple Name
+!|FEEL Expression Fixture|
+|expression|output?      |
+|x         |Name(x)      |
