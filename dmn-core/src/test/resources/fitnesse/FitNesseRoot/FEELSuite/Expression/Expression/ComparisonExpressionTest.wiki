@@ -1,0 +1,121 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Numeric Comparison
+!|FEEL Expression Fixture                                     |
+|expression|output?                                           |
+|1 = 2     |Relational(=,NumericLiteral(1),NumericLiteral(2)) |
+|1 != 2    |Relational(!=,NumericLiteral(1),NumericLiteral(2))|
+|1 < 2     |Relational(<,NumericLiteral(1),NumericLiteral(2)) |
+|1 <= 2    |Relational(<=,NumericLiteral(1),NumericLiteral(2))|
+|1 > 2     |Relational(>,NumericLiteral(1),NumericLiteral(2)) |
+|1 >= 2    |Relational(>=,NumericLiteral(1),NumericLiteral(2))|
+
+!1 Date Comparison
+!|FEEL Expression Fixture                                                                                                       |
+|expression                              |output?                                                                               |
+|date("2015-08-01") = date("2015-08-02") |Relational(=,DateTimeLiteral(date, "2015-08-01"),DateTimeLiteral(date, "2015-08-02")) |
+|date("2015-08-01") != date("2015-08-02")|Relational(!=,DateTimeLiteral(date, "2015-08-01"),DateTimeLiteral(date, "2015-08-02"))|
+|date("2015-08-01") < date("2015-08-02") |Relational(<,DateTimeLiteral(date, "2015-08-01"),DateTimeLiteral(date, "2015-08-02")) |
+|date("2015-08-01") <= date("2015-08-02")|Relational(<=,DateTimeLiteral(date, "2015-08-01"),DateTimeLiteral(date, "2015-08-02"))|
+|date("2015-08-01") > date("2015-08-02") |Relational(>,DateTimeLiteral(date, "2015-08-01"),DateTimeLiteral(date, "2015-08-02")) |
+|date("2015-08-01") >= date("2015-08-02")|Relational(>=,DateTimeLiteral(date, "2015-08-01"),DateTimeLiteral(date, "2015-08-02"))|
+
+!1 Time Comparison
+!|FEEL Expression Fixture                                                                                                   |
+|expression                            |output?                                                                             |
+|time("12:00:00Z") = time("13:00:00Z") |Relational(=,DateTimeLiteral(time, "12:00:00Z"),DateTimeLiteral(time, "13:00:00Z")) |
+|time("12:00:00Z") != time("13:00:00Z")|Relational(!=,DateTimeLiteral(time, "12:00:00Z"),DateTimeLiteral(time, "13:00:00Z"))|
+|time("12:00:00Z") < time("13:00:00Z") |Relational(<,DateTimeLiteral(time, "12:00:00Z"),DateTimeLiteral(time, "13:00:00Z")) |
+|time("12:00:00Z") <= time("13:00:00Z")|Relational(<=,DateTimeLiteral(time, "12:00:00Z"),DateTimeLiteral(time, "13:00:00Z"))|
+|time("12:00:00Z") > time("13:00:00Z") |Relational(>,DateTimeLiteral(time, "12:00:00Z"),DateTimeLiteral(time, "13:00:00Z")) |
+|time("12:00:00Z") >= time("13:00:00Z")|Relational(>=,DateTimeLiteral(time, "12:00:00Z"),DateTimeLiteral(time, "13:00:00Z"))|
+
+!1 Date and Time Comparison
+!|FEEL Expression Fixture                                                                                                                                                                                   |
+|expression                                                                    |output?                                                                                                                     |
+|date and time("2015-08-01T12:00:00Z") = date and time("2015-08-01T13:00:00Z") |Relational(=,DateTimeLiteral(date and time, "2015-08-01T12:00:00Z"),DateTimeLiteral(date and time, "2015-08-01T13:00:00Z")) |
+|date and time("2015-08-01T12:00:00Z") != date and time("2015-08-01T13:00:00Z")|Relational(!=,DateTimeLiteral(date and time, "2015-08-01T12:00:00Z"),DateTimeLiteral(date and time, "2015-08-01T13:00:00Z"))|
+|date and time("2015-08-01T12:00:00Z") < date and time("2015-08-01T13:00:00Z") |Relational(<,DateTimeLiteral(date and time, "2015-08-01T12:00:00Z"),DateTimeLiteral(date and time, "2015-08-01T13:00:00Z")) |
+|date and time("2015-08-01T12:00:00Z") <= date and time("2015-08-01T13:00:00Z")|Relational(<=,DateTimeLiteral(date and time, "2015-08-01T12:00:00Z"),DateTimeLiteral(date and time, "2015-08-01T13:00:00Z"))|
+|date and time("2015-08-01T12:00:00Z") > date and time("2015-08-01T13:00:00Z") |Relational(>,DateTimeLiteral(date and time, "2015-08-01T12:00:00Z"),DateTimeLiteral(date and time, "2015-08-01T13:00:00Z")) |
+|date and time("2015-08-01T12:00:00Z") >= date and time("2015-08-01T13:00:00Z")|Relational(>=,DateTimeLiteral(date and time, "2015-08-01T12:00:00Z"),DateTimeLiteral(date and time, "2015-08-01T13:00:00Z"))|
+
+!1 Duration Comparison
+!|FEEL Expression Fixture                                                                                                       |
+|expression                              |output?                                                                               |
+|duration("P1Y1M") = duration("P1Y2M")   |Relational(=,DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(duration, "P1Y2M"))   |
+|duration("P1Y1M") != duration("P1Y2M")  |Relational(!=,DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(duration, "P1Y2M"))  |
+|duration("P1Y1M") < duration("P1Y2M")   |Relational(<,DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(duration, "P1Y2M"))   |
+|duration("P1Y1M") <= duration("P1Y2M")  |Relational(<=,DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(duration, "P1Y2M"))  |
+|duration("P1Y1M") > duration("P1Y2M")   |Relational(>,DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(duration, "P1Y2M"))   |
+|duration("P1Y1M") >= duration("P1Y2M")  |Relational(>=,DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(duration, "P1Y2M"))  |
+|duration("PT1H1M") = duration("PT1H2M") |Relational(=,DateTimeLiteral(duration, "PT1H1M"),DateTimeLiteral(duration, "PT1H2M")) |
+|duration("PT1H1M") != duration("PT1H2M")|Relational(!=,DateTimeLiteral(duration, "PT1H1M"),DateTimeLiteral(duration, "PT1H2M"))|
+|duration("PT1H1M") < duration("PT1H2M") |Relational(<,DateTimeLiteral(duration, "PT1H1M"),DateTimeLiteral(duration, "PT1H2M")) |
+|duration("PT1H1M") <= duration("PT1H2M")|Relational(<=,DateTimeLiteral(duration, "PT1H1M"),DateTimeLiteral(duration, "PT1H2M"))|
+|duration("PT1H1M") > duration("PT1H2M") |Relational(>,DateTimeLiteral(duration, "PT1H1M"),DateTimeLiteral(duration, "PT1H2M")) |
+|duration("PT1H1M") >= duration("PT1H2M")|Relational(>=,DateTimeLiteral(duration, "PT1H1M"),DateTimeLiteral(duration, "PT1H2M"))|
+
+!1 Null Comparison
+!|FEEL Expression Fixture                                                                                                         |
+|expression                                   |output?                                                                            |
+|1 = null                                     |Relational(=,NumericLiteral(1),NullLiteral())                                      |
+|null = 1                                     |Relational(=,NullLiteral(),NumericLiteral(1))                                      |
+|1 != null                                    |Relational(!=,NumericLiteral(1),NullLiteral())                                     |
+|null != 1                                    |Relational(!=,NullLiteral(),NumericLiteral(1))                                     |
+|"abc" = null                                 |Relational(=,StringLiteral("abc"),NullLiteral())                                   |
+|null = "abc"                                 |Relational(=,NullLiteral(),StringLiteral("abc"))                                   |
+|"abc" != null                                |Relational(!=,StringLiteral("abc"),NullLiteral())                                  |
+|null != "abc"                                |Relational(!=,NullLiteral(),StringLiteral("abc"))                                  |
+|true = null                                  |Relational(=,BooleanLiteral(true),NullLiteral())                                   |
+|null = true                                  |Relational(=,NullLiteral(),BooleanLiteral(true))                                   |
+|true != null                                 |Relational(!=,BooleanLiteral(true),NullLiteral())                                  |
+|null != true                                 |Relational(!=,NullLiteral(),BooleanLiteral(true))                                  |
+|date("2016-03-01") = null                    |Relational(=,DateTimeLiteral(date, "2016-03-01"),NullLiteral())                    |
+|null == date("2016-03-01")                   |Relational(==,NullLiteral(),DateTimeLiteral(date, "2016-03-01"))                   |
+|date("2016-03-01") != null                   |Relational(!=,DateTimeLiteral(date, "2016-03-01"),NullLiteral())                   |
+|null != date("2016-03-01")                   |Relational(!=,NullLiteral(),DateTimeLiteral(date, "2016-03-01"))                   |
+|time("12:00:00Z") = null                     |Relational(=,DateTimeLiteral(time, "12:00:00Z"),NullLiteral())                     |
+|null = time("12:00:00Z")                     |Relational(=,NullLiteral(),DateTimeLiteral(time, "12:00:00Z"))                     |
+|time("12:00:00Z") != null                    |Relational(!=,DateTimeLiteral(time, "12:00:00Z"),NullLiteral())                    |
+|null != time("12:00:00Z")                    |Relational(!=,NullLiteral(),DateTimeLiteral(time, "12:00:00Z"))                    |
+|date and time("2016-03-01T12:00:00Z") = null |Relational(=,DateTimeLiteral(date and time, "2016-03-01T12:00:00Z"),NullLiteral()) |
+|null == date and time("2016-03-01T12:00:00Z")|Relational(==,NullLiteral(),DateTimeLiteral(date and time, "2016-03-01T12:00:00Z"))|
+|date and time("2016-03-01T12:00:00Z") != null|Relational(!=,DateTimeLiteral(date and time, "2016-03-01T12:00:00Z"),NullLiteral())|
+|null != date and time("2016-03-01T12:00:00Z")|Relational(!=,NullLiteral(),DateTimeLiteral(date and time, "2016-03-01T12:00:00Z"))|
+|duration("P1Y1M") = null                     |Relational(=,DateTimeLiteral(duration, "P1Y1M"),NullLiteral())                     |
+|null = duration("P1Y1M")                     |Relational(=,NullLiteral(),DateTimeLiteral(duration, "P1Y1M"))                     |
+|duration("P1Y1M") != null                    |Relational(!=,DateTimeLiteral(duration, "P1Y1M"),NullLiteral())                    |
+|null != duration("P1Y1M")                    |Relational(!=,NullLiteral(),DateTimeLiteral(duration, "P1Y1M"))                    |
+|duration("PT1H") = null                      |Relational(=,DateTimeLiteral(duration, "PT1H"),NullLiteral())                      |
+|null = duration("PT1H")                      |Relational(=,NullLiteral(),DateTimeLiteral(duration, "PT1H"))                      |
+|duration("PT1H") != null                     |Relational(!=,DateTimeLiteral(duration, "PT1H"),NullLiteral())                     |
+|null != duration("PT1H")                     |Relational(!=,NullLiteral(),DateTimeLiteral(duration, "PT1H"))                     |
+|null = null                                  |Relational(=,NullLiteral(),NullLiteral())                                          |
+|null != null                                 |Relational(!=,NullLiteral(),NullLiteral())                                         |
+
+!1 Between Expressions
+!|FEEL Expression Fixture                                                                          |
+|expression             |output?                                                                   |
+|3 between 1 and 4      |BetweenExpression(NumericLiteral(3), NumericLiteral(1), NumericLiteral(4))|
+|(i) between (a) and (b)|BetweenExpression(Name(i), Name(a), Name(b))                              |
+|(i) between 1 and 2    |BetweenExpression(Name(i), NumericLiteral(1), NumericLiteral(2))          |
+
+!1 In Expressions
+!|FEEL Expression Fixture                                                                                                                                                                                                             |
+|expression             |output?                                                                                                                                                                                                      |
+|1 in 1                 |InExpression(NumericLiteral(1), OperatorTest(null,NumericLiteral(1)))                                                                                                                                        |
+|1 in <1                |InExpression(NumericLiteral(1), OperatorTest(<,NumericLiteral(1)))                                                                                                                                           |
+|1 in <=1               |InExpression(NumericLiteral(1), OperatorTest(<=,NumericLiteral(1)))                                                                                                                                          |
+|1 in >1                |InExpression(NumericLiteral(1), OperatorTest(>,NumericLiteral(1)))                                                                                                                                           |
+|1 in >=1               |InExpression(NumericLiteral(1), OperatorTest(>=,NumericLiteral(1)))                                                                                                                                          |
+|1 in (1..2)            |InExpression(NumericLiteral(1), IntervalTest(true,NumericLiteral(1),true,NumericLiteral(2)))                                                                                                                 |
+|1 in (1..2]            |InExpression(NumericLiteral(1), IntervalTest(true,NumericLiteral(1),false,NumericLiteral(2)))                                                                                                                |
+|1 in [1..2)            |InExpression(NumericLiteral(1), IntervalTest(false,NumericLiteral(1),true,NumericLiteral(2)))                                                                                                                |
+|1 in [1..2]            |InExpression(NumericLiteral(1), IntervalTest(false,NumericLiteral(1),false,NumericLiteral(2)))                                                                                                               |
+|1 in [1, 2]            |InExpression(NumericLiteral(1), ListTest(ListLiteral(NumericLiteral(1),NumericLiteral(2))))                                                                                                                  |
+|1 in (1)               |InExpression(NumericLiteral(1), OperatorTest(null,NumericLiteral(1)))                                                                                                                                        |
+|1 in (1, 2)            |InExpression(NumericLiteral(1), OperatorTest(null,NumericLiteral(1)), OperatorTest(null,NumericLiteral(2)))                                                                                                  |
+|1 in (<1, [1..2], 1, 2)|InExpression(NumericLiteral(1), OperatorTest(<,NumericLiteral(1)), IntervalTest(false,NumericLiteral(1),false,NumericLiteral(2)), OperatorTest(null,NumericLiteral(1)), OperatorTest(null,NumericLiteral(2)))|
+|1 in (<1, [1..2], 3)   |InExpression(NumericLiteral(1), OperatorTest(<,NumericLiteral(1)), IntervalTest(false,NumericLiteral(1),false,NumericLiteral(2)), OperatorTest(null,NumericLiteral(3)))                                      |

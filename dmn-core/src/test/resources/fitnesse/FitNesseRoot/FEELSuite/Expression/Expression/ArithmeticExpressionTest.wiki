@@ -1,0 +1,46 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Addition
+!|FEEL Expression Fixture                        |
+|expression|output?                              |
+|x + 1     |Addition(+,Name(x),NumericLiteral(1))|
+|1 + x     |Addition(+,NumericLiteral(1),Name(x))|
+
+!1 Subtraction
+!|FEEL Expression Fixture                        |
+|expression|output?                              |
+|x - 1     |Addition(-,Name(x),NumericLiteral(1))|
+|1 - x     |Addition(-,NumericLiteral(1),Name(x))|
+
+!1 Multiplication
+!|FEEL Expression Fixture                              |
+|expression|output?                                    |
+|x * 2     |Multiplication(*,Name(x),NumericLiteral(2))|
+|2 * x     |Multiplication(*,NumericLiteral(2),Name(x))|
+
+!1 Division
+!|FEEL Expression Fixture                                        |
+|expression|output?                                              |
+|x/2       |Multiplication(/,Name(x),NumericLiteral(2))          |
+|2/2       |Multiplication(/,NumericLiteral(2),NumericLiteral(2))|
+
+!1 Exponentiation
+!|FEEL Expression Fixture                                      |
+|expression|output?                                            |
+|x ** 2    |Exponentiation(Name(x),NumericLiteral(2))          |
+|2 ** 3    |Exponentiation(NumericLiteral(2),NumericLiteral(3))|
+
+!1 Unary minus
+!|FEEL Expression Fixture                        |
+|expression|output?                              |
+|-x        |ArithmeticNegation(Name(x))          |
+|-2        |ArithmeticNegation(NumericLiteral(2))|
+
+!1 Mixed
+!|FEEL Expression Fixture                                                                                |
+|expression|output?                                                                                      |
+|x+1-3     |Addition(-,Addition(+,Name(x),NumericLiteral(1)),NumericLiteral(3))                          |
+|x+1*2     |Addition(+,Name(x),Multiplication(*,NumericLiteral(1),NumericLiteral(2)))                    |
+|(x+1)*2   |Multiplication(*,Addition(+,Name(x),NumericLiteral(1)),NumericLiteral(2))                    |
+|-(x+1)*2  |Multiplication(*,ArithmeticNegation(Addition(+,Name(x),NumericLiteral(1))),NumericLiteral(2))|
