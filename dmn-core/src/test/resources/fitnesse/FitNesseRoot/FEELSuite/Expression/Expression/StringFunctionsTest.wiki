@@ -1,0 +1,20 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Numeric Functions
+!|FEEL Expression Fixture                                                                                                                                                     |
+|expression                       |output?                                                                                                                                    |
+|substring("abc", 3)              |FunctionInvocation(Name(substring) -> PositionalParameters(StringLiteral("abc"), NumericLiteral(3)))                                       |
+|string length("abc")             |FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral("abc")))                                                      |
+|upper case("abc")                |FunctionInvocation(Name(upper case) -> PositionalParameters(StringLiteral("abc")))                                                         |
+|lower case("abc")                |FunctionInvocation(Name(lower case) -> PositionalParameters(StringLiteral("abc")))                                                         |
+|substring before("abc", "b")     |FunctionInvocation(Name(substring before) -> PositionalParameters(StringLiteral("abc"), StringLiteral("b")))                               |
+|substring after("abc", "b")      |FunctionInvocation(Name(substring after) -> PositionalParameters(StringLiteral("abc"), StringLiteral("b")))                                |
+|replace("abc", "b", "d", "i")    |FunctionInvocation(Name(replace) -> PositionalParameters(StringLiteral("abc"), StringLiteral("b"), StringLiteral("d"), StringLiteral("i")))|
+|replace("abc", "b", "d")         |FunctionInvocation(Name(replace) -> PositionalParameters(StringLiteral("abc"), StringLiteral("b"), StringLiteral("d")))                    |
+|contains("abc", "a")             |FunctionInvocation(Name(contains) -> PositionalParameters(StringLiteral("abc"), StringLiteral("a")))                                       |
+|starts with("abc", "a")          |FunctionInvocation(Name(starts with) -> PositionalParameters(StringLiteral("abc"), StringLiteral("a")))                                    |
+|ends with("abc", "c")            |FunctionInvocation(Name(ends with) -> PositionalParameters(StringLiteral("abc"), StringLiteral("c")))                                      |
+|matches("abc", "abc", "i")       |FunctionInvocation(Name(matches) -> PositionalParameters(StringLiteral("abc"), StringLiteral("abc"), StringLiteral("i")))                  |
+|matches("abc", "abc")            |FunctionInvocation(Name(matches) -> PositionalParameters(StringLiteral("abc"), StringLiteral("abc")))                                      |
+|matches(str1: "abc", str2: "abc")|FunctionInvocation(Name(matches) -> NamedParameters(str1 : StringLiteral("abc"), str2 : StringLiteral("abc")))                             |

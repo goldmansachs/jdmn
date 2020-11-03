@@ -1,0 +1,8 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Textual Expressions
+!|FEEL Textual Expressions Fixture                             |
+|expression|output?                                            |
+|1         |NumericLiteral(1)                                  |
+|1, 2      |ExpressionList(NumericLiteral(1),NumericLiteral(2))|
