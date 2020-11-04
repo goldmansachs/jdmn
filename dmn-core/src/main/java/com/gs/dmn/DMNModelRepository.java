@@ -200,6 +200,34 @@ public class DMNModelRepository {
         return this.elementToDefinitions.get(element);
     }
 
+    public String makeLocation(TDefinitions definitions, TDMNElement element) {
+        if (definitions == null && element == null) {
+            return null;
+        }
+
+        List<String> locationParts = new ArrayList<>();
+        if (definitions != null) {
+            if (!StringUtils.isBlank(definitions.getName())) {
+                locationParts.add(String.format("model='%s'", definitions.getName()));
+            }
+        }
+        if (element != null) {
+            String id = element.getId();
+            String label = element.getLabel();
+            String name = element instanceof TNamedElement ? ((TNamedElement) element).getName() : null;
+            if (!StringUtils.isBlank(label)) {
+                locationParts.add(String.format("label='%s'", label));
+            }
+            if (!StringUtils.isBlank(name)) {
+                locationParts.add(String.format("name='%s'", name));
+            }
+            if (!StringUtils.isBlank(id)) {
+                locationParts.add(String.format("id='%s'", id));
+            }
+        }
+        return locationParts.isEmpty() ? null : String.format("(%s)", String.join(", ", locationParts));
+    }
+
     public String getNamespace(TNamedElement element) {
         TDefinitions definitions = this.elementToDefinitions.get(element);
         return definitions == null ? null : definitions.getNamespace();
