@@ -206,11 +206,21 @@ public class DMNModelRepository {
         }
 
         List<String> locationParts = new ArrayList<>();
+        addModelCoordinates(definitions, element, locationParts);
+        addElementCoordinates(element, locationParts);
+        return locationParts.isEmpty() ? null : String.format("(%s)", String.join(", ", locationParts));
+    }
+
+    protected void addModelCoordinates(TDefinitions definitions, TDMNElement element, List<String> locationParts) {
         if (definitions != null) {
-            if (!StringUtils.isBlank(definitions.getName())) {
-                locationParts.add(String.format("model='%s'", definitions.getName()));
+            String modelName = definitions.getName();
+            if (!StringUtils.isBlank(modelName)) {
+                locationParts.add(String.format("model='%s'", modelName));
             }
         }
+    }
+
+    protected void addElementCoordinates(TDMNElement element, List<String> locationParts) {
         if (element != null) {
             String id = element.getId();
             String label = element.getLabel();
@@ -225,7 +235,6 @@ public class DMNModelRepository {
                 locationParts.add(String.format("id='%s'", id));
             }
         }
-        return locationParts.isEmpty() ? null : String.format("(%s)", String.join(", ", locationParts));
     }
 
     public String getNamespace(TNamedElement element) {
