@@ -44,13 +44,13 @@ public class UniqueInformationRequirementValidator extends SimpleDMNValidator {
                     List<TDMNElementReference> inputDataReferences = new ArrayList<>();
                     List<TDMNElementReference> decisionReferences = new ArrayList<>();
                     collectReferences(irList, inputDataReferences, decisionReferences);
-                    validate(repository, definitions, element, inputDataReferences, "InformationRequirement InputData", errors);
-                    validate(repository, definitions, element, decisionReferences, "InformationRequirement Decision", errors);
+                    validate(repository, definitions, element, inputDataReferences, "informationRequirement.requiredInput", errors);
+                    validate(repository, definitions, element, decisionReferences, "informationRequirement.requiredDecision", errors);
                 } else if (element instanceof TDecisionService) {
                     List<TDMNElementReference> inputDataReferences = ((TDecisionService) element).getInputData();
-                    validate(repository, definitions, element, inputDataReferences, "InputData", errors);
+                    validate(repository, definitions, element, inputDataReferences, "inputData", errors);
                     List<TDMNElementReference> decisionReferences = ((TDecisionService) element).getInputDecision();
-                    validate(repository, definitions, element, decisionReferences, "InputDecision", errors);
+                    validate(repository, definitions, element, decisionReferences, "inputDecision", errors);
                 }
             }
         }
@@ -58,18 +58,32 @@ public class UniqueInformationRequirementValidator extends SimpleDMNValidator {
         return errors;
     }
 
-    private void validate(DMNModelRepository repository, TDefinitions definitions, TDRGElement element, List<TDMNElementReference> references, String property, List<String> errors) {
+    private void validate(DMNModelRepository repository, TDefinitions definitions, TDRGElement element, List<TDMNElementReference> references, String propertyPath, List<String> errors) {
         List<String> existingIds = new ArrayList<>();
         for (TDMNElementReference ir: references) {
             String id = ir.getHref();
             if (id != null) {
                 if (existingIds.contains(id)) {
-                    String errorMessage = String.format("Duplicated %s '%s'", property, id);
+                    TDRGElement referredElement = findElementByRef(repository, element, ir);
+                    String errorMessage;
+                    if (referredElement == null) {
+                        errorMessage = String.format("Duplicated %s '%s'", propertyPath, id);
+                    } else {
+                        errorMessage = String.format("Duplicated %s '%s'", propertyPath, repository.makeLocation(definitions, referredElement));
+                    }
                     errors.add(makeError(repository, definitions, element, errorMessage));
                 } else {
                     existingIds.add(id);
                 }
             }
+        }
+    }
+
+    private TDRGElement findElementByRef(DMNModelRepository repository, TDRGElement element, TDMNElementReference ir) {
+        try {
+            return repository.findDRGElementByRef(element, ir.getHref());
+        } catch (Exception e) {
+            return null;
         }
     }
 
