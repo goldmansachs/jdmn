@@ -69,7 +69,7 @@ public class UniqueInformationRequirementValidator extends SimpleDMNValidator {
                     if (referredElement == null) {
                         errorMessage = String.format("Duplicated %s '%s'", propertyPath, id);
                     } else {
-                        errorMessage = String.format("Duplicated %s '%s'", propertyPath, repository.makeLocation(definitions, referredElement));
+                        errorMessage = String.format("Duplicated %s %s", propertyPath, repository.makeLocation(definitions, referredElement));
                     }
                     errors.add(makeError(repository, definitions, element, errorMessage));
                 } else {
