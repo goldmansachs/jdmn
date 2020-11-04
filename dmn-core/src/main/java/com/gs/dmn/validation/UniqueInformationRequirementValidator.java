@@ -41,12 +41,16 @@ public class UniqueInformationRequirementValidator extends SimpleDMNValidator {
             for (TDRGElement element : repository.findDRGElements(definitions)) {
                 if (element instanceof TDecision) {
                     List<TInformationRequirement> irList = ((TDecision) element).getInformationRequirement();
-                    validate(repository, definitions, element, getReferences(irList), "InformationRequirement", errors);
+                    List<TDMNElementReference> inputDataReferences = new ArrayList<>();
+                    List<TDMNElementReference> decisionReferences = new ArrayList<>();
+                    collectReferences(irList, inputDataReferences, decisionReferences);
+                    validate(repository, definitions, element, inputDataReferences, "InformationRequirement InputData", errors);
+                    validate(repository, definitions, element, decisionReferences, "InformationRequirement Decision", errors);
                 } else if (element instanceof TDecisionService) {
-                    List<TDMNElementReference> inputData = ((TDecisionService) element).getInputData();
-                    validate(repository, definitions, element, inputData, "InputData", errors);
-                    List<TDMNElementReference> inputDecision = ((TDecisionService) element).getInputDecision();
-                    validate(repository, definitions, element, inputDecision, "InputDecision", errors);
+                    List<TDMNElementReference> inputDataReferences = ((TDecisionService) element).getInputData();
+                    validate(repository, definitions, element, inputDataReferences, "InputData", errors);
+                    List<TDMNElementReference> decisionReferences = ((TDecisionService) element).getInputDecision();
+                    validate(repository, definitions, element, decisionReferences, "InputDecision", errors);
                 }
             }
         }
@@ -69,18 +73,15 @@ public class UniqueInformationRequirementValidator extends SimpleDMNValidator {
         }
     }
 
-    private List<TDMNElementReference> getReferences(List<TInformationRequirement> irList) {
-        List<TDMNElementReference> references = new ArrayList<>();
+    private void collectReferences(List<TInformationRequirement> irList, List<TDMNElementReference> inputDataReferences, List<TDMNElementReference> decisionReferences) {
         for (TInformationRequirement ir: irList) {
             TDMNElementReference requiredInput = ir.getRequiredInput();
             TDMNElementReference requiredDecision = ir.getRequiredDecision();
             if (requiredInput != null) {
-                references.add(requiredInput);
+                inputDataReferences.add(requiredInput);
             } else if (requiredDecision != null) {
-                references.add(requiredDecision);
+                decisionReferences.add(requiredDecision);
             }
-
         }
-        return references;
     }
 }

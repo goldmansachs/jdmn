@@ -31,8 +31,8 @@ public class UniqueInformationRequirementValidatorTest extends AbstractValidator
     @Test
     public void testValidateDefinitionsWhenNotUniqueNames() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='test-dmn', name='CIP Assessments', id='cip-assessments'): error: Duplicated InformationRequirement 'decision-1'",
-                "(model='test-dmn', name='CIP Assessments', id='cip-assessments'): error: Duplicated InformationRequirement 'input-1'"
+                "(model='test-dmn', name='CIP Assessments', id='cip-assessments'): error: Duplicated InformationRequirement InputData 'input-1'",
+                "(model='test-dmn', name='CIP Assessments', id='cip-assessments'): error: Duplicated InformationRequirement Decision 'decision-1'"
         );
         validate(validator, "dmn/input/test-dmn-with-duplicated-information-requirements.dmn", expectedErrors);
     }
