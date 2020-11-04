@@ -20,6 +20,7 @@ import com.gs.dmn.runtime.interpreter.ImportPath;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.signavio.extension.SignavioExtension;
+import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
 
 import javax.xml.bind.JAXBElement;
@@ -76,6 +77,19 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     }
 
     @Override
+    protected void addModelCoordinates(TDefinitions definitions, TDMNElement element, List<String> locationParts) {
+        String diagramId = getDiagramId(element);
+        if (!StringUtils.isBlank(diagramId)) {
+            locationParts.add(String.format("model='%s'", diagramId));
+        } else {
+            String modelName = definitions.getName();
+            if (!StringUtils.isBlank(modelName)) {
+                locationParts.add(String.format("model='%s'", modelName));
+            }
+        }
+    }
+
+    @Override
     public SignavioDMNModelRepository copy() {
         return new SignavioDMNModelRepository(this.pairList);
     }
@@ -96,7 +110,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         return this.shapeIdQName;
     }
 
-    public String getDiagramId(TDRGElement element) {
+    public String getDiagramId(TDMNElement element) {
         javax.xml.namespace.QName diagramIdQName = getDiagramIdQName();
         return element.getOtherAttributes().get(diagramIdQName);
     }
