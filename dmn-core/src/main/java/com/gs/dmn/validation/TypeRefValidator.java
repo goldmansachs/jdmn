@@ -64,15 +64,15 @@ public class TypeRefValidator extends SimpleDMNValidator {
         return errorReport.stream().map(p -> makeError(p, dmnModelRepository)).collect(Collectors.toList());
     }
 
-    private String makeError(Pair<TDRGElement, Type> pair, DMNModelRepository dmnModelRepository) {
+    private String makeError(Pair<TDRGElement, Type> pair, DMNModelRepository repository) {
         TDRGElement element = pair.getLeft();
-        TDefinitions model = dmnModelRepository.getModel(element);
+        TDefinitions model = repository.getModel(element);
         Type type = pair.getRight();
-        TInformationItem variable = dmnModelRepository.variable(element);
+        TInformationItem variable = repository.variable(element);
         QualifiedName typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
 
         String hint = type == null ? "" : String.format(". The inferred type is '%s'", type.toString());
-        return makeError(model, element, String.format("Cannot find typeRef '%s'", typeRef.toString()) + hint);
+        return makeError(repository, model, element, String.format("Cannot find typeRef '%s'", typeRef.toString()) + hint);
     }
 
     public List<Pair<TDRGElement, Type>> makeErrorReport(DMNModelRepository dmnModelRepository) {
