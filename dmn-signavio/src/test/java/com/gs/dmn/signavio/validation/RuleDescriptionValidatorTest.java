@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.signavio.validation;
 
+import com.gs.dmn.DMNModelRepository;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TDecision;
 
@@ -22,6 +23,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest {
+    private final DMNModelRepository repository = new DMNModelRepository();
     private final RuleDescriptionValidator validator = new RuleDescriptionValidator();
 
     @Test
@@ -53,7 +55,7 @@ public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest 
     public void testValidateIncorrectList() {
         String description = "[ , string(\"abc\" ,  , string(\"abc\") , ]";
         List<String> actualErrors = new ArrayList<>();
-        validator.validate(null, makeDecision(), 0, description, actualErrors);
+        validator.validate(repository, null, makeDecision(), 0, description, actualErrors);
 
         List<String> expectedErrors = Arrays.asList(
                 "(name='Test'): error: Description of rule 0 in decision 'Test' contains illegal sequence '[ ,'",
@@ -67,7 +69,7 @@ public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest 
     public void testValidateIncorrectStrings() {
         String description = "[ string(-) ]";
         List<String> actualErrors = new ArrayList<>();
-        validator.validate(null, makeDecision(), 0, description, actualErrors);
+        validator.validate(repository, null, makeDecision(), 0, description, actualErrors);
 
         List<String> expectedErrors = Arrays.asList(
                 "(name='Test'): error: Description of rule 0 in decision 'Test' contains illegal sequence 'string(-)'"
@@ -79,7 +81,7 @@ public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest 
     public void testValidateIncorrectCharacters() {
         String description = "[ string(\"\") , string(\"abc \u00A0 123\") , string(\"\") ]";
         List<String> actualErrors = new ArrayList<>();
-        validator.validate(null, makeDecision(), 0, description, actualErrors);
+        validator.validate(repository, null, makeDecision(), 0, description, actualErrors);
 
         List<String> expectedErrors = Arrays.asList(
                 "(name='Test'): error: Description of rule 0 in decision 'Test' contains illegal sequence 'NO-BREAK SPACE'"

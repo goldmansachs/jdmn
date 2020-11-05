@@ -30,23 +30,27 @@ public class UniqueInformationRequirementValidator extends SimpleDMNValidator {
     }
 
     @Override
-    public List<String> validate(DMNModelRepository dmnModelRepository) {
+    public List<String> validate(DMNModelRepository repository) {
         List<String> errors = new ArrayList<>();
-        if (isEmpty(dmnModelRepository)) {
+        if (isEmpty(repository)) {
             logger.warn("DMN repository is empty; validator will not run");
             return errors;
         }
 
-        for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
-            for (TDRGElement element : dmnModelRepository.findDRGElements(definitions)) {
+        for (TDefinitions definitions: repository.getAllDefinitions()) {
+            for (TDRGElement element : repository.findDRGElements(definitions)) {
                 if (element instanceof TDecision) {
                     List<TInformationRequirement> irList = ((TDecision) element).getInformationRequirement();
-                    validate(definitions, element, getReferences(irList), "InformationRequirement", errors);
+                    List<TDMNElementReference> inputDataReferences = new ArrayList<>();
+                    List<TDMNElementReference> decisionReferences = new ArrayList<>();
+                    collectReferences(irList, inputDataReferences, decisionReferences);
+                    validate(repository, definitions, element, inputDataReferences, "informationRequirement.requiredInput", errors);
+                    validate(repository, definitions, element, decisionReferences, "informationRequirement.requiredDecision", errors);
                 } else if (element instanceof TDecisionService) {
-                    List<TDMNElementReference> inputData = ((TDecisionService) element).getInputData();
-                    validate(definitions, element, inputData, "InputData", errors);
-                    List<TDMNElementReference> inputDecision = ((TDecisionService) element).getInputDecision();
-                    validate(definitions, element, inputDecision, "InputDecision", errors);
+                    List<TDMNElementReference> inputDataReferences = ((TDecisionService) element).getInputData();
+                    validate(repository, definitions, element, inputDataReferences, "inputData", errors);
+                    List<TDMNElementReference> decisionReferences = ((TDecisionService) element).getInputDecision();
+                    validate(repository, definitions, element, decisionReferences, "inputDecision", errors);
                 }
             }
         }
@@ -54,14 +58,20 @@ public class UniqueInformationRequirementValidator extends SimpleDMNValidator {
         return errors;
     }
 
-    private void validate(TDefinitions definitions, TDRGElement element, List<TDMNElementReference> references, String property, List<String> errors) {
+    private void validate(DMNModelRepository repository, TDefinitions definitions, TDRGElement element, List<TDMNElementReference> references, String propertyPath, List<String> errors) {
         List<String> existingIds = new ArrayList<>();
         for (TDMNElementReference ir: references) {
             String id = ir.getHref();
             if (id != null) {
                 if (existingIds.contains(id)) {
-                    String errorMessage = String.format("Duplicated %s '%s'", property, id);
-                    errors.add(makeError(definitions, element, errorMessage));
+                    TDRGElement referredElement = findElementByRef(repository, element, ir);
+                    String errorMessage;
+                    if (referredElement == null) {
+                        errorMessage = String.format("Duplicated %s '%s'", propertyPath, id);
+                    } else {
+                        errorMessage = String.format("Duplicated %s %s", propertyPath, repository.makeLocation(definitions, referredElement));
+                    }
+                    errors.add(makeError(repository, definitions, element, errorMessage));
                 } else {
                     existingIds.add(id);
                 }
@@ -69,18 +79,23 @@ public class UniqueInformationRequirementValidator extends SimpleDMNValidator {
         }
     }
 
-    private List<TDMNElementReference> getReferences(List<TInformationRequirement> irList) {
-        List<TDMNElementReference> references = new ArrayList<>();
+    private TDRGElement findElementByRef(DMNModelRepository repository, TDRGElement element, TDMNElementReference ir) {
+        try {
+            return repository.findDRGElementByRef(element, ir.getHref());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private void collectReferences(List<TInformationRequirement> irList, List<TDMNElementReference> inputDataReferences, List<TDMNElementReference> decisionReferences) {
         for (TInformationRequirement ir: irList) {
             TDMNElementReference requiredInput = ir.getRequiredInput();
             TDMNElementReference requiredDecision = ir.getRequiredDecision();
             if (requiredInput != null) {
-                references.add(requiredInput);
+                inputDataReferences.add(requiredInput);
             } else if (requiredDecision != null) {
-                references.add(requiredDecision);
+                decisionReferences.add(requiredDecision);
             }
-
         }
-        return references;
     }
 }
