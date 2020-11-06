@@ -5,7 +5,7 @@ jdk:
   - openjdk11
 
 before_install:
-  - export MAVEN_OPTS="-Dmaven.repo.local=$HOME/.m2/repository -Xmx2g"
+  - export MAVEN_OPTS="-Dmaven.repo.local=$HOME/.m2/repository -Xmx2g -XX:+UseParallelGC"
 
 install:
   - true
