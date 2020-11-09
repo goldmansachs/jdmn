@@ -75,6 +75,10 @@ public class JavaAssistCompiler extends JavaCompilerImpl {
         return lambdaImplClass.toClass();
     }
 
+    @Override
+    public void deleteLambdaClass(Object lambdaExpression) {
+    }
+
     private CtClass resolveClass(Class<?> cls) throws NotFoundException {
         ClassPool pool = ClassPool.getDefault();
         return pool.get(cls.getName());

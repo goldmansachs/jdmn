@@ -21,4 +21,6 @@ public interface JavaCompiler {
     ClassData makeClassData(FunctionDefinition element, FEELContext context, BasicDMNToNativeTransformer dmnTransformer, FEELTranslator feelTranslator, String libClassName);
 
     Class<?> compile(ClassData args) throws Exception;
+
+    void deleteLambdaClass(Object lambdaExpression);
 }

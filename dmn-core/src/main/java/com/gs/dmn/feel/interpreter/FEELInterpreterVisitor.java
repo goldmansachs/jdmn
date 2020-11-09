@@ -60,7 +60,6 @@ import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -71,20 +70,20 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     private static final Logger LOGGER = LoggerFactory.getLogger(FEELInterpreterVisitor.class);
     private static final RuntimeEnvironmentFactory RUNTIME_ENVIRONMENT_FACTORY = RuntimeEnvironmentFactory.instance();
 
+    // private static final JavaCompiler JAVA_COMPILER = new JavaAssistCompiler();
+    private static final JavaCompiler JAVA_COMPILER = new JavaxToolsCompiler();
+
     private final DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter;
     private final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib;
     private final FEELTranslator feelTranslator;
     private final DefaultExternalFunctionExecutor externalFunctionExecutor = new DefaultExternalFunctionExecutor();
 
-    private final JavaCompiler javaCompiler;
 
     FEELInterpreterVisitor(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter) {
         super(dmnInterpreter.getBasicDMNTransformer());
         this.dmnInterpreter = dmnInterpreter;
         this.feelTranslator = new FEELTranslatorForInterpreter(dmnInterpreter.getBasicDMNTransformer());
         this.lib = dmnInterpreter.getFeelLib();
-        //    this.javaCompiler = new JavaAssistCompiler();
-        this.javaCompiler = new JavaxToolsCompiler();
     }
 
     @Override
@@ -306,8 +305,8 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     private Object makeLambdaExpression(FunctionDefinition element, FEELContext context) {
         try {
             // Compile
-            ClassData classData = javaCompiler.makeClassData(element, context, this.dmnTransformer, this.feelTranslator, this.lib.getClass().getName());
-            Class<?> cls = javaCompiler.compile(classData);
+            ClassData classData = JAVA_COMPILER.makeClassData(element, context, this.dmnTransformer, this.feelTranslator, this.lib.getClass().getName());
+            Class<?> cls = JAVA_COMPILER.compile(classData);
 
             // Create instance
             return cls.getDeclaredConstructor().newInstance();
@@ -667,8 +666,12 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                     FunctionDefinition functionDefinition = (FunctionDefinition) argList.get(1);
                     Object lambdaExpression = makeLambdaExpression(functionDefinition, context);
                     argList.set(1, lambdaExpression);
+                    Object result = evaluateBuiltInFunction(this.lib, javaFunctionName, argList);
+                    JAVA_COMPILER.deleteLambdaClass(lambdaExpression);
+                    return result;
+                } else {
+                    return evaluateBuiltInFunction(this.lib, javaFunctionName, argList);
                 }
-                return evaluateBuiltInFunction(this.lib, javaFunctionName, argList);
             }
         } else {
             Object binding = function.accept(this, context);
