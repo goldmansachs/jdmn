@@ -38,8 +38,8 @@ public class TestLabToKotlinProtoTransformerTest extends AbstractTestLabToKotlin
     }
 
     @Override
-    protected Map<String, String> makeInputParameters() {
-        Map<String, String> inputParams = super.makeInputParameters();
+    protected Map<String, String> makeInputParametersMap() {
+        Map<String, String> inputParams = super.makeInputParametersMap();
         inputParams.put("generateProtoMessages", "true");
         inputParams.put("generateProtoServices", "true");
         inputParams.put("protoVersion", "proto3");

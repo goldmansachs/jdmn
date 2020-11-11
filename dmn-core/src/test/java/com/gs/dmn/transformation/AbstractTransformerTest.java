@@ -22,6 +22,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -57,7 +58,13 @@ public abstract class AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     protected abstract TypeDeserializationConfigurer makeTypeDeserializationConfigurer(BuildLogger logger);
 
-    protected abstract Map<String, String> makeInputParameters();
+    protected Map<String, String> makeInputParametersMap() {
+        Map<String, String> inputParams = new LinkedHashMap<>();
+        inputParams.put("dmnVersion", "1.1");
+        inputParams.put("modelVersion", "2.0");
+        inputParams.put("platformVersion", "1.0");
+        return inputParams;
+    }
 
     @Test
     public void testRelativePath() {
