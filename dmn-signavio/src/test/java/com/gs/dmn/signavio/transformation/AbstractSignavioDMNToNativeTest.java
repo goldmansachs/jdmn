@@ -22,6 +22,7 @@ import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider;
 import com.gs.dmn.transformation.AbstractDMNTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
@@ -51,7 +52,7 @@ public abstract class AbstractSignavioDMNToNativeTest<NUMBER, DATE, TIME, DATE_T
     }
 
     @Override
-    protected LazyEvaluationDetector makeLazyEvaluationDetector(Map<String, String> inputParameters, BuildLogger logger) {
+    protected LazyEvaluationDetector makeLazyEvaluationDetector(InputParameters inputParameters, BuildLogger logger) {
         return new NopLazyEvaluationDetector();
     }
 

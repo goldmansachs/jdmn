@@ -64,7 +64,7 @@ public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, 
         for (Pair<String, String> pair: extraInputParameters) {
             inputParameters.put(pair.getLeft(), pair.getRight());
         }
-        FileTransformer transformer = makeTransformer(inputParameters, LOGGER);
+        FileTransformer transformer = makeTransformer(new InputParameters(inputParameters), LOGGER);
         transformer.transform(inputPath, outputFolder.toPath());
 
         File expectedOutputFolder = new File(resource(expectedOutputPath));
@@ -81,7 +81,7 @@ public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, 
         return new NopDMNTransformer<>();
     }
 
-    private FileTransformer makeTransformer(Map<String, String> inputParameters, BuildLogger logger) {
+    private FileTransformer makeTransformer(InputParameters inputParameters, BuildLogger logger) {
         return makeDialectDefinition().createDMNToNativeTransformer(makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputParameters, logger);
     }
 

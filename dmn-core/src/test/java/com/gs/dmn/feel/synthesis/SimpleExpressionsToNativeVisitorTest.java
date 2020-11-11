@@ -27,15 +27,14 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 
-import java.util.LinkedHashMap;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
 
 public class SimpleExpressionsToNativeVisitorTest {
     private final StandardDMNDialectDefinition dialect = new StandardDMNDialectDefinition();
-    private final SimpleExpressionsToNativeVisitor visitor = new SimpleExpressionsToNativeVisitor(dialect.createBasicTransformer(new DMNModelRepository(), new NopLazyEvaluationDetector(), new LinkedHashMap<>()));
+    private final SimpleExpressionsToNativeVisitor visitor = new SimpleExpressionsToNativeVisitor(dialect.createBasicTransformer(new DMNModelRepository(), new NopLazyEvaluationDetector(), new InputParameters()));
 
     //
     // Tests

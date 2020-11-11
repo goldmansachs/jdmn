@@ -25,6 +25,7 @@ import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.feel.lib.MixedJavaTimeSignavioLib;
 import com.gs.dmn.signavio.testlab.TestLab;
+import com.gs.dmn.transformation.InputParameters;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
@@ -39,7 +40,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
-import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
@@ -69,7 +69,7 @@ public class CredDecMixedBenchmarkTest {
 
         String pathName = "exported/dmn/complex/Example credit decision.dmn";
         DMNModelRepository repository = readDMN(pathName);
-        DMNInterpreter<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> interpreter = dialectDefinition.createDMNInterpreter(repository, new LinkedHashMap<>());
+        DMNInterpreter<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> interpreter = dialectDefinition.createDMNInterpreter(repository, new InputParameters());
 
         RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentFactory.instance().makeEnvironment();
         runtimeEnvironment.bind("applicant", applicant);

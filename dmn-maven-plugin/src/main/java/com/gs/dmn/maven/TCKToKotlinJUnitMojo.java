@@ -18,6 +18,7 @@ import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.tck.TCKTestCasesToKotlinJUnitTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -28,7 +29,6 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.io.File;
-import java.util.Map;
 
 @SuppressWarnings("CanBeFinal")
 @Mojo(name = "tck-to-kotlin", defaultPhase = LifecyclePhase.GENERATE_TEST_SOURCES, configurator = "dmn-mojo-configurator")
@@ -67,7 +67,7 @@ public class TCKToKotlinJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> exten
     }
 
     @Override
-    protected FileTransformer makeTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dmnDialect, DMNValidator dmnValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
+    protected FileTransformer makeTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dmnDialect, DMNValidator dmnValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger) {
         FileTransformer transformer = new TCKTestCasesToKotlinJUnitTransformer<>(
                 dmnDialect,
                 dmnValidator,
@@ -76,7 +76,7 @@ public class TCKToKotlinJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> exten
                 lazyEvaluationDetector,
                 typeDeserializationConfigurer,
                 this.inputModelFileDirectory.toPath(),
-                this.inputParameters,
+                makeInputParameters(),
                 logger
         );
         return transformer;

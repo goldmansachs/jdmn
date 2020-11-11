@@ -31,13 +31,13 @@ import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
+import com.gs.dmn.transformation.InputParameters;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TNamedElement;
 
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,7 +58,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     protected AbstractFEELProcessorTest() {
         DMNModelRepository repository = makeRepository();
-        LinkedHashMap<String, String> inputParameters = new LinkedHashMap<>();
+        InputParameters inputParameters = new InputParameters();
 
         DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition = makeDialect();
 

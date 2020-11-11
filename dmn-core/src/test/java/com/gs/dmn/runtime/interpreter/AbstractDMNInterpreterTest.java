@@ -28,6 +28,7 @@ import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.tck.TCKUtil;
 import com.gs.dmn.tck.TestCasesReader;
 import com.gs.dmn.transformation.DMNTransformer;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.ToSimpleNameTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -81,7 +82,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
             for (Pair<String, String> params: extraInputParameters) {
                 inputParameters.put(params.getLeft(), params.getRight());
             }
-            this.interpreter = getDialectDefinition().createDMNInterpreter(repository, inputParameters);
+            this.interpreter = getDialectDefinition().createDMNInterpreter(repository, new InputParameters(inputParameters));
             this.basicTransformer = interpreter.getBasicDMNTransformer();
             this.lib = interpreter.getFeelLib();
 
@@ -113,7 +114,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
             for (Pair<String, String> params: extraInputParameters) {
                 inputParameters.put(params.getLeft(), params.getRight());
             }
-            this.interpreter = getDialectDefinition().createDMNInterpreter(repository, inputParameters);
+            this.interpreter = getDialectDefinition().createDMNInterpreter(repository, new InputParameters(inputParameters));
             this.basicTransformer = interpreter.getBasicDMNTransformer();
             this.lib = interpreter.getFeelLib();
 

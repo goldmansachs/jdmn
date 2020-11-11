@@ -16,10 +16,10 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.InputParamUtil;
+import com.gs.dmn.transformation.InputParameters;
 import org.omg.spec.dmn._20180521.model.*;
 
 import javax.xml.bind.JAXBElement;
-import java.util.Map;
 
 public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
     private final double sparsityThreshold;
@@ -28,7 +28,7 @@ public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
         this(null, new Slf4jBuildLogger(LOGGER));
     }
 
-    public SparseDecisionDetector(Map<String, String> inputParameters, BuildLogger logger) {
+    public SparseDecisionDetector(InputParameters inputParameters, BuildLogger logger) {
         super(inputParameters, logger);
         String sparsityThresholdParam = InputParamUtil.getOptionalParam(inputParameters, "sparsityThreshold", "0.0");
         this.sparsityThreshold = Double.parseDouble(sparsityThresholdParam);
