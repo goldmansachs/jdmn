@@ -25,7 +25,7 @@ public class InputParamUtilTest {
         Map<String, String> params = new HashMap<String, String>(){{
             put("paramKey", "paramValue");
         }};
-        assertEquals("paramValue", InputParamUtil.getRequiredParam(params, "paramKey"));
+        assertEquals("paramValue", InputParameters.getRequiredParam(params, "paramKey"));
     }
 
     @Test
@@ -33,7 +33,7 @@ public class InputParamUtilTest {
         Map<String, String> params = new HashMap<String, String>(){{
         }};
         try {
-            InputParamUtil.getRequiredParam(params, "paramKey");
+            InputParameters.getRequiredParam(params, "paramKey");
             fail();
         } catch (RuntimeException e) {
             assertEquals("A 'paramKey' parameter is required.", e.getMessage());
@@ -45,14 +45,14 @@ public class InputParamUtilTest {
         Map<String, String> params = new HashMap<String, String>(){{
             put("paramKey", "paramValue");
         }};
-        assertEquals("paramValue", InputParamUtil.getOptionalParam(params, "paramKey"));
+        assertEquals("paramValue", InputParameters.getOptionalParam(params, "paramKey"));
     }
 
     @Test
     public void testGetOptionalParamWhereNotPresent() {
         Map<String, String> params = new HashMap<String, String>(){{
         }};
-        assertNull(InputParamUtil.getOptionalParam(params, "paramKey"));
+        assertNull(InputParameters.getOptionalParam(params, "paramKey"));
     }
 
     @Test
@@ -60,13 +60,13 @@ public class InputParamUtilTest {
         Map<String, String> params = new HashMap<String, String>(){{
             put("paramKey", "true");
         }};
-        assertTrue(InputParamUtil.getOptionalBooleanParam(params, "paramKey"));
+        assertTrue(InputParameters.getOptionalBooleanParam(params, "paramKey"));
     }
 
     @Test
     public void testGetOptionalBooleanParamWhereNotPresent() {
         Map<String, String> params = new HashMap<String, String>(){{
         }};
-        assertFalse(InputParamUtil.getOptionalBooleanParam(params, "paramKey"));
+        assertFalse(InputParameters.getOptionalBooleanParam(params, "paramKey"));
     }
 }

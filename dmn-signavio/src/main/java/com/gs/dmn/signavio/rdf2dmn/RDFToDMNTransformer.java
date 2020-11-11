@@ -32,7 +32,6 @@ import com.gs.dmn.signavio.rdf2dmn.json.relation.EnumerationProperty;
 import com.gs.dmn.signavio.rdf2dmn.json.relation.Relation;
 import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.AbstractFileTransformer;
-import com.gs.dmn.transformation.InputParamUtil;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
@@ -98,8 +97,8 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         this.dmnReader = new DMNReader(logger, false);
         this.dmnWriter = new DMNWriter(logger);
         this.rdfReader = new RDFReader(logger);
-        this.namespace = InputParamUtil.getRequiredParam(inputParameters, "namespace");
-        this.prefix = InputParamUtil.getRequiredParam(inputParameters, "prefix");
+        this.namespace = InputParameters.getRequiredParam(inputParameters, "namespace");
+        this.prefix = InputParameters.getRequiredParam(inputParameters, "prefix");
     }
 
     @Override

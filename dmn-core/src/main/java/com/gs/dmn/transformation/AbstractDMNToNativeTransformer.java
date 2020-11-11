@@ -60,9 +60,9 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     protected AbstractDMNToNativeTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
 
-        this.dmnVersion = InputParamUtil.getRequiredParam(inputParameters, "dmnVersion");
-        this.modelVersion = InputParamUtil.getRequiredParam(inputParameters, "modelVersion");
-        this.platformVersion = InputParamUtil.getRequiredParam(inputParameters, "platformVersion");
+        this.dmnVersion = InputParameters.getRequiredParam(inputParameters, "dmnVersion");
+        this.modelVersion = InputParameters.getRequiredParam(inputParameters, "modelVersion");
+        this.platformVersion = InputParameters.getRequiredParam(inputParameters, "platformVersion");
     }
 
     @Override

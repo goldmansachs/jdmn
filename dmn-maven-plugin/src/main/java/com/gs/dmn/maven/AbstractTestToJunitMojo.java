@@ -17,7 +17,6 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
-import com.gs.dmn.transformation.InputParamUtil;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
@@ -60,9 +59,9 @@ public abstract class AbstractTestToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DUR
     }
 
     private void validateParameters(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dmnDialect, DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters) {
-        boolean onePackage = InputParamUtil.getOptionalBooleanParam(inputParameters, "onePackage");
-        String singletonInputData = InputParamUtil.getOptionalParam(inputParameters, "singletonInputData");
-        String caching = InputParamUtil.getOptionalParam(inputParameters, "caching");
+        boolean onePackage = InputParameters.getOptionalBooleanParam(inputParameters, "onePackage");
+        String singletonInputData = InputParameters.getOptionalParam(inputParameters, "singletonInputData");
+        String caching = InputParameters.getOptionalParam(inputParameters, "caching");
         if (onePackage) {
             this.getLog().warn("Use 'onePackage' carefully, names must be unique across all the DMs.");
         }

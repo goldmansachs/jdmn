@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -21,5 +23,39 @@ public class InputParameters extends LinkedHashMap<String, String> {
 
     public InputParameters(Map<String, String> inputParameters) {
         this.putAll(inputParameters);
+    }
+
+    public static String getRequiredParam(Map<String, String> parameters, String parameterKey) {
+        if (parameters == null || parameters.get(parameterKey) == null || parameters.get(parameterKey).trim().isEmpty()) {
+            throw new DMNRuntimeException("A '" + parameterKey + "' parameter is required.");
+        } else {
+            return parameters.get(parameterKey);
+        }
+    }
+
+    public static String getOptionalParam(Map<String, String> parameters, String parameterKey, String defaultValue) {
+        if (parameters == null || parameters.get(parameterKey) == null || parameters.get(parameterKey).trim().isEmpty()) {
+            return defaultValue;
+        } else {
+            return parameters.get(parameterKey);
+        }
+    }
+
+    public static String getOptionalParam(Map<String, String> parameters, String parameterKey) {
+        if (parameters == null || parameters.get(parameterKey) == null || parameters.get(parameterKey).trim().isEmpty()) {
+            return null;
+        } else {
+            return parameters.get(parameterKey);
+        }
+    }
+
+    public static boolean getOptionalBooleanParam(Map<String, String> parameters, String paramKey) {
+        String param = getOptionalParam(parameters, paramKey);
+        return Boolean.parseBoolean(param);
+    }
+
+    public static boolean getOptionalBooleanParam(Map<String, String> parameters, String paramKey, String defaultValue) {
+        String param = getOptionalParam(parameters, paramKey, defaultValue);
+        return Boolean.parseBoolean(param);
     }
 }
