@@ -44,11 +44,11 @@ public abstract class AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURA
         this.dmnTransformer = dmnTransformer;
         this.lazyEvaluationDetector = lazyEvaluationDetector;
         this.typeDeserializationConfigurer = typeDeserializationConfigurer;
-        boolean xsdValidation = InputParamUtil.getOptionalBooleanParam(inputParameters, "xsdValidation");
+        boolean xsdValidation = InputParameters.getOptionalBooleanParam(inputParameters, "xsdValidation");
         this.dmnReader = new DMNReader(logger, xsdValidation);
         this.dmnValidator = dmnValidator;
 
-        this.javaRootPackage = InputParamUtil.getOptionalParam(inputParameters, "javaRootPackage");
+        this.javaRootPackage = InputParameters.getOptionalParam(inputParameters, "javaRootPackage");
         this.decisionBaseClass = dialectDefinition.getDecisionBaseClass();
     }
 

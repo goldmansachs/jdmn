@@ -43,7 +43,6 @@ import com.gs.dmn.runtime.listener.LoggingEventListener;
 import com.gs.dmn.runtime.listener.NopEventListener;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
-import com.gs.dmn.transformation.InputParamUtil;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.LazyEvaluationOptimisation;
@@ -104,17 +103,17 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         this.lazyEvaluationDetector = lazyEvaluationDetector;
 
         // Configuration
-        this.javaRootPackage = InputParamUtil.getOptionalParam(inputParameters, "javaRootPackage");
+        this.javaRootPackage = InputParameters.getOptionalParam(inputParameters, "javaRootPackage");
         boolean onePackageDefault = dmnModelRepository.getAllDefinitions().size() == 1;
-        this.onePackage = InputParamUtil.getOptionalBooleanParam(inputParameters, "onePackage", "" + onePackageDefault);
-        this.caching = InputParamUtil.getOptionalBooleanParam(inputParameters, "caching");
-        String cachingThresholdParam = InputParamUtil.getOptionalParam(inputParameters, "cachingThreshold", "1");
+        this.onePackage = InputParameters.getOptionalBooleanParam(inputParameters, "onePackage", "" + onePackageDefault);
+        this.caching = InputParameters.getOptionalBooleanParam(inputParameters, "caching");
+        String cachingThresholdParam = InputParameters.getOptionalParam(inputParameters, "cachingThreshold", "1");
         this.cachingThreshold = Integer.parseInt(cachingThresholdParam);
-        this.singletonInputData = InputParamUtil.getOptionalBooleanParam(inputParameters, "singletonInputData", "true");
-        this.parallelStream = InputParamUtil.getOptionalBooleanParam(inputParameters, "parallelStream", "false");
-        this.generateProtoMessages = InputParamUtil.getOptionalBooleanParam(inputParameters, "generateProtoMessages", "false");
-        this.generateProtoServices = InputParamUtil.getOptionalBooleanParam(inputParameters, "generateProtoServices", "false");
-        this.protoVersion = InputParamUtil.getOptionalParam(inputParameters, "protoVersion", "proto3");
+        this.singletonInputData = InputParameters.getOptionalBooleanParam(inputParameters, "singletonInputData", "true");
+        this.parallelStream = InputParameters.getOptionalBooleanParam(inputParameters, "parallelStream", "false");
+        this.generateProtoMessages = InputParameters.getOptionalBooleanParam(inputParameters, "generateProtoMessages", "false");
+        this.generateProtoServices = InputParameters.getOptionalBooleanParam(inputParameters, "generateProtoServices", "false");
+        this.protoVersion = InputParameters.getOptionalParam(inputParameters, "protoVersion", "proto3");
 
         // Derived data
         this.lazyEvaluationOptimisation = this.lazyEvaluationDetector.detect(this.dmnModelRepository);
