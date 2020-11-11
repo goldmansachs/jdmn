@@ -82,7 +82,7 @@ public abstract class AbstractRDFToDMNTransformerTest {
         File outputFolder = new File(outputPath);
         outputFolder.mkdirs();
 
-        RDFToDMNTransformer transformer = (RDFToDMNTransformer) makeTransformer(new InputParameters(makeInputParameters()), LOGGER);
+        RDFToDMNTransformer transformer = (RDFToDMNTransformer) makeTransformer(new InputParameters(makeInputParametersMap()), LOGGER);
         transformer.transform(path(inputPath), new File(outputPath).toPath());
 
         File actualOutputFile = new File(outputFolder, diagramName + DMNConstants.DMN_FILE_EXTENSION);
@@ -197,7 +197,7 @@ public abstract class AbstractRDFToDMNTransformerTest {
         assertEquals(label, decision.getLabel());
     }
 
-    protected Map<String, String> makeInputParameters() {
+    protected Map<String, String> makeInputParametersMap() {
         return new LinkedHashMap<String, String>() {{
             put("namespace", "http://www.gs.com/cip");
             put("prefix", "cip");

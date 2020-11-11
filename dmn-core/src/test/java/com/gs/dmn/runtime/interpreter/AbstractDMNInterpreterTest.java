@@ -78,11 +78,8 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
             dmnTransformer.transform(repository, pair.getRight());
 
             // Set-up execution
-            Map<String, String> inputParameters = makeInputParameters();
-            for (Pair<String, String> params: extraInputParameters) {
-                inputParameters.put(params.getLeft(), params.getRight());
-            }
-            this.interpreter = getDialectDefinition().createDMNInterpreter(repository, new InputParameters(inputParameters));
+            Map<String, String> inputParameters = makeInputParametersMap(extraInputParameters);
+            this.interpreter = getDialectDefinition().createDMNInterpreter(repository, makeInputParameters(inputParameters));
             this.basicTransformer = interpreter.getBasicDMNTransformer();
             this.lib = interpreter.getFeelLib();
 
@@ -110,11 +107,8 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
             dmnTransformer.transform(repository, pair.getRight());
 
             // Set-up execution
-            Map<String, String> inputParameters = makeInputParameters();
-            for (Pair<String, String> params: extraInputParameters) {
-                inputParameters.put(params.getLeft(), params.getRight());
-            }
-            this.interpreter = getDialectDefinition().createDMNInterpreter(repository, new InputParameters(inputParameters));
+            Map<String, String> inputParameters = makeInputParametersMap(extraInputParameters);
+            this.interpreter = getDialectDefinition().createDMNInterpreter(repository, makeInputParameters(inputParameters));
             this.basicTransformer = interpreter.getBasicDMNTransformer();
             this.lib = interpreter.getFeelLib();
 
@@ -204,7 +198,19 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         return pairs;
     }
 
-    protected Map<String, String> makeInputParameters() {
+    private InputParameters makeInputParameters(Map<String, String> inputParameters) {
+        return new InputParameters(inputParameters);
+    }
+
+    private Map<String, String> makeInputParametersMap(Pair<String, String>[] extraInputParameters) {
+        Map<String, String> inputParameters = makeInputParametersMap();
+        for (Pair<String, String> params : extraInputParameters) {
+            inputParameters.put(params.getLeft(), params.getRight());
+        }
+        return inputParameters;
+    }
+
+    protected Map<String, String> makeInputParametersMap() {
         Map<String, String> inputParams = new LinkedHashMap<>();
         inputParams.put("dmnVersion", "1.1");
         inputParams.put("modelVersion", "2.0");

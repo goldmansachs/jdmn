@@ -77,8 +77,8 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, T
     }
 
     @Override
-    protected Map<String, String> makeInputParameters() {
-        LinkedHashMap<String, String> inputParams = new LinkedHashMap<>();
+    protected Map<String, String> makeInputParametersMap() {
+        Map<String, String> inputParams = super.makeInputParametersMap();
         inputParams.put("environmentFactoryClass", StandardEnvironmentFactory.class.getName());
         inputParams.put("decisionBaseClass", DefaultDMNBaseDecision.class.getName());
         return inputParams;

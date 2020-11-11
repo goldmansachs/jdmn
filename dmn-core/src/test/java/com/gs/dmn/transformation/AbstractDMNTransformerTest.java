@@ -60,15 +60,16 @@ public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, 
         outputFolder.mkdirs();
 
         Path inputPath = new File(inputFilePath).toPath();
-        Map<String, String> inputParameters = makeInputParameters();
-        for (Pair<String, String> pair: extraInputParameters) {
-            inputParameters.put(pair.getLeft(), pair.getRight());
-        }
-        FileTransformer transformer = makeTransformer(new InputParameters(inputParameters), LOGGER);
+        Map<String, String> inputParameters = makeInputParametersMap(extraInputParameters);
+        FileTransformer transformer = makeTransformer(makeInputParameters(inputParameters), LOGGER);
         transformer.transform(inputPath, outputFolder.toPath());
 
         File expectedOutputFolder = new File(resource(expectedOutputPath));
         compareFile(expectedOutputFolder, outputFolder);
+    }
+
+    private InputParameters makeInputParameters(Map<String, String> inputParameters) {
+        return new InputParameters(inputParameters);
     }
 
     @Override
@@ -81,17 +82,16 @@ public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, 
         return new NopDMNTransformer<>();
     }
 
-    private FileTransformer makeTransformer(InputParameters inputParameters, BuildLogger logger) {
-        return makeDialectDefinition().createDMNToNativeTransformer(makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputParameters, logger);
+    private Map<String, String> makeInputParametersMap(Pair<String, String>[] extraInputParameters) {
+        Map<String, String> inputParameters = makeInputParametersMap();
+        for (Pair<String, String> pair: extraInputParameters) {
+            inputParameters.put(pair.getLeft(), pair.getRight());
+        }
+        return inputParameters;
     }
 
-    @Override
-    protected Map<String, String> makeInputParameters() {
-        Map<String, String> inputParams = new LinkedHashMap<>();
-        inputParams.put("dmnVersion", "1.1");
-        inputParams.put("modelVersion", "2.0");
-        inputParams.put("platformVersion", "1.0");
-        return inputParams;
+    private FileTransformer makeTransformer(InputParameters inputParameters, BuildLogger logger) {
+        return makeDialectDefinition().createDMNToNativeTransformer(makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputParameters, logger);
     }
 
     private String diagramName(File file) {

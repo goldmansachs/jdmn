@@ -27,7 +27,7 @@ public abstract class AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_
 
         Path inputPath = new File(inputTestFilePath).toPath();
         Path inputModelPath = new File(inputModelFilePath).toPath();
-        Map<String, String> inputParameters = makeInputParameters();
+        Map<String, String> inputParameters = makeInputParametersMap();
         for (Pair<String, String> pair: extraInputParameters) {
             inputParameters.put(pair.getLeft(), pair.getRight());
         }
