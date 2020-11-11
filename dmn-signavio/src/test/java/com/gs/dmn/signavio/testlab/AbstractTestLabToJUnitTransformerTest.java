@@ -20,6 +20,7 @@ import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
 import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
 import com.gs.dmn.transformation.AbstractTestCasesTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.NopDMNTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
@@ -42,7 +43,7 @@ public abstract class AbstractTestLabToJUnitTransformerTest<NUMBER, DATE, TIME, 
     }
 
     @Override
-    protected LazyEvaluationDetector makeLazyEvaluationDetector(Map<String, String> inputParameters, BuildLogger logger) {
+    protected LazyEvaluationDetector makeLazyEvaluationDetector(InputParameters inputParameters, BuildLogger logger) {
         return new NopLazyEvaluationDetector();
     }
 

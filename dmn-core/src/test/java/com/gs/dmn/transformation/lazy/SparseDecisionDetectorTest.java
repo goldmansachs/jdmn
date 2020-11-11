@@ -17,6 +17,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
+import com.gs.dmn.transformation.InputParameters;
 import org.junit.Before;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
@@ -46,7 +47,7 @@ public class SparseDecisionDetectorTest extends AbstractTest {
     @Test
     public void testLazyEvaluationOptimisation() {
         Map<String, String> inputParameters = new LinkedHashMap<String, String>() {{ put("sparsityThreshold", "0.10");}};
-        detector = new SparseDecisionDetector(inputParameters, LOGGER);
+        detector = new SparseDecisionDetector(new InputParameters(inputParameters), LOGGER);
         LazyEvaluationOptimisation lazyEvaluationOptimisation = detector.detect(dmnModelRepository);
 
         assertEquals(Arrays.asList("BureauCallType", "Eligibility"), new ArrayList<>(lazyEvaluationOptimisation.getLazyEvaluatedDecisions()));
@@ -61,7 +62,7 @@ public class SparseDecisionDetectorTest extends AbstractTest {
 
     private void checkDecisionTable(TDRGElement element, Double sparsityThreshold, boolean expectedResult) {
         Map<String, String> inputParameters = new LinkedHashMap<String, String>() {{ put("sparsityThreshold", sparsityThreshold.toString());}};
-        detector = new SparseDecisionDetector(inputParameters, LOGGER);
+        detector = new SparseDecisionDetector(new InputParameters(inputParameters), LOGGER);
         TExpression expression = dmnModelRepository.expression(element);
         assertEquals(expectedResult, detector.isSparseDecisionTable((TDecisionTable) expression, sparsityThreshold));
     }

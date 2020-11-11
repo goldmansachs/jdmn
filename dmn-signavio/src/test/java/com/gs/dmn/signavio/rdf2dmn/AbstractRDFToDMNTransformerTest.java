@@ -17,6 +17,7 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.transformation.FileTransformer;
+import com.gs.dmn.transformation.InputParameters;
 import org.apache.commons.io.FileUtils;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -81,7 +82,7 @@ public abstract class AbstractRDFToDMNTransformerTest {
         File outputFolder = new File(outputPath);
         outputFolder.mkdirs();
 
-        RDFToDMNTransformer transformer = (RDFToDMNTransformer) makeTransformer(makeInputParameters(), LOGGER);
+        RDFToDMNTransformer transformer = (RDFToDMNTransformer) makeTransformer(new InputParameters(makeInputParameters()), LOGGER);
         transformer.transform(path(inputPath), new File(outputPath).toPath());
 
         File actualOutputFile = new File(outputFolder, diagramName + DMNConstants.DMN_FILE_EXTENSION);
@@ -132,7 +133,7 @@ public abstract class AbstractRDFToDMNTransformerTest {
 
     private final SAXBuilder builder = new SAXBuilder();
 
-    private FileTransformer makeTransformer(Map<String, String> inputParameters, BuildLogger logger) {
+    private FileTransformer makeTransformer(InputParameters inputParameters, BuildLogger logger) {
         return new RDFToDMNTransformer(inputParameters, logger);
     }
 

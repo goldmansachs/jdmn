@@ -31,12 +31,12 @@ public abstract class AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_
         for (Pair<String, String> pair: extraInputParameters) {
             inputParameters.put(pair.getLeft(), pair.getRight());
         }
-        FileTransformer transformer = makeTransformer(inputModelPath, inputParameters, LOGGER);
+        FileTransformer transformer = makeTransformer(inputModelPath, new InputParameters(inputParameters), LOGGER);
         transformer.transform(inputPath, outputFolder.toPath());
 
         File expectedOutputFolder = new File(resource(expectedOutputPath));
         compareFile(expectedOutputFolder, outputFolder);
     }
 
-    protected abstract FileTransformer makeTransformer(Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger);
+    protected abstract FileTransformer makeTransformer(Path inputModelPath, InputParameters inputParameters, BuildLogger logger);
 }

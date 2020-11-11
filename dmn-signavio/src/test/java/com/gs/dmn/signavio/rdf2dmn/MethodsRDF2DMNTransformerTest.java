@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.signavio.rdf2dmn;
 
+import com.gs.dmn.transformation.InputParameters;
 import org.junit.Test;
 
 import java.util.LinkedHashMap;
@@ -24,7 +25,7 @@ public class MethodsRDF2DMNTransformerTest {
         put("namespace", "http://www.gs.com/cip");
         put("prefix", "cip");
     }};
-    private final RDFToDMNTransformer transformer = new RDFToDMNTransformer(inputParameters, null);
+    private final RDFToDMNTransformer transformer = new RDFToDMNTransformer(new InputParameters(inputParameters), null);
 
     @Test
     public void testDecisionNames() {

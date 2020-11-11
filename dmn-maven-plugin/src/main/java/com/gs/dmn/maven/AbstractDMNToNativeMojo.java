@@ -55,7 +55,7 @@ public abstract class AbstractDMNToNativeMojo<NUMBER, DATE, TIME, DATE_TIME, DUR
         DMNValidator dmnValidator = makeDMNValidator(this.dmnValidators, logger);
         DMNTransformer<TEST> dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
         TemplateProvider templateProvider = makeTemplateProvider(templateProviderName, logger);
-        LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, this.inputParameters);
+        LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, makeInputParameters());
         TypeDeserializationConfigurer typeDeserializationConfigurer = makeTypeDeserializationConfigurer(this.typeDeserializationConfigurer, logger);
         validateParameters(dmnDialect, dmnValidator, dmnTransformer, templateProvider, this.inputParameters);
 
@@ -66,7 +66,7 @@ public abstract class AbstractDMNToNativeMojo<NUMBER, DATE, TIME, DATE_TIME, DUR
                 templateProvider,
                 lazyEvaluationDetector,
                 typeDeserializationConfigurer,
-                this.inputParameters,
+                makeInputParameters(),
                 logger
         );
         return transformer;

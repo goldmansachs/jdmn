@@ -33,6 +33,7 @@ import com.gs.dmn.signavio.rdf2dmn.json.relation.Relation;
 import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.AbstractFileTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
@@ -88,11 +89,11 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     private RDFModel rdfModel;
     private final RDFReader rdfReader;
     private final DMNDialectDefinition dialectDefinition = new SignavioDMNDialectDefinition();
-    private final BasicDMNToNativeTransformer dmnTransformer = dialectDefinition.createBasicTransformer(new SignavioDMNModelRepository(), new NopLazyEvaluationDetector(), new LinkedHashMap<>());
+    private final BasicDMNToNativeTransformer dmnTransformer = dialectDefinition.createBasicTransformer(new SignavioDMNModelRepository(), new NopLazyEvaluationDetector(), new InputParameters());
     private final DMNReader dmnReader;
     private final DMNWriter dmnWriter;
 
-    public RDFToDMNTransformer(Map<String, String> inputParameters, BuildLogger logger) {
+    public RDFToDMNTransformer(InputParameters inputParameters, BuildLogger logger) {
         super(inputParameters, logger);
         this.dmnReader = new DMNReader(logger, false);
         this.dmnWriter = new DMNWriter(logger);

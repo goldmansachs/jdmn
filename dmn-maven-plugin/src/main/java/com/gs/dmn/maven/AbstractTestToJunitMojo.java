@@ -18,6 +18,7 @@ import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -40,7 +41,7 @@ public abstract class AbstractTestToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DUR
         DMNValidator dmnValidator = makeDMNValidator(this.dmnValidators, logger);
         DMNTransformer<TEST> dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
         TemplateProvider templateProvider = makeTemplateProvider(templateProviderName, logger);
-        LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, this.inputParameters);
+        LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, makeInputParameters());
         TypeDeserializationConfigurer typeDeserializationConfigurer = makeTypeDeserializationConfigurer(this.typeDeserializationConfigurer, logger);
         validateParameters(dmnDialect, dmnValidator, dmnTransformer, templateProvider, this.inputParameters);
 
@@ -52,7 +53,7 @@ public abstract class AbstractTestToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DUR
                 templateProvider,
                 lazyEvaluationDetector,
                 typeDeserializationConfigurer,
-                this.inputParameters,
+                makeInputParameters(),
                 logger
         );
         return transformer;
@@ -70,5 +71,5 @@ public abstract class AbstractTestToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DUR
         }
     }
 
-    protected abstract FileTransformer makeTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dmnDialect, DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger);
+    protected abstract FileTransformer makeTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dmnDialect, DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger);
 }

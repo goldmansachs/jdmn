@@ -44,6 +44,7 @@ import com.gs.dmn.runtime.listener.NopEventListener;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.LazyEvaluationOptimisation;
 import com.gs.dmn.transformation.native_.JavaFactory;
@@ -95,7 +96,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     protected final DRGElementFilter drgElementFilter;
     protected final JavaTypeMemoizer nativeTypeMemoizer;
 
-    public BasicDMNToJavaTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory nativeTypeFactory, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
+    public BasicDMNToJavaTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory nativeTypeFactory, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
         this.dialect = dialect;
         this.dmnModelRepository = dmnModelRepository;
         this.environmentFactory = environmentFactory;

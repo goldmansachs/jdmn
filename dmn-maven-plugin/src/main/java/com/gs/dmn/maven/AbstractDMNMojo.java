@@ -19,6 +19,7 @@ import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.CompositeDMNTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.NopDMNTransformer;
 import com.gs.dmn.transformation.lazy.CompositeLazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
@@ -89,7 +90,7 @@ public abstract class AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
         return new CompositeDMNTransformer<TEST>(dmnTransformers);
     }
 
-    protected LazyEvaluationDetector makeLazyEvaluationDetector(String[] detectorClassNames, BuildLogger logger, Map<String, String> inputParameters) throws Exception {
+    protected LazyEvaluationDetector makeLazyEvaluationDetector(String[] detectorClassNames, BuildLogger logger, InputParameters inputParameters) throws Exception {
         if (detectorClassNames == null) {
             return new NopLazyEvaluationDetector();
         }
@@ -97,7 +98,7 @@ public abstract class AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
         for(String detectorClassName: detectorClassNames) {
             Class<?> detectorClass = Class.forName(detectorClassName);
             try {
-                detectors.add((LazyEvaluationDetector) detectorClass.getConstructor(new Class[]{BuildLogger.class, Map.class}).newInstance(new Object[]{logger, inputParameters}));
+                detectors.add((LazyEvaluationDetector) detectorClass.getConstructor(new Class[]{BuildLogger.class, InputParameters.class}).newInstance(new Object[]{logger, inputParameters}));
             } catch (Exception e) {
                 detectors.add((LazyEvaluationDetector) detectorClass.newInstance());
             }
@@ -126,5 +127,10 @@ public abstract class AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
         } catch (Exception e) {
             throw new IllegalArgumentException(String.format("Cannot build template provider '%s'", templateProviderClass));
         }
+    }
+
+    @Override
+    protected InputParameters makeInputParameters() {
+        return new InputParameters(this.inputParameters);
     }
 }

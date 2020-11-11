@@ -23,6 +23,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.DMNEnvironmentFactory;
 import com.gs.dmn.transformation.basic.QualifiedName;
@@ -31,26 +32,27 @@ import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class TypeRefValidator extends SimpleDMNValidator {
     private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition;
+    private final InputParameters inputParameters;
 
     public TypeRefValidator() {
-        super(new Slf4jBuildLogger(LOGGER));
-        this.dmnDialectDefinition = new StandardDMNDialectDefinition();
+        this(new Slf4jBuildLogger(LOGGER));
     }
 
     public TypeRefValidator(BuildLogger logger) {
         super(logger);
         this.dmnDialectDefinition = new StandardDMNDialectDefinition();
+        this.inputParameters = new InputParameters();
     }
 
     public TypeRefValidator(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition) {
         super(new Slf4jBuildLogger(LOGGER));
         this.dmnDialectDefinition = dmnDialectDefinition;
+        this.inputParameters = new InputParameters();
     }
 
     @Override
@@ -77,7 +79,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
 
     public List<Pair<TDRGElement, Type>> makeErrorReport(DMNModelRepository dmnModelRepository) {
         List<Pair<TDRGElement, Type>> errorReport = new ArrayList<>();
-        BasicDMNToJavaTransformer dmnTransformer = this.dmnDialectDefinition.createBasicTransformer(dmnModelRepository, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
+        BasicDMNToJavaTransformer dmnTransformer = this.dmnDialectDefinition.createBasicTransformer(dmnModelRepository, new NopLazyEvaluationDetector(), this.inputParameters);
         for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
             List<TDRGElement> drgElements = dmnModelRepository.findDRGElements(definitions);
             for (TDRGElement element: drgElements) {

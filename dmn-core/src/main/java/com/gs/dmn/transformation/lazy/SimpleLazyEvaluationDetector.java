@@ -14,22 +14,21 @@ package com.gs.dmn.transformation.lazy;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
+import com.gs.dmn.transformation.InputParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Map;
 
 public abstract class SimpleLazyEvaluationDetector implements LazyEvaluationDetector {
     protected static final Logger LOGGER = LoggerFactory.getLogger(SparseDecisionDetector.class);
 
-    protected final Map<String, String> inputParameters;
+    protected final InputParameters inputParameters;
     protected final BuildLogger logger;
 
     protected SimpleLazyEvaluationDetector() {
         this(null, new Slf4jBuildLogger(LOGGER));
     }
 
-    protected SimpleLazyEvaluationDetector(Map<String, String> inputParameters, BuildLogger logger) {
+    protected SimpleLazyEvaluationDetector(InputParameters inputParameters, BuildLogger logger) {
         this.inputParameters = inputParameters;
         this.logger = logger;
     }

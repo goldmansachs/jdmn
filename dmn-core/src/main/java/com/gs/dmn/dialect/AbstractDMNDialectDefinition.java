@@ -18,22 +18,21 @@ import com.gs.dmn.feel.interpreter.FEELInterpreterImpl;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
-
-import java.util.Map;
 
 public abstract class AbstractDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> implements DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     //
     // FEEL Processors
     //
     @Override
-    public FEELInterpreter createFEELInterpreter(DMNModelRepository repository, Map<String, String> inputParameters) {
+    public FEELInterpreter createFEELInterpreter(DMNModelRepository repository, InputParameters inputParameters) {
         DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter = createDMNInterpreter(repository, inputParameters);
         return new FEELInterpreterImpl<>(dmnInterpreter);
     }
 
     @Override
-    public FEELTranslator createFEELTranslator(DMNModelRepository repository, Map<String, String> inputParameters) {
+    public FEELTranslator createFEELTranslator(DMNModelRepository repository, InputParameters inputParameters) {
         return new FEELTranslatorImpl(createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters));
     }
 }

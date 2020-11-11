@@ -19,6 +19,7 @@ import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +31,6 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
 import java.math.BigDecimal;
-import java.util.LinkedHashMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -47,7 +47,7 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
         DMNModelRepository repository = readDMN(pathName);
         TDefinitions definitions = repository.getRootDefinitions();
         href = definitions.getNamespace() + "#d_RequiredMonthlyInstallment";
-        this.dmnTransformer = dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
+        this.dmnTransformer = dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), new InputParameters());
     }
 
     @Test
