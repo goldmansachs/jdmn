@@ -46,8 +46,8 @@ public class SparseDecisionDetectorTest extends AbstractTest {
 
     @Test
     public void testLazyEvaluationOptimisation() {
-        Map<String, String> inputParameters = new LinkedHashMap<String, String>() {{ put("sparsityThreshold", "0.10");}};
-        detector = new SparseDecisionDetector(makeInputParameters(inputParameters), LOGGER);
+        Map<String, String> inputParametersMap = new LinkedHashMap<String, String>() {{ put("sparsityThreshold", "0.10");}};
+        detector = new SparseDecisionDetector(makeInputParameters(inputParametersMap), LOGGER);
         LazyEvaluationOptimisation lazyEvaluationOptimisation = detector.detect(dmnModelRepository);
 
         assertEquals(Arrays.asList("BureauCallType", "Eligibility"), new ArrayList<>(lazyEvaluationOptimisation.getLazyEvaluatedDecisions()));
@@ -61,10 +61,10 @@ public class SparseDecisionDetectorTest extends AbstractTest {
     }
 
     private void checkDecisionTable(TDRGElement element, Double sparsityThreshold, boolean expectedResult) {
-        Map<String, String> inputParameters = new LinkedHashMap<String, String>() {{ put("sparsityThreshold", sparsityThreshold.toString());}};
-        detector = new SparseDecisionDetector(makeInputParameters(inputParameters), LOGGER);
-        TExpression expression = dmnModelRepository.expression(element);
-        assertEquals(expectedResult, detector.isSparseDecisionTable((TDecisionTable) expression, sparsityThreshold));
+        Map<String, String> inputParametersMap = new LinkedHashMap<String, String>() {{ put("sparsityThreshold", sparsityThreshold.toString());}};
+        this.detector = new SparseDecisionDetector(makeInputParameters(inputParametersMap), LOGGER);
+        TExpression expression = this.dmnModelRepository.expression(element);
+        assertEquals(expectedResult, this.detector.isSparseDecisionTable((TDecisionTable) expression, sparsityThreshold));
     }
 
     private DMNModelRepository readDMN(String pathName) {
@@ -74,6 +74,12 @@ public class SparseDecisionDetectorTest extends AbstractTest {
     }
 
     protected InputParameters makeInputParameters(Map<String, String> inputParameters) {
-        return new InputParameters(inputParameters);
+        return new InputParameters(makeInputParametersMap(inputParameters));
+    }
+
+    private Map<String, String> makeInputParametersMap(Map<String, String> inputParameters) {
+        Map<String, String> map = super.makeInputParametersMap();
+        map.putAll(inputParameters);
+        return map;
     }
 }

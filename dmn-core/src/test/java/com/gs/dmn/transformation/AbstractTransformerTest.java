@@ -46,6 +46,14 @@ public abstract class AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         return result.toString().toLowerCase();
     }
 
+    protected Map<String, String> makeInputParametersMap() {
+        Map<String, String> inputParams = new LinkedHashMap<>();
+        inputParams.put("dmnVersion", "1.1");
+        inputParams.put("modelVersion", "2.0");
+        inputParams.put("platformVersion", "1.0");
+        return inputParams;
+    }
+
     protected abstract DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> makeDialectDefinition();
 
     protected abstract DMNValidator makeDMNValidator(BuildLogger logger);
@@ -57,14 +65,6 @@ public abstract class AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     protected abstract LazyEvaluationDetector makeLazyEvaluationDetector(InputParameters inputParameters, BuildLogger logger);
 
     protected abstract TypeDeserializationConfigurer makeTypeDeserializationConfigurer(BuildLogger logger);
-
-    protected Map<String, String> makeInputParametersMap() {
-        Map<String, String> inputParams = new LinkedHashMap<>();
-        inputParams.put("dmnVersion", "1.1");
-        inputParams.put("modelVersion", "2.0");
-        inputParams.put("platformVersion", "1.0");
-        return inputParams;
-    }
 
     @Test
     public void testRelativePath() {

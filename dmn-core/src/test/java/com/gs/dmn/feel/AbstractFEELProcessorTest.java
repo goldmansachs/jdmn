@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
@@ -47,7 +48,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static org.junit.Assert.assertEquals;
 
-public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
+public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractTest {
     protected final FEELTranslator feelTranslator;
     protected final DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter;
     protected final FEELInterpreter feelInterpreter;
@@ -57,10 +58,9 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     private final RuntimeEnvironmentFactory runtimeEnvironmentFactory;
 
     protected AbstractFEELProcessorTest() {
-        DMNModelRepository repository = makeRepository();
-        InputParameters inputParameters = new InputParameters();
-
         DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition = makeDialect();
+        DMNModelRepository repository = makeRepository();
+        InputParameters inputParameters = makeInputParameters();
 
         this.environmentFactory = dialectDefinition.createEnvironmentFactory();
         this.runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();

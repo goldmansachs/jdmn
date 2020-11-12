@@ -98,7 +98,7 @@ public abstract class AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
         for(String detectorClassName: detectorClassNames) {
             Class<?> detectorClass = Class.forName(detectorClassName);
             try {
-                detectors.add((LazyEvaluationDetector) detectorClass.getConstructor(new Class[]{BuildLogger.class, InputParameters.class}).newInstance(new Object[]{logger, inputParameters}));
+                detectors.add((LazyEvaluationDetector) detectorClass.getConstructor(new Class[]{InputParameters.class, BuildLogger.class}).newInstance(new Object[]{inputParameters, logger}));
             } catch (Exception e) {
                 detectors.add((LazyEvaluationDetector) detectorClass.newInstance());
             }

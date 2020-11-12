@@ -55,7 +55,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
 
     public TestLabToJavaJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
-        this.schemaNamespace = InputParameters.getOptionalParam(inputParameters, "signavioSchemaNamespace");
+        this.schemaNamespace = inputParameters.getSchemaNamespace();
         if (StringUtils.isEmpty(this.schemaNamespace)) {
             this.schemaNamespace = "http://www.signavio.com/schema/dmn/1.1/";
         }

@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.runtime.compiler;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
@@ -34,7 +35,7 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertNotNull;
 
-public abstract class AbstractCompilerTest {
+public abstract class AbstractCompilerTest extends AbstractTest {
     private final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> dialectDefinition = new StandardDMNDialectDefinition();
 
     protected abstract JavaCompiler getCompiler();
@@ -44,10 +45,10 @@ public abstract class AbstractCompilerTest {
         element.setType(new BuiltinFunctionType(Arrays.asList(), NumberType.NUMBER));
         FEELContext context = null;
         DMNModelRepository repository = new DMNModelRepository();
-        InputParameters inputParameters = new InputParameters();
-        BasicDMNToNativeTransformer dmnTransformer = dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters);
-        FEELTranslator feelTranslator = dialectDefinition.createFEELTranslator(repository, inputParameters);
-        return getCompiler().makeClassData(element, context, dmnTransformer, feelTranslator, dialectDefinition.createFEELLib().getClass().getName());
+        InputParameters inputParameters = makeInputParameters();
+        BasicDMNToNativeTransformer dmnTransformer = this.dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters);
+        FEELTranslator feelTranslator = this.dialectDefinition.createFEELTranslator(repository, inputParameters);
+        return getCompiler().makeClassData(element, context, dmnTransformer, feelTranslator, this.dialectDefinition.createFEELLib().getClass().getName());
     }
 
     @Test

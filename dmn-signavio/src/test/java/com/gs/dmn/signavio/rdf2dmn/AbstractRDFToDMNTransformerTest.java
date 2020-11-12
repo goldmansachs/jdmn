@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.signavio.rdf2dmn;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -37,11 +38,8 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.util.Comparator;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static com.gs.dmn.serialization.DMNVersion.DMN_11;
@@ -49,7 +47,7 @@ import static com.gs.dmn.signavio.rdf2dmn.RDFToDMNTransformer.RDF_FILE_EXTENSION
 import static com.gs.dmn.signavio.rdf2dmn.RDFToDMNTransformer.isRDFFile;
 import static org.junit.Assert.*;
 
-public abstract class AbstractRDFToDMNTransformerTest {
+public abstract class AbstractRDFToDMNTransformerTest extends AbstractTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractRDFToDMNTransformerTest.class));
     private final String schemaVersion = "1.1";
 
@@ -103,15 +101,6 @@ public abstract class AbstractRDFToDMNTransformerTest {
         } else {
             createEmptyDMNFile(resourcePath);
             fail(String.format("Cannot find file expected file %s. Created an empty one.", resourcePath));
-        }
-    }
-
-    private URI resource(String path) {
-        try {
-            URL url = this.getClass().getClassLoader().getResource(path);
-            return url == null ? null : url.toURI();
-        } catch (URISyntaxException e) {
-            throw new DMNRuntimeException(e);
         }
     }
 
@@ -198,10 +187,10 @@ public abstract class AbstractRDFToDMNTransformerTest {
     }
 
     protected Map<String, String> makeInputParametersMap() {
-        return new LinkedHashMap<String, String>() {{
-            put("namespace", "http://www.gs.com/cip");
-            put("prefix", "cip");
-        }};
+        Map<String, String> map = super.makeInputParametersMap();
+        map.put("namespace", "http://www.gs.com/cip");
+        map.put("prefix", "cip");
+        return map;
     }
 
     protected abstract String getTestFolder();

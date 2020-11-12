@@ -17,15 +17,8 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class InputParameters extends LinkedHashMap<String, String> {
-    public InputParameters() {
-    }
-
-    public InputParameters(Map<String, String> inputParameters) {
-        this.putAll(inputParameters);
-    }
-
-    public static String getRequiredParam(Map<String, String> parameters, String parameterKey) {
+public class InputParameters {
+    protected static String getRequiredParam(Map<String, String> parameters, String parameterKey) {
         if (parameters == null || parameters.get(parameterKey) == null || parameters.get(parameterKey).trim().isEmpty()) {
             throw new DMNRuntimeException("A '" + parameterKey + "' parameter is required.");
         } else {
@@ -33,7 +26,7 @@ public class InputParameters extends LinkedHashMap<String, String> {
         }
     }
 
-    public static String getOptionalParam(Map<String, String> parameters, String parameterKey, String defaultValue) {
+    protected static String getOptionalParam(Map<String, String> parameters, String parameterKey, String defaultValue) {
         if (parameters == null || parameters.get(parameterKey) == null || parameters.get(parameterKey).trim().isEmpty()) {
             return defaultValue;
         } else {
@@ -41,7 +34,7 @@ public class InputParameters extends LinkedHashMap<String, String> {
         }
     }
 
-    public static String getOptionalParam(Map<String, String> parameters, String parameterKey) {
+    protected static String getOptionalParam(Map<String, String> parameters, String parameterKey) {
         if (parameters == null || parameters.get(parameterKey) == null || parameters.get(parameterKey).trim().isEmpty()) {
             return null;
         } else {
@@ -49,13 +42,132 @@ public class InputParameters extends LinkedHashMap<String, String> {
         }
     }
 
-    public static boolean getOptionalBooleanParam(Map<String, String> parameters, String paramKey) {
+    protected static boolean getOptionalBooleanParam(Map<String, String> parameters, String paramKey) {
         String param = getOptionalParam(parameters, paramKey);
         return Boolean.parseBoolean(param);
     }
 
-    public static boolean getOptionalBooleanParam(Map<String, String> parameters, String paramKey, String defaultValue) {
+    protected static boolean getOptionalBooleanParam(Map<String, String> parameters, String paramKey, String defaultValue) {
         String param = getOptionalParam(parameters, paramKey, defaultValue);
         return Boolean.parseBoolean(param);
+    }
+
+    private final String dmnVersion;
+    private final String modelVersion;
+    private final String platformVersion;
+
+    private final boolean xsdValidation;
+    private final String schemaNamespace;
+
+    private final String javaRootPackage;
+    private final boolean onePackage;
+    private final boolean caching;
+    private final int cachingThreshold;
+    private final boolean singletonInputData;
+    private final boolean parallelStream;
+    private final boolean generateProtoMessages;
+    private final boolean generateProtoServices;
+    private final String protoVersion;
+
+    private final double sparsityThreshold;
+
+    private final String namespace;
+    private final String prefix;
+
+    public InputParameters() {
+        this(new LinkedHashMap<>());
+    }
+
+    public InputParameters(Map<String, String> inputParameters) {
+        this.dmnVersion = InputParameters.getOptionalParam(inputParameters, "dmnVersion");
+        this.modelVersion = InputParameters.getOptionalParam(inputParameters, "modelVersion");
+        this.platformVersion = InputParameters.getOptionalParam(inputParameters, "platformVersion");
+
+        this.xsdValidation = InputParameters.getOptionalBooleanParam(inputParameters, "xsdValidation");
+        this.namespace = InputParameters.getOptionalParam(inputParameters, "namespace");
+        this.schemaNamespace = InputParameters.getOptionalParam(inputParameters, "signavioSchemaNamespace");
+        this.prefix = InputParameters.getOptionalParam(inputParameters, "prefix");
+
+        this.javaRootPackage = InputParameters.getOptionalParam(inputParameters, "javaRootPackage");
+        this.onePackage = InputParameters.getOptionalBooleanParam(inputParameters, "onePackage", "false");
+        this.caching = InputParameters.getOptionalBooleanParam(inputParameters, "caching");
+        String cachingThresholdParam = InputParameters.getOptionalParam(inputParameters, "cachingThreshold", "1");
+        this.cachingThreshold = Integer.parseInt(cachingThresholdParam);
+        this.singletonInputData = InputParameters.getOptionalBooleanParam(inputParameters, "singletonInputData", "true");
+        this.parallelStream = InputParameters.getOptionalBooleanParam(inputParameters, "parallelStream", "false");
+        this.generateProtoMessages = InputParameters.getOptionalBooleanParam(inputParameters, "generateProtoMessages", "false");
+        this.generateProtoServices = InputParameters.getOptionalBooleanParam(inputParameters, "generateProtoServices", "false");
+        this.protoVersion = InputParameters.getOptionalParam(inputParameters, "protoVersion", "proto3");
+
+        String sparsityThresholdParam = InputParameters.getOptionalParam(inputParameters, "sparsityThreshold", "0.0");
+        this.sparsityThreshold = Double.parseDouble(sparsityThresholdParam);
+    }
+
+    public String getDmnVersion() {
+        return dmnVersion;
+    }
+
+    public String getModelVersion() {
+        return modelVersion;
+    }
+
+    public String getPlatformVersion() {
+        return platformVersion;
+    }
+
+    public String getSchemaNamespace() {
+        return schemaNamespace;
+    }
+
+    public String getNamespace() {
+        return namespace;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public boolean isXsdValidation() {
+        return xsdValidation;
+    }
+
+    public String getJavaRootPackage() {
+        return javaRootPackage;
+    }
+
+    public boolean isOnePackage() {
+        return onePackage;
+    }
+
+    public boolean isSingletonInputData() {
+        return singletonInputData;
+    }
+
+    public boolean isCaching() {
+        return caching;
+    }
+
+    public int getCachingThreshold() {
+        return cachingThreshold;
+    }
+
+    public boolean isParallelStream() {
+        return parallelStream;
+    }
+
+    public boolean isGenerateProtoMessages() {
+        return generateProtoMessages;
+    }
+
+    public boolean isGenerateProtoServices() {
+        return generateProtoServices;
+    }
+
+    public String getProtoVersion() {
+        return protoVersion;
+    }
+
+    public double getSparsityThreshold() {
+        return sparsityThreshold;
     }
 }

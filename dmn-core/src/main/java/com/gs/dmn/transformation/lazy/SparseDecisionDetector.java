@@ -24,13 +24,12 @@ public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
     private final double sparsityThreshold;
 
     public SparseDecisionDetector() {
-        this(null, new Slf4jBuildLogger(LOGGER));
+        this(new InputParameters(), new Slf4jBuildLogger(LOGGER));
     }
 
     public SparseDecisionDetector(InputParameters inputParameters, BuildLogger logger) {
         super(inputParameters, logger);
-        String sparsityThresholdParam = InputParameters.getOptionalParam(inputParameters, "sparsityThreshold", "0.0");
-        this.sparsityThreshold = Double.parseDouble(sparsityThresholdParam);
+        this.sparsityThreshold = inputParameters.getSparsityThreshold();
     }
 
     @Override

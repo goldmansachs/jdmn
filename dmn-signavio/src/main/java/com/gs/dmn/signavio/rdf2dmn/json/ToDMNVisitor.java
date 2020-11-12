@@ -59,10 +59,12 @@ public class ToDMNVisitor implements Visitor {
     }
 
     private final RDFModel rdfModel;
-    private final DMNDialectDefinition dialectDefinition = new SignavioDMNDialectDefinition();
-    private final BasicDMNToNativeTransformer dmnTransformer = dialectDefinition.createBasicTransformer(new SignavioDMNModelRepository(), new NopLazyEvaluationDetector(), new InputParameters());
+    private final DMNDialectDefinition dialectDefinition;
+    private final BasicDMNToNativeTransformer dmnTransformer;
 
-    public ToDMNVisitor(RDFModel rdfModel) {
+    public ToDMNVisitor(RDFModel rdfModel, InputParameters inputParameters) {
+        this.dialectDefinition = new SignavioDMNDialectDefinition();
+        this.dmnTransformer = dialectDefinition.createBasicTransformer(new SignavioDMNModelRepository(), new NopLazyEvaluationDetector(), inputParameters);
         this.rdfModel = rdfModel;
     }
 

@@ -26,7 +26,6 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 @SuppressWarnings("CanBeFinal")
 public abstract class AbstractDMNToNativeMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
@@ -55,9 +54,10 @@ public abstract class AbstractDMNToNativeMojo<NUMBER, DATE, TIME, DATE_TIME, DUR
         DMNValidator dmnValidator = makeDMNValidator(this.dmnValidators, logger);
         DMNTransformer<TEST> dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
         TemplateProvider templateProvider = makeTemplateProvider(templateProviderName, logger);
-        LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, makeInputParameters());
+        InputParameters inputParameters = makeInputParameters();
+        LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, inputParameters);
         TypeDeserializationConfigurer typeDeserializationConfigurer = makeTypeDeserializationConfigurer(this.typeDeserializationConfigurer, logger);
-        validateParameters(dmnDialect, dmnValidator, dmnTransformer, templateProvider, this.inputParameters);
+        validateParameters(dmnDialect, dmnValidator, dmnTransformer, templateProvider, inputParameters);
 
         // Create transformer
         FileTransformer transformer = dmnDialect.createDMNToNativeTransformer(
@@ -66,7 +66,7 @@ public abstract class AbstractDMNToNativeMojo<NUMBER, DATE, TIME, DATE_TIME, DUR
                 templateProvider,
                 lazyEvaluationDetector,
                 typeDeserializationConfigurer,
-                makeInputParameters(),
+                inputParameters,
                 logger
         );
         return transformer;
@@ -77,14 +77,14 @@ public abstract class AbstractDMNToNativeMojo<NUMBER, DATE, TIME, DATE_TIME, DUR
         this.project.addCompileSourceRoot(outputFileDirectory.getCanonicalPath());
     }
 
-    private void validateParameters(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dmnDialect, DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters) {
-        boolean onePackage = InputParameters.getOptionalBooleanParam(inputParameters, "onePackage");
-        String singletonInputData = InputParameters.getOptionalParam(inputParameters, "singletonInputData");
-        String caching = InputParameters.getOptionalParam(inputParameters, "caching");
+    private void validateParameters(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dmnDialect, DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, InputParameters inputParameters) {
+        boolean onePackage = inputParameters.isOnePackage();
+        boolean singletonInputData = inputParameters.isSingletonInputData();
+        boolean caching = inputParameters.isCaching();
         if (onePackage) {
             this.getLog().warn("Use 'onePackage' carefully, names must be unique across all the DMs.");
         }
-        if ("false".equals(singletonInputData) && "true".equals(caching)) {
+        if (!singletonInputData && caching) {
             this.getLog().error(String.format("Incompatible 'singletonInputData=%s' and 'caching=%s'", singletonInputData, caching));
         }
     }

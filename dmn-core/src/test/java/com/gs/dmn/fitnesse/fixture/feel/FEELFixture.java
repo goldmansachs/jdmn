@@ -17,10 +17,28 @@ import com.gs.dmn.feel.interpreter.FEELInterpreter;
 import com.gs.dmn.fitnesse.fixture.AbstractFixture;
 import com.gs.dmn.transformation.InputParameters;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public abstract class FEELFixture extends AbstractFixture {
     protected final FEELInterpreter feelInterpreter;
+    protected final DMNModelRepository repository;
 
     public FEELFixture() {
-        this.feelInterpreter = this.dialectDefinition.createFEELInterpreter(new DMNModelRepository(), new InputParameters());
+        this.repository = new DMNModelRepository();
+        InputParameters inputParameters = makeInputParameters();
+        this.feelInterpreter = this.dialectDefinition.createFEELInterpreter(this.repository, inputParameters);
+    }
+
+    protected InputParameters makeInputParameters() {
+        return new InputParameters(makeInputParametersMap());
+    }
+
+    protected Map<String, String> makeInputParametersMap() {
+        Map<String, String> inputParams = new LinkedHashMap<>();
+        inputParams.put("dmnVersion", "1.1");
+        inputParams.put("modelVersion", "1.0");
+        inputParams.put("platformVersion", "1.0");
+        return inputParams;
     }
 }

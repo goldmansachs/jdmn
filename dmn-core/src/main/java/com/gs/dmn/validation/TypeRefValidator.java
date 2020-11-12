@@ -32,12 +32,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TypeRefValidator extends SimpleDMNValidator {
     private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition;
-    private final InputParameters inputParameters;
+    private InputParameters inputParameters;
 
     public TypeRefValidator() {
         this(new Slf4jBuildLogger(LOGGER));
@@ -46,13 +48,13 @@ public class TypeRefValidator extends SimpleDMNValidator {
     public TypeRefValidator(BuildLogger logger) {
         super(logger);
         this.dmnDialectDefinition = new StandardDMNDialectDefinition();
-        this.inputParameters = new InputParameters();
+        this.inputParameters = new InputParameters(makeInputParametersMap());
     }
 
     public TypeRefValidator(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition) {
         super(new Slf4jBuildLogger(LOGGER));
         this.dmnDialectDefinition = dmnDialectDefinition;
-        this.inputParameters = new InputParameters();
+        this.inputParameters = new InputParameters(makeInputParametersMap());
     }
 
     @Override
@@ -64,6 +66,14 @@ public class TypeRefValidator extends SimpleDMNValidator {
 
         List<Pair<TDRGElement, Type>> errorReport = makeErrorReport(dmnModelRepository);
         return errorReport.stream().map(p -> makeError(p, dmnModelRepository)).collect(Collectors.toList());
+    }
+
+    private Map<String, String> makeInputParametersMap() {
+        Map<String, String> inputParams = new LinkedHashMap<>();
+        inputParams.put("dmnVersion", "1.1");
+        inputParams.put("modelVersion", "2.0");
+        inputParams.put("platformVersion", "1.0");
+        return inputParams;
     }
 
     private String makeError(Pair<TDRGElement, Type> pair, DMNModelRepository repository) {

@@ -41,7 +41,10 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.net.URI;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
 
@@ -208,14 +211,6 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
             inputParameters.put(params.getLeft(), params.getRight());
         }
         return inputParameters;
-    }
-
-    protected Map<String, String> makeInputParametersMap() {
-        Map<String, String> inputParams = new LinkedHashMap<>();
-        inputParams.put("dmnVersion", "1.1");
-        inputParams.put("modelVersion", "2.0");
-        inputParams.put("platformVersion", "1.0");
-        return inputParams;
     }
 
     protected abstract DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> getDialectDefinition();

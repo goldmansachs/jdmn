@@ -44,7 +44,7 @@ public class SignavioDMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATIO
 
     public SignavioDMNToJavaTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
-        this.schemaNamespace = InputParameters.getOptionalParam(inputParameters, "signavioSchemaNamespace");
+        this.schemaNamespace = inputParameters.getSchemaNamespace();
         if (StringUtils.isEmpty(this.schemaNamespace)) {
             this.schemaNamespace = "http://www.signavio.com/schema/dmn/1.1/";
         }
@@ -83,6 +83,9 @@ public class SignavioDMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             DMNToManifestTransformer dmnToManifestTransformer = new DMNToManifestTransformer(dmnTransformer);
             String dmnNamespace = dmnTransformer.getDMNModelRepository().getRootDefinitions().getNamespace();
             String nativeNamespace = dmnTransformer.nativeRootPackageName();
+            String dmnVersion= this.inputParameters.getDmnVersion();
+            String modelVersion = this.inputParameters.getModelVersion();
+            String platformVersion = this.inputParameters.getPlatformVersion();
             DMNMetadata manifest = dmnToManifestTransformer.toManifest(dmnNamespace, nativeNamespace, dmnVersion, modelVersion, platformVersion);
             File resultFile = makeOutputFile(outputPath, filePath, jsonFileName, fileExtension);
             JsonSerializer.OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValue(resultFile, manifest);
