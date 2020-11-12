@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.synthesis;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.ExpressionIteratorDomain;
@@ -27,14 +28,13 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
-import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 
 import static org.junit.Assert.assertNull;
 
-public class SimpleExpressionsToNativeVisitorTest {
+public class SimpleExpressionsToNativeVisitorTest extends AbstractTest {
     private final StandardDMNDialectDefinition dialect = new StandardDMNDialectDefinition();
-    private final SimpleExpressionsToNativeVisitor visitor = new SimpleExpressionsToNativeVisitor(dialect.createBasicTransformer(new DMNModelRepository(), new NopLazyEvaluationDetector(), new InputParameters()));
+    private final SimpleExpressionsToNativeVisitor visitor = new SimpleExpressionsToNativeVisitor(dialect.createBasicTransformer(new DMNModelRepository(), new NopLazyEvaluationDetector(), makeInputParameters()));
 
     //
     // Tests

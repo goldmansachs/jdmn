@@ -15,11 +15,14 @@ package com.gs.dmn;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.transformation.InputParameters;
 import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public abstract class AbstractTest {
     protected static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractTest.class));
@@ -34,5 +37,18 @@ public abstract class AbstractTest {
         } catch (URISyntaxException e) {
             throw new DMNRuntimeException(e);
         }
+    }
+
+    protected InputParameters makeInputParameters() {
+        return new InputParameters(makeInputParametersMap());
+    }
+
+    protected Map<String, String> makeInputParametersMap() {
+        Map<String, String> inputParams = new LinkedHashMap<>();
+        inputParams.put("dmnVersion", "1.1");
+        inputParams.put("modelVersion", "1.0");
+        inputParams.put("platformVersion", "1.0");
+        inputParams.put("signavioSchemaNamespace", "http://www.provider.com/schema/dmn/1.1/");
+        return inputParams;
     }
 }

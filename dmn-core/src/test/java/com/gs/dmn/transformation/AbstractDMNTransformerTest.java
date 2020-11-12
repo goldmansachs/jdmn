@@ -21,7 +21,6 @@ import com.gs.dmn.validation.NopDMNValidator;
 import java.io.File;
 import java.net.URI;
 import java.nio.file.Path;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {

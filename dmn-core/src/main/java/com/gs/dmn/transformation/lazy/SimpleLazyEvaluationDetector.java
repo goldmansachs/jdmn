@@ -25,7 +25,7 @@ public abstract class SimpleLazyEvaluationDetector implements LazyEvaluationDete
     protected final BuildLogger logger;
 
     protected SimpleLazyEvaluationDetector() {
-        this(null, new Slf4jBuildLogger(LOGGER));
+        this(new InputParameters(), new Slf4jBuildLogger(LOGGER));
     }
 
     protected SimpleLazyEvaluationDetector(InputParameters inputParameters, BuildLogger logger) {

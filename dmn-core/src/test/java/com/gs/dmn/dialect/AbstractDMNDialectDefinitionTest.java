@@ -36,7 +36,7 @@ public abstract class AbstractDMNDialectDefinitionTest<NUMBER, DATE, TIME, DATE_
     private final DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialect = makeDialect();
 
     private final DMNModelRepository repository = makeRepository();
-    private InputParameters inputParameters = makeInputParameters();
+    private final InputParameters inputParameters = makeInputParameters();
 
     @Test
     public void testCreateDMNInterpreter() {
@@ -74,7 +74,8 @@ public abstract class AbstractDMNDialectDefinitionTest<NUMBER, DATE, TIME, DATE_
         assertEquals(getExpectedDecisionBaseClass(), decisionBaseClass);
     }
 
-    private InputParameters makeInputParameters() {
+    @Override
+    protected InputParameters makeInputParameters() {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("dmnVersion", "1.1");
         map.put("modelVersion", "1.2");

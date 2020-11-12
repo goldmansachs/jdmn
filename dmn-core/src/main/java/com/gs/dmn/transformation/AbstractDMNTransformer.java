@@ -36,7 +36,6 @@ public abstract class AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURA
     protected final TypeDeserializationConfigurer typeDeserializationConfigurer;
 
     protected final String decisionBaseClass;
-    protected final String javaRootPackage;
 
     protected AbstractDMNTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger) {
         super(templateProvider, inputParameters, logger);
@@ -44,11 +43,9 @@ public abstract class AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURA
         this.dmnTransformer = dmnTransformer;
         this.lazyEvaluationDetector = lazyEvaluationDetector;
         this.typeDeserializationConfigurer = typeDeserializationConfigurer;
-        boolean xsdValidation = InputParameters.getOptionalBooleanParam(inputParameters, "xsdValidation");
-        this.dmnReader = new DMNReader(logger, xsdValidation);
+        this.dmnReader = new DMNReader(logger, this.inputParameters.isXsdValidation());
         this.dmnValidator = dmnValidator;
 
-        this.javaRootPackage = InputParameters.getOptionalParam(inputParameters, "javaRootPackage");
         this.decisionBaseClass = dialectDefinition.getDecisionBaseClass();
     }
 

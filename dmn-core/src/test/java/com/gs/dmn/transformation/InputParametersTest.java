@@ -19,7 +19,7 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
-public class InputParamUtilTest {
+public class InputParametersTest {
     @Test
     public void testGetRequiredParamWherePresent() {
         Map<String, String> params = new HashMap<String, String>(){{

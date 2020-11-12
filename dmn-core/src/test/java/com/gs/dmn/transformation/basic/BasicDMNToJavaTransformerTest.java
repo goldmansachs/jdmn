@@ -19,7 +19,6 @@ import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
-import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,8 +45,8 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
         String pathName = "dmn/input/0004-lending.dmn";
         DMNModelRepository repository = readDMN(pathName);
         TDefinitions definitions = repository.getRootDefinitions();
-        href = definitions.getNamespace() + "#d_RequiredMonthlyInstallment";
-        this.dmnTransformer = dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), new InputParameters());
+        this.href = definitions.getNamespace() + "#d_RequiredMonthlyInstallment";
+        this.dmnTransformer = dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), makeInputParameters());
     }
 
     @Test
