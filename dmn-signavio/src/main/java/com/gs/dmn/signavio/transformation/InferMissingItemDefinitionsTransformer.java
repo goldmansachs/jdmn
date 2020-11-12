@@ -130,7 +130,7 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
             }
         }
         try {
-            Object object = Class.forName(dialectClassName).newInstance();
+            Object object = Class.forName(dialectClassName).getDeclaredConstructor().newInstance();
             if (object instanceof DMNDialectDefinition) {
                 DMNDialectDefinition dmnDialect = (DMNDialectDefinition) object;
                 this.dmnDialect = dmnDialect;
