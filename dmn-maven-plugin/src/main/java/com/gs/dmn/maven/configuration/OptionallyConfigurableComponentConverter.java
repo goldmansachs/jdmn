@@ -45,9 +45,8 @@ public class OptionallyConfigurableComponentConverter extends AbstractConfigurat
 
         // Instantiate the type as defined in Mojo configuration
         try {
-            component = (OptionallyConfigurableMojoComponent)type.newInstance();
-        }
-        catch (InstantiationException | IllegalAccessException ex) {
+            component = (OptionallyConfigurableMojoComponent) type.getDeclaredConstructor().newInstance();
+        } catch (Exception ex) {
             throw new ComponentConfigurationException(String.format(
                     "Cannot instantiate configurable component type \"%s\" (%s)", type.getName(), ex.getMessage()), ex);
         }
