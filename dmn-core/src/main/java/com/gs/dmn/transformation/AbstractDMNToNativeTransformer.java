@@ -53,16 +53,8 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     public static final String FREE_TEXT_LANGUAGE = "free_text";
     public static final List<String> SUPPORTED_LANGUAGES = Arrays.asList(DMNVersion.LATEST.getFeelPrefix(), FREE_TEXT_LANGUAGE);
 
-    protected final String dmnVersion;
-    protected final String modelVersion;
-    protected final String platformVersion;
-
-    protected AbstractDMNToNativeTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
+    protected AbstractDMNToNativeTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
-
-        this.dmnVersion = InputParamUtil.getRequiredParam(inputParameters, "dmnVersion");
-        this.modelVersion = InputParamUtil.getRequiredParam(inputParameters, "modelVersion");
-        this.platformVersion = InputParamUtil.getRequiredParam(inputParameters, "platformVersion");
     }
 
     @Override

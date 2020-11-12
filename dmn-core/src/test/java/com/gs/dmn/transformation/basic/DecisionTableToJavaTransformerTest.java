@@ -16,17 +16,18 @@ import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TDecisionRule;
 
-import java.util.LinkedHashMap;
-
 import static org.junit.Assert.assertEquals;
 
 public class DecisionTableToJavaTransformerTest extends AbstractTest {
-    final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect = new StandardDMNDialectDefinition();
-    final DMNExpressionToNativeTransformer transformer = new DMNExpressionToNativeTransformer(new BasicDMNToJavaTransformer(dialect, new DMNModelRepository(), null, null, new NopLazyEvaluationDetector(), new LinkedHashMap<>()));
+    private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect = new StandardDMNDialectDefinition();
+    private final DMNModelRepository repository = new DMNModelRepository();
+    private final InputParameters inputParameters = makeInputParameters();
+    private final DMNExpressionToNativeTransformer transformer = new DMNExpressionToNativeTransformer(new BasicDMNToJavaTransformer(dialect, repository, null, null, new NopLazyEvaluationDetector(), inputParameters));
 
     @Test
     public void testAnnotationEscapedText() {

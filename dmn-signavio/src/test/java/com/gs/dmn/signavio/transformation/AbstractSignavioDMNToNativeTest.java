@@ -22,6 +22,7 @@ import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider;
 import com.gs.dmn.transformation.AbstractDMNTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
@@ -51,7 +52,7 @@ public abstract class AbstractSignavioDMNToNativeTest<NUMBER, DATE, TIME, DATE_T
     }
 
     @Override
-    protected LazyEvaluationDetector makeLazyEvaluationDetector(Map<String, String> inputParameters, BuildLogger logger) {
+    protected LazyEvaluationDetector makeLazyEvaluationDetector(InputParameters inputParameters, BuildLogger logger) {
         return new NopLazyEvaluationDetector();
     }
 
@@ -61,16 +62,12 @@ public abstract class AbstractSignavioDMNToNativeTest<NUMBER, DATE, TIME, DATE_T
     }
 
     @Override
-    protected Map<String, String> makeInputParameters() {
-        Map<String, String> inputParams = new LinkedHashMap<>();
-        inputParams.put("environmentFactoryClass", SignavioEnvironmentFactory.class.getName());
-        inputParams.put("decisionBaseClass", DefaultSignavioBaseDecision.class.getName());
-        inputParams.put("dmnVersion", "1.1");
-        inputParams.put("modelVersion", "2.0");
-        inputParams.put("platformVersion", "1.0");
+    protected Map<String, String> makeInputParametersMap() {
+        Map<String, String> inputParams = super.makeInputParametersMap();
         inputParams.put("semanticValidation", "false");
         inputParams.put("signavioSchemaNamespace", "http://www.provider.com/schema/dmn/1.1/");
+        inputParams.put("environmentFactoryClass", SignavioEnvironmentFactory.class.getName());
+        inputParams.put("decisionBaseClass", DefaultSignavioBaseDecision.class.getName());
         return inputParams;
     }
-
 }

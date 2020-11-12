@@ -19,6 +19,7 @@ import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.testlab.TestLabToJavaJUnitTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -28,7 +29,6 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
-import java.util.Map;
 
 @SuppressWarnings("CanBeFinal")
 @Mojo(name = "testlab-to-java", defaultPhase = LifecyclePhase.GENERATE_TEST_SOURCES, configurator = "dmn-mojo-configurator")
@@ -67,7 +67,7 @@ public class TestLabToJavaJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
     }
 
     @Override
-    protected FileTransformer makeTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dmnDialect, DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
+    protected FileTransformer makeTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dmnDialect, DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger) {
         FileTransformer transformer = new TestLabToJavaJUnitTransformer<>(
                 dmnDialect,
                 dmnValidator,
@@ -76,7 +76,7 @@ public class TestLabToJavaJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
                 lazyEvaluationDetector,
                 typeDeserializationConfigurer,
                 this.inputModelFileDirectory.toPath(),
-                this.inputParameters,
+                makeInputParameters(),
                 logger
         );
         return transformer;

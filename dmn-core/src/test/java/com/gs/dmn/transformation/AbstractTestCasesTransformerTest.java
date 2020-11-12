@@ -27,16 +27,25 @@ public abstract class AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_
 
         Path inputPath = new File(inputTestFilePath).toPath();
         Path inputModelPath = new File(inputModelFilePath).toPath();
-        Map<String, String> inputParameters = makeInputParameters();
-        for (Pair<String, String> pair: extraInputParameters) {
-            inputParameters.put(pair.getLeft(), pair.getRight());
-        }
-        FileTransformer transformer = makeTransformer(inputModelPath, inputParameters, LOGGER);
+        Map<String, String> inputParameters = makeInputParametersMap(extraInputParameters);
+        FileTransformer transformer = makeTransformer(inputModelPath, makeInputParameters(inputParameters), LOGGER);
         transformer.transform(inputPath, outputFolder.toPath());
 
         File expectedOutputFolder = new File(resource(expectedOutputPath));
         compareFile(expectedOutputFolder, outputFolder);
     }
 
-    protected abstract FileTransformer makeTransformer(Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger);
+    private InputParameters makeInputParameters(Map<String, String> inputParameters) {
+        return new InputParameters(inputParameters);
+    }
+
+    private Map<String, String> makeInputParametersMap(Pair<String, String>[] extraInputParameters) {
+        Map<String, String> inputParameters = makeInputParametersMap();
+        for (Pair<String, String> pair: extraInputParameters) {
+            inputParameters.put(pair.getLeft(), pair.getRight());
+        }
+        return inputParameters;
+    }
+
+    protected abstract FileTransformer makeTransformer(Path inputModelPath, InputParameters inputParameters, BuildLogger logger);
 }

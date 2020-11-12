@@ -19,24 +19,33 @@ import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.native_.NativeFactory;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.tools.*;
 import javax.tools.JavaCompiler.CompilationTask;
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class JavaxToolsCompiler extends JavaCompilerImpl {
+    private static final Logger LOGGER = LoggerFactory.getLogger(JavaxToolsCompiler.class);
+
     private final File classesDir;
 
     public JavaxToolsCompiler() {
-        this(new File("."));
+        this.classesDir = makeTempFolder();
     }
 
     public JavaxToolsCompiler(File classesDir) {
@@ -56,11 +65,15 @@ public class JavaxToolsCompiler extends JavaCompilerImpl {
 
         // Class parts
         String packageName = "com.gs.dmn.runtime";
-        String className = "LambdaExpressionImpl";
+        String className = String.format("LambdaExpression%sImpl", uniqueName());
         String returnType = dmnTransformer.toNativeType(dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
         String javaClassText = classText(packageName, className, libClassName, returnType, applyMethod);
 
         return new JavaxToolsClassData(packageName, className, javaClassText);
+    }
+
+    private String uniqueName() {
+        return RandomStringUtils.randomAlphanumeric(10);
     }
 
     private String classText(String packageName, String className, String lib, String returnType, String applyMethod) {
@@ -123,6 +136,18 @@ public class JavaxToolsCompiler extends JavaCompilerImpl {
         return classLoader.loadClass(qualifiedClassName);
     }
 
+    @Override
+    public void deleteLambdaClass(Object lambdaExpression) {
+        Class<?> cls = lambdaExpression.getClass();
+        String qName = cls.getName();
+        String path = qName.replace('.', '/');
+        File clsFile = new File(this.classesDir, path + ".class");
+
+        LOGGER.debug("Deleting .class file " + clsFile.getAbsolutePath());
+
+        FileUtils.deleteQuietly(clsFile);
+    }
+
     public static void main(String[] args) throws Exception {
         String text =
                 "public class HelloWorld {" +
@@ -145,5 +170,16 @@ public class JavaxToolsCompiler extends JavaCompilerImpl {
         }
     }
 
+    private File makeTempFolder() {
+        try {
+            Path tmpDir = Files.createTempDirectory("jdmn_");
+            LOGGER.debug("Created temp folder as: " + tmpDir);
+            File file = tmpDir.toFile();
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> FileUtils.deleteQuietly(file)));
+            return file;
+        } catch (IOException e) {
+            throw new DMNRuntimeException("Cannot create temporary folder for JIT code");
+        }
+    }
 }
 

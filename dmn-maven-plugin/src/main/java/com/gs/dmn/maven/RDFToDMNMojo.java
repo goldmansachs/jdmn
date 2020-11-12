@@ -15,6 +15,7 @@ package com.gs.dmn.maven;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.signavio.rdf2dmn.RDFToDMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
+import com.gs.dmn.transformation.InputParameters;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -50,10 +51,15 @@ public class RDFToDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends
     @Override
     protected FileTransformer makeTransformer(BuildLogger logger) {
         FileTransformer transformer = new RDFToDMNTransformer(
-                inputParameters,
+                makeInputParameters(),
                 logger
         );
         return transformer;
+    }
+
+    @Override
+    protected InputParameters makeInputParameters() {
+        return new InputParameters(this.inputParameters);
     }
 
     @Override

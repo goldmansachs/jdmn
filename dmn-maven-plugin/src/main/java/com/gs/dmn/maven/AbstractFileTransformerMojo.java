@@ -14,6 +14,7 @@ package com.gs.dmn.maven;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.transformation.FileTransformer;
+import com.gs.dmn.transformation.InputParameters;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -53,6 +54,7 @@ public abstract class AbstractFileTransformerMojo<NUMBER, DATE, TIME, DATE_TIME,
     protected abstract void addSourceRoot(File outputFileDirectory) throws IOException;
 
     protected abstract FileTransformer makeTransformer(BuildLogger logger) throws Exception;
+    protected abstract InputParameters makeInputParameters();
 
     protected abstract void checkMandatoryFields();
 }

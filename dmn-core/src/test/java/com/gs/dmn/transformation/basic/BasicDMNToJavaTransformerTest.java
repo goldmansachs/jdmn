@@ -30,7 +30,6 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
 import java.math.BigDecimal;
-import java.util.LinkedHashMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -46,8 +45,8 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
         String pathName = "dmn/input/0004-lending.dmn";
         DMNModelRepository repository = readDMN(pathName);
         TDefinitions definitions = repository.getRootDefinitions();
-        href = definitions.getNamespace() + "#d_RequiredMonthlyInstallment";
-        this.dmnTransformer = dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
+        this.href = definitions.getNamespace() + "#d_RequiredMonthlyInstallment";
+        this.dmnTransformer = dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), makeInputParameters());
     }
 
     @Test
