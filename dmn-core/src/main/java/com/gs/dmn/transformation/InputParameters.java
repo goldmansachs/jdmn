@@ -58,21 +58,21 @@ public class InputParameters {
 
     private final boolean xsdValidation;
     private final String schemaNamespace;
+    private final String namespace;
+    private final String prefix;
 
     private final String javaRootPackage;
     private final boolean onePackage;
+    private final boolean singletonInputData;
+
     private final boolean caching;
     private final int cachingThreshold;
-    private final boolean singletonInputData;
+    private final double sparsityThreshold;
     private final boolean parallelStream;
+
     private final boolean generateProtoMessages;
     private final boolean generateProtoServices;
     private final String protoVersion;
-
-    private final double sparsityThreshold;
-
-    private final String namespace;
-    private final String prefix;
 
     public InputParameters() {
         this(new LinkedHashMap<>());
@@ -151,6 +151,10 @@ public class InputParameters {
         return cachingThreshold;
     }
 
+    public double getSparsityThreshold() {
+        return sparsityThreshold;
+    }
+
     public boolean isParallelStream() {
         return parallelStream;
     }
@@ -165,9 +169,5 @@ public class InputParameters {
 
     public String getProtoVersion() {
         return protoVersion;
-    }
-
-    public double getSparsityThreshold() {
-        return sparsityThreshold;
     }
 }
