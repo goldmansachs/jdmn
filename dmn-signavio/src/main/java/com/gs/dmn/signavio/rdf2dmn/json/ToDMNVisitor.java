@@ -23,12 +23,12 @@ import com.gs.dmn.signavio.rdf2dmn.json.decision.DecisionTable;
 import com.gs.dmn.signavio.rdf2dmn.json.decision.FreeTextExpression;
 import com.gs.dmn.signavio.rdf2dmn.json.decision.LiteralExpression;
 import com.gs.dmn.signavio.rdf2dmn.json.expression.*;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.w3c.dom.Element;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -59,10 +59,12 @@ public class ToDMNVisitor implements Visitor {
     }
 
     private final RDFModel rdfModel;
-    private final DMNDialectDefinition dialectDefinition = new SignavioDMNDialectDefinition();
-    private final BasicDMNToNativeTransformer dmnTransformer = dialectDefinition.createBasicTransformer(new SignavioDMNModelRepository(), new NopLazyEvaluationDetector(), new LinkedHashMap<>());
+    private final DMNDialectDefinition dialectDefinition;
+    private final BasicDMNToNativeTransformer dmnTransformer;
 
-    public ToDMNVisitor(RDFModel rdfModel) {
+    public ToDMNVisitor(RDFModel rdfModel, InputParameters inputParameters) {
+        this.dialectDefinition = new SignavioDMNDialectDefinition();
+        this.dmnTransformer = dialectDefinition.createBasicTransformer(new SignavioDMNModelRepository(), new NopLazyEvaluationDetector(), inputParameters);
         this.rdfModel = rdfModel;
     }
 

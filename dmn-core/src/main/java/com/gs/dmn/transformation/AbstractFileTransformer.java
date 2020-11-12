@@ -19,13 +19,12 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Map;
 
 public abstract class AbstractFileTransformer implements FileTransformer {
-    protected final Map<String, String> inputParameters;
+    protected final InputParameters inputParameters;
     protected final BuildLogger logger;
 
-    protected AbstractFileTransformer(Map<String, String> inputParameters, BuildLogger logger) {
+    protected AbstractFileTransformer(InputParameters inputParameters, BuildLogger logger) {
         this.inputParameters = inputParameters;
         this.logger = logger;
     }

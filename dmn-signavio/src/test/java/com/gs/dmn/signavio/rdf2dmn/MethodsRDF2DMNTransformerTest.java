@@ -12,19 +12,16 @@
  */
 package com.gs.dmn.signavio.rdf2dmn;
 
+import com.gs.dmn.AbstractTest;
+import com.gs.dmn.transformation.InputParameters;
 import org.junit.Test;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class MethodsRDF2DMNTransformerTest {
-    private final Map<String, String> inputParameters = new LinkedHashMap() {{
-        put("namespace", "http://www.gs.com/cip");
-        put("prefix", "cip");
-    }};
-    private final RDFToDMNTransformer transformer = new RDFToDMNTransformer(inputParameters, null);
+public class MethodsRDF2DMNTransformerTest extends AbstractTest {
+    private final RDFToDMNTransformer transformer = new RDFToDMNTransformer(new InputParameters(makeInputParametersMap()), null);
 
     @Test
     public void testDecisionNames() {
@@ -37,5 +34,13 @@ public class MethodsRDF2DMNTransformerTest {
         assertEquals("nameOtherTest", itemDefinitionName);
         assertEquals("nameOtherTest", decisionName);
         assertEquals("nameOtherTest", decisionVariableName);
+    }
+
+    @Override
+    protected Map<String, String> makeInputParametersMap() {
+        Map<String, String> inputParams = super.makeInputParametersMap();
+        inputParams.put("namespace", "http://www.gs.com/cip");
+        inputParams.put("prefix", "cip");
+        return inputParams;
     }
 }

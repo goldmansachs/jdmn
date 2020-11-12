@@ -14,8 +14,7 @@ package com.gs.dmn.runtime.compiler;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class JavaToolsCompilerTest extends AbstractCompilerTest {
     @Test
@@ -24,7 +23,9 @@ public class JavaToolsCompilerTest extends AbstractCompilerTest {
 
         assertEquals(JavaxToolsClassData.class.getName(), classData.getClass().getName());
         assertEquals("com.gs.dmn.runtime", classData.getPackageName());
-        assertEquals("LambdaExpressionImpl", classData.getClassName());
+        String className = classData.getClassName();
+        assertTrue(className.startsWith("LambdaExpression"));
+        assertTrue(className.endsWith("Impl"));
         assertNotNull("", ((JavaxToolsClassData)classData).getClassText());
     }
 

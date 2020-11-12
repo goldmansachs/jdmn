@@ -43,7 +43,7 @@ import com.gs.dmn.runtime.listener.LoggingEventListener;
 import com.gs.dmn.runtime.listener.NopEventListener;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
-import com.gs.dmn.transformation.InputParamUtil;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.LazyEvaluationOptimisation;
 import com.gs.dmn.transformation.native_.JavaFactory;
@@ -75,18 +75,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     protected ProtoBufferFactory protoFactory;
     private final LazyEvaluationDetector lazyEvaluationDetector;
 
-    private final String javaRootPackage;
+    private final InputParameters inputParameters;
     private final boolean onePackage;
-    private final boolean caching;
-    private final Integer cachingThreshold;
-    private final boolean singletonInputData;
-    private final boolean parallelStream;
 
     private final LazyEvaluationOptimisation lazyEvaluationOptimisation;
     private final Set<String> cachedElements;
-    private final boolean generateProtoMessages;
-    private final boolean generateProtoServices;
-    private final String protoVersion;
 
     protected DMNEnvironmentFactory dmnEnvironmentFactory;
     protected NativeFactory nativeFactory;
@@ -95,7 +88,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     protected final DRGElementFilter drgElementFilter;
     protected final JavaTypeMemoizer nativeTypeMemoizer;
 
-    public BasicDMNToJavaTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory nativeTypeFactory, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
+    public BasicDMNToJavaTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory nativeTypeFactory, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
         this.dialect = dialect;
         this.dmnModelRepository = dmnModelRepository;
         this.environmentFactory = environmentFactory;
@@ -103,21 +96,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         this.lazyEvaluationDetector = lazyEvaluationDetector;
 
         // Configuration
-        this.javaRootPackage = InputParamUtil.getOptionalParam(inputParameters, "javaRootPackage");
-        boolean onePackageDefault = dmnModelRepository.getAllDefinitions().size() == 1;
-        this.onePackage = InputParamUtil.getOptionalBooleanParam(inputParameters, "onePackage", "" + onePackageDefault);
-        this.caching = InputParamUtil.getOptionalBooleanParam(inputParameters, "caching");
-        String cachingThresholdParam = InputParamUtil.getOptionalParam(inputParameters, "cachingThreshold", "1");
-        this.cachingThreshold = Integer.parseInt(cachingThresholdParam);
-        this.singletonInputData = InputParamUtil.getOptionalBooleanParam(inputParameters, "singletonInputData", "true");
-        this.parallelStream = InputParamUtil.getOptionalBooleanParam(inputParameters, "parallelStream", "false");
-        this.generateProtoMessages = InputParamUtil.getOptionalBooleanParam(inputParameters, "generateProtoMessages", "false");
-        this.generateProtoServices = InputParamUtil.getOptionalBooleanParam(inputParameters, "generateProtoServices", "false");
-        this.protoVersion = InputParamUtil.getOptionalParam(inputParameters, "protoVersion", "proto3");
+        this.inputParameters = inputParameters;
+        this.onePackage = this.inputParameters.isOnePackage() || dmnModelRepository.getAllDefinitions().size() == 1;
 
         // Derived data
         this.lazyEvaluationOptimisation = this.lazyEvaluationDetector.detect(this.dmnModelRepository);
-        this.cachedElements = this.dmnModelRepository.computeCachedElements(this.caching, this.cachingThreshold);
+        this.cachedElements = this.dmnModelRepository.computeCachedElements(this.inputParameters.isCaching(), this.inputParameters.getCachingThreshold());
 
         // Helpers
         setProtoBufferFactory(this);
@@ -126,7 +110,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         setDMNEnvironmentFactory(this);
         setExpressionToNativeTransformer(this);
 
-        this.drgElementFilter = new DRGElementFilter(this.singletonInputData);
+        this.drgElementFilter = new DRGElementFilter(this.inputParameters.isSingletonInputData());
         this.nativeTypeMemoizer = new JavaTypeMemoizer();
     }
 
@@ -210,7 +194,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public boolean isSingletonInputData() {
-        return this.singletonInputData;
+        return this.inputParameters.isSingletonInputData();
     }
 
     //
@@ -1029,7 +1013,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     private Pair<List<String>, String> qualifiedName(ImportPath importPath, String modelName, String elementName) {
         if (this.onePackage) {
             return new Pair<>(Collections.emptyList(), elementName);
-        } else if (this.singletonInputData) {
+        } else if (this.inputParameters.isSingletonInputData()) {
             if (ImportPath.isEmpty(importPath)) {
                 modelName = "";
             }
@@ -1248,12 +1232,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public boolean isCaching() {
-        return this.caching;
+        return this.inputParameters.isCaching();
     }
 
     @Override
     public boolean isCached(String elementName) {
-        if (!this.caching) {
+        if (!this.inputParameters.isCaching()) {
             return false;
         }
         return this.cachedElements.contains(elementName);
@@ -1261,7 +1245,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public boolean isParallelStream() {
-        return this.parallelStream;
+        return this.inputParameters.isParallelStream();
     }
 
     @Override
@@ -1844,7 +1828,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         }
 
         String modelPackageName = javaModelName(modelName);
-        String elementPackageName = this.javaRootPackage;
+        String elementPackageName = this.inputParameters.getJavaRootPackage();
         if (StringUtils.isBlank(elementPackageName)) {
             return modelPackageName;
         } else if (!StringUtils.isBlank(modelPackageName)) {
@@ -1887,10 +1871,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String nativeRootPackageName() {
-        if (this.javaRootPackage == null) {
+        String javaRootPackage = this.inputParameters.getJavaRootPackage();
+        if (javaRootPackage == null) {
             return "";
         } else {
-            return this.javaRootPackage;
+            return javaRootPackage;
         }
     }
 
@@ -1990,20 +1975,21 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public boolean isGenerateProtoMessages() {
-        return this.generateProtoMessages;
+        return this.inputParameters.isGenerateProtoMessages();
     }
 
     @Override
     public boolean isGenerateProtoServices() {
-        return this.generateProtoServices;
+        return this.inputParameters.isGenerateProtoServices();
     }
 
     @Override
     public String getProtoVersion() {
-        if ("proto3".equals(this.protoVersion)) {
-            return this.protoVersion;
+        String protoVersion = this.inputParameters.getProtoVersion();
+        if ("proto3".equals(protoVersion)) {
+            return protoVersion;
         }
-        throw new DMNRuntimeException(String.format("Illegal proto version '%s'", this.protoVersion));
+        throw new DMNRuntimeException(String.format("Illegal proto version '%s'", protoVersion));
     }
 
     @Override

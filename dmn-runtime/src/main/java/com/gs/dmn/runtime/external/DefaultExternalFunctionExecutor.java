@@ -34,7 +34,7 @@ public class DefaultExternalFunctionExecutor implements ExternalFunctionExecutor
                 if (methodName.equals(m.getName())) {
                     Object instance = null;
                     if (!Modifier.isStatic(m.getModifiers())) {
-                        instance = cls.newInstance();
+                        instance = cls.getDeclaredConstructor().newInstance();
                     }
                     return m.invoke(instance, args);
                 }
@@ -91,7 +91,7 @@ public class DefaultExternalFunctionExecutor implements ExternalFunctionExecutor
             if ((declaredMethod.getModifiers() & Modifier.STATIC) != 0) {
                 return declaredMethod.invoke(null, args);
             } else {
-                Object obj = cls.newInstance();
+                Object obj = cls.getDeclaredConstructor().newInstance();
                 return declaredMethod.invoke(obj, args);
             }
         } catch (Exception e) {

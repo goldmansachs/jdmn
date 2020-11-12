@@ -17,13 +17,13 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.signavio.dialect.KotlinSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.transformation.template.KotlinSignavioTreeTemplateProvider;
 import com.gs.dmn.transformation.FileTransformer;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.template.TemplateProvider;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.nio.file.Path;
-import java.util.Map;
 
 public abstract class AbstractTestLabToKotlinJUnitTransformerTest extends AbstractTestLabToJUnitTransformerTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
@@ -37,7 +37,7 @@ public abstract class AbstractTestLabToKotlinJUnitTransformerTest extends Abstra
     }
 
     @Override
-    protected FileTransformer makeTransformer(Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
+    protected FileTransformer makeTransformer(Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
         return new TestLabToKotlinJUnitTransformer<>(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputModelPath, inputParameters, logger);
     }
 }

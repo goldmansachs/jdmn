@@ -22,6 +22,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -45,6 +46,14 @@ public abstract class AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         return result.toString().toLowerCase();
     }
 
+    protected Map<String, String> makeInputParametersMap() {
+        Map<String, String> inputParams = new LinkedHashMap<>();
+        inputParams.put("dmnVersion", "1.1");
+        inputParams.put("modelVersion", "2.0");
+        inputParams.put("platformVersion", "1.0");
+        return inputParams;
+    }
+
     protected abstract DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> makeDialectDefinition();
 
     protected abstract DMNValidator makeDMNValidator(BuildLogger logger);
@@ -53,11 +62,9 @@ public abstract class AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     protected abstract TemplateProvider makeTemplateProvider();
 
-    protected abstract LazyEvaluationDetector makeLazyEvaluationDetector(Map<String, String> inputParameters, BuildLogger logger);
+    protected abstract LazyEvaluationDetector makeLazyEvaluationDetector(InputParameters inputParameters, BuildLogger logger);
 
     protected abstract TypeDeserializationConfigurer makeTypeDeserializationConfigurer(BuildLogger logger);
-
-    protected abstract Map<String, String> makeInputParameters();
 
     @Test
     public void testRelativePath() {
@@ -70,7 +77,7 @@ public abstract class AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 }
 
 class DefaultTransformer extends AbstractFileTransformer {
-    public DefaultTransformer(Map<String, String> inputParameters, BuildLogger logger) {
+    public DefaultTransformer(InputParameters inputParameters, BuildLogger logger) {
         super(inputParameters, logger);
     }
 

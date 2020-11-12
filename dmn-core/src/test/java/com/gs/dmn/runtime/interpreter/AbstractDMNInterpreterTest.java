@@ -28,6 +28,7 @@ import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.tck.TCKUtil;
 import com.gs.dmn.tck.TestCasesReader;
 import com.gs.dmn.transformation.DMNTransformer;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.ToSimpleNameTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -40,7 +41,10 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.net.URI;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
 
@@ -77,11 +81,8 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
             dmnTransformer.transform(repository, pair.getRight());
 
             // Set-up execution
-            Map<String, String> inputParameters = makeInputParameters();
-            for (Pair<String, String> params: extraInputParameters) {
-                inputParameters.put(params.getLeft(), params.getRight());
-            }
-            this.interpreter = getDialectDefinition().createDMNInterpreter(repository, inputParameters);
+            Map<String, String> inputParameters = makeInputParametersMap(extraInputParameters);
+            this.interpreter = getDialectDefinition().createDMNInterpreter(repository, makeInputParameters(inputParameters));
             this.basicTransformer = interpreter.getBasicDMNTransformer();
             this.lib = interpreter.getFeelLib();
 
@@ -109,11 +110,8 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
             dmnTransformer.transform(repository, pair.getRight());
 
             // Set-up execution
-            Map<String, String> inputParameters = makeInputParameters();
-            for (Pair<String, String> params: extraInputParameters) {
-                inputParameters.put(params.getLeft(), params.getRight());
-            }
-            this.interpreter = getDialectDefinition().createDMNInterpreter(repository, inputParameters);
+            Map<String, String> inputParameters = makeInputParametersMap(extraInputParameters);
+            this.interpreter = getDialectDefinition().createDMNInterpreter(repository, makeInputParameters(inputParameters));
             this.basicTransformer = interpreter.getBasicDMNTransformer();
             this.lib = interpreter.getFeelLib();
 
@@ -203,12 +201,16 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         return pairs;
     }
 
-    protected Map<String, String> makeInputParameters() {
-        Map<String, String> inputParams = new LinkedHashMap<>();
-        inputParams.put("dmnVersion", "1.1");
-        inputParams.put("modelVersion", "2.0");
-        inputParams.put("platformVersion", "1.0");
-        return inputParams;
+    private InputParameters makeInputParameters(Map<String, String> inputParameters) {
+        return new InputParameters(inputParameters);
+    }
+
+    private Map<String, String> makeInputParametersMap(Pair<String, String>[] extraInputParameters) {
+        Map<String, String> inputParameters = makeInputParametersMap();
+        for (Pair<String, String> params : extraInputParameters) {
+            inputParameters.put(params.getLeft(), params.getRight());
+        }
+        return inputParameters;
     }
 
     protected abstract DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> getDialectDefinition();

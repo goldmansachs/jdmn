@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.runtime.compiler;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
@@ -21,6 +22,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.NumericLiteral;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Test;
@@ -30,11 +32,10 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 
 import static org.junit.Assert.assertNotNull;
 
-public abstract class AbstractCompilerTest {
+public abstract class AbstractCompilerTest extends AbstractTest {
     private final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> dialectDefinition = new StandardDMNDialectDefinition();
 
     protected abstract JavaCompiler getCompiler();
@@ -44,9 +45,10 @@ public abstract class AbstractCompilerTest {
         element.setType(new BuiltinFunctionType(Arrays.asList(), NumberType.NUMBER));
         FEELContext context = null;
         DMNModelRepository repository = new DMNModelRepository();
-        BasicDMNToNativeTransformer dmnTransformer = dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
-        FEELTranslator feelTranslator = dialectDefinition.createFEELTranslator(repository, new LinkedHashMap<>());
-        return getCompiler().makeClassData(element, context, dmnTransformer, feelTranslator, dialectDefinition.createFEELLib().getClass().getName());
+        InputParameters inputParameters = makeInputParameters();
+        BasicDMNToNativeTransformer dmnTransformer = this.dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters);
+        FEELTranslator feelTranslator = this.dialectDefinition.createFEELTranslator(repository, inputParameters);
+        return getCompiler().makeClassData(element, context, dmnTransformer, feelTranslator, this.dialectDefinition.createFEELLib().getClass().getName());
     }
 
     @Test

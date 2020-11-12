@@ -15,10 +15,12 @@ package com.gs.dmn.maven;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.maven.configuration.components.DMNTransformerComponent;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.CompositeDMNTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.NopDMNTransformer;
 import com.gs.dmn.transformation.lazy.CompositeLazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
@@ -50,7 +52,11 @@ public abstract class AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
     public Map<String, String> inputParameters;
 
     protected DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> makeDialect(Class<?> dialectClass) throws InstantiationException, IllegalAccessException {
-        return (DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST>) dialectClass.newInstance();
+        try {
+            return (DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST>) dialectClass.getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot instantiate dialect '%s'", dialectClass == null ? null : dialectClass.getName()));
+        }
     }
 
     protected DMNValidator makeDMNValidator(String[] dmnValidatorClassNames, BuildLogger logger) throws Exception {
@@ -63,7 +69,7 @@ public abstract class AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
             try {
                 dmnValidators.add((DMNValidator) dmnValidatorClass.getConstructor(new Class[]{BuildLogger.class}).newInstance(new Object[]{logger}));
             } catch (Exception e) {
-                dmnValidators.add((DMNValidator) dmnValidatorClass.newInstance());
+                dmnValidators.add((DMNValidator) dmnValidatorClass.getDeclaredConstructor().newInstance());
             }
         }
         return new CompositeDMNValidator(dmnValidators);
@@ -80,7 +86,7 @@ public abstract class AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
             try {
                 transformer = (DMNTransformer<TEST>) dmnTransformerClass.getConstructor(new Class[]{BuildLogger.class}).newInstance(new Object[]{logger});
             } catch (Exception e) {
-                transformer = (DMNTransformer<TEST>) dmnTransformerClass.newInstance();
+                transformer = (DMNTransformer<TEST>) dmnTransformerClass.getDeclaredConstructor().newInstance();
             }
 
             transformer.configure(dmnTransformerComponent.getConfiguration());
@@ -89,7 +95,7 @@ public abstract class AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
         return new CompositeDMNTransformer<TEST>(dmnTransformers);
     }
 
-    protected LazyEvaluationDetector makeLazyEvaluationDetector(String[] detectorClassNames, BuildLogger logger, Map<String, String> inputParameters) throws Exception {
+    protected LazyEvaluationDetector makeLazyEvaluationDetector(String[] detectorClassNames, BuildLogger logger, InputParameters inputParameters) throws Exception {
         if (detectorClassNames == null) {
             return new NopLazyEvaluationDetector();
         }
@@ -97,9 +103,9 @@ public abstract class AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
         for(String detectorClassName: detectorClassNames) {
             Class<?> detectorClass = Class.forName(detectorClassName);
             try {
-                detectors.add((LazyEvaluationDetector) detectorClass.getConstructor(new Class[]{BuildLogger.class, Map.class}).newInstance(new Object[]{logger, inputParameters}));
+                detectors.add((LazyEvaluationDetector) detectorClass.getConstructor(new Class[]{InputParameters.class, BuildLogger.class}).newInstance(new Object[]{inputParameters, logger}));
             } catch (Exception e) {
-                detectors.add((LazyEvaluationDetector) detectorClass.newInstance());
+                detectors.add((LazyEvaluationDetector) detectorClass.getDeclaredConstructor().newInstance());
             }
         }
         return new CompositeLazyEvaluationDetector(detectors);
@@ -115,16 +121,21 @@ public abstract class AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
             return (TypeDeserializationConfigurer)deserializerClass.getConstructor(new Class[]{BuildLogger.class}).newInstance(new Object[]{logger});
         }
         catch (Exception ex) {
-            return (TypeDeserializationConfigurer)deserializerClass.newInstance();
+            return (TypeDeserializationConfigurer)deserializerClass.getDeclaredConstructor().newInstance();
         }
     }
 
     protected TemplateProvider makeTemplateProvider(String templateProviderClassName, BuildLogger logger) throws Exception {
         Class<?> templateProviderClass = Class.forName(templateProviderClassName);
         try {
-            return (TemplateProvider) templateProviderClass.newInstance();
+            return (TemplateProvider) templateProviderClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             throw new IllegalArgumentException(String.format("Cannot build template provider '%s'", templateProviderClass));
         }
+    }
+
+    @Override
+    protected InputParameters makeInputParameters() {
+        return new InputParameters(this.inputParameters);
     }
 }

@@ -19,6 +19,7 @@ import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.NopDMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
@@ -35,26 +36,23 @@ public abstract class AbstractDMNDialectDefinitionTest<NUMBER, DATE, TIME, DATE_
     private final DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialect = makeDialect();
 
     private final DMNModelRepository repository = makeRepository();
+    private final InputParameters inputParameters = makeInputParameters();
 
     @Test
     public void testCreateDMNInterpreter() {
-        DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter = dialect.createDMNInterpreter(repository, new LinkedHashMap<>());
+        DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter = dialect.createDMNInterpreter(repository, inputParameters);
         assertEquals(getExpectedDMNInterpreterClass(), dmnInterpreter.getClass().getName());
     }
 
     @Test
     public void testCreateDMNToJavaTransformer() {
-        Map<String, String> inputParameters = new LinkedHashMap<>();
-        inputParameters.put("dmnVersion", "1.1");
-        inputParameters.put("modelVersion", "1.2");
-        inputParameters.put("platformVersion", "3.2");
         DMNToNativeTransformer dmnToJavaTransformer = dialect.createDMNToNativeTransformer(new NopDMNValidator(), new NopDMNTransformer<>(), makeTemplateProvider(), new NopLazyEvaluationDetector(), new DefaultTypeDeserializationConfigurer(), inputParameters, null);
         assertEquals(getExpectedDMNToNativeTransformerClass(), dmnToJavaTransformer.getClass().getName());
     }
 
     @Test
     public void testCreateBasicTransformer() {
-        BasicDMNToNativeTransformer basicTransformer = dialect.createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
+        BasicDMNToNativeTransformer basicTransformer = dialect.createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters);
         assertEquals(getBasicTransformerClass(), basicTransformer.getClass().getName());
     }
 
@@ -74,6 +72,15 @@ public abstract class AbstractDMNDialectDefinitionTest<NUMBER, DATE, TIME, DATE_
     public void testGetDecisionBaseClass() {
         String decisionBaseClass = dialect.getDecisionBaseClass();
         assertEquals(getExpectedDecisionBaseClass(), decisionBaseClass);
+    }
+
+    @Override
+    protected InputParameters makeInputParameters() {
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("dmnVersion", "1.1");
+        map.put("modelVersion", "1.2");
+        map.put("platformVersion", "3.2");
+        return new InputParameters(map);
     }
 
     protected abstract DMNDialectDefinition<NUMBER,DATE,TIME,DATE_TIME,DURATION,TEST> makeDialect();
