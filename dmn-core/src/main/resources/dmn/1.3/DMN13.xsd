@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema elementFormDefault="qualified"
-	xmlns="http://www.omg.org/spec/DMN/20180521/MODEL/"
+	xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/"
-	targetNamespace="http://www.omg.org/spec/DMN/20180521/MODEL/">
+	xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+	targetNamespace="https://www.omg.org/spec/DMN/20191111/MODEL/">
 
-	<xsd:import namespace="http://www.omg.org/spec/DMN/20180521/DMNDI/"
-	            schemaLocation="DMNDI.xsd">
+	<xsd:import namespace="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+	            schemaLocation="DMNDI13.xsd">
 		<xsd:annotation>
 			<xsd:documentation>
 				Include the DMN Diagram Interchange (DI) schema
@@ -54,8 +54,8 @@
 					<xsd:element ref="businessContextElement" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="dmndi:DMNDI" minOccurs="0" maxOccurs="1"/>
 				</xsd:sequence>
-				<xsd:attribute name="expressionLanguage" type="xsd:anyURI" use="optional" default="http://www.omg.org/spec/FEEL/20140401"/>
-				<xsd:attribute name="typeLanguage" type="xsd:anyURI" use="optional" default="http://www.omg.org/spec/FEEL/20140401"/>
+				<xsd:attribute name="expressionLanguage" type="xsd:anyURI" use="optional" default="https://www.omg.org/spec/DMN/20191111/FEEL/"/>
+				<xsd:attribute name="typeLanguage" type="xsd:anyURI" use="optional" default="https://www.omg.org/spec/DMN/20191111/FEEL/"/>
 				<xsd:attribute name="namespace" type="xsd:anyURI" use="required"/>
 				<xsd:attribute name="exporter" type="xsd:string" use="optional"/>
 				<xsd:attribute name="exporterVersion" type="xsd:string" use="optional"/>
@@ -224,7 +224,7 @@
 	<xsd:complexType name="tExpression">
 		<xsd:complexContent>
 			<xsd:extension base="tDMNElement">
-				<xsd:attribute name="typeRef" type="xsd:string"/>
+				<xsd:attribute name="typeRef" type="xsd:string" use="optional"/>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
@@ -238,9 +238,21 @@
 						<xsd:element name="allowedValues" type="tUnaryTests" minOccurs="0"/>
 					</xsd:sequence>
 					<xsd:element name="itemComponent" type="tItemDefinition" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element name="functionItem" type="tFunctionItem" minOccurs="0" maxOccurs="1"/>
 				</xsd:choice>
 				<xsd:attribute name="typeLanguage" type="xsd:anyURI" use="optional"/>
 				<xsd:attribute name="isCollection" type="xsd:boolean" use="optional" default="false"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="functionItem" type="tFunctionItem" substitutionGroup="DMNElement"/>
+	<xsd:complexType name="tFunctionItem">
+		<xsd:complexContent>
+			<xsd:extension base="tDMNElement">
+				<xsd:sequence>
+					<xsd:element name="parameters" type="tInformationItem" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+				<xsd:attribute name="outputTypeRef" type="xsd:string"/>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
@@ -290,6 +302,7 @@
 				<xsd:sequence>
 					<xsd:element name="input" type="tInputClause" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element name="output" type="tOutputClause" maxOccurs="unbounded"/>
+					<xsd:element name="annotation" type="tRuleAnnotationClause"  minOccurs="0" maxOccurs="unbounded"/>
 					<!-- NB: when the hit policy is FIRST or RULE ORDER, the ordering of the rules is significant and MUST be preserved -->
 					<xsd:element name="rule" type="tDecisionRule" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
@@ -300,23 +313,73 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="tInputClause">
+		<xsd:complexContent>
+			<xsd:extension base="tDMNElement">
+				<xsd:sequence>
+					<xsd:element name="inputExpression" type="tLiteralExpression"/>
+					<xsd:element name="inputValues" type="tUnaryTests" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="tOutputClause">
+		<xsd:complexContent>
+			<xsd:extension base="tDMNElement">
+				<xsd:sequence>
+					<xsd:element name="outputValues" type="tUnaryTests" minOccurs="0"/>
+					<xsd:element name="defaultOutputEntry" type="tLiteralExpression" minOccurs="0"/>
+				</xsd:sequence>
+				<xsd:attribute name="name" type="xsd:string" use="optional"/>
+				<xsd:attribute name="typeRef" type="xsd:string"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="tRuleAnnotationClause">
+		<xsd:attribute name="name" type="xsd:string"/>
+	</xsd:complexType>
 	<xsd:complexType name="tDecisionRule">
 		<xsd:complexContent>
 			<xsd:extension base="tDMNElement">
 				<xsd:sequence>
 					<xsd:element name="inputEntry" type="tUnaryTests" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element name="outputEntry" type="tLiteralExpression" maxOccurs="unbounded"/>
-					<xsd:element name="annotationEntry" minOccurs="0" maxOccurs="unbounded">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="text" type="xsd:string" minOccurs="0"/>
-							</xsd:sequence>
-						</xsd:complexType>
-					</xsd:element>
+					<xsd:element name="annotationEntry" type="tRuleAnnotation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="tRuleAnnotation">
+		<xsd:sequence>
+			<xsd:element name="text" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="tHitPolicy">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="UNIQUE"/>
+			<xsd:enumeration value="FIRST"/>
+			<xsd:enumeration value="PRIORITY"/>
+			<xsd:enumeration value="ANY"/>
+			<xsd:enumeration value="COLLECT"/>
+			<xsd:enumeration value="RULE ORDER"/>
+			<xsd:enumeration value="OUTPUT ORDER"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tBuiltinAggregator">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="SUM"/>
+			<xsd:enumeration value="COUNT"/>
+			<xsd:enumeration value="MIN"/>
+			<xsd:enumeration value="MAX"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tDecisionTableOrientation">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Rule-as-Row"/>
+			<xsd:enumeration value="Rule-as-Column"/>
+			<xsd:enumeration value="CrossTable"/>
+		</xsd:restriction>
+	</xsd:simpleType>
 	<xsd:complexType name="tImportedValues">
 		<xsd:complexContent>
 			<xsd:extension base="tImport">
@@ -331,6 +394,14 @@
 	<xsd:complexType name="tArtifact">
 		<xsd:complexContent>
 			<xsd:extension base="tDMNElement"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="group" type="tGroup" substitutionGroup="artifact"/>
+	<xsd:complexType name="tGroup">
+		<xsd:complexContent>
+			<xsd:extension base="tArtifact">
+				<xsd:attribute name="name" type="xsd:string" use="optional"/>
+			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:element name="textAnnotation" type="tTextAnnotation" substitutionGroup="artifact"/>
@@ -363,54 +434,6 @@
 			<xsd:enumeration value="Both"/>
 		</xsd:restriction>
 	</xsd:simpleType>
-	<xsd:simpleType name="tDecisionTableOrientation">
-		<xsd:restriction base="xsd:string">
-			<xsd:enumeration value="Rule-as-Row"/>
-			<xsd:enumeration value="Rule-as-Column"/>
-			<xsd:enumeration value="CrossTable"/>
-		</xsd:restriction>
-	</xsd:simpleType>
-	<xsd:simpleType name="tHitPolicy">
-		<xsd:restriction base="xsd:string">
-			<xsd:enumeration value="UNIQUE"/>
-			<xsd:enumeration value="FIRST"/>
-			<xsd:enumeration value="PRIORITY"/>
-			<xsd:enumeration value="ANY"/>
-			<xsd:enumeration value="COLLECT"/>
-			<xsd:enumeration value="RULE ORDER"/>
-			<xsd:enumeration value="OUTPUT ORDER"/>
-		</xsd:restriction>
-	</xsd:simpleType>
-	<xsd:simpleType name="tBuiltinAggregator">
-		<xsd:restriction base="xsd:string">
-			<xsd:enumeration value="SUM"/>
-			<xsd:enumeration value="COUNT"/>
-			<xsd:enumeration value="MIN"/>
-			<xsd:enumeration value="MAX"/>
-		</xsd:restriction>
-	</xsd:simpleType>
-	<xsd:complexType name="tOutputClause">
-		<xsd:complexContent>
-			<xsd:extension base="tDMNElement">
-				<xsd:sequence>
-					<xsd:element name="outputValues" type="tUnaryTests" minOccurs="0"/>
-					<xsd:element name="defaultOutputEntry" type="tLiteralExpression" minOccurs="0"/>
-				</xsd:sequence>
-				<xsd:attribute name="name" type="xsd:string" use="optional"/>
-				<xsd:attribute name="typeRef" type="xsd:string"/>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:complexType name="tInputClause">
-		<xsd:complexContent>
-			<xsd:extension base="tDMNElement">
-				<xsd:sequence>
-					<xsd:element name="inputExpression" type="tLiteralExpression"/>
-					<xsd:element name="inputValues" type="tUnaryTests" minOccurs="0"/>
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
 	<xsd:element name="context" type="tContext" substitutionGroup="expression"/>
 	<xsd:complexType name="tContext">
 		<xsd:complexContent>
@@ -477,7 +500,7 @@
 	</xsd:complexType>
 	<xsd:complexType name="tUnaryTests">
 		<xsd:complexContent>
-			<xsd:extension base="tDMNElement">
+			<xsd:extension base="tExpression">
 				<xsd:sequence>
 					<xsd:element name="text" type="xsd:string"/>
 				</xsd:sequence>
