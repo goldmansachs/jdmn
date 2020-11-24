@@ -28,7 +28,7 @@ public class DMNReaderTest extends AbstractTest {
 
     @Test
     public void testRead() {
-        File input = new File(resource("dmn/input/test-dmn.dmn"));
+        File input = new File(resource("dmn/input/1.1/test-dmn.dmn"));
 
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(input);
         TDefinitions definitions = pair.getLeft();

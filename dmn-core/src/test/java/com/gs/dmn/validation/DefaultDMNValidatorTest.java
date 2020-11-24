@@ -36,7 +36,7 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
                 "(model='definitions', name='CIP Assessments', id='cip-assessments'): error: Missing variable",
                 "(model='definitions', name='CIP Assessments', id='cip-assessments1'): error: Missing variable"
         );
-        validate(validator, "dmn/input/test-dmn-with-duplicates.dmn", expectedErrors);
+        validate(validator, "dmn/input/1.1/test-dmn-with-duplicates.dmn", expectedErrors);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
         List<String> expectedErrors = Arrays.asList(
                 "(model='test-dmn', name='CIP Assessments', id='cip-assessments'): error: Missing variable"
         );
-        validate(validator, "dmn/input/test-dmn.dmn", expectedErrors);
+        validate(validator, "dmn/input/1.1/test-dmn.dmn", expectedErrors);
     }
 
     @Test

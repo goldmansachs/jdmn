@@ -34,7 +34,7 @@ public class UniqueInformationRequirementValidatorTest extends AbstractValidator
                 "(model='test-dmn', name='CIP Assessments', id='cip-assessments'): error: Duplicated informationRequirement.requiredInput 'input-1'",
                 "(model='test-dmn', name='CIP Assessments', id='cip-assessments'): error: Duplicated informationRequirement.requiredDecision 'decision-1'"
         );
-        validate(validator, "dmn/input/test-dmn-with-duplicated-information-requirements.dmn", expectedErrors);
+        validate(validator, "dmn/input/1.1/test-dmn-with-duplicated-information-requirements.dmn", expectedErrors);
     }
 
     @Test
