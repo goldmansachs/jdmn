@@ -35,7 +35,7 @@ public class UniqueNameValidatorTest extends AbstractValidatorTest {
                 "(model='definitions'): error: The 'name' of a 'DRGElement' must be unique. Found 2 duplicates for 'Input'.",
                 "(model='definitions'): error: The 'name' of a 'ItemDefinition' must be unique. Found 2 duplicates for 'itemDefinition'."
         );
-        validate(validator, "dmn/input/test-dmn-with-duplicates.dmn", expectedErrors);
+        validate(validator, "dmn/input/1.1/test-dmn-with-duplicates.dmn", expectedErrors);
     }
 
     @Test

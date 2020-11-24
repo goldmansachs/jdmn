@@ -40,7 +40,7 @@ public class SparseDecisionDetectorTest extends AbstractTest {
 
     @Before
     public void setUp() {
-        String pathName = "dmn/input/0004-lending.dmn";
+        String pathName = "dmn/input/1.1/0004-lending.dmn";
         dmnModelRepository = readDMN(pathName);
     }
 

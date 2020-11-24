@@ -129,7 +129,7 @@ public class ToSimpleNameTransformerTest extends NameTransformerTest {
 
     @Override
     protected String getInputPath() {
-        return "dmn/input/";
+        return "dmn/input/1.1/";
     }
 
     @Override

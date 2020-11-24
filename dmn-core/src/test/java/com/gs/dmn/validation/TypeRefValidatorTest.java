@@ -34,7 +34,7 @@ public class TypeRefValidatorTest extends AbstractValidatorTest {
         List<String> expectedErrors = Arrays.asList(
            "(model='test-dmn', label='Applicant', name='applicant', id='id-d2376567fde3c9400ee327ecec21e36d'): error: Cannot find typeRef 'QualifiedName(null, applicant)'"
         );
-        validate(validator, "dmn/input/test-dmn-with-missing-type-ref.dmn", expectedErrors);
+        validate(validator, "dmn/input/1.1/test-dmn-with-missing-type-ref.dmn", expectedErrors);
     }
 
     @Test

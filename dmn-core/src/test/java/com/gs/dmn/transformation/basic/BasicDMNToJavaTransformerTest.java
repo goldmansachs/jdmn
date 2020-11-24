@@ -42,7 +42,7 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
 
     @Before
     public void setUp() {
-        String pathName = "dmn/input/0004-lending.dmn";
+        String pathName = "dmn/input/1.1/0004-lending.dmn";
         DMNModelRepository repository = readDMN(pathName);
         TDefinitions definitions = repository.getRootDefinitions();
         this.href = definitions.getNamespace() + "#d_RequiredMonthlyInstallment";

@@ -14,16 +14,13 @@ package com.gs.dmn.signavio.serialization;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.DMNDialectTransformer;
-import com.gs.dmn.serialization.DMNDialectTransformerTest;
+import com.gs.dmn.serialization.DMN11To12DialectTransformer;
+import com.gs.dmn.serialization.DMN11To12DialectTransformerTest;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.DMNWriter;
 import org.junit.Test;
 
-public class SignavioDMNDialectTransformerTest extends DMNDialectTransformerTest {
-    private final DMNDialectTransformer transformer = new DMNDialectTransformer(LOGGER);
-    private final DMNReader dmnReader = new DMNReader(LOGGER, false);
-    private final DMNWriter dmnWriter = new DMNWriter(LOGGER);
+public class SignavioDMNDialectTransformerTest extends DMN11To12DialectTransformerTest {
     private static final String DIAGRAM_NAMESPACE = "http://www.provider.com/dmn/1.1/diagram/";
 
     @Override
@@ -42,15 +39,11 @@ public class SignavioDMNDialectTransformerTest extends DMNDialectTransformerTest
         doTest("simpleMID.dmn", new Pair<>(DIAGRAM_NAMESPACE + "9e53b9fc18f94da39241c0319c532c9a.xml", "sig"));
     }
 
-    private String getInputPath() {
+    protected String getInputPath() {
         return "dmn/input/";
     }
 
-    private String getTargetPath() {
-        return "target/version/" + getInputPath();
-    }
-
-    private String getExpectedPath() {
+    protected String getExpectedPath() {
         return "dmn/expected/1.2/";
     }
 }
