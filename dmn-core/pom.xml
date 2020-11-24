@@ -24,7 +24,7 @@
 
     <properties>
         <dmn11.schema>${project.basedir}/src/main/resources/dmn/1.1/dmn.xsd</dmn11.schema>
-        <dmn12.schema>${project.basedir}/src/main/resources/dmn/1.2/dmn.xsd</dmn12.schema>
+        <dmn12.schema>${project.basedir}/src/main/resources/dmn/1.2/DMN12.xsd</dmn12.schema>
         <tck.schema>${project.basedir}/src/main/resources/tck/testCases.xsd</tck.schema>
 
         <jaxb.generated.dmn>${project.basedir}/target/generated-sources/jaxb</jaxb.generated.dmn>
