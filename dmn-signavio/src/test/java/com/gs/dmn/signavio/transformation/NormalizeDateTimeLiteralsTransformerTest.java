@@ -46,7 +46,7 @@ public class NormalizeDateTimeLiteralsTransformerTest extends AbstractFileTransf
 
     @Test
     public void testTransform() throws Exception {
-        String path = "dmn/input/";
+        String path = "dmn/input/1.1/";
 
         // Transform DMN
         File dmnFile = new File(resource(path + "Null Safe Tests.dmn"));

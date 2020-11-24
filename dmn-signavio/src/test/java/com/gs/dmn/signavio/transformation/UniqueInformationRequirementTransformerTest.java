@@ -36,7 +36,7 @@ public class UniqueInformationRequirementTransformerTest extends AbstractFileTra
 
     @Test
     public void testTransform() {
-        String path = "dmn/input/";
+        String path = "dmn/input/1.1/";
 
         // Transform DMN
         File dmnFile = new File(resource(path + "simpleMID-with-ir-duplicates.dmn"));
