@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.serialization;
 
-import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -27,39 +26,37 @@ import static com.gs.dmn.serialization.DMNVersion.*;
 public class DMN11To13DialectTransformer extends DMNDialectTransformer<org.omg.spec.dmn._20151101.model.TDefinitions, TDefinitions>{
     private static final ObjectFactory DMN_13_OBJECT_FACTORY = new ObjectFactory();
 
+    private DMNVersion sourceVersion = DMN_11;
+    private DMNVersion targetVersion = DMN_13;
+
     public DMN11To13DialectTransformer(BuildLogger logger) {
         super(logger);
     }
 
     @Override
-    public DMNModelRepository transformRepository(org.omg.spec.dmn._20151101.model.TDefinitions dmn11Definitions) {
-        throw new DMNRuntimeException("Not implemented yet");
-    }
-
-    @Override
-    public Pair<TDefinitions, PrefixNamespaceMappings> transformDefinitions(org.omg.spec.dmn._20151101.model.TDefinitions dmn11Definitions) {
-        TDefinitions definitions = transform(dmn11Definitions);
+    public Pair<TDefinitions, PrefixNamespaceMappings> transformDefinitions(org.omg.spec.dmn._20151101.model.TDefinitions sourceDefinitions) {
+        TDefinitions definitions = transform(sourceDefinitions);
         return new Pair<>(definitions, this.prefixNamespaceMappings);
     }
 
-    private TDefinitions transform(org.omg.spec.dmn._20151101.model.TDefinitions dmn11Definitions) {
-        logger.info(String.format("Transforming '%s' to DMN 1.2 ...", dmn11Definitions.getName()));
+    private TDefinitions transform(org.omg.spec.dmn._20151101.model.TDefinitions sourceDefinitions) {
+        logger.info(String.format("Transforming '%s' from DMN 1.1 to DMN 1.3 ...", sourceDefinitions.getName()));
 
         TDefinitions definitions = DMN_13_OBJECT_FACTORY.createTDefinitions();
 
-        addNamedElementProperties(dmn11Definitions, definitions);
+        addNamedElementProperties(sourceDefinitions, definitions);
 
-        definitions.getImport().addAll(transformList(dmn11Definitions.getImport()));
-        definitions.getItemDefinition().addAll(transformList(dmn11Definitions.getItemDefinition()));
-        definitions.getDrgElement().addAll(transformList(dmn11Definitions.getDrgElement()));
-        definitions.getArtifact().addAll(transformList(dmn11Definitions.getArtifact()));
-        definitions.getElementCollection().addAll(transformList(dmn11Definitions.getElementCollection()));
-        definitions.getBusinessContextElement().addAll(transformList(dmn11Definitions.getBusinessContextElement()));
-        definitions.setExpressionLanguage(transformLanguage(dmn11Definitions.getExpressionLanguage()));
-        definitions.setTypeLanguage(transformLanguage(dmn11Definitions.getTypeLanguage()));
-        definitions.setNamespace(transformNamespace(dmn11Definitions.getNamespace()));
-        definitions.setExporter(dmn11Definitions.getExporter());
-        definitions.setExporterVersion(dmn11Definitions.getExporterVersion());
+        definitions.getImport().addAll(transformList(sourceDefinitions.getImport()));
+        definitions.getItemDefinition().addAll(transformList(sourceDefinitions.getItemDefinition()));
+        definitions.getDrgElement().addAll(transformList(sourceDefinitions.getDrgElement()));
+        definitions.getArtifact().addAll(transformList(sourceDefinitions.getArtifact()));
+        definitions.getElementCollection().addAll(transformList(sourceDefinitions.getElementCollection()));
+        definitions.getBusinessContextElement().addAll(transformList(sourceDefinitions.getBusinessContextElement()));
+        definitions.setExpressionLanguage(transformLanguage(sourceDefinitions.getExpressionLanguage()));
+        definitions.setTypeLanguage(transformLanguage(sourceDefinitions.getTypeLanguage()));
+        definitions.setNamespace(transformNamespace(sourceDefinitions.getNamespace()));
+        definitions.setExporter(sourceDefinitions.getExporter());
+        definitions.setExporterVersion(sourceDefinitions.getExporterVersion());
 
         logger.info("Done");
 
@@ -254,7 +251,7 @@ public class DMN11To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         for(Object extension: element.getAny()) {
             if (extension instanceof JAXBElement) {
                 extensions.add(transformJAXBElement((JAXBElement) extension));
-            } else if (DMN_11.getJavaPackage().equals(extension.getClass().getPackage().getName())) {
+            } else if (this.sourceVersion.getJavaPackage().equals(extension.getClass().getPackage().getName())) {
                 extensions.add(transformElement((org.omg.spec.dmn._20151101.model.TDMNElement)extension));
             } else {
                 extensions.add(extension);
@@ -772,17 +769,15 @@ public class DMN11To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         this.prefixNamespaceMappings.put(prefix, namespaceURI);
         for (DMNVersion version: VALUES) {
             if (version.getFeelNamespace().equals(namespaceURI)) {
-                return String.format("%s.%s", DMN_11.getFeelPrefix(), localPart);
+                return String.format("%s.%s", this.targetVersion.getFeelPrefix(), localPart);
             }
         }
         return localPart;
     }
 
     private String transformLanguage(String expressionLanguage) {
-        for (DMNVersion version: VALUES) {
-            if (version.getFeelNamespace().equals(expressionLanguage)) {
-                return LATEST.getFeelNamespace();
-            }
+        if (this.sourceVersion.getFeelNamespace().equals(expressionLanguage)) {
+            return this.targetVersion.getFeelNamespace();
         }
         return expressionLanguage;
     }

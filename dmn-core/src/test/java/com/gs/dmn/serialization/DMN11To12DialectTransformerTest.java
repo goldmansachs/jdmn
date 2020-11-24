@@ -13,14 +13,14 @@ public class DMN11To12DialectTransformerTest extends DMNDialectTransformerTest<o
     }
 
     @Override
-    protected TDefinitions transform(org.omg.spec.dmn._20151101.model.TDefinitions sourceDefinitions) {
-        DMNModelRepository repository = getTransformer().transformRepository(sourceDefinitions);
-        return repository.getRootDefinitions();
+    protected DMNDialectTransformer<org.omg.spec.dmn._20151101.model.TDefinitions, TDefinitions> getTransformer() {
+        return new DMN11To12DialectTransformer(LOGGER);
     }
 
     @Override
-    protected DMNDialectTransformer<org.omg.spec.dmn._20151101.model.TDefinitions, TDefinitions> getTransformer() {
-        return new DMN11To12DialectTransformer(LOGGER);
+    protected TDefinitions transform(org.omg.spec.dmn._20151101.model.TDefinitions sourceDefinitions) {
+        Pair<TDefinitions, PrefixNamespaceMappings> pair = getTransformer().transformDefinitions(sourceDefinitions);
+        return new DMNModelRepository(pair).getRootDefinitions();
     }
 
     @Override
