@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.serialization;
 
-import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.Pair;
 
@@ -23,8 +22,6 @@ public abstract class DMNDialectTransformer<S, T> {
     public DMNDialectTransformer(BuildLogger logger) {
         this.logger = logger;
     }
-
-    public abstract DMNModelRepository transformRepository(S sourceDefinitions);
 
     public abstract Pair<T, PrefixNamespaceMappings> transformDefinitions(S sourceDefinitions);
 }

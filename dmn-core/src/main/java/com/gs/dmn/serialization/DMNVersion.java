@@ -43,9 +43,9 @@ public class DMNVersion {
 
     protected static final LinkedHashMap<String, String> DMN_13_OTHER_NAMESPACES = new LinkedHashMap<>();
     static {
-        DMN_13_OTHER_NAMESPACES.put("https://www.omg.org/spec/DMN/20191111/DC/", "dc");
+        DMN_13_OTHER_NAMESPACES.put("http://www.omg.org/spec/DMN/20180521/DC/", "dc");
         DMN_13_OTHER_NAMESPACES.put("https://www.omg.org/spec/DMN/20191111/DMNDI/", "dmndi");
-        DMN_13_OTHER_NAMESPACES.put("https://www.omg.org/spec/DMN/20191111/DI/", "di");
+        DMN_13_OTHER_NAMESPACES.put("http://www.omg.org/spec/DMN/20180521/DI/", "di");
     }
     public static final DMNVersion DMN_13 = new DMNVersion("1.3", "dmn/1.3/DMN13.xsd",
             null, "https://www.omg.org/spec/DMN/20191111/MODEL/",

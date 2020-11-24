@@ -13,10 +13,10 @@ public abstract class DMNDialectTransformerTest<S, T> extends AbstractFileTransf
         // Read
         File inputFile = new File(resource(getInputPath() + inputFileName));
         Object object = dmnReader.readObject(inputFile);
-        S dmn11Definitions = (S) object;
+        S sourceDefinitions = (S) object;
 
         // Transform
-        T targetDefinitions = transform(dmn11Definitions);
+        T targetDefinitions = transform(sourceDefinitions);
 
         // Write
         File targetFolder = new File(getTargetPath());
@@ -31,7 +31,10 @@ public abstract class DMNDialectTransformerTest<S, T> extends AbstractFileTransf
 
     protected abstract DMNVersion getDMNTargetVersion();
 
-    protected abstract T transform(S sourceDefinitions);
+    protected T transform(S sourceDefinitions) {
+        Pair<T, PrefixNamespaceMappings> pair = getTransformer().transformDefinitions(sourceDefinitions);
+        return pair.getLeft();
+    }
 
     protected String getInputPath() {
         return String.format("dmn/input/%s/", getSourceVersion());
