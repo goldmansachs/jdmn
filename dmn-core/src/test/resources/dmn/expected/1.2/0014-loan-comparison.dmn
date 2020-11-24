@@ -212,6 +212,53 @@
             </row>
         </relation>
     </decision>
+    <inputData name="RequestedAmt" id="_67c50a4c-3002-4d0a-9acf-4c76cb0364fa">
+        <variable typeRef="feel.number" name="RequestedAmt"/>
+    </inputData>
+    <decision name="RankedProducts" id="_715940be-0f5d-4701-8155-fcba85874aa1">
+        <variable typeRef="tRankedProducts" name="RankedProducts"/>
+        <informationRequirement>
+            <requiredInput href="#_67c50a4c-3002-4d0a-9acf-4c76cb0364fa"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#_c5dd7a17-b588-4daf-8c9b-677e65ce87be"/>
+        </informationRequirement>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_83059f2e-2862-45a9-97a7-71ffaa860586"/>
+        </knowledgeRequirement>
+        <context>
+            <contextEntry>
+                <variable typeRef="tMetrics" name="metricsTable"/>
+                <literalExpression>
+                    <text>for i in Bankrates return FinancialMetrics(i,RequestedAmt)</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable typeRef="tMetrics" name="rankByRate"/>
+                <literalExpression>
+                    <text>sort(metricsTable, function(x,y) x.rate&lt;y.rate)</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable typeRef="tMetrics" name="rankByDownPmt"/>
+                <literalExpression>
+                    <text>sort(metricsTable, function(x,y) x.downPmtAmt&lt;y.downPmtAmt)</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable typeRef="tMetrics" name="rankByMonthlyPmt"/>
+                <literalExpression>
+                    <text>sort(metricsTable, function(x,y) x.paymentAmt&lt;y.paymentAmt)</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable typeRef="tMetrics" name="rankByEquityPct"/>
+                <literalExpression>
+                    <text>sort(metricsTable, function(x,y) x.equity36moPct&gt;y.equity36moPct)</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
     <businessKnowledgeModel name="FinancialMetrics" id="_83059f2e-2862-45a9-97a7-71ffaa860586">
         <variable name="FinancialMetrics"/>
         <encapsulatedLogic>
@@ -275,53 +322,17 @@
             <requiredKnowledge href="#_daec318a-135b-4d54-9e7f-85af3aa662f7"/>
         </knowledgeRequirement>
     </businessKnowledgeModel>
-    <decision name="RankedProducts" id="_715940be-0f5d-4701-8155-fcba85874aa1">
-        <variable typeRef="tRankedProducts" name="RankedProducts"/>
-        <informationRequirement>
-            <requiredInput href="#_67c50a4c-3002-4d0a-9acf-4c76cb0364fa"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredDecision href="#_c5dd7a17-b588-4daf-8c9b-677e65ce87be"/>
-        </informationRequirement>
-        <knowledgeRequirement>
-            <requiredKnowledge href="#_83059f2e-2862-45a9-97a7-71ffaa860586"/>
-        </knowledgeRequirement>
-        <context>
-            <contextEntry>
-                <variable typeRef="tMetrics" name="metricsTable"/>
-                <literalExpression>
-                    <text>for i in Bankrates return FinancialMetrics(i,RequestedAmt)</text>
-                </literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable typeRef="tMetrics" name="rankByRate"/>
-                <literalExpression>
-                    <text>sort(metricsTable, function(x,y) x.rate&lt;y.rate)</text>
-                </literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable typeRef="tMetrics" name="rankByDownPmt"/>
-                <literalExpression>
-                    <text>sort(metricsTable, function(x,y) x.downPmtAmt&lt;y.downPmtAmt)</text>
-                </literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable typeRef="tMetrics" name="rankByMonthlyPmt"/>
-                <literalExpression>
-                    <text>sort(metricsTable, function(x,y) x.paymentAmt&lt;y.paymentAmt)</text>
-                </literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable typeRef="tMetrics" name="rankByEquityPct"/>
-                <literalExpression>
-                    <text>sort(metricsTable, function(x,y) x.equity36moPct&gt;y.equity36moPct)</text>
-                </literalExpression>
-            </contextEntry>
-        </context>
-    </decision>
-    <inputData name="RequestedAmt" id="_67c50a4c-3002-4d0a-9acf-4c76cb0364fa">
-        <variable typeRef="feel.number" name="RequestedAmt"/>
-    </inputData>
+    <businessKnowledgeModel name="monthlyPayment" id="_8702e1b6-213b-4f75-bf56-99ac3835cde7">
+        <variable name="monthlyPayment"/>
+        <encapsulatedLogic>
+            <formalParameter typeRef="feel.number" name="p"/>
+            <formalParameter typeRef="feel.number" name="r"/>
+            <formalParameter typeRef="feel.number" name="n"/>
+            <literalExpression typeRef="feel.number">
+                <text>p*r/12/(1-(1+r/12)**-n)</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
     <businessKnowledgeModel name="equity36Mo" id="_daec318a-135b-4d54-9e7f-85af3aa662f7">
         <variable name="equity36Mo"/>
         <encapsulatedLogic>
@@ -331,17 +342,6 @@
             <formalParameter typeRef="feel.number" name="pmt"/>
             <literalExpression typeRef="feel.number">
                 <text>p*(1+r/12)**n - pmt*(-1+(1+r/12)**n)/r</text>
-            </literalExpression>
-        </encapsulatedLogic>
-    </businessKnowledgeModel>
-    <businessKnowledgeModel name="monthlyPayment" id="_8702e1b6-213b-4f75-bf56-99ac3835cde7">
-        <variable name="monthlyPayment"/>
-        <encapsulatedLogic>
-            <formalParameter typeRef="feel.number" name="p"/>
-            <formalParameter typeRef="feel.number" name="r"/>
-            <formalParameter typeRef="feel.number" name="n"/>
-            <literalExpression typeRef="feel.number">
-                <text>p*r/12/(1-(1+r/12)**-n)</text>
             </literalExpression>
         </encapsulatedLogic>
     </businessKnowledgeModel>

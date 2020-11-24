@@ -18,12 +18,6 @@ public class DMN11To12DialectTransformerTest extends DMNDialectTransformerTest<o
     }
 
     @Override
-    protected TDefinitions transform(org.omg.spec.dmn._20151101.model.TDefinitions sourceDefinitions) {
-        Pair<TDefinitions, PrefixNamespaceMappings> pair = getTransformer().transformDefinitions(sourceDefinitions);
-        return new DMNModelRepository(pair).getRootDefinitions();
-    }
-
-    @Override
     protected String getSourceVersion() {
         return "1.1";
     }
