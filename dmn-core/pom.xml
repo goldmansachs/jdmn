@@ -25,6 +25,7 @@
     <properties>
         <dmn11.schema>${project.basedir}/src/main/resources/dmn/1.1/dmn.xsd</dmn11.schema>
         <dmn12.schema>${project.basedir}/src/main/resources/dmn/1.2/DMN12.xsd</dmn12.schema>
+        <dmn13.schema>${project.basedir}/src/main/resources/dmn/1.3/DMN13.xsd</dmn13.schema>
         <tck.schema>${project.basedir}/src/main/resources/tck/testCases.xsd</tck.schema>
 
         <jaxb.generated.dmn>${project.basedir}/target/generated-sources/jaxb</jaxb.generated.dmn>
@@ -198,6 +199,22 @@
                             <clearOutputDir>false</clearOutputDir>
                             <noPackageLevelAnnotations>false</noPackageLevelAnnotations>
                             <packageName>org.omg.spec.dmn._20180521.model</packageName>
+                            <encoding>UTF-8</encoding>
+                        </configuration>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>dmn-13</id>
+                        <configuration>
+                            <sources>
+                                <source>${dmn13.schema}</source>
+                            </sources>
+                            <outputDirectory>${jaxb.generated.dmn}</outputDirectory>
+                            <clearOutputDir>false</clearOutputDir>
+                            <noPackageLevelAnnotations>false</noPackageLevelAnnotations>
+                            <packageName>org.omg.spec.dmn._20191111.model</packageName>
                             <encoding>UTF-8</encoding>
                         </configuration>
                         <goals>

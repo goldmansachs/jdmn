@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/"
+            xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
             xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
             xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
-            targetNamespace="http://www.omg.org/spec/DMN/20180521/DMNDI/"
+            targetNamespace="https://www.omg.org/spec/DMN/20191111/DMNDI/"
             elementFormDefault="qualified" attributeFormDefault="unqualified">
 
 	<xsd:import namespace="http://www.omg.org/spec/DMN/20180521/DC/"
@@ -69,6 +69,8 @@
 					<xsd:element ref="dmndi:DMNLabel" minOccurs="0" maxOccurs="1"/>
 				</xsd:sequence>
 				<xsd:attribute name="dmnElementRef" type="xsd:QName" use="required"/>
+				<xsd:attribute name="sourceElement" type="xsd:QName" use="optional"/>
+				<xsd:attribute name="targetElement" type="xsd:QName" use="optional"/>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
