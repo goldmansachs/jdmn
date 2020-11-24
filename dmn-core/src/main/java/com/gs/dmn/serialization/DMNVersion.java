@@ -34,7 +34,7 @@ public class DMNVersion {
         DMN_12_OTHER_NAMESPACES.put("http://www.omg.org/spec/DMN/20180521/DMNDI/", "dmndi");
         DMN_12_OTHER_NAMESPACES.put("http://www.omg.org/spec/DMN/20180521/DI/", "di");
     }
-    public static final DMNVersion DMN_12 = new DMNVersion("1.2", "dmn/1.2/dmn.xsd",
+    public static final DMNVersion DMN_12 = new DMNVersion("1.2", "dmn/1.2/DMN12.xsd",
             null, "http://www.omg.org/spec/DMN/20180521/MODEL/",
             "feel", "http://www.omg.org/spec/DMN/20180521/FEEL/",
             DMN_12_OTHER_NAMESPACES,
