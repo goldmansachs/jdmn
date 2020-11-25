@@ -16,21 +16,20 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import org.omg.spec.dmn._20180521.model.*;
+import org.w3c.dom.Element;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import java.util.*;
 
-import static com.gs.dmn.serialization.DMNVersion.*;
+import static com.gs.dmn.serialization.DMNVersion.DMN_11;
+import static com.gs.dmn.serialization.DMNVersion.DMN_12;
 
 public class DMN11To12DialectTransformer extends DMNDialectTransformer<org.omg.spec.dmn._20151101.model.TDefinitions, TDefinitions> {
     private static final ObjectFactory DMN_12_OBJECT_FACTORY = new ObjectFactory();
 
-    private DMNVersion sourceVersion = DMN_11;
-    private DMNVersion targetVersion = DMN_12;
-
     public DMN11To12DialectTransformer(BuildLogger logger) {
-        super(logger);
+        super(logger, DMN_11, DMN_12);
     }
 
     @Override
@@ -252,7 +251,9 @@ public class DMN11To12DialectTransformer extends DMNDialectTransformer<org.omg.s
             if (extension instanceof JAXBElement) {
                 extensions.add(transformJAXBElement((JAXBElement) extension));
             } else if (this.sourceVersion.getJavaPackage().equals(extension.getClass().getPackage().getName())) {
-                extensions.add(transformElement((org.omg.spec.dmn._20151101.model.TDMNElement)extension));
+                extensions.add(transformElement((org.omg.spec.dmn._20151101.model.TDMNElement) extension));
+            } else if (extension instanceof Element) {
+                extensions.add(transform((Element) extension));
             } else {
                 extensions.add(extension);
             }
@@ -767,10 +768,8 @@ public class DMN11To12DialectTransformer extends DMNDialectTransformer<org.omg.s
         String prefix = element.getPrefix();
         String localPart = element.getLocalPart();
         this.prefixNamespaceMappings.put(prefix, namespaceURI);
-        for (DMNVersion version: VALUES) {
-            if (version.getFeelNamespace().equals(namespaceURI)) {
-                return String.format("%s.%s", this.targetVersion.getFeelPrefix(), localPart);
-            }
+        if (this.sourceVersion.getFeelNamespace().equals(namespaceURI)) {
+            return String.format("%s.%s", this.targetVersion.getFeelPrefix(), localPart);
         }
         return localPart;
     }
