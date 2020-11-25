@@ -30,7 +30,7 @@
     </inputData>
     <businessKnowledgeModel name="bKM" id="id-74659018eb94601d9ccd8bcb2443688e">
         <extensionElements>
-            <sigExt:referencedService xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" href="#service-id-806148ab1843f34bf4e461a8ed442b97"/>
+            <sigExt:referencedService href="#service-id-806148ab1843f34bf4e461a8ed442b97"/>
         </extensionElements>
         <variable name="bKM" id="id-74659018eb94601d9ccd8bcb2443688e_variable"/>
     </businessKnowledgeModel>

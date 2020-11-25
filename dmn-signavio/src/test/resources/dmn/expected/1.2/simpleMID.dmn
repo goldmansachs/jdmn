@@ -21,7 +21,7 @@
     </inputData>
     <decision name="mid" id="id-1a22e9b5a3559ee94956a2fb15ff8a4d" label="mid" sigExt:shapeId="sid-20352F11-3D8C-44D4-8878-CAA7ACB9FCF8" sigExt:diagramId="9e53b9fc18f94da39241c0319c532c9a">
         <extensionElements>
-            <sigExt:MultiInstanceDecisionLogic xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+            <sigExt:MultiInstanceDecisionLogic>
                 <sigExt:iterationExpression>numz</sigExt:iterationExpression>
                 <sigExt:iteratorShapeId>id-478006c112da0f37d337a994d51924de</sigExt:iteratorShapeId>
                 <sigExt:aggregationFunction>COLLECT</sigExt:aggregationFunction>

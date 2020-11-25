@@ -14,14 +14,36 @@ package com.gs.dmn.serialization;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.Pair;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 
 public abstract class DMNDialectTransformer<S, T> {
     protected final BuildLogger logger;
-    protected final PrefixNamespaceMappings prefixNamespaceMappings = new PrefixNamespaceMappings();
+    protected final PrefixNamespaceMappings prefixNamespaceMappings;
+    protected final DMNVersion sourceVersion;
+    protected final DMNVersion targetVersion;
 
-    public DMNDialectTransformer(BuildLogger logger) {
+    public DMNDialectTransformer(BuildLogger logger, DMNVersion sourceVersion, DMNVersion targetVersion) {
         this.logger = logger;
+        this.prefixNamespaceMappings = new PrefixNamespaceMappings();
+        this.sourceVersion = sourceVersion;
+        this.targetVersion = targetVersion;
     }
 
     public abstract Pair<T, PrefixNamespaceMappings> transformDefinitions(S sourceDefinitions);
+
+    protected Object transform(Element extension) {
+        Node clone = extension.cloneNode(true);
+        NamedNodeMap attributes = clone.getAttributes();
+        for (int i=0; i<attributes.getLength(); i++) {
+            Node item = attributes.item(i);
+            if (this.sourceVersion.getNamespace().equals(item.getNodeValue())) {
+                item.setNodeValue(this.targetVersion.getNamespace());
+            } else if (this.sourceVersion.getFeelNamespace().equals(item.getNodeValue())) {
+                item.setNodeValue(this.targetVersion.getFeelNamespace());
+            }
+        }
+        return clone;
+    }
 }

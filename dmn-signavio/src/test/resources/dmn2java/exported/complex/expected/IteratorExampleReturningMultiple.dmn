@@ -264,7 +264,7 @@
     </inputData>
     <decision name="processElements" id="id-abf4d13399bef0e15a9cb8f2029d0eda" label="ProcessElements" sigExt:shapeId="sid-1664306E-9F37-4E2F-BFCB-EE27F40507B9" sigExt:diagramId="3e06efd3571e4ef692b62ff41cabefcf">
         <extensionElements>
-            <sigExt:MultiInstanceDecisionLogic xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+            <sigExt:MultiInstanceDecisionLogic>
                 <sigExt:iterationExpression>withholdingAccounts.accountList</sigExt:iterationExpression>
                 <sigExt:iteratorShapeId>id-395f8c028effea0b138dfe07245f3abd</sigExt:iteratorShapeId>
                 <sigExt:aggregationFunction>COLLECT</sigExt:aggregationFunction>

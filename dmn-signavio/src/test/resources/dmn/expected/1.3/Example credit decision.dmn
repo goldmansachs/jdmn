@@ -285,7 +285,7 @@
     </decision>
     <decision name="assessIssueRisk" id="id-90d13f677a4e3f0f8230a12f15301f00" label="Assess issue risk" sigExt:shapeId="sid-CB938C3D-5F0A-427B-83A7-94DDDD5E8FC6" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
         <extensionElements>
-            <sigExt:MultiInstanceDecisionLogic xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+            <sigExt:MultiInstanceDecisionLogic>
                 <sigExt:iterationExpression>processPriorIssues</sigExt:iterationExpression>
                 <sigExt:iteratorShapeId>id-78d6a4b25e15dc5d22fe0cce65554804</sigExt:iteratorShapeId>
                 <sigExt:aggregationFunction>SUM</sigExt:aggregationFunction>

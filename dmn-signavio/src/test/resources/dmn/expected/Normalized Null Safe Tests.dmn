@@ -108,7 +108,7 @@
     </itemDefinition>
     <decision name="allFalseAggregation" id="id-12f8c62e129adc2b235f1819817022ec" label="allFalseAggregation" sigExt:shapeId="sid-EAD18ED8-8B73-4685-943A-2279DFAAF795" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
         <extensionElements>
-            <sigExt:MultiInstanceDecisionLogic xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+            <sigExt:MultiInstanceDecisionLogic>
                 <sigExt:iterationExpression>booleanList</sigExt:iterationExpression>
                 <sigExt:iteratorShapeId>id-79ac9fb1afa596bbb0db5c6a5257a8b6</sigExt:iteratorShapeId>
                 <sigExt:aggregationFunction>ALLFALSE</sigExt:aggregationFunction>
@@ -167,7 +167,7 @@
     </decision>
     <decision name="allTrueAggregation" id="id-990fc1682febe5e206a9e367470fa4b5" label="allTrueAggregation" sigExt:shapeId="sid-019E0A5C-2720-402B-AEE8-BA1436EA5D6F" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
         <extensionElements>
-            <sigExt:MultiInstanceDecisionLogic xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+            <sigExt:MultiInstanceDecisionLogic>
                 <sigExt:iterationExpression>booleanList</sigExt:iterationExpression>
                 <sigExt:iteratorShapeId>id-0999a54b4e2887b6404fe10e4639a1d6</sigExt:iteratorShapeId>
                 <sigExt:aggregationFunction>ALLTRUE</sigExt:aggregationFunction>
@@ -181,7 +181,7 @@
     </decision>
     <decision name="anyTrueAggregation" id="id-499a1aeffa9f16f776cba221110df81a" label="anyTrueAggregation" sigExt:shapeId="sid-AAC92F9B-23E5-437D-8E7E-0A38E297D7A4" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
         <extensionElements>
-            <sigExt:MultiInstanceDecisionLogic xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+            <sigExt:MultiInstanceDecisionLogic>
                 <sigExt:iterationExpression>booleanList</sigExt:iterationExpression>
                 <sigExt:iteratorShapeId>id-4b393744e05965a1928ecb455ab42308</sigExt:iteratorShapeId>
                 <sigExt:aggregationFunction>ANYTRUE</sigExt:aggregationFunction>
