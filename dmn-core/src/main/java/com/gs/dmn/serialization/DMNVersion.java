@@ -73,9 +73,9 @@ public class DMNVersion {
     private final String namespace;
     private final String feelPrefix;
     private final String feelNamespace;
-    private final Map<String, String> otherNamespaces;
     private final String javaPackage;
-    private final LinkedHashMap<String, String> namespaceMap;
+    private final LinkedHashMap<String, String> namespaceToPrefixMap;
+    private final LinkedHashMap<String, String> prefixToNamespaceMap;
 
     DMNVersion(String version, String schemaLocation, String prefix, String namespace, String feelPrefix, String feelNamespace, Map<String, String> otherNamespaces, String javaPackage) {
         this.version = version;
@@ -84,13 +84,17 @@ public class DMNVersion {
         this.namespace = namespace;
         this.feelPrefix = feelPrefix;
         this.feelNamespace = feelNamespace;
-        this.otherNamespaces = otherNamespaces;
         this.javaPackage = javaPackage;
 
-        this.namespaceMap = new LinkedHashMap<>();
+        this.namespaceToPrefixMap = new LinkedHashMap<>();
+        this.prefixToNamespaceMap = new LinkedHashMap<>();
         addMap(namespace, prefix);
-        this.namespaceMap.putAll(otherNamespaces);
         addMap(feelNamespace, feelPrefix);
+        for (Map.Entry<String, String> entry: otherNamespaces.entrySet()) {
+            String otherNamespace = entry.getKey();
+            String otherPrefix = entry.getValue();
+            addMap(otherNamespace, otherPrefix);
+        }
     }
 
     public String getVersion() {
@@ -117,8 +121,12 @@ public class DMNVersion {
         return feelNamespace;
     }
 
-    public Map<String, String> getNamespaceMap() {
-        return this.namespaceMap;
+    public Map<String, String> getNamespaceToPrefixMap() {
+        return this.namespaceToPrefixMap;
+    }
+
+    public LinkedHashMap<String, String> getPrefixToNamespaceMap() {
+        return prefixToNamespaceMap;
     }
 
     public String getJavaPackage() {
@@ -126,8 +134,12 @@ public class DMNVersion {
     }
 
     private void addMap(String namespace, String prefix) {
-        if (!StringUtils.isEmpty(prefix)) {
-            this.namespaceMap.put(namespace, prefix);
+        if (!StringUtils.isEmpty(namespace) && !StringUtils.isEmpty(prefix)) {
+            this.namespaceToPrefixMap.put(namespace, prefix);
         }
+        if (prefix == null) {
+            prefix = "";
+        }
+        this.prefixToNamespaceMap.put(prefix, namespace);
     }
 }
