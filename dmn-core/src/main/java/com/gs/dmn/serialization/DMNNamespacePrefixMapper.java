@@ -24,7 +24,7 @@ public class DMNNamespacePrefixMapper extends AbstractNamespacePrefixMapper {
     }
 
     public DMNNamespacePrefixMapper(String namespace, String prefix, DMNVersion version) {
-        super(namespace, prefix, version.getNamespaceMap());
+        super(namespace, prefix, version.getNamespaceToPrefixMap());
         this.version = version;
     }
 

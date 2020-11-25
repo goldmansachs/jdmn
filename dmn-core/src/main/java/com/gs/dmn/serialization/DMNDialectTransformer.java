@@ -18,6 +18,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+import java.util.Map;
+
 public abstract class DMNDialectTransformer<S, T> {
     protected final BuildLogger logger;
     protected final PrefixNamespaceMappings prefixNamespaceMappings;
@@ -34,14 +36,20 @@ public abstract class DMNDialectTransformer<S, T> {
     public abstract Pair<T, PrefixNamespaceMappings> transformDefinitions(S sourceDefinitions);
 
     protected Object transform(Element extension) {
+        Map<String, String> sourceMap = this.sourceVersion.getPrefixToNamespaceMap();
+        Map<String, String> targetMap = this.targetVersion.getPrefixToNamespaceMap();
+
         Node clone = extension.cloneNode(true);
         NamedNodeMap attributes = clone.getAttributes();
         for (int i=0; i<attributes.getLength(); i++) {
             Node item = attributes.item(i);
-            if (this.sourceVersion.getNamespace().equals(item.getNodeValue())) {
-                item.setNodeValue(this.targetVersion.getNamespace());
-            } else if (this.sourceVersion.getFeelNamespace().equals(item.getNodeValue())) {
-                item.setNodeValue(this.targetVersion.getFeelNamespace());
+            for (Map.Entry<String, String> sourceEntry: sourceMap.entrySet()) {
+                String prefix = sourceEntry.getKey();
+                String sourceNamespace = sourceEntry.getValue();
+                if (sourceNamespace.equals(item.getNodeValue())) {
+                    item.setNodeValue(targetMap.get(prefix));
+                    break;
+                }
             }
         }
         return clone;

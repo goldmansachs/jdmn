@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/9e53b9fc18f94da39241c0319c532c9a.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" expressionLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="http://www.provider.com/dmn/1.1/diagram/9e53b9fc18f94da39241c0319c532c9a.xml" exporterVersion="10.15.9" name="simpleMID" id="id-65dd8924ec764d11b639aec28b9cac1f" sigExt:revisionNumber="1" sigExt:revisionId="e74d842338ef4b88ae1cfae675e41333">
+    <extensionElements/>
+    <itemDefinition isCollection="false" name="decide" id="id-29a7c994311c4fc6014819ae16f74913" label="decide">
+        <typeRef>feel.string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="mid" id="id-351507aefb83f77624a4b9e484189950" label="mid">
+        <typeRef>feel.string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="numz" id="id-e1ecfffde7c1d821bbaa0f4f49a4c1fb" label="numz">
+        <typeRef>feel.number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="numz2" id="id-428c79d86b143851037714d5ff533477" label="numz">
+        <typeRef>feel.number</typeRef>
+    </itemDefinition>
+    <inputData name="numz" id="id-16e27bd3dab9d90a677b69685f682a7b" label="numz" sigExt:shapeId="sid-8D55DEE5-24FE-4C1D-932C-A0D7128516F3" sigExt:diagramId="9e53b9fc18f94da39241c0319c532c9a">
+        <variable typeRef="numz" name="numz" id="id-16e27bd3dab9d90a677b69685f682a7b_variable"/>
+    </inputData>
+    <inputData name="numz2_iterator" id="id-478006c112da0f37d337a994d51924de" label="numz" sigExt:shapeId="sid-F149C66C-B0CE-4653-9E4B-FDA7D8CCBFA2" sigExt:diagramId="9e53b9fc18f94da39241c0319c532c9a">
+        <variable typeRef="numz2" name="numz2_iterator" id="id-478006c112da0f37d337a994d51924de_variable"/>
+    </inputData>
+    <decision name="mid" id="id-1a22e9b5a3559ee94956a2fb15ff8a4d" label="mid" sigExt:shapeId="sid-20352F11-3D8C-44D4-8878-CAA7ACB9FCF8" sigExt:diagramId="9e53b9fc18f94da39241c0319c532c9a">
+        <extensionElements>
+            <sigExt:MultiInstanceDecisionLogic>
+                <sigExt:iterationExpression>numz</sigExt:iterationExpression>
+                <sigExt:iteratorShapeId>id-478006c112da0f37d337a994d51924de</sigExt:iteratorShapeId>
+                <sigExt:aggregationFunction>COLLECT</sigExt:aggregationFunction>
+                <sigExt:topLevelDecisionId>id-1512301329aab38249e3624207658df2</sigExt:topLevelDecisionId>
+            </sigExt:MultiInstanceDecisionLogic>
+        </extensionElements>
+        <variable typeRef="mid" name="mid" id="id-1a22e9b5a3559ee94956a2fb15ff8a4d_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-16e27bd3dab9d90a677b69685f682a7b"/>
+        </informationRequirement>
+    </decision>
+    <decision name="decide" id="id-1512301329aab38249e3624207658df2" label="decide" sigExt:shapeId="sid-A4ECA749-90FE-4E06-9B35-C544CC83FFCC" sigExt:diagramId="9e53b9fc18f94da39241c0319c532c9a">
+        <variable typeRef="decide" name="decide" id="id-1512301329aab38249e3624207658df2_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-478006c112da0f37d337a994d51924de"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+            <input id="id-091b8bf2d85f1c00bed72820de0b3dac" label="numz">
+                <inputExpression>
+                    <text>numz2_iterator</text>
+                </inputExpression>
+            </input>
+            <output name="decide" typeRef="feel.string" id="id-6cdee866db9afc0e89d6bff9dfabc2f9" label="decide"/>
+            <rule id="id-0a68839eb7b70746684e7af1e7f6cf49">
+                <description>string("grown up apparently -&gt; ") + string(numz2_iterator)</description>
+                <inputEntry>
+                    <text>&gt;= 18</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"adult"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-9d15b5929e737e0aad54349813b7f55d">
+                <description>string("only ") + string(numz2_iterator) + string(" years old")</description>
+                <inputEntry>
+                    <text>[0..18)</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"child"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-9d9e38aea410ccaa9b6d34b30d6dfef4">
+                <description>string("text ") + string(numz2_iterator)</description>
+                <inputEntry>
+                    <text>&lt; 0</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"alien"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+</definitions>
