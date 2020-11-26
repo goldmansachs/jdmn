@@ -25,7 +25,7 @@ import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.gs.dmn.serialization.DMNVersion.DMN_12;
+import static com.gs.dmn.serialization.DMNVersion.LATEST;
 
 public class SignavioExtension {
     private final SignavioDMNModelRepository dmnModelRepository;
@@ -50,7 +50,7 @@ public class SignavioExtension {
     }
 
     private TDecisionService decisionService(TDefinitions definitions, String serviceId) {
-        List<Object> elementList = findExtensions(definitions.getExtensionElements(), DMN_12.getNamespace(), "decisionService");
+        List<Object> elementList = findExtensions(definitions.getExtensionElements(), LATEST.getNamespace(), "decisionService");
         for(Object element: elementList) {
             Object value = ((JAXBElement<?>) element).getValue();
             if (value instanceof TDecisionService && dmnModelRepository.sameId((TNamedElement) value, serviceId)) {
