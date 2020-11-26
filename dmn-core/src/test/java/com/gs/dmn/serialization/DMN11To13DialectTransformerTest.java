@@ -12,7 +12,7 @@ public class DMN11To13DialectTransformerTest extends DMNDialectTransformerTest<o
     }
 
     @Override
-    protected DMNDialectTransformer<org.omg.spec.dmn._20151101.model.TDefinitions, TDefinitions> getTransformer() {
+    protected SimpleDMNDialectTransformer<org.omg.spec.dmn._20151101.model.TDefinitions, TDefinitions> getTransformer() {
         return new DMN11To13DialectTransformer(LOGGER);
     }
 

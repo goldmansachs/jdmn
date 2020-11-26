@@ -14,51 +14,29 @@ package com.gs.dmn.serialization;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.Pair;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 
-import java.util.Map;
+public class DMNDialectTransformer {
+    private final BuildLogger logger;
+    private final DMN11To12DialectTransformer dmn11To12DialectTransformer;
+    private final DMN11To13DialectTransformer dmn11To13DialectTransformer;
+    private final DMN12To13DialectTransformer dmn12To13DialectTransformer;
 
-public abstract class DMNDialectTransformer<S, T> {
-    protected final BuildLogger logger;
-    protected final PrefixNamespaceMappings prefixNamespaceMappings;
-    protected final DMNVersion sourceVersion;
-    protected final DMNVersion targetVersion;
-
-    public DMNDialectTransformer(BuildLogger logger, DMNVersion sourceVersion, DMNVersion targetVersion) {
+    public DMNDialectTransformer(BuildLogger logger) {
         this.logger = logger;
-        this.prefixNamespaceMappings = new PrefixNamespaceMappings();
-        this.sourceVersion = sourceVersion;
-        this.targetVersion = targetVersion;
+        this.dmn11To12DialectTransformer = new DMN11To12DialectTransformer(logger);
+        this.dmn11To13DialectTransformer = new DMN11To13DialectTransformer(logger);
+        this.dmn12To13DialectTransformer = new DMN12To13DialectTransformer(logger);
     }
 
-    public abstract Pair<T, PrefixNamespaceMappings> transformDefinitions(S sourceDefinitions);
-
-    protected String transformImportType(String importType) {
-        if (this.sourceVersion.getNamespace().equals(importType)) {
-            importType = targetVersion.getNamespace();
-        }
-        return importType;
+    public Pair<org.omg.spec.dmn._20180521.model.TDefinitions, PrefixNamespaceMappings> transform11To12Definitions(org.omg.spec.dmn._20151101.model.TDefinitions sourceDefinitions) {
+        return this.dmn11To12DialectTransformer.transformDefinitions(sourceDefinitions);
     }
 
-    protected Object transform(Element extension) {
-        Map<String, String> sourceMap = this.sourceVersion.getPrefixToNamespaceMap();
-        Map<String, String> targetMap = this.targetVersion.getPrefixToNamespaceMap();
+    public Pair<org.omg.spec.dmn._20191111.model.TDefinitions, PrefixNamespaceMappings> transform11To13Definitions(org.omg.spec.dmn._20151101.model.TDefinitions sourceDefinitions) {
+        return this.dmn11To13DialectTransformer.transformDefinitions(sourceDefinitions);
+    }
 
-        Node clone = extension.cloneNode(true);
-        NamedNodeMap attributes = clone.getAttributes();
-        for (int i=0; i<attributes.getLength(); i++) {
-            Node item = attributes.item(i);
-            for (Map.Entry<String, String> sourceEntry: sourceMap.entrySet()) {
-                String prefix = sourceEntry.getKey();
-                String sourceNamespace = sourceEntry.getValue();
-                if (sourceNamespace.equals(item.getNodeValue())) {
-                    item.setNodeValue(targetMap.get(prefix));
-                    break;
-                }
-            }
-        }
-        return clone;
+    public Pair<org.omg.spec.dmn._20191111.model.TDefinitions, PrefixNamespaceMappings> transform11To13Definitions(org.omg.spec.dmn._20180521.model.TDefinitions sourceDefinitions) {
+        return this.dmn12To13DialectTransformer.transformDefinitions(sourceDefinitions);
     }
 }
