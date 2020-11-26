@@ -1,6 +1,5 @@
 package com.gs.dmn.serialization;
 
-import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
@@ -13,7 +12,7 @@ public class DMN11To12DialectTransformerTest extends DMNDialectTransformerTest<o
     }
 
     @Override
-    protected DMNDialectTransformer<org.omg.spec.dmn._20151101.model.TDefinitions, TDefinitions> getTransformer() {
+    protected SimpleDMNDialectTransformer<org.omg.spec.dmn._20151101.model.TDefinitions, TDefinitions> getTransformer() {
         return new DMN11To12DialectTransformer(LOGGER);
     }
 

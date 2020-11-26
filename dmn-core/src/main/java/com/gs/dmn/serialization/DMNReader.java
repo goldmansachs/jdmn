@@ -44,7 +44,7 @@ public class DMNReader extends DMNSerializer {
     }
 
     private final boolean validateSchema;
-    private final DMN11To12DialectTransformer transformer = new DMN11To12DialectTransformer(logger);
+    private final DMNDialectTransformer transformer = new DMNDialectTransformer(logger);
 
     public DMNReader(BuildLogger logger, boolean validateSchema) {
         super(logger);
@@ -147,7 +147,7 @@ public class DMNReader extends DMNSerializer {
         }
 
         if (value instanceof org.omg.spec.dmn._20151101.model.TDefinitions) {
-            return transformer.transformDefinitions((org.omg.spec.dmn._20151101.model.TDefinitions) value);
+            return this.transformer.transform11To12Definitions((org.omg.spec.dmn._20151101.model.TDefinitions) value);
         } else if (value instanceof TDefinitions) {
             return new Pair<>((TDefinitions) value, new PrefixNamespaceMappings());
         } else {

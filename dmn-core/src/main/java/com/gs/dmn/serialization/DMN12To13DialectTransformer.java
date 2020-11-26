@@ -25,7 +25,7 @@ import java.util.*;
 import static com.gs.dmn.serialization.DMNVersion.DMN_12;
 import static com.gs.dmn.serialization.DMNVersion.DMN_13;
 
-public class DMN12To13DialectTransformer extends DMNDialectTransformer<org.omg.spec.dmn._20180521.model.TDefinitions, TDefinitions>{
+public class DMN12To13DialectTransformer extends SimpleDMNDialectTransformer<org.omg.spec.dmn._20180521.model.TDefinitions, TDefinitions> {
     private static final ObjectFactory DMN_13_OBJECT_FACTORY = new ObjectFactory();
 
     public DMN12To13DialectTransformer(BuildLogger logger) {
