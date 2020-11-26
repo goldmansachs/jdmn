@@ -24,7 +24,7 @@ import static com.gs.dmn.runtime.Assert.assertEquals;
 
 public class ToSimpleNameTransformerTest extends NameTransformerTest {
     @Test
-    public void testDMNTransform() throws Exception {
+    public void testTransform() throws Exception {
         doTest(Arrays.asList("0004-lending.dmn"),
                 "0004-lending-test-01.xml", new LinkedHashMap<String, Pair<String, String>>() {{
                     put("0004-lending.dmn", new Pair<>("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b", "tns"));

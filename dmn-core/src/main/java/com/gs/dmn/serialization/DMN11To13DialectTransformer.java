@@ -116,9 +116,17 @@ public class DMN11To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         target.getOtherAttributes().putAll(transform(source.getOtherAttributes()));
     }
 
+    private void addArtifactProperties(org.omg.spec.dmn._20151101.model.TArtifact source, TArtifact target) {
+        addElementProperties(source, target);
+    }
+
     private void addNamedElementProperties(org.omg.spec.dmn._20151101.model.TNamedElement source, TNamedElement target) {
         addElementProperties(source, target);
         target.setName(source.getName());
+    }
+
+    private void addDRGElementProperties(org.omg.spec.dmn._20151101.model.TDRGElement source, TDRGElement target) {
+        addNamedElementProperties(source, target);
     }
 
     private void addExpressionProperties(org.omg.spec.dmn._20151101.model.TExpression source, TExpression target) {
@@ -129,7 +137,7 @@ public class DMN11To13DialectTransformer extends DMNDialectTransformer<org.omg.s
     private void addImportProperties(org.omg.spec.dmn._20151101.model.TImport element, TImport result) {
         result.setNamespace(transformNamespace(element.getNamespace()));
         result.setLocationURI(element.getLocationURI());
-        result.setImportType(element.getImportType());
+        result.setImportType(transformImportType(element.getImportType()));
     }
 
     private JAXBElement transformJAXBElement(JAXBElement element) {
@@ -337,7 +345,7 @@ public class DMN11To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         }
 
         TDecision result = DMN_13_OBJECT_FACTORY.createTDecision();
-        addNamedElementProperties(element, result);
+        addDRGElementProperties(element, result);
         result.setQuestion(element.getQuestion());
         result.setAllowedAnswers(element.getAllowedAnswers());
         result.setVariable(transform(element.getVariable()));
@@ -360,7 +368,7 @@ public class DMN11To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         }
 
         TInputData result = DMN_13_OBJECT_FACTORY.createTInputData();
-        addNamedElementProperties(element, result);
+        addDRGElementProperties(element, result);
         result.setVariable(transform(element.getVariable()));
         return result;
     }
@@ -371,7 +379,7 @@ public class DMN11To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         }
 
         TKnowledgeSource result = DMN_13_OBJECT_FACTORY.createTKnowledgeSource();
-        addNamedElementProperties(element, result);
+        addDRGElementProperties(element, result);
         result.getAuthorityRequirement().addAll(transformList(element.getAuthorityRequirement()));
         result.setType(element.getType());
         result.setOwner(transform(element.getOwner()));
@@ -401,7 +409,7 @@ public class DMN11To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         }
 
         TTextAnnotation result = DMN_13_OBJECT_FACTORY.createTTextAnnotation();
-        addElementProperties(element, result);
+        addArtifactProperties(element, result);
         result.setText(element.getText());
         result.setTextFormat(element.getTextFormat());
 
@@ -414,7 +422,7 @@ public class DMN11To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         }
 
         TAssociation result = DMN_13_OBJECT_FACTORY.createTAssociation();
-        addElementProperties(element, result);
+        addArtifactProperties(element, result);
         result.setSourceRef(transform(element.getSourceRef()));
         result.setTargetRef(transform(element.getTargetRef()));
         result.setAssociationDirection(transform(element.getAssociationDirection()));
@@ -584,6 +592,7 @@ public class DMN11To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         addExpressionProperties(element, result);
         result.getFormalParameter().addAll(transformList(element.getFormalParameter()));
         result.setExpression(transformJAXBElement(element.getExpression()));
+        result.setKind(TFunctionKind.FEEL);
         return result;
     }
 

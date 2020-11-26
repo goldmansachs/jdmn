@@ -261,7 +261,7 @@
     </decision>
     <businessKnowledgeModel name="FinancialMetrics" id="_83059f2e-2862-45a9-97a7-71ffaa860586">
         <variable name="FinancialMetrics"/>
-        <encapsulatedLogic>
+        <encapsulatedLogic kind="FEEL">
             <formalParameter typeRef="tLoanProduct" name="product"/>
             <formalParameter typeRef="feel.number" name="requestedAmt"/>
             <context typeRef="tMetric">
@@ -324,7 +324,7 @@
     </businessKnowledgeModel>
     <businessKnowledgeModel name="monthlyPayment" id="_8702e1b6-213b-4f75-bf56-99ac3835cde7">
         <variable name="monthlyPayment"/>
-        <encapsulatedLogic>
+        <encapsulatedLogic kind="FEEL">
             <formalParameter typeRef="feel.number" name="p"/>
             <formalParameter typeRef="feel.number" name="r"/>
             <formalParameter typeRef="feel.number" name="n"/>
@@ -335,7 +335,7 @@
     </businessKnowledgeModel>
     <businessKnowledgeModel name="equity36Mo" id="_daec318a-135b-4d54-9e7f-85af3aa662f7">
         <variable name="equity36Mo"/>
-        <encapsulatedLogic>
+        <encapsulatedLogic kind="FEEL">
             <formalParameter typeRef="feel.number" name="p"/>
             <formalParameter typeRef="feel.number" name="r"/>
             <formalParameter typeRef="feel.number" name="n"/>

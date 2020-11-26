@@ -28,7 +28,7 @@ import javax.xml.namespace.QName;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.serialization.DMNVersion.DMN_12;
+import static com.gs.dmn.serialization.DMNVersion.LATEST;
 
 public class SignavioDMNModelRepository extends DMNModelRepository {
     private String schemaNamespace = "http://www.signavio.com/schema/dmn/1.1/";
@@ -66,7 +66,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         super(pairs);
         for (Pair<TDefinitions, PrefixNamespaceMappings> pair: pairs) {
             TDefinitions definitions = pair.getLeft();
-            List<Object> elementList = this.extension.findExtensions(definitions.getExtensionElements(), DMN_12.getNamespace(), "decisionService");
+            List<Object> elementList = this.extension.findExtensions(definitions.getExtensionElements(), LATEST.getNamespace(), "decisionService");
             for(Object element: elementList) {
                 Object value = ((JAXBElement<?>) element).getValue();
                 if (value instanceof TDecisionService) {

@@ -35,6 +35,13 @@ public abstract class DMNDialectTransformer<S, T> {
 
     public abstract Pair<T, PrefixNamespaceMappings> transformDefinitions(S sourceDefinitions);
 
+    protected String transformImportType(String importType) {
+        if (this.sourceVersion.getNamespace().equals(importType)) {
+            importType = targetVersion.getNamespace();
+        }
+        return importType;
+    }
+
     protected Object transform(Element extension) {
         Map<String, String> sourceMap = this.sourceVersion.getPrefixToNamespaceMap();
         Map<String, String> targetMap = this.targetVersion.getPrefixToNamespaceMap();

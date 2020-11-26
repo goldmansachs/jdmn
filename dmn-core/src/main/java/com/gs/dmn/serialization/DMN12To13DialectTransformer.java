@@ -124,9 +124,22 @@ public class DMN12To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         target.getOtherAttributes().putAll(transform(source.getOtherAttributes()));
     }
 
+    private void addArtifactProperties(org.omg.spec.dmn._20180521.model.TArtifact source, TArtifact target) {
+        addElementProperties(source, target);
+    }
+
     private void addNamedElementProperties(org.omg.spec.dmn._20180521.model.TNamedElement source, TNamedElement target) {
         addElementProperties(source, target);
         target.setName(source.getName());
+    }
+
+    private void addDRGElementProperties(org.omg.spec.dmn._20180521.model.TDRGElement source, TDRGElement target) {
+        addNamedElementProperties(source, target);
+    }
+
+    private void addInvocableProperties(org.omg.spec.dmn._20180521.model.TInvocable source, TInvocable target) {
+        addDRGElementProperties(source, target);
+        target.setVariable(transform(source.getVariable()));
     }
 
     private void addExpressionProperties(org.omg.spec.dmn._20180521.model.TExpression source, TExpression target) {
@@ -135,9 +148,10 @@ public class DMN12To13DialectTransformer extends DMNDialectTransformer<org.omg.s
     }
 
     private void addImportProperties(org.omg.spec.dmn._20180521.model.TImport element, TImport result) {
+        addNamedElementProperties(element, result);
         result.setNamespace(transformNamespace(element.getNamespace()));
         result.setLocationURI(element.getLocationURI());
-        result.setImportType(element.getImportType());
+        result.setImportType(transformImportType(element.getImportType()));
     }
 
     private JAXBElement transformJAXBElement(JAXBElement element) {
@@ -304,14 +318,14 @@ public class DMN12To13DialectTransformer extends DMNDialectTransformer<org.omg.s
 
         if (element instanceof org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel) {
             return transform((org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel) element);
+        } else if (element instanceof org.omg.spec.dmn._20180521.model.TDecisionService) {
+            return transform((org.omg.spec.dmn._20180521.model.TDecisionService) element);
         } else if (element instanceof org.omg.spec.dmn._20180521.model.TDecision) {
             return transform((org.omg.spec.dmn._20180521.model.TDecision) element);
         } else if (element instanceof org.omg.spec.dmn._20180521.model.TInputData) {
             return transform((org.omg.spec.dmn._20180521.model.TInputData) element);
         } else if (element instanceof org.omg.spec.dmn._20180521.model.TKnowledgeSource) {
             return transform((org.omg.spec.dmn._20180521.model.TKnowledgeSource) element);
-        } else if (element instanceof org.omg.spec.dmn._20180521.model.TDecisionService) {
-            return transform((org.omg.spec.dmn._20180521.model.TDecisionService) element);
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", element.getClass()));
         }
@@ -323,11 +337,24 @@ public class DMN12To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         }
 
         TBusinessKnowledgeModel result = DMN_13_OBJECT_FACTORY.createTBusinessKnowledgeModel();
-        addNamedElementProperties(element, result);
+        addInvocableProperties(element, result);
         result.setEncapsulatedLogic(transform(element.getEncapsulatedLogic()));
-        result.setVariable(transform(element.getVariable()));
         result.getKnowledgeRequirement().addAll(transformList(element.getKnowledgeRequirement()));
         result.getAuthorityRequirement().addAll(transformList(element.getAuthorityRequirement()));
+        return result;
+    }
+
+    private TDecisionService transform(org.omg.spec.dmn._20180521.model.TDecisionService element) {
+        if (element == null) {
+            return null;
+        }
+
+        TDecisionService result = DMN_13_OBJECT_FACTORY.createTDecisionService();
+        addInvocableProperties(element, result);
+        result.getOutputDecision().addAll(transformList(element.getOutputDecision()));
+        result.getEncapsulatedDecision().addAll(transformList(element.getEncapsulatedDecision()));
+        result.getInputDecision().addAll(transformList(element.getInputDecision()));
+        result.getInputData().addAll(transformList(element.getInputData()));
         return result;
     }
 
@@ -337,7 +364,7 @@ public class DMN12To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         }
 
         TDecision result = DMN_13_OBJECT_FACTORY.createTDecision();
-        addNamedElementProperties(element, result);
+        addDRGElementProperties(element, result);
         result.setQuestion(element.getQuestion());
         result.setAllowedAnswers(element.getAllowedAnswers());
         result.setVariable(transform(element.getVariable()));
@@ -360,7 +387,7 @@ public class DMN12To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         }
 
         TInputData result = DMN_13_OBJECT_FACTORY.createTInputData();
-        addNamedElementProperties(element, result);
+        addDRGElementProperties(element, result);
         result.setVariable(transform(element.getVariable()));
         return result;
     }
@@ -371,7 +398,7 @@ public class DMN12To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         }
 
         TKnowledgeSource result = DMN_13_OBJECT_FACTORY.createTKnowledgeSource();
-        addNamedElementProperties(element, result);
+        addDRGElementProperties(element, result);
         result.getAuthorityRequirement().addAll(transformList(element.getAuthorityRequirement()));
         result.setType(element.getType());
         result.setOwner(transform(element.getOwner()));
@@ -401,7 +428,7 @@ public class DMN12To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         }
 
         TTextAnnotation result = DMN_13_OBJECT_FACTORY.createTTextAnnotation();
-        addElementProperties(element, result);
+        addArtifactProperties(element, result);
         result.setText(element.getText());
         result.setTextFormat(element.getTextFormat());
 
@@ -414,7 +441,7 @@ public class DMN12To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         }
 
         TAssociation result = DMN_13_OBJECT_FACTORY.createTAssociation();
-        addElementProperties(element, result);
+        addArtifactProperties(element, result);
         result.setSourceRef(transform(element.getSourceRef()));
         result.setTargetRef(transform(element.getTargetRef()));
         result.setAssociationDirection(transform(element.getAssociationDirection()));
@@ -438,20 +465,6 @@ public class DMN12To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         TElementCollection result = DMN_13_OBJECT_FACTORY.createTElementCollection();
         addNamedElementProperties(element, result);
         result.getDrgElement().addAll(transformList(element.getDrgElement()));
-        return result;
-    }
-
-    private TDecisionService transform(org.omg.spec.dmn._20180521.model.TDecisionService element) {
-        if (element == null) {
-            return null;
-        }
-
-        TDecisionService result = DMN_13_OBJECT_FACTORY.createTDecisionService();
-        addNamedElementProperties(element, result);
-        result.getOutputDecision().addAll(transformList(element.getOutputDecision()));
-        result.getEncapsulatedDecision().addAll(transformList(element.getEncapsulatedDecision()));
-        result.getInputDecision().addAll(transformList(element.getInputDecision()));
-        result.getInputData().addAll(transformList(element.getInputData()));
         return result;
     }
 
@@ -514,6 +527,7 @@ public class DMN12To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         }
 
         TKnowledgeRequirement result = DMN_13_OBJECT_FACTORY.createTKnowledgeRequirement();
+        addElementProperties(element, result);
         result.setRequiredKnowledge(transform(element.getRequiredKnowledge()));
         return result;
     }
@@ -524,6 +538,7 @@ public class DMN12To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         }
 
         TAuthorityRequirement result = DMN_13_OBJECT_FACTORY.createTAuthorityRequirement();
+        addElementProperties(element, result);
         result.setRequiredDecision(transform(element.getRequiredDecision()));
         result.setRequiredInput(transform(element.getRequiredInput()));
         result.setRequiredAuthority(transform(element.getRequiredAuthority()));
@@ -536,6 +551,7 @@ public class DMN12To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         }
 
         TInformationRequirement result = DMN_13_OBJECT_FACTORY.createTInformationRequirement();
+        addElementProperties(element, result);
         result.setRequiredDecision(transform(element.getRequiredDecision()));
         result.setRequiredInput(transform(element.getRequiredInput()));
         return result;
@@ -584,7 +600,16 @@ public class DMN12To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         addExpressionProperties(element, result);
         result.getFormalParameter().addAll(transformList(element.getFormalParameter()));
         result.setExpression(transformJAXBElement(element.getExpression()));
+        result.setKind(transform(element.getKind()));
         return result;
+    }
+
+    private TFunctionKind transform(org.omg.spec.dmn._20180521.model.TFunctionKind element) {
+        if (element == null) {
+            return null;
+        }
+
+        return TFunctionKind.fromValue(element.value());
     }
 
     private TDecisionTable transform(org.omg.spec.dmn._20180521.model.TDecisionTable element) {
@@ -644,6 +669,7 @@ public class DMN12To13DialectTransformer extends DMNDialectTransformer<org.omg.s
         }
 
         TContextEntry result = DMN_13_OBJECT_FACTORY.createTContextEntry();
+        addElementProperties(element, result);
         result.setVariable(transform(element.getVariable()));
         result.setExpression(transformJAXBElement(element.getExpression()));
         return result;
