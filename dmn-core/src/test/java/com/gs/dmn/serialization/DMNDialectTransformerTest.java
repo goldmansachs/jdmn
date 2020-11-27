@@ -45,7 +45,7 @@ public abstract class DMNDialectTransformerTest<S, T> extends AbstractFileTransf
     }
 
     protected String getExpectedPath() {
-        return String.format("dmn/expected/%s/", getTargetVersion());
+        return String.format("dmn/expected/%s/%s/", getSourceVersion(), getTargetVersion());
     }
 
     protected abstract SimpleDMNDialectTransformer<S, T> getTransformer();
