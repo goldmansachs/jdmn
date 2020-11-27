@@ -32,12 +32,12 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
     protected final DMNWriter dmnWriter = new DMNWriter(LOGGER);
     protected final TestCasesReader testReader = new TestCasesReader(LOGGER);
 
-    protected void doTest(List<String> dmnFileNames, String testsFileName, Map<String, Pair<String, String>> namespacePrefixMapping) throws Exception {
+    protected void doTest(String dmmVersion, List<String> dmnFileNames, String testsFileName, Map<String, Pair<String, String>> namespacePrefixMapping) throws Exception {
         DMNTransformer<TestCases> transformer = getTransformer();
-        String path = getInputPath();
+        String path = getInputPath() + dmmVersion + "/";
 
         // Read DMN files
-        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = readModels(dmnFileNames);
+        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = readModels(path, dmnFileNames);
         DMNModelRepository repository = new DMNModelRepository(pairs);
 
         // Transform Models and Tests
@@ -65,10 +65,10 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
         }
     }
 
-    private List<Pair<TDefinitions, PrefixNamespaceMappings>> readModels(List<String> fileNames) {
+    private List<Pair<TDefinitions, PrefixNamespaceMappings>> readModels(String path, List<String> fileNames) {
         List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = new ArrayList<>();
         for (String fileName: fileNames) {
-            File dmnFile = new File(CLASS_LOADER.getResource(getInputPath() + fileName).getFile());
+            File dmnFile = new File(resource(path + fileName));
             Pair<TDefinitions, PrefixNamespaceMappings> pair = this.dmnReader.read(dmnFile);
             pairs.add(pair);
         }
