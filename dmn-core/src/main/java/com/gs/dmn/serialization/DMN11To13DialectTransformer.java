@@ -131,7 +131,7 @@ public class DMN11To13DialectTransformer extends SimpleDMNDialectTransformer<org
 
     private void addExpressionProperties(org.omg.spec.dmn._20151101.model.TExpression source, TExpression target) {
         addElementProperties(source, target);
-        target.setTypeRef(transform(source.getTypeRef()));
+        target.setTypeRef(transformTypeRef(source.getTypeRef()));
     }
 
     private void addImportProperties(org.omg.spec.dmn._20151101.model.TImport element, TImport result) {
@@ -254,20 +254,24 @@ public class DMN11To13DialectTransformer extends SimpleDMNDialectTransformer<org
         }
 
         TDMNElement.ExtensionElements result = DMN_13_OBJECT_FACTORY.createTDMNElementExtensionElements();
+        result.getAny().addAll(transformAny(element.getAny()));
+        return result;
+    }
+
+    private List<Object> transformAny(List<Object> any) {
         List<Object> extensions = new ArrayList<>();
-        for(Object extension: element.getAny()) {
+        for(Object extension: any) {
             if (extension instanceof JAXBElement) {
                 extensions.add(transformJAXBElement((JAXBElement) extension));
             } else if (extension instanceof Element) {
                 extensions.add(transform((Element) extension));
             } else if (this.sourceVersion.getJavaPackage().equals(extension.getClass().getPackage().getName())) {
-                extensions.add(transformElement((org.omg.spec.dmn._20151101.model.TDMNElement)extension));
+                extensions.add(transformElement((org.omg.spec.dmn._20151101.model.TDMNElement) extension));
             } else {
                 extensions.add(extension);
             }
         }
-        result.getAny().addAll(extensions);
-        return result;
+        return extensions;
     }
 
     private TImport transform(org.omg.spec.dmn._20151101.model.TImport element) {
@@ -287,7 +291,7 @@ public class DMN11To13DialectTransformer extends SimpleDMNDialectTransformer<org
 
         TItemDefinition result = DMN_13_OBJECT_FACTORY.createTItemDefinition();
         addNamedElementProperties(element, result);
-        result.setTypeRef(transform(element.getTypeRef()));
+        result.setTypeRef(transformTypeRef(element.getTypeRef()));
         result.setAllowedValues(transform(element.getAllowedValues()));
         result.getItemComponent().addAll(transformList(element.getItemComponent()));
         result.setTypeLanguage(element.getTypeLanguage());
@@ -512,7 +516,7 @@ public class DMN11To13DialectTransformer extends SimpleDMNDialectTransformer<org
 
         TInformationItem result = DMN_13_OBJECT_FACTORY.createTInformationItem();
         addNamedElementProperties(element, result);
-        result.setTypeRef(transform(element.getTypeRef()));
+        result.setTypeRef(transformTypeRef(element.getTypeRef()));
         return result;
     }
 
@@ -752,7 +756,7 @@ public class DMN11To13DialectTransformer extends SimpleDMNDialectTransformer<org
         result.setOutputValues(transform(element.getOutputValues()));
         result.setDefaultOutputEntry(transform(element.getDefaultOutputEntry()));
         result.setName(element.getName());
-        result.setTypeRef(transform(element.getTypeRef()));
+        result.setTypeRef(transformTypeRef(element.getTypeRef()));
         return result;
     }
 
@@ -768,7 +772,7 @@ public class DMN11To13DialectTransformer extends SimpleDMNDialectTransformer<org
         return result;
     }
 
-    private String transform(QName element) {
+    private String transformTypeRef(QName element) {
         if (element == null) {
             return null;
         }
@@ -776,11 +780,12 @@ public class DMN11To13DialectTransformer extends SimpleDMNDialectTransformer<org
         String namespaceURI = element.getNamespaceURI();
         String prefix = element.getPrefix();
         String localPart = element.getLocalPart();
-        this.prefixNamespaceMappings.put(prefix, namespaceURI);
         if (this.sourceVersion.getFeelNamespace().equals(namespaceURI)) {
             return String.format("%s.%s", this.targetVersion.getFeelPrefix(), localPart);
+        } else {
+            this.prefixNamespaceMappings.put(prefix, namespaceURI);
+            return localPart;
         }
-        return localPart;
     }
 
     private String transformLanguage(String expressionLanguage) {

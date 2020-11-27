@@ -56,7 +56,7 @@ public class DMN12To13DialectTransformer extends SimpleDMNDialectTransformer<org
         definitions.setNamespace(transformNamespace(sourceDefinitions.getNamespace()));
         definitions.setExporter(sourceDefinitions.getExporter());
         definitions.setExporterVersion(sourceDefinitions.getExporterVersion());
-
+        definitions.setDMNDI(transform(sourceDefinitions.getDMNDI()));
         logger.info("Done");
 
         return definitions;
@@ -66,6 +66,7 @@ public class DMN12To13DialectTransformer extends SimpleDMNDialectTransformer<org
         if (element == null) {
             return null;
         }
+
         if (element instanceof org.omg.spec.dmn._20180521.model.TUnaryTests) {
             return transform((org.omg.spec.dmn._20180521.model.TUnaryTests) element);
         } else if (element instanceof org.omg.spec.dmn._20180521.model.TInputClause) {
@@ -214,6 +215,19 @@ public class DMN12To13DialectTransformer extends SimpleDMNDialectTransformer<org
             return DMN_13_OBJECT_FACTORY.createList(transform((org.omg.spec.dmn._20180521.model.TList) value));
         } else if (value instanceof org.omg.spec.dmn._20180521.model.TDecisionService) {
             return DMN_13_OBJECT_FACTORY.createDecisionService(transform((org.omg.spec.dmn._20180521.model.TDecisionService) value));
+        // DMDI elements
+        } else if (value instanceof org.omg.spec.dmn._20180521.model.DMNStyle) {
+            return DMN_13_OBJECT_FACTORY.createDMNStyle(transform((org.omg.spec.dmn._20180521.model.DMNStyle) value));
+        } else if (value instanceof org.omg.spec.dmn._20180521.model.DMNLabel) {
+            return DMN_13_OBJECT_FACTORY.createDMNLabel(transform((org.omg.spec.dmn._20180521.model.DMNLabel) value));
+        } else if (value instanceof org.omg.spec.dmn._20180521.model.DMNShape) {
+            return DMN_13_OBJECT_FACTORY.createDMNShape(transform((org.omg.spec.dmn._20180521.model.DMNShape) value));
+        } else if (value instanceof org.omg.spec.dmn._20180521.model.DMNDiagram) {
+            return DMN_13_OBJECT_FACTORY.createDMNDiagram(transform((org.omg.spec.dmn._20180521.model.DMNDiagram) value));
+        } else if (value instanceof org.omg.spec.dmn._20180521.model.DMNEdge) {
+            return DMN_13_OBJECT_FACTORY.createDMNEdge(transform((org.omg.spec.dmn._20180521.model.DMNEdge) value));
+        } else if (value instanceof org.omg.spec.dmn._20180521.model.DMNDecisionServiceDividerLine) {
+            return DMN_13_OBJECT_FACTORY.createDMNDecisionServiceDividerLine(transform((org.omg.spec.dmn._20180521.model.DMNDecisionServiceDividerLine) value));
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", value.getClass()));
         }
@@ -236,6 +250,13 @@ public class DMN12To13DialectTransformer extends SimpleDMNDialectTransformer<org
                 result.add(transform((org.omg.spec.dmn._20180521.model.TDecisionTableOrientation) element));
             } else if (element instanceof org.omg.spec.dmn._20180521.model.TBinding) {
                 result.add(transform((org.omg.spec.dmn._20180521.model.TBinding) element));
+            // DMDI elements
+            } else if (element instanceof org.omg.spec.dmn._20180521.model.DMNDiagram) {
+                result.add(transform((org.omg.spec.dmn._20180521.model.DMNDiagram) element));
+            } else if (element instanceof org.omg.spec.dmn._20180521.model.DMNStyle) {
+                result.add(transform((org.omg.spec.dmn._20180521.model.DMNStyle) element));
+            } else if (element instanceof org.omg.spec.dmn._20180521.model.Point) {
+                result.add(transform((org.omg.spec.dmn._20180521.model.Point) element));
             } else {
                 throw new DMNRuntimeException(String.format("'%s' not supported yet", element.getClass()));
             }
@@ -247,7 +268,7 @@ public class DMN12To13DialectTransformer extends SimpleDMNDialectTransformer<org
         Map<QName, String> result = new LinkedHashMap<>();
         for(Map.Entry<QName, String> entry: otherAttributes.entrySet()) {
             QName key = entry.getKey();
-            result.put(new QName(key.getNamespaceURI(), key.getLocalPart(), key.getPrefix()), entry.getValue());
+            result.put(transformQName(key), entry.getValue());
         }
         return result;
     }
@@ -258,20 +279,25 @@ public class DMN12To13DialectTransformer extends SimpleDMNDialectTransformer<org
         }
 
         TDMNElement.ExtensionElements result = DMN_13_OBJECT_FACTORY.createTDMNElementExtensionElements();
+        List<Object> any = element.getAny();
+        result.getAny().addAll(transformAny(any));
+        return result;
+    }
+
+    private List<Object> transformAny(List<Object> any) {
         List<Object> extensions = new ArrayList<>();
-        for(Object extension: element.getAny()) {
+        for(Object extension: any) {
             if (extension instanceof JAXBElement) {
                 extensions.add(transformJAXBElement((JAXBElement) extension));
             } else if (extension instanceof Element) {
                 extensions.add(transform((Element) extension));
             } else if (this.sourceVersion.getJavaPackage().equals(extension.getClass().getPackage().getName())) {
-                extensions.add(transformElement((org.omg.spec.dmn._20180521.model.TDMNElement)extension));
+                extensions.add(transformElement((org.omg.spec.dmn._20180521.model.TDMNElement) extension));
             } else {
                 extensions.add(extension);
             }
         }
-        result.getAny().addAll(extensions);
-        return result;
+        return extensions;
     }
 
     private TImport transform(org.omg.spec.dmn._20180521.model.TImport element) {
@@ -798,5 +824,298 @@ public class DMN12To13DialectTransformer extends SimpleDMNDialectTransformer<org
 
     private String transformNamespace(String namespace) {
         return namespace;
+    }
+
+    //
+    // DMNDI section
+    //
+    private DMNDI transform(org.omg.spec.dmn._20180521.model.DMNDI element) {
+        if (element == null) {
+            return null;
+        }
+
+        DMNDI result = DMN_13_OBJECT_FACTORY.createDMNDI();
+//        protected List<org.omg.spec.dmn._20180521.model.DMNDiagram> dmnDiagram;
+//        protected List<org.omg.spec.dmn._20180521.model.DMNStyle> dmnStyle;
+        result.getDMNDiagram().addAll(transformList(element.getDMNDiagram()));
+        result.getDMNStyle().addAll(transformList(element.getDMNStyle()));
+        return result;
+    }
+
+    private DMNDiagram transform(org.omg.spec.dmn._20180521.model.DMNDiagram element) {
+        if (element == null) {
+            return null;
+        }
+
+        DMNDiagram result = DMN_13_OBJECT_FACTORY.createDMNDiagram();
+        addDiagramProperties(element, result);
+//        protected org.omg.spec.dmn._20180521.model.Dimension size;
+//        protected List<JAXBElement<? extends org.omg.spec.dmn._20180521.model.DiagramElement>> dmnDiagramElement;
+        result.setSize(transform(element.getSize()));
+        result.getDMNDiagramElement().addAll(transformList(element.getDMNDiagramElement()));
+        return result;
+    }
+
+    private DiagramElement transform(org.omg.spec.dmn._20180521.model.DiagramElement element) {
+        if (element == null) {
+            return null;
+        }
+
+        if (element instanceof org.omg.spec.dmn._20180521.model.DMNLabel) {
+            return transform((org.omg.spec.dmn._20180521.model.DMNLabel) element);
+        } else if (element instanceof org.omg.spec.dmn._20180521.model.DMNShape) {
+            return transform((org.omg.spec.dmn._20180521.model.DMNShape) element);
+        } else if (element instanceof org.omg.spec.dmn._20180521.model.DMNDiagram) {
+            return transform((org.omg.spec.dmn._20180521.model.DMNDiagram) element);
+        } else if (element instanceof org.omg.spec.dmn._20180521.model.DMNEdge) {
+            return transform((org.omg.spec.dmn._20180521.model.DMNEdge) element);
+        } else if (element instanceof org.omg.spec.dmn._20180521.model.DMNDecisionServiceDividerLine) {
+            return transform((org.omg.spec.dmn._20180521.model.DMNDecisionServiceDividerLine) element);
+        } else {
+            throw new DMNRuntimeException(String.format("'%s' is not supported", element.getClass()));
+        }
+    }
+
+    private DMNLabel transform(org.omg.spec.dmn._20180521.model.DMNLabel element) {
+        if (element == null) {
+            return null;
+        }
+
+        DMNLabel result = DMN_13_OBJECT_FACTORY.createDMNLabel();
+        addShapeProperties(element, result);
+//        protected String text;
+        result.setText(element.getText());
+        return result;
+    }
+
+    private DMNShape transform(org.omg.spec.dmn._20180521.model.DMNShape element) {
+        if (element == null) {
+            return null;
+        }
+
+        DMNShape result = DMN_13_OBJECT_FACTORY.createDMNShape();
+        addShapeProperties(element, result);
+//        protected org.omg.spec.dmn._20180521.model.DMNLabel dmnLabel;
+//        protected org.omg.spec.dmn._20180521.model.DMNDecisionServiceDividerLine dmnDecisionServiceDividerLine;
+//        protected QName dmnElementRef;
+//        protected Boolean isListedInputData;
+//        protected Boolean isCollapsed;
+        result.setDMNLabel(transform(element.getDMNLabel()));
+        result.setDMNDecisionServiceDividerLine(transform(element.getDMNDecisionServiceDividerLine()));
+        result.setDmnElementRef(transformQName(element.getDmnElementRef()));
+        result.setIsListedInputData(element.isIsListedInputData());
+        result.setIsCollapsed(element.isIsCollapsed());
+        return result;
+    }
+
+    private DMNEdge transform(org.omg.spec.dmn._20180521.model.DMNEdge element) {
+        if (element == null) {
+            return null;
+        }
+
+        DMNEdge result = DMN_13_OBJECT_FACTORY.createDMNEdge();
+        addEdgeProperties(element, result);
+//        protected org.omg.spec.dmn._20180521.model.DMNLabel dmnLabel;
+//        protected QName dmnElementRef;
+        result.setDMNLabel(transform(element.getDMNLabel()));
+        result.setDmnElementRef(transformQName(element.getDmnElementRef()));
+        return result;
+    }
+
+    private DMNDecisionServiceDividerLine transform(org.omg.spec.dmn._20180521.model.DMNDecisionServiceDividerLine element) {
+        if (element == null) {
+            return null;
+        }
+
+        DMNDecisionServiceDividerLine result = DMN_13_OBJECT_FACTORY.createDMNDecisionServiceDividerLine();
+        addEdgeProperties(element, result);
+        return result;
+    }
+
+    private DMNStyle transform(org.omg.spec.dmn._20180521.model.DMNStyle element) {
+        if (element == null) {
+            return null;
+        }
+
+        DMNStyle result = DMN_13_OBJECT_FACTORY.createDMNStyle();
+        addStyleProperties(element, result);
+//        protected org.omg.spec.dmn._20180521.model.Color fillColor;
+//        protected org.omg.spec.dmn._20180521.model.Color strokeColor;
+//        protected org.omg.spec.dmn._20180521.model.Color fontColor;
+//        protected String fontFamily;
+//        protected Double fontSize;
+//        protected Boolean fontItalic;
+//        protected Boolean fontBold;
+//        protected Boolean fontUnderline;
+//        protected Boolean fontStrikeThrough;
+//        protected org.omg.spec.dmn._20180521.model.AlignmentKind labelHorizontalAlignement;
+//        protected org.omg.spec.dmn._20180521.model.AlignmentKind labelVerticalAlignment;
+        result.setFillColor(transform(element.getFillColor()));
+        result.setStrokeColor(transform(element.getStrokeColor()));
+        result.setFontColor(transform(element.getFontColor()));
+        result.setFontFamily(element.getFontFamily());
+        result.setFontSize(element.getFontSize());
+        result.setFontItalic(element.isFontItalic());
+        result.setFontBold(element.isFontBold());
+        result.setFontUnderline(element.isFontUnderline());
+        result.setFontStrikeThrough(element.isFontStrikeThrough());
+        result.setLabelHorizontalAlignement(transform(element.getLabelHorizontalAlignement()));
+        result.setLabelVerticalAlignment(transform(element.getLabelVerticalAlignment()));
+        return result;
+    }
+
+    private Color transform(org.omg.spec.dmn._20180521.model.Color element) {
+        if (element == null) {
+            return null;
+        }
+
+        Color result = DMN_13_OBJECT_FACTORY.createColor();
+//        protected int red;
+//        protected int green;
+//        protected int blue;
+        result.setRed(element.getRed());
+        result.setGreen(element.getGreen());
+        result.setBlue(element.getBlue());
+        return result;
+    }
+
+    private AlignmentKind transform(org.omg.spec.dmn._20180521.model.AlignmentKind element) {
+        if (element == null) {
+            return null;
+        }
+
+        return AlignmentKind.fromValue(element.value());
+    }
+
+    private DiagramElement.Extension transform(org.omg.spec.dmn._20180521.model.DiagramElement.Extension element) {
+        if (element == null) {
+            return null;
+        }
+
+        DiagramElement.Extension result = DMN_13_OBJECT_FACTORY.createDiagramElementExtension();
+//        protected List<Object> any;
+        result.getAny().addAll(transformAny(element.getAny()));
+        return result;
+    }
+
+    private Style.Extension transform(org.omg.spec.dmn._20180521.model.Style.Extension element) {
+        if (element == null) {
+            return null;
+        }
+
+        Style.Extension result = DMN_13_OBJECT_FACTORY.createStyleExtension();
+//        protected List<Object> any;
+        result.getAny().addAll(transformAny(element.getAny()));
+        return result;
+    }
+
+    private QName transformQName(QName element) {
+        if (element == null) {
+            return null;
+        }
+
+        String namespaceURI = element.getNamespaceURI();
+        String prefix = element.getPrefix();
+        String localPart = element.getLocalPart();
+        return new QName(namespaceURI, localPart, prefix);
+    }
+
+    private Dimension transform(org.omg.spec.dmn._20180521.model.Dimension element) {
+        if (element == null) {
+            return null;
+        }
+
+        Dimension result = DMN_13_OBJECT_FACTORY.createDimension();
+//        protected double width;
+//        protected double height;
+        result.setWidth(element.getWidth());
+        result.setHeight(element.getHeight());
+        return result;
+    }
+
+    private Bounds transform(org.omg.spec.dmn._20180521.model.Bounds element) {
+        if (element == null) {
+            return null;
+        }
+
+        Bounds result = DMN_13_OBJECT_FACTORY.createBounds();
+//        protected double x;
+//        protected double y;
+//        protected double width;
+//        protected double height;
+        result.setX(element.getX());
+        result.setY(element.getY());
+        result.setWidth(element.getWidth());
+        result.setHeight(element.getHeight());
+        return result;
+    }
+
+    private Point transform(org.omg.spec.dmn._20180521.model.Point element) {
+        if (element == null) {
+            return null;
+        }
+
+        Point result = DMN_13_OBJECT_FACTORY.createPoint();
+//        protected double x;
+//        protected double y;
+        result.setX(element.getX());
+        result.setY(element.getY());
+        return result;
+    }
+
+    private void addDiagramElementProperties(org.omg.spec.dmn._20180521.model.DiagramElement element, DiagramElement result) {
+//        protected DiagramElement.Extension extension;
+//        protected JAXBElement<? extends org.omg.spec.dmn._20180521.model.Style> style;
+//        protected Object sharedStyle;
+//        protected String id;
+//        private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+        result.setExtension(transform(element.getExtension()));
+        result.setStyle(transformJAXBElement(element.getStyle()));
+        result.setSharedStyle(transformSharedStyle(element.getSharedStyle()));
+        result.setId(element.getId());
+        result.getOtherAttributes().putAll(transform(element.getOtherAttributes()));
+    }
+
+    private Object transformSharedStyle(Object element) {
+        if (element == null) {
+            return null;
+        }
+
+        if (element instanceof org.omg.spec.dmn._20180521.model.DMNStyle) {
+            return transform((org.omg.spec.dmn._20180521.model.DMNStyle) element);
+        } else {
+            throw new DMNRuntimeException(String.format("'%s' is not supported", element.getClass()));
+        }
+    }
+
+    private void addDiagramProperties(org.omg.spec.dmn._20180521.model.Diagram element, Diagram result) {
+        addDiagramElementProperties(element, result);
+//        protected String name;
+//        protected String documentation;
+//        protected Double resolution;
+        result.setName(element.getName());
+        result.setDocumentation(element.getDocumentation());
+        result.setResolution(element.getResolution());
+    }
+
+    private void addShapeProperties(org.omg.spec.dmn._20180521.model.Shape element, Shape result) {
+        addDiagramElementProperties(element, result);
+//        protected org.omg.spec.dmn._20180521.model.Bounds bounds;
+        result.setBounds(transform(element.getBounds()));
+    }
+
+    private void addEdgeProperties(org.omg.spec.dmn._20180521.model.Edge element, Edge result) {
+        addDiagramElementProperties(element, result);
+//        protected List<org.omg.spec.dmn._20180521.model.Point> waypoint;
+        result.getWaypoint().addAll(transformList(element.getWaypoint()));
+    }
+
+    private void addStyleProperties(org.omg.spec.dmn._20180521.model.Style element, Style result) {
+//        protected org.omg.spec.dmn._20180521.model.Style.Extension extension;
+//        protected String id;
+//        private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+        result.setExtension(transform(element.getExtension()));
+        result.setId(element.getId());
+        result.getOtherAttributes().putAll(transform(element.getOtherAttributes()));
     }
 }
