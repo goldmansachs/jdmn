@@ -102,6 +102,7 @@ public class DMNModelRepository {
         if (definitions != null) {
             sortDRGElements(definitions.getDrgElement());
             sortNamedElements(definitions.getItemDefinition());
+            sortDMNDI(definitions.getDMNDI());
         }
     }
 
@@ -397,6 +398,21 @@ public class DMNModelRepository {
 
     public void sortNamedElements(List<? extends TNamedElement> elements) {
         elements.sort(Comparator.comparing((TNamedElement o) -> removeSingleQuotes(o.getName())));
+    }
+
+    private void sortDMNDI(DMNDI dmndi) {
+        if (dmndi != null) {
+            sortDMNDiagrams(dmndi);
+            dmndi.getDMNStyle().sort(Comparator.comparing((DMNStyle s) -> s.getId()));
+        }
+    }
+
+    private void sortDMNDiagrams(DMNDI dmndi) {
+        List<DMNDiagram> diagrams = dmndi.getDMNDiagram();
+        diagrams.sort(Comparator.comparing((DMNDiagram d) -> d.getName()));
+        for (DMNDiagram d: diagrams) {
+            d.getDMNDiagramElement().sort(Comparator.comparing((JAXBElement<? extends DiagramElement> e) -> String.format("%s-%s", e.getDeclaredType().getSimpleName(), e.getValue().getId())));
+        }
     }
 
     public void sortNamedElementReferences(List<? extends DRGElementReference<? extends TNamedElement>> references) {
