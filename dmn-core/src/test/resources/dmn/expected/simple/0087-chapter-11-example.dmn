@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:tns="http://www.trisotech.com/definitions/_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4" namespace="http://www.trisotech.com/definitions/_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4" exporter="DMN Modeler" exporterVersion="6.0.7" name="Chapter 11 Example" id="_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="https://www.omg.org/spec/DMN/20191111/FEEL/" xmlns:tns="http://www.trisotech.com/definitions/_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4" expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" typeLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" namespace="http://www.trisotech.com/definitions/_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4" exporter="DMN Modeler" exporterVersion="6.0.7" name="Chapter 11 Example" id="_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4">
     <extensionElements/>
     <itemDefinition isCollection="false" name="tApplicantData" label="tApplicantData">
         <itemComponent isCollection="false" name="Age" id="_df3aab6f-1610-41fa-a407-09678a89d6da">
@@ -201,11 +201,11 @@
     <businessKnowledgeModel name="ApplicationRiskScoreModel" id="_e9e07f04-0ff2-40c4-bd14-e5f06a91f942">
         <description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Application risk score model&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic&amp;nbsp;defines a complete, no-order multiple-hit table&amp;nbsp;&lt;/span&gt;with aggregation, deriving Application risk score from Age, Marital Status and Employment Status, as the sum of the Partial scores of all matching rows (this is therefore a predictive scorecard represented as a decision table).&lt;/span&gt;&lt;/p&gt;</description>
         <variable name="ApplicationRiskScoreModel" id="_645f4911-6a95-4dbd-8efb-13fac8154fa2"/>
-        <encapsulatedLogic>
+        <encapsulatedLogic kind="FEEL">
             <formalParameter typeRef="number" name="Age"/>
             <formalParameter typeRef="string" name="MaritalStatus"/>
             <formalParameter typeRef="string" name="EmploymentStatus"/>
-            <decisionTable hitPolicy="COLLECT" aggregation="SUM" outputLabel="Application risk score model" id="_26378922-484b-42f3-a609-5aecb81afbd2">
+            <decisionTable hitPolicy="COLLECT" aggregation="SUM" preferredOrientation="Rule-as-Row" outputLabel="Application risk score model" id="_26378922-484b-42f3-a609-5aecb81afbd2">
                 <input id="_09b90043-cccb-4cf7-b8bc-44e97787443f">
                     <inputExpression typeRef="number">
                         <text>Age</text>
@@ -427,9 +427,9 @@
     <businessKnowledgeModel name="BureauCallTypeTable" id="_a654be71-b54d-4d6e-90f0-ae505125e9a6">
         <description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Bureau call type table&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic defines a complete, unique-hit decision table deriving&amp;nbsp;&lt;/span&gt;Bureau Call Type from Pre-Bureau Risk Category.&lt;/span&gt;&lt;/p&gt;</description>
         <variable name="BureauCallTypeTable" id="_86c4fcfd-1e5a-41ec-9b62-966cf0eed2d3"/>
-        <encapsulatedLogic>
+        <encapsulatedLogic kind="FEEL">
             <formalParameter typeRef="tRiskCategory" name="PreBureauRiskCategory_1"/>
-            <decisionTable hitPolicy="UNIQUE" outputLabel="Bureau call type table" id="_ebd84888-6db0-4b91-94f4-b3a228bb2901">
+            <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="Bureau call type table" id="_ebd84888-6db0-4b91-94f4-b3a228bb2901">
                 <input id="_92e35546-27e5-43a5-b8e6-85a692f42eb8">
                     <inputExpression typeRef="tRiskCategory">
                         <text>PreBureauRiskCategory_1</text>
@@ -480,9 +480,9 @@
         <description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;/span&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Credit contingency factor table&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;&lt;span style="font-size: 10pt; font-family: arial, helvetica, sans-serif;"&gt;decision&lt;/span&gt; logic defines a complete, unique-hit decision table&amp;nbsp;&lt;/span&gt;deriving Credit contingency factor from Risk Category.&lt;/p&gt;
 			&lt;p&gt;&amp;nbsp;&lt;/p&gt;</description>
         <variable name="CreditContingencyFactorTable" id="_40c0f987-7b90-4c3e-9dcd-411e56f66c92"/>
-        <encapsulatedLogic>
+        <encapsulatedLogic kind="FEEL">
             <formalParameter typeRef="tRiskCategory" name="RiskCategory"/>
-            <decisionTable hitPolicy="UNIQUE" outputLabel="Credit contingency factor table" id="_ad7c587e-64cc-47ec-adc4-515b586f9474">
+            <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="Credit contingency factor table" id="_ad7c587e-64cc-47ec-adc4-515b586f9474">
                 <input id="_2b8fecfd-e00f-4d4b-acf3-660ca3560ca0">
                     <inputExpression typeRef="tRiskCategory">
                         <text>RiskCategory</text>
@@ -565,11 +565,11 @@
     <businessKnowledgeModel name="EligibilityRules" id="_dc2ca64d-2044-4806-9d0e-e705b3b14447">
         <description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Eligibility rules&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic&amp;nbsp;defines a complete, priority-ordered single hit decision table&amp;nbsp;&lt;/span&gt;deriving Eligibility from Pre-Bureau Risk Category, Pre-Bureau Affordability and Age.&lt;/span&gt;&lt;/p&gt;</description>
         <variable name="EligibilityRules" id="_fe2d2049-704b-4a88-88be-3d1a56c3d376"/>
-        <encapsulatedLogic>
+        <encapsulatedLogic kind="FEEL">
             <formalParameter typeRef="tRiskCategory" name="PreBureauRiskCategory_1"/>
             <formalParameter typeRef="boolean" name="PreBureauAffordability_2"/>
             <formalParameter typeRef="number" name="Age"/>
-            <decisionTable hitPolicy="PRIORITY" outputLabel="Eligibility rules" id="_7d663660-b2e1-47d1-9870-777b5a695e7f">
+            <decisionTable hitPolicy="PRIORITY" preferredOrientation="Rule-as-Row" outputLabel="Eligibility rules" id="_7d663660-b2e1-47d1-9870-777b5a695e7f">
                 <input id="_2bab5dc0-be18-4098-b9b4-6b3486955d1b">
                     <inputExpression typeRef="tRiskCategory">
                         <text>PreBureauRiskCategory_1</text>
@@ -795,11 +795,11 @@
     <businessKnowledgeModel name="PostBureauRiskCategoryTable" id="_1c72ed95-ec72-47b4-8639-5ed14ccb77df">
         <description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Post-bureau risk category table&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic defines a complete, unique-hit decision table&amp;nbsp;&lt;/span&gt;deriving Post-Bureau Risk Category from Existing Customer, Application Risk Score and Credit Score.&lt;/span&gt;&lt;/p&gt;</description>
         <variable name="PostBureauRiskCategoryTable" id="_689c96f3-6dd3-4c74-9a8f-721a966eb1af"/>
-        <encapsulatedLogic>
+        <encapsulatedLogic kind="FEEL">
             <formalParameter typeRef="boolean" name="ExistingCustomer"/>
             <formalParameter typeRef="number" name="ApplicationRiskScore_4"/>
             <formalParameter typeRef="number" name="CreditScore"/>
-            <decisionTable hitPolicy="UNIQUE" outputLabel="Post-bureau risk category table" id="_c494b824-7c60-4115-8773-00f103b636a0">
+            <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="Post-bureau risk category table" id="_c494b824-7c60-4115-8773-00f103b636a0">
                 <input id="_fc4cfa6b-926b-4751-81d9-d363b6f19299">
                     <inputExpression typeRef="boolean">
                         <text>ExistingCustomer</text>
@@ -1092,10 +1092,10 @@
     <businessKnowledgeModel name="PreBureauRiskCategoryTable" id="_51cc9510-3bfa-4e5a-a119-9bf83efdd266">
         <description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Pre-bureau risk category table&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic defines a complete, unique-hit decision table&amp;nbsp;&lt;/span&gt;deriving Pre-bureau risk category from Existing Customer and Application Risk Score.&lt;/span&gt;&lt;/p&gt;</description>
         <variable name="PreBureauRiskCategoryTable" id="_cfb1bb8c-ad27-42e2-b52a-50eadea198a6"/>
-        <encapsulatedLogic>
+        <encapsulatedLogic kind="FEEL">
             <formalParameter typeRef="boolean" name="ExistingCustomer"/>
             <formalParameter typeRef="number" name="ApplicationRiskScore_4"/>
-            <decisionTable hitPolicy="UNIQUE" outputLabel="Pre-bureau risk category table" id="_3f0a3259-2862-44d3-baff-5bd71f4dd24f">
+            <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="Pre-bureau risk category table" id="_3f0a3259-2862-44d3-baff-5bd71f4dd24f">
                 <input id="_1ee6291f-423f-47d9-8774-858b392d4762">
                     <inputExpression typeRef="boolean">
                         <text>ExistingCustomer</text>
@@ -1308,12 +1308,12 @@
     <businessKnowledgeModel name="RoutingRules" id="_536d7a39-87a6-4651-b743-6ee03e16e535">
         <description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Routing Rules&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic defines a complete, priority-ordered single hit decision table&amp;nbsp;&lt;/span&gt;deriving Routing from Post-Bureau Risk Category, Post-Bureau Affordability, Bankrupt and Credit Score.&lt;/span&gt;&lt;/p&gt;</description>
         <variable name="RoutingRules" id="_08f4f63e-54e4-4b19-b0d2-08aeed21605c"/>
-        <encapsulatedLogic>
+        <encapsulatedLogic kind="FEEL">
             <formalParameter typeRef="tRiskCategory" name="PostBureauRiskCategory"/>
             <formalParameter typeRef="boolean" name="PostBureauAffordability"/>
             <formalParameter typeRef="boolean" name="Bankrupt"/>
             <formalParameter typeRef="number" name="CreditScore_5"/>
-            <decisionTable hitPolicy="PRIORITY" outputLabel="Routing rules" id="_4dfddea8-3c8e-400a-97bc-dcba00876c34">
+            <decisionTable hitPolicy="PRIORITY" preferredOrientation="Rule-as-Row" outputLabel="Routing rules" id="_4dfddea8-3c8e-400a-97bc-dcba00876c34">
                 <input id="_b3bde44f-2274-41d5-8e04-5cb2f7529e6c">
                     <inputExpression typeRef="tRiskCategory">
                         <text>PostBureauRiskCategory</text>
@@ -1445,7 +1445,7 @@
         <informationRequirement id="_b7de8dff-4db7-4ef0-8412-0d3fe09955d7">
             <requiredDecision href="#_b5e759df-f662-44cd-94f5-55c3c81f0ee3"/>
         </informationRequirement>
-        <decisionTable hitPolicy="UNIQUE" outputLabel="Strategy" id="_0991d970-7c58-4669-89ec-a5e3e9d264df">
+        <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="Strategy" id="_0991d970-7c58-4669-89ec-a5e3e9d264df">
             <input id="_661471d5-5028-4910-b070-1e3bad0125c7">
                 <inputExpression typeRef="tEligibility">
                     <text>Eligibility</text>
@@ -1581,39 +1581,39 @@
                     <di:waypoint x="693.8705854415894" y="275.0"/>
                 </dmndi:DMNDecisionServiceDividerLine>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_3c8cee68-99dd-418c-847d-0b54697354f2" id="_4319ac14-8191-4f5b-90ed-143062b9b6b2">
+            <dmndi:DMNShape dmnElementRef="tns:_3c8cee68-99dd-418c-847d-0b54697354f2" isCollapsed="false" id="_4319ac14-8191-4f5b-90ed-143062b9b6b2">
                 <dc:Bounds x="515.8705854415894" y="583.0" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_9997fcfd-0f50-4933-939e-88a235b5e2a0" id="_502c37dd-dea7-4fde-b8df-8837fba3d41b">
+            <dmndi:DMNShape dmnElementRef="tns:_9997fcfd-0f50-4933-939e-88a235b5e2a0" isCollapsed="false" id="_502c37dd-dea7-4fde-b8df-8837fba3d41b">
                 <dc:Bounds x="136.0" y="461.5" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_e905f02c-c5d9-4f2a-ba57-7912ff523b46" id="_587c02f7-6b33-4183-a2a7-7b66ea54c018">
+            <dmndi:DMNShape dmnElementRef="tns:_e905f02c-c5d9-4f2a-ba57-7912ff523b46" isCollapsed="false" id="_587c02f7-6b33-4183-a2a7-7b66ea54c018">
                 <dc:Bounds x="79.0" y="600.0" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_d14df033-f4a2-47e3-9590-84e9ff04db4e" id="_58aa9ca2-9b70-489b-a992-ab9a11c7cbc9">
+            <dmndi:DMNShape dmnElementRef="tns:_d14df033-f4a2-47e3-9590-84e9ff04db4e" isCollapsed="false" id="_58aa9ca2-9b70-489b-a992-ab9a11c7cbc9">
                 <dc:Bounds x="308.1470727920532" y="782.9999961853027" width="135.48234176635742" height="60.00000762939453"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_fe938494-ee59-425e-8728-2347ea703563" id="_58f9e0e3-cfcc-4f08-aef4-e192d06975f4">
+            <dmndi:DMNShape dmnElementRef="tns:_fe938494-ee59-425e-8728-2347ea703563" isCollapsed="false" id="_58f9e0e3-cfcc-4f08-aef4-e192d06975f4">
                 <dc:Bounds x="524.6294145584106" y="782.9999961853027" width="135.48234176635742" height="60.00000762939453"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_b5e759df-f662-44cd-94f5-55c3c81f0ee3" id="_5f9bf062-d0e9-447f-89c9-77e4c469182e">
+            <dmndi:DMNShape dmnElementRef="tns:_b5e759df-f662-44cd-94f5-55c3c81f0ee3" isCollapsed="false" id="_5f9bf062-d0e9-447f-89c9-77e4c469182e">
                 <dc:Bounds x="299.38824367523193" y="307.0" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_ed60265c-25e2-400f-a99f-fafd3b489838" id="_6afc8123-61b9-4532-beeb-47ef0a188d18">
+            <dmndi:DMNShape dmnElementRef="tns:_ed60265c-25e2-400f-a99f-fafd3b489838" isCollapsed="false" id="_6afc8123-61b9-4532-beeb-47ef0a188d18">
                 <dc:Bounds x="479.5" y="461.5" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_8b838f06-968a-4c66-875e-f5412fd692cf" id="_9e34a4d1-45da-4831-badc-73d8677348c0">
+            <dmndi:DMNShape dmnElementRef="tns:_8b838f06-968a-4c66-875e-f5412fd692cf" isCollapsed="false" id="_9e34a4d1-45da-4831-badc-73d8677348c0">
                 <dc:Bounds x="299.38824367523193" y="88.0" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_5b8356f3-2cf2-40e8-8f80-324937e8b276" id="_eca64fdc-9a9b-4437-a09c-985f20e5aa97">
+            <dmndi:DMNShape dmnElementRef="tns:_5b8356f3-2cf2-40e8-8f80-324937e8b276" isCollapsed="false" id="_eca64fdc-9a9b-4437-a09c-985f20e5aa97">
                 <dc:Bounds x="136.0" y="197.0" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
@@ -1755,87 +1755,87 @@
                 <di:waypoint x="658.0" y="413.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNEdge>
-            <dmndi:DMNShape dmnElementRef="tns:_b982a42a-0b62-47fa-8911-6c9d1145d982" id="_0cc08173-136b-42d3-9fa1-09c690920b37">
+            <dmndi:DMNShape dmnElementRef="tns:_b982a42a-0b62-47fa-8911-6c9d1145d982" isCollapsed="false" id="_0cc08173-136b-42d3-9fa1-09c690920b37">
                 <dc:Bounds x="572.5" y="290.5" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_e905f02c-c5d9-4f2a-ba57-7912ff523b46" id="_0f1008a0-ae96-4e27-aa5d-b3bc11c05fac">
+            <dmndi:DMNShape dmnElementRef="tns:_e905f02c-c5d9-4f2a-ba57-7912ff523b46" isCollapsed="false" id="_0f1008a0-ae96-4e27-aa5d-b3bc11c05fac">
                 <dc:Bounds x="275.5" y="741.0" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_3c8cee68-99dd-418c-847d-0b54697354f2" id="_119017a3-7e0d-4324-800f-3e088e498c75">
+            <dmndi:DMNShape dmnElementRef="tns:_3c8cee68-99dd-418c-847d-0b54697354f2" isCollapsed="false" id="_119017a3-7e0d-4324-800f-3e088e498c75">
                 <dc:Bounds x="698.2411708831787" y="622.9999961853027" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_51cc9510-3bfa-4e5a-a119-9bf83efdd266" id="_191faa22-22f9-4c0e-a7d7-b16b8a44d560">
+            <dmndi:DMNShape dmnElementRef="tns:_51cc9510-3bfa-4e5a-a119-9bf83efdd266" isCollapsed="false" id="_191faa22-22f9-4c0e-a7d7-b16b8a44d560">
                 <dc:Bounds x="148.5" y="623.4999961853027" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_7235d875-2426-4869-b6df-92ca06ae80c5" id="_326709ad-71e2-4e73-ace4-0cc197b3f536">
+            <dmndi:DMNShape dmnElementRef="tns:_7235d875-2426-4869-b6df-92ca06ae80c5" isCollapsed="false" id="_326709ad-71e2-4e73-ace4-0cc197b3f536">
                 <dc:Bounds x="777.8080854415894" y="741.4999961853027" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_d14df033-f4a2-47e3-9590-84e9ff04db4e" id="_3b1d8f15-d493-4fa9-bcfb-42fcbd6a7287">
+            <dmndi:DMNShape dmnElementRef="tns:_d14df033-f4a2-47e3-9590-84e9ff04db4e" isCollapsed="false" id="_3b1d8f15-d493-4fa9-bcfb-42fcbd6a7287">
                 <dc:Bounds x="513.7588291168213" y="856.9999961853027" width="135.48234176635742" height="60.00000762939453"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_9997fcfd-0f50-4933-939e-88a235b5e2a0" id="_3ee31f31-9681-4389-8bfa-4a3643ee85db">
+            <dmndi:DMNShape dmnElementRef="tns:_9997fcfd-0f50-4933-939e-88a235b5e2a0" isCollapsed="false" id="_3ee31f31-9681-4389-8bfa-4a3643ee85db">
                 <dc:Bounds x="287.5" y="532.0" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_a5f9b126-7853-4037-9e23-3dd7e93c4032" id="_4a8fd722-4d10-4234-b2d2-e8408a4e65fa">
+            <dmndi:DMNShape dmnElementRef="tns:_a5f9b126-7853-4037-9e23-3dd7e93c4032" isCollapsed="false" id="_4a8fd722-4d10-4234-b2d2-e8408a4e65fa">
                 <dc:Bounds x="732.0" y="57.02132034301758" width="100.0" height="69.95735931396484"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_dc2ca64d-2044-4806-9d0e-e705b3b14447" id="_641f3b03-7f81-468a-b326-e89b881e9c9b">
+            <dmndi:DMNShape dmnElementRef="tns:_dc2ca64d-2044-4806-9d0e-e705b3b14447" isCollapsed="false" id="_641f3b03-7f81-468a-b326-e89b881e9c9b">
                 <dc:Bounds x="602.0" y="170.5" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_18d836e7-6d61-490c-b9a8-be3ce0c60c1e" id="_65f0b61c-ece5-4d43-9fb0-57288f3900c3">
+            <dmndi:DMNShape dmnElementRef="tns:_18d836e7-6d61-490c-b9a8-be3ce0c60c1e" isCollapsed="false" id="_65f0b61c-ece5-4d43-9fb0-57288f3900c3">
                 <dc:Bounds x="799.5" y="272.0213203430176" width="100.0" height="69.95735931396484"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_e9e07f04-0ff2-40c4-bd14-e5f06a91f942" id="_68dc56c3-7930-4816-b843-089a9de5c1a6">
+            <dmndi:DMNShape dmnElementRef="tns:_e9e07f04-0ff2-40c4-bd14-e5f06a91f942" isCollapsed="false" id="_68dc56c3-7930-4816-b843-089a9de5c1a6">
                 <dc:Bounds x="148.5" y="857.5" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_ed60265c-25e2-400f-a99f-fafd3b489838" id="_6943ac13-5ec7-47f5-a93e-00df738f8362">
+            <dmndi:DMNShape dmnElementRef="tns:_ed60265c-25e2-400f-a99f-fafd3b489838" isCollapsed="false" id="_6943ac13-5ec7-47f5-a93e-00df738f8362">
                 <dc:Bounds x="505.0" y="383.0" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_a654be71-b54d-4d6e-90f0-ae505125e9a6" id="_6d63627c-90c4-49fd-9230-c3eb47926594">
+            <dmndi:DMNShape dmnElementRef="tns:_a654be71-b54d-4d6e-90f0-ae505125e9a6" isCollapsed="false" id="_6d63627c-90c4-49fd-9230-c3eb47926594">
                 <dc:Bounds x="89.0" y="290.5" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_b5e759df-f662-44cd-94f5-55c3c81f0ee3" id="_7076cd45-5bf9-47a2-9fed-6df474257bfb">
+            <dmndi:DMNShape dmnElementRef="tns:_b5e759df-f662-44cd-94f5-55c3c81f0ee3" isCollapsed="false" id="_7076cd45-5bf9-47a2-9fed-6df474257bfb">
                 <dc:Bounds x="384.5" y="170.0" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_fe938494-ee59-425e-8728-2347ea703563" id="_80a2a8fd-9bc7-49cb-8b91-bea566d2324b">
+            <dmndi:DMNShape dmnElementRef="tns:_fe938494-ee59-425e-8728-2347ea703563" isCollapsed="false" id="_80a2a8fd-9bc7-49cb-8b91-bea566d2324b">
                 <dc:Bounds x="594.0" y="740.9999923706055" width="135.48234176635742" height="60.00000762939453"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_821a6840-e910-418f-809e-4c7d60b0b21a" id="_9f98c1ca-1354-49dc-95a7-c5dd85cac42d">
+            <dmndi:DMNShape dmnElementRef="tns:_821a6840-e910-418f-809e-4c7d60b0b21a" isCollapsed="false" id="_9f98c1ca-1354-49dc-95a7-c5dd85cac42d">
                 <dc:Bounds x="29.5" y="736.0213203430176" width="100.0" height="69.95735931396484"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_974b09c2-2ff1-4eb4-bb7c-2b68fa24ddf9" id="_c1903235-a689-4c6c-9dcc-479e982b57d8">
+            <dmndi:DMNShape dmnElementRef="tns:_974b09c2-2ff1-4eb4-bb7c-2b68fa24ddf9" isCollapsed="false" id="_c1903235-a689-4c6c-9dcc-479e982b57d8">
                 <dc:Bounds x="29.5" y="417.0213203430176" width="100.0" height="69.95735931396484"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_ee893e8d-f393-4e2c-b871-611a9cd30bf5" id="_cec4eba7-8505-4ef2-ab1f-a6b997f4d43e">
+            <dmndi:DMNShape dmnElementRef="tns:_ee893e8d-f393-4e2c-b871-611a9cd30bf5" isCollapsed="false" id="_cec4eba7-8505-4ef2-ab1f-a6b997f4d43e">
                 <dc:Bounds x="706.0" y="383.5" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_5b8356f3-2cf2-40e8-8f80-324937e8b276" id="_d3099e88-e780-4a4f-affc-c8169158a5e8">
+            <dmndi:DMNShape dmnElementRef="tns:_5b8356f3-2cf2-40e8-8f80-324937e8b276" isCollapsed="false" id="_d3099e88-e780-4a4f-affc-c8169158a5e8">
                 <dc:Bounds x="187.5" y="170.0" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_a30c75ec-7d81-4606-802c-b31ea308392d" id="_e935455f-efe1-494c-b9a5-1d8c37219e06">
+            <dmndi:DMNShape dmnElementRef="tns:_a30c75ec-7d81-4606-802c-b31ea308392d" isCollapsed="false" id="_e935455f-efe1-494c-b9a5-1d8c37219e06">
                 <dc:Bounds x="777.8080854415894" y="857.5" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_8b838f06-968a-4c66-875e-f5412fd692cf" id="_fe28b5fd-85bb-4254-a3a3-22f5feff055e">
+            <dmndi:DMNShape dmnElementRef="tns:_8b838f06-968a-4c66-875e-f5412fd692cf" isCollapsed="false" id="_fe28b5fd-85bb-4254-a3a3-22f5feff055e">
                 <dc:Bounds x="287.5" y="50.0" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
@@ -1952,75 +1952,75 @@
                 <di:waypoint x="126.0" y="308.4786796569824"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNEdge>
-            <dmndi:DMNShape dmnElementRef="tns:_e905f02c-c5d9-4f2a-ba57-7912ff523b46" id="_12e52af3-c2f4-4838-9312-77ae9d9367e2">
+            <dmndi:DMNShape dmnElementRef="tns:_e905f02c-c5d9-4f2a-ba57-7912ff523b46" isCollapsed="false" id="_12e52af3-c2f4-4838-9312-77ae9d9367e2">
                 <dc:Bounds x="716.0" y="528.4786796569824" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_ca1e6032-12eb-428a-a80b-49028a88c0b5" id="_18491c1e-7e4f-4930-8e41-96fea4126b9f">
+            <dmndi:DMNShape dmnElementRef="tns:_ca1e6032-12eb-428a-a80b-49028a88c0b5" isCollapsed="false" id="_18491c1e-7e4f-4930-8e41-96fea4126b9f">
                 <dc:Bounds x="598.0" y="54.97867965698242" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_b982a42a-0b62-47fa-8911-6c9d1145d982" id="_2dd25d60-5458-4699-91d3-61afb5bdc9f4">
+            <dmndi:DMNShape dmnElementRef="tns:_b982a42a-0b62-47fa-8911-6c9d1145d982" isCollapsed="false" id="_2dd25d60-5458-4699-91d3-61afb5bdc9f4">
                 <dc:Bounds x="50.0" y="249.47867965698242" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_e91de815-22ba-431c-8b46-55891f2a1ef6" id="_3668effc-4c16-48eb-af14-8807dcae39ef">
+            <dmndi:DMNShape dmnElementRef="tns:_e91de815-22ba-431c-8b46-55891f2a1ef6" isCollapsed="false" id="_3668effc-4c16-48eb-af14-8807dcae39ef">
                 <dc:Bounds x="815.7588291168213" y="397.97867584228516" width="135.48234176635742" height="60.00000762939453"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_728e3a50-f00f-42c0-b3ee-1ee5aabd5474" id="_644f0ba0-4030-4fe1-8719-e2a96687da4b">
+            <dmndi:DMNShape dmnElementRef="tns:_728e3a50-f00f-42c0-b3ee-1ee5aabd5474" isCollapsed="false" id="_644f0ba0-4030-4fe1-8719-e2a96687da4b">
                 <dc:Bounds x="482.5" y="248.97867965698242" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_d14df033-f4a2-47e3-9590-84e9ff04db4e" id="_7106a296-cf23-402e-ba5a-da68d3b2cbf6">
+            <dmndi:DMNShape dmnElementRef="tns:_d14df033-f4a2-47e3-9590-84e9ff04db4e" isCollapsed="false" id="_7106a296-cf23-402e-ba5a-da68d3b2cbf6">
                 <dc:Bounds x="542.7588291168213" y="658.4786758422852" width="135.48234176635742" height="60.00000762939453"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_974b09c2-2ff1-4eb4-bb7c-2b68fa24ddf9" id="_7a72af18-3e24-42c0-9e88-782c7d298182">
+            <dmndi:DMNShape dmnElementRef="tns:_974b09c2-2ff1-4eb4-bb7c-2b68fa24ddf9" isCollapsed="false" id="_7a72af18-3e24-42c0-9e88-782c7d298182">
                 <dc:Bounds x="76.0" y="393.0" width="100.0" height="69.95735931396484"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_7235d875-2426-4869-b6df-92ca06ae80c5" id="_7b4cf31d-6e5e-4654-9dc6-44fbaa21b105">
+            <dmndi:DMNShape dmnElementRef="tns:_7235d875-2426-4869-b6df-92ca06ae80c5" isCollapsed="false" id="_7b4cf31d-6e5e-4654-9dc6-44fbaa21b105">
                 <dc:Bounds x="338.2411708831787" y="658.9786796569824" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_536d7a39-87a6-4651-b743-6ee03e16e535" id="_85bcfbfb-3697-42f8-86d5-e09f06265ceb">
+            <dmndi:DMNShape dmnElementRef="tns:_536d7a39-87a6-4651-b743-6ee03e16e535" isCollapsed="false" id="_85bcfbfb-3697-42f8-86d5-e09f06265ceb">
                 <dc:Bounds x="374.5" y="55.47867965698242" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_e9e07f04-0ff2-40c4-bd14-e5f06a91f942" id="_85ca2722-c63d-4bee-b4a2-20865788790b">
+            <dmndi:DMNShape dmnElementRef="tns:_e9e07f04-0ff2-40c4-bd14-e5f06a91f942" isCollapsed="false" id="_85ca2722-c63d-4bee-b4a2-20865788790b">
                 <dc:Bounds x="938.5" y="528.9786796569824" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_a5f9b126-7853-4037-9e23-3dd7e93c4032" id="_86c8b375-241a-422b-b7ee-0aa92acdf4f3">
+            <dmndi:DMNShape dmnElementRef="tns:_a5f9b126-7853-4037-9e23-3dd7e93c4032" isCollapsed="false" id="_86c8b375-241a-422b-b7ee-0aa92acdf4f3">
                 <dc:Bounds x="192.5" y="50.0" width="100.0" height="69.95735931396484"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_fe938494-ee59-425e-8728-2347ea703563" id="_8841d4b9-1fe6-4238-b473-9500efb152c9">
+            <dmndi:DMNShape dmnElementRef="tns:_fe938494-ee59-425e-8728-2347ea703563" isCollapsed="false" id="_8841d4b9-1fe6-4238-b473-9500efb152c9">
                 <dc:Bounds x="129.5" y="658.4786758422852" width="135.48234176635742" height="60.00000762939453"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_40b45659-9299-43a6-af30-04c948c5c0ec" id="_8bc5b940-7c9b-4ad4-ba19-3c8ca4fbfd15">
+            <dmndi:DMNShape dmnElementRef="tns:_40b45659-9299-43a6-af30-04c948c5c0ec" isCollapsed="false" id="_8bc5b940-7c9b-4ad4-ba19-3c8ca4fbfd15">
                 <dc:Bounds x="598.0" y="397.9786796569824" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_ee893e8d-f393-4e2c-b871-611a9cd30bf5" id="_b9c5cd5a-548c-4616-9969-1a9612959967">
+            <dmndi:DMNShape dmnElementRef="tns:_ee893e8d-f393-4e2c-b871-611a9cd30bf5" isCollapsed="false" id="_b9c5cd5a-548c-4616-9969-1a9612959967">
                 <dc:Bounds x="259.5" y="249.47867965698242" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_821a6840-e910-418f-809e-4c7d60b0b21a" id="_c5b281c8-65f9-4170-8d91-bc4356eb0199">
+            <dmndi:DMNShape dmnElementRef="tns:_821a6840-e910-418f-809e-4c7d60b0b21a" isCollapsed="false" id="_c5b281c8-65f9-4170-8d91-bc4356eb0199">
                 <dc:Bounds x="990.5" y="393.0" width="100.0" height="69.95735931396484"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_18d836e7-6d61-490c-b9a8-be3ce0c60c1e" id="_c9bf39d1-bbb8-4229-a138-bf899e6c35ba">
+            <dmndi:DMNShape dmnElementRef="tns:_18d836e7-6d61-490c-b9a8-be3ce0c60c1e" isCollapsed="false" id="_c9bf39d1-bbb8-4229-a138-bf899e6c35ba">
                 <dc:Bounds x="363.87058544158936" y="142.0" width="100.0" height="69.95735931396484"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_1c72ed95-ec72-47b4-8639-5ed14ccb77df" id="_cdf6ea09-1597-4ce6-baad-32bd9bfab22a">
+            <dmndi:DMNShape dmnElementRef="tns:_1c72ed95-ec72-47b4-8639-5ed14ccb77df" isCollapsed="false" id="_cdf6ea09-1597-4ce6-baad-32bd9bfab22a">
                 <dc:Bounds x="233.87058544158936" y="398.4786796569824" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_3c8cee68-99dd-418c-847d-0b54697354f2" id="_e25734f2-0621-4de4-a551-7a2e3ff4b4e3">
+            <dmndi:DMNShape dmnElementRef="tns:_3c8cee68-99dd-418c-847d-0b54697354f2" isCollapsed="false" id="_e25734f2-0621-4de4-a551-7a2e3ff4b4e3">
                 <dc:Bounds x="233.7411708831787" y="528.4786796569824" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
@@ -2052,27 +2052,27 @@
                 <di:waypoint x="322.0" y="114.97867965698242"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNEdge>
-            <dmndi:DMNShape dmnElementRef="tns:_ca1e6032-12eb-428a-a80b-49028a88c0b5" id="_031ba6ca-c73e-42ae-917b-70726dab086c">
+            <dmndi:DMNShape dmnElementRef="tns:_ca1e6032-12eb-428a-a80b-49028a88c0b5" isCollapsed="false" id="_031ba6ca-c73e-42ae-917b-70726dab086c">
                 <dc:Bounds x="179.5" y="320.9786796569824" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_989d137f-86ff-4249-813f-af67c08a2762" id="_1ee7ca06-5141-461b-8df0-6396c924f424">
+            <dmndi:DMNShape dmnElementRef="tns:_989d137f-86ff-4249-813f-af67c08a2762" isCollapsed="false" id="_1ee7ca06-5141-461b-8df0-6396c924f424">
                 <dc:Bounds x="50.0" y="50.0" width="100.0" height="69.95735931396484"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_34cd3187-8764-4249-959d-2664bf9f1847" id="_6dc46488-4b09-4ca2-a116-31b1dd57ec22">
+            <dmndi:DMNShape dmnElementRef="tns:_34cd3187-8764-4249-959d-2664bf9f1847" isCollapsed="false" id="_6dc46488-4b09-4ca2-a116-31b1dd57ec22">
                 <dc:Bounds x="480.2588291168213" y="222.97867584228516" width="135.48234176635742" height="60.00000762939453"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_d14df033-f4a2-47e3-9590-84e9ff04db4e" id="_8753a9cc-cdac-4090-93e3-27e9b1080619">
+            <dmndi:DMNShape dmnElementRef="tns:_d14df033-f4a2-47e3-9590-84e9ff04db4e" isCollapsed="false" id="_8753a9cc-cdac-4090-93e3-27e9b1080619">
                 <dc:Bounds x="57.75882911682129" y="222.97867584228516" width="135.48234176635742" height="60.00000762939453"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_e91de815-22ba-431c-8b46-55891f2a1ef6" id="_b2b2db6e-d9b3-4fa5-bb7d-42ecf849a6a6">
+            <dmndi:DMNShape dmnElementRef="tns:_e91de815-22ba-431c-8b46-55891f2a1ef6" isCollapsed="false" id="_b2b2db6e-d9b3-4fa5-bb7d-42ecf849a6a6">
                 <dc:Bounds x="382.2588291168213" y="320.97867584228516" width="135.48234176635742" height="60.00000762939453"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_4bd33d4a-741b-444a-968b-64e1841211e7" id="_fa882c2e-c721-42e2-927b-629c58481dc9">
+            <dmndi:DMNShape dmnElementRef="tns:_4bd33d4a-741b-444a-968b-64e1841211e7" isCollapsed="false" id="_fa882c2e-c721-42e2-927b-629c58481dc9">
                 <dc:Bounds x="225.5" y="54.97867965698242" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
@@ -2309,123 +2309,123 @@
                 <di:waypoint x="1069.0" y="84.97867965698242"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNEdge>
-            <dmndi:DMNShape dmnElementRef="tns:_34cd3187-8764-4249-959d-2664bf9f1847" id="_05c030a4-e19b-45d0-991a-864c3590cb59">
+            <dmndi:DMNShape dmnElementRef="tns:_34cd3187-8764-4249-959d-2664bf9f1847" isCollapsed="false" id="_05c030a4-e19b-45d0-991a-864c3590cb59">
                 <dc:Bounds x="1225.7588291168213" y="262.97867584228516" width="135.48234176635742" height="60.00000762939453"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_b5e759df-f662-44cd-94f5-55c3c81f0ee3" id="_11d165e6-b609-483c-a6c8-3b29d0f57007">
+            <dmndi:DMNShape dmnElementRef="tns:_b5e759df-f662-44cd-94f5-55c3c81f0ee3" isCollapsed="false" id="_11d165e6-b609-483c-a6c8-3b29d0f57007">
                 <dc:Bounds x="374.0" y="262.9786796569824" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_b982a42a-0b62-47fa-8911-6c9d1145d982" id="_1a770b99-fccb-4815-89f9-81f5e095745e">
+            <dmndi:DMNShape dmnElementRef="tns:_b982a42a-0b62-47fa-8911-6c9d1145d982" isCollapsed="false" id="_1a770b99-fccb-4815-89f9-81f5e095745e">
                 <dc:Bounds x="567.0" y="365.0" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_728e3a50-f00f-42c0-b3ee-1ee5aabd5474" id="_22d6f112-9f15-4326-8412-6db0a794275e">
+            <dmndi:DMNShape dmnElementRef="tns:_728e3a50-f00f-42c0-b3ee-1ee5aabd5474" isCollapsed="false" id="_22d6f112-9f15-4326-8412-6db0a794275e">
                 <dc:Bounds x="918.5" y="475.9786796569824" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_7235d875-2426-4869-b6df-92ca06ae80c5" id="_254ffe68-6cd4-432e-bc44-2de5252d947f">
+            <dmndi:DMNShape dmnElementRef="tns:_7235d875-2426-4869-b6df-92ca06ae80c5" isCollapsed="false" id="_254ffe68-6cd4-432e-bc44-2de5252d947f">
                 <dc:Bounds x="945.0" y="941.4786796569824" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_3c8cee68-99dd-418c-847d-0b54697354f2" id="_317dd163-3d23-4ea3-b027-8ce87da1cad1">
+            <dmndi:DMNShape dmnElementRef="tns:_3c8cee68-99dd-418c-847d-0b54697354f2" isCollapsed="false" id="_317dd163-3d23-4ea3-b027-8ce87da1cad1">
                 <dc:Bounds x="840.5" y="822.9786796569824" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_e905f02c-c5d9-4f2a-ba57-7912ff523b46" id="_343c2b83-2e04-4f08-8dfa-dac81d2b0331">
+            <dmndi:DMNShape dmnElementRef="tns:_e905f02c-c5d9-4f2a-ba57-7912ff523b46" isCollapsed="false" id="_343c2b83-2e04-4f08-8dfa-dac81d2b0331">
                 <dc:Bounds x="277.0" y="822.9786796569824" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_18d836e7-6d61-490c-b9a8-be3ce0c60c1e" id="_3c91f051-3f67-4cc8-b264-1a2cc439a21f">
+            <dmndi:DMNShape dmnElementRef="tns:_18d836e7-6d61-490c-b9a8-be3ce0c60c1e" isCollapsed="false" id="_3c91f051-3f67-4cc8-b264-1a2cc439a21f">
                 <dc:Bounds x="789.0" y="365.0" width="100.0" height="69.95735931396484"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_51cc9510-3bfa-4e5a-a119-9bf83efdd266" id="_3fd27363-f5e5-4374-93c8-7067576ed30b">
+            <dmndi:DMNShape dmnElementRef="tns:_51cc9510-3bfa-4e5a-a119-9bf83efdd266" isCollapsed="false" id="_3fd27363-f5e5-4374-93c8-7067576ed30b">
                 <dc:Bounds x="138.0" y="716.4786796569824" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_5b8356f3-2cf2-40e8-8f80-324937e8b276" id="_446c9f43-6c05-4bb6-b256-9f9a7c15bddb">
+            <dmndi:DMNShape dmnElementRef="tns:_5b8356f3-2cf2-40e8-8f80-324937e8b276" isCollapsed="false" id="_446c9f43-6c05-4bb6-b256-9f9a7c15bddb">
                 <dc:Bounds x="177.0" y="262.9786796569824" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_ed60265c-25e2-400f-a99f-fafd3b489838" id="_4f00c139-48a7-4bb4-8e10-972ce790bbd9">
+            <dmndi:DMNShape dmnElementRef="tns:_ed60265c-25e2-400f-a99f-fafd3b489838" isCollapsed="false" id="_4f00c139-48a7-4bb4-8e10-972ce790bbd9">
                 <dc:Bounds x="494.5" y="475.9786796569824" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_a5f9b126-7853-4037-9e23-3dd7e93c4032" id="_5d3ed3ec-3569-4871-80a0-ca6463ff4822">
+            <dmndi:DMNShape dmnElementRef="tns:_a5f9b126-7853-4037-9e23-3dd7e93c4032" isCollapsed="false" id="_5d3ed3ec-3569-4871-80a0-ca6463ff4822">
                 <dc:Bounds x="721.5" y="150.0" width="100.0" height="69.95735931396484"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_9997fcfd-0f50-4933-939e-88a235b5e2a0" id="_662479c8-e054-4e52-9db4-6ef922c56c39">
+            <dmndi:DMNShape dmnElementRef="tns:_9997fcfd-0f50-4933-939e-88a235b5e2a0" isCollapsed="false" id="_662479c8-e054-4e52-9db4-6ef922c56c39">
                 <dc:Bounds x="277.0" y="587.9786796569824" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_989d137f-86ff-4249-813f-af67c08a2762" id="_679112c3-6972-441f-b33c-04fac539b373">
+            <dmndi:DMNShape dmnElementRef="tns:_989d137f-86ff-4249-813f-af67c08a2762" isCollapsed="false" id="_679112c3-6972-441f-b33c-04fac539b373">
                 <dc:Bounds x="893.5" y="50.0" width="100.0" height="69.95735931396484"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_e91de815-22ba-431c-8b46-55891f2a1ef6" id="_68899272-8eb1-48e2-815e-707a9ecd8083">
+            <dmndi:DMNShape dmnElementRef="tns:_e91de815-22ba-431c-8b46-55891f2a1ef6" isCollapsed="false" id="_68899272-8eb1-48e2-815e-707a9ecd8083">
                 <dc:Bounds x="1225.7588291168213" y="715.9786758422852" width="135.48234176635742" height="60.00000762939453"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_4bd33d4a-741b-444a-968b-64e1841211e7" id="_71b16a12-bf83-47a5-ad8b-68c0d302beec">
+            <dmndi:DMNShape dmnElementRef="tns:_4bd33d4a-741b-444a-968b-64e1841211e7" isCollapsed="false" id="_71b16a12-bf83-47a5-ad8b-68c0d302beec">
                 <dc:Bounds x="1069.0" y="54.97867965698242" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_974b09c2-2ff1-4eb4-bb7c-2b68fa24ddf9" id="_740df4b9-aae6-48c2-a043-2afd5c49f652">
+            <dmndi:DMNShape dmnElementRef="tns:_974b09c2-2ff1-4eb4-bb7c-2b68fa24ddf9" isCollapsed="false" id="_740df4b9-aae6-48c2-a043-2afd5c49f652">
                 <dc:Bounds x="50.0" y="476.4786796569824" width="100.0" height="69.95735931396484"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_821a6840-e910-418f-809e-4c7d60b0b21a" id="_9152652c-9f2a-4b64-9ff3-f136cb69dbe7">
+            <dmndi:DMNShape dmnElementRef="tns:_821a6840-e910-418f-809e-4c7d60b0b21a" isCollapsed="false" id="_9152652c-9f2a-4b64-9ff3-f136cb69dbe7">
                 <dc:Bounds x="50.0" y="818.0" width="100.0" height="69.95735931396484"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_fe938494-ee59-425e-8728-2347ea703563" id="_96ac6a43-4e04-4ceb-be85-89ffd1dc3006">
+            <dmndi:DMNShape dmnElementRef="tns:_fe938494-ee59-425e-8728-2347ea703563" isCollapsed="false" id="_96ac6a43-4e04-4ceb-be85-89ffd1dc3006">
                 <dc:Bounds x="736.2588291168213" y="940.9786758422852" width="135.48234176635742" height="60.00000762939453"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_d14df033-f4a2-47e3-9590-84e9ff04db4e" id="_99a17d09-ffa6-4b9f-be2b-4506aaf73b34">
+            <dmndi:DMNShape dmnElementRef="tns:_d14df033-f4a2-47e3-9590-84e9ff04db4e" isCollapsed="false" id="_99a17d09-ffa6-4b9f-be2b-4506aaf73b34">
                 <dc:Bounds x="503.2588291168213" y="940.9786758422852" width="135.48234176635742" height="60.00000762939453"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_536d7a39-87a6-4651-b743-6ee03e16e535" id="_a1b2549e-ebfd-48f9-9eb9-26cf2a633197">
+            <dmndi:DMNShape dmnElementRef="tns:_536d7a39-87a6-4651-b743-6ee03e16e535" isCollapsed="false" id="_a1b2549e-ebfd-48f9-9eb9-26cf2a633197">
                 <dc:Bounds x="810.5" y="263.4786796569824" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_1c72ed95-ec72-47b4-8639-5ed14ccb77df" id="_a82d0133-35e7-43d1-a642-60caa2d04b90">
+            <dmndi:DMNShape dmnElementRef="tns:_1c72ed95-ec72-47b4-8639-5ed14ccb77df" isCollapsed="false" id="_a82d0133-35e7-43d1-a642-60caa2d04b90">
                 <dc:Bounds x="1024.5" y="716.4786796569824" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_ee893e8d-f393-4e2c-b871-611a9cd30bf5" id="_b1693c26-379c-4de0-b67e-bea8432e6952">
+            <dmndi:DMNShape dmnElementRef="tns:_ee893e8d-f393-4e2c-b871-611a9cd30bf5" isCollapsed="false" id="_b1693c26-379c-4de0-b67e-bea8432e6952">
                 <dc:Bounds x="695.5" y="476.4786796569824" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_ca1e6032-12eb-428a-a80b-49028a88c0b5" id="_c52f4be2-14a9-492d-b43c-414509221ef1">
+            <dmndi:DMNShape dmnElementRef="tns:_ca1e6032-12eb-428a-a80b-49028a88c0b5" isCollapsed="false" id="_c52f4be2-14a9-492d-b43c-414509221ef1">
                 <dc:Bounds x="1024.0" y="262.9786796569824" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_e9e07f04-0ff2-40c4-bd14-e5f06a91f942" id="_c98a40a9-1e93-4fe0-96db-719739d88bbe">
+            <dmndi:DMNShape dmnElementRef="tns:_e9e07f04-0ff2-40c4-bd14-e5f06a91f942" isCollapsed="false" id="_c98a40a9-1e93-4fe0-96db-719739d88bbe">
                 <dc:Bounds x="138.0" y="941.4786796569824" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_a654be71-b54d-4d6e-90f0-ae505125e9a6" id="_ce794d2d-6915-4449-94f3-6c696f13735f">
+            <dmndi:DMNShape dmnElementRef="tns:_a654be71-b54d-4d6e-90f0-ae505125e9a6" isCollapsed="false" id="_ce794d2d-6915-4449-94f3-6c696f13735f">
                 <dc:Bounds x="88.5" y="370.4786796569824" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_8b838f06-968a-4c66-875e-f5412fd692cf" id="_d29344c2-6e50-4b8c-a5b3-a40ffea37690">
+            <dmndi:DMNShape dmnElementRef="tns:_8b838f06-968a-4c66-875e-f5412fd692cf" isCollapsed="false" id="_d29344c2-6e50-4b8c-a5b3-a40ffea37690">
                 <dc:Bounds x="277.0" y="142.97867965698242" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_dc2ca64d-2044-4806-9d0e-e705b3b14447" id="_d9aca572-c374-446b-858b-cb4ab805e3e8">
+            <dmndi:DMNShape dmnElementRef="tns:_dc2ca64d-2044-4806-9d0e-e705b3b14447" isCollapsed="false" id="_d9aca572-c374-446b-858b-cb4ab805e3e8">
                 <dc:Bounds x="591.5" y="263.4786796569824" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_40b45659-9299-43a6-af30-04c948c5c0ec" id="_e1b06a01-5f9e-4212-8814-019fbcf06122">
+            <dmndi:DMNShape dmnElementRef="tns:_40b45659-9299-43a6-af30-04c948c5c0ec" isCollapsed="false" id="_e1b06a01-5f9e-4212-8814-019fbcf06122">
                 <dc:Bounds x="1024.0" y="587.9786796569824" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_a30c75ec-7d81-4606-802c-b31ea308392d" id="_ed20d744-541f-44b7-a3f9-45d10371c6d6">
+            <dmndi:DMNShape dmnElementRef="tns:_a30c75ec-7d81-4606-802c-b31ea308392d" isCollapsed="false" id="_ed20d744-541f-44b7-a3f9-45d10371c6d6">
                 <dc:Bounds x="1157.0" y="941.4786796569824" width="152.0" height="59.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
@@ -2487,19 +2487,19 @@
                 <di:waypoint x="206.12941455841064" y="279.9786796569824"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNEdge>
-            <dmndi:DMNShape dmnElementRef="tns:_728e3a50-f00f-42c0-b3ee-1ee5aabd5474" id="_06d6329b-0290-40a8-afa7-9c013a5c11ef">
+            <dmndi:DMNShape dmnElementRef="tns:_728e3a50-f00f-42c0-b3ee-1ee5aabd5474" isCollapsed="false" id="_06d6329b-0290-40a8-afa7-9c013a5c11ef">
                 <dc:Bounds x="179.62941455841064" y="219.97867965698242" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_40b45659-9299-43a6-af30-04c948c5c0ec" id="_08ff0bda-72ca-4f4f-b97c-8086e256dc37">
+            <dmndi:DMNShape dmnElementRef="tns:_40b45659-9299-43a6-af30-04c948c5c0ec" isCollapsed="false" id="_08ff0bda-72ca-4f4f-b97c-8086e256dc37">
                 <dc:Bounds x="400.62941455841064" y="369.9786796569824" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_ca1e6032-12eb-428a-a80b-49028a88c0b5" id="_0cc014c9-e77f-42b7-9db9-d191dc1282b3">
+            <dmndi:DMNShape dmnElementRef="tns:_ca1e6032-12eb-428a-a80b-49028a88c0b5" isCollapsed="false" id="_0cc014c9-e77f-42b7-9db9-d191dc1282b3">
                 <dc:Bounds x="400.62941455841064" y="82.0" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_3c8cee68-99dd-418c-847d-0b54697354f2" id="_1736d75d-d232-49ef-b240-40f54606c120">
+            <dmndi:DMNShape dmnElementRef="tns:_3c8cee68-99dd-418c-847d-0b54697354f2" isCollapsed="false" id="_1736d75d-d232-49ef-b240-40f54606c120">
                 <dc:Bounds x="75.0" y="369.9786796569824" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
@@ -2511,19 +2511,19 @@
                     <di:waypoint x="743.0" y="190.0"/>
                 </dmndi:DMNDecisionServiceDividerLine>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_d14df033-f4a2-47e3-9590-84e9ff04db4e" id="_7544fd3e-8acb-4f69-8c9f-10f617ed28ac">
+            <dmndi:DMNShape dmnElementRef="tns:_d14df033-f4a2-47e3-9590-84e9ff04db4e" isCollapsed="false" id="_7544fd3e-8acb-4f69-8c9f-10f617ed28ac">
                 <dc:Bounds x="269.7588291168213" y="679.4573554992676" width="135.48234176635742" height="60.00000762939453"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_fe938494-ee59-425e-8728-2347ea703563" id="_7a126b99-6aa3-4152-b7f5-c8a62b928c51">
+            <dmndi:DMNShape dmnElementRef="tns:_fe938494-ee59-425e-8728-2347ea703563" isCollapsed="false" id="_7a126b99-6aa3-4152-b7f5-c8a62b928c51">
                 <dc:Bounds x="83.75882911682129" y="679.4573554992676" width="135.48234176635742" height="60.00000762939453"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_e905f02c-c5d9-4f2a-ba57-7912ff523b46" id="_918c03e8-0a27-402a-bcb6-c73ce6bf7b68">
+            <dmndi:DMNShape dmnElementRef="tns:_e905f02c-c5d9-4f2a-ba57-7912ff523b46" isCollapsed="false" id="_918c03e8-0a27-402a-bcb6-c73ce6bf7b68">
                 <dc:Bounds x="400.62941455841064" y="496.4786796569824" width="153.0" height="60.0"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>
-            <dmndi:DMNShape dmnElementRef="tns:_e91de815-22ba-431c-8b46-55891f2a1ef6" id="_9796f837-6893-4090-8b2e-2a7683cc76b5">
+            <dmndi:DMNShape dmnElementRef="tns:_e91de815-22ba-431c-8b46-55891f2a1ef6" isCollapsed="false" id="_9796f837-6893-4090-8b2e-2a7683cc76b5">
                 <dc:Bounds x="607.5176582336426" y="679.4573554992676" width="135.48234176635742" height="60.00000762939453"/>
                 <dmndi:DMNLabel sharedStyle="LS_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4_0"/>
             </dmndi:DMNShape>

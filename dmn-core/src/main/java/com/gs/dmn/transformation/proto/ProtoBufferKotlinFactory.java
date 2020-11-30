@@ -13,7 +13,7 @@
 package com.gs.dmn.transformation.proto;
 
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

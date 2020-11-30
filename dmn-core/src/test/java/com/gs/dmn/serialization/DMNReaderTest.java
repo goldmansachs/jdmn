@@ -15,7 +15,7 @@ package com.gs.dmn.serialization;
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20191111.model.*;
 
 import javax.xml.bind.JAXBElement;
 import java.io.File;

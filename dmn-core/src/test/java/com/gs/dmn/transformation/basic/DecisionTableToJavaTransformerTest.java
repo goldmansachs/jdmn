@@ -19,7 +19,7 @@ import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TDecisionRule;
+import org.omg.spec.dmn._20191111.model.TDecisionRule;
 
 import static org.junit.Assert.assertEquals;
 

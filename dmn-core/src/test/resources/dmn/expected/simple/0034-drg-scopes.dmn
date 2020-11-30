@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:tns="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" expressionLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" name="0034-drg-scopes" id="_7X638PQIEeecaNY7kk20yA">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="https://www.omg.org/spec/DMN/20191111/FEEL/" xmlns:tns="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" typeLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" namespace="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" name="0034-drg-scopes" id="_7X638PQIEeecaNY7kk20yA">
     <extensionElements>
         <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_7X638PQIEeecaNY7kk20yA" id="_7ZtAoPQIEeecaNY7kk20yA" name="0034-drg-scopes" type="Dmn">
             <layout:node href="#_9z0SoPQIEeecaNY7kk20yA" id="_9020cPQIEeecaNY7kk20yA" type="2003">
@@ -216,7 +216,7 @@
         <extensionElements>
             <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_TCzY4PQJEeecaNY7kk20yA" id="_3_-kYPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
         </extensionElements>
-        <encapsulatedLogic id="_3_-kYfQLEeecaNY7kk20yA">
+        <encapsulatedLogic kind="FEEL" id="_3_-kYfQLEeecaNY7kk20yA">
             <formalParameter typeRef="feel.string" name="param" id="_5F-jIPQLEeecaNY7kk20yA"/>
             <literalExpression typeRef="feel.string" id="_3_-kYvQLEeecaNY7kk20yA">
                 <text>"BKM I" + " # " + BKMII(param)</text>
@@ -230,7 +230,7 @@
         <extensionElements>
             <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_UL_1kPQJEeecaNY7kk20yA" id="_68UZsPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
         </extensionElements>
-        <encapsulatedLogic id="_68UZsfQLEeecaNY7kk20yA">
+        <encapsulatedLogic kind="FEEL" id="_68UZsfQLEeecaNY7kk20yA">
             <formalParameter typeRef="feel.string" name="param" id="_7lAxYPQLEeecaNY7kk20yA"/>
             <literalExpression typeRef="feel.string" id="_68UZsvQLEeecaNY7kk20yA">
                 <text>"BKM II" + " # " + BKMIII(param) + " # " + BKMIV(param)</text>
@@ -247,7 +247,7 @@
         <extensionElements>
             <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_U6fTQPQJEeecaNY7kk20yA" id="_HJ1fcPQMEeecaNY7kk20yA" name="" type="DMN_Expression"/>
         </extensionElements>
-        <encapsulatedLogic id="_HJ1fcfQMEeecaNY7kk20yA">
+        <encapsulatedLogic kind="FEEL" id="_HJ1fcfQMEeecaNY7kk20yA">
             <formalParameter typeRef="feel.string" name="param" id="_H52AEPQMEeecaNY7kk20yA"/>
             <literalExpression typeRef="feel.string" id="_HJ1fcvQMEeecaNY7kk20yA">
                 <text>"BKM III" + " # " + param</text>
@@ -258,7 +258,7 @@
         <extensionElements>
             <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_UgthUPQJEeecaNY7kk20yA" id="_MvwmIPQMEeecaNY7kk20yA" name="" type="DMN_Expression"/>
         </extensionElements>
-        <encapsulatedLogic id="_MvwmIfQMEeecaNY7kk20yA">
+        <encapsulatedLogic kind="FEEL" id="_MvwmIfQMEeecaNY7kk20yA">
             <formalParameter typeRef="feel.string" name="param" id="_N8gGEPQMEeecaNY7kk20yA"/>
             <literalExpression typeRef="feel.string" id="_MvwmIvQMEeecaNY7kk20yA">
                 <text>"BKM IV" + " # " + BKMIII(param)</text>

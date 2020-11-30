@@ -17,7 +17,7 @@ import com.gs.dmn.runtime.metadata.ExtensionElement;
 import com.gs.dmn.runtime.metadata.MultiInstanceDecisionLogicExtension;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20191111.model.*;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
