@@ -41,7 +41,7 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.native_.statement.ExpressionStatement;
 import com.gs.dmn.transformation.native_.statement.Statement;
 import com.gs.dmn.transformation.proto.ProtoBufferJavaFactory;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20191111.model.*;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;

@@ -22,11 +22,10 @@ import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToJavaTransforme
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.native_.expression.NativeExpressionFactory;
-import com.gs.dmn.transformation.proto.ProtoBufferFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

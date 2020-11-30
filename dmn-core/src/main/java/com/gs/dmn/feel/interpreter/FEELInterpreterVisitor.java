@@ -56,7 +56,7 @@ import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.ImportContextType;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

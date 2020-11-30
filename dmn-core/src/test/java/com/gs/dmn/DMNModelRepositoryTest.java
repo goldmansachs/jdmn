@@ -17,7 +17,7 @@ import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20191111.model.*;
 
 import java.io.File;
 import java.util.ArrayList;

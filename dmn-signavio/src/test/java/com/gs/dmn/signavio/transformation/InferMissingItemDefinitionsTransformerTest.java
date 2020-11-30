@@ -23,7 +23,7 @@ import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.Assert;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TItemDefinition;
+import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
 import java.io.File;
 import java.math.BigDecimal;

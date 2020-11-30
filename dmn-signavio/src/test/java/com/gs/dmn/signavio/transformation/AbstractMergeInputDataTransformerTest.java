@@ -24,8 +24,8 @@ import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.testlab.TestLabReader;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
-import org.omg.spec.dmn._20180521.model.TInputData;
+import org.omg.spec.dmn._20191111.model.TDefinitions;
+import org.omg.spec.dmn._20191111.model.TInputData;
 
 import java.io.File;
 import java.util.ArrayList;

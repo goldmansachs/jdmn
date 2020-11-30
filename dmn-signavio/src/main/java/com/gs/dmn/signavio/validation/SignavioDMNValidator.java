@@ -14,7 +14,7 @@ package com.gs.dmn.signavio.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.validation.DefaultDMNValidator;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20191111.model.*;
 import org.w3c.dom.Element;
 
 import java.util.List;

@@ -23,12 +23,13 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.JsonSerializer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import com.gs.dmn.transformation.native_.statement.*;
+import com.gs.dmn.transformation.native_.statement.CompoundStatement;
+import com.gs.dmn.transformation.native_.statement.ExpressionStatement;
 import com.gs.dmn.transformation.proto.ProtoBufferFactory;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
-import org.omg.spec.dmn._20180521.model.TDecision;
-import org.omg.spec.dmn._20180521.model.TItemDefinition;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TDecision;
+import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
 import java.util.ArrayList;
 import java.util.List;

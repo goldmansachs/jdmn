@@ -36,7 +36,7 @@ public class DMNDialectTransformer {
         return this.dmn11To13DialectTransformer.transformDefinitions(sourceDefinitions);
     }
 
-    public Pair<org.omg.spec.dmn._20191111.model.TDefinitions, PrefixNamespaceMappings> transform11To13Definitions(org.omg.spec.dmn._20180521.model.TDefinitions sourceDefinitions) {
+    public Pair<org.omg.spec.dmn._20191111.model.TDefinitions, PrefixNamespaceMappings> transform12To13Definitions(org.omg.spec.dmn._20180521.model.TDefinitions sourceDefinitions) {
         return this.dmn12To13DialectTransformer.transformDefinitions(sourceDefinitions);
     }
 }

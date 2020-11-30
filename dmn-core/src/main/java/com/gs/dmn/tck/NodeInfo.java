@@ -13,7 +13,7 @@
 package com.gs.dmn.tck;
 
 import com.gs.dmn.DRGElementReference;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
 
 public class NodeInfo {
     private final String rootModelName;

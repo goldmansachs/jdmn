@@ -54,7 +54,7 @@ public class DMNVersion {
             "org.omg.spec.dmn._20191111.model"
     );
 
-    public static final DMNVersion LATEST = DMN_12;
+    public static final DMNVersion LATEST = DMN_13;
 
     protected static final List<DMNVersion> VALUES = Arrays.asList(DMN_11, DMN_12, DMN_13);
 

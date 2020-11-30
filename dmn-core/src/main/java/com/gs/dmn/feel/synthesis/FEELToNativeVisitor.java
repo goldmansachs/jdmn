@@ -48,9 +48,9 @@ import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
-import org.omg.spec.dmn._20180521.model.TNamedElement;
+import org.omg.spec.dmn._20191111.model.TBusinessKnowledgeModel;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TNamedElement;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

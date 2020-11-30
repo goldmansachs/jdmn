@@ -21,7 +21,7 @@ import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.signavio.extension.SignavioExtension;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20191111.model.*;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;

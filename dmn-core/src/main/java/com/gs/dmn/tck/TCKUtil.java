@@ -36,7 +36,7 @@ import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.InputNode;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.ResultNode;
 import org.omg.dmn.tck.marshaller._20160719.ValueType;
 import org.omg.dmn.tck.marshaller._20160719.ValueType.Component;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

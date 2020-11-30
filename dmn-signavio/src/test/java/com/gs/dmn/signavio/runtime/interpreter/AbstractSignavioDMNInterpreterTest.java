@@ -30,8 +30,8 @@ import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.InputParameters;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TDefinitions;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.datatype.Duration;
