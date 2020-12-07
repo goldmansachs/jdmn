@@ -139,7 +139,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         List<String> testFileNames = new ArrayList<>();
         List<TestCases> testCasesList = new ArrayList<>();
         for (String dmnFileName: dmnFileNames) {
-            URL testInputPathURL = getClass().getClassLoader().getResource(getTestCasesInputPath()).toURI().toURL();
+            URL testInputPathURL = resource(getTestCasesInputPath()).toURL();
             File testInputPathFolder = new File(testInputPathURL.getFile());
             for (File child : testInputPathFolder.listFiles()) {
                 if (isTCKFile(child) && child.getName().startsWith(dmnFileName)) {
