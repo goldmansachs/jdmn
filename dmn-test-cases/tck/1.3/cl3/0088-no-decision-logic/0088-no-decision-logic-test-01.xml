@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<testCases
+  xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <modelName>0088-no-decision-logic.dmn</modelName>
+  <labels>
+    <label>Compliance Level 3</label>
+    <label>Decision Services</label>
+  </labels>
+
+  <testCase id="001" invocableName="Evaluation DS" type="decisionService">
+    <description>A Decision Service invocation where 1 inputDecision has no decision logic defined</description>
+    <inputNode name="Student's name">
+      <value xsi:type="xsd:string">John Doe</value>
+    </inputNode>
+    <inputNode name="Grade">
+      <value xsi:type="xsd:string">A</value>
+    </inputNode>
+    <inputNode name="Teacher's Evaluation"> <!-- this input node is providing the requirement input decision to the Decision Service -->
+      <value xsi:type="xsd:string">A very motivated, hard-working student!</value>
+    </inputNode>
+    <resultNode name="Graduation result">
+      <expected>
+        <value xsi:type="xsd:string">John Doe is Graduated with merit with grade: A and evaluation: A very motivated, hard-working student!</value>
+      </expected>
+    </resultNode>
+  </testCase>
+
+</testCases>

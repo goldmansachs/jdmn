@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.omg.org/spec/DMN/20160719/testcase ../../testCases.xsd">
+	<modelName>0019-flight-rebooking.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Literal Expression</label>
+        <label>Item Definition</label>
+        <label>Context</label>
+        <label>Function Invocation</label>
+        <label>Business Knowledge Model</label>
+        <label>Decision Table: Single Output</label>
+        <label>Hit Policy: UNIQUE</label>
+        <label>FEEL Filter (10.3.2.5)</label>
+        <label>FEEL Conditionals</label>
+        <label>FEEL List</label>
+        <label>FEEL Relation</label>
+    </labels>
+    <testCase id="001">
+		<inputNode name="Flight List">
+			<list>
+				<item>
+					<component name="Flight Number"><value>UA123</value></component>
+					<component name="From"><value>SFO</value></component>
+					<component name="To"><value>SNA</value></component>
+					<component name="Departure"><value>2017-01-01T18:00:00</value></component>
+					<component name="Arrival"><value>2017-01-01T19:00:00</value></component>
+					<component name="Capacity"><value>5</value></component>
+					<component name="Status"><value>cancelled</value></component>
+				</item>
+				<item>
+					<component name="Flight Number"><value>UA456</value></component>
+					<component name="From"><value>SFO</value></component>
+					<component name="To"><value>SNA</value></component>
+					<component name="Departure"><value>2017-01-01T19:00:00</value></component>
+					<component name="Arrival"><value>2017-01-01T20:00:00</value></component>
+					<component name="Capacity"><value>2</value></component>
+					<component name="Status"><value>scheduled</value></component>
+				</item>
+				<item>
+					<component name="Flight Number"><value>UA789</value></component>
+					<component name="From"><value>SFO</value></component>
+					<component name="To"><value>SNA</value></component>
+					<component name="Departure"><value>2017-01-01T21:00:00</value></component>
+					<component name="Arrival"><value>2017-01-01T23:00:00</value></component>
+					<component name="Capacity"><value>2</value></component>
+					<component name="Status"><value>scheduled</value></component>
+				</item>
+				<item>
+					<component name="Flight Number"><value>UA1001</value></component>
+					<component name="From"><value>SFO</value></component>
+					<component name="To"><value>SNA</value></component>
+					<component name="Departure"><value>2017-01-01T23:00:00</value></component>
+					<component name="Arrival"><value>2017-01-02T05:00:00</value></component>
+					<component name="Capacity"><value>0</value></component>
+					<component name="Status"><value>scheduled</value></component>
+				</item>
+				<item>
+					<component name="Flight Number"><value>UA1111</value></component>
+					<component name="From"><value>SFO</value></component>
+					<component name="To"><value>LAX</value></component>
+					<component name="Departure"><value>2017-01-01T23:00:00</value></component>
+					<component name="Arrival"><value>2017-01-02T05:00:00</value></component>
+					<component name="Capacity"><value>2</value></component>
+					<component name="Status"><value>scheduled</value></component>
+				</item>
+			</list>
+		</inputNode>
+		<inputNode name="Passenger List">
+			<list>
+				<item>
+					<component name="Name"><value>Tom</value></component>
+					<component name="Status"><value>bronze</value></component>
+					<component name="Miles"><value>10</value></component>
+					<component name="Flight Number"><value>UA123</value></component>
+				</item>
+				<item>
+					<component name="Name"><value>Igor</value></component>
+					<component name="Status"><value>gold</value></component>
+					<component name="Miles"><value>50000</value></component>
+					<component name="Flight Number"><value>UA123</value></component>
+				</item>
+				<item>
+					<component name="Name"><value>Jenny</value></component>
+					<component name="Status"><value>gold</value></component>
+					<component name="Miles"><value>500000</value></component>
+					<component name="Flight Number"><value>UA123</value></component>
+				</item>
+				<item>
+					<component name="Name"><value>Harry</value></component>
+					<component name="Status"><value>gold</value></component>
+					<component name="Miles"><value>100000</value></component>
+					<component name="Flight Number"><value>UA123</value></component>
+				</item>
+				<item>
+					<component name="Name"><value>Dick</value></component>
+					<component name="Status"><value>silver</value></component>
+					<component name="Miles"><value>100</value></component>
+					<component name="Flight Number"><value>UA123</value></component>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="Rebooked Passengers">
+			<expected>
+				<list>
+					<item>
+						<component name="Name"><value>Jenny</value></component>
+						<component name="Status"><value>gold</value></component>
+						<component name="Miles"><value>500000</value></component>
+						<component name="Flight Number"><value>UA456</value></component>
+					</item>
+					<item>
+						<component name="Name"><value>Harry</value></component>
+						<component name="Status"><value>gold</value></component>
+						<component name="Miles"><value>100000</value></component>
+						<component name="Flight Number"><value>UA456</value></component>
+					</item>
+					<item>
+						<component name="Name"><value>Igor</value></component>
+						<component name="Status"><value>gold</value></component>
+						<component name="Miles"><value>50000</value></component>
+						<component name="Flight Number"><value>UA789</value></component>
+					</item>
+					<item>
+						<component name="Name"><value>Dick</value></component>
+						<component name="Status"><value>silver</value></component>
+						<component name="Miles"><value>100</value></component>
+						<component name="Flight Number"><value>UA789</value></component>
+					</item>
+					<item>
+						<component name="Name"><value>Tom</value></component>
+						<component name="Status"><value>bronze</value></component>
+						<component name="Miles"><value>10</value></component>
+						<component name="Flight Number"><value/></component>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>
