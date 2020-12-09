@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0113-outputOrder-hitpolicy-singleinoutcol.dmn</modelName>
+	<labels>
+		<label>Compliance Level 2</label>
+		<label>Item Definition</label>
+		<label>Hit Policy: OUTPUT ORDER</label>
+		<label>Decision Table: Single Output</label>
+		<label>Data Type: Number</label>
+		<label>Data Type: Structure</label>
+	</labels>
+	<testCase id="001">
+		<inputNode name="Age">
+			<value>17</value>
+		</inputNode>
+		<resultNode name="Approval Status" type="decision">
+			<expected>
+			<list>
+				<item>
+					<value>Approved</value>
+				</item>
+				<item>
+					<value>Declined</value>
+				</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+		<inputNode name="Age">
+			<value>19</value>
+		</inputNode>
+		<resultNode name="Approval Status" type="decision">
+			<expected>
+			<list>
+				<item>
+					<value>Approved</value>
+				</item>
+				<item>
+					<value>Approved</value>
+				</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="003">
+		<inputNode name="Age">
+			<value>10</value>
+		</inputNode>
+		<resultNode name="Approval Status" type="decision">
+			<expected>
+			<list>
+				<item>
+					<value>Approved</value>
+				</item>
+				<item>
+					<value>Declined</value>
+				</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

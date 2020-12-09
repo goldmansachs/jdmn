@@ -41,6 +41,6 @@ public class SignavioDMNValidatorTest extends AbstractSignavioValidatorTest {
                 "(model='Linked Decision Test', label='Process prior issues', name='processPriorIssues', id='id-bdfc5bfa4ce80fd221463ee66b277220'): error: Decision name and variable name should be the same. Found 'processPriorIssues' and 'Process prior issues'",
                 "(model='Linked Decision Test', label='Root', name='root', id='id-dd34e15633241b301d7c512a35c9493a'): error: Decision name and variable name should be the same. Found 'root' and 'Root'"
         );
-        validate(validator, path + diagramName, expectedErrors);
+        validate(validator, resource(path + diagramName), expectedErrors);
     }
 }

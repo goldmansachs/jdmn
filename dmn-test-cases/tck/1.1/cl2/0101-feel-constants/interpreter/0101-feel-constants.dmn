@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions id="_feel-constants" name="feel-constants"
+	namespace="https://github.com/dmn-tck/tck"
+	xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+	xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+	<decision name="Decision1" id="d_Decision1">
+		<variable name="Decision1" typeRef="feel:number"/>
+		<literalExpression>
+			<text>.872</text>
+		</literalExpression>
+	</decision>
+    <decision name="Decision2" id="d_Decision2">
+        <variable name="Decision2" typeRef="feel:number"/>
+        <literalExpression>
+            <text>-.872</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision4" id="d_Decision4">
+        <variable name="Decision4" typeRef="feel:number"/>
+        <literalExpression>
+            <text>50</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision5" id="d_Decision5">
+        <variable name="Decision5" typeRef="feel:number"/>
+        <literalExpression>
+            <text>-50</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision7" id="d_Decision7">
+        <variable name="Decision7" typeRef="feel:number"/>
+        <literalExpression>
+            <text>125.4321987654</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision8" id="d_Decision8">
+        <variable name="Decision8" typeRef="feel:number"/>
+        <literalExpression>
+            <text>-125.4321987654</text>
+        </literalExpression>
+    </decision>
+</definitions>

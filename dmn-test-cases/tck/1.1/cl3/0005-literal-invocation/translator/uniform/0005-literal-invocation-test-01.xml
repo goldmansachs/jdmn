@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0005-literal-invocation.dmn</modelName>
+	<labels>
+		<label>Compliance Level 3</label>
+		<label>Literal Expression</label>
+		<label>Item Definition</label>
+		<label>Function Invocation</label>
+		<label>Business Knowledge Model</label>
+		<label>FEEL Arithmetic</label>
+		<label>Data Type: Number</label>
+		<label>Data Type: Structure</label>
+	</labels>
+	<testCase id="001">
+		<inputNode name="Loan">
+			<component name="amount">
+				<value>600000</value>
+			</component>
+			<component name="rate">
+				<value>0.0375</value>
+			</component>
+			<component name="term">
+				<value>360</value>
+			</component>
+		</inputNode>
+		<inputNode name="fee">
+			<value>100</value>
+		</inputNode>
+		<resultNode name="MonthlyPayment" type="decision">
+			<expected>
+				<value>2878.69354943277</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+		<inputNode name="Loan">
+			<component name="amount">
+				<value>30000</value>
+			</component>
+			<component name="rate">
+				<value>0.0475</value>
+			</component>
+			<component name="term">
+				<value>60</value>
+			</component>
+		</inputNode>
+		<inputNode name="fee">
+			<value>100</value>
+		</inputNode>
+		<resultNode name="MonthlyPayment" type="decision">
+			<expected>
+				<value>662.707359373292</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="003">
+		<inputNode name="Loan">
+			<component name="amount">
+				<value>600000</value>
+			</component>
+			<component name="rate">
+				<value>0.0399</value>
+			</component>
+			<component name="term">
+				<value>360</value>
+			</component>
+		</inputNode>
+		<inputNode name="fee">
+			<value>100</value>
+		</inputNode>
+		<resultNode name="MonthlyPayment" type="decision">
+			<expected>
+				<value>2961.03377700389</value>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

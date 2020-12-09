@@ -19,6 +19,8 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
+import java.net.URI;
+
 public abstract class AbstractTckDMNToNativeTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     @Override
     protected DMNTransformer<TestCases> makeDMNTransformer(BuildLogger logger) {
@@ -33,5 +35,10 @@ public abstract class AbstractTckDMNToNativeTransformerTest<NUMBER, DATE, TIME, 
     @Override
     protected TypeDeserializationConfigurer makeTypeDeserializationConfigurer(BuildLogger logger) {
         return new DefaultTypeDeserializationConfigurer();
+    }
+
+    @Override
+    protected URI resource(String path) {
+        return tckResource(path);
     }
 }

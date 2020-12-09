@@ -17,7 +17,7 @@ import org.junit.Test;
 public class CL2TestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCasesToJavaJUnitTransformerTest {
     @Override
     protected String getDMNInputPath() {
-        return "tck/cl2/input";
+        return "tck/%s/cl2/%s/translator";
     }
 
     @Override
@@ -27,17 +27,17 @@ public class CL2TestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCases
 
     @Override
     protected String getExpectedPath() {
-        return "tck/cl2/expected/java/test";
+        return "tck/%s/cl2/%s/translator/expected/java/test";
     }
 
     @Test
     public void testCL2() throws Exception {
-        doSingleModelTest("0004-simpletable-U", "0004-simpletable-U-test-01");
-        doSingleModelTest("0005-simpletable-A", "0005-simpletable-A-test-01");
-        doSingleModelTest("0006-simpletable-P1", "0006-simpletable-P1-test-01");
-        doSingleModelTest("0007-simpletable-P2", "0007-simpletable-P2-test-01");
-        doSingleModelTest("0008-LX-arithmetic", "0008-LX-arithmetic-test-01");
-        doSingleModelTest("0009-invocation-arithmetic", "0009-invocation-arithmetic-test-01");
-        doSingleModelTest("0010-multi-output-U", "0010-multi-output-U-test-01");
+        doSingleModelTest("1.1","0004-simpletable-U", "0004-simpletable-U-test-01");
+        doSingleModelTest("1.1","0005-simpletable-A", "0005-simpletable-A-test-01");
+        doSingleModelTest("1.1","0006-simpletable-P1", "0006-simpletable-P1-test-01");
+        doSingleModelTest("1.1","0007-simpletable-P2", "0007-simpletable-P2-test-01");
+        doSingleModelTest("1.1","0008-LX-arithmetic", "0008-LX-arithmetic-test-01");
+        doSingleModelTest("1.1","0009-invocation-arithmetic", "0009-invocation-arithmetic-test-01");
+        doSingleModelTest("1.1","0010-multi-output-U", "0010-multi-output-U-test-01");
     }
 }

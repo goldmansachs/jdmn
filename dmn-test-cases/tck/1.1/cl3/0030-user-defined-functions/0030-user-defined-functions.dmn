@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions" id="_pKGjoH6LEeePe9Zmt-encA" name="0030-user-defined-functions" namespace="http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions">
+  <dmn:description>Tests definition of functions in a boxed expression and invocation of those.</dmn:description>
+  <dmn:decision id="_WdFa8IDoEee-MeWXoLgrYg" name="simple function invocation">
+    <dmn:variable id="_0zDvUYDyEeehqsf_bU54Lw" name="simple function invocation" typeRef="feel:string"/>
+    <dmn:informationRequirement>
+      <dmn:requiredInput href="#_Aq8u4IDpEee-MeWXoLgrYg"/>
+    </dmn:informationRequirement>
+    <dmn:informationRequirement>
+      <dmn:requiredInput href="#_vfL7kIDqEeehqsf_bU54Lw"/>
+    </dmn:informationRequirement>
+    <dmn:context id="_eQfF0IDoEee-MeWXoLgrYg">
+      <dmn:contextEntry>
+        <dmn:variable id="_eSTqx4DoEee-MeWXoLgrYg" name="boxedFnDefinition"/>
+        <dmn:functionDefinition id="_e0S9gIDoEee-MeWXoLgrYg">
+          <dmn:formalParameter id="_htc78IDoEee-MeWXoLgrYg" name="a" typeRef="feel:string"/>
+          <dmn:formalParameter id="_a6M_IIDrEeehqsf_bU54Lw" name="b" typeRef="feel:string"/>
+          <dmn:literalExpression id="_e4IUpYDoEee-MeWXoLgrYg">
+            <dmn:text>a+b</dmn:text>
+          </dmn:literalExpression>
+        </dmn:functionDefinition>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:variable id="_nsnCAIDoEee-MeWXoLgrYg" name="literalFnDefinition"/>
+        <dmn:literalExpression id="_nsnCAYDoEee-MeWXoLgrYg">
+          <dmn:text>function(a,b) a + b</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:literalExpression id="_zTaGAIDoEee-MeWXoLgrYg" typeRef="feel:string">
+          <dmn:text>boxedFnDefinition(stringInputA, stringInputB) + literalFnDefinition(stringInputA, stringInputB)</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+    </dmn:context>
+  </dmn:decision>
+  <dmn:decision id="_GNiCIIDzEeehqsf_bU54Lw" name="named function invocation">
+    <dmn:variable id="_eJrSMYDzEeehqsf_bU54Lw" name="named function invocation" typeRef="feel:string"/>
+    <dmn:informationRequirement>
+      <dmn:requiredInput href="#_vfL7kIDqEeehqsf_bU54Lw"/>
+    </dmn:informationRequirement>
+    <dmn:informationRequirement>
+      <dmn:requiredInput href="#_Aq8u4IDpEee-MeWXoLgrYg"/>
+    </dmn:informationRequirement>
+    <dmn:context id="_HeJ8gYDzEeehqsf_bU54Lw">
+      <dmn:contextEntry>
+        <dmn:variable id="_HeJ8g4DzEeehqsf_bU54Lw" name="boxedFnDefinition"/>
+        <dmn:functionDefinition id="_HeKjkYDzEeehqsf_bU54Lw">
+          <dmn:formalParameter id="_HeKjk4DzEeehqsf_bU54Lw" name="a" typeRef="feel:string"/>
+          <dmn:formalParameter id="_HeKjlYDzEeehqsf_bU54Lw" name="b" typeRef="feel:string"/>
+          <dmn:literalExpression id="_HeKjl4DzEeehqsf_bU54Lw">
+            <dmn:text>a+b</dmn:text>
+          </dmn:literalExpression>
+        </dmn:functionDefinition>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:variable id="_HeKjmYDzEeehqsf_bU54Lw" name="literalFnDefinition"/>
+        <dmn:literalExpression id="_HeKjm4DzEeehqsf_bU54Lw">
+          <dmn:text>function(a,b) a + b</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:literalExpression id="_HeKjnYDzEeehqsf_bU54Lw" typeRef="feel:string">
+          <dmn:text>boxedFnDefinition(b:stringInputA, a:stringInputB) + literalFnDefinition(b:stringInputA, a:stringInputB)</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+    </dmn:context>
+  </dmn:decision>
+  <dmn:inputData id="_Aq8u4IDpEee-MeWXoLgrYg" name="stringInputA">
+    <dmn:variable id="_wKKRkYDyEeehqsf_bU54Lw" name="stringInputA" typeRef="feel:string"/>
+  </dmn:inputData>
+  <dmn:inputData id="_vfL7kIDqEeehqsf_bU54Lw" name="stringInputB">
+    <dmn:variable id="_xZw4QYDyEeehqsf_bU54Lw" name="stringInputB" typeRef="feel:string"/>
+  </dmn:inputData>
+</dmn:definitions>

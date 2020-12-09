@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tc:testCases xmlns:tc="http://www.omg.org/spec/DMN/20160719/testcase"
+  xmlns:triso="http://www.trisotech.com/2015/triso/modeling"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <tc:modelName>0038-dt-on-bkm-explicit-params.dmn</tc:modelName>
+  <tc:labels>
+    <tc:label>Compliance Level 3</tc:label>
+    <tc:label>Decision Table: Single Output</tc:label>
+    <tc:label>Context</tc:label>
+    <tc:label>FEEL Special-character Names</tc:label>
+    <tc:label>Hit Policy: UNIQUE</tc:label>
+    <tc:label>Item Definition</tc:label>
+    <tc:label>Literal Expression</tc:label>
+    <tc:label>Data Type: String</tc:label>
+    <tc:label>Data Type: Number</tc:label>
+    <tc:label>Data Type: Structure</tc:label>
+    <tc:label>FEEL Functions: strings</tc:label>
+    <tc:label>Business Knowledge Model</tc:label>
+  </tc:labels>  
+  <tc:testCase id="_b224d5f5-006f-43bb-9ace-e6af924dc2b3">
+    <tc:description>Test Female</tc:description>
+        <tc:inputNode name="Person">
+          <tc:component name="Name">
+            <tc:value xsi:type="xsd:string">Alice</tc:value>
+          </tc:component>
+          <tc:component name="Gender">
+            <tc:value xsi:type="xsd:string">Female</tc:value>
+          </tc:component>
+          <tc:component name="Children">
+            <tc:value xsi:type="xsd:double">2</tc:value>
+          </tc:component>
+        </tc:inputNode>
+        <tc:resultNode name="Person's description">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Alice is a mother of 2 children.</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+      </tc:testCase>
+      <tc:testCase id="_bf27c25d-18f6-4891-8370-42d440709d90">
+        <tc:description>Test Male</tc:description>
+        <tc:inputNode name="Person">
+          <tc:component name="Name">
+            <tc:value xsi:type="xsd:string">Bob</tc:value>
+          </tc:component>
+          <tc:component name="Gender">
+            <tc:value xsi:type="xsd:string">Male</tc:value>
+          </tc:component>
+          <tc:component name="Children">
+            <tc:value xsi:type="xsd:double">3</tc:value>
+          </tc:component>
+        </tc:inputNode>
+        <tc:resultNode name="Person's description">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Bob is a dad of 3 children.</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+      </tc:testCase>
+    </tc:testCases>

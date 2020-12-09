@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <modelName>0085-decision-services.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Decision Services</label>
+    </labels>
+
+    <testCase id="001" invocableName="decisionService_001" type="decisionService">
+        <description>Direct invocation: with no params</description>
+        <resultNode name="decision_001">
+            <expected>
+                    <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002" invocableName="decisionService_002" type="decisionService">
+        <description>Direct invocation: with an input decision</description>
+        <!-- we expect the input param value to 'override' the actual impl of 'decision_002_input' -->
+        <inputNode name="decision_002_input">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_002">
+            <expected>
+                    <value xsi:type="xsd:string">foo baz</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- note: we can't test invoking decision service directly passing a input data param as the param
+    and the global input data will actually have the same value - so a little difficult to assert where input data value
+    came from - param or global input -->
+
+    <testCase id="002_a" invocableName="decisionService_002" type="decisionService" >
+        <description>Direct invocation:  with an input decision but supplying no param</description>
+        <!-- requires decision_002_input but we're not providing it-->
+        <resultNode name="decision_002" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002_b" invocableName="decisionService_002" type="decisionService" >
+        <description>Direct invocation: with an input decision - but supplying a null value</description>
+        <inputNode name="decision_002_input">
+            <value xsi:nil="true"/>
+        </inputNode>
+        <!-- errorResult is true because of the string + null operation -->
+        <resultNode name="decision_002" errorResult="true">
+            <expected>
+                    <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002_c" invocableName="decisionService_002" type="decisionService" >
+        <description>Direct invocation: with an input decision - but supplying an incorrect param type</description>
+        <!-- decision_002_input is a string type but we're providing a number so we expect it to be null-coerced -->
+        <inputNode name="decision_002_input">
+            <value xsi:type="xsd:decimal">1234</value>
+        </inputNode>
+        <resultNode name="decision_002" errorResult="true">
+            <expected>
+                    <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003" invocableName="decisionService_003" type="decisionService">
+        <description>Direct invocation: with two input decisions and an input data</description>
+        <!-- positive test -->
+        <inputNode name="decision_003_input_1">
+            <value xsi:type="xsd:string">B</value>
+        </inputNode>
+        <inputNode name="decision_003_input_2">
+            <value xsi:type="xsd:string">C</value>
+        </inputNode>
+        <inputNode name="inputData_003">
+            <value xsi:type="xsd:string">D</value>
+        </inputNode>
+        <resultNode name="decision_003">
+            <expected>
+                    <value xsi:type="xsd:string">A B C D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="004">
+        <description>with no params</description>
+        <!-- positive test -->
+        <resultNode name="decision_004_1" type="decision">
+            <expected>
+                <component name="decision_004_2">
+                    <value xsi:type="xsd:string">foo</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="005">
+        <description>passing a param when DS has no params</description>
+        <resultNode name="decision_005_1" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="006">
+        <description>passing a single input decision param</description>
+        <!-- positive test -->
+        <resultNode name="decision_006_1" type="decision">
+            <expected>
+                <component name="decision_006_2">
+                    <value xsi:type="xsd:string">foo bar</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="007">
+        <description>passing a single input decision param with incorrect type</description>
+        <resultNode name="decision_007_1" type="decision" errorResult="true">
+            <expected>
+                <component name="decision_007_2">
+                    <value xsi:type="xsd:boolean">true</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="008">
+        <description>passing no param when DS expects one</description>
+        <resultNode name="decision_008_1" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="009">
+        <description>passing named param</description>
+        <!-- positive test -->
+        <resultNode name="decision_009_1" type="decision">
+            <expected>
+                <component name="decision_009_2">
+                    <value xsi:type="xsd:string">foo bar</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="010">
+        <description>passing badly named param</description>
+        <resultNode name="decision_010_1" type="decision" errorResult="true">
+            <expected>
+                <component name="decision_010_2">
+                    <value xsi:nil="true"/>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="011">
+        <description>input param order: two input decisions and two inputData </description>
+        <!-- positive test -->
+        <resultNode name="decision_011_1" type="decision">
+            <expected>
+                <component name="decision_011_2">
+                    <value xsi:type="xsd:string">A B C D</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="012">
+        <description>input named param order: two input decisions and two inputData </description>
+        <!-- positive test -->
+        <resultNode name="decision_012_1" type="decision">
+            <expected>
+                <component name="decision_012_2">
+                    <value xsi:type="xsd:string">A B C D</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="013">
+        <description>decision service input decision and data do not affect global decision and data</description>
+        <!-- positive test -->
+        <inputNode name="inputData_013_1">
+            <value xsi:type="xsd:string">C</value>
+        </inputNode>
+        <resultNode name="decision_013_1" type="decision">
+            <expected>
+                <component name="decisionService_013">
+                    <component name="decision_013_2">
+                        <value xsi:type="xsd:string">A B</value>
+                    </component>
+                </component>
+                <component name="inputData_013_1">
+                    <value xsi:type="xsd:string">C</value>
+                </component>
+                <component name="decision_013_3">
+                    <value xsi:type="xsd:string">D</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <!-- as per 013, but order of execution swapped so that global decision/input used first, rather than DS input/decision used first -->
+    <testCase id="014">
+        <description>decision service input decision and data do not affect global decision and data</description>
+        <!-- positive test -->
+        <inputNode name="inputData_014_1">
+            <value xsi:type="xsd:string">C</value>
+        </inputNode>
+        <resultNode name="decision_014_1" type="decision">
+            <expected>
+                <component name="inputData_014_1">
+                    <value xsi:type="xsd:string">C</value>
+                </component>
+                <component name="decision_014_3">
+                    <value xsi:type="xsd:string">D</value>
+                </component>
+                <component name="decisionService_014">
+                    <component name="decision_014_2">
+                        <value xsi:type="xsd:string">A B</value>
+                    </component>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dmn11:definitions xmlns="http://www.trisotech.com/definitions/_a3ebbd98-af09-42f3-9099-4ae2204a1f54" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:tc="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" xmlns:trisofeed="http://trisotech.com/feed" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="DMN Modeler" exporterVersion="6.1.3" id="_a3ebbd98-af09-42f3-9099-4ae2204a1f54" name="multi-output-table" namespace="http://www.trisotech.com/definitions/_a3ebbd98-af09-42f3-9099-4ae2204a1f54" triso:logoChoice="Default" xmlns:dmn11="http://www.omg.org/spec/DMN/20151101/dmn.xsd">
+  <dmn11:extensionElements/>
+  <dmn11:itemDefinition isCollection="true" label="tApproval" name="tApproval">
+    <dmn11:itemComponent id="_20dfeb44-1c36-43cf-8819-63ce36819e90" isCollection="false" name="Status">
+      <dmn11:typeRef>feel:string</dmn11:typeRef>
+    </dmn11:itemComponent>
+    <dmn11:itemComponent id="_858ef6e6-69ca-4b50-a654-10f4b981f43c" isCollection="false" name="Rate">
+      <dmn11:typeRef>feel:string</dmn11:typeRef>
+    </dmn11:itemComponent>
+  </dmn11:itemDefinition>
+  <dmn11:itemDefinition isCollection="true" label="tApproval_1" name="tApproval_1">
+    <dmn11:typeRef>feel:string</dmn11:typeRef>
+  </dmn11:itemDefinition>
+  <dmn11:decision id="_3b2953a3-745f-4d2e-b55d-75c8c5ae653c" name="Approval">
+    <dmn11:variable id="_726bba98-e108-4ee4-b22b-9b9f4da43a88" name="Approval" typeRef="tApproval_1"/>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#_41effb45-b3c4-46ac-b1da-122b3e428a98"/>
+    </dmn11:informationRequirement>
+    <dmn11:decisionTable hitPolicy="RULE ORDER" id="_d81c5a51-b7c3-493c-ae8a-07ff798fb1bd" outputLabel="Approval" typeRef="tApproval_1">
+      <dmn11:input id="_bf7fc56f-ea82-464e-a541-f3221dc07e78">
+        <dmn11:inputExpression typeRef="feel:number">
+          <dmn11:text>Age</dmn11:text>
+        </dmn11:inputExpression>
+      </dmn11:input>
+      <dmn11:output id="_f07f9e98-3a1e-4add-a200-7cee75b550b3"/>
+      <dmn11:rule id="_ca85854c-27a3-4001-b2ac-23a164ca5940">
+        <dmn11:inputEntry id="_ca85854c-27a3-4001-b2ac-23a164ca5940-0">
+          <dmn11:text>&gt;=18</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_ca85854c-27a3-4001-b2ac-23a164ca5940-4">
+          <dmn11:text>"Best"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="_7f03803d-2636-40ab-8346-7fd7f38ab695">
+        <dmn11:inputEntry id="_7f03803d-2636-40ab-8346-7fd7f38ab695-0">
+          <dmn11:text>&gt;=12</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_7f03803d-2636-40ab-8346-7fd7f38ab695-4">
+          <dmn11:text>"Standard"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="_887acecd-40fc-42da-9443-eeba476f5516">
+        <dmn11:inputEntry id="_887acecd-40fc-42da-9443-eeba476f5516-0">
+          <dmn11:text>&lt;12</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_887acecd-40fc-42da-9443-eeba476f5516-4">
+          <dmn11:text>"Standard"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+    </dmn11:decisionTable>
+  </dmn11:decision>
+  <dmn11:inputData id="_41effb45-b3c4-46ac-b1da-122b3e428a98" name="Age">
+    <dmn11:variable id="_b6681d58-50f4-42a1-9daf-8daa45ac458e" name="Age" typeRef="feel:number"/>
+  </dmn11:inputData>
+</dmn11:definitions>

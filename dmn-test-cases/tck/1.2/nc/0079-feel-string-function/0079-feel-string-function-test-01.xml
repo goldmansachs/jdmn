@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=""  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0079-feel-string-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: Number</label>
+        <label>Data Type: Function</label>
+        <label>FEEL Functions: conversion</label>
+        <label>FEEL Arithmetic</label>
+    </labels>
+
+    <testCase id="decision_001">
+        <description>no param</description>
+        <resultNode errorResult="true" name="decision_001" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_002">
+        <description>too many params</description>
+        <resultNode errorResult="true" name="decision_002" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_003">
+        <description>named param</description>
+        <resultNode name="decision_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_004">
+        <description>badly named param</description>
+        <resultNode errorResult="true" name="decision_004" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_001">
+        <description>null param gives null, not "null"</description>
+        <resultNode name="null_001" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_001">
+        <description>string param</description>
+        <resultNode name="string_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_001">
+        <description>string param</description>
+        <resultNode name="number_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">123.45</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="boolean_001">
+        <description>boolean true</description>
+        <resultNode name="boolean_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="boolean_002">
+        <description>boolean false</description>
+        <resultNode name="boolean_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_001">
+        <description>date</description>
+        <resultNode name="date_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">2018-12-10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_001">
+        <description>dateTime - date only</description>
+        <resultNode name="dateTime_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">2018-12-10T00:00:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_002">
+        <description>dateTime - with time</description>
+        <resultNode name="dateTime_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">2018-12-10T10:30:00.0001</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_003">
+        <description>dateTime - with time and offset</description>
+        <resultNode name="dateTime_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">2018-12-10T10:30:00.0001+05:00:01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_004">
+        <description>dateTime - with time and zone</description>
+        <resultNode name="dateTime_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">2018-12-10T10:30:00@Etc/UTC</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_001">
+        <description>time</description>
+        <resultNode name="time_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">10:30:00.0001</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_002">
+        <description>time - with offset</description>
+        <resultNode name="time_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">10:30:00.0001+05:00:01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_003">
+        <description>time - with zone</description>
+        <resultNode name="time_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">10:30:00@Etc/UTC</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_001">
+        <description>dt duration 1D</description>
+        <resultNode name="dt_duration_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">P1D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_002">
+        <description>dt duration -1D</description>
+        <resultNode name="dt_duration_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">-P1D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_003">
+        <description>dt duration P0D</description>
+        <resultNode name="dt_duration_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">PT0S</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_004">
+        <description>dt duration P1DT2H3M4.1234S</description>
+        <resultNode name="dt_duration_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">P1DT2H3M4.1234S</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_005">
+        <description>dt duration P49H</description>
+        <resultNode name="dt_duration_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">P2DT1H</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_001">
+        <description>ym duration P1Y</description>
+        <resultNode name="ym_duration_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">P1Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_002">
+        <description>ym duration -P1Y</description>
+        <resultNode name="ym_duration_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">-P1Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_003">
+        <description>ym duration P0Y</description>
+        <resultNode name="ym_duration_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">P0M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_004">
+        <description>ym duration P1Y2M</description>
+        <resultNode name="ym_duration_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">P1Y2M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_005">
+        <description>ym duration P25M</description>
+        <resultNode name="ym_duration_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">P2Y1M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_001">
+        <description>list</description>
+        <resultNode name="list_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">[1, 2, 3, "foo"]</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_002">
+        <description>nested list</description>
+        <resultNode name="list_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">[1, 2, 3, [4, 5, "foo"]]</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_003">
+        <description>list string get escaped</description>
+        <resultNode name="list_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">["\"foo\""]</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_001">
+        <description>context</description>
+        <resultNode name="context_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">{a: "foo"}</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_002">
+        <description>nested context</description>
+        <resultNode name="context_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">{a: "foo", b: {bar: "baz"}}</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_003">
+        <description>context entry contains "{" so it gets quotes</description>
+        <resultNode name="context_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">{"{": "foo"}</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_004">
+        <description>context entry contains ":" so it gets quotes</description>
+        <resultNode name="context_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">{":": "foo"}</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_005">
+        <description>context entry contains "," so it gets quotes</description>
+        <resultNode name="context_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">{",": "foo"}</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_006">
+        <description>context entry contains "}" so it gets quotes</description>
+        <resultNode name="context_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">{"}": "foo"}</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_007">
+        <description>context entry contains '"' so it gets escaped and quotes</description>
+        <resultNode name="context_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">{"\"": "foo"}</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>
