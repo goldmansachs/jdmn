@@ -18,7 +18,7 @@ import org.junit.Test;
 public class ImportTestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCasesToJavaJUnitTransformerTest {
     @Override
     protected String getDMNInputPath() {
-        return "composite/%s/%s/translator";
+        return "composite/%s/%s/interpreter";
     }
 
     @Override
@@ -28,7 +28,7 @@ public class ImportTestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCa
 
     @Override
     protected String getExpectedPath() {
-        return "composite/%s/%s/translator/expected/java/test";
+        return "composite/%s/%s/interpreter/expected/java/test";
     }
 
     @Test
@@ -38,7 +38,7 @@ public class ImportTestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCa
         doMultipleModelsTest("1.2","0003-name-conflicts", "0003-name-conflicts");
         doMultipleModelsTest("1.2","0004-decision-tables", "0004-decision-tables");
         doMultipleModelsTest("1.2","0005-decision-tables-name-conflicts", "0005-decision-tables-name-conflicts");
-//        doMultipleModelsTest("1.2","0006-multiple-input-data", "0006-multiple-input-data", new Pair<>("singletonInputData", "false"));
+        doMultipleModelsTest("1.2","0006-multiple-input-data", "0006-multiple-input-data", new Pair<>("singletonInputData", "false"));
         doMultipleModelsTest("1.2","0007-name-conflicts-same-decision-singleton", "0007-name-conflicts-same-decision-singleton");
         doMultipleModelsTest("1.2","0008-name-conflicts-same-decision-no-singleton", "0008-name-conflicts-same-decision-no-singleton", new Pair<>("singletonInputData", "false"));
         doMultipleModelsTest("1.2","0009-type-name-conflicts", "0009-type-name-conflicts", new Pair<>("onePackage", "true"));

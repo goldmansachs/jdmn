@@ -69,6 +69,8 @@ public class TestFilesScripts {
         deleteEmptyDialectFolders(TCK_11_CL3_FOLDER, dryRun);
         deleteEmptyDialectFolders(TCK_12_CL2_FOLDER, dryRun);
         deleteEmptyDialectFolders(TCK_12_CL3_FOLDER, dryRun);
+        deleteEmptyDialectFolders(COMPOSITE_FOLDER, dryRun);
+        deleteEmptyDialectFolders(PROTO_FOLDER, dryRun);
     }
 
     private static void deleteEmptyDialectFolders(File rootFolder, boolean dryRun) throws IOException {
@@ -154,6 +156,56 @@ public class TestFilesScripts {
         }
     }
 
+    private static void copyTranslatorIntoInterpreter(boolean dryRun) throws IOException {
+        copyTranslatorIntoInterpreter(TCK_11_CL2_FOLDER, dryRun);
+        copyTranslatorIntoInterpreter(TCK_11_CL3_FOLDER, dryRun);
+        copyTranslatorIntoInterpreter(TCK_12_CL2_FOLDER, dryRun);
+        copyTranslatorIntoInterpreter(TCK_12_CL3_FOLDER, dryRun);
+    }
+
+    private static void copyTranslatorIntoInterpreter(File rootFolder, boolean dryRun) throws IOException {
+        // Scan test folders
+        System.out.println(String.format("Processing folder '%s'", rootFolder.getCanonicalPath()));
+
+        for (File testFolder: rootFolder.listFiles()) {
+            System.out.println(String.format("Processing test '%s'", testFolder.getName()));
+
+            File translatorFolder = findChild(testFolder, "translator", true);
+            File interpreterFolder = findChild(testFolder, "interpreter", true);
+            if (translatorFolder != null) {
+                System.out.println(String.format("Found translator '%s'", translatorFolder.getPath()));
+                File expectedFolder = findChild(translatorFolder, "expected", true);
+                if (expectedFolder != null) {
+                    System.out.println(String.format("Found expected '%s'", expectedFolder.getPath()));
+                    // Copy expected folder
+                    copyFolder(expectedFolder, interpreterFolder, dryRun);
+                }
+            }
+        }
+    }
+
+    private static void deleteTranslatorFolder(boolean dryRun) throws IOException {
+        deleteTranslatorFolder(TCK_11_CL2_FOLDER, dryRun);
+        deleteTranslatorFolder(TCK_11_CL3_FOLDER, dryRun);
+        deleteTranslatorFolder(TCK_12_CL2_FOLDER, dryRun);
+        deleteTranslatorFolder(TCK_12_CL3_FOLDER, dryRun);
+    }
+
+    private static void deleteTranslatorFolder(File rootFolder, boolean dryRun) throws IOException {
+        // Scan test folders
+        System.out.println(String.format("Processing folder '%s'", rootFolder.getCanonicalPath()));
+
+        for (File testFolder: rootFolder.listFiles()) {
+            System.out.println(String.format("Processing test '%s'", testFolder.getName()));
+
+            File translatorFolder = findChild(testFolder, "translator", true);
+            if (translatorFolder != null) {
+                System.out.println(String.format("Found translator '%s'", translatorFolder.getPath()));
+                deleteFolder(translatorFolder, dryRun);
+            }
+        }
+    }
+
     private static File findChild(File parentFolder, String childName, boolean isDirectory) {
         for (File child: parentFolder.listFiles()) {
             if (childName.equals(child.getName()) && child.isDirectory() == isDirectory) {
@@ -177,9 +229,24 @@ public class TestFilesScripts {
         }
     }
 
+    private static void deleteFolder(File folder, boolean dryRun) throws IOException {
+        System.out.println(String.format("Delete folder '%s'", folder.getPath()));
+        if (!dryRun) {
+            FileUtils.deleteDirectory(folder);
+        }
+    }
+
+    private static void copyFolder(File source, File parentFolder, boolean dryRun) throws IOException {
+        System.out.println(String.format("Copy file '%s' to folder '%s'", source.getPath(), parentFolder.getPath()));
+        if (!dryRun) {
+            File newExpectedFolder = new File(parentFolder, source.getName());
+            FileUtils.copyDirectory(source, newExpectedFolder);
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         boolean dryRun = true;
 
-        findTestsWithBothInterpreterAndTranslator(dryRun);
+        deleteTranslatorFolder(dryRun);
     }
 }

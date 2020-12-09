@@ -17,12 +17,12 @@ import org.junit.Test;
 public class CL2TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransformerTest {
     @Override
     protected String getInputPath() {
-        return "tck/%s/cl2/%s/translator";
+        return "tck/%s/cl2/%s/interpreter";
     }
 
     @Override
     protected String getExpectedPath() {
-        return "tck/%s/cl2/%s/translator/expected/java/dmn";
+        return "tck/%s/cl2/%s/interpreter/expected/java/dmn";
     }
 
     @Test

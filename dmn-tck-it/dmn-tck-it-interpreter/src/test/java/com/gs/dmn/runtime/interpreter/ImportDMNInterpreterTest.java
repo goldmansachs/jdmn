@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 public class ImportDMNInterpreterTest extends AbstractDMNInterpreterTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
     protected String getDMNInputPath() {
-        return "composite/%s/%s/translator";
+        return "composite/%s/%s/interpreter";
     }
 
     @Override
