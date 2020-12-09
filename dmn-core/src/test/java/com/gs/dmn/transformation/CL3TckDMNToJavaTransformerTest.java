@@ -17,12 +17,12 @@ import org.junit.Test;
 public class CL3TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransformerTest {
     @Override
     protected String getInputPath() {
-        return "tck/%s/cl3/%s/translator";
+        return "tck/%s/cl3/%s/interpreter";
     }
 
     @Override
     protected String getExpectedPath() {
-        return "tck/%s/cl3/%s/translator/expected/java/dmn";
+        return "tck/%s/cl3/%s/interpreter/expected/java/dmn";
     }
 
     @Test
@@ -37,8 +37,7 @@ public class CL3TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
         doSingleModelTest("1.1","0020-vacation-days");
         doSingleModelTest("1.1","0021-singleton-list");
         doSingleModelTest("1.1","0030-user-defined-functions");
-        doSingleModelTest("1.1","0031-user-defined-functions");
-        doSingleModelTest("1.1","0031-user-defined-functions-no-type");
+        doSingleModelTest("1.1","0031-static-user-defined-functions");
         doSingleModelTest("1.2","0076-feel-external-java");
 
         doSingleModelTest("1.1","9001-recursive-function");

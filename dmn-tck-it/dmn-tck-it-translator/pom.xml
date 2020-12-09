@@ -1819,7 +1819,7 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${composite.12.diagram.folder}/0001-no-name-conflicts-one-package/translator</inputFileDirectory>
+                            <inputFileDirectory>${composite.12.diagram.folder}/0001-no-name-conflicts-one-package/interpreter</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0001_no_name_conflicts_one_package</javaRootPackage>
@@ -1834,8 +1834,8 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${composite.12.diagram.folder}/0001-no-name-conflicts-one-package/translator</inputTestFileDirectory>
-                            <inputModelFileDirectory>${composite.12.diagram.folder}/0001-no-name-conflicts-one-package/translator</inputModelFileDirectory>
+                            <inputTestFileDirectory>${composite.12.diagram.folder}/0001-no-name-conflicts-one-package/interpreter</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.12.diagram.folder}/0001-no-name-conflicts-one-package/interpreter</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0001_no_name_conflicts_one_package</javaRootPackage>
@@ -1851,7 +1851,7 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${composite.12.diagram.folder}/0002-no-name-conflicts/translator</inputFileDirectory>
+                            <inputFileDirectory>${composite.12.diagram.folder}/0002-no-name-conflicts/interpreter</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0002_no_name_conflicts</javaRootPackage>
@@ -1865,8 +1865,8 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${composite.12.diagram.folder}/0002-no-name-conflicts/translator</inputTestFileDirectory>
-                            <inputModelFileDirectory>${composite.12.diagram.folder}/0002-no-name-conflicts/translator</inputModelFileDirectory>
+                            <inputTestFileDirectory>${composite.12.diagram.folder}/0002-no-name-conflicts/interpreter</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.12.diagram.folder}/0002-no-name-conflicts/interpreter</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0002_no_name_conflicts</javaRootPackage>
@@ -1881,7 +1881,7 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${composite.12.diagram.folder}/0003-name-conflicts/translator</inputFileDirectory>
+                            <inputFileDirectory>${composite.12.diagram.folder}/0003-name-conflicts/interpreter</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0003_name_conflicts</javaRootPackage>
@@ -1895,8 +1895,8 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${composite.12.diagram.folder}/0003-name-conflicts/translator</inputTestFileDirectory>
-                            <inputModelFileDirectory>${composite.12.diagram.folder}/0003-name-conflicts/translator</inputModelFileDirectory>
+                            <inputTestFileDirectory>${composite.12.diagram.folder}/0003-name-conflicts/interpreter</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.12.diagram.folder}/0003-name-conflicts/interpreter</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0003_name_conflicts</javaRootPackage>
@@ -1911,7 +1911,7 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${composite.12.diagram.folder}/0004-decision-tables/translator</inputFileDirectory>
+                            <inputFileDirectory>${composite.12.diagram.folder}/0004-decision-tables/interpreter</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0004_decision_tables_one_package</javaRootPackage>
@@ -1926,8 +1926,8 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${composite.12.diagram.folder}/0004-decision-tables/translator</inputTestFileDirectory>
-                            <inputModelFileDirectory>${composite.12.diagram.folder}/0004-decision-tables/translator</inputModelFileDirectory>
+                            <inputTestFileDirectory>${composite.12.diagram.folder}/0004-decision-tables/interpreter</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.12.diagram.folder}/0004-decision-tables/interpreter</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0004_decision_tables_one_package</javaRootPackage>
@@ -1943,7 +1943,7 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${composite.12.diagram.folder}/0004-decision-tables/translator</inputFileDirectory>
+                            <inputFileDirectory>${composite.12.diagram.folder}/0004-decision-tables/interpreter</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0004_decision_tables</javaRootPackage>
@@ -1957,8 +1957,8 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${composite.12.diagram.folder}/0004-decision-tables/translator</inputTestFileDirectory>
-                            <inputModelFileDirectory>${composite.12.diagram.folder}/0004-decision-tables/translator</inputModelFileDirectory>
+                            <inputTestFileDirectory>${composite.12.diagram.folder}/0004-decision-tables/interpreter</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.12.diagram.folder}/0004-decision-tables/interpreter</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0004_decision_tables</javaRootPackage>
@@ -1973,7 +1973,7 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${composite.12.diagram.folder}/0005-decision-tables-name-conflicts/translator</inputFileDirectory>
+                            <inputFileDirectory>${composite.12.diagram.folder}/0005-decision-tables-name-conflicts/interpreter</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0005_decision_tables_name_conflicts</javaRootPackage>
@@ -1987,8 +1987,8 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${composite.12.diagram.folder}/0005-decision-tables-name-conflicts/translator</inputTestFileDirectory>
-                            <inputModelFileDirectory>${composite.12.diagram.folder}/0005-decision-tables-name-conflicts/translator</inputModelFileDirectory>
+                            <inputTestFileDirectory>${composite.12.diagram.folder}/0005-decision-tables-name-conflicts/interpreter</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.12.diagram.folder}/0005-decision-tables-name-conflicts/interpreter</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0005_decision_tables_name_conflicts</javaRootPackage>
@@ -2003,7 +2003,7 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${composite.12.diagram.folder}/0006-multiple-input-data/translator</inputFileDirectory>
+                            <inputFileDirectory>${composite.12.diagram.folder}/0006-multiple-input-data/interpreter</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0006_multiple_input_data</javaRootPackage>
@@ -2019,8 +2019,8 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${composite.12.diagram.folder}/0006-multiple-input-data/translator</inputTestFileDirectory>
-                            <inputModelFileDirectory>${composite.12.diagram.folder}/0006-multiple-input-data/translator</inputModelFileDirectory>
+                            <inputTestFileDirectory>${composite.12.diagram.folder}/0006-multiple-input-data/interpreter</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.12.diagram.folder}/0006-multiple-input-data/interpreter</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0006_multiple_input_data</javaRootPackage>
@@ -2037,7 +2037,7 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${composite.12.diagram.folder}/0007-name-conflicts-same-decision-singleton/translator</inputFileDirectory>
+                            <inputFileDirectory>${composite.12.diagram.folder}/0007-name-conflicts-same-decision-singleton/interpreter</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0007_name_conflicts_same_decision_singleton</javaRootPackage>
@@ -2052,8 +2052,8 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${composite.12.diagram.folder}/0007-name-conflicts-same-decision-singleton/translator</inputTestFileDirectory>
-                            <inputModelFileDirectory>${composite.12.diagram.folder}/0007-name-conflicts-same-decision-singleton/translator</inputModelFileDirectory>
+                            <inputTestFileDirectory>${composite.12.diagram.folder}/0007-name-conflicts-same-decision-singleton/interpreter</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.12.diagram.folder}/0007-name-conflicts-same-decision-singleton/interpreter</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0007_name_conflicts_same_decision_singleton</javaRootPackage>
@@ -2069,7 +2069,7 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${composite.12.diagram.folder}/0008-name-conflicts-same-decision-no-singleton/translator</inputFileDirectory>
+                            <inputFileDirectory>${composite.12.diagram.folder}/0008-name-conflicts-same-decision-no-singleton/interpreter</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
@@ -2085,8 +2085,8 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${composite.12.diagram.folder}/0008-name-conflicts-same-decision-no-singleton/translator</inputTestFileDirectory>
-                            <inputModelFileDirectory>${composite.12.diagram.folder}/0008-name-conflicts-same-decision-no-singleton/translator</inputModelFileDirectory>
+                            <inputTestFileDirectory>${composite.12.diagram.folder}/0008-name-conflicts-same-decision-no-singleton/interpreter</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.12.diagram.folder}/0008-name-conflicts-same-decision-no-singleton/interpreter</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
@@ -2103,7 +2103,7 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${composite.12.diagram.folder}/0008-name-conflicts-same-decision-no-singleton/translator</inputFileDirectory>
+                            <inputFileDirectory>${composite.12.diagram.folder}/0008-name-conflicts-same-decision-no-singleton/interpreter</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <lazyEvaluationDetectors>
                                 <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
@@ -2122,8 +2122,8 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${composite.12.diagram.folder}/0008-name-conflicts-same-decision-no-singleton/translator</inputTestFileDirectory>
-                            <inputModelFileDirectory>${composite.12.diagram.folder}/0008-name-conflicts-same-decision-no-singleton/translator</inputModelFileDirectory>
+                            <inputTestFileDirectory>${composite.12.diagram.folder}/0008-name-conflicts-same-decision-no-singleton/interpreter</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.12.diagram.folder}/0008-name-conflicts-same-decision-no-singleton/interpreter</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <lazyEvaluationDetectors>
                                 <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
@@ -2143,7 +2143,7 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${composite.12.diagram.folder}/0009-type-name-conflicts/translator</inputFileDirectory>
+                            <inputFileDirectory>${composite.12.diagram.folder}/0009-type-name-conflicts/interpreter</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0009_type_name_conflicts</javaRootPackage>
@@ -2157,8 +2157,8 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${composite.12.diagram.folder}/0009-type-name-conflicts/translator</inputTestFileDirectory>
-                            <inputModelFileDirectory>${composite.12.diagram.folder}/0009-type-name-conflicts/translator</inputModelFileDirectory>
+                            <inputTestFileDirectory>${composite.12.diagram.folder}/0009-type-name-conflicts/interpreter</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.12.diagram.folder}/0009-type-name-conflicts/interpreter</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0009_type_name_conflicts</javaRootPackage>
@@ -2173,7 +2173,7 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${composite.12.diagram.folder}/0010-bkm-name-conflicts/translator</inputFileDirectory>
+                            <inputFileDirectory>${composite.12.diagram.folder}/0010-bkm-name-conflicts/interpreter</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0010_bkm_name_conflicts</javaRootPackage>
@@ -2187,8 +2187,8 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${composite.12.diagram.folder}/0010-bkm-name-conflicts/translator</inputTestFileDirectory>
-                            <inputModelFileDirectory>${composite.12.diagram.folder}/0010-bkm-name-conflicts/translator</inputModelFileDirectory>
+                            <inputTestFileDirectory>${composite.12.diagram.folder}/0010-bkm-name-conflicts/interpreter</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.12.diagram.folder}/0010-bkm-name-conflicts/interpreter</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0010_bkm_name_conflicts</javaRootPackage>
@@ -2207,7 +2207,7 @@
                             <lazyEvaluationDetectors>
                                 <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
                             </lazyEvaluationDetectors>
-                            <inputFileDirectory>${tck.11.diagram.folder}/cl3/0004-lending/translator/0004-lending.dmn</inputFileDirectory>
+                            <inputFileDirectory>${tck.11.diagram.folder}/cl3/0004-lending/interpreter/0004-lending.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.proto.cl3_0004_lending_proto_cache</javaRootPackage>
@@ -2225,8 +2225,8 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0004-lending/translator/0004-lending-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${tck.11.diagram.folder}/cl3/0004-lending/translator/0004-lending.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0004-lending/interpreter/0004-lending-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.11.diagram.folder}/cl3/0004-lending/interpreter/0004-lending.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.proto.cl3_0004_lending_proto_cache</javaRootPackage>
@@ -2245,7 +2245,7 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${proto.11.diagram.folder}/date-time-proto/translator/date-time-proto.dmn</inputFileDirectory>
+                            <inputFileDirectory>${proto.11.diagram.folder}/date-time-proto/interpreter/date-time-proto.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.proto.date_time_proto</javaRootPackage>
@@ -2263,8 +2263,8 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${proto.11.diagram.folder}/date-time-proto/translator/date-time-proto-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${proto.11.diagram.folder}/date-time-proto/translator/date-time-proto.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${proto.11.diagram.folder}/date-time-proto/interpreter/date-time-proto-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${proto.11.diagram.folder}/date-time-proto/interpreter/date-time-proto.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.proto.date_time_proto</javaRootPackage>
