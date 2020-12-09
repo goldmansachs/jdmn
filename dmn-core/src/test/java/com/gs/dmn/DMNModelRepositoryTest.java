@@ -122,7 +122,7 @@ public class DMNModelRepositoryTest extends AbstractTest {
 
     @Test
     public void testCollectAllInputDatas() {
-        this.dmnModelRepository = readDMN("composite/1.2/0003-name-conflicts/interpreter/");
+        this.dmnModelRepository = readDMN("composite/1.2/0003-name-conflicts/translator/");
 
         TDRGElement root = this.dmnModelRepository.findDRGElementByName("http://www.provider.com/definitions/model-c", "modelCDecisionBasedOnBs");
         List<DRGElementReference<TInputData>> references = this.dmnModelRepository.collectTransitiveInputDatas(makeRootReference(root));
@@ -138,7 +138,7 @@ public class DMNModelRepositoryTest extends AbstractTest {
 
     @Test
     public void testAllInputDatasWithImports() {
-        this.dmnModelRepository = readDMN("composite/1.2/0003-name-conflicts/interpreter/");
+        this.dmnModelRepository = readDMN("composite/1.2/0003-name-conflicts/translator/");
 
         TDRGElement root = this.dmnModelRepository.findDRGElementByName("http://www.provider.com/definitions/model-c", "modelCDecisionBasedOnBs");
         List<DRGElementReference<TInputData>> references = this.dmnModelRepository.collectTransitiveInputDatas(makeRootReference(root));

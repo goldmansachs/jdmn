@@ -18,7 +18,7 @@ import org.junit.Test;
 public class ImportTestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCasesToJavaJUnitTransformerTest {
     @Override
     protected String getDMNInputPath() {
-        return "composite/%s/%s/interpreter";
+        return "composite/%s/%s/translator";
     }
 
     @Override
@@ -28,7 +28,7 @@ public class ImportTestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCa
 
     @Override
     protected String getExpectedPath() {
-        return "composite/%s/%s/interpreter/expected/java/test";
+        return "composite/%s/%s/translator/expected/java/test";
     }
 
     @Test
