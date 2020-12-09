@@ -18,7 +18,7 @@ import org.junit.Test;
 public class ProtoToKotlinJUnitTransformerTest extends AbstractTestCasesToKotlinJUnitTransformerTest {
     @Override
     protected String getDMNInputPath() {
-        return "proto/%s/%s/interpreter";
+        return "proto/%s/%s/translator";
     }
 
     @Override
@@ -28,7 +28,7 @@ public class ProtoToKotlinJUnitTransformerTest extends AbstractTestCasesToKotlin
 
     @Override
     protected String getExpectedPath() {
-        return "proto/%s/%s/interpreter/expected/proto3/kotlin/test";
+        return "proto/%s/%s/translator/expected/proto3/kotlin/test";
     }
 
     @Test

@@ -20,7 +20,7 @@ import java.util.Arrays;
 public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     @Override
     protected String getDMNInputPath() {
-        return "tck/%s/cl3/%s/interpreter";
+        return "tck/%s/cl3/%s/translator";
     }
 
     @Test

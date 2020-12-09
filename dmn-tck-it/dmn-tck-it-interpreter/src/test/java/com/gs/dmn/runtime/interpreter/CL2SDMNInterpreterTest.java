@@ -17,7 +17,7 @@ import org.junit.Test;
 public abstract class CL2SDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     @Override
     protected String getDMNInputPath() {
-        return "tck/%s/cl2/%s/interpreter";
+        return "tck/%s/cl2/%s/translator";
     }
 
     @Override

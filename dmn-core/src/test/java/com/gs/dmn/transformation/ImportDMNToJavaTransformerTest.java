@@ -18,12 +18,12 @@ import org.junit.Test;
 public class ImportDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransformerTest {
     @Override
     protected String getInputPath() {
-        return "composite/%s/%s/interpreter";
+        return "composite/%s/%s/translator";
     }
 
     @Override
     protected String getExpectedPath() {
-        return "composite/%s/%s/interpreter/expected/java/dmn";
+        return "composite/%s/%s/translator/expected/java/dmn";
     }
 
     @Test

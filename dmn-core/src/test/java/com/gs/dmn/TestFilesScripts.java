@@ -25,8 +25,8 @@ public class TestFilesScripts {
     private static File TCK_11_CL3_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.1/cl3/");
     private static File TCK_12_CL2_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.2/cl2/");
     private static File TCK_12_CL3_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.2/cl3/");
-    private static File COMPOSITE_FOLDER = new File(TEST_CASES_FOLDER, "composite");
-    private static File PROTO_FOLDER = new File(TEST_CASES_FOLDER, "proto");
+    private static File COMPOSITE_FOLDER = new File(TEST_CASES_FOLDER, "composite/1.2");
+    private static File PROTO_FOLDER = new File(TEST_CASES_FOLDER, "proto/1.1");
 
     private static void deleteAlienFilesFromTestFolders(boolean dryRun) throws IOException {
         deleteAlienFilesFromTestFolders(TCK_11_CL2_FOLDER, dryRun);
@@ -206,6 +206,30 @@ public class TestFilesScripts {
         }
     }
 
+    private static void renameInterpreterFolder(boolean dryRun) throws IOException {
+        renameInterpreterFolder(TCK_11_CL2_FOLDER, dryRun);
+        renameInterpreterFolder(TCK_11_CL3_FOLDER, dryRun);
+        renameInterpreterFolder(TCK_12_CL2_FOLDER, dryRun);
+        renameInterpreterFolder(TCK_12_CL3_FOLDER, dryRun);
+        renameInterpreterFolder(COMPOSITE_FOLDER, dryRun);
+        renameInterpreterFolder(PROTO_FOLDER, dryRun);
+    }
+
+    private static void renameInterpreterFolder(File rootFolder, boolean dryRun) throws IOException {
+        // Scan test folders
+        System.out.println(String.format("Processing folder '%s'", rootFolder.getCanonicalPath()));
+
+        for (File testFolder: rootFolder.listFiles()) {
+            System.out.println(String.format("Processing test '%s'", testFolder.getName()));
+
+            File interpreterFolder = findChild(testFolder, "interpreter", true);
+            if (interpreterFolder != null) {
+                System.out.println(String.format("Found interpreter '%s'", interpreterFolder.getPath()));
+                renameFolder(interpreterFolder, dryRun);
+            }
+        }
+    }
+
     private static File findChild(File parentFolder, String childName, boolean isDirectory) {
         for (File child: parentFolder.listFiles()) {
             if (childName.equals(child.getName()) && child.isDirectory() == isDirectory) {
@@ -236,6 +260,13 @@ public class TestFilesScripts {
         }
     }
 
+    private static void renameFolder(File folder, boolean dryRun) throws IOException {
+        System.out.println(String.format("Rename folder '%s'", folder.getPath()));
+        if (!dryRun) {
+            folder.renameTo(new File(folder.getParentFile(), "/translator"));
+        }
+    }
+
     private static void copyFolder(File source, File parentFolder, boolean dryRun) throws IOException {
         System.out.println(String.format("Copy file '%s' to folder '%s'", source.getPath(), parentFolder.getPath()));
         if (!dryRun) {
@@ -245,8 +276,8 @@ public class TestFilesScripts {
     }
 
     public static void main(String[] args) throws IOException {
-        boolean dryRun = true;
+        boolean dryRun = false;
 
-        deleteTranslatorFolder(dryRun);
+        renameInterpreterFolder(dryRun);
     }
 }

@@ -18,12 +18,12 @@ import org.junit.Test;
 public class DMNToKotlinProtoTransformerTest extends AbstractTckDMNToKotlinTransformerTest {
     @Override
     protected String getInputPath() {
-        return "proto/%s/%s/interpreter";
+        return "proto/%s/%s/translator";
     }
 
     @Override
     protected String getExpectedPath() {
-        return "proto/%s/%s/interpreter/expected/proto3/kotlin/dmn";
+        return "proto/%s/%s/translator/expected/proto3/kotlin/dmn";
     }
 
     @Test

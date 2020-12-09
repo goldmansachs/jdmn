@@ -17,7 +17,7 @@ import org.junit.Test;
 public class CL2TestCasesToKotlinJUnitTransformerTest extends AbstractTestCasesToKotlinJUnitTransformerTest {
     @Override
     protected String getDMNInputPath() {
-        return "tck/%s/cl2/%s/interpreter";
+        return "tck/%s/cl2/%s/translator";
     }
 
     @Override
@@ -27,7 +27,7 @@ public class CL2TestCasesToKotlinJUnitTransformerTest extends AbstractTestCasesT
 
     @Override
     protected String getExpectedPath() {
-        return "tck/%s/cl2/%s/interpreter/expected/kotlin/test";
+        return "tck/%s/cl2/%s/translator/expected/kotlin/test";
     }
 
     @Test

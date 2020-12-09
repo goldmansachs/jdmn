@@ -20,12 +20,12 @@ import java.net.URI;
 public class DMNToJavaProtoTransformerTest extends AbstractTckDMNToJavaTransformerTest {
     @Override
     protected String getInputPath() {
-        return "proto/%s/%s/interpreter";
+        return "proto/%s/%s/translator";
     }
 
     @Override
     protected String getExpectedPath() {
-        return "proto/%s/%s/interpreter/expected/proto3/java/dmn";
+        return "proto/%s/%s/translator/expected/proto3/java/dmn";
     }
 
     @Test
