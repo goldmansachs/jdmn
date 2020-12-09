@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0075-feel-exponent.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Feel : any</label>
+        <label>FEEL Arithmetic</label>
+        <label>Data Type: Number</label>
+    </labels>
+
+    <testCase id="decision_001">
+        <description>exponent is LEFT associative!!</description>
+        <resultNode name="decision_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">3486784401</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_001_a">
+        <description>-a**b parses as (-a)**b not -(a**b)</description>
+        <resultNode name="decision_001_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">9</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_002">
+        <description>string exponent is null</description>
+        <resultNode errorResult="true" name="decision_002" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_003">
+        <description>boolean exponent is null</description>
+        <resultNode errorResult="true" name="decision_003" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_004">
+        <description>date exponent is null</description>
+        <resultNode errorResult="true" name="decision_004" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_005">
+        <description>time exponent is null</description>
+        <resultNode errorResult="true" name="decision_005" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_006">
+        <description>date time exponent is null</description>
+        <resultNode errorResult="true" name="decision_006" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_007">
+        <description>ym duration exponent is null</description>
+        <resultNode errorResult="true" name="decision_007" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_008">
+        <description>dt duration exponent is null</description>
+        <resultNode errorResult="true" name="decision_008" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_009">
+        <description>context exponent is null</description>
+        <resultNode errorResult="true" name="decision_009" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_010">
+        <description>list exponent is null</description>
+        <resultNode errorResult="true" name="decision_010" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_011">
+        <description>function exponent is null</description>
+        <resultNode errorResult="true" name="decision_011" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

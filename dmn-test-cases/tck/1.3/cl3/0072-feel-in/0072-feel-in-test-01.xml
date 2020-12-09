@@ -1,0 +1,2545 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0072-feel-in.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Feel : any</label>
+        <label>FEEL Conditionals</label>
+        <label>Data Type: any</label>
+    </labels>
+
+    <!--
+
+    001 = e1 in [e2,e3,…] (endpoints)
+    002 = e1 in [e2,e3,…] (ranges)
+    003 = e1 in <=e2
+    004 = e1 in <e2
+    005 = e1 in >=e2
+    006 = e1 in >e2
+    007 = e1 in (e2..e3)
+    008 = e1 in (e2..e3]
+    009 = e1 in [e2..e3)
+    010 = e1 in [e2..e3]
+    011 = e1 in e2 // e2 is a qualified name that does not evaluate to a list
+    012 = e1 in e2 // e1 is a simple value that is not a list and e2 is a qualified name that evaluates to a list
+    013 = e1 in e2 // e2 is a boolean expression that uses the special variable “?”
+
+    Tests over true and false scenarios for each type and each syntax.  The non enumerable types like boolean,
+    list, context we just test for in scenario 001 and 011 and make sure they can be treated as endpoints in a
+    list or tested for equality.
+
+    each of the range tests has 5 asserts for before/on/in/on/after endpoints
+
+    012 is actually covered by 001.  So .. so 012.
+
+    -->
+
+    <testCase id="number_001">
+        <description>number: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="number_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_001_a">
+        <description>number: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="number_001_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_002">
+        <description>number: e1 in [e2,e3,…] (ranges)</description>
+        <resultNode name="number_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_002_a">
+        <description>number: e1 in [e2,e3,…] (ranges)</description>
+        <resultNode name="number_002_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_003">
+        <description>number: e1 in &lt;=e2</description>
+        <resultNode name="number_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_003_1">
+        <description>number: e1 in &lt;=e2</description>
+        <resultNode name="number_003_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_003_a">
+        <description>number: e1 in &lt;=e2</description>
+        <resultNode name="number_003_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_004">
+        <description>number: e1 in &lt;e2</description>
+        <resultNode name="number_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_004_a">
+        <description>number: e1 in &lt;e2</description>
+        <resultNode name="number_004_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_005">
+        <description>number: e1 in >=e2</description>
+        <resultNode name="number_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_005_1">
+        <description>number: e1 in >=e2</description>
+        <resultNode name="number_005_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_005_a">
+        <description>number: e1 in >=e2</description>
+        <resultNode name="number_005_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_006">
+        <description>number: e1 in >e2</description>
+        <resultNode name="number_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_006_a">
+        <description>number: e1 in >e2</description>
+        <resultNode name="number_006_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_007_a">
+        <description>number: e1 in (e2..e3)</description>
+        <resultNode name="number_007_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_007_b">
+        <description>number: e1 in (e2..e3)</description>
+        <resultNode name="number_007_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_007_c">
+        <description>number: e1 in (e2..e3)</description>
+        <resultNode name="number_007_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_007_d">
+        <description>number: e1 in (e2..e3)</description>
+        <resultNode name="number_007_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_007_e">
+        <description>number: e1 in (e2..e3)</description>
+        <resultNode name="number_007_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_008_a">
+        <description>number: e1 in (e2..e3]</description>
+        <resultNode name="number_008_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_008_b">
+        <description>number: e1 in (e2..e3]</description>
+        <resultNode name="number_008_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_008_c">
+        <description>number: e1 in (e2..e3]</description>
+        <resultNode name="number_008_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_008_d">
+        <description>number: e1 in (e2..e3]</description>
+        <resultNode name="number_008_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_008_e">
+        <description>number: e1 in (e2..e3]</description>
+        <resultNode name="number_008_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_009_a">
+        <description>number: e1 in [e2..e3)</description>
+        <resultNode name="number_009_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_009_b">
+        <description>number: e1 in [e2..e3)</description>
+        <resultNode name="number_009_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_009_c">
+        <description>number: e1 in [e2..e3)</description>
+        <resultNode name="number_009_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_009_d">
+        <description>number: e1 in [e2..e3)</description>
+        <resultNode name="number_009_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_009_e">
+        <description>number: e1 in [e2..e3)</description>
+        <resultNode name="number_009_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_010_a">
+        <description>number: e1 in [e2..e3]</description>
+        <resultNode name="number_010_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_010_b">
+        <description>number: e1 in [e2..e3]</description>
+        <resultNode name="number_010_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_010_c">
+        <description>number: e1 in [e2..e3]</description>
+        <resultNode name="number_010_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_010_d">
+        <description>number: e1 in [e2..e3]</description>
+        <resultNode name="number_010_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_010_e">
+        <description>number: e1 in [e2..e3]</description>
+        <resultNode name="number_010_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_011">
+        <description>number: e1 in e2</description>
+        <resultNode name="number_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_014">
+        <description>number: e1 in unary tests</description>
+        <resultNode name="number_014" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_014_a">
+        <description>number: e1 in unary tests</description>
+        <resultNode name="number_014_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_001">
+        <description>string: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="string_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_001_a">
+        <description>string: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="string_001_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_002">
+        <description>string: e1 in [e2,e3,…] (ranges)</description>
+        <resultNode name="string_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_002_a">
+        <description>string: e1 in [e2,e3,…] (ranges)</description>
+        <resultNode name="string_002_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_003">
+        <description>string: e1 in &lt;=e2</description>
+        <resultNode name="string_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_003_1">
+        <description>string: e1 in &lt;=e2</description>
+        <resultNode name="string_003_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_003_a">
+        <description>string: e1 in &lt;=e2</description>
+        <resultNode name="string_003_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_004">
+        <description>string: e1 in &lt;e2</description>
+        <resultNode name="string_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_004_a">
+        <description>string: e1 in &lt;e2</description>
+        <resultNode name="string_004_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_005">
+        <description>string: e1 in >=e2</description>
+        <resultNode name="string_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_005_1">
+        <description>string: e1 in >=e2</description>
+        <resultNode name="string_005_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_005_a">
+        <description>string: e1 in >=e2</description>
+        <resultNode name="string_005_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_006">
+        <description>string: e1 in >e2</description>
+        <resultNode name="string_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_006_a">
+        <description>string: e1 in >e2</description>
+        <resultNode name="string_006_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_007_a">
+        <description>string: e1 in (e2..e3)</description>
+        <resultNode name="string_007_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_007_b">
+        <description>string: e1 in (e2..e3)</description>
+        <resultNode name="string_007_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_007_c">
+        <description>string: e1 in (e2..e3)</description>
+        <resultNode name="string_007_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_007_d">
+        <description>string: e1 in (e2..e3)</description>
+        <resultNode name="string_007_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_007_e">
+        <description>string: e1 in (e2..e3)</description>
+        <resultNode name="string_007_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_008_a">
+        <description>string: e1 in (e2..e3]</description>
+        <resultNode name="string_008_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_008_b">
+        <description>string: e1 in (e2..e3]</description>
+        <resultNode name="string_008_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_008_c">
+        <description>string: e1 in (e2..e3]</description>
+        <resultNode name="string_008_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_008_d">
+        <description>string: e1 in (e2..e3]</description>
+        <resultNode name="string_008_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_008_e">
+        <description>string: e1 in (e2..e3]</description>
+        <resultNode name="string_008_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_009_a">
+        <description>string: e1 in [e2..e3)</description>
+        <resultNode name="string_009_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_009_b">
+        <description>string: e1 in [e2..e3)</description>
+        <resultNode name="string_009_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_009_c">
+        <description>string: e1 in [e2..e3)</description>
+        <resultNode name="string_009_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_009_d">
+        <description>string: e1 in [e2..e3)</description>
+        <resultNode name="string_009_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_009_e">
+        <description>string: e1 in [e2..e3)</description>
+        <resultNode name="string_009_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_010_a">
+        <description>string: e1 in [e2..e3]</description>
+        <resultNode name="string_010_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_010_b">
+        <description>string: e1 in [e2..e3]</description>
+        <resultNode name="string_010_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_010_c">
+        <description>string: e1 in [e2..e3]</description>
+        <resultNode name="string_010_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_010_d">
+        <description>string: e1 in [e2..e3]</description>
+        <resultNode name="string_010_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_010_e">
+        <description>string: e1 in [e2..e3]</description>
+        <resultNode name="string_010_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_011">
+        <description>string: e1 in e2</description>
+        <resultNode name="string_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_014">
+        <description>string: e1 in unary tests</description>
+        <resultNode name="string_014" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_014_a">
+        <description>string: e1 in unary tests</description>
+        <resultNode name="string_014_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="boolean_001">
+        <description>boolean: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="boolean_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="boolean_001_a">
+        <description>boolean: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="boolean_001_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="boolean_011">
+        <description>boolean: e1 in e2</description>
+        <resultNode name="boolean_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="boolean_014">
+        <description>boolean: e1 in unary tests</description>
+        <resultNode name="boolean_014" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="boolean_014_a">
+        <description>boolean: e1 in unary tests</description>
+        <resultNode name="boolean_014_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_001">
+        <description>date: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="date_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_001_a">
+        <description>date: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="date_001_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_002">
+        <description>date: e1 in [e2,e3,…] (ranges)</description>
+        <resultNode name="date_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_002_a">
+        <description>date: e1 in [e2,e3,…] (ranges)</description>
+        <resultNode name="date_002_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_003">
+        <description>date: e1 in &lt;=e2</description>
+        <resultNode name="date_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_003_1">
+        <description>date: e1 in &lt;=e2</description>
+        <resultNode name="date_003_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_003_a">
+        <description>date: e1 in &lt;=e2</description>
+        <resultNode name="date_003_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_004">
+        <description>date: e1 in &lt;e2</description>
+        <resultNode name="date_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_004_a">
+        <description>date: e1 in &lt;e2</description>
+        <resultNode name="date_004_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_005">
+        <description>date: e1 in >=e2</description>
+        <resultNode name="date_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_005_1">
+        <description>date: e1 in >=e2</description>
+        <resultNode name="date_005_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_005_a">
+        <description>string: e1 in >=e2</description>
+        <resultNode name="date_005_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_006">
+        <description>date: e1 in >e2</description>
+        <resultNode name="date_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_006_a">
+        <description>string: e1 in >e2</description>
+        <resultNode name="date_006_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_007_a">
+        <description>date: e1 in (e2..e3)</description>
+        <resultNode name="date_007_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_007_b">
+        <description>date: e1 in (e2..e3)</description>
+        <resultNode name="date_007_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_007_c">
+        <description>date: e1 in (e2..e3)</description>
+        <resultNode name="date_007_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_007_d">
+        <description>date: e1 in (e2..e3)</description>
+        <resultNode name="date_007_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_007_e">
+        <description>date: e1 in (e2..e3)</description>
+        <resultNode name="date_007_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_008_a">
+        <description>date: e1 in (e2..e3]</description>
+        <resultNode name="date_008_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_008_b">
+        <description>date: e1 in (e2..e3]</description>
+        <resultNode name="date_008_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_008_c">
+        <description>date: e1 in (e2..e3]</description>
+        <resultNode name="date_008_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_008_d">
+        <description>date: e1 in (e2..e3]</description>
+        <resultNode name="date_008_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_008_e">
+        <description>date: e1 in (e2..e3]</description>
+        <resultNode name="date_008_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_009_a">
+        <description>date: e1 in [e2..e3)</description>
+        <resultNode name="date_009_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_009_b">
+        <description>date: e1 in [e2..e3)</description>
+        <resultNode name="date_009_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_009_c">
+        <description>date: e1 in [e2..e3)</description>
+        <resultNode name="date_009_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_009_d">
+        <description>date: e1 in [e2..e3)</description>
+        <resultNode name="date_009_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_009_e">
+        <description>date: e1 in [e2..e3)</description>
+        <resultNode name="date_009_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_010_a">
+        <description>date: e1 in [e2..e3]</description>
+        <resultNode name="date_010_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_010_b">
+        <description>date: e1 in [e2..e3]</description>
+        <resultNode name="date_010_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_010_c">
+        <description>date: e1 in [e2..e3]</description>
+        <resultNode name="date_010_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_010_d">
+        <description>date: e1 in [e2..e3]</description>
+        <resultNode name="date_010_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_010_e">
+        <description>date: e1 in [e2..e3]</description>
+        <resultNode name="date_010_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_011">
+        <description>date: e1 in e2</description>
+        <resultNode name="date_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_014">
+        <description>date: e1 in unary tests</description>
+        <resultNode name="date_014" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_014_a">
+        <description>date: e1 in unary tests</description>
+        <resultNode name="date_014_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_001">
+        <description>time: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="time_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_001_a">
+        <description>time: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="time_001_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_002">
+        <description>time: e1 in [e2,e3,…] (ranges)</description>
+        <resultNode name="time_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_002_a">
+        <description>time: e1 in [e2,e3,…] (ranges)</description>
+        <resultNode name="time_002_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_003">
+        <description>time: e1 in &lt;=e2</description>
+        <resultNode name="time_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_003_1">
+        <description>time: e1 in &lt;=e2</description>
+        <resultNode name="time_003_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_003_a">
+        <description>time: e1 in &lt;=e2</description>
+        <resultNode name="time_003_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_004">
+        <description>time: e1 in &lt;e2</description>
+        <resultNode name="time_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_004_a">
+        <description>time: e1 in &lt;e2</description>
+        <resultNode name="time_004_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_005">
+        <description>time: e1 in >=e2</description>
+        <resultNode name="time_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_005_1">
+        <description>time: e1 in >=e2</description>
+        <resultNode name="time_005_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_005_a">
+        <description>time: e1 in >=e2</description>
+        <resultNode name="time_005_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_006">
+        <description>time: e1 in >e2</description>
+        <resultNode name="time_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_006_a">
+        <description>time: e1 in >e2</description>
+        <resultNode name="time_006_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_007_a">
+        <description>time: e1 in (e2..e3)</description>
+        <resultNode name="time_007_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_007_b">
+        <description>time: e1 in (e2..e3)</description>
+        <resultNode name="time_007_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_007_c">
+        <description>time: e1 in (e2..e3)</description>
+        <resultNode name="time_007_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_007_d">
+        <description>time: e1 in (e2..e3)</description>
+        <resultNode name="time_007_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_007_e">
+        <description>time: e1 in (e2..e3)</description>
+        <resultNode name="time_007_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_008_a">
+        <description>time: e1 in (e2..e3]</description>
+        <resultNode name="time_008_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_008_b">
+        <description>time: e1 in (e2..e3]</description>
+        <resultNode name="time_008_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_008_c">
+        <description>time: e1 in (e2..e3]</description>
+        <resultNode name="time_008_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_008_d">
+        <description>time: e1 in (e2..e3]</description>
+        <resultNode name="time_008_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_008_e">
+        <description>time: e1 in (e2..e3]</description>
+        <resultNode name="time_008_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_009_a">
+        <description>time: e1 in [e2..e3)</description>
+        <resultNode name="time_009_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_009_b">
+        <description>time: e1 in [e2..e3)</description>
+        <resultNode name="time_009_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_009_c">
+        <description>time: e1 in [e2..e3)</description>
+        <resultNode name="time_009_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_009_d">
+        <description>time: e1 in [e2..e3)</description>
+        <resultNode name="time_009_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_009_e">
+        <description>time: e1 in [e2..e3)</description>
+        <resultNode name="time_009_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_010_a">
+        <description>time: e1 in [e2..e3]</description>
+        <resultNode name="time_010_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_010_b">
+        <description>time: e1 in [e2..e3]</description>
+        <resultNode name="time_010_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_010_c">
+        <description>time: e1 in [e2..e3]</description>
+        <resultNode name="time_010_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_010_d">
+        <description>time: e1 in [e2..e3]</description>
+        <resultNode name="time_010_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_010_e">
+        <description>time: e1 in [e2..e3]</description>
+        <resultNode name="time_010_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_011">
+        <description>time: e1 in e2</description>
+        <resultNode name="time_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_014">
+        <description>time: e1 in unary tests</description>
+        <resultNode name="time_014" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_014_a">
+        <description>time: e1 in unary tests</description>
+        <resultNode name="time_014_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_001">
+        <description>dateTime: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="dateTime_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_001_a">
+        <description>dateTime: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="dateTime_001_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_002">
+        <description>dateTime: e1 in [e2,e3,…] (ranges)</description>
+        <resultNode name="dateTime_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_002_a">
+        <description>dateTime: e1 in [e2,e3,…] (ranges)</description>
+        <resultNode name="dateTime_002_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_003">
+        <description>dateTime: e1 in &lt;=e2</description>
+        <resultNode name="dateTime_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_003_1">
+        <description>dateTime: e1 in &lt;=e2</description>
+        <resultNode name="dateTime_003_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_003_a">
+        <description>dateTime: e1 in &lt;=e2</description>
+        <resultNode name="dateTime_003_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_004">
+        <description>dateTime: e1 in &lt;e2</description>
+        <resultNode name="dateTime_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_004_a">
+        <description>dateTime: e1 in &lt;e2</description>
+        <resultNode name="dateTime_004_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_005">
+        <description>dateTime: e1 in >=e2</description>
+        <resultNode name="dateTime_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_005_1">
+        <description>dateTime: e1 in >=e2</description>
+        <resultNode name="dateTime_005_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_005_a">
+        <description>dateTime: e1 in >=e2</description>
+        <resultNode name="dateTime_005_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_006">
+        <description>dateTime: e1 in >e2</description>
+        <resultNode name="dateTime_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_006_a">
+        <description>dateTime: e1 in >e2</description>
+        <resultNode name="dateTime_006_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_007_a">
+        <description>dateTime: e1 in (e2..e3)</description>
+        <resultNode name="dateTime_007_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_007_b">
+        <description>dateTime: e1 in (e2..e3)</description>
+        <resultNode name="dateTime_007_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_007_c">
+        <description>dateTime: e1 in (e2..e3)</description>
+        <resultNode name="dateTime_007_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_007_d">
+        <description>dateTime: e1 in (e2..e3)</description>
+        <resultNode name="dateTime_007_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_007_e">
+        <description>dateTime: e1 in (e2..e3)</description>
+        <resultNode name="dateTime_007_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_008_a">
+        <description>dateTime: e1 in (e2..e3]</description>
+        <resultNode name="dateTime_008_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_008_b">
+        <description>dateTime: e1 in (e2..e3]</description>
+        <resultNode name="dateTime_008_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_008_c">
+        <description>dateTime: e1 in (e2..e3]</description>
+        <resultNode name="dateTime_008_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_008_d">
+        <description>dateTime: e1 in (e2..e3]</description>
+        <resultNode name="dateTime_008_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_008_e">
+        <description>dateTime: e1 in (e2..e3]</description>
+        <resultNode name="dateTime_008_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_009_a">
+        <description>dateTime: e1 in [e2..e3)</description>
+        <resultNode name="dateTime_009_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_009_b">
+        <description>dateTime: e1 in [e2..e3)</description>
+        <resultNode name="dateTime_009_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_009_c">
+        <description>dateTime: e1 in [e2..e3)</description>
+        <resultNode name="dateTime_009_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_009_d">
+        <description>dateTime: e1 in [e2..e3)</description>
+        <resultNode name="dateTime_009_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_009_e">
+        <description>dateTime: e1 in [e2..e3)</description>
+        <resultNode name="dateTime_009_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_010_a">
+        <description>dateTime: e1 in [e2..e3]</description>
+        <resultNode name="dateTime_010_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_010_b">
+        <description>dateTime: e1 in [e2..e3]</description>
+        <resultNode name="dateTime_010_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_010_c">
+        <description>dateTime: e1 in [e2..e3]</description>
+        <resultNode name="dateTime_010_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_010_d">
+        <description>dateTime: e1 in [e2..e3]</description>
+        <resultNode name="dateTime_010_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_010_e">
+        <description>dateTime: e1 in [e2..e3]</description>
+        <resultNode name="dateTime_010_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_011">
+        <description>dateTime: e1 in e2</description>
+        <resultNode name="dateTime_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_014">
+        <description>dateTime: e1 in unary tests</description>
+        <resultNode name="dateTime_014" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_014_a">
+        <description>dateTime: e1 in unary tests</description>
+        <resultNode name="dateTime_014_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_001">
+        <description>list: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="list_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_001_a">
+        <description>list: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="list_001_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="list_011">
+        <description>list: e1 in e2</description>
+        <resultNode name="list_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="list_011_a">
+        <description>list: e1 in e2</description>
+        <resultNode name="list_011_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_011_b">
+        <description>list: e1 in e2</description>
+        <resultNode name="list_011_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--
+    <testCase id="list_014">
+        <description>list: e1 in unary tests</description>
+        <resultNode name="list_014" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+-->
+
+    <testCase id="list_014_a">
+        <description>list: e1 in unary tests</description>
+        <resultNode name="list_014_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--
+    <testCase id="list_014_b">
+        <description>list: e1 in unary tests</description>
+        <resultNode name="list_014_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_015">
+        <description>list: e1 in list in parentheses</description>
+        <resultNode name="list_015" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+-->
+
+    <testCase id="context_001">
+        <description>context: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="context_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_001_a">
+        <description>context: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="context_001_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_011">
+        <description>context: e1 in e2</description>
+        <resultNode name="context_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_014">
+        <description>context: e1 in unary tests</description>
+        <resultNode name="context_014" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_014_a">
+        <description>context: e1 in unary tests</description>
+        <resultNode name="context_014_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_001">
+        <description>ym_duration: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="ym_duration_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_001_a">
+        <description>ym_duration: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="ym_duration_001_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_002">
+        <description>ym_duration: e1 in [e2,e3,…] (ranges)</description>
+        <resultNode name="ym_duration_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_002_a">
+        <description>ym_duration: e1 in [e2,e3,…] (ranges)</description>
+        <resultNode name="ym_duration_002_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_003">
+        <description>ym_duration: e1 in &lt;=e2</description>
+        <resultNode name="ym_duration_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_003_1">
+        <description>ym_duration: e1 in &lt;=e2</description>
+        <resultNode name="ym_duration_003_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_003_a">
+        <description>ym_duration: e1 in &lt;=e2</description>
+        <resultNode name="ym_duration_003_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_004">
+        <description>ym_duration: e1 in &lt;e2</description>
+        <resultNode name="ym_duration_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_004_a">
+        <description>ym_duration: e1 in &lt;e2</description>
+        <resultNode name="ym_duration_004_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_005">
+        <description>ym_duration: e1 in >=e2</description>
+        <resultNode name="ym_duration_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_005_1">
+        <description>ym_duration: e1 in >=e2</description>
+        <resultNode name="ym_duration_005_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_005_a">
+        <description>ym_duration: e1 in >=e2</description>
+        <resultNode name="ym_duration_005_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_006">
+        <description>ym_duration: e1 in >e2</description>
+        <resultNode name="ym_duration_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_006_a">
+        <description>ym_duration: e1 in >e2</description>
+        <resultNode name="ym_duration_006_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_007_a">
+        <description>ym_duration: e1 in (e2..e3)</description>
+        <resultNode name="ym_duration_007_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_007_b">
+        <description>ym_duration: e1 in (e2..e3)</description>
+        <resultNode name="ym_duration_007_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_007_c">
+        <description>ym_duration: e1 in (e2..e3)</description>
+        <resultNode name="ym_duration_007_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_007_d">
+        <description>ym_duration: e1 in (e2..e3)</description>
+        <resultNode name="ym_duration_007_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_007_e">
+        <description>ym_duration: e1 in (e2..e3)</description>
+        <resultNode name="ym_duration_007_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_008_a">
+        <description>ym_duration: e1 in (e2..e3]</description>
+        <resultNode name="ym_duration_008_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_008_b">
+        <description>ym_duration: e1 in (e2..e3]</description>
+        <resultNode name="ym_duration_008_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_008_c">
+        <description>ym_duration: e1 in (e2..e3]</description>
+        <resultNode name="ym_duration_008_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_008_d">
+        <description>ym_duration: e1 in (e2..e3]</description>
+        <resultNode name="ym_duration_008_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_008_e">
+        <description>ym_duration: e1 in (e2..e3]</description>
+        <resultNode name="ym_duration_008_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_009_a">
+        <description>ym_duration: e1 in [e2..e3)</description>
+        <resultNode name="ym_duration_009_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_009_b">
+        <description>ym_duration: e1 in [e2..e3)</description>
+        <resultNode name="ym_duration_009_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_009_c">
+        <description>ym_duration: e1 in [e2..e3)</description>
+        <resultNode name="ym_duration_009_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_009_d">
+        <description>ym_duration: e1 in [e2..e3)</description>
+        <resultNode name="ym_duration_009_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_009_e">
+        <description>ym_duration: e1 in [e2..e3)</description>
+        <resultNode name="ym_duration_009_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_010_a">
+        <description>ym_duration: e1 in [e2..e3]</description>
+        <resultNode name="ym_duration_010_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_010_b">
+        <description>ym_duration: e1 in [e2..e3]</description>
+        <resultNode name="ym_duration_010_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_010_c">
+        <description>ym_duration: e1 in [e2..e3]</description>
+        <resultNode name="ym_duration_010_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_010_d">
+        <description>ym_duration: e1 in [e2..e3]</description>
+        <resultNode name="ym_duration_010_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_010_e">
+        <description>ym_duration: e1 in [e2..e3]</description>
+        <resultNode name="ym_duration_010_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_011">
+        <description>ym_duration: e1 in e2</description>
+        <resultNode name="ym_duration_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_014">
+        <description>ym_duration: e1 in unary tests</description>
+        <resultNode name="ym_duration_014" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_014_a">
+        <description>ym_duration: e1 in unary tests</description>
+        <resultNode name="ym_duration_014_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_001">
+        <description>dt_duration: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="dt_duration_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_001_a">
+        <description>dt_duration: e1 in [e2,e3,…] (endpoints)</description>
+        <resultNode name="dt_duration_001_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_002">
+        <description>dt_duration: e1 in [e2,e3,…] (ranges)</description>
+        <resultNode name="dt_duration_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_002_a">
+        <description>dt_duration: e1 in [e2,e3,…] (ranges)</description>
+        <resultNode name="dt_duration_002_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_003">
+        <description>dt_duration: e1 in &lt;=e2</description>
+        <resultNode name="dt_duration_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_003_1">
+        <description>dt_duration: e1 in &lt;=e2</description>
+        <resultNode name="dt_duration_003_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_003_a">
+        <description>dt_duration: e1 in &lt;=e2</description>
+        <resultNode name="dt_duration_003_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_004">
+        <description>dt_duration: e1 in &lt;e2</description>
+        <resultNode name="dt_duration_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_004_a">
+        <description>dt_duration: e1 in &lt;e2</description>
+        <resultNode name="dt_duration_004_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_005">
+        <description>dt_duration: e1 in >=e2</description>
+        <resultNode name="dt_duration_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_005_1">
+        <description>dt_duration: e1 in >=e2</description>
+        <resultNode name="dt_duration_005_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_005_a">
+        <description>dt_duration: e1 in >=e2</description>
+        <resultNode name="dt_duration_005_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_006">
+        <description>dt_duration: e1 in >e2</description>
+        <resultNode name="dt_duration_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_006_a">
+        <description>dt_duration: e1 in >e2</description>
+        <resultNode name="dt_duration_006_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_007_a">
+        <description>dt_duration: e1 in (e2..e3)</description>
+        <resultNode name="dt_duration_007_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_007_b">
+        <description>dt_duration: e1 in (e2..e3)</description>
+        <resultNode name="dt_duration_007_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_007_c">
+        <description>dt_duration: e1 in (e2..e3)</description>
+        <resultNode name="dt_duration_007_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_007_d">
+        <description>dt_duration: e1 in (e2..e3)</description>
+        <resultNode name="dt_duration_007_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_007_e">
+        <description>dt_duration: e1 in (e2..e3)</description>
+        <resultNode name="dt_duration_007_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_008_a">
+        <description>dt_duration: e1 in (e2..e3]</description>
+        <resultNode name="dt_duration_008_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_008_b">
+        <description>dt_duration: e1 in (e2..e3]</description>
+        <resultNode name="dt_duration_008_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_008_c">
+        <description>dt_duration: e1 in (e2..e3]</description>
+        <resultNode name="dt_duration_008_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_008_d">
+        <description>dt_duration: e1 in (e2..e3]</description>
+        <resultNode name="dt_duration_008_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_008_e">
+        <description>dt_duration: e1 in (e2..e3]</description>
+        <resultNode name="dt_duration_008_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_009_a">
+        <description>dt_duration: e1 in [e2..e3)</description>
+        <resultNode name="dt_duration_009_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_009_b">
+        <description>dt_duration: e1 in [e2..e3)</description>
+        <resultNode name="dt_duration_009_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_009_c">
+        <description>dt_duration: e1 in [e2..e3)</description>
+        <resultNode name="dt_duration_009_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_009_d">
+        <description>dt_duration: e1 in [e2..e3)</description>
+        <resultNode name="dt_duration_009_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_009_e">
+        <description>dt_duration: e1 in [e2..e3)</description>
+        <resultNode name="dt_duration_009_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_010_a">
+        <description>dt_duration: e1 in [e2..e3]</description>
+        <resultNode name="dt_duration_010_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_010_b">
+        <description>dt_duration: e1 in [e2..e3]</description>
+        <resultNode name="dt_duration_010_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_010_c">
+        <description>dt_duration: e1 in [e2..e3]</description>
+        <resultNode name="dt_duration_010_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_010_d">
+        <description>dt_duration: e1 in [e2..e3]</description>
+        <resultNode name="dt_duration_010_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_010_e">
+        <description>dt_duration: e1 in [e2..e3]</description>
+        <resultNode name="dt_duration_010_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_011">
+        <description>dt_duration: e1 in e2</description>
+        <resultNode name="dt_duration_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_014">
+        <description>dt_duration: e1 in unary tests</description>
+        <resultNode name="dt_duration_014" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_014_a">
+        <description>dt_duration: e1 in unary tests</description>
+        <resultNode name="dt_duration_014_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

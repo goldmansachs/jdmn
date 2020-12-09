@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=""  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0090-feel-paths.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>FEEL Paths</label>
+        <label>FEEL Qualified Names</label>
+    </labels>
+
+    <testCase id="nested_list_001">
+        <description>Spec 'nested list' example - 1</description>
+        <resultNode name="nested_list_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="nested_list_002">
+        <description>Spec 'nested list' example - 2</description>
+        <resultNode name="nested_list_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    
+    <testCase id="nested_list_003">
+        <description>Spec 'nested list' example - DMN13-133</description>
+        <resultNode name="nested_list_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="nested_list_004">
+        <description>Spec 'nested list' example - DMN13-133</description>
+        <resultNode name="nested_list_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>
