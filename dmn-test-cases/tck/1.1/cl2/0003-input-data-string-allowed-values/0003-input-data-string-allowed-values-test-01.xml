@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0003-input-data-string-allowed-values.dmn</modelName>
+	<labels>
+		<label>Compliance Level 2</label>
+		<label>Literal Expression</label>
+		<label>Item Definition</label>
+		<label>FEEL Arithmetic</label>
+		<label>FEEL Special-character Names</label>
+		<label>Data Type: String</label>
+	</labels>
+	<testCase id="001">
+		<description>Testing valid input</description>
+		<inputNode name="Employment Status">
+			<value>EMPLOYED</value>
+		</inputNode>
+		<resultNode name="Employment Status Statement" type="decision">
+			<expected>
+				<value>You are EMPLOYED</value>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

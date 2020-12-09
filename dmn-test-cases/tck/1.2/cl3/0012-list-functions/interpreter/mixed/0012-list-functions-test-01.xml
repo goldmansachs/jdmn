@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<modelName>0012-list-functions.dmn</modelName>
+	<labels>
+		<label>Compliance Level 3</label>
+		<label>Literal Expression</label>
+		<label>Item Definition</label>
+		<label>FEEL List</label>
+		<label>FEEL Functions: lists</label>
+		<label>FEEL Functions: string</label>
+		<label>FEEL Functions: list</label>
+		<label>Data Type: String</label>
+		<label>Data Type: Number</label>
+		<label>Data Type: Boolean</label>
+		<label>Data Type: Collection</label>
+	</labels>
+	<testCase id="001">
+		<inputNode name="list1">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">a</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">b</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">c</value>
+				</item>
+			</list>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">x</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">y</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="listContainsList" type="decision">
+			<expected>
+				<value xsi:type="xsd:boolean">false</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+		<inputNode name="string1">
+			<value xsi:type="xsd:string">OK</value>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">x</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">y</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="listContains" type="decision">
+			<expected>
+				<value xsi:type="xsd:boolean">false</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="003">
+		<inputNode name="list1">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">a</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">b</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">c</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="count1" type="decision">
+			<expected>
+				<value xsi:type="xsd:decimal">3</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="004">
+		<inputNode name="numList">
+			<list>
+				<item>
+					<value xsi:type="xsd:decimal">6</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:decimal">14</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:decimal">-3</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="min1" type="decision">
+			<expected>
+				<value xsi:type="xsd:decimal">-3</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="005">
+		<inputNode name="numList">
+			<list>
+				<item>
+					<value xsi:type="xsd:decimal">6</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:decimal">14</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:decimal">-3</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="sum1" type="decision">
+			<expected>
+				<value xsi:type="xsd:decimal">17</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="006">
+		<inputNode name="numList">
+			<list>
+				<item>
+					<value xsi:type="xsd:decimal">6</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:decimal">14</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:decimal">-3</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="mean1" type="decision">
+			<expected>
+				<value xsi:type="xsd:decimal">5.66666666666667</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="007">
+		<inputNode name="num1">
+			<value xsi:type="xsd:decimal">11</value>
+		</inputNode>
+		<inputNode name="num2">
+			<value xsi:type="xsd:decimal">2</value>
+		</inputNode>
+		<inputNode name="num3">
+			<value xsi:type="xsd:decimal">10</value>
+		</inputNode>
+		<resultNode name="mean2" type="decision">
+			<expected>
+				<value xsi:type="xsd:decimal">7.66666666666667</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="008">
+		<inputNode name="list1">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">a</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">b</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">c</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="sublist12" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value xsi:type="xsd:string">a</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">b</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="009">
+		<inputNode name="list1">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">a</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">b</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">c</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="sublistLast" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value xsi:type="xsd:string">c</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="010">
+		<inputNode name="num1">
+			<value xsi:type="xsd:decimal">11</value>
+		</inputNode>
+		<inputNode name="num2">
+			<value xsi:type="xsd:decimal">2</value>
+		</inputNode>
+		<inputNode name="num3">
+			<value xsi:type="xsd:decimal">10</value>
+		</inputNode>
+		<inputNode name="numList">
+			<list>
+				<item>
+					<value xsi:type="xsd:decimal">6</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:decimal">14</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:decimal">-3</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="append1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value xsi:type="xsd:decimal">6</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:decimal">14</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:decimal">-3</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:decimal">11</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:decimal">2</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="011">
+		<inputNode name="list1">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">a</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">b</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">c</value>
+				</item>
+			</list>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">x</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">y</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="concatenate1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value xsi:type="xsd:string">a</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">b</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">c</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">x</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">y</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">z</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="012">
+		<inputNode name="string1">
+			<value xsi:type="xsd:string">OK</value>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">x</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">y</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="insertBefore1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value xsi:type="xsd:string">x</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">OK</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">y</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">z</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="013">
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">x</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">y</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="remove2nd" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value xsi:type="xsd:string">x</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">z</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="014">
+		<inputNode name="list1">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">a</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">b</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">c</value>
+				</item>
+			</list>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">x</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">y</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="reverse1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value xsi:type="xsd:string">z</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">y</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">x</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">c</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">b</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">a</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="015">
+		<inputNode name="list1">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">a</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">b</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">c</value>
+				</item>
+			</list>
+		</inputNode>
+		<inputNode name="string1">
+			<value xsi:type="xsd:string">x</value>
+		</inputNode>
+		<resultNode name="appendListItem" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value xsi:type="xsd:string">a</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">b</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">c</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">x</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="016">
+		<inputNode name="string1">
+			<value xsi:type="xsd:string">OK</value>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">x</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">y</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="indexOf1" type="decision">
+			<expected>
+				<list/>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="017">
+		<inputNode name="string1">
+			<value xsi:type="xsd:string">OK</value>
+		</inputNode>
+		<inputNode name="list1">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">a</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">b</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">c</value>
+				</item>
+			</list>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">x</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">y</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="union1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value xsi:type="xsd:string">x</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">OK</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">y</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">z</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">a</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">b</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">c</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="018">
+		<inputNode name="string1">
+			<value xsi:type="xsd:string">OK</value>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">x</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">y</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="distinctVals" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value xsi:type="xsd:string">x</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">OK</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">y</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">z</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="019">
+		<inputNode name="list1">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">a</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">b</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">c</value>
+				</item>
+			</list>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value xsi:type="xsd:string">x</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">y</value>
+				</item>
+				<item>
+					<value xsi:type="xsd:string">z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="flatten1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value xsi:type="xsd:string">a</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">b</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">c</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">x</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">y</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">z</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

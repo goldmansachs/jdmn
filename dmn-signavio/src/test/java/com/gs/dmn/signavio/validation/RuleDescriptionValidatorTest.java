@@ -48,7 +48,7 @@ public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest 
                 "(model='Linked Decision Test', label='Root', name='root', id='id-dd34e15633241b301d7c512a35c9493a'): error: Description of rule 2 in decision 'root' contains illegal sequence 'string(-)'",
                 "(model='Linked Decision Test', label='Root', name='root', id='id-dd34e15633241b301d7c512a35c9493a'): error: Description of rule 3 in decision 'root' contains illegal sequence 'string(-)'"
         );
-        validate(validator, path + diagramName, expectedErrors);
+        validate(validator, resource(path + diagramName), expectedErrors);
     }
 
     @Test

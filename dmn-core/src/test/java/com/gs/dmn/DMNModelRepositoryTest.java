@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.omg.spec.dmn._20191111.model.*;
 
 import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +35,7 @@ public class DMNModelRepositoryTest extends AbstractTest {
 
     @Before
     public void setUp() {
-        String pathName = "dmn/input/1.1/0004-lending.dmn";
+        String pathName = "tck/1.1/cl3/0004-lending/0004-lending.dmn";
         this.dmnModelRepository = readDMN(pathName);
     }
 
@@ -121,7 +122,7 @@ public class DMNModelRepositoryTest extends AbstractTest {
 
     @Test
     public void testCollectAllInputDatas() {
-        this.dmnModelRepository = readDMN("composite/input/0003-name-conflicts");
+        this.dmnModelRepository = readDMN("composite/1.2/0003-name-conflicts/translator/");
 
         TDRGElement root = this.dmnModelRepository.findDRGElementByName("http://www.provider.com/definitions/model-c", "modelCDecisionBasedOnBs");
         List<DRGElementReference<TInputData>> references = this.dmnModelRepository.collectTransitiveInputDatas(makeRootReference(root));
@@ -137,7 +138,7 @@ public class DMNModelRepositoryTest extends AbstractTest {
 
     @Test
     public void testAllInputDatasWithImports() {
-        this.dmnModelRepository = readDMN("composite/input/0003-name-conflicts");
+        this.dmnModelRepository = readDMN("composite/1.2/0003-name-conflicts/translator/");
 
         TDRGElement root = this.dmnModelRepository.findDRGElementByName("http://www.provider.com/definitions/model-c", "modelCDecisionBasedOnBs");
         List<DRGElementReference<TInputData>> references = this.dmnModelRepository.collectTransitiveInputDatas(makeRootReference(root));
@@ -149,6 +150,11 @@ public class DMNModelRepositoryTest extends AbstractTest {
                 "DMNReference(import='[modelB2, modelB1, modelA]', namespace='http://www.provider.com/definitions/model-a', model='model-a', element='personName')"
         );
         assertEquals(expected, actual);
+    }
+
+    @Override
+    protected URI resource(String path) {
+        return tckResource(path);
     }
 
     private DMNModelRepository readDMN(String pathName) {

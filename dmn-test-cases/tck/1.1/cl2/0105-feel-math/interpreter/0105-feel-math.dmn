@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions id="_feel-math" name="feel-math"
+	namespace="https://github.com/dmn-tck/tck"
+	xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+	xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+	<decision name="Decision1" id="d_1">
+		<variable name="Decision1" typeRef="feel:number"/>
+		<literalExpression>
+			<text>10+5</text>
+		</literalExpression>
+	</decision>
+    <decision name="Decision2" id="d_2">
+        <variable name="Decision2" typeRef="feel:number"/>
+        <literalExpression>
+            <text>-10+-5</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision3" id="d_3">
+        <variable name="Decision3" typeRef="feel:number"/>
+        <literalExpression>
+            <text>(-10)+(-5)</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision4" id="d_4">
+        <variable name="Decision4" typeRef="feel:number"/>
+        <literalExpression>
+            <text>10-5</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision5" id="d_5">
+        <variable name="Decision5" typeRef="feel:number"/>
+        <literalExpression>
+            <text>-10--5</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision6" id="d_6">
+        <variable name="Decision6" typeRef="feel:number"/>
+        <literalExpression>
+            <text>(-10)-(-5)</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision7" id="d_7">
+        <variable name="Decision7" typeRef="feel:number"/>
+        <literalExpression>
+            <text>(10+20)-(-5+3)</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision8" id="d_8">
+        <variable name="Decision8" typeRef="feel:number"/>
+        <literalExpression>
+            <text>10*5</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision9" id="d_9">
+        <variable name="Decision9" typeRef="feel:number"/>
+        <literalExpression>
+            <text>-10*-5</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision10" id="d_10">
+        <variable name="Decision10" typeRef="feel:number"/>
+        <literalExpression>
+            <text>(-10)*(-5)</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision11" id="d_11">
+        <variable name="Decision11" typeRef="feel:number"/>
+        <literalExpression>
+            <text>(10+5)*(-5*3)</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision12" id="d_12">
+        <variable name="Decision12" typeRef="feel:number"/>
+        <literalExpression>
+            <text>10/5</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision13" id="d_13">
+        <variable name="Decision13" typeRef="feel:number"/>
+        <literalExpression>
+            <text>-10/-5</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision14" id="d_14">
+        <variable name="Decision14" typeRef="feel:number"/>
+        <literalExpression>
+            <text>(-10)/(-5)</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision15" id="d_15">
+        <variable name="Decision15" typeRef="feel:number"/>
+        <literalExpression>
+            <text>(10+20)/(-5*3)</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision16" id="d_16">
+        <variable name="Decision16" typeRef="feel:number"/>
+        <literalExpression>
+            <text>(10+20)/0</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision17" id="d_17">
+        <variable name="Decision17" typeRef="feel:number"/>
+        <literalExpression>
+            <text>10**5</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision18" id="d_18">
+        <variable name="Decision18" typeRef="feel:number"/>
+        <literalExpression>
+            <text>10**-5</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision19" id="d_19">
+        <variable name="Decision19" typeRef="feel:number"/>
+        <literalExpression>
+            <text>(5+2)**5</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision20" id="d_20">
+        <variable name="Decision20" typeRef="feel:number"/>
+        <literalExpression>
+            <text>5+2**5</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision21" id="d_21">
+        <variable name="Decision21" typeRef="feel:number"/>
+        <literalExpression>
+            <text>5+2**5+3</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision22" id="d_22">
+        <variable name="Decision22" typeRef="feel:number"/>
+        <literalExpression>
+            <text>5+2**(5+3)</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision23" id="d_23">
+        <variable name="Decision23" typeRef="feel:number"/>
+        <literalExpression>
+            <text>10+null</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision24" id="d_24">
+        <variable name="Decision24" typeRef="feel:number"/>
+        <literalExpression>
+            <text>null + 10</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision25" id="d_25">
+        <variable name="Decision25" typeRef="feel:number"/>
+        <literalExpression>
+            <text>10 - null</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision26" id="d_26">
+        <variable name="Decision26" typeRef="feel:number"/>
+        <literalExpression>
+            <text>null - 10</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision27" id="d_27">
+        <variable name="Decision27" typeRef="feel:number"/>
+        <literalExpression>
+            <text>10 * null</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision28" id="d_28">
+        <variable name="Decision28" typeRef="feel:number"/>
+        <literalExpression>
+            <text>null * 10</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision29" id="d_29">
+        <variable name="Decision29" typeRef="feel:number"/>
+        <literalExpression>
+            <text>10 / null</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision30" id="d_30">
+        <variable name="Decision30" typeRef="feel:number"/>
+        <literalExpression>
+            <text>null / 10</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision31" id="d_31">
+        <variable name="Decision31" typeRef="feel:number"/>
+        <literalExpression>
+            <text>10 + 20 / -5 - 3</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision32" id="d_32">
+        <variable name="Decision32" typeRef="feel:number"/>
+        <literalExpression>
+            <text>10 + 20 / (-5 - 3)</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision33" id="d_33">
+        <variable name="Decision33" typeRef="feel:number"/>
+        <literalExpression>
+            <text>1.2*10**3</text>
+        </literalExpression>
+    </decision>
+</definitions>

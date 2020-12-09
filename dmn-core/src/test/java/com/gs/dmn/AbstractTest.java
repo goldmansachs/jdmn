@@ -18,6 +18,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.InputParameters;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -26,6 +27,15 @@ import java.util.Map;
 
 public abstract class AbstractTest {
     protected static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractTest.class));
+    private static final File TEST_CASES_FOLDER = new File("../dmn-test-cases");
+
+    protected URI tckResource(String path) {
+        File file = new File(TEST_CASES_FOLDER, path);
+        if (!file.exists()) {
+            throw new DMNRuntimeException(String.format("Cannot find file '%s'", file.getPath()));
+        }
+        return file.toURI();
+    }
 
     protected URI resource(String path) {
         try {
@@ -37,6 +47,14 @@ public abstract class AbstractTest {
         } catch (URISyntaxException e) {
             throw new DMNRuntimeException(e);
         }
+    }
+
+    protected String completePath(String pathFormat, String dmnVersion, String dmnFileName) {
+        return String.format(pathFormat, dmnVersion, dmnFileName);
+    }
+
+    protected String completePath(String pathFormat, String dmnFileName) {
+        return String.format(pathFormat, dmnFileName);
     }
 
     protected InputParameters makeInputParameters() {

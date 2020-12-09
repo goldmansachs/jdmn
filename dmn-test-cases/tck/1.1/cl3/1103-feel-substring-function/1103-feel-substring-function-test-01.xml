@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by ACTICO GmbH https://actico.com -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="">
+    <modelName>1103-feel-substring-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: String</label>
+        <label>Literal Expression</label>
+        <label>FEEL Functions: strings</label>
+    </labels>
+    <testCase id="001_53051b5628">
+        <resultNode name="feel-substring-function_001_53051b5628" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">f</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="002_03d12b93f0">
+        <resultNode name="feel-substring-function_002_03d12b93f0" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">f</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003_6d06b1d2ec">
+        <resultNode name="feel-substring-function_003_6d06b1d2ec" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">r</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004_938a24e7af">
+        <resultNode name="feel-substring-function_004_938a24e7af" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">foobar</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="005_21fcca286c">
+        <resultNode name="feel-substring-function_005_21fcca286c" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">obar</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="006_253e533bc6">
+        <resultNode name="feel-substring-function_006_253e533bc6" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">oba</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="007_3e021f33a8">
+        <resultNode name="feel-substring-function_007_3e021f33a8" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">a</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="008_ddeffdc93e">
+        <resultNode name="feel-substring-function_008_ddeffdc93e" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"> </value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="009_b52405c384">
+        <resultNode name="feel-substring-function_009_b52405c384" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">foobar</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="010_fbf9a89fde">
+        <resultNode name="feel-substring-function_010_fbf9a89fde" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">oba</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="011_a559ce6410">
+        <resultNode name="feel-substring-function_011_a559ce6410" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">obar</value>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

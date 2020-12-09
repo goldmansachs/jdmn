@@ -14,6 +14,7 @@ package com.gs.dmn.validation;
 
 import org.junit.Test;
 
+import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenCorrect() {
         List<String> expectedErrors = Arrays.asList();
-        validate(validator, "tck/cl3/input/0020-vacation-days.dmn", expectedErrors);
+        validate(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
     }
 
     @Test
@@ -36,7 +37,7 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
                 "(model='definitions', name='CIP Assessments', id='cip-assessments'): error: Missing variable",
                 "(model='definitions', name='CIP Assessments', id='cip-assessments1'): error: Missing variable"
         );
-        validate(validator, "dmn/input/1.1/test-dmn-with-duplicates.dmn", expectedErrors);
+        validate(validator, resource("dmn/input/1.1/test-dmn-with-duplicates.dmn"), expectedErrors);
     }
 
     @Test
@@ -44,7 +45,7 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
         List<String> expectedErrors = Arrays.asList(
                 "(model='test-dmn', name='CIP Assessments', id='cip-assessments'): error: Missing variable"
         );
-        validate(validator, "dmn/input/1.1/test-dmn.dmn", expectedErrors);
+        validate(validator, resource("dmn/input/1.1/test-dmn.dmn"), expectedErrors);
     }
 
     @Test

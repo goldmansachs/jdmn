@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0084-feel-for-loops.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>FEEL Iteration</label>
+        <label>FEEL Arithmetic</label>
+    </labels>
+
+    <testCase id="decision_001">
+        <description>Loop over number list</description>
+        <resultNode name="decision_001" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">2</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">3</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">4</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_002">
+        <description>two iteration context loop over number list</description>
+        <resultNode name="decision_002" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">5</value></item>
+                    <item><value xsi:type="xsd:decimal">6</value></item>
+                    <item><value xsi:type="xsd:decimal">6</value></item>
+                    <item><value xsi:type="xsd:decimal">7</value></item>
+                    <item><value xsi:type="xsd:decimal">7</value></item>
+                    <item><value xsi:type="xsd:decimal">8</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_003">
+        <description>loop over empty list</description>
+        <resultNode name="decision_003" type="decision">
+            <expected>
+                <list>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_007">
+        <description>numeric range iteration context - no delimiters</description>
+        <resultNode name="decision_007" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">2</value></item>
+                    <item><value xsi:type="xsd:decimal">3</value></item>
+                    <item><value xsi:type="xsd:decimal">4</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_008">
+        <description>numeric descending range iteration context - no delimiters</description>
+        <resultNode name="decision_008" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">4</value></item>
+                    <item><value xsi:type="xsd:decimal">3</value></item>
+                    <item><value xsi:type="xsd:decimal">2</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_009">
+        <description>numeric range iteration context - no delimiters - ascending from negative</description>
+        <resultNode name="decision_009" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">-1</value></item>
+                    <item><value xsi:type="xsd:decimal">0</value></item>
+                    <item><value xsi:type="xsd:decimal">1</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_010">
+        <description>numeric range iteration context - no delimiters - descending to negative</description>
+        <resultNode name="decision_010" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">1</value></item>
+                    <item><value xsi:type="xsd:decimal">0</value></item>
+                    <item><value xsi:type="xsd:decimal">-1</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_011">
+        <description>numeric range iteration context - same endpoints</description>
+        <resultNode name="decision_011" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">1</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_012">
+        <description>expressions in range</description>
+        <resultNode name="decision_012" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">2</value></item>
+                    <item><value xsi:type="xsd:decimal">3</value></item>
+                    <item><value xsi:type="xsd:decimal">4</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_013">
+        <description>special variable 'partial' doing factorial list</description>
+        <resultNode name="decision_013" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">1</value></item>
+                    <item><value xsi:type="xsd:decimal">1</value></item>
+                    <item><value xsi:type="xsd:decimal">2</value></item>
+                    <item><value xsi:type="xsd:decimal">6</value></item>
+                    <item><value xsi:type="xsd:decimal">24</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

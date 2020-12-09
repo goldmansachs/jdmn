@@ -35,6 +35,6 @@ public class LabelDuplicationDRGElementValidatorTest extends AbstractSignavioVal
                 "Label = 'Make credit decision' Id = 'id-53305251d2d6fb14173b439b019adeda' kind = 'TDecision'",
                 "Label = 'Make credit decision' Id = 'id-75d5270913befc4881b90708206b1e9e' kind = 'TDecision'"
         );
-        validate(validator, path + diagramName, expectedErrors);
+        validate(validator, resource(path + diagramName), expectedErrors);
     }
 }

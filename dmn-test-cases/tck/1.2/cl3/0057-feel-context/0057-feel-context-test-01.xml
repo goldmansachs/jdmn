@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0057-feel-context.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: Context</label>
+    </labels>
+    <testCase id="001">
+        <description>creation of simple context</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <component name="a">
+                    <value xsi:type="xsd:string">foo</value>
+                </component>
+                <component name="b">
+                    <value xsi:type="xsd:string">bar</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <description>nested context</description>
+        <resultNode name="decision002" type="decision">
+            <expected>
+                <component name="a">
+                    <value xsi:type="xsd:string">foo</value>
+                </component>
+                <component name="b">
+                    <component name="c">
+                        <value xsi:type="xsd:string">bar</value>
+                    </component>
+                    <component name="d">
+                        <component name="e">
+                            <value xsi:type="xsd:string">baz</value>
+                        </component>
+                    </component>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003">
+        <description>previous entries in scope for later entries</description>
+        <resultNode name="decision003" type="decision">
+            <expected>
+                <component name="a">
+                    <value xsi:type="xsd:decimal">3</value>
+                </component>
+                <component name="b">
+                    <value xsi:type="xsd:decimal">6</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003_a">
+        <description>previous entries in scope for later (nested) entries</description>
+        <resultNode name="decision003_a" type="decision">
+            <expected>
+                <component name="a">
+                    <value xsi:type="xsd:decimal">3</value>
+                </component>
+                <component name="b">
+                    <value xsi:type="xsd:decimal">3</value>
+                </component>
+                <component name="c">
+                    <component name="d">
+                        <value xsi:type="xsd:decimal">6</value>
+                    </component>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004">
+        <description>spaces permitted in name</description>
+        <resultNode name="decision004" type="decision">
+            <expected>
+                <component name="foo bar">
+                    <value xsi:type="xsd:string">foo</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005">
+        <description>extra chars permtted in name</description>
+        <resultNode name="decision005" type="decision">
+            <expected>
+                <component name="foo+bar">
+                    <value xsi:type="xsd:string">foo</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="006">
+        <description>string literal permitted as name</description>
+        <resultNode name="decision006" type="decision">
+            <expected>
+                <component name="foo+bar((!!],foo">
+                    <value xsi:type="xsd:string">foo</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007">
+        <description>empty string literal permitted as name</description>
+        <resultNode name="decision007" type="decision">
+            <expected>
+                <component name="">
+                    <value xsi:type="xsd:string">foo</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008">
+        <description>later duplicate name overwrites previous</description>
+        <resultNode name="decision008" type="decision">
+            <expected>
+                <component name="foo">
+                    <value xsi:type="xsd:string">baz</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

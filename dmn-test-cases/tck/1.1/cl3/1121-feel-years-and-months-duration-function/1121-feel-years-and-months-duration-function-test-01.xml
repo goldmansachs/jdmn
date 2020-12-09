@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by ACTICO GmbH https://actico.com -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="">
+    <modelName>1121-feel-years-and-months-duration-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: Years and Months Duration</label>
+    </labels>
+    <testCase id="001_b24a0c91f2">
+        <resultNode errorResult="true" name="feel-years-and-months-duration-function_ErrorCase_001_b24a0c91f2" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="002_4e7651ae0e">
+        <resultNode errorResult="true" name="feel-years-and-months-duration-function_ErrorCase_002_4e7651ae0e" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003_0886738d31">
+        <resultNode errorResult="true" name="feel-years-and-months-duration-function_ErrorCase_003_0886738d31" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004_1bdfef922b">
+        <resultNode errorResult="true" name="feel-years-and-months-duration-function_ErrorCase_004_1bdfef922b" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="005_d0a077da4e">
+        <resultNode errorResult="true" name="feel-years-and-months-duration-function_ErrorCase_005_d0a077da4e" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="006_f20de28d3f">
+        <resultNode errorResult="true" name="feel-years-and-months-duration-function_ErrorCase_006_f20de28d3f" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="007_0921c3d61a">
+        <resultNode errorResult="true" name="feel-years-and-months-duration-function_ErrorCase_007_0921c3d61a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="008_015d35b442">
+        <resultNode name="feel-years-and-months-duration-function_008_015d35b442" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P1Y8M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="009_635028a5d8">
+        <resultNode name="feel-years-and-months-duration-function_009_635028a5d8" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">-P1Y8M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="010_caaa2e5002">
+        <resultNode name="feel-years-and-months-duration-function_010_caaa2e5002" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P1Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="011_3fac022eb0">
+        <resultNode name="feel-years-and-months-duration-function_011_3fac022eb0" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">-P1Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="012_331ef38ce0">
+        <resultNode name="feel-years-and-months-duration-function_012_331ef38ce0" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P0M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="013_2f3cc46d9d">
+        <resultNode name="feel-years-and-months-duration-function_013_2f3cc46d9d" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P0M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="014_1fadbba7cd">
+        <resultNode name="feel-years-and-months-duration-function_014_1fadbba7cd" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P1Y2M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="015_0e496f94fc">
+        <resultNode name="feel-years-and-months-duration-function_015_0e496f94fc" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P7Y6M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="016_b38662aa93">
+        <resultNode name="feel-years-and-months-duration-function_016_b38662aa93" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P4Y9M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="017_86744b9a54">
+        <resultNode name="feel-years-and-months-duration-function_017_86744b9a54" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">-P11M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="018_8a9ed1d66d">
+        <resultNode name="feel-years-and-months-duration-function_018_8a9ed1d66d" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">-P4033Y2M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="019_90c2084588">
+        <resultNode name="feel-years-and-months-duration-function_019_90c2084588" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">-P4035Y11M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="020_8ead9a0377">
+        <resultNode name="feel-years-and-months-duration-function_020_8ead9a0377" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P2Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="021_8a7d311ae9">
+        <resultNode name="feel-years-and-months-duration-function_021_8a7d311ae9" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P11M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="022_87e369773b">
+        <resultNode name="feel-years-and-months-duration-function_022_87e369773b" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P5Y7M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="023_6385c7a83e">
+        <resultNode name="feel-years-and-months-duration-function_023_6385c7a83e" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P1Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="024_e96d1bd93a">
+        <resultNode name="feel-years-and-months-duration-function_024_e96d1bd93a" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P4Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="025_161f6fca54">
+        <resultNode name="feel-years-and-months-duration-function_025_161f6fca54" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P2Y9M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="026_fcc906b375">
+        <resultNode name="feel-years-and-months-duration-function_026_fcc906b375" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P3Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="027_3374dd86c6">
+        <resultNode errorResult="true" name="feel-years-and-months-duration-function_ErrorCase_027_3374dd86c6" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="028_77600e7b35">
+        <resultNode errorResult="true" name="feel-years-and-months-duration-function_ErrorCase_028_77600e7b35" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="029_15a0d0d9c1">
+        <resultNode errorResult="true" name="feel-years-and-months-duration-function_ErrorCase_029_15a0d0d9c1" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="030_ec16878596">
+        <resultNode errorResult="true" name="feel-years-and-months-duration-function_ErrorCase_030_ec16878596" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="031_4fd9c09d89">
+        <resultNode name="feel-years-and-months-duration-function_031_4fd9c09d89" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P4Y3M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="032_2a09ac80d0">
+        <resultNode name="feel-years-and-months-duration-function_032_2a09ac80d0" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P2Y4M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="033_7333eca866">
+        <resultNode name="feel-years-and-months-duration-function_033_7333eca866" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P1Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="034_c2cc06724c">
+        <resultNode name="feel-years-and-months-duration-function_034_c2cc06724c" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P2Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="035_dc05f9555d">
+        <resultNode name="feel-years-and-months-duration-function_035_dc05f9555d" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P1Y8M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="036_f8c8b02ba3">
+        <resultNode name="feel-years-and-months-duration-function_036_f8c8b02ba3" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">-P1Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

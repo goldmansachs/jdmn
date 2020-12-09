@@ -21,11 +21,12 @@ import com.gs.dmn.validation.AbstractValidatorTest;
 import org.omg.spec.dmn._20191111.model.TDefinitions;
 
 import java.io.File;
+import java.net.URI;
 
 public abstract class AbstractSignavioValidatorTest extends AbstractValidatorTest {
     @Override
-    protected DMNModelRepository makeRepository(String path) {
-        File input = new File(resource(path));
+    protected DMNModelRepository makeRepository(URI fileURI) {
+        File input = new File(fileURI);
         Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(input);
         return new SignavioDMNModelRepository(pair);
     }

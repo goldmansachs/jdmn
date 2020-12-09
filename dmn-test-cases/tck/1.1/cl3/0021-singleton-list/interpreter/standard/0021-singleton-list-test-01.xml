@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<modelName>0021-singleton-list.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Literal Expression</label>
+        <label>Item Definition</label>
+        <label>FEEL Filter (10.3.2.5)</label>
+		<label>Data Type: String</label>
+		<label>Data Type: Collection</label>
+	</labels>
+	<testCase id="001">
+	    <description>The purpose of this test is to check that the engine is properly coercing singleton lists into single elements (i.e., [a]=a)</description>
+		<inputNode name="Employees">
+			<list>
+				<item>
+				    <value xsi:type="xsd:string">Jack</value>
+				</item>
+			    <item>
+			        <value xsi:type="xsd:string">John</value>
+			    </item>
+			    <item>
+			        <value xsi:type="xsd:string">Bob</value>
+			    </item>
+			    <item>
+			        <value xsi:type="xsd:string">Zack</value>
+			    </item>
+			</list>
+		</inputNode>
+		<resultNode name="decision1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value xsi:type="xsd:string">John</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	    <resultNode name="decision2" type="decision">
+	        <expected>
+	            <value xsi:type="xsd:string">John</value>
+	        </expected>
+	    </resultNode>
+	    <resultNode name="decision3" type="decision">
+	        <expected>
+	            <list>
+	                <item>
+	                    <value xsi:type="xsd:string">Bob</value>
+	                </item>
+	            </list>
+	        </expected>
+	    </resultNode>
+	    <resultNode name="decision4" type="decision">
+	        <expected>
+	            <value xsi:type="xsd:string">Bob</value>
+	        </expected>
+	    </resultNode>
+	    <resultNode name="decision5" type="decision">
+	        <expected>
+	            <value xsi:type="xsd:string">BOB</value>
+	        </expected>
+	    </resultNode>
+	</testCase>
+</testCases>
