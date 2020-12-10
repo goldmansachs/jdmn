@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestFilesScripts {
-    private static File TEST_CASES_FOLDER = new File("dmn-test-cases");
+    private static File TEST_CASES_FOLDER = new File("dmn-test-cases/standard/");
     private static File TCK_11_CL2_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.1/cl2/");
     private static File TCK_11_CL3_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.1/cl3/");
     private static File TCK_12_CL2_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.2/cl2/");

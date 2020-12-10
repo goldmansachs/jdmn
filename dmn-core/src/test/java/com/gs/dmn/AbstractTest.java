@@ -27,7 +27,7 @@ import java.util.Map;
 
 public abstract class AbstractTest {
     protected static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractTest.class));
-    private static final File TEST_CASES_FOLDER = new File("../dmn-test-cases");
+    private static final File TEST_CASES_FOLDER = new File("../dmn-test-cases/standard");
 
     protected URI tckResource(String path) {
         File file = new File(TEST_CASES_FOLDER, path);

@@ -60,7 +60,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
     private BasicDMNToNativeTransformer basicTransformer;
     private FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib;
 
-    private static final File TEST_CASES_FOLDER = new File("../../dmn-test-cases");
+    private static final File TEST_CASES_FOLDER = new File("../../dmn-test-cases/standard");
 
     protected URI tckResource(String path) {
         File file = new File(TEST_CASES_FOLDER, path);
