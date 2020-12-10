@@ -45,4 +45,12 @@
             </rule>
         </decisionTable>
     </decision>
+<!--
+    <decision name="test1" id="id-fada51ce664c63874c99e6e7cf630c33" label="Test1" sigExt:shapeId="sid-C2D7E836-74E5-4BA8-801D-F6CBAA950677" sigExt:diagramId="85f2dd29e4774c2f84b883545afdd8cc">
+        <variable typeRef="sig:stringInput" name="Test1" id="id-fada51ce664c63874c99e6e7cf630c33_variable"/>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>concat(appendAll(["A", "B"], ["C", "D"]))</text>
+        </literalExpression>
+    </decision>
+-->
 </definitions>

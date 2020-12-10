@@ -26,6 +26,11 @@ import java.util.Arrays;
 public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterpreterTest {
     private final DefaultSignavioBaseDecision decision = new DefaultSignavioBaseDecision();
 
+    @Override
+    protected String getInputPath() {
+        return "dmn/complex";
+    }
+
     @Test
     public void testChildLinked() throws Exception {
         doTest(new DecisionTestConfig(
@@ -178,11 +183,6 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
                         decision.number("14")
                 )
         );
-    }
-
-    @Override
-    protected String getInputPath() {
-        return "dmn2java/exported/complex/input";
     }
 
     @Override

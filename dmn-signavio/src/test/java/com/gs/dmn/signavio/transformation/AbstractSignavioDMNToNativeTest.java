@@ -29,12 +29,14 @@ import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.NopDMNValidator;
 
-import java.util.LinkedHashMap;
+import java.net.URI;
 import java.util.Map;
 
 public abstract class AbstractSignavioDMNToNativeTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
     @Override
-    protected abstract DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> makeDialectDefinition();
+    protected URI resource(String path) {
+        return signavioResource(path);
+    }
 
     @Override
     protected DMNValidator makeDMNValidator(BuildLogger logger) {
@@ -70,4 +72,7 @@ public abstract class AbstractSignavioDMNToNativeTest<NUMBER, DATE, TIME, DATE_T
         inputParams.put("decisionBaseClass", DefaultSignavioBaseDecision.class.getName());
         return inputParams;
     }
+
+    @Override
+    protected abstract DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> makeDialectDefinition();
 }

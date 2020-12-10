@@ -36,7 +36,7 @@
         <model.version>1.0</model.version>
         <platform.version>${project.parent.version}</platform.version>
 
-        <xml.folder>${project.basedir}/../../dmn-test-cases/signavio/xml</xml.folder>
+        <xml.folder>${project.basedir}/../../dmn-test-cases/signavio/rdf</xml.folder>
         <dmn.diagram.folder>${project.basedir}/../../dmn-test-cases/signavio/dmn</dmn.diagram.folder>
 
         <generated.dmn.diagram.folder>${project.build.directory}/generated-resources/dmn</generated.dmn.diagram.folder>

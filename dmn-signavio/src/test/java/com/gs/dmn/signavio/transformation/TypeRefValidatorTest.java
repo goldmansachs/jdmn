@@ -27,7 +27,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class TypeRefValidatorTest extends AbstractFileTransformerTest {
-    private static final String BASE_PATH = "dmn2java/exported/complex";
+    private static final String BASE_PATH = "dmn/complex";
 
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
@@ -41,7 +41,7 @@ public class TypeRefValidatorTest extends AbstractFileTransformerTest {
                 "(model='Example credit decision', label='Process prior issues', name='processPriorIssues', id='id-b7fa3f2fe2a2f47a77bfd440c827a301'): error: Cannot find typeRef 'QualifiedName(null, processPriorIssues)'. The inferred type is 'ListType(number)'"
         );
         List<String> actualErrors = executeValidation(
-                resourcePath("input/credit-decision-missing-some-definitions.dmn"));
+                resourcePath("credit-decision-missing-some-definitions.dmn"));
 
         assertEquals(expectedErrors, actualErrors);
     }
@@ -49,7 +49,7 @@ public class TypeRefValidatorTest extends AbstractFileTransformerTest {
     private List<String> executeValidation(String dmnFilePath) {
         DMNValidator validator = new TypeRefValidator(LOGGER);
 
-        File dmnFile = new File(resource(dmnFilePath));
+        File dmnFile = new File(signavioResource(dmnFilePath));
         DMNModelRepository repository = new SignavioDMNModelRepository(dmnReader.read(dmnFile));
         return validator.validate(repository);
     }

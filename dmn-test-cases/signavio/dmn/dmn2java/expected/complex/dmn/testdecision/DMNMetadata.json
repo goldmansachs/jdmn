@@ -1,0 +1,79 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml",
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-428deb31249d911236f1619c005f25a1",
+    "isCollection" : false,
+    "label" : "StringInput",
+    "name" : "stringInput",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"a\",\"b\"",
+    "id" : "id-10dc6a699129e5aee044736e9e701af6",
+    "isCollection" : true,
+    "label" : "Test",
+    "name" : "test",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "diagramId" : "85f2dd29e4774c2f84b883545afdd8cc",
+    "id" : "id-81ff62961e9f9c53450c4619c967de23",
+    "javaParameterName" : "stringInput",
+    "javaTypeName" : "String",
+    "label" : "StringInput",
+    "name" : "stringInput",
+    "shapeId" : "sid-FAB842DF-32D4-4495-9D58-155522650AAF",
+    "typeRef" : {
+      "localName" : "stringInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : "85f2dd29e4774c2f84b883545afdd8cc",
+    "extensions" : [ ],
+    "id" : "id-065a4ad1dee45d3086e4409de0674dd6",
+    "informationReferences" : [ {
+      "reference" : "id-81ff62961e9f9c53450c4619c967de23"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "test",
+    "javaTypeName" : "Test",
+    "knowledgeReferences" : [ ],
+    "label" : "Test",
+    "name" : "test",
+    "protoRequestName" : "proto.TestRequest",
+    "protoResponseName" : "proto.TestResponse",
+    "shapeId" : "sid-F141013E-DA3F-4C5C-BC0A-60C28CB995B3",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : "85f2dd29e4774c2f84b883545afdd8cc",
+      "id" : "id-81ff62961e9f9c53450c4619c967de23",
+      "javaParameterName" : "stringInput",
+      "javaTypeName" : "String",
+      "label" : "StringInput",
+      "name" : "stringInput",
+      "shapeId" : "sid-FAB842DF-32D4-4495-9D58-155522650AAF",
+      "typeRef" : {
+        "localName" : "stringInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "test",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml"
+    }
+  } ]
+}

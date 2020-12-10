@@ -28,9 +28,18 @@ import java.util.Map;
 public abstract class AbstractTest {
     protected static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractTest.class));
     private static final File STANDARD_FOLDER = new File("../dmn-test-cases/standard");
+    private static final File SIGNAVIO_FOLDER = new File("../dmn-test-cases/signavio");
 
     protected URI tckResource(String path) {
         File file = new File(STANDARD_FOLDER, path);
+        if (!file.exists()) {
+            throw new DMNRuntimeException(String.format("Cannot find file '%s'", file.getPath()));
+        }
+        return file.toURI();
+    }
+
+    protected URI signavioResource(String path) {
+        File file = new File(SIGNAVIO_FOLDER, path);
         if (!file.exists()) {
             throw new DMNRuntimeException(String.format("Cannot find file '%s'", file.getPath()));
         }
