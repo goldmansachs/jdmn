@@ -51,6 +51,7 @@ import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
 public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractDMNInterpreterTest.class));
     private static final boolean IGNORE_ERROR = true;
+    private static final File STANDARD_FOLDER = new File("../../dmn-test-cases/standard");
 
     private final DMNReader reader = new DMNReader(LOGGER, false);
     private final TestCasesReader testCasesReader = new TestCasesReader(LOGGER);
@@ -60,10 +61,8 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
     private BasicDMNToNativeTransformer basicTransformer;
     private FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib;
 
-    private static final File TEST_CASES_FOLDER = new File("../../dmn-test-cases/standard");
-
     protected URI tckResource(String path) {
-        File file = new File(TEST_CASES_FOLDER, path);
+        File file = new File(STANDARD_FOLDER, path);
         if (!file.exists()) {
             throw new DMNRuntimeException(String.format("Cannot find file '%s'", file.getPath()));
         }
