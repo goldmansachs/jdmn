@@ -27,10 +27,10 @@ import java.util.Map;
 
 public abstract class AbstractTest {
     protected static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractTest.class));
-    private static final File TEST_CASES_FOLDER = new File("../dmn-test-cases/standard");
+    private static final File STANDARD_FOLDER = new File("../dmn-test-cases/standard");
 
     protected URI tckResource(String path) {
-        File file = new File(TEST_CASES_FOLDER, path);
+        File file = new File(STANDARD_FOLDER, path);
         if (!file.exists()) {
             throw new DMNRuntimeException(String.format("Cannot find file '%s'", file.getPath()));
         }
