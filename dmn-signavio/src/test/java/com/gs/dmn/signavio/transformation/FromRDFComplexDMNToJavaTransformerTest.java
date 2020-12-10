@@ -17,12 +17,12 @@ import org.junit.Test;
 public class FromRDFComplexDMNToJavaTransformerTest extends AbstractSignavioDMNToJavaTest {
     @Override
     protected String getInputPath() {
-        return "rdf2java/dmn/complex";
+        return "rdf/rdf2java/expected/dmn/complex";
     }
 
     @Override
     protected String getExpectedPath() {
-        return "rdf2java/java/complex/dmn";
+        return "rdf/rdf2java/expected/java/complex/dmn";
     }
 
     @Test

@@ -17,6 +17,16 @@ import org.junit.Test;
 import java.util.Map;
 
 public class TestLabToKotlinProtoTransformerTest extends AbstractTestLabToKotlinJUnitTransformerTest {
+    @Override
+    protected String getInputPath() {
+        return "dmn/proto";
+    }
+
+    @Override
+    protected String getExpectedPath() {
+        return "dmn/dmn2java/expected/proto/proto3/kotlin/test-lab";
+    }
+
     @Test
     public void testExampleCreditDecision() throws Exception {
         doTest("Example credit decision");
@@ -25,16 +35,6 @@ public class TestLabToKotlinProtoTransformerTest extends AbstractTestLabToKotlin
     @Test
     public void testDateTime() throws Exception {
         doTest("date-time-proto");
-    }
-
-    @Override
-    protected String getInputPath() {
-        return "dmn2java/exported/proto/input";
-    }
-
-    @Override
-    protected String getExpectedPath() {
-        return "dmn2java/exported/proto/expected/proto3/kotlin/test-lab";
     }
 
     @Override

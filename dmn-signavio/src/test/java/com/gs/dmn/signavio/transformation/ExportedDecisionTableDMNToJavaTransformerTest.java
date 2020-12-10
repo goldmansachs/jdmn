@@ -15,18 +15,18 @@ package com.gs.dmn.signavio.transformation;
 import org.junit.Test;
 
 public class ExportedDecisionTableDMNToJavaTransformerTest extends AbstractSignavioDMNToJavaTest {
-    @Test
-    public void testAll() throws Exception {
-        doFolderTest();
-    }
-
     @Override
     protected String getInputPath() {
-        return "dmn2java/exported/decision-table/input";
+        return "dmn/decision-table";
     }
 
     @Override
     protected String getExpectedPath() {
-        return "dmn2java/exported/decision-table/expected/dmn";
+        return "dmn/dmn2java/expected/decision-table/dmn";
+    }
+
+    @Test
+    public void testAll() throws Exception {
+        doFolderTest();
     }
 }

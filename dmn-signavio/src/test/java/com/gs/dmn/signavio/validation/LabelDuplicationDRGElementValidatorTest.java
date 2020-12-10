@@ -23,7 +23,7 @@ public class LabelDuplicationDRGElementValidatorTest extends AbstractSignavioVal
 
     @Test
     public void testValidate() {
-        String path = "dmn2java/exported/complex/input/";
+        String path = "dmn/complex/";
         String diagramName = "Linked Decision Test.dmn";
 
         List<String> expectedErrors = Arrays.asList(
@@ -35,6 +35,6 @@ public class LabelDuplicationDRGElementValidatorTest extends AbstractSignavioVal
                 "Label = 'Make credit decision' Id = 'id-53305251d2d6fb14173b439b019adeda' kind = 'TDecision'",
                 "Label = 'Make credit decision' Id = 'id-75d5270913befc4881b90708206b1e9e' kind = 'TDecision'"
         );
-        validate(validator, resource(path + diagramName), expectedErrors);
+        validate(validator, signavioResource(path + diagramName), expectedErrors);
     }
 }

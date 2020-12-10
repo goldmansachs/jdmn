@@ -17,12 +17,12 @@ import org.junit.Test;
 public class FromRDFDecisionTableDMNToJavaTransformerTest extends AbstractSignavioDMNToJavaTest {
     @Override
     protected String getInputPath() {
-        return "rdf2java/dmn/decision-table";
+        return "rdf/rdf2java/expected/dmn/decision-table";
     }
 
     @Override
     protected String getExpectedPath() {
-        return "rdf2java/java/decision-table/dmn";
+        return "rdf/rdf2java/expected/java/decision-table/dmn";
     }
 
     @Test

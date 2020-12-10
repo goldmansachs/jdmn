@@ -15,6 +15,16 @@ package com.gs.dmn.signavio.transformation;
 import org.junit.Test;
 
 public class ExportedComplexDMNToJavaTransformerTest extends AbstractSignavioDMNToJavaTest {
+    @Override
+    protected String getInputPath() {
+        return "dmn/complex";
+    }
+
+    @Override
+    protected String getExpectedPath() {
+        return "dmn/dmn2java/expected/complex/dmn";
+    }
+
     @Test
     public void testCompareLists() throws Exception {
         doSingleModelTest("CompareLists");
@@ -118,15 +128,5 @@ public class ExportedComplexDMNToJavaTransformerTest extends AbstractSignavioDMN
     @Test
     public void testTest() throws Exception {
         doSingleModelTest("TestDecision");
-    }
-
-    @Override
-    protected String getInputPath() {
-        return "dmn2java/exported/complex/input";
-    }
-
-    @Override
-    protected String getExpectedPath() {
-        return "dmn2java/exported/complex/expected/dmn";
     }
 }

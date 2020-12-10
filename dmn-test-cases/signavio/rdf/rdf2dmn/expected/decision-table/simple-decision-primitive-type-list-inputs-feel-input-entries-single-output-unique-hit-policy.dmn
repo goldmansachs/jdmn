@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:cip="http://www.gs.com/cip" namespace="http://www.omg.org/spec/DMN/20151101/dmn.xsd" name="simple-decision-primitive-type-list-inputs-feel-input-entries-single-output-unique-hit-policy">
+    <itemDefinition isCollection="false" name="decision" id="item-definition-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D" label="Decision">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"r1", "r2", "r3", "r4", "r5"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="textInput" id="item-definition-sid-404A0FC2-6787-4210-BB30-2E7964835E99" label="TextInput">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="numberInput" id="item-definition-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9" label="NumberInput">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <decision name="decision" id="sid-4A7C793A-882C-4867-94B9-AD88D6D6970D" label="Decision">
+        <variable typeRef="cip:decision" name="decision" id="decision-variable-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D" label="decision"/>
+        <informationRequirement>
+            <requiredInput href="sid-3F148E87-DF6E-42AF-B209-4D532421A2F9"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="sid-404A0FC2-6787-4210-BB30-2E7964835E99"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE" id="decision-expression-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D">
+            <input id="input-clause-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-9A964D45-663B-4B27-9ACD-259D07D8F156">
+                <inputExpression typeRef="cip:numberInput" id="input-clause-exp-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-9A964D45-663B-4B27-9ACD-259D07D8F156">
+                    <text>numberInput</text>
+                </inputExpression>
+            </input>
+            <input id="input-clause-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-C8770B97-9AC5-4AA6-85ED-C8E87B4CB4A2">
+                <inputExpression typeRef="cip:textInput" id="input-clause-exp-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-C8770B97-9AC5-4AA6-85ED-C8E87B4CB4A2">
+                    <text>textInput</text>
+                </inputExpression>
+            </input>
+            <output name="output" typeRef="feel:string" id="output-clause-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-4F178C17-6132-475B-BB01-FCF62DA216F4" label="Decision">
+                <outputValues>
+                    <text>"r1", "r2", "r3", "r4", "r5"</text>
+                </outputValues>
+            </output>
+            <rule id="rule-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-1524">
+                <inputEntry>
+                    <text>1</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"r1"</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-1157">
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"1"</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"r2"</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-1458">
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"r3"</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-1465">
+                <inputEntry>
+                    <text>1</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"1"</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"r4"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <inputData name="textInput" id="sid-404A0FC2-6787-4210-BB30-2E7964835E99" label="TextInput">
+        <variable typeRef="cip:textInput" name="textInput" id="input-data-variable-sid-404A0FC2-6787-4210-BB30-2E7964835E99" label="textInput"/>
+    </inputData>
+    <inputData name="numberInput" id="sid-3F148E87-DF6E-42AF-B209-4D532421A2F9" label="NumberInput">
+        <variable typeRef="cip:numberInput" name="numberInput" id="input-data-variable-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9" label="numberInput"/>
+    </inputData>
+</definitions>

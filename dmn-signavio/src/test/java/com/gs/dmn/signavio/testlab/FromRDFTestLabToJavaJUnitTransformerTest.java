@@ -14,15 +14,17 @@ package com.gs.dmn.signavio.testlab;
 
 import org.junit.Test;
 
+import java.net.URI;
+
 public class FromRDFTestLabToJavaJUnitTransformerTest extends AbstractTestLabToJavaJUnitTransformerTest {
     @Override
     protected String getInputPath() {
-        return "rdf2java/dmn/decision-table";
+        return "rdf/rdf2java/expected/dmn/decision-table";
     }
 
     @Override
     protected String getExpectedPath() {
-        return "rdf2java/java/decision-table/test-lab";
+        return "rdf/rdf2java/expected/java/decision-table/test-lab";
     }
 
     @Test

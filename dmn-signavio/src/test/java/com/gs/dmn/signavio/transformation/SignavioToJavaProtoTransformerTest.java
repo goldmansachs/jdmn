@@ -16,6 +16,16 @@ import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
 public class SignavioToJavaProtoTransformerTest extends AbstractSignavioDMNToJavaTest {
+    @Override
+    protected String getInputPath() {
+        return "dmn/proto";
+    }
+
+    @Override
+    protected String getExpectedPath() {
+        return "dmn/dmn2java/expected/proto/proto3/java/dmn";
+    }
+
     @Test
     public void testProto() throws Exception {
         doSingleModelTest("Example credit decision", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"));
@@ -24,15 +34,5 @@ public class SignavioToJavaProtoTransformerTest extends AbstractSignavioDMNToJav
     @Test
     public void testDateTimeProto() throws Exception {
         doSingleModelTest("date-time-proto", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"));
-    }
-
-    @Override
-    protected String getInputPath() {
-        return "dmn2java/exported/proto/input";
-    }
-
-    @Override
-    protected String getExpectedPath() {
-        return "dmn2java/exported/proto/expected/proto3/java/dmn";
     }
 }

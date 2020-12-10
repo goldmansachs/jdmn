@@ -30,14 +30,14 @@ import java.util.stream.Collectors;
 
 public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileTransformerTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private static final String BASE_PATH = "dmn2java/exported/complex";
+    private static final String BASE_PATH = "dmn";
 
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
     @Test
     public void testMissingDefinitionsWithoutTransformation() throws Exception {
         RepositoryTransformResult transformResult = executeTransformation(
-                resourcePath("input/credit-decision-missing-definitions.dmn"), null);
+                resourcePath("complex/credit-decision-missing-definitions-other.dmn"), null);
 
         // Repository should not be modified
         assertExpectedTransformResult(transformResult, Collections.emptyList(), Collections.emptyList());
@@ -46,8 +46,8 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
     @Test
     public void testTransformerForMissingDefinitions() throws Exception {
         RepositoryTransformResult transformResult = executeTransformation(
-                resourcePath("input/credit-decision-missing-definitions.dmn"),
-                resourcePath("configuration/credit-decision-missing-definitions-config.json")
+                resourcePath("complex/credit-decision-missing-definitions-other.dmn"),
+                resourcePath("dmn2java/configuration/credit-decision-missing-definitions-config.json")
         );
 
         // Post-transform repository should include all missing definitions
@@ -58,8 +58,8 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
     @Test
     public void testTransformerForExistingEquivalentDefinition() throws Exception {
         RepositoryTransformResult transformResult = executeTransformation(
-                resourcePath("input/credit-decision-missing-definitions.dmn"),
-                resourcePath("configuration/credit-decision-existing-definition-config.json")
+                resourcePath("complex/credit-decision-missing-definitions-other.dmn"),
+                resourcePath("dmn2java/configuration/credit-decision-existing-definition-config.json")
         );
 
         // Should transform correctly, and disregard definition that already exists since it is equivalent
@@ -70,8 +70,8 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
     @Test(expected = DMNRuntimeException.class)
     public void testTransformerForExistingConflictingDefinition() throws Exception {
         executeTransformation(
-                resourcePath("input/credit-decision-missing-definitions.dmn"),
-                resourcePath("configuration/credit-decision-existing-conflicting-definition-config.json")
+                resourcePath("complex/input/credit-decision-missing-definitions-other.dmn"),
+                resourcePath("dmn2java/configuration/credit-decision-existing-conflicting-definition-config.json")
         );
 
         Assert.fail("Test is expected to fail; attempted to replace existing conflicting definition");
@@ -80,8 +80,8 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
     @Test
     public void testTransformerForDuplicateEquivalentNewDefinitions() throws Exception {
         RepositoryTransformResult transformResult = executeTransformation(
-                resourcePath("input/credit-decision-missing-definitions.dmn"),
-                resourcePath("configuration/credit-decision-duplicate-definition-config.json")
+                resourcePath("complex/credit-decision-missing-definitions-other.dmn"),
+                resourcePath("dmn2java/configuration/credit-decision-duplicate-definition-config.json")
         );
 
         // Should transform correctly, and disregard the duplicate definition config since it is equivalent
@@ -92,8 +92,8 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
     @Test(expected = DMNRuntimeException.class)
     public void testTransformerForDuplicateConflictingNewDefinitions() throws Exception {
         executeTransformation(
-                resourcePath("input/credit-decision-missing-definitions.dmn"),
-                resourcePath("configuration/credit-decision-duplicate-conflicting-definition-config.json")
+                resourcePath("complex/input/credit-decision-missing-definitions-other.dmn"),
+                resourcePath("dmn2java/configuration/credit-decision-duplicate-conflicting-definition-config.json")
         );
 
         Assert.fail("Test is expected to fail; attempted to insert duplicate, conflicting new definitions");
@@ -102,8 +102,8 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
     @Test
     public void testSupportForAllTypeRefSyntax() throws Exception {
         RepositoryTransformResult transformResult = executeTransformation(
-                resourcePath("input/credit-decision-missing-definitions.dmn"),
-                resourcePath("configuration/credit-decision-dmn11-12-definitions-config.json")
+                resourcePath("complex/credit-decision-missing-definitions-other.dmn"),
+                resourcePath("dmn2java/configuration/credit-decision-dmn11-12-definitions-config.json")
         );
 
         List<String> expectedNewDefinitions = Arrays.asList("assessIssue", "lendingThreshold", "currentRiskAppetite", "processPriorIssues");
@@ -126,13 +126,13 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
     private RepositoryTransformResult executeTransformation(String dmnFilePath, String transformerConfigFilePath) throws Exception {
         DMNTransformer<TestLab> transformer = new GenerateMissingItemDefinitionsTransformer(LOGGER);
         if (transformerConfigFilePath != null) {
-            File configFile = new File(resource(transformerConfigFilePath));
+            File configFile = new File(signavioResource(transformerConfigFilePath));
             Map<String, Object> configuration = MAPPER.readValue(configFile, Map.class);
 
             transformer.configure(configuration);
         }
 
-        File dmnFile = new File(resource(dmnFilePath));
+        File dmnFile = new File(signavioResource(dmnFilePath));
         DMNModelRepository repository = new SignavioDMNModelRepository(dmnReader.read(dmnFile));
         List<TItemDefinition> definitions = new ArrayList<>(repository.findItemDefinitions(repository.getRootDefinitions()));
         DMNModelRepository transformed = transformer.transform(repository);
@@ -166,8 +166,7 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
         Assert.assertEquals("Incorrect number of removed definitions", expectedRemovedDefinitions.size(), removedDefinitions.size());
     }
 
-    private static class RepositoryTransformResult
-    {
+    private static class RepositoryTransformResult {
         private final List<TItemDefinition> beforeTransform;
         private final List<TItemDefinition> afterTransform;
 

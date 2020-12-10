@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
-import java.net.URL;
+import java.net.URI;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -56,8 +56,8 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
         String errorMessage = String.format("Tested failed for diagram '%s'", diagramName);
         try {
             String pathName = getInputPath() + "/" + diagramName + DMNConstants.DMN_FILE_EXTENSION;
-            URL url = getClass().getClassLoader().getResource(pathName).toURI().toURL();
-            Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(url);
+            URI uri = signavioResource(pathName);
+            Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(uri.toURL());
             DMNModelRepository repository = new SignavioDMNModelRepository(pair, "http://www.provider.com/schema/dmn/1.1/");
             DMNInterpreter<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> interpreter = dialectDefinition.createDMNInterpreter(repository, makeInputParameters());
 
