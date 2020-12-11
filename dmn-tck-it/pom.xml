@@ -27,7 +27,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>dmn-tck-it-interpreter</module>
         <module>dmn-tck-it-translator</module>
         <module>dmn-tck-it-kotlin-translator</module>
     </modules>
