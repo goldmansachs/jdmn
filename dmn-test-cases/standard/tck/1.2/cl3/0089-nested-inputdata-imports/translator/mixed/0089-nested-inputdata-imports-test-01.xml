@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/">
+    <modelName>0089-nested-inputdata-imports.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+    </labels>
+    <testCase id="001" type="decision" invocableName="Evaluation DS">
+        <description>Nested imports of InputData following GITHUB DMN TCK 274</description>
+        <inputNode name="Model B">
+            <component name="modelA">
+                <component name="Person name">
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string">B.A.John</value>
+                </component>
+            </component>
+        </inputNode>
+        <inputNode name="Model B2">
+            <component name="modelA">
+                <component name="Person name">
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string">B2.A.John2</value>
+                </component>
+            </component>
+        </inputNode>
+        <resultNode name="Model C Decision based on Bs">
+            <expected>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string">B: Evaluating Say Hello to: Hello, B.A.John; B2: Evaluating Say Hello to: Hello, B2.A.John2</value>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>
