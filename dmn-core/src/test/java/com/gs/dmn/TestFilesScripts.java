@@ -230,6 +230,47 @@ public class TestFilesScripts {
         }
     }
 
+    private static void copyMissingTestFilesForDialectsFromStandard(boolean dryRun) throws IOException {
+        copyMissingTestFilesForDialectsFromStandard(TCK_11_CL2_FOLDER, dryRun);
+        copyMissingTestFilesForDialectsFromStandard(TCK_11_CL3_FOLDER, dryRun);
+        copyMissingTestFilesForDialectsFromStandard(TCK_12_CL2_FOLDER, dryRun);
+        copyMissingTestFilesForDialectsFromStandard(TCK_12_CL3_FOLDER, dryRun);
+        copyMissingTestFilesForDialectsFromStandard(COMPOSITE_FOLDER, dryRun);
+        copyMissingTestFilesForDialectsFromStandard(PROTO_FOLDER, dryRun);
+    }
+
+    private static void copyMissingTestFilesForDialectsFromStandard(File rootFolder, boolean dryRun) throws IOException {
+        System.out.println(String.format("Processing folder '%s'", rootFolder.getCanonicalPath()));
+
+        // Scan test folders
+        for (File testFolder: rootFolder.listFiles()) {
+            String testName = testFolder.getName();
+            System.out.println(String.format("Processing test '%s'", testName));
+
+            File translatorFolder = findChild(testFolder, "translator", true);
+            if (translatorFolder != null) {
+                File standard = findChild(translatorFolder, "standard", true);
+                File mixed = findChild(translatorFolder, "mixed", true);
+                File doubleMixed = findChild(translatorFolder, "double-mixed", true);
+                if (standard != null) {
+                    addTestsIfMissing(translatorFolder, standard, mixed, "mixed", dryRun);
+                    addTestsIfMissing(translatorFolder, standard, doubleMixed, "double-mixed", dryRun);
+                }
+            }
+        }
+    }
+
+    private static void addTestsIfMissing(File translatorFolder, File standard, File dialect, String dialectName, boolean dryRun) throws IOException {
+        if (standard != null && dialect == null) {
+            System.out.println(String.format("Add missing test file for dialect '%s' in folder '%s'", dialectName, translatorFolder.getPath()));
+            if (!dryRun) {
+                dialect = new File(translatorFolder, dialectName);
+                dialect.mkdir();
+                FileUtils.copyDirectory(standard, dialect);
+            }
+        }
+    }
+
     private static File findChild(File parentFolder, String childName, boolean isDirectory) {
         for (File child: parentFolder.listFiles()) {
             if (childName.equals(child.getName()) && child.isDirectory() == isDirectory) {
@@ -276,8 +317,8 @@ public class TestFilesScripts {
     }
 
     public static void main(String[] args) throws IOException {
-        boolean dryRun = false;
+        boolean dryRun = true;
 
-        renameInterpreterFolder(dryRun);
+        copyMissingTestFilesForDialectsFromStandard(dryRun);
     }
 }
