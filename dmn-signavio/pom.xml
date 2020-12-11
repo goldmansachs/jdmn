@@ -79,5 +79,13 @@
             <groupId>org.skyscreamer</groupId>
             <artifactId>jsonassert</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-core</artifactId>
+            <version>1.19</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 </project>
