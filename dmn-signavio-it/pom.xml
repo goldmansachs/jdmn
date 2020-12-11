@@ -27,7 +27,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>dmn-signavio-it-interpreter</module>
         <module>dmn-signavio-it-translator</module>
         <module>dmn-signavio-it-kotlin-translator</module>
     </modules>
