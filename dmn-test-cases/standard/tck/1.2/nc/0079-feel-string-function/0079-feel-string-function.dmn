@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/0079-feel-string-function" name="0079-feel-string-function" id="_i9fboPUUEeesLuP4RHs4vA" xmlns="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>FEEL built-in function 'string(any)' in category conversion functions</description>
+
+    <decision name="decision_001" id="_decision_001">
+        <description>Tests FEEL expression: 'string()' and expects result: 'null (string)'</description>
+        <question>Result of FEEL expression 'string()'?</question>
+        <allowedAnswers>null (string)</allowedAnswers>
+        <variable typeRef="string" name="decision_001"/>
+        <literalExpression>
+            <text>string()</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_002" id="_decision_002">
+        <description>Tests FEEL expression: 'string("foo", "bar")' and expects result: 'null (string)'</description>
+        <question>Result of FEEL expression 'string("foo", "bar")'?</question>
+        <allowedAnswers>null (string)</allowedAnswers>
+        <variable typeRef="string" name="decision_002"/>
+        <literalExpression>
+            <text>string("foo", "bar")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_003" id="_decision_003">
+        <description>Tests FEEL expression: 'string(from:"foo")' and expects result: '"foo" (string)'</description>
+        <question>Result of FEEL expression 'string(from:"foo")'?</question>
+        <allowedAnswers>"foo" (string)</allowedAnswers>
+        <variable typeRef="string" name="decision_003"/>
+        <literalExpression>
+            <text>string(from:"foo")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_004" id="_decision_004">
+        <description>Tests FEEL expression: 'string("foo", "bar")' and expects result: 'null (string)'</description>
+        <question>Result of FEEL expression 'string("foo", "bar")'?</question>
+        <allowedAnswers>null (string)</allowedAnswers>
+        <variable typeRef="string" name="decision_004"/>
+        <literalExpression>
+            <text>string("foo", "bar")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_001" id="_null_001">
+        <description>Tests FEEL expression: 'string(null)' and expects result: 'null (string)'</description>
+        <question>Result of FEEL expression 'string(null)'?</question>
+        <allowedAnswers>null (string)</allowedAnswers>
+        <variable typeRef="string" name="null_001"/>
+        <literalExpression>
+            <text>string(null)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="string_001" id="_string_001">
+        <description>Tests FEEL expression: 'string("foo")' and expects result: '"foo" (string)'</description>
+        <question>Result of FEEL expression 'string("foo")'?</question>
+        <allowedAnswers>"foo" (string)</allowedAnswers>
+        <variable typeRef="string" name="string_001"/>
+        <literalExpression>
+            <text>string("foo")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="number_001" id="_number_001">
+        <description>Tests FEEL expression: 'string(123.45)' and expects result: '"123.45" (string)'</description>
+        <question>Result of FEEL expression 'string(123.45)'?</question>
+        <allowedAnswers>"123.45" (string)</allowedAnswers>
+        <variable typeRef="string" name="number_001"/>
+        <literalExpression>
+            <text>string(123.45)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="boolean_001" id="_boolean_001">
+        <description>Tests FEEL expression: 'string(true)' and expects result: '"true" (string)'</description>
+        <question>Result of FEEL expression 'string(true)'?</question>
+        <allowedAnswers>"true" (string)</allowedAnswers>
+        <variable typeRef="string" name="boolean_001"/>
+        <literalExpression>
+            <text>string(true)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="boolean_002" id="_boolean_002">
+        <description>Tests FEEL expression: 'string(false)' and expects result: '"false" (string)'</description>
+        <question>Result of FEEL expression 'string(false)'?</question>
+        <allowedAnswers>"false" (string)</allowedAnswers>
+        <variable typeRef="string" name="boolean_002"/>
+        <literalExpression>
+            <text>string(false)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="date_001" id="_date_001">
+        <description>Tests FEEL expression: 'string(date("2018-12-10"))' and expects result: '"2018-12-10" (string)'</description>
+        <question>Result of FEEL expression 'string(date("2018-12-10"))'?</question>
+        <allowedAnswers>"2018-12-10" (string)</allowedAnswers>
+        <variable typeRef="string" name="date_001"/>
+        <literalExpression>
+            <text>string(date("2018-12-10"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="dateTime_001" id="_dateTime_001">
+        <description>Tests FEEL expression: 'string(date and time("2018-12-10"))' and expects result: '"2018-12-10T00:00:00" (string)'</description>
+        <question>Result of FEEL expression 'string(date and time("2018-12-10"))'?</question>
+        <allowedAnswers>"2018-12-10T00:00:00" (string)</allowedAnswers>
+        <variable typeRef="string" name="dateTime_001"/>
+        <literalExpression>
+            <text>string(date and time("2018-12-10"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="dateTime_002" id="_dateTime_002">
+        <description>Tests FEEL expression: 'string(date and time("2018-12-10T10:30:00.0001"))' and expects result: '"2018-12-10T10:30:00.0001" (string)'</description>
+        <question>Result of FEEL expression 'string(date and time("2018-12-10T10:30:00.0001"))'?</question>
+        <allowedAnswers>"2018-12-10T10:30:00.0001" (string)</allowedAnswers>
+        <variable typeRef="string" name="dateTime_002"/>
+        <literalExpression>
+            <text>string(date and time("2018-12-10T10:30:00.0001"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="dateTime_003" id="_dateTime_003">
+        <description>Tests FEEL expression: 'string(date and time("2018-12-10T10:30:00.0001+05:00:01"))' and expects result: '"2018-12-10T10:30:00.0001+05:00:01" (string)'</description>
+        <question>Result of FEEL expression 'string(date and time("2018-12-10T10:30:00.0001+05:00:01"))'?</question>
+        <allowedAnswers>"2018-12-10T10:30:00.0001+05:00:01" (string)</allowedAnswers>
+        <variable typeRef="string" name="dateTime_003"/>
+        <literalExpression>
+            <text>string(date and time("2018-12-10T10:30:00.0001+05:00:01"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="dateTime_004" id="_dateTime_004">
+        <description>Tests FEEL expression: 'string(date and time("2018-12-10T10:30:00@Etc/UTC"))' and expects result: '"2018-12-10T10:30:00@Etc/UTC" (string)'</description>
+        <question>Result of FEEL expression 'string(date and time("2018-12-10T10:30:00@Etc/UTC"))'?</question>
+        <allowedAnswers>"2018-12-10T10:30:00@Etc/UTC" (string)</allowedAnswers>
+        <variable typeRef="string" name="dateTime_004"/>
+        <literalExpression>
+            <text>string(date and time("2018-12-10T10:30:00@Etc/UTC"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="time_001" id="_time_001">
+        <description>Tests FEEL expression: 'string(time("10:30:00.0001"))' and expects result: '"10:30:00.0001" (string)'</description>
+        <question>Result of FEEL expression 'string(time("10:30:00.0001"))'?</question>
+        <allowedAnswers>"10:30:00.0001" (string)</allowedAnswers>
+        <variable typeRef="string" name="time_001"/>
+        <literalExpression>
+            <text>string(time("10:30:00.0001"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="time_002" id="_time_002">
+        <description>Tests FEEL expression: 'string(time("10:30:00.0001+05:00:01"))' and expects result: '"10:30:00.0001+05:00:01" (string)'</description>
+        <question>Result of FEEL expression 'string(time("10:30:00.0001+05:00:01"))'?</question>
+        <allowedAnswers>"10:30:00.0001+05:00:01" (string)</allowedAnswers>
+        <variable typeRef="string" name="time_002"/>
+        <literalExpression>
+            <text>string(time("10:30:00.0001+05:00:01"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="time_003" id="_time_003">
+        <description>Tests FEEL expression: 'string(time("10:30:00@Etc/UTC"))' and expects result: '"10:30:00@Etc/UTC" (string)'</description>
+        <question>Result of FEEL expression 'string(time("10:30:00@Etc/UTC"))'?</question>
+        <allowedAnswers>"10:30:00@Etc/UTC" (string)</allowedAnswers>
+        <variable typeRef="string" name="time_003"/>
+        <literalExpression>
+            <text>string(time("10:30:00@Etc/UTC"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="dt_duration_001" id="_dt_duration_001">
+        <description>Tests FEEL expression: 'string(duration("P1D"))' and expects result: '"P1D" (string)'</description>
+        <question>Result of FEEL expression 'string(duration("P1D"))'?</question>
+        <allowedAnswers>"P1D" (string)</allowedAnswers>
+        <variable typeRef="string" name="dt_duration_001"/>
+        <literalExpression>
+            <text>string(duration("P1D"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="dt_duration_002" id="_dt_duration_002">
+        <description>Tests FEEL expression: 'string(duration("-P1D"))' and expects result: '"-P1D" (string)'</description>
+        <question>Result of FEEL expression 'string(duration("-P1D"))'?</question>
+        <allowedAnswers>"-P1D" (string)</allowedAnswers>
+        <variable typeRef="string" name="dt_duration_002"/>
+        <literalExpression>
+            <text>string(duration("-P1D"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="dt_duration_003" id="_dt_duration_003">
+        <description>Tests FEEL expression: 'string(duration("P0D"))' and expects result: '"P0D" (string)'</description>
+        <question>Result of FEEL expression 'string(duration("P0D"))'?</question>
+        <allowedAnswers>"PT0S" (string)</allowedAnswers>
+        <variable typeRef="string" name="dt_duration_003"/>
+        <literalExpression>
+            <text>string(duration("P0D"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="dt_duration_004" id="_dt_duration_004">
+        <description>Tests FEEL expression: 'string(duration("P1DT2H3M4.1234S"))' and expects result: '"P1DT2H3M4.1234S" (string)'</description>
+        <question>Result of FEEL expression 'string(duration("P1DT2H3M4.1234S"))'?</question>
+        <allowedAnswers>"P1DT2H3M4.1234S" (string)</allowedAnswers>
+        <variable typeRef="string" name="dt_duration_004"/>
+        <literalExpression>
+            <text>string(duration("P1DT2H3M4.1234S"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="dt_duration_005" id="_dt_duration_005">
+        <description>Tests FEEL expression: 'string(duration("PT49H"))' and expects result: '"P2DT1H" (string)'</description>
+        <question>Result of FEEL expression 'string(duration("PT49H"))'?</question>
+        <allowedAnswers>"P2DT1H" (string)</allowedAnswers>
+        <variable typeRef="string" name="dt_duration_005"/>
+        <literalExpression>
+            <text>string(duration("PT49H"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="ym_duration_001" id="_ym_duration_001">
+        <description>Tests FEEL expression: 'string(duration("P1Y"))' and expects result: '"P1Y" (string)'</description>
+        <question>Result of FEEL expression 'string(duration("P1Y"))'?</question>
+        <allowedAnswers>"P1Y" (string)</allowedAnswers>
+        <variable typeRef="string" name="ym_duration_001"/>
+        <literalExpression>
+            <text>string(duration("P1Y"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="ym_duration_002" id="_ym_duration_002">
+        <description>Tests FEEL expression: 'string(duration("-P1Y"))' and expects result: '"-P1Y" (string)'</description>
+        <question>Result of FEEL expression 'string(duration("-P1Y"))'?</question>
+        <allowedAnswers>"-P1Y" (string)</allowedAnswers>
+        <variable typeRef="string" name="ym_duration_002"/>
+        <literalExpression>
+            <text>string(duration("-P1Y"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="ym_duration_003" id="_ym_duration_003">
+        <description>Tests FEEL expression: 'string(duration("P0Y"))' and expects result: '"P0Y" (string)'</description>
+        <question>Result of FEEL expression 'string(duration("P0Y"))'?</question>
+        <allowedAnswers>"P0Y" (string)</allowedAnswers>
+        <variable typeRef="string" name="ym_duration_003"/>
+        <literalExpression>
+            <text>string(duration("P0Y"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="ym_duration_004" id="_ym_duration_004">
+        <description>Tests FEEL expression: 'string(duration("P1Y2M"))' and expects result: '"P1Y2M" (string)'</description>
+        <question>Result of FEEL expression 'string(duration("P1Y2M"))'?</question>
+        <allowedAnswers>"P1Y2M" (string)</allowedAnswers>
+        <variable typeRef="string" name="ym_duration_004"/>
+        <literalExpression>
+            <text>string(duration("P1Y2M"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="ym_duration_005" id="_ym_duration_005">
+        <description>Tests FEEL expression: 'string(duration("P25M"))' and expects result: '"P2Y1M" (string)'</description>
+        <question>Result of FEEL expression 'string(duration("P25M"))'?</question>
+        <allowedAnswers>"P2Y1M" (string)</allowedAnswers>
+        <variable typeRef="string" name="ym_duration_005"/>
+        <literalExpression>
+            <text>string(duration("P25M"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="list_001" id="_list_001">
+        <description>Tests FEEL expression: 'string([1,2,3,"foo"])' and expects result: '"[1, 2, 3, "foo"]" (string)'</description>
+        <question>Result of FEEL expression 'string([1,2,3,"foo"])'?</question>
+        <allowedAnswers>"[1, 2, 3, "foo"]" (string)</allowedAnswers>
+        <variable typeRef="string" name="list_001"/>
+        <literalExpression>
+            <text>string([1,2,3,"foo"])</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="list_002" id="_list_002">
+        <description>Tests FEEL expression: 'string([1,2,3,[4,5,"foo"]])' and expects result: '"[1, 2, 3, [4, 5, "foo"]]" (string)'</description>
+        <question>Result of FEEL expression 'string([1,2,3,[4,5,"foo"]])'?</question>
+        <allowedAnswers>"[1, 2, 3, [4, 5, "foo"]]" (string)</allowedAnswers>
+        <variable typeRef="string" name="list_002"/>
+        <literalExpression>
+            <text>string([1,2,3,[4,5,"foo"]])</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="list_003" id="_list_003">
+        <description>Tests FEEL expression: 'string(["\"foo\""])' and expects result: '"["\"foo\""]" (string)'</description>
+        <question>Result of FEEL expression 'string(["\"foo\""])'?</question>
+        <allowedAnswers>"["\"foo\""]" (string)</allowedAnswers>
+        <variable typeRef="string" name="list_003"/>
+        <literalExpression>
+            <text>string(["\"foo\""])</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="context_001" id="_context_001">
+        <description>Tests FEEL expression: 'string({a: "foo"})' and expects result: '"{a: "foo"}" (string)'</description>
+        <question>Result of FEEL expression 'string({a: "foo"})'?</question>
+        <allowedAnswers>"{a: "foo"}" (string)</allowedAnswers>
+        <variable typeRef="string" name="context_001"/>
+        <literalExpression>
+            <text>string({a: "foo"})</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="context_002" id="_context_002">
+        <description>Tests FEEL expression: 'string({a: "foo", b: {bar: "baz"}})' and expects result: '"{a: "foo", b: {bar: "baz"}}" (string)'</description>
+        <question>Result of FEEL expression 'string({a: "foo", b: {bar: "baz"}})'?</question>
+        <allowedAnswers>"{a: "foo", b: {bar: "baz"}}" (string)</allowedAnswers>
+        <variable typeRef="string" name="context_002"/>
+        <literalExpression>
+            <text>string({a: "foo", b: {bar: "baz"}})</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="context_003" id="_context_003">
+        <description>Tests FEEL expression: 'string({"{": "foo"})' and expects result: '"{"{": "foo"}" (string)'</description>
+        <question>Result of FEEL expression 'string({"{": "foo"})'?</question>
+        <allowedAnswers>"{"{": "foo"}" (string)</allowedAnswers>
+        <variable typeRef="string" name="context_003"/>
+        <literalExpression>
+            <text>string({"{": "foo"})</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="context_004" id="_context_004">
+        <description>Tests FEEL expression: 'string({":": "foo"})' and expects result: '"{":": "foo"}" (string)'</description>
+        <question>Result of FEEL expression 'string({":": "foo"})'?</question>
+        <allowedAnswers>"{":": "foo"}" (string)</allowedAnswers>
+        <variable typeRef="string" name="context_004"/>
+        <literalExpression>
+            <text>string({":": "foo"})</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="context_005" id="_context_005">
+        <description>Tests FEEL expression: 'string({",": "foo"})' and expects result: '"{",": "foo"}" (string)'</description>
+        <question>Result of FEEL expression 'string({",": "foo"})'?</question>
+        <allowedAnswers>"{",": "foo"}" (string)</allowedAnswers>
+        <variable typeRef="string" name="context_005"/>
+        <literalExpression>
+            <text>string({",": "foo"})</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="context_006" id="_context_006">
+        <description>Tests FEEL expression: 'string({"}": "foo"})' and expects result: '"}",": "foo"}" (string)'</description>
+        <question>Result of FEEL expression 'string({"}": "foo"})'?</question>
+        <allowedAnswers>"{"}": "foo"}" (string)</allowedAnswers>
+        <variable typeRef="string" name="context_006"/>
+        <literalExpression>
+            <text>string({"}": "foo"})</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="context_007" id="_context_007">
+        <description>Tests FEEL expression: 'string({"\"": "foo"})' and expects result: '"\"",": "foo"}" (string)'</description>
+        <question>Result of FEEL expression 'string({"\'": "foo"})'?</question>
+        <allowedAnswers>"{"\"": "foo"}" (string)</allowedAnswers>
+        <variable typeRef="string" name="context_007"/>
+        <literalExpression>
+            <text>string({"\"": "foo"})</text>
+        </literalExpression>
+    </decision>
+
+
+
+</definitions>
+

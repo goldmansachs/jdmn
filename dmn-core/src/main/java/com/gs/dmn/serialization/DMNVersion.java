@@ -34,16 +34,29 @@ public class DMNVersion {
         DMN_12_OTHER_NAMESPACES.put("http://www.omg.org/spec/DMN/20180521/DMNDI/", "dmndi");
         DMN_12_OTHER_NAMESPACES.put("http://www.omg.org/spec/DMN/20180521/DI/", "di");
     }
-    public static final DMNVersion DMN_12 = new DMNVersion("1.2", "dmn/1.2/dmn.xsd",
+    public static final DMNVersion DMN_12 = new DMNVersion("1.2", "dmn/1.2/DMN12.xsd",
             null, "http://www.omg.org/spec/DMN/20180521/MODEL/",
             "feel", "http://www.omg.org/spec/DMN/20180521/FEEL/",
             DMN_12_OTHER_NAMESPACES,
             "org.omg.spec.dmn._20180521.model"
     );
 
-    public static final DMNVersion LATEST = DMN_12;
+    protected static final LinkedHashMap<String, String> DMN_13_OTHER_NAMESPACES = new LinkedHashMap<>();
+    static {
+        DMN_13_OTHER_NAMESPACES.put("http://www.omg.org/spec/DMN/20180521/DC/", "dc");
+        DMN_13_OTHER_NAMESPACES.put("https://www.omg.org/spec/DMN/20191111/DMNDI/", "dmndi");
+        DMN_13_OTHER_NAMESPACES.put("http://www.omg.org/spec/DMN/20180521/DI/", "di");
+    }
+    public static final DMNVersion DMN_13 = new DMNVersion("1.3", "dmn/1.3/DMN13.xsd",
+            null, "https://www.omg.org/spec/DMN/20191111/MODEL/",
+            "feel", "https://www.omg.org/spec/DMN/20191111/FEEL/",
+            DMN_13_OTHER_NAMESPACES,
+            "org.omg.spec.dmn._20191111.model"
+    );
 
-    protected static final List<DMNVersion> VALUES = Arrays.asList(DMN_11, DMN_12);
+    public static final DMNVersion LATEST = DMN_13;
+
+    protected static final List<DMNVersion> VALUES = Arrays.asList(DMN_11, DMN_12, DMN_13);
 
     public static DMNVersion fromVersion(String key) {
         for (DMNVersion version: VALUES) {
@@ -60,9 +73,9 @@ public class DMNVersion {
     private final String namespace;
     private final String feelPrefix;
     private final String feelNamespace;
-    private final Map<String, String> otherNamespaces;
     private final String javaPackage;
-    private final LinkedHashMap<String, String> namespaceMap;
+    private final LinkedHashMap<String, String> namespaceToPrefixMap;
+    private final LinkedHashMap<String, String> prefixToNamespaceMap;
 
     DMNVersion(String version, String schemaLocation, String prefix, String namespace, String feelPrefix, String feelNamespace, Map<String, String> otherNamespaces, String javaPackage) {
         this.version = version;
@@ -71,13 +84,17 @@ public class DMNVersion {
         this.namespace = namespace;
         this.feelPrefix = feelPrefix;
         this.feelNamespace = feelNamespace;
-        this.otherNamespaces = otherNamespaces;
         this.javaPackage = javaPackage;
 
-        this.namespaceMap = new LinkedHashMap<>();
+        this.namespaceToPrefixMap = new LinkedHashMap<>();
+        this.prefixToNamespaceMap = new LinkedHashMap<>();
         addMap(namespace, prefix);
-        this.namespaceMap.putAll(otherNamespaces);
         addMap(feelNamespace, feelPrefix);
+        for (Map.Entry<String, String> entry: otherNamespaces.entrySet()) {
+            String otherNamespace = entry.getKey();
+            String otherPrefix = entry.getValue();
+            addMap(otherNamespace, otherPrefix);
+        }
     }
 
     public String getVersion() {
@@ -104,8 +121,12 @@ public class DMNVersion {
         return feelNamespace;
     }
 
-    public Map<String, String> getNamespaceMap() {
-        return this.namespaceMap;
+    public Map<String, String> getNamespaceToPrefixMap() {
+        return this.namespaceToPrefixMap;
+    }
+
+    public LinkedHashMap<String, String> getPrefixToNamespaceMap() {
+        return prefixToNamespaceMap;
     }
 
     public String getJavaPackage() {
@@ -113,8 +134,12 @@ public class DMNVersion {
     }
 
     private void addMap(String namespace, String prefix) {
-        if (!StringUtils.isEmpty(prefix)) {
-            this.namespaceMap.put(namespace, prefix);
+        if (!StringUtils.isEmpty(namespace) && !StringUtils.isEmpty(prefix)) {
+            this.namespaceToPrefixMap.put(namespace, prefix);
         }
+        if (prefix == null) {
+            prefix = "";
+        }
+        this.prefixToNamespaceMap.put(prefix, namespace);
     }
 }

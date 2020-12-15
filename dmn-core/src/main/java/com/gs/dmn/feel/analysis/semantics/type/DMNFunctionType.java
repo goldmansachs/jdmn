@@ -14,9 +14,9 @@ package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
-import org.omg.spec.dmn._20180521.model.TFunctionDefinition;
-import org.omg.spec.dmn._20180521.model.TFunctionKind;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TFunctionDefinition;
+import org.omg.spec.dmn._20191111.model.TFunctionKind;
 
 import java.util.List;
 import java.util.Objects;

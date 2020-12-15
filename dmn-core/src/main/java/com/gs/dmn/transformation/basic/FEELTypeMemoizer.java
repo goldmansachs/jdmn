@@ -13,8 +13,8 @@
 package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
-import org.omg.spec.dmn._20180521.model.TItemDefinition;
+import org.omg.spec.dmn._20191111.model.TDefinitions;
+import org.omg.spec.dmn._20191111.model.TItemDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

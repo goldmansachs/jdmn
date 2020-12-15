@@ -21,13 +21,13 @@ import com.gs.dmn.validation.TypeRefValidator;
 import org.junit.Test;
 
 import java.io.File;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class TypeRefValidatorTest extends AbstractFileTransformerTest {
-    private static final String BASE_PATH = "dmn2java/exported/complex";
 
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
@@ -40,22 +40,16 @@ public class TypeRefValidatorTest extends AbstractFileTransformerTest {
                 "(model='Example credit decision', label='Make credit decision', name='makeCreditDecision', id='id-99379862982a9a0a4ba92985d1eea607'): error: Cannot find typeRef 'QualifiedName(null, makeCreditDecision)'. The inferred type is 'string'",
                 "(model='Example credit decision', label='Process prior issues', name='processPriorIssues', id='id-b7fa3f2fe2a2f47a77bfd440c827a301'): error: Cannot find typeRef 'QualifiedName(null, processPriorIssues)'. The inferred type is 'ListType(number)'"
         );
-        List<String> actualErrors = executeValidation(
-                resourcePath("input/credit-decision-missing-some-definitions.dmn"));
+        List<String> actualErrors = executeValidation(signavioResource("dmn/complex/credit-decision-missing-some-definitions.dmn"));
 
         assertEquals(expectedErrors, actualErrors);
     }
 
-    private List<String> executeValidation(String dmnFilePath) {
+    private List<String> executeValidation(URI dmnFileURI) {
         DMNValidator validator = new TypeRefValidator(LOGGER);
 
-        File dmnFile = new File(resource(dmnFilePath));
+        File dmnFile = new File(dmnFileURI);
         DMNModelRepository repository = new SignavioDMNModelRepository(dmnReader.read(dmnFile));
         return validator.validate(repository);
     }
-
-    private String resourcePath(String relativePath) {
-        return String.format("%s/%s", BASE_PATH, relativePath);
-    }
-
 }

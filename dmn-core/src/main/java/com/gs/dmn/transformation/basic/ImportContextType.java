@@ -15,7 +15,7 @@ package com.gs.dmn.transformation.basic;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.type.CompositeDataType;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

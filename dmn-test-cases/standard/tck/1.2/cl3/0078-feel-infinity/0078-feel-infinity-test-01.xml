@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0078-feel-infinity.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: Number</label>
+        <label>FEEL Functions: number</label>
+        <label>FEEL Arithmetic</label>
+    </labels>
+
+    <testCase id="decision_001">
+        <description>Positive infinity is null</description>
+        <resultNode name="decision_001" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_002">
+        <description>Negative infinity is null</description>
+        <resultNode name="decision_002" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

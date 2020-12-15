@@ -21,7 +21,7 @@ import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20191111.model.*;
 
 import javax.xml.bind.JAXBElement;
 import java.io.File;
@@ -36,7 +36,7 @@ public class UniqueInformationRequirementTransformerTest extends AbstractFileTra
 
     @Test
     public void testTransform() {
-        String path = "dmn/input/";
+        String path = "dmn/input/1.1/";
 
         // Transform DMN
         File dmnFile = new File(resource(path + "simpleMID-with-ir-duplicates.dmn"));

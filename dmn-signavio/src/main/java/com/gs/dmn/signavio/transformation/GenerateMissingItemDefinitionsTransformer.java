@@ -15,7 +15,7 @@ package com.gs.dmn.signavio.transformation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
-import org.omg.spec.dmn._20180521.model.TItemDefinition;
+import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
 import java.util.ArrayList;
 import java.util.Collections;

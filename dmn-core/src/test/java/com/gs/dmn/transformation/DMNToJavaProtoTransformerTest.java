@@ -15,24 +15,26 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
+import java.net.URI;
+
 public class DMNToJavaProtoTransformerTest extends AbstractTckDMNToJavaTransformerTest {
-    @Test
-    public void testProto() throws Exception {
-        doSingleModelTest("0004-lending", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
-    }
-
-    @Test
-    public void testProtoDateTime() throws Exception {
-        doSingleModelTest("date-time-proto", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
-    }
-
     @Override
     protected String getInputPath() {
-        return "tck/proto/input";
+        return "proto/%s/%s/translator";
     }
 
     @Override
     protected String getExpectedPath() {
-        return "tck/proto/expected/proto3/java/dmn";
+        return "proto/%s/%s/translator/expected/proto3/java/dmn";
+    }
+
+    @Test
+    public void testProto() throws Exception {
+        doSingleModelTest("1.1","0004-lending", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
+    }
+
+    @Test
+    public void testProtoDateTime() throws Exception {
+        doSingleModelTest("1.1","date-time-proto", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
     }
 }

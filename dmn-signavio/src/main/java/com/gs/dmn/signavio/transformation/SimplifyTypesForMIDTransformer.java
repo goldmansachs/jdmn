@@ -29,10 +29,10 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20180521.model.TDecision;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
-import org.omg.spec.dmn._20180521.model.TInputData;
-import org.omg.spec.dmn._20180521.model.TItemDefinition;
+import org.omg.spec.dmn._20191111.model.TDecision;
+import org.omg.spec.dmn._20191111.model.TDefinitions;
+import org.omg.spec.dmn._20191111.model.TInputData;
+import org.omg.spec.dmn._20191111.model.TItemDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

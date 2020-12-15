@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0082-feel-coercion.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Feel : any</label>
+        <label>FEEL TYpe Conformance</label>
+    </labels>
+
+    <testCase id="decision_001">
+        <description>type mismatch - decision return value is null coerced</description>
+        <resultNode name="decision_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!-- Comment out for now re https://github.com/dmn-tck/tck/pull/238.  How to express an 'any' list -->
+<!--    <testCase id="decision_002">
+        <description>type permitted - any list</description>
+        <resultNode name="decision_002" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">1</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">2</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:string">foo</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>-->
+
+    <testCase id="decision_003">
+        <description>list type mismatch - decision return value is null coerced</description>
+        <resultNode name="decision_003" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_004">
+        <description>type permitted - conforming context</description>
+        <resultNode name="decision_004" type="decision">
+            <expected>
+                <component name="name">
+                    <value xsi:type="xsd:string">foo</value>
+                </component>
+                <component name="surname">
+                    <value xsi:type="xsd:string">bar</value>
+                </component>
+                <component name="age">
+                    <value xsi:type="xsd:decimal">10</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_005">
+        <description>context type mismatch - decision return value is null coerced</description>
+        <resultNode name="decision_005" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+<!-- Ref: https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315 
+     Expected result is a wrapped element not justified with DMN spec
+    <testCase id="decision_006">
+        <description>decision returns value but type is list - coercion to list</description>
+        <resultNode name="decision_006" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:string">foo</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="decision_006_a">
+        <description>decision type is list but return val is non-conforming val - coercion to null</description>
+        <resultNode name="decision_006_a" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_007">
+        <description>decision returns singleton list value but type is not a list - coercion list to val</description>
+        <resultNode name="decision_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_007_a">
+        <description>decision type is value but return val is non-conforming singleton list - coercion to null</description>
+        <resultNode name="decision_007_a" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_008">
+        <description>decision type is list but return val null - null cannot be coerced so no singleton list coercion</description>
+        <resultNode name="decision_008" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_bkm_001">
+        <description>pass conforming context type to bkm</description>
+        <resultNode name="decision_bkm_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_bkm_002">
+        <description>pass non-conforming type to bkm - bkm
+            input param is null coerced</description>
+        <resultNode name="decision_bkm_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_bkm_003">
+        <description>BKM logic returns non-conforming value to bkm variable typeRef - bk result is null coerced</description>
+        <resultNode name="decision_bkm_003" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+<!-- Ref: https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315 
+     Expected result is a wrapped element not justified with DMN spec
+    <testCase id="decision_bkm_004">
+        <description>bkm type is list and bkm logic returns conforming (non-list) value - coercion val to list</description>
+        <resultNode name="decision_bkm_004" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">10</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="decision_bkm_004_a">
+        <description>bkm type is list and bkm logic returns non-conforming (non-list) value - coercion to null</description>
+        <resultNode name="decision_bkm_004_a" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_bkm_004_b">
+        <description>bkm type is list and bkm logic returns null - null cannot be coerced to result remains null</description>
+        <resultNode name="decision_bkm_004_b" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_bkm_005">
+        <description>bkm type is non-list and bkm logic returns singleton list of conforming value - coercion list to val</description>
+        <resultNode name="decision_bkm_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_bkm_005_a">
+        <description>bkm type is non-list and bkm logic returns singleton list of non-conforming value - coercion to null</description>
+        <resultNode name="decision_bkm_005_a" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="invoke_001">
+        <description>decision has invocation call a bkm and passing invalid
+            non-comforming context - null coercion of param into bkm</description>
+        <resultNode name="invoke_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="invoke_002">
+        <description>decision has invocation of bkm passing valid param, but bkm return value
+            does not match explicit type on invocation defn  - null coercion of result
+            of invocation </description>
+        <resultNode name="invoke_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+<!-- Ref: https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315 
+     Expected result is a wrapped element not justified with DMN spec
+    <testCase id="invoke_003">
+        <description>invocation type is a list and invoked bkm returns single conforming value - coercion to list</description>
+        <resultNode name="invoke_003" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">10</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="invoke_004">
+        <description>invocation type is a list and invoked bkm returns single non-conforming value - coercion to null</description>
+        <resultNode name="invoke_004" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="invoke_005">
+        <description>Ref https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315
+        <!-- 
+bkm_005([10])
+
+where bkm_005 is a BKM analogous to:
+
+function bkm_005( arg ) [arg]
+
+so by subsitution we have:
+bkm_005([10])
+[[10]]
+null   // BKM variable's typeRef is number.
+ -->
+        </description>
+        <resultNode name="invoke_005" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="invoke_006">
+        <description>invocation type is a non-list and invoked bkm returns singleton array of non-conforming value - coercion to null</description>
+        <resultNode name="invoke_006" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="fd_001">
+        <description>function definition has typed param and is passed a conforming type - no coercion</description>
+        <resultNode name="fd_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="fd_002">
+        <description>function definition has typed param and is passed non-conforming type - coercion to null</description>
+        <resultNode name="fd_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="literal_001">
+        <description>literal expression has typeRef and result is conforming value - no coercion</description>
+        <resultNode name="literal_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="literal_002">
+        <description>literal expression has typeRef and result is non-conforming value - coercion to null</description>
+        <resultNode name="literal_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+<!-- Ref: https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315 
+     Expected result is a wrapped element not justified with DMN spec
+    <testCase id="literal_003">
+        <description>literal expression has list typeRef and result is conforming value - coercion to list</description>
+        <resultNode name="literal_003" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">10</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="literal_004">
+        <description>literal expression has list typeRef and result is non-conforming value - coercion to null</description>
+        <resultNode name="literal_004" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="literal_005">
+        <description>literal expression has non-list typeRef and result is conforming singleton list - coercion to value</description>
+        <resultNode name="literal_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="literal_006">
+        <description>literal expression has non-list typeRef and result is non-conforming singleton list - coercion to null</description>
+        <resultNode name="literal_006" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decisionService_001" invocableName="decisionService_001" type="decisionService">
+        <description>Direct invocation: Decision service returns context that does not confirm to type</description>
+        <resultNode errorResult="true" name="decision_ds_001">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decisionService_002" invocableName="decisionService_002" type="decisionService">
+        <description>Direct invocation: Decision service has string input but we pass incorrect type - input is coerced to null</description>
+        <inputNode name="decisionService_002_input_1">
+            <value xsi:type="xsd:decimal">10</value>
+        </inputNode>
+        <resultNode errorResult="true" name="decision_ds_002">
+            <expected>
+                    <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decisionService_002_a">
+        <description>Indirect invocation: Decision Service has string input but we pass incorrect type - input is coerced to null</description>
+        <resultNode errorResult="true" name="ds_invoke_002_with_number" type="decision">
+            <expected>
+                <component name="decision_ds_002">
+                    <value xsi:nil="true"/>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decisionService_002_b" invocableName="decisionService_002" type="decisionService" >
+        <description>Direct invocation: Decision service has string input but we pass in singleton list of correct type - input is coerced to string</description>
+        <inputNode name="decisionService_002_input_1">
+            <list>
+                <item>
+                    <value xsi:type="xsd:string">foo</value>
+                </item>
+            </list>
+        </inputNode>
+        <resultNode name="decision_ds_002">
+            <expected>
+                    <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decisionService_002_c">
+        <description>Indirect invocation: Decision service has string input but we pass in singleton list of correct type - input is coerced to string</description>
+        <resultNode name="ds_invoke_002_with_singleton_list" type="decision">
+            <expected>
+                <component name="decision_ds_002">
+                    <value xsi:type="xsd:string">foo</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+<!-- Ref: https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315 
+     Expected result is a wrapped element not justified with DMN spec
+    <testCase id="decisionService_003" invocableName="decisionService_003" type="decisionService">
+        <description>Decision service has string list input but we pass string - input is coerced to string list</description>
+        <inputNode name="decisionService_003_input_1">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_ds_003">
+            <expected>
+                    <list>
+                        <item>
+                            <value xsi:type="xsd:string">foo</value>
+                        </item>
+                    </list>
+            </expected>
+        </resultNode>
+    </testCase> -->
+<!-- Ref: https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315 
+     Expected result is a wrapped element not justified with DMN spec
+    <testCase id="decisionService_003_a">
+        <description>Indirect invocation: Decision service has string list input but we pass in string - input is coerced to string list</description>
+        <resultNode name="ds_invoke_003_with_string" type="decision">
+            <expected>
+                <component name="decision_ds_003">
+                    <list>
+                        <item>
+                            <value xsi:type="xsd:string">foo</value>
+                        </item>
+                    </list>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+</testCases>

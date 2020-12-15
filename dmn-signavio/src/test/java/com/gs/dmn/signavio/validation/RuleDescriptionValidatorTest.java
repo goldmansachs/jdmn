@@ -14,7 +14,7 @@ package com.gs.dmn.signavio.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TDecision;
+import org.omg.spec.dmn._20191111.model.TDecision;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +28,7 @@ public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest 
 
     @Test
     public void testValidate() {
-        String path = "dmn2java/exported/complex/input/";
+        String path = "dmn/complex/";
         String diagramName = "Linked Decision Test.dmn";
 
         List<String> expectedErrors = Arrays.asList(
@@ -48,7 +48,7 @@ public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest 
                 "(model='Linked Decision Test', label='Root', name='root', id='id-dd34e15633241b301d7c512a35c9493a'): error: Description of rule 2 in decision 'root' contains illegal sequence 'string(-)'",
                 "(model='Linked Decision Test', label='Root', name='root', id='id-dd34e15633241b301d7c512a35c9493a'): error: Description of rule 3 in decision 'root' contains illegal sequence 'string(-)'"
         );
-        validate(validator, path + diagramName, expectedErrors);
+        validate(validator, signavioResource(path + diagramName), expectedErrors);
     }
 
     @Test

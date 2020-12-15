@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=""  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0067-feel-split-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: String</label>
+        <label>FEEL Functions: string</label>
+    </labels>
+    <testCase id="001">
+        <description>will split</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:string">John</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:string">Doe</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="001_a">
+        <description>Will split</description>
+        <resultNode name="decision001_a" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:string">a</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:string">b</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:string">c</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:string"></value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:string"></value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004">
+        <description>Assert with no params</description>
+        <resultNode errorResult="true" name="decision004" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005">
+        <description>Assert with too few params</description>
+        <resultNode errorResult="true" name="decision005" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--
+    <testCase id="005_a">
+        <description>Assert with too many params</description>
+        <resultNode errorResult="true" name="decision005_a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+-->
+
+    <testCase id="006">
+        <description>Assert with named param</description>
+        <resultNode name="decision006" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:string">foo</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:string">bar</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007">
+        <description>Assert with incorrect named param</description>
+        <resultNode errorResult="true" name="decision007" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008">
+        <description>Assert with null params</description>
+        <resultNode errorResult="true" name="decision008" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008_a">
+        <description>Assert with null params</description>
+        <resultNode errorResult="true" name="decision008_a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008_b">
+        <description>Assert with null params</description>
+        <resultNode errorResult="true" name="decision008_b" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

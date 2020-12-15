@@ -20,12 +20,12 @@ import java.util.List;
 public class FromRDFLiteralDMNToJavaTransformerTest extends AbstractSignavioDMNToJavaTest {
     @Override
     protected String getInputPath() {
-        return "rdf2java/dmn/literal";
+        return "rdf/rdf2java/expected/dmn/literal";
     }
 
     @Override
     protected String getExpectedPath() {
-        return "rdf2java/java/literal/dmn";
+        return "rdf/rdf2java/expected/java/literal/dmn";
     }
 
     @Test

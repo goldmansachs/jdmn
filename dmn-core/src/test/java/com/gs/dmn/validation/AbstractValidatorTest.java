@@ -18,9 +18,10 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
+import org.omg.spec.dmn._20191111.model.TDefinitions;
 
 import java.io.File;
+import java.net.URI;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -28,15 +29,15 @@ import static org.junit.Assert.assertEquals;
 public abstract class AbstractValidatorTest extends AbstractTest {
     protected final DMNReader reader = new DMNReader(LOGGER, false);
 
-    protected void validate(DMNValidator validator, String path, List<String> expectedErrors) {
-        DMNModelRepository repository = makeRepository(path);
+    protected void validate(DMNValidator validator, URI fileURI, List<String> expectedErrors) {
+        DMNModelRepository repository = makeRepository(fileURI);
         List<String> actualErrors = validator.validate(repository);
 
         assertEquals(expectedErrors, actualErrors);
     }
 
-    protected DMNModelRepository makeRepository(String path) {
-        File input = new File(resource(path));
+    protected DMNModelRepository makeRepository(URI fileURI) {
+        File input = new File(fileURI);
         Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(input);
         return new DMNModelRepository(pair);
     }

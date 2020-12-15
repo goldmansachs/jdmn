@@ -36,7 +36,7 @@ import com.gs.dmn.transformation.InputParameters;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TNamedElement;
+import org.omg.spec.dmn._20191111.model.TNamedElement;
 
 import java.util.Arrays;
 import java.util.List;

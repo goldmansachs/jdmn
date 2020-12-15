@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" namespace="http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml" exporterVersion="10.15.9" name="Null Safe Tests" id="id-39104958614e42a8aac1c2c02557d321" sigExt:revisionId="ca105398f65d4c3ead49bfa305c5db43" sigExt:revisionNumber="1">
+    <extensionElements/>
+    <itemDefinition isCollection="false" name="allFalseAggregation" id="id-2cc3214320632e21fa06a8e4df51a01f" label="allFalseAggregation">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="allTogether" id="id-471466181fede0d84c7df0e9fe289a0e" label="allTogether">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="allTrueAggregation" id="id-358fb3eef70f854067115a7957b8e757" label="allTrueAggregation">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="anyTrueAggregation" id="id-8834daef08074502f6114c3bbfa67ff0" label="anyTrueAggregation">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="arithmetic" id="id-8266402525c1150efdfd6183507e6980" label="arithmetic">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="booleanA" id="id-94010e51fff3246bb81ff073cc030cbd" label="booleanA">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="booleanAllFalse" id="id-ab8b01c0dd497fcde9fd1ca33e705e55" label="booleanAllFalse">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="booleanAllTrue" id="id-9e082ad3b2250f1df8027ba40689b23d" label="booleanAllTrue">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="booleanAnyTrue" id="id-334e50482f30ae457540df3012c193da" label="booleanAnyTrue">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="booleanB" id="id-cb5f8f251c78a1fa0f3c14922aa163db" label="booleanB ">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="booleanList" id="id-7c2fce8ec22887bb67f15d0c4b81af86" label="booleanList">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="comparator" id="id-eabe544d9031007a7c789c332a5f01b7" label="comparator ">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="date" id="id-566c0c1e6205c278494e9c4fb97e6a29" label="date ">
+        <typeRef>feel:date</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="dateTime" id="id-ede7794c2ca519e4b2483cb568d7de67" label="dateTime">
+        <typeRef>feel:date and time</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="formattingAndCoercing" id="id-c0a0a5abc1125fd69627af517c1b7a3b" label="formattingAndCoercing">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="keepInputallFalse" id="id-05ead685d65ac4d20c5b6150cc46ca4a" label="keepInput_allFalse">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="keepInputallTrue" id="id-9203cd168799b29b1e95772a8e9868fd" label="keepInput_allTrue">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="keepInputanyTrue" id="id-f2a735669eb978daaf9c21a6a7e6970d" label="keepInput_anyTrue">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="listHandling" id="id-d6e1e7be21c12b57a61c8f97cb7d614b" label="listHandling">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="logical" id="id-85b56ea918b2fb3cd2b9d0d11c6b7206" label="logical ">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="numberA" id="id-1faba55e4fd5e1351ff3e3332db2f2c7" label="numberA">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="numberB" id="id-62a3564431596dc382ef27011f0def3e" label="numberB">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="numberList" id="id-3730312cd03e8f285381a7502e3337b6" label="numberList">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="partA" id="id-bd26355ac1241c457f913b2bfa56e370" label="partA">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="partB" id="id-cae5425f1c4591f8a4537d12d74ec6de" label="partB">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="partC" id="id-d913ed2cea97609a881358d9d0cfa746" label="partC">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="statistical" id="id-03ec1b690e33459b90b16efc9685ddd2" label="statistical">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="string" id="id-9d843f44d8ac1071405e1cedc0d97648" label="string">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="stringHandling" id="id-6ccacae7c10f7ecc54a1d2c197a35221" label="stringHandling">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="stringHandlingComparator" id="id-37f7779f9f670999279937e94332d604" label="stringHandlingComparator">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="stringList" id="id-ef9ae8d5f1d1cd3109e72799b860b153" label="stringList">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="temporal" id="id-9dc928bec6c5c35a28acf175efb0cedc" label="temporal">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="temporalComparator" id="id-8ffcf107aef36a1e7334d8a2d6b9b5ce" label="temporalComparator ">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="temporalDiff" id="id-42e5206b1e875f9b9fdcabcec1bca7ae" label="temporalDiff">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="time" id="id-c3fcae69eb4b4cbbaedb71f007ba1806" label="time ">
+        <typeRef>feel:time</typeRef>
+    </itemDefinition>
+    <inputData name="booleanAllFalse_iterator" id="id-79ac9fb1afa596bbb0db5c6a5257a8b6" label="booleanAllFalse" sigExt:shapeId="sid-06BF56FF-EAD6-4B6A-AA46-E3C294A83273" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:booleanAllFalse" name="booleanAllFalse_iterator" id="id-79ac9fb1afa596bbb0db5c6a5257a8b6_variable"/>
+    </inputData>
+    <inputData name="numberA" id="id-c736af77b66969d175933720059dec48" label="numberA" sigExt:shapeId="sid-AA1757F1-99A9-416C-B74A-F53791DADB66" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:numberA" name="numberA" id="id-c736af77b66969d175933720059dec48_variable"/>
+    </inputData>
+    <inputData name="booleanAnyTrue_iterator" id="id-4b393744e05965a1928ecb455ab42308" label="booleanAnyTrue" sigExt:shapeId="sid-F3BC3841-F2C9-49BE-A086-9C2547B8A57D" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:booleanAnyTrue" name="booleanAnyTrue_iterator" id="id-4b393744e05965a1928ecb455ab42308_variable"/>
+    </inputData>
+    <inputData name="string" id="id-1c122325d0f516d01f33e3c10ec7bf61" label="string" sigExt:shapeId="sid-8B600728-8DA5-4921-92EB-96A77787E515" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:string" name="string" id="id-1c122325d0f516d01f33e3c10ec7bf61_variable"/>
+    </inputData>
+    <inputData name="stringList" id="id-b9fd8fd2303ab43c6c19e8ba30a50116" label="stringList" sigExt:shapeId="sid-F769E9E0-085C-4507-8905-54BA594DB093" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:stringList" name="stringList" id="id-b9fd8fd2303ab43c6c19e8ba30a50116_variable"/>
+    </inputData>
+    <inputData name="date" id="id-5d1954e864444e9ebb079558da384758" label="date " sigExt:shapeId="sid-83E25A6C-9951-44AB-B243-BF07D5565E0C" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:date" name="date" id="id-5d1954e864444e9ebb079558da384758_variable"/>
+    </inputData>
+    <inputData name="booleanB" id="id-e266bf27f575f63084511773f3a737c6" label="booleanB " sigExt:shapeId="sid-C3B7F0FF-382F-495B-B247-11D18BDF8224" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:booleanB" name="booleanB" id="id-e266bf27f575f63084511773f3a737c6_variable"/>
+    </inputData>
+    <inputData name="time" id="id-71d2b9c0abb24d5032ba55c6b1088231" label="time " sigExt:shapeId="sid-926E953C-2785-4E99-B7BD-C2CB9FA1EDB6" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:time" name="time" id="id-71d2b9c0abb24d5032ba55c6b1088231_variable"/>
+    </inputData>
+    <inputData name="booleanAllTrue_iterator" id="id-0999a54b4e2887b6404fe10e4639a1d6" label="booleanAllTrue" sigExt:shapeId="sid-21E66A18-8DC7-45D2-9058-128A612C3E02" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:booleanAllTrue" name="booleanAllTrue_iterator" id="id-0999a54b4e2887b6404fe10e4639a1d6_variable"/>
+    </inputData>
+    <inputData name="booleanList" id="id-963dd1faff03c460abb0bb16855be442" label="booleanList" sigExt:shapeId="sid-D285272E-ACE8-416D-B8A4-CE5915E6ECA7" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:booleanList" name="booleanList" id="id-963dd1faff03c460abb0bb16855be442_variable"/>
+    </inputData>
+    <inputData name="booleanA" id="id-1058e602798d798780d99866788586c8" label="booleanA" sigExt:shapeId="sid-B7AE6C6F-A660-4E62-A8D6-7B80E266DCE6" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:booleanA" name="booleanA" id="id-1058e602798d798780d99866788586c8_variable"/>
+    </inputData>
+    <inputData name="numberList" id="id-f444fe9b45d132962058826c7ce0e254" label="numberList" sigExt:shapeId="sid-F3D9D36B-7DDB-422A-B6B2-8DE750055C51" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:numberList" name="numberList" id="id-f444fe9b45d132962058826c7ce0e254_variable"/>
+    </inputData>
+    <inputData name="numberB" id="id-0bcd1fe0bdaa3c42ee1600d6de30e350" label="numberB" sigExt:shapeId="sid-5D0278E6-05A5-4C90-B532-85F85A7AB627" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:numberB" name="numberB" id="id-0bcd1fe0bdaa3c42ee1600d6de30e350_variable"/>
+    </inputData>
+    <inputData name="dateTime" id="id-de95e2868799a862ed04920c276bffa1" label="dateTime" sigExt:shapeId="sid-C64815EC-ABA5-4B82-9B9B-3BF6FB925209" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:dateTime" name="dateTime" id="id-de95e2868799a862ed04920c276bffa1_variable"/>
+    </inputData>
+    <decision name="anyTrueAggregation" id="id-499a1aeffa9f16f776cba221110df81a" label="anyTrueAggregation" sigExt:shapeId="sid-AAC92F9B-23E5-437D-8E7E-0A38E297D7A4" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <extensionElements>
+            <sigExt:MultiInstanceDecisionLogic>
+                <sigExt:iterationExpression>booleanList</sigExt:iterationExpression>
+                <sigExt:iteratorShapeId>id-4b393744e05965a1928ecb455ab42308</sigExt:iteratorShapeId>
+                <sigExt:aggregationFunction>ANYTRUE</sigExt:aggregationFunction>
+                <sigExt:topLevelDecisionId>id-87919f1fc05a6c8813d8c16a2851de23</sigExt:topLevelDecisionId>
+            </sigExt:MultiInstanceDecisionLogic>
+        </extensionElements>
+        <variable typeRef="sig:anyTrueAggregation" name="anyTrueAggregation" id="id-499a1aeffa9f16f776cba221110df81a_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-963dd1faff03c460abb0bb16855be442"/>
+        </informationRequirement>
+    </decision>
+    <decision name="temporal" id="id-e531076a8bd1457bfe3bcc7cdf1a2637" label="temporal" sigExt:shapeId="sid-5511B0A1-6D8F-4084-897D-51B89D5B653C" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:temporal" name="temporal" id="id-e531076a8bd1457bfe3bcc7cdf1a2637_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-de95e2868799a862ed04920c276bffa1"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>(dateTime=dateTime(day(dateTime), month(dateTime), year(dateTime), hour(dateTime), minute(dateTime), 0))</text>
+        </literalExpression>
+    </decision>
+    <decision name="temporal-1" id="id-e531076a8bd1457bfe3bcc7cdf1a2637-1" label="temporal-1" sigExt:shapeId="sid-5511B0A1-6D8F-4084-897D-51B89D5B653C-1" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:temporal" name="temporal-1" id="id-e531076a8bd1457bfe3bcc7cdf1a2637_variable-1"/>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>date and time("2015-12-31T18:00:00-0500")</text>
+        </literalExpression>
+    </decision>
+    <decision name="stringHandling" id="id-a7895d8e6af939a1e7cafb3317d8a423" label="stringHandling" sigExt:shapeId="sid-E3AD229C-1932-46CB-9E7D-90AB1CF41224" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:stringHandling" name="stringHandling" id="id-a7895d8e6af939a1e7cafb3317d8a423_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-b9fd8fd2303ab43c6c19e8ba30a50116"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-0bcd1fe0bdaa3c42ee1600d6de30e350"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-c736af77b66969d175933720059dec48"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>mid(right(left(trim(upper(lower(concat(stringList)))), numberB), numberA), 0, numberB)</text>
+        </literalExpression>
+    </decision>
+    <decision name="statistical" id="id-5b07c9711db6376713296511215c7644" label="statistical" sigExt:shapeId="sid-E2244965-9696-4D63-BFC3-4CE35C346E12" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:statistical" name="statistical" id="id-5b07c9711db6376713296511215c7644_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-f444fe9b45d132962058826c7ce0e254"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>(mode(numberList)*((avg(numberList)+median(numberList))/(min(numberList)+max(numberList))))</text>
+        </literalExpression>
+    </decision>
+    <decision name="partC" id="id-aa6192796546dfbb201e1a17f1711b12" label="partC" sigExt:shapeId="sid-A22D087F-827E-4AB8-A589-856C29D1CA30" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:partC" name="partC" id="id-aa6192796546dfbb201e1a17f1711b12_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-e531076a8bd1457bfe3bcc7cdf1a2637"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-72c343df36c2e2018dae168097967162"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-29cf8a82fee3b01a2e0f13fa89ecb697"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-d844337c47e4efb641f61e447347b1a9"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE">
+            <input id="id-58e942411c22ad9d9f3e09e740018acf" label="logical ">
+                <inputExpression>
+                    <text>logical</text>
+                </inputExpression>
+            </input>
+            <input id="id-45294f8c513cf7b6372c87804609bb6a" label="temporalDiff">
+                <inputExpression>
+                    <text>temporalDiff</text>
+                </inputExpression>
+            </input>
+            <input id="id-5efacebe3c1c79c1a93618defc3a0081" label="temporalComparator ">
+                <inputExpression>
+                    <text>temporalComparator</text>
+                </inputExpression>
+            </input>
+            <input id="id-f3ed0046367e52636970e5b652e0bd6d" label="temporal">
+                <inputExpression>
+                    <text>temporal</text>
+                </inputExpression>
+            </input>
+            <output name="partC" typeRef="feel:string" id="id-3f686831b64e3854ffc4088756c285cf" label="partC"/>
+            <rule id="id-a7cda48eb44323fcf0777bfa6b37bd4f">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>notContainsAny(?, ["notDefined"])</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"NotNull"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="allTrueAggregation" id="id-990fc1682febe5e206a9e367470fa4b5" label="allTrueAggregation" sigExt:shapeId="sid-019E0A5C-2720-402B-AEE8-BA1436EA5D6F" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <extensionElements>
+            <sigExt:MultiInstanceDecisionLogic>
+                <sigExt:iterationExpression>booleanList</sigExt:iterationExpression>
+                <sigExt:iteratorShapeId>id-0999a54b4e2887b6404fe10e4639a1d6</sigExt:iteratorShapeId>
+                <sigExt:aggregationFunction>ALLTRUE</sigExt:aggregationFunction>
+                <sigExt:topLevelDecisionId>id-4396518e644ea96eb89ee72817af5157</sigExt:topLevelDecisionId>
+            </sigExt:MultiInstanceDecisionLogic>
+        </extensionElements>
+        <variable typeRef="sig:allTrueAggregation" name="allTrueAggregation" id="id-990fc1682febe5e206a9e367470fa4b5_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-963dd1faff03c460abb0bb16855be442"/>
+        </informationRequirement>
+    </decision>
+    <decision name="logical" id="id-d844337c47e4efb641f61e447347b1a9" label="logical " sigExt:shapeId="sid-22C033FA-B0F9-45E3-B5E4-BDE3B04F9511" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:logical" name="logical " id="id-d844337c47e4efb641f61e447347b1a9_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-e266bf27f575f63084511773f3a737c6"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-1058e602798d798780d99866788586c8"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>not(booleanA and booleanB or booleanA)</text>
+        </literalExpression>
+    </decision>
+    <decision name="comparator" id="id-9f6598201a6d97e53905786b994d3523" label="comparator " sigExt:shapeId="sid-9A7FCA4C-1E83-4971-8CB7-58AB96AB6BDA" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:comparator" name="comparator " id="id-9f6598201a6d97e53905786b994d3523_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-c736af77b66969d175933720059dec48"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="COLLECT">
+            <input id="id-6da1297350c26d3da7f1f7518cced1e9" label="numberA">
+                <inputExpression>
+                    <text>numberA</text>
+                </inputExpression>
+            </input>
+            <output name="comparator" typeRef="feel:string" id="id-4cc5c320778f3a8e48469ca563c15417" label="comparator "/>
+            <rule id="id-d3016bbd382ded811e5bfba806cf7606">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&gt; 0</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"rule1"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-c51bb4119b4254a5ea903e83cc97b816">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&lt; 0</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"rule2"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-85ad977c46b6ef4890462d2bdef9d410">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&gt;= 2</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"rule3"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-846e57aad3e9180593743c6643f1c12c">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&lt;= -2</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"rule4"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-099eb931c68e19635396a32d8aa7d541">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"rule5"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-7936feb9f8b56c5a543466e023e534cd">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"bottomRule"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="listHandling" id="id-68e1bf98ec7c27a9dd0b29b04c5479bb" label="listHandling" sigExt:shapeId="sid-BEBCC832-10E1-4E72-9649-9C7CE3868D27" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:listHandling" name="listHandling" id="id-68e1bf98ec7c27a9dd0b29b04c5479bb_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-f444fe9b45d132962058826c7ce0e254"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-0bcd1fe0bdaa3c42ee1600d6de30e350"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>(count(appendAll(numberList, append(numberList, numberB)))=5) or containsOnly(numberList, numberList) or notContainsAny(numberList, numberList) or areElementsOf(numberList, numberList)</text>
+        </literalExpression>
+    </decision>
+    <decision name="temporalComparator" id="id-72c343df36c2e2018dae168097967162" label="temporalComparator " sigExt:shapeId="sid-394B1A70-6206-4407-9FE4-64635EFB5260" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:temporalComparator" name="temporalComparator " id="id-72c343df36c2e2018dae168097967162_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-de95e2868799a862ed04920c276bffa1"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="COLLECT">
+            <input id="id-0c48a23979f3d50c140f71aef97db8f0" label="dateTime">
+                <inputExpression>
+                    <text>dateTime</text>
+                </inputExpression>
+            </input>
+            <output name="temporalComparator" typeRef="feel:string" id="id-6d1c302b5ccd05f715f9b1f41ce2abb6" label="temporalComparator "/>
+            <rule id="id-6c2230c517d1f4cfb05af4b30eeaac62">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&lt; date and time("2015-12-31T18:00:00-0500")</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"isBefore"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-1fedf3f16aa2c2a2944505fc34706b73">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&gt; date and time("2015-12-31T18:00:00-0500")</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"isAfter"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-454c08d1c3f823e8b2e559a4f1c77386">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>not(date and time("2015-12-31T18:00:00-0500"))</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"isNotOn"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-738ec60b6e9104aebad6a76622f80f7a">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&lt;= date and time("2015-12-31T18:00:00-0500")</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"until"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-06f293e6beeb66fe73d5abedd177d736">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&gt;= date and time("2015-12-31T18:00:00-0500")</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"from"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-a2ff833014b899b052491f0a42b23769">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"notDefined"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="temporalDiff" id="id-29cf8a82fee3b01a2e0f13fa89ecb697" label="temporalDiff" sigExt:shapeId="sid-D4DCD084-82D7-4757-9D39-911AFB33CC9A" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:temporalDiff" name="temporalDiff" id="id-29cf8a82fee3b01a2e0f13fa89ecb697_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-5d1954e864444e9ebb079558da384758"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-71d2b9c0abb24d5032ba55c6b1088231"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-de95e2868799a862ed04920c276bffa1"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>(3=((((dayDiff(date, dayAdd(date, 1))+monthDiff(date, monthAdd(date, 1)))+yearDiff(date, yearAdd(date, 1)))+hourDiff(dateTime, dateTime))+minutesDiff(time, time)))</text>
+        </literalExpression>
+    </decision>
+    <decision name="formattingAndCoercing" id="id-f6f0c41b65035466a4cbaafab2e35265" label="formattingAndCoercing" sigExt:shapeId="sid-1EC054B9-DD80-43EA-857F-EB765C4E2DB9" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:formattingAndCoercing" name="formattingAndCoercing" id="id-f6f0c41b65035466a4cbaafab2e35265_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-1c122325d0f516d01f33e3c10ec7bf61"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-0bcd1fe0bdaa3c42ee1600d6de30e350"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>number(text(numberB, string))</text>
+        </literalExpression>
+    </decision>
+    <decision name="keepInputallFalse" id="id-21fa2a4ecb92ec37652f13671be694a2" label="keepInput_allFalse" sigExt:shapeId="sid-46262AD6-6A29-4E5F-BEB9-DD0D22969EF8" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:keepInputallFalse" name="keepInput_allFalse" id="id-21fa2a4ecb92ec37652f13671be694a2_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-79ac9fb1afa596bbb0db5c6a5257a8b6"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>booleanAllFalse_iterator</text>
+        </literalExpression>
+    </decision>
+    <decision name="allFalseAggregation" id="id-12f8c62e129adc2b235f1819817022ec" label="allFalseAggregation" sigExt:shapeId="sid-EAD18ED8-8B73-4685-943A-2279DFAAF795" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <extensionElements>
+            <sigExt:MultiInstanceDecisionLogic>
+                <sigExt:iterationExpression>booleanList</sigExt:iterationExpression>
+                <sigExt:iteratorShapeId>id-79ac9fb1afa596bbb0db5c6a5257a8b6</sigExt:iteratorShapeId>
+                <sigExt:aggregationFunction>ALLFALSE</sigExt:aggregationFunction>
+                <sigExt:topLevelDecisionId>id-21fa2a4ecb92ec37652f13671be694a2</sigExt:topLevelDecisionId>
+            </sigExt:MultiInstanceDecisionLogic>
+        </extensionElements>
+        <variable typeRef="sig:allFalseAggregation" name="allFalseAggregation" id="id-12f8c62e129adc2b235f1819817022ec_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-963dd1faff03c460abb0bb16855be442"/>
+        </informationRequirement>
+    </decision>
+    <decision name="stringHandlingComparator" id="id-d5f34819daa731749e8a2e610010899d" label="stringHandlingComparator" sigExt:shapeId="sid-B5F1EEE1-2935-439E-8A01-CB08E0D61E01" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:stringHandlingComparator" name="stringHandlingComparator" id="id-d5f34819daa731749e8a2e610010899d_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-a7895d8e6af939a1e7cafb3317d8a423"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>isAlpha(stringHandling) and isAlphanumeric(stringHandling) and isNumeric(stringHandling) and isSpaces(stringHandling) and startsWith(stringHandling, stringHandling) and endsWith(stringHandling, stringHandling) and contains(stringHandling, stringHandling)</text>
+        </literalExpression>
+    </decision>
+    <decision name="keepInputanyTrue" id="id-87919f1fc05a6c8813d8c16a2851de23" label="keepInput_anyTrue" sigExt:shapeId="sid-1C225A46-AF9E-4303-8463-F343353C7C6F" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:keepInputanyTrue" name="keepInput_anyTrue" id="id-87919f1fc05a6c8813d8c16a2851de23_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-4b393744e05965a1928ecb455ab42308"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>booleanAnyTrue_iterator</text>
+        </literalExpression>
+    </decision>
+    <decision name="keepInputallTrue" id="id-4396518e644ea96eb89ee72817af5157" label="keepInput_allTrue" sigExt:shapeId="sid-8B1E9036-CB4E-47D3-BC4F-C70BE932BED9" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:keepInputallTrue" name="keepInput_allTrue" id="id-4396518e644ea96eb89ee72817af5157_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-0999a54b4e2887b6404fe10e4639a1d6"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>booleanAllTrue_iterator</text>
+        </literalExpression>
+    </decision>
+    <decision name="partB" id="id-7db1ff2909dfa8e87829969a4f2b0bee" label="partB" sigExt:shapeId="sid-A6EB0DC9-88FB-4B3E-8ED0-1763D6096157" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:partB" name="partB" id="id-7db1ff2909dfa8e87829969a4f2b0bee_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-5b07c9711db6376713296511215c7644"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-f6f0c41b65035466a4cbaafab2e35265"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-d5f34819daa731749e8a2e610010899d"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-6ae008320d1d55b977bc3dd10a3725eb"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-9f6598201a6d97e53905786b994d3523"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-68e1bf98ec7c27a9dd0b29b04c5479bb"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE">
+            <input id="id-2d15d6977b44a087b8e5dc593eb842b5" label="stringHandlingComparator">
+                <inputExpression>
+                    <text>stringHandlingComparator</text>
+                </inputExpression>
+            </input>
+            <input id="id-d506c74a0e1ae0441afb66d9d445a112" label="comparator ">
+                <inputExpression>
+                    <text>comparator</text>
+                </inputExpression>
+            </input>
+            <input id="id-c61a1570406b1f0cdbc561b6d6eb1d65" label="statistical">
+                <inputExpression>
+                    <text>statistical</text>
+                </inputExpression>
+            </input>
+            <input id="id-687cbf4ba34fa9660680439a16cef751" label="listHandling">
+                <inputExpression>
+                    <text>listHandling</text>
+                </inputExpression>
+            </input>
+            <input id="id-90d498bc75b976577f8da97ca8073889" label="formattingAndCoercing">
+                <inputExpression>
+                    <text>formattingAndCoercing</text>
+                </inputExpression>
+            </input>
+            <input id="id-ec33290e69b8b00828f7df350a26b898" label="arithmetic">
+                <inputExpression>
+                    <text>arithmetic</text>
+                </inputExpression>
+            </input>
+            <output name="partB" typeRef="feel:string" id="id-37e67a80d63e61f8930a601aa006920f" label="partB"/>
+            <rule id="id-f78b161b7aa57029090a64ff84885a29">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>notContainsAny(?, ["bottomRule"])</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"NotNull"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="arithmetic" id="id-6ae008320d1d55b977bc3dd10a3725eb" label="arithmetic" sigExt:shapeId="sid-09794EF5-BBC7-4B29-BCA1-12225A55818C" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:arithmetic" name="arithmetic" id="id-6ae008320d1d55b977bc3dd10a3725eb_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-f444fe9b45d132962058826c7ce0e254"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-0bcd1fe0bdaa3c42ee1600d6de30e350"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-c736af77b66969d175933720059dec48"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>((((((((((((((((((numberA+2)-2)*2)/(numberA+1))+abs(numberB))+count(numberList))+round(numberB, 2))+roundDown(numberB, 2))+roundUp(numberB, 2))+ceiling(numberB))+floor(numberB))+integer(numberB))+modulo(numberB, numberA))+modulo(numberB, 2))+power(numberB, 2))+percent(numberB))+product(numberList))+sum(numberList))</text>
+        </literalExpression>
+    </decision>
+    <decision name="partA" id="id-c766b420761d4a1c594e4caabdd5d4be" label="partA" sigExt:shapeId="sid-13F089D7-88FB-48B7-A9B1-6595017CC2AD" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:partA" name="partA" id="id-c766b420761d4a1c594e4caabdd5d4be_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-499a1aeffa9f16f776cba221110df81a"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-12f8c62e129adc2b235f1819817022ec"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-990fc1682febe5e206a9e367470fa4b5"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE">
+            <input id="id-154294e665a6f88c6ebef506ab7c5de4" label="anyTrueAggregation">
+                <inputExpression>
+                    <text>anyTrueAggregation</text>
+                </inputExpression>
+            </input>
+            <input id="id-f6d0bd551e993489d6719c6082ebd4b3" label="allTrueAggregation">
+                <inputExpression>
+                    <text>allTrueAggregation</text>
+                </inputExpression>
+            </input>
+            <input id="id-b3b8b8cacf3496dad8014c244c8e5d06" label="allFalseAggregation">
+                <inputExpression>
+                    <text>allFalseAggregation</text>
+                </inputExpression>
+            </input>
+            <output name="partA" typeRef="feel:string" id="id-f96892dbdeb56be0c369c814b2671335" label="partA"/>
+            <rule id="id-46ba65c4fc192e535a9d6c923b3545b3">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"NotNull"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="allTogether" id="id-26dd50ab439aa5d5392f972084733182" label="allTogether" sigExt:shapeId="sid-2ABA9455-1BAD-4552-BE44-9FE612EA1D10" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
+        <variable typeRef="sig:allTogether" name="allTogether" id="id-26dd50ab439aa5d5392f972084733182_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-aa6192796546dfbb201e1a17f1711b12"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-7db1ff2909dfa8e87829969a4f2b0bee"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-c766b420761d4a1c594e4caabdd5d4be"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE">
+            <input id="id-43afb79d6a20dc159664dbdf24a123e4" label="partB">
+                <inputExpression>
+                    <text>partB</text>
+                </inputExpression>
+            </input>
+            <input id="id-53cf9fb997522445daa925a76d02f2e3" label="partA">
+                <inputExpression>
+                    <text>partA</text>
+                </inputExpression>
+            </input>
+            <input id="id-651973462b97e4fd338768f08763b76c" label="partC">
+                <inputExpression>
+                    <text>partC</text>
+                </inputExpression>
+            </input>
+            <output name="allTogether" typeRef="feel:string" id="id-5a7545bffda192ad99aeeacc454d11a5" label="allTogether"/>
+            <rule id="id-8954ccdac16c7b65896874171fef2bf6">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"NotNull"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+</definitions>

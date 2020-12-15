@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:sig="http://www.signavio.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml" xmlns:sigExt="http://www.signavio.com/schema/dmn/1.1/" expressionLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="http://www.signavio.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml" exporterVersion="10.15.9" name="simple-decision-with-bkm" id="id-09de67af469244c9a7bcb6a99c34b5a1" sigExt:revisionNumber="1" sigExt:revisionId="61aca407c00f4bcb8ee0d854ebb0ecac">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="https://www.omg.org/spec/DMN/20191111/FEEL/" xmlns:sig="http://www.signavio.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml" xmlns:sigExt="http://www.signavio.com/schema/dmn/1.1/" expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" typeLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" namespace="http://www.signavio.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml" exporterVersion="10.15.9" name="simple-decision-with-bkm" id="id-09de67af469244c9a7bcb6a99c34b5a1" sigExt:revisionNumber="1" sigExt:revisionId="61aca407c00f4bcb8ee0d854ebb0ecac">
     <extensionElements>
         <decisionService name="service-sUM" id="service-id-806148ab1843f34bf4e461a8ed442b97">
             <outputDecision href="#id-806148ab1843f34bf4e461a8ed442b97"/>
@@ -42,7 +42,7 @@
     </inputData>
     <businessKnowledgeModel name="bKM" id="id-74659018eb94601d9ccd8bcb2443688e">
         <extensionElements>
-            <sigExt:referencedService xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" href="#service-id-806148ab1843f34bf4e461a8ed442b97"/>
+            <sigExt:referencedService xmlns:sig="http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml" href="#service-id-806148ab1843f34bf4e461a8ed442b97"/>
         </extensionElements>
         <variable name="bKM" id="id-74659018eb94601d9ccd8bcb2443688e_variable"/>
     </businessKnowledgeModel>

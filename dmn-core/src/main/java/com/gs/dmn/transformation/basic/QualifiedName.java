@@ -13,8 +13,8 @@
 package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.serialization.DMNVersion;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
-import org.omg.spec.dmn._20180521.model.TImport;
+import org.omg.spec.dmn._20191111.model.TDefinitions;
+import org.omg.spec.dmn._20191111.model.TImport;
 
 public class QualifiedName {
     public static QualifiedName toQualifiedName(TDefinitions model, String qName) {

@@ -21,14 +21,14 @@ import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.signavio.extension.SignavioExtension;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20191111.model.*;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.serialization.DMNVersion.DMN_12;
+import static com.gs.dmn.serialization.DMNVersion.LATEST;
 
 public class SignavioDMNModelRepository extends DMNModelRepository {
     private String schemaNamespace = "http://www.signavio.com/schema/dmn/1.1/";
@@ -66,7 +66,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         super(pairs);
         for (Pair<TDefinitions, PrefixNamespaceMappings> pair: pairs) {
             TDefinitions definitions = pair.getLeft();
-            List<Object> elementList = this.extension.findExtensions(definitions.getExtensionElements(), DMN_12.getNamespace(), "decisionService");
+            List<Object> elementList = this.extension.findExtensions(definitions.getExtensionElements(), LATEST.getNamespace(), "decisionService");
             for(Object element: elementList) {
                 Object value = ((JAXBElement<?>) element).getValue();
                 if (value instanceof TDecisionService) {

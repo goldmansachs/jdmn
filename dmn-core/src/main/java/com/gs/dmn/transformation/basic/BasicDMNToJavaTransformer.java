@@ -56,7 +56,7 @@ import com.gs.dmn.transformation.proto.ProtoBufferFactory;
 import com.gs.dmn.transformation.proto.ProtoBufferJavaFactory;
 import com.gs.dmn.transformation.proto.Service;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

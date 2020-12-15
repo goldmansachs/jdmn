@@ -18,6 +18,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ExportedLiteralDMNToJavaTransformerTest extends AbstractSignavioDMNToJavaTest {
+    @Override
+    protected String getInputPath() {
+        return "dmn/literal";
+    }
+
+    @Override
+    protected String getExpectedPath() {
+        return "dmn/dmn2java/expected/literal/dmn";
+    }
+
     @Test
     public void testAll() throws Exception {
         List<String> diagrams = Arrays.asList(
@@ -46,15 +56,5 @@ public class ExportedLiteralDMNToJavaTransformerTest extends AbstractSignavioDMN
         for (String diagram : diagrams) {
             doSingleModelTest(diagram);
         }
-    }
-
-    @Override
-    protected String getInputPath() {
-        return "dmn2java/exported/literal/input";
-    }
-
-    @Override
-    protected String getExpectedPath() {
-        return "dmn2java/exported/literal/expected/dmn";
     }
 }

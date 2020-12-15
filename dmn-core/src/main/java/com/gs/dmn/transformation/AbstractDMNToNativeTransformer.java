@@ -27,10 +27,10 @@ import com.gs.dmn.transformation.proto.Service;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import org.apache.commons.lang3.time.StopWatch;
-import org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel;
-import org.omg.spec.dmn._20180521.model.TDecision;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
-import org.omg.spec.dmn._20180521.model.TItemDefinition;
+import org.omg.spec.dmn._20191111.model.TBusinessKnowledgeModel;
+import org.omg.spec.dmn._20191111.model.TDecision;
+import org.omg.spec.dmn._20191111.model.TDefinitions;
+import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
 import java.io.File;
 import java.nio.file.Path;

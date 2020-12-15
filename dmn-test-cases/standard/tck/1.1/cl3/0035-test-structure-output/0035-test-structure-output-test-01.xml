@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.omg.org/spec/DMN/20160719/testcase ../../testCases.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<modelName>0035-test-structure-output.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Business Knowledge Model</label>
+        <label>Context</label>
+        <label>Decision Table: Single Output</label>
+        <label>FEEL Arithmetic</label>
+        <label>FEEL Conditionals</label>
+        <label>FEEL Functions: strings</label>
+        <label>FEEL Functions: numeric</label>
+        <label>Literal Function Invocation</label>
+        <label>Hit Policy: UNIQUE</label>
+        <label>Item Definition</label>
+        <label>Literal Expression</label>
+        <label>Data Type: String</label>
+        <label>Data Type: Number</label>
+        <label>Data Type: Structure</label>
+	</labels>
+	<testCase id="001">
+		<inputNode name="R Value">
+			<value>0</value>
+		</inputNode>
+		<inputNode name="G Value">
+			<value>65</value>
+		</inputNode>
+		<inputNode name="B Value">
+			<value>83</value>
+		</inputNode>
+		<resultNode name="Profile of Color" type="decision">
+			<expected>
+				<component name="RGB notation">
+					<component name="R">
+						<value>0</value>
+					</component>
+					<component name="G">
+						<value>65</value>
+					</component>
+					<component name="B">
+						<value>83</value>
+					</component>
+				</component>
+				<component name="Hex notation">
+					<value>#004153</value>
+				</component>
+				<component name="CMYK notation">
+					<component name="C">
+						<value>100</value>
+					</component>
+					<component name="M">
+						<value>22</value>
+					</component>
+					<component name="Y">
+						<value>0</value>
+					</component>
+					<component name="K">
+						<value>67</value>
+					</component>
+				</component>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+		<inputNode name="R Value">
+			<value>0</value>
+		</inputNode>
+		<inputNode name="G Value">
+			<value>0</value>
+		</inputNode>
+		<inputNode name="B Value">
+			<value>0</value>
+		</inputNode>
+		<resultNode name="Profile of Color" type="decision">
+			<expected>
+				<component name="RGB notation">
+					<component name="R">
+						<value>0</value>
+					</component>
+					<component name="G">
+						<value>0</value>
+					</component>
+					<component name="B">
+						<value>0</value>
+					</component>
+				</component>
+				<component name="Hex notation">
+					<value>#000000</value>
+				</component>
+				<component name="CMYK notation">
+					<component name="C">
+						<value>0</value>
+					</component>
+					<component name="M">
+						<value>0</value>
+					</component>
+					<component name="Y">
+						<value>0</value>
+					</component>
+					<component name="K">
+						<value>100</value>
+					</component>
+				</component>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="003">
+		<inputNode name="R Value">
+			<value>204</value>
+		</inputNode>
+		<inputNode name="G Value">
+			<value>0</value>
+		</inputNode>
+		<inputNode name="B Value">
+			<value>0</value>
+		</inputNode>
+		<resultNode name="Profile of Color" type="decision">
+			<expected>
+				<component name="RGB notation">
+					<component name="R">
+						<value>204</value>
+					</component>
+					<component name="G">
+						<value>0</value>
+					</component>
+					<component name="B">
+						<value>0</value>
+					</component>
+				</component>
+				<component name="Hex notation">
+					<value>#CC0000</value>
+				</component>
+				<component name="CMYK notation">
+					<component name="C">
+						<value>0</value>
+					</component>
+					<component name="M">
+						<value>100</value>
+					</component>
+					<component name="Y">
+						<value>100</value>
+					</component>
+					<component name="K">
+						<value>20</value>
+					</component>
+				</component>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

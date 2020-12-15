@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml" exporterVersion="10.15.10" name="TestDecision" id="id-9b2032bb00994c8c8f2406a5022f56e1" sigExt:revisionId="81e353ce9b6749498e2998683a83e97f" sigExt:revisionNumber="7" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+    <extensionElements/>
+    <itemDefinition isCollection="false" name="stringInput" id="id-428deb31249d911236f1619c005f25a1" label="StringInput">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="test" id="id-10dc6a699129e5aee044736e9e701af6" label="Test">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"a","b"</text>
+        </allowedValues>
+    </itemDefinition>
+    <inputData name="stringInput" id="id-81ff62961e9f9c53450c4619c967de23" label="StringInput" sigExt:shapeId="sid-FAB842DF-32D4-4495-9D58-155522650AAF" sigExt:diagramId="85f2dd29e4774c2f84b883545afdd8cc">
+        <variable typeRef="sig:stringInput" name="stringInput" id="id-81ff62961e9f9c53450c4619c967de23_variable"/>
+    </inputData>
+    <decision name="test" id="id-065a4ad1dee45d3086e4409de0674dd6" label="Test" sigExt:shapeId="sid-F141013E-DA3F-4C5C-BC0A-60C28CB995B3" sigExt:diagramId="85f2dd29e4774c2f84b883545afdd8cc">
+        <variable typeRef="sig:test" name="Test" id="id-065a4ad1dee45d3086e4409de0674dd6_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-81ff62961e9f9c53450c4619c967de23"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="COLLECT">
+            <input id="id-aacb4b14276a97775c4266f2a18743bc" label="StringInput">
+                <inputExpression>
+                    <text>stringInput</text>
+                </inputExpression>
+            </input>
+            <output name="test" typeRef="feel:string" id="id-cee7ae7b7b76d7de0b6686e432905496" label="Test"/>
+            <rule id="id-e284075a180bca33e0a84b5955b2a60b">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"a"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-fd827393219dc3394c82c1af12c5ccc5">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"b"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+<!--
+    <decision name="test1" id="id-fada51ce664c63874c99e6e7cf630c33" label="Test1" sigExt:shapeId="sid-C2D7E836-74E5-4BA8-801D-F6CBAA950677" sigExt:diagramId="85f2dd29e4774c2f84b883545afdd8cc">
+        <variable typeRef="sig:stringInput" name="Test1" id="id-fada51ce664c63874c99e6e7cf630c33_variable"/>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>concat(appendAll(["A", "B"], ["C", "D"]))</text>
+        </literalExpression>
+    </decision>
+-->
+</definitions>

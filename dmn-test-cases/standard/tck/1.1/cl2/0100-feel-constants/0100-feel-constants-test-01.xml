@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0100-feel-constants.dmn</modelName>
+	<labels>
+		<label>Compliance Level 2</label>
+		<label>Literal Expression</label>
+		<label>FEEL Constants</label>
+		<label>Data Type: Boolean</label>
+	</labels>
+	<testCase id="001">
+		<description>Tests FEEL boolean constants</description>
+		<resultNode name="Decision1" type="decision">
+			<expected>
+				<value>true</value>
+			</expected>
+		</resultNode>
+		<resultNode name="Decision2" type="decision">
+			<expected>
+				<value>false</value>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

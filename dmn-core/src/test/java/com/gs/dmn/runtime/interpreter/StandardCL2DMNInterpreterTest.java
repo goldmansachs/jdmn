@@ -14,37 +14,15 @@ package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
-import org.junit.Test;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
-public class StandardCL2DMNInterpreterTest extends AbstractDMNInterpreterTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+public class StandardCL2DMNInterpreterTest extends CL2SDMNInterpreterTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
     protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> getDialectDefinition() {
         return new StandardDMNDialectDefinition();
-    }
-
-    @Override
-    protected String getDMNInputPath() {
-        return "tck/cl2/input/";
-    }
-
-    @Override
-    protected String getTestCasesInputPath() {
-        return getDMNInputPath();
-    }
-
-    @Test
-    public void testInterpret() {
-        doSingleModelTest("0004-simpletable-U");
-        doSingleModelTest("0005-simpletable-A");
-        doSingleModelTest("0006-simpletable-P1");
-        doSingleModelTest("0007-simpletable-P2");
-        doSingleModelTest("0008-LX-arithmetic");
-        doSingleModelTest("0009-invocation-arithmetic");
-        doSingleModelTest("0010-multi-output-U");
     }
 }

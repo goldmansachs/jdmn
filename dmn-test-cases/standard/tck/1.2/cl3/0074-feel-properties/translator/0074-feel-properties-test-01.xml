@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0074-feel-properties.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Feel : any</label>
+        <label>FEEL properties</label>
+        <label>Data Type: any</label>
+    </labels>
+
+    <testCase id="context_001">
+        <resultNode name="context_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_001">
+        <description>date - year</description>
+        <resultNode name="date_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">2018</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_002">
+        <description>date - month</description>
+        <resultNode name="date_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">12</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_003">
+        <description>date - day</description>
+        <resultNode name="date_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_004">
+        <description>date - weekday</description>
+        <resultNode name="date_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_001">
+        <description>dateTime -  year</description>
+        <resultNode name="dateTime_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">2018</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_002">
+        <description>dateTime -  month</description>
+        <resultNode name="dateTime_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">12</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_003">
+        <description>dateTime -  day</description>
+        <resultNode name="dateTime_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_004">
+        <description>dateTime -  weekday</description>
+        <resultNode name="dateTime_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_005">
+        <description>dateTime -  hour</description>
+        <resultNode name="dateTime_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_005_a">
+        <description>dateTime -  hour when no time specified</description>
+        <resultNode name="dateTime_005_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">0</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_006">
+        <description>dateTime -  minute</description>
+        <resultNode name="dateTime_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">30</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_006_a">
+        <description>dateTime -  minute when no time specified</description>
+        <resultNode name="dateTime_006_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">0</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_007">
+        <description>dateTime -  second</description>
+        <resultNode name="dateTime_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_007_a">
+        <description>dateTime -  second when no time specified</description>
+        <resultNode name="dateTime_007_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">0</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_008">
+        <description>dateTime -  time offset when set</description>
+        <resultNode name="dateTime_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:duration">PT5H</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_008_a">
+        <description>dateTime -  time offset when not set</description>
+        <resultNode name="dateTime_008_a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_009">
+        <description>dateTime -  timezone when set</description>
+        <resultNode name="dateTime_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">Etc/UTC</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_009_a">
+        <description>dateTime -  timezone when not set</description>
+        <resultNode name="dateTime_009_a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_001">
+        <description>time -  hour</description>
+        <resultNode name="time_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_002">
+        <description>time -  minute</description>
+        <resultNode name="time_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">30</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_003">
+        <description>time -  second</description>
+        <resultNode name="time_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_004">
+        <description>time -  time offset when set</description>
+        <resultNode name="time_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:duration">PT5H</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_004_a">
+        <description>time -  time offset when not set</description>
+        <resultNode name="time_004_a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--
+    <testCase id="time_005">
+        <description>time -  timezone when set</description>
+        <resultNode name="time_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">Etc/UTC</value>
+            </expected>
+        </resultNode>
+    </testCase>
+-->
+
+    <testCase id="time_005_a">
+        <description>time -  timezone when not set</description>
+        <resultNode name="time_005_a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_001">
+        <description>ym duration -  years</description>
+        <resultNode name="ym_duration_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_001_a">
+        <description>ym duration - years not set</description>
+        <resultNode name="ym_duration_001_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">0</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_002">
+        <description>ym duration - month</description>
+        <resultNode name="ym_duration_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">2</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_002_a">
+        <description>ym duration - months not set</description>
+        <resultNode name="ym_duration_002_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">0</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_003">
+        <description>ym duration - days is null</description>
+        <resultNode name="ym_duration_003" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_004">
+        <description>ym duration - hours is null</description>
+        <resultNode name="ym_duration_004" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_005">
+        <description>ym duration - minutes is null</description>
+        <resultNode name="ym_duration_005" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_006">
+        <description>ym duration - seconds is null</description>
+        <resultNode name="ym_duration_006" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="dt_duration_001">
+        <description>dt duration - years is null</description>
+        <resultNode name="dt_duration_001" type="decision" errorResult="true" >
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_002">
+        <description>dt duration - months is null</description>
+        <resultNode name="dt_duration_002" type="decision" errorResult="true" >
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_003">
+        <description>dt duration - days</description>
+        <resultNode name="dt_duration_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_003_a">
+        <description>dt duration - days is not set</description>
+        <resultNode name="dt_duration_003_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">0</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_004">
+        <description>dt duration - hours</description>
+        <resultNode name="dt_duration_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">2</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_004_a">
+        <description>dt duration - hours is not set</description>
+        <resultNode name="dt_duration_004_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">0</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_005">
+        <description>dt duration - minutes</description>
+        <resultNode name="dt_duration_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">2</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_005_a">
+        <description>dt duration - minutes is not set</description>
+        <resultNode name="dt_duration_005_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">0</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_006">
+        <description>dt duration - seconds</description>
+        <resultNode name="dt_duration_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">2</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_006_a">
+        <description>dt duration - seconds is not set</description>
+        <resultNode name="dt_duration_006_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">0</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

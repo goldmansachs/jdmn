@@ -14,8 +14,8 @@ package com.gs.dmn.signavio.validation;
 
 import com.gs.dmn.validation.SimpleDMNValidator;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20180521.model.TDMNElement;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TDMNElement;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

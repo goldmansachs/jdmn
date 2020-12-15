@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<modelName>0003-iteration.dmn</modelName>
+	<labels>
+		<label>Compliance Level 3</label>
+		<label>Literal Expression</label>
+		<label>Item Definition</label>
+		<label>Business Knowledge Model</label>
+		<label>FEEL Arithmetic</label>
+		<label>FEEL Iteration</label>
+		<label>Data Type: Number</label>
+		<label>Data Type: Structure</label>
+		<label>Data Type: Collection</label>
+	</labels>
+	<testCase id="001">
+		<inputNode name="Loans">
+			<list>
+				<item>
+					<component name="amount">
+						<value xsi:type="xsd:decimal">200000</value>
+					</component>
+					<component name="rate">
+						<value xsi:type="xsd:decimal">.041</value>
+					</component>
+					<component name="term">
+						<value xsi:type="xsd:decimal">360</value>
+					</component>
+				</item>
+				<item>
+					<component name="amount">
+						<value xsi:type="xsd:decimal">20000</value>
+					</component>
+					<component name="rate">
+						<value xsi:type="xsd:decimal">.049</value>
+					</component>
+					<component name="term">
+						<value xsi:type="xsd:decimal">60</value>
+					</component>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="MonthlyPayment" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value xsi:type="xsd:decimal">966.396742204988</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:decimal">376.509070632494</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

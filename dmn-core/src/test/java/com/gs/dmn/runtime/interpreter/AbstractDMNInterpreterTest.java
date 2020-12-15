@@ -35,7 +35,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.ResultNode;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
+import org.omg.spec.dmn._20191111.model.TDefinitions;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -61,20 +61,20 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
     private FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib;
 
     @SafeVarargs
-    protected final void doSingleModelTest(String dmnFileName, Pair<String, String>... extraInputParameters) {
-        doMultipleModelsTest(Arrays.asList(dmnFileName), extraInputParameters);
+    protected final void doSingleModelTest(String dmnVersion, String dmnFileName, Pair<String, String>... extraInputParameters) {
+        doMultipleModelsTest(dmnVersion, Arrays.asList(dmnFileName), extraInputParameters);
     }
 
     @SafeVarargs
-    protected final void doMultipleModelsTest(List<String> dmnFileNames, Pair<String, String>... extraInputParameters) {
+    protected final void doMultipleModelsTest(String dmnVersion, List<String> dmnFileNames, Pair<String, String>... extraInputParameters) {
         String errorMessage = String.format("Tested failed for DM '%s'", dmnFileNames);
         try {
             // Read DMN files
-            List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = readModels(dmnFileNames);
+            List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = readModels(dmnVersion, dmnFileNames);
             DMNModelRepository repository = new DMNModelRepository(pairs);
 
             // Read TestCases filers
-            Pair<List<String>, List<TestCases>> pair = findTestCases(dmnFileNames);
+            Pair<List<String>, List<TestCases>> pair = findTestCases(dmnVersion, dmnFileNames);
 
             // Transform definitions and test cases
             dmnTransformer = new ToSimpleNameTransformer(LOGGER);
@@ -94,15 +94,15 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
     }
 
     @SafeVarargs
-    protected final void doMultipleModelsTest(String dmnFolderName, String testFolderName, Pair<String, String>... extraInputParameters) {
+    protected final void doMultipleModelsTest(String dmnVersion, String dmnFolderName, String testFolderName, Pair<String, String>... extraInputParameters) {
         String errorMessage = String.format("Tested failed for diagram '%s'", dmnFolderName);
         try {
             // Read DMN files
-            File dmnInputFile = new File(resource(this.getDMNInputPath() + "/" + dmnFolderName));
+            File dmnInputFile = new File(tckResource(completePath(getDMNInputPath(), dmnVersion, dmnFolderName) + "/"));
             DMNModelRepository repository = new DMNModelRepository(this.reader.readModels(dmnInputFile));
 
             // Read TestCases filers
-            File testCasesInputFile = new File(resource(this.getTestCasesInputPath() + "/" + testFolderName));
+            File testCasesInputFile = new File(tckResource(completePath(getTestCasesInputPath(), dmnVersion, testFolderName)  + "/"));
             Pair<List<String>, List<TestCases>> pair = findTestCasesInFolder(testCasesInputFile);
 
             // Transform definitions and test cases
@@ -135,11 +135,12 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         return new Pair<>(testFileNames, testCasesList);
     }
 
-    private Pair<List<String>, List<TestCases>> findTestCases(List<String> dmnFileNames) throws Exception {
+    private Pair<List<String>, List<TestCases>> findTestCases(String dmnVersion, List<String> dmnFileNames) throws Exception {
+        String testName = dmnFileNames.get(0);
         List<String> testFileNames = new ArrayList<>();
         List<TestCases> testCasesList = new ArrayList<>();
         for (String dmnFileName: dmnFileNames) {
-            URL testInputPathURL = getClass().getClassLoader().getResource(getTestCasesInputPath()).toURI().toURL();
+            URL testInputPathURL = tckResource(completePath(getTestCasesInputPath(), dmnVersion, testName)).toURL();
             File testInputPathFolder = new File(testInputPathURL.getFile());
             for (File child : testInputPathFolder.listFiles()) {
                 if (isTCKFile(child) && child.getName().startsWith(dmnFileName)) {
@@ -191,10 +192,11 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         }
     }
 
-    private List<Pair<TDefinitions, PrefixNamespaceMappings>> readModels(List<String> dmnFileNames) throws Exception {
+    private List<Pair<TDefinitions, PrefixNamespaceMappings>> readModels(String dmnVersion, List<String> dmnFileNames) throws Exception {
         List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = new ArrayList<>();
+        String testName = dmnFileNames.get(0);
         for (String dmnFileName: dmnFileNames) {
-            URI dmnFileURI = resource(getDMNInputPath() + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION);
+            URI dmnFileURI = tckResource(completePath(getDMNInputPath(), dmnVersion, testName) + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION);
             Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(dmnFileURI.toURL());
             pairs.add(pair);
         }

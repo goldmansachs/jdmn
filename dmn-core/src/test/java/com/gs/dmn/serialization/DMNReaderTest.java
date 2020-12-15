@@ -15,7 +15,7 @@ package com.gs.dmn.serialization;
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20191111.model.*;
 
 import javax.xml.bind.JAXBElement;
 import java.io.File;
@@ -28,7 +28,7 @@ public class DMNReaderTest extends AbstractTest {
 
     @Test
     public void testRead() {
-        File input = new File(resource("dmn/input/test-dmn.dmn"));
+        File input = new File(resource("dmn/input/1.1/test-dmn.dmn"));
 
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(input);
         TDefinitions definitions = pair.getLeft();

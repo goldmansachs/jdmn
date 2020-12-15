@@ -25,9 +25,9 @@ import org.jdom2.Element;
 import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
-import org.omg.spec.dmn._20180521.model.TDMNElement;
-import org.omg.spec.dmn._20180521.model.TLiteralExpression;
-import org.omg.spec.dmn._20180521.model.TNamedElement;
+import org.omg.spec.dmn._20191111.model.TDMNElement;
+import org.omg.spec.dmn._20191111.model.TLiteralExpression;
+import org.omg.spec.dmn._20191111.model.TNamedElement;
 import org.slf4j.LoggerFactory;
 import org.xmlunit.validation.Languages;
 import org.xmlunit.validation.ValidationProblem;
@@ -85,7 +85,7 @@ public abstract class AbstractRDFToDMNTransformerTest extends AbstractTest {
 
         File actualOutputFile = new File(outputFolder, diagramName + DMNConstants.DMN_FILE_EXTENSION);
         String resourcePath = expectedDMNPath + "/" + diagramName + DMNConstants.DMN_FILE_EXTENSION;
-        URI resource = resource(resourcePath);
+        URI resource = signavioResource(resourcePath);
         if (resource != null) {
             File expectedOutputFile = new File(resource.getPath());
             compareFile(expectedOutputFile, actualOutputFile);
@@ -102,11 +102,6 @@ public abstract class AbstractRDFToDMNTransformerTest extends AbstractTest {
             createEmptyDMNFile(resourcePath);
             fail(String.format("Cannot find file expected file %s. Created an empty one.", resourcePath));
         }
-    }
-
-    private Path path(String path) {
-        File file = new File(resource(path));
-        return file.toPath();
     }
 
     private void createEmptyDMNFile(String resourcePath) throws IOException {
@@ -158,18 +153,6 @@ public abstract class AbstractRDFToDMNTransformerTest extends AbstractTest {
         }
     }
 
-    private String getInputPath() {
-        return "rdf2java/rdf/" + getTestFolder();
-    }
-
-    private String getOutputPath() {
-        return "target/rdf2dmn/" + getTestFolder() + "/";
-    }
-
-    private String getExpectedPath() {
-        return "rdf2java/dmn/" + getTestFolder();
-    }
-
     protected void assertLiteralExpression(TLiteralExpression inputExpression, String stringType, String id, String text) {
         assertEquals(id, inputExpression.getId());
         assertEquals(stringType, inputExpression.getTypeRef());
@@ -191,6 +174,23 @@ public abstract class AbstractRDFToDMNTransformerTest extends AbstractTest {
         map.put("namespace", "http://www.gs.com/cip");
         map.put("prefix", "cip");
         return map;
+    }
+
+    private Path path(String path) {
+        File file = new File(signavioResource(path));
+        return file.toPath();
+    }
+
+    private String getInputPath() {
+        return "rdf/" + getTestFolder();
+    }
+
+    private String getOutputPath() {
+        return "target/rdf2dmn/" + getTestFolder() + "/";
+    }
+
+    private String getExpectedPath() {
+        return "rdf/rdf2dmn/expected/" + getTestFolder();
     }
 
     protected abstract String getTestFolder();

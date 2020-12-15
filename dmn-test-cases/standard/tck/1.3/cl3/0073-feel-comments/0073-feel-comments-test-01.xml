@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0073-feel-comments.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Feel : any</label>
+        <label>FEEL comments</label>
+        <label>Data Type: any</label>
+    </labels>
+
+    <testCase id="decision_001">
+        <resultNode name="decision_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">2</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_002">
+        <resultNode name="decision_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">2</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_003">
+        <resultNode name="decision_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">2</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

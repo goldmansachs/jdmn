@@ -16,7 +16,7 @@ import com.gs.dmn.signavio.testlab.expression.ComplexExpression;
 import com.gs.dmn.signavio.testlab.expression.Expression;
 import com.gs.dmn.signavio.testlab.expression.ListExpression;
 import com.gs.dmn.signavio.testlab.expression.Slot;
-import org.omg.spec.dmn._20180521.model.TItemDefinition;
+import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
 import java.util.LinkedHashMap;
 import java.util.List;

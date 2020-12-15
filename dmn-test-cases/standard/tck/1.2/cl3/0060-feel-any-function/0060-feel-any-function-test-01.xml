@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=""  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0060-feel-any-function.dmn</modelName>
+    <labels>
+        <label>Data Type: List</label>
+        <label>FEEL Functions: list</label>
+    </labels>
+
+    <testCase id="001">
+        <description>return true if any item is true</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <description>return false if all items are false</description>
+        <resultNode name="decision002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004">
+        <description>return null if any item not true and not all false</description>
+        <resultNode name="decision004" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005">
+        <description>return false for empty list</description>
+        <resultNode name="decision005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="006">
+        <description>return true for singleton true </description>
+        <resultNode name="decision006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007">
+        <description>return false for singleton false</description>
+        <resultNode name="decision007" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008">
+        <description>return null for singleton null</description>
+        <resultNode name="decision008" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="009">
+        <description>return null for singleton non-boolean</description>
+        <resultNode name="decision009" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="010">
+        <description>return true if any vararg item is true</description>
+        <resultNode name="decision010" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="011">
+        <description>return false if all vararg items are false</description>
+        <resultNode name="decision011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="012">
+        <description>return null if not all vararg items are true and none are false false</description>
+        <resultNode name="decision012" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="014">
+        <description>return error when no params</description>
+        <resultNode errorResult="true" name="decision014" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="015">
+        <description>return true if any item is true with named param</description>
+        <resultNode name="decision015" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="016">
+        <description>return false if all items are false with named param</description>
+        <resultNode name="decision016" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="017">
+        <description>return null if none true and not all false - with named param</description>
+        <resultNode name="decision017" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="018">
+        <description>return error when named param is null</description>
+        <resultNode errorResult="true" name="decision018" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="019">
+        <description>will error when wrongly named param</description>
+        <resultNode errorResult="true" name="decision019" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+
+</testCases>

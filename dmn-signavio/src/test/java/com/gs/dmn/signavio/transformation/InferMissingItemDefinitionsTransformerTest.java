@@ -23,10 +23,11 @@ import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.Assert;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TItemDefinition;
+import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class InferMissingItemDefinitionsTransformerTest extends AbstractFileTransformerTest {
-    private static final String BASE_PATH = "dmn2java/exported/complex";
 
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
@@ -43,7 +43,7 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractFileTran
     public void testWhenSignavioDialect() throws Exception {
         Map<String, Object> config = makeConfiguration(SignavioDMNDialectDefinition.class.getName());
         RepositoryTransformResult transformResult = executeTransformation(
-                resourcePath("input/credit-decision-missing-some-definitions.dmn"),
+                signavioResource("dmn/complex/credit-decision-missing-some-definitions.dmn"),
                 config
         );
 
@@ -61,7 +61,7 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractFileTran
     public void testWhenConfigurationIsNull() throws Exception {
         Map<String, Object> config = null;
         RepositoryTransformResult transformResult = executeTransformation(
-                resourcePath("input/credit-decision-missing-some-definitions.dmn"), config);
+                signavioResource("dmn/complex/credit-decision-missing-some-definitions.dmn"), config);
 
         List<Pair<String, String>> expectedNewDefinitions = Arrays.asList(
                 new Pair<>("assessApplicantAge", "number, false"),
@@ -77,7 +77,7 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractFileTran
     public void testWhenConfigurationIsEmpty() throws Exception {
         Map<String, Object> config = new LinkedHashMap<>();
         RepositoryTransformResult transformResult = executeTransformation(
-                resourcePath("input/credit-decision-missing-some-definitions.dmn"), config);
+                signavioResource("dmn/complex/credit-decision-missing-some-definitions.dmn"), config);
 
         List<Pair<String, String>> expectedNewDefinitions = Arrays.asList(
                 new Pair<>("assessApplicantAge", "number, false"),
@@ -97,7 +97,7 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractFileTran
             config.put(DMN_DIALECT_NAME, StandardDMNDialectDefinition.class.getName());
 
             RepositoryTransformResult transformResult = executeTransformation(
-                    resourcePath("input/credit-decision-missing-some-definitions.dmn"), config);
+                    signavioResource("dmn/complex/credit-decision-missing-some-definitions.dmn"), config);
 
             fail("Test is expected to fail; incorrect dmnDialect");
         } catch (Exception e) {
@@ -112,7 +112,7 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractFileTran
             config.put(DMN_DIALECT_NAME, 457);
 
             RepositoryTransformResult transformResult = executeTransformation(
-                    resourcePath("input/credit-decision-missing-some-definitions.dmn"), config);
+                    signavioResource("dmn/complex/credit-decision-missing-some-definitions.dmn"), config);
             fail("Test is expected to fail; incorrect dmnDialect");
         } catch (Exception e) {
             assertEquals("Invalid transformer configuration: 'dmnDialect' should be a string", e.getMessage());
@@ -126,7 +126,7 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractFileTran
             config.put(DMN_DIALECT_NAME, BigDecimal.class.getName());
 
             RepositoryTransformResult transformResult = executeTransformation(
-                    resourcePath("input/credit-decision-missing-some-definitions.dmn"), config);
+                    signavioResource("dmn/complex/credit-decision-missing-some-definitions.dmn"), config);
             fail("Test is expected to fail; incorrect dmnDialect");
         } catch (Exception e) {
             assertEquals("Invalid transformer configuration: Incorrect DMN dialect name 'java.math.BigDecimal'", e.getMessage());
@@ -140,21 +140,17 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractFileTran
     }
 
     @SuppressWarnings("unchecked")
-    private RepositoryTransformResult executeTransformation(String dmnFilePath, Map<String, Object> configuration) throws Exception {
+    private RepositoryTransformResult executeTransformation(URI dmnFileURI, Map<String, Object> configuration) throws Exception {
         DMNTransformer<TestLab> transformer = new InferMissingItemDefinitionsTransformer(LOGGER);
         transformer.configure(configuration);
 
-        File dmnFile = new File(resource(dmnFilePath));
+        File dmnFile = new File(dmnFileURI);
         DMNModelRepository repository = new SignavioDMNModelRepository(dmnReader.read(dmnFile), "http://www.provider.com/schema/dmn/1.1/");
         List<TItemDefinition> definitions = new ArrayList<>(repository.findItemDefinitions(repository.getRootDefinitions()));
         DMNModelRepository transformed = transformer.transform(repository);
 
         List<TItemDefinition> transformedDefinitions = new ArrayList<>(transformed.findItemDefinitions(transformed.getRootDefinitions()));
         return new RepositoryTransformResult(definitions, transformedDefinitions);
-    }
-
-    private String resourcePath(String relativePath) {
-        return String.format("%s/%s", BASE_PATH, relativePath);
     }
 
     // Identify the definitions present in comparisonRepository that are not present in baseRepository (name is unique)
