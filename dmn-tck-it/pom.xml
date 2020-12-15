@@ -27,12 +27,16 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>dmn-tck-it-interpreter</module>
         <module>dmn-tck-it-translator</module>
         <module>dmn-tck-it-kotlin-translator</module>
     </modules>
 
     <properties>
+        <tck.11.diagram.folder>${project.basedir}/../../dmn-test-cases/standard/tck/1.1</tck.11.diagram.folder>
+        <tck.12.diagram.folder>${project.basedir}/../../dmn-test-cases/standard/tck/1.2</tck.12.diagram.folder>
+        <composite.12.diagram.folder>${project.basedir}/../../dmn-test-cases/standard/composite/1.2</composite.12.diagram.folder>
+        <proto.11.diagram.folder>${project.basedir}/../../dmn-test-cases/standard/proto/1.1</proto.11.diagram.folder>
+
         <line.coverage.minimum>0.00</line.coverage.minimum>
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
     </properties>

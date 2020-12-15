@@ -14,19 +14,8 @@ package com.gs.dmn.fitnesse.fixture;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
-import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
-import com.gs.dmn.feel.analysis.semantics.type.*;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.feel.lib.StandardFEELLib;
-import com.gs.dmn.runtime.Context;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
-import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import fit.ColumnFixture;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
-import org.omg.spec.dmn._20180521.model.TNamedElement;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;

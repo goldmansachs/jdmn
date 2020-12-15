@@ -12,28 +12,18 @@
  */
 package com.gs.dmn.signavio.validation;
 
-import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
-import com.gs.dmn.signavio.SignavioDMNModelRepository;
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.validation.DMNValidator;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 
-import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 public class LabelDuplicationDRGElementValidatorTest extends AbstractSignavioValidatorTest {
     private final DMNValidator validator = new LabelDuplicationDRGElementValidator();
 
     @Test
     public void testValidate() {
-        String path = "dmn2java/exported/complex/input/";
+        String path = "dmn/complex/";
         String diagramName = "Linked Decision Test.dmn";
 
         List<String> expectedErrors = Arrays.asList(
@@ -45,6 +35,6 @@ public class LabelDuplicationDRGElementValidatorTest extends AbstractSignavioVal
                 "Label = 'Make credit decision' Id = 'id-53305251d2d6fb14173b439b019adeda' kind = 'TDecision'",
                 "Label = 'Make credit decision' Id = 'id-75d5270913befc4881b90708206b1e9e' kind = 'TDecision'"
         );
-        validate(validator, path + diagramName, expectedErrors);
+        validate(validator, signavioResource(path + diagramName), expectedErrors);
     }
 }

@@ -2,4 +2,5 @@
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <xsd:import namespace="http://www.omg.org/spec/DMN/20151101/dmn.xsd" schemaLocation="./1.1/dmn.xsd"/>
     <xsd:import namespace="http://www.omg.org/spec/DMN/20180521/MODEL/" schemaLocation="./1.2/dmn.xsd"/>
+    <xsd:import namespace="http://www.omg.org/spec/DMN/20191111/MODEL/" schemaLocation="./1.3/DMN13.xsd"/>
 </xsd:schema>

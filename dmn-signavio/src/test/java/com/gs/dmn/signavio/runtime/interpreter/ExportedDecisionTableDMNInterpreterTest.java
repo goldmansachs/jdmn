@@ -26,6 +26,11 @@ import java.util.Arrays;
 public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMNInterpreterTest {
     private final DefaultSignavioBaseDecision decision = new DefaultSignavioBaseDecision();
 
+    @Override
+    protected String getInputPath() {
+        return "dmn/decision-table";
+    }
+
     @Test
     public void testCompoundDecisionPrimitiveTypeInputsSfeelInputEntriesCompoundOutputFirstHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
@@ -324,11 +329,6 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
                         null
                 )
         );
-    }
-
-    @Override
-    protected String getInputPath() {
-        return "dmn2java/exported/decision-table/input";
     }
 
     @Override

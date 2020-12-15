@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dmn11:definitions xmlns="http://www.trisotech.com/definitions/_ed1ec15b-40aa-424d-b1d0-4936df80b135" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:tc="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" xmlns:trisofeed="http://trisotech.com/feed" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="DMN Modeler" exporterVersion="6.1.3" id="_ed1ec15b-40aa-424d-b1d0-4936df80b135" name="DT Using Variables" namespace="http://www.trisotech.com/definitions/_ed1ec15b-40aa-424d-b1d0-4936df80b135" triso:logoChoice="Default" xmlns:dmn11="http://www.omg.org/spec/DMN/20151101/dmn.xsd">
+  <dmn11:extensionElements>
+  </dmn11:extensionElements>
+  <dmn11:itemDefinition isCollection="false" label="Complex" name="Complex">
+    <dmn11:itemComponent id="_97f54b71-c748-4868-ab2c-1395142d1330" isCollection="false" name="aBoolean">
+      <dmn11:typeRef>feel:boolean</dmn11:typeRef>
+    </dmn11:itemComponent>
+    <dmn11:itemComponent id="_b94be943-6229-47e6-a0d2-1a7e915f4914" isCollection="false" name="aNumber">
+      <dmn11:typeRef>feel:number</dmn11:typeRef>
+    </dmn11:itemComponent>
+    <dmn11:itemComponent id="_f9919c4c-26ac-42ff-b788-ff9a16a797e8" isCollection="false" name="aString">
+      <dmn11:typeRef>feel:string</dmn11:typeRef>
+    </dmn11:itemComponent>
+    <dmn11:itemComponent id="_6d00495f-be93-48dc-86e3-cc232ace5b6c" name="aDate">
+      <dmn11:typeRef>feel:date</dmn11:typeRef>
+    </dmn11:itemComponent>
+    <dmn11:itemComponent id="_9c070417-4f8b-4bf1-8bfd-2adc2d7623a3" name="aTime">
+      <dmn11:typeRef>feel:time</dmn11:typeRef>
+    </dmn11:itemComponent>
+    <dmn11:itemComponent id="_f305358d-dff6-4974-87a9-30f80ccfb7eb" name="aDateTime">
+      <dmn11:typeRef>feel:dateTime</dmn11:typeRef>
+    </dmn11:itemComponent>
+    <dmn11:itemComponent id="_5ae0f547-6fe6-46ea-a203-0c740e3753d6" name="aDaysAndTimeDuration">
+      <dmn11:typeRef>feel:dayTimeDuration</dmn11:typeRef>
+    </dmn11:itemComponent>
+    <dmn11:itemComponent id="_af3fccf6-8294-4a9d-bae7-dd74f8209cab" name="aYearsAndMonthsDuration">
+      <dmn11:typeRef>feel:yearMonthDuration</dmn11:typeRef>
+    </dmn11:itemComponent>
+  </dmn11:itemDefinition>
+  <dmn11:decision id="_29fcbd74-791b-4700-b6b9-93654a21f492" name="Compare Boolean">
+    <dmn11:variable id="_48418f5b-85be-4423-af2f-42f914744f0b" name="Compare Boolean" typeRef="feel:string"/>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#_36fc73e6-8f0e-4cbf-b1f8-3287376a912a"/>
+    </dmn11:informationRequirement>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#_c714b876-f21c-429f-ab88-010b1f714eab"/>
+    </dmn11:informationRequirement>
+    <dmn11:decisionTable hitPolicy="UNIQUE" id="_74fb9c9b-4f00-40e4-aae4-f49f01839184" outputLabel="Compare Boolean" typeRef="feel:string">
+      <dmn11:input id="_8ffeb4cd-33da-4c1e-97c8-360a6a28d37d">
+        <dmn11:inputExpression typeRef="feel:boolean">
+          <dmn11:text>Another boolean</dmn11:text>
+        </dmn11:inputExpression>
+      </dmn11:input>
+      <dmn11:output id="_b15510e8-3a5e-41d5-a71a-5c8b77996527"/>
+      <dmn11:rule id="_0c4d562a-0720-46f0-8862-d5f8a8515fe8">
+        <dmn11:inputEntry id="_0c4d562a-0720-46f0-8862-d5f8a8515fe8-1">
+          <dmn11:text>Complex.aBoolean</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_0c4d562a-0720-46f0-8862-d5f8a8515fe8-2">
+          <dmn11:text>"Same boolean"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="_7b6189fc-fc3d-4bf1-b49f-363f071ecccf">
+        <dmn11:inputEntry id="_7b6189fc-fc3d-4bf1-b49f-363f071ecccf-1">
+          <dmn11:text>not(Complex.aBoolean)</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_7b6189fc-fc3d-4bf1-b49f-363f071ecccf-2">
+          <dmn11:text>"Not same boolean"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+    </dmn11:decisionTable>
+  </dmn11:decision>
+  <dmn11:inputData id="_36fc73e6-8f0e-4cbf-b1f8-3287376a912a" name="Complex">
+    <dmn11:variable id="_3ddbaef1-1874-4a8d-aacc-9267ea422ddd" name="Complex" typeRef="Complex"/>
+  </dmn11:inputData>
+  <dmn11:inputData id="_c714b876-f21c-429f-ab88-010b1f714eab" name="Another boolean">
+    <dmn11:variable id="_cde25348-e4b4-42fe-bd8b-fc0b64170f2f" name="Another boolean" typeRef="feel:boolean"/>
+  </dmn11:inputData>
+  <dmn11:inputData id="_a1395f8a-bf51-40f8-a8e9-89792e23c755" name="Another number">
+    <dmn11:variable id="_2fcde052-27a2-4154-bb13-fe634aa4ffc2" name="Another number" typeRef="feel:number"/>
+  </dmn11:inputData>
+  <dmn11:inputData id="_1fa4679e-196f-4274-85bf-6f50dbad41df" name="Another String">
+    <dmn11:variable id="_c1ab082d-1d61-4c92-a475-4631613c57ad" name="Another String" typeRef="feel:string"/>
+  </dmn11:inputData>
+  <dmn11:decision id="_4f421adb-316c-42e0-b6ff-5243c365bdba" name="Compare String">
+    <dmn11:variable id="_1a8428bf-4bb1-431a-a7f4-b77b1d8437a8" name="Compare String" typeRef="feel:string"/>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#_1fa4679e-196f-4274-85bf-6f50dbad41df"/>
+    </dmn11:informationRequirement>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#_36fc73e6-8f0e-4cbf-b1f8-3287376a912a"/>
+    </dmn11:informationRequirement>
+    <dmn11:decisionTable hitPolicy="UNIQUE" id="_0cdb4ff9-d52e-4b6b-9f2a-a1477c9d9b53" outputLabel="Compare String" typeRef="feel:string">
+      <dmn11:input id="_fe365673-d56b-4a3e-89e0-3e6eadd6f1c4">
+        <dmn11:inputExpression typeRef="feel:string">
+          <dmn11:text>Another String</dmn11:text>
+        </dmn11:inputExpression>
+      </dmn11:input>
+      <dmn11:output id="_90449846-5fa1-4105-8f3f-54ba2f95699e"/>
+      <dmn11:rule id="_3becfd70-616a-48e3-a439-78ad9aaa99ad">
+        <dmn11:inputEntry id="_3becfd70-616a-48e3-a439-78ad9aaa99ad-1">
+          <dmn11:text>Complex.aString</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_3becfd70-616a-48e3-a439-78ad9aaa99ad-2">
+          <dmn11:text>"Same String"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="_6628117c-e142-4d59-b9a2-8213759535a2">
+        <dmn11:inputEntry id="_6628117c-e142-4d59-b9a2-8213759535a2-1">
+          <dmn11:text>not(Complex.aString)</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_6628117c-e142-4d59-b9a2-8213759535a2-2">
+          <dmn11:text>"Different String"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+    </dmn11:decisionTable>
+  </dmn11:decision>
+  <dmn11:decision id="_35583bbe-81b8-4797-afe9-d870c3e17d44" name="Compare Number">
+    <dmn11:variable id="_59f475cf-3411-4155-bd5d-9683108d3e89" name="Compare Number" typeRef="feel:string"/>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#_a1395f8a-bf51-40f8-a8e9-89792e23c755"/>
+    </dmn11:informationRequirement>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#_36fc73e6-8f0e-4cbf-b1f8-3287376a912a"/>
+    </dmn11:informationRequirement>
+    <dmn11:decisionTable hitPolicy="UNIQUE" id="_b3d18d7b-1ca5-4f81-a0b7-434fe4a51588" outputLabel="Compare Number" typeRef="feel:string">
+      <dmn11:input id="_1ec860a8-2194-4748-a692-2544783c88d7">
+        <dmn11:inputExpression typeRef="feel:number">
+          <dmn11:text>Another number</dmn11:text>
+        </dmn11:inputExpression>
+      </dmn11:input>
+      <dmn11:output id="_3a602944-0ce0-43a8-86a7-092f7acd1e84"/>
+      <dmn11:rule id="_9d94759c-9da4-48aa-ba97-2a42f18e75b3">
+        <dmn11:inputEntry id="_9d94759c-9da4-48aa-ba97-2a42f18e75b3-1">
+          <dmn11:text>Complex.aNumber</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_9d94759c-9da4-48aa-ba97-2a42f18e75b3-2">
+          <dmn11:text>"Equals"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="_275dc304-38e6-41bf-8b40-04144d181ede">
+        <dmn11:inputEntry id="_275dc304-38e6-41bf-8b40-04144d181ede-1">
+          <dmn11:text>&gt;Complex.aNumber</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_275dc304-38e6-41bf-8b40-04144d181ede-2">
+          <dmn11:text>"Bigger"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="_82e82d4c-2df5-4c3a-81f0-f20774fb1d29">
+        <dmn11:inputEntry id="_82e82d4c-2df5-4c3a-81f0-f20774fb1d29-1">
+          <dmn11:text>&lt; Complex.aNumber</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_82e82d4c-2df5-4c3a-81f0-f20774fb1d29-2">
+          <dmn11:text>"Smaller"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+    </dmn11:decisionTable>
+  </dmn11:decision>
+  <dmn11:decision id="_6ea508a1-3414-4023-815c-1c9f9eb76604" name="Compare Date">
+    <dmn11:variable id="_f6b34443-8cb0-449a-b730-b867117fd25e" name="Compare Date" typeRef="feel:string"/>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#_36fc73e6-8f0e-4cbf-b1f8-3287376a912a"/>
+    </dmn11:informationRequirement>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#_5c8f37a6-d3c0-480d-a327-401b87580369"/>
+    </dmn11:informationRequirement>
+    <dmn11:decisionTable hitPolicy="UNIQUE" id="_e2069796-71a5-4eab-a907-61bb10e298d7" outputLabel="Compare Date" typeRef="feel:string">
+      <dmn11:input id="_1da4f660-5f79-45ee-bbb6-87495789bd2d">
+        <dmn11:inputExpression typeRef="feel:date">
+          <dmn11:text>Another Date</dmn11:text>
+        </dmn11:inputExpression>
+      </dmn11:input>
+      <dmn11:output id="_44c191e8-feb2-456d-b2bf-f2840cd7a93c"/>
+      <dmn11:rule id="_a27d20e7-ed69-4173-8edb-5351ff50783f">
+        <dmn11:inputEntry id="_8618c034-0676-4d2a-80fb-37f5e698aca1">
+          <dmn11:text>Complex.aDate</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_4735046c-8ffd-4960-9c49-3ed866604e01">
+          <dmn11:text>"Same Date"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="_82a45810-3a67-4e65-b92f-958721d8337e">
+        <dmn11:inputEntry id="_9bf777a0-59af-4dd6-828b-c255e9652755">
+          <dmn11:text>&gt; Complex.aDate</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_50f14cca-b00e-4ae2-adb5-fed65b21188b">
+          <dmn11:text>"Future Date"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="_d3549e0c-316a-47f3-8bc9-9a06699420e5">
+        <dmn11:inputEntry id="_27bd5bac-a6bd-42bb-a1c1-a8869709a498">
+          <dmn11:text>&lt; Complex.aDate</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_8d13b84d-824a-42e4-8a9e-6501102ca33b">
+          <dmn11:text>"Past Date"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+    </dmn11:decisionTable>
+  </dmn11:decision>
+  <dmn11:decision id="_d6407854-040f-4122-8173-3d3e266c6649" name="Compare Time">
+    <dmn11:variable id="_d0477755-3339-4602-b00f-85321217b20b" name="Compare Time" typeRef="feel:string"/>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#_36fc73e6-8f0e-4cbf-b1f8-3287376a912a"/>
+    </dmn11:informationRequirement>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#_61669f2c-9658-43d2-b5fa-0a58f0500412"/>
+    </dmn11:informationRequirement>
+    <dmn11:decisionTable hitPolicy="UNIQUE" id="_d52e015f-0c38-4ef3-bde6-64dc140eb93d" outputLabel="Compare Time" typeRef="feel:string">
+      <dmn11:input id="_2d9bbfcb-b1cf-4ae7-bc32-53a4ebf05c78">
+        <dmn11:inputExpression typeRef="feel:time">
+          <dmn11:text>Another Time</dmn11:text>
+        </dmn11:inputExpression>
+      </dmn11:input>
+      <dmn11:output id="_75734c94-ab2c-4b5b-b17f-e6beb471da15"/>
+      <dmn11:rule id="_2edd65eb-40a2-4284-b704-11e32451c34c">
+        <dmn11:inputEntry id="_82b39273-c61d-4a88-9492-0955cf25d429">
+          <dmn11:text>Complex.aTime</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_81e6d8e7-074b-4db0-85b0-7c825b1038a3">
+          <dmn11:text>"Same Time"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="_02bfe3ab-d6a0-4ce6-abc5-a143c8b86d34">
+        <dmn11:inputEntry id="_6bf6fc38-1a6f-44a1-a0d8-f62010d77e97">
+          <dmn11:text>&gt; Complex.aTime</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_73c4b746-7e96-47d9-b8b4-a632abccd1ae">
+          <dmn11:text>"Future Time"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="_fbc00136-8666-4267-9096-129877d5c9f7">
+        <dmn11:inputEntry id="_5c95f78d-696a-4ec7-b4fd-42a43532c48c">
+          <dmn11:text>&lt; Complex.aTime</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_c94e88f1-f1df-4ca4-be06-2b963a75a524">
+          <dmn11:text>"Past Time"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+    </dmn11:decisionTable>
+  </dmn11:decision>
+  <dmn11:decision id="_65c8e959-50df-4fd5-931c-be8e22f0005a" name="Compare Date and Time">
+    <dmn11:variable id="_de9e1bb6-49a2-4811-bc50-aa3e74eacd72" name="Compare Date and Time" typeRef="feel:string"/>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#_36fc73e6-8f0e-4cbf-b1f8-3287376a912a"/>
+    </dmn11:informationRequirement>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#_00bb2a44-eb91-4256-92a6-909582594bee"/>
+    </dmn11:informationRequirement>
+    <dmn11:decisionTable hitPolicy="UNIQUE" id="_271f03a4-74f1-4661-be53-45bd6ebdca41" outputLabel="Compare Date and Time" typeRef="feel:string">
+      <dmn11:input id="_31450328-30b2-46f9-ad4d-fddc68e424bf">
+        <dmn11:inputExpression typeRef="feel:dateTime">
+          <dmn11:text>Another Date and Time</dmn11:text>
+        </dmn11:inputExpression>
+      </dmn11:input>
+      <dmn11:output id="_a709e09f-7c46-489f-a23c-b55294de664d"/>
+      <dmn11:rule id="_e75a21ec-13e8-4c36-85e3-52c858704cdc">
+        <dmn11:inputEntry id="_06a78023-5acf-4ebb-bb5a-ed6562866f58">
+          <dmn11:text>Complex.aDateTime</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_9379173c-f3f3-4d05-8297-691dba1edd2a">
+          <dmn11:text>"Same date time"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="_3904df05-065f-4071-a470-ae1ab1f0c8ca">
+        <dmn11:inputEntry id="_85223768-af04-4bed-a23f-b8ba8d50783a">
+          <dmn11:text>&gt; Complex.aDateTime</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_cab3025c-3761-4e06-933b-85d644993ef0">
+          <dmn11:text>"Future date time"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="_cd2e0284-ba39-431d-8cb6-7a613f87b948">
+        <dmn11:inputEntry id="_00699881-d420-4953-86c4-776c5dd838f4">
+          <dmn11:text>&lt; Complex.aDateTime</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_f89edde0-e706-454d-9d8f-c48f60b6906c">
+          <dmn11:text>"Past date time"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+    </dmn11:decisionTable>
+  </dmn11:decision>
+  <dmn11:decision id="_88012dbc-db14-4c87-83b0-164a0f3fe602" name="Compare Days and Time Duration">
+    <dmn11:variable id="_6f6a8c1b-1613-46ec-ac3e-254b7136690b" name="Compare Days and Time Duration" typeRef="feel:string"/>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#_36fc73e6-8f0e-4cbf-b1f8-3287376a912a"/>
+    </dmn11:informationRequirement>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#_25c2e1fa-5268-463d-8675-157b9b092aa4"/>
+    </dmn11:informationRequirement>
+    <dmn11:decisionTable hitPolicy="UNIQUE" id="_3b48acd9-9008-4410-9df8-c29aa4df2022" outputLabel="Compare Days and Time Duration" typeRef="feel:string">
+      <dmn11:input id="_748e4641-b905-43c6-b9dd-b0f78df125f8">
+        <dmn11:inputExpression typeRef="feel:dayTimeDuration">
+          <dmn11:text>Another Days and Time Duration</dmn11:text>
+        </dmn11:inputExpression>
+      </dmn11:input>
+      <dmn11:output id="_ab8f536c-4cc1-495d-a0f1-b60ae1628d91"/>
+      <dmn11:rule id="_37f10965-a8f3-4624-931a-b60cbf508636">
+        <dmn11:inputEntry id="_3f16fba9-4c9f-475d-b909-31b09b6789dd">
+          <dmn11:text>Complex.aDaysAndTimeDuration</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_befbea2c-fd4f-4c56-820f-e4807e49a50d">
+          <dmn11:text>"Same duration"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="_98ad6c85-c9af-4290-b125-f15001423415">
+        <dmn11:inputEntry id="_7d5e0356-a188-4dad-be6a-54ef1521b0bf">
+          <dmn11:text>&gt; Complex.aDaysAndTimeDuration</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_d95c3950-2fcd-44b7-a5b3-fa2f4196fa8d">
+          <dmn11:text>"Longer duration"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="_816eb72e-33b1-4bba-b30c-2bf29c4c8416">
+        <dmn11:inputEntry id="_a6bd166c-0f0a-4501-9bde-47491de8ca3e">
+          <dmn11:text>&lt; Complex.aDaysAndTimeDuration</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_074603ea-f127-437a-94f1-ba4f4ef6d8f5">
+          <dmn11:text>"Shorter duration"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+    </dmn11:decisionTable>
+  </dmn11:decision>
+  <dmn11:decision id="_57cd8fab-8d6a-4a04-9f96-b04ae1674bf4" name="Compare Years and Months Duration">
+    <dmn11:variable id="_87936dd9-8693-425e-b95d-981f29762f88" name="Compare Years and Months Duration" typeRef="feel:string"/>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#_36fc73e6-8f0e-4cbf-b1f8-3287376a912a"/>
+    </dmn11:informationRequirement>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#_b3addb8c-bca6-41fe-a59a-871315483d92"/>
+    </dmn11:informationRequirement>
+    <dmn11:decisionTable hitPolicy="UNIQUE" id="_7520243d-d209-48b1-a39f-b6d33c555fbb" outputLabel="Compare Years and Months Duration" typeRef="feel:string">
+      <dmn11:input id="_55b8dfe9-7dc9-4be0-967b-f616910e4a54">
+        <dmn11:inputExpression typeRef="feel:yearMonthDuration">
+          <dmn11:text>Another Years and Months Duration</dmn11:text>
+        </dmn11:inputExpression>
+      </dmn11:input>
+      <dmn11:output id="_07d1795e-006a-47ec-b379-c56cfbef3bdc"/>
+      <dmn11:rule id="_5c489616-bbac-4ae2-aafb-5c68c28149e7">
+        <dmn11:inputEntry id="_2276323f-efe5-49ae-a6b1-3f4926258c20">
+          <dmn11:text>Complex.aYearsAndMonthsDuration</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_44ee05b9-4a84-49f7-8111-92e881cdc3bc">
+          <dmn11:text>"Same duration"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="_9be84118-78b5-401e-913d-717bc33280d7">
+        <dmn11:inputEntry id="_634a1c7f-e46b-42ee-b039-585ab4ee9563">
+          <dmn11:text>&gt; Complex.aYearsAndMonthsDuration</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_af5d3332-0a63-4155-96d9-96f6795be2ba">
+          <dmn11:text>"Longer duration"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="_7db3aeea-2704-49e2-a496-37232218f33e">
+        <dmn11:inputEntry id="_904092c1-3cc5-425e-939c-b9e50ccf35e7">
+          <dmn11:text>&lt; Complex.aYearsAndMonthsDuration</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="_37035f5a-9631-4c9f-a20c-4ac3efe5f1d3">
+          <dmn11:text>"Shorter duration"</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+    </dmn11:decisionTable>
+  </dmn11:decision>
+  <dmn11:inputData id="_5c8f37a6-d3c0-480d-a327-401b87580369" name="Another Date">
+    <dmn11:variable id="_0eaf5959-4e2f-41fd-851a-61350af5941d" name="Another Date" typeRef="feel:date"/>
+  </dmn11:inputData>
+  <dmn11:inputData id="_61669f2c-9658-43d2-b5fa-0a58f0500412" name="Another Time">
+    <dmn11:variable id="_316b1e53-f43a-431e-adb2-e7328ddb74ee" name="Another Time" typeRef="feel:time"/>
+  </dmn11:inputData>
+  <dmn11:inputData id="_00bb2a44-eb91-4256-92a6-909582594bee" name="Another Date and Time">
+    <dmn11:variable id="_075fcb04-9093-4692-a58e-de65522a1089" name="Another Date and Time" typeRef="feel:dateTime"/>
+  </dmn11:inputData>
+  <dmn11:inputData id="_25c2e1fa-5268-463d-8675-157b9b092aa4" name="Another Days and Time Duration">
+    <dmn11:variable id="_93ae7be4-ad1a-4542-9ad9-5ca82af2b392" name="Another Days and Time Duration" typeRef="feel:dayTimeDuration"/>
+  </dmn11:inputData>
+  <dmn11:inputData id="_b3addb8c-bca6-41fe-a59a-871315483d92" name="Another Years and Months Duration">
+    <dmn11:variable id="_1b9882e2-1985-443a-8145-c567fd5d24d4" name="Another Years and Months Duration" typeRef="feel:yearMonthDuration"/>
+  </dmn11:inputData>
+</dmn11:definitions>

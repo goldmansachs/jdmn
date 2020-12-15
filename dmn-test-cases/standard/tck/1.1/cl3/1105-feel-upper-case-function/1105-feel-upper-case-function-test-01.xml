@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by ACTICO GmbH https://actico.com -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="">
+    <modelName>1105-feel-upper-case-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: String</label>
+        <label>Literal Expression</label>
+        <label>FEEL Functions: strings</label>
+    </labels>
+    <testCase id="001_2395aaad55">
+        <resultNode name="feel-upper-case-function_001_2395aaad55" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">A</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="002_991789dded">
+        <resultNode name="feel-upper-case-function_002_991789dded" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">ABC</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003_d8306d8d00">
+        <resultNode name="feel-upper-case-function_003_d8306d8d00" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004_310caf7262">
+        <resultNode name="feel-upper-case-function_004_310caf7262" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="005_b316d773ac">
+        <resultNode name="feel-upper-case-function_005_b316d773ac" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">?@{</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="006_d9bd3c14bc">
+        <resultNode name="feel-upper-case-function_006_d9bd3c14bc" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">ABDCF</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="007_31fc6c1967">
+        <resultNode name="feel-upper-case-function_007_31fc6c1967" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">XYZ </value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="008_26e369a9d9">
+        <resultNode name="feel-upper-case-function_008_26e369a9d9" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">123ABC</value>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

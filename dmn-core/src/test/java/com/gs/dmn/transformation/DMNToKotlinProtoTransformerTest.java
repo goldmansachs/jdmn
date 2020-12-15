@@ -16,23 +16,23 @@ import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
 public class DMNToKotlinProtoTransformerTest extends AbstractTckDMNToKotlinTransformerTest {
-    @Test
-    public void testProto() throws Exception {
-        doSingleModelTest("0004-lending", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
-    }
-
-    @Test
-    public void testProtoDateTime() throws Exception {
-        doSingleModelTest("date-time-proto", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
-    }
-
     @Override
     protected String getInputPath() {
-        return "tck/proto/input";
+        return "proto/%s/%s/translator";
     }
 
     @Override
     protected String getExpectedPath() {
-        return "tck/proto/expected/proto3/kotlin/dmn";
+        return "proto/%s/%s/translator/expected/proto3/kotlin/dmn";
+    }
+
+    @Test
+    public void testProto() throws Exception {
+        doSingleModelTest("1.1","0004-lending", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
+    }
+
+    @Test
+    public void testProtoDateTime() throws Exception {
+        doSingleModelTest("1.1","date-time-proto", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
     }
 }

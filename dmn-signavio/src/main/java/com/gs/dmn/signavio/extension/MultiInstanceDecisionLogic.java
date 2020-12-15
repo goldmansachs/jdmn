@@ -13,8 +13,8 @@
 package com.gs.dmn.signavio.extension;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
-import org.omg.spec.dmn._20180521.model.TDecision;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TDecision;
 
 public class MultiInstanceDecisionLogic {
     private final String iterationExpression;

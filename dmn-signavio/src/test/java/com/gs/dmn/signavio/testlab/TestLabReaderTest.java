@@ -12,10 +12,12 @@
  */
 package com.gs.dmn.signavio.testlab;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import org.junit.Test;
 
 import java.io.File;
+import java.net.URI;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
@@ -24,17 +26,14 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class TestLabReaderTest {
+public class TestLabReaderTest extends AbstractTest {
     private final TestLabReader reader = new TestLabReader();
 
     @Test
     public void testRead() throws Exception {
-        String path = "rdf2java/dmn/decision-table/" + "simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy.json";
-        URL resource = this.getClass().getClassLoader().getResource(path);
-        if (resource == null) {
-            throw new DMNRuntimeException(String.format("Cannot find TestLab file '%s'", path));
-        }
-        File inputFile = new File(resource.getFile());
+        String path = "rdf/rdf2java/expected/dmn/decision-table/" + "simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy.json";
+        URI resource = signavioResource(path);
+        File inputFile = new File(resource);
         TestLab testLab = reader.read(inputFile);
 
         List<InputParameterDefinition> inputParameterDefinitions = testLab.getInputParameterDefinitions();

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=""  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <modelName>0088-recursion.dmn</modelName>
+    <labels>
+        <label>Recursion</label>
+    </labels>
+
+    <testCase id="001">
+        <description>fibonacci sequence fn(10)</description>
+        <resultNode name="fibonacci_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">55</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="002">
+        <description>input data tree traversal using self referencing datatype</description>
+        <inputNode name="treeData">
+            <component name="children">
+                <list>
+                    <item>
+                        <component name="children">
+                            <list>
+                                <item>
+                                    <component name="children">
+                                        <list></list>
+                                    </component>
+                                    <component name="value">
+                                        <value xsi:type="xsd:decimal">4</value>
+                                    </component>
+                                </item>
+                                <item>
+                                    <component name="children">
+                                        <list></list>
+                                    </component>
+                                    <component name="value">
+                                        <value xsi:type="xsd:decimal">5</value>
+                                    </component>
+                                </item>
+                            </list>
+                        </component>
+                        <component name="value">
+                            <value xsi:type="xsd:decimal">2</value>
+                        </component>
+                    </item>
+                    <item>
+                        <component name="children">
+                            <list>
+                                <item>
+                                    <component name="children">
+                                        <list></list>
+                                    </component>
+                                    <component name="value">
+                                        <value xsi:type="xsd:decimal">6</value>
+                                    </component>
+                                </item>
+                                <item>
+                                    <component name="children">
+                                        <list></list>
+                                    </component>
+                                    <component name="value">
+                                        <value xsi:type="xsd:decimal">7</value>
+                                    </component>
+                                </item>
+                            </list>
+                        </component>
+                        <component name="value">
+                            <value xsi:type="xsd:decimal">3</value>
+                        </component>
+                    </item>
+                </list>
+            </component>
+            <component name="value">
+                <value xsi:type="xsd:decimal">1</value>
+            </component>
+        </inputNode>
+        <resultNode name="tree_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">28</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+</testCases>

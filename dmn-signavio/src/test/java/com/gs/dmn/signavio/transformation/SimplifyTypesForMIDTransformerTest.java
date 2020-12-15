@@ -23,7 +23,7 @@ import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
+import org.omg.spec.dmn._20191111.model.TDefinitions;
 
 import java.io.File;
 
@@ -34,10 +34,10 @@ public class SimplifyTypesForMIDTransformerTest extends AbstractFileTransformerT
 
     @Test
     public void testTransform() throws Exception {
-        String path = "dmn2java/exported/complex/input/";
+        String path = "dmn/dmn2java/expected/complex/";
 
         // Transform DMN
-        File dmnFile = new File(resource(path + "IteratorExampleReturningMultiple.dmn"));
+        File dmnFile = new File(signavioResource(path + "IteratorExampleReturningMultiple.dmn"));
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(dmnFile);
         DMNModelRepository repository = new SignavioDMNModelRepository(pair, "http://www.provider.com/schema/dmn/1.1/");
         DMNModelRepository actualRepository = transformer.transform(repository);
@@ -51,8 +51,8 @@ public class SimplifyTypesForMIDTransformerTest extends AbstractFileTransformerT
         TDefinitions actualDefinitions = repository.getRootDefinitions();
         dmnWriter.write(actualDefinitions, actualDMNFile, new DMNNamespacePrefixMapper(actualDefinitions.getNamespace(), "sig"));
 
-        String path = "dmn2java/exported/complex/expected/";
-        File expectedDMNFile = new File(resource(path + fileName));
+        String path = "dmn/dmn2java/expected/complex/";
+        File expectedDMNFile = new File(signavioResource(path + fileName));
 
         compareFile(expectedDMNFile, actualDMNFile);
     }

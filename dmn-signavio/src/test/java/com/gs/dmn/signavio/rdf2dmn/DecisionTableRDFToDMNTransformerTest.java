@@ -55,5 +55,4 @@ public class DecisionTableRDFToDMNTransformerTest extends AbstractRDFToDMNTransf
             doTest(diagram);
         }
     }
-
 }

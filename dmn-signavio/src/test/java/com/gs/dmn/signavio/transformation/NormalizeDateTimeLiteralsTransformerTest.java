@@ -21,7 +21,7 @@ import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
+import org.omg.spec.dmn._20191111.model.TDefinitions;
 
 import java.io.File;
 
@@ -46,7 +46,7 @@ public class NormalizeDateTimeLiteralsTransformerTest extends AbstractFileTransf
 
     @Test
     public void testTransform() throws Exception {
-        String path = "dmn/input/";
+        String path = "dmn/input/1.1/";
 
         // Transform DMN
         File dmnFile = new File(resource(path + "Null Safe Tests.dmn"));

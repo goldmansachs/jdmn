@@ -27,6 +27,7 @@ public abstract class DMNSerializer {
         try {
             JAXB_CONTEXTS.put(DMNVersion.DMN_11, JAXBContext.newInstance(DMNVersion.DMN_11.getJavaPackage()));
             JAXB_CONTEXTS.put(DMNVersion.DMN_12, JAXBContext.newInstance(DMNVersion.DMN_12.getJavaPackage()));
+            JAXB_CONTEXTS.put(DMNVersion.DMN_13, JAXBContext.newInstance(DMNVersion.DMN_13.getJavaPackage()));
         } catch (JAXBException e) {
             throw new DMNRuntimeException("Cannot create JAXB Context", e);
         }

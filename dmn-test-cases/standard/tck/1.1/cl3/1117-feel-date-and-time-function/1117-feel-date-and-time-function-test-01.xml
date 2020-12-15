@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by ACTICO GmbH https://actico.com -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="">
+    <modelName>1117-feel-date-and-time-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Literal Expression</label>
+        <label>FEEL Functions: date and time</label>
+    </labels>
+    <testCase id="001_05fd7d6215">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_001_05fd7d6215" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="002_8c66ed2d1a">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_002_8c66ed2d1a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003_335cff371a">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_003_335cff371a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004_28ef3e7882">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_004_28ef3e7882" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="005_15df95b27a">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_005_15df95b27a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="006_8c794da0bb">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_006_8c794da0bb" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="007_59863d1b57">
+        <resultNode name="feel-date-and-time-function_007_59863d1b57" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2012-12-24T00:00:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="008_83eb9a93ba">
+        <resultNode name="feel-date-and-time-function_008_83eb9a93ba" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-12-31T00:00:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="009_1982fa549c">
+        <resultNode name="feel-date-and-time-function_009_1982fa549c" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-12-31T11:22:33</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="010_59f5b47012">
+        <resultNode name="feel-date-and-time-function_010_59f5b47012" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">-2017-12-31T11:22:33</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="011_eec2d5bdcd">
+        <resultNode name="feel-date-and-time-function_011_eec2d5bdcd" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">99999-12-31T11:22:33</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="012_225a105eef">
+        <resultNode name="feel-date-and-time-function_012_225a105eef" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">-99999-12-31T11:22:33</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="013_c4fd0a0e8d">
+        <resultNode name="feel-date-and-time-function_013_c4fd0a0e8d" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-12-31T11:22:33.345</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="014_ded0e5fe2f">
+        <resultNode name="feel-date-and-time-function_014_ded0e5fe2f" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-12-31T11:22:33.123456789</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="015_9e27148afd">
+        <resultNode name="feel-date-and-time-function_015_9e27148afd" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-12-31T11:22:33Z</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="016_c08e4d417a">
+        <resultNode name="feel-date-and-time-function_016_c08e4d417a" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-12-31T11:22:33.567Z</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="017_47816add0e">
+        <resultNode name="feel-date-and-time-function_017_47816add0e" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-12-31T11:22:33+01:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="018_0614e473e7">
+        <resultNode name="feel-date-and-time-function_018_0614e473e7" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-12-31T11:22:33-02:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="019_c312e3dfe3">
+        <resultNode name="feel-date-and-time-function_019_c312e3dfe3" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-12-31T11:22:33+01:35</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="020_29e0585b6f">
+        <resultNode name="feel-date-and-time-function_020_29e0585b6f" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-12-31T11:22:33-01:35</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="021_99f0215b60">
+        <resultNode name="feel-date-and-time-function_021_99f0215b60" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-12-31T11:22:33.456+01:35</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="022_b8b20f0328">
+        <resultNode name="feel-date-and-time-function_022_b8b20f0328" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">-2017-12-31T11:22:33.456+01:35</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="023_2e41497673">
+        <resultNode name="feel-date-and-time-function_023_2e41497673" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30@Europe/Paris</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="024_b4d1fb8735">
+        <resultNode name="feel-date-and-time-function_024_b4d1fb8735" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30@Etc/UTC</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="025_0cb7f83ec6">
+        <resultNode name="feel-date-and-time-function_025_0cb7f83ec6" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30.987@Europe/Paris</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="026_5ba081cd5f">
+        <resultNode name="feel-date-and-time-function_026_5ba081cd5f" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30.123456789@Europe/Paris</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="027_ae365197dd">
+        <resultNode name="feel-date-and-time-function_027_ae365197dd" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">999999999-12-31T23:59:59.999999999@Europe/Paris</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="028_1c3d56275f">
+        <resultNode name="feel-date-and-time-function_028_1c3d56275f" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">-999999999-12-31T23:59:59.999999999+02:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="029_e3a5e786a0">
+        <resultNode name="feel-date-and-time-function_029_e3a5e786a0" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-01-01T23:59:01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="030_2f97bff606">
+        <resultNode name="feel-date-and-time-function_030_2f97bff606" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-01-01T23:59:01Z</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="031_61e70c285f">
+        <resultNode name="feel-date-and-time-function_031_61e70c285f" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-01-01T23:59:01+02:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="032_1e95e8726e">
+        <resultNode name="feel-date-and-time-function_032_1e95e8726e" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2017-01-01T23:59:01@Europe/Paris</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="033_2fac4d6807">
+        <resultNode name="feel-date-and-time-function_033_2fac4d6807" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2017-01-01T23:59:01.123456789@Europe/Paris</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="034_75580be3aa">
+        <resultNode name="feel-date-and-time-function_034_75580be3aa" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-08-10T23:59:01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="035_831b1ad0c5">
+        <resultNode name="feel-date-and-time-function_035_831b1ad0c5" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-08-10T23:59:01.987654321</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="036_189e1c3095">
+        <resultNode name="feel-date-and-time-function_036_189e1c3095" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-09-05T09:15:30+02:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="037_c7aec7ecf7">
+        <resultNode name="feel-date-and-time-function_037_c7aec7ecf7" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-09-05T09:15:30Z</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="038_1493e6d873">
+        <resultNode name="feel-date-and-time-function_038_1493e6d873" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-09-05T09:15:30.987654321+02:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="039_593292b25c">
+        <resultNode name="feel-date-and-time-function_039_593292b25c" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-09-05T09:15:30.123456Z</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="040_d9116e1daa">
+        <resultNode name="feel-date-and-time-function_040_d9116e1daa" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2017-09-05T09:15:30.987654321@Europe/Paris</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="041_c6decfe6a3">
+        <resultNode name="feel-date-and-time-function_041_c6decfe6a3" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-08-10T23:59:01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="042_0cbcc3d1dc">
+        <resultNode name="feel-date-and-time-function_042_0cbcc3d1dc" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-08-10T23:59:01.987654321</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="043_2e4177d00c">
+        <resultNode name="feel-date-and-time-function_043_2e4177d00c" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-09-05T09:15:30+02:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="044_9404547f9d">
+        <resultNode name="feel-date-and-time-function_044_9404547f9d" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-09-05T09:15:30Z</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="045_5d93a541eb">
+        <resultNode name="feel-date-and-time-function_045_5d93a541eb" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-09-05T09:15:30.987654321+02:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="046_89c1cd8daa">
+        <resultNode name="feel-date-and-time-function_046_89c1cd8daa" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-09-05T09:15:30.123456Z</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="047_60ea7838ce">
+        <resultNode name="feel-date-and-time-function_047_60ea7838ce" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2017-09-05T09:15:30.987654321@Europe/Paris</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="048_e387922273">
+        <resultNode name="feel-date-and-time-function_048_e387922273" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-08-10T23:59:01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="049_eb9cd1f777">
+        <resultNode name="feel-date-and-time-function_049_eb9cd1f777" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-08-10T23:59:01.987654321</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="050_2d960354af">
+        <resultNode name="feel-date-and-time-function_050_2d960354af" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-09-05T09:15:30+02:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="051_46bdaa00b0">
+        <resultNode name="feel-date-and-time-function_051_46bdaa00b0" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-09-05T09:15:30Z</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="052_911dbd0a24">
+        <resultNode name="feel-date-and-time-function_052_911dbd0a24" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-09-05T09:15:30.987654321+02:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="053_283c083df9">
+        <resultNode name="feel-date-and-time-function_053_283c083df9" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-09-05T09:15:30.123456Z</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="054_2561a406fc">
+        <resultNode name="feel-date-and-time-function_054_2561a406fc" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2017-09-05T09:15:30.987654321@Europe/Paris</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="055_6ce9202e17">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_055_6ce9202e17" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="056_e66397568e">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_056_e66397568e" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="057_0452ca8719">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_057_0452ca8719" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="058_588040ceaa">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_058_588040ceaa" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="059_dfc62a3ebc">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_059_dfc62a3ebc" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="060_890c302575">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_060_890c302575" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="061_38ea1fc94d">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_061_38ea1fc94d" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="062_528aa370a3">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_062_528aa370a3" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="063_2c94303011">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_063_2c94303011" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="064_926a372666">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_064_926a372666" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="065_a13de18ee4">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_065_a13de18ee4" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="066_e9f3d6d2c2">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_066_e9f3d6d2c2" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="067_35fef99b53">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_067_35fef99b53" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="068_abaa1c2774">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_068_abaa1c2774" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="069_ca84e9c806">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_069_ca84e9c806" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="070_889c75a0cf">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_070_889c75a0cf" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="071_e90b813dfe">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_071_e90b813dfe" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="072_9f3e9b9c21">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_072_9f3e9b9c21" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="073_717548bec6">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_073_717548bec6" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="074_a15e7f8d29">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_074_a15e7f8d29" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="075_4c3b8e7097">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_075_4c3b8e7097" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="076_4d31fed18e">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_076_4d31fed18e" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="077_f83b3ac8bb">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_077_f83b3ac8bb" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="078_e113dabcdd">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_078_e113dabcdd" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="079_2e6f80eb94">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_079_2e6f80eb94" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="080_69de952053">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_080_69de952053" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="081_e063215a7c">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_081_e063215a7c" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="082_5b6ed4e801">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_082_5b6ed4e801" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="083_4f41731f2a">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_083_4f41731f2a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="084_c633b01603">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_084_c633b01603" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="085_a604a1bc80">
+        <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_085_a604a1bc80" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="086_12ca8ac1d3">
+        <resultNode name="feel-date-and-time-function_086_12ca8ac1d3" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2012-12-24T23:59:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="087_e9fd32063a">
+        <resultNode name="feel-date-and-time-function_087_e9fd32063a" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-01-01T23:59:01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="088_1db0287718">
+        <resultNode name="feel-date-and-time-function_088_1db0287718" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:dateTime">2017-01-01T23:59:01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

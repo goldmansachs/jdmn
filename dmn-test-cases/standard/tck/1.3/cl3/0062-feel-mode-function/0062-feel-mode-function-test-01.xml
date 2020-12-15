@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0062-feel-mode-function.dmn</modelName>
+    <labels>
+        <label>Data Type: List</label>
+        <label>FEEL Functions: list</label>
+    </labels>
+
+    <testCase id="001">
+        <description>will return median for even list size</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">6</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <description>will return median for odd list size</description>
+        <resultNode name="decision002" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">1</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">3</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">6</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003">
+        <description>will error when no params</description>
+        <resultNode errorResult="true" name="decision003" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003_a">
+        <description>will error when null param</description>
+        <resultNode errorResult="true" name="decision003_a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004">
+        <description>will error when list item not a number</description>
+        <resultNode errorResult="true" name="decision004" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005">
+        <description>will error when list item not a number</description>
+        <resultNode errorResult="true" name="decision005" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="006">
+        <description>will median to decimals</description>
+        <resultNode name="decision006" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">2.5</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007">
+        <description>will return empty list when param is empty list</description>
+        <resultNode name="decision007" type="decision">
+            <expected>
+                <list></list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008">
+        <description>will coerce singleton list</description>
+        <resultNode name="decision008" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">6</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="009">
+        <description>will return median for varargs list</description>
+        <resultNode name="decision009" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">6</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--
+    <testCase id="010">
+        <description>will return median for odd varargs list size</description>
+        <resultNode name="decision010" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">6</value>
+            </expected>
+        </resultNode>
+    </testCase>
+-->
+
+    <testCase id="011">
+        <description>will return median for named params</description>
+        <resultNode name="decision011" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">6</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="012">
+        <description>will error when null named param</description>
+        <resultNode errorResult="true" name="decision012" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="013">
+        <description>will error when wrongly named param</description>
+        <resultNode errorResult="true" name="decision013" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

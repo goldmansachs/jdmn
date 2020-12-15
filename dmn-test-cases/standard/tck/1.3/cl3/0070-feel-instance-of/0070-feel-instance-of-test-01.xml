@@ -1,0 +1,1293 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0070-feel-instance-of.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: any</label>
+    </labels>
+
+    <testCase id="null_001">
+        <description>null instance of Any is false</description>
+        <resultNode name="null_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_002">
+        <description>null instance of number is false</description>
+        <resultNode name="null_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_003">
+        <description>null instance of string is false</description>
+        <resultNode name="null_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_004">
+        <description>null instance of boolean is false</description>
+        <resultNode name="null_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_005">
+        <description>null instance of date is false</description>
+        <resultNode name="null_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_006">
+        <description>null instance of time is false</description>
+        <resultNode name="null_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_007">
+        <description>null instance of date and time is false</description>
+        <resultNode name="null_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="null_008">
+        <description>null instance of list is false</description>
+        <resultNode name="null_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="null_009">
+        <description>null instance of years and months duration is false</description>
+        <resultNode name="null_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_010">
+        <description>null instance of days and time duration is false</description>
+        <resultNode name="null_010" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="null_011">
+        <description>null instance of context is false</description>
+        <resultNode name="null_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_012">
+        <description>null instance of function is false</description>
+        <resultNode name="null_012" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="number_001">
+        <description>number instance of Any is true</description>
+        <resultNode name="number_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_002">
+        <description>number instance of number is true</description>
+        <resultNode name="number_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_003">
+        <description>number instance of string is false</description>
+        <resultNode name="number_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_004">
+        <description>number instance of boolean is false</description>
+        <resultNode name="number_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_005">
+        <description>number instance of date is false</description>
+        <resultNode name="number_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_006">
+        <description>number instance of time is false</description>
+        <resultNode name="number_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_007">
+        <description>number instance of date and time is false</description>
+        <resultNode name="number_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="number_008">
+        <description>number instance of list is false</description>
+        <resultNode name="number_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="number_009">
+        <description>number instance of years and months duration is false</description>
+        <resultNode name="number_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_010">
+        <description>number instance of days and time duration is false</description>
+        <resultNode name="number_010" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="number_011">
+        <description>number instance of context is false</description>
+        <resultNode name="number_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_012">
+        <description>number instance of function is false</description>
+        <resultNode name="number_012" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+
+    <testCase id="string_001">
+        <description>string instance of Any is true</description>
+        <resultNode name="string_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_002">
+        <description>string instance of number is false</description>
+        <resultNode name="string_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_003">
+        <description>string instance of string is true</description>
+        <resultNode name="string_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_004">
+        <description>string instance of boolean is false</description>
+        <resultNode name="string_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_005">
+        <description>string instance of date is false</description>
+        <resultNode name="string_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_006">
+        <description>string instance of time is false</description>
+        <resultNode name="string_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_007">
+        <description>string instance of date and time is false</description>
+        <resultNode name="string_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="string_008">
+        <description>string instance of list is false</description>
+        <resultNode name="string_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="string_009">
+        <description>string instance of years and months duration is false</description>
+        <resultNode name="string_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_010">
+        <description>string instance of days and time duration is false</description>
+        <resultNode name="string_010" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="string_011">
+        <description>string instance of context is false</description>
+        <resultNode name="string_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_012">
+        <description>string instance of function is false</description>
+        <resultNode name="string_012" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+
+    <testCase id="boolean_001">
+        <description>boolean instance of Any is true</description>
+        <resultNode name="boolean_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="boolean_002">
+        <description>boolean instance of number is false</description>
+        <resultNode name="boolean_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="boolean_003">
+        <description>boolean instance of string is false</description>
+        <resultNode name="boolean_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="boolean_004">
+        <description>boolean instance of boolean is true</description>
+        <resultNode name="boolean_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="boolean_005">
+        <description>boolean instance of date is false</description>
+        <resultNode name="boolean_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="boolean_006">
+        <description>boolean instance of time is false</description>
+        <resultNode name="boolean_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="boolean_007">
+        <description>boolean instance of date and time is false</description>
+        <resultNode name="boolean_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="boolean_008">
+        <description>boolean instance of list is false</description>
+        <resultNode name="boolean_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="boolean_009">
+        <description>boolean instance of years and months duration is false</description>
+        <resultNode name="boolean_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="boolean_010">
+        <description>boolean instance of days and time duration is false</description>
+        <resultNode name="boolean_010" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="boolean_011">
+        <description>boolean instance of context is false</description>
+        <resultNode name="boolean_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="boolean_012">
+        <description>boolean instance of function is false</description>
+        <resultNode name="boolean_012" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="date_001">
+        <description>date instance of Any is true</description>
+        <resultNode name="date_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_002">
+        <description>date instance of number is false</description>
+        <resultNode name="date_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_003">
+        <description>date instance of string is false</description>
+        <resultNode name="date_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="date_004">
+        <description>date instance of boolean is false</description>
+        <resultNode name="date_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_005">
+        <description>date instance of date is true</description>
+        <resultNode name="date_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_006">
+        <description>date instance of time is false</description>
+        <resultNode name="date_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_007">
+        <description>date instance of date and time is false - spec 1.2 "Examples of equivalence
+            and conformance relations" table shows date and confirming to date
+            and time - which I believe is wrong - it is the other way around</description>
+        <resultNode name="date_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="date_008">
+        <description>date instance of list is false</description>
+        <resultNode name="date_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="date_009">
+        <description>date instance of years and months duration is false</description>
+        <resultNode name="date_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_010">
+        <description>date instance of days and time duration is false</description>
+        <resultNode name="date_010" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="date_011">
+        <description>date instance of context is false</description>
+        <resultNode name="date_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_012">
+        <description>date instance of function is false</description>
+        <resultNode name="date_012" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="time_001">
+        <description>time instance of Any is true</description>
+        <resultNode name="time_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_002">
+        <description>time instance of number is false</description>
+        <resultNode name="time_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_003">
+        <description>time instance of string is false</description>
+        <resultNode name="time_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_004">
+        <description>time instance of boolean is false</description>
+        <resultNode name="time_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_005">
+        <description>time instance of date is false</description>
+        <resultNode name="time_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_006">
+        <description>time instance of time is true</description>
+        <resultNode name="time_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_007">
+        <description>time instance of date and time is false</description>
+        <resultNode name="time_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="time_008">
+        <description>time instance of list is false</description>
+        <resultNode name="time_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="time_009">
+        <description>time instance of years and months duration is false</description>
+        <resultNode name="time_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_010">
+        <description>time instance of days and time duration is false</description>
+        <resultNode name="time_010" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="time_011">
+        <description>time instance of context is false</description>
+        <resultNode name="time_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_012">
+        <description>time instance of function is false</description>
+        <resultNode name="time_012" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="list_001">
+        <description>list instance of Any is true</description>
+        <resultNode name="list_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_002">
+        <description>list instance of number is false</description>
+        <resultNode name="list_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_003">
+        <description>list instance of string is false</description>
+        <resultNode name="list_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_004">
+        <description>list instance of boolean is false</description>
+        <resultNode name="list_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_005">
+        <description>list instance of date is false</description>
+        <resultNode name="list_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_006">
+        <description>list instance of time is false</description>
+        <resultNode name="list_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_007">
+        <description>list instance of date and time is false</description>
+        <resultNode name="list_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="list_008">
+        <description>list instance of list is rrue</description>
+        <resultNode name="list_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="list_009">
+        <description>list instance of years and months duration is false</description>
+        <resultNode name="list_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_010">
+        <description>list instance of days and time duration is false</description>
+        <resultNode name="list_010" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="list_011">
+        <description>list instance of context is false</description>
+        <resultNode name="list_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_012">
+        <description>list instance of function is false</description>
+        <resultNode name="list_012" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+<!--     <testCase id="list_013">
+        <description>list instance with same itemtype is true</description>
+        <resultNode name="list_013" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_014">
+        <description>list instance with different itemtypes is list Any</description>
+        <resultNode name="list_014" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_014_a">
+        <description>empty list is list Any</description>
+        <resultNode name="list_014_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_015">
+        <description>list instance with different item types is not a list of (say) number</description>
+        <resultNode name="list_015" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="list_016">
+        <description>singleton list is not instance of element type</description>
+        <resultNode name="list_016" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="list_017">
+        <description>primitive is not instance of list of same type</description>
+        <resultNode name="list_017" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="ym_duration_001">
+        <description>years and months duration instance of Any is true</description>
+        <resultNode name="ym_duration_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_002">
+        <description>years and months duration instance of number is false</description>
+        <resultNode name="ym_duration_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_003">
+        <description>years and months duration instance of string is false</description>
+        <resultNode name="ym_duration_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_004">
+        <description>years and months duration instance of boolean is false</description>
+        <resultNode name="ym_duration_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_005">
+        <description>years and months duration instance of date is false</description>
+        <resultNode name="ym_duration_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_006">
+        <description>years and months duration instance of time is false</description>
+        <resultNode name="ym_duration_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_007">
+        <description>years and months duration instance of date and time is false</description>
+        <resultNode name="ym_duration_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="ym_duration_008">
+        <description>years and months duration instance of list is false</description>
+        <resultNode name="ym_duration_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="ym_duration_009">
+        <description>years and months duration instance of years and months duration is true</description>
+        <resultNode name="ym_duration_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_010">
+        <description>years and months duration instance of days and time duration is false</description>
+        <resultNode name="ym_duration_010" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="ym_duration_011">
+        <description>years and months duration instance of context is false</description>
+        <resultNode name="ym_duration_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_012">
+        <description>years and months duration instance of function is false</description>
+        <resultNode name="ym_duration_012" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="dt_duration_001">
+        <description>days and time duration instance of Any is true</description>
+        <resultNode name="dt_duration_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_002">
+        <description>days and time duration instance of number is false</description>
+        <resultNode name="dt_duration_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_003">
+        <description>days and time duration instance of string is false</description>
+        <resultNode name="dt_duration_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_004">
+        <description>days and time duration instance of boolean is false</description>
+        <resultNode name="dt_duration_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_005">
+        <description>days and time duration instance of date is false</description>
+        <resultNode name="dt_duration_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_006">
+        <description>days and time duration instance of time is false</description>
+        <resultNode name="dt_duration_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_007">
+        <description>days and time duration instance of date and time is false</description>
+        <resultNode name="dt_duration_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="dt_duration_008">
+        <description>days and time durationinstance of list is false</description>
+        <resultNode name="dt_duration_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="dt_duration_009">
+        <description>days and time duration instance of years and months duration is false</description>
+        <resultNode name="dt_duration_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_010">
+        <description>days and time duration instance of days and time duration is true</description>
+        <resultNode name="dt_duration_010" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="dt_duration_011">
+        <description>days and time duration instance of context is false</description>
+        <resultNode name="dt_duration_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_012">
+        <description>days and time duration instance of function is false</description>
+        <resultNode name="dt_duration_012" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="context_001">
+        <description>context instance of Any is true</description>
+        <resultNode name="context_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_002">
+        <description>context instance of number is false</description>
+        <resultNode name="context_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_003">
+        <description>context instance of string is false</description>
+        <resultNode name="context_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_004">
+        <description>context instance of boolean is false</description>
+        <resultNode name="context_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_005">
+        <description>context instance of date is false</description>
+        <resultNode name="context_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_006">
+        <description>context instance of time is false</description>
+        <resultNode name="context_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_007">
+        <description>context instance of date and time is false</description>
+        <resultNode name="context_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="context_008">
+        <description>context instance of list is false</description>
+        <resultNode name="context_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="context_009">
+        <description>context instance of years and months duration is false</description>
+        <resultNode name="context_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_010">
+        <description>context instance of days and time duration is false</description>
+        <resultNode name="context_010" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="context_011">
+        <description>context instance of context is true</description>
+        <resultNode name="context_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_012">
+        <description>context instance of function is false</description>
+        <resultNode name="context_012" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+<!--     <testCase id="context_013">
+        <description>context instance of context with same property names is true</description>
+        <resultNode name="context_013" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_014">
+        <description>context instance with superset of type property names is true</description>
+        <resultNode name="context_014" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_015">
+        <description>context instance with subset of type property names is false</description>
+        <resultNode name="context_015" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_016">
+        <description>context instance with same property names but different types is false</description>
+        <resultNode name="context_016" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="function_001">
+        <description>function instance of Any is true</description>
+        <resultNode name="function_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_002">
+        <description>function instance of number is false</description>
+        <resultNode name="function_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_003">
+        <description>function instance of string is false</description>
+        <resultNode name="function_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_004">
+        <description>function instance of boolean is false</description>
+        <resultNode name="function_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_005">
+        <description>function instance of date is false</description>
+        <resultNode name="function_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_006">
+        <description>function instance of time is false</description>
+        <resultNode name="function_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_007">
+        <description>function instance of date and time is false</description>
+        <resultNode name="function_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="function_008">
+        <description>function instance of list is false</description>
+        <resultNode name="function_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="function_009">
+        <description>function instance of years and months duration is false</description>
+        <resultNode name="function_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_010">
+        <description>function instance of days and time duration is false</description>
+        <resultNode name="function_010" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="function_011">
+        <description>function instance of context is false</description>
+        <resultNode name="function_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_012">
+        <description>function instance of function is true</description>
+        <resultNode name="function_012" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+</testCases>

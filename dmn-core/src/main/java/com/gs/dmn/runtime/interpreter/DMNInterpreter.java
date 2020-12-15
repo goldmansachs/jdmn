@@ -17,9 +17,9 @@ import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
-import org.omg.spec.dmn._20180521.model.TFunctionDefinition;
-import org.omg.spec.dmn._20180521.model.TInvocable;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TFunctionDefinition;
+import org.omg.spec.dmn._20191111.model.TInvocable;
 
 import java.util.List;
 

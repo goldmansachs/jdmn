@@ -25,10 +25,10 @@ import com.gs.dmn.signavio.extension.Aggregator;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
-import org.omg.spec.dmn._20180521.model.TDecision;
-import org.omg.spec.dmn._20180521.model.TExpression;
-import org.omg.spec.dmn._20180521.model.TInputData;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TDecision;
+import org.omg.spec.dmn._20191111.model.TExpression;
+import org.omg.spec.dmn._20191111.model.TInputData;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -17,30 +17,29 @@ import org.junit.Test;
 public class CL3TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransformerTest {
     @Override
     protected String getInputPath() {
-        return "tck/cl3/input";
+        return "tck/%s/cl3/%s/translator";
     }
 
     @Override
     protected String getExpectedPath() {
-        return "tck/cl3/expected/java/dmn";
+        return "tck/%s/cl3/%s/translator/expected/java/dmn";
     }
 
     @Test
     public void testCL3() throws Exception {
-        doSingleModelTest("0004-lending");
-        doSingleModelTest("0005-literal-invocation");
-        doSingleModelTest("0006-join");
-        doSingleModelTest("0013-sort");
-        doSingleModelTest("0014-loan-comparison");
-        doSingleModelTest("0016-some-every");
-        doSingleModelTest("0017-tableTests");
-        doSingleModelTest("0020-vacation-days");
-        doSingleModelTest("0021-singleton-list");
-        doSingleModelTest("0030-user-defined-functions");
-        doSingleModelTest("0031-user-defined-functions");
-        doSingleModelTest("0031-user-defined-functions-no-type");
-        doSingleModelTest("0076-feel-external-java");
+        doSingleModelTest("1.1", "0004-lending");
+        doSingleModelTest("1.1","0005-literal-invocation");
+        doSingleModelTest("1.1","0006-join");
+        doSingleModelTest("1.1","0013-sort");
+        doSingleModelTest("1.1","0014-loan-comparison");
+        doSingleModelTest("1.1","0016-some-every");
+        doSingleModelTest("1.1","0017-tableTests");
+        doSingleModelTest("1.1","0020-vacation-days");
+        doSingleModelTest("1.1","0021-singleton-list");
+        doSingleModelTest("1.1","0030-user-defined-functions");
+        doSingleModelTest("1.1","0031-static-user-defined-functions");
+        doSingleModelTest("1.2","0076-feel-external-java");
 
-        doSingleModelTest("9001-recursive-function");
+        doSingleModelTest("1.1","9001-recursive-function");
     }
 }

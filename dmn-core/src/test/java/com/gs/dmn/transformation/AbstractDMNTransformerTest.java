@@ -13,6 +13,7 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.validation.DMNValidator;
@@ -38,23 +39,42 @@ public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, 
 
     @SafeVarargs
     protected final void doSingleModelTest(String dmnFileName, Pair<String, String>... extraInputParameters) throws Exception {
-        String path = getInputPath();
-        String inputFilePath = path + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
+        String inputFilePath = getInputPath() + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
         String expectedOutputPath = getExpectedPath() + "/" + friendlyFolderName(dmnFileName.toLowerCase());
         URI resource = resource(inputFilePath);
         doTest(resource.getPath(), expectedOutputPath, extraInputParameters);
     }
 
     @SafeVarargs
+    protected final void doSingleModelTest(String dmnVersion, String dmnFileName, Pair<String, String>... extraInputParameters) throws Exception {
+        String inputFilePath = completePath(getInputPath(), dmnVersion, dmnFileName) + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
+        String expectedOutputPath = completePath(getExpectedPath(), dmnVersion, dmnFileName) + "/";
+        System.out.println(inputFilePath + "-" + expectedOutputPath);
+        URI resource = resource(inputFilePath);
+        doTest(resource.getPath(), expectedOutputPath, extraInputParameters);
+    }
+
+    @SafeVarargs
     protected final void doMultipleModelsTest(String dmnFolderName, Pair<String, String>... extraInputParameters) throws Exception {
-        String path = getInputPath();
-        String inputFilePath = path + "/" + dmnFolderName;
+        String inputFilePath = getInputPath() + "/" + dmnFolderName;
         String expectedOutputPath = getExpectedPath() + "/" + friendlyFolderName(dmnFolderName.toLowerCase());
         URI resource = resource(inputFilePath);
         doTest(resource.getPath(), expectedOutputPath, extraInputParameters);
     }
 
+    @SafeVarargs
+    protected final void doMultipleModelsTest(String dmnVersion, String dmnFolderName, Pair<String, String>... extraInputParameters) throws Exception {
+        String inputFilePath = completePath(getInputPath(), dmnVersion, dmnFolderName) + "/";
+        String expectedOutputPath = completePath(getExpectedPath(), dmnVersion, dmnFolderName) + "/";
+        URI resource = resource(inputFilePath);
+        doTest(resource.getPath(), expectedOutputPath, extraInputParameters);
+    }
+
     protected void doTest(String inputFilePath, String expectedOutputPath, Pair<String, String>... extraInputParameters) throws Exception {
+        if (inputFilePath == null) {
+            throw new DMNRuntimeException("Input patrh cannot be null");
+        }
+
         File outputFolder = new File("target/" + expectedOutputPath);
         outputFolder.mkdirs();
 

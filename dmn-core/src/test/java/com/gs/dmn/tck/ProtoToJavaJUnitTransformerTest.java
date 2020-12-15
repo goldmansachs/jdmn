@@ -18,7 +18,7 @@ import org.junit.Test;
 public class ProtoToJavaJUnitTransformerTest extends AbstractTCKTestCasesToJavaJUnitTransformerTest {
     @Override
     protected String getDMNInputPath() {
-        return "tck/proto/input";
+        return "proto/%s/%s/translator";
     }
 
     @Override
@@ -28,16 +28,16 @@ public class ProtoToJavaJUnitTransformerTest extends AbstractTCKTestCasesToJavaJ
 
     @Override
     protected String getExpectedPath() {
-        return "tck/proto/expected/proto3/java/test";
+        return "proto/%s/%s/translator/expected/proto3/java/test";
     }
 
     @Test
     public void testProto() throws Exception {
-        doSingleModelTest("0004-lending", "0004-lending-test-01", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
+        doSingleModelTest("1.1", "0004-lending", "0004-lending-test-01", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
     }
 
     @Test
     public void testProtoDateTime() throws Exception {
-        doSingleModelTest("date-time-proto", "date-time-proto-test-01", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
+        doSingleModelTest("1.1", "date-time-proto", "date-time-proto-test-01", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
     }
 }

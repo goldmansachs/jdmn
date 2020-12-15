@@ -22,22 +22,22 @@ import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.Assert;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TItemDefinition;
+import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
 import java.io.File;
+import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileTransformerTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private static final String BASE_PATH = "dmn2java/exported/complex";
 
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
     @Test
     public void testMissingDefinitionsWithoutTransformation() throws Exception {
         RepositoryTransformResult transformResult = executeTransformation(
-                resourcePath("input/credit-decision-missing-definitions.dmn"), null);
+                signavioResource("dmn/complex/credit-decision-missing-definitions-other.dmn"), null);
 
         // Repository should not be modified
         assertExpectedTransformResult(transformResult, Collections.emptyList(), Collections.emptyList());
@@ -46,8 +46,8 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
     @Test
     public void testTransformerForMissingDefinitions() throws Exception {
         RepositoryTransformResult transformResult = executeTransformation(
-                resourcePath("input/credit-decision-missing-definitions.dmn"),
-                resourcePath("configuration/credit-decision-missing-definitions-config.json")
+                signavioResource("dmn/complex/credit-decision-missing-definitions-other.dmn"),
+                signavioResource("dmn/dmn2java/configuration/credit-decision-missing-definitions-config.json")
         );
 
         // Post-transform repository should include all missing definitions
@@ -58,8 +58,8 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
     @Test
     public void testTransformerForExistingEquivalentDefinition() throws Exception {
         RepositoryTransformResult transformResult = executeTransformation(
-                resourcePath("input/credit-decision-missing-definitions.dmn"),
-                resourcePath("configuration/credit-decision-existing-definition-config.json")
+                signavioResource("dmn/complex/credit-decision-missing-definitions-other.dmn"),
+                signavioResource("dmn/dmn2java/configuration/credit-decision-existing-definition-config.json")
         );
 
         // Should transform correctly, and disregard definition that already exists since it is equivalent
@@ -70,8 +70,8 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
     @Test(expected = DMNRuntimeException.class)
     public void testTransformerForExistingConflictingDefinition() throws Exception {
         executeTransformation(
-                resourcePath("input/credit-decision-missing-definitions.dmn"),
-                resourcePath("configuration/credit-decision-existing-conflicting-definition-config.json")
+                signavioResource("dmn/complex/input/credit-decision-missing-definitions-other.dmn"),
+                signavioResource("dmn/dmn2java/configuration/credit-decision-existing-conflicting-definition-config.json")
         );
 
         Assert.fail("Test is expected to fail; attempted to replace existing conflicting definition");
@@ -80,8 +80,8 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
     @Test
     public void testTransformerForDuplicateEquivalentNewDefinitions() throws Exception {
         RepositoryTransformResult transformResult = executeTransformation(
-                resourcePath("input/credit-decision-missing-definitions.dmn"),
-                resourcePath("configuration/credit-decision-duplicate-definition-config.json")
+                signavioResource("dmn/complex/credit-decision-missing-definitions-other.dmn"),
+                signavioResource("dmn/dmn2java/configuration/credit-decision-duplicate-definition-config.json")
         );
 
         // Should transform correctly, and disregard the duplicate definition config since it is equivalent
@@ -92,8 +92,8 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
     @Test(expected = DMNRuntimeException.class)
     public void testTransformerForDuplicateConflictingNewDefinitions() throws Exception {
         executeTransformation(
-                resourcePath("input/credit-decision-missing-definitions.dmn"),
-                resourcePath("configuration/credit-decision-duplicate-conflicting-definition-config.json")
+                signavioResource("dmn/complex/input/credit-decision-missing-definitions-other.dmn"),
+                signavioResource("dmn/dmn2java/configuration/credit-decision-duplicate-conflicting-definition-config.json")
         );
 
         Assert.fail("Test is expected to fail; attempted to insert duplicate, conflicting new definitions");
@@ -102,8 +102,8 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
     @Test
     public void testSupportForAllTypeRefSyntax() throws Exception {
         RepositoryTransformResult transformResult = executeTransformation(
-                resourcePath("input/credit-decision-missing-definitions.dmn"),
-                resourcePath("configuration/credit-decision-dmn11-12-definitions-config.json")
+                signavioResource("dmn/complex/credit-decision-missing-definitions-other.dmn"),
+                signavioResource("dmn/dmn2java/configuration/credit-decision-dmn11-12-definitions-config.json")
         );
 
         List<String> expectedNewDefinitions = Arrays.asList("assessIssue", "lendingThreshold", "currentRiskAppetite", "processPriorIssues");
@@ -123,26 +123,22 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
 
 
     @SuppressWarnings("unchecked")
-    private RepositoryTransformResult executeTransformation(String dmnFilePath, String transformerConfigFilePath) throws Exception {
+    private RepositoryTransformResult executeTransformation(URI dmnFileURI, URI transformerConfigURI) throws Exception {
         DMNTransformer<TestLab> transformer = new GenerateMissingItemDefinitionsTransformer(LOGGER);
-        if (transformerConfigFilePath != null) {
-            File configFile = new File(resource(transformerConfigFilePath));
+        if (transformerConfigURI != null) {
+            File configFile = new File(transformerConfigURI);
             Map<String, Object> configuration = MAPPER.readValue(configFile, Map.class);
 
             transformer.configure(configuration);
         }
 
-        File dmnFile = new File(resource(dmnFilePath));
+        File dmnFile = new File(dmnFileURI);
         DMNModelRepository repository = new SignavioDMNModelRepository(dmnReader.read(dmnFile));
         List<TItemDefinition> definitions = new ArrayList<>(repository.findItemDefinitions(repository.getRootDefinitions()));
         DMNModelRepository transformed = transformer.transform(repository);
 
         List<TItemDefinition> transformedDefinitions = new ArrayList<>(transformed.findItemDefinitions(transformed.getRootDefinitions()));
         return new RepositoryTransformResult(definitions, transformedDefinitions);
-    }
-
-    private String resourcePath(String relativePath) {
-        return String.format("%s/%s", BASE_PATH, relativePath);
     }
 
     // Identify the name of any definitions present in comparisonRepository that are not present in baseRepository
@@ -166,8 +162,7 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
         Assert.assertEquals("Incorrect number of removed definitions", expectedRemovedDefinitions.size(), removedDefinitions.size());
     }
 
-    private static class RepositoryTransformResult
-    {
+    private static class RepositoryTransformResult {
         private final List<TItemDefinition> beforeTransform;
         private final List<TItemDefinition> afterTransform;
 

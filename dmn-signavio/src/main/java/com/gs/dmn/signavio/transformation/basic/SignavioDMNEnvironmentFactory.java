@@ -24,7 +24,7 @@ import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.basic.StandardDMNEnvironmentFactory;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20191111.model.*;
 
 public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory {
     private final SignavioDMNModelRepository dmnModelRepository;

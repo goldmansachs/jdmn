@@ -15,7 +15,7 @@ package com.gs.dmn.feel.analysis.syntax.ast;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
-import org.omg.spec.dmn._20180521.model.TNamedElement;
+import org.omg.spec.dmn._20191111.model.TNamedElement;
 
 public class FEELContext {
     private final Environment environment;

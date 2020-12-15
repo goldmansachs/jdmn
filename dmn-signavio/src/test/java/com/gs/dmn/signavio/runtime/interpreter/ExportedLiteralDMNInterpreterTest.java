@@ -26,6 +26,11 @@ import java.util.Arrays;
 public class ExportedLiteralDMNInterpreterTest extends AbstractSignavioDMNInterpreterTest {
     private final DefaultSignavioBaseDecision decision = new DefaultSignavioBaseDecision();
 
+    @Override
+    protected String getInputPath() {
+        return "dmn/literal";
+    }
+
     @Test
     public void testBooleanLiteralExpression() throws Exception {
         doTest(new DecisionTestConfig(
@@ -114,11 +119,6 @@ public class ExportedLiteralDMNInterpreterTest extends AbstractSignavioDMNInterp
                 )),
                 "123abc")
         );
-    }
-
-    @Override
-    protected String getInputPath() {
-        return "dmn2java/exported/literal/input";
     }
 
     @Override

@@ -33,7 +33,7 @@ import com.gs.dmn.transformation.native_.statement.Statement;
 import com.gs.dmn.transformation.proto.MessageType;
 import com.gs.dmn.transformation.proto.ProtoBufferFactory;
 import com.gs.dmn.transformation.proto.Service;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20191111.model.*;
 
 import javax.xml.bind.JAXBElement;
 import java.util.List;

@@ -27,12 +27,24 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>dmn-signavio-it-interpreter</module>
         <module>dmn-signavio-it-translator</module>
         <module>dmn-signavio-it-kotlin-translator</module>
     </modules>
 
     <properties>
+        <model.version>1.0</model.version>
+        <platform.version>${project.parent.version}</platform.version>
+
+        <xml.folder>${project.basedir}/../../dmn-test-cases/signavio/rdf</xml.folder>
+        <dmn.diagram.folder>${project.basedir}/../../dmn-test-cases/signavio/dmn</dmn.diagram.folder>
+
+        <generated.dmn.diagram.folder>${project.build.directory}/generated-resources/dmn</generated.dmn.diagram.folder>
+        <generated.source.code.folder>${project.build.directory}/generated-sources/dmn</generated.source.code.folder>
+        <generated.root.package>com.gs.dmn.generated</generated.root.package>
+        <generated.test.code.folder>${project.build.directory}/generated-test-sources/testlab</generated.test.code.folder>
+        <generated.grpc.folder>${project.build.directory}/generated-sources/protobuf/grpc-java</generated.grpc.folder>
+        <generated.protobuf.folder>${project.build.directory}/generated-sources/protobuf/java</generated.protobuf.folder>
+
         <line.coverage.minimum>0.00</line.coverage.minimum>
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
     </properties>

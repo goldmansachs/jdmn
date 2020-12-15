@@ -37,7 +37,7 @@ import com.gs.dmn.transformation.native_.statement.CompoundStatement;
 import com.gs.dmn.transformation.native_.statement.ExpressionStatement;
 import com.gs.dmn.transformation.native_.statement.Statement;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20191111.model.*;
 
 import javax.xml.bind.JAXBElement;
 import java.util.*;

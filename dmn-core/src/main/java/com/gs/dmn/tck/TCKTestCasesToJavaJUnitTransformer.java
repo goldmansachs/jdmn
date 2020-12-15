@@ -78,7 +78,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
                 testCasesList.add(testCases);
             } else if (file.isDirectory() && file.listFiles() != null) {
                 for (File child: file.listFiles()) {
-                    if (shouldTransformFile(child)) {
+                    if (isTCKFile(child)) {
                         TestCases testCases = testCasesReader.read(child);
                         testCasesList.add(testCases);
                     }

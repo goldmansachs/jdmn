@@ -24,32 +24,32 @@ import static com.gs.dmn.runtime.Assert.assertEquals;
 
 public class ToSimpleNameTransformerTest extends NameTransformerTest {
     @Test
-    public void testDMNTransform() throws Exception {
-        doTest(Arrays.asList("0004-lending.dmn"),
+    public void testTransform() throws Exception {
+        doTest("1.1", Arrays.asList("0004-lending.dmn"),
                 "0004-lending-test-01.xml", new LinkedHashMap<String, Pair<String, String>>() {{
                     put("0004-lending.dmn", new Pair<>("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b", "tns"));
                     put("0004-lending-test-01.xml", new Pair<>("http://www.w3.org/2001/XMLSchema-instance", "xsi"));
                 }}
         );
-        doTest(Arrays.asList("0007-date-time.dmn"),
+        doTest("1.1", Arrays.asList("0007-date-time.dmn"),
                 "0007-date-time-test-01.xml", new LinkedHashMap<String, Pair<String, String>>() {{
                     put("0007-date-time.dmn", new Pair<>("http://www.trisotech.com/definitions/_69430b3e-17b8-430d-b760-c505bf6469f9", "tns"));
                     put("0007-date-time-test-01.xml",  new Pair<>("http://www.w3.org/2001/XMLSchema-instance", "xsi"));
                 }}
         );
-        doTest(Arrays.asList("0034-drg-scopes.dmn") ,
+        doTest("1.1", Arrays.asList("0034-drg-scopes.dmn") ,
                 "0034-drg-scopes-test-01.xml", new LinkedHashMap<String, Pair<String, String>>() {{
                     put("0034-drg-scopes.dmn", new Pair<>("http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes", "tns"));
                     put("0034-drg-scopes-test-01.xml", new Pair<>("http://www.w3.org/2001/XMLSchema-instance", "xsi"));
                 }}
         );
-        doTest(Arrays.asList("0087-chapter-11-example.dmn") ,
+        doTest("1.2", Arrays.asList("0087-chapter-11-example.dmn") ,
                 "0087-chapter-11-example-test-01.xml", new LinkedHashMap<String, Pair<String, String>>() {{
                     put("0087-chapter-11-example.dmn", new Pair<>("http://www.trisotech.com/definitions/_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4", "tns"));
                     put("0087-chapter-11-example-test-01.xml", new Pair<>("http://www.w3.org/2001/XMLSchema-instance", "xsi"));
                 }}
         );
-        doTest(Arrays.asList("0089-nested-inputdata-imports.dmn", "0089-model-a.dmn", "0089-model-b.dmn", "0089-model-b2.dmn"),
+        doTest("1.2", Arrays.asList("0089-nested-inputdata-imports.dmn", "0089-model-a.dmn", "0089-model-b.dmn", "0089-model-b2.dmn"),
                 "0089-nested-inputdata-imports-test-01.xml", new LinkedHashMap<String, Pair<String, String>>() {{
                     put("0089-nested-inputdata-imports.dmn", new Pair<>("http://www.trisotech.com/definitions/_10435dcd-8774-4575-a338-49dd554a0928", null));
                     put("0089-model-a.dmn", new Pair<>("http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9", null));

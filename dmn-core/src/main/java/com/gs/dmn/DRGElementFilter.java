@@ -12,8 +12,8 @@
  */
 package com.gs.dmn;
 
-import org.omg.spec.dmn._20180521.model.TDRGElement;
-import org.omg.spec.dmn._20180521.model.TInputData;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TInputData;
 
 import java.util.LinkedHashSet;
 import java.util.List;

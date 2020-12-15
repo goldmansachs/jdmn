@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" expressionLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml" exporterVersion="10.15.9" name="Null Safe Tests" id="id-39104958614e42a8aac1c2c02557d321" sigExt:revisionNumber="1" sigExt:revisionId="ca105398f65d4c3ead49bfa305c5db43">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="https://www.omg.org/spec/DMN/20191111/FEEL/" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" typeLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" namespace="http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml" exporterVersion="10.15.9" name="Null Safe Tests" id="id-39104958614e42a8aac1c2c02557d321" sigExt:revisionNumber="1" sigExt:revisionId="ca105398f65d4c3ead49bfa305c5db43">
     <extensionElements/>
     <itemDefinition isCollection="false" name="allFalseAggregation" id="id-2cc3214320632e21fa06a8e4df51a01f" label="allFalseAggregation">
         <typeRef>feel.boolean</typeRef>
@@ -108,7 +108,7 @@
     </itemDefinition>
     <decision name="allFalseAggregation" id="id-12f8c62e129adc2b235f1819817022ec" label="allFalseAggregation" sigExt:shapeId="sid-EAD18ED8-8B73-4685-943A-2279DFAAF795" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
         <extensionElements>
-            <sigExt:MultiInstanceDecisionLogic xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+            <sigExt:MultiInstanceDecisionLogic>
                 <sigExt:iterationExpression>booleanList</sigExt:iterationExpression>
                 <sigExt:iteratorShapeId>id-79ac9fb1afa596bbb0db5c6a5257a8b6</sigExt:iteratorShapeId>
                 <sigExt:aggregationFunction>ALLFALSE</sigExt:aggregationFunction>
@@ -167,7 +167,7 @@
     </decision>
     <decision name="allTrueAggregation" id="id-990fc1682febe5e206a9e367470fa4b5" label="allTrueAggregation" sigExt:shapeId="sid-019E0A5C-2720-402B-AEE8-BA1436EA5D6F" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
         <extensionElements>
-            <sigExt:MultiInstanceDecisionLogic xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+            <sigExt:MultiInstanceDecisionLogic>
                 <sigExt:iterationExpression>booleanList</sigExt:iterationExpression>
                 <sigExt:iteratorShapeId>id-0999a54b4e2887b6404fe10e4639a1d6</sigExt:iteratorShapeId>
                 <sigExt:aggregationFunction>ALLTRUE</sigExt:aggregationFunction>
@@ -181,7 +181,7 @@
     </decision>
     <decision name="anyTrueAggregation" id="id-499a1aeffa9f16f776cba221110df81a" label="anyTrueAggregation" sigExt:shapeId="sid-AAC92F9B-23E5-437D-8E7E-0A38E297D7A4" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8">
         <extensionElements>
-            <sigExt:MultiInstanceDecisionLogic xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+            <sigExt:MultiInstanceDecisionLogic>
                 <sigExt:iterationExpression>booleanList</sigExt:iterationExpression>
                 <sigExt:iteratorShapeId>id-4b393744e05965a1928ecb455ab42308</sigExt:iteratorShapeId>
                 <sigExt:aggregationFunction>ANYTRUE</sigExt:aggregationFunction>

@@ -15,6 +15,16 @@ package com.gs.dmn.signavio.testlab;
 import org.junit.Test;
 
 public class ExportedTestLabToJavaJUnitTransformerTest extends AbstractTestLabToJavaJUnitTransformerTest {
+    @Override
+    protected String getInputPath() {
+        return "dmn/complex";
+    }
+
+    @Override
+    protected String getExpectedPath() {
+        return "dmn/dmn2java/expected/complex/test-lab";
+    }
+
     @Test
     public void testNullSafeTests() throws Exception {
         doTest("Null Safe Tests");
@@ -83,15 +93,5 @@ public class ExportedTestLabToJavaJUnitTransformerTest extends AbstractTestLabTo
     @Test
     public void testTest() throws Exception {
         doTest("TestDecision");
-    }
-
-    @Override
-    protected String getInputPath() {
-        return "dmn2java/exported/complex/input";
-    }
-
-    @Override
-    protected String getExpectedPath() {
-        return "dmn2java/exported/complex/expected/test-lab";
     }
 }

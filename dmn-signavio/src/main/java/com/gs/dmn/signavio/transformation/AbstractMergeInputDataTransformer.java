@@ -23,7 +23,7 @@ import com.gs.dmn.signavio.testlab.TestCase;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.testlab.expression.Expression;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

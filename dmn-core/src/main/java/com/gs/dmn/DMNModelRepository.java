@@ -20,15 +20,15 @@ import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
 import java.util.*;
 
-import static org.omg.spec.dmn._20180521.model.TBuiltinAggregator.COUNT;
-import static org.omg.spec.dmn._20180521.model.TBuiltinAggregator.SUM;
+import static org.omg.spec.dmn._20191111.model.TBuiltinAggregator.COUNT;
+import static org.omg.spec.dmn._20191111.model.TBuiltinAggregator.SUM;
 
 public class DMNModelRepository {
     protected static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
@@ -102,6 +102,7 @@ public class DMNModelRepository {
         if (definitions != null) {
             sortDRGElements(definitions.getDrgElement());
             sortNamedElements(definitions.getItemDefinition());
+            sortDMNDI(definitions.getDMNDI());
         }
     }
 
@@ -397,6 +398,42 @@ public class DMNModelRepository {
 
     public void sortNamedElements(List<? extends TNamedElement> elements) {
         elements.sort(Comparator.comparing((TNamedElement o) -> removeSingleQuotes(o.getName())));
+    }
+
+    private void sortDMNDI(DMNDI dmndi) {
+        if (dmndi != null) {
+            sortDMNDiagrams(dmndi);
+            dmndi.getDMNStyle().sort(Comparator.comparing((DMNStyle s) -> styleKey(s)));
+        }
+    }
+
+    private String styleKey(DMNStyle s) {
+        if (s == null) {
+            return "";
+        }
+        return s.getId();
+    }
+
+    private void sortDMNDiagrams(DMNDI dmndi) {
+        List<DMNDiagram> diagrams = dmndi.getDMNDiagram();
+        diagrams.sort(Comparator.comparing((DMNDiagram d) -> diagramKey(d)));
+        for (DMNDiagram d: diagrams) {
+            d.getDMNDiagramElement().sort(Comparator.comparing((JAXBElement<? extends DiagramElement> e) -> diagramElementKey(e)));
+        }
+    }
+
+    private String diagramKey(DMNDiagram d) {
+        if (d == null) {
+            return "";
+        }
+        return String.format("%s-%s", d.getName(), d.getId());
+    }
+
+    private String diagramElementKey(JAXBElement<? extends DiagramElement> e) {
+        if (e == null) {
+            return "";
+        }
+        return String.format("%s-%s", e.getDeclaredType().getSimpleName(), e.getValue().getId());
     }
 
     public void sortNamedElementReferences(List<? extends DRGElementReference<? extends TNamedElement>> references) {

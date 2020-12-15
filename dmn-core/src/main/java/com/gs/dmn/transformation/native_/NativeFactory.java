@@ -16,7 +16,7 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.native_.expression.NativeExpressionFactory;
 import com.gs.dmn.transformation.native_.statement.NativeStatementFactory;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
 
 
 public interface NativeFactory extends NativeExpressionFactory, NativeStatementFactory {

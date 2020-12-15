@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=""  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0080-feel-getvalue-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>FEEL Functions: map</label>
+    </labels>
+
+    <testCase id="decision_001">
+        <description>no param</description>
+        <resultNode errorResult="true" name="decision_001" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_002">
+        <description>only one param</description>
+        <resultNode errorResult="true" name="decision_002" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_003">
+        <description>too many params</description>
+        <resultNode errorResult="true" name="decision_003" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_004">
+        <description>get a value</description>
+        <resultNode name="decision_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_005">
+        <description>not a map as first param</description>
+        <resultNode errorResult="true" name="decision_005" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_006">
+        <description>not a string as second param</description>
+        <resultNode errorResult="true" name="decision_006" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--
+    <testCase id="decision_007">
+        <description>named params</description>
+        <resultNode name="decision_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_008">
+        <description>badly named params</description>
+        <resultNode errorResult="true" name="decision_008" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+-->
+
+    <testCase id="decision_009">
+        <description>null map param</description>
+        <resultNode errorResult="true" name="decision_009" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_010">
+        <description>null key param</description>
+        <resultNode errorResult="true" name="decision_010" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_011">
+        <description>null value stored in context</description>
+        <resultNode name="decision_011" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+
+
+</testCases>
