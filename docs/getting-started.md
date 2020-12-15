@@ -7,7 +7,7 @@
 * [Oracle JDK Download](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * [OpenJDK Download](http://openjdk.java.net/install/)
 
-### Maven 3.2.5 or higher
+### Maven 3.6.1 or higher
 
 [Download](https://maven.apache.org/download.cgi)
 
