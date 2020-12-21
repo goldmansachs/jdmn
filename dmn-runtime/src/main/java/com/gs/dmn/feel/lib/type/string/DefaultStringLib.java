@@ -39,13 +39,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DefaultStringLib {
-    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.########");
+    private static final ThreadLocal<DecimalFormat> DECIMAL_FORMAT =
+            ThreadLocal.withInitial(() -> new DecimalFormat("0.########"));
 
     public String string(Object from) {
         if (from == null) {
             return "null";
         } else if (from instanceof Double) {
-            return DECIMAL_FORMAT.format(from);
+            return DECIMAL_FORMAT.get().format(from);
         } else if (from instanceof BigDecimal) {
             return ((BigDecimal) from).toPlainString();
         } else if (from instanceof LocalDate) {
