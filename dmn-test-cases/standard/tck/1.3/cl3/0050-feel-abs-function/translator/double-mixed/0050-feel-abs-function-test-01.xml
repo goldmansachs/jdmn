@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=""  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0050-feel-abs-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: Number</label>
+        <label>Data Type: Function</label>
+        <label>FEEL Functions: number</label>
+        <label>FEEL Arithmetic</label>
+    </labels>
+    <testCase id="001">
+        <description>Assert on positive number</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="002">
+        <description>Assert on negative number</description>
+        <resultNode name="decision002" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003">
+        <description>Assert on zero</description>
+        <resultNode name="decision003" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">0</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004">
+        <description>Assert with no params</description>
+        <resultNode errorResult="true" name="decision004" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="005">
+        <description>Assert with too many params</description>
+        <resultNode errorResult="true" name="decision005" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="006">
+        <description>Assert with named param</description>
+        <resultNode name="decision006" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="007">
+        <description>Assert with incorrect named param</description>
+        <resultNode errorResult="true" name="decision007" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="008">
+        <description>Assert with null param</description>
+        <resultNode errorResult="true" name="decision008" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="009">
+        <description>Assert with string param</description>
+        <resultNode errorResult="true" name="decision009" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="010">
+        <description>Assert with boolean param</description>
+        <resultNode errorResult="true" name="decision010" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="011">
+        <description>Assert with days duration param</description>
+        <resultNode errorResult="true" name="decision011" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="012">
+        <description>Assert with months duration param</description>
+        <resultNode errorResult="true" name="decision012" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="013">
+        <description>Assert with date param</description>
+        <resultNode errorResult="true" name="decision013" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="014">
+        <description>Assert with time param</description>
+        <resultNode errorResult="true" name="decision014" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="015">
+        <description>Assert with datetime param</description>
+        <resultNode errorResult="true" name="decision015" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

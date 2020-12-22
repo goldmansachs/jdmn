@@ -312,4 +312,9 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     public void test_12_cl3_0089_nested_inputdata_imports() {
         doMultipleModelsTest("1.2", Arrays.asList("0089-nested-inputdata-imports", "0089-model-b", "0089-model-b2", "0089-model-a"), new Pair<>("singletonInputData", "false"));
     }
+
+    @Test
+    public void test_13_cl3_0050_feel_abs_function() {
+        doSingleModelTest("1.3", "0050-feel-abs-function");
+    }
 }
