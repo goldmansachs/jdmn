@@ -15,9 +15,7 @@ package com.gs.dmn.feel.lib;
 import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.list.ListLib;
-import com.gs.dmn.feel.lib.type.numeric.DoubleNumericLib;
-import com.gs.dmn.feel.lib.type.numeric.DoubleNumericType;
-import com.gs.dmn.feel.lib.type.numeric.NumericLib;
+import com.gs.dmn.feel.lib.type.numeric.*;
 import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DurationLib;
@@ -29,12 +27,16 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
 public class DoubleMixedJavaTimeFEELLib extends BaseMixedJavaTimeFEELLib<Double> {
-    public static DoubleMixedJavaTimeFEELLib INSTANCE = new DoubleMixedJavaTimeFEELLib();
+    private static final NumericType<Double> NUMERIC_TYPE = new DoubleNumericType(LOGGER);
+    private static final DurationType<Duration, Double> DURATION_TYPE = new DoubleDurationType(LOGGER, DATA_TYPE_FACTORY);
+    private static final NumericLib<Double> NUMERIC_LIB = new DoubleNumericLib();
+
+    public static final DoubleMixedJavaTimeFEELLib INSTANCE = new DoubleMixedJavaTimeFEELLib();
 
     public DoubleMixedJavaTimeFEELLib() {
-        this(new DoubleNumericType(LOGGER),
-                new DoubleDurationType(LOGGER, DATA_TYPE_FACTORY),
-                new DoubleNumericLib()
+        this(NUMERIC_TYPE,
+                DURATION_TYPE,
+                NUMERIC_LIB
         );
     }
 

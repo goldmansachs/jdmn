@@ -37,22 +37,37 @@ import java.time.ZonedDateTime;
 public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELLib<NUMBER, LocalDate, OffsetTime, ZonedDateTime, Duration> implements StandardFEELLib<NUMBER, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     protected static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
 
+    private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType(LOGGER);
+    private static final StringType STRING_TYPE = new DefaultStringType(LOGGER);
+    private static final DateType<LocalDate, Duration> DATE_TYPE = new LocalDateType(LOGGER, DATA_TYPE_FACTORY);
+    private static final TimeType<OffsetTime, Duration> TIME_TYPE = new OffsetTimeType(LOGGER, DATA_TYPE_FACTORY);
+    private static final DateTimeType<ZonedDateTime, Duration> DATE_TIME_TYPE = new ZonedDateTimeType(LOGGER, DATA_TYPE_FACTORY);
+    private static final ListType LIST_TYPE = new DefaultListType(LOGGER);
+    private static final ContextType CONTEXT_TYPE = new DefaultContextType(LOGGER);
+
+    private static final StringLib STRING_LIB = new DefaultStringLib();
+    private static final BooleanLib BOOLEAN_LIB = new DefaultBooleanLib();
+    private static final DateTimeLib DATE_TIME_LIB = new MixedDateTimeLib(DATA_TYPE_FACTORY);
+    private static final DurationLib<LocalDate, Duration> DURATION_LIB = new MixedDurationLib(DATA_TYPE_FACTORY);
+
+    private static final DefaultListLib LIST_LIB = new DefaultListLib();
+
     protected BaseMixedJavaTimeFEELLib(NumericType<NUMBER> numericType, DurationType<Duration, NUMBER> durationType, NumericLib<NUMBER> numericLib) {
         this(numericType,
-                new DefaultBooleanType(LOGGER),
-                new DefaultStringType(LOGGER),
-                new LocalDateType(LOGGER, DATA_TYPE_FACTORY),
-                new OffsetTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new ZonedDateTimeType(LOGGER, DATA_TYPE_FACTORY),
+                BOOLEAN_TYPE,
+                STRING_TYPE,
+                DATE_TYPE,
+                TIME_TYPE,
+                DATE_TIME_TYPE,
                 durationType,
-                new DefaultListType(LOGGER),
-                new DefaultContextType(LOGGER),
+                LIST_TYPE,
+                CONTEXT_TYPE,
                 numericLib,
-                new DefaultStringLib(),
-                new DefaultBooleanLib(),
-                (DateTimeLib) new MixedDateTimeLib(DATA_TYPE_FACTORY),
-                new MixedDurationLib(DATA_TYPE_FACTORY),
-                new DefaultListLib()
+                STRING_LIB,
+                BOOLEAN_LIB,
+                DATE_TIME_LIB,
+                DURATION_LIB,
+                LIST_LIB
         );
     }
 

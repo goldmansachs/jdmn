@@ -35,23 +35,39 @@ import java.math.BigDecimal;
 import static com.gs.dmn.feel.lib.DefaultFEELLib.DATA_TYPE_FACTORY;
 
 public class DefaultSignavioLib extends BaseSignavioLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
-    public static DefaultSignavioLib INSTANCE = new DefaultSignavioLib();
+    private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultSignavioNumericType(LOGGER);
+    private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType(LOGGER);
+    private static final StringType STRING_TYPE = new DefaultSignavioStringType(LOGGER);
+    private static final DateType<XMLGregorianCalendar, Duration> DATE_TYPE = new DefaultSignavioDateType(LOGGER, DATA_TYPE_FACTORY);
+    private static final TimeType<XMLGregorianCalendar, Duration> TIME_TYPE = new DefaultSignavioTimeType(LOGGER, DATA_TYPE_FACTORY);
+    private static final DateTimeType<XMLGregorianCalendar, Duration> DATE_TIME_TYPE = new DefaultSignavioDateTimeType(LOGGER, DATA_TYPE_FACTORY);
+    private static final DurationType<Duration, BigDecimal> DURATION_TYPE = new DefaultSignavioDurationType(LOGGER, DATA_TYPE_FACTORY);
+    private static final ListType LIST_TYPE = new DefaultListType(LOGGER);
+    private static final ContextType CONTEXT_TYPE = new DefaultContextType(LOGGER);
+
+    private static final DefaultFEELLib FEEL_LIB = new DefaultFEELLib();
+    private static final SignavioNumberLib<BigDecimal> NUMBER_LIB = new DefaultSignavioNumberLib();
+    private static final SignavioStringLib STRING_LIB = new DefaultSignavioStringLib();
+    private static final SignavioDateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar> DATE_TIME_LIB = new DefaultSignavioDateTimeLib();
+    private static final SignavioListLib LIST_LIB = new SignavioListLib();
+
+    public static final DefaultSignavioLib INSTANCE = new DefaultSignavioLib();
 
     public DefaultSignavioLib() {
-        this(new DefaultSignavioNumericType(LOGGER),
-                new DefaultBooleanType(LOGGER),
-                new DefaultSignavioStringType(LOGGER),
-                new DefaultSignavioDateType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultSignavioTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultSignavioDateTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultSignavioDurationType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultListType(LOGGER),
-                new DefaultContextType(LOGGER),
-                new DefaultFEELLib(),
-                new DefaultSignavioNumberLib(),
-                new DefaultSignavioStringLib(),
-                new DefaultSignavioDateTimeLib(),
-                new SignavioListLib()
+        this(NUMERIC_TYPE,
+                BOOLEAN_TYPE,
+                STRING_TYPE,
+                DATE_TYPE,
+                TIME_TYPE,
+                DATE_TIME_TYPE,
+                DURATION_TYPE,
+                LIST_TYPE,
+                CONTEXT_TYPE,
+                FEEL_LIB,
+                NUMBER_LIB,
+                STRING_LIB,
+                DATE_TIME_LIB,
+                LIST_LIB
         );
     }
 

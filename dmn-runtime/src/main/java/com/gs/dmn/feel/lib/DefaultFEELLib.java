@@ -37,24 +37,42 @@ import java.math.BigDecimal;
 
 public class DefaultFEELLib extends BaseStandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> implements StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     public static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
-    public static DefaultFEELLib INSTANCE = new DefaultFEELLib();
+
+    private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultNumericType(LOGGER);
+    private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType(LOGGER);
+    private static final StringType STRING_TYPE = new DefaultStringType(LOGGER);
+    private static final DateType<XMLGregorianCalendar, Duration> DATE_TYPE = new DefaultDateType(LOGGER, DATA_TYPE_FACTORY);
+    private static final TimeType<XMLGregorianCalendar, Duration> TIME_TYPE = new DefaultTimeType(LOGGER, DATA_TYPE_FACTORY);
+    private static final DateTimeType<XMLGregorianCalendar, Duration> DATE_TIME_TYPE = new DefaultDateTimeType(LOGGER, DATA_TYPE_FACTORY);
+    private static final DurationType<Duration, BigDecimal> DURATION_TYPE = new DefaultDurationType(LOGGER, DATA_TYPE_FACTORY);
+    private static final ListType LIST_TYPE = new DefaultListType(LOGGER);
+    private static final ContextType CONTEXT_TYPE = new DefaultContextType(LOGGER);
+
+    private static final NumericLib<BigDecimal> NUMERIC_LIB = new DefaultNumericLib();
+    private static final StringLib STRING_LIB = new DefaultStringLib();
+    private static final BooleanLib BOOLEAN_LIB = new DefaultBooleanLib();
+    private static final DateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> DATE_TIME_LIB = new DefaultDateTimeLib(DATA_TYPE_FACTORY);
+    private static final DurationLib<XMLGregorianCalendar, Duration> DURATION_LIB = new DefaultDurationLib(DATA_TYPE_FACTORY);
+    private static final ListLib LIST_LIB = new DefaultListLib();
+
+    public static final DefaultFEELLib INSTANCE = new DefaultFEELLib();
 
     public DefaultFEELLib() {
-        this(new DefaultNumericType(LOGGER),
-                new DefaultBooleanType(LOGGER),
-                new DefaultStringType(LOGGER),
-                new DefaultDateType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultDateTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultDurationType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultListType(LOGGER),
-                new DefaultContextType(LOGGER),
-                new DefaultNumericLib(),
-                new DefaultStringLib(),
-                new DefaultBooleanLib(),
-                new DefaultDateTimeLib(DATA_TYPE_FACTORY),
-                new DefaultDurationLib(DATA_TYPE_FACTORY),
-                new DefaultListLib()
+        this(NUMERIC_TYPE,
+                BOOLEAN_TYPE,
+                STRING_TYPE,
+                DATE_TYPE,
+                TIME_TYPE,
+                DATE_TIME_TYPE,
+                DURATION_TYPE,
+                LIST_TYPE,
+                CONTEXT_TYPE,
+                NUMERIC_LIB,
+                STRING_LIB,
+                BOOLEAN_LIB,
+                DATE_TIME_LIB,
+                DURATION_LIB,
+                LIST_LIB
         );
     }
 
