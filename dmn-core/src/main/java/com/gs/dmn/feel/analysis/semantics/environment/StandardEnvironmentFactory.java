@@ -149,7 +149,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("decimal", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("floor", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("ceiling", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("abs", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("abs", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("modulo", new BuiltinFunctionType(NUMBER, new Parameter("dividend", NUMBER), new Parameter("divisor", NUMBER))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("sqrt", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("log", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));
