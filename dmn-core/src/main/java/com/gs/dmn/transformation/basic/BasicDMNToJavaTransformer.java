@@ -399,6 +399,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         TDRGElement element = reference.getElement();
         if (element instanceof TBusinessKnowledgeModel) {
             return bkmParameters((DRGElementReference<TBusinessKnowledgeModel>) reference, nameProducer);
+        } else if (element instanceof TDecisionService) {
+            return dsParameters((DRGElementReference<TDecisionService>) reference, nameProducer);
         } else if (element instanceof TDecision) {
             return inputDataParametersClosure((DRGElementReference<TDecision>) reference, nameProducer);
         } else {

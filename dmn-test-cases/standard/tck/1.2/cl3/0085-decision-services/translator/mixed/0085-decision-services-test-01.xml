@@ -127,9 +127,7 @@
         <description>passing a single input decision param with incorrect type</description>
         <resultNode name="decision_007_1" type="decision" errorResult="true">
             <expected>
-                <component name="decision_007_2">
-                    <value xsi:type="xsd:boolean">true</value>
-                </component>
+                <value xsi:nil="true"/>
             </expected>
         </resultNode>
     </testCase>
