@@ -14,7 +14,37 @@ package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
 
+import java.util.List;
+
 public abstract class Type {
+    protected boolean equivalentTo(Type type1, Type type2) {
+        if (type1 == null) {
+            return type1 == type2;
+        } else {
+            return type1.equivalentTo(type2);
+        }
+    }
+
+    protected boolean conformsTo(Type type1, Type type2) {
+        if (type1 == null) {
+            return type1 == type2;
+        } else {
+            return type1.conformsTo(type2);
+        }
+    }
+
+    protected boolean equivalentType(List<Type> list1, List<Type> list2) {
+        if (list1.size() != list2.size()) {
+            return false;
+        }
+        for (int i = 0; i < list1.size(); i++) {
+            if (!equivalentTo(list1.get(i), list2.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public abstract boolean equivalentTo(Type other);
 
     /*

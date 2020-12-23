@@ -44,8 +44,8 @@ public class FEELFunctionType extends FunctionType {
     @Override
     public boolean equivalentTo(Type other) {
         return other instanceof FEELFunctionType
-                && returnType.equivalentTo(((FEELFunctionType) other).returnType)
-                && equalNames(this.parameterTypes, ((FEELFunctionType) other).parameterTypes);
+                && equivalentTo(returnType, ((FEELFunctionType) other).returnType)
+                && equivalentType(this.parameterTypes, ((FEELFunctionType) other).parameterTypes);
     }
 
     @Override
@@ -81,17 +81,5 @@ public class FEELFunctionType extends FunctionType {
     public String toString() {
         String types = parameters.stream().map(p -> p == null ? "null" : p.toString()).collect(Collectors.joining(", "));
         return String.format("FEELFunctionType(%s, %s, %s)", types, returnType, external);
-    }
-
-    private boolean equalNames(List<Type> list1, List<Type> list2) {
-        if (list1.size() != list2.size()) {
-            return false;
-        }
-        for (int i = 0; i < list1.size(); i++) {
-            if (!list1.get(i).equals(list2.get(i))) {
-                return false;
-            }
-        }
-        return true;
     }
 }
