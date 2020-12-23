@@ -33,6 +33,7 @@ import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.*;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
+import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -475,6 +476,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         RuntimeEnvironment contextRuntimeEnvironment = this.runtimeEnvironmentFactory.makeEnvironment(runtimeEnvironment);
         FEELContext feelContext = FEELContext.makeContext(element, contextEnvironment, contextRuntimeEnvironment);
         Result returnResult = null;
+        Map<TContextEntry, Result> entryResultMap = new LinkedHashMap<>();
         for(TContextEntry entry: context.getContextEntry()) {
             // Evaluate entry value
             Result entryResult;
@@ -490,12 +492,13 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             } else {
                 entryResult = null;
             }
-            Object entryValue = Result.value(entryResult);
+            entryResultMap.put(entry, entryResult);
 
             // Add runtime binding
             TInformationItem variable = entry.getVariable();
             if (variable != null) {
                 String entryName = variable.getName();
+                Object entryValue = Result.value(entryResult);
                 contextRuntimeEnvironment.bind(entryName, entryValue);
             } else {
                 returnResult = entryResult;
@@ -515,7 +518,15 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                 if (variable != null) {
                     String entryName = variable.getName();
                     output.add(entryName, contextRuntimeEnvironment.lookupBinding(entryName));
-                    type.addMember(entryName, new ArrayList<>(), this.basicDMNTransformer.toFEELType(model, variable.getTypeRef()));
+                    String typeRef = variable.getTypeRef();
+                    Type entryType;
+                    if (StringUtils.isEmpty(typeRef)) {
+                        Result entryResult = entryResultMap.get(entry);
+                        entryType = Result.type(entryResult);
+                    } else {
+                        entryType = this.basicDMNTransformer.toFEELType(model, typeRef);
+                    }
+                    type.addMember(entryName, new ArrayList<>(), entryType);
                 }
             }
             // Return value

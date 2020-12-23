@@ -96,7 +96,7 @@
         <!-- positive test -->
         <resultNode name="decision_004_1" type="decision">
             <expected>
-                <value xsi:type="xsd:string">foo</value>
+                <value xsi:type="xsd:string">foo</value> <!-- DMN13-163 Decision Service output value in the case of single output Decision -->
             </expected>
         </resultNode>
     </testCase>
@@ -117,7 +117,7 @@
         <!-- positive test -->
         <resultNode name="decision_006_1" type="decision">
             <expected>
-                <value xsi:type="xsd:string">foo bar</value>
+                <value xsi:type="xsd:string">foo bar</value> <!-- DMN13-163 Decision Service output value in the case of single output Decision -->
             </expected>
         </resultNode>
     </testCase>
@@ -148,7 +148,7 @@
         <!-- positive test -->
         <resultNode name="decision_009_1" type="decision">
             <expected>
-                <value xsi:type="xsd:string">foo bar</value>
+                <value xsi:type="xsd:string">foo bar</value> <!-- DMN13-163 Decision Service output value in the case of single output Decision -->
             </expected>
         </resultNode>
     </testCase>
@@ -158,9 +158,7 @@
         <description>passing badly named param</description>
         <resultNode name="decision_010_1" type="decision" errorResult="true">
             <expected>
-                <component name="decision_010_2">
-                    <value xsi:nil="true"/>
-                </component>
+                <value xsi:nil="true"/> <!-- DMN13-163 Decision Service output value in the case of single output Decision -->
             </expected>
         </resultNode>
     </testCase>
@@ -171,7 +169,7 @@
         <!-- positive test -->
         <resultNode name="decision_011_1" type="decision">
             <expected>
-                <value xsi:type="xsd:string">A B C D</value>
+                <value xsi:type="xsd:string">A B C D</value> <!-- DMN13-163 Decision Service output value in the case of single output Decision -->
             </expected>
         </resultNode>
     </testCase>
@@ -182,7 +180,7 @@
         <!-- positive test -->
         <resultNode name="decision_012_1" type="decision">
             <expected>
-                <value xsi:type="xsd:string">A B C D</value>
+                <value xsi:type="xsd:string">A B C D</value> <!-- DMN13-163 Decision Service output value in the case of single output Decision -->
             </expected>
         </resultNode>
     </testCase>
@@ -197,7 +195,7 @@
         <resultNode name="decision_013_1" type="decision">
             <expected>
                 <component name="decisionService_013">
-                    <value xsi:type="xsd:string">A B</value>
+                    <value xsi:type="xsd:string">A B</value> <!-- DMN13-163 Decision Service output value in the case of single output Decision -->
                 </component>
                 <component name="inputData_013_1">
                     <value xsi:type="xsd:string">C</value>
@@ -226,7 +224,7 @@
                     <value xsi:type="xsd:string">D</value>
                 </component>
                 <component name="decisionService_014">
-                    <value xsi:type="xsd:string">A B</value>
+                    <value xsi:type="xsd:string">A B</value> <!-- DMN13-163 Decision Service output value in the case of single output Decision -->
                 </component>
             </expected>
         </resultNode>

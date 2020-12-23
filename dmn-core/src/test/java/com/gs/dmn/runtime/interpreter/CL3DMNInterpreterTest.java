@@ -294,7 +294,7 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
         doSingleModelTest("1.2", "0082-feel-coercion");
     }
 
-    @Ignore
+    @Test
     public void test_12_cl3_0085_decision_services() {
         doSingleModelTest("1.2", "0085-decision-services");
     }
@@ -317,5 +317,10 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     @Test
     public void test_13_cl3_0050_feel_abs_function() {
         doSingleModelTest("1.3", "0050-feel-abs-function");
+    }
+
+    @Test
+    public void test_13_cl3_0085_decision_services() {
+        doSingleModelTest("1.3", "0085-decision-services");
     }
 }
