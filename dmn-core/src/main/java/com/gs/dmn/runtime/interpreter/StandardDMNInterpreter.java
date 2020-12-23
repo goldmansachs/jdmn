@@ -401,7 +401,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         } else if (expression instanceof TDecisionTable) {
             result = evaluateDecisionTable(element, (TDecisionTable)expression, environment, runtimeEnvironment, elementAnnotation);
         } else if (expression instanceof TFunctionDefinition) {
-            result = evaluateFunctionDefinitionExpression((TFunctionDefinition)expression, environment, runtimeEnvironment, element, elementAnnotation);
+            result = evaluateFunctionDefinitionExpression(element, (TFunctionDefinition)expression, environment, runtimeEnvironment, elementAnnotation);
         } else if (expression instanceof TInvocation) {
             result = evaluateInvocationExpression(element, (TInvocation) expression, environment, runtimeEnvironment, elementAnnotation);
         } else if (expression instanceof TLiteralExpression) {
@@ -593,8 +593,9 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         return new Result(relationValue, new ListType(relationType));
     }
 
-    private Result evaluateFunctionDefinitionExpression(TFunctionDefinition expression, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
-        return new Result(expression, ANY);
+    private Result evaluateFunctionDefinitionExpression(TDRGElement element, TFunctionDefinition expression, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation) {
+        Type type = this.basicDMNTransformer.expressionType(element, expression, environment);
+        return new Result(expression, type);
     }
 
     private Result evaluateDecisionTable(TDRGElement element, TDecisionTable decisionTable, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation) {

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<modelName>0031-user-defined-functions.dmn</modelName>
+	<labels>
+		<label>Compliance Level 3</label>
+		<label>Literal Expression</label>
+		<label>FEEL Arithmetic</label>
+		<label>Function Invocation</label>
+	    <label>Function Definition</label>
+		<label>FEEL Function Literals</label>
+	    <label>Data Type: Number</label>
+	    <label>Context</label>
+	    <label>FEEL Special-character Names</label>
+	</labels>
+	<testCase id="001">
+		<description>Tests user defined function invocation with positional
+			parameters
+		</description>
+		<inputNode name="inputA">
+			<value xsi:type="xsd:decimal">10</value>
+		</inputNode>
+		<inputNode name="inputB">
+			<value xsi:type="xsd:decimal">5</value>
+		</inputNode>
+		<resultNode name="fn invocation positional parameters"
+			type="decision">
+			<expected>
+				<component name="sumResult">
+					<value xsi:type="xsd:decimal">15</value>
+				</component>
+				<component name="divisionResultPositional">
+					<value xsi:type="xsd:decimal">2</value>
+				</component>
+				<component name="multiplicationResultPositional">
+					<value xsi:type="xsd:decimal">50</value>
+				</component>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+		<description>Tests user defined function invocation with named
+			parameters
+		</description>
+		<inputNode name="inputA">
+			<value xsi:type="xsd:decimal">10</value>
+		</inputNode>
+		<inputNode name="inputB">
+			<value xsi:type="xsd:decimal">5</value>
+		</inputNode>
+		<resultNode name="fn invocation named parameters" type="decision">
+			<expected>
+				<component name="subResult">
+					<value xsi:type="xsd:decimal">5</value>
+				</component>
+				<component name="subResultMixed">
+					<value xsi:type="xsd:decimal">-5</value>
+				</component>
+				<component name="divisionResultNamed">
+					<value xsi:type="xsd:decimal">2</value>
+				</component>
+				<component name="multiplicationResultNamed">
+					<value xsi:type="xsd:decimal">50</value>
+				</component>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="003">
+		<description>Tests user defined function invocation with complex
+			parameters
+		</description>
+		<inputNode name="inputA">
+			<value xsi:type="xsd:decimal">10</value>
+		</inputNode>
+		<inputNode name="inputB">
+			<value xsi:type="xsd:decimal">5</value>
+		</inputNode>
+		<resultNode name="fn invocation complex parameters" type="decision">
+			<expected>
+				<component name="functionInvocationLiteralExpressionInParameter">
+					<value xsi:type="xsd:decimal">500</value>
+				</component>
+				<component name="functionInvocationInParameter">
+					<value xsi:type="xsd:decimal">200</value>
+				</component>
+				<component name="circumference">
+					<value xsi:type="xsd:decimal">94.247760</value>
+				</component>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>
