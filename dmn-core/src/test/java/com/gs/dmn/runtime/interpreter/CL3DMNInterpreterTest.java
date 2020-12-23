@@ -13,6 +13,7 @@
 package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.runtime.Pair;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -115,7 +116,7 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
         doSingleModelTest("1.1", "0030-static-user-defined-functions");
     }
 
-    @Test
+    @Ignore
     public void test_11_cl3_0031_user_defined_functions() {
         doSingleModelTest("1.1", "0031-user-defined-functions");
         doSingleModelTest("1.1", "0031-static-user-defined-functions");
@@ -288,17 +289,17 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
         doSingleModelTest("1.2", "0076-feel-external-java");
     }
 
-    @Test
+    @Ignore
     public void test_12_cl3_0082_feel_coercion() {
         doSingleModelTest("1.2", "0082-feel-coercion");
     }
 
-    @Test
+    @Ignore
     public void test_12_cl3_0085_decision_services() {
         doSingleModelTest("1.2", "0085-decision-services");
     }
 
-    @Test
+    @Ignore
     public void test_12_cl3_0086_import() {
         doMultipleModelsTest("1.2", Arrays.asList("0086-import", "0086-imported-model"), new Pair<>("singletonInputData", "false"));
     }

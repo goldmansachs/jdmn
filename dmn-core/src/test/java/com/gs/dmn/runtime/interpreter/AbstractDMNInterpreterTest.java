@@ -50,7 +50,7 @@ import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
 
 public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractDMNInterpreterTest.class));
-    private static final boolean IGNORE_ERROR = true;
+    private static final boolean IGNORE_ERROR = false;
 
     private final DMNReader reader = new DMNReader(LOGGER, false);
     private final TestCasesReader testCasesReader = new TestCasesReader(LOGGER);
