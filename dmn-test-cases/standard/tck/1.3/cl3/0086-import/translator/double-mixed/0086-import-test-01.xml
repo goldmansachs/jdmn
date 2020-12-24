@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <modelName>0086-import.dmn</modelName>
+  <labels>
+    <label>Compliance Level 3</label>
+    <label>DMN Import</label>
+  </labels>
+
+  <testCase id="test_001">
+    <description>Test import ItemDefinition and BKM for invocation</description>
+    <inputNode name="A Person">
+        <component name="name">
+          <value xsi:type="xsd:string">John Doe</value>
+        </component>
+        <component name="age">
+          <value xsi:type="xsd:decimal">21</value>
+        </component>
+    </inputNode>
+      <resultNode name="A Decision Ctx with DT" type="decision">
+        <expected>
+            <value xsi:type="xsd:string">Hello John Doe!</value>
+        </expected>
+      </resultNode>
+  </testCase>
+  
+  <testCase id="test_002">
+    <description>Test import ItemDefinition and BKM for invocation</description>
+    <inputNode name="A Person">
+        <component name="name">
+          <value xsi:type="xsd:string">John Doe</value>
+        </component>
+        <component name="age">
+          <value xsi:type="xsd:decimal">47</value>
+        </component>
+    </inputNode>
+      <resultNode name="A Decision Ctx with DT" type="decision">
+        <expected>
+            <value xsi:type="xsd:string">Respectfully, Hello John Doe!</value>
+        </expected>
+      </resultNode>
+  </testCase>
+
+</testCases>

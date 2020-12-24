@@ -299,7 +299,7 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
         doSingleModelTest("1.2", "0085-decision-services");
     }
 
-    @Ignore
+    @Test
     public void test_12_cl3_0086_import() {
         doMultipleModelsTest("1.2", Arrays.asList("0086-import", "0086-imported-model"), new Pair<>("singletonInputData", "false"));
     }
@@ -327,6 +327,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     @Test
     public void test_13_cl3_0085_decision_services() {
         doSingleModelTest("1.3", "0085-decision-services");
+    }
+
+    @Test
+    public void test_13_cl3_0086_import() {
+        doMultipleModelsTest("1.3", Arrays.asList("0086-import", "Imported_Model"), new Pair<>("singletonInputData", "false"));
     }
 
     @Test
