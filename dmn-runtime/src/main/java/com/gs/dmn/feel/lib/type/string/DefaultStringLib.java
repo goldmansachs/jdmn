@@ -94,7 +94,11 @@ public class DefaultStringLib implements StringLib {
         if (string == null) {
             return null;
         }
-        return string.length();
+        // The number of Unicode code units in the string
+        int unicodeCodeUnitsCount = string.length();
+        // The number of characters (Unicode code point)
+        int result = string.codePointCount(0, unicodeCodeUnitsCount);
+        return result;
     }
 
     @Override

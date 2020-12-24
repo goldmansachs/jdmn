@@ -707,6 +707,17 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     // String functions
     //
     @Override
+    public NUMBER len(String text) {
+        try {
+            return valueOf(this.stringLib.len(text));
+        } catch (Exception e) {
+            String message = String.format("len(%s)", text);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public String stringAdd(String first, String second) {
         try {
             return this.stringLib.stringAdd(first, second);
@@ -833,11 +844,6 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     @Override
     public TIME toTime(Object object) {
         return this.feelLib.toTime(object);
-    }
-
-    @Override
-    public NUMBER len(String text) {
-        return this.feelLib.stringLength(text);
     }
 
     @Override

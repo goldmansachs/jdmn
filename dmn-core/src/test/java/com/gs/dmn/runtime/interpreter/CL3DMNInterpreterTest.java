@@ -325,6 +325,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_13_cl3_0083_feel_unicode() {
+        doSingleModelTest("1.3", "0083-feel-unicode");
+    }
+
+    @Test
     public void test_13_cl3_0085_decision_services() {
         doSingleModelTest("1.3", "0085-decision-services");
     }

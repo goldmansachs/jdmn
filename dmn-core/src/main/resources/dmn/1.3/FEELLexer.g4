@@ -4,10 +4,39 @@ lexer grammar FEELLexer;
 package com.gs.dmn.feel.analysis.syntax.antlrv4;
 
 import java.util.*;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 }
 
 @lexer::members {
+    private static Pattern UNICODE_6_HEX = Pattern.compile("\\\\U([0-9a-fA-F]){6}");
+
+    private static String convertUnicodeEscape(String value) {
+        if (StringUtils.isEmpty(value)) {
+            return value;
+        }
+        StringBuffer builder = new StringBuffer();
+        Matcher matcher = UNICODE_6_HEX.matcher(value);
+        while (matcher.find()) {
+            int cp = Integer.decode(matcher.group(0).replaceAll("\\\\U", "0x"));
+            StringBuilder sb = new StringBuilder();
+            if (Character.isBmpCodePoint(cp)) {
+                sb.append((char) cp);
+            } else if (Character.isValidCodePoint(cp)) {
+                sb.append(Character.highSurrogate(cp));
+                sb.append(Character.lowSurrogate(cp));
+            } else {
+                sb.append('?');
+            }
+            matcher.appendReplacement(builder, sb.toString());
+        }
+        matcher.appendTail(builder);
+        String result = builder.toString();
+        return result;
+    }
 }
 
 // Tokens
@@ -26,7 +55,9 @@ WS:
 
 // Literals
 STRING:
-    ('"' ( EscSeq | ~(["] | [\u000A-\u000D]) )*  '"' )
+    // 33. string literal = """, { character – (""" | vertical space) | string escape sequence}, """ ;
+    ('"' ( StringEscSeq | ~(["] | [\u000A-\u000D]) )*  '"' )
+    { setText(convertUnicodeEscape(getText())); }
     ;
 NUMBER:
     (Digits ('.' Digits)?) | ('.' Digits)
@@ -203,11 +234,12 @@ NAME:
     ('\'' ( ~(['] | [\u000A-\u000D]) )*  '\'' )
     ;
 
-fragment EscSeq:
+fragment StringEscSeq:
+    // 64. string escape sequence = "\'" | "\"" | "\\" | "\n" | "\r" | "\t" | code point;
 	Esc
 	(
 	    [btnfr"'\\]	    // The standard escaped character set such as tab, newline, etc.
-	    | UnicodeEsc	// A Unicode escape sequence
+	    | CodePoint	    // A Unicode escape sequence
 	    | .				// Invalid escape character
 	    | EOF			// Incomplete at EOF
 	)
@@ -215,8 +247,10 @@ fragment EscSeq:
 
 fragment Esc : '\\'	;
 
-fragment UnicodeEsc:
-    'u' (HexDigit (HexDigit (HexDigit HexDigit?)?)?)?
+fragment CodePoint:
+    'u' HexDigit HexDigit HexDigit HexDigit
+    |
+    'U' HexDigit HexDigit HexDigit HexDigit HexDigit HexDigit
 	;
 
 fragment NameStartChar:

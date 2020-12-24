@@ -19,6 +19,11 @@ import java.util.List;
 
 public class SignavioStringLibStub implements SignavioStringLib {
     @Override
+    public Integer len(String text) {
+        return text == null ? null : text.length();
+    }
+
+    @Override
     public String stringAdd(String first, String second) {
         throw new DMNRuntimeException("Not supported yet");
     }
