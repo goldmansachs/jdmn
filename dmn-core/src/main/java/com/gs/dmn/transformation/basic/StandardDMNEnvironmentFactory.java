@@ -178,10 +178,11 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         }
         TDefinitions model = this.dmnModelRepository.getModel(element);
         QualifiedName typeRef = QualifiedName.toQualifiedName(model, expression.getTypeRef());
-        if (typeRef != null) {
-            return toFEELType(model, typeRef);
-        }
         if (expression instanceof TContext) {
+            if (typeRef != null) {
+                return toFEELType(model, typeRef);
+            }
+
             List<TContextEntry> contextEntryList = ((TContext) expression).getContextEntry();
             // Collect members & return type
             List<Pair<String, Type>> members = new ArrayList<>();
@@ -211,8 +212,16 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         } else if (expression instanceof TFunctionDefinition) {
             return functionDefinitionType(element, (TFunctionDefinition) expression, environment);
         } else if (expression instanceof TLiteralExpression) {
+            if (typeRef != null) {
+                return toFEELType(model, typeRef);
+            }
+
             return literalExpressionType(element, (TLiteralExpression) expression, environment);
         } else if (expression instanceof TInvocation) {
+            if (typeRef != null) {
+                return toFEELType(model, typeRef);
+            }
+
             TExpression body = ((TInvocation) expression).getExpression().getValue();
             if (body instanceof TLiteralExpression) {
                 String bkmName = ((TLiteralExpression) body).getText();
@@ -225,6 +234,10 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 throw new DMNRuntimeException(String.format("Not supported '%s'", body.getClass().getSimpleName()));
             }
         } else if (expression instanceof TDecisionTable) {
+            if (typeRef != null) {
+                return toFEELType(model, typeRef);
+            }
+
             // Derive from outputClauses clauses and rules
             TDecisionTable dt = (TDecisionTable) expression;
             List<TOutputClause> outputClauses = dt.getOutput();
