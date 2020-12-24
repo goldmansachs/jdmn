@@ -313,7 +313,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "number",
                 "stringLength(\"\\uD83D\\uDCA9\")",
                 lib.stringLength("\uD83D\uDCA9"),
-                lib.number("2"));
+                lib.number("1"));
         doExpressionTest(entries, "", "upper case(\"abc\")",
                 "FunctionInvocation(Name(upper case) -> PositionalParameters(StringLiteral(\"abc\")))",
                 "string",

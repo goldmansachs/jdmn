@@ -269,13 +269,13 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertEqualsNumber(makeNumber(1), getLib().stringLength("\u0009"));
         assertEqualsNumber(makeNumber(6), getLib().stringLength("\\u0009"));
         // horse emoji
-        assertEqualsNumber(makeNumber(2), getLib().stringLength("\uD83D\uDCA9"));
+        assertEqualsNumber(makeNumber(1), getLib().stringLength("\uD83D\uDCA9"));
         // horse emoji lowercase
-        assertEqualsNumber(makeNumber(2), getLib().stringLength("\ud83d\udca9"));
+        assertEqualsNumber(makeNumber(1), getLib().stringLength("\ud83d\udca9"));
         // horse + grinning face emoji
-        assertEqualsNumber(makeNumber(4), getLib().stringLength("\ud83d\udc0e\uD83D\uDE00"));
+        assertEqualsNumber(makeNumber(2), getLib().stringLength("\ud83d\udc0e\uD83D\uDE00"));
         // horse + grinning face emoji
-        assertEqualsNumber(makeNumber(4), getLib().stringLength("🐎😀"));
+        assertEqualsNumber(makeNumber(2), getLib().stringLength("🐎😀"));
     }
 
     @Test
