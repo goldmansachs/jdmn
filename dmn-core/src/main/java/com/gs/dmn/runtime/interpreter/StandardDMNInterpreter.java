@@ -19,6 +19,7 @@ import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.feel.interpreter.FEELInterpreter;
@@ -47,6 +48,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
+import static com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind.*;
 
 public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private static final Logger LOGGER = LoggerFactory.getLogger(StandardDMNInterpreter.class);
@@ -180,14 +182,18 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         for (int i = 0; i < formalParameterList.size(); i++) {
             TInformationItem param = formalParameterList.get(i);
             String name = param.getName();
-            Type type = this.basicDMNTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, param.getTypeRef()));
+            String paramTypeRef = param.getTypeRef();
+            Type paramType = null;
+            if (!StringUtils.isEmpty(paramTypeRef)) {
+                paramType = this.basicDMNTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, paramTypeRef));
+            }
             Object value = argList.get(i);
 
             // Check value and apply implicit conversions
-            Result result = convertValue(value, type);
+            Result result = convertValue(value, paramType);
             value = Result.value(result);
 
-            bkmEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, type));
+            bkmEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, paramType));
             bkmRuntimeEnvironment.bind(name, value);
         }
 
@@ -201,7 +207,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         result = convertResult(result, expectedType);
         value = Result.value(result);
 
-        // Decision end
+        // BKM end
         EVENT_LISTENER.endDRGElement(drgElementAnnotation, decisionArguments, value, (System.currentTimeMillis() - startTime_));
 
         return result;
@@ -697,14 +703,16 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     protected Result convertResult(Result result, Type expectedType) {
         Object value = Result.value(result);
         Type actualType = Result.type(result);
-        // Static conversion
-        if (expectedType == null || expectedType == ANY) {
-            return new Result(value, ANY);
-        } else if (actualType != null && actualType.conformsTo(expectedType)) {
-            return new Result(value, expectedType);
+        if (expectedType == null) {
+            expectedType = ANY;
         }
-        // Dynamic conversion
-        return convertValue(value, expectedType);
+
+        if (actualType != null && actualType.conformsTo(expectedType)) {
+            return new Result(value, expectedType);
+        } else {
+            // Dynamic conversion
+            return convertValue(value, expectedType);
+        }
     }
 
     protected Result convertValue(Object value, Type expectedType) {
@@ -712,18 +720,36 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         if (expectedType == null) {
             expectedType = ANY;
         }
-        if (conformsTo(value, expectedType)) {
+        ConversionKind conversionKind = conversionKind(value, expectedType);
+        if (conversionKind == NONE) {
             return new Result(value, expectedType);
-        } else if (value instanceof List && ((List) value).size() == 1 && !(expectedType instanceof ListType)) {
-            if (conformsTo(((List) value).get(0), expectedType)) {
-                // from-singleton-list conversion
-                value = this.feelLib.asElement((List)value);
-                return new Result(value, expectedType);
-            } else {
-                return new Result(null, expectedType);
-            }
+        } else if (conversionKind == SINGLETON_LIST_TO_ELEMENT) {
+            value = this.feelLib.asElement((List) value);
+            return new Result(value, expectedType);
+        } else if (conversionKind == ELEMENT_TO_SINGLETON_LIST) {
+            value = this.feelLib.asList(value);
+            return new Result(value, expectedType);
+        } else if (conversionKind == CONFORMS_TO) {
+            return new Result(null, expectedType);
+        } else {
+            throw new DMNRuntimeException(String.format("Conversion '%s' not supported yet", conversionKind));
         }
-        return new Result(null, expectedType);
+    }
+
+    protected ConversionKind conversionKind(Object value, Type expectedType) {
+        if (conformsTo(value, expectedType)) {
+            return ConversionKind.NONE;
+        } else if (isSingletonList(value) && conformsTo(((List) value).get(0), expectedType)) {
+            return SINGLETON_LIST_TO_ELEMENT;
+        } else if (expectedType instanceof ListType && conformsTo(value, ((ListType) expectedType).getElementType())) {
+            return ELEMENT_TO_SINGLETON_LIST;
+        } else {
+            return ConversionKind.CONFORMS_TO;
+        }
+    }
+
+    private boolean isSingletonList(Object value) {
+        return value instanceof List && ((List) value).size() == 1;
     }
 
     private boolean conformsTo(Object value, Type expectedType) {

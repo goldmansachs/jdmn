@@ -116,7 +116,7 @@ public abstract class FunctionType extends Type {
                 if (i < parameterTypes.size()) {
                     Type parameterType = parameterTypes.get(i);
                     if (!argumentType.conformsTo(parameterType)) {
-                        if (kind == ELEMENT_TO_LIST) {
+                        if (kind == ELEMENT_TO_SINGLETON_LIST) {
                             // When the type of the expression is T and the target type is List<T> the expression is converted to a singleton list.
                             if (parameterType instanceof ListType) {
                                 if (argumentType.equivalentTo(((ListType) parameterType).getElementType())) {
@@ -126,7 +126,7 @@ public abstract class FunctionType extends Type {
                                     different = true;
                                 }
                             }
-                        } else if (kind == LIST_TO_ELEMENT) {
+                        } else if (kind == SINGLETON_LIST_TO_ELEMENT) {
                             // When the type of the expression is List<T>, the value of the expression is a singleton list and the target type is T,
                             // the expression is converted by unwraping the first element.
                             if (argumentType instanceof ListType) {

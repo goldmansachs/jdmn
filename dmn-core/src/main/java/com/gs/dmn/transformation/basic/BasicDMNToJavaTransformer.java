@@ -290,7 +290,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     //
     private Type informationItemType(TBusinessKnowledgeModel bkm, TInformationItem element) {
         TDefinitions model = this.dmnModelRepository.getModel(bkm);
-        return toFEELType(model, QualifiedName.toQualifiedName(model, element.getTypeRef()));
+        String typeRef = element.getTypeRef();
+        Type type = null;
+        if (!StringUtils.isEmpty(typeRef)) {
+            type = toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
+        }
+        return type;
     }
 
     @Override
@@ -802,7 +807,14 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     public List<FormalParameter> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
         TDefinitions model = this.dmnModelRepository.getModel(bkm);
         List<FormalParameter> parameters = new ArrayList<>();
-        bkm.getEncapsulatedLogic().getFormalParameter().forEach(p -> parameters.add(new FormalParameter(p.getName(), toFEELType(model, QualifiedName.toQualifiedName(model, p.getTypeRef())))));
+        for (TInformationItem p: bkm.getEncapsulatedLogic().getFormalParameter()) {
+            String typeRef = p.getTypeRef();
+            Type type = null;
+            if (!StringUtils.isEmpty(typeRef)) {
+                type = toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
+            }
+            parameters.add(new FormalParameter(p.getName(), type));
+        }
         return parameters;
     }
 

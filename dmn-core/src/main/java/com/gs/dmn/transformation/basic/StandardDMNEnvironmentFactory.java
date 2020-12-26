@@ -462,7 +462,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             // Calculate body type
             Type bodyType;
             TExpression body = expressionElement.getValue();
-            QualifiedName typeRef = QualifiedName.toQualifiedName(model, body.getTypeRef());
+            QualifiedName typeRef = QualifiedName.toQualifiedName(model, bodyTypeRef(functionDefinition));
             if (typeRef != null) {
                 bodyType = toFEELType(model, typeRef);
             } else {
@@ -479,11 +479,28 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             // Make function type
             List<FormalParameter> parameters = new ArrayList<>();
             for(TInformationItem param: functionDefinition.getFormalParameter()) {
-                Type paramType = toFEELType(model, QualifiedName.toQualifiedName(model, param.getTypeRef()));
+                Type paramType = null;
+                String paramTypeRef = param.getTypeRef();
+                if (!StringUtils.isEmpty(paramTypeRef)) {
+                    paramType = toFEELType(model, QualifiedName.toQualifiedName(model, paramTypeRef));
+                }
                 parameters.add(new FormalParameter(param.getName(), paramType));
             }
             if (bodyType != null) {
                 return new DMNFunctionType(parameters, bodyType, element, functionDefinition);
+            }
+        }
+        return null;
+    }
+
+    private String bodyTypeRef(TFunctionDefinition functionDefinition) {
+        String typeRef = functionDefinition.getTypeRef();
+        if (!StringUtils.isEmpty(typeRef)) {
+            return typeRef;
+        } else {
+            JAXBElement<? extends TExpression> element = functionDefinition.getExpression();
+            if (element != null) {
+                return element.getValue().getTypeRef();
             }
         }
         return null;
@@ -565,8 +582,14 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             TDefinitions definitions = this.dmnModelRepository.getModel(element);
             TFunctionDefinition functionDefinition = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
             if (functionDefinition != null) {
-                functionDefinition.getFormalParameter().forEach(
-                        p -> bkmEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), this.dmnTransformer.toFEELType(definitions, QualifiedName.toQualifiedName(definitions, p.getTypeRef())))));
+                for (TInformationItem p: functionDefinition.getFormalParameter()) {
+                    String paramTypeRef = p.getTypeRef();
+                    Type paramType = null;
+                    if (!StringUtils.isEmpty(paramTypeRef)) {
+                        paramType = this.dmnTransformer.toFEELType(definitions, QualifiedName.toQualifiedName(definitions, paramTypeRef));
+                    }
+                    bkmEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), paramType));
+                }
                 elementEnvironment = bkmEnvironment;
             }
         }
@@ -643,8 +666,14 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     public Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition, Environment parentEnvironment) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         Environment environment = this.environmentFactory.makeEnvironment(parentEnvironment);
-        functionDefinition.getFormalParameter().forEach(
-                p -> environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), this.dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, p.getTypeRef())))));
+        for (TInformationItem p: functionDefinition.getFormalParameter()) {
+            String typeRef = p.getTypeRef();
+            Type type = null;
+            if (!StringUtils.isEmpty(typeRef)) {
+                type = this.dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
+            }
+            environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), type));
+        }
         return environment;
     }
 

@@ -115,7 +115,7 @@
 
     <testCase id="decision_008">
         <description>decision type is list but return val null - null cannot be coerced so no singleton list coercion</description>
-        <resultNode name="decision_008" type="decision" errorResult="true">
+        <resultNode name="decision_008" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -134,9 +134,9 @@
     <testCase id="decision_bkm_002">
         <description>pass non-conforming type to bkm - bkm
             input param is null coerced</description>
-        <resultNode name="decision_bkm_002" type="decision" errorResult="true">
+        <resultNode name="decision_bkm_002" type="decision">
             <expected>
-                <value xsi:nil="true"/>
+                <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
     </testCase>
@@ -175,7 +175,7 @@
 
     <testCase id="decision_bkm_004_b">
         <description>bkm type is list and bkm logic returns null - null cannot be coerced to result remains null</description>
-        <resultNode name="decision_bkm_004_b" type="decision" errorResult="true">
+        <resultNode name="decision_bkm_004_b" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -184,9 +184,9 @@
 
     <testCase id="decision_bkm_005">
         <description>bkm type is non-list and bkm logic returns singleton list of conforming value - coercion list to val</description>
-        <resultNode name="decision_bkm_005" type="decision" errorResult="true">
+        <resultNode name="decision_bkm_005" type="decision">
             <expected>
-                <value xsi:nil="true"/>
+                <value xsi:type="xsd:decimal">10</value>
             </expected>
         </resultNode>
     </testCase>
