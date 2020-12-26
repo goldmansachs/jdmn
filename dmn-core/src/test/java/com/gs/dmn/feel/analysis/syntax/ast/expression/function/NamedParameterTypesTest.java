@@ -12,42 +12,19 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.NumberType;
-import com.gs.dmn.feel.analysis.semantics.type.StringType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.runtime.Pair;
-import org.junit.Test;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-
 public class NamedParameterTypesTest extends ParameterTypesTest {
     @Override
-    protected ParameterTypes getParameterTypes() {
+    protected ParameterTypes makeParameterTypes(List<FormalParameter> parameters) {
         Map<String, Type> namedTypes = new LinkedHashMap<>();
-        namedTypes.put("number", NumberType.NUMBER);
-        namedTypes.put("string", StringType.STRING);
+        for (FormalParameter fp: parameters) {
+            namedTypes.put(fp.getName(), fp.type);
+        }
         return new NamedParameterTypes(namedTypes);
     }
-
-    @Test
-    public void testCandidates() {
-        ParameterTypes pt = getParameterTypes();
-        List<Pair<ParameterTypes, ParameterConversions>> candidates = pt.candidates();
-        assertEquals(0, candidates.size());
-
-        Map<String, Type> namedTypes = new LinkedHashMap<>();
-        namedTypes.put("numbers", ListType.NUMBER_LIST);
-        namedTypes.put("string", StringType.STRING);
-        pt =  new NamedParameterTypes(namedTypes);
-        candidates = pt.candidates();
-        assertEquals(1, candidates.size());
-        Pair<ParameterTypes, ParameterConversions> candidate = candidates.get(0);
-        assertEquals("Pair(NamedParameterTypes(numbers : number, string : string), NamedParameterConversions({numbers=Conversion(LIST_TO_ELEMENT, number), string=Conversion(NONE, string)}))", candidate.toString());
-    }
-
 }

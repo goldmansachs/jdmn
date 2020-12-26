@@ -781,8 +781,11 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             return this.lib.asList(value);
         } else if (kind == ConversionKind.LIST_TO_ELEMENT) {
             return this.lib.asElement((List) value);
+        } else if (kind == ConversionKind.CONFORMS_TO) {
+            return null;
+        } else {
+            throw new DMNRuntimeException(String.format("'%s' is not supported yet", conversion.getKind()));
         }
-        return value;
     }
 
     private Object evaluateLambdaExpression(LambdaExpression binding, List<Object> argList, FEELContext context) {
