@@ -13,5 +13,8 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 public enum ConversionKind {
-    NONE, ELEMENT_TO_LIST, LIST_TO_ELEMENT
+    NONE,
+    ELEMENT_TO_LIST,
+    LIST_TO_ELEMENT,
+    CONFORMS_TO
 }

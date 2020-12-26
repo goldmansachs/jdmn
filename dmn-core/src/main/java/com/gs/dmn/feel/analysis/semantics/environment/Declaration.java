@@ -22,7 +22,7 @@ public abstract class Declaration {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public abstract Type getType();

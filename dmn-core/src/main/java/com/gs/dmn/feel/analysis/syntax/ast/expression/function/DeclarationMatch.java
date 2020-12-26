@@ -26,14 +26,18 @@ public class DeclarationMatch {
     }
 
     public Declaration getDeclaration() {
-        return declaration;
+        return this.declaration;
     }
 
     public ParameterTypes getParameterTypes() {
-        return parameterTypes;
+        return this.parameterTypes;
     }
 
     public ParameterConversions getParameterConversions() {
-        return parameterConversions;
+        return this.parameterConversions;
+    }
+
+    public String toString() {
+        return String.format("Match(%s, %s, %s)", this.declaration, this.parameterTypes, this.parameterConversions);
     }
 }

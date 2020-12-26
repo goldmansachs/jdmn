@@ -31,12 +31,12 @@ public class NamedParameterConversions extends ParameterConversions {
     public NamedParameterConversions(List<FormalParameter> parameters) {
         this.conversions = new LinkedHashMap<>();
         for (FormalParameter parameter: parameters) {
-            conversions.put(parameter.getName(), new Conversion(ConversionKind.NONE, parameter.getType()));
+            this.conversions.put(parameter.getName(), new Conversion(ConversionKind.NONE, parameter.getType()));
         }
     }
 
     public Map<String, Conversion> getConversions() {
-        return conversions;
+        return this.conversions;
     }
 
     public void add(String key, Conversion conversion) {
@@ -53,20 +53,25 @@ public class NamedParameterConversions extends ParameterConversions {
     }
 
     @Override
+    public boolean hasConversion(ConversionKind kind) {
+        return this.conversions.values().stream().anyMatch(c -> c.getKind() == kind);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NamedParameterConversions that = (NamedParameterConversions) o;
-        return Objects.equals(conversions, that.conversions);
+        return Objects.equals(this.conversions, that.conversions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(conversions);
+        return Objects.hash(this.conversions);
     }
 
     @Override
     public String toString() {
-        return String.format("NamedParameterConversions(%s)", conversions);
+        return String.format("NamedParameterConversions(%s)", this.conversions);
     }
 }

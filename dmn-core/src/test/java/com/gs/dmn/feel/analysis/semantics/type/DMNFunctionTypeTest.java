@@ -10,13 +10,10 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
+package com.gs.dmn.feel.analysis.semantics.type;
 
-import java.util.List;
-
-public abstract class ParameterConversions {
-    public abstract List<Conversion> getConversions(List<FormalParameter> formalParameters);
-
-    public abstract boolean hasConversion(ConversionKind kind);
+public class DMNFunctionTypeTest extends FunctionTypeTest {
+    protected FunctionType makeFunctionType() {
+        return new DMNFunctionType(null, null, null);
+    }
 }
-
