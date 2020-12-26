@@ -68,7 +68,7 @@ public class Environment {
                 if (existingVariable != null) {
                     Type existingType = existingVariable.getType();
                     Type type = declaration.getType();
-                    if (!existingType.conformsTo(type)) {
+                    if (!Type.equivalentTo(existingType, type)) {
                         throw new DMNRuntimeException(String.format("%s '%s' already exists", declaration.getClass().getSimpleName(), name));
                     }
                 } else {

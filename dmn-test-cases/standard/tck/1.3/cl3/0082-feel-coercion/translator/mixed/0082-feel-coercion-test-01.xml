@@ -377,9 +377,7 @@ null   // BKM variable's typeRef is number.
         <description>Indirect invocation: Decision Service has string input but we pass incorrect type - input is coerced to null</description>
         <resultNode errorResult="true" name="ds_invoke_002_with_number" type="decision">
             <expected>
-                <component name="decision_ds_002">
-                    <value xsi:nil="true"/>
-                </component>
+                <value xsi:nil="true"/> <!-- DMN13-163 Decision Service output value in the case of single output Decision -->
             </expected>
         </resultNode>
     </testCase>
@@ -404,7 +402,7 @@ null   // BKM variable's typeRef is number.
         <description>Indirect invocation: Decision service has string input but we pass in singleton list of correct type - input is coerced to string</description>
         <resultNode name="ds_invoke_002_with_singleton_list" type="decision">
             <expected>
-                <value xsi:type="xsd:string">foo</value>
+                <value xsi:type="xsd:string">foo</value> <!-- DMN13-163 Decision Service output value in the case of single output Decision -->
             </expected>
         </resultNode>
     </testCase>

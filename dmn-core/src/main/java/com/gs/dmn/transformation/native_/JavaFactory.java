@@ -361,9 +361,9 @@ public class JavaFactory implements NativeFactory {
     public String conversionFunction(Conversion conversion, String javaType) {
         if (conversion.getKind() == ConversionKind.NONE) {
             return null;
-        } else if (conversion.getKind() == ConversionKind.ELEMENT_TO_LIST) {
+        } else if (conversion.getKind() == ConversionKind.ELEMENT_TO_SINGLETON_LIST) {
             return elementToListConversionFunction();
-        } else if (conversion.getKind() == ConversionKind.LIST_TO_ELEMENT) {
+        } else if (conversion.getKind() == ConversionKind.SINGLETON_LIST_TO_ELEMENT) {
             return listToElementConversionFunction(javaType);
         } else {
             throw new DMNRuntimeException(String.format("Conversion '%s' is not supported yet", conversion));

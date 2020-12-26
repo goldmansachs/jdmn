@@ -17,7 +17,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import java.util.List;
 
 public abstract class Type {
-    protected boolean equivalentTo(Type type1, Type type2) {
+    public static boolean equivalentTo(Type type1, Type type2) {
         if (type1 == null) {
             return type1 == type2;
         } else {
@@ -25,7 +25,7 @@ public abstract class Type {
         }
     }
 
-    protected boolean conformsTo(Type type1, Type type2) {
+    public static boolean conformsTo(Type type1, Type type2) {
         if (type1 == null) {
             return type1 == type2;
         } else {

@@ -777,9 +777,9 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         ConversionKind kind = conversion.getKind();
         if (kind == ConversionKind.NONE) {
             return value;
-        } else if (kind == ConversionKind.ELEMENT_TO_LIST) {
+        } else if (kind == ConversionKind.ELEMENT_TO_SINGLETON_LIST) {
             return this.lib.asList(value);
-        } else if (kind == ConversionKind.LIST_TO_ELEMENT) {
+        } else if (kind == ConversionKind.SINGLETON_LIST_TO_ELEMENT) {
             return this.lib.asElement((List) value);
         } else if (kind == ConversionKind.CONFORMS_TO) {
             return null;

@@ -13,7 +13,6 @@
 package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.runtime.Pair;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -289,7 +288,7 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
         doSingleModelTest("1.2", "0076-feel-external-java");
     }
 
-    @Ignore
+    @Test
     public void test_12_cl3_0082_feel_coercion() {
         doSingleModelTest("1.2", "0082-feel-coercion");
     }
@@ -322,6 +321,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     @Test
     public void test_13_cl3_0050_feel_abs_function() {
         doSingleModelTest("1.3", "0050-feel-abs-function");
+    }
+
+    @Test
+    public void test_13_cl3_0082_feel_coercion() {
+        doSingleModelTest("1.3", "0082-feel-coercion");
     }
 
     @Test
