@@ -319,6 +319,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_13_cl3_0020_vacation_days() {
+        doSingleModelTest("1.3", "0020-vacation-days");
+    }
+
+    @Test
     public void test_13_cl3_0031_user_defined_functions() {
         doSingleModelTest("1.3", "0031-user-defined-functions");
     }
