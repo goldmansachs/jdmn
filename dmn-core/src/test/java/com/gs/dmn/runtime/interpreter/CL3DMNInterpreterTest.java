@@ -314,6 +314,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_13_cl3_0016_some_every() {
+        doSingleModelTest("1.3", "0016-some-every");
+    }
+
+    @Test
     public void test_13_cl3_0031_user_defined_functions() {
         doSingleModelTest("1.3", "0031-user-defined-functions");
     }
