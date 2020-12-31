@@ -47,13 +47,16 @@ public class FEELFunctionType extends FunctionType {
     @Override
     protected boolean equivalentTo(Type other) {
         return other instanceof FEELFunctionType
-                && Type.equivalentTo(this.returnType, ((FEELFunctionType) other).returnType)
-                && Type.equivalentTo(this.parameterTypes, ((FEELFunctionType) other).parameterTypes);
+                && Type.equivalentTo(this.returnType, ((FunctionType) other).returnType)
+                && Type.equivalentTo(this.parameterTypes, ((FunctionType) other).parameterTypes);
     }
 
     @Override
     protected boolean conformsTo(Type other) {
-        return this.equivalentTo(other);
+        // “contravariant function argument type” and “covariant function return type”
+        return other instanceof FEELFunctionType
+                && Type.equivalentTo(this.returnType, ((FunctionType) other).returnType)
+                && Type.equivalentTo(((FunctionType) other).parameterTypes, this.parameterTypes);
     }
 
     @Override

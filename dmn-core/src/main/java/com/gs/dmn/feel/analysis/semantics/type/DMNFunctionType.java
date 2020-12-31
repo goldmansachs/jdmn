@@ -50,13 +50,16 @@ public class DMNFunctionType extends FunctionType {
     @Override
     protected boolean equivalentTo(Type other) {
         return other instanceof DMNFunctionType
-                && Type.equivalentTo(this.returnType, ((DMNFunctionType) other).returnType)
-                && equalNames(this.parameterTypes, ((DMNFunctionType) other).parameterTypes);
+                && Type.equivalentTo(this.returnType, ((FunctionType) other).returnType)
+                && Type.equivalentTo(this.parameterTypes, ((FunctionType) other).parameterTypes);
     }
 
     @Override
     protected boolean conformsTo(Type other) {
-        return other instanceof DMNFunctionType && this.equivalentTo(other);
+        // “contravariant function argument type” and “covariant function return type”
+        return other instanceof DMNFunctionType
+                && Type.equivalentTo(this.returnType, ((FunctionType) other).returnType)
+                && Type.equivalentTo(((FunctionType) other).parameterTypes, this.parameterTypes);
     }
 
     @Override
@@ -103,17 +106,5 @@ public class DMNFunctionType extends FunctionType {
     public String toString() {
         String types = this.parameters.stream().map(p -> p == null ? "null" : p.toString()).collect(Collectors.joining(", "));
         return String.format("DMNFunctionType(%s, %s)", types, this.returnType);
-    }
-
-    private boolean equalNames(List<Type> list1, List<Type> list2) {
-        if (list1.size() != list2.size()) {
-            return false;
-        }
-        for (int i = 0; i < list1.size(); i++) {
-            if (!list1.get(i).equals(list2.get(i))) {
-                return false;
-            }
-        }
-        return true;
     }
 }

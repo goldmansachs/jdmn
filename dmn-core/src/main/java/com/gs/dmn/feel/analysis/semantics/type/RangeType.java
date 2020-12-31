@@ -54,7 +54,8 @@ public class RangeType extends Type {
 
     @Override
     protected boolean conformsTo(Type other) {
-        return other instanceof RangeType && Type.conformsTo(this.type, ((RangeType) other).type);
+        return other instanceof RangeType
+                && Type.conformsTo(this.type, ((RangeType) other).type);
     }
 
     @Override
