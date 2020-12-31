@@ -81,7 +81,7 @@ public abstract class BaseFEELLibExceptionsTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testBooleanNot() {
-        assertNull(getLib().booleanNot((Object) null));
+        assertNull(getLib().booleanNot(null));
         assertNull(getBaseFEELLib().booleanNot(null));
     }
 
@@ -95,7 +95,7 @@ public abstract class BaseFEELLibExceptionsTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testBinaryBooleanOr() {
-        assertNull(getLib().binaryBooleanOr((Object) null, null));
+        assertNull(getLib().binaryBooleanOr(null, null));
         assertNull(getBaseFEELLib().binaryBooleanOr(null, null));
     }
 
@@ -109,7 +109,7 @@ public abstract class BaseFEELLibExceptionsTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testBinaryBooleanAnd() {
-        assertNull(getLib().binaryBooleanAnd((Object) null, null));
+        assertNull(getLib().binaryBooleanAnd(null, null));
         assertNull(getBaseFEELLib().binaryBooleanAnd(null, null));
     }
 

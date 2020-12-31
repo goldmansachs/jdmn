@@ -40,13 +40,13 @@ public class TestLabReaderTest extends AbstractTest {
         List<OutputParameterDefinition> outputParameterDefinitions = testLab.getOutputParameterDefinitions();
         List<TestCase> testCases = testLab.getTestCases();
         assertEquals(7, inputParameterDefinitions.size());
-        inputParameterDefinitions.sort(Comparator.comparing(p -> (String)p.getId()));
+        inputParameterDefinitions.sort(Comparator.comparing(ParameterDefinition::getId));
         InputParameterDefinition inputParameterDefinition = inputParameterDefinitions.get(0);
         assertEquals(
                 "InputParameterDefinition(e3ea989c6b0b4b05950b7d24ade1b624/sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20, simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy, EnumerationInput)",
                 inputParameterDefinition.toString());
         assertEquals(1, outputParameterDefinitions.size());
-        outputParameterDefinitions.sort(Comparator.comparing(p -> (String)p.getId()));
+        outputParameterDefinitions.sort(Comparator.comparing(ParameterDefinition::getId));
         OutputParameterDefinition outputParameterDefinition = outputParameterDefinitions.get(0);
         assertEquals("OutputParameterDefinition(e3ea989c6b0b4b05950b7d24ade1b624/sid-4A7C793A-882C-4867-94B9-AD88D6D6970D, simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy, Decision)",
                 outputParameterDefinition.toString());
