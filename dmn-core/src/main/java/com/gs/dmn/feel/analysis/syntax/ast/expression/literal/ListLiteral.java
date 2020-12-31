@@ -62,7 +62,7 @@ public class ListLiteral extends Expression {
             Type type1 = types.get(i);
             for (int j = i + 1; j < types.size(); j++) {
                 Type type2 = types.get(j);
-                if (!type1.conformsTo(type2)) {
+                if (!Type.conformsTo(type1, type2)) {
                     sameType = false;
                     break;
                 }

@@ -44,10 +44,15 @@ public class DateTimeType extends DataType {
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
+    protected boolean equivalentTo(Type other) {
         return other == DATE_AND_TIME
                 || other == DATE_TIME
                 || other == DATE_TIME_CAMEL;
+    }
+
+    @Override
+    protected boolean conformsTo(Type other) {
+        return equivalentTo(other);
     }
 
     public DateTimeType(String datetime) {

@@ -48,7 +48,7 @@ public class OperatorTest extends SimplePositiveUnaryTest {
         if (inputExpressionType == null) {
             throw new DMNRuntimeException(String.format("Missing input expression type when evaluating '%s'", endpoint));
         }
-        if (inputExpressionType.conformsTo(endpoint.getType())) {
+        if (Type.conformsTo(inputExpressionType, endpoint.getType())) {
             return;
         }
         if (endpoint instanceof FunctionInvocation) {

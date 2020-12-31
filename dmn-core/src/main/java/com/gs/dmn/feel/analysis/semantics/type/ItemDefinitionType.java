@@ -15,8 +15,6 @@ package com.gs.dmn.feel.analysis.semantics.type;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
-
 public class ItemDefinitionType extends NamedType implements CompositeDataType {
     public static final Type ANY_ITEM_DEFINITION = new ItemDefinitionType("");
 
@@ -67,12 +65,12 @@ public class ItemDefinitionType extends NamedType implements CompositeDataType {
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
+    protected boolean equivalentTo(Type other) {
         return CompositeDataType.equivalentTo(this, other);
     }
 
     @Override
-    public boolean conformsTo(Type other) {
+    protected boolean conformsTo(Type other) {
         return CompositeDataType.conformsTo(this, other);
     }
 

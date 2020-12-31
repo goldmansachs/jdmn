@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME_DURATION;
@@ -48,15 +47,14 @@ public class RangeType extends Type {
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
+    protected boolean equivalentTo(Type other) {
         return other instanceof RangeType
-                && this.type.equivalentTo(((RangeType) other).type);
+                && Type.equivalentTo(this.type, ((RangeType) other).type);
     }
 
     @Override
-    public boolean conformsTo(Type other) {
-        return other instanceof RangeType && this.type.conformsTo(((RangeType) other).type)
-                || other == ANY;
+    protected boolean conformsTo(Type other) {
+        return other instanceof RangeType && Type.conformsTo(this.type, ((RangeType) other).type);
     }
 
     @Override

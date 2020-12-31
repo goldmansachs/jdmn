@@ -20,7 +20,12 @@ public class StringType extends DataType {
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
+    protected boolean equivalentTo(Type other) {
+        return other == STRING;
+    }
+
+    @Override
+    protected boolean conformsTo(Type other) {
         return other == STRING;
     }
 }

@@ -115,7 +115,7 @@ public abstract class FunctionType extends Type {
                 Conversion conversion = new Conversion(NONE, newType);
                 if (i < parameterTypes.size()) {
                     Type parameterType = parameterTypes.get(i);
-                    if (!argumentType.conformsTo(parameterType)) {
+                    if (!Type.conformsTo(argumentType, parameterType)) {
                         if (kind == ELEMENT_TO_SINGLETON_LIST) {
                             // When the type of the expression is T and the target type is List<T> the expression is converted to a singleton list.
                             if (parameterType instanceof ListType) {
@@ -140,7 +140,7 @@ public abstract class FunctionType extends Type {
                         } else if (kind == CONFORMS_TO) {
                             // When the type of the expression is T1, the target type is T2, and T1 conforms to T2 the value of expression
                             // remains unchanged. Otherwise the result is null.
-                            if (!argumentType.conformsTo(parameterType)) {
+                            if (!Type.conformsTo(argumentType, parameterType)) {
                                 newType = NullType.NULL;
                                 conversion = new Conversion(kind, newType);
 

@@ -48,10 +48,15 @@ public class DMNFunctionType extends FunctionType {
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
+    protected boolean equivalentTo(Type other) {
         return other instanceof DMNFunctionType
-                && this.returnType.equivalentTo(((DMNFunctionType) other).returnType)
+                && Type.equivalentTo(this.returnType, ((DMNFunctionType) other).returnType)
                 && equalNames(this.parameterTypes, ((DMNFunctionType) other).parameterTypes);
+    }
+
+    @Override
+    protected boolean conformsTo(Type other) {
+        return other instanceof DMNFunctionType && this.equivalentTo(other);
     }
 
     @Override

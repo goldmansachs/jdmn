@@ -707,7 +707,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             expectedType = ANY;
         }
 
-        if (actualType != null && actualType.conformsTo(expectedType)) {
+        if (Type.conformsTo(actualType, expectedType)) {
             return new Result(value, expectedType);
         } else {
             // Dynamic conversion

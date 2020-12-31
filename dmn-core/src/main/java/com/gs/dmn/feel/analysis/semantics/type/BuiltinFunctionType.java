@@ -21,8 +21,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
-
 public class BuiltinFunctionType extends FunctionType {
     private final int totalParamsCount;
     private final int mandatoryParamsCount;
@@ -113,7 +111,7 @@ public class BuiltinFunctionType extends FunctionType {
                 return false;
             }
             for (int i = this.mandatoryParamsCount; i < argumentTypes.size(); i++) {
-                if (!conformsTo(argumentTypes, this.parameterTypes, i)) {
+                if (!Type.conformsTo(argumentTypes.get(i), this.parameterTypes.get(i))) {
                     return false;
                 }
             }
@@ -129,7 +127,7 @@ public class BuiltinFunctionType extends FunctionType {
             // Check varArgs
             Type varArgType = this.parameters.get(this.mandatoryParamsCount).getType();
             for (int i = this.mandatoryParamsCount; i < argumentTypes.size(); i++) {
-                if (!argumentTypes.get(i).conformsTo(varArgType)) {
+                if (!Type.conformsTo(argumentTypes.get(i), varArgType)) {
                     return false;
                 }
             }
@@ -145,28 +143,21 @@ public class BuiltinFunctionType extends FunctionType {
 
     private boolean compatibleMandatoryParameters(List<Type> argumentTypes) {
         for (int i = 0; i < this.mandatoryParamsCount; i++) {
-            if (!conformsTo(argumentTypes, this.parameterTypes, i)) {
+            if (!Type.conformsTo(argumentTypes.get(i), this.parameterTypes.get(i))) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean conformsTo(List<Type> argumentTypes, List<Type> parameterTypes, int position) {
-        Type argumentType = argumentTypes.get(position);
-        Type parameterType = parameterTypes.get(position);
-        return argumentType.conformsTo(parameterType);
+    @Override
+    protected boolean equivalentTo(Type other) {
+        return this == other;
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
-        return false;
-    }
-
-    @Override
-    public boolean conformsTo(Type other) {
-        return other instanceof BuiltinFunctionType && this.equivalentTo(other)
-                || other == ANY;
+    protected boolean conformsTo(Type other) {
+        return this == other;
     }
 
     @Override
