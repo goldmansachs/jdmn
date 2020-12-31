@@ -58,13 +58,9 @@ class OperatorTableInputEntry {
 
         OperatorTableInputEntry that = (OperatorTableInputEntry) o;
 
-        if (!Objects.equals(operator, that.operator)) {
-            return false;
-        }
-        if (leftOperandType != null ? !Type.conformsTo(leftOperandType, that.leftOperandType) : that.leftOperandType != null) {
-            return false;
-        }
-        return rightOperandType != null ? !Type.conformsTo(rightOperandType, that.rightOperandType) : that.rightOperandType == null;
+        return Objects.equals(operator, that.operator)
+            && Type.conformsTo(leftOperandType, that.leftOperandType)
+            && Type.conformsTo(rightOperandType, that.rightOperandType);
     }
 
     @Override
