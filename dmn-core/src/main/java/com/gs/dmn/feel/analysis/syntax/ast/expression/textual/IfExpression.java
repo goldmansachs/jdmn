@@ -59,9 +59,9 @@ public class IfExpression extends Expression {
         } else if (elseType == NullType.NULL) {
             setType(thenType);
         } else {
-            if (thenType.conformsTo(elseType)) {
+            if (Type.conformsTo(thenType, elseType)) {
                 setType(elseType);
-            } else if (elseType.conformsTo(thenType)) {
+            } else if (Type.conformsTo(elseType, thenType)) {
                 setType(thenType);
             } else {
                 throw new SemanticError(this, String.format("Types of then and else branches are incompatible. Found '%s' and '%s'.", thenType, elseType));

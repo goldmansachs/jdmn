@@ -16,12 +16,12 @@ public class NullType extends Type {
     public static final NullType NULL = new NullType();
 
     @Override
-    public boolean equivalentTo(Type other) {
+    protected boolean equivalentTo(Type other) {
         return other == NULL;
     }
 
     @Override
-    public boolean conformsTo(Type other) {
+    protected boolean conformsTo(Type other) {
         return true;
     }
 

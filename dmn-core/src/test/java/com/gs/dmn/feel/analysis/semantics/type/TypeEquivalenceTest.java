@@ -192,6 +192,6 @@ public class TypeEquivalenceTest {
     }
 
     private void checkEquivalentTo(boolean expected, Type left, Type right) {
-        assertEquals(String.format("'%s'.equivalentTo('%s') mismatch ", left, right), expected, left.equivalentTo(right));
+        assertEquals(String.format("'%s'.equivalentTo('%s') mismatch ", left, right), expected, Type.equivalentTo(left, right));
     }
 }

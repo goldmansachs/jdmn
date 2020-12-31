@@ -917,7 +917,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
             Type expectedElementType = ((ListType) expectedType).getElementType();
             Type expressionElementType = ((ListType) expressionType).getElementType();
             if (expectedElementType instanceof ItemDefinitionType) {
-                if (expressionElementType.conformsTo(expectedElementType) || expressionElementType == AnyType.ANY || expressionElementType instanceof ContextType) {
+                if (Type.conformsTo(expressionElementType, expectedElementType) || expressionElementType == AnyType.ANY || expressionElementType instanceof ContextType) {
                     String conversionText = this.nativeFactory.makeListConversion(javaExpression, (ItemDefinitionType) expectedElementType);
                     return this.nativeFactory.makeExpressionStatement(conversionText, expectedType);
                 }
@@ -927,7 +927,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         } else if (expressionType instanceof ListType) {
             return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertListToElement(javaExpression, expectedType), expectedType);
         } else if (expectedType instanceof ItemDefinitionType) {
-            if (expressionType.conformsTo(expectedType) || expressionType == AnyType.ANY || expressionType instanceof ContextType) {
+            if (Type.conformsTo(expressionType, expectedType) || expressionType == AnyType.ANY || expressionType instanceof ContextType) {
                 return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertToItemDefinitionType(javaExpression, (ItemDefinitionType) expectedType), expectedType);
             }
         }

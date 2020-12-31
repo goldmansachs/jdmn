@@ -152,12 +152,12 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         Type inputExpressionType = context.getEnvironment().getInputExpressionType();
 
         String condition;
-        if (inputExpressionType.conformsTo(listType)) {
+        if (Type.conformsTo(inputExpressionType, listType)) {
             condition = makeListTestCondition("=", inputExpressionToJava(context), listLiteral, context);
-        } else if (inputExpressionType.conformsTo(listElementType)) {
+        } else if (Type.conformsTo(inputExpressionType, listElementType)) {
             String javaList = (String) listLiteral.accept(this, context);
             condition = String.format("listContains(%s, %s)", javaList, inputExpressionToJava(context));
-        } else if (listElementType instanceof RangeType && inputExpressionType.conformsTo(((RangeType) listElementType).getRangeType())) {
+        } else if (listElementType instanceof RangeType && Type.conformsTo(inputExpressionType, ((RangeType) listElementType).getRangeType())) {
             String javaList = (String) listLiteral.accept(this, context);
             condition = String.format("listContains(%s, %s)", javaList, "true");
         } else {

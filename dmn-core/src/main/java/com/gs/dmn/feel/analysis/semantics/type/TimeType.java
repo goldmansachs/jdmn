@@ -39,7 +39,12 @@ public class TimeType extends DataType {
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
+    protected boolean equivalentTo(Type other) {
+        return other == TIME;
+    }
+
+    @Override
+    protected boolean conformsTo(Type other) {
         return other == TIME;
     }
 }

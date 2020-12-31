@@ -46,9 +46,9 @@ public class ListTest extends SimplePositiveUnaryTest {
             Type listType = listLiteral.getType();
             Type listElementType = ((ListType) listType).getElementType();
             Type inputExpressionType = environment.getInputExpressionType();
-            if (inputExpressionType.conformsTo(listType)) {
-            } else if (inputExpressionType.conformsTo(listElementType)) {
-            } else if (listElementType instanceof RangeType && inputExpressionType.conformsTo(((RangeType) listElementType).getRangeType())) {
+            if (Type.conformsTo(inputExpressionType, listType)) {
+            } else if (Type.conformsTo(inputExpressionType, listElementType)) {
+            } else if (listElementType instanceof RangeType &&Type.conformsTo(inputExpressionType, ((RangeType) listElementType).getRangeType())) {
             } else {
                 throw new SemanticError(this, String.format("Cannot compare '%s', '%s'", inputExpressionType, listType));
             }

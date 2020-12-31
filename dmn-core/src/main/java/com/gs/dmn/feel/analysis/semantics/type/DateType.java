@@ -37,13 +37,13 @@ public class DateType extends DataType {
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
+    protected boolean equivalentTo(Type other) {
         return other == DATE;
     }
 
     @Override
-    public boolean conformsTo(Type other) {
-        return equivalentTo(other) || other == AnyType.ANY;
+    protected boolean conformsTo(Type other) {
+        return other == DATE;
     }
 
 }

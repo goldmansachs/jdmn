@@ -20,7 +20,12 @@ public class AnyType extends NamedType {
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
+    protected boolean equivalentTo(Type other) {
+        return other == ANY;
+    }
+
+    @Override
+    protected boolean conformsTo(Type other) {
         return other == ANY;
     }
 

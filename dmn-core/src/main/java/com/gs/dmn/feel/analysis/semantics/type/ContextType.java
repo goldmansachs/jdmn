@@ -15,8 +15,6 @@ package com.gs.dmn.feel.analysis.semantics.type;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
-
 public class ContextType extends Type implements CompositeDataType {
     public static final Type ANY_CONTEXT = new ContextType();
 
@@ -52,12 +50,12 @@ public class ContextType extends Type implements CompositeDataType {
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
+    protected boolean equivalentTo(Type other) {
         return CompositeDataType.equivalentTo(this, other);
     }
 
     @Override
-    public boolean conformsTo(Type other) {
+    protected boolean conformsTo(Type other) {
         return CompositeDataType.conformsTo(this, other);
     }
 

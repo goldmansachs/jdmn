@@ -42,7 +42,7 @@ public class NamedParameterTypes extends ParameterTypes {
         for (FormalParameter formalParameter : parameters) {
             Type argumentType = this.namedTypes.get(formalParameter.getName());
             Type parameterType = formalParameter.getType();
-            if (argumentType == null || !argumentType.conformsTo(parameterType)) {
+            if (!Type.conformsTo(argumentType, parameterType)) {
                 return false;
             }
         }

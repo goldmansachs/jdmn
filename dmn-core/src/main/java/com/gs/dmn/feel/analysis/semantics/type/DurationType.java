@@ -34,7 +34,7 @@ public class DurationType extends DataType {
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
+    protected boolean equivalentTo(Type other) {
         return (this == DAYS_AND_TIME_DURATION || this == DAY_TIME_DURATION) && (other == DAYS_AND_TIME_DURATION || other == DAY_TIME_DURATION)
                 ||
                 (this == YEARS_AND_MONTHS_DURATION || this == YEAR_MONTH_DURATION) && (other == YEARS_AND_MONTHS_DURATION || other == YEAR_MONTH_DURATION)
@@ -44,8 +44,8 @@ public class DurationType extends DataType {
     }
 
     @Override
-    public boolean conformsTo(Type other) {
-        return equivalentTo(other) || other == AnyType.ANY;
+    protected boolean conformsTo(Type other) {
+        return equivalentTo(other);
     }
 
     private static final Map<String, Type> YEARS_AND_MONTHS_DURATION_MEMBERS = new LinkedHashMap<>();

@@ -746,7 +746,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (type == null) {
             return false;
         }
-        return type == NumberType.NUMBER || type.equivalentTo(ListType.NUMBER_LIST);
+        return type == NumberType.NUMBER || Type.equivalentTo(type, ListType.NUMBER_LIST);
     }
 
     private boolean isString(Object value, Type type) {
@@ -756,7 +756,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (type == null) {
             return false;
         }
-        return type == StringType.STRING || type.equivalentTo(ListType.STRING_LIST);
+        return type == StringType.STRING || Type.equivalentTo(type, ListType.STRING_LIST);
     }
 
     private boolean isBoolean(Object value, Type type) {
@@ -766,7 +766,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (type == null) {
             return false;
         }
-        return type == BooleanType.BOOLEAN || type.equivalentTo(ListType.BOOLEAN_LIST);
+        return type == BooleanType.BOOLEAN || Type.equivalentTo(type, ListType.BOOLEAN_LIST);
     }
 
     private boolean isDate(Object value, Type type) {
@@ -776,7 +776,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (type == null) {
             return false;
         }
-        return type == DateType.DATE || type.equivalentTo(ListType.DATE_LIST);
+        return type == DateType.DATE || Type.equivalentTo(type, ListType.DATE_LIST);
     }
 
     private boolean isTime(Object value, Type type) {
@@ -786,7 +786,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (type == null) {
             return false;
         }
-        return type == TimeType.TIME || type.equivalentTo(ListType.TIME_LIST);
+        return type == TimeType.TIME || Type.equivalentTo(type, ListType.TIME_LIST);
     }
 
     private boolean isDateTime(Object value, Type type) {
@@ -796,7 +796,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (type == null) {
             return false;
         }
-        return type == DateTimeType.DATE_AND_TIME || type.equivalentTo(ListType.DATE_AND_TIME_LIST);
+        return type == DateTimeType.DATE_AND_TIME || Type.equivalentTo(type, ListType.DATE_AND_TIME_LIST);
     }
 
     private boolean isDurationTime(Object value, Type type) {
@@ -807,8 +807,8 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             return false;
         }
         return type instanceof DurationType
-                || type.equivalentTo(ListType.DAYS_AND_TIME_DURATION_LIST)
-                || type.equivalentTo(ListType.YEARS_AND_MONTHS_DURATION_LIST);
+                || Type.equivalentTo(type, ListType.DAYS_AND_TIME_DURATION_LIST)
+                || Type.equivalentTo(type, ListType.YEARS_AND_MONTHS_DURATION_LIST);
     }
 
     private String getTextContent(Object value) {

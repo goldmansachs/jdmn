@@ -45,7 +45,7 @@ public class PositionalParameterTypes extends ParameterTypes {
         for (int i = 0; i < parameters.size(); i++) {
             Type formalParameterType = parameters.get(i).getType();
             Type argumentType = this.types.get(i);
-            if (!argumentType.conformsTo(formalParameterType)) {
+            if (!Type.conformsTo(argumentType, formalParameterType)) {
                 return false;
             }
         }

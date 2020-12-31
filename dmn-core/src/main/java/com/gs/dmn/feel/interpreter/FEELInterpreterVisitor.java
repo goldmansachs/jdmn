@@ -147,9 +147,9 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             } else {
                 Object self = context.lookupRuntimeBinding(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER);
                 if (operator == null) {
-                    if (inputExpressionType.equivalentTo(endpointType)) {
+                    if (Type.equivalentTo(inputExpressionType, endpointType)) {
                         return evaluateOperatorTest(element, "=", self, endpoint, context);
-                    } else if (endpointType instanceof ListType && inputExpressionType.equivalentTo(((ListType) endpointType).getElementType())) {
+                    } else if (endpointType instanceof ListType && Type.equivalentTo(inputExpressionType, ((ListType) endpointType).getElementType())) {
                         List endpointValueList = (List)endpoint.accept(this, context);
                         List results = new ArrayList();
                         for(Object endpointValue: endpointValueList) {
@@ -277,13 +277,13 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             Object self = context.lookupRuntimeBinding(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER);
 
             Object result;
-            if (inputExpressionType.conformsTo(listType)) {
+            if (Type.conformsTo(inputExpressionType, listType)) {
                 String operator = "=";
                 return evaluateOperatorTest(element, operator, self, listLiteral, context);
-            } else if (inputExpressionType.conformsTo(listElementType)) {
+            } else if (Type.conformsTo(inputExpressionType, listElementType)) {
                 List list = (List) listLiteral.accept(this, context);
                 result = this.lib.listContains(list, self);
-            } else if (listElementType instanceof RangeType && inputExpressionType.conformsTo(((RangeType) listElementType).getRangeType())) {
+            } else if (listElementType instanceof RangeType && Type.conformsTo(inputExpressionType, ((RangeType) listElementType).getRangeType())) {
                 List list = (List) listLiteral.accept(this, context);
                 result = this.lib.listContains(list, true);
             } else {
@@ -408,7 +408,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             domain = (List) context.getRuntimeEnvironment().lookupBinding(name);
         } else if (expressionDomain instanceof RangeTest) {
             RangeTest test = (RangeTest) expressionDomain;
-            if (test.getType() instanceof RangeType && ((RangeType) test.getType()).getRangeType().conformsTo(NumberType.NUMBER)) {
+            if (test.getType() instanceof RangeType && Type.conformsTo(((RangeType) test.getType()).getRangeType(), NumberType.NUMBER)) {
                 Object start = test.getStart().accept(this, context);
                 Object end = test.getEnd().accept(this, context);
                 domain = this.lib.rangeToList(test.isOpenStart(), (NUMBER) start, test.isOpenEnd(), (NUMBER) end);
@@ -501,7 +501,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             if (e1 == null) {
                 return e2 == NullType.NULL;
             } else {
-                return element.getLeftOperand().getType().conformsTo(e2);
+                return Type.conformsTo(element.getLeftOperand().getType(), e2);
             }
         } catch (Exception e) {
             handleError("Cannot evaluate instanceof", e);

@@ -16,43 +16,62 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.List;
 
+import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
+
 public abstract class Type {
+    /*
+        A type type1 is equivalent to type type2 when the types are either structurally or name equivalent. The types are compatible without coercion
+    */
     public static boolean equivalentTo(Type type1, Type type2) {
         if (type1 == null) {
-            return type1 == type2;
+            return type2 == null;
         } else {
             return type1.equivalentTo(type2);
         }
     }
 
+    /*
+        A type type1 conforms to type type2 when an instance of type1 can be substituted at each place where an instance of type2 is expected
+    */
     public static boolean conformsTo(Type type1, Type type2) {
-        if (type1 == null) {
-            return type1 == type2;
+        if (type2 == null || type2 == ANY) {
+            return true;
+        } else if (type1 == null) {
+            return false;
         } else {
             return type1.conformsTo(type2);
         }
     }
 
-    protected boolean equivalentType(List<Type> list1, List<Type> list2) {
+    protected static boolean equivalentTo(List<Type> list1, List<Type> list2) {
         if (list1.size() != list2.size()) {
             return false;
         }
         for (int i = 0; i < list1.size(); i++) {
-            if (!equivalentTo(list1.get(i), list2.get(i))) {
+            if (!Type.equivalentTo(list1.get(i), list2.get(i))) {
                 return false;
             }
         }
         return true;
     }
 
-    public abstract boolean equivalentTo(Type other);
-
-    /*
-        A type type1 conforms to a type type2 when an instance of type1 can be substituted at each place where an instance of type2 is expected
-    */
-    public boolean conformsTo(Type other) {
-        return equivalentTo(other) || other == AnyType.ANY || other == null;
+    protected static boolean conformsTo(List<Type> list1, List<Type> list2) {
+        if (list1.size() != list2.size()) {
+            return false;
+        }
+        for (int i = 0; i < list1.size(); i++) {
+            if (!Type.conformsTo(list1.get(i), list2.get(i))) {
+                return false;
+            }
+        }
+        return true;
     }
+
+    // Check only types that share the same class
+    protected abstract boolean equivalentTo(Type other);
+
+    // Check only types that share the same class
+    protected abstract boolean conformsTo(Type other);
 
     public void validate() {
         if (!isValid()) {

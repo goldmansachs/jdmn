@@ -194,6 +194,6 @@ public class TypeConformanceTest {
     }
 
     private void checkConformsTo(boolean expected, Type left, Type right) {
-        assertEquals(String.format("'%s'.conformsTo('%s') mismatch ", left, right), expected, left.conformsTo(right));
+        assertEquals(String.format("'%s'.conformsTo('%s') mismatch ", left, right), expected, Type.conformsTo(left, right));
     }
 }
