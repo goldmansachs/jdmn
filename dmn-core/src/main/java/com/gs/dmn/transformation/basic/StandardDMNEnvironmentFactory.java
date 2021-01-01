@@ -145,14 +145,17 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     private Type inferDRGElementVariableFEELType(TDRGElement element, Environment environment) {
-        if (element instanceof TDecision) {
+        if (element == null) {
+            throw new DMNRuntimeException(String.format("Cannot infer type for DRG element '%s'", element));
+        } else if (element instanceof TDecision) {
             return expressionType(element, ((TDecision) element).getExpression(), environment);
         } else if (element instanceof TBusinessKnowledgeModel) {
             return expressionType(element, ((TBusinessKnowledgeModel) element).getEncapsulatedLogic(), environment);
         } else if (element instanceof TDecisionService) {
             return makeDSVariableType((TDecisionService) element);
+        } else {
+            throw new DMNRuntimeException(String.format("Type inference for '%s.%s' not supported yet", element.getClass().getSimpleName(), element.getName()));
         }
-        throw new DMNRuntimeException(String.format("Cannot infer the output type of '%s'", element.getName()));
     }
 
     @Override
@@ -176,6 +179,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (expression == null) {
             return null;
         }
+
         TDefinitions model = this.dmnModelRepository.getModel(element);
         QualifiedName typeRef = QualifiedName.toQualifiedName(model, expression.getTypeRef());
         if (expression instanceof TContext) {
@@ -183,8 +187,11 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 return toFEELType(model, typeRef);
             }
 
-            List<TContextEntry> contextEntryList = ((TContext) expression).getContextEntry();
+            //
+            // Infer type from expression
+            //
             // Collect members & return type
+            List<TContextEntry> contextEntryList = ((TContext) expression).getContextEntry();
             List<Pair<String, Type>> members = new ArrayList<>();
             Type returnType = null;
             Environment contextEnvironment = this.environmentFactory.makeEnvironment(environment);
@@ -199,7 +206,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                     returnType = this.entryType(element, entry, contextEnvironment);
                 }
             }
-            // Infer return type
+            // Infer output type
             if (returnType == null) {
                 ContextType contextType = new ContextType();
                 for (Pair<String, Type> member: members) {
@@ -210,18 +217,21 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 return returnType;
             }
         } else if (expression instanceof TFunctionDefinition) {
+            // Infer type from expression
             return functionDefinitionType(element, (TFunctionDefinition) expression, environment);
         } else if (expression instanceof TLiteralExpression) {
             if (typeRef != null) {
                 return toFEELType(model, typeRef);
             }
 
+            // Infer type from expression
             return literalExpressionType(element, (TLiteralExpression) expression, environment);
         } else if (expression instanceof TInvocation) {
             if (typeRef != null) {
                 return toFEELType(model, typeRef);
             }
 
+            // Infer type from expression
             TExpression body = ((TInvocation) expression).getExpression().getValue();
             if (body instanceof TLiteralExpression) {
                 String bkmName = ((TLiteralExpression) body).getText();
@@ -349,6 +359,8 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (typeRef == null) {
             throw new DMNRuntimeException(String.format("Cannot infer type for typeRef '%s'", typeRef));
         }
+
+        // Lookup type
         Type type = this.feelTypeMemoizer.get(model, typeRef);
         if (type == null) {
             type = toFEELTypeNoCache(model, typeRef);
