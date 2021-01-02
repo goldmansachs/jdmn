@@ -68,7 +68,7 @@ public class Assert {
             for(Object key: ((Context) expected).getBindings().keySet()) {
                 Object expectedMember = ((Context) expected).get(key);
                 Object actualMember = ((Context) actual).get(key);
-                assertEquals(message, expectedMember, actualMember);
+                assertEquals(message + String.format(" for member '%s'", key), expectedMember, actualMember);
             }
         } else if (isComplex(expected)) {
             if (actual == null) {

@@ -46,6 +46,7 @@ import com.gs.dmn.feel.synthesis.NativeOperator;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.LambdaExpression;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.runtime.Range;
 import com.gs.dmn.runtime.compiler.ClassData;
 import com.gs.dmn.runtime.compiler.JavaCompiler;
 import com.gs.dmn.runtime.compiler.JavaxToolsCompiler;
@@ -257,10 +258,18 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             String leftOperator = element.isOpenStart() ? ">" : ">=";
             String rightOperator = element.isOpenEnd() ? "<" : "<=";
 
-            Object leftCondition = evaluateOperatorTest(element, leftOperator, self, startExpression, context);
-            Object rightCondition = evaluateOperatorTest(element, rightOperator, self, endExpression, context);
+            if (self == null) {
+                // Evaluate as range
+                Object startValue = element.getStart().accept(this, context);
+                Object endValue = element.getEnd().accept(this, context);
+                return new Range(!element.isOpenStart(), startValue, !element.isOpenEnd(), endValue);
+            } else {
+                // Evaluate as test
+                Object leftCondition = evaluateOperatorTest(element, leftOperator, self, startExpression, context);
+                Object rightCondition = evaluateOperatorTest(element, rightOperator, self, endExpression, context);
 
-            return this.lib.booleanAnd(leftCondition, rightCondition);
+                return this.lib.booleanAnd(leftCondition, rightCondition);
+            }
         } catch (Exception e) {
             handleError(String.format("Cannot evaluate '%s'", element), e);
             return null;

@@ -17,6 +17,7 @@ import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.list.ListLib;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
+import com.gs.dmn.feel.lib.type.range.RangeLib;
 import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DurationLib;
@@ -43,9 +44,10 @@ public class DefaultFEELLibExceptionsTest extends BaseStandardFEELLibExceptionsT
         DateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> dateTimeLib = new DateTimeLibStub<>();
         DurationLib<XMLGregorianCalendar, Duration> durationLib = new DurationLibStub<>();
         ListLib listLib = new ListLibStub();
+        RangeLib rangeLib = new RangeLibStub();
         return new DefaultFEELLib(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
                 listType, contextType,
-                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib);
+                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib);
     }
 }

@@ -229,6 +229,16 @@ NAME:
     |
     'get value'
     |
+    'met by'
+    |
+    'overlaps before'
+    |
+    'overlaps after'
+    |
+    'finished by'
+    |
+    'started by'
+    |
     NameStartChar ( NamePartChar )*
     |
     ('\'' ( ~(['] | [\u000A-\u000D]) )*  '\'' )

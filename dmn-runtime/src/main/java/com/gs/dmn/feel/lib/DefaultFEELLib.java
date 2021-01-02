@@ -23,6 +23,8 @@ import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
+import com.gs.dmn.feel.lib.type.range.DefaultRangeLib;
+import com.gs.dmn.feel.lib.type.range.RangeLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
@@ -54,6 +56,7 @@ public class DefaultFEELLib extends BaseStandardFEELLib<BigDecimal, XMLGregorian
     private static final DateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> DATE_TIME_LIB = new DefaultDateTimeLib(DATA_TYPE_FACTORY);
     private static final DurationLib<XMLGregorianCalendar, Duration> DURATION_LIB = new DefaultDurationLib(DATA_TYPE_FACTORY);
     private static final ListLib LIST_LIB = new DefaultListLib();
+    private static final RangeLib RANGE_LIB = new DefaultRangeLib();
 
     public static final DefaultFEELLib INSTANCE = new DefaultFEELLib();
 
@@ -72,7 +75,8 @@ public class DefaultFEELLib extends BaseStandardFEELLib<BigDecimal, XMLGregorian
                 BOOLEAN_LIB,
                 DATE_TIME_LIB,
                 DURATION_LIB,
-                LIST_LIB
+                LIST_LIB,
+                RANGE_LIB
         );
     }
 
@@ -91,11 +95,12 @@ public class DefaultFEELLib extends BaseStandardFEELLib<BigDecimal, XMLGregorian
             BooleanLib booleanLib,
             DateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> dateTimeLib,
             DurationLib<XMLGregorianCalendar, Duration> durationLib,
-            ListLib listLib) {
+            ListLib listLib,
+            RangeLib rangeLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
                 listType, contextType,
-                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib
+                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib
         );
     }
 

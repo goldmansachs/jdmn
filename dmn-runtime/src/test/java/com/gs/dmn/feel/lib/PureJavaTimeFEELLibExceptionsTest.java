@@ -17,6 +17,7 @@ import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.list.ListLib;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
+import com.gs.dmn.feel.lib.type.range.RangeLib;
 import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DurationLib;
@@ -47,10 +48,11 @@ public class PureJavaTimeFEELLibExceptionsTest extends BaseStandardFEELLibExcept
         DateTimeLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> dateTimeLib = new DateTimeLibStub<>();
         DurationLib<LocalDate, TemporalAmount> durationLib = new DurationLibStub<>();
         ListLib listLib = new ListLibStub();
+        RangeLib rangeLib = new RangeLibStub();
         return new PureJavaTimeFEELLib(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
                 listType, contextType,
-                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib
+                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib
         );
     }
 
