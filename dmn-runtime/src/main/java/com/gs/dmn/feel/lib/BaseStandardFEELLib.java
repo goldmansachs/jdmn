@@ -16,10 +16,12 @@ import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.list.ListLib;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
+import com.gs.dmn.feel.lib.type.range.RangeLib;
 import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DurationLib;
 import com.gs.dmn.runtime.LambdaExpression;
+import com.gs.dmn.runtime.Range;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +34,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     protected final DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> dateTimeLib;
     protected final DurationLib<DATE, DURATION> durationLib;
     private final ListLib listLib;
+    private final RangeLib rangeLib;
 
     protected BaseStandardFEELLib(
             NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType,
@@ -42,7 +45,8 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             BooleanLib booleanLib,
             DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> dateTimeLib,
             DurationLib<DATE, DURATION> durationLib,
-            ListLib listLib) {
+            ListLib listLib,
+            RangeLib rangeLib) {
         super(numericType, booleanType, stringType, dateType, timeType, dateTimeType, durationType, listType, contextType);
         this.numberLib = numberLib;
         this.stringLib = stringLib;
@@ -50,6 +54,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         this.dateTimeLib = dateTimeLib;
         this.durationLib = durationLib;
         this.listLib = listLib;
+        this.rangeLib = rangeLib;
     }
 
     //
@@ -1118,6 +1123,306 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             return this.listLib.sort(list, comparator);
         } catch (Exception e) {
             String message = String.format("sort(%s)", list);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    //
+    // Range functions
+    //
+    @Override
+    public Boolean before(Object point1, Object point2) {
+        try {
+            return this.rangeLib.before(point1, point2);
+        } catch (Exception e) {
+            String message = String.format("before(%s, %s)", point1, point2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean before(Object point, Range range) {
+        try {
+            return this.rangeLib.before(point, range);
+        } catch (Exception e) {
+            String message = String.format("before(%s, %s)", point, range);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean before(Range range, Object point) {
+        try {
+            return this.rangeLib.before(range, point);
+        } catch (Exception e) {
+            String message = String.format("before(%s, %s)", range, point);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean before(Range range1, Range range2) {
+        try {
+            return this.rangeLib.before(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("before(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean after(Object point1, Object point2) {
+        try {
+            return this.rangeLib.after(point1, point2);
+        } catch (Exception e) {
+            String message = String.format("after(%s, %s)", point1, point2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean after(Object point, Range range) {
+        try {
+            return this.rangeLib.after(point, range);
+        } catch (Exception e) {
+            String message = String.format("after(%s, %s)", point, range);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean after(Range range, Object point) {
+        try {
+            return this.rangeLib.after(range, point);
+        } catch (Exception e) {
+            String message = String.format("after(%s, %s)", range, point);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean after(Range range1, Range range2) {
+        try {
+            return this.rangeLib.after(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("after(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean meets(Range range1, Range range2) {
+        try {
+            return this.rangeLib.meets(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("meets(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean metBy(Range range1, Range range2) {
+        try {
+            return this.rangeLib.metBy(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("metBy(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean overlaps(Range range1, Range range2) {
+        try {
+            return this.rangeLib.overlaps(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("overlaps(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean overlapsBefore(Range range1, Range range2) {
+        try {
+            return this.rangeLib.overlapsBefore(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("overlapsBefore(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean overlapsAfter(Range range1, Range range2) {
+        try {
+            return this.rangeLib.overlapsAfter(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("overlapsAfter(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean finishes(Object point, Range range) {
+        try {
+            return this.rangeLib.finishes(point, range);
+        } catch (Exception e) {
+            String message = String.format("finishes(%s, %s)", point, range);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean finishes(Range range1, Range range2) {
+        try {
+            return this.rangeLib.finishes(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("finishes(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean finishedBy(Range range, Object point) {
+        try {
+            return this.rangeLib.finishedBy(range, point);
+        } catch (Exception e) {
+            String message = String.format("finishedBy(%s, %s)", range, point);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean finishedBy(Range range1, Range range2) {
+        try {
+            return this.rangeLib.finishedBy(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("finishedBy(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean includes(Range range, Object point) {
+        try {
+            return this.rangeLib.includes(range, point);
+        } catch (Exception e) {
+            String message = String.format("includes(%s, %s)", range, point);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean includes(Range range1, Range range2) {
+        try {
+            return this.rangeLib.includes(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("includes(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean during(Object point, Range range) {
+        try {
+            return this.rangeLib.during(point, range);
+        } catch (Exception e) {
+            String message = String.format("during(%s, %s)", point, range);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean during(Range range1, Range range2) {
+        try {
+            return this.rangeLib.during(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("during(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean starts(Object point, Range range) {
+        try {
+            return this.rangeLib.starts(point, range);
+        } catch (Exception e) {
+            String message = String.format("starts(%s, %s)", point, range);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean starts(Range range1, Range range2) {
+        try {
+            return this.rangeLib.starts(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("starts(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean startedBy(Range range, Object point) {
+        try {
+            return this.rangeLib.startedBy(range, point);
+        } catch (Exception e) {
+            String message = String.format("startedBy(%s, %s)", range, point);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean startedBy(Range range1, Range range2) {
+        try {
+            return this.rangeLib.startedBy(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("startedBy(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean coincides(Object point1, Object point2) {
+        try {
+            return this.rangeLib.coincides(point1, point2);
+        } catch (Exception e) {
+            String message = String.format("coincides(%s, %s)", point1, point2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean coincides(Range range1, Range range2) {
+        try {
+            return this.rangeLib.coincides(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("coincides(%s, %s)", range1, range2);
             logError(message, e);
             return null;
         }

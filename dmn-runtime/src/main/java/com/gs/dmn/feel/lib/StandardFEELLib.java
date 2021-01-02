@@ -12,11 +12,12 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.range.RangeLib;
 import com.gs.dmn.runtime.LambdaExpression;
 
 import java.util.List;
 
-public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>, RangeLib {
     //
     // Conversion functions
     //

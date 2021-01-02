@@ -59,6 +59,12 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
 
         FEEL_2_JAVA_FUNCTION.put("years and months duration", "yearsAndMonthsDuration");
         FEEL_2_JAVA_FUNCTION.put("date and time", "dateAndTime");
+
+        FEEL_2_JAVA_FUNCTION.put("met by", "metBy");
+        FEEL_2_JAVA_FUNCTION.put("overlaps before", "overlapsBefore");
+        FEEL_2_JAVA_FUNCTION.put("overlaps after", "overlapsAfter");
+        FEEL_2_JAVA_FUNCTION.put("finished by", "finishedBy");
+        FEEL_2_JAVA_FUNCTION.put("started by", "startedBy");
     }
 
     public AbstractFEELToJavaVisitor(BasicDMNToNativeTransformer dmnTransformer) {

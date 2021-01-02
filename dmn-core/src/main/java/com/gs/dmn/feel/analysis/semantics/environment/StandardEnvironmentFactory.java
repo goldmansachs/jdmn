@@ -23,6 +23,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.*;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
+import static com.gs.dmn.feel.analysis.semantics.type.RangeType.NUMBER_RANGE_TYPE;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
@@ -49,11 +50,12 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
 
     private static void addFEELFunctions(Environment environment) {
         addConversionFunctions(environment);
-        addBooleanFunctions(environment);
         addNumberFunctions(environment);
+        addBooleanFunctions(environment);
         addStringFunctions(environment);
         addListFunctions(environment);
         addContextFunctions(environment);
+        addRangeFunctions(environment);
     }
 
     private static void addConversionFunctions(Environment environment) {
@@ -76,6 +78,19 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new Parameter("from", DATE_AND_TIME), new Parameter("to", DATE_AND_TIME))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new Parameter("from", DATE), new Parameter("to", DATE_AND_TIME))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new Parameter("from", DATE_AND_TIME), new Parameter("to", DATE))));
+    }
+
+    private static void addNumberFunctions(Environment environment) {
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("decimal", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("floor", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("ceiling", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("abs", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("modulo", new BuiltinFunctionType(NUMBER, new Parameter("dividend", NUMBER), new Parameter("divisor", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("sqrt", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("log", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("exp", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("odd", new BuiltinFunctionType(BOOLEAN, new Parameter("number", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("even", new BuiltinFunctionType(BOOLEAN, new Parameter("number", NUMBER))));
     }
 
     private static void addBooleanFunctions(Environment environment) {
@@ -145,16 +160,46 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("get value", new BuiltinFunctionType(ANY, new Parameter("m", ContextType.ANY_CONTEXT), new Parameter("key", STRING))));
     }
 
-    private static void addNumberFunctions(Environment environment) {
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("decimal", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("floor", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("ceiling", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("abs", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("modulo", new BuiltinFunctionType(NUMBER, new Parameter("dividend", NUMBER), new Parameter("divisor", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("sqrt", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("log", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("exp", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("odd", new BuiltinFunctionType(BOOLEAN, new Parameter("number", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("even", new BuiltinFunctionType(BOOLEAN, new Parameter("number", NUMBER))));
+    private static void addRangeFunctions(Environment environment) {
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("before", new BuiltinFunctionType(BOOLEAN, new Parameter("point1", NUMBER), new Parameter("point2", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("before", new BuiltinFunctionType(BOOLEAN, new Parameter("point", NUMBER), new Parameter("range", NUMBER_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("before", new BuiltinFunctionType(BOOLEAN, new Parameter("range", NUMBER_RANGE_TYPE), new Parameter("point", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("before", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", NUMBER_RANGE_TYPE), new Parameter("range2", NUMBER_RANGE_TYPE))));
+
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("after", new BuiltinFunctionType(BOOLEAN, new Parameter("point1", NUMBER), new Parameter("point2", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("after", new BuiltinFunctionType(BOOLEAN, new Parameter("point", NUMBER), new Parameter("range", NUMBER_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("after", new BuiltinFunctionType(BOOLEAN, new Parameter("range", NUMBER_RANGE_TYPE), new Parameter("point", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("after", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", NUMBER_RANGE_TYPE), new Parameter("range2", NUMBER_RANGE_TYPE))));
+
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("meets", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", NUMBER_RANGE_TYPE), new Parameter("range2", NUMBER_RANGE_TYPE))));
+
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("met by", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", NUMBER_RANGE_TYPE), new Parameter("range2", NUMBER_RANGE_TYPE))));
+
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("overlaps", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", NUMBER_RANGE_TYPE), new Parameter("range2", NUMBER_RANGE_TYPE))));
+
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("overlaps before", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", NUMBER_RANGE_TYPE), new Parameter("range2", NUMBER_RANGE_TYPE))));
+
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("overlaps after", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", NUMBER_RANGE_TYPE), new Parameter("range2", NUMBER_RANGE_TYPE))));
+
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("finishes", new BuiltinFunctionType(BOOLEAN, new Parameter("point", NUMBER), new Parameter("range", NUMBER_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("finishes", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", NUMBER_RANGE_TYPE), new Parameter("range2", NUMBER_RANGE_TYPE))));
+
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("finished by", new BuiltinFunctionType(BOOLEAN, new Parameter("range", NUMBER_RANGE_TYPE), new Parameter("point", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("finished by", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", NUMBER_RANGE_TYPE), new Parameter("range2", NUMBER_RANGE_TYPE))));
+
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("includes", new BuiltinFunctionType(BOOLEAN, new Parameter("range", NUMBER_RANGE_TYPE), new Parameter("point", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("includes", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", NUMBER_RANGE_TYPE), new Parameter("range2", NUMBER_RANGE_TYPE))));
+
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("during", new BuiltinFunctionType(BOOLEAN, new Parameter("point", NUMBER), new Parameter("range", NUMBER_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("during", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", NUMBER_RANGE_TYPE), new Parameter("range2", NUMBER_RANGE_TYPE))));
+
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("starts", new BuiltinFunctionType(BOOLEAN, new Parameter("point", NUMBER), new Parameter("range", NUMBER_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("starts", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", NUMBER_RANGE_TYPE), new Parameter("range2", NUMBER_RANGE_TYPE))));
+
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("started by", new BuiltinFunctionType(BOOLEAN, new Parameter("range", NUMBER_RANGE_TYPE), new Parameter("point", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("started by", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", NUMBER_RANGE_TYPE), new Parameter("range2", NUMBER_RANGE_TYPE))));
+
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("coincides", new BuiltinFunctionType(BOOLEAN, new Parameter("point1", NUMBER), new Parameter("point2", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("coincides", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", NUMBER_RANGE_TYPE), new Parameter("range2", NUMBER_RANGE_TYPE))));
     }
 }

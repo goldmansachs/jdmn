@@ -23,6 +23,8 @@ import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
+import com.gs.dmn.feel.lib.type.range.DefaultRangeLib;
+import com.gs.dmn.feel.lib.type.range.RangeLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
@@ -51,7 +53,8 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
     private static final DefaultBooleanLib BOOLEAN_LIB = new DefaultBooleanLib();
     private static final DateTimeLib DATE_TIME_LIB = new TemporalDateTimeLib(DefaultFEELLib.DATA_TYPE_FACTORY);
     private static final TemporalAmountDurationLib DURATION_LIB = new TemporalAmountDurationLib();
-    private static final DefaultListLib LIST_LIB = new DefaultListLib();
+    private static final ListLib LIST_LIB = new DefaultListLib();
+    private static final RangeLib RANGE_LIB = new DefaultRangeLib();
 
     public static final PureJavaTimeFEELLib INSTANCE = new PureJavaTimeFEELLib();
 
@@ -70,7 +73,8 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
                 BOOLEAN_LIB,
                 DATE_TIME_LIB,
                 DURATION_LIB,
-                LIST_LIB
+                LIST_LIB,
+                RANGE_LIB
         );
     }
 
@@ -88,11 +92,12 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
             BooleanLib booleanLib,
             DateTimeLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> dateTimeLib,
             DurationLib<LocalDate, TemporalAmount> durationLib,
-            ListLib listLib) {
+            ListLib listLib,
+            RangeLib rangeLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
                 listType, contextType,
-                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib
+                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib
         );
     }
 
