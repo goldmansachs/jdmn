@@ -82,6 +82,21 @@ public class FEELLexerTest extends AbstractLexerTest {
     }
 
     @Test
+    public void testTemporalLiteral() {
+        Token token = checkToken("@ \"2019-03-31\"", TEMPORAL, "@ \"2019-03-31\"");
+        checkPosition(token, 1, 1, 1, 14, 0, 14);
+
+        token = checkToken("@\"12:00:00\"", TEMPORAL, "@\"12:00:00\"");
+        checkPosition(token, 1, 1, 1, 11, 0, 11);
+
+        token = checkToken("@\"2019-03-31T12:00:00\"", TEMPORAL, "@\"2019-03-31T12:00:00\"");
+        checkPosition(token, 1, 1, 1, 22, 0, 22);
+
+        token = checkToken("@\"P10Y\"", TEMPORAL, "@\"P10Y\"");
+        checkPosition(token, 1, 1, 1, 7, 0, 7);
+    }
+
+    @Test
     public void testSimpleName() {
         Token token = checkToken("ab_AB", NAME, "ab_AB");
         checkPosition(token, 1, 1, 1, 5, 0, 5);
