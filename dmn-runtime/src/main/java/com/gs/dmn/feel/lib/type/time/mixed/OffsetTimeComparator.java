@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.RelationalComparator;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import org.slf4j.Logger;
 
 import java.time.OffsetTime;
@@ -23,10 +22,8 @@ import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
 public class OffsetTimeComparator implements RelationalComparator<OffsetTime> {
-    private final DefaultBooleanType booleanType;
 
     public OffsetTimeComparator(Logger logger) {
-        this.booleanType = new DefaultBooleanType(logger);
     }
 
     @Override
