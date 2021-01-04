@@ -17,7 +17,7 @@ import java.util.Map;
 
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 
-public class DurationType extends DataType {
+public class DurationType extends ComparableDataType {
     // Main types
     public static final DurationType ANY_DURATION = new DurationType("duration");
     public static final DurationType DAYS_AND_TIME_DURATION = new DurationType("days and time duration");
@@ -45,7 +45,7 @@ public class DurationType extends DataType {
 
     @Override
     protected boolean conformsTo(Type other) {
-        return equivalentTo(other);
+        return equivalentTo(other) || other == COMPARABLE;
     }
 
     private static final Map<String, Type> YEARS_AND_MONTHS_DURATION_MEMBERS = new LinkedHashMap<>();
