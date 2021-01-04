@@ -63,6 +63,10 @@ NUMBER:
     (Digits ('.' Digits)?) | ('.' Digits)
     ;
 
+TEMPORAL:
+    '@' WhiteSpace* STRING
+    ;
+
 // Operators
 EQ:
     '=' | '=='
