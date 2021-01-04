@@ -537,6 +537,47 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
     }
 
     @Test
+    public void testRangeLiterals() {
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("input", NUMBER, lib.number("1")));
+
+        doExpressionTest(entries, "", "@\"2010-10-01\"",
+                "DateTimeLiteral(date, \"2010-10-01\")",
+                "date",
+                "date(\"2010-10-01\")",
+                lib.date("2010-10-01"),
+                lib.date("2010-10-01"));
+
+        doExpressionTest(entries, "", "@\"12:00:00\"",
+                "DateTimeLiteral(time, \"12:00:00\")",
+                "time",
+                "time(\"12:00:00\")",
+                lib.time("12:00:00"),
+                lib.time("12:00:00"));
+
+        doExpressionTest(entries, "", "@\"2010-10-01T12:00:00\"",
+                "DateTimeLiteral(date and time, \"2010-10-01T12:00:00\")",
+                "date and time",
+                "dateAndTime(\"2010-10-01T12:00:00\")",
+                lib.dateAndTime("2010-10-01T12:00:00"),
+                lib.dateAndTime("2010-10-01T12:00:00"));
+
+        doExpressionTest(entries, "", "@\"P10Y\"",
+                "DateTimeLiteral(duration, \"P10Y\")",
+                "years and months duration",
+                "duration(\"P10Y\")",
+                lib.duration("P10Y"),
+                lib.duration("P10Y"));
+
+        doExpressionTest(entries, "", "@\"\"",
+                "DateTimeLiteral(date and time, \"\")",
+                "date and time",
+                "dateAndTime(\"\")",
+                lib.dateAndTime(""),
+                null);
+    }
+
+    @Test
     public void testSortInvocation() {
         List<EnvironmentEntry> entries = Arrays.asList(
         );
