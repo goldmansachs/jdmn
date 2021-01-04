@@ -682,9 +682,17 @@ key returns [ContextEntryKey ast] :
 ;
 
 dateTimeLiteral returns [Expression ast] :
-    ( kind = identifier )
-    PAREN_OPEN stringLiteral PAREN_CLOSE
-    {$ast = astFactory.toDateTimeLiteral($kind.text, $stringLiteral.ast);}
+    token = TEMPORAL
+    (
+        {$ast = astFactory.toDateTimeLiteral($token.text);}
+    )
+    |
+    (
+        ( kind = identifier )
+        PAREN_OPEN stringLiteral PAREN_CLOSE
+        {$ast = astFactory.toDateTimeLiteral($kind.text, $stringLiteral.ast);}
+    )
+
 ;
 
 identifier returns [Token ast] :

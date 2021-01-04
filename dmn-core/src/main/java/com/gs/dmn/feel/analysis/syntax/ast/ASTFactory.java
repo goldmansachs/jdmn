@@ -31,6 +31,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
@@ -122,6 +123,36 @@ public class ASTFactory {
 
     public BooleanLiteral toBooleanLiteral(String lexeme) {
         return new BooleanLiteral(lexeme);
+    }
+
+    public Expression toDateTimeLiteral(String lexeme) {
+        String stringLiteral = temporalStringLiteral(lexeme);
+        String kind = temporalLiteralKind(stringLiteral);
+        return this.toDateTimeLiteral(kind, stringLiteral);
+    }
+
+    private String temporalStringLiteral(String lexeme) {
+        if (StringUtils.isEmpty(lexeme)) {
+            return lexeme;
+        } else {
+            return lexeme.substring(1).trim();
+        }
+    }
+
+    private String temporalLiteralKind(String stringLiteral) {
+        String kind;
+        if (StringUtils.isEmpty(stringLiteral) || "\"\"".equals(stringLiteral)) {
+            kind = "date and time";
+        } else if (stringLiteral.contains("-") && stringLiteral.contains("T") && stringLiteral.contains(":")) {
+            kind = "date and time";
+        } else if (stringLiteral.contains(":")) {
+            kind = "time";
+        } else if (stringLiteral.startsWith("\"P")) {
+            kind = "duration";
+        } else {
+            kind = "date";
+        }
+        return kind;
     }
 
     public Expression toDateTimeLiteral(String kind, Expression stringLiteral) {
