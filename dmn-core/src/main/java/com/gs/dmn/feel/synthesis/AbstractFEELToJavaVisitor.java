@@ -111,6 +111,8 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
             return String.format("%s(%s)", javaMemberFunctionName(memberName), source);
         } else if (sourceType instanceof DurationType) {
             return String.format("%s(%s)", javaMemberFunctionName(memberName), source);
+        } else if (sourceType instanceof RangeType) {
+            return String.format("%s.%s", source, javaRangeGetter(memberName));
         } else if (sourceType instanceof AnyType) {
             // source is Context
             return this.nativeFactory.makeContextSelectExpression(dmnTransformer.contextClassName(), source, memberName);
@@ -125,6 +127,17 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
             return "timeOffset";
         } else {
             return memberName;
+        }
+    }
+
+    private String javaRangeGetter(String memberName) {
+        memberName = dmnTransformer.getDMNModelRepository().removeSingleQuotes(memberName);
+        if ("start included".equalsIgnoreCase(memberName)) {
+            return "isStartIncluded()";
+        }  else if ("end included".equalsIgnoreCase(memberName)) {
+            return "isEndIncluded()";
+        } else {
+            return dmnTransformer.getter(memberName);
         }
     }
 

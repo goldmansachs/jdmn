@@ -243,6 +243,10 @@ NAME:
     |
     'started by'
     |
+    'start included'
+    |
+    'end included'
+    |
     NameStartChar ( NamePartChar )*
     |
     ('\'' ( ~(['] | [\u000A-\u000D]) )*  '\'' )

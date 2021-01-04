@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.ComparableDataType.COMPARABLE;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
@@ -46,6 +47,16 @@ public class RangeType extends Type {
 
     public Type getRangeType() {
         return type;
+    }
+
+    public Type getMemberType(String member) {
+        if ("start".equals(member) || "end".equals(member)) {
+            return this.type;
+        } else if ("start included".equals(member) || "end included".equals(member)) {
+            return BOOLEAN;
+        } else {
+            return null;
+        }
     }
 
     @Override
