@@ -898,6 +898,8 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 return evaluateDateTimeMember(source, member);
             } else if (sourceType instanceof DurationType) {
                 return evaluateDateTimeMember(source, member);
+            } else if (sourceType instanceof RangeType) {
+                return evaluateRangeMember(source, member);
             } else if (sourceType instanceof AnyType) {
                 // source is Context
                 List<String> aliases = Arrays.asList();
@@ -944,6 +946,20 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             return this.lib.minutes((DURATION) source);
         } else if ("seconds".equals(member)) {
             return this.lib.seconds((DURATION) source);
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot resolve method '%s' for date time", member));
+        }
+    }
+
+    private Object evaluateRangeMember(Object source, String member) {
+        if ("start".equals(member)) {
+            return ((Range) source).getStart();
+        } else if ("end".equals(member)) {
+            return ((Range) source).getEnd();
+        } else if ("start included".equals(member)) {
+            return ((Range) source).isStartIncluded();
+        } else if ("end included".equals(member)) {
+            return ((Range) source).isEndIncluded();
         } else {
             throw new DMNRuntimeException(String.format("Cannot resolve method '%s' for date time", member));
         }

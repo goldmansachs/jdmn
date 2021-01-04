@@ -45,6 +45,8 @@ public abstract class Expression extends Element {
             memberType = DateTimeType.getMemberType(member);
         } else if (sourceType instanceof DurationType) {
             memberType = DurationType.getMemberType(sourceType, member);
+        } else if (sourceType instanceof RangeType) {
+            memberType = ((RangeType) sourceType).getMemberType(member);
         }
         return memberType;
     }

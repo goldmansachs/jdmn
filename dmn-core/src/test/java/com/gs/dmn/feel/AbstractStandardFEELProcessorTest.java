@@ -18,6 +18,7 @@ import com.gs.dmn.feel.lib.StandardFEELLib;
 import org.junit.Test;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -537,6 +538,32 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
     }
 
     @Test
+    public void testTemporalMembers() {
+        List<EnvironmentEntry> entries = new ArrayList<>();
+
+        doExpressionTest(entries, "", "date(\"2010-01-01\").year",
+                "PathExpression(DateTimeLiteral(date, \"2010-01-01\"), year)",
+                "number",
+                "year(date(\"2010-01-01\"))",
+                lib.year(lib.date("2010-01-01")),
+                lib.number("2010"));
+
+        doExpressionTest(entries, "", "time(\"12:00:00\").hour",
+                "PathExpression(DateTimeLiteral(time, \"12:00:00\"), hour)",
+                "number",
+                "hour(time(\"12:00:00\"))",
+                lib.hour(lib.time("12:00:00")),
+                lib.number("12"));
+
+        doExpressionTest(entries, "", "duration(\"P10Y4M\").years",
+                "PathExpression(DateTimeLiteral(duration, \"P10Y4M\"), years)",
+                "number",
+                "years(duration(\"P10Y4M\"))",
+                lib.years(lib.duration("P10Y4M")),
+                lib.number("10"));
+    }
+
+    @Test
     public void testRangeLiterals() {
         DATE input = lib.date("2010-10-02");
         List<EnvironmentEntry> entries = Arrays.asList(
@@ -639,6 +666,46 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "before(duration(\"P10Y\"), new com.gs.dmn.runtime.Range(true, duration(\"P12Y\"), true, duration(\"P13Y\")))",
                 lib.before(lib.duration("P10Y"), new com.gs.dmn.runtime.Range(true, lib.duration("P12Y"), true, lib.duration("P13Y"))),
                 true);
+    }
+
+    @Test
+    public void testRangeMembers() {
+        List<EnvironmentEntry> entries = new ArrayList<>();
+
+        doExpressionTest(entries, "", "date(\"2010-01-01\").year",
+                "PathExpression(DateTimeLiteral(date, \"2010-01-01\"), year)",
+                "number",
+                "year(date(\"2010-01-01\"))",
+                lib.year(lib.date("2010-01-01")),
+                lib.number("2010"));
+
+        doExpressionTest(entries, "", "[5..8].start",
+                "PathExpression(IntervalTest(false,NumericLiteral(5),false,NumericLiteral(8)), start)",
+                "number",
+                "new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")).getStart()",
+                (new com.gs.dmn.runtime.Range(true, lib.number("5"), true, lib.number("8"))).getStart(),
+                lib.number("5"));
+
+        doExpressionTest(entries, "", "[5..8].end",
+                "PathExpression(IntervalTest(false,NumericLiteral(5),false,NumericLiteral(8)), end)",
+                "number",
+                "new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")).getEnd()",
+                new com.gs.dmn.runtime.Range(true, lib.number("5"), true, lib.number("8")).getEnd(),
+                lib.number("8"));
+
+        doExpressionTest(entries, "", "[5..8].start included",
+                "PathExpression(IntervalTest(false,NumericLiteral(5),false,NumericLiteral(8)), start included)",
+                "boolean",
+                "new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")).isStartIncluded()",
+                new com.gs.dmn.runtime.Range(true, lib.number("5"), true, lib.number("8")).isStartIncluded(),
+                true);
+
+        doExpressionTest(entries, "", "[5..8).end included",
+                "PathExpression(IntervalTest(false,NumericLiteral(5),true,NumericLiteral(8)), end included)",
+                "boolean",
+                "new com.gs.dmn.runtime.Range(true, number(\"5\"), false, number(\"8\")).isEndIncluded()",
+                new com.gs.dmn.runtime.Range(true, lib.number("5"), false, lib.number("8")).isEndIncluded(),
+                false);
     }
 
     @Test
