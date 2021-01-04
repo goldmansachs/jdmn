@@ -538,8 +538,9 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
 
     @Test
     public void testRangeLiterals() {
+        DATE input = lib.date("2010-10-02");
         List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, lib.number("1")));
+                new EnvironmentEntry("input", DATE, input));
 
         doExpressionTest(entries, "", "@\"2010-10-01\"",
                 "DateTimeLiteral(date, \"2010-10-01\")",
@@ -575,6 +576,20 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "dateAndTime(\"\")",
                 lib.dateAndTime(""),
                 null);
+
+        doUnaryTestsTest(entries, "input", "@\"2010-10-01\"",
+                "PositiveUnaryTests(OperatorTest(null,DateTimeLiteral(date, \"2010-10-01\")))",
+                "TupleType(boolean)",
+                "(dateEqual(input, date(\"2010-10-01\")))",
+                (lib.dateEqual(input, lib.date("2010-10-01"))),
+                false);
+
+        doUnaryTestsTest(entries, "input", "< @\"2010-10-01\"",
+                "PositiveUnaryTests(OperatorTest(<,DateTimeLiteral(date, \"2010-10-01\")))",
+                "TupleType(boolean)",
+                "(dateLessThan(input, date(\"2010-10-01\")))",
+                (lib.dateLessThan(input, lib.date("2010-10-01"))),
+                false);
     }
 
     @Test
