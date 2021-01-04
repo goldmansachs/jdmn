@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import static com.gs.dmn.feel.analysis.semantics.type.ComparableDataType.COMPARABLE;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME_DURATION;
@@ -28,6 +29,7 @@ public class RangeType extends Type {
     public static final Type DATE_AND_TIME_RANGE_TYPE = new RangeType(DATE_AND_TIME);
     public static final Type YEARS_AND_MONTHS_DURATION_RANGE_TYPE = new RangeType(YEARS_AND_MONTHS_DURATION);
     public static final Type DAYS_AND_TIME_DURATION_RANGE_TYPE = new RangeType(DAYS_AND_TIME_DURATION);
+    public static final Type COMPARABLE_RANGE_TYPE = new RangeType(COMPARABLE);
 
     private final Type type;
 

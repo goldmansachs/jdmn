@@ -593,6 +593,55 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
     }
 
     @Test
+    public void testRangeFunctions() {
+        DATE input = lib.date("2010-10-02");
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("input", DATE, input));
+
+        doExpressionTest(entries, "", "before(1, [5..8])",
+                "FunctionInvocation(Name(before) -> PositionalParameters(NumericLiteral(1), IntervalTest(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "boolean",
+                "before(number(\"1\"), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
+                lib.before(lib.number("1"), new com.gs.dmn.runtime.Range(true, lib.number("5"), true, lib.number("8"))),
+                true);
+
+        doExpressionTest(entries, "", "before(\"1\", [\"5\"..\"8\"])",
+                "FunctionInvocation(Name(before) -> PositionalParameters(StringLiteral(\"1\"), IntervalTest(false,StringLiteral(\"5\"),false,StringLiteral(\"8\"))))",
+                "boolean",
+                "before(\"1\", new com.gs.dmn.runtime.Range(true, \"5\", true, \"8\"))",
+                lib.before("1", new com.gs.dmn.runtime.Range(true, "5", true, "8")),
+                true);
+
+        doExpressionTest(entries, "", "before(@\"2010-10-01\", [@\"2010-10-02\"..@\"2010-10-03\"])",
+                "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(date, \"2010-10-01\"), IntervalTest(false,DateTimeLiteral(date, \"2010-10-02\"),false,DateTimeLiteral(date, \"2010-10-03\"))))",
+                "boolean",
+                "before(date(\"2010-10-01\"), new com.gs.dmn.runtime.Range(true, date(\"2010-10-02\"), true, date(\"2010-10-03\")))",
+                lib.before(lib.date("2010-10-01"), new com.gs.dmn.runtime.Range(true, lib.date("2010-10-02"), true, lib.date("2010-10-03"))),
+                true);
+
+        doExpressionTest(entries, "", "before(@\"12:00:00\", [@\"12:00:02\"..@\"12:00:03\"])",
+                "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(time, \"12:00:00\"), IntervalTest(false,DateTimeLiteral(time, \"12:00:02\"),false,DateTimeLiteral(time, \"12:00:03\"))))",
+                "boolean",
+                "before(time(\"12:00:00\"), new com.gs.dmn.runtime.Range(true, time(\"12:00:02\"), true, time(\"12:00:03\")))",
+                lib.before(lib.time("12:00:00"), new com.gs.dmn.runtime.Range(true, lib.time("12:00:02"), true, lib.time("12:00:03"))),
+                true);
+
+        doExpressionTest(entries, "", "before(@\"2010-10-01T12:00:00\", [@\"2010-10-02T12:00:00\"..@\"2010-10-03T12:00:00\"])",
+                "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(date and time, \"2010-10-01T12:00:00\"), IntervalTest(false,DateTimeLiteral(date and time, \"2010-10-02T12:00:00\"),false,DateTimeLiteral(date and time, \"2010-10-03T12:00:00\"))))",
+                "boolean",
+                "before(dateAndTime(\"2010-10-01T12:00:00\"), new com.gs.dmn.runtime.Range(true, dateAndTime(\"2010-10-02T12:00:00\"), true, dateAndTime(\"2010-10-03T12:00:00\")))",
+                lib.before(lib.dateAndTime("2010-10-01T12:00:00"), new com.gs.dmn.runtime.Range(true, lib.dateAndTime("2010-10-02T12:00:00"), true, lib.dateAndTime("2010-10-03T12:00:00"))),
+                true);
+
+        doExpressionTest(entries, "", "before(@\"P10Y\", [@\"P12Y\"..@\"P13Y\"])",
+                "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(duration, \"P10Y\"), IntervalTest(false,DateTimeLiteral(duration, \"P12Y\"),false,DateTimeLiteral(duration, \"P13Y\"))))",
+                "boolean",
+                "before(duration(\"P10Y\"), new com.gs.dmn.runtime.Range(true, duration(\"P12Y\"), true, duration(\"P13Y\")))",
+                lib.before(lib.duration("P10Y"), new com.gs.dmn.runtime.Range(true, lib.duration("P12Y"), true, lib.duration("P13Y"))),
+                true);
+    }
+
+    @Test
     public void testSortInvocation() {
         List<EnvironmentEntry> entries = Arrays.asList(
         );

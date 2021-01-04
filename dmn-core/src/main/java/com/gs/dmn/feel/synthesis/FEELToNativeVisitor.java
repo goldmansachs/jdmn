@@ -41,6 +41,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.runtime.Range;
 import com.gs.dmn.runtime.interpreter.Arguments;
 import com.gs.dmn.runtime.interpreter.NamedArguments;
 import com.gs.dmn.runtime.interpreter.PositionalArguments;
@@ -139,9 +140,20 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(RangeTest element, FEELContext context) {
-        String leftCondition = makeListTestCondition(element.isOpenStart() ? ">" : ">=", inputExpressionToJava(context), element.getStart(), context);
-        String rightCondition = makeListTestCondition(element.isOpenEnd() ? "<" : "<=", inputExpressionToJava(context), element.getEnd(), context);
-        return String.format("booleanAnd(%s, %s)", leftCondition, rightCondition);
+        Expression inputExpression = context.getEnvironment().getInputExpression();
+        if (inputExpression == null) {
+            // Evaluate as range
+            boolean startIncluded = !element.isOpenStart();
+            boolean endIncluded = !element.isOpenEnd();
+            String start = (String) element.getStart().accept(this, context);
+            String end = (String) element.getEnd().accept(this, context);
+            return String.format("new %s(%s, %s, %s, %s)", Range.class.getName(), startIncluded, start, endIncluded, end);
+        } else {
+            // Evaluate as test
+            String leftCondition = makeListTestCondition(element.isOpenStart() ? ">" : ">=", inputExpressionToJava(context), element.getStart(), context);
+            String rightCondition = makeListTestCondition(element.isOpenEnd() ? "<" : "<=", inputExpressionToJava(context), element.getEnd(), context);
+            return String.format("booleanAnd(%s, %s)", leftCondition, rightCondition);
+        }
     }
 
     @Override
@@ -619,6 +631,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         if (inputExpression == null) {
             throw new DMNRuntimeException("Missing inputExpression");
         } else {
+            // Evaluate as test
             SimpleExpressionsToNativeVisitor visitor = new SimpleExpressionsToNativeVisitor(this.dmnTransformer);
             visitor.init();
             return (String) inputExpression.accept(visitor, context);
