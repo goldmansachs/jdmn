@@ -147,7 +147,7 @@ public class ASTFactory {
             kind = "date and time";
         } else if (stringLiteral.contains(":")) {
             kind = "time";
-        } else if (stringLiteral.startsWith("\"P")) {
+        } else if (stringLiteral.startsWith("\"P") || stringLiteral.startsWith("\"-P") || stringLiteral.startsWith("\"+P")) {
             kind = "duration";
         } else {
             kind = "date";

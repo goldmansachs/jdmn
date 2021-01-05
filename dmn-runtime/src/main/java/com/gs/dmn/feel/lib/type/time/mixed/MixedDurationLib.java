@@ -140,4 +140,13 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
 
         return (long) duration.getSeconds();
     }
+
+    @Override
+    public javax.xml.datatype.Duration abs(javax.xml.datatype.Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
+        return duration.getSign() == -1 ? duration.negate() : duration;
+    }
 }

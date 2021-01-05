@@ -224,6 +224,30 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "ceiling(number(\"100\"))",
                 lib.ceiling(lib.number("100")),
                 lib.number("100"));
+        doExpressionTest(entries, "", "abs(100)",
+                "FunctionInvocation(Name(abs) -> PositionalParameters(NumericLiteral(100)))",
+                "number",
+                "abs(number(\"100\"))",
+                lib.abs(lib.number("100")),
+                lib.number("100"));
+        doExpressionTest(entries, "", "abs(-100)",
+                "FunctionInvocation(Name(abs) -> PositionalParameters(ArithmeticNegation(NumericLiteral(100))))",
+                "number",
+                "abs(numericUnaryMinus(number(\"100\")))",
+                lib.abs(lib.numericUnaryMinus(lib.number("100"))),
+                lib.number("100"));
+        doExpressionTest(entries, "", "abs(@\"PT5H\")",
+                "FunctionInvocation(Name(abs) -> PositionalParameters(DateTimeLiteral(duration, \"PT5H\")))",
+                "days and time duration",
+                "abs(duration(\"PT5H\"))",
+                lib.abs(lib.duration("PT5H")),
+                lib.duration("PT5H"));
+        doExpressionTest(entries, "", "abs(@\"-PT5H\")",
+                "FunctionInvocation(Name(abs) -> PositionalParameters(DateTimeLiteral(duration, \"-PT5H\")))",
+                "days and time duration",
+                "abs(duration(\"-PT5H\"))",
+                lib.abs(lib.duration("-PT5H")),
+                lib.duration("PT5H"));
     }
 
     @Test
