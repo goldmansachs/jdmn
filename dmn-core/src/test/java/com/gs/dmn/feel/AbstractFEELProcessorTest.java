@@ -2263,7 +2263,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
         doExpressionTest(entries, "", "null",
                 "NullLiteral()",
-                "NullType",
+                "Null",
                 "null",
                 null,
                 null);

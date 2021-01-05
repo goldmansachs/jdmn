@@ -34,14 +34,14 @@ public abstract class FunctionTypeTest {
         doTest(Arrays.asList(NUMBER), Arrays.asList(NUMBER), "[]");
         doTest(Arrays.asList(NUMBER), Arrays.asList(NUMBER_LIST), "[" +
                  "Pair(PositionalParameterTypes(number), PositionalParameterConversions([Conversion(SINGLETON_LIST_TO_ELEMENT, number)])), " +
-                 "Pair(PositionalParameterTypes(NullType), PositionalParameterConversions([Conversion(CONFORMS_TO, NullType)]))" +
+                 "Pair(PositionalParameterTypes(Null), PositionalParameterConversions([Conversion(CONFORMS_TO, Null)]))" +
                  "]");
         doTest(Arrays.asList(NUMBER_LIST), Arrays.asList(NUMBER), "[" +
                 "Pair(PositionalParameterTypes(ListType(number)), PositionalParameterConversions([Conversion(ELEMENT_TO_SINGLETON_LIST, ListType(number))])), " +
-                "Pair(PositionalParameterTypes(NullType), PositionalParameterConversions([Conversion(CONFORMS_TO, NullType)]))" +
+                "Pair(PositionalParameterTypes(Null), PositionalParameterConversions([Conversion(CONFORMS_TO, Null)]))" +
                 "]");
         doTest(Arrays.asList(NUMBER), Arrays.asList(STRING), "[" +
-                "Pair(PositionalParameterTypes(NullType), PositionalParameterConversions([Conversion(CONFORMS_TO, NullType)]))" +
+                "Pair(PositionalParameterTypes(Null), PositionalParameterConversions([Conversion(CONFORMS_TO, Null)]))" +
                 "]");
     }
 
