@@ -1679,7 +1679,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
                     String modelName = ((ItemDefinitionType) type).getModelName();
                     return qualifiedName(nativeTypePackageName(modelName), upperCaseFirst(typeName));
                 } else {
-                    throw new DMNRuntimeException(String.format("Cannot infer platform type for '%s'", type));
+                    throw new DMNRuntimeException(String.format("Cannot infer platform type for '%s' type", type));
                 }
             }
         } else if (type instanceof ContextType) {
