@@ -20,6 +20,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 import java.time.*;
+import java.time.temporal.IsoFields;
 
 public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Number, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     private final DatatypeFactory datatypeFactory;
@@ -28,6 +29,9 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         this.datatypeFactory = datatypeFactory;
     }
 
+    //
+    // Conversion functions
+    //
     @Override
     public LocalDate date(String literal) {
         if (StringUtils.isBlank(literal)) {
@@ -179,6 +183,9 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         }
     }
 
+    //
+    // Date properties
+    //
     @Override
     public Integer year(LocalDate date) {
         if (date == null) {
@@ -281,6 +288,9 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         return dateTime.getMinute();
     }
 
+    //
+    // Time properties
+    //
     @Override
     public Integer second(OffsetTime time) {
         if (time == null) {
@@ -336,6 +346,66 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         return dateTime.getZone().getId();
     }
 
+    //
+    // Temporal functions
+    //
+    @Override
+    public Integer dayOfYear(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
+        return date.getDayOfYear();
+    }
+    @Override
+    public Integer dayOfYearDateTime(ZonedDateTime dateTime) {
+        return dayOfYear(toDate(dateTime));
+    }
+
+    @Override
+    public String dayOfWeek(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        return DAY_NAMES[dayOfWeek.getValue() + 1];
+    }
+    @Override
+    public String dayOfWeekDateTime(ZonedDateTime dateTime) {
+        return dayOfWeek(toDate(dateTime));
+    }
+
+    @Override
+    public Integer weekOfYear(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
+        return date.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
+    }
+    @Override
+    public Integer weekOfYearDateTime(ZonedDateTime dateTime) {
+        return weekOfYear(toDate(dateTime));
+    }
+
+    @Override
+    public String monthOfYear(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
+        Month month = date.getMonth();
+        return MONTH_NAMES[month.getValue() - 1];
+    }
+    @Override
+    public String monthOfYearDateTime(ZonedDateTime dateTime) {
+        return monthOfYear(toDate(dateTime));
+    }
+
+    //
+    // Extra conversion functions
+    //
     public LocalDate toDate(Object object) {
         if (object instanceof ZonedDateTime) {
             return date((ZonedDateTime) object);

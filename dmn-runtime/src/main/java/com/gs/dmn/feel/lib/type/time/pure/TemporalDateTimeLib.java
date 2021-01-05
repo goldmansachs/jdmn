@@ -29,6 +29,9 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         this.dateTimeLib = new DefaultDateTimeLib(datatypeFactory);
     }
 
+    //
+    // Conversion functions
+    //
     @Override
     public LocalDate date(String literal) {
         if (StringUtils.isBlank(literal)) {
@@ -151,6 +154,9 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         throw new IllegalArgumentException(String.format("Cannot convert '%s' and '%s' to date and time", date, time));
     }
 
+    //
+    // Date properties
+    //
     @Override
     public Integer year(LocalDate date) {
         if (date == null) {
@@ -219,6 +225,9 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         return dateTime.get(ChronoField.DAY_OF_WEEK);
     }
 
+    //
+    // Time properties
+    //
     @Override
     public Integer hour(Temporal time) {
         return time.get(ChronoField.HOUR_OF_DAY);
@@ -265,6 +274,66 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         return timezone(dateTime);
     }
 
+    //
+    // Temporal functions
+    //
+    @Override
+    public Integer dayOfYear(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
+        return date.getDayOfYear();
+    }
+    @Override
+    public Integer dayOfYearDateTime(Temporal dateTime) {
+        return dayOfYear(toDate(dateTime));
+    }
+
+    @Override
+    public String dayOfWeek(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        return DAY_NAMES[dayOfWeek.getValue() + 1];
+    }
+    @Override
+    public String dayOfWeekDateTime(Temporal dateTime) {
+        return dayOfWeek(toDate(dateTime));
+    }
+
+    @Override
+    public Integer weekOfYear(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
+        return date.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
+    }
+    @Override
+    public Integer weekOfYearDateTime(Temporal dateTime) {
+        return weekOfYear(toDate(dateTime));
+    }
+
+    @Override
+    public String monthOfYear(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
+        Month month = date.getMonth();
+        return MONTH_NAMES[month.getValue() - 1];
+    }
+    @Override
+    public String monthOfYearDateTime(Temporal dateTime) {
+        return monthOfYear(toDate(dateTime));
+    }
+
+    //
+    // Extra conversion functions
+    //
     public LocalDate toDate(Object object) {
         if (object instanceof Temporal) {
             return dateDateTime((Temporal) object);

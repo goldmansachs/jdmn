@@ -67,7 +67,7 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
     }
 
     //
-    // Constructors
+    // Conversion functions
     //
     @Override
     @Test

@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 
 public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
-    // Constructors
+    // Conversion functions
     //
     @Test
     public void testNumberWithSeparators() {
@@ -426,6 +426,27 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertEqualsNumber(makeNumber("4"), getLib().hours(makeDuration("P3DT4H5M6.700S")));
         assertEqualsNumber(makeNumber("5"), getLib().minutes(makeDuration("P3DT4H5M6.700S")));
         assertEqualsNumber(makeNumber("6"), getLib().seconds(makeDuration("P3DT4H5M6.700S")));
+    }
+
+    //
+    // Temporal functions
+    //
+    @Test
+    public void testTemporalFunctions() {
+        assertNull(getLib().dayOfYear(null));
+        assertNull(getLib().dayOfWeek(null));
+        assertNull(getLib().weekOfYear(null));
+        assertNull(getLib().monthOfYear(null));
+
+        assertEquals(makeNumber("260"), getLib().dayOfYear(makeDate("2019-09-17")));
+        assertEquals("Tuesday", getLib().dayOfWeek(makeDate("2019-09-17")));
+        assertEquals(makeNumber("38"), getLib().weekOfYear(makeDate("2019-09-17")));
+        assertEquals(makeNumber("1"), getLib().weekOfYear(makeDate("2003-12-29")));
+        assertEquals(makeNumber("1"), getLib().weekOfYear(makeDate("2004-01-04")));
+        assertEquals(makeNumber("53"), getLib().weekOfYear(makeDate("2005-01-01")));
+        assertEquals(makeNumber("1"), getLib().weekOfYear(makeDate("2005-01-03")));
+        assertEquals(makeNumber("1"), getLib().weekOfYear(makeDate("2005-01-09")));
+        assertEquals("September", getLib().monthOfYear(makeDate("2019-09-17")));
     }
 
     //

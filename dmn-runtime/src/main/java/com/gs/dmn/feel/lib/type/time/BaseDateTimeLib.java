@@ -15,6 +15,7 @@ package com.gs.dmn.feel.lib.type.time;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.DatatypeConstants;
+import java.text.DateFormatSymbols;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -35,6 +36,10 @@ public abstract class BaseDateTimeLib {
     protected static final DateTimeFormatter FEEL_DATE_TIME;
     protected static final DateTimeFormatter FEEL_DATE;
     protected static final DateTimeFormatter FEEL_TIME;
+
+    protected static final DateFormatSymbols DATE_FORMAT_SYMBOLS = new DateFormatSymbols();
+    protected static final String[] DAY_NAMES = DATE_FORMAT_SYMBOLS.getWeekdays();
+    protected static final String[] MONTH_NAMES = DATE_FORMAT_SYMBOLS.getMonths();
 
     static {
         FEEL_DATE_FORMAT = new DateTimeFormatterBuilder()

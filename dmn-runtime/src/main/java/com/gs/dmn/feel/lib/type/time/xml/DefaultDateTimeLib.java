@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.IsoFields;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalQueries;
 import java.util.Calendar;
@@ -37,6 +38,9 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         this.dataTypeFactory = dataTypeFactory;
     }
 
+    //
+    // Conversion functions
+    //
     @Override
     public XMLGregorianCalendar date(String literal) {
         if (StringUtils.isBlank(literal)) {
@@ -153,6 +157,9 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         return this.isValidDateTime(calendar) ? calendar : null;
     }
 
+    //
+    // Date properties
+    //
     @Override
     public Integer year(XMLGregorianCalendar date) {
         if (date == null) {
@@ -205,6 +212,9 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         return weekday(dateTime);
     }
 
+    //
+    // Time properties
+    //
     @Override
     public Integer hour(XMLGregorianCalendar date) {
         if (date == null) {
@@ -275,6 +285,67 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         return timezone(dateTime);
     }
 
+    //
+    // Temporal functions
+    //
+    @Override
+    public Integer dayOfYear(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
+        return date.toGregorianCalendar().get(Calendar.DAY_OF_YEAR);
+    }
+    @Override
+    public Integer dayOfYearDateTime(XMLGregorianCalendar dateTime) {
+        return dayOfYear(dateTime);
+    }
+
+    @Override
+    public String dayOfWeek(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
+        int dow = date.toGregorianCalendar().get(Calendar.DAY_OF_WEEK);
+        return DAY_NAMES[dow];
+    }
+    @Override
+    public String dayOfWeekDateTime(XMLGregorianCalendar dateTime) {
+        return dayOfWeek(dateTime);
+    }
+
+    @Override
+    public Integer weekOfYear(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
+        LocalDate localDate = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
+        return localDate.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
+    }
+    @Override
+    public Integer weekOfYearDateTime(XMLGregorianCalendar dateTime) {
+        return weekOfYear(dateTime);
+    }
+
+    @Override
+    public String monthOfYear(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
+        int moy = date.getMonth();
+        return MONTH_NAMES[moy - 1];
+    }
+    @Override
+    public String monthOfYearDateTime(XMLGregorianCalendar dateTime) {
+        return monthOfYear(dateTime);
+    }
+
+    //
+    // Extra conversion functions
+    //
     @Override
     public XMLGregorianCalendar toDate(Object object) {
         if (!(object instanceof XMLGregorianCalendar)) {
@@ -404,5 +475,4 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
                 calendar.getYear(), calendar.getMonth(), calendar.getDay(),
                 calendar.getHour(), calendar.getMinute(), calendar.getSecond(), calendar.getTimezone());
     }
-
 }

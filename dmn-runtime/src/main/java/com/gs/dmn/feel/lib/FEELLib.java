@@ -32,7 +32,7 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     }
 
     //
-    // Constructors
+    // Conversion functions
     //
     NUMBER number(String literal);
 
@@ -51,11 +51,14 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     String string(Object object);
 
     //
-    // Conversion functions
+    // Implicit conversion functions
     //
     <T> List<T> asList(T ...objects);
     <T> T asElement(List<T> list);
 
+    //
+    // Extra conversion functions
+    //
     List<NUMBER> rangeToList(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end);
     List<NUMBER> rangeToList(NUMBER start, NUMBER end);
 
@@ -86,7 +89,7 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     Object getValue(Object m, Object key);
 
     //
-    // Date time functions
+    // Date time properties
     //
     NUMBER year(DATE date);
     NUMBER month(DATE date);
@@ -99,7 +102,7 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     String timezone(TIME time);
 
     //
-    // Duration functions
+    // Duration properties
     //
     NUMBER years(DURATION duration);
     NUMBER months(DURATION duration);

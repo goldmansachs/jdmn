@@ -44,7 +44,7 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
     }
 
     //
-    // Constructors
+    // Conversion functions
     //
     @Override
     @Test

@@ -58,7 +58,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     //
-    // Constructors
+    // Conversion functions
     //
 
     @Override
@@ -203,6 +203,10 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             return null;
         }
     }
+
+    //
+    // Extra conversion functions
+    //
 
     @Override
     public DATE toDate(Object object) {
@@ -635,7 +639,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     //
-    // Date functions
+    // Date properties
     //
     @Override
     public NUMBER year(DATE date) {
@@ -682,7 +686,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     //
-    // Time functions
+    // Time properties
     //
     @Override
     public NUMBER hour(TIME time) {
@@ -740,7 +744,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     //
-    // DURATION functions
+    // Duration properties
     //
     @Override
     public NUMBER years(DURATION duration) {
@@ -803,6 +807,53 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             return valueOf(this.durationLib.seconds(duration));
         } catch (Exception e) {
             String message = String.format("seconds(%s)", duration);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    //
+    // Temporal functions
+    //
+    @Override
+    public NUMBER dayOfYear(DATE date) {
+        try {
+            return valueOf(this.dateTimeLib.dayOfYear(date));
+        } catch (Exception e) {
+            String message = String.format("dayOfYear(%s)", date);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public String dayOfWeek(DATE date) {
+        try {
+            return this.dateTimeLib.dayOfWeek(date);
+        } catch (Exception e) {
+            String message = String.format("dayOfWeek(%s)", date);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public NUMBER weekOfYear(DATE date) {
+        try {
+            return valueOf(this.dateTimeLib.weekOfYear(date));
+        } catch (Exception e) {
+            String message = String.format("weekOfYear(%s)", date);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public String monthOfYear(DATE date) {
+        try {
+            return this.dateTimeLib.monthOfYear(date);
+        } catch (Exception e) {
+            String message = String.format("weekOfYear(%s)", date);
             logError(message, e);
             return null;
         }

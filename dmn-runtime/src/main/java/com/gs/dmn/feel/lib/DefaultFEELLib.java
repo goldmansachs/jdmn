@@ -105,7 +105,7 @@ public class DefaultFEELLib extends BaseStandardFEELLib<BigDecimal, XMLGregorian
     }
 
     //
-    // Constructors
+    // Conversion functions
     //
     @Override
     protected BigDecimal valueOf(long number) {

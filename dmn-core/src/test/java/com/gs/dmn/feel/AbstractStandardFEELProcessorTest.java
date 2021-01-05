@@ -562,7 +562,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
     }
 
     @Test
-    public void testTemporalMembers() {
+    public void testDateProperties() {
         List<EnvironmentEntry> entries = new ArrayList<>();
 
         doExpressionTest(entries, "", "date(\"2010-01-01\").year",
@@ -571,6 +571,11 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "year(date(\"2010-01-01\"))",
                 lib.year(lib.date("2010-01-01")),
                 lib.number("2010"));
+    }
+
+    @Test
+    public void testTimeProperties() {
+        List<EnvironmentEntry> entries = new ArrayList<>();
 
         doExpressionTest(entries, "", "time(\"12:00:00\").hour",
                 "PathExpression(DateTimeLiteral(time, \"12:00:00\"), hour)",
@@ -578,6 +583,17 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "hour(time(\"12:00:00\"))",
                 lib.hour(lib.time("12:00:00")),
                 lib.number("12"));
+        doExpressionTest(entries, "", "time(\"12:00:00Z\").time offset",
+                "PathExpression(DateTimeLiteral(time, \"12:00:00Z\"), time offset)",
+                "days and time duration",
+                "timeOffset(time(\"12:00:00Z\"))",
+                lib.timeOffset(lib.time("12:00:00Z")),
+                lib.duration("P0Y0M0DT0H0M0.000S"));
+    }
+
+    @Test
+    public void testDurationProperties() {
+        List<EnvironmentEntry> entries = new ArrayList<>();
 
         doExpressionTest(entries, "", "duration(\"P10Y4M\").years",
                 "PathExpression(DateTimeLiteral(duration, \"P10Y4M\"), years)",
@@ -585,6 +601,36 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "years(duration(\"P10Y4M\"))",
                 lib.years(lib.duration("P10Y4M")),
                 lib.number("10"));
+    }
+
+    @Test
+    public void testTemporalFunctions() {
+        List<EnvironmentEntry> entries = new ArrayList<>();
+
+        doExpressionTest(entries, "", "day of year(date(2019, 9, 17))",
+                "FunctionInvocation(Name(day of year) -> PositionalParameters(FunctionInvocation(Name(date) -> PositionalParameters(NumericLiteral(2019), NumericLiteral(9), NumericLiteral(17)))))",
+                "number",
+                "dayOfYear(date(number(\"2019\"), number(\"9\"), number(\"17\")))",
+                lib.dayOfYear(lib.date(lib.number("2019"), lib.number("9"), lib.number("17"))),
+                lib.number("260"));
+        doExpressionTest(entries, "", "day of week(date(2019, 9, 17))",
+                "FunctionInvocation(Name(day of week) -> PositionalParameters(FunctionInvocation(Name(date) -> PositionalParameters(NumericLiteral(2019), NumericLiteral(9), NumericLiteral(17)))))",
+                "string",
+                "dayOfWeek(date(number(\"2019\"), number(\"9\"), number(\"17\")))",
+                lib.dayOfWeek(lib.date(lib.number("2019"), lib.number("9"), lib.number("17"))),
+                "Tuesday");
+        doExpressionTest(entries, "", "month of year(date(2019, 9, 17))",
+                "FunctionInvocation(Name(month of year) -> PositionalParameters(FunctionInvocation(Name(date) -> PositionalParameters(NumericLiteral(2019), NumericLiteral(9), NumericLiteral(17)))))",
+                "string",
+                "monthOfYear(date(number(\"2019\"), number(\"9\"), number(\"17\")))",
+                lib.monthOfYear(lib.date(lib.number("2019"), lib.number("9"), lib.number("17"))),
+                "September");
+        doExpressionTest(entries, "", "week of year(date(2019, 9, 17))",
+                "FunctionInvocation(Name(week of year) -> PositionalParameters(FunctionInvocation(Name(date) -> PositionalParameters(NumericLiteral(2019), NumericLiteral(9), NumericLiteral(17)))))",
+                "number",
+                "weekOfYear(date(number(\"2019\"), number(\"9\"), number(\"17\")))",
+                lib.weekOfYear(lib.date(lib.number("2019"), lib.number("9"), lib.number("17"))),
+                lib.number("38"));
     }
 
     @Test
@@ -693,15 +739,8 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
     }
 
     @Test
-    public void testRangeMembers() {
+    public void testRangeProperties() {
         List<EnvironmentEntry> entries = new ArrayList<>();
-
-        doExpressionTest(entries, "", "date(\"2010-01-01\").year",
-                "PathExpression(DateTimeLiteral(date, \"2010-01-01\"), year)",
-                "number",
-                "year(date(\"2010-01-01\"))",
-                lib.year(lib.date("2010-01-01")),
-                lib.number("2010"));
 
         doExpressionTest(entries, "", "[5..8].start",
                 "PathExpression(IntervalTest(false,NumericLiteral(5),false,NumericLiteral(8)), start)",

@@ -12,7 +12,10 @@
  */
 package com.gs.dmn.feel.lib.type.time;
 
-public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends TemporalLib<DATE, DATE_TIME> {
+    //
+    // Conversion functions
+    //
     DATE date(String literal);
 
     DATE date(NUMBER year, NUMBER month, NUMBER day);
@@ -29,6 +32,9 @@ public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     DATE_TIME dateAndTime(DATE date, TIME time);
 
+    //
+    // Date properties
+    //
     Integer year(DATE date);
     Integer yearDateTime(DATE_TIME dateTime);
 
@@ -41,6 +47,9 @@ public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     Integer weekday(DATE date);
     Integer weekdayDateTime(DATE_TIME dateTime);
 
+    //
+    // Time properties
+    //
     Integer hour(TIME date);
     Integer hourDateTime(DATE_TIME dateTime);
 
@@ -56,6 +65,9 @@ public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     String timezone(TIME date);
     String timezoneDateTime(DATE_TIME dateTime);
 
+    //
+    // Extra conversion functions
+    //
     DATE toDate(Object object);
 
     TIME toTime(Object object);

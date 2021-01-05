@@ -197,6 +197,7 @@ INSTANCE_OF:
     ;
 
 NAME:
+    // Functions
     'date and time'
     |
     'days and time duration'
@@ -227,8 +228,6 @@ NAME:
     |
     'distinct values'
     |
-    'time offset'
-    |
     'get entries'
     |
     'get value'
@@ -246,6 +245,17 @@ NAME:
     'start included'
     |
     'end included'
+    |
+    'day of year'
+    |
+    'day of week'
+    |
+    'month of year'
+    |
+    'week of year'
+    |
+    // Properties
+    'time offset'
     |
     NameStartChar ( NamePartChar )*
     |
