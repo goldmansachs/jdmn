@@ -76,7 +76,13 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
     @Override
     public NUMBER abs(NUMBER number) {
-        return this.feelLib.abs(number);
+        try {
+            return this.numberLib.abs(number);
+        } catch (Exception e) {
+            String message = String.format("abs(%s)", number);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override

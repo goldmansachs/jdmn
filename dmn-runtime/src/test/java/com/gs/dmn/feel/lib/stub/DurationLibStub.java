@@ -55,4 +55,9 @@ public class DurationLibStub<DATE, DURATION> implements DurationLib<DATE, DURATI
     public Long seconds(DURATION duration) {
         throw new DMNRuntimeException("Not supported yet");
     }
+
+    @Override
+    public DURATION abs(DURATION duration) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
 }

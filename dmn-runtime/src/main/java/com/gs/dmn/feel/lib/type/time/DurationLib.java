@@ -28,4 +28,6 @@ public interface DurationLib<DATE, DURATION> {
     Long minutes(DURATION duration);
 
     Long seconds(DURATION duration);
+
+    DURATION abs(DURATION duration);
 }

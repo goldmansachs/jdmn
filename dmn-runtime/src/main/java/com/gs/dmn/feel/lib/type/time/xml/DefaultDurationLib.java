@@ -131,6 +131,15 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
         }
     }
 
+    @Override
+    public javax.xml.datatype.Duration abs(javax.xml.datatype.Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
+        return duration.getSign() == -1 ? duration.negate() : duration;
+    }
+
     private boolean hasYearsOrMonths(javax.xml.datatype.Duration duration) {
         return duration.isSet(DatatypeConstants.YEARS)
                 || duration.isSet(DatatypeConstants.MONTHS)

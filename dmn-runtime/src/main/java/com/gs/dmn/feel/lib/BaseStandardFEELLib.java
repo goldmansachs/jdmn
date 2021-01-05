@@ -263,11 +263,15 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER abs(NUMBER number) {
+    public Object abs(Object n) {
         try {
-            return this.numberLib.abs(number);
+            if (n instanceof Number) {
+                return this.numberLib.abs((NUMBER) n);
+            } else {
+                return this.durationLib.abs((DURATION) n);
+            }
         } catch (Exception e) {
-            String message = String.format("abs(%s)", number);
+            String message = String.format("abs(%s)", n);
             logError(message, e);
             return null;
         }

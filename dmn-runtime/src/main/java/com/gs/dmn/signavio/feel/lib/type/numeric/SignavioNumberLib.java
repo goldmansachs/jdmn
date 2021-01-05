@@ -36,5 +36,7 @@ public interface SignavioNumberLib<NUMBER> {
     int intValue(NUMBER number);
 
     Number toNumber(NUMBER number);
+
+    NUMBER abs(NUMBER number);
 }
 
