@@ -43,7 +43,7 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Doub
     }
 
     //
-    // Constructors
+    // Conversion functions
     //
     @Override
     @Test

@@ -56,6 +56,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         addStringFunctions(environment);
         addListFunctions(environment);
         addContextFunctions(environment);
+        addTemporalFunctions(environment);
         addRangeFunctions(environment);
     }
 
@@ -161,6 +162,20 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     private static void addContextFunctions(Environment environment) {
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("get entries", new BuiltinFunctionType(CONTEXT_LIST, new Parameter("m", ContextType.ANY_CONTEXT))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("get value", new BuiltinFunctionType(ANY, new Parameter("m", ContextType.ANY_CONTEXT), new Parameter("key", STRING))));
+    }
+
+    private static void addTemporalFunctions(Environment environment) {
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("day of year", new BuiltinFunctionType(NUMBER, new Parameter("date", DATE))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("day of year", new BuiltinFunctionType(NUMBER, new Parameter("date", DATE_AND_TIME))));
+
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("day of week", new BuiltinFunctionType(STRING, new Parameter("date", DATE))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("day of week", new BuiltinFunctionType(STRING, new Parameter("date", DATE_AND_TIME))));
+
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("month of year", new BuiltinFunctionType(STRING, new Parameter("date", DATE))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("month of year", new BuiltinFunctionType(STRING, new Parameter("date", DATE_AND_TIME))));
+
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("week of year", new BuiltinFunctionType(NUMBER, new Parameter("date", DATE))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("week of year", new BuiltinFunctionType(NUMBER, new Parameter("date", DATE_AND_TIME))));
     }
 
     private static void addRangeFunctions(Environment environment) {

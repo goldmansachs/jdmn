@@ -102,7 +102,7 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
     }
 
     //
-    // Constructors
+    // Conversion functions
     //
     public TemporalAmount yearsAndMonthsDuration(Temporal from, Temporal to) {
         try {
@@ -115,7 +115,7 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
     }
 
     //
-    // Date functions
+    // Date properties
     //
     public BigDecimal year(Temporal dateTime) {
         try {
@@ -150,6 +150,49 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
     public BigDecimal weekday(Temporal dateTime) {
         try {
             return valueOf(this.dateTimeLib.weekdayDateTime(dateTime));
+        } catch (Exception e) {
+            String message = String.format("weekday(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    //
+    // Temporal functions
+    //
+    public BigDecimal dayOfYear(Temporal dateTime) {
+        try {
+            return valueOf(this.dateTimeLib.dayOfYearDateTime(dateTime));
+        } catch (Exception e) {
+            String message = String.format("dayOfYear(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    public String dayOfWeek(Temporal dateTime) {
+        try {
+            return this.dateTimeLib.dayOfWeekDateTime(dateTime);
+        } catch (Exception e) {
+            String message = String.format("dayOfWeek(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    public BigDecimal weekOfYear(Temporal dateTime) {
+        try {
+            return valueOf(this.dateTimeLib.weekOfYearDateTime(dateTime));
+        } catch (Exception e) {
+            String message = String.format("weekday(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    public String monthOfYear(Temporal dateTime) {
+        try {
+            return this.dateTimeLib.monthOfYearDateTime(dateTime);
         } catch (Exception e) {
             String message = String.format("weekday(%s)", dateTime);
             logError(message, e);

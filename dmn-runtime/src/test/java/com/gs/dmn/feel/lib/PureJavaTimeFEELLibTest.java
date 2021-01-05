@@ -75,7 +75,7 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
     }
 
     //
-    // Constructors
+    // Conversion functions
     //
     @Override
     @Test

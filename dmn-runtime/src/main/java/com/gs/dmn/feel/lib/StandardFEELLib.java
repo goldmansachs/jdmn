@@ -122,7 +122,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     Boolean not(Boolean operand);
 
     //
-    // Date functions
+    // Date properties
     //
     @Override
     NUMBER year(DATE date);
@@ -137,7 +137,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     NUMBER weekday(DATE date);
 
     //
-    // Time functions
+    // Time properties
     //
     @Override
     NUMBER hour(TIME time);
@@ -155,7 +155,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     String timezone(TIME time);
 
     //
-    // Duration functions
+    // Duration properties
     //
     @Override
     NUMBER years(DURATION duration);
@@ -174,6 +174,17 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     @Override
     NUMBER seconds(DURATION duration);
+
+    //
+    // Temporal functions
+    //
+    NUMBER dayOfYear(DATE date);
+
+    String dayOfWeek(DATE date);
+
+    NUMBER weekOfYear(DATE date);
+
+    String monthOfYear(DATE date);
 
     //
     // List functions
@@ -256,6 +267,10 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     List mode(Object... numbers);
 
     void collect(List result, List list);
+
+    //
+    // Temporal built-in functions
+    //
 
     <T> List<T> sort(List<T> list, LambdaExpression<Boolean> comparator);
 }

@@ -99,7 +99,7 @@ public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELL
     }
 
     //
-    // Constructors
+    // Conversion functions
     //
     public LocalDate date(ZonedDateTime from) {
         try {
@@ -169,7 +169,7 @@ public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELL
     }
 
     //
-    // Date functions
+    // Date properties
     //
     public NUMBER year(ZonedDateTime dateTime) {
         try {
@@ -212,7 +212,7 @@ public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELL
     }
 
     //
-    // Time functions
+    // Time properties
     //
     public NUMBER hour(ZonedDateTime dateTime) {
         try {
@@ -259,6 +259,49 @@ public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELL
             return this.dateTimeLib.timezoneDateTime(dateTime);
         } catch (Exception e) {
             String message = String.format("timezone(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    //
+    // Temporal functions
+    //
+    public NUMBER dayOfYear(ZonedDateTime dateTime) {
+        try {
+            return valueOf(this.dateTimeLib.dayOfYearDateTime(dateTime));
+        } catch (Exception e) {
+            String message = String.format("dayOfYear(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    public String dayOfWeek(ZonedDateTime dateTime) {
+        try {
+            return this.dateTimeLib.dayOfWeekDateTime(dateTime);
+        } catch (Exception e) {
+            String message = String.format("dayOfWeek(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    public NUMBER weekOfYear(ZonedDateTime dateTime) {
+        try {
+            return valueOf(this.dateTimeLib.weekOfYearDateTime(dateTime));
+        } catch (Exception e) {
+            String message = String.format("weekday(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    public String monthOfYear(ZonedDateTime dateTime) {
+        try {
+            return this.dateTimeLib.monthOfYearDateTime(dateTime);
+        } catch (Exception e) {
+            String message = String.format("weekday(%s)", dateTime);
             logError(message, e);
             return null;
         }
