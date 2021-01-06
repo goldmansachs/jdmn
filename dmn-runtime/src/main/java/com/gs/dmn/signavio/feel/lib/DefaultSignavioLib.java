@@ -18,6 +18,8 @@ import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.range.DefaultRangeType;
+import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumericType;
@@ -44,6 +46,7 @@ public class DefaultSignavioLib extends BaseSignavioLib<BigDecimal, XMLGregorian
     private static final DurationType<Duration, BigDecimal> DURATION_TYPE = new DefaultSignavioDurationType(LOGGER, DATA_TYPE_FACTORY);
     private static final ListType LIST_TYPE = new DefaultListType(LOGGER);
     private static final ContextType CONTEXT_TYPE = new DefaultContextType(LOGGER);
+    private static final RangeType RANGE_TYPE = new DefaultRangeType(LOGGER);
 
     private static final DefaultFEELLib FEEL_LIB = new DefaultFEELLib();
     private static final SignavioNumberLib<BigDecimal> NUMBER_LIB = new DefaultSignavioNumberLib();
@@ -63,6 +66,7 @@ public class DefaultSignavioLib extends BaseSignavioLib<BigDecimal, XMLGregorian
                 DURATION_TYPE,
                 LIST_TYPE,
                 CONTEXT_TYPE,
+                RANGE_TYPE,
                 FEEL_LIB,
                 NUMBER_LIB,
                 STRING_LIB,
@@ -74,7 +78,7 @@ public class DefaultSignavioLib extends BaseSignavioLib<BigDecimal, XMLGregorian
     protected DefaultSignavioLib(
             NumericType<BigDecimal> numericType, BooleanType booleanType, StringType stringType,
             DateType<XMLGregorianCalendar, Duration> dateType, TimeType<XMLGregorianCalendar, Duration> timeType, DateTimeType<XMLGregorianCalendar, Duration> dateTimeType, DurationType<Duration, BigDecimal> durationType,
-            ListType listType, ContextType contextType,
+            ListType listType, ContextType contextType, RangeType rangeType,
             StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> feelLib,
             SignavioNumberLib<BigDecimal> numberLib,
             SignavioStringLib stringLib,
@@ -82,7 +86,7 @@ public class DefaultSignavioLib extends BaseSignavioLib<BigDecimal, XMLGregorian
             SignavioListLib listLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
-                listType, contextType,
+                listType, contextType, rangeType,
                 feelLib, numberLib, stringLib, dateTimeLib, listLib);
     }
 }

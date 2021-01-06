@@ -18,6 +18,7 @@ import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.list.ListLib;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
 import com.gs.dmn.feel.lib.type.range.RangeLib;
+import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DurationLib;
@@ -38,6 +39,7 @@ public class DefaultFEELLibExceptionsTest extends BaseStandardFEELLibExceptionsT
         DurationType<Duration, BigDecimal> durationType = new DurationTypeStub<>();
         ListType listType = new ListTypeStub();
         ContextType contextType = new ContextTypeStub();
+        RangeType rangeType = new RangeTypeStub();
         NumericLib<BigDecimal> numericLib = new NumericLibStub<>();
         StringLib stringLib = new StringLibStub();
         BooleanLib booleanLib = new BooleanLibStub();
@@ -47,7 +49,7 @@ public class DefaultFEELLibExceptionsTest extends BaseStandardFEELLibExceptionsT
         RangeLib rangeLib = new RangeLibStub();
         return new DefaultFEELLib(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
-                listType, contextType,
+                listType, contextType, rangeType,
                 numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib);
     }
 }

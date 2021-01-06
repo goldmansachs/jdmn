@@ -14,8 +14,11 @@ package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
+import com.gs.dmn.feel.lib.type.range.DefaultRangeType;
+import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.runtime.LazyEval;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.runtime.Range;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.Rule;
 
@@ -33,14 +36,15 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     protected final DurationType<DURATION, NUMBER> durationType;
     protected final ListType listType;
     protected final ContextType contextType;
+    protected final RangeType rangeType;
 
     @Deprecated
     // Backwards compatibility with 5.3.0
     protected BaseFEELLib(NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType, DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType, ListType listType) {
-        this(numericType, booleanType, stringType, dateType, timeType, dateTimeType, durationType, listType, new DefaultContextType(LOGGER));
+        this(numericType, booleanType, stringType, dateType, timeType, dateTimeType, durationType, listType, new DefaultContextType(LOGGER), new DefaultRangeType(LOGGER));
     }
 
-    protected BaseFEELLib(NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType, DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType, ListType listType, ContextType contextType) {
+    protected BaseFEELLib(NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType, DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType, ListType listType, ContextType contextType, RangeType rangeType) {
         this.numericType = numericType;
         this.booleanType = booleanType;
         this.stringType = stringType;
@@ -50,6 +54,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         this.durationType = durationType;
         this.listType = listType;
         this.contextType = contextType;
+        this.rangeType = rangeType;
     }
 
     //
@@ -889,6 +894,31 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
             return contextType.contextNotEqual(c1, c2);
         } catch (Exception e) {
             String message = String.format("contextNotEqual(%s, %s)", c1, c2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    //
+    // Range operators
+    //
+    @Override
+    public Boolean rangeEqual(Range range1, Range range2) {
+        try {
+            return rangeType.rangeEqual(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("rangeEqual(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean rangeNotEqual(Range range1, Range range2) {
+        try {
+            return rangeType.rangeNotEqual(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("rangeNotEqual(%s, %s)", range1, range2);
             logError(message, e);
             return null;
         }

@@ -22,7 +22,9 @@ import com.gs.dmn.feel.lib.type.list.ListLib;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
 import com.gs.dmn.feel.lib.type.range.DefaultRangeLib;
+import com.gs.dmn.feel.lib.type.range.DefaultRangeType;
 import com.gs.dmn.feel.lib.type.range.RangeLib;
+import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
@@ -46,6 +48,7 @@ public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELL
     private static final DateTimeType<ZonedDateTime, Duration> DATE_TIME_TYPE = new ZonedDateTimeType(LOGGER, DATA_TYPE_FACTORY);
     private static final ListType LIST_TYPE = new DefaultListType(LOGGER);
     private static final ContextType CONTEXT_TYPE = new DefaultContextType(LOGGER);
+    private static final RangeType RANGE_TYPE = new DefaultRangeType(LOGGER);
 
     private static final StringLib STRING_LIB = new DefaultStringLib();
     private static final BooleanLib BOOLEAN_LIB = new DefaultBooleanLib();
@@ -64,6 +67,7 @@ public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELL
                 durationType,
                 LIST_TYPE,
                 CONTEXT_TYPE,
+                RANGE_TYPE,
                 numericLib,
                 STRING_LIB,
                 BOOLEAN_LIB,
@@ -84,6 +88,7 @@ public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELL
             DurationType<Duration, NUMBER> durationType,
             ListType listType,
             ContextType contextType,
+            RangeType rangeType,
             NumericLib<NUMBER> numericLib,
             StringLib stringLib,
             BooleanLib booleanLib,
@@ -93,7 +98,7 @@ public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELL
             RangeLib rangeLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
-                listType, contextType,
+                listType, contextType, rangeType,
                 numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib
         );
     }

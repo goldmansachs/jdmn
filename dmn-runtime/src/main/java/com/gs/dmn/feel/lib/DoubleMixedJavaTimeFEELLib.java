@@ -19,6 +19,7 @@ import com.gs.dmn.feel.lib.type.numeric.DoubleNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DoubleNumericType;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
 import com.gs.dmn.feel.lib.type.range.RangeLib;
+import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DurationLib;
@@ -50,14 +51,17 @@ public class DoubleMixedJavaTimeFEELLib extends BaseMixedJavaTimeFEELLib<Double>
         super(numericType, durationType, numericLib);
     }
 
-    protected DoubleMixedJavaTimeFEELLib(NumericType<Double> numericType, BooleanType booleanType, StringType stringType, DateType<LocalDate, Duration> dateType, TimeType<OffsetTime, Duration> timeType, DateTimeType<ZonedDateTime, Duration> dateTimeType, DurationType<Duration, Double> durationType, ListType listType, ContextType contextType, NumericLib<Double> numericLib, StringLib stringLib, BooleanLib booleanLib, DateTimeLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> dateTimeLib, DurationLib<LocalDate, Duration> durationLib, ListLib listLib, RangeLib rangeLib) {
+    protected DoubleMixedJavaTimeFEELLib(NumericType<Double> numericType, BooleanType booleanType, StringType stringType, DateType<LocalDate, Duration> dateType, TimeType<OffsetTime, Duration> timeType, DateTimeType<ZonedDateTime, Duration> dateTimeType, DurationType<Duration, Double> durationType, ListType listType, ContextType contextType, RangeType rangeType, NumericLib<Double> numericLib, StringLib stringLib, BooleanLib booleanLib, DateTimeLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> dateTimeLib, DurationLib<LocalDate, Duration> durationLib, ListLib listLib, RangeLib rangeLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
-                listType, contextType,
+                listType, contextType, rangeType,
                 numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib
         );
     }
 
+    //
+    // Extra conversion functions
+    //
     @Override
     protected Double valueOf(long number) {
         return Double.valueOf(number);

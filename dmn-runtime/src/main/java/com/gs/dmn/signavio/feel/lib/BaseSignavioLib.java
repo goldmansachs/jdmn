@@ -15,6 +15,7 @@ package com.gs.dmn.signavio.feel.lib;
 import com.gs.dmn.feel.lib.BaseFEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.feel.lib.type.*;
+import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.SignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.string.SignavioStringLib;
@@ -33,13 +34,13 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     protected BaseSignavioLib(
             NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType,
             DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType,
-            ListType listType, ContextType contextType,
+            ListType listType, ContextType contextType, RangeType rangeType,
             StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib,
             SignavioNumberLib<NUMBER> numberLib,
             SignavioStringLib stringLib,
             SignavioDateTimeLib<NUMBER, DATE, TIME, DATE_TIME> dateTimeLib,
             SignavioListLib listLib) {
-        super(numericType, booleanType, stringType, dateType, timeType, dateTimeType, durationType, listType, contextType);
+        super(numericType, booleanType, stringType, dateType, timeType, dateTimeType, durationType, listType, contextType, rangeType);
         this.feelLib = feelLib;
         this.numberLib = numberLib;
         this.stringLib = stringLib;

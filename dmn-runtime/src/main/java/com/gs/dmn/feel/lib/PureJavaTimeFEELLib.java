@@ -24,7 +24,9 @@ import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
 import com.gs.dmn.feel.lib.type.range.DefaultRangeLib;
+import com.gs.dmn.feel.lib.type.range.DefaultRangeType;
 import com.gs.dmn.feel.lib.type.range.RangeLib;
+import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
@@ -47,6 +49,7 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
     private static final DurationType<TemporalAmount, BigDecimal> DURATION_TYPE = new TemporalAmountDurationType(LOGGER);
     private static final ListType LIST_TYPE = new DefaultListType(LOGGER);
     private static final ContextType CONTEXT_TYPE = new DefaultContextType(LOGGER);
+    private static final RangeType RANGE_TYPE = new DefaultRangeType(LOGGER);
 
     private static final DefaultNumericLib NUMERIC_LIB = new DefaultNumericLib();
     private static final DefaultStringLib STRING_LIB = new DefaultStringLib();
@@ -68,6 +71,7 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
                 DURATION_TYPE,
                 LIST_TYPE,
                 CONTEXT_TYPE,
+                RANGE_TYPE,
                 NUMERIC_LIB,
                 STRING_LIB,
                 BOOLEAN_LIB,
@@ -86,7 +90,7 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
             TimeType<Temporal, TemporalAmount> timeType,
             DateTimeType<Temporal, TemporalAmount> dateTimeType,
             DurationType<TemporalAmount, BigDecimal> durationType,
-            ListType listType, ContextType contextType,
+            ListType listType, ContextType contextType, RangeType rangeType,
             NumericLib<BigDecimal> numericLib,
             StringLib stringLib,
             BooleanLib booleanLib,
@@ -96,7 +100,7 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
             RangeLib rangeLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
-                listType, contextType,
+                listType, contextType, rangeType,
                 numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib
         );
     }
@@ -200,6 +204,9 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
         }
     }
 
+    //
+    // Extra conversion functions
+    //
     @Override
     protected BigDecimal valueOf(long number) {
         return BigDecimal.valueOf(number);

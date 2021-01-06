@@ -17,6 +17,7 @@ import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.list.ListLib;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
 import com.gs.dmn.feel.lib.type.range.RangeLib;
+import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DurationLib;
@@ -39,7 +40,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     protected BaseStandardFEELLib(
             NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType,
             DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType,
-            ListType listType, ContextType contextType,
+            ListType listType, ContextType contextType, RangeType rangeType,
             NumericLib<NUMBER> numberLib,
             StringLib stringLib,
             BooleanLib booleanLib,
@@ -47,7 +48,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             DurationLib<DATE, DURATION> durationLib,
             ListLib listLib,
             RangeLib rangeLib) {
-        super(numericType, booleanType, stringType, dateType, timeType, dateTimeType, durationType, listType, contextType);
+        super(numericType, booleanType, stringType, dateType, timeType, dateTimeType, durationType, listType, contextType, rangeType);
         this.numberLib = numberLib;
         this.stringLib = stringLib;
         this.booleanLib = booleanLib;
