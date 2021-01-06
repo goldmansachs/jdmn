@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 
 import java.time.LocalTime;
 import java.time.OffsetTime;
+import java.time.temporal.ChronoField;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
@@ -38,6 +39,18 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
     //
     // Time operators
     //
+
+    @Override
+    public Boolean timeIs(Temporal first, Temporal second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return first.get(ChronoField.HOUR_OF_DAY) == second.get(ChronoField.HOUR_OF_DAY)
+                && first.get(ChronoField.MINUTE_OF_DAY) == second.get(ChronoField.MINUTE_OF_DAY)
+                && first.get(ChronoField.SECOND_OF_DAY) == second.get(ChronoField.SECOND_OF_DAY)
+                && first.get(ChronoField.OFFSET_SECONDS) == second.get(ChronoField.OFFSET_SECONDS);
+    }
 
     @Override
     public Boolean timeEqual(Temporal first, Temporal second) {

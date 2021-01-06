@@ -29,6 +29,8 @@ public interface BooleanType {
 
     Boolean binaryBooleanAnd(Object first, Object second);
 
+    Boolean booleanIs(Boolean first, Boolean second);
+
     Boolean booleanEqual(Boolean first, Boolean second);
 
     Boolean booleanNotEqual(Boolean first, Boolean second);

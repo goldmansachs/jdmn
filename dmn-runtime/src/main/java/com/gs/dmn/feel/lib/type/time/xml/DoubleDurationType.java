@@ -35,6 +35,21 @@ public class DoubleDurationType extends BaseDefaultDurationType implements Durat
         super(logger, dataTypeFactory, durationComparator);
     }
 
+    @Override
+    public Boolean durationIs(Duration first, Duration second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return first.getSign() == second.getSign()
+                && first.getYears() == second.getYears()
+                && first.getMonths() == second.getMonths()
+                && first.getDays() == second.getDays()
+                && first.getHours() == second.getHours()
+                && first.getMinutes() == second.getHours()
+                && first.getSeconds() == second.getSeconds();
+    }
+
     //
     // Duration operators
     //

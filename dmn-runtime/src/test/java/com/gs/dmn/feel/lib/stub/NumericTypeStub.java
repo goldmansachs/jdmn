@@ -47,6 +47,11 @@ public class NumericTypeStub<NUMBER> implements NumericType<NUMBER> {
     }
 
     @Override
+    public Boolean numericIs(NUMBER first, NUMBER second) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public Boolean numericEqual(NUMBER first, NUMBER second) {
         throw new DMNRuntimeException("Not supported yet");
     }

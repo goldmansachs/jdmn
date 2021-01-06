@@ -38,6 +38,18 @@ public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCa
         this.booleanType = new DefaultBooleanType(logger);
     }
 
+    @Override
+    public Boolean timeIs(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return first.getHour() == second.getHour()
+                && first.getMinute() == second.getMinute()
+                && first.getSecond() == second.getSecond()
+                && first.getTimezone() == second.getTimezone();
+    }
+
     //
     // Time operators
     //

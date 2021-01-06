@@ -15,6 +15,8 @@ package com.gs.dmn.feel.lib.type;
 import java.util.List;
 
 public interface ContextType {
+    Boolean contextIs(Object c1, Object c2);
+
     Boolean contextEqual(Object c1, Object c2);
 
     Boolean contextNotEqual(Object c1, Object c2);

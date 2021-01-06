@@ -19,6 +19,11 @@ import java.util.List;
 
 public class ListTypeStub implements ListType {
     @Override
+    public Boolean listIs(List list1, List list2) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public Boolean listEqual(List list1, List list2) {
         throw new DMNRuntimeException("Not supported yet");
     }

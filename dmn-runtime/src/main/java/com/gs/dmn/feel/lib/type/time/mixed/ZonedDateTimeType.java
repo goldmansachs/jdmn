@@ -37,6 +37,22 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
     //
 
     @Override
+    public Boolean dateTimeIs(ZonedDateTime first, ZonedDateTime second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return first.getYear() == second.getYear()
+                && first.getMonth() == second.getMonth()
+                && first.getDayOfMonth() == second.getDayOfMonth()
+
+                && first.getHour() == second.getHour()
+                && first.getMinute() == second.getMinute()
+                && first.getSecond() == second.getSecond()
+                && first.getOffset() == second.getOffset();
+    }
+
+    @Override
     public Boolean dateTimeEqual(ZonedDateTime first, ZonedDateTime second) {
         return this.comparator.equalTo(first, second);
     }

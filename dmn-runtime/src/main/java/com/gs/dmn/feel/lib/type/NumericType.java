@@ -25,6 +25,8 @@ public interface NumericType<NUMBER> {
 
     NUMBER numericExponentiation(NUMBER first, NUMBER second);
 
+    Boolean numericIs(NUMBER first, NUMBER second);
+
     Boolean numericEqual(NUMBER first, NUMBER second);
 
     Boolean numericNotEqual(NUMBER first, NUMBER second);

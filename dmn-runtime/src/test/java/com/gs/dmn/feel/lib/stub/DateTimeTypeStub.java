@@ -17,6 +17,11 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class DateTimeTypeStub<DATE_TIME, DURATION> implements DateTimeType<DATE_TIME, DURATION> {
     @Override
+    public Boolean dateTimeIs(DATE_TIME first, DATE_TIME second) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public Boolean dateTimeEqual(DATE_TIME first, DATE_TIME second) {
         throw new DMNRuntimeException("Not supported yet");
     }

@@ -158,6 +158,16 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
     }
 
     @Override
+    public Boolean numericIs(BigDecimal first, BigDecimal second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return first.unscaledValue().equals(second.unscaledValue())
+                && first.scale() == second.scale();
+    }
+
+    @Override
     public Boolean numericEqual(BigDecimal first, BigDecimal second) {
         return this.comparator.equalTo(first, second);
     }

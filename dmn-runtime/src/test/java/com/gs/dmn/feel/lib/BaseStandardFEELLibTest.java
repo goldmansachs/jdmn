@@ -12,8 +12,10 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.LambdaExpression;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.runtime.Range;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -426,6 +428,52 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertEqualsNumber(makeNumber("4"), getLib().hours(makeDuration("P3DT4H5M6.700S")));
         assertEqualsNumber(makeNumber("5"), getLib().minutes(makeDuration("P3DT4H5M6.700S")));
         assertEqualsNumber(makeNumber("6"), getLib().seconds(makeDuration("P3DT4H5M6.700S")));
+    }
+
+    //
+    // Date and time functions
+    //
+    @Test
+    public void testDateAndTimeFunctions() {
+        assertTrue(getLib().is(null, null));
+        assertFalse(getLib().is(null, makeDate("2010-10-10")));
+        assertFalse(getLib().is(makeTime("12:00:00"), null));
+        assertFalse(getLib().is(makeDate("2012-12-25"), makeTime("23:00:50")));
+
+        assertTrue(getLib().is(makeNumber("10"), makeNumber("10")));
+        assertFalse(getLib().is(makeNumber("10"), makeNumber("11")));
+
+        assertTrue(getLib().is(true, true));
+        assertFalse(getLib().is(true, false));
+
+        assertTrue(getLib().is("abc", "abc"));
+        assertFalse(getLib().is("abc", "abd"));
+
+        assertTrue(getLib().is(makeDate("2012-12-25"), makeDate("2012-12-25")));
+        assertFalse(getLib().is(makeDate("2012-12-25"), makeDate("2012-12-26")));
+
+        assertTrue(getLib().is(makeTime("23:00:50z"), makeTime("23:00:50z")));
+        assertTrue(getLib().is(makeTime("23:00:50z"), makeTime("23:00:50Z")));
+        assertTrue(getLib().is(makeTime("23:00:50z"), makeTime("23:00:50+00:00")));
+
+        assertTrue(getLib().is(makeDateAndTime("2012-12-25T12:00:00"), makeDateAndTime("2012-12-25T12:00:00")));
+        assertFalse(getLib().is(makeDateAndTime("2012-12-25T12:00:00"), makeDateAndTime("2012-12-26T12:00:00z")));
+
+        assertTrue(getLib().is(makeDuration("P1Y"), makeDuration("P1Y")));
+        assertFalse(getLib().is(makeDuration("P1Y"), makeDuration("-P1Y")));
+        assertFalse(getLib().is(makeDuration("P1Y"), makeDuration("P12M")));
+
+        assertTrue(getLib().is(Arrays.asList(), Arrays.asList()));
+        assertTrue(getLib().is(Arrays.asList(makeNumber(1), makeNumber(3)), Arrays.asList(makeNumber(1), makeNumber(3))));
+        assertFalse(getLib().is(Arrays.asList(makeNumber(1), makeNumber(3)), Arrays.asList()));
+
+        assertTrue(getLib().is(new Range(true, makeNumber(1), true, makeNumber(3)), new Range(true, makeNumber(1), true, makeNumber(3))));
+        assertFalse(getLib().is(new Range(true, makeNumber(1), true, makeNumber(3)), new Range(true, makeNumber(2), true, makeNumber(3))));
+        assertFalse(getLib().is(new Range(true, makeNumber(1), true, makeNumber(3)), new Range(false, makeNumber(1), true, makeNumber(3))));
+
+        assertTrue(getLib().is(new Context(), new Context()));
+        assertTrue(getLib().is(new Context().add("a", makeNumber(1)), new Context().add("a", makeNumber(1))));
+        assertFalse(getLib().is(new Context().add("a", makeNumber(1)), new Context()));
     }
 
     //

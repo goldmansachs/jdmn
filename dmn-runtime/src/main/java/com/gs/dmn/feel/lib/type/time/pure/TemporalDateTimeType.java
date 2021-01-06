@@ -17,6 +17,10 @@ import com.gs.dmn.feel.lib.type.time.JavaTimeType;
 import org.slf4j.Logger;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoField;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
@@ -37,6 +41,49 @@ public class TemporalDateTimeType extends JavaTimeType implements DateTimeType<T
     //
     // Date and time operators
     //
+
+    @Override
+    public Boolean dateTimeIs(Temporal first, Temporal second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        if (first.getClass() != second.getClass()) {
+            // Different kind
+            return false;
+        } else if (first instanceof LocalDateTime && second instanceof LocalDateTime) {
+            LocalDateTime first1 = (LocalDateTime) first;
+            LocalDateTime second1 = (LocalDateTime) second;
+            return first1.getYear() == second1.getYear()
+                    && first1.getMonth() == second1.getMonth()
+                    && first1.getDayOfMonth() == second1.getDayOfMonth()
+                    && first1.getHour() == second1.getHour()
+                    && first1.getMinute() == second1.getMinute()
+                    && first1.getSecond() == second1.getSecond();
+        } else if (first instanceof OffsetDateTime && second instanceof OffsetDateTime) {
+            OffsetDateTime first1 = (OffsetDateTime) first;
+            OffsetDateTime second1 = (OffsetDateTime) second;
+            return first1.getYear() == second1.getYear()
+                    && first1.getMonth() == second1.getMonth()
+                    && first1.getDayOfMonth() == second1.getDayOfMonth()
+                    && first1.getHour() == second1.getHour()
+                    && first1.getMinute() == second1.getMinute()
+                    && first1.getSecond() == second1.getSecond()
+                    && first1.getOffset().equals(second1.getOffset());
+        } else if (first instanceof ZonedDateTime && second instanceof ZonedDateTime) {
+            ZonedDateTime first1 = (ZonedDateTime) first;
+            ZonedDateTime second1 = (ZonedDateTime) second;
+            return first1.getYear() == second1.getYear()
+                    && first1.getMonth() == second1.getMonth()
+                    && first1.getDayOfMonth() == second1.getDayOfMonth()
+                    && first1.getHour() == second1.getHour()
+                    && first1.getMinute() == second1.getMinute()
+                    && first1.getSecond() == second1.getSecond()
+                    && (first1.getOffset() == second1.getOffset() || first1.getOffset().equals(second1.getOffset()));
+        } else {
+            return false;
+        }
+    }
 
     @Override
     public Boolean dateTimeEqual(Temporal first, Temporal second) {

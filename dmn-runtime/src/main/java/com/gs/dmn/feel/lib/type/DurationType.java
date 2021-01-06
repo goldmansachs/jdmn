@@ -13,6 +13,8 @@
 package com.gs.dmn.feel.lib.type;
 
 public interface DurationType<DURATION,  NUMBER> {
+    Boolean durationIs(DURATION first, DURATION second);
+
     Boolean durationEqual(DURATION first, DURATION second);
 
     Boolean durationNotEqual(DURATION first, DURATION second);

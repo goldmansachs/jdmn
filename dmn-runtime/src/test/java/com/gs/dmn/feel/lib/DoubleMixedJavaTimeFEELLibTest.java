@@ -21,8 +21,7 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override
@@ -207,6 +206,17 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Doub
         assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
         assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02@Etc/UTC")));
         assertEquals("Z", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02")));
+    }
+
+    //
+    // Date and time functions
+    //
+    @Override
+    @Test
+    public void testDateAndTimeFunctions() {
+        super.testDateAndTimeFunctions();
+
+//        assertFalse(getLib().is(makeTime("23:00:50z"), makeTime("23:00:50")));
     }
 
     @Override

@@ -17,6 +17,11 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class TimeTypeStub<TIME, DURATION> implements TimeType<TIME, DURATION> {
     @Override
+    public Boolean timeIs(TIME first, TIME second) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public Boolean timeEqual(TIME first, TIME second) {
         throw new DMNRuntimeException("Not supported yet");
     }

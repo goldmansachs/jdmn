@@ -39,6 +39,17 @@ public class LocalDateType extends JavaTimeType implements DateType<LocalDate, T
     //
 
     @Override
+    public Boolean dateIs(LocalDate first, LocalDate second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return first.getYear() == second.getYear()
+                && first.getMonth() == second.getMonth()
+                && first.getDayOfMonth() == second.getDayOfMonth();
+    }
+
+    @Override
     public Boolean dateEqual(LocalDate first, LocalDate second) {
         return this.comparator.equalTo(first, second);
     }

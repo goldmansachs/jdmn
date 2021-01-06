@@ -18,6 +18,11 @@ import com.gs.dmn.runtime.Range;
 
 public class RangeTypeStub implements RangeType {
     @Override
+    public Boolean rangeIs(Range range1, Range range2) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public Boolean rangeEqual(Range range1, Range range2) {
         throw new DMNRuntimeException("Not supported yet");
     }

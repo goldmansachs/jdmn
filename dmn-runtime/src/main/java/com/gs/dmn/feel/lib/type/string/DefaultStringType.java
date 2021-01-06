@@ -35,6 +35,15 @@ public class DefaultStringType extends BaseType implements StringType {
     }
 
     @Override
+    public Boolean stringIs(String first, String second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return first.equals(second);
+    }
+
+    @Override
     public Boolean stringEqual(String first, String second) {
         return this.comparator.equalTo(first, second);
     }
