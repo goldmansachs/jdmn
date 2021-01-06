@@ -117,19 +117,25 @@ public abstract class BaseDateTimeLib {
         return literal.indexOf('T') != -1;
     }
 
-    protected boolean hasZone(String literal) {
+    protected boolean hasZoneId(String literal) {
         if (literal == null) {
             return false;
         }
 
-        return literal.endsWith("Z") || literal.endsWith("z") || literal.endsWith("]") || literal.contains("@");
+        return literal.endsWith("]") || literal.contains("@");
     }
 
-    protected boolean hasOffset(String literal) {
+    protected boolean hasZoneOffset(String literal) {
         if (literal == null) {
             return false;
         }
 
+        // Check for offset ID Z
+        if (literal.endsWith("Z") || literal.endsWith("z")) {
+            return true;
+        }
+
+        // Check for offset ID +/-HH:MM
         // Remove sign
         if (literal.startsWith("-") || literal.startsWith("+")) {
             literal = literal.substring(1);
@@ -248,11 +254,11 @@ public abstract class BaseDateTimeLib {
         if (!isTime(literal)) {
             return null;
         }
-        if (hasZone(literal) && timeHasOffset(literal)) {
+        if (hasZoneId(literal) && timeHasOffset(literal)) {
             return null;
         }
 
-        if (hasZone(literal)) {
+        if (hasZoneId(literal)) {
             if (literal.contains("@")) {
                 int zoneIndex = literal.indexOf("@");
                 String zoneId = literal.substring(literal.indexOf('@') + 1);
@@ -264,7 +270,7 @@ public abstract class BaseDateTimeLib {
             } else {
                 return OffsetTime.parse(literal);
             }
-        } else if (hasOffset(literal)) {
+        } else if (hasZoneOffset(literal)) {
             return OffsetTime.parse(literal);
         } else {
             return OffsetTime.parse(literal + "Z");
@@ -293,9 +299,9 @@ public abstract class BaseDateTimeLib {
         }
 
         literal = fixDateTimeFormat(literal);
-        if (hasZone(literal)) {
+        if (hasZoneId(literal)) {
             return ZonedDateTime.parse(literal, FEEL_DATE_TIME_FORMAT);
-        } else if (hasOffset(literal)) {
+        } else if (hasZoneOffset(literal)) {
             return ZonedDateTime.parse(literal, FEEL_DATE_TIME_FORMAT);
         } else if (hasTime(literal)) {
             return ZonedDateTime.parse(literal + 'Z', FEEL_DATE_TIME_FORMAT);

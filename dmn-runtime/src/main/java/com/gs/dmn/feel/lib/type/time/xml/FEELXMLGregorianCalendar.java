@@ -1445,7 +1445,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
                 result = String.format("%02d:%02d:%02d%s", hour, minute, second, nanoseconds);
             }
             if (zoneID != null) {
-                if (isOffset(zoneID)) {
+                if (isZoneOffset(zoneID)) {
                     result += zoneID;
                 } else {
                     result += "@" + zoneID;
@@ -1468,7 +1468,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
                 result = String.format("%d-%02d-%02dT%02d:%02d:%02d%s", year, month, day, hour, minute, second, nanoseconds);
             }
             if (zoneID != null) {
-                if (isOffset(zoneID)) {
+                if (isZoneOffset(zoneID)) {
                     result += zoneID;
                 } else {
                     result += "@" + zoneID;
@@ -1480,9 +1480,9 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         }
     }
 
-    private boolean isOffset(String zoneID) {
+    private boolean isZoneOffset(String zoneID) {
         return zoneID != null &&
-                ( zoneID.equals("Z") || zoneID.startsWith("+") || zoneID.startsWith("-") )
+                ( zoneID.equalsIgnoreCase("Z") || zoneID.startsWith("+") || zoneID.startsWith("-") )
                 ;
     }
 
