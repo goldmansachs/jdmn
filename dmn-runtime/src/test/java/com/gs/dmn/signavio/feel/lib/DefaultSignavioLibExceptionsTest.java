@@ -16,6 +16,7 @@ import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.feel.lib.stub.*;
 import com.gs.dmn.feel.lib.type.*;
+import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.signavio.feel.lib.stub.SignavioDateTimeLibStub;
 import com.gs.dmn.signavio.feel.lib.stub.SignavioListLibStub;
 import com.gs.dmn.signavio.feel.lib.stub.SignavioNumberLibStub;
@@ -41,6 +42,7 @@ public class DefaultSignavioLibExceptionsTest extends BaseSignavioLibExceptionsT
         DurationType<Duration, BigDecimal> durationType = new DurationTypeStub<>();
         ListType listType = new ListTypeStub();
         ContextType contextType = new ContextTypeStub();
+        RangeType rangeType = new RangeTypeStub();
         StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> feelLib = new DefaultFEELLib();
         SignavioNumberLib<BigDecimal> numberLib = new SignavioNumberLibStub<>();
         SignavioStringLib stringLib = new SignavioStringLibStub();
@@ -49,7 +51,7 @@ public class DefaultSignavioLibExceptionsTest extends BaseSignavioLibExceptionsT
         return new DefaultSignavioLib(
                 numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
-                listType, contextType,
+                listType, contextType, rangeType,
                 feelLib, numberLib, stringLib, dateTimeLib, listLib
         );
     }

@@ -19,6 +19,7 @@ import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
 import com.gs.dmn.feel.lib.type.range.RangeLib;
+import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DurationLib;
@@ -61,6 +62,7 @@ public class MixedJavaTimeFEELLib extends BaseMixedJavaTimeFEELLib<BigDecimal> i
             DurationType<Duration, BigDecimal> durationType,
             ListType listType,
             ContextType contextType,
+            RangeType rangeType,
             NumericLib<BigDecimal> numericLib,
             StringLib stringLib,
             BooleanLib booleanLib,
@@ -70,7 +72,7 @@ public class MixedJavaTimeFEELLib extends BaseMixedJavaTimeFEELLib<BigDecimal> i
             RangeLib rangeLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
-                listType, contextType,
+                listType, contextType, rangeType,
                 numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib
         );
     }

@@ -13,13 +13,14 @@
 package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.feel.lib.type.*;
+import com.gs.dmn.feel.lib.type.range.RangeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
-        NumericType<NUMBER>, StringType, BooleanType, ListType, ContextType,
+        NumericType<NUMBER>, StringType, BooleanType, ListType, ContextType, RangeType,
         DateType<DATE, DURATION>, TimeType<TIME, DURATION>, DateTimeType<DATE_TIME, DURATION>, DurationType<DURATION, NUMBER> {
     Logger LOGGER = LoggerFactory.getLogger(FEELLib.class);
 
