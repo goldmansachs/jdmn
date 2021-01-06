@@ -44,10 +44,7 @@ public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCa
             return first == second;
         }
 
-        return first.getHour() == second.getHour()
-                && first.getMinute() == second.getMinute()
-                && first.getSecond() == second.getSecond()
-                && first.getTimezone() == second.getTimezone();
+        return ((FEELXMLGregorianCalendar) first).same(second);
     }
 
     //

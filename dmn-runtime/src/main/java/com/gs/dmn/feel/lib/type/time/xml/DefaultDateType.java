@@ -48,9 +48,7 @@ public class DefaultDateType extends BaseType implements DateType<XMLGregorianCa
             return first == second;
         }
 
-        return first.getYear() == second.getYear()
-                && first.getMonth() == second.getMonth()
-                && first.getDay() == second.getDay();
+        return ((FEELXMLGregorianCalendar) first).same(second);
     }
 
     @Override

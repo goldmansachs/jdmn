@@ -33,7 +33,7 @@ public class DefaultXMLCalendarComparator implements RelationalComparator<XMLGre
                 () -> TRUE,
                 () -> FALSE,
                 () -> FALSE,
-                () -> ((FEELXMLGregorianCalendar)first).same(second)
+                () -> first.compare(second) == EQUAL
         });
     }
 

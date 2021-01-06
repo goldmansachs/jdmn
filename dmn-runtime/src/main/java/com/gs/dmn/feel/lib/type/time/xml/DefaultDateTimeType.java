@@ -48,14 +48,7 @@ public class DefaultDateTimeType extends BaseType implements DateTimeType<XMLGre
             return first == second;
         }
 
-        return first.getYear() == second.getYear()
-                && first.getMonth() == second.getMonth()
-                && first.getDay() == second.getDay()
-
-                && first.getHour() == second.getHour()
-                && first.getMinute() == second.getMinute()
-                && first.getSecond() == second.getSecond()
-                && first.getTimezone() == second.getTimezone();
+        return ((FEELXMLGregorianCalendar) first).same(second);
     }
 
     @Override
