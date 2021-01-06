@@ -42,6 +42,18 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
     //
 
     @Override
+    public Boolean timeIs(OffsetTime first, OffsetTime second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return first.getHour() == second.getHour()
+                && first.getMinute() == second.getMinute()
+                && first.getSecond() == second.getSecond()
+                && first.getOffset() == second.getOffset();
+    }
+
+    @Override
     public Boolean timeEqual(OffsetTime first, OffsetTime second) {
         return this.comparator.equalTo(first, second);
     }

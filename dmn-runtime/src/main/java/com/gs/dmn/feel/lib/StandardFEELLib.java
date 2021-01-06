@@ -187,6 +187,11 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     String monthOfYear(DATE date);
 
     //
+    // Date and time functions
+    //
+    Boolean is(Object value1, Object value2);
+
+    //
     // List functions
     //
     @Override

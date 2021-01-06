@@ -86,4 +86,24 @@ public class MixedJavaTimeFEELLib extends BaseMixedJavaTimeFEELLib<BigDecimal> i
     protected int intValue(BigDecimal number) {
         return number.intValue();
     }
+
+    @Override
+    protected boolean isDate(Object value) {
+        return value instanceof LocalDate;
+    }
+
+    @Override
+    protected boolean isTime(Object value) {
+        return value instanceof OffsetTime;
+    }
+
+    @Override
+    protected boolean isDateTime(Object value) {
+        return value instanceof ZonedDateTime;
+    }
+
+    @Override
+    protected boolean isDuration(Object value) {
+        return value instanceof Duration;
+    }
 }

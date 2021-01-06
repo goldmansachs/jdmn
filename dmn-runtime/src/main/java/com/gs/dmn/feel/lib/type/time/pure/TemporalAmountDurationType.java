@@ -37,6 +37,33 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
     //
 
     @Override
+    public Boolean durationIs(TemporalAmount first, TemporalAmount second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        if (first instanceof Period && second instanceof Period) {
+            Period period1 = (Period) first;
+            Period period2 = (Period) second;
+            return period1.isNegative() == period2.isNegative()
+                    && period1.getYears() == period2.getYears()
+                    && period1.getMonths() == period2.getMonths()
+                    && period1.getDays() == period2.getDays();
+        } else if (first instanceof Duration && second instanceof Duration) {
+            Duration duration1 = (Duration) first;
+            Duration duration2 = (Duration) second;
+            return duration1.isNegative() == duration2.isNegative()
+                    && duration1.toDays() == duration2.toDays()
+                    && duration1.toHours() == duration2.toHours()
+                    && duration1.toMinutes() == duration2.toMinutes()
+                    && duration1.getSeconds() == duration2.getSeconds();
+        } else {
+            throw new DMNRuntimeException("Not supported yet");
+        }
+
+    }
+
+    @Override
     public Boolean durationEqual(TemporalAmount first, TemporalAmount second) {
         if (first == null && second == null) {
             return true;

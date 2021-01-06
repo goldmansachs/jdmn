@@ -18,6 +18,11 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class DurationTypeStub<DURATION, NUMBER> implements DurationType<DURATION, NUMBER> {
     @Override
+    public Boolean durationIs(DURATION first, DURATION second) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public Boolean durationEqual(DURATION first, DURATION second) {
         throw new DMNRuntimeException("Not supported yet");
     }

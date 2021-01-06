@@ -13,6 +13,8 @@
 package com.gs.dmn.feel.lib.type;
 
 public interface StringType {
+    Boolean stringIs(String first, String second);
+
     Boolean stringEqual(String first, String second);
 
     Boolean stringNotEqual(String first, String second);

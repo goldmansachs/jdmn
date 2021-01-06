@@ -226,5 +226,15 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
         assertNull(getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02")));
         assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02@Etc/UTC")));
     }
+
+    //
+    // Date and time functions
+    //
+    @Override
+    @Test
+    public void testDateAndTimeFunctions() {
+        super.testDateAndTimeFunctions();
+        assertFalse(getLib().is(makeTime("23:00:50z"), makeTime("23:00:50")));
+    }
 }
 

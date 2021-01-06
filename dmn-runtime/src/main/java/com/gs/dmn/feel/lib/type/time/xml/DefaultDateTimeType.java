@@ -43,6 +43,22 @@ public class DefaultDateTimeType extends BaseType implements DateTimeType<XMLGre
     //
 
     @Override
+    public Boolean dateTimeIs(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return first.getYear() == second.getYear()
+                && first.getMonth() == second.getMonth()
+                && first.getDay() == second.getDay()
+
+                && first.getHour() == second.getHour()
+                && first.getMinute() == second.getMinute()
+                && first.getSecond() == second.getSecond()
+                && first.getTimezone() == second.getTimezone();
+    }
+
+    @Override
     public Boolean dateTimeEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         return this.comparator.equalTo(first, second);
     }

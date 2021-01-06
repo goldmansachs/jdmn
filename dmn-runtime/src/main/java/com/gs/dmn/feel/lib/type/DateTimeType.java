@@ -13,6 +13,8 @@
 package com.gs.dmn.feel.lib.type;
 
 public interface DateTimeType<DATE_TIME, DURATION> {
+    Boolean dateTimeIs(DATE_TIME first, DATE_TIME second);
+
     Boolean dateTimeEqual(DATE_TIME first, DATE_TIME second);
 
     Boolean dateTimeNotEqual(DATE_TIME first, DATE_TIME second);

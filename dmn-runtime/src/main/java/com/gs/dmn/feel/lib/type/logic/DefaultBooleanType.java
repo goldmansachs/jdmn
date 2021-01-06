@@ -110,6 +110,11 @@ public class DefaultBooleanType extends BaseType implements BooleanType {
     }
 
     @Override
+    public Boolean booleanIs(Boolean first, Boolean second) {
+        return booleanEqual(first, second);
+    }
+
+    @Override
     public Boolean booleanEqual(Boolean first, Boolean second) {
         if (first == null && second == null) {
             return TRUE;

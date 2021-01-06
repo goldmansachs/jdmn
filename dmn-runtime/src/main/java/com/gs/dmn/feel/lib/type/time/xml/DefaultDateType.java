@@ -43,6 +43,17 @@ public class DefaultDateType extends BaseType implements DateType<XMLGregorianCa
     //
 
     @Override
+    public Boolean dateIs(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return first.getYear() == second.getYear()
+                && first.getMonth() == second.getMonth()
+                && first.getDay() == second.getDay();
+    }
+
+    @Override
     public Boolean dateEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         return this.comparator.equalTo(first, second);
     }

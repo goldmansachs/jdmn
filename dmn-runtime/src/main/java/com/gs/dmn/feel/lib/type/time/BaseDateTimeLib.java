@@ -122,7 +122,7 @@ public abstract class BaseDateTimeLib {
             return false;
         }
 
-        return literal.endsWith("Z") || literal.endsWith("]") || literal.contains("@");
+        return literal.endsWith("Z") || literal.endsWith("z") || literal.endsWith("]") || literal.contains("@");
     }
 
     protected boolean hasOffset(String literal) {

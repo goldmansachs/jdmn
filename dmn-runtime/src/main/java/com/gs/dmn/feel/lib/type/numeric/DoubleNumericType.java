@@ -128,6 +128,15 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
     }
 
     @Override
+    public Boolean numericIs(Double first, Double second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return first.equals(second);
+    }
+
+    @Override
     public Boolean numericEqual(Double first, Double second) {
         return this.comparator.equalTo(first, second);
     }

@@ -127,6 +127,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     @Override
+    public Boolean numericIs(NUMBER first, NUMBER second) {
+        try {
+            return numericType.numericIs(first, second);
+        } catch (Exception e) {
+            String message = String.format("numericIs(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public Boolean numericEqual(NUMBER first, NUMBER second) {
         try {
             return numericType.numericEqual(first, second);
@@ -273,6 +284,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     @Override
+    public Boolean booleanIs(Boolean first, Boolean second) {
+        try {
+            return booleanType.booleanIs(first, second);
+        } catch (Exception e) {
+            String message = String.format("booleanIs(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public Boolean booleanEqual(Boolean first, Boolean second) {
         try {
             return booleanType.booleanEqual(first, second);
@@ -353,6 +375,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     // String operators
     //
     @Override
+    public Boolean stringIs(String first, String second) {
+        try {
+            return stringType.stringIs(first, second);
+        } catch (Exception e) {
+            String message = String.format("stringIs(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public Boolean stringEqual(String first, String second) {
         try {
             return stringType.stringEqual(first, second);
@@ -432,6 +465,16 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     //
     // Date operators
     //
+    @Override
+    public Boolean dateIs(DATE first, DATE second) {
+        try {
+            return dateType.dateIs(first, second);
+        } catch (Exception e) {
+            String message = String.format("dateIs(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
 
     @Override
     public Boolean dateEqual(DATE first, DATE second) {
@@ -536,6 +579,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     // Time operators
     //
     @Override
+    public Boolean timeIs(TIME first, TIME second) {
+        try {
+            return timeType.timeIs(first, second);
+        } catch (Exception e) {
+            String message = String.format("timeIs(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public Boolean timeEqual(TIME first, TIME second) {
         try {
             return timeType.timeEqual(first, second);
@@ -638,6 +692,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     // Date and Time operators
     //
     @Override
+    public Boolean dateTimeIs(DATE_TIME first, DATE_TIME second) {
+        try {
+            return dateTimeType.dateTimeIs(first, second);
+        } catch (Exception e) {
+            String message = String.format("dateTimeIs(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public Boolean dateTimeEqual(DATE_TIME first, DATE_TIME second) {
         try {
             return dateTimeType.dateTimeEqual(first, second);
@@ -739,6 +804,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     //
     // Duration operators
     //
+    @Override
+    public Boolean durationIs(DURATION first, DURATION second) {
+        try {
+            return durationType.durationIs(first, second);
+        } catch (Exception e) {
+            String message = String.format("durationIs(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
     @Override
     public Boolean durationEqual(DURATION first, DURATION second) {
         try {
@@ -853,6 +929,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     // List operators
     //
     @Override
+    public Boolean listIs(List first, List second) {
+        try {
+            return listType.listIs(first, second);
+        } catch (Exception e) {
+            String message = String.format("listIs(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public Boolean listEqual(List list1, List list2) {
         try {
             return listType.listEqual(list1, list2);
@@ -878,6 +965,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     // Context operators
     //
     @Override
+    public Boolean contextIs(Object c1, Object c2) {
+        try {
+            return contextType.contextIs(c1, c2);
+        } catch (Exception e) {
+            String message = String.format("contextIs(%s, %s)", c1, c2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public Boolean contextEqual(Object c1, Object c2) {
         try {
             return contextType.contextEqual(c1, c2);
@@ -902,6 +1000,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     //
     // Range operators
     //
+    @Override
+    public Boolean rangeIs(Range range1, Range range2) {
+        try {
+            return rangeType.rangeIs(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("rangeIs(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
     @Override
     public Boolean rangeEqual(Range range1, Range range2) {
         try {

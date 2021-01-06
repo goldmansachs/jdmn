@@ -21,6 +21,7 @@ import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DurationLib;
+import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.LambdaExpression;
 import com.gs.dmn.runtime.Range;
 
@@ -814,6 +815,48 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     //
+    // Date and time functions
+    //
+    @Override
+    public Boolean is(Object value1, Object value2) {
+        try {
+            if (value1 == null || value2 == null) {
+                return value1 == value2;
+            } else if (value1.getClass() != value2.getClass()) {
+                // Different kind
+                return false;
+            } else if (value1 instanceof Number) {
+                return this.numericType.numericIs((NUMBER) value1, (NUMBER) value2);
+            } else if (value1 instanceof Boolean) {
+                return this.booleanType.booleanIs((Boolean) value1, (Boolean) value2);
+            } else if (value1 instanceof String) {
+                return this.stringType.stringIs((String) value1, (String) value2);
+            } else if (isDate(value1)) {
+                return this.dateType.dateIs((DATE) value1, (DATE) value2);
+            } else if (isTime(value1)) {
+                return this.timeType.timeIs((TIME) value1, (TIME) value2);
+            } else if (isDateTime(value1)) {
+                return this.dateTimeType.dateTimeIs((DATE_TIME) value1, (DATE_TIME) value2);
+            } else if (isDuration(value1)) {
+                return this.durationType.durationIs((DURATION) value1, (DURATION) value2);
+            } else if (value1 instanceof List) {
+                return this.listType.listIs((List) value1, (List) value2);
+            } else if (value1 instanceof Range) {
+                return this.rangeType.rangeIs((Range) value1, (Range) value2);
+            } else if (value1 instanceof Context) {
+                return this.contextType.contextIs(value1, value2);
+            } else {
+                logError(String.format("'%s' is not supported yet", value1.getClass().getSimpleName()));
+                return false;
+            }
+        } catch (Exception e) {
+            String message = String.format("is(%s, %s)", value1, value2);
+            logError(message, e);
+            return false;
+        }
+    }
+
+    //
     // Temporal functions
     //
     @Override
@@ -1483,4 +1526,9 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             return null;
         }
     }
+
+    protected abstract boolean isDate(Object value);
+    protected abstract boolean isTime(Object value);
+    protected abstract boolean isDateTime(Object value);
+    protected abstract boolean isDuration(Object value);
 }
