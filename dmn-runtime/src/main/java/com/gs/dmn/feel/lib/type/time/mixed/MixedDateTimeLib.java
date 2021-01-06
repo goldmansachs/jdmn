@@ -38,7 +38,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
             return null;
         }
 
-        if (this.hasTime(literal) || this.hasZone(literal)) {
+        if (this.hasTime(literal) || this.hasZoneId(literal)) {
             return null;
         } else {
             return this.makeLocalDate(literal);
@@ -151,7 +151,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         if (from == null) {
             return null;
         }
-        if (this.hasZone(from) && this.hasOffset(from)) {
+        if (this.hasZoneId(from) && this.hasZoneOffset(from)) {
             return null;
         }
         if (this.invalidYear(from)) {

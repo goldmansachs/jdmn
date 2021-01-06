@@ -72,45 +72,45 @@ public class BaseDateTimeLibTest {
     }
 
     @Test
-    public void testHasZone() {
-        assertFalse(this.dateTimeLib.hasZone("12:00:00"));
-        assertTrue(this.dateTimeLib.hasZone("12:00:00Z"));
-        assertTrue(this.dateTimeLib.hasZone("12:00:00[UTC]"));
-        assertTrue(this.dateTimeLib.hasZone("12:00:00@Europe/Paris"));
-        assertFalse(this.dateTimeLib.hasZone("12:00:00+00:00"));
-        assertFalse(this.dateTimeLib.hasZone("12:00:00-00:00"));
-        assertFalse(this.dateTimeLib.hasZone("12:00:00-0000"));
-        assertFalse(this.dateTimeLib.hasZone("12:00:00+0000"));
+    public void testHasZoneId() {
+        assertFalse(this.dateTimeLib.hasZoneId("12:00:00"));
+        assertFalse(this.dateTimeLib.hasZoneId("12:00:00Z"));
+        assertTrue(this.dateTimeLib.hasZoneId("12:00:00[UTC]"));
+        assertTrue(this.dateTimeLib.hasZoneId("12:00:00@Europe/Paris"));
+        assertFalse(this.dateTimeLib.hasZoneId("12:00:00+00:00"));
+        assertFalse(this.dateTimeLib.hasZoneId("12:00:00-00:00"));
+        assertFalse(this.dateTimeLib.hasZoneId("12:00:00-0000"));
+        assertFalse(this.dateTimeLib.hasZoneId("12:00:00+0000"));
 
-        assertFalse(this.dateTimeLib.hasZone("2016-08-01T12:00:00"));
-        assertTrue(this.dateTimeLib.hasZone("2016-08-01T12:00:00Z"));
-        assertTrue(this.dateTimeLib.hasZone("2016-08-01T12:00:00[UTC]"));
-        assertTrue(this.dateTimeLib.hasZone("2016-08-01T12:00:00@Europe/Paris"));
-        assertFalse(this.dateTimeLib.hasZone("2016-08-01T12:00:00+00:00"));
-        assertFalse(this.dateTimeLib.hasZone("2016-08-01T12:00:00-00:00"));
-        assertFalse(this.dateTimeLib.hasZone("2016-08-01T12:00:00-0000"));
-        assertFalse(this.dateTimeLib.hasZone("2016-08-01T12:00:00+0000"));
+        assertFalse(this.dateTimeLib.hasZoneId("2016-08-01T12:00:00"));
+        assertFalse(this.dateTimeLib.hasZoneId("2016-08-01T12:00:00Z"));
+        assertTrue(this.dateTimeLib.hasZoneId("2016-08-01T12:00:00[UTC]"));
+        assertTrue(this.dateTimeLib.hasZoneId("2016-08-01T12:00:00@Europe/Paris"));
+        assertFalse(this.dateTimeLib.hasZoneId("2016-08-01T12:00:00+00:00"));
+        assertFalse(this.dateTimeLib.hasZoneId("2016-08-01T12:00:00-00:00"));
+        assertFalse(this.dateTimeLib.hasZoneId("2016-08-01T12:00:00-0000"));
+        assertFalse(this.dateTimeLib.hasZoneId("2016-08-01T12:00:00+0000"));
     }
 
     @Test
-    public void testHasOffset() {
-        assertFalse(this.dateTimeLib.hasOffset("12:00:00"));
-        assertFalse(this.dateTimeLib.hasOffset("12:00:00Z"));
-        assertFalse(this.dateTimeLib.hasOffset("12:00:00[UTC]"));
-        assertTrue(this.dateTimeLib.hasOffset("12:00:00+00:00"));
-        assertTrue(this.dateTimeLib.hasOffset("12:00:00-00:00"));
-        assertFalse(this.dateTimeLib.hasOffset("12:00:00-0000"));
-        assertFalse(this.dateTimeLib.hasOffset("12:00:00+0000"));
+    public void testHasZoneOffset() {
+        assertFalse(this.dateTimeLib.hasZoneOffset("12:00:00"));
+        assertTrue(this.dateTimeLib.hasZoneOffset("12:00:00Z"));
+        assertFalse(this.dateTimeLib.hasZoneOffset("12:00:00[UTC]"));
+        assertTrue(this.dateTimeLib.hasZoneOffset("12:00:00+00:00"));
+        assertTrue(this.dateTimeLib.hasZoneOffset("12:00:00-00:00"));
+        assertFalse(this.dateTimeLib.hasZoneOffset("12:00:00-0000"));
+        assertFalse(this.dateTimeLib.hasZoneOffset("12:00:00+0000"));
 
-        assertFalse(this.dateTimeLib.hasOffset("2016-08-01T12:00:00"));
-        assertFalse(this.dateTimeLib.hasOffset("2016-08-01T12:00:00Z"));
-        assertFalse(this.dateTimeLib.hasOffset("2016-08-01T12:00:00[UTC]"));
-        assertTrue(this.dateTimeLib.hasOffset("2016-08-01T12:00:00+00:00"));
-        assertTrue(this.dateTimeLib.hasOffset("2016-08-01T12:00:00-00:00"));
-        assertTrue(this.dateTimeLib.hasOffset("-999999999-01-01T12:00:00-00:00"));
-        assertTrue(this.dateTimeLib.hasOffset("+999999999-01-01T12:00:00-00:00"));
-        assertFalse(this.dateTimeLib.hasOffset("2016-08-01T12:00:00-0000"));
-        assertFalse(this.dateTimeLib.hasOffset("2016-08-01T12:00:00+0000"));
+        assertFalse(this.dateTimeLib.hasZoneOffset("2016-08-01T12:00:00"));
+        assertTrue(this.dateTimeLib.hasZoneOffset("2016-08-01T12:00:00Z"));
+        assertFalse(this.dateTimeLib.hasZoneOffset("2016-08-01T12:00:00[UTC]"));
+        assertTrue(this.dateTimeLib.hasZoneOffset("2016-08-01T12:00:00+00:00"));
+        assertTrue(this.dateTimeLib.hasZoneOffset("2016-08-01T12:00:00-00:00"));
+        assertTrue(this.dateTimeLib.hasZoneOffset("-999999999-01-01T12:00:00-00:00"));
+        assertTrue(this.dateTimeLib.hasZoneOffset("+999999999-01-01T12:00:00-00:00"));
+        assertFalse(this.dateTimeLib.hasZoneOffset("2016-08-01T12:00:00-0000"));
+        assertFalse(this.dateTimeLib.hasZoneOffset("2016-08-01T12:00:00+0000"));
     }
 
     @Test
@@ -179,13 +179,13 @@ class BaseDateTimeLibStub extends BaseDateTimeLib {
     }
 
     @Override
-    protected boolean hasZone(String literal) {
-        return super.hasZone(literal);
+    protected boolean hasZoneId(String literal) {
+        return super.hasZoneId(literal);
     }
 
     @Override
-    protected boolean hasOffset(String literal) {
-        return super.hasOffset(literal);
+    protected boolean hasZoneOffset(String literal) {
+        return super.hasZoneOffset(literal);
     }
 
     @Override

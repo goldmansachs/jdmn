@@ -38,7 +38,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
             return null;
         }
 
-        if (this.hasTime(literal) || this.hasZone(literal)) {
+        if (this.hasTime(literal) || this.hasZoneId(literal)) {
             return null;
         } else {
             return this.makeLocalDate(literal);
