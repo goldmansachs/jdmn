@@ -56,6 +56,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         addStringFunctions(environment);
         addListFunctions(environment);
         addContextFunctions(environment);
+        addDateTimeFunctions(environment);
         addTemporalFunctions(environment);
         addRangeFunctions(environment);
     }
@@ -162,6 +163,10 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     private static void addContextFunctions(Environment environment) {
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("get entries", new BuiltinFunctionType(CONTEXT_LIST, new Parameter("m", ContextType.ANY_CONTEXT))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("get value", new BuiltinFunctionType(ANY, new Parameter("m", ContextType.ANY_CONTEXT), new Parameter("key", STRING))));
+    }
+
+    private static void addDateTimeFunctions(Environment environment) {
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("is", new BuiltinFunctionType(BOOLEAN, new Parameter("value1", ANY), new Parameter("value2", ANY))));
     }
 
     private static void addTemporalFunctions(Environment environment) {

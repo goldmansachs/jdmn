@@ -604,6 +604,36 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
     }
 
     @Test
+    public void testDateTimeFunctions() {
+        List<EnvironmentEntry> entries = new ArrayList<>();
+
+        doExpressionTest(entries, "", "is(1, 1)",
+                "FunctionInvocation(Name(is) -> PositionalParameters(NumericLiteral(1), NumericLiteral(1)))",
+                "boolean",
+                "is(number(\"1\"), number(\"1\"))",
+                lib.is(lib.number("1"), lib.number("1")),
+                true);
+        doExpressionTest(entries, "", "is(@\"2012-12-25\", @\"23:00:50\")",
+                "FunctionInvocation(Name(is) -> PositionalParameters(DateTimeLiteral(date, \"2012-12-25\"), DateTimeLiteral(time, \"23:00:50\")))",
+                "boolean",
+                "is(date(\"2012-12-25\"), time(\"23:00:50\"))",
+                lib.is(lib.date("2012-12-25"), lib.time("23:00:50")),
+                false);
+        doExpressionTest(entries, "", "is(@\"2012-12-25\", @\"2012-12-25\")",
+                "FunctionInvocation(Name(is) -> PositionalParameters(DateTimeLiteral(date, \"2012-12-25\"), DateTimeLiteral(date, \"2012-12-25\")))",
+                "boolean",
+                "is(date(\"2012-12-25\"), date(\"2012-12-25\"))",
+                lib.is(lib.date("2012-12-25"), lib.date("2012-12-25")),
+                true);
+        doExpressionTest(entries, "", "is(@\"23:00:50Z\", @\"23:00:50\")",
+                "FunctionInvocation(Name(is) -> PositionalParameters(DateTimeLiteral(time, \"23:00:50Z\"), DateTimeLiteral(time, \"23:00:50\")))",
+                "boolean",
+                "is(time(\"23:00:50Z\"), time(\"23:00:50\"))",
+                lib.is(lib.time("23:00:50Z"), lib.time("23:00:50")),
+                false);
+    }
+
+    @Test
     public void testTemporalFunctions() {
         List<EnvironmentEntry> entries = new ArrayList<>();
 
