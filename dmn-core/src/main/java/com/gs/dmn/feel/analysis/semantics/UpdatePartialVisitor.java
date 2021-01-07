@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics;
 
+import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.CloneVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
@@ -21,7 +22,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.ForExpression;
 public class UpdatePartialVisitor extends CloneVisitor {
     private final Type partialType;
 
-    public UpdatePartialVisitor(Type partialType) {
+    public UpdatePartialVisitor(Type partialType, ErrorHandler errorHandler) {
+        super(errorHandler);
         this.partialType = partialType;
     }
 
@@ -36,7 +38,7 @@ public class UpdatePartialVisitor extends CloneVisitor {
 
         String name = element.getName();
         if (ForExpression.PARTIAL_PARAMETER_NAME.equals(name)) {
-            element.setType(partialType);
+            element.setType(this.partialType);
         }
         return element;
     }

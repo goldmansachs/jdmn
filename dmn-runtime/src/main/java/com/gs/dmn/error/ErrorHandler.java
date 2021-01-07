@@ -10,13 +10,10 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast;
+package com.gs.dmn.error;
 
-import com.gs.dmn.error.NopErrorHandler;
+public interface ErrorHandler {
+    void reportError(String message);
 
-public class CloneVisitorTest extends BaseVisitorTest {
-    @Override
-    protected Visitor getVisitor() {
-        return new CloneVisitor(NopErrorHandler.INSTANCE);
-    }
+    void reportError(String message, Exception e);
 }

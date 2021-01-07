@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics;
 
+import com.gs.dmn.error.LogAndThrowErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.*;
@@ -44,7 +45,7 @@ import java.util.stream.Collectors;
 
 public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
     public FEELSemanticVisitor(BasicDMNToNativeTransformer dmnTransformer) {
-        super(dmnTransformer);
+        super(dmnTransformer, new LogAndThrowErrorHandler(LOGGER));
     }
 
     //
@@ -208,7 +209,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         element.getBody().accept(this, qParamsContext);
         element.deriveType(qParamsContext);
         qParamsContext.getEnvironment().updateVariableDeclaration(ForExpression.PARTIAL_PARAMETER_NAME, element.getType());
-        element.getBody().accept(new UpdatePartialVisitor(element.getType()), qParamsContext);
+        element.getBody().accept(new UpdatePartialVisitor(element.getType(), this.errorHandler), qParamsContext);
         return element;
     }
 
@@ -272,7 +273,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         if (elementType instanceof ListType) {
             elementType = ((ListType) elementType).getElementType();
         }
-        return (Expression)filter.accept(new AddItemFilterVisitor(filterVariableName, elementType), context);
+        return (Expression)filter.accept(new AddItemFilterVisitor(filterVariableName, elementType, this.errorHandler), context);
     }
 
     @Override

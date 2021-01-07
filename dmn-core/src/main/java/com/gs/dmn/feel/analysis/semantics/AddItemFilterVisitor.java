@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics;
 
+import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
@@ -28,7 +29,8 @@ public class AddItemFilterVisitor extends CloneVisitor {
     private final String lambdaParameterName;
     private final Type lambdaParameterType;
 
-    public AddItemFilterVisitor(String lambdaParameterName, Type lambdaParameterType) {
+    public AddItemFilterVisitor(String lambdaParameterName, Type lambdaParameterType, ErrorHandler errorHandler) {
+        super(errorHandler);
         this.lambdaParameterName = lambdaParameterName;
         this.lambdaParameterType = lambdaParameterType;
     }

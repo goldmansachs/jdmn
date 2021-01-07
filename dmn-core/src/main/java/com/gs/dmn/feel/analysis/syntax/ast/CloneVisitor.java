@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
+import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.ArithmeticNegation;
@@ -35,7 +36,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CloneVisitor extends AbstractVisitor {
-    private final ASTFactory astFactory = new ASTFactory();
+    private final ASTFactory astFactory;
+
+    public CloneVisitor(ErrorHandler errorHandler) {
+        super(errorHandler);
+        this.astFactory = new ASTFactory();
+    }
 
     //
     // Tests

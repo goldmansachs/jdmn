@@ -77,14 +77,14 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     private final DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter;
     private final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib;
     private final FEELTranslator feelTranslator;
-    private final DefaultExternalFunctionExecutor externalFunctionExecutor = new DefaultExternalFunctionExecutor();
-
+    private final DefaultExternalFunctionExecutor externalFunctionExecutor;
 
     FEELInterpreterVisitor(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter) {
         super(dmnInterpreter.getBasicDMNTransformer());
         this.dmnInterpreter = dmnInterpreter;
         this.feelTranslator = new FEELTranslatorForInterpreter(dmnInterpreter.getBasicDMNTransformer());
         this.lib = dmnInterpreter.getFeelLib();
+        this.externalFunctionExecutor = new DefaultExternalFunctionExecutor();
     }
 
     @Override
@@ -164,7 +164,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 }
             }
         } catch (Exception e) {
-            handleError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
             return null;
         }
     }
@@ -177,7 +177,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     private Object evaluateOperatorTest(Expression element, String operator, Object self, Type inputExpressionType, Type endpointType, Object endpointValue) throws IllegalAccessException, InvocationTargetException {
         NativeOperator javaOperator = javaOperator(operator, inputExpressionType, endpointType);
         if (javaOperator == null) {
-            handleError(String.format("Cannot find method for '%s' '%s'", operator, element));
+            this.errorHandler.reportError(String.format("Cannot find method for '%s' '%s'", operator, element));
             return null;
         } else {
             String methodName = javaOperator.getName();
@@ -202,7 +202,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     private Object evaluateBinaryOperator(Expression element, String operator, Expression leftOperand, Expression rightOperand, FEELContext context) throws Exception {
         NativeOperator javaOperator = javaOperator(operator, leftOperand, rightOperand);
         if (javaOperator == null) {
-            handleError(String.format("Cannot find method for '%s' '%s'", operator, element));
+            this.errorHandler.reportError(String.format("Cannot find method for '%s' '%s'", operator, element));
             return null;
         } else {
             if (javaOperator.getCardinality() == 2) {
@@ -223,12 +223,12 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                     } else if (javaOperator.getName().equals("!=")) {
                         return leftValue != rightValue;
                     } else {
-                        handleError(String.format("Cannot evaluate '%s' '%s'", operator, element));
+                        this.errorHandler.reportError(String.format("Cannot evaluate '%s' '%s'", operator, element));
                         return null;
                     }
                 }
             } else {
-                handleError(String.format("Cannot evaluate '%s' '%s'", operator, element));
+                this.errorHandler.reportError(String.format("Cannot evaluate '%s' '%s'", operator, element));
                 return null;
             }
         }
@@ -271,7 +271,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 return this.lib.booleanAnd(leftCondition, rightCondition);
             }
         } catch (Exception e) {
-            handleError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
             return null;
         }
     }
@@ -301,7 +301,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
 
             return result;
         } catch (Exception e) {
-            handleError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
             return null;
         }
     }
@@ -513,7 +513,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 return Type.conformsTo(element.getLeftOperand().getType(), e2);
             }
         } catch (Exception e) {
-            handleError("Cannot evaluate instanceof", e);
+            this.errorHandler.reportError("Cannot evaluate instanceof", e);
             return null;
         }
     }
@@ -530,7 +530,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             Object rightOperand = element.getRightOperand().accept(this, context);
             return this.lib.or(Arrays.asList(leftOperand, rightOperand));
         } catch (Exception e) {
-            handleError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
             return null;
         }
     }
@@ -542,7 +542,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             Object rightOperand = element.getRightOperand().accept(this, context);
             return this.lib.and(Arrays.asList(leftOperand, rightOperand));
         } catch (Exception e) {
-            handleError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
             return null;
         }
     }
@@ -558,7 +558,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         try {
             return evaluateBinaryOperator(element, element.getOperator(), element.getLeftOperand(), element.getRightOperand(), context);
         } catch (Exception e) {
-            handleError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
             return null;
         }
     }
@@ -589,7 +589,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 throw new DMNRuntimeException(String.format("Type '%s' is not supported yet", leftEndpoint.getType()));
             }
         } catch (Exception e) {
-            handleError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
             return null;
         }
     }
@@ -622,7 +622,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         try {
             return evaluateBinaryOperator(element, element.getOperator(), element.getLeftOperand(), element.getRightOperand(), context);
         } catch (Exception e) {
-            handleError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
             return null;
         }
     }
@@ -632,7 +632,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         try {
             return evaluateBinaryOperator(element, element.getOperator(), element.getLeftOperand(), element.getRightOperand(), context);
         } catch (Exception e) {
-            handleError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
             return null;
         }
     }
@@ -642,7 +642,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         try {
             return evaluateBinaryOperator(element, element.getOperator(), element.getLeftOperand(), element.getRightOperand(), context);
         } catch (Exception e) {
-            handleError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
             return null;
         }
     }
@@ -823,7 +823,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             Object[] args = JavaFunctionInfo.makeArgs(declaredMethod, argList);
             return declaredMethod.invoke(object, args);
         } catch (Exception e) {
-            handleError(String.format("Cannot invoke function '%s.%s(%s)'", cls.getName(), functionName, argList), e);
+            this.errorHandler.reportError(String.format("Cannot invoke function '%s.%s(%s)'", cls.getName(), functionName, argList), e);
             return null;
         }
     }
@@ -905,11 +905,11 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 List<String> aliases = Arrays.asList();
                 return ((com.gs.dmn.runtime.Context) source).get(member, aliases.toArray());
             } else {
-                handleError(String.format("Cannot evaluate '%s'.", element));
+                this.errorHandler.reportError(String.format("Cannot evaluate '%s'.", element));
                 return null;
             }
         } catch (Exception e) {
-            handleError(String.format("Cannot evaluate '%s'.", element), e);
+            this.errorHandler.reportError(String.format("Cannot evaluate '%s'.", element), e);
             return null;
         }
     }
@@ -983,7 +983,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         } else if (type == DurationType.DAYS_AND_TIME_DURATION || type == DurationType.YEARS_AND_MONTHS_DURATION) {
             return this.lib.duration(literal);
         } else {
-            handleError(String.format("Illegal date time literal '%s'", element));
+            this.errorHandler.reportError(String.format("Illegal date time literal '%s'", element));
             return null;
         }
     }
@@ -1058,15 +1058,4 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     public Object visit(FunctionTypeExpression element, FEELContext params) {
         throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
-
-    private void handleError(String message) {
-        LOGGER.error(message);
-        throw new DMNRuntimeException(message);
-    }
-
-    private void handleError(String message, Exception e) {
-        LOGGER.error(message, e);
-        throw new DMNRuntimeException(message, e);
-    }
-
 }

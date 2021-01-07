@@ -28,7 +28,6 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.omg.spec.dmn._20191111.model.TDRGElement;
 import org.omg.spec.dmn._20191111.model.TDecision;
 import org.omg.spec.dmn._20191111.model.TExpression;
-import org.omg.spec.dmn._20191111.model.TInputData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +65,7 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
 
         // Iterate over source
         List outputList = new ArrayList<>();
-        RuntimeEnvironment newRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(runtimeEnvironment);
+        RuntimeEnvironment newRuntimeEnvironment = this.runtimeEnvironmentFactory.makeEnvironment(runtimeEnvironment);
         for (Object obj : sourceList) {
             newRuntimeEnvironment.bind(lambdaParamName, obj);
             applyDecision(this.dmnModelRepository.makeDRGElementReference(topLevelDecision), newRuntimeEnvironment);
@@ -94,7 +93,7 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
             } else if (aggregator == Aggregator.ALLFALSE) {
                 output = outputList.stream().anyMatch(o -> o == Boolean.FALSE);
             } else {
-                handleError(String.format("'%s' is not implemented yet", aggregator));
+                this.errorHandler.reportError(String.format("'%s' is not implemented yet", aggregator));
                 output = null;
             }
         }
@@ -108,7 +107,7 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
             return null;
         }
         if (value instanceof List && ((List) value).size() == 1 && !(expectedType instanceof ListType)) {
-            value = feelLib.asElement((List) value);
+            value = this.feelLib.asElement((List) value);
         }
         return new Result(value, expectedType);
     }
