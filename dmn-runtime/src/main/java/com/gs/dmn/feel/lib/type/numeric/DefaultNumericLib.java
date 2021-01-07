@@ -90,8 +90,8 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
             return null;
         }
 
-        double sqrt = Math.sqrt(number.doubleValue());
-        return BigDecimal.valueOf(sqrt);
+        double value = Math.sqrt(number.doubleValue());
+        return BigDecimal.valueOf(value);
     }
 
     @Override
@@ -100,8 +100,8 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
             return null;
         }
 
-        double sqrt = Math.log(number.doubleValue());
-        return BigDecimal.valueOf(sqrt);
+        double value = Math.log(number.doubleValue());
+        return BigDecimal.valueOf(value);
     }
 
     @Override
@@ -110,8 +110,8 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
             return null;
         }
 
-        double sqrt = Math.exp(number.doubleValue());
-        return BigDecimal.valueOf(sqrt);
+        double value = Math.exp(number.doubleValue());
+        return BigDecimal.valueOf(value);
     }
 
     @Override
