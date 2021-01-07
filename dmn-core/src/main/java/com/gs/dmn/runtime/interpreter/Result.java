@@ -14,7 +14,12 @@ package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Result {
+    private List<Error> errors = new ArrayList();
+
     public static Object value(Result result) {
         return result == null ? null : result.getValue();
     }
@@ -37,5 +42,13 @@ public class Result {
 
     public Type getType() {
         return type;
+    }
+
+    public void addError(String error, Exception e) {
+        this.errors.add(new Error(error, e));
+    }
+
+    public boolean hasErrors() {
+        return !this.errors.isEmpty();
     }
 }
