@@ -15,7 +15,7 @@ package com.gs.dmn.runtime.interpreter;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.error.ErrorHandler;
-import com.gs.dmn.error.LogAndThrowErrorHandler;
+import com.gs.dmn.error.LogErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.*;
@@ -63,7 +63,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     private final DMNModelRepository dmnModelRepository;
     private final EnvironmentFactory environmentFactory;
     protected final RuntimeEnvironmentFactory runtimeEnvironmentFactory;
-    protected final LogAndThrowErrorHandler errorHandler;
+    protected final ErrorHandler errorHandler;
 
     private final BasicDMNToNativeTransformer basicDMNTransformer;
     protected final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib;
@@ -71,7 +71,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
     public StandardDMNInterpreter(BasicDMNToNativeTransformer basicDMNTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
         this.runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
-        this.errorHandler = new LogAndThrowErrorHandler(LOGGER);
+        this.errorHandler = new LogErrorHandler(LOGGER);
         this.basicDMNTransformer = basicDMNTransformer;
         this.dmnModelRepository = basicDMNTransformer.getDMNModelRepository();
         this.environmentFactory = basicDMNTransformer.getEnvironmentFactory();
@@ -91,75 +91,90 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
     @Override
     public Result evaluate(DRGElementReference<? extends TDRGElement> reference, List<Object> args, RuntimeEnvironment runtimeEnvironment) {
-        Environment environment = this.basicDMNTransformer.makeEnvironment(reference.getElement());
-        return evaluate(reference, args, FEELContext.makeContext(reference.getElement(), environment, runtimeEnvironment));
+        try {
+            Environment environment = this.basicDMNTransformer.makeEnvironment(reference.getElement());
+            return evaluate(reference, args, FEELContext.makeContext(reference.getElement(), environment, runtimeEnvironment));
+        } catch (Exception e) {
+            this.errorHandler.reportError("Evaluation error", e);
+            return new Result(null, NullType.NULL);
+        }
     }
 
     @Override
     public Result evaluate(DRGElementReference<? extends TDRGElement> reference, List<Object> args, FEELContext context) {
-        TDRGElement drgElement = reference.getElement();
-        Result actualOutput;
-        if (drgElement instanceof TInputData) {
-            actualOutput = evaluateInputData((DRGElementReference<TInputData>) reference, context.getRuntimeEnvironment());
-        } else if (drgElement instanceof TDecision) {
-            actualOutput = evaluateDecision((DRGElementReference<TDecision>) reference, context.getRuntimeEnvironment());
-        } else if (drgElement instanceof TDecisionService) {
-            actualOutput = evaluateDecisionService((DRGElementReference<TDecisionService>) reference, args, context);
-        } else if (drgElement instanceof TBusinessKnowledgeModel) {
-            actualOutput = evaluateBKM((DRGElementReference<TBusinessKnowledgeModel>) reference, args, context);
-        } else {
-            throw new IllegalArgumentException(String.format("Not supported type '%s'", drgElement.getClass().getSimpleName()));
+        try {
+            TDRGElement drgElement = reference.getElement();
+            Result actualOutput;
+            if (drgElement instanceof TInputData) {
+                actualOutput = evaluateInputData((DRGElementReference<TInputData>) reference, context.getRuntimeEnvironment());
+            } else if (drgElement instanceof TDecision) {
+                actualOutput = evaluateDecision((DRGElementReference<TDecision>) reference, context.getRuntimeEnvironment());
+            } else if (drgElement instanceof TDecisionService) {
+                actualOutput = evaluateDecisionService((DRGElementReference<TDecisionService>) reference, args, context);
+            } else if (drgElement instanceof TBusinessKnowledgeModel) {
+                actualOutput = evaluateBKM((DRGElementReference<TBusinessKnowledgeModel>) reference, args, context);
+            } else {
+                throw new IllegalArgumentException(String.format("Not supported type '%s'", drgElement.getClass().getSimpleName()));
+            }
+            return actualOutput;
+        } catch (Exception e) {
+            this.errorHandler.reportError("Evaluation error", e);
+            return new Result(null, NullType.NULL);
         }
-        return actualOutput;
     }
 
     @Override
     public Result evaluate(TFunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
-        // Create new environments and bind parameters
-        Environment functionEnvironment = this.environmentFactory.makeEnvironment(context.getEnvironment());
-        RuntimeEnvironment functionRuntimeEnvironment = this.runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
-        List<TInformationItem> formalParameterList = functionDefinition.getFormalParameter();
-        TDefinitions model = this.dmnModelRepository.getModel(context.getElement());
-        for (int i = 0; i < formalParameterList.size(); i++) {
-            TInformationItem param = formalParameterList.get(i);
-            String name = param.getName();
-            Type type = this.basicDMNTransformer.toFEELType(null, QualifiedName.toQualifiedName(model, param.getTypeRef()));
-            Object value = argList.get(i);
-            functionEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, type));
-            functionRuntimeEnvironment.bind(name, value);
+        try {
+            // Create new environments and bind parameters
+            Environment functionEnvironment = this.environmentFactory.makeEnvironment(context.getEnvironment());
+            RuntimeEnvironment functionRuntimeEnvironment = this.runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
+            List<TInformationItem> formalParameterList = functionDefinition.getFormalParameter();
+            TDefinitions model = this.dmnModelRepository.getModel(context.getElement());
+            for (int i = 0; i < formalParameterList.size(); i++) {
+                TInformationItem param = formalParameterList.get(i);
+                String name = param.getName();
+                Type type = this.basicDMNTransformer.toFEELType(null, QualifiedName.toQualifiedName(model, param.getTypeRef()));
+                Object value = argList.get(i);
+                functionEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, type));
+                functionRuntimeEnvironment.bind(name, value);
+            }
+
+            // Execute function body
+            JAXBElement<? extends TExpression> expressionElement = functionDefinition.getExpression();
+            Result output;
+            if (expressionElement == null) {
+                output = null;
+            } else {
+                TExpression expression = expressionElement.getValue();
+                output = evaluateExpression(null, expression, functionEnvironment, functionRuntimeEnvironment, null);
+            }
+
+            return output;
+        } catch (Exception e) {
+            this.errorHandler.reportError("Evaluation error", e);
+            return new Result(null, NullType.NULL);
         }
-
-        // Execute function body
-        JAXBElement<? extends TExpression> expressionElement = functionDefinition.getExpression();
-        Result output;
-        if (expressionElement == null) {
-            output = null;
-        } else {
-            TExpression expression = expressionElement.getValue();
-            output = evaluateExpression(null, expression, functionEnvironment, functionRuntimeEnvironment, null);
-        }
-
-        return output;
-    }
-
-    @Override
-    public ErrorHandler getErrorHandler() {
-        return this.errorHandler;
     }
 
     @Override
     public Result evaluate(TInvocable invocable, List<Object> argList, FEELContext context) {
-        Environment environment = this.basicDMNTransformer.makeEnvironment(invocable, context.getEnvironment());
-        FEELContext invocationContext = FEELContext.makeContext(invocable, environment, context.getRuntimeEnvironment());
-        Result result;
-        if (invocable instanceof TDecisionService) {
-            result = evaluate(this.dmnModelRepository.makeDRGElementReference(invocable), argList, invocationContext);
-        } else if (invocable instanceof TBusinessKnowledgeModel) {
-            result = evaluate(this.dmnModelRepository.makeDRGElementReference(invocable), argList, invocationContext);
-        } else {
-            throw new IllegalArgumentException(String.format("Not supported type '%s'", invocable.getClass().getSimpleName()));
+        try {
+            Environment environment = this.basicDMNTransformer.makeEnvironment(invocable, context.getEnvironment());
+            FEELContext invocationContext = FEELContext.makeContext(invocable, environment, context.getRuntimeEnvironment());
+            Result result;
+            if (invocable instanceof TDecisionService) {
+                result = evaluate(this.dmnModelRepository.makeDRGElementReference(invocable), argList, invocationContext);
+            } else if (invocable instanceof TBusinessKnowledgeModel) {
+                result = evaluate(this.dmnModelRepository.makeDRGElementReference(invocable), argList, invocationContext);
+            } else {
+                throw new IllegalArgumentException(String.format("Not supported type '%s'", invocable.getClass().getSimpleName()));
+            }
+            return result;
+        } catch (Exception e) {
+            this.errorHandler.reportError("Evaluation error", e);
+            return new Result(null, NullType.NULL);
         }
-        return result;
     }
 
     private Result evaluateInputData(DRGElementReference<TInputData> reference, RuntimeEnvironment runtimeEnvironment) {

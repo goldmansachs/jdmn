@@ -13,7 +13,6 @@
 package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
@@ -42,6 +41,4 @@ public interface DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     // Evaluate expressions
     //
     Result evaluate(TFunctionDefinition functionDefinition, List<Object> args, FEELContext context);
-
-    ErrorHandler getErrorHandler();
 }

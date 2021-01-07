@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.error;
 
-import com.gs.dmn.runtime.DMNRuntimeException;
 import org.slf4j.Logger;
 
 public class LogErrorHandler implements ErrorHandler {
