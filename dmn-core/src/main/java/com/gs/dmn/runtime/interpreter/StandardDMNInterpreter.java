@@ -95,8 +95,11 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             Environment environment = this.basicDMNTransformer.makeEnvironment(reference.getElement());
             return evaluate(reference, args, FEELContext.makeContext(reference.getElement(), environment, runtimeEnvironment));
         } catch (Exception e) {
-            this.errorHandler.reportError("Evaluation error", e);
-            return new Result(null, NullType.NULL);
+            String errorMessage = "Evaluation error";
+            this.errorHandler.reportError(errorMessage, e);
+            Result result = new Result(null, NullType.NULL);
+            result.addError(errorMessage, e);
+            return result;
         }
     }
 
@@ -118,8 +121,11 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             }
             return actualOutput;
         } catch (Exception e) {
-            this.errorHandler.reportError("Evaluation error", e);
-            return new Result(null, NullType.NULL);
+            String errorMessage = "Evaluation error";
+            this.errorHandler.reportError(errorMessage, e);
+            Result result = new Result(null, NullType.NULL);
+            result.addError(errorMessage, e);
+            return result;
         }
     }
 
@@ -152,8 +158,11 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
             return output;
         } catch (Exception e) {
-            this.errorHandler.reportError("Evaluation error", e);
-            return new Result(null, NullType.NULL);
+            String errorMessage = "Evaluation error";
+            this.errorHandler.reportError(errorMessage, e);
+            Result result = new Result(null, NullType.NULL);
+            result.addError(errorMessage, e);
+            return result;
         }
     }
 
@@ -172,8 +181,11 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             }
             return result;
         } catch (Exception e) {
-            this.errorHandler.reportError("Evaluation error", e);
-            return new Result(null, NullType.NULL);
+            String errorMessage = "Evaluation error";
+            this.errorHandler.reportError(errorMessage, e);
+            Result result = new Result(null, NullType.NULL);
+            result.addError(errorMessage, e);
+            return result;
         }
     }
 
