@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
+import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.ReplaceItemFilterVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import org.junit.Test;
@@ -24,14 +25,15 @@ public class ReplaceItemFilterVisitorTest extends BaseVisitorTest {
 
     @Override
     protected Visitor getVisitor() {
-        return new ReplaceItemFilterVisitor(this.oldLambdaParameterName, this.newLambdaParameterName);
+        return new ReplaceItemFilterVisitor(this.oldLambdaParameterName, this.newLambdaParameterName, NopErrorHandler.INSTANCE);
     }
 
+    @Override
     @Test
     public void testVisitName() {
         super.testVisitName();
 
-        assertEquals("Name(newName)", getVisitor().visit(new Name(oldLambdaParameterName), null).toString());
+        assertEquals("Name(newName)", getVisitor().visit(new Name(this.oldLambdaParameterName), null).toString());
         assertEquals("Name(otherName)", getVisitor().visit(new Name("otherName"), null).toString());
     }
 

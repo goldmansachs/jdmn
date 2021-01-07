@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics;
 
+import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.feel.analysis.syntax.ast.CloneVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
@@ -20,7 +21,8 @@ public class ReplaceItemFilterVisitor extends CloneVisitor {
     private final String oldLambdaParameterName;
     private final String newLambdaParameterName;
 
-    public ReplaceItemFilterVisitor(String oldLambdaParameterName, String newLambdaParameterName) {
+    public ReplaceItemFilterVisitor(String oldLambdaParameterName, String newLambdaParameterName, ErrorHandler errorHandler) {
+        super(errorHandler);
         this.oldLambdaParameterName = oldLambdaParameterName;
         this.newLambdaParameterName = newLambdaParameterName;
     }

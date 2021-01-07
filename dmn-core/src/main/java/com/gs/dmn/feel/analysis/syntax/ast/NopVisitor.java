@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
+import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.ArithmeticNegation;
@@ -33,6 +35,10 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.type.NamedTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 
 public class NopVisitor extends AbstractVisitor {
+    public NopVisitor() {
+        super(NopErrorHandler.INSTANCE);
+    }
+
     //
     // Tests
     //

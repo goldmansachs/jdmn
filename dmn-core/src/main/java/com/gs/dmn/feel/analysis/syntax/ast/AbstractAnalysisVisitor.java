@@ -13,19 +13,25 @@
 package com.gs.dmn.feel.analysis.syntax.ast;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.AnyType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.feel.synthesis.AbstractFEELToJavaVisitor;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.DMNEnvironmentFactory;
 import com.gs.dmn.transformation.basic.DMNExpressionToNativeTransformer;
 import com.gs.dmn.transformation.native_.NativeFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractAnalysisVisitor.class);
+
     protected final BasicDMNToNativeTransformer dmnTransformer;
 
     protected final DMNModelRepository dmnModelRepository;
@@ -37,7 +43,8 @@ public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
     protected final DMNEnvironmentFactory dmnEnvironmentFactory;
     protected final DMNExpressionToNativeTransformer expressionToNativeTransformer;
 
-    protected AbstractAnalysisVisitor(BasicDMNToNativeTransformer dmnTransformer) {
+    protected AbstractAnalysisVisitor(BasicDMNToNativeTransformer dmnTransformer, ErrorHandler errorHandler) {
+        super(errorHandler);
         this.dmnTransformer = dmnTransformer;
 
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();

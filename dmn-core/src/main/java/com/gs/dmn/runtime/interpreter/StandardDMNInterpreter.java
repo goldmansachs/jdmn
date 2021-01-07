@@ -14,6 +14,8 @@ package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.error.LogAndThrowErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.*;
@@ -52,20 +54,24 @@ import static com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion
 
 public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private static final Logger LOGGER = LoggerFactory.getLogger(StandardDMNInterpreter.class);
-    protected static EventListener EVENT_LISTENER = new LoggingEventListener(LOGGER);
-    protected final RuntimeEnvironmentFactory runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
-    private final DMNModelRepository dmnModelRepository;
-    private final EnvironmentFactory environmentFactory;
 
+    protected static EventListener EVENT_LISTENER = new LoggingEventListener(LOGGER);
     public static void setEventListener(EventListener eventListener) {
         EVENT_LISTENER = eventListener;
     }
+
+    private final DMNModelRepository dmnModelRepository;
+    private final EnvironmentFactory environmentFactory;
+    protected final RuntimeEnvironmentFactory runtimeEnvironmentFactory;
+    protected final LogAndThrowErrorHandler errorHandler;
 
     private final BasicDMNToNativeTransformer basicDMNTransformer;
     protected final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib;
     private final FEELInterpreter feelInterpreter;
 
     public StandardDMNInterpreter(BasicDMNToNativeTransformer basicDMNTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
+        this.runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
+        this.errorHandler = new LogAndThrowErrorHandler(LOGGER);
         this.basicDMNTransformer = basicDMNTransformer;
         this.dmnModelRepository = basicDMNTransformer.getDMNModelRepository();
         this.environmentFactory = basicDMNTransformer.getEnvironmentFactory();
@@ -134,6 +140,11 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         }
 
         return output;
+    }
+
+    @Override
+    public ErrorHandler getErrorHandler() {
+        return this.errorHandler;
     }
 
     @Override
@@ -390,7 +401,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                 // Add new binding to match path in parent
                 addBinding(runtimeEnvironment, this.dmnModelRepository.makeDRGElementReference(childImportPath, child), importName);
             } else {
-                handleError("Incorrect InformationRequirement. Missing required input and decision");
+                this.errorHandler.reportError("Incorrect InformationRequirement. Missing required input and decision");
             }
         }
     }
@@ -401,7 +412,8 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     protected Result evaluateExpression(TDRGElement element, TExpression expression, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation) {
         Result result = null;
         if (expression == null) {
-            handleError(String.format("Missing expression for element '%s'", element == null ? null : element.getName()));
+            String message = String.format("Missing expression for element '%s'", element == null ? null : element.getName());
+            this.errorHandler.reportError(message);
         } else if (expression instanceof TContext) {
             result = evaluateContextExpression(element, (TContext) expression, environment, runtimeEnvironment, elementAnnotation);
         } else if (expression instanceof TDecisionTable) {
@@ -417,7 +429,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         } else if (expression instanceof TRelation) {
             result = evaluateRelationExpression(element, (TRelation) expression, environment, runtimeEnvironment, elementAnnotation);
         } else {
-            handleError(String.format("Expression '%s' not supported yet", expression.getClass().getSimpleName()));
+            this.errorHandler.reportError(String.format("Expression '%s' not supported yet", expression.getClass().getSimpleName()));
         }
         return result;
     }
@@ -1017,15 +1029,5 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
     private Rule makeRuleAnnotation(TDecisionRule rule, int ruleIndex) {
         return new Rule(ruleIndex, this.basicDMNTransformer.annotationEscapedText(rule));
-    }
-
-    protected void handleError(String message) {
-        LOGGER.error(message);
-        throw new DMNRuntimeException(message);
-    }
-
-    protected void handleError(String message, Exception e) {
-        LOGGER.error(message, e);
-        throw new DMNRuntimeException(message, e);
     }
 }

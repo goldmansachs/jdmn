@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.error.LogAndThrowErrorHandler;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
@@ -28,6 +29,8 @@ import com.gs.dmn.transformation.basic.ImportContextType;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20191111.model.TBusinessKnowledgeModel;
 import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -73,7 +76,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
     }
 
     public AbstractFEELToJavaVisitor(BasicDMNToNativeTransformer dmnTransformer) {
-        super(dmnTransformer);
+        super(dmnTransformer, new LogAndThrowErrorHandler(LOGGER));
     }
 
     protected String javaFunctionName(String feelFunctionName) {
@@ -99,11 +102,11 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
             }
         } else if (sourceType instanceof ItemDefinitionType) {
             Type memberType = ((ItemDefinitionType) sourceType).getMemberType(memberName);
-            String javaType = dmnTransformer.toNativeType(memberType);
+            String javaType = this.dmnTransformer.toNativeType(memberType);
             return this.nativeFactory.makeItemDefinitionAccessor(javaType, source, memberName);
         } else if (sourceType instanceof ContextType) {
             Type memberType = ((ContextType) sourceType).getMemberType(memberName);
-            String javaType = dmnTransformer.toNativeType(memberType);
+            String javaType = this.dmnTransformer.toNativeType(memberType);
             return this.nativeFactory.makeContextAccessor(javaType, source, memberName);
         } else if (sourceType instanceof ListType) {
             String filter = makeNavigation(element, ((ListType) sourceType).getElementType(), "x", memberName, memberVariableName);
@@ -120,14 +123,14 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
             return String.format("%s.%s", source, javaRangeGetter(memberName));
         } else if (sourceType instanceof AnyType) {
             // source is Context
-            return this.nativeFactory.makeContextSelectExpression(dmnTransformer.contextClassName(), source, memberName);
+            return this.nativeFactory.makeContextSelectExpression(this.dmnTransformer.contextClassName(), source, memberName);
         } else {
             throw new SemanticError(element, String.format("Cannot generate navigation path '%s'", element.toString()));
         }
     }
 
     protected String javaMemberFunctionName(String memberName) {
-        memberName = dmnTransformer.getDMNModelRepository().removeSingleQuotes(memberName);
+        memberName = this.dmnTransformer.getDMNModelRepository().removeSingleQuotes(memberName);
         if ("time offset".equalsIgnoreCase(memberName)) {
             return "timeOffset";
         } else {
@@ -136,20 +139,20 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
     }
 
     private String javaRangeGetter(String memberName) {
-        memberName = dmnTransformer.getDMNModelRepository().removeSingleQuotes(memberName);
+        memberName = this.dmnTransformer.getDMNModelRepository().removeSingleQuotes(memberName);
         if ("start included".equalsIgnoreCase(memberName)) {
             return "isStartIncluded()";
         }  else if ("end included".equalsIgnoreCase(memberName)) {
             return "isEndIncluded()";
         } else {
-            return dmnTransformer.getter(memberName);
+            return this.dmnTransformer.getter(memberName);
         }
     }
 
     protected String javaFriendlyVariableName(String name) {
-        name = dmnTransformer.getDMNModelRepository().removeSingleQuotes(name);
+        name = this.dmnTransformer.getDMNModelRepository().removeSingleQuotes(name);
         String firstChar = Character.toString(Character.toLowerCase(name.charAt(0)));
-        return dmnTransformer.nativeFriendlyName(name.length() == 1 ? firstChar : firstChar + name.substring(1));
+        return this.dmnTransformer.nativeFriendlyName(name.length() == 1 ? firstChar : firstChar + name.substring(1));
     }
 
     protected Object makeCondition(String feelOperator, Expression leftOperand, Expression rightOperand, FEELContext context) {

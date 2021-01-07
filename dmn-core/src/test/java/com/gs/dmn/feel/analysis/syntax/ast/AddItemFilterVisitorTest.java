@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
+import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.AddItemFilterVisitor;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
@@ -28,17 +30,19 @@ import static org.junit.Assert.assertEquals;
 public class AddItemFilterVisitorTest extends BaseVisitorTest {
     private final String parameterName = "parameterName";
     private final Type stringType = StringType.STRING;
-    private final ContextType contextType = new ContextType().addMember(parameterName, Arrays.asList(), stringType);
-    private final ItemDefinitionType itemDefinitionType = new ItemDefinitionType("personType").addMember(parameterName, Arrays.asList(), stringType);
+    private final ContextType contextType = new ContextType().addMember(this.parameterName, Arrays.asList(), this.stringType);
+    private final ItemDefinitionType itemDefinitionType = new ItemDefinitionType("personType").addMember(this.parameterName, Arrays.asList(), this.stringType);
 
-    private final AddItemFilterVisitor contextTypeVisitor = new AddItemFilterVisitor(this.parameterName, contextType);
-    private final AddItemFilterVisitor itemDefinitionTypeVisitor = new AddItemFilterVisitor(this.parameterName, itemDefinitionType);
+    private final ErrorHandler errorHandler = NopErrorHandler.INSTANCE;
+    private final AddItemFilterVisitor contextTypeVisitor = new AddItemFilterVisitor(this.parameterName, this.contextType, this.errorHandler);
+    private final AddItemFilterVisitor itemDefinitionTypeVisitor = new AddItemFilterVisitor(this.parameterName, this.itemDefinitionType, this.errorHandler);
 
     @Override
     protected Visitor getVisitor() {
-        return new AddItemFilterVisitor(this.parameterName, this.stringType);
+        return new AddItemFilterVisitor(this.parameterName, this.stringType, this.errorHandler);
     }
 
+    @Override
     @Test
     public void testVisitName() {
         super.testVisitName();
@@ -54,6 +58,7 @@ public class AddItemFilterVisitorTest extends BaseVisitorTest {
         assertEquals("Name(otherName)", this.itemDefinitionTypeVisitor.visit(notMatchingElement, null).toString());
     }
 
+    @Override
     @Test
     public void testVisitPathExpression() {
         super.testVisitName();

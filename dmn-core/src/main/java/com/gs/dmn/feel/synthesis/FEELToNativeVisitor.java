@@ -325,7 +325,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         // Replace 'item' with 'item_xx' to be able to handle multiple filters
         String olderParameterName = FilterExpression.FILTER_PARAMETER_NAME;
         String newParameterName = this.dmnTransformer.nativeFriendlyName(newParameterName(olderParameterName));
-        element.accept(new ReplaceItemFilterVisitor(olderParameterName, newParameterName), context);
+        element.accept(new ReplaceItemFilterVisitor(olderParameterName, newParameterName, this.errorHandler), context);
 
         // Generate filter
         FEELContext feelContext = makeFilterContext(context, element.getSource(), newParameterName);

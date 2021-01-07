@@ -10,13 +10,25 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast;
+package com.gs.dmn.error;
 
-import com.gs.dmn.error.NopErrorHandler;
+import com.gs.dmn.runtime.DMNRuntimeException;
+import org.slf4j.Logger;
 
-public class CloneVisitorTest extends BaseVisitorTest {
+public class LogErrorHandler implements ErrorHandler {
+    private final Logger logger;
+
+    public LogErrorHandler(Logger logger) {
+        this.logger = logger;
+    }
+
     @Override
-    protected Visitor getVisitor() {
-        return new CloneVisitor(NopErrorHandler.INSTANCE);
+    public void reportError(String message) {
+        this.logger.error(message);
+    }
+
+    @Override
+    public void reportError(String message, Exception e) {
+        this.logger.error(message, e);
     }
 }
