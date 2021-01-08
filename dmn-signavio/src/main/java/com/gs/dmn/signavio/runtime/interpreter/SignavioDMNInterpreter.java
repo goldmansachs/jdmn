@@ -13,8 +13,7 @@
 package com.gs.dmn.signavio.runtime.interpreter;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
@@ -35,8 +34,8 @@ import java.util.List;
 public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private final SignavioDMNModelRepository dmnModelRepository;
 
-    public SignavioDMNInterpreter(BasicDMNToNativeTransformer dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
-        super(dmnTransformer, feelLib);
+    public SignavioDMNInterpreter(BasicDMNToNativeTransformer dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib, TypeConverter typeConverter) {
+        super(dmnTransformer, feelLib, typeConverter);
         this.dmnModelRepository = (SignavioDMNModelRepository) this.getBasicDMNTransformer().getDMNModelRepository();
     }
 
@@ -98,18 +97,6 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
             }
         }
         return new Result(output, getBasicDMNTransformer().drgElementOutputFEELType(decision));
-    }
-
-    @Override
-    protected Result convertResult(Result result, Type expectedType) {
-        Object value = Result.value(result);
-        if (value == null) {
-            return null;
-        }
-        if (value instanceof List && ((List) value).size() == 1 && !(expectedType instanceof ListType)) {
-            value = this.feelLib.asElement((List) value);
-        }
-        return new Result(value, expectedType);
     }
 
     @Override

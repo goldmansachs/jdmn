@@ -14,6 +14,7 @@ package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
+import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
@@ -27,6 +28,8 @@ public interface DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     BasicDMNToNativeTransformer getBasicDMNTransformer();
 
     FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> getFeelLib();
+
+    TypeConverter getTypeConverter();
 
     //
     // Evaluate DRG nodes

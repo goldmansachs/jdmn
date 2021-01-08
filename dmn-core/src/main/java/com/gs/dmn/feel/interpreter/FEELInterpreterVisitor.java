@@ -78,10 +78,12 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     private final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib;
     private final FEELTranslator feelTranslator;
     private final DefaultExternalFunctionExecutor externalFunctionExecutor;
+    private final TypeConverter typeConverter;
 
     FEELInterpreterVisitor(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter) {
         super(dmnInterpreter.getBasicDMNTransformer());
         this.dmnInterpreter = dmnInterpreter;
+        this.typeConverter = dmnInterpreter.getTypeConverter();
         this.feelTranslator = new FEELTranslatorForInterpreter(dmnInterpreter.getBasicDMNTransformer());
         this.lib = dmnInterpreter.getFeelLib();
         this.externalFunctionExecutor = new DefaultExternalFunctionExecutor();
@@ -658,7 +660,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         // Evaluate and convert actual parameters
         Parameters parameters = element.getParameters();
         parameters.accept(this, context);
-        Arguments arguments = parameters.convertArguments(this::convertArgument);
+        Arguments arguments = parameters.convertArguments((value, conversion) -> this.typeConverter.convertValue(value, conversion, this.lib));
 
         Expression function = element.getFunction();
         FunctionType functionType = (FunctionType) element.getFunction().getType();
@@ -780,21 +782,6 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         }
 
         return output;
-    }
-
-    public Object convertArgument(Object value, Conversion conversion) {
-        ConversionKind kind = conversion.getKind();
-        if (kind == ConversionKind.NONE) {
-            return value;
-        } else if (kind == ConversionKind.ELEMENT_TO_SINGLETON_LIST) {
-            return this.lib.asList(value);
-        } else if (kind == ConversionKind.SINGLETON_LIST_TO_ELEMENT) {
-            return this.lib.asElement((List) value);
-        } else if (kind == ConversionKind.CONFORMS_TO) {
-            return null;
-        } else {
-            throw new DMNRuntimeException(String.format("'%s' is not supported yet", conversion.getKind()));
-        }
     }
 
     private Object evaluateLambdaExpression(LambdaExpression binding, List<Object> argList, FEELContext context) {

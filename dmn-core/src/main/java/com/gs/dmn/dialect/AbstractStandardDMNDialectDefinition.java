@@ -15,6 +15,7 @@ package com.gs.dmn.dialect;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
+import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.transformation.InputParameters;
@@ -27,7 +28,7 @@ public abstract class AbstractStandardDMNDialectDefinition<NUMBER, DATE, TIME, D
     //
     @Override
     public DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> createDMNInterpreter(DMNModelRepository repository, InputParameters inputParameters) {
-        return new StandardDMNInterpreter<>(createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters), createFEELLib());
+        return new StandardDMNInterpreter<>(createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters), createFEELLib(), new TypeConverter());
     }
 
     @Override
