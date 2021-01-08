@@ -520,7 +520,7 @@
                 </semantic:literalExpression>
             </semantic:contextEntry>
             <semantic:contextEntry id="_21cb9587-2d01-49fc-b44c-64d081962c7c">
-                <semantic:variable name="beforePRT" id="_8090dbfe-74f6-4931-b017-1903cfd6095e" typeRef="Any"/>
+                <semantic:variable name="beforePRT2" id="_8090dbfe-74f6-4931-b017-1903cfd6095e" typeRef="Any"/>
                 <semantic:literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" triso:unparsed="true" id="_4c6f479a-2604-4941-b870-299c099b1421">
                     <semantic:text>before( 1, [5..10] )</semantic:text>
                 </semantic:literalExpression>
@@ -900,7 +900,7 @@
                 </semantic:literalExpression>
             </semantic:contextEntry>
             <semantic:contextEntry id="_f33e509d-c4fc-4212-b363-fa02ae7953e0">
-                <semantic:variable name="finishedbyRRF" id="_9259fdec-a9ca-4ffa-845c-9cf225c018ba" typeRef="Any"/>
+                <semantic:variable name="finishedbyRRF2" id="_9259fdec-a9ca-4ffa-845c-9cf225c018ba" typeRef="Any"/>
                 <semantic:literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" triso:unparsed="true" id="_03181b06-66f2-4ab6-94c2-30d171800513">
                     <semantic:text>finished by( [1..10], [5..10) )</semantic:text>
                 </semantic:literalExpression>

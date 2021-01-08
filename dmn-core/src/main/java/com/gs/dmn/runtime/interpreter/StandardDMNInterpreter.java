@@ -231,7 +231,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             Result result = convertValue(value, paramType);
             value = Result.value(result);
 
-            bkmEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, paramType));
+            // Declaration is already in environment
             bkmRuntimeEnvironment.bind(name, value);
         }
 

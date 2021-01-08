@@ -214,7 +214,7 @@
                 <tc:component name="beforePRT">
                     <tc:value xsi:type="xsd:boolean">true</tc:value>
                 </tc:component>
-                <tc:component name="beforePRT">
+                <tc:component name="beforePRT2">
                     <tc:value xsi:type="xsd:boolean">true</tc:value>
                 </tc:component>
                 <tc:component name="beforeRPF">
@@ -361,7 +361,7 @@
                 <tc:component name="finishedbyRRT">
                     <tc:value xsi:type="xsd:boolean">true</tc:value>
                 </tc:component>
-                <tc:component name="finishedbyRRF">
+                <tc:component name="finishedbyRRF2">
                     <tc:value xsi:type="xsd:boolean">false</tc:value>
                 </tc:component>
                 <tc:component name="finishedbyRRT2">
