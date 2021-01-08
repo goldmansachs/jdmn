@@ -30,6 +30,6 @@ public class SignavioTypeConverter extends TypeConverter {
         if (value instanceof List && ((List) value).size() == 1 && !(expectedType instanceof ListType)) {
             value = lib.asElement((List) value);
         }
-        return new Result(value, expectedType);
+        return Result.of(value, expectedType);
     }
 }

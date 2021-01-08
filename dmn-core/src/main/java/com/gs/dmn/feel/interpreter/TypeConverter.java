@@ -39,7 +39,7 @@ public class TypeConverter {
         }
 
         if (Type.conformsTo(actualType, expectedType)) {
-            return new Result(value, expectedType);
+            return Result.of(value, expectedType);
         } else {
             // Dynamic conversion
             return convertValue(value, expectedType, lib);
@@ -53,7 +53,7 @@ public class TypeConverter {
         }
         ConversionKind conversionKind = conversionKind(value, expectedType);
         Object newValue = convertValue(value, conversionKind, lib);
-        return new Result(newValue, expectedType);
+        return Result.of(newValue, expectedType);
     }
 
     public Object convertValue(Object value, Conversion conversion, FEELLib<?, ?, ?, ?, ?> lib) {

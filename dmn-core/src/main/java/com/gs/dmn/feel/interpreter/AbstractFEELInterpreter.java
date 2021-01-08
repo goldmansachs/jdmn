@@ -37,7 +37,7 @@ abstract class AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     @Override
     public Result evaluateUnaryTests(UnaryTests expression, FEELContext context) {
         Object value = expression.accept(visitor, context);
-        return new Result(value, expression.getType());
+        return Result.of(value, expression.getType());
     }
 
     @Override
@@ -60,6 +60,6 @@ abstract class AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     @Override
     public Result evaluateExpression(Expression expression, FEELContext context) {
         Object object = expression.accept(visitor, context);
-        return new Result(object, expression.getType());
+        return Result.of(object, expression.getType());
     }
 }
