@@ -57,10 +57,6 @@ public class Environment {
 
     public void addDeclaration(Declaration declaration) {
         String name = declaration.getName();
-        addDeclaration(name, declaration);
-    }
-
-    public void addDeclaration(String name, Declaration declaration) {
         if (name != null) {
             // the name must not clash with names already existing in this scope
             if (declaration instanceof VariableDeclaration) {

@@ -2728,7 +2728,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     private Environment makeEnvironment(List<EnvironmentEntry> entries) {
         Environment environment = this.environmentFactory.makeEnvironment();
         for (EnvironmentEntry pair : entries) {
-            environment.addDeclaration(pair.getName(), this.environmentFactory.makeVariableDeclaration(pair.getName(), pair.getType()));
+            environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(pair.getName(), pair.getType()));
         }
         return environment;
     }
@@ -2736,7 +2736,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     private Environment makeInputEntryEnvironment(Environment parent, Expression inputExpression) {
         Environment environment = this.environmentFactory.makeEnvironment(parent, inputExpression);
         if (inputExpression != null) {
-            environment.addDeclaration(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, this.environmentFactory.makeVariableDeclaration(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
+            environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
         }
         return environment;
     }

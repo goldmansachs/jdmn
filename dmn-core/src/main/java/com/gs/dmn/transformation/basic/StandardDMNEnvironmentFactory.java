@@ -14,7 +14,10 @@ package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.feel.analysis.semantics.environment.*;
+import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
+import com.gs.dmn.feel.analysis.semantics.environment.Environment;
+import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
+import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -662,7 +665,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     @Override
     public Environment makeInputEntryEnvironment(TDRGElement element, Expression inputExpression) {
         Environment environment = this.environmentFactory.makeEnvironment(this.dmnTransformer.makeEnvironment(element), inputExpression);
-        environment.addDeclaration(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, this.environmentFactory.makeVariableDeclaration(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
+        environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
         return environment;
     }
 
@@ -704,7 +707,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         return this.environmentFactory.makeVariableDeclaration(name, variableType);
     }
 
-    protected FunctionDeclaration makeInvocableDeclaration(TInvocable invocable) {
+    protected Declaration makeInvocableDeclaration(TInvocable invocable) {
         if (invocable instanceof TBusinessKnowledgeModel) {
             return makeBKMDeclaration((TBusinessKnowledgeModel) invocable);
         } else if (invocable instanceof TDecisionService) {
@@ -714,7 +717,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         }
     }
 
-    private FunctionDeclaration makeDSDeclaration(TDecisionService ds) {
+    private Declaration makeDSDeclaration(TDecisionService ds) {
         TInformationItem variable = ds.getVariable();
         String name = ds.getName();
         if (StringUtils.isBlank(name) && variable != null) {
@@ -724,10 +727,10 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
         }
         FunctionType serviceType = (FunctionType) this.drgElementVariableFEELType(ds);
-        return this.environmentFactory.makeDecisionServiceDeclaration(name, serviceType);
+        return this.environmentFactory.makeFunctionDeclaration(name, serviceType);
     }
 
-    private FunctionDeclaration makeBKMDeclaration(TBusinessKnowledgeModel bkm) {
+    private Declaration makeBKMDeclaration(TBusinessKnowledgeModel bkm) {
         TInformationItem variable = bkm.getVariable();
         String name = bkm.getName();
         if (StringUtils.isBlank(name) && variable != null) {
@@ -738,7 +741,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         }
         List<FormalParameter> parameters = this.dmnTransformer.bkmFEELParameters(bkm);
         Type returnType = this.dmnTransformer.drgElementOutputFEELType(bkm);
-        return this.environmentFactory.makeBusinessKnowledgeModelDeclaration(name, new DMNFunctionType(parameters, returnType, bkm, bkm.getEncapsulatedLogic()));
+        return this.environmentFactory.makeFunctionDeclaration(name, new DMNFunctionType(parameters, returnType, bkm, bkm.getEncapsulatedLogic()));
     }
 
     //
