@@ -49,13 +49,5 @@ public interface EnvironmentFactory {
         return new FunctionDeclaration(name, type);
     }
 
-    default BusinessKnowledgeModelDeclaration makeBusinessKnowledgeModelDeclaration(String name, FunctionType type) {
-        return new BusinessKnowledgeModelDeclaration(name, type);
-    }
-
-    default DecisionServiceDeclaration makeDecisionServiceDeclaration(String name, FunctionType type) {
-        return new DecisionServiceDeclaration(name, type);
-    }
-
     Environment getRootEnvironment();
 }
