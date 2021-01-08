@@ -746,7 +746,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     //
     @Override
     public Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, Environment parentEnvironment) {
-        Environment contextEnvironment = this.dmnTransformer.makeEnvironment(element, parentEnvironment);
+        Environment contextEnvironment = this.dmnTransformer.getEnvironmentFactory().makeEnvironment(parentEnvironment);
         Map<TContextEntry, Expression> literalExpressionMap = new LinkedHashMap<>();
         for(TContextEntry entry: context.getContextEntry()) {
             TInformationItem variable = entry.getVariable();

@@ -66,11 +66,7 @@ public class Environment {
             if (declaration instanceof VariableDeclaration) {
                 Declaration existingVariable = variablesTable.get(name);
                 if (existingVariable != null) {
-                    Type existingType = existingVariable.getType();
-                    Type type = declaration.getType();
-                    if (!Type.equivalentTo(existingType, type)) {
-                        throw new DMNRuntimeException(String.format("%s '%s' already exists", declaration.getClass().getSimpleName(), name));
-                    }
+                    throw new DMNRuntimeException(String.format("%s '%s' already exists", declaration.getClass().getSimpleName(), name));
                 } else {
                     variablesTable.put(name, declaration);
                 }
