@@ -552,7 +552,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     @Override
     public Environment makeEnvironment(TDRGElement element) {
-        Environment environment = environmentMemoizer.get(element);
+        Environment environment = this.environmentMemoizer.get(element);
         if (environment == null) {
             environment = makeEnvironmentNoCache(element);
             this.environmentMemoizer.put(element, environment);
@@ -727,7 +727,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
         }
         FunctionType serviceType = (FunctionType) this.drgElementVariableFEELType(ds);
-        return this.environmentFactory.makeFunctionDeclaration(name, serviceType);
+        return this.environmentFactory.makeVariableDeclaration(name, serviceType);
     }
 
     private Declaration makeBKMDeclaration(TBusinessKnowledgeModel bkm) {
@@ -741,7 +741,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         }
         List<FormalParameter> parameters = this.dmnTransformer.bkmFEELParameters(bkm);
         Type returnType = this.dmnTransformer.drgElementOutputFEELType(bkm);
-        return this.environmentFactory.makeFunctionDeclaration(name, new DMNFunctionType(parameters, returnType, bkm, bkm.getEncapsulatedLogic()));
+        return this.environmentFactory.makeVariableDeclaration(name, new DMNFunctionType(parameters, returnType, bkm, bkm.getEncapsulatedLogic()));
     }
 
     //
@@ -794,7 +794,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     private void addContextEntryDeclaration(Environment contextEnvironment, String name, Type entryType) {
         if (entryType instanceof FunctionType) {
-            contextEnvironment.addDeclaration(this.environmentFactory.makeFunctionDeclaration(name, (FunctionType) entryType));
+            contextEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, (FunctionType) entryType));
         } else {
             contextEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, entryType));
         }

@@ -21,11 +21,11 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Environment {
     private final Environment parent;
-    private final Map<String, Declaration> variablesTable = new LinkedHashMap<>();
-    private final Map<String, List<Declaration>> functionsTable = new LinkedHashMap<>();
+    private final Map<String, List<Declaration>> variablesTable = new LinkedHashMap<>();
 
     // For unary test context (input)
     private final Expression inputExpression;
@@ -44,49 +44,41 @@ public class Environment {
     }
 
     public Environment getParent() {
-        return parent;
+        return this.parent;
     }
 
     public Expression getInputExpression() {
-        return inputExpression;
+        return this.inputExpression;
     }
 
     public Type getInputExpressionType() {
-        return inputExpression == null ? null : inputExpression.getType();
+        return this.inputExpression == null ? null : this.inputExpression.getType();
     }
 
     public void addDeclaration(Declaration declaration) {
         String name = declaration.getName();
         if (name != null) {
-            // the name must not clash with names already existing in this scope
+            List<Declaration> existingDeclarations = this.variablesTable.get(name);
+            if (existingDeclarations == null) {
+                existingDeclarations = new ArrayList<>();
+            }
             if (declaration instanceof VariableDeclaration) {
-                Declaration existingVariable = variablesTable.get(name);
-                if (existingVariable != null) {
-                    throw new DMNRuntimeException(String.format("%s '%s' already exists", declaration.getClass().getSimpleName(), name));
+                // the name must not clash with names already existing in this scope
+                if (existingDeclarations.isEmpty()) {
+                    existingDeclarations.add(declaration);
+                    this.variablesTable.put(name, existingDeclarations);
                 } else {
-                    variablesTable.put(name, declaration);
+                    throw new DMNRuntimeException(String.format("%s '%s' already exists", declaration.getClass().getSimpleName(), name));
                 }
             } else if (declaration instanceof FunctionDeclaration) {
-                List<Declaration> existingFunctions = functionsTable.get(name);
-                if (existingFunctions == null) {
-                    existingFunctions = new ArrayList<>();
-                }
-                existingFunctions.add(declaration);
-                functionsTable.put(name, existingFunctions);
+                existingDeclarations.add(declaration);
+                this.variablesTable.put(name, existingDeclarations);
             } else {
                 throw new UnsupportedOperationException(String.format("%s declaration type is not supported", declaration.getClass().getSimpleName()));
             }
         } else {
             throw new DMNRuntimeException(String.format("Could not add declaration with missing name %s", declaration));
         }
-    }
-
-    private Declaration lookupLocalVariableDeclaration(String name) {
-        return variablesTable.get(name);
-    }
-
-    private List<Declaration> lookupLocalFunctionDeclaration(String name) {
-        return functionsTable.get(name);
     }
 
     public Declaration lookupVariableDeclaration(String name) {
@@ -141,5 +133,23 @@ public class Environment {
         if (declaration != null) {
             declaration.setType(type);
         }
+    }
+
+    private Declaration lookupLocalVariableDeclaration(String name) {
+        List<Declaration> declarations = this.variablesTable.get(name);
+        if (declarations == null || declarations.isEmpty()) {
+            return null;
+        } else if (declarations.size() == 1) {
+            return declarations.get(0);
+        } else if (declarations.stream().allMatch(d -> d instanceof FunctionDeclaration)) {
+            return null;
+        } else {
+            throw new DMNRuntimeException(String.format("Multiple variables for 'name' in the same context %s", declarations));
+        }
+    }
+
+    private List<Declaration> lookupLocalFunctionDeclaration(String name) {
+        List<Declaration> declarations = this.variablesTable.get(name);
+        return declarations == null ? null : declarations.stream().filter(d -> d instanceof FunctionDeclaration).collect(Collectors.toList());
     }
 }
