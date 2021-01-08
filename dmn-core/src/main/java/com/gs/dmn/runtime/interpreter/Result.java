@@ -20,6 +20,10 @@ import java.util.List;
 public class Result {
     private List<Error> errors = new ArrayList();
 
+    public static final Result of(Object value, Type type) {
+        return new Result(value, type);
+    }
+
     public static Object value(Result result) {
         return result == null ? null : result.getValue();
     }
@@ -31,7 +35,7 @@ public class Result {
     private final Object value;
     private final Type type;
 
-    public Result(Object value, Type type) {
+    private Result(Object value, Type type) {
         this.value = value;
         this.type = type;
     }

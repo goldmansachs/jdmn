@@ -96,7 +96,7 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
                 output = null;
             }
         }
-        return new Result(output, getBasicDMNTransformer().drgElementOutputFEELType(decision));
+        return Result.of(output, getBasicDMNTransformer().drgElementOutputFEELType(decision));
     }
 
     @Override

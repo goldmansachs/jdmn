@@ -102,7 +102,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         } catch (Exception e) {
             String errorMessage = "Evaluation error";
             this.errorHandler.reportError(errorMessage, e);
-            Result result = new Result(null, NullType.NULL);
+            Result result = Result.of(null, NullType.NULL);
             result.addError(errorMessage, e);
             return result;
         }
@@ -128,7 +128,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         } catch (Exception e) {
             String errorMessage = "Evaluation error";
             this.errorHandler.reportError(errorMessage, e);
-            Result result = new Result(null, NullType.NULL);
+            Result result = Result.of(null, NullType.NULL);
             result.addError(errorMessage, e);
             return result;
         }
@@ -165,7 +165,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         } catch (Exception e) {
             String errorMessage = "Evaluation error";
             this.errorHandler.reportError(errorMessage, e);
-            Result result = new Result(null, NullType.NULL);
+            Result result = Result.of(null, NullType.NULL);
             result.addError(errorMessage, e);
             return result;
         }
@@ -188,7 +188,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         } catch (Exception e) {
             String errorMessage = "Evaluation error";
             this.errorHandler.reportError(errorMessage, e);
-            Result result = new Result(null, NullType.NULL);
+            Result result = Result.of(null, NullType.NULL);
             result.addError(errorMessage, e);
             return result;
         }
@@ -197,7 +197,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     private Result evaluateInputData(DRGElementReference<TInputData> reference, RuntimeEnvironment runtimeEnvironment) {
         TInputData inputData = reference.getElement();
         Object value = lookupBinding(runtimeEnvironment, reference);
-        return new Result(value, this.basicDMNTransformer.drgElementOutputFEELType(inputData));
+        return Result.of(value, this.basicDMNTransformer.drgElementOutputFEELType(inputData));
     }
 
     private Result evaluateDecision(DRGElementReference<TDecision> reference, RuntimeEnvironment runtimeEnvironment) {
@@ -205,7 +205,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
         TDecision decision = reference.getElement();
         Object value = lookupBinding(runtimeEnvironment, reference);
-        return new Result(value, this.basicDMNTransformer.drgElementOutputFEELType(decision));
+        return Result.of(value, this.basicDMNTransformer.drgElementOutputFEELType(decision));
     }
 
     private Result evaluateBKM(DRGElementReference<TBusinessKnowledgeModel> reference, List<Object> argList, FEELContext context) {
@@ -324,7 +324,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         // Decision service end
         EVENT_LISTENER.endDRGElement(drgElementAnnotation, decisionArguments, output, (System.currentTimeMillis() - startTime_));
 
-        return new Result(output, this.basicDMNTransformer.drgElementOutputFEELType(service));
+        return Result.of(output, this.basicDMNTransformer.drgElementOutputFEELType(service));
     }
 
     private void evaluateKnowledgeRequirements(ImportPath importPath, TDRGElement parent, List<TKnowledgeRequirement> knowledgeRequirementList, RuntimeEnvironment runtimeEnvironment) {
@@ -580,7 +580,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                 }
             }
             // Return value
-            return new Result(output, type);
+            return Result.of(output, type);
         }
     }
 
@@ -602,7 +602,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             }
             resultValue.add(Result.value(expResult));
         }
-        return new Result(resultValue, new ListType(elementType));
+        return Result.of(resultValue, new ListType(elementType));
     }
 
     private Result evaluateRelationExpression(TDRGElement element, TRelation relation, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation) {
@@ -640,12 +640,12 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             }
             relationValue.add(rowValue);
         }
-        return new Result(relationValue, new ListType(relationType));
+        return Result.of(relationValue, new ListType(relationType));
     }
 
     private Result evaluateFunctionDefinitionExpression(TDRGElement element, TFunctionDefinition expression, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation) {
         Type type = this.basicDMNTransformer.expressionType(element, expression, environment);
-        return new Result(expression, type);
+        return Result.of(expression, type);
     }
 
     private Result evaluateDecisionTable(TDRGElement element, TDecisionTable decisionTable, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation) {
@@ -680,7 +680,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
         // Return results based on hit policy
         Object value = applyHitPolicy(element, decisionTable, ruleOutputList, environment, runtimeEnvironment, elementAnnotation);
-        return new Result(value, this.basicDMNTransformer.drgElementOutputFEELType(element));
+        return Result.of(value, this.basicDMNTransformer.drgElementOutputFEELType(element));
     }
 
     private InterpretedRuleOutput evaluateRule(TDRGElement element, TDecisionTable decisionTable, TDecisionRule rule, List<InputClausePair> inputClauseList, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation, Rule ruleAnnotation) {
