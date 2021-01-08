@@ -45,9 +45,5 @@ public interface EnvironmentFactory {
         }
     }
 
-    default Declaration makeFunctionDeclaration(String name, FunctionType type) {
-        return new FunctionDeclaration(name, type);
-    }
-
     Environment getRootEnvironment();
 }
