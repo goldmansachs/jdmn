@@ -50,8 +50,8 @@ public class FunctionInvocation extends Expression {
     public void deriveType(FEELContext context) {
         if (this.function instanceof Name) {
             DeclarationMatch declarationMatch = functionResolution(context, ((Name) this.function).getName());
-            FunctionDeclaration functionDeclaration = (FunctionDeclaration) declarationMatch.getDeclaration();
-            FunctionType functionType = functionDeclaration.getType();
+            Declaration functionDeclaration = declarationMatch.getDeclaration();
+            Type functionType = functionDeclaration.getType();
             this.function.setType(functionType);
 
             setInvocationType(functionType);
@@ -59,8 +59,8 @@ public class FunctionInvocation extends Expression {
             this.parameters.setConvertedParameterTypes(declarationMatch.getParameterTypes());
         } else if (this.function instanceof QualifiedName && ((QualifiedName) this.function).getNames().size() == 1) {
             DeclarationMatch declarationMatch = functionResolution(context, ((QualifiedName) this.function).getQualifiedName());
-            FunctionDeclaration functionDeclaration = (FunctionDeclaration) declarationMatch.getDeclaration();
-            FunctionType functionType = functionDeclaration.getType();
+            Declaration functionDeclaration = declarationMatch.getDeclaration();
+            Type functionType = functionDeclaration.getType();
             this.function.setType(functionType);
 
             setInvocationType(functionType);
