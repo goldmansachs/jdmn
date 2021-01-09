@@ -64,7 +64,7 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
 
         // Iterate over source
         List outputList = new ArrayList<>();
-        RuntimeEnvironment newRuntimeEnvironment = this.runtimeEnvironmentFactory.makeEnvironment(runtimeEnvironment);
+        RuntimeEnvironment newRuntimeEnvironment = RuntimeEnvironment.of(runtimeEnvironment);
         for (Object obj : sourceList) {
             newRuntimeEnvironment.bind(lambdaParamName, obj);
             applyDecision(this.dmnModelRepository.makeDRGElementReference(topLevelDecision), newRuntimeEnvironment);

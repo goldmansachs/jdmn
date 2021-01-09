@@ -12,8 +12,73 @@
  */
 package com.gs.dmn.runtime.interpreter.environment;
 
-public class RuntimeEnvironment extends Environment<String, Object> {
-    RuntimeEnvironment(Environment<String, Object> parent) {
-        super(parent);
+import com.gs.dmn.runtime.interpreter.InputClausePair;
+import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+public class RuntimeEnvironment {
+    public static RuntimeEnvironment of() {
+        return of(null);
+    }
+
+    public static RuntimeEnvironment of(RuntimeEnvironment parent) {
+        return new RuntimeEnvironment(parent);
+    }
+
+    public static RuntimeEnvironment of(List<InputClausePair> inputClauseList, RuntimeEnvironment runtimeEnvironment, int index) {
+        RuntimeEnvironment inputEntryRuntimeEnvironment = of(runtimeEnvironment);
+        runtimeEnvironment.bind(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputClauseList.get(index).getValue());
+        return inputEntryRuntimeEnvironment;
+    }
+
+    private final Map<String, Object> bindings = new LinkedHashMap<>();
+
+    private final RuntimeEnvironment parent;
+
+    RuntimeEnvironment(RuntimeEnvironment parent) {
+        this.parent = parent;
+    }
+
+    public RuntimeEnvironment getParent() {
+        return parent;
+    }
+
+    public void bind(String key, Object value) {
+        bindings.put(key, value);
+    }
+
+    public Object lookupBinding(String key) {
+        if (isLocalBound(key)) {
+            return lookupLocalBinding(key);
+        } else {
+            if (parent != null) {
+                return parent.lookupBinding(key);
+            } else {
+                return null;
+            }
+        }
+    }
+
+    public boolean isBound(String key) {
+        if (isLocalBound(key)) {
+            return true;
+        } else {
+            if (parent != null) {
+                return parent.isBound(key);
+            } else {
+                return false;
+            }
+        }
+    }
+
+    private Object lookupLocalBinding(String key) {
+        return bindings.get(key);
+    }
+
+    private boolean isLocalBound(String key) {
+        return bindings.containsKey(key);
     }
 }
