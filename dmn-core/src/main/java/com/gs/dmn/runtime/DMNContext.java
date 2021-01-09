@@ -69,10 +69,6 @@ public class DMNContext {
         return environment.lookupFunctionDeclaration(name);
     }
 
-    public Declaration lookupFunctionDeclaration(String name, ParameterTypes parameterTypes) {
-        return environment.lookupFunctionDeclaration(name, parameterTypes);
-    }
-
     public void updateVariableDeclaration(String name, Type type) {
         environment.updateVariableDeclaration(name, type);
     }
