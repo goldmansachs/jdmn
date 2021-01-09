@@ -522,7 +522,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     private Type literalExpressionType(TNamedElement element, TLiteralExpression body, Environment environment) {
-        FEELContext context = FEELContext.makeContext(element, environment);
+        FEELContext context = FEELContext.of(element, environment);
         Expression expression = this.feelTranslator.analyzeExpression(body.getText(), context);
         return expression.getType();
     }
@@ -757,7 +757,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             TExpression expression = jElement == null ? null : jElement.getValue();
             Expression feelExpression = null;
             if (expression instanceof TLiteralExpression) {
-                feelExpression = this.feelTranslator.analyzeExpression(((TLiteralExpression) expression).getText(), FEELContext.makeContext(element, contextEnvironment));
+                feelExpression = this.feelTranslator.analyzeExpression(((TLiteralExpression) expression).getText(), FEELContext.of(element, contextEnvironment));
                 literalExpressionMap.put(entry, feelExpression);
             }
             if (variable != null) {

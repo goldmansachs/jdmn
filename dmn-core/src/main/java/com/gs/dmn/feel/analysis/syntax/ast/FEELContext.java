@@ -22,11 +22,11 @@ public class FEELContext {
     private final RuntimeEnvironment runtimeEnvironment;
     private final TNamedElement element;
 
-    public static FEELContext makeContext(TNamedElement element, Environment environment) {
+    public static FEELContext of(TNamedElement element, Environment environment) {
         return new FEELContext(element, environment, null);
     }
 
-    public static FEELContext makeContext(TNamedElement element, Environment environment, RuntimeEnvironment runtimeEnvironment) {
+    public static FEELContext of(TNamedElement element, Environment environment, RuntimeEnvironment runtimeEnvironment) {
         return new FEELContext(element, environment, runtimeEnvironment);
     }
 

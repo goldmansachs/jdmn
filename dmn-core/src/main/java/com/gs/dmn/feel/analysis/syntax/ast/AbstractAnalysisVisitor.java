@@ -20,7 +20,6 @@ import com.gs.dmn.feel.analysis.semantics.type.AnyType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.feel.synthesis.AbstractFEELToJavaVisitor;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.DMNEnvironmentFactory;
@@ -65,6 +64,6 @@ public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
             itemType = ((ListType) source.getType()).getElementType();
         }
         filterEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(filterVariableName, itemType));
-        return FEELContext.makeContext(context.getElement(), filterEnvironment);
+        return FEELContext.of(context.getElement(), filterEnvironment);
     }
 }

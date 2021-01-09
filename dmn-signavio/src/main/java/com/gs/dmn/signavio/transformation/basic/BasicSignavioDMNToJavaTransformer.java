@@ -327,7 +327,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
         TDefinitions model = this.dmnModelRepository.getModel(element);
         TLiteralExpression expression = (TLiteralExpression) this.dmnModelRepository.expression(element);
         Environment environment = this.makeEnvironment(element);
-        Expression literalExpression = this.feelTranslator.analyzeExpression(expression.getText(), FEELContext.makeContext(element, environment));
+        Expression literalExpression = this.feelTranslator.analyzeExpression(expression.getText(), FEELContext.of(element, environment));
         if (literalExpression instanceof FunctionDefinition) {
             Expression body = ((FunctionDefinition) literalExpression).getBody();
             String javaCode;
@@ -342,7 +342,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
                 String arguments = drgElementEvaluateArgumentList(element);
                 javaCode = this.nativeFactory.makeExternalExecutorCall(externalExecutorVariableName(), className, methodName, arguments, returnNativeType);
             } else {
-                javaCode = this.feelTranslator.expressionToNative(body, FEELContext.makeContext(element, environment));
+                javaCode = this.feelTranslator.expressionToNative(body, FEELContext.of(element, environment));
             }
             Type expressionType = body.getType();
             Statement statement = this.nativeFactory.makeExpressionStatement(javaCode, expressionType);
