@@ -34,21 +34,21 @@ public class ListLiteral extends Expression {
     }
 
     public List<Expression> getExpressionList() {
-        return expressionList;
+        return this.expressionList;
     }
 
     public void add(Expression ast) {
-        expressionList.add(ast);
+        this.expressionList.add(ast);
     }
 
     @Override
     public void deriveType(DMNContext context) {
         Environment environment = context.getEnvironment();
-        if (expressionList.isEmpty()) {
-            if (environment.getInputExpressionType() == null) {
+        if (this.expressionList.isEmpty()) {
+            if (context.getInputExpressionType() == null) {
                 setType(new ListType(AnyType.ANY));
             } else {
-                setType(environment.getInputExpressionType());
+                setType(context.getInputExpressionType());
             }
         } else {
             checkListElementTypes();
@@ -56,7 +56,7 @@ public class ListLiteral extends Expression {
     }
 
     private void checkListElementTypes() {
-        List<Type> types = expressionList.stream().map(Expression::getType).collect(Collectors.toList());
+        List<Type> types = this.expressionList.stream().map(Expression::getType).collect(Collectors.toList());
         boolean sameType = true;
         for (int i = 0; i < types.size() - 1; i++) {
             Type type1 = types.get(i);
@@ -85,7 +85,7 @@ public class ListLiteral extends Expression {
 
     @Override
     public String toString() {
-        String expressions = expressionList.stream().map(Object::toString).collect(Collectors.joining(","));
+        String expressions = this.expressionList.stream().map(Object::toString).collect(Collectors.joining(","));
         return String.format("ListLiteral(%s)", expressions);
     }
 }

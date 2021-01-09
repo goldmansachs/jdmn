@@ -12,15 +12,14 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.NamedExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionInvocation;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.DMNContext;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class OperatorTest extends SimplePositiveUnaryTest {
     private final String operator;
@@ -32,32 +31,31 @@ public class OperatorTest extends SimplePositiveUnaryTest {
     }
 
     public Expression getEndpoint() {
-        return endpoint;
+        return this.endpoint;
     }
 
     public String getOperator() {
-        return operator;
+        return this.operator;
     }
 
     @Override
     // TODO refactor types for Tests
     public void deriveType(DMNContext context) {
-        Environment environment = context.getEnvironment();
         setType(BooleanType.BOOLEAN);
-        Type inputExpressionType = environment.getInputExpressionType();
+        Type inputExpressionType = context.getInputExpressionType();
         if (inputExpressionType == null) {
-            throw new DMNRuntimeException(String.format("Missing input expression type when evaluating '%s'", endpoint));
+            throw new DMNRuntimeException(String.format("Missing input expression type when evaluating '%s'", this.endpoint));
         }
-        if (Type.conformsTo(inputExpressionType, endpoint.getType())) {
+        if (Type.conformsTo(inputExpressionType, this.endpoint.getType())) {
             return;
         }
-        if (endpoint instanceof FunctionInvocation) {
-        } else if (endpoint instanceof NamedExpression) {
+        if (this.endpoint instanceof FunctionInvocation) {
+        } else if (this.endpoint instanceof NamedExpression) {
         } else {
-            if (operator == null) {
-                checkType("=", inputExpressionType, endpoint.getType());
+            if (this.operator == null) {
+                checkType("=", inputExpressionType, this.endpoint.getType());
             } else {
-                checkType(operator, inputExpressionType, endpoint.getType());
+                checkType(this.operator, inputExpressionType, this.endpoint.getType());
             }
         }
     }
@@ -69,6 +67,6 @@ public class OperatorTest extends SimplePositiveUnaryTest {
 
     @Override
     public String toString() {
-        return String.format("OperatorTest(%s,%s)", operator, endpoint.toString());
+        return String.format("OperatorTest(%s,%s)", this.operator, this.endpoint.toString());
     }
 }

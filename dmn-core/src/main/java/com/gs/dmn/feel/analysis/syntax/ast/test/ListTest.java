@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.RangeType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
@@ -34,18 +33,17 @@ public class ListTest extends SimplePositiveUnaryTest {
     }
 
     public ListLiteral getListLiteral() {
-        return listLiteral;
+        return this.listLiteral;
     }
 
     @Override
     public void deriveType(DMNContext context) {
-        Environment environment = context.getEnvironment();
         setType(BOOLEAN);
-        List<Expression> expressionList = listLiteral.getExpressionList();
+        List<Expression> expressionList = this.listLiteral.getExpressionList();
         if (!expressionList.isEmpty()) {
-            Type listType = listLiteral.getType();
+            Type listType = this.listLiteral.getType();
             Type listElementType = ((ListType) listType).getElementType();
-            Type inputExpressionType = environment.getInputExpressionType();
+            Type inputExpressionType = context.getInputExpressionType();
             if (Type.conformsTo(inputExpressionType, listType)) {
             } else if (Type.conformsTo(inputExpressionType, listElementType)) {
             } else if (listElementType instanceof RangeType &&Type.conformsTo(inputExpressionType, ((RangeType) listElementType).getRangeType())) {
@@ -63,6 +61,6 @@ public class ListTest extends SimplePositiveUnaryTest {
 
     @Override
     public String toString() {
-        return String.format("ListTest(%s)", listLiteral);
+        return String.format("ListTest(%s)", this.listLiteral);
     }
 }
