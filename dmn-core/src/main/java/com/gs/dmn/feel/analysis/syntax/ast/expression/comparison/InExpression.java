@@ -12,11 +12,11 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.comparison;
 
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.PositiveUnaryTest;
 import com.gs.dmn.feel.analysis.syntax.ast.test.PositiveUnaryTests;
+import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,12 +51,12 @@ public class InExpression extends Comparison {
     }
 
     @Override
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         setType(BOOLEAN);
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 

@@ -13,15 +13,15 @@
 package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.feel.analysis.FEELTestsAnalyzer;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
+import com.gs.dmn.runtime.DMNContext;
 
 interface FEELTestsTranslator extends FEELTestsAnalyzer {
-    String unaryTestsToJava(String text, FEELContext context);
+    String unaryTestsToJava(String text, DMNContext context);
 
-    String simpleUnaryTestsToJava(String text, FEELContext context);
+    String simpleUnaryTestsToJava(String text, DMNContext context);
 
-    String unaryTestsToJava(UnaryTests expression, FEELContext context);
+    String unaryTestsToJava(UnaryTests expression, DMNContext context);
 
-    String simpleUnaryTestsToJava(UnaryTests expression, FEELContext context);
+    String simpleUnaryTestsToJava(UnaryTests expression, DMNContext context);
 }

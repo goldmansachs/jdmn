@@ -12,11 +12,11 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.type;
 
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.DMNContext;
 
 public abstract class TypeExpression extends Expression {
     @Override
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
     }
 }

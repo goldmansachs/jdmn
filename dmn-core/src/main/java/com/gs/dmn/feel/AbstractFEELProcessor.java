@@ -13,9 +13,9 @@
 package com.gs.dmn.feel;
 
 import com.gs.dmn.feel.analysis.FEELAnalyzer;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
+import com.gs.dmn.runtime.DMNContext;
 
 public class AbstractFEELProcessor {
     private final FEELAnalyzer feelAnalyzer;
@@ -32,11 +32,11 @@ public class AbstractFEELProcessor {
         return this.feelAnalyzer.parseSimpleUnaryTests(text);
     }
 
-    public UnaryTests analyzeUnaryTests(String text, FEELContext context) {
+    public UnaryTests analyzeUnaryTests(String text, DMNContext context) {
         return this.feelAnalyzer.analyzeUnaryTests(text, context);
     }
 
-    public UnaryTests analyzeSimpleUnaryTests(String text, FEELContext context) {
+    public UnaryTests analyzeSimpleUnaryTests(String text, DMNContext context) {
         return this.feelAnalyzer.analyzeSimpleUnaryTests(text, context);
     }
 
@@ -56,19 +56,19 @@ public class AbstractFEELProcessor {
         return this.feelAnalyzer.parseBoxedExpression(text);
     }
 
-    public Expression analyzeExpression(String text, FEELContext context) {
+    public Expression analyzeExpression(String text, DMNContext context) {
         return this.feelAnalyzer.analyzeExpression(text, context);
     }
 
-    public Expression analyzeSimpleExpressions(String text, FEELContext context) {
+    public Expression analyzeSimpleExpressions(String text, DMNContext context) {
         return this.feelAnalyzer.analyzeSimpleExpressions(text, context);
     }
 
-    public Expression analyzeTextualExpressions(String text, FEELContext context) {
+    public Expression analyzeTextualExpressions(String text, DMNContext context) {
         return this.feelAnalyzer.analyzeTextualExpressions(text, context);
     }
 
-    public Expression analyzeBoxedExpression(String text, FEELContext context) {
+    public Expression analyzeBoxedExpression(String text, DMNContext context) {
         return this.feelAnalyzer.analyzeBoxedExpression(text, context);
     }
 }

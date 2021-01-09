@@ -17,13 +17,13 @@ import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.FunctionDeclaration;
 import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
+import com.gs.dmn.runtime.DMNContext;
 
 import java.util.List;
 
 public abstract class NamedExpression extends Expression {
     @Override
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         Environment environment = context.getEnvironment();
         Type type;
         String name = getName();

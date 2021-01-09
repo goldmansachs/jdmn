@@ -17,12 +17,12 @@ import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.FunctionDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.QualifiedName;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.Pair;
 
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class FunctionInvocation extends Expression {
     }
 
     @Override
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         if (this.function instanceof Name) {
             DeclarationMatch declarationMatch = functionResolution(context, ((Name) this.function).getName());
             Declaration functionDeclaration = declarationMatch.getDeclaration();
@@ -82,7 +82,7 @@ public class FunctionInvocation extends Expression {
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 
@@ -91,7 +91,7 @@ public class FunctionInvocation extends Expression {
         return String.format("FunctionInvocation(%s -> %s)", this.function.toString(), this.parameters.toString());
     }
 
-    private DeclarationMatch functionResolution(FEELContext context, String name) {
+    private DeclarationMatch functionResolution(DMNContext context, String name) {
         ParameterTypes parameterTypes = this.parameters.getSignature();
         List<DeclarationMatch> functionMatches = findFunctionMatches(context, name, parameterTypes);
         if (functionMatches.isEmpty()) {
@@ -111,7 +111,7 @@ public class FunctionInvocation extends Expression {
         }
     }
 
-    private List<DeclarationMatch> findFunctionMatches(FEELContext context, String name, ParameterTypes parameterTypes) {
+    private List<DeclarationMatch> findFunctionMatches(DMNContext context, String name, ParameterTypes parameterTypes) {
         Environment environment = context.getEnvironment();
         List<Declaration> declarations = environment.lookupFunctionDeclaration(name);
         // Phase 1: Look for candidates without conversions

@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.type;
 
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.Pair;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class ContextTypeExpression extends TypeExpression {
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 

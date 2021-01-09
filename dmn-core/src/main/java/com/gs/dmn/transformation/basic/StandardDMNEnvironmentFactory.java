@@ -19,7 +19,6 @@ import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.*;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Context;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ContextEntry;
@@ -28,6 +27,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.StringLiteral;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.interpreter.ImportPath;
 import com.gs.dmn.serialization.DMNVersion;
@@ -522,7 +522,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     private Type literalExpressionType(TNamedElement element, TLiteralExpression body, Environment environment) {
-        FEELContext context = FEELContext.of(element, environment);
+        DMNContext context = DMNContext.of(element, environment);
         Expression expression = this.feelTranslator.analyzeExpression(body.getText(), context);
         return expression.getType();
     }
@@ -757,7 +757,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             TExpression expression = jElement == null ? null : jElement.getValue();
             Expression feelExpression = null;
             if (expression instanceof TLiteralExpression) {
-                feelExpression = this.feelTranslator.analyzeExpression(((TLiteralExpression) expression).getText(), FEELContext.of(element, contextEnvironment));
+                feelExpression = this.feelTranslator.analyzeExpression(((TLiteralExpression) expression).getText(), DMNContext.of(element, contextEnvironment));
                 literalExpressionMap.put(entry, feelExpression);
             }
             if (variable != null) {

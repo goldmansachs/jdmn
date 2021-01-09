@@ -13,8 +13,8 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.logic;
 
 import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.DMNContext;
 
 public abstract class LogicExpression extends Expression {
     private final String operator;
@@ -40,7 +40,7 @@ public abstract class LogicExpression extends Expression {
     }
 
     @Override
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         // Not need to check the operand types. or, and, not are total functions
         setType(BooleanType.BOOLEAN);
     }

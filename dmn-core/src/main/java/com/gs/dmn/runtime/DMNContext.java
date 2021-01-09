@@ -10,27 +10,26 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast;
+package com.gs.dmn.runtime;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import org.omg.spec.dmn._20191111.model.TNamedElement;
 
-public class FEELContext {
+public class DMNContext {
+    private final TNamedElement element;
     private final Environment environment;
     private final RuntimeEnvironment runtimeEnvironment;
-    private final TNamedElement element;
 
-    public static FEELContext of(TNamedElement element, Environment environment) {
-        return new FEELContext(element, environment, null);
+    public static DMNContext of(TNamedElement element, Environment environment) {
+        return new DMNContext(element, environment, null);
     }
 
-    public static FEELContext of(TNamedElement element, Environment environment, RuntimeEnvironment runtimeEnvironment) {
-        return new FEELContext(element, environment, runtimeEnvironment);
+    public static DMNContext of(TNamedElement element, Environment environment, RuntimeEnvironment runtimeEnvironment) {
+        return new DMNContext(element, environment, runtimeEnvironment);
     }
 
-    private FEELContext(TNamedElement element, Environment environment, RuntimeEnvironment runtimeEnvironment) {
+    private DMNContext(TNamedElement element, Environment environment, RuntimeEnvironment runtimeEnvironment) {
         this.element = element;
         this.environment = environment;
         this.runtimeEnvironment = runtimeEnvironment;
@@ -44,14 +43,14 @@ public class FEELContext {
         return this.environment;
     }
 
-    public Object lookupRuntimeBinding(String variableName) {
+    public Object lookupBinding(String variableName) {
         if (this.runtimeEnvironment == null) {
             throw new DMNRuntimeException("Missing runtime environment");
         }
         return this.runtimeEnvironment.lookupBinding(variableName);
     }
 
-    public void runtimeBind(String variableName, Object value) {
+    public void bind(String variableName, Object value) {
         if (this.runtimeEnvironment == null) {
             throw new DMNRuntimeException("Missing runtime environment");
         }
