@@ -43,10 +43,6 @@ public class Environment {
         this.inputExpression = inputExpression;
     }
 
-    public Environment getParent() {
-        return this.parent;
-    }
-
     public Expression getInputExpression() {
         return this.inputExpression;
     }
@@ -86,8 +82,8 @@ public class Environment {
         if (declaration != null) {
             return declaration;
         } else {
-            if (getParent() != null) {
-                return getParent().lookupVariableDeclaration(name);
+            if (this.parent != null) {
+                return this.parent.lookupVariableDeclaration(name);
             } else {
                 return null;
             }
@@ -120,8 +116,8 @@ public class Environment {
             }
             return null;
         } else {
-            if (getParent() != null) {
-                return getParent().lookupFunctionDeclaration(name, parameterTypes);
+            if (this.parent != null) {
+                return this.parent.lookupFunctionDeclaration(name, parameterTypes);
             } else {
                 return null;
             }

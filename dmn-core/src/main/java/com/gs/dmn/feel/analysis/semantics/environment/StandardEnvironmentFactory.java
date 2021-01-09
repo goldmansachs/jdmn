@@ -30,11 +30,11 @@ import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public class StandardEnvironmentFactory implements EnvironmentFactory {
     private static final EnvironmentFactory INSTANCE = new StandardEnvironmentFactory();
-    private static final Environment ROOT_ENVIRONMENT;
+    private static final Environment BUILT_IN_ENVIRONMENT;
 
     static {
-        ROOT_ENVIRONMENT = INSTANCE.emptyEnvironment();
-        addFEELFunctions(ROOT_ENVIRONMENT);
+        BUILT_IN_ENVIRONMENT = INSTANCE.emptyEnvironment();
+        addFEELFunctions(BUILT_IN_ENVIRONMENT);
     }
 
     public static EnvironmentFactory instance() {
@@ -45,8 +45,8 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     }
 
     @Override
-    public Environment getRootEnvironment() {
-        return StandardEnvironmentFactory.ROOT_ENVIRONMENT;
+    public Environment getBuiltInEnvironment() {
+        return StandardEnvironmentFactory.BUILT_IN_ENVIRONMENT;
     }
 
     private static void addFEELFunctions(Environment environment) {

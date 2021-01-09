@@ -34,16 +34,12 @@ public class RuntimeEnvironment {
         return inputEntryRuntimeEnvironment;
     }
 
-    private final Map<String, Object> bindings = new LinkedHashMap<>();
-
     private final RuntimeEnvironment parent;
+
+    private final Map<String, Object> bindings = new LinkedHashMap<>();
 
     RuntimeEnvironment(RuntimeEnvironment parent) {
         this.parent = parent;
-    }
-
-    public RuntimeEnvironment getParent() {
-        return parent;
     }
 
     public void bind(String key, Object value) {
