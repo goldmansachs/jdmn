@@ -94,10 +94,36 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         return this.typeConverter;
     }
 
+    //
+    // Evaluate TDecisions
+    //
     @Override
-    public Result evaluate(DRGElementReference<? extends TDRGElement> reference, List<Object> args, RuntimeEnvironment runtimeEnvironment) {
+    public Result evaluate(DRGElementReference<? extends TDecision> reference, Map<String, Object> informationRequirements) {
         try {
             Environment environment = this.basicDMNTransformer.makeEnvironment(reference.getElement());
+            RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentFactory.instance().makeEnvironment();
+            for (Map.Entry<String, Object> entry: informationRequirements.entrySet()) {
+                runtimeEnvironment.bind(entry.getKey(), entry.getValue());
+            }
+            List<Object> args = new ArrayList<>();
+            return evaluate(reference, args, FEELContext.makeContext(reference.getElement(), environment, runtimeEnvironment));
+        } catch (Exception e) {
+            String errorMessage = "Evaluation error";
+            this.errorHandler.reportError(errorMessage, e);
+            Result result = Result.of(null, NullType.NULL);
+            result.addError(errorMessage, e);
+            return result;
+        }
+    }
+
+    //
+    // Evaluate TInvocables
+    //
+    @Override
+    public Result evaluate(DRGElementReference<? extends TInvocable> reference, List<Object> args) {
+        try {
+            Environment environment = this.basicDMNTransformer.makeEnvironment(reference.getElement());
+            RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentFactory.instance().makeEnvironment();
             return evaluate(reference, args, FEELContext.makeContext(reference.getElement(), environment, runtimeEnvironment));
         } catch (Exception e) {
             String errorMessage = "Evaluation error";
@@ -109,22 +135,19 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     }
 
     @Override
-    public Result evaluate(DRGElementReference<? extends TDRGElement> reference, List<Object> args, FEELContext context) {
+    public Result evaluate(TInvocable invocable, List<Object> argList, FEELContext context) {
         try {
-            TDRGElement drgElement = reference.getElement();
-            Result actualOutput;
-            if (drgElement instanceof TInputData) {
-                actualOutput = evaluateInputData((DRGElementReference<TInputData>) reference, context.getRuntimeEnvironment());
-            } else if (drgElement instanceof TDecision) {
-                actualOutput = evaluateDecision((DRGElementReference<TDecision>) reference, context.getRuntimeEnvironment());
-            } else if (drgElement instanceof TDecisionService) {
-                actualOutput = evaluateDecisionService((DRGElementReference<TDecisionService>) reference, args, context);
-            } else if (drgElement instanceof TBusinessKnowledgeModel) {
-                actualOutput = evaluateBKM((DRGElementReference<TBusinessKnowledgeModel>) reference, args, context);
+            Environment environment = this.basicDMNTransformer.makeEnvironment(invocable, context.getEnvironment());
+            FEELContext invocationContext = FEELContext.makeContext(invocable, environment, context.getRuntimeEnvironment());
+            Result result;
+            if (invocable instanceof TDecisionService) {
+                result = evaluate(this.dmnModelRepository.makeDRGElementReference(invocable), argList, invocationContext);
+            } else if (invocable instanceof TBusinessKnowledgeModel) {
+                result = evaluate(this.dmnModelRepository.makeDRGElementReference(invocable), argList, invocationContext);
             } else {
-                throw new IllegalArgumentException(String.format("Not supported type '%s'", drgElement.getClass().getSimpleName()));
+                throw new IllegalArgumentException(String.format("Not supported type '%s'", invocable.getClass().getSimpleName()));
             }
-            return actualOutput;
+            return result;
         } catch (Exception e) {
             String errorMessage = "Evaluation error";
             this.errorHandler.reportError(errorMessage, e);
@@ -171,20 +194,22 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         }
     }
 
-    @Override
-    public Result evaluate(TInvocable invocable, List<Object> argList, FEELContext context) {
+    private Result evaluate(DRGElementReference<? extends TDRGElement> reference, List<Object> args, FEELContext context) {
         try {
-            Environment environment = this.basicDMNTransformer.makeEnvironment(invocable, context.getEnvironment());
-            FEELContext invocationContext = FEELContext.makeContext(invocable, environment, context.getRuntimeEnvironment());
-            Result result;
-            if (invocable instanceof TDecisionService) {
-                result = evaluate(this.dmnModelRepository.makeDRGElementReference(invocable), argList, invocationContext);
-            } else if (invocable instanceof TBusinessKnowledgeModel) {
-                result = evaluate(this.dmnModelRepository.makeDRGElementReference(invocable), argList, invocationContext);
+            TDRGElement drgElement = reference.getElement();
+            Result actualOutput;
+            if (drgElement instanceof TInputData) {
+                actualOutput = evaluateInputData((DRGElementReference<TInputData>) reference, context.getRuntimeEnvironment());
+            } else if (drgElement instanceof TDecision) {
+                actualOutput = evaluateDecision((DRGElementReference<TDecision>) reference, context.getRuntimeEnvironment());
+            } else if (drgElement instanceof TDecisionService) {
+                actualOutput = evaluateDecisionService((DRGElementReference<TDecisionService>) reference, args, context);
+            } else if (drgElement instanceof TBusinessKnowledgeModel) {
+                actualOutput = evaluateBKM((DRGElementReference<TBusinessKnowledgeModel>) reference, args, context);
             } else {
-                throw new IllegalArgumentException(String.format("Not supported type '%s'", invocable.getClass().getSimpleName()));
+                throw new IllegalArgumentException(String.format("Not supported type '%s'", drgElement.getClass().getSimpleName()));
             }
-            return result;
+            return actualOutput;
         } catch (Exception e) {
             String errorMessage = "Evaluation error";
             this.errorHandler.reportError(errorMessage, e);

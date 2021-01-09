@@ -36,7 +36,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "compoundOutputCompoundDecision",
                         "compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("booleanInput", true),
                                 new Pair<>("enumerationInput", "e1"),
                                 new Pair<>("dd1TextInput", "a"),
@@ -52,7 +52,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "decision",
                         "simple-decision-complex-type-inputs-sfeel-input-entries-single-output-collect-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("person", new Context("Person")
                                         .add("firstName", "Peter")
                                         .add("lastName", "Sellers")
@@ -75,7 +75,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "decision",
                         "simple-decision-primitive-type-inputs-compound-output-output-order-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("textInput", "1"),
                                 new Pair<>("numberInput", decision.number("1"))
                         )),
@@ -94,7 +94,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "decision",
                         "simple-decision-primitive-type-inputs-compound-output-priority-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("textInput", "1"),
                                 new Pair<>("numberInput", decision.number("1"))
                         )),
@@ -108,7 +108,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "decision",
                         "simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("booleanInput", true),
                                 new Pair<>("numberInput", decision.number("-1")),
                                 new Pair<>("textInput", "abc"),
@@ -127,7 +127,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "decision",
                         "simple-decision-primitive-type-inputs-feel-input-entries-single-output-unique-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("booleanInput", true),
                                 new Pair<>("numberInput", decision.number("-1")),
                                 new Pair<>("textInput", "abc"),
@@ -146,7 +146,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "compoundOutputDecision",
                         "simple-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("booleanInput", true),
                                 new Pair<>("numberInput", decision.number("-1")),
                                 new Pair<>("textInput", "abc"),
@@ -165,7 +165,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "decision",
                         "simple-decision-primitive-type-inputs-sfeel-input-entries-single-output-first-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("booleanInput", true),
                                 new Pair<>("numberInput", decision.number("-1")),
                                 new Pair<>("textInput", "abc"),
@@ -184,7 +184,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "decision",
                         "simple-decision-primitive-type-inputs-single-output-any-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("textInput", "1"),
                                 new Pair<>("numberInput", decision.number("1"))
                         )),
@@ -198,7 +198,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "decision",
                         "simple-decision-primitive-type-inputs-single-output-collect-count-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("textInput", "1"),
                                 new Pair<>("numberInput", decision.number("1"))
                         )),
@@ -212,7 +212,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "decision",
                         "simple-decision-primitive-type-inputs-single-output-collect-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("textInput", "1"),
                                 new Pair<>("numberInput", decision.number("1"))
                         )),
@@ -226,7 +226,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "decision",
                         "simple-decision-primitive-type-inputs-single-output-collect-min-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("textInput", "1"),
                                 new Pair<>("numberInput", decision.number("1"))
                         )),
@@ -240,7 +240,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "decision",
                         "simple-decision-primitive-type-inputs-single-output-collect-sum-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("textInput", "1"),
                                 new Pair<>("numberInput", decision.number("1"))
                         )),
@@ -254,7 +254,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "decision",
                         "simple-decision-primitive-type-inputs-single-output-first-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("textInput", "1"),
                                 new Pair<>("numberInput", decision.number("1"))
                         )),
@@ -268,7 +268,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "decision",
                         "simple-decision-primitive-type-inputs-single-output-output-order-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("textInput", "1"),
                                 new Pair<>("numberInput", decision.number("1"))
                         )),
@@ -282,7 +282,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "decision",
                         "simple-decision-primitive-type-inputs-single-output-priority-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("textInput", "1"),
                                 new Pair<>("numberInput", decision.number("1"))
                         )),
@@ -296,7 +296,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "decision",
                         "simple-decision-primitive-type-inputs-single-output-rule-order-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("textInput", "1"),
                                 new Pair<>("numberInput", decision.number("1"))
                         )),
@@ -310,7 +310,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "decision",
                         "simple-decision-primitive-type-inputs-single-output-unique-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                         )),
                         "r2"
                 )
@@ -322,7 +322,7 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
         doTest(new DecisionTestConfig(
                         "decision",
                         "simple-decision-primitive-type-list-inputs-feel-input-entries-single-output-unique-hit-policy",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("textInput", "1"),
                                 new Pair<>("numberInput", decision.number("1"))
                         )),

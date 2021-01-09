@@ -21,8 +21,6 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
@@ -30,7 +28,7 @@ import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.InputParameters;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TDecision;
 import org.omg.spec.dmn._20191111.model.TDefinitions;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +36,9 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.net.URI;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -52,7 +52,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
         doTest(config.getDecisionName(), config.getDiagramName(), config.getRuntimeContext(), config.getExpectedResult());
     }
 
-    protected void doTest(String decisionName, String diagramName, RuntimeEnvironment runtimeEnvironment, Object expectedResult) throws Exception {
+    protected void doTest(String decisionName, String diagramName, Map<String, Object> inputRequirements, Object expectedResult) throws Exception {
         String errorMessage = String.format("Tested failed for diagram '%s'", diagramName);
         try {
             String pathName = getInputPath() + "/" + diagramName + DMNConstants.DMN_FILE_EXTENSION;
@@ -61,8 +61,8 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
             DMNModelRepository repository = new SignavioDMNModelRepository(pair, "http://www.provider.com/schema/dmn/1.1/");
             DMNInterpreter<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> interpreter = dialectDefinition.createDMNInterpreter(repository, makeInputParameters());
 
-            TDRGElement decision = repository.findDRGElementByName(repository.getRootDefinitions(), decisionName);
-            Result actualResult = interpreter.evaluate(repository.makeDRGElementReference(decision), null, runtimeEnvironment);
+            TDecision decision = (TDecision) repository.findDRGElementByName(repository.getRootDefinitions(), decisionName);
+            Result actualResult = interpreter.evaluate(repository.makeDRGElementReference(decision), inputRequirements);
             Object actualValue = Result.value(actualResult);
 
             assertEquals(errorMessage, expectedResult, actualValue);
@@ -76,10 +76,10 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
         return new InputParameters(makeInputParametersMap());
     }
 
-    protected RuntimeEnvironment makeRuntimeEnvironment(List<Pair<String, ?>> pairs) {
-        RuntimeEnvironment environment = RuntimeEnvironmentFactory.instance().makeEnvironment();
+    protected Map<String, Object> makeInformationRequirements(List<Pair<String, ?>> pairs) {
+        Map<String, Object> environment = new LinkedHashMap<>();
         for (Pair<String, ?> pair : pairs) {
-            environment.bind(pair.getLeft(), pair.getRight());
+            environment.put(pair.getLeft(), pair.getRight());
         }
         return environment;
     }

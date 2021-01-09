@@ -7,6 +7,7 @@
         <label>Literal Expression</label>
         <label>FEEL Functions: date and time</label>
     </labels>
+<!--
     <testCase id="001_bdf26fdc72">
         <resultNode errorResult="true" name="feel-time-function_ErrorCase_001_bdf26fdc72" type="decision">
             <expected>
@@ -14,6 +15,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
     <testCase id="002_9d2e399b96">
         <resultNode errorResult="true" name="feel-time-function_ErrorCase_002_9d2e399b96" type="decision">
             <expected>
@@ -112,6 +114,7 @@
             </expected>
         </resultNode>
     </testCase>
+<!--
     <testCase id="016_c3cccff405">
         <resultNode errorResult="true" name="feel-time-function_ErrorCase_016_c3cccff405" type="decision">
             <expected>
@@ -119,6 +122,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
     <testCase id="017_f3683885f5">
         <resultNode name="feel-time-function_017_f3683885f5" type="decision">
             <expected>
@@ -378,6 +382,7 @@
             </expected>
         </resultNode>
     </testCase>
+<!--
     <testCase id="054_fdc3094237">
         <resultNode errorResult="true" name="feel-time-function_ErrorCase_054_fdc3094237" type="decision">
             <expected>
@@ -385,6 +390,8 @@
             </expected>
         </resultNode>
     </testCase>
+-->
+<!--
     <testCase id="055_9b47db6ea4">
         <resultNode errorResult="true" name="feel-time-function_ErrorCase_055_9b47db6ea4" type="decision">
             <expected>
@@ -392,6 +399,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
     <testCase id="056_a8e828d64d">
         <resultNode errorResult="true" name="feel-time-function_ErrorCase_056_a8e828d64d" type="decision">
             <expected>
