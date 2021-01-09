@@ -17,8 +17,8 @@ import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
 import com.gs.dmn.feel.analysis.semantics.type.RangeType;
 import com.gs.dmn.feel.analysis.semantics.type.TupleType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
 
 public class NegatedPositiveUnaryTests extends UnaryTests {
     private final PositiveUnaryTests positiveUnaryTests;
@@ -32,7 +32,7 @@ public class NegatedPositiveUnaryTests extends UnaryTests {
     }
 
     @Override
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         Type type = positiveUnaryTests.getType();
         setType(type);
         if (type instanceof TupleType) {
@@ -46,7 +46,7 @@ public class NegatedPositiveUnaryTests extends UnaryTests {
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 

@@ -12,13 +12,13 @@
  */
 package com.gs.dmn.runtime.compiler;
 
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 public interface JavaCompiler {
-    ClassData makeClassData(FunctionDefinition element, FEELContext context, BasicDMNToNativeTransformer dmnTransformer, FEELTranslator feelTranslator, String libClassName);
+    ClassData makeClassData(FunctionDefinition element, DMNContext context, BasicDMNToNativeTransformer dmnTransformer, FEELTranslator feelTranslator, String libClassName);
 
     Class<?> compile(ClassData args) throws Exception;
 

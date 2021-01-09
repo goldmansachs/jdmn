@@ -17,8 +17,8 @@ import com.gs.dmn.feel.analysis.semantics.type.DateTimeType;
 import com.gs.dmn.feel.analysis.semantics.type.DateType;
 import com.gs.dmn.feel.analysis.semantics.type.DurationType;
 import com.gs.dmn.feel.analysis.semantics.type.TimeType;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
 
 import java.util.regex.Pattern;
 
@@ -38,7 +38,7 @@ public class DateTimeLiteral extends SimpleLiteral {
     }
 
     @Override
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         if (DateType.DATE.hasConversionFunction(conversionFunction)) {
             this.setType(DateType.DATE);
         } else if (TimeType.TIME.hasConversionFunction(conversionFunction)) {
@@ -67,7 +67,7 @@ public class DateTimeLiteral extends SimpleLiteral {
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 

@@ -13,8 +13,8 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
 
 public class ExpressionIteratorDomain extends IteratorDomain {
     private final Expression expression;
@@ -28,7 +28,7 @@ public class ExpressionIteratorDomain extends IteratorDomain {
         return expression;
     }
 
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         this.type = expression.getType();
     }
 
@@ -38,7 +38,7 @@ public class ExpressionIteratorDomain extends IteratorDomain {
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 

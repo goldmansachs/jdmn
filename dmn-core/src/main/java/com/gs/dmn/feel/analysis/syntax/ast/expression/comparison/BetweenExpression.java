@@ -13,9 +13,9 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.comparison;
 
 import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.DMNContext;
 
 public class BetweenExpression extends Comparison {
     private final Expression value;
@@ -41,14 +41,14 @@ public class BetweenExpression extends Comparison {
     }
 
     @Override
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         setType(BooleanType.BOOLEAN);
         checkType(">=", value.getType(), leftEndpoint.getType());
         checkType("<=", value.getType(), rightEndpoint.getType());
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 

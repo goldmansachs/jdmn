@@ -21,6 +21,7 @@ import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.DMNEnvironmentFactory;
 import com.gs.dmn.transformation.basic.DMNExpressionToNativeTransformer;
@@ -56,7 +57,7 @@ public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
         this.expressionToNativeTransformer = dmnTransformer.getExpressionToNativeTransformer();
     }
 
-    protected FEELContext makeFilterContext(FEELContext context, Expression source, String filterVariableName) {
+    protected DMNContext makeFilterContext(DMNContext context, Expression source, String filterVariableName) {
         Environment environment = context.getEnvironment();
         Environment filterEnvironment = this.environmentFactory.makeEnvironment(environment);
         Type itemType = AnyType.ANY;
@@ -64,6 +65,6 @@ public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
             itemType = ((ListType) source.getType()).getElementType();
         }
         filterEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(filterVariableName, itemType));
-        return FEELContext.of(context.getElement(), filterEnvironment);
+        return DMNContext.of(context.getElement(), filterEnvironment);
     }
 }

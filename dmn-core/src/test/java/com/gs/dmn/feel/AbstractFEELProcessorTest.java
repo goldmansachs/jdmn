@@ -19,7 +19,6 @@ import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.*;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.feel.interpreter.FEELInterpreter;
@@ -27,6 +26,7 @@ import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
@@ -2535,12 +2535,12 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         // Analyze input expression
         Environment inputExpressionEnvironment = makeEnvironment(entries);
         RuntimeEnvironment runtimeEnvironment = makeRuntimeEnvironment(entries);
-        FEELContext inputExpressionContext = FEELContext.of(getElement(), inputExpressionEnvironment, runtimeEnvironment);
+        DMNContext inputExpressionContext = DMNContext.of(getElement(), inputExpressionEnvironment, runtimeEnvironment);
         Expression inputExpression = this.feelTranslator.analyzeSimpleExpressions(inputExpressionText, inputExpressionContext);
 
         // Analyze input entry
         Environment inputEntryEnvironment = makeInputEntryEnvironment(inputExpressionEnvironment, inputExpression);
-        FEELContext inputEntryContext = FEELContext.of(getElement(), inputEntryEnvironment, runtimeEnvironment);
+        DMNContext inputEntryContext = DMNContext.of(getElement(), inputEntryEnvironment, runtimeEnvironment);
         UnaryTests inputEntryTest = this.feelTranslator.analyzeUnaryTests(inputEntryText, inputEntryContext);
 
         // Check input entry
@@ -2562,12 +2562,12 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         // Analyze input expression
         Environment inputExpressionEnvironment = makeEnvironment(entries);
         RuntimeEnvironment runtimeEnvironment = makeRuntimeEnvironment(entries);
-        FEELContext inputExpressionContext = FEELContext.of(getElement(), inputExpressionEnvironment, runtimeEnvironment);
+        DMNContext inputExpressionContext = DMNContext.of(getElement(), inputExpressionEnvironment, runtimeEnvironment);
         Expression inputExpression = this.feelTranslator.analyzeSimpleExpressions(inputExpressionText, inputExpressionContext);
 
         // Analyze input entry
         Environment inputEntryEnvironment = makeInputEntryEnvironment(inputExpressionEnvironment, inputExpression);
-        FEELContext inputEntryContext = FEELContext.of(getElement(), inputEntryEnvironment, runtimeEnvironment);
+        DMNContext inputEntryContext = DMNContext.of(getElement(), inputEntryEnvironment, runtimeEnvironment);
         UnaryTests inputEntry = this.feelTranslator.analyzeSimpleUnaryTests(inputEntryText, inputEntryContext);
 
         // Check input entry
@@ -2591,12 +2591,12 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         RuntimeEnvironment runtimeEnvironment = makeRuntimeEnvironment(entries);
         if (!StringUtils.isEmpty(inputExpressionText)) {
             // Analyze input expression
-            FEELContext inputExpressionContext = FEELContext.of(getElement(), environment, runtimeEnvironment);
+            DMNContext inputExpressionContext = DMNContext.of(getElement(), environment, runtimeEnvironment);
             inputExpression = this.feelTranslator.analyzeSimpleExpressions(inputExpressionText, inputExpressionContext);
         }
 
         // Analyse expression
-        FEELContext expressionContext = FEELContext.of(getElement(), makeInputEntryEnvironment(environment, inputExpression), runtimeEnvironment);
+        DMNContext expressionContext = DMNContext.of(getElement(), makeInputEntryEnvironment(environment, inputExpression), runtimeEnvironment);
         Expression actual = this.feelTranslator.analyzeExpression(expressionText, expressionContext);
 
         // Check expression
@@ -2618,7 +2618,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         // Analyze expression
         Environment expressionEnvironment = makeEnvironment(entries);
         RuntimeEnvironment runtimeEnvironment = makeRuntimeEnvironment(entries);
-        FEELContext context = FEELContext.of(getElement(), expressionEnvironment, runtimeEnvironment);
+        DMNContext context = DMNContext.of(getElement(), expressionEnvironment, runtimeEnvironment);
         Expression expression = this.feelTranslator.analyzeSimpleExpressions(expressionText, context);
 
         // Check analysis result
@@ -2640,7 +2640,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         // Analyze expression
         Environment expressionEnvironment = makeEnvironment(entries);
         RuntimeEnvironment runtimeEnvironment = makeRuntimeEnvironment(entries);
-        FEELContext context = FEELContext.of(getElement(), expressionEnvironment, runtimeEnvironment);
+        DMNContext context = DMNContext.of(getElement(), expressionEnvironment, runtimeEnvironment);
         Expression expression = this.feelTranslator.analyzeTextualExpressions(expressionText, context);
 
         // Check analysis result
@@ -2662,7 +2662,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         // Analyze expression
         Environment expressionEnvironment = makeEnvironment(entries);
         RuntimeEnvironment runtimeEnvironment = makeRuntimeEnvironment(entries);
-        FEELContext context = FEELContext.of(getElement(), expressionEnvironment, runtimeEnvironment);
+        DMNContext context = DMNContext.of(getElement(), expressionEnvironment, runtimeEnvironment);
         Expression actual = this.feelTranslator.analyzeBoxedExpression(expressionText, context);
 
         // Check analysis result
@@ -2683,30 +2683,30 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         assertEquals("Evaluated and generated value mismatch", expectedEvaluatedValue, expectedGeneratedValue);
     }
 
-    private Result evaluateInputEntry(Expression inputExpression, FEELContext inputExpressionContext, UnaryTests inputEntryTest, FEELContext inputEntryContext) {
+    private Result evaluateInputEntry(Expression inputExpression, DMNContext inputExpressionContext, UnaryTests inputEntryTest, DMNContext inputEntryContext) {
         // Evaluate input expression
         Result inputExpressionResult = this.feelInterpreter.evaluateExpression(inputExpression, inputExpressionContext);
         Object inputExpressionValue = Result.value(inputExpressionResult);
         // Evaluate input entry
-        inputEntryContext.runtimeBind(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpressionValue);
+        inputEntryContext.bind(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpressionValue);
         return this.feelInterpreter.evaluateUnaryTests(inputEntryTest, inputEntryContext);
     }
 
-    private void doCodeGenerationTest(UnaryTests inputEntry, FEELContext inputEntryContext, String expectedJavaCode) {
+    private void doCodeGenerationTest(UnaryTests inputEntry, DMNContext inputEntryContext, String expectedJavaCode) {
         if (expectedJavaCode != null) {
             String javaCode = this.feelTranslator.expressionToNative(inputEntry, inputEntryContext);
             assertEquals("Generated code mismatch", expectedJavaCode, javaCode);
         }
     }
 
-    private void doCodeGenerationTest(Expression expression, FEELContext expressionContext, String expectedJavaCode) {
+    private void doCodeGenerationTest(Expression expression, DMNContext expressionContext, String expectedJavaCode) {
         if (expectedJavaCode != null) {
             String javaCode = this.feelTranslator.expressionToNative(expression, expressionContext);
             assertEquals("Generated code mismatch", expectedJavaCode, javaCode);
         }
     }
 
-    private void doEvaluationTest(Expression inputExpression, FEELContext inputExpressionContext, UnaryTests inputEntry, FEELContext inputEntryContext, Object expectedEvaluatedValue) {
+    private void doEvaluationTest(Expression inputExpression, DMNContext inputExpressionContext, UnaryTests inputEntry, DMNContext inputEntryContext, Object expectedEvaluatedValue) {
         if (expectedEvaluatedValue != null) {
             Result actualResult = evaluateInputEntry(inputExpression, inputExpressionContext, inputEntry, inputEntryContext);
             Object actualValue = Result.value(actualResult);
@@ -2714,7 +2714,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         }
     }
 
-    private void doEvaluationTest(Expression expression, FEELContext context, Object expectedEvaluatedValue) {
+    private void doEvaluationTest(Expression expression, DMNContext context, Object expectedEvaluatedValue) {
         if (expectedEvaluatedValue != null) {
             Result actualResult = this.feelInterpreter.evaluateExpression(expression, context);
             Object actualValue = Result.value(actualResult);

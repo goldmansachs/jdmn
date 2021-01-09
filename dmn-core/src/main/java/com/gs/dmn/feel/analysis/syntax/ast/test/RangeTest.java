@@ -14,9 +14,9 @@ package com.gs.dmn.feel.analysis.syntax.ast.test;
 
 import com.gs.dmn.feel.analysis.semantics.type.RangeType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.DMNContext;
 
 public class RangeTest extends SimplePositiveUnaryTest {
     private final boolean openStart;
@@ -48,7 +48,7 @@ public class RangeTest extends SimplePositiveUnaryTest {
     }
 
     @Override
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         Type startType = start.getType();
         Type endType = end.getType();
         setType(new RangeType(startType));
@@ -56,7 +56,7 @@ public class RangeTest extends SimplePositiveUnaryTest {
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 

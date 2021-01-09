@@ -12,10 +12,10 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.textual;
 
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.TypeExpression;
+import com.gs.dmn.runtime.DMNContext;
 
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 
@@ -37,12 +37,12 @@ public class InstanceOfExpression extends Expression {
     }
 
     @Override
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         setType(BOOLEAN);
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 

@@ -12,8 +12,10 @@
  */
 package com.gs.dmn.feel.synthesis;
 
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.ExpressionIteratorDomain;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.ExpressionList;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.RangeIteratorDomain;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.comparison.BetweenExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.comparison.InExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
@@ -23,6 +25,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 class SimpleExpressionsToNativeVisitor extends FEELToNativeVisitor {
@@ -34,32 +37,32 @@ class SimpleExpressionsToNativeVisitor extends FEELToNativeVisitor {
     // Tests
     //
     @Override
-    public Object visit(NegatedPositiveUnaryTests element, FEELContext context) {
+    public Object visit(NegatedPositiveUnaryTests element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(SimplePositiveUnaryTests element, FEELContext context) {
+    public Object visit(SimplePositiveUnaryTests element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(NegatedSimplePositiveUnaryTests element, FEELContext context) {
+    public Object visit(NegatedSimplePositiveUnaryTests element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(NullTest element, FEELContext context) {
+    public Object visit(NullTest element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(RangeTest element, FEELContext context) {
+    public Object visit(RangeTest element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(ListTest element, FEELContext context) {
+    public Object visit(ListTest element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
@@ -67,52 +70,52 @@ class SimpleExpressionsToNativeVisitor extends FEELToNativeVisitor {
     // Textual expressions
     //
     @Override
-    public Object visit(FunctionDefinition element, FEELContext context) {
+    public Object visit(FunctionDefinition element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(FormalParameter element, FEELContext context) {
+    public Object visit(FormalParameter element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(ForExpression element, FEELContext context) {
+    public Object visit(ForExpression element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(Iterator element, FEELContext context) {
+    public Object visit(Iterator element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(ExpressionIteratorDomain element, FEELContext context) {
+    public Object visit(ExpressionIteratorDomain element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(RangeIteratorDomain element, FEELContext context) {
+    public Object visit(RangeIteratorDomain element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(IfExpression element, FEELContext context) {
+    public Object visit(IfExpression element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(QuantifiedExpression element, FEELContext context) {
+    public Object visit(QuantifiedExpression element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(FilterExpression element, FEELContext context) {
+    public Object visit(FilterExpression element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(InstanceOfExpression element, FEELContext context) {
+    public Object visit(InstanceOfExpression element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
@@ -120,7 +123,7 @@ class SimpleExpressionsToNativeVisitor extends FEELToNativeVisitor {
     // Expressions
     //
     @Override
-    public Object visit(ExpressionList element, FEELContext context) {
+    public Object visit(ExpressionList element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
@@ -128,17 +131,17 @@ class SimpleExpressionsToNativeVisitor extends FEELToNativeVisitor {
     // Logic functions
     //
     @Override
-    public Object visit(Conjunction element, FEELContext context) {
+    public Object visit(Conjunction element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(Disjunction element, FEELContext context) {
+    public Object visit(Disjunction element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(LogicNegation element, FEELContext context) {
+    public Object visit(LogicNegation element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
@@ -146,12 +149,12 @@ class SimpleExpressionsToNativeVisitor extends FEELToNativeVisitor {
     // Comparison expressions
     //
     @Override
-    public Object visit(BetweenExpression element, FEELContext context) {
+    public Object visit(BetweenExpression element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(InExpression element, FEELContext context) {
+    public Object visit(InExpression element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 }

@@ -13,9 +13,9 @@
 package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.omg.spec.dmn._20191111.model.TDecision;
 import org.omg.spec.dmn._20191111.model.TFunctionDefinition;
@@ -40,10 +40,10 @@ public interface DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     // Evaluate TInvocables
     //
     Result evaluate(DRGElementReference<? extends TInvocable> reference, List<Object> argList);
-    Result evaluate(TInvocable invocable, List<Object> argList, FEELContext context);
+    Result evaluate(TInvocable invocable, List<Object> argList, DMNContext context);
 
     //
     // Evaluate expressions
     //
-    Result evaluate(TFunctionDefinition functionDefinition, List<Object> args, FEELContext context);
+    Result evaluate(TFunctionDefinition functionDefinition, List<Object> args, DMNContext context);
 }

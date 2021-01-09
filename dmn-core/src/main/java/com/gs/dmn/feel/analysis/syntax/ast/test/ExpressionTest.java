@@ -13,10 +13,10 @@
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
 import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.DMNContext;
 
 public class ExpressionTest extends PositiveUnaryTest {
     private final Expression expression;
@@ -30,7 +30,7 @@ public class ExpressionTest extends PositiveUnaryTest {
     }
 
     @Override
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         setType(BooleanType.BOOLEAN);
         if (expression.getType() != BooleanType.BOOLEAN) {
             throw new DMNRuntimeException(String.format("Illegal type of positive unary test '%s'. Expected boolean found '%s'", expression, expression.getType()));
@@ -38,7 +38,7 @@ public class ExpressionTest extends PositiveUnaryTest {
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 

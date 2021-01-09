@@ -14,8 +14,8 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
 import com.gs.dmn.feel.analysis.semantics.type.RangeType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
 
 public class RangeIteratorDomain extends IteratorDomain {
     private final Expression start;
@@ -35,7 +35,7 @@ public class RangeIteratorDomain extends IteratorDomain {
         return end;
     }
 
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         this.type = new RangeType(start.getType());
     }
 
@@ -45,7 +45,7 @@ public class RangeIteratorDomain extends IteratorDomain {
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 

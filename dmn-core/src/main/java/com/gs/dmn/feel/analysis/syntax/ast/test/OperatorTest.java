@@ -15,12 +15,12 @@ package com.gs.dmn.feel.analysis.syntax.ast.test;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.NamedExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionInvocation;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.DMNContext;
 
 public class OperatorTest extends SimplePositiveUnaryTest {
     private final String operator;
@@ -41,7 +41,7 @@ public class OperatorTest extends SimplePositiveUnaryTest {
 
     @Override
     // TODO refactor types for Tests
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         Environment environment = context.getEnvironment();
         setType(BooleanType.BOOLEAN);
         Type inputExpressionType = environment.getInputExpressionType();
@@ -63,7 +63,7 @@ public class OperatorTest extends SimplePositiveUnaryTest {
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 
