@@ -144,7 +144,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         );
 
         // Analyze body
-        FEELContext bodyContext = FEELContext.makeContext(context.getElement(), bodyEnvironment);
+        FEELContext bodyContext = FEELContext.of(context.getElement(), bodyEnvironment);
         Expression body = element.getBody();
         if (element.isStaticTyped()) {
             // Analyze body
@@ -181,7 +181,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
     public Object visit(Context element, FEELContext context) {
         Environment environment = context.getEnvironment();
         Environment entryEnvironment = this.environmentFactory.makeEnvironment(environment);
-        FEELContext entryContext = FEELContext.makeContext(context.getElement(), entryEnvironment);
+        FEELContext entryContext = FEELContext.of(context.getElement(), entryEnvironment);
         element.getEntries().forEach(ce -> ce.accept(this, entryContext));
         element.deriveType(entryContext);
         return element;
@@ -348,7 +348,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         // Visit tests with value type injected in scope
         Environment environment = context.getEnvironment();
         Environment testEnvironment = this.environmentFactory.makeEnvironment(environment, value);
-        FEELContext testContext = FEELContext.makeContext(context.getElement(), testEnvironment);
+        FEELContext testContext = FEELContext.of(context.getElement(), testEnvironment);
         element.getTests().forEach(t -> t.accept(this, testContext));
 
         element.deriveType(context);
@@ -612,7 +612,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         FEELSemanticVisitor visitor = this;
         Environment environment = context.getEnvironment();
         Environment qEnvironment = this.environmentFactory.makeEnvironment(environment);
-        FEELContext qParams = FEELContext.makeContext(context.getElement(), qEnvironment);
+        FEELContext qParams = FEELContext.of(context.getElement(), qEnvironment);
         iterators.forEach(it -> {
             it.accept(visitor, qParams);
             String itName = it.getName();

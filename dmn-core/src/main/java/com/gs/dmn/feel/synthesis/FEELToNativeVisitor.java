@@ -241,7 +241,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(ForExpression element, FEELContext context) {
         Environment forEnvironment = this.environmentFactory.makeEnvironment(context.getEnvironment());
-        FEELContext forContext = FEELContext.makeContext(context.getElement(), forEnvironment);
+        FEELContext forContext = FEELContext.of(context.getElement(), forEnvironment);
         forContext.getEnvironment().addDeclaration(this.environmentFactory.makeVariableDeclaration(ForExpression.PARTIAL_PARAMETER_NAME, element.getType()));
 
         List<Iterator> iterators = element.getIterators();
@@ -437,7 +437,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         List<PositiveUnaryTest> positiveUnaryTests = element.getTests();
 
         Environment inEnvironment = this.environmentFactory.makeEnvironment(context.getEnvironment(), valueExp);
-        FEELContext inContext = FEELContext.makeContext(context.getElement(), inEnvironment);
+        FEELContext inContext = FEELContext.of(context.getElement(), inEnvironment);
 
         List<String> result = new ArrayList<>();
         for (PositiveUnaryTest positiveUnaryTest: positiveUnaryTests) {

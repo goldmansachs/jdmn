@@ -331,7 +331,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
 
     @Override
     public Object visit(Context element, FEELContext context) {
-        FEELContext entryContext = FEELContext.makeContext(context.getElement(), context.getEnvironment(), RuntimeEnvironment.of(context.getRuntimeEnvironment()));
+        FEELContext entryContext = FEELContext.of(context.getElement(), context.getEnvironment(), RuntimeEnvironment.of(context.getRuntimeEnvironment()));
         List<Pair> entries = element.getEntries().stream().map(e -> (Pair) e.accept(this, entryContext)).collect(Collectors.toList());
         com.gs.dmn.runtime.Context runtimeContext = new com.gs.dmn.runtime.Context();
         for (Pair p : entries) {
@@ -367,7 +367,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         Object domain = expressionDomain.accept(this, context);
 
         // Loop over domain and evaluate body
-        FEELContext forContext = FEELContext.makeContext(context.getElement(), context.getEnvironment(), RuntimeEnvironment.of(context.getRuntimeEnvironment()));
+        FEELContext forContext = FEELContext.of(context.getElement(), context.getEnvironment(), RuntimeEnvironment.of(context.getRuntimeEnvironment()));
         List result = new ArrayList<>();
         forContext.getRuntimeEnvironment().bind(ForExpression.PARTIAL_PARAMETER_NAME, result);
         if (expressionDomain instanceof ExpressionIteratorDomain) {
@@ -499,7 +499,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     private FEELContext makeFilterContext(FEELContext context, Object item, String filterParameterName) {
         RuntimeEnvironment runtimeEnvironment = RuntimeEnvironment.of(context.getRuntimeEnvironment());
         runtimeEnvironment.bind(filterParameterName, item);
-        return FEELContext.makeContext(context.getElement(), context.getEnvironment(), runtimeEnvironment);
+        return FEELContext.of(context.getElement(), context.getEnvironment(), runtimeEnvironment);
     }
 
     @Override
@@ -601,7 +601,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
 
         Environment inEnvironment = this.environmentFactory.makeEnvironment(context.getEnvironment(), valueExp);
         RuntimeEnvironment inRuntimeEnvironment = RuntimeEnvironment.of(context.getRuntimeEnvironment());
-        FEELContext inParams = FEELContext.makeContext(context.getElement(), inEnvironment, inRuntimeEnvironment);
+        FEELContext inParams = FEELContext.of(context.getElement(), inEnvironment, inRuntimeEnvironment);
         inParams.runtimeBind(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, value);
 
         List<Object> result = new ArrayList<>();
@@ -759,7 +759,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         // Create new environments and bind parameters
         Environment functionEnvironment = this.environmentFactory.makeEnvironment(context.getEnvironment());
         RuntimeEnvironment functionRuntimeEnvironment = RuntimeEnvironment.of(context.getRuntimeEnvironment());
-        FEELContext functionContext = FEELContext.makeContext(context.getElement(), functionEnvironment, functionRuntimeEnvironment);
+        FEELContext functionContext = FEELContext.of(context.getElement(), functionEnvironment, functionRuntimeEnvironment);
         List<FormalParameter> formalParameterList = functionDefinition.getFormalParameters();
         for (int i = 0; i < formalParameterList.size(); i++) {
             FormalParameter param = formalParameterList.get(i);
