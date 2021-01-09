@@ -106,24 +106,6 @@ public class Environment {
         return declarations;
     }
 
-    public Declaration lookupFunctionDeclaration(String name, ParameterTypes parameterTypes) {
-        List<Declaration> declarations = lookupLocalFunctionDeclaration(name);
-        if (declarations != null) {
-            for (Declaration declaration : declarations) {
-                if (((FunctionDeclaration) declaration).match(parameterTypes)) {
-                    return declaration;
-                }
-            }
-            return null;
-        } else {
-            if (this.parent != null) {
-                return this.parent.lookupFunctionDeclaration(name, parameterTypes);
-            } else {
-                return null;
-            }
-        }
-    }
-
     public void updateVariableDeclaration(String name, Type type) {
         VariableDeclaration declaration = (VariableDeclaration) this.lookupVariableDeclaration(name);
         if (declaration != null) {

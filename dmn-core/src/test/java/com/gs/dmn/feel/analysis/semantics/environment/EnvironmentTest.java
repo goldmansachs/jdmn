@@ -17,6 +17,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.PositionalParamet
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -37,6 +38,8 @@ public class EnvironmentTest {
         Environment environment = environmentFactory.makeEnvironment();
 
         String functionName = "date";
-        assertEquals(functionName, environment.lookupFunctionDeclaration(functionName, new PositionalParameterTypes(Arrays.asList(StringType.STRING))).getName());
+        List<Declaration> declarations = environment.lookupFunctionDeclaration(functionName);
+        assertEquals(4, declarations.size());
+        assertEquals(functionName, declarations.get(0).getName());
     }
 }
