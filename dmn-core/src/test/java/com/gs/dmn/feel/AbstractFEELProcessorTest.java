@@ -30,7 +30,6 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import org.apache.commons.lang3.StringUtils;
@@ -55,7 +54,6 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     protected final EnvironmentFactory environmentFactory;
     private final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib;
-    private final RuntimeEnvironmentFactory runtimeEnvironmentFactory;
 
     protected AbstractFEELProcessorTest() {
         DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition = makeDialect();
@@ -63,7 +61,6 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         InputParameters inputParameters = makeInputParameters();
 
         this.environmentFactory = dialectDefinition.createEnvironmentFactory();
-        this.runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
         this.lib = dialectDefinition.createFEELLib();
         this.feelTranslator = dialectDefinition.createFEELTranslator(repository, inputParameters);
         this.dmnInterpreter = dialectDefinition.createDMNInterpreter(repository, inputParameters);
@@ -2742,7 +2739,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     private RuntimeEnvironment makeRuntimeEnvironment(List<EnvironmentEntry> entries) {
-        RuntimeEnvironment runtimeEnvironment = this.runtimeEnvironmentFactory.makeEnvironment();
+        RuntimeEnvironment runtimeEnvironment = RuntimeEnvironment.of(null);
         for (EnvironmentEntry e : entries) {
             runtimeEnvironment.bind(e.getName(), e.getValue());
         }
