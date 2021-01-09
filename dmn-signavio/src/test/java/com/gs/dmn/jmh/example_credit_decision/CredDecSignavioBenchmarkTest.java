@@ -18,15 +18,13 @@ import com.gs.dmn.jmh.ApplicantImpl;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.feel.lib.DefaultSignavioLib;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.InputParameters;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TDecision;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -38,6 +36,8 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
@@ -69,13 +69,13 @@ public class CredDecSignavioBenchmarkTest {
         DMNModelRepository repository = readDMN(pathName);
         DMNInterpreter<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> interpreter = dialectDefinition.createDMNInterpreter(repository, new InputParameters());
 
-        RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentFactory.instance().makeEnvironment();
-        runtimeEnvironment.bind("applicant", applicant);
-        runtimeEnvironment.bind("currentRiskAppetite", currentRiskAppetite);
-        runtimeEnvironment.bind("lendingThreshold", lendingThreshold);
+        Map<String, Object> inputRequirements = new LinkedHashMap<>();
+        inputRequirements.put("applicant", applicant);
+        inputRequirements.put("currentRiskAppetite", currentRiskAppetite);
+        inputRequirements.put("lendingThreshold", lendingThreshold);
 
-        TDRGElement decision = repository.findDRGElementByName(repository.getRootDefinitions(), "generateOutputData");
-        Object result = interpreter.evaluate(repository.makeDRGElementReference(decision), null, runtimeEnvironment);
+        TDecision decision = (TDecision) repository.findDRGElementByName(repository.getRootDefinitions(), "generateOutputData");
+        Object result = interpreter.evaluate(repository.makeDRGElementReference(decision), inputRequirements);
         System.out.println(result);
 
         long endTime = System.currentTimeMillis();

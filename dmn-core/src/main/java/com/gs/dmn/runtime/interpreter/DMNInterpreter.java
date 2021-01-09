@@ -16,13 +16,13 @@ import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TDecision;
 import org.omg.spec.dmn._20191111.model.TFunctionDefinition;
 import org.omg.spec.dmn._20191111.model.TInvocable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     BasicDMNToNativeTransformer getBasicDMNTransformer();
@@ -32,12 +32,14 @@ public interface DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     TypeConverter getTypeConverter();
 
     //
-    // Evaluate DRG nodes
+    // Evaluate TDecisions
     //
-    Result evaluate(DRGElementReference<? extends TDRGElement> reference, List<Object> args, RuntimeEnvironment runtimeEnvironment);
+    Result evaluate(DRGElementReference<? extends TDecision> reference, Map<String, Object> informationRequirements);
 
-    Result evaluate(DRGElementReference<? extends TDRGElement> reference, List<Object> args, FEELContext context);
-
+    //
+    // Evaluate TInvocables
+    //
+    Result evaluate(DRGElementReference<? extends TInvocable> reference, List<Object> argList);
     Result evaluate(TInvocable invocable, List<Object> argList, FEELContext context);
 
     //

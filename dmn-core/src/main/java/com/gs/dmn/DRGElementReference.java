@@ -16,7 +16,7 @@ import com.gs.dmn.runtime.interpreter.ImportPath;
 import org.omg.spec.dmn._20191111.model.TDRGElement;
 
 public class DRGElementReference<T extends TDRGElement> {
-    // Import path from the root node
+    // Import path from the root model
     private final ImportPath importPath;
     // Namespace of DM containing that contains the definition of the element
     private final String namespace;

@@ -36,7 +36,7 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                         "abc",
                         "ChildLinked",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("num", decision.number("3"))
                         )),
                         decision.number("6")
@@ -49,7 +49,7 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                         "processL1",
                         "CompareLists",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("l1", Arrays.asList(decision.number("1"), decision.number("2"), decision.number("3"), decision.number("4"))),
                                 new Pair<>("l23", Arrays.asList(decision.number("1"), decision.number("1"), decision.number("2"), decision.number("3"), decision.number("5"), decision.number("8")))
                         )),
@@ -63,7 +63,7 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                         "decision",
                         "decision-with-annotations",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("numberInput", decision.number("1")),
                                 new Pair<>("stringInput", "abc"),
                                 new Pair<>("booleanInput", true),
@@ -81,7 +81,7 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                         "dotProduct",
                         "DotProduct",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("a", decision.asList(decision.number("2"), decision.number("3"))),
                                 new Pair<>("b", decision.asList(decision.number("4"), decision.number("2")))
                         )),
@@ -95,7 +95,7 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                         "generateOutputData",
                         "Example credit decision",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("applicant", new Context()
                                         .add("name", "Amy")
                                         .add("age", decision.number("38"))
@@ -117,7 +117,7 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                         "zip",
                         "NPEValidation2",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("ages", decision.asList(decision.number("25"), decision.number("40"), decision.number("65"), decision.number("80"), decision.number("105"))),
                                 new Pair<>("day", decision.number("25")),
                                 new Pair<>("hour", decision.number("8")),
@@ -154,7 +154,7 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                         "allTogether",
                         "Null Safe Tests",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("booleanA", true),
                                 new Pair<>("booleanB", false),
                                 new Pair<>("booleanList", decision.asList(true, false, true)),
@@ -177,7 +177,7 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                         "somethingElse",
                         "ParentLinked",
-                        makeRuntimeEnvironment(Arrays.asList(
+                        makeInformationRequirements(Arrays.asList(
                                 new Pair<>("num", decision.number("2"))
                         )),
                         decision.number("14")

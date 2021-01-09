@@ -24,8 +24,6 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.ImportPath;
 import com.gs.dmn.runtime.interpreter.Result;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
@@ -354,9 +352,18 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
     public Result evaluate(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> interpreter, TestCases testCases, TestCase testCase, ResultNode resultNode) {
         ResultNodeInfo info = extractResultNodeInfo(testCases, testCase, resultNode);
-        RuntimeEnvironment runtimeEnvironment = makeEnvironment(testCases, testCase);
-        List<Object> args = makeArgs(info.getReference().getElement(), testCase);
-        return interpreter.evaluate(info.getReference(), args, runtimeEnvironment);
+        TDRGElement element = info.getReference().getElement();
+        if (element == null) {
+            throw new DMNRuntimeException(String.format("Cannot find DRG elements for node '%s'", info.getNodeName()));
+        } else if (element instanceof TDecision) {
+            Map<String, Object> informationRequirements = makeInputs(testCases, testCase);
+            return interpreter.evaluate((DRGElementReference<? extends TDecision>) info.getReference(), informationRequirements);
+        } else if (element instanceof TInvocable) {
+            List<Object> arguments = makeArgs(element, testCase);
+            return interpreter.evaluate((DRGElementReference<? extends TInvocable>) info.getReference(), arguments);
+        } else {
+            throw new DMNRuntimeException(String.format("'%s' is not supported yet", element.getClass().getSimpleName()));
+        }
     }
 
     public Object expectedValue(TestCases testCases, TestCase testCase, ResultNode resultNode) {
@@ -364,8 +371,8 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return makeValue(info.getExpectedValue());
     }
 
-    private RuntimeEnvironment makeEnvironment(TestCases testCases, TestCase testCase) {
-        RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentFactory.instance().makeEnvironment();
+    private Map<String, Object> makeInputs(TestCases testCases, TestCase testCase) {
+        Map<String, Object> inputs = new LinkedHashMap<>();
         List<InputNode> inputNode = testCase.getInputNode();
         for (int i = 0; i < inputNode.size(); i++) {
             InputNode input = inputNode.get(i);
@@ -374,18 +381,18 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
                     InputNodeInfo info = extractInputNodeInfo(testCases, testCase, input);
                     String name = this.transformer.bindingName(info.getReference());
                     Object value = makeValue(info.getValue());
-                    runtimeEnvironment.bind(name, value);
+                    inputs.put(name, value);
                 } else {
                     String name = input.getName();
                     Object value = makeValue(input);
-                    runtimeEnvironment.bind(name, value);
+                    inputs.put(name, value);
                 }
             } catch (Exception e) {
                 LOGGER.error("Cannot make environment ", e);
                 throw new DMNRuntimeException(String.format("Cannot process input node '%s' for TestCase %d for DM '%s'", input.getName(), i, testCase.getName()), e);
             }
         }
-        return runtimeEnvironment;
+        return inputs;
     }
 
     private List<Object> makeArgs(TDRGElement drgElement, TestCase testCase) {

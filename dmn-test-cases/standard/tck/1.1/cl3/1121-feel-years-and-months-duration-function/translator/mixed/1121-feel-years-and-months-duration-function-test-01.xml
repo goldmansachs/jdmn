@@ -6,6 +6,7 @@
         <label>Compliance Level 3</label>
         <label>Data Type: Years and Months Duration</label>
     </labels>
+<!--
     <testCase id="001_b24a0c91f2">
         <resultNode errorResult="true" name="feel-years-and-months-duration-function_ErrorCase_001_b24a0c91f2" type="decision">
             <expected>
@@ -13,6 +14,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
     <testCase id="002_4e7651ae0e">
         <resultNode errorResult="true" name="feel-years-and-months-duration-function_ErrorCase_002_4e7651ae0e" type="decision">
             <expected>
@@ -48,6 +50,7 @@
             </expected>
         </resultNode>
     </testCase>
+<!--
     <testCase id="007_0921c3d61a">
         <resultNode errorResult="true" name="feel-years-and-months-duration-function_ErrorCase_007_0921c3d61a" type="decision">
             <expected>
@@ -55,6 +58,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
     <testCase id="008_015d35b442">
         <resultNode name="feel-years-and-months-duration-function_008_015d35b442" type="decision">
             <expected>
@@ -195,6 +199,7 @@
             </expected>
         </resultNode>
     </testCase>
+<!--
     <testCase id="028_77600e7b35">
         <resultNode errorResult="true" name="feel-years-and-months-duration-function_ErrorCase_028_77600e7b35" type="decision">
             <expected>
@@ -202,6 +207,8 @@
             </expected>
         </resultNode>
     </testCase>
+-->
+<!--
     <testCase id="029_15a0d0d9c1">
         <resultNode errorResult="true" name="feel-years-and-months-duration-function_ErrorCase_029_15a0d0d9c1" type="decision">
             <expected>
@@ -209,6 +216,8 @@
             </expected>
         </resultNode>
     </testCase>
+-->
+<!--
     <testCase id="030_ec16878596">
         <resultNode errorResult="true" name="feel-years-and-months-duration-function_ErrorCase_030_ec16878596" type="decision">
             <expected>
@@ -216,6 +225,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
     <testCase id="031_4fd9c09d89">
         <resultNode name="feel-years-and-months-duration-function_031_4fd9c09d89" type="decision">
             <expected>
