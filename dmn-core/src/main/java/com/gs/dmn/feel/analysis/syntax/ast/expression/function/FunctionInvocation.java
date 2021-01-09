@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.FunctionDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
@@ -21,8 +20,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.QualifiedName;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.DMNContext;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 
 import java.util.ArrayList;
@@ -112,8 +111,7 @@ public class FunctionInvocation extends Expression {
     }
 
     private List<DeclarationMatch> findFunctionMatches(DMNContext context, String name, ParameterTypes parameterTypes) {
-        Environment environment = context.getEnvironment();
-        List<Declaration> declarations = environment.lookupFunctionDeclaration(name);
+        List<Declaration> declarations = context.lookupFunctionDeclaration(name);
         // Phase 1: Look for candidates without conversions
         List<DeclarationMatch> matches = new ArrayList<>();
         for (Declaration declaration : declarations) {

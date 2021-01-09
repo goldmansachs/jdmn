@@ -38,8 +38,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.type.ListTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.NamedTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.DMNContext;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.Range;
 import com.gs.dmn.runtime.interpreter.Arguments;
@@ -140,7 +140,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(RangeTest element, DMNContext context) {
-        Expression inputExpression = context.getEnvironment().getInputExpression();
+        Expression inputExpression = context.getInputExpression();
         if (inputExpression == null) {
             // Evaluate as range
             boolean startIncluded = !element.isOpenStart();
@@ -161,7 +161,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         ListLiteral listLiteral = element.getListLiteral();
         Type listType = listLiteral.getType();
         Type listElementType = ((ListType) listType).getElementType();
-        Type inputExpressionType = context.getEnvironment().getInputExpressionType();
+        Type inputExpressionType = context.getInputExpressionType();
 
         String condition;
         if (Type.conformsTo(inputExpressionType, listType)) {
@@ -240,9 +240,8 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(ForExpression element, DMNContext context) {
-        Environment forEnvironment = this.environmentFactory.makeEnvironment(context.getEnvironment());
-        DMNContext forContext = DMNContext.of(context.getElement(), forEnvironment);
-        forContext.getEnvironment().addDeclaration(this.environmentFactory.makeVariableDeclaration(ForExpression.PARTIAL_PARAMETER_NAME, element.getType()));
+        DMNContext forContext = DMNContext.of(context.getElement(), this.environmentFactory.makeEnvironment(context.getEnvironment()));
+        forContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(ForExpression.PARTIAL_PARAMETER_NAME, element.getType()));
 
         List<Iterator> iterators = element.getIterators();
         List<Pair<String, String>> domainIterators = new ArrayList<>();
@@ -625,9 +624,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
     }
 
     private String inputExpressionToJava(DMNContext context) {
-        Environment environment = context.getEnvironment();
-
-        Expression inputExpression = environment.getInputExpression();
+        Expression inputExpression = context.getInputExpression();
         if (inputExpression == null) {
             throw new DMNRuntimeException("Missing inputExpression");
         } else {
@@ -646,10 +643,10 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         }
     }
 
-    private String makeListTestCondition(String feelOperator, String inputExpression, Expression rightOperand, DMNContext params) {
-        String rightOpd = (String) rightOperand.accept(this, params);
+    private String makeListTestCondition(String feelOperator, String inputExpression, Expression rightOperand, DMNContext context) {
+        String rightOpd = (String) rightOperand.accept(this, context);
         String condition;
-        String javaOperator = listTestOperator(feelOperator, params.getEnvironment().getInputExpression(), rightOperand);
+        String javaOperator = listTestOperator(feelOperator, context.getInputExpression(), rightOperand);
         if (StringUtils.isEmpty(javaOperator)) {
             condition = infixExpression(javaOperator, inputExpression, rightOpd);
         } else {

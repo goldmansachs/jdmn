@@ -14,7 +14,6 @@ package com.gs.dmn.feel.analysis.syntax.ast;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.error.ErrorHandler;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.AnyType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
@@ -58,13 +57,12 @@ public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
     }
 
     protected DMNContext makeFilterContext(DMNContext context, Expression source, String filterVariableName) {
-        Environment environment = context.getEnvironment();
-        Environment filterEnvironment = this.environmentFactory.makeEnvironment(environment);
         Type itemType = AnyType.ANY;
         if (source.getType() instanceof ListType) {
             itemType = ((ListType) source.getType()).getElementType();
         }
-        filterEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(filterVariableName, itemType));
-        return DMNContext.of(context.getElement(), filterEnvironment);
+        DMNContext filterContext = DMNContext.of(context.getElement(), this.environmentFactory.makeEnvironment(context.getEnvironment()));
+        filterContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(filterVariableName, itemType));
+        return filterContext;
     }
 }
