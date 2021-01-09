@@ -137,7 +137,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
                 type = dmnEnvironmentFactory.toFEELType(model, typeRef);
             } else {
                 TExpression expression = dmnModelRepository.expression(element);
-                Environment environment = dmnEnvironmentFactory.makeEnvironment(element, dmnTransformer.getEnvironmentFactory().getRootEnvironment(), false);
+                Environment environment = dmnEnvironmentFactory.makeEnvironment(element, dmnTransformer.getEnvironmentFactory().getBuiltInEnvironment(), false);
                 type = dmnEnvironmentFactory.expressionType(element, expression, environment);
             }
         } catch (Exception e) {

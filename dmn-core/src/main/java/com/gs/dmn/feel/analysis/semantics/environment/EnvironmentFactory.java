@@ -22,7 +22,7 @@ public interface EnvironmentFactory {
     }
 
     default Environment makeEnvironment() {
-        return makeEnvironment(getRootEnvironment(), null);
+        return makeEnvironment(getBuiltInEnvironment(), null);
     }
 
     default Environment makeEnvironment(Environment rootEnvironment) {
@@ -30,7 +30,7 @@ public interface EnvironmentFactory {
     }
 
     default Environment makeEnvironment(Expression inputExpression) {
-        return new Environment(getRootEnvironment(), inputExpression);
+        return new Environment(getBuiltInEnvironment(), inputExpression);
     }
 
     default Environment makeEnvironment(Environment environment, Expression valueExp) {
@@ -45,5 +45,5 @@ public interface EnvironmentFactory {
         }
     }
 
-    Environment getRootEnvironment();
+    Environment getBuiltInEnvironment();
 }

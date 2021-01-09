@@ -12,9 +12,15 @@
  */
 package com.gs.dmn.runtime;
 
+import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import org.omg.spec.dmn._20191111.model.TNamedElement;
+
+import java.util.List;
 
 public class DMNContext {
     private final TNamedElement element;
@@ -43,6 +49,42 @@ public class DMNContext {
         return this.environment;
     }
 
+    public Expression getInputExpression() {
+        return environment.getInputExpression();
+    }
+
+    public Type getInputExpressionType() {
+        return environment.getInputExpressionType();
+    }
+
+    public void addDeclaration(Declaration declaration) {
+        environment.addDeclaration(declaration);
+    }
+
+    public Declaration lookupVariableDeclaration(String name) {
+        return environment.lookupVariableDeclaration(name);
+    }
+
+    public List<Declaration> lookupFunctionDeclaration(String name) {
+        return environment.lookupFunctionDeclaration(name);
+    }
+
+    public Declaration lookupFunctionDeclaration(String name, ParameterTypes parameterTypes) {
+        return environment.lookupFunctionDeclaration(name, parameterTypes);
+    }
+
+    public void updateVariableDeclaration(String name, Type type) {
+        environment.updateVariableDeclaration(name, type);
+    }
+
+    public RuntimeEnvironment getRuntimeEnvironment() {
+        return this.runtimeEnvironment;
+    }
+
+    public boolean isBound(String key) {
+        return runtimeEnvironment.isBound(key);
+    }
+
     public Object lookupBinding(String variableName) {
         if (this.runtimeEnvironment == null) {
             throw new DMNRuntimeException("Missing runtime environment");
@@ -55,9 +97,5 @@ public class DMNContext {
             throw new DMNRuntimeException("Missing runtime environment");
         }
         this.runtimeEnvironment.bind(variableName, value);
-    }
-
-    public RuntimeEnvironment getRuntimeEnvironment() {
-        return this.runtimeEnvironment;
     }
 }

@@ -28,11 +28,11 @@ import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public class SignavioEnvironmentFactory implements EnvironmentFactory {
     private static final EnvironmentFactory INSTANCE = new SignavioEnvironmentFactory();
-    private static final Environment ROOT_ENVIRONMENT;
+    private static final Environment BUILT_IN_ENVIRONMENT;
 
     static {
-        ROOT_ENVIRONMENT = INSTANCE.emptyEnvironment();
-        addSignavioFunctions(ROOT_ENVIRONMENT);
+        BUILT_IN_ENVIRONMENT = INSTANCE.emptyEnvironment();
+        addSignavioFunctions(BUILT_IN_ENVIRONMENT);
     }
 
     public static EnvironmentFactory instance() {
@@ -40,8 +40,8 @@ public class SignavioEnvironmentFactory implements EnvironmentFactory {
     }
 
     @Override
-    public Environment getRootEnvironment() {
-        return SignavioEnvironmentFactory.ROOT_ENVIRONMENT;
+    public Environment getBuiltInEnvironment() {
+        return SignavioEnvironmentFactory.BUILT_IN_ENVIRONMENT;
     }
 
     private static void addSignavioFunctions(Environment environment) {

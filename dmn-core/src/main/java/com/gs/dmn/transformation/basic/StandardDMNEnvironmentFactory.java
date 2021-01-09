@@ -561,7 +561,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     private Environment makeEnvironmentNoCache(TDRGElement element) {
-        Environment parentEnvironment = this.environmentFactory.getRootEnvironment();
+        Environment parentEnvironment = this.environmentFactory.getBuiltInEnvironment();
         return makeEnvironment(element, parentEnvironment);
     }
 
