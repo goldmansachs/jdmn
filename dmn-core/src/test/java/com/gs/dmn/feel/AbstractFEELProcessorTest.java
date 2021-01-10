@@ -16,7 +16,6 @@ import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -2709,9 +2708,11 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     private DMNContext makeContext(List<EnvironmentEntry> entries) {
-        Environment environment = this.environmentFactory.makeEnvironment();
-        RuntimeEnvironment runtimeEnvironment = RuntimeEnvironment.of(null);
-        DMNContext context = DMNContext.of(getElement(), environment, runtimeEnvironment);
+        DMNContext context = DMNContext.of(
+                getElement(),
+                this.environmentFactory.makeEnvironment(),
+                RuntimeEnvironment.of()
+        );
         for (EnvironmentEntry entry : entries) {
             context.addDeclaration(this.environmentFactory.makeVariableDeclaration(entry.getName(), entry.getType()));
             context.bind(entry.getName(), entry.getValue());
@@ -2720,7 +2721,11 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     private DMNContext makeInputEntryContext(DMNContext parent, Expression inputExpression) {
-        DMNContext context = DMNContext.of(parent.getElement(), this.environmentFactory.makeEnvironment(parent.getEnvironment(), inputExpression), parent.getRuntimeEnvironment());
+        DMNContext context = DMNContext.of(
+                parent.getElement(),
+                this.environmentFactory.makeEnvironment(parent.getEnvironment(), inputExpression),
+                parent.getRuntimeEnvironment()
+        );
         if (inputExpression != null) {
             context.addDeclaration(this.environmentFactory.makeVariableDeclaration(INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
         }

@@ -12,9 +12,9 @@
  */
 package com.gs.dmn.signavio.runtime.interpreter;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
@@ -40,15 +40,15 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
     }
 
     @Override
-    protected Result evaluateExpression(TDRGElement element, TExpression expression, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation) {
+    protected Result evaluateExpression(TDRGElement element, TExpression expression, DMNContext context, DRGElement elementAnnotation) {
         if (element instanceof TDecision && this.dmnModelRepository.isMultiInstanceDecision(element)) {
-            return evaluateMultipleInstanceDecision((TDecision) element, environment, runtimeEnvironment, elementAnnotation);
+            return evaluateMultipleInstanceDecision((TDecision) element, context, elementAnnotation);
         } else {
-            return super.evaluateExpression(element, expression, environment, runtimeEnvironment, elementAnnotation);
+            return super.evaluateExpression(element, expression, context, elementAnnotation);
         }
     }
 
-    private Result evaluateMultipleInstanceDecision(TDecision decision, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation) {
+    private Result evaluateMultipleInstanceDecision(TDecision decision, DMNContext parentContext, DRGElement elementAnnotation) {
         // Multi instance attributes
         MultiInstanceDecisionLogic multiInstanceDecision = ((BasicSignavioDMNToJavaTransformer) getBasicDMNTransformer()).multiInstanceDecisionLogic(decision);
         String iterationExpression = multiInstanceDecision.getIterationExpression();
@@ -59,16 +59,20 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
         String topLevelVariableName = getBasicDMNTransformer().namedElementVariableName(topLevelDecision);
 
         // Evaluate source
-        Result result = evaluateLiteralExpression(decision, iterationExpression, environment, runtimeEnvironment);
+        Result result = evaluateLiteralExpression(decision, iterationExpression, parentContext);
         List sourceList = (List) Result.value(result);
 
         // Iterate over source
         List outputList = new ArrayList<>();
-        RuntimeEnvironment newRuntimeEnvironment = RuntimeEnvironment.of(runtimeEnvironment);
+        DMNContext loopContext = DMNContext.of(
+                decision,
+                parentContext.getEnvironment(),
+                RuntimeEnvironment.of(parentContext.getRuntimeEnvironment())
+        );
         for (Object obj : sourceList) {
-            newRuntimeEnvironment.bind(lambdaParamName, obj);
-            applyDecision(this.dmnModelRepository.makeDRGElementReference(topLevelDecision), newRuntimeEnvironment);
-            outputList.add(newRuntimeEnvironment.lookupBinding(topLevelVariableName));
+            loopContext.bind(lambdaParamName, obj);
+            applyDecision(this.dmnModelRepository.makeDRGElementReference(topLevelDecision), loopContext);
+            outputList.add(loopContext.lookupBinding(topLevelVariableName));
         }
 
         // Aggregate
