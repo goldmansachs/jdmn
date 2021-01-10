@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.error.LogAndThrowErrorHandler;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.AbstractAnalysisVisitor;
@@ -139,7 +138,10 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         }
 
         // Make body environment
-        DMNContext bodyContext = DMNContext.of(context.getElement(), this.environmentFactory.makeEnvironment(context.getEnvironment()));
+        DMNContext bodyContext = DMNContext.of(
+                context.getElement(),
+                this.environmentFactory.makeEnvironment(context.getEnvironment())
+        );
         element.getFormalParameters().forEach(
                 p -> bodyContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), p.getType()))
         );
@@ -179,9 +181,10 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
 
     @Override
     public Object visit(Context element, DMNContext context) {
-        Environment environment = context.getEnvironment();
-        Environment entryEnvironment = this.environmentFactory.makeEnvironment(environment);
-        DMNContext entryContext = DMNContext.of(context.getElement(), entryEnvironment);
+        DMNContext entryContext = DMNContext.of(
+                context.getElement(),
+                this.environmentFactory.makeEnvironment(context.getEnvironment())
+        );
         element.getEntries().forEach(ce -> ce.accept(this, entryContext));
         element.deriveType(entryContext);
         return element;
@@ -345,9 +348,10 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         value.accept(this, context);
 
         // Visit tests with value type injected in scope
-        Environment environment = context.getEnvironment();
-        Environment testEnvironment = this.environmentFactory.makeEnvironment(environment, value);
-        DMNContext testContext = DMNContext.of(context.getElement(), testEnvironment);
+        DMNContext testContext = DMNContext.of(
+                context.getElement(),
+                this.environmentFactory.makeEnvironment(context.getEnvironment(), value)
+        );
         element.getTests().forEach(t -> t.accept(this, testContext));
 
         element.deriveType(context);
@@ -608,7 +612,10 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
 
     private DMNContext visitIterators(final Expression element, DMNContext context, List<Iterator> iterators) {
         FEELSemanticVisitor visitor = this;
-        DMNContext qContext = DMNContext.of(context.getElement(), this.environmentFactory.makeEnvironment(context.getEnvironment()));
+        DMNContext qContext = DMNContext.of(
+                context.getElement(),
+                this.environmentFactory.makeEnvironment(context.getEnvironment())
+        );
         iterators.forEach(it -> {
             it.accept(visitor, qContext);
             String itName = it.getName();
