@@ -768,7 +768,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 } else {
                     entryType = entryType(element, entry, contextEnvironment);
                 }
-                addContextEntryDeclaration(contextEnvironment, name, entryType);
+                contextEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, entryType));
             }
         }
         return new Pair<>(contextEnvironment, literalExpressionMap);
@@ -790,14 +790,6 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             entryType = feelExpression.getType();
         }
         return entryType;
-    }
-
-    private void addContextEntryDeclaration(Environment contextEnvironment, String name, Type entryType) {
-        if (entryType instanceof FunctionType) {
-            contextEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, (FunctionType) entryType));
-        } else {
-            contextEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, entryType));
-        }
     }
 
     @Override
