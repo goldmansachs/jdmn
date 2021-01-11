@@ -328,11 +328,11 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(Context element, DMNContext context) {
+    public Object visit(Context element, DMNContext parentContext) {
         DMNContext entryContext = DMNContext.of(
-                context.getElement(),
-                context.getEnvironment(),
-                RuntimeEnvironment.of(context.getRuntimeEnvironment())
+                parentContext.getElement(),
+                this.environmentFactory.makeEnvironment(parentContext.getEnvironment()),
+                RuntimeEnvironment.of(parentContext.getRuntimeEnvironment())
         );
         List<Pair> entries = element.getEntries().stream().map(e -> (Pair) e.accept(this, entryContext)).collect(Collectors.toList());
         com.gs.dmn.runtime.Context runtimeContext = new com.gs.dmn.runtime.Context();
@@ -346,6 +346,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     public Object visit(ContextEntry element, DMNContext context) {
         Object key = element.getKey().accept(this, context);
         Object value = element.getExpression().accept(this, context);
+        context.addDeclaration(this.dmnTransformer.getEnvironmentFactory().makeVariableDeclaration((String) key, element.getExpression().getType()));
         context.bind((String) key, value);
         return new Pair<>(key, value);
     }
@@ -371,7 +372,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         // Loop over domain and evaluate body
         DMNContext forContext = DMNContext.of(
                 context.getElement(),
-                context.getEnvironment(),
+                this.environmentFactory.makeEnvironment(context.getEnvironment()),
                 RuntimeEnvironment.of(context.getRuntimeEnvironment())
         );
         List result = new ArrayList<>();
@@ -505,7 +506,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     private DMNContext makeFilterContext(DMNContext context, Object item, String filterParameterName) {
         DMNContext filterContext = DMNContext.of(
                 context.getElement(),
-                context.getEnvironment(),
+                this.environmentFactory.makeEnvironment(context.getEnvironment()),
                 RuntimeEnvironment.of(context.getRuntimeEnvironment())
         );
         filterContext.bind(filterParameterName, item);
