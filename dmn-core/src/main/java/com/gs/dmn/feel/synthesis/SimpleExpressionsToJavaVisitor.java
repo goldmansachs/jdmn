@@ -37,7 +37,7 @@ import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
+public class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     public SimpleExpressionsToJavaVisitor(BasicDMN2JavaTransformer dmnTransformer) {
         super(dmnTransformer);
     }
