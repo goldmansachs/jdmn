@@ -566,7 +566,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     private Result evaluateContextExpression(TDRGElement element, TContext tContext, DMNContext parentContext, DRGElement elementAnnotation) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
 
-        // Make context
+        // Make entry context
         Pair<Environment, Map<TContextEntry, Expression>> pair = this.basicDMNTransformer.makeContextEnvironment(element, tContext, parentContext.getEnvironment());
         DMNContext expContext = DMNContext.of(
                 element,
