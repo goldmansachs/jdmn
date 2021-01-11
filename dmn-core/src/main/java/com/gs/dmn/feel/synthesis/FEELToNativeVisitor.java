@@ -240,7 +240,10 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(ForExpression element, DMNContext context) {
-        DMNContext forContext = DMNContext.of(context.getElement(), this.environmentFactory.makeEnvironment(context.getEnvironment()));
+        DMNContext forContext = DMNContext.of(
+                context.getElement(),
+                this.environmentFactory.makeEnvironment(context.getEnvironment())
+        );
         forContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(ForExpression.PARTIAL_PARAMETER_NAME, element.getType()));
 
         List<Iterator> iterators = element.getIterators();
@@ -435,9 +438,10 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         Expression valueExp = element.getValue();
         List<PositiveUnaryTest> positiveUnaryTests = element.getTests();
 
-        Environment inEnvironment = this.environmentFactory.makeEnvironment(context.getEnvironment(), valueExp);
-        DMNContext inContext = DMNContext.of(context.getElement(), inEnvironment);
-
+        DMNContext inContext = DMNContext.of(
+                context.getElement(),
+                this.environmentFactory.makeEnvironment(context.getEnvironment(), valueExp)
+        );
         List<String> result = new ArrayList<>();
         for (PositiveUnaryTest positiveUnaryTest: positiveUnaryTests) {
             String test = (String) positiveUnaryTest.accept(this, inContext);
