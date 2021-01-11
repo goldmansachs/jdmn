@@ -61,7 +61,10 @@ public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
         if (source.getType() instanceof ListType) {
             itemType = ((ListType) source.getType()).getElementType();
         }
-        DMNContext filterContext = DMNContext.of(context.getElement(), this.environmentFactory.makeEnvironment(context.getEnvironment()));
+        DMNContext filterContext = DMNContext.of(
+                context.getElement(),
+                this.environmentFactory.makeEnvironment(context.getEnvironment())
+        );
         filterContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(filterVariableName, itemType));
         return filterContext;
     }

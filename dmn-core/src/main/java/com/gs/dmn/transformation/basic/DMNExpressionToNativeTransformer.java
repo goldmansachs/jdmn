@@ -331,13 +331,17 @@ public class DMNExpressionToNativeTransformer {
 
     private String inputEntryToNative(TDRGElement element, String inputExpressionText, String inputEntryText) {
         // Analyze input expression
-        Environment inputExpressionEnvironment = this.dmnTransformer.makeEnvironment(element);
-        DMNContext inputExpressionContext = DMNContext.of(element, inputExpressionEnvironment);
+        DMNContext inputExpressionContext = DMNContext.of(
+                element,
+                this.dmnTransformer.makeEnvironment(element)
+        );
         Expression inputExpression = this.feelTranslator.analyzeSimpleExpressions(inputExpressionText, inputExpressionContext);
 
         // Generate code for input entry
-        Environment inputEntryEnvironment = this.dmnTransformer.makeInputEntryEnvironment(element, inputExpression);
-        DMNContext inputEntryContext = DMNContext.of(element, inputEntryEnvironment);
+        DMNContext inputEntryContext = DMNContext.of(
+                element,
+                this.dmnTransformer.makeInputEntryEnvironment(element, inputExpression)
+        );
         return this.feelTranslator.unaryTestsToJava(inputEntryText, inputEntryContext);
     }
 
@@ -346,15 +350,17 @@ public class DMNExpressionToNativeTransformer {
         if (tExpression instanceof TDecisionTable) {
             // Analyze output expression
             String outputEntryText = outputEntryExpression.getText();
-            Environment outputEntryEnvironment = this.dmnTransformer.makeOutputEntryEnvironment(element, this.environmentFactory);
             if ("-".equals(outputEntryText)) {
                 outputEntryText = "null";
             }
-            Expression feelOutputEntryExpression = this.feelTranslator.analyzeSimpleExpressions(outputEntryText, DMNContext.of(element, outputEntryEnvironment));
+            DMNContext outputEntryContext = DMNContext.of(
+                    element,
+                    this.dmnTransformer.makeOutputEntryEnvironment(element, this.environmentFactory)
+            );
+            Expression feelOutputEntryExpression = this.feelTranslator.analyzeSimpleExpressions(outputEntryText, outputEntryContext);
 
             // Generate code
-            DMNContext context = DMNContext.of(element, outputEntryEnvironment);
-            return this.feelTranslator.simpleExpressionsToNative(feelOutputEntryExpression, context);
+            return this.feelTranslator.simpleExpressionsToNative(feelOutputEntryExpression, outputEntryContext);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", tExpression.getClass().getSimpleName()));
         }
@@ -400,7 +406,10 @@ public class DMNExpressionToNativeTransformer {
     private Statement contextExpressionToNative(TDRGElement element, TContext context, Environment contextEnvironment, Map<TContextEntry, Expression> literalExpressionMap) {
         // Translate to Java
         TDefinitions model = this.dmnModelRepository.getModel(element);
-        DMNContext feelContext = DMNContext.of(element, contextEnvironment);
+        DMNContext feelContext = DMNContext.of(
+                element,
+                contextEnvironment
+        );
         CompoundStatement statement = this.nativeFactory.makeCompoundStatement();
         ExpressionStatement returnValue = null;
         for(TContextEntry entry: context.getContextEntry()) {
