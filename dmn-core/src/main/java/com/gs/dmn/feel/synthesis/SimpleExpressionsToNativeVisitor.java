@@ -28,7 +28,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
-class SimpleExpressionsToNativeVisitor extends FEELToNativeVisitor {
+public class SimpleExpressionsToNativeVisitor extends FEELToNativeVisitor {
     public SimpleExpressionsToNativeVisitor(BasicDMNToNativeTransformer dmnTransformer) {
         super(dmnTransformer);
     }
