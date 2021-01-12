@@ -25,6 +25,8 @@ import com.gs.dmn.runtime.listener.Rule;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     protected final NumericType<NUMBER> numericType;
@@ -1122,15 +1124,10 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         int startValue = intRange.getLeft();
         int endValue = intRange.getRight();
         if (startValue <= endValue) {
-            for (int i = startValue; i <= endValue; i++) {
-                result.add(valueOf(i));
-            }
+            return Stream.iterate(valueOf(startValue), (i) -> numericAdd(i, valueOf(1))).limit(endValue - startValue + 1).sequential().collect(Collectors.toList());
         } else {
-            for (int i = startValue; i >= endValue; i--) {
-                result.add(valueOf(i));
-            }
+            return Stream.iterate(valueOf(startValue), (i) -> numericSubtract(i, valueOf(1))).limit(startValue - endValue + 1).sequential().collect(Collectors.toList());
         }
-        return result;
     }
 
     @Override
