@@ -365,6 +365,8 @@ public class JavaFactory implements NativeFactory {
             return elementToListConversionFunction();
         } else if (conversion.getKind() == ConversionKind.SINGLETON_LIST_TO_ELEMENT) {
             return listToElementConversionFunction(javaType);
+        } else if (conversion.getKind() == ConversionKind.DATE_TO_UTC_MIDNIGHT) {
+            return dateToUTCMidnight(javaType);
         } else {
             throw new DMNRuntimeException(String.format("Conversion '%s' is not supported yet", conversion));
         }
@@ -376,6 +378,10 @@ public class JavaFactory implements NativeFactory {
 
     protected String listToElementConversionFunction(String javaType) {
         return String.format("this.<%s>asElement", javaType);
+    }
+
+    protected String dateToUTCMidnight(String javaType) {
+        return String.format("toDate", javaType);
     }
 
     @Override

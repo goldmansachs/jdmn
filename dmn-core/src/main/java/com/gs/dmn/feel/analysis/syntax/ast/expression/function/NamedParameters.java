@@ -110,7 +110,7 @@ public class NamedParameters extends Parameters {
         if (parameterConversions == null) {
             return false;
         }
-        return parameterConversions.getConversions().values().stream().anyMatch(c -> c.getKind() != ConversionKind.NONE);
+        return parameterConversions.getConversions().values().stream().anyMatch(c -> c.getKind().isImplicit());
     }
 
     @Override
