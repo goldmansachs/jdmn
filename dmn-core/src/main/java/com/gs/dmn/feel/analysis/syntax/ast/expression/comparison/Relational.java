@@ -30,21 +30,21 @@ public class Relational extends Comparison {
     }
 
     public String getOperator() {
-        return operator;
+        return this.operator;
     }
 
     public Expression getLeftOperand() {
-        return leftOperand;
+        return this.leftOperand;
     }
 
     public Expression getRightOperand() {
-        return rightOperand;
+        return this.rightOperand;
     }
 
     @Override
     public void deriveType(DMNContext context) {
         setType(BOOLEAN);
-        checkType(operator, leftOperand.getType(), rightOperand.getType());
+        checkType(this.operator, this.leftOperand.getType(), this.rightOperand.getType());
     }
 
     @Override
@@ -54,7 +54,7 @@ public class Relational extends Comparison {
 
     @Override
     public String toString() {
-        return String.format("Relational(%s,%s,%s)", getOperator(), getLeftOperand(), getRightOperand());
+        return String.format("%s(%s,%s,%s)", getClass().getSimpleName(), getOperator(), getLeftOperand(), getRightOperand());
     }
 
 }

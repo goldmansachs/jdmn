@@ -33,17 +33,17 @@ public class Context extends Expression {
     }
 
     public List<ContextEntry> getEntries() {
-        return entries;
+        return this.entries;
     }
 
     public ContextEntry entry(String name) {
-        List<ContextEntry> result = entries.stream().filter(e -> name.equals(e.getKey().getKey())).collect(Collectors.toList());
+        List<ContextEntry> result = this.entries.stream().filter(e -> name.equals(e.getKey().getKey())).collect(Collectors.toList());
         return result.size() == 1 ? result.get(0) : null;
     }
 
     public Map<String, Object> toMap() {
         Map<String, Object> result = new LinkedHashMap<>();
-        for(ContextEntry entry: entries) {
+        for(ContextEntry entry: this.entries) {
             String key = entry.getKey().getKey();
             Expression expression = entry.getExpression();
             Object value;
@@ -63,7 +63,7 @@ public class Context extends Expression {
     @Override
     public void deriveType(DMNContext context) {
         ContextType type = new ContextType();
-        entries.forEach(e -> type.addMember(e.getKey().getKey(), Arrays.asList(), e.getExpression().getType()));
+        this.entries.forEach(e -> type.addMember(e.getKey().getKey(), Arrays.asList(), e.getExpression().getType()));
         setType(type);
     }
 
@@ -74,7 +74,7 @@ public class Context extends Expression {
 
     @Override
     public String toString() {
-        String expressions = entries.stream().map(ContextEntry::toString).collect(Collectors.joining(","));
-        return String.format("Context(%s)", expressions);
+        String expressions = this.entries.stream().map(ContextEntry::toString).collect(Collectors.joining(","));
+        return String.format("%s(%s)", getClass().getSimpleName(), expressions);
     }
 }

@@ -28,11 +28,11 @@ public class FunctionTypeExpression extends TypeExpression {
     }
 
     public List<TypeExpression> getParameters() {
-        return parameters;
+        return this.parameters;
     }
 
     public TypeExpression getReturnType() {
-        return returnType;
+        return this.returnType;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class FunctionTypeExpression extends TypeExpression {
 
     @Override
     public String toString() {
-        String parametersStr = parameters.stream().map(e -> String.format("%s", e.toString())).collect(Collectors.joining(", "));
-        return String.format("FunctionTypeExpression(%s -> %s)", parametersStr, returnType.toString());
+        String parametersStr = this.parameters.stream().map(e -> String.format("%s", e.toString())).collect(Collectors.joining(", "));
+        return String.format("%s(%s -> %s)", getClass().getSimpleName(), parametersStr, this.returnType.toString());
     }
 }

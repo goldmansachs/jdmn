@@ -27,11 +27,11 @@ public class ContextEntry extends Element {
     }
 
     public ContextEntryKey getKey() {
-        return key;
+        return this.key;
     }
 
     public Expression getExpression() {
-        return expression;
+        return this.expression;
     }
 
     @Override
@@ -41,6 +41,6 @@ public class ContextEntry extends Element {
 
     @Override
     public String toString() {
-        return String.format("ContextEntry(%s = %s)", key.toString(), expression.toString());
+        return String.format("%s(%s = %s)", getClass().getSimpleName(), this.key.toString(), this.expression.toString());
     }
 }

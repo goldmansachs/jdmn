@@ -32,25 +32,25 @@ public class RangeTest extends SimplePositiveUnaryTest {
     }
 
     public Expression getStart() {
-        return start;
+        return this.start;
     }
 
     public Expression getEnd() {
-        return end;
+        return this.end;
     }
 
     public boolean isOpenStart() {
-        return openStart;
+        return this.openStart;
     }
 
     public boolean isOpenEnd() {
-        return openEnd;
+        return this.openEnd;
     }
 
     @Override
     public void deriveType(DMNContext context) {
-        Type startType = start.getType();
-        Type endType = end.getType();
+        Type startType = this.start.getType();
+        Type endType = this.end.getType();
         setType(new RangeType(startType));
         checkType("..", startType, endType);
     }
@@ -62,6 +62,6 @@ public class RangeTest extends SimplePositiveUnaryTest {
 
     @Override
     public String toString() {
-        return String.format("IntervalTest(%s,%s,%s,%s)", openStart, start.toString(), openEnd, end.toString());
+        return String.format("%s(%s,%s,%s,%s)", getClass().getSimpleName(), this.openStart, this.start.toString(), this.openEnd, this.end.toString());
     }
 }

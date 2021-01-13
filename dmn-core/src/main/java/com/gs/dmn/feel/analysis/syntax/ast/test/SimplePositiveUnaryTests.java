@@ -32,7 +32,7 @@ public class SimplePositiveUnaryTests extends SimpleUnaryTests {
     }
 
     public List<SimplePositiveUnaryTest> getSimplePositiveUnaryTests() {
-        return simplePositiveUnaryTests;
+        return this.simplePositiveUnaryTests;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class SimplePositiveUnaryTests extends SimpleUnaryTests {
 
     @Override
     public String toString() {
-        String tests = simplePositiveUnaryTests.stream().map(Object::toString).collect(Collectors.joining(","));
-        return String.format("SimplePositiveUnaryTests(%s)", tests);
+        String tests = this.simplePositiveUnaryTests.stream().map(Object::toString).collect(Collectors.joining(","));
+        return String.format("%s(%s)", getClass().getSimpleName(), tests);
     }
 }

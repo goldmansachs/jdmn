@@ -30,10 +30,5 @@ public class NumericLiteral extends SimpleLiteral {
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
-
-    @Override
-    public String toString() {
-        return String.format("NumericLiteral(%s)", lexeme);
-    }
 }
  

@@ -67,6 +67,6 @@ public class OperatorTest extends SimplePositiveUnaryTest {
 
     @Override
     public String toString() {
-        return String.format("OperatorTest(%s,%s)", this.operator, this.endpoint.toString());
+        return String.format("%s(%s,%s)", getClass().getSimpleName(), this.operator, this.endpoint.toString());
     }
 }

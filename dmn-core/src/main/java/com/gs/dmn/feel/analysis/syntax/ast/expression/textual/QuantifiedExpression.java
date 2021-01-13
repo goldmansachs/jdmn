@@ -32,24 +32,24 @@ public class QuantifiedExpression extends Expression {
     }
 
     public String getPredicate() {
-        return predicate;
+        return this.predicate;
     }
 
     public List<Iterator> getIterators() {
-        return iterators;
+        return this.iterators;
     }
 
     public Expression getBody() {
-        return body;
+        return this.body;
     }
 
     public ForExpression toForExpression() {
-        return new ForExpression(iterators, body);
+        return new ForExpression(this.iterators, this.body);
     }
 
     @Override
     public void deriveType(DMNContext context) {
-        setType(body.getType());
+        setType(this.body.getType());
     }
 
     @Override
@@ -60,6 +60,6 @@ public class QuantifiedExpression extends Expression {
     @Override
     public String toString() {
         String iterators = this.iterators.stream().map(Iterator::toString).collect(Collectors.joining(","));
-        return String.format("QuantifiedExpression(%s, %s -> %s)", predicate, iterators, body.toString());
+        return String.format("%s(%s, %s -> %s)", getClass().getSimpleName(), this.predicate, iterators, this.body.toString());
     }
 }

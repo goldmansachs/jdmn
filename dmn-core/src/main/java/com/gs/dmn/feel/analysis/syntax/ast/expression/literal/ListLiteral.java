@@ -43,7 +43,6 @@ public class ListLiteral extends Expression {
 
     @Override
     public void deriveType(DMNContext context) {
-        Environment environment = context.getEnvironment();
         if (this.expressionList.isEmpty()) {
             if (context.getInputExpressionType() == null) {
                 setType(new ListType(AnyType.ANY));
@@ -86,6 +85,6 @@ public class ListLiteral extends Expression {
     @Override
     public String toString() {
         String expressions = this.expressionList.stream().map(Object::toString).collect(Collectors.joining(","));
-        return String.format("ListLiteral(%s)", expressions);
+        return String.format("%s(%s)", getClass().getSimpleName(), expressions);
     }
 }

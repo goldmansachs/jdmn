@@ -23,7 +23,7 @@ public class ListTypeExpression extends TypeExpression {
     }
 
     public TypeExpression getElementTypeExpression() {
-        return elementTypeExpression;
+        return this.elementTypeExpression;
     }
 
     @Override
@@ -33,6 +33,6 @@ public class ListTypeExpression extends TypeExpression {
 
     @Override
     public String toString() {
-        return String.format("ListTypeExpression(%s)", elementTypeExpression.toString());
+        return String.format("%s(%s)", getClass().getSimpleName(), this.elementTypeExpression.toString());
     }
 }

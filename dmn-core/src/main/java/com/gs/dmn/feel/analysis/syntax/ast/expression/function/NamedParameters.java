@@ -39,24 +39,24 @@ public class NamedParameters extends Parameters {
     }
 
     public Map<String, Expression> getParameters() {
-        return parameters;
+        return this.parameters;
     }
 
     @Override
     public boolean isEmpty() {
-        return parameters.isEmpty();
+        return this.parameters.isEmpty();
     }
 
     @Override
     public ParameterTypes getSignature() {
         Map<String, Type> signature = new LinkedHashMap<>();
-        parameters.forEach((key, value) -> signature.put(key, value.getType()));
+        this.parameters.forEach((key, value) -> signature.put(key, value.getType()));
         return new NamedParameterTypes(signature);
     }
 
     @Override
     public Arguments getOriginalArguments() {
-        return originalArguments;
+        return this.originalArguments;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class NamedParameters extends Parameters {
 
     @Override
     public ParameterConversions getParameterConversions() {
-        return parameterConversions;
+        return this.parameterConversions;
     }
 
     @Override
@@ -86,31 +86,31 @@ public class NamedParameters extends Parameters {
 
     @Override
     public Arguments getConvertedArguments() {
-        return convertedArguments;
+        return this.convertedArguments;
     }
 
     @Override
     public Arguments convertArguments(BiFunction<Object, Conversion, Object> convertArgument) {
         if (requiresConversion()) {
             this.convertedArguments = new NamedArguments();
-            for (Map.Entry<String, Conversion> entry : parameterConversions.getConversions().entrySet()) {
+            for (Map.Entry<String, Conversion> entry : this.parameterConversions.getConversions().entrySet()) {
                 String key = entry.getKey();
-                Object arg = originalArguments.getArguments().get(key);
+                Object arg = this.originalArguments.getArguments().get(key);
                 Conversion conversion = entry.getValue();
                 Object convertedArg = convertArgument.apply(arg, conversion);
-                convertedArguments.add(key, convertedArg);
+                this.convertedArguments.add(key, convertedArg);
             }
         } else {
-            this.convertedArguments = originalArguments;
+            this.convertedArguments = this.originalArguments;
         }
-        return convertedArguments;
+        return this.convertedArguments;
     }
 
     private boolean requiresConversion() {
-        if (parameterConversions == null) {
+        if (this.parameterConversions == null) {
             return false;
         }
-        return parameterConversions.getConversions().values().stream().anyMatch(c -> c.getKind().isImplicit());
+        return this.parameterConversions.getConversions().values().stream().anyMatch(c -> c.getKind().isImplicit());
     }
 
     @Override
@@ -120,8 +120,8 @@ public class NamedParameters extends Parameters {
 
     @Override
     public String toString() {
-        String opd = parameters.entrySet().stream().map(e -> String.format("%s : %s", e.getKey(), e.getValue().toString())).collect(Collectors.joining(", "));
-        return String.format("NamedParameters(%s)", opd);
+        String opd = this.parameters.entrySet().stream().map(e -> String.format("%s : %s", e.getKey(), e.getValue().toString())).collect(Collectors.joining(", "));
+        return String.format("%s(%s)", getClass().getSimpleName(), opd);
     }
 
 }

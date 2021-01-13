@@ -47,6 +47,6 @@ public class QualifiedName extends NamedExpression {
 
     @Override
     public String toString() {
-        return String.format("QualifiedName(%s, %d)", String.join(".", this.names), this.names.size());
+        return String.format("%s(%s, %d)", getClass().getSimpleName(), String.join(".", this.names), this.names.size());
     }
 }

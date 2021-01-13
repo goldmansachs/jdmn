@@ -31,7 +31,7 @@ public class InExpression extends Comparison {
     public InExpression(Expression value, PositiveUnaryTest test) {
         this.value = value;
         if (test != null) {
-            tests.add(test);
+            this.tests.add(test);
         }
     }
 
@@ -43,11 +43,11 @@ public class InExpression extends Comparison {
     }
 
     public Expression getValue() {
-        return value;
+        return this.value;
     }
 
     public List<PositiveUnaryTest> getTests() {
-        return tests;
+        return this.tests;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class InExpression extends Comparison {
 
     @Override
     public String toString() {
-        String right = tests.stream().map(Object::toString).collect(Collectors.joining(", "));
-        return String.format("InExpression(%s, %s)", value.toString(), right);
+        String right = this.tests.stream().map(Object::toString).collect(Collectors.joining(", "));
+        return String.format("%s(%s, %s)", getClass().getSimpleName(), this.value.toString(), right);
     }
 }

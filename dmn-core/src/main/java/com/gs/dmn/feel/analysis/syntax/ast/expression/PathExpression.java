@@ -26,11 +26,11 @@ public class PathExpression extends Expression {
     }
 
     public String getMember() {
-        return member;
+        return this.member;
     }
 
     public Expression getSource() {
-        return source;
+        return this.source;
     }
 
     public String getPath() {
@@ -43,15 +43,15 @@ public class PathExpression extends Expression {
         } else if (exp instanceof QualifiedName) {
             return ((QualifiedName) exp).getQualifiedName();
         } else if (exp instanceof PathExpression) {
-            return String.format("%s.%s", getPath(source), member);
+            return String.format("%s.%s", getPath(this.source), this.member);
         }
-        return String.format("%s.%s", getPath(source), member);
+        return String.format("%s.%s", getPath(this.source), this.member);
     }
 
     @Override
     public void deriveType(DMNContext context) {
-        Type sourceType = source.getType();
-        Type type = navigationType(sourceType, member);
+        Type sourceType = this.source.getType();
+        Type type = navigationType(sourceType, this.member);
         setType(type);
     }
 
@@ -62,6 +62,6 @@ public class PathExpression extends Expression {
 
     @Override
     public String toString() {
-        return String.format("PathExpression(%s, %s)", source.toString(), member);
+        return String.format("%s(%s, %s)", getClass().getSimpleName(), this.source.toString(), this.member);
     }
 }

@@ -29,22 +29,22 @@ public class BetweenExpression extends Comparison {
     }
 
     public Expression getValue() {
-        return value;
+        return this.value;
     }
 
     public Expression getLeftEndpoint() {
-        return leftEndpoint;
+        return this.leftEndpoint;
     }
 
     public Expression getRightEndpoint() {
-        return rightEndpoint;
+        return this.rightEndpoint;
     }
 
     @Override
     public void deriveType(DMNContext context) {
         setType(BooleanType.BOOLEAN);
-        checkType(">=", value.getType(), leftEndpoint.getType());
-        checkType("<=", value.getType(), rightEndpoint.getType());
+        checkType(">=", this.value.getType(), this.leftEndpoint.getType());
+        checkType("<=", this.value.getType(), this.rightEndpoint.getType());
     }
 
     @Override
@@ -54,7 +54,7 @@ public class BetweenExpression extends Comparison {
 
     @Override
     public String toString() {
-        return String.format("BetweenExpression(%s, %s, %s)", value.toString(), leftEndpoint.toString(), rightEndpoint.toString());
+        return String.format("%s(%s, %s, %s)", getClass().getSimpleName(), this.value.toString(), this.leftEndpoint.toString(), this.rightEndpoint.toString());
     }
 
 }

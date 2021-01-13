@@ -67,7 +67,7 @@ public class PositionalParameterConversions extends ParameterConversions {
 
     @Override
     public String toString() {
-        return String.format("PositionalParameterConversions(%s)", this.conversions);
+        return String.format("%s(%s)", getClass().getSimpleName(), this.conversions);
     }
 }
 

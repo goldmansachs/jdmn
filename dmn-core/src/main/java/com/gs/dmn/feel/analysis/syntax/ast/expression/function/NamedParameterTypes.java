@@ -69,6 +69,6 @@ public class NamedParameterTypes extends ParameterTypes {
     @Override
     public String toString() {
         String opd = this.namedTypes.entrySet().stream().map(e -> String.format("%s : %s", e.getKey(), e.getValue().toString())).collect(Collectors.joining(", "));
-        return String.format("NamedParameterTypes(%s)", opd);
+        return String.format("%s(%s)", getClass().getSimpleName(), opd);
     }
 }

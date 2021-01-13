@@ -33,22 +33,22 @@ public class IfExpression extends Expression {
     }
 
     public Expression getCondition() {
-        return condition;
+        return this.condition;
     }
 
     public Expression getThenExpression() {
-        return thenExpression;
+        return this.thenExpression;
     }
 
     public Expression getElseExpression() {
-        return elseExpression;
+        return this.elseExpression;
     }
 
     @Override
     public void deriveType(DMNContext context) {
-        Type conditionType = condition.getType();
-        Type thenType = thenExpression.getType();
-        Type elseType = elseExpression.getType();
+        Type conditionType = this.condition.getType();
+        Type thenType = this.thenExpression.getType();
+        Type elseType = this.elseExpression.getType();
         if (conditionType != BOOLEAN) {
             throw new SemanticError(this, String.format("Condition type must be boolean. Found '%s' instead.", conditionType));
         }
@@ -76,6 +76,6 @@ public class IfExpression extends Expression {
 
     @Override
     public String toString() {
-        return String.format("IfExpression(%s, %s, %s)", condition.toString(), thenExpression.toString(), elseExpression.toString());
+        return String.format("%s(%s, %s, %s)", getClass().getSimpleName(), this.condition.toString(), this.thenExpression.toString(), this.elseExpression.toString());
     }
 }

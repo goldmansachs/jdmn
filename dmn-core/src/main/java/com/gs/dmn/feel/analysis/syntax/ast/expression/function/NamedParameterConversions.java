@@ -72,6 +72,6 @@ public class NamedParameterConversions extends ParameterConversions {
 
     @Override
     public String toString() {
-        return String.format("NamedParameterConversions(%s)", this.conversions);
+        return String.format("%s(%s)", getClass().getSimpleName(), this.conversions);
     }
 }

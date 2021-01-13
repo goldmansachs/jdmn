@@ -34,11 +34,11 @@ public class FilterExpression extends Expression {
     }
 
     public Expression getSource() {
-        return source;
+        return this.source;
     }
 
     public Expression getFilter() {
-        return filter;
+        return this.filter;
     }
 
     public void setFilter(Expression filter) {
@@ -47,8 +47,8 @@ public class FilterExpression extends Expression {
 
     @Override
     public void deriveType(DMNContext context) {
-        Type sourceType = source.getType();
-        Type filterType = filter.getType();
+        Type sourceType = this.source.getType();
+        Type filterType = this.filter.getType();
         if (sourceType instanceof ListType) {
             if (filterType == NUMBER) {
                 setType(((ListType) sourceType).getElementType());
@@ -75,6 +75,6 @@ public class FilterExpression extends Expression {
 
     @Override
     public String toString() {
-        return String.format("FilterExpression(%s, %s)", source.toString(), filter.toString());
+        return String.format("%s(%s, %s)", getClass().getSimpleName(), this.source.toString(), this.filter.toString());
     }
 }

@@ -34,7 +34,7 @@ public class ForExpression extends Expression {
     }
 
     public List<Iterator> getIterators() {
-        return iterators;
+        return this.iterators;
     }
 
     public Expression getBody() {
@@ -66,6 +66,6 @@ public class ForExpression extends Expression {
     @Override
     public String toString() {
         String iterators = this.iterators.stream().map(Iterator::toString).collect(Collectors.joining(","));
-        return String.format("ForExpression(%s -> %s)", iterators, this.body.toString());
+        return String.format("%s(%s -> %s)", getClass().getSimpleName(), iterators, this.body.toString());
     }
 }
