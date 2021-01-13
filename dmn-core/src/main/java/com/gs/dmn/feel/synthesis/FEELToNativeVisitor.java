@@ -660,6 +660,6 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
     }
 
     protected Object handleNotSupportedElement(Element element) {
-        throw new UnsupportedOperationException("FEEL '" + (element == null ? null : element.getClass().getSimpleName()) + "' is not supported yet");
+        throw new UnsupportedOperationException("FEEL '" + (element == null ? null : element.getClass().getSimpleName()) + "' is not supported in this context");
     }
 }
