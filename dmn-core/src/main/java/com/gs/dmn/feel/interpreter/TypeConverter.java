@@ -12,23 +12,18 @@
  */
 package com.gs.dmn.feel.interpreter;
 
-import com.gs.dmn.feel.analysis.semantics.type.*;
+import com.gs.dmn.feel.analysis.semantics.type.ListType;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
 import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.interpreter.Result;
 
-import javax.xml.datatype.Duration;
 import java.util.List;
 
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
-import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
-import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
-import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
-import static com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind.ELEMENT_TO_SINGLETON_LIST;
-import static com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind.SINGLETON_LIST_TO_ELEMENT;
+import static com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind.*;
 
 public class TypeConverter {
     public Result convertResult(Result result, Type expectedType, FEELLib<?, ?, ?, ?, ?> lib) {
@@ -62,12 +57,14 @@ public class TypeConverter {
     }
 
     private ConversionKind conversionKind(Object value, Type expectedType) {
-        if (conformsTo(value, expectedType)) {
+        if (Type.conformsTo(value, expectedType)) {
             return ConversionKind.NONE;
-        } else if (isSingletonList(value) && conformsTo(((List) value).get(0), expectedType)) {
+        } else if (isSingletonList(value) && Type.conformsTo(((List) value).get(0), expectedType)) {
             return SINGLETON_LIST_TO_ELEMENT;
-        } else if (expectedType instanceof ListType && conformsTo(value, ((ListType) expectedType).getElementType())) {
+        } else if (expectedType instanceof ListType && Type.conformsTo(value, ((ListType) expectedType).getElementType())) {
             return ELEMENT_TO_SINGLETON_LIST;
+        } else if (isSingletonList(value) && Type.conformsTo(((List) value).get(0), expectedType)) {
+            return DATE_TO_UTC_MIDNIGHT;
         } else {
             return ConversionKind.CONFORMS_TO;
         }
@@ -82,40 +79,10 @@ public class TypeConverter {
             return lib.asElement((List) value);
         } else if (kind == ConversionKind.CONFORMS_TO) {
             return null;
+        } else if (kind == ConversionKind.DATE_TO_UTC_MIDNIGHT) {
+            return lib.toDate(value);
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", kind));
-        }
-    }
-
-    private static boolean conformsTo(Object value, Type expectedType) {
-        if (expectedType == ANY) {
-            return true;
-        } else if (value instanceof Number && expectedType == NUMBER) {
-            return true;
-        } else if (value instanceof String && expectedType == STRING) {
-            return true;
-        } else if (value instanceof Boolean && expectedType == BOOLEAN) {
-            return true;
-        } else if (value instanceof Duration && expectedType instanceof DurationType) {
-            return true;
-        } else if (value instanceof Context && (expectedType instanceof ContextType || expectedType instanceof ItemDefinitionType)) {
-            Context context = (Context) value;
-            CompositeDataType contextType = (CompositeDataType) expectedType;
-            for (String member: contextType.getMembers()) {
-                if (!conformsTo(context.get(member), contextType.getMemberType(member))) {
-                    return false;
-                }
-            }
-            return true;
-        } else if (value instanceof List && expectedType instanceof ListType) {
-            for (Object obj : (List) value) {
-                if (!conformsTo(obj, ((ListType) expectedType).getElementType())) {
-                    return false;
-                }
-            }
-            return true;
-        } else {
-            return false;
         }
     }
 

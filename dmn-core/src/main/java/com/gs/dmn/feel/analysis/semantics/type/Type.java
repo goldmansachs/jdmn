@@ -12,11 +12,22 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.time.*;
+import java.time.temporal.TemporalAmount;
 import java.util.List;
 
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
+import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
+import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_TIME;
+import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
+import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
+import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
+import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public abstract class Type {
     /*
@@ -40,6 +51,56 @@ public abstract class Type {
             return false;
         } else {
             return type1.conformsTo(type2);
+        }
+    }
+
+
+    /*
+        A value conforms to type type when the value is in the semantic domain of type (in varies from one dialect to another)
+    */
+    public static boolean conformsTo(Object value, Type type) {
+        if (type == ANY) {
+            return true;
+        } else if (type == NUMBER
+                && value instanceof Number) {
+            return true;
+        } else if (type == STRING
+                && value instanceof String) {
+            return true;
+        } else if (type == BOOLEAN
+                && value instanceof Boolean) {
+            return true;
+        } else if (type == DATE
+                && (value instanceof XMLGregorianCalendar || value instanceof LocalDate)) {
+            return true;
+        } else if (type == TIME
+                && (value instanceof XMLGregorianCalendar || value instanceof OffsetTime || value instanceof LocalTime)) {
+            return true;
+        } else if (type == DATE_TIME
+                && (value instanceof XMLGregorianCalendar || value instanceof LocalDateTime || value instanceof OffsetDateTime || value instanceof ZonedDateTime)) {
+            return true;
+        } else if (type instanceof DurationType
+                && (value instanceof Duration || value instanceof TemporalAmount)) {
+            return true;
+        } else if (value instanceof Context
+                && (type instanceof ContextType || type instanceof ItemDefinitionType)) {
+            Context context = (Context) value;
+            CompositeDataType contextType = (CompositeDataType) type;
+            for (String member : contextType.getMembers()) {
+                if (!conformsTo(context.get(member), contextType.getMemberType(member))) {
+                    return false;
+                }
+            }
+            return true;
+        } else if (value instanceof List && type instanceof ListType) {
+            for (Object obj : (List) value) {
+                if (!conformsTo(obj, ((ListType) type).getElementType())) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
         }
     }
 

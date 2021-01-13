@@ -20,6 +20,8 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
+import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.NUMBER_LIST;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
@@ -42,6 +44,10 @@ public abstract class FunctionTypeTest {
                 "]");
         doTest(Arrays.asList(NUMBER), Arrays.asList(STRING), "[" +
                 "Pair(PositionalParameterTypes(Null), PositionalParameterConversions([Conversion(CONFORMS_TO, Null)]))" +
+                "]");
+        doTest(Arrays.asList(NUMBER, DATE_AND_TIME), Arrays.asList(NUMBER, DATE), "[" +
+                "Pair(PositionalParameterTypes(number, date and time), PositionalParameterConversions([Conversion(NONE, number), Conversion(DATE_TO_UTC_MIDNIGHT, date and time)])), " +
+                "Pair(PositionalParameterTypes(number, Null), PositionalParameterConversions([Conversion(NONE, number), Conversion(CONFORMS_TO, Null)]))" +
                 "]");
     }
 
