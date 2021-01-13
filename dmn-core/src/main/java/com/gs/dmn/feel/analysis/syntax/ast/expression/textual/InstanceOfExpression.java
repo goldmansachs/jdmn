@@ -29,11 +29,11 @@ public class InstanceOfExpression extends Expression {
     }
 
     public Expression getLeftOperand() {
-        return leftOperand;
+        return this.leftOperand;
     }
 
     public TypeExpression getRightOperand() {
-        return rightOperand;
+        return this.rightOperand;
     }
 
     @Override
@@ -48,6 +48,6 @@ public class InstanceOfExpression extends Expression {
 
     @Override
     public String toString() {
-        return String.format("InstanceOfExpression(%s, %s)", leftOperand.toString(), rightOperand.toString());
+        return String.format("%s(%s, %s)", getClass().getSimpleName(), this.leftOperand.toString(), this.rightOperand.toString());
     }
 }

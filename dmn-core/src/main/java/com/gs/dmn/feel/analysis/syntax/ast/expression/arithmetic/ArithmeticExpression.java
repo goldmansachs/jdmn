@@ -26,15 +26,20 @@ public abstract class ArithmeticExpression extends Expression {
     }
 
     public Expression getLeftOperand() {
-        return leftOperand;
+        return this.leftOperand;
     }
 
     public Expression getRightOperand() {
-        return rightOperand;
+        return this.rightOperand;
     }
 
     public String getOperator() {
-        return operator;
+        return this.operator;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s(%s,%s)", getClass().getSimpleName(), getLeftOperand(), getRightOperand());
     }
 }
  

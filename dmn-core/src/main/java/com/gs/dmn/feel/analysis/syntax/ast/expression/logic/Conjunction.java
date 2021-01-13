@@ -25,9 +25,4 @@ public class Conjunction extends LogicExpression {
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
-
-    @Override
-    public String toString() {
-        return String.format("Conjunction(%s,%s)", getLeftOperand(), getRightOperand());
-    }
 }

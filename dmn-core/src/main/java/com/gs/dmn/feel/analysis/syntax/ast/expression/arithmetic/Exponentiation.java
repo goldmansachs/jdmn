@@ -36,7 +36,7 @@ public class Exponentiation extends ArithmeticExpression {
 
     @Override
     public String toString() {
-        return String.format("Exponentiation(%s,%s)", getLeftOperand(), getRightOperand());
+        return String.format("%s(%s,%s)", getClass().getSimpleName(), getLeftOperand(), getRightOperand());
     }
 }
 

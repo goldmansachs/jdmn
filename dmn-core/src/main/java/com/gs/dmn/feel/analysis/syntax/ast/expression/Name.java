@@ -24,7 +24,7 @@ public class Name extends NamedExpression {
 
     @Override
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -38,6 +38,6 @@ public class Name extends NamedExpression {
 
     @Override
     public String toString() {
-        return String.format("Name(%s)", name);
+        return String.format("%s(%s)", getClass().getSimpleName(), this.name);
     }
 }

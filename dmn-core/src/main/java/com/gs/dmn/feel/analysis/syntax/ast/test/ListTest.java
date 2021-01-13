@@ -61,6 +61,6 @@ public class ListTest extends SimplePositiveUnaryTest {
 
     @Override
     public String toString() {
-        return String.format("ListTest(%s)", this.listLiteral);
+        return String.format("%s(%s)", getClass().getSimpleName(), this.listLiteral);
     }
 }

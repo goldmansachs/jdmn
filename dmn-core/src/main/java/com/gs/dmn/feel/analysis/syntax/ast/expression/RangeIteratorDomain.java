@@ -28,20 +28,20 @@ public class RangeIteratorDomain extends IteratorDomain {
     }
 
     public Expression getStart() {
-        return start;
+        return this.start;
     }
 
     public Expression getEnd() {
-        return end;
+        return this.end;
     }
 
     public void deriveType(DMNContext context) {
-        this.type = new RangeType(start.getType());
+        this.type = new RangeType(this.start.getType());
     }
 
     @Override
     public Type getType() {
-        return type;
+        return this.type;
     }
 
     @Override
@@ -51,6 +51,6 @@ public class RangeIteratorDomain extends IteratorDomain {
 
     @Override
     public String toString() {
-        return String.format("RangeIteratorDomain(%s, %s)", start, end);
+        return String.format("%s(%s, %s)", getClass().getSimpleName(), this.start, this.end);
     }
 }

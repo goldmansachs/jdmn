@@ -5,8 +5,8 @@
 !|FEEL Unary Tests Fixture                                                                                                  |
 |inputEntry|output?                                                                                                         |
 |1, 2      |PositiveUnaryTests(OperatorTest(null,NumericLiteral(1)),OperatorTest(null,NumericLiteral(2)))                   |
-|not(-1)   |NegatedUnaryTests(PositiveUnaryTests(OperatorTest(null,ArithmeticNegation(NumericLiteral(1)))))                 |
-|not(1, 2) |NegatedUnaryTests(PositiveUnaryTests(OperatorTest(null,NumericLiteral(1)),OperatorTest(null,NumericLiteral(2))))|
+|not(-1)   |NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorTest(null,ArithmeticNegation(NumericLiteral(1)))))                 |
+|not(1, 2) |NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorTest(null,NumericLiteral(1)),OperatorTest(null,NumericLiteral(2))))|
 |-         |Any()                                                                                                           |
 
 !1 Positive Unary Test
@@ -18,9 +18,9 @@
 |<= 1                                    |PositiveUnaryTests(OperatorTest(<=,NumericLiteral(1)))                                       |
 |> 1                                     |PositiveUnaryTests(OperatorTest(>,NumericLiteral(1)))                                        |
 |>= 1                                    |PositiveUnaryTests(OperatorTest(>=,NumericLiteral(1)))                                       |
-|(1..2)                                  |PositiveUnaryTests(IntervalTest(true,NumericLiteral(1),true,NumericLiteral(2)))              |
-|]1..2[                                  |PositiveUnaryTests(IntervalTest(true,NumericLiteral(1),true,NumericLiteral(2)))              |
-|[1..2]                                  |PositiveUnaryTests(IntervalTest(false,NumericLiteral(1),false,NumericLiteral(2)))            |
+|(1..2)                                  |PositiveUnaryTests(RangeTest(true,NumericLiteral(1),true,NumericLiteral(2)))              |
+|]1..2[                                  |PositiveUnaryTests(RangeTest(true,NumericLiteral(1),true,NumericLiteral(2)))              |
+|[1..2]                                  |PositiveUnaryTests(RangeTest(false,NumericLiteral(1),false,NumericLiteral(2)))            |
 |null                                    |PositiveUnaryTests(NullTest())                                                               |
 |date("2016-08-01")                      |PositiveUnaryTests(OperatorTest(null,DateTimeLiteral(date, "2016-08-01")))                   |
 |< date("2016-08-01")                    |PositiveUnaryTests(OperatorTest(<,DateTimeLiteral(date, "2016-08-01")))                      |

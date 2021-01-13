@@ -26,11 +26,11 @@ public class Iterator extends Element {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public IteratorDomain getDomain() {
-        return domain;
+        return this.domain;
     }
 
     @Override
@@ -40,6 +40,6 @@ public class Iterator extends Element {
 
     @Override
     public String toString() {
-        return String.format("Iterator(%s in %s)", name, domain.toString());
+        return String.format("%s(%s in %s)", getClass().getSimpleName(), this.name, this.domain.toString());
     }
 }

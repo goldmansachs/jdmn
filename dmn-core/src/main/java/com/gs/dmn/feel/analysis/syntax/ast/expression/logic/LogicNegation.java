@@ -28,7 +28,6 @@ public class LogicNegation extends LogicExpression {
 
     @Override
     public String toString() {
-        return String.format("LogicNegation(%s)", getLeftOperand());
+        return String.format("%s(%s)", getClass().getSimpleName(), getLeftOperand());
     }
-
 }

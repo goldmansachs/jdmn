@@ -28,20 +28,24 @@ public abstract class LogicExpression extends Expression {
     }
 
     public String getOperator() {
-        return operator;
+        return this.operator;
     }
 
     public Expression getLeftOperand() {
-        return leftOperand;
+        return this.leftOperand;
     }
 
     public Expression getRightOperand() {
-        return rightOperand;
+        return this.rightOperand;
     }
 
     @Override
     public void deriveType(DMNContext context) {
         // Not need to check the operand types. or, and, not are total functions
         setType(BooleanType.BOOLEAN);
+    }
+    @Override
+    public String toString() {
+        return String.format("%s(%s,%s)", getClass().getSimpleName(), this.leftOperand, this.rightOperand);
     }
 }

@@ -25,16 +25,16 @@ public class ExpressionIteratorDomain extends IteratorDomain {
     }
 
     public Expression getExpression() {
-        return expression;
+        return this.expression;
     }
 
     public void deriveType(DMNContext context) {
-        this.type = expression.getType();
+        this.type = this.expression.getType();
     }
 
     @Override
     public Type getType() {
-        return type;
+        return this.type;
     }
 
     @Override
@@ -44,6 +44,6 @@ public class ExpressionIteratorDomain extends IteratorDomain {
 
     @Override
     public String toString() {
-        return String.format("ExpressionIteratorDomain(%s)", expression);
+        return String.format("%s(%s)", getClass().getSimpleName(), this.expression);
     }
 }

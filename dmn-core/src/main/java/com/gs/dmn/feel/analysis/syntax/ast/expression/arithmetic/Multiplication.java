@@ -36,7 +36,7 @@ public class Multiplication extends ArithmeticExpression {
 
     @Override
     public String toString() {
-        return String.format("Multiplication(%s,%s,%s)", getOperator(), getLeftOperand(), getRightOperand());
+        return String.format("%s(%s,%s,%s)", getClass().getSimpleName(), getOperator(), getLeftOperand(), getRightOperand());
     }
 }
  

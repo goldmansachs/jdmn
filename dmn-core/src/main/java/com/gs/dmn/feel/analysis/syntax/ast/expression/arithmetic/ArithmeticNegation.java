@@ -41,7 +41,7 @@ public class ArithmeticNegation extends ArithmeticExpression {
 
     @Override
     public String toString() {
-        return String.format("ArithmeticNegation(%s)", getLeftOperand());
+        return String.format("%s(%s)", getClass().getSimpleName(), getLeftOperand());
     }
 }
  

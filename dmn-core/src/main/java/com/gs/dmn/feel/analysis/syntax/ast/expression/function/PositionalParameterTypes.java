@@ -53,12 +53,6 @@ public class PositionalParameterTypes extends ParameterTypes {
     }
 
     @Override
-    public String toString() {
-        String opd = this.types.stream().map(Type::toString).collect(Collectors.joining(", "));
-        return String.format("PositionalParameterTypes(%s)", opd);
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -69,5 +63,11 @@ public class PositionalParameterTypes extends ParameterTypes {
     @Override
     public int hashCode() {
         return Objects.hash(this.types);
+    }
+
+    @Override
+    public String toString() {
+        String opd = this.types.stream().map(Type::toString).collect(Collectors.joining(", "));
+        return String.format("%s(%s)", getClass().getSimpleName(), opd);
     }
 }

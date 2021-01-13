@@ -23,7 +23,7 @@ public class NamedTypeExpression extends TypeExpression {
     }
 
     public String getQualifiedName() {
-        return qualifiedName;
+        return this.qualifiedName;
     }
 
     @Override
@@ -33,6 +33,6 @@ public class NamedTypeExpression extends TypeExpression {
 
     @Override
     public String toString() {
-        return String.format("NamedTypeExpression(%s)", qualifiedName);
+        return String.format("%s(%s)", getClass().getSimpleName(), this.qualifiedName);
     }
 }

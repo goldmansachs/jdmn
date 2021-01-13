@@ -28,12 +28,12 @@ public class NegatedPositiveUnaryTests extends UnaryTests {
     }
 
     public PositiveUnaryTests getPositiveUnaryTests() {
-        return positiveUnaryTests;
+        return this.positiveUnaryTests;
     }
 
     @Override
     public void deriveType(DMNContext context) {
-        Type type = positiveUnaryTests.getType();
+        Type type = this.positiveUnaryTests.getType();
         setType(type);
         if (type instanceof TupleType) {
             for (Type child : ((TupleType) type).getTypes()) {
@@ -52,6 +52,6 @@ public class NegatedPositiveUnaryTests extends UnaryTests {
 
     @Override
     public String toString() {
-        return String.format("NegatedUnaryTests(%s)", positiveUnaryTests.toString());
+        return String.format("%s(%s)", getClass().getSimpleName(), this.positiveUnaryTests.toString());
     }
 }

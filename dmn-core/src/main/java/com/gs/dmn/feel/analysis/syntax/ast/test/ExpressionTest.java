@@ -26,14 +26,14 @@ public class ExpressionTest extends PositiveUnaryTest {
     }
 
     public Expression getExpression() {
-        return expression;
+        return this.expression;
     }
 
     @Override
     public void deriveType(DMNContext context) {
         setType(BooleanType.BOOLEAN);
-        if (expression.getType() != BooleanType.BOOLEAN) {
-            throw new DMNRuntimeException(String.format("Illegal type of positive unary test '%s'. Expected boolean found '%s'", expression, expression.getType()));
+        if (this.expression.getType() != BooleanType.BOOLEAN) {
+            throw new DMNRuntimeException(String.format("Illegal type of positive unary test '%s'. Expected boolean found '%s'", this.expression, this.expression.getType()));
         }
     }
 
@@ -44,6 +44,6 @@ public class ExpressionTest extends PositiveUnaryTest {
 
     @Override
     public String toString() {
-        return String.format("ExpressionTest(%s)", expression);
+        return String.format("%s(%s)", getClass().getSimpleName(), this.expression);
     }
 }

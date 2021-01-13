@@ -34,27 +34,27 @@ public class DateTimeLiteral extends SimpleLiteral {
     }
 
     public String getConversionFunction() {
-        return conversionFunction;
+        return this.conversionFunction;
     }
 
     @Override
     public void deriveType(DMNContext context) {
-        if (DateType.DATE.hasConversionFunction(conversionFunction)) {
+        if (DateType.DATE.hasConversionFunction(this.conversionFunction)) {
             this.setType(DateType.DATE);
-        } else if (TimeType.TIME.hasConversionFunction(conversionFunction)) {
+        } else if (TimeType.TIME.hasConversionFunction(this.conversionFunction)) {
             this.setType(TimeType.TIME);
-        } else if (DateTimeType.DATE_AND_TIME.hasConversionFunction(conversionFunction)) {
+        } else if (DateTimeType.DATE_AND_TIME.hasConversionFunction(this.conversionFunction)) {
             this.setType(DateTimeType.DATE_AND_TIME);
-        } else if (DurationType.CONVERSION_FUNCTION.equals(conversionFunction)) {
+        } else if (DurationType.CONVERSION_FUNCTION.equals(this.conversionFunction)) {
             if (isYearsAndMonthsDuration(getLexeme())) {
                 this.setType(DurationType.YEARS_AND_MONTHS_DURATION);
             } else if (isDaysAndTimeDuration(getLexeme())) {
                 this.setType(DurationType.DAYS_AND_TIME_DURATION);
             } else {
-                throw new SemanticError(this, String.format("Cannot convert duration '%s(%s)'", conversionFunction, getLexeme()));
+                throw new SemanticError(this, String.format("Cannot convert duration '%s(%s)'", this.conversionFunction, getLexeme()));
             }
         } else {
-            throw new SemanticError(this, String.format("Cannot convert date time literal '%s(%s)'", conversionFunction, getLexeme()));
+            throw new SemanticError(this, String.format("Cannot convert date time literal '%s(%s)'", this.conversionFunction, getLexeme()));
         }
     }
 
@@ -73,8 +73,7 @@ public class DateTimeLiteral extends SimpleLiteral {
 
     @Override
     public String toString() {
-        return String.format("DateTimeLiteral(%s, %s)", conversionFunction, getLexeme());
+        return String.format("%s(%s, %s)", getClass().getSimpleName(), this.conversionFunction, getLexeme());
     }
-
 }
 

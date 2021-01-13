@@ -27,7 +27,7 @@ public class ContextTypeExpression extends TypeExpression {
     }
 
     public List<Pair<String, TypeExpression>> getMembers() {
-        return members;
+        return this.members;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class ContextTypeExpression extends TypeExpression {
 
     @Override
     public String toString() {
-        String membersStr = members.stream().map(e -> String.format("%s: %s", e.getLeft(), e.getRight().toString())).collect(Collectors.joining(", "));
-        return String.format("ContextTypeExpression(%s)", membersStr);
+        String membersStr = this.members.stream().map(e -> String.format("%s: %s", e.getLeft(), e.getRight().toString())).collect(Collectors.joining(", "));
+        return String.format("%s(%s)", getClass().getSimpleName(), membersStr);
     }
 }

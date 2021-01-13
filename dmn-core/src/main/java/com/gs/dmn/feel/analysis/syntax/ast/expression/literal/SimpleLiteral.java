@@ -20,7 +20,12 @@ public abstract class SimpleLiteral extends Literal {
     }
 
     public String getLexeme() {
-        return lexeme;
+        return this.lexeme;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s(%s)", getClass().getSimpleName(), this.lexeme);
     }
 }
  

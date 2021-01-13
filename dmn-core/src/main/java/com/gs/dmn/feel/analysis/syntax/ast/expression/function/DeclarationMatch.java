@@ -38,6 +38,6 @@ public class DeclarationMatch {
     }
 
     public String toString() {
-        return String.format("Match(%s, %s, %s)", this.declaration, this.parameterTypes, this.parameterConversions);
+        return String.format("%s(%s, %s, %s)", getClass().getSimpleName(), this.declaration, this.parameterTypes, this.parameterConversions);
     }
 }
