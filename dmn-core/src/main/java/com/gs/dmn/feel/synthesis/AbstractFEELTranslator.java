@@ -20,12 +20,10 @@ import com.gs.dmn.runtime.DMNContext;
 
 public abstract class AbstractFEELTranslator extends AbstractFEELProcessor implements FEELTranslator {
     private final FEELToNativeVisitor expressionVisitor;
-    private final SimpleExpressionsToNativeVisitor simpleExpressionsVisitor;
 
-    public AbstractFEELTranslator(FEELAnalyzer feelAnalyzer, FEELToNativeVisitor expressionVisitor, SimpleExpressionsToNativeVisitor simpleExpressionsVisitor) {
+    public AbstractFEELTranslator(FEELAnalyzer feelAnalyzer, FEELToNativeVisitor expressionVisitor) {
         super(feelAnalyzer);
         this.expressionVisitor = expressionVisitor;
-        this.simpleExpressionsVisitor = simpleExpressionsVisitor;
     }
 
     @Override
@@ -35,20 +33,9 @@ public abstract class AbstractFEELTranslator extends AbstractFEELProcessor imple
     }
 
     @Override
-    public String simpleUnaryTestsToJava(String text, DMNContext context) {
-        UnaryTests unaryTests = analyzeSimpleUnaryTests(text, context);
-        return simpleUnaryTestsToJava(unaryTests, context);
-    }
-
-    @Override
     public String unaryTestsToJava(UnaryTests expression, DMNContext context) {
         this.expressionVisitor.init();
         return (String) expression.accept(this.expressionVisitor, context);
-    }
-
-    @Override
-    public String simpleUnaryTestsToJava(UnaryTests expression, DMNContext context) {
-        return unaryTestsToJava(expression, context);
     }
 
     @Override
@@ -61,12 +48,5 @@ public abstract class AbstractFEELTranslator extends AbstractFEELProcessor imple
     public String expressionToNative(Expression expression, DMNContext context) {
         this.expressionVisitor.init();
         return (String) expression.accept(this.expressionVisitor, context);
-    }
-
-    @Override
-    public String simpleExpressionsToNative(Expression simpleExpressions, DMNContext context) {
-        this.simpleExpressionsVisitor.init();
-        String javaOutputEntryText = (String) simpleExpressions.accept(this.simpleExpressionsVisitor, context);
-        return "-".equals(javaOutputEntryText) ? "null" : javaOutputEntryText;
     }
 }

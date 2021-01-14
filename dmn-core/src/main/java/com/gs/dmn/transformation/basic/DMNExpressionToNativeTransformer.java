@@ -335,7 +335,7 @@ public class DMNExpressionToNativeTransformer {
                 element,
                 this.dmnTransformer.makeEnvironment(element)
         );
-        Expression inputExpression = this.feelTranslator.analyzeSimpleExpressions(inputExpressionText, inputExpressionContext);
+        Expression inputExpression = this.feelTranslator.analyzeExpression(inputExpressionText, inputExpressionContext);
 
         // Generate code for input entry
         DMNContext inputEntryContext = DMNContext.of(
@@ -357,10 +357,10 @@ public class DMNExpressionToNativeTransformer {
                     element,
                     this.dmnTransformer.makeOutputEntryEnvironment(element, this.environmentFactory)
             );
-            Expression feelOutputEntryExpression = this.feelTranslator.analyzeSimpleExpressions(outputEntryText, outputEntryContext);
+            Expression feelOutputEntryExpression = this.feelTranslator.analyzeExpression(outputEntryText, outputEntryContext);
 
             // Generate code
-            return this.feelTranslator.simpleExpressionsToNative(feelOutputEntryExpression, outputEntryContext);
+            return this.feelTranslator.expressionToNative(feelOutputEntryExpression, outputEntryContext);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", tExpression.getClass().getSimpleName()));
         }

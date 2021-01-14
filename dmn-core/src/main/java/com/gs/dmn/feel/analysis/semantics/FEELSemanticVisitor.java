@@ -67,20 +67,6 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
     }
 
     @Override
-    public Object visit(SimplePositiveUnaryTests element, DMNContext context) {
-        element.getSimplePositiveUnaryTests().forEach(sput -> sput.accept(this, context));
-        element.deriveType(context);
-        return element;
-    }
-
-    @Override
-    public Object visit(NegatedSimplePositiveUnaryTests element, DMNContext context) {
-        element.getSimplePositiveUnaryTests().accept(this, context);
-        element.deriveType(context);
-        return element;
-    }
-
-    @Override
     public Object visit(Any element, DMNContext context) {
         element.deriveType(context);
         return element;

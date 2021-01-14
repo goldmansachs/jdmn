@@ -20,6 +20,4 @@ interface FEELExpressionsTranslator extends FEELExpressionsAnalyzer {
     String expressionToNative(String text, DMNContext context);
 
     String expressionToNative(Expression expression, DMNContext context);
-
-    String simpleExpressionsToNative(Expression simpleExpressions, DMNContext context);
 }

@@ -40,18 +40,8 @@ unaryTestsRoot returns [UnaryTests ast] :
     EOF
 ;
 
-simpleUnaryTestsRoot returns [SimpleUnaryTests ast] :
-    simpleUnaryTests {$ast = $simpleUnaryTests.ast;}
-    EOF
-;
-
 expressionRoot returns [Expression ast] :
     expression {$ast = $expression.ast;}
-    EOF
-;
-
-simpleExpressionsRoot returns [Expression ast] :
-    simpleExpressions {$ast = $simpleExpressions.ast;}
     EOF
 ;
 
@@ -100,34 +90,6 @@ positiveUnaryTest returns [Expression ast]:
         expression
         {$ast = astFactory.toPositiveUnaryTest($expression.ast);}
     )
-;
-
-simpleUnaryTests returns [SimpleUnaryTests ast] :
-    (
-        NOT PAREN_OPEN tests = simplePositiveUnaryTests PAREN_CLOSE
-        {$ast = astFactory.toNegatedSimpleUnaryTests($tests.ast);}
-    )
-    |
-    (
-        tests = simplePositiveUnaryTests
-        {$ast = $tests.ast;}
-    )
-    |
-    (
-        MINUS
-        {$ast = astFactory.toAny();}
-    )
-;
-
-simplePositiveUnaryTests returns [SimplePositiveUnaryTests ast]:
-	{List<Expression> tests = new ArrayList<>();}
-    test = simplePositiveUnaryTest
-    {tests.add($test.ast);}
-    (
-        COMMA test = simplePositiveUnaryTest
-        {tests.add($test.ast);}
-    )*
-    {$ast = astFactory.toSimplePositiveUnaryTests(tests);}
 ;
 
 simplePositiveUnaryTest returns [Expression ast] :
