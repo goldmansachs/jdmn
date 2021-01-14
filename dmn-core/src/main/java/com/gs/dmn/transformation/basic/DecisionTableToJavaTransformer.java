@@ -367,7 +367,7 @@ public class DecisionTableToJavaTransformer {
         // Analyze input expression
         Environment inputExpressionEnvironment = dmnTransformer.makeEnvironment(element);
         FEELContext inputExpressionContext = FEELContext.makeContext(inputExpressionEnvironment);
-        Expression inputExpression = feelTranslator.analyzeSimpleExpressions(inputExpressionText, inputExpressionContext);
+        Expression inputExpression = feelTranslator.analyzeExpression(inputExpressionText, inputExpressionContext);
 
         // Generate code for input entry
         Environment inputEntryEnvironment = dmnTransformer.makeInputEntryEnvironment(element, inputExpression);
@@ -384,11 +384,11 @@ public class DecisionTableToJavaTransformer {
             if ("-".equals(outputEntryText)) {
                 outputEntryText = "null";
             }
-            Expression feelOutputEntryExpression = feelTranslator.analyzeSimpleExpressions(outputEntryText, FEELContext.makeContext(outputEntryEnvironment));
+            Expression feelOutputEntryExpression = feelTranslator.analyzeExpression(outputEntryText, FEELContext.makeContext(outputEntryEnvironment));
 
             // Generate code
             FEELContext context = FEELContext.makeContext(outputEntryEnvironment);
-            return feelTranslator.simpleExpressionsToJava(feelOutputEntryExpression, context);
+            return feelTranslator.expressionToJava(feelOutputEntryExpression, context);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", tExpression.getClass().getSimpleName()));
         }
