@@ -18,15 +18,11 @@ import com.gs.dmn.runtime.DMNContext;
 public interface FEELExpressionsAnalyzer {
     Expression parseExpression(String text);
 
-    Expression parseSimpleExpressions(String text);
-
     Expression parseTextualExpressions(String text);
 
     Expression parseBoxedExpression(String text);
 
     Expression analyzeExpression(String text, DMNContext context);
-
-    Expression analyzeSimpleExpressions(String text, DMNContext context);
 
     Expression analyzeTextualExpressions(String text, DMNContext context);
 

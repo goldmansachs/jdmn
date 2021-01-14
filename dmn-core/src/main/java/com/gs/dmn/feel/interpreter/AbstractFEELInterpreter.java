@@ -41,17 +41,6 @@ abstract class AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     }
 
     @Override
-    public Result evaluateSimpleUnaryTests(String text, DMNContext context) {
-        UnaryTests expression = analyzeSimpleUnaryTests(text, context);
-        return evaluateUnaryTests(expression, context);
-    }
-
-    @Override
-    public Result evaluateSimpleUnaryTests(UnaryTests expression, DMNContext context) {
-        return evaluateUnaryTests(expression, context);
-    }
-
-    @Override
     public Result evaluateExpression(String text, DMNContext context) {
         Expression expression = analyzeExpression(text, context);
         return evaluateExpression(expression, context);

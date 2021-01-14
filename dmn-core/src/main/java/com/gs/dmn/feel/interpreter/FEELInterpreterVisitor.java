@@ -102,22 +102,6 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(SimplePositiveUnaryTests element, DMNContext context) {
-        List<Boolean> simplePositiveUnaryTests = element.getSimplePositiveUnaryTests().stream().map(sput -> (Boolean) sput.accept(this, context)).collect(Collectors.toList());
-        if (simplePositiveUnaryTests.size() == 1) {
-            return simplePositiveUnaryTests.get(0);
-        } else {
-            return this.lib.booleanOr((List) simplePositiveUnaryTests);
-        }
-    }
-
-    @Override
-    public Object visit(NegatedSimplePositiveUnaryTests element, DMNContext context) {
-        Boolean simplePositiveUnaryTests = (Boolean) element.getSimplePositiveUnaryTests().accept(this, context);
-        return this.lib.booleanNot(simplePositiveUnaryTests);
-    }
-
-    @Override
     public Object visit(Any element, DMNContext context) {
         return Boolean.TRUE;
     }

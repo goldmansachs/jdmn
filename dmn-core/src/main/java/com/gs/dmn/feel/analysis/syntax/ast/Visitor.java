@@ -41,10 +41,6 @@ public interface Visitor {
 
     Object visit(NegatedPositiveUnaryTests element, DMNContext context);
 
-    Object visit(SimplePositiveUnaryTests element, DMNContext context);
-
-    Object visit(NegatedSimplePositiveUnaryTests element, DMNContext context);
-
     Object visit(Any element, DMNContext context);
 
     Object visit(NullTest element, DMNContext context);

@@ -18,9 +18,5 @@ import com.gs.dmn.runtime.DMNContext;
 public interface FEELTestsAnalyzer {
     UnaryTests parseUnaryTests(String text);
 
-    UnaryTests parseSimpleUnaryTests(String text);
-
     UnaryTests analyzeUnaryTests(String text, DMNContext context);
-
-    UnaryTests analyzeSimpleUnaryTests(String text, DMNContext context);
 }

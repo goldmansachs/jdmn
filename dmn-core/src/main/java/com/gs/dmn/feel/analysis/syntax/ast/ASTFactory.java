@@ -182,25 +182,8 @@ public class ASTFactory {
     //
     // Tests
     //
-    public SimpleUnaryTests toAny() {
+    public UnaryTests toAny() {
         return new Any();
-    }
-
-
-    public SimpleUnaryTests toNegatedSimpleUnaryTests(SimplePositiveUnaryTests ast) {
-        return new NegatedSimplePositiveUnaryTests(ast);
-    }
-
-    public SimplePositiveUnaryTests toSimplePositiveUnaryTests(List<Expression> expressions) {
-        List<SimplePositiveUnaryTest> tests = new ArrayList<>();
-        expressions.forEach(expression -> {
-            if (expression instanceof SimplePositiveUnaryTest) {
-                tests.add((SimplePositiveUnaryTest) expression);
-            } else {
-                tests.add(toOperatorTest(null, expression));
-            }
-        });
-        return new SimplePositiveUnaryTests(tests);
     }
 
     public PositiveUnaryTest toPositiveUnaryTest(Expression expression) {

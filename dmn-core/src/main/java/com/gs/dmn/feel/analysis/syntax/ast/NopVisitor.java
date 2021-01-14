@@ -53,16 +53,6 @@ public class NopVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(SimplePositiveUnaryTests element, DMNContext context) {
-        return element;
-    }
-
-    @Override
-    public Object visit(NegatedSimplePositiveUnaryTests element, DMNContext context) {
-        return element;
-    }
-
-    @Override
     public Object visit(Any element, DMNContext context) {
         return element;
     }

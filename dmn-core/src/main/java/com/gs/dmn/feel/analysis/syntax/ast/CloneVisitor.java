@@ -68,26 +68,6 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(SimplePositiveUnaryTests element, DMNContext context) {
-        if (element == null) {
-            return null;
-        }
-
-        List<Expression> expressionList = element.getSimplePositiveUnaryTests().stream().map(sput -> (Expression) sput.accept(this, context)).collect(Collectors.toList());
-        return this.astFactory.toSimplePositiveUnaryTests(expressionList);
-    }
-
-    @Override
-    public Object visit(NegatedSimplePositiveUnaryTests element, DMNContext context) {
-        if (element == null) {
-            return null;
-        }
-
-        SimplePositiveUnaryTests sputs = (SimplePositiveUnaryTests) element.getSimplePositiveUnaryTests().accept(this, context);
-        return this.astFactory.toNegatedSimpleUnaryTests(sputs);
-    }
-
-    @Override
     public Object visit(Any element, DMNContext context) {
         return element;
     }

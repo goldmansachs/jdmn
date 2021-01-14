@@ -28,24 +28,12 @@ public class AbstractFEELProcessor {
         return this.feelAnalyzer.parseUnaryTests(text);
     }
 
-    public UnaryTests parseSimpleUnaryTests(String text) {
-        return this.feelAnalyzer.parseSimpleUnaryTests(text);
-    }
-
     public UnaryTests analyzeUnaryTests(String text, DMNContext context) {
         return this.feelAnalyzer.analyzeUnaryTests(text, context);
     }
 
-    public UnaryTests analyzeSimpleUnaryTests(String text, DMNContext context) {
-        return this.feelAnalyzer.analyzeSimpleUnaryTests(text, context);
-    }
-
     public Expression parseExpression(String text) {
         return this.feelAnalyzer.parseExpression(text);
-    }
-
-    public Expression parseSimpleExpressions(String text) {
-        return this.feelAnalyzer.parseSimpleExpressions(text);
     }
 
     public Expression parseTextualExpressions(String text) {
@@ -58,10 +46,6 @@ public class AbstractFEELProcessor {
 
     public Expression analyzeExpression(String text, DMNContext context) {
         return this.feelAnalyzer.analyzeExpression(text, context);
-    }
-
-    public Expression analyzeSimpleExpressions(String text, DMNContext context) {
-        return this.feelAnalyzer.analyzeSimpleExpressions(text, context);
     }
 
     public Expression analyzeTextualExpressions(String text, DMNContext context) {

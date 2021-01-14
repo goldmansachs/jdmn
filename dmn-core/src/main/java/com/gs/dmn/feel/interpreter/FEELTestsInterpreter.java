@@ -20,9 +20,5 @@ import com.gs.dmn.runtime.interpreter.Result;
 interface FEELTestsInterpreter extends FEELTestsAnalyzer {
     Result evaluateUnaryTests(String text, DMNContext context);
 
-    Result evaluateSimpleUnaryTests(String text, DMNContext context);
-
     Result evaluateUnaryTests(UnaryTests expression, DMNContext context);
-
-    Result evaluateSimpleUnaryTests(UnaryTests expression, DMNContext context);
 }

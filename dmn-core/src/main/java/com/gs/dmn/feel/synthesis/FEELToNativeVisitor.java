@@ -89,22 +89,6 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         return condition;
     }
 
-
-    @Override
-    public Object visit(NegatedSimplePositiveUnaryTests element, DMNContext context) {
-        SimplePositiveUnaryTests simplePositiveUnaryTests = element.getSimplePositiveUnaryTests();
-        String condition = (String) simplePositiveUnaryTests.accept(this, context);
-        condition = String.format("booleanNot(%s)", condition);
-        return condition;
-    }
-
-    @Override
-    public Object visit(SimplePositiveUnaryTests element, DMNContext context) {
-        List<SimplePositiveUnaryTest> simplePositiveUnaryTests = element.getSimplePositiveUnaryTests();
-        List<String> operands = simplePositiveUnaryTests.stream().map(t -> String.format("(%s)", t.accept(this, context))).collect(Collectors.toList());
-        return toBooleanOr(operands);
-    }
-
     @Override
     public Object visit(Any element, DMNContext context) {
         return this.nativeFactory.trueConstant();
@@ -633,9 +617,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
             throw new DMNRuntimeException("Missing inputExpression");
         } else {
             // Evaluate as test
-            SimpleExpressionsToNativeVisitor visitor = new SimpleExpressionsToNativeVisitor(this.dmnTransformer);
-            visitor.init();
-            return (String) inputExpression.accept(visitor, context);
+            return (String) inputExpression.accept(this, context);
         }
     }
 
