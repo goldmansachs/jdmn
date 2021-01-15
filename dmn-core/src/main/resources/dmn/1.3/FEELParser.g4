@@ -151,32 +151,6 @@ endpoint returns [Expression ast]:
 ;
 
 //
-// Simple expressions
-//
-simpleExpressions returns [Expression ast] :
-	{List<Expression> expressionList = new ArrayList<>();}
-    exp = simpleExpression
-    {expressionList.add($exp.ast);}
-    (
-        COMMA exp = simpleExpression
-        {expressionList.add($exp.ast);}
-    )*
-    {$ast = astFactory.toExpressionList(expressionList);}
-;
-
-simpleExpression returns [Expression ast]:
-    (
-        arithmeticExpression
-        {$ast = $arithmeticExpression.ast;}
-    )
-    |
-    (
-        simpleValue
-        {$ast = $simpleValue.ast;}
-    )
-;
-
-//
 // Expression
 //
 expression returns [Expression ast] :
