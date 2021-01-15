@@ -56,7 +56,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         EVENT_LISTENER = eventListener;
     }
 
-    private final DMNModelRepository dmnModelRepository;
+    private final DMNModelRepository repository;
     private final EnvironmentFactory environmentFactory;
     protected final ErrorHandler errorHandler;
 
@@ -69,7 +69,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         this.errorHandler = new LogErrorHandler(LOGGER);
         this.typeConverter = typeConverter;
         this.basicDMNTransformer = basicDMNTransformer;
-        this.dmnModelRepository = basicDMNTransformer.getDMNModelRepository();
+        this.repository = basicDMNTransformer.getDMNModelRepository();
         this.environmentFactory = basicDMNTransformer.getEnvironmentFactory();
         this.feelLib = feelLib;
         this.feelInterpreter = new FEELInterpreterImpl<>(this);
@@ -94,6 +94,20 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     // Evaluate TDecisions
     //
     @Override
+    public Result evaluateDecision(String namespace, String decisionName, Map<String, Object> informationRequirements) {
+        try {
+            TDRGElement element = this.repository.findDRGElementByName(namespace, decisionName);
+            if (element instanceof TDecision) {
+                return evaluate(this.repository.makeDRGElementReference((TDecision) element), informationRequirements);
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot find decision namespace='%s' name='%s'", namespace, decisionName));
+            }
+        } catch (Exception e) {
+            return handleEvaluationError(namespace, "decision", decisionName, e);
+        }
+    }
+
+    @Override
     public Result evaluate(DRGElementReference<? extends TDecision> reference, Map<String, Object> informationRequirements) {
         try {
             DMNContext globalContext = DMNContext.of(
@@ -107,17 +121,28 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             List<Object> args = new ArrayList<>();
             return evaluate(reference, args, globalContext);
         } catch (Exception e) {
-            String errorMessage = "Evaluation error";
-            this.errorHandler.reportError(errorMessage, e);
-            Result result = Result.of(null, NullType.NULL);
-            result.addError(errorMessage, e);
-            return result;
+            String namespace = reference == null ? null : reference.getNamespace();
+            String name = reference == null || reference.getElement() == null ? null : reference.getElementName();
+            return handleEvaluationError(namespace, "decision", name, e);
         }
     }
 
     //
     // Evaluate TInvocables
     //
+    @Override
+    public Result evaluateInvocable(String namespace, String invocableName, List<Object> argList) {
+        try {
+            TDRGElement element = this.repository.findDRGElementByName(namespace, invocableName);
+            if (element instanceof TInvocable) {
+                return evaluate(this.repository.makeDRGElementReference((TInvocable) element), argList);
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot find invocable namespace='%s' name='%s'", namespace, invocableName));
+            }
+        } catch (Exception e) {
+            return handleEvaluationError(namespace, "invocable", invocableName, e);
+        }
+    }
     @Override
     public Result evaluate(DRGElementReference<? extends TInvocable> reference, List<Object> args) {
         try {
@@ -128,11 +153,9 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             );
             return evaluate(reference, args, globalContext);
         } catch (Exception e) {
-            String errorMessage = "Evaluation error";
-            this.errorHandler.reportError(errorMessage, e);
-            Result result = Result.of(null, NullType.NULL);
-            result.addError(errorMessage, e);
-            return result;
+            String namespace = reference == null ? null : reference.getNamespace();
+            String name = reference == null || reference.getElement() == null ? null : reference.getElementName();
+            return handleEvaluationError(namespace, "invocable", name, e);
         }
     }
 
@@ -146,9 +169,9 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             );
             Result result;
             if (invocable instanceof TDecisionService) {
-                result = evaluate(this.dmnModelRepository.makeDRGElementReference(invocable), argList, invocationContext);
+                result = evaluate(this.repository.makeDRGElementReference(invocable), argList, invocationContext);
             } else if (invocable instanceof TBusinessKnowledgeModel) {
-                result = evaluate(this.dmnModelRepository.makeDRGElementReference(invocable), argList, invocationContext);
+                result = evaluate(this.repository.makeDRGElementReference(invocable), argList, invocationContext);
             } else {
                 throw new IllegalArgumentException(String.format("Not supported type '%s'", invocable.getClass().getSimpleName()));
             }
@@ -172,7 +195,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                     RuntimeEnvironment.of(parentContext.getRuntimeEnvironment())
             );
             List<TInformationItem> formalParameterList = functionDefinition.getFormalParameter();
-            TDefinitions model = this.dmnModelRepository.getModel(parentContext.getElement());
+            TDefinitions model = this.repository.getModel(parentContext.getElement());
             for (int i = 0; i < formalParameterList.size(); i++) {
                 TInformationItem param = formalParameterList.get(i);
                 String name = param.getName();
@@ -243,7 +266,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
     private Result evaluateBKM(DRGElementReference<TBusinessKnowledgeModel> reference, List<Object> argList, DMNContext parentContext) {
         TBusinessKnowledgeModel bkm = reference.getElement();
-        TDefinitions model = this.dmnModelRepository.getModel(bkm);
+        TDefinitions model = this.repository.getModel(bkm);
 
         // Create BKM context
         DMNContext bkmContext = DMNContext.of(
@@ -279,7 +302,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         }
 
         // Execute function body
-        TExpression expression = this.dmnModelRepository.expression(bkm);
+        TExpression expression = this.repository.expression(bkm);
         Result result = evaluateExpression(bkm, expression, bkmContext, drgElementAnnotation);
         Object value = Result.value(result);
 
@@ -330,14 +353,14 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         List<TDecision> outputDecisions = new ArrayList<>();
         List<ImportPath> outputDecisionImportPaths = new ArrayList<>();
         for (TDMNElementReference outputDecisionReference: service.getOutputDecision()) {
-            TDecision decision = this.dmnModelRepository.findDecisionByRef(service, outputDecisionReference.getHref());
+            TDecision decision = this.repository.findDecisionByRef(service, outputDecisionReference.getHref());
             outputDecisions.add(decision);
 
-            String importName = this.dmnModelRepository.findImportName(service, outputDecisionReference);
+            String importName = this.repository.findImportName(service, outputDecisionReference);
             ImportPath decisionImportPath = new ImportPath(serviceReference.getImportPath(), importName);
             outputDecisionImportPaths.add(decisionImportPath);
 
-            applyDecision(this.dmnModelRepository.makeDRGElementReference(decisionImportPath, decision), serviceContext);
+            applyDecision(this.repository.makeDRGElementReference(decisionImportPath, decision), serviceContext);
         }
 
         // Make context result
@@ -345,13 +368,13 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         if (outputDecisions.size() == 1) {
             TDecision decision = outputDecisions.get(0);
             ImportPath childImportPath = outputDecisionImportPaths.get(0);
-            output = lookupBinding(serviceContext, this.dmnModelRepository.makeDRGElementReference(childImportPath, decision));
+            output = lookupBinding(serviceContext, this.repository.makeDRGElementReference(childImportPath, decision));
         } else {
             output = new Context();
             for(int i=0; i < outputDecisions.size(); i++) {
                 TDecision decision = outputDecisions.get(i);
                 ImportPath decisionImportPath = outputDecisionImportPaths.get(i);
-                Object value = lookupBinding(serviceContext, this.dmnModelRepository.makeDRGElementReference(decisionImportPath, decision));
+                Object value = lookupBinding(serviceContext, this.repository.makeDRGElementReference(decisionImportPath, decision));
                 ((Context) output).add(decision.getName(), value);
             }
         }
@@ -375,17 +398,17 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             // Find invocable
             TDMNElementReference requiredKnowledge = requirement.getRequiredKnowledge();
             String href = requiredKnowledge.getHref();
-            TInvocable invocable = this.dmnModelRepository.findInvocableByRef(parent, href);
+            TInvocable invocable = this.repository.findInvocableByRef(parent, href);
 
             // Calculate import path
-            String importName = this.dmnModelRepository.findImportName(parent, requiredKnowledge);
+            String importName = this.repository.findImportName(parent, requiredKnowledge);
             ImportPath invocableImportPath = new ImportPath(importPath, importName);
 
             // Evaluate invocable
             if (invocable instanceof TBusinessKnowledgeModel) {
-                applyBKM(this.dmnModelRepository.makeDRGElementReference(invocableImportPath, (TBusinessKnowledgeModel) invocable), context);
+                applyBKM(this.repository.makeDRGElementReference(invocableImportPath, (TBusinessKnowledgeModel) invocable), context);
             } else if (invocable instanceof TDecisionService) {
-                applyDecisionService(this.dmnModelRepository.makeDRGElementReference(invocableImportPath, (TDecisionService) invocable), context);
+                applyDecisionService(this.repository.makeDRGElementReference(invocableImportPath, (TDecisionService) invocable), context);
             } else {
                 throw new UnsupportedOperationException(String.format("Not supported invocable '%s'", invocable.getClass().getSimpleName()));
             }
@@ -441,7 +464,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             evaluateKnowledgeRequirements(importPath, decision, decision.getKnowledgeRequirement(), decisionContext);
 
             // Evaluate expression
-            TExpression expression = this.dmnModelRepository.expression(decision);
+            TExpression expression = this.repository.expression(decision);
             Result result = evaluateExpression(decision, expression, decisionContext, drgElementAnnotation);
             output = Result.value(result);
 
@@ -467,20 +490,20 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             TDMNElementReference requiredInput = informationRequirement.getRequiredInput();
             TDMNElementReference requiredDecision = informationRequirement.getRequiredDecision();
             if (requiredInput != null) {
-                TInputData child = this.dmnModelRepository.findInputDataByRef(parent, requiredInput.getHref());
-                String importName = this.dmnModelRepository.findImportName(parent, requiredInput);
+                TInputData child = this.repository.findInputDataByRef(parent, requiredInput.getHref());
+                String importName = this.repository.findImportName(parent, requiredInput);
                 ImportPath childImportPath = new ImportPath(importPath, importName);
 
                 // Add new binding to match path in parent
-                addBinding(context, this.dmnModelRepository.makeDRGElementReference(childImportPath, child), importName);
+                addBinding(context, this.repository.makeDRGElementReference(childImportPath, child), importName);
             } else if (requiredDecision != null) {
-                TDecision child = this.dmnModelRepository.findDecisionByRef(parent, requiredDecision.getHref());
-                String importName = this.dmnModelRepository.findImportName(parent, requiredDecision);
+                TDecision child = this.repository.findDecisionByRef(parent, requiredDecision.getHref());
+                String importName = this.repository.findImportName(parent, requiredDecision);
                 ImportPath childImportPath = new ImportPath(importPath, importName);
-                evaluateDecision(this.dmnModelRepository.makeDRGElementReference(childImportPath, child), context);
+                evaluateDecision(this.repository.makeDRGElementReference(childImportPath, child), context);
 
                 // Add new binding to match path in parent
-                addBinding(context, this.dmnModelRepository.makeDRGElementReference(childImportPath, child), importName);
+                addBinding(context, this.repository.makeDRGElementReference(childImportPath, child), importName);
             } else {
                 this.errorHandler.reportError("Incorrect InformationRequirement. Missing required input and decision");
             }
@@ -540,7 +563,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         if (body instanceof TLiteralExpression) {
             // Find BKM
             String bkmName = ((TLiteralExpression) body).getText();
-            TBusinessKnowledgeModel bkm = this.dmnModelRepository.findKnowledgeModelByName(bkmName);
+            TBusinessKnowledgeModel bkm = this.repository.findKnowledgeModelByName(bkmName);
             if (bkm == null) {
                 throw new DMNRuntimeException(String.format("Cannot find BKM for '%s'", bkmName));
             }
@@ -557,14 +580,14 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             }
 
             // Evaluate invocation
-            return evaluate(this.dmnModelRepository.makeDRGElementReference(bkm), argList, parentContext);
+            return evaluate(this.repository.makeDRGElementReference(bkm), argList, parentContext);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", body.getClass().getSimpleName()));
         }
     }
 
     private Result evaluateContextExpression(TDRGElement element, TContext tContext, DMNContext parentContext, DRGElement elementAnnotation) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
+        TDefinitions model = this.repository.getModel(element);
 
         // Make entry context
         Pair<Environment, Map<TContextEntry, Expression>> pair = this.basicDMNTransformer.makeContextEnvironment(element, tContext, parentContext.getEnvironment());
@@ -636,7 +659,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     }
 
     private Result evaluateListExpression(TDRGElement element, TList list, DMNContext context, DRGElement elementAnnotation) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
+        TDefinitions model = this.repository.getModel(element);
         if (list.getExpression() == null) {
             return null;
         }
@@ -662,7 +685,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         }
 
         // Make relation environment
-        TDefinitions model = this.dmnModelRepository.getModel(element);
+        TDefinitions model = this.repository.getModel(element);
         DMNContext relationContext = DMNContext.of(
                 element,
                 this.basicDMNTransformer.makeRelationEnvironment(model, relation, context.getEnvironment()),
@@ -763,7 +786,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             EVENT_LISTENER.matchRule(elementAnnotation, ruleAnnotation);
 
             THitPolicy hitPolicy = decisionTable.getHitPolicy();
-            if (this.dmnModelRepository.isCompoundDecisionTable(element)) {
+            if (this.repository.isCompoundDecisionTable(element)) {
                 Context output = new Context();
                 List<TLiteralExpression> outputEntry = rule.getOutputEntry();
                 for (int i = 0; i < outputEntry.size(); i++) {
@@ -771,7 +794,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                     String key = decisionTable.getOutput().get(i).getName();
                     Result result = evaluateLiteralExpression(element, literalExpression, context, elementAnnotation);
                     Object value = Result.value(result);
-                    if (this.dmnModelRepository.isOutputOrderHit(hitPolicy)) {
+                    if (this.repository.isOutputOrderHit(hitPolicy)) {
                         Object priority = this.basicDMNTransformer.priority(element, rule.getOutputEntry().get(i), i);
                         output.put(key, new Pair<>(value, priority));
                     } else {
@@ -785,7 +808,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                 Object output;
                 Result result = evaluateLiteralExpression(element, literalExpression, context, elementAnnotation);
                 Object value = Result.value(result);
-                if (this.dmnModelRepository.isOutputOrderHit(hitPolicy)) {
+                if (this.repository.isOutputOrderHit(hitPolicy)) {
                     Object priority = this.basicDMNTransformer.priority(element, rule.getOutputEntry().get(0), 0);
                     output = new Pair<>(value, priority);
                 } else {
@@ -812,20 +835,20 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             return evaluateDefaultValue(element, decisionTable, this.basicDMNTransformer, context, elementAnnotation);
         } else {
             THitPolicy hitPolicy = decisionTable.getHitPolicy();
-            if (this.dmnModelRepository.isSingleHit(hitPolicy)) {
+            if (this.repository.isSingleHit(hitPolicy)) {
                 InterpretedRuleOutput ruleOutput = (InterpretedRuleOutput) ruleOutputList.applySingle(HitPolicy.fromValue(hitPolicy.value()));
                 return toDecisionOutput(element, decisionTable, ruleOutput);
-            } else if (this.dmnModelRepository.isMultipleHit(hitPolicy)) {
+            } else if (this.repository.isMultipleHit(hitPolicy)) {
                 List<? extends RuleOutput> ruleOutputs = ruleOutputList.applyMultiple(HitPolicy.fromValue(hitPolicy.value()));
-                if (this.dmnModelRepository.isCompoundDecisionTable(element)) {
-                    if (this.dmnModelRepository.hasAggregator(decisionTable)) {
+                if (this.repository.isCompoundDecisionTable(element)) {
+                    if (this.repository.hasAggregator(decisionTable)) {
                         return null;
                     } else {
                         return ruleOutputs.stream().map(r -> toDecisionOutput(element, decisionTable, (InterpretedRuleOutput) r)).collect(Collectors.toList());
                     }
                 } else {
                     List decisionOutput = ruleOutputs.stream().map(r -> toDecisionOutput(element, decisionTable, (InterpretedRuleOutput) r)).collect(Collectors.toList());
-                    if (this.dmnModelRepository.hasAggregator(decisionTable)) {
+                    if (this.repository.hasAggregator(decisionTable)) {
                         TBuiltinAggregator aggregation = decisionTable.getAggregation();
                         if (aggregation == TBuiltinAggregator.MIN) {
                             return this.feelLib.min(decisionOutput);
@@ -849,13 +872,13 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     }
 
     private Object evaluateDefaultValue(TDRGElement element, TDecisionTable decisionTable, BasicDMNToNativeTransformer dmnTransformer, DMNContext context, DRGElement elementAnnotation) {
-        if (this.dmnModelRepository.hasDefaultValue(decisionTable)) {
+        if (this.repository.hasDefaultValue(decisionTable)) {
             // Evaluate and collect default values
             List<TOutputClause> outputClauses = decisionTable.getOutput();
             Context defaultValue = new Context();
             for (TOutputClause output : outputClauses) {
                 TLiteralExpression defaultOutputEntry = output.getDefaultOutputEntry();
-                String key = this.dmnModelRepository.outputClauseName(element, output);
+                String key = this.repository.outputClauseName(element, output);
                 if (defaultOutputEntry == null) {
                     defaultValue.put(key, null);
                 } else {
@@ -865,14 +888,14 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                 }
             }
             // Return result
-            if (this.dmnModelRepository.isCompoundDecisionTable(element)) {
+            if (this.repository.isCompoundDecisionTable(element)) {
                 if (dmnTransformer.hasListType(element)) {
                     return Arrays.asList(defaultValue);
                 } else {
                     return defaultValue;
                 }
             } else {
-                String key = this.dmnModelRepository.outputClauseName(element, decisionTable.getOutput().get(0));
+                String key = this.repository.outputClauseName(element, decisionTable.getOutput().get(0));
                 return defaultValue.get(key);
             }
         } else {
@@ -1001,7 +1024,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                 if (ImportPath.isEmpty(importName)) {
                     context.bind(reference.getElementName(), value);
                 } else {
-                    bind(context, this.dmnModelRepository.makeDRGElementReference(new ImportPath(importName), reference.getElement()), value);
+                    bind(context, this.repository.makeDRGElementReference(new ImportPath(importName), reference.getElement()), value);
                 }
             }
         }
@@ -1012,18 +1035,18 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     //
     protected DRGElement makeDRGElementAnnotation(TDRGElement element) {
         return new DRGElement(null,
-                this.dmnModelRepository.name(element),
-                this.dmnModelRepository.label(element),
+                this.repository.name(element),
+                this.repository.label(element),
                 this.basicDMNTransformer.elementKind(element),
                 this.basicDMNTransformer.expressionKind(element),
                 this.basicDMNTransformer.hitPolicy(element),
-                this.dmnModelRepository.rulesCount(element)
+                this.repository.rulesCount(element)
         );
     }
 
     private Arguments makeArguments(TDRGElement element, DMNContext context) {
         Arguments arguments = new Arguments();
-        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
+        DRGElementReference<? extends TDRGElement> reference = this.repository.makeDRGElementReference(element);
         List<String> parameters = this.basicDMNTransformer.drgElementArgumentDisplayNameList(reference);
         parameters.forEach(p -> arguments.put(p, context.lookupBinding(p)));
         return arguments;
@@ -1031,5 +1054,13 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
     private Rule makeRuleAnnotation(TDecisionRule rule, int ruleIndex) {
         return new Rule(ruleIndex, this.basicDMNTransformer.annotationEscapedText(rule));
+    }
+
+    private Result handleEvaluationError(String namespace, String type, String name, Exception e) {
+        String errorMessage = String.format("Cannot evaluate %s namespace='%s' name='%s'", type, namespace, name);
+        this.errorHandler.reportError(errorMessage, e);
+        Result result = Result.of(null, NullType.NULL);
+        result.addError(errorMessage, e);
+        return result;
     }
 }
