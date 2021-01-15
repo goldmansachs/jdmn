@@ -333,6 +333,7 @@ specific language governing permissions and limitations under the License.]]></i
                         <configuration>
                             <serverId>ossrh</serverId>
                             <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <stagingProgressTimeoutMinutes>30</stagingProgressTimeoutMinutes>
                             <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>
                     </plugin>
