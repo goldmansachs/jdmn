@@ -716,7 +716,9 @@ public interface BasicDMNToNativeTransformer {
         return DMNContext.of(
                 DMNContextKind.ITERATOR,
                 context.getElement(),
-                this.getEnvironmentFactory().makeEnvironment(context.getEnvironment()));
+                this.getEnvironmentFactory().makeEnvironment(context.getEnvironment()),
+                RuntimeEnvironment.of(context.getRuntimeEnvironment())
+        );
     }
 
     default DMNContext makeFilterContext(FilterExpression filterExpression, String filterParameterName, DMNContext parentContext) {
