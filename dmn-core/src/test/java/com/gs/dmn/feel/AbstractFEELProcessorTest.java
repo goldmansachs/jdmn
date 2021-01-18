@@ -72,32 +72,6 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     @Test
-    public void testSimpleUnaryTests() {
-        NUMBER input = this.lib.number("1");
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, input));
-
-        doSimpleUnaryTestsTest(entries, "input", "not (-1)",
-                "NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorTest(null,ArithmeticNegation(NumericLiteral(1)))))",
-                "TupleType(boolean)",
-                "booleanNot((numericEqual(input, numericUnaryMinus(number(\"1\")))))",
-                this.lib.booleanNot((this.lib.numericEqual(input, this.lib.numericUnaryMinus(this.lib.number("1"))))),
-                true);
-        doSimpleUnaryTestsTest(entries, "input", "not(1, 2)",
-                "NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorTest(null,NumericLiteral(1)),OperatorTest(null,NumericLiteral(2))))",
-                "TupleType(boolean, boolean)",
-                "booleanNot(booleanOr((numericEqual(input, number(\"1\"))), (numericEqual(input, number(\"2\")))))",
-                this.lib.booleanNot(this.lib.booleanOr((this.lib.numericEqual(input, this.lib.number("1"))), (this.lib.numericEqual(input, this.lib.number("2"))))),
-                false);
-        doSimpleUnaryTestsTest(entries, "input", "-",
-                "Any()",
-                "boolean",
-                "Boolean.TRUE",
-                true,
-                true);
-    }
-
-    @Test
     public void testPositiveUnaryTests() {
         NUMBER number = this.lib.number("1");
         String string = "e1";
@@ -105,13 +79,13 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 new EnvironmentEntry("number", NUMBER, number),
                 new EnvironmentEntry("string", STRING, string));
 
-        doSimpleUnaryTestsTest(entries, "number", "1, 2",
+        doPositiveUnaryTestsTest(entries, "number", "1, 2",
                 "PositiveUnaryTests(OperatorTest(null,NumericLiteral(1)),OperatorTest(null,NumericLiteral(2)))",
                 "TupleType(boolean, boolean)",
                 "booleanOr((numericEqual(number, number(\"1\"))), (numericEqual(number, number(\"2\"))))",
                 this.lib.booleanOr((this.lib.numericEqual(number, this.lib.number("1"))), (this.lib.numericEqual(number, this.lib.number("2")))),
                 true);
-        doSimpleUnaryTestsTest(entries, "string", "\"e1\", \"e2\"",
+        doPositiveUnaryTestsTest(entries, "string", "\"e1\", \"e2\"",
                 "PositiveUnaryTests(OperatorTest(null,StringLiteral(\"e1\")),OperatorTest(null,StringLiteral(\"e2\")))",
                 "TupleType(boolean, boolean)",
                 "booleanOr((stringEqual(string, \"e1\")), (stringEqual(string, \"e2\")))",
@@ -120,149 +94,297 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     @Test
-    public void testSimplePositiveUnaryTest() {
+    public void testNegatedPositiveUnaryTests() {
+        NUMBER input = this.lib.number("1");
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("input", NUMBER, input));
+
+        doUnaryTestsTest(entries, "input", "not (-1)",
+                "NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorTest(null,ArithmeticNegation(NumericLiteral(1)))))",
+                "TupleType(boolean)",
+                "booleanNot((numericEqual(input, numericUnaryMinus(number(\"1\")))))",
+                this.lib.booleanNot((this.lib.numericEqual(input, this.lib.numericUnaryMinus(this.lib.number("1"))))),
+                true);
+        doUnaryTestsTest(entries, "input", "not(1, 2)",
+                "NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorTest(null,NumericLiteral(1)),OperatorTest(null,NumericLiteral(2))))",
+                "TupleType(boolean, boolean)",
+                "booleanNot(booleanOr((numericEqual(input, number(\"1\"))), (numericEqual(input, number(\"2\")))))",
+                this.lib.booleanNot(this.lib.booleanOr((this.lib.numericEqual(input, this.lib.number("1"))), (this.lib.numericEqual(input, this.lib.number("2"))))),
+                false);
+    }
+
+    @Test
+    public void testAnyUnaryTests() {
+        NUMBER input = this.lib.number("1");
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("input", NUMBER, input));
+
+        doUnaryTestsTest(entries, "input", "-",
+                "Any()",
+                "boolean",
+                "Boolean.TRUE",
+                true,
+                true);
+    }
+
+    @Test
+    public void testUnaryTests() {
+        NUMBER input = this.lib.number("1");
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("input", NUMBER, input));
+
+        doUnaryTestsTest(entries, "input", "-",
+                "Any()",
+                "boolean",
+                "Boolean.TRUE",
+                true,
+                true);
+    }
+
+    @Test
+    public void testPositiveUnaryTest() {
         NUMBER number = this.lib.number("1");
-        String string = "1";
+        String string = "abc";
         boolean boolean_ = true;
         DATE date = this.lib.date("2017-01-03");
         TIME time = this.lib.time("12:00:00Z");
         DATE_TIME dateTime = this.lib.dateAndTime("2017-01-03T12:00:00Z");
+        List<String> list = this.lib.asList("a", "b", "c");
+
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("number", NUMBER, number),
                 new EnvironmentEntry("string", STRING, string),
                 new EnvironmentEntry("boolean", BOOLEAN, boolean_),
                 new EnvironmentEntry("date", DateType.DATE, date),
                 new EnvironmentEntry("time", TimeType.TIME, time),
-                new EnvironmentEntry("dateTime", DateTimeType.DATE_AND_TIME, dateTime)
+                new EnvironmentEntry("dateTime", DateTimeType.DATE_AND_TIME, dateTime),
+                new EnvironmentEntry("list", ListType.STRING_LIST, list)
         );
 
-        doSimpleUnaryTestsTest(entries, "number", "< 123.45",
+        //
+        // OperatorTest
+        //
+        doUnaryTestsTest(entries, "number", "1",
+                "PositiveUnaryTests(OperatorTest(null,NumericLiteral(1)))",
+                "TupleType(boolean)",
+                "(numericEqual(number, number(\"1\")))",
+                (this.lib.numericEqual(number, this.lib.number("1"))),
+                true);
+        doUnaryTestsTest(entries, "number", "-1",
+                "PositiveUnaryTests(OperatorTest(null,ArithmeticNegation(NumericLiteral(1))))",
+                "TupleType(boolean)",
+                "(numericEqual(number, numericUnaryMinus(number(\"1\"))))",
+                (this.lib.numericEqual(number, this.lib.numericUnaryMinus(this.lib.number("1")))),
+                false);
+
+        doUnaryTestsTest(entries, "number", "<1",
+                "PositiveUnaryTests(OperatorTest(<,NumericLiteral(1)))",
+                "TupleType(boolean)",
+                "(numericLessThan(number, number(\"1\")))",
+                (this.lib.numericLessThan(number, this.lib.number("1"))),
+                false);
+        doUnaryTestsTest(entries, "number", "<=1",
+                "PositiveUnaryTests(OperatorTest(<=,NumericLiteral(1)))",
+                "TupleType(boolean)",
+                "(numericLessEqualThan(number, number(\"1\")))",
+                (this.lib.numericLessEqualThan(number, this.lib.number("1"))),
+                true);
+        doUnaryTestsTest(entries, "number", ">1",
+                "PositiveUnaryTests(OperatorTest(>,NumericLiteral(1)))",
+                "TupleType(boolean)",
+                "(numericGreaterThan(number, number(\"1\")))",
+                (this.lib.numericGreaterThan(number, this.lib.number("1"))),
+                false);
+        doUnaryTestsTest(entries, "number", ">=1",
+                "PositiveUnaryTests(OperatorTest(>=,NumericLiteral(1)))",
+                "TupleType(boolean)",
+                "(numericGreaterEqualThan(number, number(\"1\")))",
+                (this.lib.numericGreaterEqualThan(number, this.lib.number("1"))),
+                true);
+
+        doUnaryTestsTest(entries, "date", "< date(\"2016-08-01\")",
+                "PositiveUnaryTests(OperatorTest(<,DateTimeLiteral(date, \"2016-08-01\")))",
+                "TupleType(boolean)",
+                "(dateLessThan(date, date(\"2016-08-01\")))",
+                (this.lib.dateLessThan(date, this.lib.date("2016-08-01"))),
+                false);
+
+        //
+        // RangeTest
+        //
+        doUnaryTestsTest(entries, "number", "(1..2)",
+                "PositiveUnaryTests(RangeTest(true,NumericLiteral(1),true,NumericLiteral(2)))",
+                "TupleType(RangeType(number))",
+                "(booleanAnd(numericGreaterThan(number, number(\"1\")), numericLessThan(number, number(\"2\"))))",
+                (this.lib.booleanAnd(this.lib.numericGreaterThan(number, this.lib.number("1")), this.lib.numericLessThan(number, this.lib.number("2")))),
+                false);
+        doUnaryTestsTest(entries, "number", "]1..2[",
+                "PositiveUnaryTests(RangeTest(true,NumericLiteral(1),true,NumericLiteral(2)))",
+                "TupleType(RangeType(number))",
+                "(booleanAnd(numericGreaterThan(number, number(\"1\")), numericLessThan(number, number(\"2\"))))",
+                (this.lib.booleanAnd(this.lib.numericGreaterThan(number, this.lib.number("1")), this.lib.numericLessThan(number, this.lib.number("2")))),
+                false);
+        doUnaryTestsTest(entries, "number", "[1..2]",
+                "PositiveUnaryTests(RangeTest(false,NumericLiteral(1),false,NumericLiteral(2)))",
+                "TupleType(RangeType(number))",
+                "(booleanAnd(numericGreaterEqualThan(number, number(\"1\")), numericLessEqualThan(number, number(\"2\"))))",
+                (this.lib.booleanAnd(this.lib.numericGreaterEqualThan(number, this.lib.number("1")), this.lib.numericLessEqualThan(number, this.lib.number("2")))),
+                true);
+
+        //
+        //  NullTest
+        //
+        doUnaryTestsTest(entries, "number", "null",
+                "PositiveUnaryTests(NullTest())",
+                "TupleType(boolean)",
+                "(number == null)",
+                (number == null),
+                false);
+
+        //
+        // ExpressionTest
+        //
+        doUnaryTestsTest(entries, "list", "count(?) > 2",
+                "PositiveUnaryTests(ExpressionTest(Relational(>,FunctionInvocation(Name(count) -> PositionalParameters(Name(?))),NumericLiteral(2))))",
+                "TupleType(boolean)",
+                "(numericGreaterThan(count(list), number(\"2\")))",
+                (this.lib.numericGreaterThan(this.lib.count(list), this.lib.number("2"))),
+                true);
+
+        doUnaryTestsTest(entries, "number", "? < 2 + 3",
+                "PositiveUnaryTests(ExpressionTest(Relational(<,Name(?),Addition(+,NumericLiteral(2),NumericLiteral(3)))))",
+                "TupleType(boolean)",
+                "(numericLessThan(number, numericAdd(number(\"2\"), number(\"3\"))))",
+                (this.lib.numericLessThan(number, this.lib.numericAdd(this.lib.number("2"), this.lib.number("3")))),
+                true);
+
+        doPositiveUnaryTestsTest(entries, "number", "< 123.45",
                 "PositiveUnaryTests(OperatorTest(<,NumericLiteral(123.45)))",
                 "TupleType(boolean)",
                 "(numericLessThan(number, number(\"123.45\")))",
                 (this.lib.numericLessThan(number, this.lib.number("123.45"))),
                 true);
-        doSimpleUnaryTestsTest(entries, "number", "<= 123.45",
+        doPositiveUnaryTestsTest(entries, "number", "<= 123.45",
                 "PositiveUnaryTests(OperatorTest(<=,NumericLiteral(123.45)))",
                 "TupleType(boolean)",
                 "(numericLessEqualThan(number, number(\"123.45\")))",
                 (this.lib.numericLessEqualThan(number, this.lib.number("123.45"))),
                 true);
-        doSimpleUnaryTestsTest(entries, "number", "> 123.45",
+        doPositiveUnaryTestsTest(entries, "number", "> 123.45",
                 "PositiveUnaryTests(OperatorTest(>,NumericLiteral(123.45)))",
                 "TupleType(boolean)",
                 "(numericGreaterThan(number, number(\"123.45\")))",
                 (this.lib.numericGreaterThan(number, this.lib.number("123.45"))),
                 false);
-        doSimpleUnaryTestsTest(entries, "number", ">= 123.45",
+        doPositiveUnaryTestsTest(entries, "number", ">= 123.45",
                 "PositiveUnaryTests(OperatorTest(>=,NumericLiteral(123.45)))",
                 "TupleType(boolean)",
                 "(numericGreaterEqualThan(number, number(\"123.45\")))",
                 (this.lib.numericGreaterEqualThan(number, this.lib.number("123.45"))),
                 false);
-        doSimpleUnaryTestsTest(entries, "date", "< date(\"2016-08-01\")",
+        doPositiveUnaryTestsTest(entries, "date", "< date(\"2016-08-01\")",
                 "PositiveUnaryTests(OperatorTest(<,DateTimeLiteral(date, \"2016-08-01\")))",
                 "TupleType(boolean)",
                 "(dateLessThan(date, date(\"2016-08-01\")))",
                 (this.lib.numericGreaterEqualThan(number, this.lib.number("123.45"))),
                 false);
-        doSimpleUnaryTestsTest(entries, "date", "<= date(\"2016-08-01\")",
+        doPositiveUnaryTestsTest(entries, "date", "<= date(\"2016-08-01\")",
                 "PositiveUnaryTests(OperatorTest(<=,DateTimeLiteral(date, \"2016-08-01\")))",
                 "TupleType(boolean)",
                 "(dateLessEqualThan(date, date(\"2016-08-01\")))",
                 (this.lib.dateLessEqualThan(date, this.lib.date("2016-08-01"))),
                 false);
-        doSimpleUnaryTestsTest(entries, "date", "> date(\"2016-08-01\")",
+        doPositiveUnaryTestsTest(entries, "date", "> date(\"2016-08-01\")",
                 "PositiveUnaryTests(OperatorTest(>,DateTimeLiteral(date, \"2016-08-01\")))",
                 "TupleType(boolean)",
                 "(dateGreaterThan(date, date(\"2016-08-01\")))",
                 (this.lib.dateGreaterThan(date, this.lib.date("2016-08-01"))),
                 true);
-        doSimpleUnaryTestsTest(entries, "date", ">= date(\"2016-08-01\")",
+        doPositiveUnaryTestsTest(entries, "date", ">= date(\"2016-08-01\")",
                 "PositiveUnaryTests(OperatorTest(>=,DateTimeLiteral(date, \"2016-08-01\")))",
                 "TupleType(boolean)",
                 "(dateGreaterEqualThan(date, date(\"2016-08-01\")))",
                 (this.lib.dateGreaterEqualThan(date, this.lib.date("2016-08-01"))),
                 true);
-        doSimpleUnaryTestsTest(entries, "time", "< time(\"12:00:00Z\")",
+        doPositiveUnaryTestsTest(entries, "time", "< time(\"12:00:00Z\")",
                 "PositiveUnaryTests(OperatorTest(<,DateTimeLiteral(time, \"12:00:00Z\")))",
                 "TupleType(boolean)",
                 "(timeLessThan(time, time(\"12:00:00Z\")))",
                 (this.lib.timeLessThan(time, this.lib.time("12:00:00Z"))),
                 false);
-        doSimpleUnaryTestsTest(entries, "time", "<= time(\"12:00:00Z\")",
+        doPositiveUnaryTestsTest(entries, "time", "<= time(\"12:00:00Z\")",
                 "PositiveUnaryTests(OperatorTest(<=,DateTimeLiteral(time, \"12:00:00Z\")))",
                 "TupleType(boolean)",
                 "(timeLessEqualThan(time, time(\"12:00:00Z\")))",
                 (this.lib.timeLessEqualThan(time, this.lib.time("12:00:00Z"))),
                 true);
-        doSimpleUnaryTestsTest(entries, "time", "> time(\"12:00:00Z\")",
+        doPositiveUnaryTestsTest(entries, "time", "> time(\"12:00:00Z\")",
                 "PositiveUnaryTests(OperatorTest(>,DateTimeLiteral(time, \"12:00:00Z\")))",
                 "TupleType(boolean)",
                 "(timeGreaterThan(time, time(\"12:00:00Z\")))",
                 (this.lib.timeGreaterThan(time, this.lib.time("12:00:00Z"))),
                 false);
-        doSimpleUnaryTestsTest(entries, "time", ">= time(\"12:00:00Z\")",
+        doPositiveUnaryTestsTest(entries, "time", ">= time(\"12:00:00Z\")",
                 "PositiveUnaryTests(OperatorTest(>=,DateTimeLiteral(time, \"12:00:00Z\")))",
                 "TupleType(boolean)",
                 "(timeGreaterEqualThan(time, time(\"12:00:00Z\")))",
                 (this.lib.timeGreaterEqualThan(time, this.lib.time("12:00:00Z"))),
                 true);
-        doSimpleUnaryTestsTest(entries, "dateTime", "< date and time(\"2016-08-01T11:00:00Z\")",
+        doPositiveUnaryTestsTest(entries, "dateTime", "< date and time(\"2016-08-01T11:00:00Z\")",
                 "PositiveUnaryTests(OperatorTest(<,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\")))",
                 "TupleType(boolean)",
                 "(dateTimeLessThan(dateTime, dateAndTime(\"2016-08-01T11:00:00Z\")))",
                 (this.lib.dateTimeLessThan(dateTime, this.lib.dateAndTime("2016-08-01T11:00:00Z"))),
                 false);
-        doSimpleUnaryTestsTest(entries, "dateTime", "<= date and time(\"2016-08-01T11:00:00Z\")",
+        doPositiveUnaryTestsTest(entries, "dateTime", "<= date and time(\"2016-08-01T11:00:00Z\")",
                 "PositiveUnaryTests(OperatorTest(<=,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\")))",
                 "TupleType(boolean)",
                 "(dateTimeLessEqualThan(dateTime, dateAndTime(\"2016-08-01T11:00:00Z\")))",
                 (this.lib.dateTimeLessEqualThan(dateTime, this.lib.dateAndTime("2016-08-01T11:00:00Z"))),
                 false);
-        doSimpleUnaryTestsTest(entries, "dateTime", "> date and time(\"2016-08-01T11:00:00Z\")",
+        doPositiveUnaryTestsTest(entries, "dateTime", "> date and time(\"2016-08-01T11:00:00Z\")",
                 "PositiveUnaryTests(OperatorTest(>,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\")))",
                 "TupleType(boolean)",
                 "(dateTimeGreaterThan(dateTime, dateAndTime(\"2016-08-01T11:00:00Z\")))",
                 (this.lib.dateTimeGreaterThan(dateTime, this.lib.dateAndTime("2016-08-01T11:00:00Z"))),
                 true);
-        doSimpleUnaryTestsTest(entries, "dateTime", ">= date and time(\"2016-08-01T11:00:00Z\")",
+        doPositiveUnaryTestsTest(entries, "dateTime", ">= date and time(\"2016-08-01T11:00:00Z\")",
                 "PositiveUnaryTests(OperatorTest(>=,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\")))",
                 "TupleType(boolean)",
                 "(dateTimeGreaterEqualThan(dateTime, dateAndTime(\"2016-08-01T11:00:00Z\")))",
                 (this.lib.dateTimeGreaterEqualThan(dateTime, this.lib.dateAndTime("2016-08-01T11:00:00Z"))),
                 true);
-        doSimpleUnaryTestsTest(entries, "number", "123.56",
+        doPositiveUnaryTestsTest(entries, "number", "123.56",
                 "PositiveUnaryTests(OperatorTest(null,NumericLiteral(123.56)))",
                 "TupleType(boolean)",
                 "(numericEqual(number, number(\"123.56\")))",
                 (this.lib.numericEqual(number, this.lib.number("123.56"))),
                 false);
-        doSimpleUnaryTestsTest(entries, "string", "\"abc\"",
+        doPositiveUnaryTestsTest(entries, "string", "\"abc\"",
                 "PositiveUnaryTests(OperatorTest(null,StringLiteral(\"abc\")))",
                 "TupleType(boolean)",
                 "(stringEqual(string, \"abc\"))",
                 (this.lib.stringEqual(string, "abc")),
-                false);
-        doSimpleUnaryTestsTest(entries, "boolean", "true",
+                true);
+        doPositiveUnaryTestsTest(entries, "boolean", "true",
                 "PositiveUnaryTests(OperatorTest(null,BooleanLiteral(true)))",
                 "TupleType(boolean)",
                 "(booleanEqual(boolean, Boolean.TRUE))",
                 (this.lib.booleanEqual(boolean_, Boolean.TRUE)),
                 true);
-        doSimpleUnaryTestsTest(entries, "date", "date(\"2016-08-01\")",
+        doPositiveUnaryTestsTest(entries, "date", "date(\"2016-08-01\")",
                 "PositiveUnaryTests(OperatorTest(null,DateTimeLiteral(date, \"2016-08-01\")))",
                 "TupleType(boolean)",
                 "(dateEqual(date, date(\"2016-08-01\")))",
                 (this.lib.dateEqual(date, this.lib.date("2016-08-01"))),
                 false);
-        doSimpleUnaryTestsTest(entries, "time", "time(\"12:00:00Z\")",
+        doPositiveUnaryTestsTest(entries, "time", "time(\"12:00:00Z\")",
                 "PositiveUnaryTests(OperatorTest(null,DateTimeLiteral(time, \"12:00:00Z\")))",
                 "TupleType(boolean)",
                 "(timeEqual(time, time(\"12:00:00Z\")))",
                 (this.lib.timeEqual(time, this.lib.time("12:00:00Z"))),
                 true);
-        doSimpleUnaryTestsTest(entries, "dateTime", "date and time(\"2016-08-01T11:00:00Z\")",
+        doPositiveUnaryTestsTest(entries, "dateTime", "date and time(\"2016-08-01T11:00:00Z\")",
                 "PositiveUnaryTests(OperatorTest(null,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\")))",
                 "TupleType(boolean)",
                 "(dateTimeEqual(dateTime, dateAndTime(\"2016-08-01T11:00:00Z\")))",
@@ -276,19 +398,19 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, input));
 
-        doSimpleUnaryTestsTest(entries, "input", "(1..2)",
+        doPositiveUnaryTestsTest(entries, "input", "(1..2)",
                 "PositiveUnaryTests(RangeTest(true,NumericLiteral(1),true,NumericLiteral(2)))",
                 "TupleType(RangeType(number))",
                 "(booleanAnd(numericGreaterThan(input, number(\"1\")), numericLessThan(input, number(\"2\"))))",
                 (this.lib.booleanAnd(this.lib.numericGreaterThan(input, this.lib.number("1")), this.lib.numericLessThan(input, this.lib.number("2")))),
                 false);
-        doSimpleUnaryTestsTest(entries, "input", "]1..2[",
+        doPositiveUnaryTestsTest(entries, "input", "]1..2[",
                 "PositiveUnaryTests(RangeTest(true,NumericLiteral(1),true,NumericLiteral(2)))",
                 "TupleType(RangeType(number))",
                 "(booleanAnd(numericGreaterThan(input, number(\"1\")), numericLessThan(input, number(\"2\"))))",
                 (this.lib.booleanAnd(this.lib.numericGreaterThan(input, this.lib.number("1")), this.lib.numericLessThan(input, this.lib.number("2")))),
                 false);
-        doSimpleUnaryTestsTest(entries, "input", "[1..2]",
+        doPositiveUnaryTestsTest(entries, "input", "[1..2]",
                 "PositiveUnaryTests(RangeTest(false,NumericLiteral(1),false,NumericLiteral(2)))",
                 "TupleType(RangeType(number))",
                 "(booleanAnd(numericGreaterEqualThan(input, number(\"1\")), numericLessEqualThan(input, number(\"2\"))))",
@@ -302,7 +424,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", BOOLEAN, input));
 
-        doSimpleUnaryTestsTest(entries, "input", "123.56", "", "TupleType(boolean)", "", null, "");
+        doPositiveUnaryTestsTest(entries, "input", "123.56", "", "TupleType(boolean)", "", null, "");
     }
 
     @Test(expected = SemanticError.class)
@@ -310,150 +432,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", BOOLEAN, true));
 
-        doSimpleUnaryTestsTest(entries, "input", "< 123.56", "", "TupleType(boolean)", "", null, "");
-    }
-
-    @Test
-    public void testUnaryTests() {
-        NUMBER input = this.lib.number("1");
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, input));
-
-        doUnaryTestsTest(entries, "input", "1, 2",
-                "PositiveUnaryTests(OperatorTest(null,NumericLiteral(1)),OperatorTest(null,NumericLiteral(2)))",
-                "TupleType(boolean, boolean)",
-                "booleanOr((numericEqual(input, number(\"1\"))), (numericEqual(input, number(\"2\"))))",
-                this.lib.booleanOr((this.lib.numericEqual(input, this.lib.number("1"))), (this.lib.numericEqual(input, this.lib.number("2")))),
-                true);
-        doUnaryTestsTest(entries, "input", "not (-1)",
-                "NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorTest(null,ArithmeticNegation(NumericLiteral(1)))))",
-                "TupleType(boolean)",
-                "booleanNot((numericEqual(input, numericUnaryMinus(number(\"1\")))))",
-                this.lib.booleanNot((this.lib.numericEqual(input, this.lib.numericUnaryMinus(this.lib.number("1"))))),
-                true);
-        doUnaryTestsTest(entries, "input", "not(1, 2)",
-                "NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorTest(null,NumericLiteral(1)),OperatorTest(null,NumericLiteral(2))))",
-                "TupleType(boolean, boolean)",
-                "booleanNot(booleanOr((numericEqual(input, number(\"1\"))), (numericEqual(input, number(\"2\")))))",
-                this.lib.booleanNot(this.lib.booleanOr((this.lib.numericEqual(input, this.lib.number("1"))), (this.lib.numericEqual(input, this.lib.number("2"))))),
-                false);
-        doUnaryTestsTest(entries, "input", "-",
-                "Any()",
-                "boolean",
-                "Boolean.TRUE",
-                true,
-                true);
-    }
-
-    @Test
-    public void testPositiveUnaryTest() {
-        NUMBER inputNumber = this.lib.number("1");
-        DATE inputDate = this.lib.date("2017-01-01");
-        String inputString = "abc";
-        List<String> inputList = this.lib.asList("a", "b", "c");
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("inputString", STRING, inputString),
-                new EnvironmentEntry("inputNumber", NUMBER, inputNumber),
-                new EnvironmentEntry("inputDate", DATE, inputDate),
-                new EnvironmentEntry("inputList", ListType.STRING_LIST, inputList)
-        );
-
-        //
-        // OperatorTest
-        //
-        doUnaryTestsTest(entries, "inputNumber", "1",
-                "PositiveUnaryTests(OperatorTest(null,NumericLiteral(1)))",
-                "TupleType(boolean)",
-                "(numericEqual(inputNumber, number(\"1\")))",
-                (this.lib.numericEqual(inputNumber, this.lib.number("1"))),
-                true);
-        doUnaryTestsTest(entries, "inputNumber", "-1",
-                "PositiveUnaryTests(OperatorTest(null,ArithmeticNegation(NumericLiteral(1))))",
-                "TupleType(boolean)",
-                "(numericEqual(inputNumber, numericUnaryMinus(number(\"1\"))))",
-                (this.lib.numericEqual(inputNumber, this.lib.numericUnaryMinus(this.lib.number("1")))),
-                false);
-
-        doUnaryTestsTest(entries, "inputNumber", "<1",
-                "PositiveUnaryTests(OperatorTest(<,NumericLiteral(1)))",
-                "TupleType(boolean)",
-                "(numericLessThan(inputNumber, number(\"1\")))",
-                (this.lib.numericLessThan(inputNumber, this.lib.number("1"))),
-                false);
-        doUnaryTestsTest(entries, "inputNumber", "<=1",
-                "PositiveUnaryTests(OperatorTest(<=,NumericLiteral(1)))",
-                "TupleType(boolean)",
-                "(numericLessEqualThan(inputNumber, number(\"1\")))",
-                (this.lib.numericLessEqualThan(inputNumber, this.lib.number("1"))),
-                true);
-        doUnaryTestsTest(entries, "inputNumber", ">1",
-                "PositiveUnaryTests(OperatorTest(>,NumericLiteral(1)))",
-                "TupleType(boolean)",
-                "(numericGreaterThan(inputNumber, number(\"1\")))",
-                (this.lib.numericGreaterThan(inputNumber, this.lib.number("1"))),
-                false);
-        doUnaryTestsTest(entries, "inputNumber", ">=1",
-                "PositiveUnaryTests(OperatorTest(>=,NumericLiteral(1)))",
-                "TupleType(boolean)",
-                "(numericGreaterEqualThan(inputNumber, number(\"1\")))",
-                (this.lib.numericGreaterEqualThan(inputNumber, this.lib.number("1"))),
-                true);
-
-        doUnaryTestsTest(entries, "inputDate", "< date(\"2016-08-01\")",
-                "PositiveUnaryTests(OperatorTest(<,DateTimeLiteral(date, \"2016-08-01\")))",
-                "TupleType(boolean)",
-                "(dateLessThan(inputDate, date(\"2016-08-01\")))",
-                (this.lib.dateLessThan(inputDate, this.lib.date("2016-08-01"))),
-                false);
-
-        //
-        // RangeTest
-        //
-        doUnaryTestsTest(entries, "inputNumber", "(1..2)",
-                "PositiveUnaryTests(RangeTest(true,NumericLiteral(1),true,NumericLiteral(2)))",
-                "TupleType(RangeType(number))",
-                "(booleanAnd(numericGreaterThan(inputNumber, number(\"1\")), numericLessThan(inputNumber, number(\"2\"))))",
-                (this.lib.booleanAnd(this.lib.numericGreaterThan(inputNumber, this.lib.number("1")), this.lib.numericLessThan(inputNumber, this.lib.number("2")))),
-                false);
-        doUnaryTestsTest(entries, "inputNumber", "]1..2[",
-                "PositiveUnaryTests(RangeTest(true,NumericLiteral(1),true,NumericLiteral(2)))",
-                "TupleType(RangeType(number))",
-                "(booleanAnd(numericGreaterThan(inputNumber, number(\"1\")), numericLessThan(inputNumber, number(\"2\"))))",
-                (this.lib.booleanAnd(this.lib.numericGreaterThan(inputNumber, this.lib.number("1")), this.lib.numericLessThan(inputNumber, this.lib.number("2")))),
-                false);
-        doUnaryTestsTest(entries, "inputNumber", "[1..2]",
-                "PositiveUnaryTests(RangeTest(false,NumericLiteral(1),false,NumericLiteral(2)))",
-                "TupleType(RangeType(number))",
-                "(booleanAnd(numericGreaterEqualThan(inputNumber, number(\"1\")), numericLessEqualThan(inputNumber, number(\"2\"))))",
-                (this.lib.booleanAnd(this.lib.numericGreaterEqualThan(inputNumber, this.lib.number("1")), this.lib.numericLessEqualThan(inputNumber, this.lib.number("2")))),
-                true);
-
-        //
-        //  NullTest
-        //
-        doUnaryTestsTest(entries, "inputNumber", "null",
-                "PositiveUnaryTests(NullTest())",
-                "TupleType(boolean)",
-                "(inputNumber == null)",
-                (inputNumber == null),
-                false);
-
-        //
-        // ExpressionTest
-        //
-        doUnaryTestsTest(entries, "inputList", "count(?) > 2",
-                "PositiveUnaryTests(ExpressionTest(Relational(>,FunctionInvocation(Name(count) -> PositionalParameters(Name(?))),NumericLiteral(2))))",
-                "TupleType(boolean)",
-                "(numericGreaterThan(count(inputList), number(\"2\")))",
-                (this.lib.numericGreaterThan(this.lib.count(inputList), this.lib.number("2"))),
-                true);
-
-        doUnaryTestsTest(entries, "inputNumber", "? < 2 + 3",
-                "PositiveUnaryTests(ExpressionTest(Relational(<,Name(?),Addition(+,NumericLiteral(2),NumericLiteral(3)))))",
-                "TupleType(boolean)",
-                "(numericLessThan(inputNumber, numericAdd(number(\"2\"), number(\"3\"))))",
-                (this.lib.numericLessThan(inputNumber, this.lib.numericAdd(this.lib.number("2"), this.lib.number("3")))),
-                true);
+        doPositiveUnaryTestsTest(entries, "input", "< 123.56", "", "TupleType(boolean)", "", null, "");
     }
 
     @Test
@@ -2545,7 +2524,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         checkGeneratedAndEvaluatedValue(expectedGeneratedValue, expectedEvaluatedValue);
     }
 
-    protected void doSimpleUnaryTestsTest(List<EnvironmentEntry> entries, String inputExpressionText, String inputEntryText,
+    protected void doPositiveUnaryTestsTest(List<EnvironmentEntry> entries, String inputExpressionText, String inputEntryText,
                                             String expectedAST, String expectedType, String expectedJavaCode, Object expectedGeneratedValue, Object expectedEvaluatedValue) {
         // Analyze input expression
         DMNContext globalContext = makeContext(entries);
