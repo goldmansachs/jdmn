@@ -27,10 +27,6 @@ public class DMNContext {
     private final Environment environment;
     private final RuntimeEnvironment runtimeEnvironment;
 
-    public static DMNContext of(DMNContextKind kind, TNamedElement element, Environment environment) {
-        return new DMNContext(kind, element, environment, null);
-    }
-
     public static DMNContext of(DMNContextKind kind, TNamedElement element, Environment environment, RuntimeEnvironment runtimeEnvironment) {
         return new DMNContext(kind, element, environment, runtimeEnvironment);
     }
