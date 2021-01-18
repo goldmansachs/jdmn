@@ -55,7 +55,7 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
     }
 
     @Override
-    public Type drgElementOutputFEELType(TDRGElement element, Environment environment) {
+    public Type drgElementOutputFEELType(TDRGElement element, DMNContext context) {
         if (this.dmnModelRepository.isBKMLinkedToDecision(element)) {
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             return super.drgElementOutputFEELType(outputDecision);
@@ -75,18 +75,18 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
             }
             return feelExpression.getType();
         } else {
-            return super.drgElementOutputFEELType(element, environment);
+            return super.drgElementOutputFEELType(element, context);
         }
     }
 
     private Expression analyzeExpression(TDRGElement element) {
         TLiteralExpression expression = (TLiteralExpression) this.dmnModelRepository.expression(element);
-        Environment decisionEnvironment = this.makeEnvironment(element);
-        return this.feelTranslator.analyzeExpression(expression.getText(), DMNContext.of(element, decisionEnvironment));
+        DMNContext globalContext = this.dmnTransformer.makeGlobalContext(element);
+        return this.feelTranslator.analyzeExpression(expression.getText(), globalContext);
     }
 
     @Override
-    public Type expressionType(TDRGElement element, TExpression expression, Environment environment) {
+    public Type expressionType(TDRGElement element, TExpression expression, DMNContext context) {
         if (this.dmnModelRepository.isMultiInstanceDecision(element)) {
             TDecision decision = (TDecision) element;
             MultiInstanceDecisionLogic multiInstanceDecision = ((BasicSignavioDMNToJavaTransformer) this.dmnTransformer).multiInstanceDecisionLogic(decision);
@@ -96,7 +96,7 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             return super.drgElementVariableFEELType(outputDecision);
         } else {
-            return super.expressionType(element, expression, environment);
+            return super.expressionType(element, expression, context);
         }
     }
 

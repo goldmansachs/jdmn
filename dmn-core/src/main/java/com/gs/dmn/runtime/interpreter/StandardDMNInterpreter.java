@@ -16,7 +16,6 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.LogErrorHandler;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
@@ -31,10 +30,10 @@ import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.HitPolicy;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.listener.Arguments;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.*;
+import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
@@ -60,24 +59,24 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     private final EnvironmentFactory environmentFactory;
     protected final ErrorHandler errorHandler;
 
-    private final BasicDMNToNativeTransformer basicDMNTransformer;
+    private final BasicDMNToNativeTransformer dmnTransformer;
     protected final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib;
     private final FEELInterpreter feelInterpreter;
     private final TypeConverter typeConverter;
 
-    public StandardDMNInterpreter(BasicDMNToNativeTransformer basicDMNTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib, TypeConverter typeConverter) {
+    public StandardDMNInterpreter(BasicDMNToNativeTransformer dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib, TypeConverter typeConverter) {
         this.errorHandler = new LogErrorHandler(LOGGER);
         this.typeConverter = typeConverter;
-        this.basicDMNTransformer = basicDMNTransformer;
-        this.repository = basicDMNTransformer.getDMNModelRepository();
-        this.environmentFactory = basicDMNTransformer.getEnvironmentFactory();
+        this.dmnTransformer = dmnTransformer;
+        this.repository = dmnTransformer.getDMNModelRepository();
+        this.environmentFactory = dmnTransformer.getEnvironmentFactory();
         this.feelLib = feelLib;
         this.feelInterpreter = new FEELInterpreterImpl<>(this);
     }
 
     @Override
     public BasicDMNToNativeTransformer getBasicDMNTransformer() {
-        return this.basicDMNTransformer;
+        return this.dmnTransformer;
     }
 
     @Override
@@ -110,16 +109,12 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     @Override
     public Result evaluate(DRGElementReference<? extends TDecision> reference, Map<String, Object> informationRequirements) {
         try {
-            DMNContext globalContext = DMNContext.of(
-                    reference.getElement(),
-                    this.basicDMNTransformer.makeEnvironment(reference.getElement()),
-                    RuntimeEnvironment.of()
-            );
+            DMNContext builtInContext = this.dmnTransformer.makeBuiltInContext();
             for (Map.Entry<String, Object> entry: informationRequirements.entrySet()) {
-                globalContext.bind(entry.getKey(), entry.getValue());
+                builtInContext.bind(entry.getKey(), entry.getValue());
             }
             List<Object> args = new ArrayList<>();
-            return evaluate(reference, args, globalContext);
+            return evaluate(reference, args, builtInContext);
         } catch (Exception e) {
             String namespace = reference == null ? null : reference.getNamespace();
             String name = reference == null || reference.getElement() == null ? null : reference.getElementName();
@@ -146,11 +141,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     @Override
     public Result evaluate(DRGElementReference<? extends TInvocable> reference, List<Object> args) {
         try {
-            DMNContext globalContext = DMNContext.of(
-                    reference.getElement(),
-                    this.basicDMNTransformer.makeEnvironment(reference.getElement()),
-                    RuntimeEnvironment.of()
-            );
+            DMNContext globalContext = this.dmnTransformer.makeGlobalContext(reference.getElement());
             return evaluate(reference, args, globalContext);
         } catch (Exception e) {
             String namespace = reference == null ? null : reference.getNamespace();
@@ -162,11 +153,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     @Override
     public Result evaluate(TInvocable invocable, List<Object> argList, DMNContext parentContext) {
         try {
-            DMNContext invocationContext = DMNContext.of(
-                    invocable,
-                    this.basicDMNTransformer.makeEnvironment(invocable, parentContext.getEnvironment()),
-                    RuntimeEnvironment.of(parentContext.getRuntimeEnvironment())
-            );
+            DMNContext invocationContext = this.dmnTransformer.makeGlobalContext(invocable, parentContext);
             Result result;
             if (invocable instanceof TDecisionService) {
                 result = evaluate(this.repository.makeDRGElementReference(invocable), argList, invocationContext);
@@ -189,19 +176,12 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     public Result evaluate(TFunctionDefinition functionDefinition, List<Object> argList, DMNContext parentContext) {
         try {
             // Create new environments and bind parameters
-            DMNContext functionContext = DMNContext.of(
-                    parentContext.getElement(),
-                    this.environmentFactory.makeEnvironment(parentContext.getEnvironment()),
-                    RuntimeEnvironment.of(parentContext.getRuntimeEnvironment())
-            );
+            DMNContext functionContext = this.dmnTransformer.makeFunctionContext(functionDefinition, parentContext);
             List<TInformationItem> formalParameterList = functionDefinition.getFormalParameter();
-            TDefinitions model = this.repository.getModel(parentContext.getElement());
             for (int i = 0; i < formalParameterList.size(); i++) {
                 TInformationItem param = formalParameterList.get(i);
                 String name = param.getName();
-                Type type = this.basicDMNTransformer.toFEELType(null, QualifiedName.toQualifiedName(model, param.getTypeRef()));
                 Object value = argList.get(i);
-                functionContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, type));
                 functionContext.bind(name, value);
             }
 
@@ -253,7 +233,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     private Result evaluateInputData(DRGElementReference<TInputData> reference, DMNContext context) {
         TInputData inputData = reference.getElement();
         Object value = lookupBinding(context, reference);
-        return Result.of(value, this.basicDMNTransformer.drgElementOutputFEELType(inputData));
+        return Result.of(value, this.dmnTransformer.drgElementOutputFEELType(inputData));
     }
 
     private Result evaluateDecision(DRGElementReference<TDecision> reference, DMNContext context) {
@@ -261,7 +241,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
         TDecision decision = reference.getElement();
         Object value = lookupBinding(context, reference);
-        return Result.of(value, this.basicDMNTransformer.drgElementOutputFEELType(decision));
+        return Result.of(value, this.dmnTransformer.drgElementOutputFEELType(decision));
     }
 
     private Result evaluateBKM(DRGElementReference<TBusinessKnowledgeModel> reference, List<Object> argList, DMNContext parentContext) {
@@ -269,18 +249,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         TDefinitions model = this.repository.getModel(bkm);
 
         // Create BKM context
-        DMNContext bkmContext = DMNContext.of(
-                bkm,
-                this.basicDMNTransformer.makeEnvironment(bkm, parentContext.getEnvironment()),
-                RuntimeEnvironment.of(parentContext.getRuntimeEnvironment())
-        );
-
-        // BKM start
-        long startTime_ = System.currentTimeMillis();
-        DRGElement drgElementAnnotation = makeDRGElementAnnotation(bkm);
-        com.gs.dmn.runtime.listener.Arguments decisionArguments = makeArguments(bkm, bkmContext);
-        EVENT_LISTENER.startDRGElement(drgElementAnnotation, decisionArguments);
-
+        DMNContext bkmContext = this.dmnTransformer.makeGlobalContext(bkm, parentContext);
         // Bind parameters
         List<TInformationItem> formalParameterList = bkm.getEncapsulatedLogic().getFormalParameter();
         for (int i = 0; i < formalParameterList.size(); i++) {
@@ -289,7 +258,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             String paramTypeRef = param.getTypeRef();
             Type paramType = null;
             if (!StringUtils.isEmpty(paramTypeRef)) {
-                paramType = this.basicDMNTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, paramTypeRef));
+                paramType = this.dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, paramTypeRef));
             }
             Object value = argList.get(i);
 
@@ -301,13 +270,19 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             bkmContext.bind(name, value);
         }
 
+        // BKM start
+        long startTime_ = System.currentTimeMillis();
+        DRGElement drgElementAnnotation = makeDRGElementAnnotation(bkm);
+        com.gs.dmn.runtime.listener.Arguments decisionArguments = makeArguments(bkm, bkmContext);
+        EVENT_LISTENER.startDRGElement(drgElementAnnotation, decisionArguments);
+
         // Execute function body
         TExpression expression = this.repository.expression(bkm);
         Result result = evaluateExpression(bkm, expression, bkmContext, drgElementAnnotation);
         Object value = Result.value(result);
 
         // Check value and apply implicit conversions
-        Type expectedType = this.basicDMNTransformer.drgElementOutputFEELType(bkm, bkmContext.getEnvironment());
+        Type expectedType = this.dmnTransformer.drgElementOutputFEELType(bkm, bkmContext);
         result = this.typeConverter.convertResult(result, expectedType, this.feelLib);
         value = Result.value(result);
 
@@ -321,20 +296,9 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         TDecisionService service = serviceReference.getElement();
 
         // Create service context
-        DMNContext serviceContext = DMNContext.of(
-                service,
-                this.environmentFactory.makeEnvironment(parentContext.getEnvironment()),
-                RuntimeEnvironment.of(parentContext.getRuntimeEnvironment())
-        );
-
-        // Decision Service start
-        long startTime_ = System.currentTimeMillis();
-        DRGElement drgElementAnnotation = makeDRGElementAnnotation(service);
-        com.gs.dmn.runtime.listener.Arguments decisionArguments = makeArguments(service, serviceContext);
-        EVENT_LISTENER.startDRGElement(drgElementAnnotation, decisionArguments);
-
+        DMNContext serviceContext = this.dmnTransformer.makeGlobalContext(service, parentContext);
         // Bind parameters
-        List<FormalParameter> formalParameterList = this.basicDMNTransformer.dsFEELParameters(service);
+        List<FormalParameter> formalParameterList = this.dmnTransformer.dsFEELParameters(service);
         for (int i = 0; i < formalParameterList.size(); i++) {
             FormalParameter param = formalParameterList.get(i);
             String name = param.getName();
@@ -345,9 +309,15 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             Result result = this.typeConverter.convertValue(value, type, this.feelLib);
             value = Result.value(result);
 
-            serviceContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, type));
+            // Variable declaration already exists
             serviceContext.bind(name, value);
         }
+
+        // Decision Service start
+        long startTime_ = System.currentTimeMillis();
+        DRGElement drgElementAnnotation = makeDRGElementAnnotation(service);
+        com.gs.dmn.runtime.listener.Arguments decisionArguments = makeArguments(service, serviceContext);
+        EVENT_LISTENER.startDRGElement(drgElementAnnotation, decisionArguments);
 
         // Evaluate output decisions
         List<TDecision> outputDecisions = new ArrayList<>();
@@ -380,7 +350,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         }
 
         // Check value and apply implicit conversions
-        Type expectedType = this.basicDMNTransformer.drgElementOutputFEELType(service, serviceContext.getEnvironment());
+        Type expectedType = this.dmnTransformer.drgElementOutputFEELType(service, serviceContext);
         Result result = this.typeConverter.convertValue(output, expectedType, this.feelLib);
         output = Result.value(result);
 
@@ -390,7 +360,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         // Decision service end
         EVENT_LISTENER.endDRGElement(drgElementAnnotation, decisionArguments, output, (System.currentTimeMillis() - startTime_));
 
-        return Result.of(output, this.basicDMNTransformer.drgElementOutputFEELType(service));
+        return Result.of(output, this.dmnTransformer.drgElementOutputFEELType(service));
     }
 
     private void evaluateKnowledgeRequirements(ImportPath importPath, TDRGElement parent, List<TKnowledgeRequirement> knowledgeRequirementList, DMNContext context) {
@@ -440,11 +410,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         ImportPath importPath = reference.getImportPath();
 
         // Create decision context
-        DMNContext decisionContext = DMNContext.of(
-                decision,
-                this.basicDMNTransformer.makeEnvironment(decision),
-                RuntimeEnvironment.of(parentContext.getRuntimeEnvironment())
-        );
+        DMNContext decisionContext = this.dmnTransformer.makeGlobalContext(decision, parentContext);
 
         // Decision start
         long startTime_ = System.currentTimeMillis();
@@ -469,7 +435,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             output = Result.value(result);
 
             // Check value and apply implicit conversions
-            Type expectedType = this.basicDMNTransformer.drgElementOutputFEELType(decision, decisionContext.getEnvironment());
+            Type expectedType = this.dmnTransformer.drgElementOutputFEELType(decision, decisionContext);
             result = this.typeConverter.convertResult(result, expectedType, this.feelLib);
             output = Result.value(result);
 
@@ -569,7 +535,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             }
             // Make args
             List<Object> argList = new ArrayList<>();
-            List<String> formalParameterList = this.basicDMNTransformer.bkmFEELParameterNames(bkm);
+            List<String> formalParameterList = this.dmnTransformer.bkmFEELParameterNames(bkm);
             for(String paramName: formalParameterList) {
                 if (argBinding.containsKey(paramName)) {
                     Object argValue = argBinding.get(paramName);
@@ -586,22 +552,18 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         }
     }
 
-    private Result evaluateContextExpression(TDRGElement element, TContext tContext, DMNContext parentContext, DRGElement elementAnnotation) {
+    private Result evaluateContextExpression(TDRGElement element, TContext context, DMNContext parentContext, DRGElement elementAnnotation) {
         TDefinitions model = this.repository.getModel(element);
 
         // Make entry context
-        Pair<Environment, Map<TContextEntry, Expression>> pair = this.basicDMNTransformer.makeContextEnvironment(element, tContext, parentContext.getEnvironment());
-        DMNContext expContext = DMNContext.of(
-                element,
-                pair.getLeft(),
-                RuntimeEnvironment.of(parentContext.getRuntimeEnvironment())
-        );
+        Pair<DMNContext, Map<TContextEntry, Expression>> pair = this.dmnTransformer.makeContextEnvironment(element, context, parentContext);
+        DMNContext localContext = pair.getLeft();
 
         // Evaluate entries
         Result returnResult = null;
         Map<TContextEntry, Result> entryResultMap = new LinkedHashMap<>();
         Map<TContextEntry, Expression> literalExpressionMap = pair.getRight();
-        for(TContextEntry entry: tContext.getContextEntry()) {
+        for(TContextEntry entry: context.getContextEntry()) {
             // Evaluate entry value
             Result entryResult;
             JAXBElement<? extends TExpression> jaxbElement = entry.getExpression();
@@ -609,9 +571,9 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                 TExpression expression = jaxbElement.getValue();
                 if (expression instanceof TLiteralExpression) {
                     Expression feelExpression = literalExpressionMap.get(entry);
-                    entryResult = this.feelInterpreter.evaluateExpression(feelExpression, expContext);
+                    entryResult = this.feelInterpreter.evaluateExpression(feelExpression, localContext);
                 } else {
-                    entryResult = evaluateExpression(element, expression, expContext, elementAnnotation);
+                    entryResult = evaluateExpression(element, expression, localContext, elementAnnotation);
                 }
             } else {
                 entryResult = null;
@@ -623,7 +585,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             if (variable != null) {
                 String entryName = variable.getName();
                 Object entryValue = Result.value(entryResult);
-                expContext.bind(entryName, entryValue);
+                localContext.bind(entryName, entryValue);
             } else {
                 returnResult = entryResult;
             }
@@ -637,18 +599,18 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             Context output = new Context();
             ContextType type = new ContextType();
             // Add entries
-            for(TContextEntry entry: tContext.getContextEntry()) {
+            for(TContextEntry entry: context.getContextEntry()) {
                 TInformationItem variable = entry.getVariable();
                 if (variable != null) {
                     String entryName = variable.getName();
-                    output.add(entryName, expContext.lookupBinding(entryName));
+                    output.add(entryName, localContext.lookupBinding(entryName));
                     String typeRef = variable.getTypeRef();
                     Type entryType;
                     if (StringUtils.isEmpty(typeRef)) {
                         Result entryResult = entryResultMap.get(entry);
                         entryType = Result.type(entryResult);
                     } else {
-                        entryType = this.basicDMNTransformer.toFEELType(model, typeRef);
+                        entryType = this.dmnTransformer.toFEELType(model, typeRef);
                     }
                     type.addMember(entryName, new ArrayList<>(), entryType);
                 }
@@ -672,25 +634,20 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             } else {
                 TExpression exp = expElement.getValue();
                 expResult = evaluateExpression(element, exp, context, elementAnnotation);
-                elementType = this.basicDMNTransformer.toFEELType(model, exp.getTypeRef());
+                elementType = this.dmnTransformer.toFEELType(model, exp.getTypeRef());
             }
             resultValue.add(Result.value(expResult));
         }
         return Result.of(resultValue, new ListType(elementType));
     }
 
-    private Result evaluateRelationExpression(TDRGElement element, TRelation relation, DMNContext context, DRGElement elementAnnotation) {
+    private Result evaluateRelationExpression(TDRGElement element, TRelation relation, DMNContext parentContext, DRGElement elementAnnotation) {
         if (relation.getRow() == null || relation.getColumn() == null) {
             return null;
         }
 
         // Make relation environment
-        TDefinitions model = this.repository.getModel(element);
-        DMNContext relationContext = DMNContext.of(
-                element,
-                this.basicDMNTransformer.makeRelationEnvironment(model, relation, context.getEnvironment()),
-                RuntimeEnvironment.of(context.getRuntimeEnvironment())
-        );
+        DMNContext relationContext = this.dmnTransformer.makeRelationContext(element, relation, parentContext);
         // Column names
         List<String> columnNameList = relation.getColumn().stream().map(TNamedElement::getName).collect(Collectors.toList());
 
@@ -721,7 +678,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     }
 
     private Result evaluateFunctionDefinitionExpression(TDRGElement element, TFunctionDefinition expression, DMNContext context, DRGElement elementAnnotation) {
-        Type type = this.basicDMNTransformer.expressionType(element, expression, context.getEnvironment());
+        Type type = this.dmnTransformer.expressionType(element, expression, context);
         return Result.of(expression, type);
     }
 
@@ -756,7 +713,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
         // Return results based on hit policy
         Object value = applyHitPolicy(element, decisionTable, ruleOutputList, context, elementAnnotation);
-        return Result.of(value, this.basicDMNTransformer.drgElementOutputFEELType(element));
+        return Result.of(value, this.dmnTransformer.drgElementOutputFEELType(element));
     }
 
     private InterpretedRuleOutput evaluateRule(TDRGElement element, TDecisionTable decisionTable, TDecisionRule rule, List<InputClausePair> inputClauseList, DMNContext context, DRGElement elementAnnotation, Rule ruleAnnotation) {
@@ -766,11 +723,9 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         for (int index = 0; index < inputEntry.size(); index++) {
             TUnaryTests unaryTest = inputEntry.get(index);
             String text = unaryTest.getText();
-            DMNContext testContext = DMNContext.of(
-                    element,
-                    this.basicDMNTransformer.makeInputEntryEnvironment(element, inputClauseList.get(index).getExpression()),
-                    RuntimeEnvironment.of(inputClauseList, context.getRuntimeEnvironment(), index)
-            );
+            Expression inputExpression = inputClauseList.get(index).getExpression();
+            DMNContext testContext = this.dmnTransformer.makeUnaryTestContext(inputExpression, context);
+            testContext.bind(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputClauseList.get(index).getValue());
             Expression ast = this.feelInterpreter.analyzeUnaryTests(text, testContext);
             Result result = this.feelInterpreter.evaluateUnaryTests((UnaryTests) ast, testContext);
             Object testMatched = Result.value(result);
@@ -795,7 +750,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                     Result result = evaluateLiteralExpression(element, literalExpression, context, elementAnnotation);
                     Object value = Result.value(result);
                     if (this.repository.isOutputOrderHit(hitPolicy)) {
-                        Object priority = this.basicDMNTransformer.priority(element, rule.getOutputEntry().get(i), i);
+                        Object priority = this.dmnTransformer.priority(element, rule.getOutputEntry().get(i), i);
                         output.put(key, new Pair<>(value, priority));
                     } else {
                         output.put(key, new Pair<>(value, null));
@@ -809,7 +764,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                 Result result = evaluateLiteralExpression(element, literalExpression, context, elementAnnotation);
                 Object value = Result.value(result);
                 if (this.repository.isOutputOrderHit(hitPolicy)) {
-                    Object priority = this.basicDMNTransformer.priority(element, rule.getOutputEntry().get(0), 0);
+                    Object priority = this.dmnTransformer.priority(element, rule.getOutputEntry().get(0), 0);
                     output = new Pair<>(value, priority);
                 } else {
                     output = new Pair<>(value, null);
@@ -832,7 +787,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
     private Object applyHitPolicy(TDRGElement element, TDecisionTable decisionTable, RuleOutputList ruleOutputList, DMNContext context, DRGElement elementAnnotation) {
         if (ruleOutputList.noMatchedRules()) {
-            return evaluateDefaultValue(element, decisionTable, this.basicDMNTransformer, context, elementAnnotation);
+            return evaluateDefaultValue(element, decisionTable, this.dmnTransformer, context, elementAnnotation);
         } else {
             THitPolicy hitPolicy = decisionTable.getHitPolicy();
             if (this.repository.isSingleHit(hitPolicy)) {
@@ -927,8 +882,8 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     // Binding
     //
     private Object lookupBinding(DMNContext context, DRGElementReference<? extends TDRGElement> reference) {
-        if (this.basicDMNTransformer.isSingletonInputData()) {
-            Object value = context.lookupBinding(this.basicDMNTransformer.bindingName(reference));
+        if (this.dmnTransformer.isSingletonInputData()) {
+            Object value = context.lookupBinding(this.dmnTransformer.bindingName(reference));
             return value;
         } else {
             ImportPath importPath = reference.getImportPath();
@@ -963,8 +918,8 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     }
 
     private void bind(DMNContext context, DRGElementReference<? extends TDRGElement> reference, Object value) {
-        if (this.basicDMNTransformer.isSingletonInputData()) {
-            context.bind(this.basicDMNTransformer.bindingName(reference), value);
+        if (this.dmnTransformer.isSingletonInputData()) {
+            context.bind(this.dmnTransformer.bindingName(reference), value);
         } else {
             ImportPath importPath = reference.getImportPath();
             String name = reference.getElementName();
@@ -1002,7 +957,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
     // Add binding required by parent: importName.elementName
     private void addBinding(DMNContext context, DRGElementReference<? extends TDRGElement> reference, String importName) {
-        if (this.basicDMNTransformer.isSingletonInputData()) {
+        if (this.dmnTransformer.isSingletonInputData()) {
             String name = reference.getElementName();
             Object value = lookupBinding(context, reference);
             if (ImportPath.isEmpty(importName)) {
@@ -1037,9 +992,9 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         return new DRGElement(null,
                 this.repository.name(element),
                 this.repository.label(element),
-                this.basicDMNTransformer.elementKind(element),
-                this.basicDMNTransformer.expressionKind(element),
-                this.basicDMNTransformer.hitPolicy(element),
+                this.dmnTransformer.elementKind(element),
+                this.dmnTransformer.expressionKind(element),
+                this.dmnTransformer.hitPolicy(element),
                 this.repository.rulesCount(element)
         );
     }
@@ -1047,13 +1002,13 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     private Arguments makeArguments(TDRGElement element, DMNContext context) {
         Arguments arguments = new Arguments();
         DRGElementReference<? extends TDRGElement> reference = this.repository.makeDRGElementReference(element);
-        List<String> parameters = this.basicDMNTransformer.drgElementArgumentDisplayNameList(reference);
+        List<String> parameters = this.dmnTransformer.drgElementArgumentDisplayNameList(reference);
         parameters.forEach(p -> arguments.put(p, context.lookupBinding(p)));
         return arguments;
     }
 
     private Rule makeRuleAnnotation(TDecisionRule rule, int ruleIndex) {
-        return new Rule(ruleIndex, this.basicDMNTransformer.annotationEscapedText(rule));
+        return new Rule(ruleIndex, this.dmnTransformer.annotationEscapedText(rule));
     }
 
     private Result handleEvaluationError(String namespace, String type, String name, Exception e) {

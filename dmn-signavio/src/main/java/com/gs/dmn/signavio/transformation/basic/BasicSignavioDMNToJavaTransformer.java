@@ -15,7 +15,6 @@ package com.gs.dmn.signavio.transformation.basic;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.environment.Parameter;
 import com.gs.dmn.feel.analysis.semantics.type.FEELFunctionType;
@@ -27,8 +26,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinitio
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.StringLiteral;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.DMNContext;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.metadata.ExtensionElement;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
@@ -324,10 +323,9 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
     // Free text LiteralExpression related functions
     //
     public String freeTextLiteralExpressionToNative(TDRGElement element) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
         TLiteralExpression expression = (TLiteralExpression) this.dmnModelRepository.expression(element);
-        Environment environment = this.makeEnvironment(element);
-        Expression literalExpression = this.feelTranslator.analyzeExpression(expression.getText(), DMNContext.of(element, environment));
+        DMNContext globalContext = this.makeGlobalContext(element);
+        Expression literalExpression = this.feelTranslator.analyzeExpression(expression.getText(), globalContext);
         if (literalExpression instanceof FunctionDefinition) {
             Expression body = ((FunctionDefinition) literalExpression).getBody();
             String javaCode;
@@ -342,7 +340,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
                 String arguments = drgElementEvaluateArgumentList(element);
                 javaCode = this.nativeFactory.makeExternalExecutorCall(externalExecutorVariableName(), className, methodName, arguments, returnNativeType);
             } else {
-                javaCode = this.feelTranslator.expressionToNative(body, DMNContext.of(element, environment));
+                javaCode = this.feelTranslator.expressionToNative(body, globalContext);
             }
             Type expressionType = body.getType();
             Statement statement = this.nativeFactory.makeExpressionStatement(javaCode, expressionType);

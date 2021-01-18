@@ -33,7 +33,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.runtime.DMNContext;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.omg.spec.dmn._20191111.model.TDefinitions;
@@ -124,13 +123,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         }
 
         // Make body environment
-        DMNContext bodyContext = DMNContext.of(
-                context.getElement(),
-                this.environmentFactory.makeEnvironment(context.getEnvironment())
-        );
-        element.getFormalParameters().forEach(
-                p -> bodyContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), p.getType()))
-        );
+        DMNContext bodyContext = this.dmnTransformer.makeFunctionContext(element, context);
 
         // Analyze body
         Expression body = element.getBody();
@@ -167,12 +160,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
 
     @Override
     public Object visit(Context element, DMNContext context) {
-        DMNContext entryContext = DMNContext.of(
-                context.getElement(),
-                this.environmentFactory.makeEnvironment(context.getEnvironment())
-        );
-        element.getEntries().forEach(ce -> ce.accept(this, entryContext));
-        element.deriveType(entryContext);
+        DMNContext localContext = this.dmnTransformer.makeLocalContext(context);
+        element.getEntries().forEach(ce -> ce.accept(this, localContext));
+        element.deriveType(localContext);
         return element;
     }
 
@@ -249,7 +239,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         Expression filter = transformFilter(source, element.getFilter(), FilterExpression.FILTER_PARAMETER_NAME, context);
         element.setFilter(filter);
         // analyse filter
-        DMNContext filterContext = makeFilterContext(context, source, FilterExpression.FILTER_PARAMETER_NAME);
+        DMNContext filterContext = this.dmnTransformer.makeFilterContext(element, FilterExpression.FILTER_PARAMETER_NAME, context);
         element.getFilter().accept(this, filterContext);
         // derive type
         element.deriveType(filterContext);
@@ -329,18 +319,15 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
     }
 
     @Override
-    public Object visit(InExpression element, DMNContext context) {
+    public Object visit(InExpression element, DMNContext parentContext) {
         Expression value = element.getValue();
-        value.accept(this, context);
+        value.accept(this, parentContext);
 
         // Visit tests with value type injected in scope
-        DMNContext testContext = DMNContext.of(
-                context.getElement(),
-                this.environmentFactory.makeEnvironment(context.getEnvironment(), value)
-        );
+        DMNContext testContext = this.dmnTransformer.makeUnaryTestContext(value, parentContext);
         element.getTests().forEach(t -> t.accept(this, testContext));
 
-        element.deriveType(context);
+        element.deriveType(parentContext);
         return element;
     }
 
@@ -414,7 +401,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
                 lambdaExpression.accept(this, context);
             }
             if (!success) {
-                throw new DMNRuntimeException(String.format("Cannot infer parameter type for lambda in sort call '%s'", element));
+                throw new SemanticError(element, String.format("Cannot infer parameter type for lambda in sort call '%s'", element));
             }
         } else {
             parameters.accept(this, context);
@@ -598,10 +585,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
 
     private DMNContext visitIterators(final Expression element, DMNContext context, List<Iterator> iterators) {
         FEELSemanticVisitor visitor = this;
-        DMNContext qContext = DMNContext.of(
-                context.getElement(),
-                this.environmentFactory.makeEnvironment(context.getEnvironment())
-        );
+        DMNContext qContext = this.dmnTransformer.makeIteratorContext(context);
         iterators.forEach(it -> {
             it.accept(visitor, qContext);
             String itName = it.getName();
