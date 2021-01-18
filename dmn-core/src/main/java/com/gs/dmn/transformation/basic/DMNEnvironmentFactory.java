@@ -17,6 +17,7 @@ import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.Pair;
 import org.omg.spec.dmn._20191111.model.*;
 
@@ -29,20 +30,20 @@ public interface DMNEnvironmentFactory {
     //
     Type drgElementOutputFEELType(TDRGElement element);
 
-    Type drgElementOutputFEELType(TDRGElement element, Environment environment);
+    Type drgElementOutputFEELType(TDRGElement element, DMNContext context);
 
     Type drgElementVariableFEELType(TDRGElement element);
 
-    Type drgElementVariableFEELType(TDRGElement element, Environment environment);
+    Type drgElementVariableFEELType(TDRGElement element, DMNContext context);
 
     Type toFEELType(TInputData inputData);
 
     //
     // Expression related functions
     //
-    Type expressionType(TDRGElement element, JAXBElement<? extends TExpression> jElement, Environment environment);
+    Type expressionType(TDRGElement element, JAXBElement<? extends TExpression> jElement, DMNContext context);
 
-    Type expressionType(TDRGElement element, TExpression expression, Environment environment);
+    Type expressionType(TDRGElement element, TExpression expression, DMNContext context);
 
     Type toFEELType(TDRGElement element, TOutputClause outputClause, int index);
 
@@ -85,9 +86,9 @@ public interface DMNEnvironmentFactory {
     //
     // Context
     //
-    Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, Environment parentEnvironment);
+    Pair<DMNContext, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext);
 
-    Type entryType(TDRGElement element, TContextEntry entry, Environment contextEnvironment);
+    Type entryType(TDRGElement element, TContextEntry entry, DMNContext localContext);
 
     Type entryType(TDRGElement element, TContextEntry entry, TExpression expression, Expression feelExpression);
 

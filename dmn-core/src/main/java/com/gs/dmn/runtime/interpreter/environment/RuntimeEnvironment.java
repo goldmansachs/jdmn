@@ -12,11 +12,7 @@
  */
 package com.gs.dmn.runtime.interpreter.environment;
 
-import com.gs.dmn.runtime.interpreter.InputClausePair;
-import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
-
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 public class RuntimeEnvironment {
@@ -26,12 +22,6 @@ public class RuntimeEnvironment {
 
     public static RuntimeEnvironment of(RuntimeEnvironment parent) {
         return new RuntimeEnvironment(parent);
-    }
-
-    public static RuntimeEnvironment of(List<InputClausePair> inputClauseList, RuntimeEnvironment runtimeEnvironment, int index) {
-        RuntimeEnvironment inputEntryRuntimeEnvironment = of(runtimeEnvironment);
-        runtimeEnvironment.bind(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputClauseList.get(index).getValue());
-        return inputEntryRuntimeEnvironment;
     }
 
     private final RuntimeEnvironment parent;

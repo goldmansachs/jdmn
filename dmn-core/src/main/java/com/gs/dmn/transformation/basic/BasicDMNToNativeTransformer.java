@@ -18,16 +18,23 @@ import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
+import com.gs.dmn.feel.analysis.semantics.type.AnyType;
+import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.FilterExpression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.ForExpression;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
+import com.gs.dmn.runtime.DMNContext;
+import com.gs.dmn.runtime.DMNContextKind;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.annotation.DRGElementKind;
 import com.gs.dmn.runtime.annotation.ExpressionKind;
 import com.gs.dmn.runtime.annotation.HitPolicy;
+import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.transformation.native_.NativeFactory;
 import com.gs.dmn.transformation.native_.statement.Statement;
 import com.gs.dmn.transformation.proto.MessageType;
@@ -39,6 +46,8 @@ import javax.xml.bind.JAXBElement;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+
+import static com.gs.dmn.transformation.AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER;
 
 public interface BasicDMNToNativeTransformer {
     DMNDialectDefinition<?, ?, ?, ?, ?, ?> getDialect();
@@ -119,11 +128,11 @@ public interface BasicDMNToNativeTransformer {
 
     Type drgElementOutputFEELType(TDRGElement element);
 
-    Type drgElementOutputFEELType(TDRGElement element, Environment environment);
+    Type drgElementOutputFEELType(TDRGElement element, DMNContext context);
 
     Type drgElementVariableFEELType(TDRGElement element);
 
-    Type drgElementVariableFEELType(TDRGElement element, Environment environment);
+    Type drgElementVariableFEELType(TDRGElement element, DMNContext context);
 
     String annotation(TDRGElement element, String description);
 
@@ -429,15 +438,15 @@ public interface BasicDMNToNativeTransformer {
     //
     // Expression related functions
     //
-    Type expressionType(TDRGElement element, JAXBElement<? extends TExpression> jElement, Environment environment);
+    Type expressionType(TDRGElement element, JAXBElement<? extends TExpression> jElement, DMNContext context);
 
-    Type expressionType(TDRGElement element, TExpression expression, Environment environment);
+    Type expressionType(TDRGElement element, TExpression expression, DMNContext context);
 
     Type convertType(Type type, boolean convertToContext);
 
     Statement expressionToNative(TDRGElement element);
 
-    Statement expressionToNative(TDRGElement element, TExpression expression, Environment environment);
+    Statement expressionToNative(TDRGElement element, TExpression expression, DMNContext context);
 
     String literalExpressionToNative(TDRGElement element, String expressionText);
 
@@ -522,7 +531,7 @@ public interface BasicDMNToNativeTransformer {
 
     Environment makeOutputEntryEnvironment(TDRGElement element, EnvironmentFactory environmentFactory);
 
-    Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, Environment parentEnvironment);
+    Pair<DMNContext, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext);
 
     Environment makeRelationEnvironment(TNamedElement element, TRelation relation, Environment environment);
 
@@ -586,4 +595,162 @@ public interface BasicDMNToNativeTransformer {
     String convertValueToProtoNativeType(String value, Type type, boolean staticContext);
 
     String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext);
+
+    default DMNContext makeBuiltInContext() {
+        return DMNContext.of(
+                DMNContextKind.BUILT_IN,
+                null,
+                getEnvironmentFactory().getBuiltInEnvironment(),
+                RuntimeEnvironment.of()
+        );
+    }
+
+    default DMNContext makeGlobalContext(TDRGElement element) {
+        return DMNContext.of(
+                DMNContextKind.GLOBAL,
+                element,
+                makeEnvironment(element),
+                RuntimeEnvironment.of()
+        );
+    }
+
+    default DMNContext makeGlobalContext(TDRGElement element, boolean isRecursive) {
+        return DMNContext.of(
+                DMNContextKind.GLOBAL,
+                element,
+                getDMNEnvironmentFactory().makeEnvironment(element, getEnvironmentFactory().getBuiltInEnvironment(), isRecursive),
+                RuntimeEnvironment.of()
+        );
+    }
+
+    default DMNContext makeGlobalContext(TDRGElement element, DMNContext parentContext) {
+        return DMNContext.of(
+                DMNContextKind.GLOBAL,
+                element,
+                makeEnvironment(element, parentContext.getEnvironment()),
+                RuntimeEnvironment.of(parentContext.getRuntimeEnvironment())
+        );
+    }
+
+    default DMNContext makeUnaryTestContext(Expression inputExpression, DMNContext parentContext) {
+        DMNContext context = DMNContext.of(
+                DMNContextKind.UNARY_TEST_CONTEXT,
+                parentContext.getElement(),
+                getEnvironmentFactory().makeEnvironment(parentContext.getEnvironment(), inputExpression),
+                parentContext.getRuntimeEnvironment());
+        if (inputExpression != null) {
+            context.addDeclaration(getEnvironmentFactory().makeVariableDeclaration(INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
+        }
+        return context;
+    }
+
+    default DMNContext makeLocalContext(DMNContext parentContext) {
+        return DMNContext.of(
+                DMNContextKind.LOCAL,
+                parentContext.getElement(),
+                getEnvironmentFactory().makeEnvironment(parentContext.getEnvironment()),
+                RuntimeEnvironment.of(parentContext.getRuntimeEnvironment())
+        );
+    }
+
+    default DMNContext makeLocalContext(TDRGElement element, DMNContext parentContext) {
+        return DMNContext.of(
+                DMNContextKind.LOCAL,
+                element,
+                getEnvironmentFactory().makeEnvironment(parentContext.getEnvironment()),
+                RuntimeEnvironment.of(parentContext.getRuntimeEnvironment())
+        );
+    }
+
+    default DMNContext makeFunctionContext(TDRGElement element, TFunctionDefinition expression, DMNContext parentContext) {
+        return DMNContext.of(
+                DMNContextKind.FUNCTION,
+                element,
+                makeFunctionDefinitionEnvironment(element, expression, parentContext.getEnvironment()),
+                RuntimeEnvironment.of(parentContext.getRuntimeEnvironment())
+        );
+    }
+
+    default DMNContext makeFunctionContext(TFunctionDefinition functionDefinition, DMNContext parentContext) {
+        DMNContext functionContext = DMNContext.of(
+                DMNContextKind.FUNCTION,
+                parentContext.getElement(),
+                getEnvironmentFactory().makeEnvironment(parentContext.getEnvironment()),
+                RuntimeEnvironment.of(parentContext.getRuntimeEnvironment()));
+        List<TInformationItem> formalParameterList = functionDefinition.getFormalParameter();
+        TDefinitions model = getDMNModelRepository().getModel(parentContext.getElement());
+        for (int i = 0; i < formalParameterList.size(); i++) {
+            TInformationItem param = formalParameterList.get(i);
+            String name = param.getName();
+            Type type = toFEELType(null, QualifiedName.toQualifiedName(model, param.getTypeRef()));
+            functionContext.addDeclaration(getEnvironmentFactory().makeVariableDeclaration(name, type));
+        }
+        return functionContext;
+    }
+
+    default DMNContext makeFunctionContext(FunctionDefinition functionDefinition, DMNContext parentContext) {
+        DMNContext functionContext = DMNContext.of(
+                DMNContextKind.FUNCTION,
+                parentContext.getElement(),
+                getEnvironmentFactory().makeEnvironment(parentContext.getEnvironment()),
+                RuntimeEnvironment.of(parentContext.getRuntimeEnvironment()));
+        List<FormalParameter> formalParameterList = functionDefinition.getFormalParameters();
+        for (int i = 0; i < formalParameterList.size(); i++) {
+            FormalParameter param = formalParameterList.get(i);
+            String name = param.getName();
+            Type type = param.getType();
+            functionContext.addDeclaration(getEnvironmentFactory().makeVariableDeclaration(name, type));
+        }
+        return functionContext;
+    }
+
+    default DMNContext makeForContext(ForExpression expression, DMNContext parentContext) {
+        return DMNContext.of(
+                DMNContextKind.FOR,
+                parentContext.getElement(),
+                this.getEnvironmentFactory().makeEnvironment(parentContext.getEnvironment()),
+                RuntimeEnvironment.of(parentContext.getRuntimeEnvironment()));
+    }
+
+    default DMNContext makeIteratorContext(DMNContext context) {
+        return DMNContext.of(
+                DMNContextKind.ITERATOR,
+                context.getElement(),
+                this.getEnvironmentFactory().makeEnvironment(context.getEnvironment()));
+    }
+
+    default DMNContext makeFilterContext(FilterExpression filterExpression, String filterParameterName, DMNContext parentContext) {
+        Expression source = filterExpression.getSource();
+        Type itemType = AnyType.ANY;
+        if (source.getType() instanceof ListType) {
+            itemType = ((ListType) source.getType()).getElementType();
+        }
+        DMNContext filterContext = DMNContext.of(
+                DMNContextKind.FILTER,
+                parentContext.getElement(),
+                getEnvironmentFactory().makeEnvironment(parentContext.getEnvironment()),
+                RuntimeEnvironment.of(parentContext.getRuntimeEnvironment())
+        );
+        filterContext.addDeclaration(this.getEnvironmentFactory().makeVariableDeclaration(filterParameterName, itemType));
+        return filterContext;
+    }
+
+    default DMNContext makeRelationContext(TDRGElement element, TRelation relation, DMNContext parentContext) {
+        DMNContext relationContext = DMNContext.of(
+                DMNContextKind.RELATION,
+                element,
+                makeRelationEnvironment(element, relation, parentContext.getEnvironment()),
+                RuntimeEnvironment.of(parentContext.getRuntimeEnvironment()));
+        return relationContext;
+    }
+
+    default DMNContext makeLocalContext(TDRGElement element, TContext context, DMNContext parentContext) {
+        DMNContext localContext = DMNContext.of(
+                DMNContextKind.LOCAL,
+                element,
+                this.getEnvironmentFactory().makeEnvironment(parentContext.getEnvironment()),
+                RuntimeEnvironment.of(parentContext.getRuntimeEnvironment())
+        );
+        return localContext;
+    }
 }

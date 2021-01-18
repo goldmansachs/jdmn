@@ -17,7 +17,6 @@ import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.listener.DRGElement;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.extension.Aggregator;
@@ -64,11 +63,7 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
 
         // Iterate over source
         List outputList = new ArrayList<>();
-        DMNContext loopContext = DMNContext.of(
-                decision,
-                parentContext.getEnvironment(),
-                RuntimeEnvironment.of(parentContext.getRuntimeEnvironment())
-        );
+        DMNContext loopContext = this.getBasicDMNTransformer().makeGlobalContext(decision, parentContext);
         for (Object obj : sourceList) {
             loopContext.bind(lambdaParamName, obj);
             applyDecision(this.dmnModelRepository.makeDRGElementReference(topLevelDecision), loopContext);

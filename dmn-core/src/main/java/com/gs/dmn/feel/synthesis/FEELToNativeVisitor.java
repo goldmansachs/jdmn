@@ -15,7 +15,6 @@ package com.gs.dmn.feel.synthesis;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.ReplaceItemFilterVisitor;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
@@ -224,11 +223,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(ForExpression element, DMNContext context) {
-        DMNContext forContext = DMNContext.of(
-                context.getElement(),
-                this.environmentFactory.makeEnvironment(context.getEnvironment())
-        );
-        forContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(ForExpression.PARTIAL_PARAMETER_NAME, element.getType()));
+        DMNContext forContext = this.dmnTransformer.makeForContext(element, context);
 
         List<Iterator> iterators = element.getIterators();
         List<Pair<String, String>> domainIterators = new ArrayList<>();
@@ -314,7 +309,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         element.accept(new ReplaceItemFilterVisitor(olderParameterName, newParameterName, this.errorHandler), context);
 
         // Generate filter
-        DMNContext feelContext = makeFilterContext(context, element.getSource(), newParameterName);
+        DMNContext feelContext = this.dmnTransformer.makeFilterContext(element, newParameterName, context);
         String filter = (String) element.getFilter().accept(this, feelContext);
 
         // Convert source to list
@@ -422,10 +417,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         Expression valueExp = element.getValue();
         List<PositiveUnaryTest> positiveUnaryTests = element.getTests();
 
-        DMNContext inContext = DMNContext.of(
-                context.getElement(),
-                this.environmentFactory.makeEnvironment(context.getEnvironment(), valueExp)
-        );
+        DMNContext inContext = this.dmnTransformer.makeUnaryTestContext(valueExp, context);
         List<String> result = new ArrayList<>();
         for (PositiveUnaryTest positiveUnaryTest: positiveUnaryTests) {
             String test = (String) positiveUnaryTest.accept(this, inContext);

@@ -33,8 +33,8 @@ public interface EnvironmentFactory {
         return new Environment(getBuiltInEnvironment(), inputExpression);
     }
 
-    default Environment makeEnvironment(Environment environment, Expression valueExp) {
-        return new Environment(environment, valueExp);
+    default Environment makeEnvironment(Environment environment, Expression inputExpression) {
+        return new Environment(environment, inputExpression);
     }
 
     default Declaration makeVariableDeclaration(String name, Type type) {

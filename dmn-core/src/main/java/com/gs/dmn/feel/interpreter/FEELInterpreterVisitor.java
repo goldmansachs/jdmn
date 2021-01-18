@@ -49,7 +49,6 @@ import com.gs.dmn.runtime.compiler.JavaxToolsCompiler;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.JavaFunctionInfo;
 import com.gs.dmn.runtime.interpreter.*;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.transformation.basic.ImportContextType;
 import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
@@ -313,11 +312,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
 
     @Override
     public Object visit(Context element, DMNContext parentContext) {
-        DMNContext entryContext = DMNContext.of(
-                parentContext.getElement(),
-                this.environmentFactory.makeEnvironment(parentContext.getEnvironment()),
-                RuntimeEnvironment.of(parentContext.getRuntimeEnvironment())
-        );
+        DMNContext entryContext = this.dmnTransformer.makeLocalContext(parentContext);
         List<Pair> entries = element.getEntries().stream().map(e -> (Pair) e.accept(this, entryContext)).collect(Collectors.toList());
         com.gs.dmn.runtime.Context runtimeContext = new com.gs.dmn.runtime.Context();
         for (Pair p : entries) {
@@ -354,11 +349,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         Object domain = expressionDomain.accept(this, context);
 
         // Loop over domain and evaluate body
-        DMNContext forContext = DMNContext.of(
-                context.getElement(),
-                this.environmentFactory.makeEnvironment(context.getEnvironment()),
-                RuntimeEnvironment.of(context.getRuntimeEnvironment())
-        );
+        DMNContext forContext = this.dmnTransformer.makeForContext(element, context);
         List result = new ArrayList<>();
         forContext.bind(PARTIAL_PARAMETER_NAME, result);
         if (expressionDomain instanceof ExpressionIteratorDomain) {
@@ -472,7 +463,9 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         if (filterType == BooleanType.BOOLEAN) {
             List<Object> result = new ArrayList<>();
             for (Object item : (List) source) {
-                DMNContext filterContext = makeFilterContext(context, item, FilterExpression.FILTER_PARAMETER_NAME);
+                DMNContext filterContext = this.dmnTransformer.makeFilterContext(element, FilterExpression.FILTER_PARAMETER_NAME, context);
+                filterContext.bind(FilterExpression.FILTER_PARAMETER_NAME, item);
+
                 Boolean filterValue = (Boolean) element.getFilter().accept(this, filterContext);
                 if (filterValue != null && filterValue) {
                     result.add(item);
@@ -485,16 +478,6 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         } else {
             throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
         }
-    }
-
-    private DMNContext makeFilterContext(DMNContext context, Object item, String filterParameterName) {
-        DMNContext filterContext = DMNContext.of(
-                context.getElement(),
-                this.environmentFactory.makeEnvironment(context.getEnvironment()),
-                RuntimeEnvironment.of(context.getRuntimeEnvironment())
-        );
-        filterContext.bind(filterParameterName, item);
-        return filterContext;
     }
 
     @Override
@@ -594,11 +577,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         Expression valueExp = element.getValue();
         Object value = valueExp.accept(this, context);
 
-        DMNContext inParams = DMNContext.of(
-                context.getElement(),
-                this.environmentFactory.makeEnvironment(context.getEnvironment(), valueExp),
-                RuntimeEnvironment.of(context.getRuntimeEnvironment())
-        );
+        DMNContext inParams = this.dmnTransformer.makeUnaryTestContext(valueExp, context);
         inParams.bind(INPUT_ENTRY_PLACE_HOLDER, value);
 
         List<Object> result = new ArrayList<>();
@@ -752,20 +731,14 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         return evaluateExternalJavaFunction(info, argList);
     }
 
-    public Object evaluateFunctionDefinition(FunctionDefinition functionDefinition, List<Object> argList, DMNContext context) {
+    public Object evaluateFunctionDefinition(FunctionDefinition functionDefinition, List<Object> argList, DMNContext parentContext) {
         // Create new environments and bind parameters
-        DMNContext functionContext = DMNContext.of(
-                context.getElement(),
-                this.environmentFactory.makeEnvironment(context.getEnvironment()),
-                RuntimeEnvironment.of(context.getRuntimeEnvironment())
-        );
+        DMNContext functionContext = this.dmnTransformer.makeFunctionContext(functionDefinition, parentContext);
         List<FormalParameter> formalParameterList = functionDefinition.getFormalParameters();
         for (int i = 0; i < formalParameterList.size(); i++) {
             FormalParameter param = formalParameterList.get(i);
             String name = param.getName();
-            Type type = param.getType();
             Object value = argList.get(i);
-            functionContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, type));
             functionContext.bind(name, value);
         }
 
