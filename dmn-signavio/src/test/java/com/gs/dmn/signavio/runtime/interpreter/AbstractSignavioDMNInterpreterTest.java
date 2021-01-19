@@ -14,6 +14,7 @@ package com.gs.dmn.signavio.runtime.interpreter;
 
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.log.BuildLogger;
@@ -62,7 +63,8 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
             DMNInterpreter<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> interpreter = dialectDefinition.createDMNInterpreter(repository, makeInputParameters());
 
             TDecision decision = (TDecision) repository.findDRGElementByName(repository.getRootDefinitions(), decisionName);
-            Result actualResult = interpreter.evaluate(repository.makeDRGElementReference(decision), inputRequirements);
+            DRGElementReference<TDecision> reference = repository.makeDRGElementReference(decision);
+            Result actualResult = interpreter.evaluateDecision(reference.getNamespace(), reference.getElementName(), inputRequirements);
             Object actualValue = Result.value(actualResult);
 
             assertEquals(errorMessage, expectedResult, actualValue);
