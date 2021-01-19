@@ -12,12 +12,10 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
-import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import org.omg.spec.dmn._20191111.model.TDecision;
 import org.omg.spec.dmn._20191111.model.TFunctionDefinition;
 import org.omg.spec.dmn._20191111.model.TInvocable;
 
@@ -38,7 +36,7 @@ public interface DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     Result evaluateInvocable(String namespace, String invocableName, List<Object> argList);
 
     //
-    // Internal API
+    // Evaluate DMN elements in context
     //
     Result evaluate(TInvocable invocable, List<Object> argList, DMNContext context);
     Result evaluate(TFunctionDefinition functionDefinition, List<Object> args, DMNContext context);

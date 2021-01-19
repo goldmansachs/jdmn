@@ -553,7 +553,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     @Override
     public Environment makeEnvironment(TDRGElement element, boolean isRecursive) {
-        Environment elementEnvironment = this.environmentFactory.makeEnvironment();
+        Environment elementEnvironment = this.environmentFactory.emptyEnvironment();
 
         // Add declaration for each direct child
         List<DRGElementReference<? extends TDRGElement>> directReferences = this.dmnModelRepository.directDRGElements(element);
@@ -599,7 +599,6 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 Type type = param.getType();
                 serviceEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, type));
             }
-
         }
 
         return elementEnvironment;
@@ -670,7 +669,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     @Override
     public Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
-        Environment environment = this.environmentFactory.makeEnvironment();
+        Environment environment = this.environmentFactory.emptyEnvironment();
         for (TInformationItem p: functionDefinition.getFormalParameter()) {
             String typeRef = p.getTypeRef();
             Type type = null;
@@ -811,7 +810,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     @Override
     public Environment makeRelationEnvironment(TNamedElement element, TRelation relation) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
-        Environment relationEnvironment = this.environmentFactory.makeEnvironment();
+        Environment relationEnvironment = this.environmentFactory.emptyEnvironment();
         for(TInformationItem column: relation.getColumn()) {
             QualifiedName typeRef = QualifiedName.toQualifiedName(model, column.getTypeRef());
             if (typeRef != null) {

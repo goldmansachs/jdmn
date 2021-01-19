@@ -24,7 +24,7 @@ public class EnvironmentTest {
 
     @Test
     public void testLookupVariableDeclaration() {
-        Environment environment = this.environmentFactory.makeEnvironment();
+        Environment environment = this.environmentFactory.emptyEnvironment();
         String name = "x";
         environment.addDeclaration(new VariableDeclaration(name, StringType.STRING));
 

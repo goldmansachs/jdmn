@@ -20,10 +20,13 @@ public enum DMNContextKind {
     // entries for the information requirements and knowledge requirements of D (i.e., names and logic of the business
     // knowledge models, decisions and decision services required by D).
     GLOBAL,
+    // If e denotes the value of a context entry of context m, then m is the local context for e, and m is the first element of s.
+    // Otherwise, e has no local context and the first element of s is the global context, or in some cases explained later, the first
+    // element of s is a special context.
+    LOCAL,
     // Special context
     UNARY_TEST_CONTEXT,
     FUNCTION,
-    LOCAL,
     FOR,
     ITERATOR,
     FILTER,

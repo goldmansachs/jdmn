@@ -21,10 +21,6 @@ public interface EnvironmentFactory {
         return new Environment();
     }
 
-    default Environment makeEnvironment() {
-        return makeEnvironment(null);
-    }
-
     default Environment makeEnvironment(Expression inputExpression) {
         return new Environment(inputExpression);
     }
