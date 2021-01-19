@@ -352,16 +352,16 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
     public Result evaluate(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> interpreter, TestCases testCases, TestCase testCase, ResultNode resultNode) {
         ResultNodeInfo info = extractResultNodeInfo(testCases, testCase, resultNode);
-        TDRGElement element = info.getReference().getElement();
+        DRGElementReference<? extends TDRGElement> reference = info.getReference();
+        TDRGElement element = reference.getElement();
         if (element == null) {
             throw new DMNRuntimeException(String.format("Cannot find DRG elements for node '%s'", info.getNodeName()));
         } else if (element instanceof TDecision) {
             Map<String, Object> informationRequirements = makeInputs(testCases, testCase);
-            DRGElementReference<? extends TDRGElement> reference = info.getReference();
             return interpreter.evaluateDecision(reference.getNamespace(), reference.getElementName(), informationRequirements);
         } else if (element instanceof TInvocable) {
             List<Object> arguments = makeArgs(element, testCase);
-            return interpreter.evaluate((DRGElementReference<? extends TInvocable>) info.getReference(), arguments);
+            return interpreter.evaluateInvocable(reference.getNamespace(), reference.getElementName(), arguments);
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", element.getClass().getSimpleName()));
         }
