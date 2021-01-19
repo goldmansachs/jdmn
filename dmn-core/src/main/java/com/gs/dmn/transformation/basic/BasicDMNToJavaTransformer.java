@@ -1942,33 +1942,18 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public Environment makeEnvironment(TDRGElement element, Environment parentEnvironment) {
-        return this.dmnEnvironmentFactory.makeEnvironment(element, parentEnvironment);
-    }
-
-    @Override
-    public Environment makeInputEntryEnvironment(TDRGElement element, Expression inputExpression) {
-        return this.dmnEnvironmentFactory.makeInputEntryEnvironment(element, inputExpression);
-    }
-
-    @Override
-    public Environment makeOutputEntryEnvironment(TDRGElement element, EnvironmentFactory environmentFactory) {
-        return this.dmnEnvironmentFactory.makeOutputEntryEnvironment(element, environmentFactory);
-    }
-
-    @Override
     public Pair<DMNContext, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext) {
         return this.dmnEnvironmentFactory.makeContextEnvironment(element, context, parentContext);
     }
 
     @Override
-    public Environment makeRelationEnvironment(TNamedElement element, TRelation relation, Environment environment) {
-        return this.dmnEnvironmentFactory.makeRelationEnvironment(element, relation, environment);
+    public Environment makeRelationEnvironment(TNamedElement element, TRelation relation) {
+        return this.dmnEnvironmentFactory.makeRelationEnvironment(element, relation);
     }
 
     @Override
-    public Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition, Environment parentEnvironment) {
-        return this.dmnEnvironmentFactory.makeFunctionDefinitionEnvironment(element, functionDefinition, parentEnvironment);
+    public Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition) {
+        return this.dmnEnvironmentFactory.makeFunctionDefinitionEnvironment(element, functionDefinition);
     }
 
     @Override

@@ -14,7 +14,6 @@ package com.gs.dmn.feel.analysis.semantics.environment;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.ArrayList;
@@ -24,22 +23,16 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Environment {
-    private final Environment parent;
     private final Map<String, List<Declaration>> variablesTable = new LinkedHashMap<>();
 
     // For unary test context (input)
     private final Expression inputExpression;
 
     Environment() {
-        this(null, null);
+        this(null);
     }
 
-    Environment(Environment parent) {
-        this(parent, null);
-    }
-
-    Environment(Environment parent, Expression inputExpression) {
-        this.parent = parent;
+    Environment(Expression inputExpression) {
         this.inputExpression = inputExpression;
     }
 
@@ -77,43 +70,7 @@ public class Environment {
         }
     }
 
-    public Declaration lookupVariableDeclaration(String name) {
-        Declaration declaration = lookupLocalVariableDeclaration(name);
-        if (declaration != null) {
-            return declaration;
-        } else {
-            if (this.parent != null) {
-                return this.parent.lookupVariableDeclaration(name);
-            } else {
-                return null;
-            }
-        }
-    }
-
-    public List<Declaration> lookupFunctionDeclaration(String name) {
-        List<Declaration> declarations = lookupLocalFunctionDeclaration(name);
-        if (declarations == null) {
-            declarations = new ArrayList<>();
-        }
-        Environment environment = this.parent;
-        while (environment != null) {
-            List<Declaration> parentDeclarations = environment.lookupLocalFunctionDeclaration(name);
-            if (parentDeclarations != null) {
-                declarations.addAll(parentDeclarations);
-            }
-            environment = environment.parent;
-        }
-        return declarations;
-    }
-
-    public void updateVariableDeclaration(String name, Type type) {
-        VariableDeclaration declaration = (VariableDeclaration) this.lookupVariableDeclaration(name);
-        if (declaration != null) {
-            declaration.setType(type);
-        }
-    }
-
-    private Declaration lookupLocalVariableDeclaration(String name) {
+    public Declaration lookupLocalVariableDeclaration(String name) {
         List<Declaration> declarations = this.variablesTable.get(name);
         if (declarations == null || declarations.isEmpty()) {
             return null;
@@ -126,7 +83,7 @@ public class Environment {
         }
     }
 
-    private List<Declaration> lookupLocalFunctionDeclaration(String name) {
+    public List<Declaration> lookupLocalFunctionDeclaration(String name) {
         List<Declaration> declarations = this.variablesTable.get(name);
         return declarations == null ? null : declarations.stream().filter(d -> d instanceof FunctionDeclaration).collect(Collectors.toList());
     }

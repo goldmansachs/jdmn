@@ -14,7 +14,6 @@ package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
-import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNContext;
@@ -65,21 +64,17 @@ public interface DMNEnvironmentFactory {
     //
     Environment makeEnvironment(TDRGElement element);
 
-    Environment makeEnvironment(TDRGElement element, Environment parentEnvironment);
-
-    Environment makeEnvironment(TDRGElement element, Environment parentEnvironment, boolean isRecursive);
+    Environment makeEnvironment(TDRGElement element, boolean isRecursive);
 
     //
     // Decision Table
     //
-    Environment makeInputEntryEnvironment(TDRGElement element, Expression inputExpression);
-
-    Environment makeOutputEntryEnvironment(TDRGElement element, EnvironmentFactory environmentFactory);
+    Environment makeUnaryTestEnvironment(TDRGElement element, Expression inputExpression);
 
     //
     // Function Definition
     //
-    Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition, Environment parentEnvironment);
+    Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition);
 
     Declaration makeVariableDeclaration(TDRGElement element, TInformationItem variable);
 
@@ -95,6 +90,6 @@ public interface DMNEnvironmentFactory {
     //
     // Relation
     //
-    Environment makeRelationEnvironment(TNamedElement element, TRelation relation, Environment environment);
+    Environment makeRelationEnvironment(TNamedElement element, TRelation relation);
 
 }

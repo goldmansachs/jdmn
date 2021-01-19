@@ -24,10 +24,10 @@ public class VariableDeclaration extends Declaration {
 
     @Override
     public Type getType() {
-        return type;
+        return this.type;
     }
 
-    void setType(Type type) {
+    public void setType(Type type) {
         this.type = type;
     }
 }
