@@ -66,8 +66,8 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
         DMNContext loopContext = this.getBasicDMNTransformer().makeGlobalContext(decision, parentContext);
         for (Object obj : sourceList) {
             loopContext.bind(lambdaParamName, obj);
-            applyDecision(this.dmnModelRepository.makeDRGElementReference(topLevelDecision), loopContext);
-            outputList.add(loopContext.lookupBinding(topLevelVariableName));
+            Result decisionResult = evaluateDecision(this.dmnModelRepository.makeDRGElementReference(topLevelDecision), loopContext);
+            outputList.add(Result.value(decisionResult));
         }
 
         // Aggregate
