@@ -357,7 +357,8 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             throw new DMNRuntimeException(String.format("Cannot find DRG elements for node '%s'", info.getNodeName()));
         } else if (element instanceof TDecision) {
             Map<String, Object> informationRequirements = makeInputs(testCases, testCase);
-            return interpreter.evaluate((DRGElementReference<? extends TDecision>) info.getReference(), informationRequirements);
+            DRGElementReference<? extends TDRGElement> reference = info.getReference();
+            return interpreter.evaluateDecision(reference.getNamespace(), reference.getElementName(), informationRequirements);
         } else if (element instanceof TInvocable) {
             List<Object> arguments = makeArgs(element, testCase);
             return interpreter.evaluate((DRGElementReference<? extends TInvocable>) info.getReference(), arguments);

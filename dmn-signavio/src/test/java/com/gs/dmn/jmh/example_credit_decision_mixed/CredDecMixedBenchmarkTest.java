@@ -13,6 +13,7 @@
 package com.gs.dmn.jmh.example_credit_decision_mixed;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.jmh.ApplicantImpl;
 import com.gs.dmn.log.BuildLogger;
@@ -77,7 +78,8 @@ public class CredDecMixedBenchmarkTest {
         inputRequirements.put("lendingThreshold", lendingThreshold);
 
         TDecision decision = (TDecision) repository.findDRGElementByName(repository.getRootDefinitions(), "generateOutputData");
-        Object result = interpreter.evaluate(repository.makeDRGElementReference(decision), inputRequirements);
+        DRGElementReference<TDecision> reference = repository.makeDRGElementReference(decision);
+        Object result = interpreter.evaluateDecision(reference.getNamespace(), reference.getElementName(), inputRequirements);
         System.out.println(result);
 
         long endTime = System.currentTimeMillis();
