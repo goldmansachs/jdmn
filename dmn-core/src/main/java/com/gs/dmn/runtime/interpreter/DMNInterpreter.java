@@ -35,13 +35,11 @@ public interface DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     // Evaluate TDecisions
     //
     Result evaluateDecision(String namespace, String decisionName, Map<String, Object> informationRequirements);
-    Result evaluate(DRGElementReference<? extends TDecision> reference, Map<String, Object> informationRequirements);
 
     //
     // Evaluate TInvocables
     //
     Result evaluateInvocable(String namespace, String invocableName, List<Object> argList);
-    Result evaluate(DRGElementReference<? extends TInvocable> reference, List<Object> argList);
     Result evaluate(TInvocable invocable, List<Object> argList, DMNContext context);
 
     //

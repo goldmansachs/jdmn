@@ -97,28 +97,19 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         try {
             TDRGElement element = this.repository.findDRGElementByName(namespace, decisionName);
             if (element instanceof TDecision) {
-                return evaluate(this.repository.makeDRGElementReference((TDecision) element), informationRequirements);
+                // Make context
+                DRGElementReference<TDecision> reference = this.repository.makeDRGElementReference((TDecision) element);
+                DMNContext builtInContext = this.dmnTransformer.makeBuiltInContext();
+                for (Map.Entry<String, Object> entry: informationRequirements.entrySet()) {
+                    builtInContext.bind(entry.getKey(), entry.getValue());
+                }
+                // Evaluate decision
+                return evaluateDecision(reference, builtInContext);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot find decision namespace='%s' name='%s'", namespace, decisionName));
             }
         } catch (Exception e) {
             return handleEvaluationError(namespace, "decision", decisionName, e);
-        }
-    }
-
-    @Override
-    public Result evaluate(DRGElementReference<? extends TDecision> reference, Map<String, Object> informationRequirements) {
-        try {
-            DMNContext builtInContext = this.dmnTransformer.makeBuiltInContext();
-            for (Map.Entry<String, Object> entry: informationRequirements.entrySet()) {
-                builtInContext.bind(entry.getKey(), entry.getValue());
-            }
-            List<Object> args = new ArrayList<>();
-            return evaluate(reference, args, builtInContext);
-        } catch (Exception e) {
-            String namespace = reference == null ? null : reference.getNamespace();
-            String name = reference == null || reference.getElement() == null ? null : reference.getElementName();
-            return handleEvaluationError(namespace, "decision", name, e);
         }
     }
 
@@ -130,23 +121,16 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         try {
             TDRGElement element = this.repository.findDRGElementByName(namespace, invocableName);
             if (element instanceof TInvocable) {
-                return evaluate(this.repository.makeDRGElementReference((TInvocable) element), argList);
+                // Make context
+                DRGElementReference<? extends TInvocable> reference = this.repository.makeDRGElementReference((TInvocable) element);
+                DMNContext globalContext = this.dmnTransformer.makeGlobalContext(reference.getElement());
+                // Evaluate invocable
+                return evaluate(reference, argList, globalContext);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot find invocable namespace='%s' name='%s'", namespace, invocableName));
             }
         } catch (Exception e) {
             return handleEvaluationError(namespace, "invocable", invocableName, e);
-        }
-    }
-    @Override
-    public Result evaluate(DRGElementReference<? extends TInvocable> reference, List<Object> args) {
-        try {
-            DMNContext globalContext = this.dmnTransformer.makeGlobalContext(reference.getElement());
-            return evaluate(reference, args, globalContext);
-        } catch (Exception e) {
-            String namespace = reference == null ? null : reference.getNamespace();
-            String name = reference == null || reference.getElement() == null ? null : reference.getElementName();
-            return handleEvaluationError(namespace, "invocable", name, e);
         }
     }
 
