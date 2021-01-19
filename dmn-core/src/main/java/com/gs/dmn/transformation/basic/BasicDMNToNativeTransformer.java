@@ -598,16 +598,6 @@ public interface BasicDMNToNativeTransformer {
         );
     }
 
-    default DMNContext makeEmptyGlobalContext(TDRGElement element) {
-        return DMNContext.of(
-                makeBuiltInContext(),
-                DMNContextKind.GLOBAL,
-                element,
-                getEnvironmentFactory().emptyEnvironment(),
-                RuntimeEnvironment.of()
-        );
-    }
-
     default DMNContext makeGlobalContext(TDRGElement element) {
         return DMNContext.of(
                 this.makeBuiltInContext(),

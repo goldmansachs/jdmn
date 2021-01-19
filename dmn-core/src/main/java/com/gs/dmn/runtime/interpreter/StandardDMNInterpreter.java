@@ -117,9 +117,9 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             if (element instanceof TInvocable) {
                 // Make context
                 DRGElementReference<? extends TInvocable> reference = this.repository.makeDRGElementReference((TInvocable) element);
-                DMNContext globalContext = this.dmnTransformer.makeEmptyGlobalContext(reference.getElement());
+                DMNContext invocableContext = makeInvocableGlobalContext(reference.getElement(), argList);
                 // Evaluate invocable
-                return evaluateInvocable(reference, argList, globalContext);
+                return evaluateInvocable(reference, invocableContext);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot find invocable namespace='%s' name='%s'", namespace, invocableName));
             }
@@ -135,7 +135,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     public Result evaluate(TInvocable invocable, List<Object> argList, DMNContext parentContext) {
         try {
             DRGElementReference<TInvocable> reference = this.repository.makeDRGElementReference(invocable);
-            return evaluateInvocable(reference, argList, parentContext);
+            return evaluateInvocableInContext(reference, argList, parentContext);
         } catch (Exception e) {
             String errorMessage = String.format("Evaluation error in invocable '%s' in context of '%s'", invocable.getName(), parentContext.getElement().getName());
             this.errorHandler.reportError(errorMessage, e);
@@ -221,52 +221,29 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         return result;
     }
 
-    private Result evaluateInvocable(DRGElementReference<? extends TInvocable> reference, List<Object> args, DMNContext context) {
-        try {
-            TDRGElement drgElement = reference.getElement();
-            Result actualOutput;
-            if (drgElement instanceof TDecisionService) {
-                actualOutput = evaluateDecisionService((DRGElementReference<TDecisionService>) reference, args, context);
-            } else if (drgElement instanceof TBusinessKnowledgeModel) {
-                actualOutput = evaluateBKM((DRGElementReference<TBusinessKnowledgeModel>) reference, args, context);
-            } else {
-                throw new IllegalArgumentException(String.format("Not supported type '%s'", drgElement.getClass().getSimpleName()));
-            }
-            return actualOutput;
-        } catch (Exception e) {
-            String errorMessage = String.format("Evaluation error in invocable '%s' in context of '%s'", reference.getElementName(), context.getElement().getName());
-            this.errorHandler.reportError(errorMessage, e);
-            Result result = Result.of(null, NullType.NULL);
-            result.addError(errorMessage, e);
-            return result;
+    private Result evaluateInvocableInContext(DRGElementReference<? extends TInvocable> reference, List<Object> argList, DMNContext parentContext) {
+        TDRGElement element = reference.getElement();
+        if (element != null) {
+            DMNContext invocableContext = makeInvocableGlobalContext((TInvocable) element, argList, parentContext);
+            return evaluateInvocable(reference, invocableContext);
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot evaluate invocable '%s'", reference));
         }
     }
 
-    private Result evaluateBKM(DRGElementReference<TBusinessKnowledgeModel> reference, List<Object> argList, DMNContext parentContext) {
-        TBusinessKnowledgeModel bkm = reference.getElement();
-        TDefinitions model = this.repository.getModel(bkm);
-
-        // Create BKM context
-        DMNContext bkmContext = this.dmnTransformer.makeGlobalContext(bkm, parentContext);
-        // Bind parameters
-        List<TInformationItem> formalParameterList = bkm.getEncapsulatedLogic().getFormalParameter();
-        for (int i = 0; i < formalParameterList.size(); i++) {
-            TInformationItem param = formalParameterList.get(i);
-            String name = param.getName();
-            String paramTypeRef = param.getTypeRef();
-            Type paramType = null;
-            if (!StringUtils.isEmpty(paramTypeRef)) {
-                paramType = this.dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, paramTypeRef));
-            }
-            Object value = argList.get(i);
-
-            // Check value and apply implicit conversions
-            Result result = this.typeConverter.convertValue(value, paramType, this.feelLib);
-            value = Result.value(result);
-
-            // Declaration is already in environment
-            bkmContext.bind(name, value);
+    private Result evaluateInvocable(DRGElementReference<? extends TInvocable> reference, DMNContext invocableContext) {
+        TInvocable element = reference.getElement();
+        if (element instanceof TDecisionService) {
+            return evaluateDecisionService((DRGElementReference<TDecisionService>) reference, invocableContext);
+        } else if (element instanceof TBusinessKnowledgeModel) {
+            return evaluateBKM((DRGElementReference<TBusinessKnowledgeModel>) reference, invocableContext);
+        } else {
+            throw new DMNRuntimeException(String.format("Not supported type '%s'", element.getClass().getSimpleName()));
         }
+    }
+
+    private Result evaluateBKM(DRGElementReference<TBusinessKnowledgeModel> reference, DMNContext bkmContext) {
+        TBusinessKnowledgeModel bkm = reference.getElement();
 
         // BKM start
         long startTime_ = System.currentTimeMillis();
@@ -290,26 +267,8 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         return result;
     }
 
-    private Result evaluateDecisionService(DRGElementReference<TDecisionService> serviceReference, List<Object> argList, DMNContext parentContext) {
+    private Result evaluateDecisionService(DRGElementReference<TDecisionService> serviceReference, DMNContext serviceContext) {
         TDecisionService service = serviceReference.getElement();
-
-        // Create service context
-        DMNContext serviceContext = this.dmnTransformer.makeGlobalContext(service, parentContext);
-        // Bind parameters
-        List<FormalParameter> formalParameterList = this.dmnTransformer.dsFEELParameters(service);
-        for (int i = 0; i < formalParameterList.size(); i++) {
-            FormalParameter param = formalParameterList.get(i);
-            String name = param.getName();
-            Type type = param.getType();
-            Object value = argList.get(i);
-
-            // Check value and apply implicit conversions
-            Result result = this.typeConverter.convertValue(value, type, this.feelLib);
-            value = Result.value(result);
-
-            // Variable declaration already exists
-            serviceContext.bind(name, value);
-        }
 
         // Decision Service start
         long startTime_ = System.currentTimeMillis();
@@ -371,7 +330,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             } else if (invocable instanceof TDecisionService) {
                 applyDecisionService(this.repository.makeDRGElementReference(invocableImportPath, (TDecisionService) invocable), context);
             } else {
-                throw new UnsupportedOperationException(String.format("Not supported invocable '%s'", invocable.getClass().getSimpleName()));
+                throw new DMNRuntimeException(String.format("Not supported invocable '%s'", invocable.getClass().getSimpleName()));
             }
         }
     }
@@ -435,6 +394,69 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             globalContext.bind(entry.getKey(), entry.getValue());
         }
         return globalContext;
+    }
+
+    private DMNContext makeInvocableGlobalContext(TInvocable invocable, List<Object> argList, DMNContext parentContext) {
+        DMNContext invocableContext = this.dmnTransformer.makeGlobalContext(invocable, parentContext);
+        bindArguments(invocable, argList, invocableContext);
+        return invocableContext;
+    }
+
+    private DMNContext makeInvocableGlobalContext(TInvocable invocable, List<Object> argList) {
+        DMNContext invocableContext = this.dmnTransformer.makeGlobalContext(invocable);
+        bindArguments(invocable, argList, invocableContext);
+        return invocableContext;
+    }
+
+    private void bindArguments(TInvocable invocable, List<Object> argList, DMNContext invocableContext) {
+        if (invocable instanceof TBusinessKnowledgeModel) {
+            bindArguments((TBusinessKnowledgeModel) invocable, argList, invocableContext);
+        } else if (invocable instanceof TDecisionService) {
+            bindArguments((TDecisionService) invocable, argList, invocableContext);
+        } else {
+            throw new DMNRuntimeException(String.format("Not supported invocable '%s'", invocable.getClass().getSimpleName()));
+        }
+    }
+
+    private void bindArguments(TBusinessKnowledgeModel bkm, List<Object> argList, DMNContext bkmContext) {
+        TDefinitions model = this.repository.getModel(bkm);
+        // Bind parameters
+        List<TInformationItem> formalParameterList = bkm.getEncapsulatedLogic().getFormalParameter();
+        for (int i = 0; i < formalParameterList.size(); i++) {
+            TInformationItem param = formalParameterList.get(i);
+            String name = param.getName();
+            String paramTypeRef = param.getTypeRef();
+            Type paramType = null;
+            if (!StringUtils.isEmpty(paramTypeRef)) {
+                paramType = this.dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, paramTypeRef));
+            }
+            Object value = argList.get(i);
+
+            // Check value and apply implicit conversions
+            Result result = this.typeConverter.convertValue(value, paramType, this.feelLib);
+            value = Result.value(result);
+
+            // Declaration is already in environment
+            bkmContext.bind(name, value);
+        }
+    }
+
+    private void bindArguments(TDecisionService service, List<Object> argList, DMNContext serviceContext) {
+        // Bind parameters
+        List<FormalParameter> formalParameterList = this.dmnTransformer.dsFEELParameters(service);
+        for (int i = 0; i < formalParameterList.size(); i++) {
+            FormalParameter param = formalParameterList.get(i);
+            String name = param.getName();
+            Type type = param.getType();
+            Object value = argList.get(i);
+
+            // Check value and apply implicit conversions
+            Result result = this.typeConverter.convertValue(value, type, this.feelLib);
+            value = Result.value(result);
+
+            // Variable declaration already exists
+            serviceContext.bind(name, value);
+        }
     }
 
     //
@@ -507,9 +529,10 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             }
 
             // Evaluate invocation
-            return evaluateInvocable(this.repository.makeDRGElementReference(bkm), argList, parentContext);
+            DRGElementReference<TBusinessKnowledgeModel> reference = this.repository.makeDRGElementReference(bkm);
+            return evaluateInvocableInContext(reference, argList, parentContext);
         } else {
-            throw new UnsupportedOperationException(String.format("Not supported '%s'", body.getClass().getSimpleName()));
+            throw new DMNRuntimeException(String.format("Not supported '%s'", body.getClass().getSimpleName()));
         }
     }
 
@@ -775,14 +798,14 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                         } else if (aggregation == TBuiltinAggregator.SUM) {
                             return this.feelLib.sum(decisionOutput);
                         } else {
-                            throw new UnsupportedOperationException(String.format("Not supported '%s' aggregation.", aggregation));
+                            throw new DMNRuntimeException(String.format("Not supported '%s' aggregation.", aggregation));
                         }
                     } else {
                         return decisionOutput;
                     }
                 }
             } else {
-                throw new UnsupportedOperationException(String.format("Hit policy '%s' not supported ", hitPolicy));
+                throw new DMNRuntimeException(String.format("Hit policy '%s' not supported ", hitPolicy));
             }
         }
     }
