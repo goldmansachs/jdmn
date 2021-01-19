@@ -434,19 +434,19 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             return toFEELType(model, variable.getTypeRef());
         }
         // Derive from decisions
-        Environment environment = this.makeEnvironment(decisionService);
+        DMNContext context = this.dmnTransformer.makeGlobalContext(decisionService);
         List<TDMNElementReference> outputDecisions = decisionService.getOutputDecision();
         if (outputDecisions.size() == 1) {
             TDecision decision = this.dmnModelRepository.findDecisionByRef(decisionService, outputDecisions.get(0).getHref());
             String decisionName = decision.getName();
-            VariableDeclaration declaration = (VariableDeclaration) environment.lookupVariableDeclaration(decisionName);
+            VariableDeclaration declaration = (VariableDeclaration) context.lookupVariableDeclaration(decisionName);
             return declaration.getType();
         } else {
             ContextType type = new ContextType();
             for (TDMNElementReference er: outputDecisions) {
                 TDecision decision = this.dmnModelRepository.findDecisionByRef(decisionService, er.getHref());
                 String decisionName = decision.getName();
-                VariableDeclaration declaration = (VariableDeclaration) environment.lookupVariableDeclaration(decisionName);
+                VariableDeclaration declaration = (VariableDeclaration) context.lookupVariableDeclaration(decisionName);
                 type.addMember(decisionName, Collections.emptyList(), declaration.getType());
             }
             return type;
@@ -548,18 +548,12 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     private Environment makeEnvironmentNoCache(TDRGElement element) {
-        Environment parentEnvironment = this.environmentFactory.getBuiltInEnvironment();
-        return makeEnvironment(element, parentEnvironment);
+        return makeEnvironment(element, true);
     }
 
     @Override
-    public Environment makeEnvironment(TDRGElement element, Environment parentEnvironment) {
-        return makeEnvironment(element, parentEnvironment, true);
-    }
-
-    @Override
-    public Environment makeEnvironment(TDRGElement element, Environment parentEnvironment, boolean isRecursive) {
-        Environment elementEnvironment = this.environmentFactory.makeEnvironment(parentEnvironment);
+    public Environment makeEnvironment(TDRGElement element, boolean isRecursive) {
+        Environment elementEnvironment = this.environmentFactory.makeEnvironment();
 
         // Add declaration for each direct child
         List<DRGElementReference<? extends TDRGElement>> directReferences = this.dmnModelRepository.directDRGElements(element);
@@ -580,7 +574,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
         // Add declaration for parameters
         if (element instanceof TBusinessKnowledgeModel) {
-            Environment bkmEnvironment = this.environmentFactory.makeEnvironment(elementEnvironment);
+            Environment bkmEnvironment = elementEnvironment;
             TDefinitions definitions = this.dmnModelRepository.getModel(element);
             TFunctionDefinition functionDefinition = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
             if (functionDefinition != null) {
@@ -596,7 +590,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             }
         } else if (element instanceof TDecisionService) {
             TDecisionService service = (TDecisionService) element;
-            Environment serviceEnvironment = this.environmentFactory.makeEnvironment(elementEnvironment);
+            Environment serviceEnvironment = elementEnvironment;
             // Bind parameters
             List<FormalParameter> formalParameterList = this.dmnTransformer.dsFEELParameters(service);
             for (int i = 0; i < formalParameterList.size(); i++) {
@@ -631,19 +625,19 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         return declaration;
     }
 
-    protected void addDeclaration(Environment parentEnvironment, Declaration declaration, TDRGElement parent, TDRGElement child) {
+    protected void addDeclaration(Environment environment, Declaration declaration, TDRGElement parent, TDRGElement child) {
         Type type = declaration.getType();
         String importName = this.dmnModelRepository.findChildImportName(parent, child);
         if (ImportPath.isEmpty(importName)) {
-            parentEnvironment.addDeclaration(declaration);
+            environment.addDeclaration(declaration);
         } else {
-            Declaration importDeclaration = parentEnvironment.lookupVariableDeclaration(importName);
+            Declaration importDeclaration = environment.lookupLocalVariableDeclaration(importName);
             if (importDeclaration == null) {
                 ImportContextType contextType = new ImportContextType(importName);
                 contextType.addMember(declaration.getName(), new ArrayList<>(), type);
                 contextType.addMemberReference(declaration.getName(), this.dmnModelRepository.makeDRGElementReference(importName, child));
                 importDeclaration = this.environmentFactory.makeVariableDeclaration(importName, contextType);
-                parentEnvironment.addDeclaration(importDeclaration);
+                environment.addDeclaration(importDeclaration);
             } else if (importDeclaration instanceof VariableDeclaration) {
                 Type importType = importDeclaration.getType();
                 if (importType instanceof ImportContextType) {
@@ -662,24 +656,21 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     // Decision Table
     //
     @Override
-    public Environment makeInputEntryEnvironment(TDRGElement element, Expression inputExpression) {
-        Environment environment = this.environmentFactory.makeEnvironment(this.dmnTransformer.makeEnvironment(element), inputExpression);
-        environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
+    public Environment makeUnaryTestEnvironment(TDRGElement element, Expression inputExpression) {
+        Environment environment = this.environmentFactory.makeEnvironment(inputExpression);
+        if (inputExpression != null) {
+            environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
+        }
         return environment;
-    }
-
-    @Override
-    public Environment makeOutputEntryEnvironment(TDRGElement element, EnvironmentFactory environmentFactory) {
-        return this.environmentFactory.makeEnvironment(this.dmnTransformer.makeEnvironment(element));
     }
 
     //
     // Function Definition
     //
     @Override
-    public Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition, Environment parentEnvironment) {
+    public Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
-        Environment environment = this.environmentFactory.makeEnvironment(parentEnvironment);
+        Environment environment = this.environmentFactory.makeEnvironment();
         for (TInformationItem p: functionDefinition.getFormalParameter()) {
             String typeRef = p.getTypeRef();
             Type type = null;
@@ -818,9 +809,9 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     // Relation
     //
     @Override
-    public Environment makeRelationEnvironment(TNamedElement element, TRelation relation, Environment environment) {
+    public Environment makeRelationEnvironment(TNamedElement element, TRelation relation) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
-        Environment relationEnvironment = this.environmentFactory.makeEnvironment(environment);
+        Environment relationEnvironment = this.environmentFactory.makeEnvironment();
         for(TInformationItem column: relation.getColumn()) {
             QualifiedName typeRef = QualifiedName.toQualifiedName(model, column.getTypeRef());
             if (typeRef != null) {

@@ -2660,6 +2660,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     private DMNContext makeContext(List<EnvironmentEntry> entries) {
         DMNContext context = DMNContext.of(
+                this.dmnTransformer.makeBuiltInContext(),
                 DMNContextKind.LOCAL,
                 getElement(),
                 this.environmentFactory.makeEnvironment(),

@@ -17,54 +17,23 @@ import java.util.Map;
 
 public class RuntimeEnvironment {
     public static RuntimeEnvironment of() {
-        return of(null);
+        return new RuntimeEnvironment();
     }
-
-    public static RuntimeEnvironment of(RuntimeEnvironment parent) {
-        return new RuntimeEnvironment(parent);
-    }
-
-    private final RuntimeEnvironment parent;
 
     private final Map<String, Object> bindings = new LinkedHashMap<>();
 
-    RuntimeEnvironment(RuntimeEnvironment parent) {
-        this.parent = parent;
+    RuntimeEnvironment() {
     }
 
     public void bind(String key, Object value) {
-        bindings.put(key, value);
+        this.bindings.put(key, value);
     }
 
-    public Object lookupBinding(String key) {
-        if (isLocalBound(key)) {
-            return lookupLocalBinding(key);
-        } else {
-            if (parent != null) {
-                return parent.lookupBinding(key);
-            } else {
-                return null;
-            }
-        }
+    public Object lookupLocalBinding(String key) {
+        return this.bindings.get(key);
     }
 
-    public boolean isBound(String key) {
-        if (isLocalBound(key)) {
-            return true;
-        } else {
-            if (parent != null) {
-                return parent.isBound(key);
-            } else {
-                return false;
-            }
-        }
-    }
-
-    private Object lookupLocalBinding(String key) {
-        return bindings.get(key);
-    }
-
-    private boolean isLocalBound(String key) {
-        return bindings.containsKey(key);
+    public boolean isLocalBound(String key) {
+        return this.bindings.containsKey(key);
     }
 }
