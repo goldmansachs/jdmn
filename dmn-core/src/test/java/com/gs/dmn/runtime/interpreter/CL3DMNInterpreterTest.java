@@ -314,6 +314,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_13_cl3_0004_lending() {
+        doSingleModelTest("1.3", "0004-lending", new Pair<>("singletonInputData", "false"));
+    }
+
+    @Test
     public void test_13_cl3_0016_some_every() {
         doSingleModelTest("1.3", "0016-some-every");
     }
