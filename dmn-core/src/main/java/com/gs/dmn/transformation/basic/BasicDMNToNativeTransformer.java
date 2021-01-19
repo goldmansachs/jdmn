@@ -598,6 +598,16 @@ public interface BasicDMNToNativeTransformer {
         );
     }
 
+    default DMNContext makeEmptyGlobalContext(TDRGElement element) {
+        return DMNContext.of(
+                makeBuiltInContext(),
+                DMNContextKind.GLOBAL,
+                element,
+                getEnvironmentFactory().emptyEnvironment(),
+                RuntimeEnvironment.of()
+        );
+    }
+
     default DMNContext makeGlobalContext(TDRGElement element) {
         return DMNContext.of(
                 this.makeBuiltInContext(),
@@ -643,7 +653,7 @@ public interface BasicDMNToNativeTransformer {
                 parentContext,
                 DMNContextKind.LOCAL,
                 parentContext.getElement(),
-                getEnvironmentFactory().makeEnvironment(),
+                getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of()
         );
     }
@@ -653,7 +663,7 @@ public interface BasicDMNToNativeTransformer {
                 parentContext,
                 DMNContextKind.LOCAL,
                 element,
-                getEnvironmentFactory().makeEnvironment(),
+                getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of()
         );
     }
@@ -673,7 +683,7 @@ public interface BasicDMNToNativeTransformer {
                 parentContext,
                 DMNContextKind.FUNCTION,
                 parentContext.getElement(),
-                getEnvironmentFactory().makeEnvironment(),
+                getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of());
         List<TInformationItem> formalParameterList = functionDefinition.getFormalParameter();
         TDefinitions model = getDMNModelRepository().getModel(parentContext.getElement());
@@ -691,7 +701,7 @@ public interface BasicDMNToNativeTransformer {
                 parentContext,
                 DMNContextKind.FUNCTION,
                 parentContext.getElement(),
-                getEnvironmentFactory().makeEnvironment(),
+                getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of());
         List<FormalParameter> formalParameterList = functionDefinition.getFormalParameters();
         for (int i = 0; i < formalParameterList.size(); i++) {
@@ -708,7 +718,7 @@ public interface BasicDMNToNativeTransformer {
                 parentContext,
                 DMNContextKind.FOR,
                 parentContext.getElement(),
-                this.getEnvironmentFactory().makeEnvironment(),
+                this.getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of()
         );
     }
@@ -718,7 +728,7 @@ public interface BasicDMNToNativeTransformer {
                 context,
                 DMNContextKind.ITERATOR,
                 context.getElement(),
-                this.getEnvironmentFactory().makeEnvironment(),
+                this.getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of()
         );
     }
@@ -733,7 +743,7 @@ public interface BasicDMNToNativeTransformer {
                 parentContext,
                 DMNContextKind.FILTER,
                 parentContext.getElement(),
-                getEnvironmentFactory().makeEnvironment(),
+                getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of()
         );
         filterContext.addDeclaration(this.getEnvironmentFactory().makeVariableDeclaration(filterParameterName, itemType));
@@ -756,7 +766,7 @@ public interface BasicDMNToNativeTransformer {
                 parentContext,
                 DMNContextKind.LOCAL,
                 element,
-                this.getEnvironmentFactory().makeEnvironment(),
+                this.getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of()
         );
         return localContext;

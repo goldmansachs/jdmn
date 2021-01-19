@@ -90,7 +90,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     }
 
     //
-    // Evaluate DRG Elements - external
+    // Evaluate DRG elements
     //
     @Override
     public Result evaluateDecision(String namespace, String decisionName, Map<String, Object> informationRequirements) {
@@ -99,12 +99,12 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             if (element instanceof TDecision) {
                 // Make context
                 DRGElementReference<TDecision> reference = this.repository.makeDRGElementReference((TDecision) element);
-                DMNContext builtInContext = this.dmnTransformer.makeBuiltInContext();
+                DMNContext globalContext = this.dmnTransformer.makeEmptyGlobalContext(element);
                 for (Map.Entry<String, Object> entry: informationRequirements.entrySet()) {
-                    builtInContext.bind(entry.getKey(), entry.getValue());
+                    globalContext.bind(entry.getKey(), entry.getValue());
                 }
                 // Evaluate decision
-                return evaluateDecision(reference, builtInContext);
+                return evaluateDecision(reference, globalContext);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot find decision namespace='%s' name='%s'", namespace, decisionName));
             }
@@ -120,7 +120,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             if (element instanceof TInvocable) {
                 // Make context
                 DRGElementReference<? extends TInvocable> reference = this.repository.makeDRGElementReference((TInvocable) element);
-                DMNContext globalContext = this.dmnTransformer.makeGlobalContext(reference.getElement());
+                DMNContext globalContext = this.dmnTransformer.makeEmptyGlobalContext(reference.getElement());
                 // Evaluate invocable
                 return evaluateInvocable(reference, argList, globalContext);
             } else {
@@ -132,15 +132,13 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     }
 
     //
-    // Evaluate
+    // Evaluate DMN elements in context
     //
-
     @Override
     public Result evaluate(TInvocable invocable, List<Object> argList, DMNContext parentContext) {
         try {
-            DMNContext invocationContext = this.dmnTransformer.makeGlobalContext(invocable, parentContext);
             DRGElementReference<TInvocable> reference = this.repository.makeDRGElementReference(invocable);
-            return evaluateInvocable(reference, argList, invocationContext);
+            return evaluateInvocable(reference, argList, parentContext);
         } catch (Exception e) {
             String errorMessage = String.format("Evaluation error in invocable '%s'", invocable.getName());
             this.errorHandler.reportError(errorMessage, e);
@@ -181,12 +179,6 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             result.addError(errorMessage, e);
             return result;
         }
-    }
-
-    private Result evaluateInputData(DRGElementReference<TInputData> reference, DMNContext context) {
-        TInputData inputData = reference.getElement();
-        Object value = lookupBinding(context, reference);
-        return Result.of(value, this.dmnTransformer.drgElementOutputFEELType(inputData));
     }
 
     private Result evaluateDecision(DRGElementReference<TDecision> reference, DMNContext context) {

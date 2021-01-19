@@ -2663,7 +2663,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.dmnTransformer.makeBuiltInContext(),
                 DMNContextKind.LOCAL,
                 getElement(),
-                this.environmentFactory.makeEnvironment(),
+                this.environmentFactory.emptyEnvironment(),
                 RuntimeEnvironment.of());
         for (EnvironmentEntry entry : entries) {
             context.addDeclaration(this.environmentFactory.makeVariableDeclaration(entry.getName(), entry.getType()));
