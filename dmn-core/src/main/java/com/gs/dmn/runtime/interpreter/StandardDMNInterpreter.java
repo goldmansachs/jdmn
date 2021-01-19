@@ -90,7 +90,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     }
 
     //
-    // Evaluate TDecisions
+    // Evaluate DRG Elements - external
     //
     @Override
     public Result evaluateDecision(String namespace, String decisionName, Map<String, Object> informationRequirements) {
@@ -113,9 +113,6 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         }
     }
 
-    //
-    // Evaluate TInvocables
-    //
     @Override
     public Result evaluateInvocable(String namespace, String invocableName, List<Object> argList) {
         try {
@@ -125,7 +122,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                 DRGElementReference<? extends TInvocable> reference = this.repository.makeDRGElementReference((TInvocable) element);
                 DMNContext globalContext = this.dmnTransformer.makeGlobalContext(reference.getElement());
                 // Evaluate invocable
-                return evaluate(reference, argList, globalContext);
+                return evaluateInvocable(reference, argList, globalContext);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot find invocable namespace='%s' name='%s'", namespace, invocableName));
             }
@@ -134,21 +131,18 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         }
     }
 
+    //
+    // Evaluate
+    //
+
     @Override
     public Result evaluate(TInvocable invocable, List<Object> argList, DMNContext parentContext) {
         try {
             DMNContext invocationContext = this.dmnTransformer.makeGlobalContext(invocable, parentContext);
-            Result result;
-            if (invocable instanceof TDecisionService) {
-                result = evaluate(this.repository.makeDRGElementReference(invocable), argList, invocationContext);
-            } else if (invocable instanceof TBusinessKnowledgeModel) {
-                result = evaluate(this.repository.makeDRGElementReference(invocable), argList, invocationContext);
-            } else {
-                throw new IllegalArgumentException(String.format("Not supported type '%s'", invocable.getClass().getSimpleName()));
-            }
-            return result;
+            DRGElementReference<TInvocable> reference = this.repository.makeDRGElementReference(invocable);
+            return evaluateInvocable(reference, argList, invocationContext);
         } catch (Exception e) {
-            String errorMessage = "Evaluation error";
+            String errorMessage = String.format("Evaluation error in invocable '%s'", invocable.getName());
             this.errorHandler.reportError(errorMessage, e);
             Result result = Result.of(null, NullType.NULL);
             result.addError(errorMessage, e);
@@ -189,15 +183,25 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         }
     }
 
-    private Result evaluate(DRGElementReference<? extends TDRGElement> reference, List<Object> args, DMNContext context) {
+    private Result evaluateInputData(DRGElementReference<TInputData> reference, DMNContext context) {
+        TInputData inputData = reference.getElement();
+        Object value = lookupBinding(context, reference);
+        return Result.of(value, this.dmnTransformer.drgElementOutputFEELType(inputData));
+    }
+
+    private Result evaluateDecision(DRGElementReference<TDecision> reference, DMNContext context) {
+        applyDecision(reference, context);
+
+        TDecision decision = reference.getElement();
+        Object value = lookupBinding(context, reference);
+        return Result.of(value, this.dmnTransformer.drgElementOutputFEELType(decision));
+    }
+
+    private Result evaluateInvocable(DRGElementReference<? extends TInvocable> reference, List<Object> args, DMNContext context) {
         try {
             TDRGElement drgElement = reference.getElement();
             Result actualOutput;
-            if (drgElement instanceof TInputData) {
-                actualOutput = evaluateInputData((DRGElementReference<TInputData>) reference, context);
-            } else if (drgElement instanceof TDecision) {
-                actualOutput = evaluateDecision((DRGElementReference<TDecision>) reference, context);
-            } else if (drgElement instanceof TDecisionService) {
+            if (drgElement instanceof TDecisionService) {
                 actualOutput = evaluateDecisionService((DRGElementReference<TDecisionService>) reference, args, context);
             } else if (drgElement instanceof TBusinessKnowledgeModel) {
                 actualOutput = evaluateBKM((DRGElementReference<TBusinessKnowledgeModel>) reference, args, context);
@@ -212,20 +216,6 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             result.addError(errorMessage, e);
             return result;
         }
-    }
-
-    private Result evaluateInputData(DRGElementReference<TInputData> reference, DMNContext context) {
-        TInputData inputData = reference.getElement();
-        Object value = lookupBinding(context, reference);
-        return Result.of(value, this.dmnTransformer.drgElementOutputFEELType(inputData));
-    }
-
-    private Result evaluateDecision(DRGElementReference<TDecision> reference, DMNContext context) {
-        applyDecision(reference, context);
-
-        TDecision decision = reference.getElement();
-        Object value = lookupBinding(context, reference);
-        return Result.of(value, this.dmnTransformer.drgElementOutputFEELType(decision));
     }
 
     private Result evaluateBKM(DRGElementReference<TBusinessKnowledgeModel> reference, List<Object> argList, DMNContext parentContext) {
@@ -530,7 +520,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             }
 
             // Evaluate invocation
-            return evaluate(this.repository.makeDRGElementReference(bkm), argList, parentContext);
+            return evaluateInvocable(this.repository.makeDRGElementReference(bkm), argList, parentContext);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", body.getClass().getSimpleName()));
         }

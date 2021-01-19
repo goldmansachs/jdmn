@@ -32,18 +32,14 @@ public interface DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     TypeConverter getTypeConverter();
 
     //
-    // Evaluate TDecisions
+    // Evaluate DRG elements
     //
     Result evaluateDecision(String namespace, String decisionName, Map<String, Object> informationRequirements);
-
-    //
-    // Evaluate TInvocables
-    //
     Result evaluateInvocable(String namespace, String invocableName, List<Object> argList);
-    Result evaluate(TInvocable invocable, List<Object> argList, DMNContext context);
 
     //
-    // Evaluate expressions
+    // Internal API
     //
+    Result evaluate(TInvocable invocable, List<Object> argList, DMNContext context);
     Result evaluate(TFunctionDefinition functionDefinition, List<Object> args, DMNContext context);
 }
