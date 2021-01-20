@@ -16,11 +16,13 @@ import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
+import com.gs.dmn.feel.lib.type.numeric.NumericRoundingMode;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
 import com.gs.dmn.feel.lib.type.time.mixed.LocalDateType;
 import com.gs.dmn.feel.lib.type.time.mixed.OffsetTimeType;
 import com.gs.dmn.feel.lib.type.time.mixed.ZonedDateTimeType;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationType;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.LambdaExpression;
 import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
 import net.sf.saxon.xpath.XPathFactoryImpl;
@@ -40,6 +42,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -388,6 +391,26 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
             return BigDecimalUtil.decimal(n, scale);
         } catch (Throwable e) {
             String message = String.format("decimal(%s, %s)", n, scale);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal round(BigDecimal n, BigDecimal scale, String mode) {
+        try {
+            if (n == null || scale == null || mode == null) {
+                return null;
+            }
+
+            RoundingMode roundingMode = NumericRoundingMode.fromValue(mode);
+            if (roundingMode == null) {
+                throw new DMNRuntimeException(String.format("Unknown rounding mode '%s'. Expected one of '%s'", mode, NumericRoundingMode.ALLOWED_VALUES));
+            } else {
+                return n.setScale(scale.intValue(), roundingMode);
+            }
+        } catch (Exception e) {
+            String message = String.format("round(%s, %s, %s)", n, scale, mode);
             logError(message, e);
             return null;
         }
