@@ -1581,12 +1581,18 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "decimal(number(\"100\"), number(\"2\"))",
                 lib.decimal(lib.number("100"), lib.number("2")),
                 lib.decimal(lib.number("100"), lib.number("2")));
+        doExpressionTest(entries, "", "round(5.125, 2, \"up\")",
+                "FunctionInvocation(Name(round) -> PositionalParameters(NumericLiteral(5.125), NumericLiteral(2), StringLiteral(\"up\")))",
+                "number",
+                "round(number(\"5.125\"), number(\"2\"), \"up\")",
+                lib.round(lib.number("5.125"), lib.number("2"), "up"),
+                lib.number("5.13"));
         doExpressionTest(entries, "", "floor(100)",
                 "FunctionInvocation(Name(floor) -> PositionalParameters(NumericLiteral(100)))",
                 "number",
                 "floor(number(\"100\"))",
                 lib.floor(lib.number("100")),
-                lib.decimal(lib.number("100"), lib.number("0")));
+                lib.number("100"));
         doExpressionTest(entries, "", "ceiling(100)",
                 "FunctionInvocation(Name(ceiling) -> PositionalParameters(NumericLiteral(100)))",
                 "number",

@@ -16,8 +16,10 @@ import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
+import com.gs.dmn.feel.lib.type.numeric.NumericRoundingMode;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
 import com.gs.dmn.feel.lib.type.time.xml.*;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.LambdaExpression;
 import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
 import net.sf.saxon.xpath.XPathFactoryImpl;
@@ -40,6 +42,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -374,11 +377,31 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     }
 
     @Override
+    public BigDecimal round(BigDecimal n, BigDecimal scale, String mode) {
+        try {
+            if (n == null || scale == null || mode == null) {
+                return null;
+            }
+
+            RoundingMode roundingMode = NumericRoundingMode.fromValue(mode);
+            if (roundingMode == null) {
+                throw new DMNRuntimeException(String.format("Unknown rounding mode '%s'. Expected one of '%s'", mode, NumericRoundingMode.ALLOWED_VALUES));
+            } else {
+                return n.setScale(scale.intValue(), roundingMode);
+            }
+        } catch (Exception e) {
+            String message = String.format("round(%s, %s, %s)", n, scale, mode);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public BigDecimal floor(BigDecimal number) {
         try {
             return BigDecimalUtil.floor(number);
         } catch (Throwable e) {
-            String message = String.format("fllor(%s)", number);
+            String message = String.format("floor(%s)", number);
             logError(message, e);
             return null;
         }
