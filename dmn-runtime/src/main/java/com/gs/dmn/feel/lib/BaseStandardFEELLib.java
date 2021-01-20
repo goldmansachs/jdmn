@@ -236,6 +236,17 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
+    public NUMBER round(NUMBER n, NUMBER scale, String mode) {
+        try {
+            return this.numberLib.round(n, scale, mode);
+        } catch (Exception e) {
+            String message = String.format("round(%s, %s, %s)", n, scale, mode);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public NUMBER floor(NUMBER number) {
         try {
             return this.numberLib.floor(number);

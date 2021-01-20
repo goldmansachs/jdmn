@@ -147,6 +147,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
 
     private static void addNumberFunctions(Environment environment) {
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("decimal", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("round", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER), new Parameter("mode", STRING))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("floor", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("ceiling", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("abs", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));

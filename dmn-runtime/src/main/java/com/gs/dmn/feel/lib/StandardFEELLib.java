@@ -61,6 +61,9 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     //
     NUMBER decimal(NUMBER n, NUMBER scale);
 
+    // Extension to DMN 1.3
+    NUMBER round(NUMBER n, NUMBER scale, String mode);
+
     NUMBER floor(NUMBER number);
 
     NUMBER ceiling(NUMBER number);

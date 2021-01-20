@@ -99,6 +99,126 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     }
 
     @Test
+    public void testRoundUp() {
+        assertNull(getLib().round(null, null, null));
+        assertNull(getLib().round(null, makeNumber("128"), null));
+        assertNull(getLib().round(makeNumber("10"), makeNumber("2"), null));
+        assertNull(getLib().round(makeNumber("10"), makeNumber("2"), "abc"));
+
+        //
+        // Test round up
+        //
+        assertEqualsNumber(makeNumber("6"), getLib().round(makeNumber("5.5"), makeNumber("0"), "up"));
+        assertEqualsNumber(makeNumber("3"), getLib().round(makeNumber("2.5"), makeNumber("0"), "up"));
+        assertEqualsNumber(makeNumber("2"), getLib().round(makeNumber("1.6"), makeNumber("0"), "up"));
+        assertEqualsNumber(makeNumber("2"), getLib().round(makeNumber("1.1"), makeNumber("0"), "up"));
+        assertEqualsNumber(makeNumber("1"), getLib().round(makeNumber("1.0"), makeNumber("0"), "up"));
+        assertEqualsNumber(makeNumber("-1"), getLib().round(makeNumber("-1.0"), makeNumber("0"), "up"));
+        assertEqualsNumber(makeNumber("-2"), getLib().round(makeNumber("-1.1"), makeNumber("0"), "up"));
+        assertEqualsNumber(makeNumber("-2"), getLib().round(makeNumber("-1.6"), makeNumber("0"), "up"));
+        assertEqualsNumber(makeNumber("-3"), getLib().round(makeNumber("-2.5"), makeNumber("0"), "up"));
+        assertEqualsNumber(makeNumber("-6"), getLib().round(makeNumber("-5.5"), makeNumber("0"), "up"));
+
+        assertEqualsNumber(makeNumber("5.13"), getLib().round(makeNumber("5.125"), makeNumber("2"), "up"));
+        assertEqualsNumber(makeNumber("2.13"), getLib().round(makeNumber("2.125"), makeNumber("2"), "up"));
+        assertEqualsNumber(makeNumber("1.13"), getLib().round(makeNumber("1.126"), makeNumber("2"), "up"));
+        assertEqualsNumber(makeNumber("1.13"), getLib().round(makeNumber("1.121"), makeNumber("2"), "up"));
+        assertEqualsNumber(makeNumber("1.12"), getLib().round(makeNumber("1.120"), makeNumber("2"), "up"));
+        assertEqualsNumber(makeNumber("-1.12"), getLib().round(makeNumber("-1.120"), makeNumber("2"), "up"));
+        assertEqualsNumber(makeNumber("-1.13"), getLib().round(makeNumber("-1.121"), makeNumber("2"), "up"));
+        assertEqualsNumber(makeNumber("-1.13"), getLib().round(makeNumber("-1.126"), makeNumber("2"), "up"));
+        assertEqualsNumber(makeNumber("-2.13"), getLib().round(makeNumber("-2.125"), makeNumber("2"), "up"));
+        assertEqualsNumber(makeNumber("-5.13"), getLib().round(makeNumber("-5.125"), makeNumber("2"), "up"));
+    }
+
+    @Test
+    public void testRoundDown() {
+        assertNull(getLib().round(null, null, "down"));
+        assertNull(getLib().round(null, makeNumber("128"), "down"));
+        assertNull(getLib().round(makeNumber("10"), null, "down"));
+
+        assertEqualsNumber(makeNumber("5"), getLib().round(makeNumber("5.5"), makeNumber("0"), "down"));
+        assertEqualsNumber(makeNumber("2"), getLib().round(makeNumber("2.5"), makeNumber("0"), "down"));
+        assertEqualsNumber(makeNumber("1"), getLib().round(makeNumber("1.6"), makeNumber("0"), "down"));
+        assertEqualsNumber(makeNumber("1"), getLib().round(makeNumber("1.1"), makeNumber("0"), "down"));
+        assertEqualsNumber(makeNumber("1"), getLib().round(makeNumber("1.0"), makeNumber("0"), "down"));
+        assertEqualsNumber(makeNumber("-1"), getLib().round(makeNumber("-1.0"), makeNumber("0"), "down"));
+        assertEqualsNumber(makeNumber("-1"), getLib().round(makeNumber("-1.1"), makeNumber("0"), "down"));
+        assertEqualsNumber(makeNumber("-1"), getLib().round(makeNumber("-1.6"), makeNumber("0"), "down"));
+        assertEqualsNumber(makeNumber("-2"), getLib().round(makeNumber("-2.5"), makeNumber("0"), "down"));
+        assertEqualsNumber(makeNumber("-5"), getLib().round(makeNumber("-5.5"), makeNumber("0"), "down"));
+
+        assertEqualsNumber(makeNumber("5.12"), getLib().round(makeNumber("5.125"), makeNumber("2"), "down"));
+        assertEqualsNumber(makeNumber("2.12"), getLib().round(makeNumber("2.125"), makeNumber("2"), "down"));
+        assertEqualsNumber(makeNumber("1.12"), getLib().round(makeNumber("1.126"), makeNumber("2"), "down"));
+        assertEqualsNumber(makeNumber("1.12"), getLib().round(makeNumber("1.121"), makeNumber("2"), "down"));
+        assertEqualsNumber(makeNumber("1.12"), getLib().round(makeNumber("1.120"), makeNumber("2"), "down"));
+        assertEqualsNumber(makeNumber("-1.12"), getLib().round(makeNumber("-1.120"), makeNumber("2"), "down"));
+        assertEqualsNumber(makeNumber("-1.12"), getLib().round(makeNumber("-1.121"), makeNumber("2"), "down"));
+        assertEqualsNumber(makeNumber("-1.12"), getLib().round(makeNumber("-1.126"), makeNumber("2"), "down"));
+        assertEqualsNumber(makeNumber("-2.12"), getLib().round(makeNumber("-2.125"), makeNumber("2"), "down"));
+        assertEqualsNumber(makeNumber("-5.12"), getLib().round(makeNumber("-5.125"), makeNumber("2"), "down"));
+    }
+
+    @Test
+    public void testRoundHalfUp() {
+        assertNull(getLib().round(null, null, "half up"));
+        assertNull(getLib().round(null, makeNumber("128"), "half up"));
+        assertNull(getLib().round(makeNumber("10"), null, "half up"));
+
+        assertEqualsNumber(makeNumber("6"), getLib().round(makeNumber("5.5"), makeNumber("0"), "half up"));
+        assertEqualsNumber(makeNumber("3"), getLib().round(makeNumber("2.5"), makeNumber("0"), "half up"));
+        assertEqualsNumber(makeNumber("2"), getLib().round(makeNumber("1.6"), makeNumber("0"), "half up"));
+        assertEqualsNumber(makeNumber("1"), getLib().round(makeNumber("1.1"), makeNumber("0"), "half up"));
+        assertEqualsNumber(makeNumber("1"), getLib().round(makeNumber("1.0"), makeNumber("0"), "half up"));
+        assertEqualsNumber(makeNumber("-1"), getLib().round(makeNumber("-1.0"), makeNumber("0"), "half up"));
+        assertEqualsNumber(makeNumber("-1"), getLib().round(makeNumber("-1.1"), makeNumber("0"), "half up"));
+        assertEqualsNumber(makeNumber("-2"), getLib().round(makeNumber("-1.6"), makeNumber("0"), "half up"));
+        assertEqualsNumber(makeNumber("-3"), getLib().round(makeNumber("-2.5"), makeNumber("0"), "half up"));
+        assertEqualsNumber(makeNumber("-6"), getLib().round(makeNumber("-5.5"), makeNumber("0"), "half up"));
+
+        assertEqualsNumber(makeNumber("5.13"), getLib().round(makeNumber("5.125"), makeNumber("2"), "half up"));
+        assertEqualsNumber(makeNumber("2.13"), getLib().round(makeNumber("2.125"), makeNumber("2"), "half up"));
+        assertEqualsNumber(makeNumber("1.13"), getLib().round(makeNumber("1.126"), makeNumber("2"), "half up"));
+        assertEqualsNumber(makeNumber("1.12"), getLib().round(makeNumber("1.121"), makeNumber("2"), "half up"));
+        assertEqualsNumber(makeNumber("1.12"), getLib().round(makeNumber("1.120"), makeNumber("2"), "half up"));
+        assertEqualsNumber(makeNumber("-1.12"), getLib().round(makeNumber("-1.120"), makeNumber("2"), "half up"));
+        assertEqualsNumber(makeNumber("-1.12"), getLib().round(makeNumber("-1.121"), makeNumber("2"), "half up"));
+        assertEqualsNumber(makeNumber("-1.13"), getLib().round(makeNumber("-1.126"), makeNumber("2"), "half up"));
+        assertEqualsNumber(makeNumber("-2.13"), getLib().round(makeNumber("-2.125"), makeNumber("2"), "half up"));
+        assertEqualsNumber(makeNumber("-5.13"), getLib().round(makeNumber("-5.125"), makeNumber("2"), "half up"));
+    }
+
+    @Test
+    public void testRoundHalfDown() {
+        assertNull(getLib().round(null, null, "half down"));
+        assertNull(getLib().round(null, makeNumber("128"), "half down"));
+        assertNull(getLib().round(makeNumber("10"), null, "half down"));
+
+        assertEqualsNumber(makeNumber("5"), getLib().round(makeNumber("5.5"), makeNumber("0"), "half down"));
+        assertEqualsNumber(makeNumber("2"), getLib().round(makeNumber("2.5"), makeNumber("0"), "half down"));
+        assertEqualsNumber(makeNumber("2"), getLib().round(makeNumber("1.6"), makeNumber("0"), "half down"));
+        assertEqualsNumber(makeNumber("1"), getLib().round(makeNumber("1.1"), makeNumber("0"), "half down"));
+        assertEqualsNumber(makeNumber("1"), getLib().round(makeNumber("1.0"), makeNumber("0"), "half down"));
+        assertEqualsNumber(makeNumber("-1"), getLib().round(makeNumber("-1.0"), makeNumber("0"), "half down"));
+        assertEqualsNumber(makeNumber("-1"), getLib().round(makeNumber("-1.1"), makeNumber("0"), "half down"));
+        assertEqualsNumber(makeNumber("-2"), getLib().round(makeNumber("-1.6"), makeNumber("0"), "half down"));
+        assertEqualsNumber(makeNumber("-2"), getLib().round(makeNumber("-2.5"), makeNumber("0"), "half down"));
+        assertEqualsNumber(makeNumber("-5"), getLib().round(makeNumber("-5.5"), makeNumber("0"), "half down"));
+
+        assertEqualsNumber(makeNumber("5.12"), getLib().round(makeNumber("5.125"), makeNumber("2"), "half down"));
+        assertEqualsNumber(makeNumber("2.12"), getLib().round(makeNumber("2.125"), makeNumber("2"), "half down"));
+        assertEqualsNumber(makeNumber("1.13"), getLib().round(makeNumber("1.126"), makeNumber("2"), "half down"));
+        assertEqualsNumber(makeNumber("1.12"), getLib().round(makeNumber("1.121"), makeNumber("2"), "half down"));
+        assertEqualsNumber(makeNumber("1.12"), getLib().round(makeNumber("1.120"), makeNumber("2"), "half down"));
+        assertEqualsNumber(makeNumber("-1.12"), getLib().round(makeNumber("-1.120"), makeNumber("2"), "half down"));
+        assertEqualsNumber(makeNumber("-1.12"), getLib().round(makeNumber("-1.121"), makeNumber("2"), "half down"));
+        assertEqualsNumber(makeNumber("-1.13"), getLib().round(makeNumber("-1.126"), makeNumber("2"), "half down"));
+        assertEqualsNumber(makeNumber("-2.12"), getLib().round(makeNumber("-2.125"), makeNumber("2"), "half down"));
+        assertEqualsNumber(makeNumber("-5.12"), getLib().round(makeNumber("-5.125"), makeNumber("2"), "half down"));
+    }
+
+    @Test
     public void testFloor() {
         assertNull(getLib().floor(null));
 

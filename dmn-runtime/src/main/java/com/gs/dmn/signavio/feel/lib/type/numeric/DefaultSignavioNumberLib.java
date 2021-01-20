@@ -15,6 +15,7 @@ package com.gs.dmn.signavio.feel.lib.type.numeric;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 public class DefaultSignavioNumberLib extends DefaultNumericLib implements SignavioNumberLib<BigDecimal> {
@@ -47,7 +48,7 @@ public class DefaultSignavioNumberLib extends DefaultNumericLib implements Signa
             return null;
         }
 
-        return number.setScale(digits.intValue(), BigDecimal.ROUND_HALF_UP);
+        return number.setScale(digits.intValue(), RoundingMode.HALF_EVEN);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class DefaultSignavioNumberLib extends DefaultNumericLib implements Signa
             return null;
         }
 
-        return number.setScale(digits.intValue(), BigDecimal.ROUND_DOWN);
+        return number.setScale(digits.intValue(), RoundingMode.DOWN);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class DefaultSignavioNumberLib extends DefaultNumericLib implements Signa
             return null;
         }
 
-        return number.setScale(digits.intValue(), BigDecimal.ROUND_UP);
+        return number.setScale(digits.intValue(), RoundingMode.UP);
     }
 
     @Override

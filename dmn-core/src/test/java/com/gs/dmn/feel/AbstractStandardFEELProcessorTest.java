@@ -211,12 +211,18 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "decimal(number(\"100\"), number(\"2\"))",
                 lib.decimal(lib.number("100"), lib.number("2")),
                 lib.decimal(lib.number("100"), lib.number("2")));
+        doExpressionTest(entries, "", "round(5.125, 2, \"up\")",
+                "FunctionInvocation(Name(round) -> PositionalParameters(NumericLiteral(5.125), NumericLiteral(2), StringLiteral(\"up\")))",
+                "number",
+                "round(number(\"5.125\"), number(\"2\"), \"up\")",
+                this.lib.round(this.lib.number("5.125"), this.lib.number("2"), "up"),
+                this.lib.number("5.13"));
         doExpressionTest(entries, "", "floor(100)",
                 "FunctionInvocation(Name(floor) -> PositionalParameters(NumericLiteral(100)))",
                 "number",
                 "floor(number(\"100\"))",
-                lib.floor(lib.number("100")),
-                lib.decimal(lib.number("100"), lib.number("0")));
+                this.lib.floor(this.lib.number("100")),
+                this.lib.number("100"));
         doExpressionTest(entries, "", "ceiling(100)",
                 "FunctionInvocation(Name(ceiling) -> PositionalParameters(NumericLiteral(100)))",
                 "number",
