@@ -34,6 +34,10 @@ public class NumericLibStub<NUMBER> implements NumericLib<NUMBER> {
     }
 
     @Override
+    public NUMBER round(NUMBER n, NUMBER scale, String mode) {
+        throw new DMNRuntimeException("Not supported yet");    }
+
+    @Override
     public NUMBER floor(NUMBER NUMBER) {
         throw new DMNRuntimeException("Not supported yet");
     }

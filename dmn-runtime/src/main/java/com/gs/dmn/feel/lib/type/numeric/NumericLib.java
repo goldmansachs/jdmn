@@ -21,11 +21,14 @@ public interface NumericLib<NUMBER> {
 
     NUMBER decimal(NUMBER n, NUMBER scale);
 
-    NUMBER floor(NUMBER NUMBER);
+    // Extension to DMN 1.3
+    NUMBER round(NUMBER n, NUMBER scale, String mode);
 
-    NUMBER ceiling(NUMBER NUMBER);
+    NUMBER floor(NUMBER n);
 
-    NUMBER abs(NUMBER NUMBER);
+    NUMBER ceiling(NUMBER n);
+
+    NUMBER abs(NUMBER number);
 
     NUMBER intModulo(NUMBER dividend, NUMBER divisor);
 
