@@ -15,6 +15,7 @@ package com.gs.dmn.signavio.feel.lib.type.numeric;
 import com.gs.dmn.feel.lib.type.numeric.DoubleNumericLib;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 public class DoubleSignavioNumberLib extends DoubleNumericLib implements SignavioNumberLib<Double>{
@@ -47,7 +48,7 @@ public class DoubleSignavioNumberLib extends DoubleNumericLib implements Signavi
             return null;
         }
 
-        return BigDecimal.valueOf(number).setScale(digits.intValue(), BigDecimal.ROUND_HALF_UP).doubleValue();
+        return BigDecimal.valueOf(number).setScale(digits.intValue(), RoundingMode.HALF_EVEN).doubleValue();
     }
 
     @Override
@@ -56,7 +57,7 @@ public class DoubleSignavioNumberLib extends DoubleNumericLib implements Signavi
             return null;
         }
 
-        return BigDecimal.valueOf(number).setScale(digits.intValue(), BigDecimal.ROUND_DOWN).doubleValue();
+        return BigDecimal.valueOf(number).setScale(digits.intValue(), RoundingMode.DOWN).doubleValue();
     }
 
     @Override
@@ -65,7 +66,7 @@ public class DoubleSignavioNumberLib extends DoubleNumericLib implements Signavi
             return null;
         }
 
-        return BigDecimal.valueOf(number).setScale(digits.intValue(), BigDecimal.ROUND_UP).doubleValue();
+        return BigDecimal.valueOf(number).setScale(digits.intValue(), RoundingMode.UP).doubleValue();
     }
 
     @Override
