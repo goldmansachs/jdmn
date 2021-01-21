@@ -111,13 +111,21 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     }
 
     public String getDiagramId(TDMNElement element) {
+        if (element == null) {
+            return null;
+        }
+        Map<QName, String> otherAttributes = element.getOtherAttributes();
         javax.xml.namespace.QName diagramIdQName = getDiagramIdQName();
-        return element.getOtherAttributes().get(diagramIdQName);
+        return otherAttributes == null ? null : otherAttributes.get(diagramIdQName);
     }
 
     public String getShapeId(TDRGElement element) {
+        if (element == null) {
+            return null;
+        }
+        Map<QName, String> otherAttributes = element.getOtherAttributes();
         javax.xml.namespace.QName shapeIdQName = getShapeIdQName();
-        return element.getOtherAttributes().get(shapeIdQName);
+        return otherAttributes == null ? null : otherAttributes.get(shapeIdQName);
     }
 
     public SignavioExtension getExtension() {
