@@ -640,83 +640,80 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         FunctionType functionType = (FunctionType) element.getFunction().getType();
         List<FormalParameter> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
-        if (function instanceof Name || function instanceof QualifiedName && ((QualifiedName) function).getNames().size() == 1) {
-            String feelFunctionName = functionName(function);
-            Object binding = context.lookupBinding(feelFunctionName);
-            if (isFunctionDefinition(binding)) {
-                return evaluateFunction(binding, functionType, argList, context);
-            } else {
-                String javaFunctionName = javaFunctionName(feelFunctionName);
-                if ("sort".equals(javaFunctionName)) {
-                    FunctionDefinition functionDefinition = (FunctionDefinition) argList.get(1);
-                    Object lambdaExpression = makeLambdaExpression(functionDefinition, context);
-                    argList.set(1, lambdaExpression);
-                    Object result = evaluateBuiltInFunction(this.lib, javaFunctionName, argList);
-                    JAVA_COMPILER.deleteLambdaClass(lambdaExpression);
-                    return result;
-                } else {
-                    return evaluateBuiltInFunction(this.lib, javaFunctionName, argList);
-                }
-            }
+        if (isSimpleName(function)) {
+            String functionName = functionName(function);
+            return evaluateFunction(functionName, functionType, argList, context);
         } else {
-            Object binding = function.accept(this, context);
-            return evaluateFunction(binding, functionType, argList, context);
+            Object functionDefinition = function.accept(this, context);
+            return evaluateFunction(functionDefinition, functionType, argList, context);
         }
     }
 
-    private Object evaluateFunction(Object binding, FunctionType functionType, List<Object> argList, DMNContext context) {
-        if (binding == null) {
-            throw new DMNRuntimeException(String.format("Missing function binding, expecting value of type for '%s'", functionType));
-        } else if (binding instanceof TBusinessKnowledgeModel) {
-            Result result = this.dmnInterpreter.evaluate((TInvocable) binding, argList, context);
-            return Result.value(result);
-        } else if (binding instanceof TDecisionService) {
-            Result result = this.dmnInterpreter.evaluate((TInvocable) binding, argList, context);
-            return Result.value(result);
-        } else if (binding instanceof TFunctionDefinition) {
-            TFunctionKind kind = ((TFunctionDefinition) binding).getKind();
-            if (this.dmnTransformer.isFEELFunction(kind)) {
-                Result result = this.dmnInterpreter.evaluate((TFunctionDefinition) binding, argList, context);
-                return Result.value(result);
-            } else if (this.dmnTransformer.isJavaFunction(kind)) {
-                return evaluateExternalJavaFunction((TFunctionDefinition) binding, argList, context);
-            } else {
-                throw new DMNRuntimeException(String.format("Kind '%s' is not supported yet", kind.value()));
-            }
-        } else if (binding instanceof FunctionDefinition) {
-            FunctionDefinition functionDefinition = (FunctionDefinition) binding;
-            if (functionDefinition.isExternal()) {
-                if (isJavaFunction(((FunctionDefinition) binding).getBody())) {
-                    return evaluateExternalJavaFunction((FunctionDefinition) binding, argList, context);
-                } else {
-                    throw new DMNRuntimeException(String.format("Not supported external function '%s'", functionDefinition));
-                }
-            } else {
-                if (functionType instanceof FEELFunctionType) {
-                    // Use the one with inferred types
-                    functionDefinition = ((FEELFunctionType) functionType).getFunctionDefinition();
-                }
-                return evaluateFunctionDefinition(functionDefinition, argList, context);
-            }
-        } else if (binding instanceof LambdaExpression) {
-            return evaluateLambdaExpression((LambdaExpression) binding, argList, context);
+    private Object evaluateFunction(String functionName, FunctionType functionType, List<Object> argList, DMNContext context) {
+        Object functionDefinition = context.lookupBinding(functionName);
+        if (isFunctionDefinition(functionDefinition)) {
+            return evaluateFunction(functionDefinition, functionType, argList, context);
         } else {
-            throw new DMNRuntimeException(String.format("Not supported yet %s", binding.getClass().getSimpleName()));
+            String javaFunctionName = javaFunctionName(functionName);
+            if ("sort".equals(javaFunctionName)) {
+                FunctionDefinition comparatorDefinition = (FunctionDefinition) argList.get(1);
+                Object lambdaExpression = makeLambdaExpression(comparatorDefinition, context);
+                argList.set(1, lambdaExpression);
+                Object result = evaluateBuiltInFunction(this.lib, javaFunctionName, argList);
+                JAVA_COMPILER.deleteLambdaClass(lambdaExpression);
+                return result;
+            } else {
+                return evaluateBuiltInFunction(this.lib, javaFunctionName, argList);
+            }
         }
     }
 
-    private boolean isFunctionDefinition(Object binding) {
-        return binding instanceof TBusinessKnowledgeModel
-                || binding instanceof TDecisionService
-                || binding instanceof TFunctionDefinition
-                || binding instanceof FunctionDefinition
-                || binding instanceof LambdaExpression;
+    private Object evaluateFunction(Object functionDefinition, FunctionType functionType, List<Object> argList, DMNContext context) {
+        if (functionDefinition == null) {
+            throw new DMNRuntimeException(String.format("Missing function definition, expecting value of type for '%s'", functionType));
+        } else if (functionDefinition instanceof TBusinessKnowledgeModel) {
+            Result result = this.dmnInterpreter.evaluate((TInvocable) functionDefinition, argList, context);
+            return Result.value(result);
+        } else if (functionDefinition instanceof TDecisionService) {
+            Result result = this.dmnInterpreter.evaluate((TInvocable) functionDefinition, argList, context);
+            return Result.value(result);
+        } else if (functionDefinition instanceof TFunctionDefinition) {
+            return evaluateFunctionDefinition((TFunctionDefinition) functionDefinition, argList, context);
+        } else if (functionDefinition instanceof FunctionDefinition) {
+            return evaluateFunction((FunctionDefinition) functionDefinition, functionType, argList, context);
+        } else if (functionDefinition instanceof LambdaExpression) {
+            return evaluateLambdaExpression((LambdaExpression) functionDefinition, argList, context);
+        } else {
+            throw new DMNRuntimeException(String.format("Not supported yet %s", functionDefinition.getClass().getSimpleName()));
+        }
     }
 
-    private boolean isJavaFunction(Expression body) {
-        return  body instanceof Context &&
-                ((Context) body).getEntries().size() == 1 &&
-                "java".equals(((Context) body).getEntries().get(0).getKey().getKey());
+    private Object evaluateFunction(FunctionDefinition functionDefinition, FunctionType functionType, List<Object> argList, DMNContext context) {
+        if (functionDefinition.isExternal()) {
+            if (isJavaFunction(((FunctionDefinition) functionDefinition).getBody())) {
+                return evaluateExternalJavaFunction((FunctionDefinition) functionDefinition, argList, context);
+            } else {
+                throw new DMNRuntimeException(String.format("Not supported external function '%s'", functionDefinition));
+            }
+        } else {
+            if (functionType instanceof FEELFunctionType) {
+                // Use the one with inferred types
+                functionDefinition = ((FEELFunctionType) functionType).getFunctionDefinition();
+            }
+            return evaluateFunctionDefinition(functionDefinition, argList, context);
+        }
+    }
+
+    private Object evaluateFunctionDefinition(TFunctionDefinition binding, List<Object> argList, DMNContext context) {
+        TFunctionKind kind = binding.getKind();
+        if (this.dmnTransformer.isFEELFunction(kind)) {
+            Result result = this.dmnInterpreter.evaluate(binding, argList, context);
+            return Result.value(result);
+        } else if (this.dmnTransformer.isJavaFunction(kind)) {
+            return evaluateExternalJavaFunction(binding, argList, context);
+        } else {
+            throw new DMNRuntimeException(String.format("Kind '%s' is not supported yet", kind.value()));
+        }
     }
 
     private Object evaluateExternalJavaFunction(TFunctionDefinition functionDefinition, List<Object> argList, DMNContext context) {
@@ -785,6 +782,22 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         }
     }
 
+    private boolean isSimpleName(Expression function) {
+        return function instanceof Name || function instanceof QualifiedName && ((QualifiedName) function).getNames().size() == 1;
+    }
+    private boolean isFunctionDefinition(Object binding) {
+        return binding instanceof TBusinessKnowledgeModel
+                || binding instanceof TDecisionService
+                || binding instanceof TFunctionDefinition
+                || binding instanceof FunctionDefinition
+                || binding instanceof LambdaExpression;
+    }
+
+    private boolean isJavaFunction(Expression body) {
+        return  body instanceof Context &&
+                ((Context) body).getEntries().size() == 1 &&
+                "java".equals(((Context) body).getEntries().get(0).getKey().getKey());
+    }
 
     @Override
     public Object visit(NamedParameters element, DMNContext context) {
