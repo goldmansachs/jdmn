@@ -74,7 +74,7 @@ public abstract class BaseDateTimeLib {
                 .optionalEnd()
                 .optionalStart()
                 .appendLiteral('@')
-                .parseCaseSensitive()
+                .parseCaseInsensitive()
                 .appendZoneRegionId()
                 .optionalEnd()
                 .toFormatter(Locale.getDefault(Locale.Category.FORMAT));

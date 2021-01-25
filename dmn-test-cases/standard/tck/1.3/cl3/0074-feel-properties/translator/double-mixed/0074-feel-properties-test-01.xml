@@ -156,7 +156,7 @@
         <description>dateTime -  time offset when not set</description>
         <resultNode name="dateTime_008_a" type="decision">
             <expected>
-                <value xsi:nil="true"/>
+                <value xsi:type="xsd:duration">P0Y0M0DT0H0M0.000S</value>
             </expected>
         </resultNode>
     </testCase>
@@ -165,7 +165,7 @@
         <description>dateTime -  timezone when set</description>
         <resultNode name="dateTime_009" type="decision">
             <expected>
-                <value xsi:type="xsd:string">Etc/UTC</value>
+                <value xsi:type="xsd:string">Z</value>
             </expected>
         </resultNode>
     </testCase>
@@ -174,7 +174,7 @@
         <description>dateTime -  timezone when not set</description>
         <resultNode name="dateTime_009_a" type="decision">
             <expected>
-                <value xsi:nil="true"/>
+                <value xsi:type="xsd:string">Z</value>
             </expected>
         </resultNode>
     </testCase>
@@ -219,7 +219,7 @@
         <description>time -  time offset when not set</description>
         <resultNode name="time_004_a" type="decision">
             <expected>
-                <value xsi:nil="true"/>
+                <value xsi:type="xsd:duration">P0Y0M0DT0H0M0.000S</value>
             </expected>
         </resultNode>
     </testCase>
@@ -239,7 +239,7 @@
         <description>time -  timezone when not set</description>
         <resultNode name="time_005_a" type="decision">
             <expected>
-                <value xsi:nil="true"/>
+                <value xsi:type="xsd:string">Z</value>
             </expected>
         </resultNode>
     </testCase>

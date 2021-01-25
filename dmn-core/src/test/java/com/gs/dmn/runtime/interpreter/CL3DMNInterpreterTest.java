@@ -344,6 +344,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_13_cl3_0074_feel_properties() {
+        doSingleModelTest("1.3", "0074-feel-properties");
+    }
+
+    @Test
     public void test_13_cl3_0082_feel_coercion() {
         doSingleModelTest("1.3", "0082-feel-coercion");
     }

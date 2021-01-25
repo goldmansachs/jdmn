@@ -21,6 +21,9 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
+import static com.gs.dmn.feel.lib.type.time.xml.DefaultDurationLib.hasDayOrTime;
+import static com.gs.dmn.feel.lib.type.time.xml.DefaultDurationLib.hasYearsOrMonths;
+
 public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
     private final DatatypeFactory dataTypeFactory;
     private final MixedDateTimeLib dateTimeLib;
@@ -88,57 +91,81 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
     }
 
     @Override
-    public Long years(Duration duration) {
+    public Long years(javax.xml.datatype.Duration duration) {
         if (duration == null) {
             return null;
         }
 
-        return (long) duration.getYears();
+        if (hasYearsOrMonths(duration)) {
+            return (long) duration.getYears();
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public Long months(Duration duration) {
+    public Long months(javax.xml.datatype.Duration duration) {
         if (duration == null) {
             return null;
         }
 
-        return (long) duration.getMonths();
+        if (hasYearsOrMonths(duration)) {
+            return (long) duration.getMonths();
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public Long days(Duration duration) {
+    public Long days(javax.xml.datatype.Duration duration) {
         if (duration == null) {
             return null;
         }
 
-        return (long) duration.getDays();
+        if (hasDayOrTime(duration)) {
+            return (long) duration.getDays();
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public Long hours(Duration duration) {
+    public Long hours(javax.xml.datatype.Duration duration) {
         if (duration == null) {
             return null;
         }
 
-        return (long) duration.getHours();
+        if (hasDayOrTime(duration)) {
+            return (long) duration.getHours();
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public Long minutes(Duration duration) {
+    public Long minutes(javax.xml.datatype.Duration duration) {
         if (duration == null) {
             return null;
         }
 
-        return (long) duration.getMinutes();
+        if (hasDayOrTime(duration)) {
+            return (long) duration.getMinutes();
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public Long seconds(Duration duration) {
+    public Long seconds(javax.xml.datatype.Duration duration) {
         if (duration == null) {
             return null;
         }
 
-        return (long) duration.getSeconds();
+        if (hasDayOrTime(duration)) {
+            return (long) duration.getSeconds();
+        } else {
+            return null;
+        }
     }
 
     @Override

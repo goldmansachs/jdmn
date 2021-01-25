@@ -18,15 +18,24 @@ import org.apache.commons.lang3.StringUtils;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.TemporalAmount;
-import java.util.Arrays;
-import java.util.List;
 
 public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, javax.xml.datatype.Duration> {
+    public static boolean hasYearsOrMonths(javax.xml.datatype.Duration duration) {
+        return duration.isSet(DatatypeConstants.YEARS)
+                || duration.isSet(DatatypeConstants.MONTHS)
+                ;
+    }
+
+    public static boolean hasDayOrTime(javax.xml.datatype.Duration duration) {
+        return duration.isSet(DatatypeConstants.DAYS)
+                || duration.isSet(DatatypeConstants.HOURS)
+                || duration.isSet(DatatypeConstants.MINUTES)
+                || duration.isSet(DatatypeConstants.SECONDS)
+                ;
+    }
+
     private final DatatypeFactory dataTypeFactory;
 
     public DefaultDurationLib(DatatypeFactory dataTypeFactory) {
@@ -140,20 +149,6 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
         return duration.getSign() == -1 ? duration.negate() : duration;
     }
 
-    private boolean hasYearsOrMonths(javax.xml.datatype.Duration duration) {
-        return duration.isSet(DatatypeConstants.YEARS)
-                || duration.isSet(DatatypeConstants.MONTHS)
-                ;
-    }
-
-    private boolean hasDayOrTime(javax.xml.datatype.Duration duration) {
-        return duration.isSet(DatatypeConstants.DAYS)
-                || duration.isSet(DatatypeConstants.HOURS)
-                || duration.isSet(DatatypeConstants.MINUTES)
-                || duration.isSet(DatatypeConstants.SECONDS)
-                ;
-    }
-
     private javax.xml.datatype.Duration toYearsMonthDuration(DatatypeFactory datatypeFactory, LocalDate date1, LocalDate date2) {
         Period between = Period.between(date2, date1);
         int years = between.getYears();
@@ -163,28 +158,5 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
             months = - months;
         }
         return datatypeFactory.newDurationYearMonth(!between.isNegative(), years, months);
-    }
-
-    public static TemporalAmount temporalAmount(String literal) {
-        if (literal == null) {
-            throw new IllegalArgumentException("Duration literal cannot be null");
-        }
-
-        if (literal.indexOf("-") > 0) {
-            throw new IllegalArgumentException("Negative values for units are not allowed.");
-        }
-
-        try {
-            return Duration.parse(literal);
-        } catch (DateTimeParseException e1) {
-            try {
-                return Period.parse(literal).normalized();
-            } catch (DateTimeParseException e2) {
-                throw new RuntimeException("Parsing exception in duration literal",
-                        new RuntimeException(new Throwable() {
-                            public final List<Throwable> causes = Arrays.asList(new Throwable[]{e1, e2});
-                        }));
-            }
-        }
     }
 }
