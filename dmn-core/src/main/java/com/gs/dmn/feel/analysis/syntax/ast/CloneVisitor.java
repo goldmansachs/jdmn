@@ -88,24 +88,24 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(OperatorTest element, DMNContext context) {
+    public Object visit(OperatorRange element, DMNContext context) {
         if (element == null) {
             return null;
         }
 
         Expression endpoint = (Expression) element.getEndpoint().accept(this, context);
-        return this.astFactory.toOperatorTest(element.getOperator(), endpoint);
+        return this.astFactory.toOperatorRange(element.getOperator(), endpoint);
     }
 
     @Override
-    public Object visit(RangeTest element, DMNContext context) {
+    public Object visit(EndpointsRange element, DMNContext context) {
         if (element == null) {
             return null;
         }
 
         Expression start = (Expression) element.getStart().accept(this, context);
         Expression end = (Expression) element.getEnd().accept(this, context);
-        return this.astFactory.toIntervalTest(par(element.isOpenStart()), start, par(element.isOpenEnd()), end);
+        return this.astFactory.toEndpointsRange(par(element.isOpenStart()), start, par(element.isOpenEnd()), end);
     }
 
     private String par(boolean isOpen) {

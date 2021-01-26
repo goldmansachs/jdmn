@@ -105,7 +105,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
     }
 
     @Override
-    public Object visit(OperatorTest element, DMNContext context) {
+    public Object visit(OperatorRange element, DMNContext context) {
         String operator = element.getOperator();
         Expression endpoint = element.getEndpoint();
         String condition;
@@ -122,7 +122,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
     }
 
     @Override
-    public Object visit(RangeTest element, DMNContext context) {
+    public Object visit(EndpointsRange element, DMNContext context) {
         Expression inputExpression = context.getInputExpression();
         if (inputExpression == null) {
             // Evaluate as range
@@ -248,8 +248,8 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         if (expressionDomain instanceof Name) {
             String name = ((Name) expressionDomain).getName();
             domain = this.dmnTransformer.nativeFriendlyVariableName(name);
-        } else if (expressionDomain instanceof RangeTest) {
-            RangeTest test = (RangeTest) expressionDomain;
+        } else if (expressionDomain instanceof EndpointsRange) {
+            EndpointsRange test = (EndpointsRange) expressionDomain;
             String start = (String) test.getStart().accept(this, context);
             String end = (String) test.getEnd().accept(this, context);
             domain = String.format("rangeToList(%s, %s, %s, %s)", test.isOpenStart(), start, test.isOpenEnd(), end);

@@ -68,12 +68,12 @@ public class NopVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(OperatorTest element, DMNContext context) {
+    public Object visit(OperatorRange element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(RangeTest element, DMNContext context) {
+    public Object visit(EndpointsRange element, DMNContext context) {
         return element;
     }
 

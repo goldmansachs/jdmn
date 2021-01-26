@@ -21,11 +21,11 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionInvocatio
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
-public class OperatorTest extends SimplePositiveUnaryTest {
+public class OperatorRange extends Range {
     private final String operator;
     private final Expression endpoint;
 
-    public OperatorTest(String operator, Expression endpoint) {
+    public OperatorRange(String operator, Expression endpoint) {
         this.operator = operator;
         this.endpoint = endpoint;
     }
@@ -39,7 +39,6 @@ public class OperatorTest extends SimplePositiveUnaryTest {
     }
 
     @Override
-    // TODO refactor types for Tests
     public void deriveType(DMNContext context) {
         setType(BooleanType.BOOLEAN);
         Type inputExpressionType = context.getInputExpressionType();
