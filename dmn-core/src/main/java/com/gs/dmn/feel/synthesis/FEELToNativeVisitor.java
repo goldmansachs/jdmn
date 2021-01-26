@@ -106,35 +106,42 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(OperatorRange element, DMNContext context) {
-        String operator = element.getOperator();
-        Expression endpoint = element.getEndpoint();
-        String condition;
-        if (endpoint instanceof FunctionInvocation) {
-            condition = (String) endpoint.accept(this, context);
+        if (context.isExpressionContext()) {
+            // Evaluate as range
+            return element.getEndpointsRange().accept(this, context);
         } else {
-            if (operator == null) {
-                condition = makeListTestCondition("=", inputExpressionToJava(context), endpoint, context);
+            // Evaluate as test
+            String operator = element.getOperator();
+            Expression endpoint = element.getEndpoint();
+            String condition;
+            if (endpoint instanceof FunctionInvocation) {
+                condition = (String) endpoint.accept(this, context);
             } else {
-                condition = makeListTestCondition(operator, inputExpressionToJava(context), endpoint, context);
+                if (operator == null) {
+                    condition = makeListTestCondition("=", inputExpressionToJava(context), endpoint, context);
+                } else {
+                    condition = makeListTestCondition(operator, inputExpressionToJava(context), endpoint, context);
+                }
             }
+            return condition;
         }
-        return condition;
     }
 
     @Override
     public Object visit(EndpointsRange element, DMNContext context) {
-        Expression inputExpression = context.getInputExpression();
-        if (inputExpression == null) {
+        Expression startEndpoint = element.getStart();
+        Expression endEndpoint = element.getEnd();
+        if (context.isExpressionContext()) {
             // Evaluate as range
             boolean startIncluded = !element.isOpenStart();
             boolean endIncluded = !element.isOpenEnd();
-            String start = (String) element.getStart().accept(this, context);
-            String end = (String) element.getEnd().accept(this, context);
+            String start = startEndpoint == null ? "null" : (String) startEndpoint.accept(this, context);
+            String end = endEndpoint == null ? "null" : (String) endEndpoint.accept(this, context);
             return String.format("new %s(%s, %s, %s, %s)", Range.class.getName(), startIncluded, start, endIncluded, end);
         } else {
             // Evaluate as test
-            String leftCondition = makeListTestCondition(element.isOpenStart() ? ">" : ">=", inputExpressionToJava(context), element.getStart(), context);
-            String rightCondition = makeListTestCondition(element.isOpenEnd() ? "<" : "<=", inputExpressionToJava(context), element.getEnd(), context);
+            String leftCondition = makeListTestCondition(element.isOpenStart() ? ">" : ">=", inputExpressionToJava(context), startEndpoint, context);
+            String rightCondition = makeListTestCondition(element.isOpenEnd() ? "<" : "<=", inputExpressionToJava(context), endEndpoint, context);
             return String.format("booleanAnd(%s, %s)", leftCondition, rightCondition);
         }
     }
@@ -604,12 +611,11 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
     }
 
     private String inputExpressionToJava(DMNContext context) {
-        Expression inputExpression = context.getInputExpression();
-        if (inputExpression == null) {
-            throw new DMNRuntimeException("Missing inputExpression");
+        if (context.isExpressionContext()) {
+            throw new DMNRuntimeException(String.format("Missing inputExpression in context of element '%s'", context.getElementName()));
         } else {
             // Evaluate as test
-            return (String) inputExpression.accept(this, context);
+            return (String) context.getInputExpression().accept(this, context);
         }
     }
 

@@ -17,6 +17,7 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNContext;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class EndpointsRange extends Range {
     private final boolean openStart;
@@ -49,10 +50,15 @@ public class EndpointsRange extends Range {
 
     @Override
     public void deriveType(DMNContext context) {
-        Type startType = this.start.getType();
-        Type endType = this.end.getType();
-        setType(new RangeType(startType));
-        checkType("..", startType, endType);
+        if (this.start == null && this.end == null) {
+            throw new DMNRuntimeException(String.format("Illegal range, both endpoints are null in context of element '%s'", context.getElementName()));
+        } else if (this.start != null) {
+            Type startType = this.start.getType();
+            setType(new RangeType(startType));
+        } else {
+            Type endType = this.end.getType();
+            setType(new RangeType(endType));
+        }
     }
 
     @Override

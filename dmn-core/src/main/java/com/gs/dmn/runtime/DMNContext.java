@@ -47,6 +47,10 @@ public class DMNContext {
         return this.element;
     }
 
+    public String getElementName() {
+        return this.element == null ? null : this.getElement().getName();
+    }
+
     public Environment getEnvironment() {
         return this.environment;
     }
@@ -57,6 +61,14 @@ public class DMNContext {
 
     public Type getInputExpressionType() {
         return this.environment.getInputExpressionType();
+    }
+
+    public boolean isTestContext() {
+        return getInputExpression() != null;
+    }
+
+    public boolean isExpressionContext() {
+        return !isTestContext();
     }
 
     public void addDeclaration(Declaration declaration) {

@@ -727,9 +727,8 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
 
     @Test
     public void testRangeFunctions() {
-        DATE input = this.lib.date("2010-10-02");
         List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", DATE, input));
+        );
 
         doExpressionTest(entries, "", "before(1, [5..8])",
                 "FunctionInvocation(Name(before) -> PositionalParameters(NumericLiteral(1), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
@@ -807,6 +806,37 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "boolean",
                 "new com.gs.dmn.runtime.Range(true, number(\"5\"), false, number(\"8\")).isEndIncluded()",
                 new com.gs.dmn.runtime.Range(true, this.lib.number("5"), false, this.lib.number("8")).isEndIncluded(),
+                false);
+
+        //
+        // OperatorRange
+        //
+        doExpressionTest(entries, "", "(< 10).start",
+                "PathExpression(OperatorRange(<,NumericLiteral(10)), start)",
+                "number",
+                "new com.gs.dmn.runtime.Range(false, null, false, number(\"10\")).getStart()",
+                new com.gs.dmn.runtime.Range(false, null, false, lib.number("10")).getStart(),
+                null);
+
+        doExpressionTest(entries, "", "(<= 10).end",
+                "PathExpression(OperatorRange(<=,NumericLiteral(10)), end)",
+                "number",
+                "new com.gs.dmn.runtime.Range(false, null, true, number(\"10\")).getEnd()",
+                new com.gs.dmn.runtime.Range(false, null, true, lib.number("10")).getEnd(),
+                this.lib.number("10"));
+
+        doExpressionTest(entries, "", "(< 10).start included",
+                "PathExpression(OperatorRange(<,NumericLiteral(10)), start included)",
+                "boolean",
+                "new com.gs.dmn.runtime.Range(false, null, false, number(\"10\")).isStartIncluded()",
+                new com.gs.dmn.runtime.Range(false, null, false, lib.number("10")).isStartIncluded(),
+                false);
+
+        doExpressionTest(entries, "", "(> 10).end included",
+                "PathExpression(OperatorRange(>,NumericLiteral(10)), end included)",
+                "boolean",
+                "new com.gs.dmn.runtime.Range(false, number(\"10\"), false, null).isEndIncluded()",
+                new com.gs.dmn.runtime.Range(false, lib.number("10"), false, null).isEndIncluded(),
                 false);
     }
 

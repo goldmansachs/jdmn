@@ -153,7 +153,23 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
 
     private Object evaluateOperatorRange(Expression element, String operator, Object self, Expression endpointExpression, DMNContext context) throws Exception {
         Object endpointValue = endpointExpression.accept(this, context);
-        return evaluateOperatorRange(element, operator, self, context.getInputExpressionType(), endpointExpression.getType(), endpointValue);
+        if (context.isExpressionContext()) {
+            if (operator == null || "=".equals(operator)) {
+                return new Range(true, endpointValue, true, endpointValue);
+            } else if ("<".equals(operator)) {
+                return new Range(false, null, false, endpointValue);
+            } else if ("<=".equals(operator)) {
+                return new Range(false, null, true, endpointValue);
+            } else if (">".equals(operator)) {
+                return new Range(false, endpointValue, false, null);
+            } else if (">=".equals(operator)) {
+                return new Range(true, endpointValue, false, null);
+            } else {
+                throw new DMNRuntimeException(String.format("Unknown operator '%s'", operator));
+            }
+        } else {
+            return evaluateOperatorRange(element, operator, self, context.getInputExpressionType(), endpointExpression.getType(), endpointValue);
+        }
     }
 
     private Object evaluateOperatorRange(Expression element, String operator, Object self, Type inputExpressionType, Type endpointType, Object endpointValue) throws IllegalAccessException, InvocationTargetException {
