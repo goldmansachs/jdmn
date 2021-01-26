@@ -47,9 +47,9 @@ public interface Visitor {
 
     Object visit(ExpressionTest element, DMNContext context);
 
-    Object visit(OperatorTest element, DMNContext context);
+    Object visit(OperatorRange element, DMNContext context);
 
-    Object visit(RangeTest element, DMNContext context);
+    Object visit(EndpointsRange element, DMNContext context);
 
     Object visit(ListTest element, DMNContext context);
 

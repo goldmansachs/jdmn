@@ -85,14 +85,14 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
     }
 
     @Override
-    public Object visit(OperatorTest element, DMNContext context) {
+    public Object visit(OperatorRange element, DMNContext context) {
         element.getEndpoint().accept(this, context);
         element.deriveType(context);
         return element;
     }
 
     @Override
-    public Object visit(RangeTest element, DMNContext context) {
+    public Object visit(EndpointsRange element, DMNContext context) {
         element.getStart().accept(this, context);
         element.getEnd().accept(this, context);
         element.deriveType(context);

@@ -68,7 +68,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 (this.lib.dateLessEqualThan(date, this.lib.dateSubtractDuration(this.lib.date("2020-01-01"), this.lib.duration("P5Y")))),
                 true);
         doUnaryTestsTest(entries, "date", "<= date(\"2020-01-01\")",
-                "PositiveUnaryTests(OperatorTest(<=,DateTimeLiteral(date, \"2020-01-01\")))",
+                "PositiveUnaryTests(OperatorRange(<=,DateTimeLiteral(date, \"2020-01-01\")))",
                 "TupleType(boolean)",
                 "(dateLessEqualThan(date, date(\"2020-01-01\")))",
                 (this.lib.dateLessEqualThan(date, this.lib.date("2020-01-01"))),
@@ -99,7 +99,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
         List<EnvironmentEntry> entries = Arrays.asList();
 
         doExpressionTest(entries, "", "\"b\" in [[\"f\"..\"h\"], [\"a\"..\"c\"]]",
-                "InExpression(StringLiteral(\"b\"), ListTest(ListLiteral(RangeTest(false,StringLiteral(\"f\"),false,StringLiteral(\"h\")),RangeTest(false,StringLiteral(\"a\"),false,StringLiteral(\"c\")))))",
+                "InExpression(StringLiteral(\"b\"), ListTest(ListLiteral(EndpointsRange(false,StringLiteral(\"f\"),false,StringLiteral(\"h\")),EndpointsRange(false,StringLiteral(\"a\"),false,StringLiteral(\"c\")))))",
                 "boolean",
                 "(listContains(asList(booleanAnd(stringGreaterEqualThan(\"b\", \"f\"), stringLessEqualThan(\"b\", \"h\")), booleanAnd(stringGreaterEqualThan(\"b\", \"a\"), stringLessEqualThan(\"b\", \"c\"))), true))",
                 (this.lib.listContains(this.lib.asList(this.lib.booleanAnd(this.lib.stringGreaterEqualThan("b", "f"), this.lib.stringLessEqualThan("b", "h")), this.lib.booleanAnd(this.lib.stringGreaterEqualThan("b", "a"), this.lib.stringLessEqualThan("b", "c"))), true)),
@@ -711,14 +711,14 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 null);
 
         doUnaryTestsTest(entries, "input", "@\"2010-10-01\"",
-                "PositiveUnaryTests(OperatorTest(null,DateTimeLiteral(date, \"2010-10-01\")))",
+                "PositiveUnaryTests(OperatorRange(null,DateTimeLiteral(date, \"2010-10-01\")))",
                 "TupleType(boolean)",
                 "(dateEqual(input, date(\"2010-10-01\")))",
                 (this.lib.dateEqual(input, this.lib.date("2010-10-01"))),
                 false);
 
         doUnaryTestsTest(entries, "input", "< @\"2010-10-01\"",
-                "PositiveUnaryTests(OperatorTest(<,DateTimeLiteral(date, \"2010-10-01\")))",
+                "PositiveUnaryTests(OperatorRange(<,DateTimeLiteral(date, \"2010-10-01\")))",
                 "TupleType(boolean)",
                 "(dateLessThan(input, date(\"2010-10-01\")))",
                 (this.lib.dateLessThan(input, this.lib.date("2010-10-01"))),
@@ -732,42 +732,42 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 new EnvironmentEntry("input", DATE, input));
 
         doExpressionTest(entries, "", "before(1, [5..8])",
-                "FunctionInvocation(Name(before) -> PositionalParameters(NumericLiteral(1), RangeTest(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "FunctionInvocation(Name(before) -> PositionalParameters(NumericLiteral(1), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
                 "before(number(\"1\"), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
                 this.lib.before(this.lib.number("1"), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
                 true);
 
         doExpressionTest(entries, "", "before(\"1\", [\"5\"..\"8\"])",
-                "FunctionInvocation(Name(before) -> PositionalParameters(StringLiteral(\"1\"), RangeTest(false,StringLiteral(\"5\"),false,StringLiteral(\"8\"))))",
+                "FunctionInvocation(Name(before) -> PositionalParameters(StringLiteral(\"1\"), EndpointsRange(false,StringLiteral(\"5\"),false,StringLiteral(\"8\"))))",
                 "boolean",
                 "before(\"1\", new com.gs.dmn.runtime.Range(true, \"5\", true, \"8\"))",
                 this.lib.before("1", new com.gs.dmn.runtime.Range(true, "5", true, "8")),
                 true);
 
         doExpressionTest(entries, "", "before(@\"2010-10-01\", [@\"2010-10-02\"..@\"2010-10-03\"])",
-                "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(date, \"2010-10-01\"), RangeTest(false,DateTimeLiteral(date, \"2010-10-02\"),false,DateTimeLiteral(date, \"2010-10-03\"))))",
+                "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(date, \"2010-10-01\"), EndpointsRange(false,DateTimeLiteral(date, \"2010-10-02\"),false,DateTimeLiteral(date, \"2010-10-03\"))))",
                 "boolean",
                 "before(date(\"2010-10-01\"), new com.gs.dmn.runtime.Range(true, date(\"2010-10-02\"), true, date(\"2010-10-03\")))",
                 this.lib.before(this.lib.date("2010-10-01"), new com.gs.dmn.runtime.Range(true, this.lib.date("2010-10-02"), true, this.lib.date("2010-10-03"))),
                 true);
 
         doExpressionTest(entries, "", "before(@\"12:00:00\", [@\"12:00:02\"..@\"12:00:03\"])",
-                "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(time, \"12:00:00\"), RangeTest(false,DateTimeLiteral(time, \"12:00:02\"),false,DateTimeLiteral(time, \"12:00:03\"))))",
+                "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(time, \"12:00:00\"), EndpointsRange(false,DateTimeLiteral(time, \"12:00:02\"),false,DateTimeLiteral(time, \"12:00:03\"))))",
                 "boolean",
                 "before(time(\"12:00:00\"), new com.gs.dmn.runtime.Range(true, time(\"12:00:02\"), true, time(\"12:00:03\")))",
                 this.lib.before(this.lib.time("12:00:00"), new com.gs.dmn.runtime.Range(true, this.lib.time("12:00:02"), true, this.lib.time("12:00:03"))),
                 true);
 
         doExpressionTest(entries, "", "before(@\"2010-10-01T12:00:00\", [@\"2010-10-02T12:00:00\"..@\"2010-10-03T12:00:00\"])",
-                "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(date and time, \"2010-10-01T12:00:00\"), RangeTest(false,DateTimeLiteral(date and time, \"2010-10-02T12:00:00\"),false,DateTimeLiteral(date and time, \"2010-10-03T12:00:00\"))))",
+                "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(date and time, \"2010-10-01T12:00:00\"), EndpointsRange(false,DateTimeLiteral(date and time, \"2010-10-02T12:00:00\"),false,DateTimeLiteral(date and time, \"2010-10-03T12:00:00\"))))",
                 "boolean",
                 "before(dateAndTime(\"2010-10-01T12:00:00\"), new com.gs.dmn.runtime.Range(true, dateAndTime(\"2010-10-02T12:00:00\"), true, dateAndTime(\"2010-10-03T12:00:00\")))",
                 this.lib.before(this.lib.dateAndTime("2010-10-01T12:00:00"), new com.gs.dmn.runtime.Range(true, this.lib.dateAndTime("2010-10-02T12:00:00"), true, this.lib.dateAndTime("2010-10-03T12:00:00"))),
                 true);
 
         doExpressionTest(entries, "", "before(@\"P10Y\", [@\"P12Y\"..@\"P13Y\"])",
-                "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(duration, \"P10Y\"), RangeTest(false,DateTimeLiteral(duration, \"P12Y\"),false,DateTimeLiteral(duration, \"P13Y\"))))",
+                "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(duration, \"P10Y\"), EndpointsRange(false,DateTimeLiteral(duration, \"P12Y\"),false,DateTimeLiteral(duration, \"P13Y\"))))",
                 "boolean",
                 "before(duration(\"P10Y\"), new com.gs.dmn.runtime.Range(true, duration(\"P12Y\"), true, duration(\"P13Y\")))",
                 this.lib.before(this.lib.duration("P10Y"), new com.gs.dmn.runtime.Range(true, this.lib.duration("P12Y"), true, this.lib.duration("P13Y"))),
@@ -778,29 +778,32 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
     public void testRangeProperties() {
         List<EnvironmentEntry> entries = new ArrayList<>();
 
+        //
+        // EndpointsRange
+        //
         doExpressionTest(entries, "", "[5..8].start",
-                "PathExpression(RangeTest(false,NumericLiteral(5),false,NumericLiteral(8)), start)",
+                "PathExpression(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), start)",
                 "number",
                 "new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")).getStart()",
                 (new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))).getStart(),
                 this.lib.number("5"));
 
         doExpressionTest(entries, "", "[5..8].end",
-                "PathExpression(RangeTest(false,NumericLiteral(5),false,NumericLiteral(8)), end)",
+                "PathExpression(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), end)",
                 "number",
                 "new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")).getEnd()",
                 new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8")).getEnd(),
                 this.lib.number("8"));
 
         doExpressionTest(entries, "", "[5..8].start included",
-                "PathExpression(RangeTest(false,NumericLiteral(5),false,NumericLiteral(8)), start included)",
+                "PathExpression(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), start included)",
                 "boolean",
                 "new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")).isStartIncluded()",
                 new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8")).isStartIncluded(),
                 true);
 
         doExpressionTest(entries, "", "[5..8).end included",
-                "PathExpression(RangeTest(false,NumericLiteral(5),true,NumericLiteral(8)), end included)",
+                "PathExpression(EndpointsRange(false,NumericLiteral(5),true,NumericLiteral(8)), end included)",
                 "boolean",
                 "new com.gs.dmn.runtime.Range(true, number(\"5\"), false, number(\"8\")).isEndIncluded()",
                 new com.gs.dmn.runtime.Range(true, this.lib.number("5"), false, this.lib.number("8")).isEndIncluded(),

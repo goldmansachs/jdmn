@@ -95,7 +95,7 @@ positiveUnaryTest returns [Expression ast]:
 simplePositiveUnaryTest returns [Expression ast] :
     (
         ( op = LT | op = LE | op = GT | op = GE )? opd = endpoint
-        {$ast = $op == null ? astFactory.toOperatorTest(null, $opd.ast) : astFactory.toOperatorTest($op.text, $opd.ast);}
+        {$ast = $op == null ? astFactory.toOperatorRange(null, $opd.ast) : astFactory.toOperatorRange($op.text, $opd.ast);}
     )
     |
     (
@@ -104,9 +104,9 @@ simplePositiveUnaryTest returns [Expression ast] :
     )
 ;
 
-interval returns [RangeTest ast] :
+interval returns [EndpointsRange ast] :
     leftPar = intervalStartPar ep1 = endpoint DOT_DOT ep2 = endpoint rightPar = intervalEndPar
-    {$ast = astFactory.toIntervalTest($leftPar.ast, $ep1.ast, $rightPar.ast, $ep2.ast);}
+    {$ast = astFactory.toEndpointsRange($leftPar.ast, $ep1.ast, $rightPar.ast, $ep2.ast);}
 ;
 
 intervalStartPar returns [String ast] :

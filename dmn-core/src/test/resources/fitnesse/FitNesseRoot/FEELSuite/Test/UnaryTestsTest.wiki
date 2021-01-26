@@ -2,60 +2,60 @@
 !define TEST_SYSTEM {slim}
 
 !1 Unary Tests
-!|FEEL Unary Tests Fixture                                                                                                          |
-|inputEntry|output?                                                                                                                 |
-|1, 2      |PositiveUnaryTests(OperatorTest(null,NumericLiteral(1)),OperatorTest(null,NumericLiteral(2)))                           |
-|not(-1)   |NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorTest(null,ArithmeticNegation(NumericLiteral(1)))))                 |
-|not(1, 2) |NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorTest(null,NumericLiteral(1)),OperatorTest(null,NumericLiteral(2))))|
-|-         |Any()                                                                                                                   |
+!|FEEL Unary Tests Fixture                                                                                                            |
+|inputEntry|output?                                                                                                                   |
+|1, 2      |PositiveUnaryTests(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)))                           |
+|not(-1)   |NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorRange(null,ArithmeticNegation(NumericLiteral(1)))))                  |
+|not(1, 2) |NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2))))|
+|-         |Any()                                                                                                                     |
 
 !1 Positive Unary Test
-!|FEEL Unary Tests Fixture                                                                                                                                              |
-|inputEntry                              |output?                                                                                                                       |
-|1                                       |PositiveUnaryTests(OperatorTest(null,NumericLiteral(1)))                                                                      |
-|-1                                      |PositiveUnaryTests(OperatorTest(null,ArithmeticNegation(NumericLiteral(1))))                                                  |
-|< 1                                     |PositiveUnaryTests(OperatorTest(<,NumericLiteral(1)))                                                                         |
-|<= 1                                    |PositiveUnaryTests(OperatorTest(<=,NumericLiteral(1)))                                                                        |
-|> 1                                     |PositiveUnaryTests(OperatorTest(>,NumericLiteral(1)))                                                                         |
-|>= 1                                    |PositiveUnaryTests(OperatorTest(>=,NumericLiteral(1)))                                                                        |
-|date("2016-08-01")                      |PositiveUnaryTests(OperatorTest(null,DateTimeLiteral(date, "2016-08-01")))                                                    |
-|< date("2016-08-01")                    |PositiveUnaryTests(OperatorTest(<,DateTimeLiteral(date, "2016-08-01")))                                                       |
-|<= date("2016-08-01")                   |PositiveUnaryTests(OperatorTest(<=,DateTimeLiteral(date, "2016-08-01")))                                                      |
-|> date("2016-08-01")                    |PositiveUnaryTests(OperatorTest(>,DateTimeLiteral(date, "2016-08-01")))                                                       |
-|>= date("2016-08-01")                   |PositiveUnaryTests(OperatorTest(>=,DateTimeLiteral(date, "2016-08-01")))                                                      |
-|< time("12:00:00Z")                     |PositiveUnaryTests(OperatorTest(<,DateTimeLiteral(time, "12:00:00Z")))                                                        |
-|time("12:00:00Z")                       |PositiveUnaryTests(OperatorTest(null,DateTimeLiteral(time, "12:00:00Z")))                                                     |
-|<= time("12:00:00Z")                    |PositiveUnaryTests(OperatorTest(<=,DateTimeLiteral(time, "12:00:00Z")))                                                       |
-|> time("12:00:00Z")                     |PositiveUnaryTests(OperatorTest(>,DateTimeLiteral(time, "12:00:00Z")))                                                        |
-|>= time("12:00:00Z")                    |PositiveUnaryTests(OperatorTest(>=,DateTimeLiteral(time, "12:00:00Z")))                                                       |
-|date and time("2016-08-01T11:00:00Z")   |PositiveUnaryTests(OperatorTest(null,DateTimeLiteral(date and time, "2016-08-01T11:00:00Z")))                                 |
-|< date and time("2016-08-01T11:00:00Z") |PositiveUnaryTests(OperatorTest(<,DateTimeLiteral(date and time, "2016-08-01T11:00:00Z")))                                    |
-|<= date and time("2016-08-01T11:00:00Z")|PositiveUnaryTests(OperatorTest(<=,DateTimeLiteral(date and time, "2016-08-01T11:00:00Z")))                                   |
-|> date and time("2016-08-01T11:00:00Z") |PositiveUnaryTests(OperatorTest(>,DateTimeLiteral(date and time, "2016-08-01T11:00:00Z")))                                    |
-|>= date and time("2016-08-01T11:00:00Z")|PositiveUnaryTests(OperatorTest(>=,DateTimeLiteral(date and time, "2016-08-01T11:00:00Z")))                                   |
-|duration("P1Y1M")                       |PositiveUnaryTests(OperatorTest(null,DateTimeLiteral(duration, "P1Y1M")))                                                     |
-|< duration("P1Y1M")                     |PositiveUnaryTests(OperatorTest(<,DateTimeLiteral(duration, "P1Y1M")))                                                        |
-|<= duration("P1Y1M")                    |PositiveUnaryTests(OperatorTest(<=,DateTimeLiteral(duration, "P1Y1M")))                                                       |
-|> duration("P1Y1M")                     |PositiveUnaryTests(OperatorTest(>,DateTimeLiteral(duration, "P1Y1M")))                                                        |
-|>= duration("P1Y1M")                    |PositiveUnaryTests(OperatorTest(>=,DateTimeLiteral(duration, "P1Y1M")))                                                       |
-|duration("PT1H1M")                      |PositiveUnaryTests(OperatorTest(null,DateTimeLiteral(duration, "PT1H1M")))                                                    |
-|< duration("PT1H1M")                    |PositiveUnaryTests(OperatorTest(<,DateTimeLiteral(duration, "PT1H1M")))                                                       |
-|<= duration("PT1H1M")                   |PositiveUnaryTests(OperatorTest(<=,DateTimeLiteral(duration, "PT1H1M")))                                                      |
-|> duration("PT1H1M")                    |PositiveUnaryTests(OperatorTest(>,DateTimeLiteral(duration, "PT1H1M")))                                                       |
-|>= duration("PT1H1M")                   |PositiveUnaryTests(OperatorTest(>=,DateTimeLiteral(duration, "PT1H1M")))                                                      |
-|"abc"                                   |PositiveUnaryTests(OperatorTest(null,StringLiteral("abc")))                                                                   |
-|true                                    |PositiveUnaryTests(OperatorTest(null,BooleanLiteral(true)))                                                                   |
-|1, 2                                    |PositiveUnaryTests(OperatorTest(null,NumericLiteral(1)),OperatorTest(null,NumericLiteral(2)))                                 |
-|"e1", "e2"                              |PositiveUnaryTests(OperatorTest(null,StringLiteral("e1")),OperatorTest(null,StringLiteral("e2")))                             |
-|(1..2)                                  |PositiveUnaryTests(RangeTest(true,NumericLiteral(1),true,NumericLiteral(2)))                                                  |
-|]1..2[                                  |PositiveUnaryTests(RangeTest(true,NumericLiteral(1),true,NumericLiteral(2)))                                                  |
-|[1..2]                                  |PositiveUnaryTests(RangeTest(false,NumericLiteral(1),false,NumericLiteral(2)))                                                |
-|-a.b.c                                  |PositiveUnaryTests(ExpressionTest(ArithmeticNegation(PathExpression(PathExpression(Name(a), b), c))))                         |
-|null                                    |PositiveUnaryTests(NullTest())                                                                                                |
-|-                                       |Any()                                                                                                                         |
-|not (1, 2)                              |NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorTest(null,NumericLiteral(1)),OperatorTest(null,NumericLiteral(2))))|
+!|FEEL Unary Tests Fixture                                                                                                                                          |
+|inputEntry                              |output?                                                                                                                   |
+|1                                       |PositiveUnaryTests(OperatorRange(null,NumericLiteral(1)))                                                                 |
+|-1                                      |PositiveUnaryTests(OperatorRange(null,ArithmeticNegation(NumericLiteral(1))))                                             |
+|< 1                                     |PositiveUnaryTests(OperatorRange(<,NumericLiteral(1)))                                                                    |
+|<= 1                                    |PositiveUnaryTests(OperatorRange(<=,NumericLiteral(1)))                                                                   |
+|> 1                                     |PositiveUnaryTests(OperatorRange(>,NumericLiteral(1)))                                                                    |
+|>= 1                                    |PositiveUnaryTests(OperatorRange(>=,NumericLiteral(1)))                                                                   |
+|date("2016-08-01")                      |PositiveUnaryTests(OperatorRange(null,DateTimeLiteral(date, "2016-08-01")))                                               |
+|< date("2016-08-01")                    |PositiveUnaryTests(OperatorRange(<,DateTimeLiteral(date, "2016-08-01")))                                                  |
+|<= date("2016-08-01")                   |PositiveUnaryTests(OperatorRange(<=,DateTimeLiteral(date, "2016-08-01")))                                                 |
+|> date("2016-08-01")                    |PositiveUnaryTests(OperatorRange(>,DateTimeLiteral(date, "2016-08-01")))                                                  |
+|>= date("2016-08-01")                   |PositiveUnaryTests(OperatorRange(>=,DateTimeLiteral(date, "2016-08-01")))                                                 |
+|< time("12:00:00Z")                     |PositiveUnaryTests(OperatorRange(<,DateTimeLiteral(time, "12:00:00Z")))                                                   |
+|time("12:00:00Z")                       |PositiveUnaryTests(OperatorRange(null,DateTimeLiteral(time, "12:00:00Z")))                                                |
+|<= time("12:00:00Z")                    |PositiveUnaryTests(OperatorRange(<=,DateTimeLiteral(time, "12:00:00Z")))                                                  |
+|> time("12:00:00Z")                     |PositiveUnaryTests(OperatorRange(>,DateTimeLiteral(time, "12:00:00Z")))                                                   |
+|>= time("12:00:00Z")                    |PositiveUnaryTests(OperatorRange(>=,DateTimeLiteral(time, "12:00:00Z")))                                                  |
+|date and time("2016-08-01T11:00:00Z")   |PositiveUnaryTests(OperatorRange(null,DateTimeLiteral(date and time, "2016-08-01T11:00:00Z")))                            |
+|< date and time("2016-08-01T11:00:00Z") |PositiveUnaryTests(OperatorRange(<,DateTimeLiteral(date and time, "2016-08-01T11:00:00Z")))                               |
+|<= date and time("2016-08-01T11:00:00Z")|PositiveUnaryTests(OperatorRange(<=,DateTimeLiteral(date and time, "2016-08-01T11:00:00Z")))                              |
+|> date and time("2016-08-01T11:00:00Z") |PositiveUnaryTests(OperatorRange(>,DateTimeLiteral(date and time, "2016-08-01T11:00:00Z")))                               |
+|>= date and time("2016-08-01T11:00:00Z")|PositiveUnaryTests(OperatorRange(>=,DateTimeLiteral(date and time, "2016-08-01T11:00:00Z")))                              |
+|duration("P1Y1M")                       |PositiveUnaryTests(OperatorRange(null,DateTimeLiteral(duration, "P1Y1M")))                                                |
+|< duration("P1Y1M")                     |PositiveUnaryTests(OperatorRange(<,DateTimeLiteral(duration, "P1Y1M")))                                                   |
+|<= duration("P1Y1M")                    |PositiveUnaryTests(OperatorRange(<=,DateTimeLiteral(duration, "P1Y1M")))                                                  |
+|> duration("P1Y1M")                     |PositiveUnaryTests(OperatorRange(>,DateTimeLiteral(duration, "P1Y1M")))                                                   |
+|>= duration("P1Y1M")                    |PositiveUnaryTests(OperatorRange(>=,DateTimeLiteral(duration, "P1Y1M")))                                                  |
+|duration("PT1H1M")                      |PositiveUnaryTests(OperatorRange(null,DateTimeLiteral(duration, "PT1H1M")))                                               |
+|< duration("PT1H1M")                    |PositiveUnaryTests(OperatorRange(<,DateTimeLiteral(duration, "PT1H1M")))                                                  |
+|<= duration("PT1H1M")                   |PositiveUnaryTests(OperatorRange(<=,DateTimeLiteral(duration, "PT1H1M")))                                                 |
+|> duration("PT1H1M")                    |PositiveUnaryTests(OperatorRange(>,DateTimeLiteral(duration, "PT1H1M")))                                                  |
+|>= duration("PT1H1M")                   |PositiveUnaryTests(OperatorRange(>=,DateTimeLiteral(duration, "PT1H1M")))                                                 |
+|"abc"                                   |PositiveUnaryTests(OperatorRange(null,StringLiteral("abc")))                                                              |
+|true                                    |PositiveUnaryTests(OperatorRange(null,BooleanLiteral(true)))                                                              |
+|1, 2                                    |PositiveUnaryTests(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)))                           |
+|"e1", "e2"                              |PositiveUnaryTests(OperatorRange(null,StringLiteral("e1")),OperatorRange(null,StringLiteral("e2")))                       |
+|(1..2)                                  |PositiveUnaryTests(EndpointsRange(true,NumericLiteral(1),true,NumericLiteral(2)))                                         |
+|]1..2[                                  |PositiveUnaryTests(EndpointsRange(true,NumericLiteral(1),true,NumericLiteral(2)))                                         |
+|[1..2]                                  |PositiveUnaryTests(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))                                       |
+|-a.b.c                                  |PositiveUnaryTests(ExpressionTest(ArithmeticNegation(PathExpression(PathExpression(Name(a), b), c))))                     |
+|null                                    |PositiveUnaryTests(NullTest())                                                                                            |
+|-                                       |Any()                                                                                                                     |
+|not (1, 2)                              |NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2))))|
 
 !1 Function Call Test
-!|FEEL Unary Tests Fixture                                                                                                                          |
-|inputEntry        |output?                                                                                                                         |
-|contains(?, "abc")|PositiveUnaryTests(OperatorTest(null,FunctionInvocation(Name(contains) -> PositionalParameters(Name(?), StringLiteral("abc")))))|
+!|FEEL Unary Tests Fixture                                                                                                                           |
+|inputEntry        |output?                                                                                                                          |
+|contains(?, "abc")|PositiveUnaryTests(OperatorRange(null,FunctionInvocation(Name(contains) -> PositionalParameters(Name(?), StringLiteral("abc")))))|

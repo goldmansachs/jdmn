@@ -80,13 +80,13 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 new EnvironmentEntry("string", STRING, string));
 
         doPositiveUnaryTestsTest(entries, "number", "1, 2",
-                "PositiveUnaryTests(OperatorTest(null,NumericLiteral(1)),OperatorTest(null,NumericLiteral(2)))",
+                "PositiveUnaryTests(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)))",
                 "TupleType(boolean, boolean)",
                 "booleanOr((numericEqual(number, number(\"1\"))), (numericEqual(number, number(\"2\"))))",
                 this.lib.booleanOr((this.lib.numericEqual(number, this.lib.number("1"))), (this.lib.numericEqual(number, this.lib.number("2")))),
                 true);
         doPositiveUnaryTestsTest(entries, "string", "\"e1\", \"e2\"",
-                "PositiveUnaryTests(OperatorTest(null,StringLiteral(\"e1\")),OperatorTest(null,StringLiteral(\"e2\")))",
+                "PositiveUnaryTests(OperatorRange(null,StringLiteral(\"e1\")),OperatorRange(null,StringLiteral(\"e2\")))",
                 "TupleType(boolean, boolean)",
                 "booleanOr((stringEqual(string, \"e1\")), (stringEqual(string, \"e2\")))",
                 this.lib.booleanOr((this.lib.stringEqual(string, "e1")), (this.lib.stringEqual(string, "e2"))),
@@ -100,13 +100,13 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 new EnvironmentEntry("input", NUMBER, input));
 
         doUnaryTestsTest(entries, "input", "not (-1)",
-                "NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorTest(null,ArithmeticNegation(NumericLiteral(1)))))",
+                "NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorRange(null,ArithmeticNegation(NumericLiteral(1)))))",
                 "TupleType(boolean)",
                 "booleanNot((numericEqual(input, numericUnaryMinus(number(\"1\")))))",
                 this.lib.booleanNot((this.lib.numericEqual(input, this.lib.numericUnaryMinus(this.lib.number("1"))))),
                 true);
         doUnaryTestsTest(entries, "input", "not(1, 2)",
-                "NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorTest(null,NumericLiteral(1)),OperatorTest(null,NumericLiteral(2))))",
+                "NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2))))",
                 "TupleType(boolean, boolean)",
                 "booleanNot(booleanOr((numericEqual(input, number(\"1\"))), (numericEqual(input, number(\"2\")))))",
                 this.lib.booleanNot(this.lib.booleanOr((this.lib.numericEqual(input, this.lib.number("1"))), (this.lib.numericEqual(input, this.lib.number("2"))))),
@@ -162,70 +162,70 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         );
 
         //
-        // OperatorTest
+        // OperatorRange
         //
         doUnaryTestsTest(entries, "number", "1",
-                "PositiveUnaryTests(OperatorTest(null,NumericLiteral(1)))",
+                "PositiveUnaryTests(OperatorRange(null,NumericLiteral(1)))",
                 "TupleType(boolean)",
                 "(numericEqual(number, number(\"1\")))",
                 (this.lib.numericEqual(number, this.lib.number("1"))),
                 true);
         doUnaryTestsTest(entries, "number", "-1",
-                "PositiveUnaryTests(OperatorTest(null,ArithmeticNegation(NumericLiteral(1))))",
+                "PositiveUnaryTests(OperatorRange(null,ArithmeticNegation(NumericLiteral(1))))",
                 "TupleType(boolean)",
                 "(numericEqual(number, numericUnaryMinus(number(\"1\"))))",
                 (this.lib.numericEqual(number, this.lib.numericUnaryMinus(this.lib.number("1")))),
                 false);
 
         doUnaryTestsTest(entries, "number", "<1",
-                "PositiveUnaryTests(OperatorTest(<,NumericLiteral(1)))",
+                "PositiveUnaryTests(OperatorRange(<,NumericLiteral(1)))",
                 "TupleType(boolean)",
                 "(numericLessThan(number, number(\"1\")))",
                 (this.lib.numericLessThan(number, this.lib.number("1"))),
                 false);
         doUnaryTestsTest(entries, "number", "<=1",
-                "PositiveUnaryTests(OperatorTest(<=,NumericLiteral(1)))",
+                "PositiveUnaryTests(OperatorRange(<=,NumericLiteral(1)))",
                 "TupleType(boolean)",
                 "(numericLessEqualThan(number, number(\"1\")))",
                 (this.lib.numericLessEqualThan(number, this.lib.number("1"))),
                 true);
         doUnaryTestsTest(entries, "number", ">1",
-                "PositiveUnaryTests(OperatorTest(>,NumericLiteral(1)))",
+                "PositiveUnaryTests(OperatorRange(>,NumericLiteral(1)))",
                 "TupleType(boolean)",
                 "(numericGreaterThan(number, number(\"1\")))",
                 (this.lib.numericGreaterThan(number, this.lib.number("1"))),
                 false);
         doUnaryTestsTest(entries, "number", ">=1",
-                "PositiveUnaryTests(OperatorTest(>=,NumericLiteral(1)))",
+                "PositiveUnaryTests(OperatorRange(>=,NumericLiteral(1)))",
                 "TupleType(boolean)",
                 "(numericGreaterEqualThan(number, number(\"1\")))",
                 (this.lib.numericGreaterEqualThan(number, this.lib.number("1"))),
                 true);
 
         doUnaryTestsTest(entries, "date", "< date(\"2016-08-01\")",
-                "PositiveUnaryTests(OperatorTest(<,DateTimeLiteral(date, \"2016-08-01\")))",
+                "PositiveUnaryTests(OperatorRange(<,DateTimeLiteral(date, \"2016-08-01\")))",
                 "TupleType(boolean)",
                 "(dateLessThan(date, date(\"2016-08-01\")))",
                 (this.lib.dateLessThan(date, this.lib.date("2016-08-01"))),
                 false);
 
         //
-        // RangeTest
+        // EndpointsRange
         //
         doUnaryTestsTest(entries, "number", "(1..2)",
-                "PositiveUnaryTests(RangeTest(true,NumericLiteral(1),true,NumericLiteral(2)))",
+                "PositiveUnaryTests(EndpointsRange(true,NumericLiteral(1),true,NumericLiteral(2)))",
                 "TupleType(RangeType(number))",
                 "(booleanAnd(numericGreaterThan(number, number(\"1\")), numericLessThan(number, number(\"2\"))))",
                 (this.lib.booleanAnd(this.lib.numericGreaterThan(number, this.lib.number("1")), this.lib.numericLessThan(number, this.lib.number("2")))),
                 false);
         doUnaryTestsTest(entries, "number", "]1..2[",
-                "PositiveUnaryTests(RangeTest(true,NumericLiteral(1),true,NumericLiteral(2)))",
+                "PositiveUnaryTests(EndpointsRange(true,NumericLiteral(1),true,NumericLiteral(2)))",
                 "TupleType(RangeType(number))",
                 "(booleanAnd(numericGreaterThan(number, number(\"1\")), numericLessThan(number, number(\"2\"))))",
                 (this.lib.booleanAnd(this.lib.numericGreaterThan(number, this.lib.number("1")), this.lib.numericLessThan(number, this.lib.number("2")))),
                 false);
         doUnaryTestsTest(entries, "number", "[1..2]",
-                "PositiveUnaryTests(RangeTest(false,NumericLiteral(1),false,NumericLiteral(2)))",
+                "PositiveUnaryTests(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))",
                 "TupleType(RangeType(number))",
                 "(booleanAnd(numericGreaterEqualThan(number, number(\"1\")), numericLessEqualThan(number, number(\"2\"))))",
                 (this.lib.booleanAnd(this.lib.numericGreaterEqualThan(number, this.lib.number("1")), this.lib.numericLessEqualThan(number, this.lib.number("2")))),
@@ -259,133 +259,133 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 true);
 
         doPositiveUnaryTestsTest(entries, "number", "< 123.45",
-                "PositiveUnaryTests(OperatorTest(<,NumericLiteral(123.45)))",
+                "PositiveUnaryTests(OperatorRange(<,NumericLiteral(123.45)))",
                 "TupleType(boolean)",
                 "(numericLessThan(number, number(\"123.45\")))",
                 (this.lib.numericLessThan(number, this.lib.number("123.45"))),
                 true);
         doPositiveUnaryTestsTest(entries, "number", "<= 123.45",
-                "PositiveUnaryTests(OperatorTest(<=,NumericLiteral(123.45)))",
+                "PositiveUnaryTests(OperatorRange(<=,NumericLiteral(123.45)))",
                 "TupleType(boolean)",
                 "(numericLessEqualThan(number, number(\"123.45\")))",
                 (this.lib.numericLessEqualThan(number, this.lib.number("123.45"))),
                 true);
         doPositiveUnaryTestsTest(entries, "number", "> 123.45",
-                "PositiveUnaryTests(OperatorTest(>,NumericLiteral(123.45)))",
+                "PositiveUnaryTests(OperatorRange(>,NumericLiteral(123.45)))",
                 "TupleType(boolean)",
                 "(numericGreaterThan(number, number(\"123.45\")))",
                 (this.lib.numericGreaterThan(number, this.lib.number("123.45"))),
                 false);
         doPositiveUnaryTestsTest(entries, "number", ">= 123.45",
-                "PositiveUnaryTests(OperatorTest(>=,NumericLiteral(123.45)))",
+                "PositiveUnaryTests(OperatorRange(>=,NumericLiteral(123.45)))",
                 "TupleType(boolean)",
                 "(numericGreaterEqualThan(number, number(\"123.45\")))",
                 (this.lib.numericGreaterEqualThan(number, this.lib.number("123.45"))),
                 false);
         doPositiveUnaryTestsTest(entries, "date", "< date(\"2016-08-01\")",
-                "PositiveUnaryTests(OperatorTest(<,DateTimeLiteral(date, \"2016-08-01\")))",
+                "PositiveUnaryTests(OperatorRange(<,DateTimeLiteral(date, \"2016-08-01\")))",
                 "TupleType(boolean)",
                 "(dateLessThan(date, date(\"2016-08-01\")))",
                 (this.lib.numericGreaterEqualThan(number, this.lib.number("123.45"))),
                 false);
         doPositiveUnaryTestsTest(entries, "date", "<= date(\"2016-08-01\")",
-                "PositiveUnaryTests(OperatorTest(<=,DateTimeLiteral(date, \"2016-08-01\")))",
+                "PositiveUnaryTests(OperatorRange(<=,DateTimeLiteral(date, \"2016-08-01\")))",
                 "TupleType(boolean)",
                 "(dateLessEqualThan(date, date(\"2016-08-01\")))",
                 (this.lib.dateLessEqualThan(date, this.lib.date("2016-08-01"))),
                 false);
         doPositiveUnaryTestsTest(entries, "date", "> date(\"2016-08-01\")",
-                "PositiveUnaryTests(OperatorTest(>,DateTimeLiteral(date, \"2016-08-01\")))",
+                "PositiveUnaryTests(OperatorRange(>,DateTimeLiteral(date, \"2016-08-01\")))",
                 "TupleType(boolean)",
                 "(dateGreaterThan(date, date(\"2016-08-01\")))",
                 (this.lib.dateGreaterThan(date, this.lib.date("2016-08-01"))),
                 true);
         doPositiveUnaryTestsTest(entries, "date", ">= date(\"2016-08-01\")",
-                "PositiveUnaryTests(OperatorTest(>=,DateTimeLiteral(date, \"2016-08-01\")))",
+                "PositiveUnaryTests(OperatorRange(>=,DateTimeLiteral(date, \"2016-08-01\")))",
                 "TupleType(boolean)",
                 "(dateGreaterEqualThan(date, date(\"2016-08-01\")))",
                 (this.lib.dateGreaterEqualThan(date, this.lib.date("2016-08-01"))),
                 true);
         doPositiveUnaryTestsTest(entries, "time", "< time(\"12:00:00Z\")",
-                "PositiveUnaryTests(OperatorTest(<,DateTimeLiteral(time, \"12:00:00Z\")))",
+                "PositiveUnaryTests(OperatorRange(<,DateTimeLiteral(time, \"12:00:00Z\")))",
                 "TupleType(boolean)",
                 "(timeLessThan(time, time(\"12:00:00Z\")))",
                 (this.lib.timeLessThan(time, this.lib.time("12:00:00Z"))),
                 false);
         doPositiveUnaryTestsTest(entries, "time", "<= time(\"12:00:00Z\")",
-                "PositiveUnaryTests(OperatorTest(<=,DateTimeLiteral(time, \"12:00:00Z\")))",
+                "PositiveUnaryTests(OperatorRange(<=,DateTimeLiteral(time, \"12:00:00Z\")))",
                 "TupleType(boolean)",
                 "(timeLessEqualThan(time, time(\"12:00:00Z\")))",
                 (this.lib.timeLessEqualThan(time, this.lib.time("12:00:00Z"))),
                 true);
         doPositiveUnaryTestsTest(entries, "time", "> time(\"12:00:00Z\")",
-                "PositiveUnaryTests(OperatorTest(>,DateTimeLiteral(time, \"12:00:00Z\")))",
+                "PositiveUnaryTests(OperatorRange(>,DateTimeLiteral(time, \"12:00:00Z\")))",
                 "TupleType(boolean)",
                 "(timeGreaterThan(time, time(\"12:00:00Z\")))",
                 (this.lib.timeGreaterThan(time, this.lib.time("12:00:00Z"))),
                 false);
         doPositiveUnaryTestsTest(entries, "time", ">= time(\"12:00:00Z\")",
-                "PositiveUnaryTests(OperatorTest(>=,DateTimeLiteral(time, \"12:00:00Z\")))",
+                "PositiveUnaryTests(OperatorRange(>=,DateTimeLiteral(time, \"12:00:00Z\")))",
                 "TupleType(boolean)",
                 "(timeGreaterEqualThan(time, time(\"12:00:00Z\")))",
                 (this.lib.timeGreaterEqualThan(time, this.lib.time("12:00:00Z"))),
                 true);
         doPositiveUnaryTestsTest(entries, "dateTime", "< date and time(\"2016-08-01T11:00:00Z\")",
-                "PositiveUnaryTests(OperatorTest(<,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\")))",
+                "PositiveUnaryTests(OperatorRange(<,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\")))",
                 "TupleType(boolean)",
                 "(dateTimeLessThan(dateTime, dateAndTime(\"2016-08-01T11:00:00Z\")))",
                 (this.lib.dateTimeLessThan(dateTime, this.lib.dateAndTime("2016-08-01T11:00:00Z"))),
                 false);
         doPositiveUnaryTestsTest(entries, "dateTime", "<= date and time(\"2016-08-01T11:00:00Z\")",
-                "PositiveUnaryTests(OperatorTest(<=,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\")))",
+                "PositiveUnaryTests(OperatorRange(<=,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\")))",
                 "TupleType(boolean)",
                 "(dateTimeLessEqualThan(dateTime, dateAndTime(\"2016-08-01T11:00:00Z\")))",
                 (this.lib.dateTimeLessEqualThan(dateTime, this.lib.dateAndTime("2016-08-01T11:00:00Z"))),
                 false);
         doPositiveUnaryTestsTest(entries, "dateTime", "> date and time(\"2016-08-01T11:00:00Z\")",
-                "PositiveUnaryTests(OperatorTest(>,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\")))",
+                "PositiveUnaryTests(OperatorRange(>,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\")))",
                 "TupleType(boolean)",
                 "(dateTimeGreaterThan(dateTime, dateAndTime(\"2016-08-01T11:00:00Z\")))",
                 (this.lib.dateTimeGreaterThan(dateTime, this.lib.dateAndTime("2016-08-01T11:00:00Z"))),
                 true);
         doPositiveUnaryTestsTest(entries, "dateTime", ">= date and time(\"2016-08-01T11:00:00Z\")",
-                "PositiveUnaryTests(OperatorTest(>=,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\")))",
+                "PositiveUnaryTests(OperatorRange(>=,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\")))",
                 "TupleType(boolean)",
                 "(dateTimeGreaterEqualThan(dateTime, dateAndTime(\"2016-08-01T11:00:00Z\")))",
                 (this.lib.dateTimeGreaterEqualThan(dateTime, this.lib.dateAndTime("2016-08-01T11:00:00Z"))),
                 true);
         doPositiveUnaryTestsTest(entries, "number", "123.56",
-                "PositiveUnaryTests(OperatorTest(null,NumericLiteral(123.56)))",
+                "PositiveUnaryTests(OperatorRange(null,NumericLiteral(123.56)))",
                 "TupleType(boolean)",
                 "(numericEqual(number, number(\"123.56\")))",
                 (this.lib.numericEqual(number, this.lib.number("123.56"))),
                 false);
         doPositiveUnaryTestsTest(entries, "string", "\"abc\"",
-                "PositiveUnaryTests(OperatorTest(null,StringLiteral(\"abc\")))",
+                "PositiveUnaryTests(OperatorRange(null,StringLiteral(\"abc\")))",
                 "TupleType(boolean)",
                 "(stringEqual(string, \"abc\"))",
                 (this.lib.stringEqual(string, "abc")),
                 true);
         doPositiveUnaryTestsTest(entries, "boolean", "true",
-                "PositiveUnaryTests(OperatorTest(null,BooleanLiteral(true)))",
+                "PositiveUnaryTests(OperatorRange(null,BooleanLiteral(true)))",
                 "TupleType(boolean)",
                 "(booleanEqual(boolean, Boolean.TRUE))",
                 (this.lib.booleanEqual(boolean_, Boolean.TRUE)),
                 true);
         doPositiveUnaryTestsTest(entries, "date", "date(\"2016-08-01\")",
-                "PositiveUnaryTests(OperatorTest(null,DateTimeLiteral(date, \"2016-08-01\")))",
+                "PositiveUnaryTests(OperatorRange(null,DateTimeLiteral(date, \"2016-08-01\")))",
                 "TupleType(boolean)",
                 "(dateEqual(date, date(\"2016-08-01\")))",
                 (this.lib.dateEqual(date, this.lib.date("2016-08-01"))),
                 false);
         doPositiveUnaryTestsTest(entries, "time", "time(\"12:00:00Z\")",
-                "PositiveUnaryTests(OperatorTest(null,DateTimeLiteral(time, \"12:00:00Z\")))",
+                "PositiveUnaryTests(OperatorRange(null,DateTimeLiteral(time, \"12:00:00Z\")))",
                 "TupleType(boolean)",
                 "(timeEqual(time, time(\"12:00:00Z\")))",
                 (this.lib.timeEqual(time, this.lib.time("12:00:00Z"))),
                 true);
         doPositiveUnaryTestsTest(entries, "dateTime", "date and time(\"2016-08-01T11:00:00Z\")",
-                "PositiveUnaryTests(OperatorTest(null,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\")))",
+                "PositiveUnaryTests(OperatorRange(null,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\")))",
                 "TupleType(boolean)",
                 "(dateTimeEqual(dateTime, dateAndTime(\"2016-08-01T11:00:00Z\")))",
                 (this.lib.dateTimeEqual(dateTime, this.lib.dateAndTime("2016-08-01T11:00:00Z"))),
@@ -393,25 +393,25 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     @Test
-    public void testRangeTest() {
+    public void testEndpointsRange() {
         NUMBER input = this.lib.number("1");
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, input));
 
         doPositiveUnaryTestsTest(entries, "input", "(1..2)",
-                "PositiveUnaryTests(RangeTest(true,NumericLiteral(1),true,NumericLiteral(2)))",
+                "PositiveUnaryTests(EndpointsRange(true,NumericLiteral(1),true,NumericLiteral(2)))",
                 "TupleType(RangeType(number))",
                 "(booleanAnd(numericGreaterThan(input, number(\"1\")), numericLessThan(input, number(\"2\"))))",
                 (this.lib.booleanAnd(this.lib.numericGreaterThan(input, this.lib.number("1")), this.lib.numericLessThan(input, this.lib.number("2")))),
                 false);
         doPositiveUnaryTestsTest(entries, "input", "]1..2[",
-                "PositiveUnaryTests(RangeTest(true,NumericLiteral(1),true,NumericLiteral(2)))",
+                "PositiveUnaryTests(EndpointsRange(true,NumericLiteral(1),true,NumericLiteral(2)))",
                 "TupleType(RangeType(number))",
                 "(booleanAnd(numericGreaterThan(input, number(\"1\")), numericLessThan(input, number(\"2\"))))",
                 (this.lib.booleanAnd(this.lib.numericGreaterThan(input, this.lib.number("1")), this.lib.numericLessThan(input, this.lib.number("2")))),
                 false);
         doPositiveUnaryTestsTest(entries, "input", "[1..2]",
-                "PositiveUnaryTests(RangeTest(false,NumericLiteral(1),false,NumericLiteral(2)))",
+                "PositiveUnaryTests(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))",
                 "TupleType(RangeType(number))",
                 "(booleanAnd(numericGreaterEqualThan(input, number(\"1\")), numericLessEqualThan(input, number(\"2\"))))",
                 (this.lib.booleanAnd(this.lib.numericGreaterEqualThan(input, this.lib.number("1")), this.lib.numericLessEqualThan(input, this.lib.number("2")))),
@@ -428,7 +428,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     @Test(expected = SemanticError.class)
-    public void testOperatorTestWhenTypeMismatch() {
+    public void testOperatorRangeWhenTypeMismatch() {
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", BOOLEAN, true));
 
@@ -482,13 +482,13 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.rangeToList(this.lib.number("1"), this.lib.number("2")).stream().map(i -> this.lib.asList(this.lib.number("2"), this.lib.number("3")).stream().map(j -> this.lib.numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList()),
                 Arrays.asList(Arrays.asList(this.lib.number("3"), this.lib.number("4")), Arrays.asList(this.lib.number("4"), this.lib.number("5"))));
         doExpressionTest(entries, "", "for i in [1..2] return i",
-                "ForExpression(Iterator(i in ExpressionIteratorDomain(RangeTest(false,NumericLiteral(1),false,NumericLiteral(2)))) -> Name(i))",
+                "ForExpression(Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))) -> Name(i))",
                 "ListType(number)",
                 "rangeToList(false, number(\"1\"), false, number(\"2\")).stream().map(i -> i).collect(Collectors.toList())",
                 this.lib.rangeToList(false, this.lib.number("1"), false, this.lib.number("2")).stream().map(i -> i).collect(Collectors.toList()),
                 Arrays.asList(this.lib.number("1"), this.lib.number("2")));
         doExpressionTest(entries, "", "for i in [1..2], j in [2..3] return i+j",
-                "ForExpression(Iterator(i in ExpressionIteratorDomain(RangeTest(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(RangeTest(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Addition(+,Name(i),Name(j)))",
+                "ForExpression(Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Addition(+,Name(i),Name(j)))",
                 "ListType(number)",
                 "rangeToList(false, number(\"1\"), false, number(\"2\")).stream().map(i -> rangeToList(false, number(\"2\"), false, number(\"3\")).stream().map(j -> numericAdd(i, j))).flatMap(x -> x).collect(Collectors.toList())",
                 this.lib.rangeToList(false, this.lib.number("1"), false, this.lib.number("2")).stream().map(i ->
@@ -498,7 +498,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                         .collect(Collectors.toList()),
                 Arrays.asList(this.lib.number("3"), this.lib.number("4"), this.lib.number("4"), this.lib.number("5")));
         doExpressionTest(entries, "", "for i in [1..2] return for j in [2..3] return i+j",
-                "ForExpression(Iterator(i in ExpressionIteratorDomain(RangeTest(false,NumericLiteral(1),false,NumericLiteral(2)))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(RangeTest(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Addition(+,Name(i),Name(j))))",
+                "ForExpression(Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Addition(+,Name(i),Name(j))))",
                 "ListType(ListType(number))",
                 "rangeToList(false, number(\"1\"), false, number(\"2\")).stream().map(i -> rangeToList(false, number(\"2\"), false, number(\"3\")).stream().map(j -> numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
                 Arrays.asList(Arrays.asList(this.lib.number("3"), this.lib.number("4")), Arrays.asList(this.lib.number("4"), this.lib.number("5"))),
@@ -595,7 +595,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "some i in [1..2] j in [2..3] satisfies i + j > 1",
-                "QuantifiedExpression(some, Iterator(i in ExpressionIteratorDomain(RangeTest(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(RangeTest(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
+                "QuantifiedExpression(some, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
                 "boolean",
                 "booleanOr((List)rangeToList(false, number(\"1\"), false, number(\"2\")).stream().map(i -> rangeToList(false, number(\"2\"), false, number(\"3\")).stream().map(j -> numericGreaterThan(numericAdd(i, j), number(\"1\")))).flatMap(x -> x).collect(Collectors.toList()))",
                 this.lib.booleanOr((List)
@@ -606,7 +606,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                                 .collect(Collectors.toList())),
                 true);
         doExpressionTest(entries, "", "every i in [1..2] j in [2..3] satisfies i + j > 1",
-                "QuantifiedExpression(every, Iterator(i in ExpressionIteratorDomain(RangeTest(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(RangeTest(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
+                "QuantifiedExpression(every, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
                 "boolean",
                 "booleanAnd((List)rangeToList(false, number(\"1\"), false, number(\"2\")).stream().map(i -> rangeToList(false, number(\"2\"), false, number(\"3\")).stream().map(j -> numericGreaterThan(numericAdd(i, j), number(\"1\")))).flatMap(x -> x).collect(Collectors.toList()))",
                 this.lib.booleanAnd((List)
@@ -1199,31 +1199,31 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "1 in 1",
-                "InExpression(NumericLiteral(1), OperatorTest(null,NumericLiteral(1)))",
+                "InExpression(NumericLiteral(1), OperatorRange(null,NumericLiteral(1)))",
                 "boolean",
                 "(numericEqual(number(\"1\"), number(\"1\")))",
                 (this.lib.numericEqual(this.lib.number("1"), this.lib.number("1"))),
                 true);
         doExpressionTest(entries, "", "1 in <1",
-                "InExpression(NumericLiteral(1), OperatorTest(<,NumericLiteral(1)))",
+                "InExpression(NumericLiteral(1), OperatorRange(<,NumericLiteral(1)))",
                 "boolean",
                 "(numericLessThan(number(\"1\"), number(\"1\")))",
                 (this.lib.numericLessThan(this.lib.number("1"), this.lib.number("1"))),
                 false);
         doExpressionTest(entries, "", "1 in <=1",
-                "InExpression(NumericLiteral(1), OperatorTest(<=,NumericLiteral(1)))",
+                "InExpression(NumericLiteral(1), OperatorRange(<=,NumericLiteral(1)))",
                 "boolean",
                 "(numericLessEqualThan(number(\"1\"), number(\"1\")))",
                 (this.lib.numericLessEqualThan(this.lib.number("1"), this.lib.number("1"))),
                 true);
         doExpressionTest(entries, "", "1 in >1",
-                "InExpression(NumericLiteral(1), OperatorTest(>,NumericLiteral(1)))",
+                "InExpression(NumericLiteral(1), OperatorRange(>,NumericLiteral(1)))",
                 "boolean",
                 "(numericGreaterThan(number(\"1\"), number(\"1\")))",
                 (this.lib.numericGreaterThan(this.lib.number("1"), this.lib.number("1"))),
                 false);
         doExpressionTest(entries, "", "1 in >=1",
-                "InExpression(NumericLiteral(1), OperatorTest(>=,NumericLiteral(1)))",
+                "InExpression(NumericLiteral(1), OperatorRange(>=,NumericLiteral(1)))",
                 "boolean",
                 "(numericGreaterEqualThan(number(\"1\"), number(\"1\")))",
                 (this.lib.numericGreaterEqualThan(this.lib.number("1"), this.lib.number("1"))),
@@ -1231,25 +1231,25 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
         // interval test
         doExpressionTest(entries, "", "1 in (1..2)",
-                "InExpression(NumericLiteral(1), RangeTest(true,NumericLiteral(1),true,NumericLiteral(2)))",
+                "InExpression(NumericLiteral(1), EndpointsRange(true,NumericLiteral(1),true,NumericLiteral(2)))",
                 "boolean",
                 "(booleanAnd(numericGreaterThan(number(\"1\"), number(\"1\")), numericLessThan(number(\"1\"), number(\"2\"))))",
                 (this.lib.booleanAnd(this.lib.numericGreaterThan(this.lib.number("1"), this.lib.number("1")), this.lib.numericLessThan(this.lib.number("1"), this.lib.number("2")))),
                 false);
         doExpressionTest(entries, "", "1 in (1..2]",
-                "InExpression(NumericLiteral(1), RangeTest(true,NumericLiteral(1),false,NumericLiteral(2)))",
+                "InExpression(NumericLiteral(1), EndpointsRange(true,NumericLiteral(1),false,NumericLiteral(2)))",
                 "boolean",
                 "(booleanAnd(numericGreaterThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"2\"))))",
                 (this.lib.booleanAnd(this.lib.numericGreaterThan(this.lib.number("1"), this.lib.number("1")), this.lib.numericLessEqualThan(this.lib.number("1"), this.lib.number("2")))),
                 false);
         doExpressionTest(entries, "", "1 in [1..2)",
-                "InExpression(NumericLiteral(1), RangeTest(false,NumericLiteral(1),true,NumericLiteral(2)))",
+                "InExpression(NumericLiteral(1), EndpointsRange(false,NumericLiteral(1),true,NumericLiteral(2)))",
                 "boolean",
                 "(booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessThan(number(\"1\"), number(\"2\"))))",
                 (this.lib.booleanAnd(this.lib.numericGreaterEqualThan(this.lib.number("1"), this.lib.number("1")), this.lib.numericLessThan(this.lib.number("1"), this.lib.number("2")))),
                 true);
         doExpressionTest(entries, "", "1 in [1..2]",
-                "InExpression(NumericLiteral(1), RangeTest(false,NumericLiteral(1),false,NumericLiteral(2)))",
+                "InExpression(NumericLiteral(1), EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))",
                 "boolean",
                 "(booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"2\"))))",
                 (this.lib.booleanAnd(this.lib.numericGreaterEqualThan(this.lib.number("1"), this.lib.number("1")), this.lib.numericLessEqualThan(this.lib.number("1"), this.lib.number("2")))),
@@ -1293,27 +1293,27 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 (this.lib.listContains(this.lib.asList(this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"), this.lib.number("4")), this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))), this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")))),
                 true);
 
-        // list test containing RangeTest
+        // list test containing EndpointsRange
         doExpressionTest(entries, "", "1 in [[2..4], [1..3]]",
-                "InExpression(NumericLiteral(1), ListTest(ListLiteral(RangeTest(false,NumericLiteral(2),false,NumericLiteral(4)),RangeTest(false,NumericLiteral(1),false,NumericLiteral(3)))))",
+                "InExpression(NumericLiteral(1), ListTest(ListLiteral(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(4)),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(3)))))",
                 "boolean",
                 "(listContains(asList(booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"2\")), numericLessEqualThan(number(\"1\"), number(\"4\"))), booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"3\")))), true))",
                 (this.lib.listContains(this.lib.asList(this.lib.booleanAnd(this.lib.numericGreaterEqualThan(this.lib.number("1"), this.lib.number("2")), this.lib.numericLessEqualThan(this.lib.number("1"), this.lib.number("4"))), this.lib.booleanAnd(this.lib.numericGreaterEqualThan(this.lib.number("1"), this.lib.number("1")), this.lib.numericLessEqualThan(this.lib.number("1"), this.lib.number("3")))), true)),
                 true);
         doExpressionTest(entries, "", "date(\"2018-12-11\") in [[date(\"2018-12-05\") .. date(\"2018-12-07\")], [date(\"2018-12-10\") .. date(\"2018-12-12\")]]",
-                "InExpression(DateTimeLiteral(date, \"2018-12-11\"), ListTest(ListLiteral(RangeTest(false,DateTimeLiteral(date, \"2018-12-05\"),false,DateTimeLiteral(date, \"2018-12-07\")),RangeTest(false,DateTimeLiteral(date, \"2018-12-10\"),false,DateTimeLiteral(date, \"2018-12-12\")))))",
+                "InExpression(DateTimeLiteral(date, \"2018-12-11\"), ListTest(ListLiteral(EndpointsRange(false,DateTimeLiteral(date, \"2018-12-05\"),false,DateTimeLiteral(date, \"2018-12-07\")),EndpointsRange(false,DateTimeLiteral(date, \"2018-12-10\"),false,DateTimeLiteral(date, \"2018-12-12\")))))",
                 "boolean",
                 "(listContains(asList(booleanAnd(dateGreaterEqualThan(date(\"2018-12-11\"), date(\"2018-12-05\")), dateLessEqualThan(date(\"2018-12-11\"), date(\"2018-12-07\"))), booleanAnd(dateGreaterEqualThan(date(\"2018-12-11\"), date(\"2018-12-10\")), dateLessEqualThan(date(\"2018-12-11\"), date(\"2018-12-12\")))), true))",
                 (this.lib.listContains(this.lib.asList(this.lib.booleanAnd(this.lib.dateGreaterEqualThan(this.lib.date("2018-12-11"), this.lib.date("2018-12-05")), this.lib.dateLessEqualThan(this.lib.date("2018-12-11"), this.lib.date("2018-12-07"))), this.lib.booleanAnd(this.lib.dateGreaterEqualThan(this.lib.date("2018-12-11"), this.lib.date("2018-12-10")), this.lib.dateLessEqualThan(this.lib.date("2018-12-11"), this.lib.date("2018-12-12")))), true)),
                 true);
         doExpressionTest(entries, "", "time(\"10:30:11\") in [[time(\"10:30:05\") .. time(\"10:30:07\")], [time(\"10:30:10\") .. time(\"10:30:12\")]]",
-                "InExpression(DateTimeLiteral(time, \"10:30:11\"), ListTest(ListLiteral(RangeTest(false,DateTimeLiteral(time, \"10:30:05\"),false,DateTimeLiteral(time, \"10:30:07\")),RangeTest(false,DateTimeLiteral(time, \"10:30:10\"),false,DateTimeLiteral(time, \"10:30:12\")))))",
+                "InExpression(DateTimeLiteral(time, \"10:30:11\"), ListTest(ListLiteral(EndpointsRange(false,DateTimeLiteral(time, \"10:30:05\"),false,DateTimeLiteral(time, \"10:30:07\")),EndpointsRange(false,DateTimeLiteral(time, \"10:30:10\"),false,DateTimeLiteral(time, \"10:30:12\")))))",
                 "boolean",
                 "(listContains(asList(booleanAnd(timeGreaterEqualThan(time(\"10:30:11\"), time(\"10:30:05\")), timeLessEqualThan(time(\"10:30:11\"), time(\"10:30:07\"))), booleanAnd(timeGreaterEqualThan(time(\"10:30:11\"), time(\"10:30:10\")), timeLessEqualThan(time(\"10:30:11\"), time(\"10:30:12\")))), true))",
                 (this.lib.listContains(this.lib.asList(this.lib.booleanAnd(this.lib.timeGreaterEqualThan(this.lib.time("10:30:11"), this.lib.time("10:30:05")), this.lib.timeLessEqualThan(this.lib.time("10:30:11"), this.lib.time("10:30:07"))), this.lib.booleanAnd(this.lib.timeGreaterEqualThan(this.lib.time("10:30:11"), this.lib.time("10:30:10")), this.lib.timeLessEqualThan(this.lib.time("10:30:11"), this.lib.time("10:30:12")))), true)),
                 true);
         doExpressionTest(entries, "", "date and time(\"2018-12-08T10:30:11\") in [[date and time(\"2018-12-08T10:30:05\") .. date and time(\"2018-12-08T10:30:07\")], [date and time(\"2018-12-08T10:30:10\") .. date and time(\"2018-12-08T10:30:12\")]]",
-                "InExpression(DateTimeLiteral(date and time, \"2018-12-08T10:30:11\"), ListTest(ListLiteral(RangeTest(false,DateTimeLiteral(date and time, \"2018-12-08T10:30:05\"),false,DateTimeLiteral(date and time, \"2018-12-08T10:30:07\")),RangeTest(false,DateTimeLiteral(date and time, \"2018-12-08T10:30:10\"),false,DateTimeLiteral(date and time, \"2018-12-08T10:30:12\")))))",
+                "InExpression(DateTimeLiteral(date and time, \"2018-12-08T10:30:11\"), ListTest(ListLiteral(EndpointsRange(false,DateTimeLiteral(date and time, \"2018-12-08T10:30:05\"),false,DateTimeLiteral(date and time, \"2018-12-08T10:30:07\")),EndpointsRange(false,DateTimeLiteral(date and time, \"2018-12-08T10:30:10\"),false,DateTimeLiteral(date and time, \"2018-12-08T10:30:12\")))))",
                 "boolean",
                 "(listContains(asList(booleanAnd(dateTimeGreaterEqualThan(dateAndTime(\"2018-12-08T10:30:11\"), dateAndTime(\"2018-12-08T10:30:05\")), dateTimeLessEqualThan(dateAndTime(\"2018-12-08T10:30:11\"), dateAndTime(\"2018-12-08T10:30:07\"))), booleanAnd(dateTimeGreaterEqualThan(dateAndTime(\"2018-12-08T10:30:11\"), dateAndTime(\"2018-12-08T10:30:10\")), dateTimeLessEqualThan(dateAndTime(\"2018-12-08T10:30:11\"), dateAndTime(\"2018-12-08T10:30:12\")))), true))",
                 (this.lib.listContains(this.lib.asList(this.lib.booleanAnd(this.lib.dateTimeGreaterEqualThan(this.lib.dateAndTime("2018-12-08T10:30:11"), this.lib.dateAndTime("2018-12-08T10:30:05")), this.lib.dateTimeLessEqualThan(this.lib.dateAndTime("2018-12-08T10:30:11"), this.lib.dateAndTime("2018-12-08T10:30:07"))), this.lib.booleanAnd(this.lib.dateTimeGreaterEqualThan(this.lib.dateAndTime("2018-12-08T10:30:11"), this.lib.dateAndTime("2018-12-08T10:30:10")), this.lib.dateTimeLessEqualThan(this.lib.dateAndTime("2018-12-08T10:30:11"), this.lib.dateAndTime("2018-12-08T10:30:12")))), true)),
@@ -1326,13 +1326,13 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 true);
 
         doExpressionTest(entries, "", "{a: \"foo\"} in ({a: \"bar\"}, {a: \"foo\"})",
-                "InExpression(Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))), OperatorTest(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"bar\")))), OperatorTest(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\")))))",
+                "InExpression(Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))), OperatorRange(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"bar\")))), OperatorRange(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\")))))",
                 "boolean",
                 "booleanOr(contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"a\", \"bar\")), contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"a\", \"foo\")))",
                 this.lib.booleanOr(this.lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "bar")), this.lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "foo"))),
                 true);
         doExpressionTest(entries, "", "{a: \"foo\"} in ({a: \"bar\"}, {a: \"baz\"})",
-                "InExpression(Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))), OperatorTest(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"bar\")))), OperatorTest(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"baz\")))))",
+                "InExpression(Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))), OperatorRange(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"bar\")))), OperatorRange(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"baz\")))))",
                 "boolean",
                 "booleanOr(contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"a\", \"bar\")), contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"a\", \"baz\")))",
                 this.lib.booleanOr(this.lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "bar")), this.lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "baz"))),
@@ -1340,25 +1340,25 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
         // compound test
         doExpressionTest(entries, "", "1 in (1)",
-                "InExpression(NumericLiteral(1), OperatorTest(null,NumericLiteral(1)))",
+                "InExpression(NumericLiteral(1), OperatorRange(null,NumericLiteral(1)))",
                 "boolean",
                 "(numericEqual(number(\"1\"), number(\"1\")))",
                 (this.lib.numericEqual(this.lib.number("1"), this.lib.number("1"))),
                 true);
         doExpressionTest(entries, "", "1 in (1, 2)",
-                "InExpression(NumericLiteral(1), OperatorTest(null,NumericLiteral(1)), OperatorTest(null,NumericLiteral(2)))",
+                "InExpression(NumericLiteral(1), OperatorRange(null,NumericLiteral(1)), OperatorRange(null,NumericLiteral(2)))",
                 "boolean",
                 "booleanOr(numericEqual(number(\"1\"), number(\"1\")), numericEqual(number(\"1\"), number(\"2\")))",
                 this.lib.booleanOr(this.lib.numericEqual(this.lib.number("1"), this.lib.number("1")), this.lib.numericEqual(this.lib.number("1"), this.lib.number("2"))),
                 true);
         doExpressionTest(entries, "", "1 in (<1, [1..2], [1, 2])",
-                "InExpression(NumericLiteral(1), OperatorTest(<,NumericLiteral(1)), RangeTest(false,NumericLiteral(1),false,NumericLiteral(2)), ListTest(ListLiteral(NumericLiteral(1),NumericLiteral(2))))",
+                "InExpression(NumericLiteral(1), OperatorRange(<,NumericLiteral(1)), EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), ListTest(ListLiteral(NumericLiteral(1),NumericLiteral(2))))",
                 "boolean",
                 "booleanOr(numericLessThan(number(\"1\"), number(\"1\")), booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"2\"))), listContains(asList(number(\"1\"), number(\"2\")), number(\"1\")))",
                 this.lib.booleanOr(this.lib.numericLessThan(this.lib.number("1"), this.lib.number("1")), this.lib.booleanAnd(this.lib.numericGreaterEqualThan(this.lib.number("1"), this.lib.number("1")), this.lib.numericLessEqualThan(this.lib.number("1"), this.lib.number("2"))), this.lib.listContains(this.lib.asList(this.lib.number("1"), this.lib.number("2")), this.lib.number("1"))),
                 true);
         doExpressionTest(entries, "", "1 in (<1, [1..2], 3)",
-                "InExpression(NumericLiteral(1), OperatorTest(<,NumericLiteral(1)), RangeTest(false,NumericLiteral(1),false,NumericLiteral(2)), OperatorTest(null,NumericLiteral(3)))",
+                "InExpression(NumericLiteral(1), OperatorRange(<,NumericLiteral(1)), EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), OperatorRange(null,NumericLiteral(3)))",
                 "boolean",
                 "booleanOr(numericLessThan(number(\"1\"), number(\"1\")), booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"2\"))), numericEqual(number(\"1\"), number(\"3\")))",
                 this.lib.booleanOr(this.lib.numericLessThan(this.lib.number("1"), this.lib.number("1")), this.lib.booleanAnd(this.lib.numericGreaterEqualThan(this.lib.number("1"), this.lib.number("1")), this.lib.numericLessEqualThan(this.lib.number("1"), this.lib.number("2"))), this.lib.numericEqual(this.lib.number("1"), this.lib.number("3"))),
@@ -1366,7 +1366,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     @Test(expected = SemanticError.class)
-    public void testInExpressionWhenOperatorTestAndTypeMismatch() {
+    public void testInExpressionWhenOperatorRangeAndTypeMismatch() {
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
@@ -2319,7 +2319,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")));
 
         doExpressionTest(expressionPairs, "number", "[1, <2, [3..4]]",
-                "ListLiteral(NumericLiteral(1),OperatorTest(<,NumericLiteral(2)),RangeTest(false,NumericLiteral(3),false,NumericLiteral(4)))",
+                "ListLiteral(NumericLiteral(1),OperatorRange(<,NumericLiteral(2)),EndpointsRange(false,NumericLiteral(3),false,NumericLiteral(4)))",
                 "ListType(Any)",
                 "asList(number(\"1\"), numericLessThan(number, number(\"2\")), booleanAnd(numericGreaterEqualThan(number, number(\"3\")), numericLessEqualThan(number, number(\"4\"))))",
                 null,
@@ -2368,7 +2368,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 false);
 
 //        doUnaryTestsTest(testPairs, "number", "[<1, <2]",
-//                "PositiveUnaryTests(OperatorTest(<,NumericLiteral(1)),OperatorTest(<,NumericLiteral(2)),RangeTest(false,NumericLiteral(3),false,NumericLiteral(4)))",
+//                "PositiveUnaryTests(OperatorRange(<,NumericLiteral(1)),OperatorRange(<,NumericLiteral(2)),EndpointsRange(false,NumericLiteral(3),false,NumericLiteral(4)))",
 //                "",
 //                null,
 //                null

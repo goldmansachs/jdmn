@@ -18,13 +18,13 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNContext;
 
-public class RangeTest extends SimplePositiveUnaryTest {
+public class EndpointsRange extends Range {
     private final boolean openStart;
     private final Expression start;
     private final boolean openEnd;
     private final Expression end;
 
-    public RangeTest(boolean isOpenStart, Expression start, boolean isOpenEnd, Expression end) {
+    public EndpointsRange(boolean isOpenStart, Expression start, boolean isOpenEnd, Expression end) {
         this.openStart = isOpenStart;
         this.start = start;
         this.openEnd = isOpenEnd;

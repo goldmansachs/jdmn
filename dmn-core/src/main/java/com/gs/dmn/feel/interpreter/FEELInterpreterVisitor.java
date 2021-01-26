@@ -42,6 +42,7 @@ import com.gs.dmn.feel.synthesis.AbstractFEELToJavaVisitor;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.FEELTranslatorForInterpreter;
 import com.gs.dmn.feel.synthesis.NativeOperator;
+import com.gs.dmn.runtime.Range;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.compiler.ClassData;
 import com.gs.dmn.runtime.compiler.JavaCompiler;
@@ -117,7 +118,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(OperatorTest element, DMNContext context) {
+    public Object visit(OperatorRange element, DMNContext context) {
         String operator = element.getOperator();
         Type inputExpressionType = context.getInputExpressionType();
         Expression endpoint = element.getEndpoint();
@@ -130,18 +131,18 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 Object self = context.lookupBinding(INPUT_ENTRY_PLACE_HOLDER);
                 if (operator == null) {
                     if (Type.equivalentTo(inputExpressionType, endpointType)) {
-                        return evaluateOperatorTest(element, "=", self, endpoint, context);
+                        return evaluateOperatorRange(element, "=", self, endpoint, context);
                     } else if (endpointType instanceof ListType && Type.equivalentTo(inputExpressionType, ((ListType) endpointType).getElementType())) {
                         List endpointValueList = (List)endpoint.accept(this, context);
                         List results = new ArrayList();
                         for(Object endpointValue: endpointValueList) {
-                            results.add(evaluateOperatorTest(element, "=", self, inputExpressionType, ((ListType) endpointType).getElementType(), endpointValue));
+                            results.add(evaluateOperatorRange(element, "=", self, inputExpressionType, ((ListType) endpointType).getElementType(), endpointValue));
                         }
                         return this.lib.or(results);
                     }
                     throw new DMNRuntimeException(String.format("Cannot evaluate test '%s'", element));
                 } else {
-                    return evaluateOperatorTest(element, operator, self, endpoint, context);
+                    return evaluateOperatorRange(element, operator, self, endpoint, context);
                 }
             }
         } catch (Exception e) {
@@ -150,12 +151,12 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         }
     }
 
-    private Object evaluateOperatorTest(Expression element, String operator, Object self, Expression endpointExpression, DMNContext context) throws Exception {
+    private Object evaluateOperatorRange(Expression element, String operator, Object self, Expression endpointExpression, DMNContext context) throws Exception {
         Object endpointValue = endpointExpression.accept(this, context);
-        return evaluateOperatorTest(element, operator, self, context.getInputExpressionType(), endpointExpression.getType(), endpointValue);
+        return evaluateOperatorRange(element, operator, self, context.getInputExpressionType(), endpointExpression.getType(), endpointValue);
     }
 
-    private Object evaluateOperatorTest(Expression element, String operator, Object self, Type inputExpressionType, Type endpointType, Object endpointValue) throws IllegalAccessException, InvocationTargetException {
+    private Object evaluateOperatorRange(Expression element, String operator, Object self, Type inputExpressionType, Type endpointType, Object endpointValue) throws IllegalAccessException, InvocationTargetException {
         NativeOperator javaOperator = javaOperator(operator, inputExpressionType, endpointType);
         if (javaOperator == null) {
             this.errorHandler.reportError(String.format("Cannot find method for '%s' '%s'", operator, element));
@@ -230,7 +231,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(RangeTest element, DMNContext context) {
+    public Object visit(EndpointsRange element, DMNContext context) {
         Expression startExpression = element.getStart();
         Expression endExpression = element.getEnd();
 
@@ -246,8 +247,8 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 return new Range(!element.isOpenStart(), startValue, !element.isOpenEnd(), endValue);
             } else {
                 // Evaluate as test
-                Object leftCondition = evaluateOperatorTest(element, leftOperator, self, startExpression, context);
-                Object rightCondition = evaluateOperatorTest(element, rightOperator, self, endExpression, context);
+                Object leftCondition = evaluateOperatorRange(element, leftOperator, self, startExpression, context);
+                Object rightCondition = evaluateOperatorRange(element, rightOperator, self, endExpression, context);
 
                 return this.lib.booleanAnd(leftCondition, rightCondition);
             }
@@ -269,7 +270,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             Object result;
             if (Type.conformsTo(inputExpressionType, listType)) {
                 String operator = "=";
-                return evaluateOperatorTest(element, operator, self, listLiteral, context);
+                return evaluateOperatorRange(element, operator, self, listLiteral, context);
             } else if (Type.conformsTo(inputExpressionType, listElementType)) {
                 List list = (List) listLiteral.accept(this, context);
                 result = this.lib.listContains(list, self);
@@ -397,8 +398,8 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         if (expressionDomain instanceof Name) {
             String name = ((Name) expressionDomain).getName();
             domain = (List) context.lookupBinding(name);
-        } else if (expressionDomain instanceof RangeTest) {
-            RangeTest test = (RangeTest) expressionDomain;
+        } else if (expressionDomain instanceof EndpointsRange) {
+            EndpointsRange test = (EndpointsRange) expressionDomain;
             if (test.getType() instanceof RangeType && Type.conformsTo(((RangeType) test.getType()).getRangeType(), NumberType.NUMBER)) {
                 Object start = test.getStart().accept(this, context);
                 Object end = test.getEnd().accept(this, context);

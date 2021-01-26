@@ -192,16 +192,16 @@ public class ASTFactory {
         } else if (expression instanceof NullLiteral) {
             return toNullPositiveUnaryTest();
         } else if (expression instanceof SimpleLiteral) {
-            return toOperatorTest(null, expression);
+            return toOperatorRange(null, expression);
         } else if (expression instanceof ArithmeticNegation && ((ArithmeticNegation) expression).getLeftOperand() instanceof NumericLiteral) {
-            return toOperatorTest(null, expression);
+            return toOperatorRange(null, expression);
         } else if (expression instanceof NamedExpression || expression instanceof PathExpression) {
-            return toOperatorTest(null, expression);
+            return toOperatorRange(null, expression);
         } else if (expression instanceof Context) {
-            return toOperatorTest(null, expression);
+            return toOperatorRange(null, expression);
         } else if (expression instanceof FunctionInvocation) {
             // TODO refactor to use ExpressionTest
-            return toOperatorTest(null, expression);
+            return toOperatorRange(null, expression);
         } else if (expression instanceof ListLiteral) {
             return toListTest((ListLiteral) expression);
         } else {
@@ -217,12 +217,12 @@ public class ASTFactory {
         return new ExpressionTest(expression);
     }
 
-    public OperatorTest toOperatorTest(String operator, Expression endpoint) {
-        return new OperatorTest(operator, endpoint);
+    public OperatorRange toOperatorRange(String operator, Expression endpoint) {
+        return new OperatorRange(operator, endpoint);
     }
 
-    public RangeTest toIntervalTest(String leftPar, Expression start, String rightPar, Expression end) {
-        return new RangeTest(!"[".equals(leftPar), start, !"]".equals(rightPar), end);
+    public EndpointsRange toEndpointsRange(String leftPar, Expression start, String rightPar, Expression end) {
+        return new EndpointsRange(!"[".equals(leftPar), start, !"]".equals(rightPar), end);
     }
 
     public ListTest toListTest(ListLiteral expression) {
@@ -323,7 +323,7 @@ public class ASTFactory {
         } else if (expression instanceof PositiveUnaryTests) {
             return new InExpression(value, (PositiveUnaryTests) expression);
         } else {
-            return new InExpression(value, toOperatorTest(null, expression));
+            return new InExpression(value, toOperatorRange(null, expression));
         }
     }
 

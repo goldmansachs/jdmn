@@ -66,12 +66,12 @@ public abstract class BaseVisitorTest {
 
     @Test
     public void testVisitOperatorTest() {
-        assertNull(getVisitor().visit((OperatorTest) null, null));
+        assertNull(getVisitor().visit((OperatorRange) null, null));
     }
 
     @Test
     public void testVisitRangeTest() {
-        assertNull(getVisitor().visit((RangeTest) null, null));
+        assertNull(getVisitor().visit((EndpointsRange) null, null));
     }
 
     @Test
