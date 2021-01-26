@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
 import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
+import com.gs.dmn.feel.analysis.semantics.type.RangeType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -24,10 +25,24 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 public class OperatorRange extends Range {
     private final String operator;
     private final Expression endpoint;
+    private final EndpointsRange endpointsRange;
 
     public OperatorRange(String operator, Expression endpoint) {
         this.operator = operator;
         this.endpoint = endpoint;
+        if (operator == null || "=".equals(operator)) {
+            this.endpointsRange = new EndpointsRange(false, endpoint, false, endpoint);
+        } else if ("<".equals(operator)) {
+            this.endpointsRange = new EndpointsRange(true, null, true, endpoint);
+        } else if ("<=".equals(operator)) {
+            this.endpointsRange = new EndpointsRange(true, null, false, endpoint);
+        } else if (">".equals(operator)) {
+            this.endpointsRange = new EndpointsRange(true, endpoint, true, null);
+        } else if (">=".equals(operator)) {
+            this.endpointsRange = new EndpointsRange(false, endpoint, true, null);
+        } else {
+            throw new DMNRuntimeException(String.format("Unexpected operator '%s'", operator));
+        }
     }
 
     public Expression getEndpoint() {
@@ -38,23 +53,25 @@ public class OperatorRange extends Range {
         return this.operator;
     }
 
+    public EndpointsRange getEndpointsRange() {
+        return this.endpointsRange;
+    }
+
     @Override
     public void deriveType(DMNContext context) {
-        setType(BooleanType.BOOLEAN);
-        Type inputExpressionType = context.getInputExpressionType();
-        if (inputExpressionType == null) {
-            throw new DMNRuntimeException(String.format("Missing input expression type when evaluating '%s'", this.endpoint));
-        }
-        if (Type.conformsTo(inputExpressionType, this.endpoint.getType())) {
-            return;
-        }
-        if (this.endpoint instanceof FunctionInvocation) {
-        } else if (this.endpoint instanceof NamedExpression) {
+        if (context.isExpressionContext()) {
+            this.setType(new RangeType(this.endpoint.getType()));
         } else {
-            if (this.operator == null) {
-                checkType("=", inputExpressionType, this.endpoint.getType());
+            Type inputExpressionType = context.getInputExpressionType();
+            this.setType(new RangeType(this.endpoint.getType()));
+            if (this.endpoint instanceof FunctionInvocation) {
+            } else if (this.endpoint instanceof NamedExpression) {
             } else {
-                checkType(this.operator, inputExpressionType, this.endpoint.getType());
+                if (this.operator == null) {
+                    checkType("=", inputExpressionType, this.endpoint.getType());
+                } else {
+                    checkType(this.operator, inputExpressionType, this.endpoint.getType());
+                }
             }
         }
     }

@@ -137,7 +137,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             DRGElementReference<TInvocable> reference = this.repository.makeDRGElementReference(invocable);
             return evaluateInvocableInContext(reference, argList, parentContext);
         } catch (Exception e) {
-            String errorMessage = String.format("Evaluation error in invocable '%s' in context of '%s'", invocable.getName(), parentContext.getElement().getName());
+            String errorMessage = String.format("Evaluation error in invocable '%s' in context of element of '%s'", invocable.getName(), parentContext.getElementName());
             this.errorHandler.reportError(errorMessage, e);
             Result result = Result.of(null, NullType.NULL);
             result.addError(errorMessage, e);
@@ -170,7 +170,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
             return output;
         } catch (Exception e) {
-            String errorMessage = String.format("Evaluation error in function definition in context '%s'", parentContext.getElement().getName());
+            String errorMessage = String.format("Evaluation error in function definition in context of element '%s'", parentContext.getElementName());
             this.errorHandler.reportError(errorMessage, e);
             Result result = Result.of(null, NullType.NULL);
             result.addError(errorMessage, e);
