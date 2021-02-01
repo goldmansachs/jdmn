@@ -43,16 +43,16 @@ import java.math.BigDecimal;
 public class DefaultFEELLib extends BaseStandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> implements StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     public static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
 
-    private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultNumericType(LOGGER);
-    private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType(LOGGER);
-    private static final StringType STRING_TYPE = new DefaultStringType(LOGGER);
-    private static final DateType<XMLGregorianCalendar, Duration> DATE_TYPE = new DefaultDateType(LOGGER, DATA_TYPE_FACTORY);
-    private static final TimeType<XMLGregorianCalendar, Duration> TIME_TYPE = new DefaultTimeType(LOGGER, DATA_TYPE_FACTORY);
-    private static final DateTimeType<XMLGregorianCalendar, Duration> DATE_TIME_TYPE = new DefaultDateTimeType(LOGGER, DATA_TYPE_FACTORY);
-    private static final DurationType<Duration, BigDecimal> DURATION_TYPE = new DefaultDurationType(LOGGER, DATA_TYPE_FACTORY);
-    private static final ListType LIST_TYPE = new DefaultListType(LOGGER);
-    private static final ContextType CONTEXT_TYPE = new DefaultContextType(LOGGER);
-    private static final RangeType RANGE_TYPE = new DefaultRangeType(LOGGER);
+    private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultNumericType();
+    private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
+    private static final StringType STRING_TYPE = new DefaultStringType();
+    private static final DateType<XMLGregorianCalendar, Duration> DATE_TYPE = new DefaultDateType(DATA_TYPE_FACTORY);
+    private static final TimeType<XMLGregorianCalendar, Duration> TIME_TYPE = new DefaultTimeType(DATA_TYPE_FACTORY);
+    private static final DateTimeType<XMLGregorianCalendar, Duration> DATE_TIME_TYPE = new DefaultDateTimeType(DATA_TYPE_FACTORY);
+    private static final DurationType<Duration, BigDecimal> DURATION_TYPE = new DefaultDurationType(DATA_TYPE_FACTORY);
+    private static final ListType LIST_TYPE = new DefaultListType();
+    private static final ContextType CONTEXT_TYPE = new DefaultContextType();
+    private static final RangeType RANGE_TYPE = new DefaultRangeType();
 
     private static final NumericLib<BigDecimal> NUMERIC_LIB = new DefaultNumericLib();
     private static final StringLib STRING_LIB = new DefaultStringLib();

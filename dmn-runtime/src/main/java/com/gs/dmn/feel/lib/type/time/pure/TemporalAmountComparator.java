@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.RelationalComparator;
-import org.slf4j.Logger;
 
 import java.time.Duration;
 import java.time.Period;
@@ -24,10 +23,7 @@ import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
 public class TemporalAmountComparator implements RelationalComparator<TemporalAmount> {
-    private final Logger logger;
-
-    public TemporalAmountComparator(Logger logger) {
-        this.logger = logger;
+    public TemporalAmountComparator() {
     }
 
     @Override
@@ -50,85 +46,51 @@ public class TemporalAmountComparator implements RelationalComparator<TemporalAm
 
     @Override
     public Boolean equalTo(TemporalAmount first, TemporalAmount second) {
-        try {
-            return applyOperator(first, second, new Supplier[] {
-                    () -> TRUE,
-                    () -> FALSE,
-                    () -> FALSE,
-                    () -> { Integer result = compare(first, second); return result != null && result == 0; }
-            });
-        } catch (Exception e) {
-            String message = String.format("=(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> FALSE,
+                () -> FALSE,
+                () -> { Integer result = compare(first, second); return result != null && result == 0; }
+        });
     }
 
     @Override
     public Boolean lessThan(TemporalAmount first, TemporalAmount second) {
-        try {
-            return applyOperator(first, second, new Supplier[] {
-                    () -> FALSE,
-                    () -> null,
-                    () -> null,
-                    () -> { Integer result = compare(first, second); return result != null && result < 0; }
-            });
-        } catch (Exception e) {
-            String message = String.format("<(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> FALSE,
+                () -> null,
+                () -> null,
+                () -> { Integer result = compare(first, second); return result != null && result < 0; }
+        });
     }
 
     @Override
     public Boolean greaterThan(TemporalAmount first, TemporalAmount second) {
-        try {
-            return applyOperator(first, second, new Supplier[] {
-                    () -> FALSE,
-                    () -> null,
-                    () -> null,
-                    () -> { Integer result = compare(first, second); return result != null && result > 0; }
-            });
-        } catch (Exception e) {
-            String message = String.format(">(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> FALSE,
+                () -> null,
+                () -> null,
+                () -> { Integer result = compare(first, second); return result != null && result > 0; }
+        });
     }
 
     @Override
     public Boolean lessEqualThan(TemporalAmount first, TemporalAmount second) {
-        try {
-            return applyOperator(first, second, new Supplier[] {
-                    () -> TRUE,
-                    () -> null,
-                    () -> null,
-                    () -> { Integer result = compare(first, second); return result != null && result <= 0; }
-            });
-        } catch (Exception e) {
-            String message = String.format("<=(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> null,
+                () -> null,
+                () -> { Integer result = compare(first, second); return result != null && result <= 0; }
+        });
     }
 
     @Override
     public Boolean greaterEqualThan(TemporalAmount first, TemporalAmount second) {
-        try {
-            return applyOperator(first, second, new Supplier[] {
-                    () -> TRUE,
-                    () -> null,
-                    () -> null,
-                    () -> { Integer result = compare(first, second); return result != null && result >= 0; }
-            });
-        } catch (Exception e) {
-            String message = String.format(">=(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    protected void logError(String message, Throwable e) {
-        this.logger.error(message, e);
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> null,
+                () -> null,
+                () -> { Integer result = compare(first, second); return result != null && result >= 0; }
+        });
     }
 }

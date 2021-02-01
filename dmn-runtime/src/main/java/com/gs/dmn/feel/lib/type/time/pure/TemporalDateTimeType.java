@@ -14,13 +14,11 @@ package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.DateTimeType;
 import com.gs.dmn.feel.lib.type.time.JavaTimeType;
-import org.slf4j.Logger;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
-import java.time.temporal.ChronoField;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
@@ -28,13 +26,11 @@ public class TemporalDateTimeType extends JavaTimeType implements DateTimeType<T
     private final TemporalComparator comparator;
 
     @Deprecated
-    public TemporalDateTimeType(Logger logger) {
-        super(logger);
-        this.comparator = new TemporalComparator(logger);
+    public TemporalDateTimeType() {
+        this.comparator = new TemporalComparator();
     }
 
-    public TemporalDateTimeType(Logger logger, TemporalComparator comparator) {
-        super(logger);
+    public TemporalDateTimeType(TemporalComparator comparator) {
         this.comparator = comparator;
     }
 
@@ -121,13 +117,7 @@ public class TemporalDateTimeType extends JavaTimeType implements DateTimeType<T
             return null;
         }
 
-        try {
-            return Duration.between(second, first);
-        } catch (Exception e) {
-            String message = String.format("dateTimeSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return Duration.between(second, first);
     }
 
     @Override
@@ -136,13 +126,7 @@ public class TemporalDateTimeType extends JavaTimeType implements DateTimeType<T
             return null;
         }
 
-        try {
-            return dateTime.plus(duration);
-        } catch (Exception e) {
-            String message = String.format("dateTimeAddDuration(%s, %s)", dateTime, duration);
-            logError(message, e);
-            return null;
-        }
+        return dateTime.plus(duration);
     }
 
     @Override
@@ -151,12 +135,6 @@ public class TemporalDateTimeType extends JavaTimeType implements DateTimeType<T
             return null;
         }
 
-        try {
-            return dateTime.minus(duration);
-        } catch (Exception e) {
-            String message = String.format("dateTimeSubtractDuration(%s, %s)", dateTime, duration);
-            logError(message, e);
-            return null;
-        }
+        return dateTime.minus(duration);
     }
 }

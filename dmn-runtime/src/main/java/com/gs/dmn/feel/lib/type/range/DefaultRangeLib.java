@@ -24,8 +24,6 @@ import com.gs.dmn.feel.lib.type.time.pure.TemporalComparator;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationComparator;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultXMLCalendarComparator;
 import com.gs.dmn.runtime.Range;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -44,9 +42,7 @@ import java.util.Map;
 // CQL https://cql.hl7.org/09-b-cqlreference.html#interval-operators-3
 //
 public class DefaultRangeLib implements RangeLib {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRangeLib.class);
-
-    private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType(LOGGER);
+    private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
     private static final Map<Class<?>, RelationalComparator> COMPARATOR_MAP = new LinkedHashMap<>();
 
     static {
@@ -55,10 +51,10 @@ public class DefaultRangeLib implements RangeLib {
         COMPARATOR_MAP.put(String.class, new ComparableComparator<String>());
 
         COMPARATOR_MAP.put(LocalDate.class, new LocalDateComparator());
-        COMPARATOR_MAP.put(OffsetTime.class, new OffsetTimeComparator(LOGGER));
+        COMPARATOR_MAP.put(OffsetTime.class, new OffsetTimeComparator());
         COMPARATOR_MAP.put(ZonedDateTime.class, new ZonedDateTimeComparator());
-        COMPARATOR_MAP.put(Temporal.class, new TemporalComparator(LOGGER));
-        COMPARATOR_MAP.put(TemporalAmount.class, new TemporalAmountComparator(LOGGER));
+        COMPARATOR_MAP.put(Temporal.class, new TemporalComparator());
+        COMPARATOR_MAP.put(TemporalAmount.class, new TemporalAmountComparator());
 
         COMPARATOR_MAP.put(XMLGregorianCalendar.class, new DefaultXMLCalendarComparator());
         COMPARATOR_MAP.put(Duration.class, new DefaultDurationComparator());

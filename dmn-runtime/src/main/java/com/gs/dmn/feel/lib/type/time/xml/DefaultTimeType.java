@@ -16,7 +16,6 @@ import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.TimeType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
-import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
@@ -27,15 +26,14 @@ public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCa
     private final DatatypeFactory datatypeFactory;
     protected final DefaultXMLCalendarComparator comparator;
 
-    public DefaultTimeType(Logger logger, DatatypeFactory datatypeFactory) {
-        this(logger, datatypeFactory, new DefaultXMLCalendarComparator());
+    public DefaultTimeType(DatatypeFactory datatypeFactory) {
+        this(datatypeFactory, new DefaultXMLCalendarComparator());
     }
 
-    public DefaultTimeType(Logger logger, DatatypeFactory datatypeFactory, DefaultXMLCalendarComparator comparator) {
-        super(logger);
+    public DefaultTimeType(DatatypeFactory datatypeFactory, DefaultXMLCalendarComparator comparator) {
         this.datatypeFactory = datatypeFactory;
         this.comparator = comparator;
-        this.booleanType = new DefaultBooleanType(logger);
+        this.booleanType = new DefaultBooleanType();
     }
 
     @Override
@@ -86,13 +84,7 @@ public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCa
             return null;
         }
 
-        try {
-            return this.datatypeFactory.newDuration(this.comparator.getDurationInMilliSeconds(first, second));
-        } catch (Exception e) {
-            String message = String.format("timeSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return this.datatypeFactory.newDuration(this.comparator.getDurationInMilliSeconds(first, second));
     }
 
     @Override
@@ -101,15 +93,9 @@ public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCa
             return null;
         }
 
-        try {
-            XMLGregorianCalendar clone = (XMLGregorianCalendar) time.clone();
-            clone.add(duration);
-            return clone;
-        } catch (Exception e) {
-            String message = String.format("timeAdd(%s, %s)", time, duration);
-            logError(message, e);
-            return null;
-        }
+        XMLGregorianCalendar clone = (XMLGregorianCalendar) time.clone();
+        clone.add(duration);
+        return clone;
     }
 
     @Override
@@ -118,14 +104,8 @@ public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCa
             return null;
         }
 
-        try {
-            XMLGregorianCalendar clone = (XMLGregorianCalendar) time.clone();
-            clone.add(duration.negate());
-            return clone;
-        } catch (Exception e) {
-            String message = String.format("timeSubtract(%s, %s)", time, duration);
-            logError(message, e);
-            return null;
-        }
+        XMLGregorianCalendar clone = (XMLGregorianCalendar) time.clone();
+        clone.add(duration.negate());
+        return clone;
     }
 }

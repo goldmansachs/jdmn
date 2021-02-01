@@ -40,16 +40,16 @@ import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
 public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> implements StandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
-    private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultNumericType(LOGGER);
-    private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType(LOGGER);
-    private static final StringType STRING_TYPE = new DefaultStringType(LOGGER);
-    private static final DateType<LocalDate, TemporalAmount> DATE_TYPE = new LocalDateType(LOGGER);
-    private static final TimeType<Temporal, TemporalAmount> TIME_TYPE = new TemporalTimeType(LOGGER);
-    private static final DateTimeType<Temporal, TemporalAmount> DATE_TIME_TYPE = new TemporalDateTimeType(LOGGER);
-    private static final DurationType<TemporalAmount, BigDecimal> DURATION_TYPE = new TemporalAmountDurationType(LOGGER);
-    private static final ListType LIST_TYPE = new DefaultListType(LOGGER);
-    private static final ContextType CONTEXT_TYPE = new DefaultContextType(LOGGER);
-    private static final RangeType RANGE_TYPE = new DefaultRangeType(LOGGER);
+    private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultNumericType();
+    private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
+    private static final StringType STRING_TYPE = new DefaultStringType();
+    private static final DateType<LocalDate, TemporalAmount> DATE_TYPE = new LocalDateType();
+    private static final TimeType<Temporal, TemporalAmount> TIME_TYPE = new TemporalTimeType();
+    private static final DateTimeType<Temporal, TemporalAmount> DATE_TIME_TYPE = new TemporalDateTimeType();
+    private static final DurationType<TemporalAmount, BigDecimal> DURATION_TYPE = new TemporalAmountDurationType();
+    private static final ListType LIST_TYPE = new DefaultListType();
+    private static final ContextType CONTEXT_TYPE = new DefaultContextType();
+    private static final RangeType RANGE_TYPE = new DefaultRangeType();
 
     private static final DefaultNumericLib NUMERIC_LIB = new DefaultNumericLib();
     private static final DefaultStringLib STRING_LIB = new DefaultStringLib();

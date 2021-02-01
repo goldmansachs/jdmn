@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.time.JavaTimeType;
-import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
@@ -26,8 +25,7 @@ import java.time.temporal.TemporalAmount;
 public abstract class JavaTimeCalendarType extends JavaTimeType {
     protected final DatatypeFactory datatypeFactory;
 
-    protected JavaTimeCalendarType(Logger logger, DatatypeFactory datatypeFactory) {
-        super(logger);
+    protected JavaTimeCalendarType(DatatypeFactory datatypeFactory) {
         this.datatypeFactory = datatypeFactory;
     }
 

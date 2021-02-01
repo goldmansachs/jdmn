@@ -15,7 +15,6 @@ package com.gs.dmn.feel.lib.type.numeric;
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.ComparableComparator;
 import com.gs.dmn.feel.lib.type.NumericType;
-import org.slf4j.Logger;
 
 public class DoubleNumericType extends BaseType implements NumericType<Double> {
     public static Double doubleNumericDivide(Double first, Double second) {
@@ -32,12 +31,11 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
     private final ComparableComparator<Double> comparator;
 
     @Deprecated
-    public DoubleNumericType(Logger logger) {
-        this(logger, new ComparableComparator<>());
+    public DoubleNumericType() {
+        this(new ComparableComparator<>());
     }
 
-    public DoubleNumericType(Logger logger, ComparableComparator<Double> comparator) {
-        super(logger);
+    public DoubleNumericType(ComparableComparator<Double> comparator) {
         this.comparator = comparator;
     }
 
@@ -47,13 +45,7 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
             return null;
         }
 
-        try {
-            return first + second;
-        } catch (Exception e) {
-            String message = String.format("numericAdd(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return first + second;
     }
 
     @Override
@@ -62,13 +54,7 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
             return null;
         }
 
-        try {
-            return first - second;
-        } catch (Exception e) {
-            String message = String.format("numericSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return first - second;
     }
 
     @Override
@@ -77,24 +63,12 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
             return null;
         }
 
-        try {
-            return first * second;
-        } catch (Exception e) {
-            String message = String.format("numericMultiply(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return first * second;
     }
 
     @Override
     public Double numericDivide(Double first, Double second) {
-        try {
-            return doubleNumericDivide(first, second);
-        } catch (Exception e) {
-            String message = String.format("numericDivide(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return doubleNumericDivide(first, second);
     }
 
     @Override
@@ -103,13 +77,7 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
             return null;
         }
 
-        try {
-            return - first;
-        } catch (Exception e) {
-            String message = String.format("numericUnaryMinus(%s)", first);
-            logError(message, e);
-            return null;
-        }
+        return - first;
     }
 
     @Override
@@ -118,13 +86,7 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
             return null;
         }
 
-        try {
-            return Math.pow(first, second);
-        } catch (Exception e) {
-            String message = String.format("numericExponentiation(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return Math.pow(first, second);
     }
 
     @Override

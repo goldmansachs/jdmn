@@ -14,14 +14,13 @@ package com.gs.dmn.signavio.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.TimeType;
 import com.gs.dmn.feel.lib.type.time.mixed.OffsetTimeType;
-import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.time.OffsetTime;
 
 public class SignavioOffsetTimeType extends OffsetTimeType implements TimeType<OffsetTime, Duration> {
-    public SignavioOffsetTimeType(Logger logger, DatatypeFactory datatypeFactory) {
-        super(logger, datatypeFactory, new SignavioOffsetTimeComparator(logger));
+    public SignavioOffsetTimeType(DatatypeFactory datatypeFactory) {
+        super(datatypeFactory, new SignavioOffsetTimeComparator());
     }
 }

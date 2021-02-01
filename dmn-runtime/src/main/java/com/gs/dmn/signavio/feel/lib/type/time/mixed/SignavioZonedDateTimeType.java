@@ -14,14 +14,13 @@ package com.gs.dmn.signavio.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.DateTimeType;
 import com.gs.dmn.feel.lib.type.time.mixed.ZonedDateTimeType;
-import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.time.ZonedDateTime;
 
 public class SignavioZonedDateTimeType extends ZonedDateTimeType implements DateTimeType<ZonedDateTime, Duration> {
-    public SignavioZonedDateTimeType(Logger logger, DatatypeFactory datatypeFactory) {
-        super(logger, datatypeFactory, new SignavioZonedDateTimeComparator());
+    public SignavioZonedDateTimeType(DatatypeFactory datatypeFactory) {
+        super(datatypeFactory, new SignavioZonedDateTimeComparator());
     }
 }

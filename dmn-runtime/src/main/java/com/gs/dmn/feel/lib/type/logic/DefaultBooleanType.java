@@ -14,7 +14,6 @@ package com.gs.dmn.feel.lib.type.logic;
 
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.BooleanType;
-import org.slf4j.Logger;
 
 import java.util.List;
 
@@ -22,8 +21,7 @@ import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
 public class DefaultBooleanType extends BaseType implements BooleanType {
-    public DefaultBooleanType(Logger logger) {
-        super(logger);
+    public DefaultBooleanType() {
     }
 
     @Override

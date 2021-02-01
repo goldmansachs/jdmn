@@ -17,7 +17,6 @@ import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.DurationType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.slf4j.Logger;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -27,9 +26,8 @@ import java.time.temporal.TemporalAmount;
 public class TemporalAmountDurationType extends BaseType implements DurationType<TemporalAmount, BigDecimal> {
     private final BooleanType booleanType;
 
-    public TemporalAmountDurationType(Logger logger) {
-        super(logger);
-        this.booleanType = new DefaultBooleanType(logger);
+    public TemporalAmountDurationType() {
+        this.booleanType = new DefaultBooleanType();
     }
 
     //
@@ -139,13 +137,7 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
             return null;
         }
 
-        try {
-            return plus(first, second);
-        } catch (Exception e) {
-            String message = String.format("durationAdd(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return plus(first, second);
     }
 
     @Override
@@ -154,13 +146,7 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
             return null;
         }
 
-        try {
-            return minus(first, second);
-        } catch (Exception e) {
-            String message = String.format("durationSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return minus(first, second);
     }
 
     @Override
@@ -169,13 +155,7 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
             return null;
         }
 
-        try {
-            return multiply(first, second.intValue());
-        } catch (Exception e) {
-            String message = String.format("durationMultiply(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return multiply(first, second.intValue());
     }
 
     @Override
@@ -184,13 +164,7 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
             return null;
         }
 
-        try {
-            return divide(first, second.intValue());
-        } catch (Exception e) {
-            String message = String.format("durationDivide(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return divide(first, second.intValue());
     }
 
     private int compare(TemporalAmount first, TemporalAmount second) {

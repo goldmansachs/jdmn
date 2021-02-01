@@ -15,7 +15,6 @@ package com.gs.dmn.feel.lib.type.time.pure;
 import com.gs.dmn.feel.lib.type.DateType;
 import com.gs.dmn.feel.lib.type.time.JavaTimeType;
 import com.gs.dmn.feel.lib.type.time.mixed.LocalDateComparator;
-import org.slf4j.Logger;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -25,12 +24,11 @@ public class LocalDateType extends JavaTimeType implements DateType<LocalDate, T
     private final LocalDateComparator comparator;
 
     @Deprecated
-    public LocalDateType(Logger logger) {
-        this(logger, new LocalDateComparator());
+    public LocalDateType() {
+        this(new LocalDateComparator());
     }
 
-    public LocalDateType(Logger logger, LocalDateComparator comparator) {
-        super(logger);
+    public LocalDateType(LocalDateComparator comparator) {
         this.comparator = comparator;
     }
 
@@ -85,13 +83,7 @@ public class LocalDateType extends JavaTimeType implements DateType<LocalDate, T
             return null;
         }
 
-        try {
-            return Period.between(first, second);
-        } catch (Exception e) {
-            String message = String.format("dateSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return Period.between(first, second);
     }
 
     @Override
@@ -100,13 +92,7 @@ public class LocalDateType extends JavaTimeType implements DateType<LocalDate, T
             return null;
         }
 
-        try {
-            return date.plus(duration);
-        } catch (Exception e) {
-            String message = String.format("dateAddDuration(%s, %s)", date, duration);
-            logError(message, e);
-            return null;
-        }
+        return date.plus(duration);
     }
 
     @Override
@@ -115,12 +101,6 @@ public class LocalDateType extends JavaTimeType implements DateType<LocalDate, T
             return null;
         }
 
-        try {
-            return date.minus(duration);
-        } catch (Exception e) {
-            String message = String.format("dateSubtractDuration(%s, %s)", date, duration);
-            logError(message, e);
-            return null;
-        }
+        return date.minus(duration);
     }
 }

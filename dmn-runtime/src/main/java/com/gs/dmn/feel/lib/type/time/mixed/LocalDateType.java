@@ -14,7 +14,6 @@ package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.DateType;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
-import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
@@ -24,12 +23,12 @@ public class LocalDateType extends JavaTimeCalendarType implements DateType<Loca
     protected final LocalDateComparator comparator;
 
     @Deprecated
-    public LocalDateType(Logger logger, DatatypeFactory datatypeFactory) {
-        this(logger, datatypeFactory, new LocalDateComparator());
+    public LocalDateType(DatatypeFactory datatypeFactory) {
+        this(datatypeFactory, new LocalDateComparator());
     }
 
-    public LocalDateType(Logger logger, DatatypeFactory datatypeFactory, LocalDateComparator comparator) {
-        super(logger, datatypeFactory);
+    public LocalDateType(DatatypeFactory datatypeFactory, LocalDateComparator comparator) {
+        super(datatypeFactory);
         this.comparator = comparator;
     }
 
@@ -84,13 +83,7 @@ public class LocalDateType extends JavaTimeCalendarType implements DateType<Loca
             return null;
         }
 
-        try {
-            return toDuration(first, second);
-        } catch (Exception e) {
-            String message = String.format("dateSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return toDuration(first, second);
     }
 
     @Override
@@ -99,13 +92,7 @@ public class LocalDateType extends JavaTimeCalendarType implements DateType<Loca
             return null;
         }
 
-        try {
-            return date.plus(toTemporalPeriod(duration));
-        } catch (Exception e) {
-            String message = String.format("dateAddDuration(%s, %s)", date, duration);
-            logError(message, e);
-            return null;
-        }
+        return date.plus(toTemporalPeriod(duration));
     }
 
     @Override
@@ -114,13 +101,7 @@ public class LocalDateType extends JavaTimeCalendarType implements DateType<Loca
             return null;
         }
 
-        try {
-            return date.minus(toTemporalPeriod(duration));
-        } catch (Exception e) {
-            String message = String.format("dateSubtractDuration(%s, %s)", date, duration);
-            logError(message, e);
-            return null;
-        }
+        return date.minus(toTemporalPeriod(duration));
     }
 
     protected Duration toDuration(LocalDate date1, LocalDate date2) {

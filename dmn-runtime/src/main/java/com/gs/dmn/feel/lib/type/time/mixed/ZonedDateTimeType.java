@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.DateTimeType;
-import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
@@ -23,12 +22,12 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
     private final ZonedDateTimeComparator comparator;
 
     @Deprecated
-    public ZonedDateTimeType(Logger logger, DatatypeFactory datatypeFactory) {
-        this(logger, datatypeFactory, new ZonedDateTimeComparator());
+    public ZonedDateTimeType(DatatypeFactory datatypeFactory) {
+        this(datatypeFactory, new ZonedDateTimeComparator());
     }
 
-    public ZonedDateTimeType(Logger logger, DatatypeFactory datatypeFactory, ZonedDateTimeComparator comparator) {
-        super(logger, datatypeFactory);
+    public ZonedDateTimeType(DatatypeFactory datatypeFactory, ZonedDateTimeComparator comparator) {
+        super(datatypeFactory);
         this.comparator = comparator;
     }
 
@@ -88,13 +87,7 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
             return null;
         }
 
-        try {
-            return toDuration(first, second);
-        } catch (Exception e) {
-            String message = String.format("dateTimeSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return toDuration(first, second);
     }
 
     @Override
@@ -103,16 +96,9 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
             return null;
         }
 
-        try {
-            return dateTime
-                    .plus(toTemporalPeriod(duration))
-                    .plus(toTemporalDuration(duration))
-                    ;
-        } catch (Exception e) {
-            String message = String.format("dateTimeSubtract(%s, %s)", dateTime, duration);
-            logError(message, e);
-            return null;
-        }
+        return dateTime
+                .plus(toTemporalPeriod(duration))
+                .plus(toTemporalDuration(duration));
     }
 
     @Override
@@ -121,16 +107,10 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
             return null;
         }
 
-        try {
-            return dateTime
-                    .minus(toTemporalPeriod(duration))
-                    .minus(toTemporalDuration(duration))
-                    ;
-        } catch (Exception e) {
-            String message = String.format("dateTimeSubtract(%s, %s)", dateTime, duration);
-            logError(message, e);
-            return null;
-        }
+        return dateTime
+                .minus(toTemporalPeriod(duration))
+                .minus(toTemporalDuration(duration))
+                ;
     }
 
     protected Duration toDuration(ZonedDateTime first, ZonedDateTime second) {

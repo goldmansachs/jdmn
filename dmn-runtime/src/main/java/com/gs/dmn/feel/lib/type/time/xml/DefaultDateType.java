@@ -16,7 +16,6 @@ import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.DateType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
-import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
@@ -27,15 +26,14 @@ public class DefaultDateType extends BaseType implements DateType<XMLGregorianCa
     private final DefaultXMLCalendarComparator comparator;
     private final BooleanType booleanType;
 
-    public DefaultDateType(Logger logger, DatatypeFactory datatypeFactory) {
-        this(logger, datatypeFactory, new DefaultXMLCalendarComparator());
+    public DefaultDateType(DatatypeFactory datatypeFactory) {
+        this(datatypeFactory, new DefaultXMLCalendarComparator());
     }
 
-    public DefaultDateType(Logger logger, DatatypeFactory datatypeFactory, DefaultXMLCalendarComparator comparator) {
-        super(logger);
+    public DefaultDateType(DatatypeFactory datatypeFactory, DefaultXMLCalendarComparator comparator) {
         this.datatypeFactory = datatypeFactory;
         this.comparator = comparator;
-        this.booleanType = new DefaultBooleanType(logger);
+        this.booleanType = new DefaultBooleanType();
     }
 
     //
@@ -87,13 +85,7 @@ public class DefaultDateType extends BaseType implements DateType<XMLGregorianCa
             return null;
         }
 
-        try {
-            return this.datatypeFactory.newDuration(this.comparator.getDurationInMilliSeconds(first, second));
-        } catch (Exception e) {
-            String message = String.format("dateSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return this.datatypeFactory.newDuration(this.comparator.getDurationInMilliSeconds(first, second));
     }
 
     @Override
@@ -102,15 +94,9 @@ public class DefaultDateType extends BaseType implements DateType<XMLGregorianCa
             return null;
         }
 
-        try {
-            XMLGregorianCalendar clone = (XMLGregorianCalendar) date.clone();
-            clone.add(duration);
-            return clone;
-        } catch (Exception e) {
-            String message = String.format("dateAddDuration(%s, %s)", date, duration);
-            logError(message, e);
-            return null;
-        }
+        XMLGregorianCalendar clone = (XMLGregorianCalendar) date.clone();
+        clone.add(duration);
+        return clone;
     }
 
     @Override
@@ -119,14 +105,8 @@ public class DefaultDateType extends BaseType implements DateType<XMLGregorianCa
             return null;
         }
 
-        try {
-            XMLGregorianCalendar clone = (XMLGregorianCalendar) date.clone();
-            clone.add(duration.negate());
-            return clone;
-        } catch (Exception e) {
-            String message = String.format("dateSubtractDuration(%s, %s)", date, duration);
-            logError(message, e);
-            return null;
-        }
+        XMLGregorianCalendar clone = (XMLGregorianCalendar) date.clone();
+        clone.add(duration.negate());
+        return clone;
     }
 }

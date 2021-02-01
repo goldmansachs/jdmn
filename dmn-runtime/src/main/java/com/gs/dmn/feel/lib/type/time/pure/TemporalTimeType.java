@@ -14,7 +14,6 @@ package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.TimeType;
 import com.gs.dmn.feel.lib.type.time.JavaTimeType;
-import org.slf4j.Logger;
 
 import java.time.LocalTime;
 import java.time.OffsetTime;
@@ -26,13 +25,11 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
     private final TemporalComparator comparator;
 
     @Deprecated
-    public TemporalTimeType(Logger logger) {
-        super(logger);
-        this.comparator = new TemporalComparator(logger);
+    public TemporalTimeType() {
+        this.comparator = new TemporalComparator();
     }
 
-    public TemporalTimeType(Logger logger, TemporalComparator comparator) {
-        super(logger);
+    public TemporalTimeType(TemporalComparator comparator) {
         this.comparator = comparator;
     }
 
@@ -88,13 +85,7 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
             return null;
         }
 
-        try {
-            return java.time.Duration.between(second, first);
-        } catch (Exception e) {
-            String message = String.format("timeSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return java.time.Duration.between(second, first);
     }
 
     @Override
@@ -103,13 +94,7 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
             return null;
         }
 
-        try {
-            return time.plus(duration);
-        } catch (Exception e) {
-            String message = String.format("timeAddDuration(%s, %s)", time, duration);
-            logError(message, e);
-            return null;
-        }
+        return time.plus(duration);
     }
 
     @Override
@@ -118,13 +103,7 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
             return null;
         }
 
-        try {
-            return time.minus(duration);
-        } catch (Exception e) {
-            String message = String.format("timeSubtractDuration(%s, %s)", time, duration);
-            logError(message, e);
-            return null;
-        }
+        return time.minus(duration);
     }
 
     protected Integer compare(Temporal first, Temporal second) {

@@ -16,7 +16,6 @@ import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
@@ -90,12 +89,11 @@ public abstract class BaseDefaultDurationType extends BaseType {
     private final RelationalComparator<Duration> comparator;
 
     @Deprecated
-    protected BaseDefaultDurationType(Logger logger) {
-        this(logger, DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator());
+    protected BaseDefaultDurationType() {
+        this(DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator());
     }
 
-    protected BaseDefaultDurationType(Logger logger, DatatypeFactory dataTypeFactory, RelationalComparator<Duration> comparator) {
-        super(logger);
+    protected BaseDefaultDurationType(DatatypeFactory dataTypeFactory, RelationalComparator<Duration> comparator) {
         this.dataTypeFactory = dataTypeFactory;
         this.comparator = comparator;
     }
@@ -132,13 +130,7 @@ public abstract class BaseDefaultDurationType extends BaseType {
             return null;
         }
 
-        try {
-            return first.add(second);
-        } catch (Exception e) {
-            String message = String.format("durationAdd(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return first.add(second);
     }
 
     public Duration durationSubtract(Duration first, Duration second) {
@@ -146,13 +138,7 @@ public abstract class BaseDefaultDurationType extends BaseType {
             return null;
         }
 
-        try {
-            return first.subtract(second);
-        } catch (Exception e) {
-            String message = String.format("durationSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return first.subtract(second);
     }
 
     protected Duration durationMultiply(Duration first, Number second) {
@@ -160,13 +146,7 @@ public abstract class BaseDefaultDurationType extends BaseType {
             return null;
         }
 
-        try {
-            return first.multiply(second.intValue());
-        } catch (Exception e) {
-            String message = String.format("durationMultiply(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return first.multiply(second.intValue());
     }
 
     protected Duration durationDivide(Duration first, Number second) {
@@ -174,23 +154,17 @@ public abstract class BaseDefaultDurationType extends BaseType {
             return null;
         }
 
-        try {
-            if (isYearMonthDuration(first)) {
-                long months = (first.getYears() * 12 + first.getMonths()) / second.intValue();
-                return this.dataTypeFactory.newDurationYearMonth(String.format("P%dM", months));
-            } else if (isDayTimeDuration(first)) {
-                long hours = 24L * first.getDays() + first.getHours();
-                long minutes = 60L * hours + first.getMinutes();
-                long seconds = 60L * minutes + first.getSeconds();
-                seconds = seconds / second.intValue();
-                return this.dataTypeFactory.newDurationDayTime(seconds * 1000L);
-            } else {
-                throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
-            }
-        } catch (Exception e) {
-            String message = String.format("durationDivide(%s, %s)", first, second);
-            logError(message, e);
-            return null;
+        if (isYearMonthDuration(first)) {
+            long months = (first.getYears() * 12 + first.getMonths()) / second.intValue();
+            return this.dataTypeFactory.newDurationYearMonth(String.format("P%dM", months));
+        } else if (isDayTimeDuration(first)) {
+            long hours = 24L * first.getDays() + first.getHours();
+            long minutes = 60L * hours + first.getMinutes();
+            long seconds = 60L * minutes + first.getSeconds();
+            seconds = seconds / second.intValue();
+            return this.dataTypeFactory.newDurationDayTime(seconds * 1000L);
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
         }
     }
 }

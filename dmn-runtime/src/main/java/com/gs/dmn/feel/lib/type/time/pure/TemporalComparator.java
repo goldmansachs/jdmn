@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.RelationalComparator;
-import org.slf4j.Logger;
 
 import java.time.*;
 import java.time.temporal.Temporal;
@@ -23,10 +22,7 @@ import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
 public class TemporalComparator implements RelationalComparator<Temporal> {
-    private final Logger logger;
-
-    public TemporalComparator(Logger logger) {
-        this.logger = logger;
+    public TemporalComparator() {
     }
 
     @Override
@@ -50,85 +46,51 @@ public class TemporalComparator implements RelationalComparator<Temporal> {
 
     @Override
     public Boolean equalTo(Temporal first, Temporal second) {
-        try {
-            return applyOperator(first, second, new Supplier[] {
-                    () -> TRUE,
-                    () -> FALSE,
-                    () -> FALSE,
-                    () -> { Integer result = compare(first, second); return result != null && result == 0; }
-            });
-        } catch (Exception e) {
-            String message = String.format("=(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> FALSE,
+                () -> FALSE,
+                () -> { Integer result = compare(first, second); return result != null && result == 0; }
+        });
     }
 
     @Override
     public Boolean lessThan(Temporal first, Temporal second) {
-        try {
-            return applyOperator(first, second, new Supplier[] {
-                    () -> FALSE,
-                    () -> null,
-                    () -> null,
-                    () -> { Integer result = compare(first, second); return result != null && result < 0; }
-            });
-        } catch (Exception e) {
-            String message = String.format("<(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> FALSE,
+                () -> null,
+                () -> null,
+                () -> { Integer result = compare(first, second); return result != null && result < 0; }
+        });
     }
 
     @Override
     public Boolean greaterThan(Temporal first, Temporal second) {
-        try {
-            return applyOperator(first, second, new Supplier[] {
-                    () -> FALSE,
-                    () -> null,
-                    () -> null,
-                    () -> { Integer result = compare(first, second); return result != null && result > 0; }
-            });
-        } catch (Exception e) {
-            String message = String.format(">(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> FALSE,
+                () -> null,
+                () -> null,
+                () -> { Integer result = compare(first, second); return result != null && result > 0; }
+        });
     }
 
     @Override
     public Boolean lessEqualThan(Temporal first, Temporal second) {
-        try {
-            return applyOperator(first, second, new Supplier[] {
-                    () -> TRUE,
-                    () -> null,
-                    () -> null,
-                    () -> { Integer result = compare(first, second); return result != null && result <= 0; }
-            });
-        } catch (Exception e) {
-            String message = String.format("<=(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> null,
+                () -> null,
+                () -> { Integer result = compare(first, second); return result != null && result <= 0; }
+        });
     }
 
     @Override
     public Boolean greaterEqualThan(Temporal first, Temporal second) {
-        try {
-            return applyOperator(first, second, new Supplier[] {
-                    () -> TRUE,
-                    () -> null,
-                    () -> null,
-                    () -> { Integer result = compare(first, second); return result != null && result >= 0; }
-            });
-        } catch (Exception e) {
-            String message = String.format(">=(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    protected void logError(String message, Throwable e) {
-        this.logger.error(message, e);
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> null,
+                () -> null,
+                () -> { Integer result = compare(first, second); return result != null && result >= 0; }
+        });
     }
 }

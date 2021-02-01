@@ -15,24 +15,23 @@ package com.gs.dmn.feel.lib.type.time.xml;
 import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.type.DurationType;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
-import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 
 public class DoubleDurationType extends BaseDefaultDurationType implements DurationType<Duration, Double> {
     @Deprecated
-    public DoubleDurationType(Logger logger) {
-        this(logger, DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator());
+    public DoubleDurationType() {
+        this(DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator());
     }
 
     @Deprecated
-    public DoubleDurationType(Logger logger, DatatypeFactory dataTypeFactory) {
-        this(logger, dataTypeFactory, new DefaultDurationComparator());
+    public DoubleDurationType(DatatypeFactory dataTypeFactory) {
+        this(dataTypeFactory, new DefaultDurationComparator());
     }
 
-    public DoubleDurationType(Logger logger, DatatypeFactory dataTypeFactory, RelationalComparator<Duration> durationComparator) {
-        super(logger, dataTypeFactory, durationComparator);
+    public DoubleDurationType(DatatypeFactory dataTypeFactory, RelationalComparator<Duration> durationComparator) {
+        super(dataTypeFactory, durationComparator);
     }
 
     @Override
