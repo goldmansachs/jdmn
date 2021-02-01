@@ -15,13 +15,11 @@ package com.gs.dmn.feel.lib.type.string;
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.ComparableComparator;
 import com.gs.dmn.feel.lib.type.StringType;
-import org.slf4j.Logger;
 
 public class DefaultStringType extends BaseType implements StringType {
     private final ComparableComparator<String> comparator;
 
-    public DefaultStringType(Logger logger) {
-        super(logger);
+    public DefaultStringType() {
         this.comparator = new ComparableComparator<>();
     }
 

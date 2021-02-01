@@ -14,13 +14,12 @@ package com.gs.dmn.signavio.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.DurationType;
 import com.gs.dmn.feel.lib.type.time.xml.DoubleDurationType;
-import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 
 public class DoubleSignavioDurationType extends DoubleDurationType implements DurationType<Duration, Double> {
-    public DoubleSignavioDurationType(Logger logger,  DatatypeFactory dataTypeFactory) {
-        super(logger, dataTypeFactory, new DefaultSignavioDurationComparator());
+    public DoubleSignavioDurationType(DatatypeFactory dataTypeFactory) {
+        super(dataTypeFactory, new DefaultSignavioDurationComparator());
     }
  }

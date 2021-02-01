@@ -31,8 +31,8 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
 public class DoubleMixedJavaTimeFEELLib extends BaseMixedJavaTimeFEELLib<Double> {
-    private static final NumericType<Double> NUMERIC_TYPE = new DoubleNumericType(LOGGER);
-    private static final DurationType<Duration, Double> DURATION_TYPE = new DoubleDurationType(LOGGER, DATA_TYPE_FACTORY);
+    private static final NumericType<Double> NUMERIC_TYPE = new DoubleNumericType();
+    private static final DurationType<Duration, Double> DURATION_TYPE = new DoubleDurationType(DATA_TYPE_FACTORY);
     private static final NumericLib<Double> NUMERIC_LIB = new DoubleNumericLib();
 
     public static final DoubleMixedJavaTimeFEELLib INSTANCE = new DoubleMixedJavaTimeFEELLib();

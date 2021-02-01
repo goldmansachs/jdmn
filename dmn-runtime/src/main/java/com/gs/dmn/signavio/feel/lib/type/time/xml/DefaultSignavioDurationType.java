@@ -14,14 +14,13 @@ package com.gs.dmn.signavio.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.DurationType;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationType;
-import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 
 public class DefaultSignavioDurationType extends DefaultDurationType implements DurationType<Duration, BigDecimal> {
-    public DefaultSignavioDurationType(Logger logger, DatatypeFactory dataTypeFactory) {
-        super(logger, dataTypeFactory, new DefaultSignavioDurationComparator());
+    public DefaultSignavioDurationType(DatatypeFactory dataTypeFactory) {
+        super(dataTypeFactory, new DefaultSignavioDurationComparator());
     }
 }

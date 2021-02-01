@@ -15,7 +15,6 @@ package com.gs.dmn.feel.lib.type.time.xml;
 import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.type.DurationType;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
-import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
@@ -23,17 +22,17 @@ import java.math.BigDecimal;
 
 public class DefaultDurationType extends BaseDefaultDurationType implements DurationType<Duration, BigDecimal> {
     @Deprecated
-    public DefaultDurationType(Logger logger) {
-        this(logger, DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator());
+    public DefaultDurationType() {
+        this(DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator());
     }
 
     @Deprecated
-    public DefaultDurationType(Logger logger, DatatypeFactory dataTypeFactory) {
-        this(logger, dataTypeFactory, new DefaultDurationComparator());
+    public DefaultDurationType(DatatypeFactory dataTypeFactory) {
+        this(dataTypeFactory, new DefaultDurationComparator());
     }
 
-    public DefaultDurationType(Logger logger, DatatypeFactory dataTypeFactory, RelationalComparator<Duration> durationComparator) {
-        super(logger, dataTypeFactory, durationComparator);
+    public DefaultDurationType(DatatypeFactory dataTypeFactory, RelationalComparator<Duration> durationComparator) {
+        super(dataTypeFactory, durationComparator);
     }
 
     @Override

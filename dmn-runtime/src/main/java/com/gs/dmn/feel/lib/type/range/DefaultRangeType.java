@@ -16,14 +16,12 @@ import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.runtime.Range;
-import org.slf4j.Logger;
 
 public class DefaultRangeType extends BaseType implements RangeType {
     private final BooleanType booleanType;
 
-    public DefaultRangeType(Logger logger) {
-        super(logger);
-        this.booleanType = new DefaultBooleanType(logger);
+    public DefaultRangeType() {
+        this.booleanType = new DefaultBooleanType();
     }
 
     @Override

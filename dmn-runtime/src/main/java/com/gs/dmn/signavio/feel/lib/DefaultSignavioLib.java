@@ -37,16 +37,16 @@ import java.math.BigDecimal;
 import static com.gs.dmn.feel.lib.DefaultFEELLib.DATA_TYPE_FACTORY;
 
 public class DefaultSignavioLib extends BaseSignavioLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
-    private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultSignavioNumericType(LOGGER);
-    private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType(LOGGER);
-    private static final StringType STRING_TYPE = new DefaultSignavioStringType(LOGGER);
-    private static final DateType<XMLGregorianCalendar, Duration> DATE_TYPE = new DefaultSignavioDateType(LOGGER, DATA_TYPE_FACTORY);
-    private static final TimeType<XMLGregorianCalendar, Duration> TIME_TYPE = new DefaultSignavioTimeType(LOGGER, DATA_TYPE_FACTORY);
-    private static final DateTimeType<XMLGregorianCalendar, Duration> DATE_TIME_TYPE = new DefaultSignavioDateTimeType(LOGGER, DATA_TYPE_FACTORY);
-    private static final DurationType<Duration, BigDecimal> DURATION_TYPE = new DefaultSignavioDurationType(LOGGER, DATA_TYPE_FACTORY);
-    private static final ListType LIST_TYPE = new DefaultListType(LOGGER);
-    private static final ContextType CONTEXT_TYPE = new DefaultContextType(LOGGER);
-    private static final RangeType RANGE_TYPE = new DefaultRangeType(LOGGER);
+    private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultSignavioNumericType();
+    private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
+    private static final StringType STRING_TYPE = new DefaultSignavioStringType();
+    private static final DateType<XMLGregorianCalendar, Duration> DATE_TYPE = new DefaultSignavioDateType(DATA_TYPE_FACTORY);
+    private static final TimeType<XMLGregorianCalendar, Duration> TIME_TYPE = new DefaultSignavioTimeType(DATA_TYPE_FACTORY);
+    private static final DateTimeType<XMLGregorianCalendar, Duration> DATE_TIME_TYPE = new DefaultSignavioDateTimeType(DATA_TYPE_FACTORY);
+    private static final DurationType<Duration, BigDecimal> DURATION_TYPE = new DefaultSignavioDurationType(DATA_TYPE_FACTORY);
+    private static final ListType LIST_TYPE = new DefaultListType();
+    private static final ContextType CONTEXT_TYPE = new DefaultContextType();
+    private static final RangeType RANGE_TYPE = new DefaultRangeType();
 
     private static final DefaultFEELLib FEEL_LIB = new DefaultFEELLib();
     private static final SignavioNumberLib<BigDecimal> NUMBER_LIB = new DefaultSignavioNumberLib();

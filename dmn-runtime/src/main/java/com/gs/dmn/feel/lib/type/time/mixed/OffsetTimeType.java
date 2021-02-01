@@ -14,7 +14,6 @@ package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.TimeType;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
-import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
@@ -28,12 +27,12 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
     private final OffsetTimeComparator comparator;
 
     @Deprecated
-    public OffsetTimeType(Logger logger, DatatypeFactory datatypeFactory) {
-        this(logger, datatypeFactory, new OffsetTimeComparator(logger));
+    public OffsetTimeType(DatatypeFactory datatypeFactory) {
+        this(datatypeFactory, new OffsetTimeComparator());
     }
 
-    public OffsetTimeType(Logger logger, DatatypeFactory datatypeFactory, OffsetTimeComparator comparator) {
-        super(logger, datatypeFactory);
+    public OffsetTimeType(DatatypeFactory datatypeFactory, OffsetTimeComparator comparator) {
+        super(datatypeFactory);
         this.comparator = comparator;
     }
 
@@ -89,13 +88,7 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
             return null;
         }
 
-        try {
-            return toDuration(first, second);
-        } catch (Exception e) {
-            String message = String.format("timeSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return toDuration(first, second);
     }
 
     @Override
@@ -104,13 +97,7 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
             return null;
         }
 
-        try {
-            return time.plus(toTemporalDuration(duration));
-        } catch (Exception e) {
-            String message = String.format("timeAdd(%s, %s)", time, duration);
-            logError(message, e);
-            return null;
-        }
+        return time.plus(toTemporalDuration(duration));
     }
 
     @Override
@@ -119,13 +106,7 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
             return null;
         }
 
-        try {
-            return time.minus(toTemporalDuration(duration));
-        } catch (Exception e) {
-            String message = String.format("timeSubtract(%s, %s)", time, duration);
-            logError(message, e);
-            return null;
-        }
+        return time.minus(toTemporalDuration(duration));
     }
 
     protected Duration toDuration(OffsetTime first, OffsetTime second) {
