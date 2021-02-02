@@ -24,12 +24,8 @@ public class DefaultStringType extends BaseType implements StringType {
     }
 
     @Override
-    public String stringAdd(String first, String second) {
-        if (first == null || second == null) {
-            return null;
-        } else {
-            return first + second;
-        }
+    public boolean isString(Object value) {
+        return value instanceof String;
     }
 
     @Override
@@ -69,5 +65,14 @@ public class DefaultStringType extends BaseType implements StringType {
     @Override
     public Boolean stringGreaterEqualThan(String first, String second) {
         return this.comparator.greaterEqualThan(first, second);
+    }
+
+    @Override
+    public String stringAdd(String first, String second) {
+        if (first == null || second == null) {
+            return null;
+        } else {
+            return first + second;
+        }
     }
 }

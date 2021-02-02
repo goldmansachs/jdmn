@@ -13,6 +13,8 @@
 package com.gs.dmn.feel.lib.type;
 
 public interface TimeType<TIME, DURATION> {
+    boolean isTime(Object value);
+
     Boolean timeIs(TIME first, TIME second);
 
     Boolean timeEqual(TIME first, TIME second);
@@ -32,6 +34,4 @@ public interface TimeType<TIME, DURATION> {
     TIME timeAddDuration(TIME time, DURATION duration);
 
     TIME timeSubtractDuration(TIME time, DURATION duration);
-
-    boolean isTime(Object value);
 }

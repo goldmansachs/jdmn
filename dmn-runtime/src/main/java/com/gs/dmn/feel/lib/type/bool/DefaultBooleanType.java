@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.lib.type.logic;
+package com.gs.dmn.feel.lib.type.bool;
 
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.BooleanType;
@@ -21,7 +21,9 @@ import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
 public class DefaultBooleanType extends BaseType implements BooleanType {
-    public DefaultBooleanType() {
+    @Override
+    public boolean isBoolean(Object value) {
+        return value instanceof Boolean;
     }
 
     @Override

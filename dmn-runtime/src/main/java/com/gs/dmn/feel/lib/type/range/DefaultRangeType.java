@@ -14,7 +14,7 @@ package com.gs.dmn.feel.lib.type.range;
 
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.BooleanType;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 import com.gs.dmn.runtime.Range;
 
 public class DefaultRangeType extends BaseType implements RangeType {
@@ -22,6 +22,11 @@ public class DefaultRangeType extends BaseType implements RangeType {
 
     public DefaultRangeType() {
         this.booleanType = new DefaultBooleanType();
+    }
+
+    @Override
+    public boolean isRange(Object value) {
+        return value instanceof Range;
     }
 
     @Override

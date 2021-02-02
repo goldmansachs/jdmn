@@ -12,14 +12,13 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
-import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.ComparableComparator;
 import com.gs.dmn.feel.lib.type.NumericType;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-public class DefaultNumericType extends BaseType implements NumericType<BigDecimal> {
+public class DefaultNumericType extends BaseNumericType implements NumericType<BigDecimal> {
     public static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
 
     public static BigDecimal decimalNumericDivide(BigDecimal first, BigDecimal second) {
@@ -42,6 +41,11 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
 
     public DefaultNumericType(ComparableComparator<BigDecimal> comparator) {
         this.comparator = comparator;
+    }
+
+    @Override
+    public boolean isNumber(Object value) {
+        return value instanceof BigDecimal;
     }
 
     @Override

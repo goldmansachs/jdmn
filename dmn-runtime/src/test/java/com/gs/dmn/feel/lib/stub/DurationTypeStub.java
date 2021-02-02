@@ -15,7 +15,6 @@ package com.gs.dmn.feel.lib.stub;
 import com.gs.dmn.feel.lib.type.DurationType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
-
 public class DurationTypeStub<DURATION, NUMBER> implements DurationType<DURATION, NUMBER> {
     @Override
     public Boolean durationIs(DURATION first, DURATION second) {
@@ -79,6 +78,16 @@ public class DurationTypeStub<DURATION, NUMBER> implements DurationType<DURATION
 
     @Override
     public boolean isDuration(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public boolean isYearsAndMonthsDuration(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public boolean isDaysAndTimeDuration(Object value) {
         throw new DMNRuntimeException("Not supported yet");
     }
 }

@@ -19,6 +19,11 @@ import java.util.List;
 
 public class BooleanTypeStub implements BooleanType {
     @Override
+    public boolean isBoolean(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public Boolean booleanNot(Object operand) {
         throw new DMNRuntimeException("Not supported yet");
     }

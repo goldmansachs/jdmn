@@ -59,11 +59,11 @@ public class DoubleDurationType extends BaseDefaultDurationType implements Durat
             return null;
         }
 
-        if (isYearMonthDuration(first) && isYearMonthDuration(second)) {
+        if (isYearsAndMonthsDuration(first) && isYearsAndMonthsDuration(second)) {
             Long firstValue = monthsValue(first);
             Long secondValue = monthsValue(second);
             return secondValue == 0 ? null : firstValue.doubleValue() / secondValue.doubleValue();
-        } else if (isDayTimeDuration(first) && isDayTimeDuration(second)) {
+        } else if (isDaysAndTimeDuration(first) && isDaysAndTimeDuration(second)) {
             Long firstValue = secondsValue(first);
             Long secondValue = secondsValue(second);
             return secondValue == 0 ? null : firstValue.doubleValue() / secondValue.doubleValue();
@@ -78,10 +78,10 @@ public class DoubleDurationType extends BaseDefaultDurationType implements Durat
             return null;
         }
 
-        if (isYearMonthDuration(first)) {
+        if (isYearsAndMonthsDuration(first)) {
             Double months = monthsValue(first) * second;
             return makeYearsMonthsDuration(months);
-        } else if (isDayTimeDuration(first)) {
+        } else if (isDaysAndTimeDuration(first)) {
             Double seconds = secondsValue(first) * second;
             return makeDaysTimeDuration(seconds);
         } else {
@@ -98,19 +98,14 @@ public class DoubleDurationType extends BaseDefaultDurationType implements Durat
             return null;
         }
 
-        if (isYearMonthDuration(first)) {
+        if (isYearsAndMonthsDuration(first)) {
             Double months = monthsValue(first).doubleValue() / second;
             return makeYearsMonthsDuration(months);
-        } else if (isDayTimeDuration(first)) {
+        } else if (isDaysAndTimeDuration(first)) {
             Double seconds = secondsValue(first).doubleValue() / second;
             return makeDaysTimeDuration(seconds);
         } else {
             throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
         }
-    }
-
-    @Override
-    public boolean isDuration(Object value) {
-        return value instanceof Duration;
     }
 }

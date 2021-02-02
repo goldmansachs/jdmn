@@ -17,6 +17,11 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class StringTypeStub implements StringType {
     @Override
+    public boolean isString(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public Boolean stringIs(String first, String second) {
         throw new DMNRuntimeException("Not supported yet");
     }

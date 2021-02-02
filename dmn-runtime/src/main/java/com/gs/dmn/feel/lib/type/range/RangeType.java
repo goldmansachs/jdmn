@@ -15,6 +15,8 @@ package com.gs.dmn.feel.lib.type.range;
 import com.gs.dmn.runtime.Range;
 
 public interface RangeType {
+    boolean isRange(Object value);
+
     Boolean rangeIs(Range range1, Range range2);
 
     Boolean rangeEqual(Range range1, Range range2);

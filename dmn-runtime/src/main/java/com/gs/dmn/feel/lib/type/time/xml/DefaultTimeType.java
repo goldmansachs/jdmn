@@ -14,7 +14,7 @@ package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.TimeType;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;

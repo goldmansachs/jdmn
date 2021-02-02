@@ -13,6 +13,12 @@
 package com.gs.dmn.feel.lib.type;
 
 public interface DurationType<DURATION,  NUMBER> {
+    boolean isDuration(Object value);
+
+    boolean isYearsAndMonthsDuration(Object value);
+
+    boolean isDaysAndTimeDuration(Object value);
+
     Boolean durationIs(DURATION first, DURATION second);
 
     Boolean durationEqual(DURATION first, DURATION second);
@@ -36,6 +42,4 @@ public interface DurationType<DURATION,  NUMBER> {
     DURATION durationMultiplyNumber(DURATION first, NUMBER second);
 
     DURATION durationDivideNumber(DURATION first, NUMBER second);
-
-    boolean isDuration(Object value);
 }

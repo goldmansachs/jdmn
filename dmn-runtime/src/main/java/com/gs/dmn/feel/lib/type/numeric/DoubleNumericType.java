@@ -12,11 +12,10 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
-import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.ComparableComparator;
 import com.gs.dmn.feel.lib.type.NumericType;
 
-public class DoubleNumericType extends BaseType implements NumericType<Double> {
+public class DoubleNumericType extends BaseNumericType implements NumericType<Double> {
     public static Double doubleNumericDivide(Double first, Double second) {
         if (first == null || second == null) {
             return null;
@@ -37,6 +36,11 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
 
     public DoubleNumericType(ComparableComparator<Double> comparator) {
         this.comparator = comparator;
+    }
+
+    @Override
+    public boolean isNumber(Object value) {
+        return value instanceof Double;
     }
 
     @Override

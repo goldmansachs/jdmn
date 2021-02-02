@@ -13,17 +13,7 @@
 package com.gs.dmn.feel.lib.type;
 
 public interface NumericType<NUMBER> {
-    NUMBER numericAdd(NUMBER first, NUMBER second);
-
-    NUMBER numericSubtract(NUMBER first, NUMBER second);
-
-    NUMBER numericMultiply(NUMBER first, NUMBER second);
-
-    NUMBER numericDivide(NUMBER first, NUMBER second);
-
-    NUMBER numericUnaryMinus(NUMBER first);
-
-    NUMBER numericExponentiation(NUMBER first, NUMBER second);
+    boolean isNumber(Object value);
 
     Boolean numericIs(NUMBER first, NUMBER second);
 
@@ -38,4 +28,16 @@ public interface NumericType<NUMBER> {
     Boolean numericLessEqualThan(NUMBER first, NUMBER second);
 
     Boolean numericGreaterEqualThan(NUMBER first, NUMBER second);
+
+    NUMBER numericAdd(NUMBER first, NUMBER second);
+
+    NUMBER numericSubtract(NUMBER first, NUMBER second);
+
+    NUMBER numericMultiply(NUMBER first, NUMBER second);
+
+    NUMBER numericDivide(NUMBER first, NUMBER second);
+
+    NUMBER numericUnaryMinus(NUMBER first);
+
+    NUMBER numericExponentiation(NUMBER first, NUMBER second);
 }

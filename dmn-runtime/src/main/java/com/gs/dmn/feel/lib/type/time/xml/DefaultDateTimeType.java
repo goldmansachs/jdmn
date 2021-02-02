@@ -14,7 +14,7 @@ package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.DateTimeType;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
@@ -129,11 +129,11 @@ public class DefaultDateTimeType extends XMLTimeType implements DateTimeType<XML
     }
 
     @Override
-    public XMLGregorianCalendar dateTimeSubtractDuration(XMLGregorianCalendar xmlGregorianCalendar, Duration duration) {
-        if (xmlGregorianCalendar == null || duration == null) {
+    public XMLGregorianCalendar dateTimeSubtractDuration(XMLGregorianCalendar dateTime, Duration duration) {
+        if (dateTime == null || duration == null) {
             return null;
         }
 
-        return dateTimeAddDuration(xmlGregorianCalendar, duration.negate());
+        return dateTimeAddDuration(dateTime, duration.negate());
     }
 }
