@@ -137,4 +137,11 @@ public class TemporalDateTimeType extends JavaTimeType implements DateTimeType<T
 
         return dateTime.minus(duration);
     }
+
+    @Override
+    public boolean isDateTime(Object value) {
+        return value instanceof LocalDateTime
+                || value instanceof OffsetDateTime
+                || value instanceof ZonedDateTime;
+    }
 }

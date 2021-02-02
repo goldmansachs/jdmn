@@ -558,28 +558,28 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
     @Test
     public void testDurationMultiply() {
-        assertNull(getLib().durationMultiply(null, null));
-        assertNull(getLib().durationMultiply(null, makeNumber("2")));
-        assertNull(getLib().durationMultiply(makeDuration("P1Y1M"), null));
+        assertNull(getLib().durationMultiplyNumber(null, null));
+        assertNull(getLib().durationMultiplyNumber(null, makeNumber("2")));
+        assertNull(getLib().durationMultiplyNumber(makeDuration("P1Y1M"), null));
 
-        assertEquals(makeDuration("P2Y2M"), getLib().durationMultiply(makeDuration("P1Y1M"),  makeNumber("2")));
-        assertEquals(makeDuration("-P2Y2M"), getLib().durationMultiply(makeDuration("P1Y1M"),  makeNumber("-2")));
+        assertEquals(makeDuration("P2Y2M"), getLib().durationMultiplyNumber(makeDuration("P1Y1M"),  makeNumber("2")));
+        assertEquals(makeDuration("-P2Y2M"), getLib().durationMultiplyNumber(makeDuration("P1Y1M"),  makeNumber("-2")));
 
-        assertEquals(makeDuration("P2DT2H"), getLib().durationMultiply(makeDuration("P1DT1H"),  makeNumber("2")));
-        assertEquals(makeDuration("-P2DT2H"), getLib().durationMultiply(makeDuration("P1DT1H"),  makeNumber("-2")));
+        assertEquals(makeDuration("P2DT2H"), getLib().durationMultiplyNumber(makeDuration("P1DT1H"),  makeNumber("2")));
+        assertEquals(makeDuration("-P2DT2H"), getLib().durationMultiplyNumber(makeDuration("P1DT1H"),  makeNumber("-2")));
     }
 
     @Test
     public void testDurationDivide() {
-        assertNull(getLib().durationDivide(null, null));
-        assertNull(getLib().durationDivide(null, makeNumber("2")));
-        assertNull(getLib().durationDivide(makeDuration("P1Y1M"), null));
+        assertNull(getLib().durationDivideNumber(null, null));
+        assertNull(getLib().durationDivideNumber(null, makeNumber("2")));
+        assertNull(getLib().durationDivideNumber(makeDuration("P1Y1M"), null));
 
-        assertEquals(makeDuration("P0Y6M"), getLib().durationDivide(makeDuration("P1Y1M"),  makeNumber("2")));
-        assertEquals(makeDuration("P1Y1M"), getLib().durationDivide(makeDuration("P2Y2M"),  makeNumber("2")));
+        assertEquals(makeDuration("P0Y6M"), getLib().durationDivideNumber(makeDuration("P1Y1M"),  makeNumber("2")));
+        assertEquals(makeDuration("P1Y1M"), getLib().durationDivideNumber(makeDuration("P2Y2M"),  makeNumber("2")));
 
-        assertEquals(makeDuration("P0DT12H30M"), getLib().durationDivide(makeDuration("P1DT1H"),  makeNumber("2")));
-        assertEquals(makeDuration("P1DT1H"), getLib().durationDivide(makeDuration("P2DT2H"),  makeNumber("2")));
+        assertEquals(makeDuration("P0DT12H30M"), getLib().durationDivideNumber(makeDuration("P1DT1H"),  makeNumber("2")));
+        assertEquals(makeDuration("P1DT1H"), getLib().durationDivideNumber(makeDuration("P2DT2H"),  makeNumber("2")));
     }
 
     //

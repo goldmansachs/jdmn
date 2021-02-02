@@ -31,7 +31,11 @@ public interface DurationType<DURATION,  NUMBER> {
 
     DURATION durationSubtract(DURATION first, DURATION second);
 
-    DURATION durationMultiply(DURATION first, NUMBER second);
+    NUMBER durationDivide(DURATION first, DURATION second);
 
-    DURATION durationDivide(DURATION first, NUMBER second);
+    DURATION durationMultiplyNumber(DURATION first, NUMBER second);
+
+    DURATION durationDivideNumber(DURATION first, NUMBER second);
+
+    boolean isDuration(Object value);
 }

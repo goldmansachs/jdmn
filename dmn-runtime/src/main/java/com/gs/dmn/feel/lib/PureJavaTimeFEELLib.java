@@ -35,7 +35,7 @@ import com.gs.dmn.feel.lib.type.time.DurationLib;
 import com.gs.dmn.feel.lib.type.time.pure.*;
 
 import java.math.BigDecimal;
-import java.time.*;
+import java.time.LocalDate;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
@@ -215,28 +215,5 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
     @Override
     protected int intValue(BigDecimal number) {
         return number.intValue();
-    }
-
-    @Override
-    protected boolean isDate(Object value) {
-        return value instanceof LocalDate;
-    }
-
-    @Override
-    protected boolean isTime(Object value) {
-        return value instanceof OffsetTime
-        || value instanceof LocalTime;
-    }
-
-    @Override
-    protected boolean isDateTime(Object value) {
-        return value instanceof LocalDateTime
-                || value instanceof OffsetDateTime
-                || value instanceof ZonedDateTime;
-    }
-
-    @Override
-    protected boolean isDuration(Object value) {
-        return value instanceof TemporalAmount;
     }
 }

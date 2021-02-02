@@ -32,4 +32,6 @@ public interface DateTimeType<DATE_TIME, DURATION> {
     DATE_TIME dateTimeAddDuration(DATE_TIME dateTime, DURATION duration);
 
     DATE_TIME dateTimeSubtractDuration(DATE_TIME dateTime, DURATION duration);
+
+    boolean isDateTime(Object value);
 }

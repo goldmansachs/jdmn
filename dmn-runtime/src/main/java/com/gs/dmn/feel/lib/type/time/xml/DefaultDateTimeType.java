@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.DateTimeType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
@@ -21,7 +20,26 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-public class DefaultDateTimeType extends BaseType implements DateTimeType<XMLGregorianCalendar, Duration> {
+import static com.gs.dmn.feel.lib.type.time.xml.DefaultTimeType.hasTimezone;
+
+public class DefaultDateTimeType extends XMLTimeType implements DateTimeType<XMLGregorianCalendar, Duration> {
+    public static Long dateTimeValue(XMLGregorianCalendar dateTime) {
+        return dateTime == null ? null : Math.floorDiv(dateTime.toGregorianCalendar().getTimeInMillis(), 1000L);
+    }
+
+    public static XMLGregorianCalendar dateToDateTime(XMLGregorianCalendar calendar) {
+        if (calendar == null) {
+            return null;
+        }
+
+        FEELXMLGregorianCalendar clone = (FEELXMLGregorianCalendar) calendar.clone();
+        clone.setHour(0);
+        clone.setMinute(0);
+        clone.setSecond(0);
+        clone.setZoneID("Z");
+        return clone;
+    }
+
     private final DatatypeFactory datatypeFactory;
     private final DefaultXMLCalendarComparator comparator;
     private final BooleanType booleanType;
@@ -84,17 +102,28 @@ public class DefaultDateTimeType extends BaseType implements DateTimeType<XMLGre
         if (first == null || second == null) {
             return null;
         }
+        if (isDate(first)) {
+            first = dateToDateTime(first);
+        }
+        if (isDate(second)) {
+            second = dateToDateTime(second);
+        }
+        if (
+                hasTimezone(first) && !hasTimezone(second)
+                || !hasTimezone(first) && hasTimezone(second)) {
+            return null;
+        }
 
         return this.datatypeFactory.newDuration(this.comparator.getDurationInMilliSeconds(first, second));
     }
 
     @Override
-    public XMLGregorianCalendar dateTimeAddDuration(XMLGregorianCalendar xmlGregorianCalendar, Duration duration) {
-        if (xmlGregorianCalendar == null || duration == null) {
+    public XMLGregorianCalendar dateTimeAddDuration(XMLGregorianCalendar dateTime, Duration duration) {
+        if (dateTime == null || duration == null) {
             return null;
         }
 
-        XMLGregorianCalendar clone = (XMLGregorianCalendar) xmlGregorianCalendar.clone();
+        XMLGregorianCalendar clone = (XMLGregorianCalendar) dateTime.clone();
         clone.add(duration);
         return clone;
     }
@@ -105,9 +134,6 @@ public class DefaultDateTimeType extends BaseType implements DateTimeType<XMLGre
             return null;
         }
 
-        XMLGregorianCalendar clone = (XMLGregorianCalendar) xmlGregorianCalendar.clone();
-        clone.add(duration.negate());
-        return clone;
+        return dateTimeAddDuration(xmlGregorianCalendar, duration.negate());
     }
-
 }

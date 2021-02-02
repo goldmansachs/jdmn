@@ -19,6 +19,7 @@ import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Duration;
 import java.time.Period;
 import java.time.temporal.TemporalAmount;
@@ -137,7 +138,13 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
             return null;
         }
 
-        return plus(first, second);
+        if (first instanceof Period && second instanceof Period) {
+            return ((Period) first).plus(second);
+        } else if (first instanceof Duration && second instanceof Duration) {
+            return ((Duration) first).plus((Duration) second);
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot add '%s' and '%s'", first, second));
+        }
     }
 
     @Override
@@ -146,30 +153,76 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
             return null;
         }
 
-        return minus(first, second);
+        if (first instanceof Period && second instanceof Period) {
+            return ((Period) first).minus(second);
+        } else if (first instanceof Duration && second instanceof Duration) {
+            return ((Duration) first).minus((Duration) second);
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot subtract '%s' and '%s'", first, second));
+        }
     }
 
     @Override
-    public TemporalAmount durationMultiply(TemporalAmount first, BigDecimal second) {
+    public BigDecimal durationDivide(TemporalAmount first, TemporalAmount second) {
         if (first == null || second == null) {
             return null;
         }
 
-        return multiply(first, second.intValue());
+        if (first instanceof Period && second instanceof Period) {
+            Long firstValue = value((Period) first);
+            Long secondValue = value((Period) second);
+            return secondValue == 0 ? null : BigDecimal.valueOf(firstValue).divide(BigDecimal.valueOf(secondValue), RoundingMode.HALF_DOWN);
+        } else if (first instanceof Duration && second instanceof Duration) {
+            Long firstValue = value((Duration) first);
+            Long secondValue = value((Duration) second);
+            return secondValue == null ? null : BigDecimal.valueOf(firstValue).divide(BigDecimal.valueOf(secondValue), RoundingMode.HALF_DOWN);
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+        }
     }
 
     @Override
-    public TemporalAmount durationDivide(TemporalAmount first, BigDecimal second) {
+    public TemporalAmount durationMultiplyNumber(TemporalAmount first, BigDecimal second) {
         if (first == null || second == null) {
             return null;
         }
 
-        return divide(first, second.intValue());
+        if (first instanceof Period) {
+            BigDecimal months = BigDecimal.valueOf(value((Period) first)).multiply(second);
+            return Period.of((int) (months.longValue() / 12), (int) (months.longValue() % 12), 0);
+        } else if (first instanceof Duration) {
+            BigDecimal seconds = BigDecimal.valueOf(value((Duration) first)).multiply(second);
+            return Duration.ofSeconds(seconds.longValue());
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot multiply '%s' by '%s'", first, second));
+        }
+    }
+
+    @Override
+    public TemporalAmount durationDivideNumber(TemporalAmount first, BigDecimal second) {
+        if (first == null || second == null) {
+            return null;
+        }
+
+        if (first instanceof Period) {
+            BigDecimal months = BigDecimal.valueOf(value((Period) first)).divide(second, RoundingMode.HALF_DOWN);
+            return Period.ofMonths(months.intValue());
+        } else if (first instanceof Duration) {
+            BigDecimal seconds = BigDecimal.valueOf(value((Duration) first)).divide(second, RoundingMode.HALF_DOWN);
+            return Duration.ofSeconds(seconds.longValue());
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+        }
+    }
+
+    @Override
+    public boolean isDuration(Object value) {
+        return value instanceof TemporalAmount;
     }
 
     private int compare(TemporalAmount first, TemporalAmount second) {
         if (first instanceof Period && second instanceof Period) {
-            return Long.compare(((Period) first).toTotalMonths(), ((Period) second).toTotalMonths());
+            return Long.compare(value((Period) first), value((Period) second));
         } else if (first instanceof Duration && second instanceof Duration) {
             return ((Duration)first).compareTo((Duration)second);
         } else {
@@ -177,44 +230,11 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
         }
     }
 
-    private TemporalAmount plus(TemporalAmount first, TemporalAmount second) {
-        if (first instanceof Period && second instanceof Period) {
-            return ((Period) first).plus(second);
-        } else if (first instanceof Duration && second instanceof Duration) {
-            return ((Duration)first).plus((Duration)second);
-        } else {
-            throw new DMNRuntimeException(String.format("Cannot add '%s' and '%s'", first, second));
-        }
+    private Long value(Period duration) {
+        return duration == null ? null : duration.toTotalMonths();
     }
 
-    private TemporalAmount minus(TemporalAmount first, TemporalAmount second) {
-        if (first instanceof Period && second instanceof Period) {
-            return ((Period) first).minus(second);
-        } else if (first instanceof Duration && second instanceof Duration) {
-            return ((Duration)first).minus((Duration)second);
-        } else {
-            throw new DMNRuntimeException(String.format("Cannot subtract '%s' and '%s'", first, second));
-        }
-    }
-
-    private TemporalAmount multiply(TemporalAmount first, int second) {
-        if (first instanceof Period) {
-            return ((Period) first).multipliedBy(second);
-        } else if (first instanceof Duration) {
-            return ((Duration)first).multipliedBy(second);
-        } else {
-            throw new DMNRuntimeException(String.format("Cannot multiply '%s' by '%s'", first, second));
-        }
-    }
-
-    private TemporalAmount divide(TemporalAmount first, int second) {
-        if (first instanceof Period) {
-            long months = ((Period)first).toTotalMonths() / second;
-            return Period.ofMonths((int)months);
-        } else if (first instanceof Duration) {
-            return ((Duration)first).dividedBy(second);
-        } else {
-            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
-        }
+    private Long value(Duration duration) {
+        return duration == null ? null : duration.toMillis() / 1000;
     }
 }

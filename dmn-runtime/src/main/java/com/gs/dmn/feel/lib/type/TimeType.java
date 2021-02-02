@@ -32,4 +32,6 @@ public interface TimeType<TIME, DURATION> {
     TIME timeAddDuration(TIME time, DURATION duration);
 
     TIME timeSubtractDuration(TIME time, DURATION duration);
+
+    boolean isTime(Object value);
 }

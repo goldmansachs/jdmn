@@ -334,13 +334,18 @@ public abstract class BaseFEELLibExceptionsTest<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     @Test
-    public void testDurationMultiply() {
-        assertNull(getLib().durationMultiply(null, null));
+    public void testDurationDivide() {
+        assertNull(getLib().durationDivide(null, null));
     }
 
     @Test
-    public void testDurationDivide() {
-        assertNull(getLib().durationDivide(null, null));
+    public void testDurationMultiplyNumber() {
+        assertNull(getLib().durationMultiplyNumber(null, null));
+    }
+
+    @Test
+    public void testDurationDivideNumber() {
+        assertNull(getLib().durationDivideNumber(null, null));
     }
 
     @Test

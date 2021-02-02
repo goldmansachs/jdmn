@@ -189,12 +189,17 @@ public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements
     // Extra conversion functions
     //
     @Override
-    public DATE toDate(Object object) {
+    public DATE toDate(Object from) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public TIME toTime(Object object) {
+    public TIME toTime(Object from) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public DATE_TIME toDateTime(Object from) {
         throw new DMNRuntimeException("Not supported yet");
     }
 }

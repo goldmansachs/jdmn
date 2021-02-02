@@ -12,16 +12,25 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.DateType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.RoundingMode;
+import java.util.GregorianCalendar;
 
-public class DefaultDateType extends BaseType implements DateType<XMLGregorianCalendar, Duration> {
+import static com.gs.dmn.feel.lib.type.time.xml.BaseDefaultDurationType.*;
+import static com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeType.dateTimeValue;
+import static com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeType.dateToDateTime;
+import static com.gs.dmn.feel.lib.type.time.xml.DefaultTimeType.hasTimezone;
+
+public class DefaultDateType extends XMLTimeType implements DateType<XMLGregorianCalendar, Duration> {
     private final DatatypeFactory datatypeFactory;
     private final DefaultXMLCalendarComparator comparator;
     private final BooleanType booleanType;
@@ -84,6 +93,17 @@ public class DefaultDateType extends BaseType implements DateType<XMLGregorianCa
         if (first == null || second == null) {
             return null;
         }
+        if (isDate(first)) {
+            first = dateToDateTime(first);
+        }
+        if (isDate(second)) {
+            second = dateToDateTime(second);
+        }
+        if (
+                hasTimezone(first) && !hasTimezone(second)
+                        || !hasTimezone(first) && hasTimezone(second)) {
+            return null;
+        }
 
         return this.datatypeFactory.newDuration(this.comparator.getDurationInMilliSeconds(first, second));
     }
@@ -94,9 +114,32 @@ public class DefaultDateType extends BaseType implements DateType<XMLGregorianCa
             return null;
         }
 
-        XMLGregorianCalendar clone = (XMLGregorianCalendar) date.clone();
-        clone.add(duration);
-        return clone;
+        if (isYearMonthDuration(duration)) {
+            int signum = duration.getSign();
+
+            // Calculate months and carry
+            BigInteger startMonth = BigInteger.valueOf(date.getMonth());
+            BigInteger dMonths = (signum < 0) ? BigInteger.valueOf(duration.getMonths()).negate() : BigInteger.valueOf(duration.getMonths());
+            BigInteger temp = startMonth.add(dMonths);
+            int month = temp.subtract(BigInteger.ONE).mod(TWELVE.toBigInteger()).intValue() + 1;
+            BigInteger carry = new BigDecimal(temp.subtract(BigInteger.ONE)).divide(TWELVE, RoundingMode.FLOOR).toBigInteger();
+
+            // Years (may be modified additionally below)
+            BigInteger startYear = date.getEonAndYear();
+            BigInteger dYears = (signum < 0) ? BigInteger.valueOf(duration.getYears()).negate() : BigInteger.valueOf(duration.getYears());
+            BigInteger endYear = startYear.add(dYears).add(carry);
+            return FEELXMLGregorianCalendar.makeDate(endYear, month, date.getDay());
+        } else if (isDayTimeDuration(duration)) {
+            Long value1 = dateTimeValue(date);
+            Long value2 = secondsValue(duration);
+            GregorianCalendar gc = new GregorianCalendar();
+            long millis = (value1 + value2) * 1000;
+            gc.setTimeInMillis(millis);
+            XMLGregorianCalendar xgc = datatypeFactory.newXMLGregorianCalendar(gc);
+            return FEELXMLGregorianCalendar.makeDate(xgc.getEonAndYear(), xgc.getMonth(), xgc.getDay());
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot add '%s' with '%s'", date, duration));
+        }
     }
 
     @Override
@@ -105,8 +148,6 @@ public class DefaultDateType extends BaseType implements DateType<XMLGregorianCa
             return null;
         }
 
-        XMLGregorianCalendar clone = (XMLGregorianCalendar) date.clone();
-        clone.add(duration.negate());
-        return clone;
+        return dateAddDuration(date, duration.negate());
     }
 }

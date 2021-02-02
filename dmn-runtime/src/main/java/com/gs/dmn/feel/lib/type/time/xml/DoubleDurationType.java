@@ -15,6 +15,7 @@ package com.gs.dmn.feel.lib.type.time.xml;
 import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.type.DurationType;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
@@ -53,12 +54,63 @@ public class DoubleDurationType extends BaseDefaultDurationType implements Durat
     // Duration operators
     //
     @Override
-    public Duration durationMultiply(Duration first, Double second) {
-        return this.durationMultiply(first, (Number) second);
+    public Double durationDivide(Duration first, Duration second) {
+        if (first == null || second == null) {
+            return null;
+        }
+
+        if (isYearMonthDuration(first) && isYearMonthDuration(second)) {
+            Long firstValue = monthsValue(first);
+            Long secondValue = monthsValue(second);
+            return secondValue == 0 ? null : firstValue.doubleValue() / secondValue.doubleValue();
+        } else if (isDayTimeDuration(first) && isDayTimeDuration(second)) {
+            Long firstValue = secondsValue(first);
+            Long secondValue = secondsValue(second);
+            return secondValue == 0 ? null : firstValue.doubleValue() / secondValue.doubleValue();
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+        }
     }
 
     @Override
-    public Duration durationDivide(Duration first, Double second) {
-        return this.durationDivide(first, (Number) second);
+    public Duration durationMultiplyNumber(Duration first, Double second) {
+        if (first == null || second == null) {
+            return null;
+        }
+
+        if (isYearMonthDuration(first)) {
+            Double months = monthsValue(first) * second;
+            return makeYearsMonthsDuration(months);
+        } else if (isDayTimeDuration(first)) {
+            Double seconds = secondsValue(first) * second;
+            return makeDaysTimeDuration(seconds);
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+        }
+    }
+
+    @Override
+    public Duration durationDivideNumber(Duration first, Double second) {
+        if (first == null || second == null) {
+            return null;
+        }
+        if (second == 0) {
+            return null;
+        }
+
+        if (isYearMonthDuration(first)) {
+            Double months = monthsValue(first).doubleValue() / second;
+            return makeYearsMonthsDuration(months);
+        } else if (isDayTimeDuration(first)) {
+            Double seconds = secondsValue(first).doubleValue() / second;
+            return makeDaysTimeDuration(seconds);
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+        }
+    }
+
+    @Override
+    public boolean isDuration(Object value) {
+        return value instanceof Duration;
     }
 }

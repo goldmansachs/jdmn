@@ -21,7 +21,8 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override
@@ -37,8 +38,8 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Doub
     public void testDateSubtract() {
         super.testDateSubtract();
 
-        assertEqualsDateTime("P0Y0M", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")));
-        assertEqualsDateTime("P0Y0M", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-03")));
+        assertEqualsDateTime("P0Y0M0DT0H0M0.000S", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")));
+        assertEqualsDateTime("-P0Y0M2DT0H0M0.000S", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-03")));
     }
 
     //

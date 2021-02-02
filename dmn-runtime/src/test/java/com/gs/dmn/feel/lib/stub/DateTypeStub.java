@@ -66,4 +66,9 @@ public class DateTypeStub<DATE, DURATION> implements DateType<DATE, DURATION> {
     public DATE dateSubtractDuration(DATE DATE, DURATION DURATION) {
         throw new DMNRuntimeException("Not supported yet");
     }
+
+    @Override
+    public boolean isDate(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
 }

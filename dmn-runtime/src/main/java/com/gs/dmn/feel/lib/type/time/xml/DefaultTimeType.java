@@ -12,16 +12,20 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.TimeType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 
+import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCalendar, Duration> {
+public class DefaultTimeType extends XMLTimeType implements TimeType<XMLGregorianCalendar, Duration> {
+    public static boolean hasTimezone(XMLGregorianCalendar calendar) {
+        return calendar.getTimezone() != DatatypeConstants.FIELD_UNDEFINED;
+    }
+
     private final BooleanType booleanType;
     private final DatatypeFactory datatypeFactory;
     protected final DefaultXMLCalendarComparator comparator;
@@ -104,8 +108,6 @@ public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCa
             return null;
         }
 
-        XMLGregorianCalendar clone = (XMLGregorianCalendar) time.clone();
-        clone.add(duration.negate());
-        return clone;
+        return timeAddDuration(time, duration.negate());
     }
 }

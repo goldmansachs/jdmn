@@ -17,18 +17,19 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, javax.xml.datatype.Duration> {
-    public static boolean hasYearsOrMonths(javax.xml.datatype.Duration duration) {
+public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, Duration> {
+    public static boolean hasYearsOrMonths(Duration duration) {
         return duration.isSet(DatatypeConstants.YEARS)
                 || duration.isSet(DatatypeConstants.MONTHS)
                 ;
     }
 
-    public static boolean hasDayOrTime(javax.xml.datatype.Duration duration) {
+    public static boolean hasDayOrTime(Duration duration) {
         return duration.isSet(DatatypeConstants.DAYS)
                 || duration.isSet(DatatypeConstants.HOURS)
                 || duration.isSet(DatatypeConstants.MINUTES)
@@ -43,7 +44,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
     }
 
     @Override
-    public javax.xml.datatype.Duration duration(String from) {
+    public Duration duration(String from) {
         if (StringUtils.isBlank(from)) {
             return null;
         }
@@ -52,7 +53,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
     }
 
     @Override
-    public javax.xml.datatype.Duration yearsAndMonthsDuration(XMLGregorianCalendar from, XMLGregorianCalendar to) {
+    public Duration yearsAndMonthsDuration(XMLGregorianCalendar from, XMLGregorianCalendar to) {
         if (from == null || to == null) {
             return null;
         }
@@ -63,7 +64,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
     }
 
     @Override
-    public Long years(javax.xml.datatype.Duration duration) {
+    public Long years(Duration duration) {
         if (duration == null) {
             return null;
         }
@@ -76,7 +77,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
     }
 
     @Override
-    public Long months(javax.xml.datatype.Duration duration) {
+    public Long months(Duration duration) {
         if (duration == null) {
             return null;
         }
@@ -89,7 +90,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
     }
 
     @Override
-    public Long days(javax.xml.datatype.Duration duration) {
+    public Long days(Duration duration) {
         if (duration == null) {
             return null;
         }
@@ -102,7 +103,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
     }
 
     @Override
-    public Long hours(javax.xml.datatype.Duration duration) {
+    public Long hours(Duration duration) {
         if (duration == null) {
             return null;
         }
@@ -115,7 +116,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
     }
 
     @Override
-    public Long minutes(javax.xml.datatype.Duration duration) {
+    public Long minutes(Duration duration) {
         if (duration == null) {
             return null;
         }
@@ -128,7 +129,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
     }
 
     @Override
-    public Long seconds(javax.xml.datatype.Duration duration) {
+    public Long seconds(Duration duration) {
         if (duration == null) {
             return null;
         }
@@ -141,7 +142,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
     }
 
     @Override
-    public javax.xml.datatype.Duration abs(javax.xml.datatype.Duration duration) {
+    public Duration abs(Duration duration) {
         if (duration == null) {
             return null;
         }
@@ -149,7 +150,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
         return duration.getSign() == -1 ? duration.negate() : duration;
     }
 
-    private javax.xml.datatype.Duration toYearsMonthDuration(DatatypeFactory datatypeFactory, LocalDate date1, LocalDate date2) {
+    private Duration toYearsMonthDuration(DatatypeFactory datatypeFactory, LocalDate date1, LocalDate date2) {
         Period between = Period.between(date2, date1);
         int years = between.getYears();
         int months = between.getMonths();

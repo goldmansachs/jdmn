@@ -63,8 +63,14 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     List<NUMBER> rangeToList(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end);
     List<NUMBER> rangeToList(NUMBER start, NUMBER end);
 
-    DATE toDate(Object object);
-    TIME toTime(Object object);
+    boolean isDate(Object value);
+    boolean isTime(Object value);
+    boolean isDateTime(Object value);
+    boolean isDuration(Object value);
+
+    DATE toDate(Object from);
+    TIME toTime(Object from);
+    DATE_TIME toDateTime(Object from);
 
     //
     // Boolean functions
@@ -86,7 +92,9 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     //
     // Context functions
     //
+    @Override
     List getEntries(Object m);
+    @Override
     Object getValue(Object m, Object key);
 
     //

@@ -18,6 +18,7 @@ import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.time.LocalDate;
+import java.time.Period;
 
 public class LocalDateType extends JavaTimeCalendarType implements DateType<LocalDate, Duration> {
     protected final LocalDateComparator comparator;
@@ -92,7 +93,9 @@ public class LocalDateType extends JavaTimeCalendarType implements DateType<Loca
             return null;
         }
 
-        return date.plus(toTemporalPeriod(duration));
+        Period yearsMonthsDuration = (Period) toTemporalPeriod(duration);
+        java.time.Duration daysTimeDuration = (java.time.Duration) toTemporalDuration(duration);
+        return date.plus(yearsMonthsDuration).plusDays(daysTimeDuration.toDays());
     }
 
     @Override
@@ -101,7 +104,12 @@ public class LocalDateType extends JavaTimeCalendarType implements DateType<Loca
             return null;
         }
 
-        return date.minus(toTemporalPeriod(duration));
+        return dateAddDuration(date, duration.negate());
+    }
+
+    @Override
+    public boolean isDate(Object value) {
+        return value instanceof LocalDate;
     }
 
     protected Duration toDuration(LocalDate date1, LocalDate date2) {

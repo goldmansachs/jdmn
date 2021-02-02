@@ -21,7 +21,6 @@ import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertFalse;
 
 public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
     @Override
@@ -63,15 +62,15 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
     @Override
     @Test
     public void testDurationDivide() {
-        assertNull(getLib().durationDivide(null, null));
-        assertNull(getLib().durationDivide(null, makeNumber("2")));
-        assertNull(getLib().durationDivide(makeDuration("P1Y1M"), null));
+        assertNull(getLib().durationDivideNumber(null, null));
+        assertNull(getLib().durationDivideNumber(null, makeNumber("2")));
+        assertNull(getLib().durationDivideNumber(makeDuration("P1Y1M"), null));
 
-        assertEquals(makeDuration("P6M"), getLib().durationDivide(makeDuration("P1Y1M"),  makeNumber("2")));
-        assertEquals(makeDuration("P13M"), getLib().durationDivide(makeDuration("P2Y2M"),  makeNumber("2")));
+        assertEquals(makeDuration("P6M"), getLib().durationDivideNumber(makeDuration("P1Y1M"),  makeNumber("2")));
+        assertEquals(makeDuration("P13M"), getLib().durationDivideNumber(makeDuration("P2Y2M"),  makeNumber("2")));
 
-        assertEquals(makeDuration("P0DT12H30M"), getLib().durationDivide(makeDuration("P1DT1H"),  makeNumber("2")));
-        assertEquals(makeDuration("P1DT1H"), getLib().durationDivide(makeDuration("P2DT2H"),  makeNumber("2")));
+        assertEquals(makeDuration("P0DT12H30M"), getLib().durationDivideNumber(makeDuration("P1DT1H"),  makeNumber("2")));
+        assertEquals(makeDuration("P1DT1H"), getLib().durationDivideNumber(makeDuration("P2DT2H"),  makeNumber("2")));
     }
 
     //
