@@ -14,7 +14,6 @@ package com.gs.dmn.feel.lib.type.string;
 
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.ComparableComparator;
-import com.gs.dmn.feel.lib.type.StringType;
 
 public class DefaultStringType extends BaseType implements StringType {
     private final ComparableComparator<String> comparator;

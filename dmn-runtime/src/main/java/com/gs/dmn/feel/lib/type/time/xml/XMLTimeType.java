@@ -69,4 +69,9 @@ public abstract class XMLTimeType extends BaseType {
         return value instanceof Duration
                 && getXMLSchemaType((Duration) value) == DatatypeConstants.DURATION_DAYTIME;
     }
+
+    public Long dateTimeValue(XMLGregorianCalendar dateTime) {
+        return dateTime == null ? null : Math.floorDiv(dateTime.toGregorianCalendar().getTimeInMillis(), 1000L);
+    }
+
 }

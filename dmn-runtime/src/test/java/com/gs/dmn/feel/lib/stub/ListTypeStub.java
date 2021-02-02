@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib.stub;
 
-import com.gs.dmn.feel.lib.type.ListType;
+import com.gs.dmn.feel.lib.type.list.ListType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.List;

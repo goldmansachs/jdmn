@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib.stub;
 
-import com.gs.dmn.feel.lib.type.DateTimeType;
+import com.gs.dmn.feel.lib.type.time.DateTimeType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class DateTimeTypeStub<DATE_TIME, DURATION> implements DateTimeType<DATE_TIME, DURATION> {

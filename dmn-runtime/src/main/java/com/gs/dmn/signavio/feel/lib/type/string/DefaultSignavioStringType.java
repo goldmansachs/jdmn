@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.string;
 
-import com.gs.dmn.feel.lib.type.StringType;
+import com.gs.dmn.feel.lib.type.string.StringType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
 
 public class DefaultSignavioStringType extends DefaultStringType implements StringType {

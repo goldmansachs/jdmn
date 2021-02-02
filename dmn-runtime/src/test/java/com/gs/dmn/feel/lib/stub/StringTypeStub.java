@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib.stub;
 
-import com.gs.dmn.feel.lib.type.StringType;
+import com.gs.dmn.feel.lib.type.string.StringType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class StringTypeStub implements StringType {

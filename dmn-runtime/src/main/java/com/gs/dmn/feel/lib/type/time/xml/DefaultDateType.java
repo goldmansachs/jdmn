@@ -13,7 +13,7 @@
 package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
-import com.gs.dmn.feel.lib.type.DateType;
+import com.gs.dmn.feel.lib.type.time.DateType;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
@@ -26,7 +26,6 @@ import java.math.RoundingMode;
 import java.util.GregorianCalendar;
 
 import static com.gs.dmn.feel.lib.type.time.xml.BaseDefaultDurationType.secondsValue;
-import static com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeType.dateTimeValue;
 import static com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeType.dateToDateTime;
 import static com.gs.dmn.feel.lib.type.time.xml.DefaultTimeType.hasTimezone;
 

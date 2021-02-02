@@ -13,7 +13,7 @@
 package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.DefaultFEELLib;
-import com.gs.dmn.feel.lib.type.DurationType;
+import com.gs.dmn.feel.lib.type.time.DurationType;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
 import com.gs.dmn.runtime.DMNRuntimeException;
 

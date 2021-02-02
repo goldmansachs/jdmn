@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib.stub;
 
-import com.gs.dmn.feel.lib.type.NumericType;
+import com.gs.dmn.feel.lib.type.numeric.NumericType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class NumericTypeStub<NUMBER> implements NumericType<NUMBER> {

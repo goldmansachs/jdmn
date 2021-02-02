@@ -14,9 +14,16 @@ package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
+import com.gs.dmn.feel.lib.type.context.ContextType;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
+import com.gs.dmn.feel.lib.type.list.ListType;
+import com.gs.dmn.feel.lib.type.numeric.NumericType;
 import com.gs.dmn.feel.lib.type.range.DefaultRangeType;
 import com.gs.dmn.feel.lib.type.range.RangeType;
+import com.gs.dmn.feel.lib.type.string.StringType;
+import com.gs.dmn.feel.lib.type.time.DateTimeType;
+import com.gs.dmn.feel.lib.type.time.DateType;
+import com.gs.dmn.feel.lib.type.time.DurationType;
 import com.gs.dmn.runtime.LazyEval;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.Range;

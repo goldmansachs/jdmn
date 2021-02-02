@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.time.pure;
 
-import com.gs.dmn.feel.lib.type.DateTimeType;
+import com.gs.dmn.feel.lib.type.time.DateTimeType;
 import com.gs.dmn.feel.lib.type.time.JavaTimeType;
 
 import java.time.Duration;

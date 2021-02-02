@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib.stub;
 
-import com.gs.dmn.feel.lib.type.DurationType;
+import com.gs.dmn.feel.lib.type.time.DurationType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class DurationTypeStub<DURATION, NUMBER> implements DurationType<DURATION, NUMBER> {

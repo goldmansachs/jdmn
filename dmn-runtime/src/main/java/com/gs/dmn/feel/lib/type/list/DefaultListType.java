@@ -14,7 +14,6 @@ package com.gs.dmn.feel.lib.type.list;
 
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
-import com.gs.dmn.feel.lib.type.ListType;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 
 import java.util.List;

@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.DateTimeType;
+import com.gs.dmn.feel.lib.type.time.DateTimeType;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;

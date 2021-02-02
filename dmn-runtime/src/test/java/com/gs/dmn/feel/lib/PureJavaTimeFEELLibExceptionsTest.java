@@ -16,13 +16,16 @@ import com.gs.dmn.feel.lib.stub.*;
 import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
+import com.gs.dmn.feel.lib.type.context.ContextType;
 import com.gs.dmn.feel.lib.type.list.ListLib;
+import com.gs.dmn.feel.lib.type.list.ListType;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
+import com.gs.dmn.feel.lib.type.numeric.NumericType;
 import com.gs.dmn.feel.lib.type.range.RangeLib;
 import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
-import com.gs.dmn.feel.lib.type.time.DateTimeLib;
-import com.gs.dmn.feel.lib.type.time.DurationLib;
+import com.gs.dmn.feel.lib.type.string.StringType;
+import com.gs.dmn.feel.lib.type.time.*;
 import org.junit.Test;
 
 import java.math.BigDecimal;

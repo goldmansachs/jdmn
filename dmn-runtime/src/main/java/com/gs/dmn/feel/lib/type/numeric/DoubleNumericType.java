@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.lib.type.numeric;
 
 import com.gs.dmn.feel.lib.type.ComparableComparator;
-import com.gs.dmn.feel.lib.type.NumericType;
 
 public class DoubleNumericType extends BaseNumericType implements NumericType<Double> {
     public static Double doubleNumericDivide(Double first, Double second) {
