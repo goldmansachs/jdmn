@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.numeric;
 
-import com.gs.dmn.feel.lib.type.NumericType;
+import com.gs.dmn.feel.lib.type.numeric.NumericType;
 import com.gs.dmn.feel.lib.type.numeric.DoubleNumericType;
 import com.gs.dmn.signavio.feel.lib.type.SignavioComparableComparator;
 

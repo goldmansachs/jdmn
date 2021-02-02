@@ -13,7 +13,7 @@
 package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
-import com.gs.dmn.feel.lib.type.DateTimeType;
+import com.gs.dmn.feel.lib.type.time.DateTimeType;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 
 import javax.xml.datatype.DatatypeFactory;
@@ -23,10 +23,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import static com.gs.dmn.feel.lib.type.time.xml.DefaultTimeType.hasTimezone;
 
 public class DefaultDateTimeType extends XMLTimeType implements DateTimeType<XMLGregorianCalendar, Duration> {
-    public static Long dateTimeValue(XMLGregorianCalendar dateTime) {
-        return dateTime == null ? null : Math.floorDiv(dateTime.toGregorianCalendar().getTimeInMillis(), 1000L);
-    }
-
     public static XMLGregorianCalendar dateToDateTime(XMLGregorianCalendar calendar) {
         if (calendar == null) {
             return null;

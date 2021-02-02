@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.lib.type.numeric;
 
 import com.gs.dmn.feel.lib.type.ComparableComparator;
-import com.gs.dmn.feel.lib.type.NumericType;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

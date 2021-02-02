@@ -13,7 +13,7 @@
 package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
-import com.gs.dmn.feel.lib.type.DurationType;
+import com.gs.dmn.feel.lib.type.time.DurationType;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.time.JavaTimeType;
 import com.gs.dmn.runtime.DMNRuntimeException;
