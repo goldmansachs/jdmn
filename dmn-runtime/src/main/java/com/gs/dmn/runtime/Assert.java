@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.runtime;
 
+import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.time.xml.BaseDefaultDurationType;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -38,8 +38,8 @@ public class Assert {
         if (expected == null) {
             org.junit.Assert.assertEquals(message, expected, actual);
         } else if (isNumber(expected)) {
-            BigDecimal expectedBD = (BigDecimal) convertNumber(expected);
-            BigDecimal actualBD = (BigDecimal) convertNumber(actual);
+            BigDecimal expectedBD = (BigDecimal) normalizeNumber(expected);
+            BigDecimal actualBD = (BigDecimal) normalizeNumber(actual);
             if (actual == null) {
                 org.junit.Assert.assertEquals(message, expected, actual);
             } else {
@@ -51,7 +51,7 @@ public class Assert {
         } else if (isString(expected)) {
             org.junit.Assert.assertEquals(message, expected, actual);
         } else if (isDateTime(expected)) {
-            org.junit.Assert.assertEquals(message, convertDateTime(expected), convertDateTime(actual));
+            org.junit.Assert.assertEquals(message, normalizeDateTime(expected), normalizeDateTime(actual));
         } else if (isList(expected)) {
             if (actual == null) {
                 org.junit.Assert.assertEquals(message, expected, actual);
@@ -148,21 +148,21 @@ public class Assert {
         return expected == null ? null : expectedGetter.invoke(expected);
     }
 
-    private static Object convertDateTime(Object object) {
+    private static Object normalizeDateTime(Object object) {
         if (object == null) {
             return null;
         }
         if (object instanceof Duration) {
             return BaseDefaultDurationType.normalize((Duration) object);
         } else if (object instanceof ZonedDateTime) {
-            return ((ZonedDateTime) object).withZoneSameInstant(DefaultDateTimeLib.UTC);
+            return ((ZonedDateTime) object).withZoneSameInstant(BaseType.UTC);
         } else if (object instanceof OffsetTime) {
             return ((OffsetTime) object).withOffsetSameInstant(ZoneOffset.UTC);
         }
         return object;
     }
 
-    private static Object convertNumber(Object object) {
+    private static Object normalizeNumber(Object object) {
         if (object == null) {
             return null;
         }

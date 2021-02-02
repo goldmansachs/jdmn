@@ -10,9 +10,9 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.lib.type.time;
+package com.gs.dmn.feel.lib.type.time.pure;
 
-import com.gs.dmn.feel.lib.type.BaseType;
+import com.gs.dmn.feel.lib.type.time.JavaCalendarType;
 
-public class JavaTimeType extends BaseType {
+public abstract class BasePureCalendarType extends JavaCalendarType {
 }

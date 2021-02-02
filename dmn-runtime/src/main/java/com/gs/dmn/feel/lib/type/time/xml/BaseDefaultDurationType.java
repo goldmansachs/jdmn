@@ -19,18 +19,8 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
-public abstract class BaseDefaultDurationType extends XMLTimeType {
-    private static final ThreadLocal<GregorianCalendar> GREGORIAN = ThreadLocal.withInitial(() -> new GregorianCalendar(
-            1970,
-            Calendar.JANUARY,
-            1,
-            0,
-            0,
-            0));
-
+public abstract class BaseDefaultDurationType extends XMLCalendarType {
     public static BigDecimal normalize(Duration duration) {
         if (isDuration(duration)) {
             return BigDecimal.valueOf(duration.getTimeInMillis(GREGORIAN.get()));
@@ -61,7 +51,6 @@ public abstract class BaseDefaultDurationType extends XMLTimeType {
         return getXMLSchemaType(duration) == DatatypeConstants.DURATION_DAYTIME;
     }
 
-    protected final DatatypeFactory dataTypeFactory;
     private final RelationalComparator<Duration> comparator;
 
     @Deprecated
@@ -70,7 +59,7 @@ public abstract class BaseDefaultDurationType extends XMLTimeType {
     }
 
     protected BaseDefaultDurationType(DatatypeFactory dataTypeFactory, RelationalComparator<Duration> comparator) {
-        this.dataTypeFactory = dataTypeFactory;
+        super(dataTypeFactory);
         this.comparator = comparator;
     }
 
@@ -127,60 +116,5 @@ public abstract class BaseDefaultDurationType extends XMLTimeType {
         }
 
         return durationAdd(first, second.negate());
-    }
-
-    public static Long monthsValue(Duration duration) {
-        if (duration == null) {
-            return null;
-        }
-
-        boolean isNegative = duration.getSign() < 0;
-        long months = 12L * duration.getYears() + duration.getMonths();
-        return isNegative ? - months : months;
-    }
-
-    public static Long secondsValue(Duration duration) {
-        if (duration == null) {
-            return null;
-        }
-
-        boolean isNegative = duration.getSign() < 0;
-        long hours = 24L * duration.getDays() + duration.getHours();
-        long minutes = 60L * hours + duration.getMinutes();
-        long seconds = 60L * minutes + duration.getSeconds();
-        return isNegative ? - seconds : seconds;
-    }
-
-    protected Duration makeYearsMonthsDuration(Number months) {
-        long lMonths = months.longValue();
-        if (lMonths < 0) {
-            String literal = String.format("P%dM", -months.intValue());
-            return this.dataTypeFactory.newDurationYearMonth(literal).negate();
-        } else {
-            String literal = String.format("P%dM", months.intValue());
-            return this.dataTypeFactory.newDurationYearMonth(literal);
-        }
-    }
-
-    protected Duration makeDaysTimeDuration(Number seconds) {
-        long millis = seconds.longValue() * 1000L;
-        if (millis < 0) {
-            return this.dataTypeFactory.newDurationDayTime(-millis).negate();
-        } else {
-            return this.dataTypeFactory.newDurationDayTime(millis);
-        }
-    }
-
-    protected Duration makeDuration(Number months, Number seconds) {
-        long lMonths = months.longValue();
-        long lSeconds = seconds.longValue();
-        boolean isNegative = lMonths < 0;
-        if (isNegative) {
-            String literal = String.format("P%dMT%dS", -lMonths, -lSeconds);
-            return this.dataTypeFactory.newDurationYearMonth(literal).negate();
-        } else {
-            String literal = String.format("P%dMT%dS", lMonths, lSeconds);
-            return this.dataTypeFactory.newDuration(literal);
-        }
     }
 }

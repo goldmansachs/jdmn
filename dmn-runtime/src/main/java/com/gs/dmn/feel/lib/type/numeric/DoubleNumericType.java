@@ -43,6 +43,11 @@ public class DoubleNumericType extends BaseNumericType implements NumericType<Do
     }
 
     @Override
+    public Double numericValue(Double value) {
+        return value;
+    }
+
+    @Override
     public Double numericAdd(Double first, Double second) {
         if (first == null || second == null) {
             return null;

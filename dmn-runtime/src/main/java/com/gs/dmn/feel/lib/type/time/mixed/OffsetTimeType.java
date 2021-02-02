@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.TimeType;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
+import com.gs.dmn.feel.lib.type.BaseType;
+import com.gs.dmn.feel.lib.type.time.TimeType;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
@@ -21,7 +21,7 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
-public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<OffsetTime, Duration> {
+public class OffsetTimeType extends BaseMixedCalendarType implements TimeType<OffsetTime, Duration> {
     private static final LocalDate EPOCH = LocalDate.of(1970, 1, 1);
 
     private final OffsetTimeComparator comparator;
@@ -114,8 +114,8 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
     }
 
     protected Duration toDuration(OffsetTime first, OffsetTime second) {
-        ZonedDateTime first1 = first.atDate(EPOCH).atZoneSameInstant(DefaultDateTimeLib.UTC);
-        ZonedDateTime second1 = second.atDate(EPOCH).atZoneSameInstant(DefaultDateTimeLib.UTC);
+        ZonedDateTime first1 = first.atDate(EPOCH).atZoneSameInstant(BaseType.UTC);
+        ZonedDateTime second1 = second.atDate(EPOCH).atZoneSameInstant(BaseType.UTC);
         long durationInMilliSeconds = getDurationInMilliSeconds(first1, second1);
         return datatypeFactory.newDuration(durationInMilliSeconds);
     }

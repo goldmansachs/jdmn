@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 import java.time.*;
 import java.time.temporal.IsoFields;
 
-import static com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib.UTC;
+import static com.gs.dmn.feel.lib.type.BaseType.UTC;
 
 public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Number, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     private final DatatypeFactory datatypeFactory;

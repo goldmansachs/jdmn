@@ -10,10 +10,12 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.lib.type;
+package com.gs.dmn.feel.lib.type.time;
 
 public interface TimeType<TIME, DURATION> {
     boolean isTime(Object value);
+
+    Long timeValue(TIME time);
 
     Boolean timeIs(TIME first, TIME second);
 

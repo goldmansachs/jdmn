@@ -17,6 +17,8 @@ import java.util.List;
 public interface ListType {
     boolean isList(Object value);
 
+    List listValue(List value);
+
     Boolean listIs(List list1, List list2);
 
     Boolean listEqual(List list1, List list2);

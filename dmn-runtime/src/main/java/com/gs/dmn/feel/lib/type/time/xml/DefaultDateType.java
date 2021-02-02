@@ -13,8 +13,8 @@
 package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
-import com.gs.dmn.feel.lib.type.time.DateType;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.time.DateType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.datatype.DatatypeFactory;
@@ -25,14 +25,11 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.GregorianCalendar;
 
-import static com.gs.dmn.feel.lib.type.time.xml.BaseDefaultDurationType.secondsValue;
-import static com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeType.dateToDateTime;
 import static com.gs.dmn.feel.lib.type.time.xml.DefaultTimeType.hasTimezone;
 
-public class DefaultDateType extends XMLTimeType implements DateType<XMLGregorianCalendar, Duration> {
+public class DefaultDateType extends XMLCalendarType implements DateType<XMLGregorianCalendar, Duration> {
     private static final BigDecimal TWELVE = BigDecimal.valueOf(12);
 
-    private final DatatypeFactory datatypeFactory;
     private final DefaultXMLCalendarComparator comparator;
     private final BooleanType booleanType;
 
@@ -41,7 +38,7 @@ public class DefaultDateType extends XMLTimeType implements DateType<XMLGregoria
     }
 
     public DefaultDateType(DatatypeFactory datatypeFactory, DefaultXMLCalendarComparator comparator) {
-        this.datatypeFactory = datatypeFactory;
+        super(datatypeFactory);
         this.comparator = comparator;
         this.booleanType = new DefaultBooleanType();
     }
@@ -106,7 +103,7 @@ public class DefaultDateType extends XMLTimeType implements DateType<XMLGregoria
             return null;
         }
 
-        return this.datatypeFactory.newDuration(this.comparator.getDurationInMilliSeconds(first, second));
+        return makeDuration(getDurationInSeconds(first, second));
     }
 
     @Override
@@ -134,7 +131,7 @@ public class DefaultDateType extends XMLTimeType implements DateType<XMLGregoria
             Long value1 = dateTimeValue(date);
             Long value2 = secondsValue(duration);
             GregorianCalendar gc = new GregorianCalendar();
-            long millis = (value1 + value2) * 1000;
+            long millis = (value1 + value2) * 1000L;
             gc.setTimeInMillis(millis);
             XMLGregorianCalendar xgc = datatypeFactory.newXMLGregorianCalendar(gc);
             return FEELXMLGregorianCalendar.makeDate(xgc.getEonAndYear(), xgc.getMonth(), xgc.getDay());

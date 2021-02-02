@@ -13,9 +13,8 @@
 package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
-import com.gs.dmn.feel.lib.type.time.DurationType;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
-import com.gs.dmn.feel.lib.type.time.JavaTimeType;
+import com.gs.dmn.feel.lib.type.time.DurationType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.math.BigDecimal;
@@ -24,7 +23,7 @@ import java.time.Duration;
 import java.time.Period;
 import java.time.temporal.TemporalAmount;
 
-public class TemporalAmountDurationType extends JavaTimeType implements DurationType<TemporalAmount, BigDecimal> {
+public class TemporalAmountDurationType extends BasePureCalendarType implements DurationType<TemporalAmount, BigDecimal> {
     private final BooleanType booleanType;
 
     public TemporalAmountDurationType() {
@@ -47,6 +46,29 @@ public class TemporalAmountDurationType extends JavaTimeType implements Duration
     @Override
     public boolean isDaysAndTimeDuration(Object value) {
         return value instanceof Duration;
+    }
+
+    @Override
+    public Long durationValue(TemporalAmount duration) {
+        if (duration == null) {
+            return null;
+        }
+
+        if (isYearsAndMonthsDuration(duration)) {
+            return monthsValue((Period) duration);
+        } else if (isDaysAndTimeDuration(duration)) {
+            return secondsValue((Duration) duration);
+        } else {
+            throw new DMNRuntimeException(String.format("value() not supported yet for '%s'", duration));
+        }
+    }
+
+    private Long monthsValue(Period duration) {
+        return duration.toTotalMonths();
+    }
+
+    private Long secondsValue(Duration duration) {
+        return duration.toMillis() / 1000;
     }
 
     @Override

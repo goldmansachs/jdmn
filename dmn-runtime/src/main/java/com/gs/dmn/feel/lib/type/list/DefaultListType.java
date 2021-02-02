@@ -31,6 +31,11 @@ public class DefaultListType extends BaseType implements ListType {
     }
 
     @Override
+    public List listValue(List value) {
+        return value;
+    }
+
+    @Override
     public Boolean listIs(List list1, List list2) {
         return listEqual(list1, list2);
     }

@@ -15,6 +15,8 @@ package com.gs.dmn.feel.lib.type.string;
 public interface StringType {
     boolean isString(Object value);
 
+    String stringValue(String value);
+
     Boolean stringIs(String first, String second);
 
     Boolean stringEqual(String first, String second);

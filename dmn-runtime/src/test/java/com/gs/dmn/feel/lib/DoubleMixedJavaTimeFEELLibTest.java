@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import org.junit.Test;
 
 import javax.xml.datatype.Duration;
@@ -244,7 +244,7 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Doub
     }
 
     private ZonedDateTime normalize(ZonedDateTime dateTime) {
-        return dateTime.withZoneSameInstant(DefaultDateTimeLib.UTC);
+        return dateTime.withZoneSameInstant(BaseType.UTC);
     }
 }
 

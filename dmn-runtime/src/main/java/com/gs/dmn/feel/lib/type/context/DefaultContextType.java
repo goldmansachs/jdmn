@@ -34,6 +34,11 @@ public class DefaultContextType extends BaseType implements ContextType {
     }
 
     @Override
+    public Context contextValue(Context value) {
+        return value;
+    }
+
+    @Override
     public Boolean contextIs(Object c1, Object c2) {
         return contextEqual(c1, c2);
     }

@@ -17,6 +17,10 @@ import com.gs.dmn.runtime.Range;
 public interface RangeType {
     boolean isRange(Object value);
 
+    default Range rangeValue(Range value) {
+        return value;
+    }
+
     Boolean rangeIs(Range range1, Range range2);
 
     Boolean rangeEqual(Range range1, Range range2);

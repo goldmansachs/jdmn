@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.type.TimeType;
+import com.gs.dmn.feel.lib.type.time.TimeType;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultTimeType;
 
 import javax.xml.datatype.DatatypeFactory;

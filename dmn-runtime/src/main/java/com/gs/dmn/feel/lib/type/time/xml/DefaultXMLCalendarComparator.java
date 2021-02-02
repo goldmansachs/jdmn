@@ -21,10 +21,14 @@ import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static javax.xml.datatype.DatatypeConstants.*;
 
-public class DefaultXMLCalendarComparator implements RelationalComparator<XMLGregorianCalendar> {
+public class DefaultXMLCalendarComparator extends XMLCalendarType implements RelationalComparator<XMLGregorianCalendar> {
+    public DefaultXMLCalendarComparator() {
+        super(null);
+    }
+
     @Override
     public Integer compare(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return (int) this.getDurationInMilliSeconds(first, second);
+        return (int) this.getDurationInSeconds(first, second);
     }
 
     @Override
@@ -75,9 +79,5 @@ public class DefaultXMLCalendarComparator implements RelationalComparator<XMLGre
                 () -> null,
                 () -> { Integer result = first.compare(second); return result == GREATER || result == EQUAL; }
         });
-    }
-
-    public long getDurationInMilliSeconds(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return first.toGregorianCalendar().getTimeInMillis() - second.toGregorianCalendar().getTimeInMillis();
     }
 }

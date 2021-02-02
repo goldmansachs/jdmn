@@ -1,19 +1,18 @@
 /*
  * Copyright 2016 Goldman Sachs.
- * <p>
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
- * <p>
+ *
  * You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
 package com.gs.dmn.feel.lib.type.time.pure;
 
-import com.gs.dmn.feel.lib.type.TimeType;
-import com.gs.dmn.feel.lib.type.time.JavaTimeType;
+import com.gs.dmn.feel.lib.type.time.TimeType;
 
 import java.time.LocalTime;
 import java.time.OffsetTime;
@@ -21,7 +20,9 @@ import java.time.temporal.ChronoField;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
-public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal, TemporalAmount> {
+import static java.time.temporal.ChronoField.MILLI_OF_SECOND;
+
+public class TemporalTimeType extends BasePureCalendarType implements TimeType<Temporal, TemporalAmount> {
     private final TemporalComparator comparator;
 
     @Deprecated
@@ -36,6 +37,21 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
     //
     // Time operators
     //
+
+    @Override
+    public boolean isTime(Object value) {
+        return value instanceof LocalTime
+                || value instanceof OffsetTime;
+    }
+
+    @Override
+    public Long timeValue(Temporal time) {
+        if (time == null) {
+            return null;
+        }
+
+        return (long) time.get(MILLI_OF_SECOND);
+    }
 
     @Override
     public Boolean timeIs(Temporal first, Temporal second) {
@@ -104,12 +120,6 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
         }
 
         return time.minus(duration);
-    }
-
-    @Override
-    public boolean isTime(Object value) {
-        return value instanceof OffsetTime
-                || value instanceof LocalTime;
     }
 
     protected Integer compare(Temporal first, Temporal second) {

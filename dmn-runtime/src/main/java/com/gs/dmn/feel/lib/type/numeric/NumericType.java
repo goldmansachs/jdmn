@@ -15,6 +15,8 @@ package com.gs.dmn.feel.lib.type.numeric;
 public interface NumericType<NUMBER> {
     boolean isNumber(Object value);
 
+    NUMBER numericValue(NUMBER value);
+
     Boolean numericIs(NUMBER first, NUMBER second);
 
     Boolean numericEqual(NUMBER first, NUMBER second);

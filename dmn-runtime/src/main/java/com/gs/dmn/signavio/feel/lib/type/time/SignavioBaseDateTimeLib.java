@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.time;
 
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
+import com.gs.dmn.feel.lib.type.BaseType;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.time.*;
@@ -62,7 +62,7 @@ public class SignavioBaseDateTimeLib {
     }
 
     protected java.time.Duration durationBetween(LocalDate date1, LocalDate date2) {
-        return java.time.Duration.between(date1.atStartOfDay(DefaultDateTimeLib.UTC), date2.atStartOfDay(DefaultDateTimeLib.UTC));
+        return java.time.Duration.between(date1.atStartOfDay(BaseType.UTC), date2.atStartOfDay(BaseType.UTC));
     }
 
     protected java.time.Duration durationBetween(OffsetTime time1, OffsetTime time2) {
