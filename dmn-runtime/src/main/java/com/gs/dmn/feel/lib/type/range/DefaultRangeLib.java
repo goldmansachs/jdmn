@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.range;
 
-import com.gs.dmn.feel.lib.type.BooleanType;
+import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.ComparableComparator;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
