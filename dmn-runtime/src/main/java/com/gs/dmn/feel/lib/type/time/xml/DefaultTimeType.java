@@ -13,21 +13,20 @@
 package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
-import com.gs.dmn.feel.lib.type.TimeType;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.time.TimeType;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-public class DefaultTimeType extends XMLTimeType implements TimeType<XMLGregorianCalendar, Duration> {
+public class DefaultTimeType extends XMLCalendarType implements TimeType<XMLGregorianCalendar, Duration> {
     public static boolean hasTimezone(XMLGregorianCalendar calendar) {
         return calendar.getTimezone() != DatatypeConstants.FIELD_UNDEFINED;
     }
 
     private final BooleanType booleanType;
-    private final DatatypeFactory datatypeFactory;
     protected final DefaultXMLCalendarComparator comparator;
 
     public DefaultTimeType(DatatypeFactory datatypeFactory) {
@@ -35,7 +34,7 @@ public class DefaultTimeType extends XMLTimeType implements TimeType<XMLGregoria
     }
 
     public DefaultTimeType(DatatypeFactory datatypeFactory, DefaultXMLCalendarComparator comparator) {
-        this.datatypeFactory = datatypeFactory;
+        super(datatypeFactory);
         this.comparator = comparator;
         this.booleanType = new DefaultBooleanType();
     }
@@ -88,7 +87,7 @@ public class DefaultTimeType extends XMLTimeType implements TimeType<XMLGregoria
             return null;
         }
 
-        return this.datatypeFactory.newDuration(this.comparator.getDurationInMilliSeconds(first, second));
+        return makeDuration(getDurationInSeconds(first, second));
     }
 
     @Override

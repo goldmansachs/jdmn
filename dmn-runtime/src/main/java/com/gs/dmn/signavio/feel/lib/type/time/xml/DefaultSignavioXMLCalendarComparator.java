@@ -71,10 +71,4 @@ public class DefaultSignavioXMLCalendarComparator extends DefaultXMLCalendarComp
                 () -> { Integer result = first.compare(second); return result == GREATER || result == EQUAL; }
         });
     }
-
-    @Override
-    public long getDurationInMilliSeconds(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return first.toGregorianCalendar().getTimeInMillis() - second.toGregorianCalendar().getTimeInMillis();
-    }
-
 }

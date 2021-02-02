@@ -18,7 +18,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.time.ZonedDateTime;
 
-public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeType<ZonedDateTime, Duration> {
+public class ZonedDateTimeType extends BaseMixedCalendarType implements DateTimeType<ZonedDateTime, Duration> {
     private final ZonedDateTimeComparator comparator;
 
     @Deprecated

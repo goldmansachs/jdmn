@@ -30,7 +30,6 @@ import java.time.temporal.TemporalQueries;
 import java.util.Calendar;
 
 public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
-    public static final ZoneId UTC = ZoneId.of("UTC");
 
     private final DatatypeFactory dataTypeFactory;
 

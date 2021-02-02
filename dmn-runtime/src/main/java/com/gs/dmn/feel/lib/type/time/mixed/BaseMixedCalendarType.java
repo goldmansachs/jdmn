@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.time.JavaTimeType;
+import com.gs.dmn.feel.lib.type.time.JavaCalendarType;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
@@ -22,10 +22,10 @@ import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAmount;
 
 
-public abstract class JavaTimeCalendarType extends JavaTimeType {
+public abstract class BaseMixedCalendarType extends JavaCalendarType {
     protected final DatatypeFactory datatypeFactory;
 
-    protected JavaTimeCalendarType(DatatypeFactory datatypeFactory) {
+    protected BaseMixedCalendarType(DatatypeFactory datatypeFactory) {
         this.datatypeFactory = datatypeFactory;
     }
 

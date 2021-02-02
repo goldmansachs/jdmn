@@ -48,6 +48,11 @@ public class DefaultNumericType extends BaseNumericType implements NumericType<B
     }
 
     @Override
+    public BigDecimal numericValue(BigDecimal value) {
+        return value;
+    }
+
+    @Override
     public BigDecimal numericAdd(BigDecimal first, BigDecimal second) {
         if (first == null || second == null) {
             return null;

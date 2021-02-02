@@ -15,6 +15,8 @@ package com.gs.dmn.feel.lib.type.time;
 public interface DateTimeType<DATE_TIME, DURATION> {
     boolean isDateTime(Object value);
 
+    Long dateTimeValue(DATE_TIME dateTime);
+
     Boolean dateTimeIs(DATE_TIME first, DATE_TIME second);
 
     Boolean dateTimeEqual(DATE_TIME first, DATE_TIME second);

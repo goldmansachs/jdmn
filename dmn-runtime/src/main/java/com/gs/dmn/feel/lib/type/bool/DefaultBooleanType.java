@@ -26,6 +26,11 @@ public class DefaultBooleanType extends BaseType implements BooleanType {
     }
 
     @Override
+    public Boolean booleanValue(Boolean value) {
+        return value;
+    }
+
+    @Override
     public Boolean booleanNot(Object operand) {
         if (operand instanceof Boolean) {
             return ! (Boolean) operand;

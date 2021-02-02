@@ -23,7 +23,7 @@ import java.time.format.SignStyle;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-import static com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib.UTC;
+import static com.gs.dmn.feel.lib.type.BaseType.UTC;
 import static java.time.temporal.ChronoField.*;
 
 public abstract class BaseDateTimeLib {

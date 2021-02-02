@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
+import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 
 import java.time.ZonedDateTime;
 import java.util.function.Supplier;
@@ -24,7 +24,7 @@ import static java.lang.Boolean.TRUE;
 public class ZonedDateTimeComparator implements RelationalComparator<ZonedDateTime> {
     @Override
     public Integer compare(ZonedDateTime first, ZonedDateTime second) {
-        return first.withZoneSameInstant(DefaultDateTimeLib.UTC).compareTo(second.withZoneSameInstant(DefaultDateTimeLib.UTC));
+        return first.withZoneSameInstant(BaseType.UTC).compareTo(second.withZoneSameInstant(BaseType.UTC));
     }
 
     @Override

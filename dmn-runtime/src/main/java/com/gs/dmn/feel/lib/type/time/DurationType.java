@@ -19,6 +19,8 @@ public interface DurationType<DURATION,  NUMBER> {
 
     boolean isDaysAndTimeDuration(Object value);
 
+    Long durationValue(DURATION duration);
+
     Boolean durationIs(DURATION first, DURATION second);
 
     Boolean durationEqual(DURATION first, DURATION second);

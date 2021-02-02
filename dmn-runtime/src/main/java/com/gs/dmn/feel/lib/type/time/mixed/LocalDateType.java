@@ -12,15 +12,15 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
+import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.time.DateType;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class LocalDateType extends JavaTimeCalendarType implements DateType<LocalDate, Duration> {
+public class LocalDateType extends BaseMixedCalendarType implements DateType<LocalDate, Duration> {
     protected final LocalDateComparator comparator;
 
     @Deprecated
@@ -36,6 +36,10 @@ public class LocalDateType extends JavaTimeCalendarType implements DateType<Loca
     //
     // Date operators
     //
+    @Override
+    public boolean isDate(Object value) {
+        return value instanceof LocalDate;
+    }
 
     @Override
     public Boolean dateIs(LocalDate first, LocalDate second) {
@@ -107,13 +111,8 @@ public class LocalDateType extends JavaTimeCalendarType implements DateType<Loca
         return dateAddDuration(date, duration.negate());
     }
 
-    @Override
-    public boolean isDate(Object value) {
-        return value instanceof LocalDate;
-    }
-
     protected Duration toDuration(LocalDate date1, LocalDate date2) {
-        long durationInMilliSeconds = getDurationInMilliSeconds(date1.atStartOfDay(DefaultDateTimeLib.UTC), date2.atStartOfDay(DefaultDateTimeLib.UTC));
+        long durationInMilliSeconds = getDurationInMilliSeconds(date1.atStartOfDay(BaseType.UTC), date2.atStartOfDay(BaseType.UTC));
         return datatypeFactory.newDurationYearMonth(durationInMilliSeconds);
     }
 }

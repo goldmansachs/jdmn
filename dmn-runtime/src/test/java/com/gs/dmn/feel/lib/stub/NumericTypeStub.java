@@ -22,6 +22,11 @@ public class NumericTypeStub<NUMBER> implements NumericType<NUMBER> {
     }
 
     @Override
+    public NUMBER numericValue(NUMBER value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public NUMBER numericAdd(NUMBER first, NUMBER second) {
         throw new DMNRuntimeException("Not supported yet");
     }

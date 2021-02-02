@@ -22,7 +22,7 @@ import java.time.*;
 import java.time.temporal.*;
 import java.util.TimeZone;
 
-import static com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib.UTC;
+import static com.gs.dmn.feel.lib.type.BaseType.UTC;
 
 public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Number, LocalDate, Temporal, Temporal, TemporalAmount> {
     private final DefaultDateTimeLib dateTimeLib;

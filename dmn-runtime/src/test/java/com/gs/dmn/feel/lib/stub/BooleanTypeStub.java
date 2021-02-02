@@ -24,6 +24,11 @@ public class BooleanTypeStub implements BooleanType {
     }
 
     @Override
+    public Boolean booleanValue(Boolean value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public Boolean booleanNot(Object operand) {
         throw new DMNRuntimeException("Not supported yet");
     }

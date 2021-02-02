@@ -28,6 +28,11 @@ public class DefaultStringType extends BaseType implements StringType {
     }
 
     @Override
+    public String stringValue(String value) {
+        return value;
+    }
+
+    @Override
     public Boolean stringIs(String first, String second) {
         if (first == null || second == null) {
             return first == second;

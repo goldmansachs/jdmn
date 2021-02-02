@@ -12,5 +12,8 @@
  */
 package com.gs.dmn.feel.lib.type;
 
+import java.time.ZoneId;
+
 public abstract class BaseType {
+    public static final ZoneId UTC = ZoneId.of("UTC");
 }

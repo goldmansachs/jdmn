@@ -13,14 +13,13 @@
 package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.time.DateType;
-import com.gs.dmn.feel.lib.type.time.JavaTimeType;
 import com.gs.dmn.feel.lib.type.time.mixed.LocalDateComparator;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.TemporalAmount;
 
-public class LocalDateType extends JavaTimeType implements DateType<LocalDate, TemporalAmount> {
+public class LocalDateType extends BasePureCalendarType implements DateType<LocalDate, TemporalAmount> {
     private final LocalDateComparator comparator;
 
     @Deprecated
@@ -35,6 +34,10 @@ public class LocalDateType extends JavaTimeType implements DateType<LocalDate, T
     //
     // Date operators
     //
+    @Override
+    public boolean isDate(Object value) {
+        return value instanceof LocalDate;
+    }
 
     @Override
     public Boolean dateIs(LocalDate first, LocalDate second) {
@@ -102,10 +105,5 @@ public class LocalDateType extends JavaTimeType implements DateType<LocalDate, T
         }
 
         return date.minus(duration);
-    }
-
-    @Override
-    public boolean isDate(Object value) {
-        return value instanceof LocalDate;
     }
 }

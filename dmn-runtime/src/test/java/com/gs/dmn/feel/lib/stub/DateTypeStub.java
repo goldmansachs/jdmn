@@ -23,6 +23,11 @@ public class DateTypeStub<DATE, DURATION> implements DateType<DATE, DURATION> {
     }
 
     @Override
+    public Long dateValue(DATE date) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public Boolean dateIs(DATE first, DATE second) {
         throw new DMNRuntimeException("Not supported yet");
     }

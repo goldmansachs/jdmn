@@ -24,6 +24,11 @@ public class ListTypeStub implements ListType {
     }
 
     @Override
+    public List listValue(List value) {
+        return null;
+    }
+
+    @Override
     public Boolean listIs(List list1, List list2) {
         throw new DMNRuntimeException("Not supported yet");
     }

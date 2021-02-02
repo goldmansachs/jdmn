@@ -17,6 +17,8 @@ import java.util.List;
 public interface BooleanType {
     boolean isBoolean(Object value);
 
+    Boolean booleanValue(Boolean value);
+
     Boolean booleanIs(Boolean first, Boolean second);
 
     Boolean booleanEqual(Boolean first, Boolean second);

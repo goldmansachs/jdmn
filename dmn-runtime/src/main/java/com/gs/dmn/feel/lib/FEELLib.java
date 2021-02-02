@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.lib;
 
-import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.context.ContextType;
 import com.gs.dmn.feel.lib.type.list.ListType;
@@ -22,6 +21,7 @@ import com.gs.dmn.feel.lib.type.string.StringType;
 import com.gs.dmn.feel.lib.type.time.DateTimeType;
 import com.gs.dmn.feel.lib.type.time.DateType;
 import com.gs.dmn.feel.lib.type.time.DurationType;
+import com.gs.dmn.feel.lib.type.time.TimeType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

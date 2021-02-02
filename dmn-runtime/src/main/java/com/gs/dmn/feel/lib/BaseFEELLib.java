@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.lib;
 
-import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.context.ContextType;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
@@ -24,6 +23,8 @@ import com.gs.dmn.feel.lib.type.string.StringType;
 import com.gs.dmn.feel.lib.type.time.DateTimeType;
 import com.gs.dmn.feel.lib.type.time.DateType;
 import com.gs.dmn.feel.lib.type.time.DurationType;
+import com.gs.dmn.feel.lib.type.time.TimeType;
+import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.LazyEval;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.Range;
@@ -78,6 +79,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
             String message = String.format("isNumber(%s)", value);
             logError(message, e);
             return false;
+        }
+    }
+
+    @Override
+    public NUMBER numericValue(NUMBER value) {
+        try {
+            return numericType.numericValue(value);
+        } catch (Exception e) {
+            String message = String.format("numericValue(%s)", value);
+            logError(message, e);
+            return null;
         }
     }
 
@@ -235,6 +247,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
             String message = String.format("isBoolean(%s)", value);
             logError(message, e);
             return false;
+        }
+    }
+
+    @Override
+    public Boolean booleanValue(Boolean value) {
+        try {
+            return booleanType.booleanValue(value);
+        } catch (Exception e) {
+            String message = String.format("booleanValue(%s)", value);
+            logError(message, e);
+            return null;
         }
     }
 
@@ -418,6 +441,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     @Override
+    public String stringValue(String value) {
+        try {
+            return stringType.stringValue(value);
+        } catch (Exception e) {
+            String message = String.format("stringValue(%s)", value);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public Boolean stringIs(String first, String second) {
         try {
             return stringType.stringIs(first, second);
@@ -516,6 +550,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
             String message = String.format("isDate(%s)", value);
             logError(message, e);
             return false;
+        }
+    }
+
+    @Override
+    public Long dateValue(DATE date) {
+        try {
+            return this.dateType.dateValue(date);
+        } catch (Exception e) {
+            String message = String.format("dateValue(%s)", date);
+            logError(message, e);
+            return null;
         }
     }
 
@@ -646,6 +691,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     @Override
+    public Long timeValue(TIME time) {
+        try {
+            return this.timeType.timeValue(time);
+        } catch (Exception e) {
+            String message = String.format("timeValue(%s)", time);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public Boolean timeIs(TIME first, TIME second) {
         try {
             return timeType.timeIs(first, second);
@@ -766,6 +822,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
             String message = String.format("isDateTime(%s)", value);
             logError(message, e);
             return false;
+        }
+    }
+
+    @Override
+    public Long dateTimeValue(DATE_TIME dateTime) {
+        try {
+            return this.dateTimeType.dateTimeValue(dateTime);
+        } catch (Exception e) {
+            String message = String.format("dateTimeValue(%s)", dateTime);
+            logError(message, e);
+            return null;
         }
     }
 
@@ -933,6 +1000,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     @Override
+    public Long durationValue(DURATION duration) {
+        try {
+            return this.durationType.durationValue(duration);
+        } catch (Exception e) {
+            String message = String.format("durationValue(%s)", duration);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public Boolean durationEqual(DURATION first, DURATION second) {
         try {
             return durationType.durationEqual(first, second);
@@ -1068,6 +1146,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     @Override
+    public List listValue(List value) {
+        try {
+            return this.listType.listValue(value);
+        } catch (Exception e) {
+            String message = String.format("listValue(%s)", value);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public Boolean listIs(List first, List second) {
         try {
             return listType.listIs(first, second);
@@ -1111,6 +1200,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
             String message = String.format("isContext(%s)", value);
             logError(message, e);
             return false;
+        }
+    }
+
+    @Override
+    public Context contextValue(Context value) {
+        try {
+            return contextType.contextValue(value);
+        } catch (Exception e) {
+            String message = String.format("contextValue(%s)", value);
+            logError(message, e);
+            return null;
         }
     }
 
@@ -1183,6 +1283,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
             String message = String.format("isRange(%s)", value);
             logError(message, e);
             return false;
+        }
+    }
+
+    @Override
+    public Range rangeValue(Range value) {
+        try {
+            return rangeType.rangeValue(value);
+        } catch (Exception e) {
+            String message = String.format("rangeValue(%s)", value);
+            logError(message, e);
+            return null;
         }
     }
 

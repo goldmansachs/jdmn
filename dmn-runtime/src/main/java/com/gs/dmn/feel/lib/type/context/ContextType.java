@@ -12,10 +12,14 @@
  */
 package com.gs.dmn.feel.lib.type.context;
 
+import com.gs.dmn.runtime.Context;
+
 import java.util.List;
 
 public interface ContextType {
     boolean isContext(Object value);
+
+    Context contextValue(Context value);
 
     Boolean contextIs(Object c1, Object c2);
 

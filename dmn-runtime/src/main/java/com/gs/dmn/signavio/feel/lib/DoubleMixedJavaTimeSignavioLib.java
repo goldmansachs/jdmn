@@ -14,7 +14,6 @@ package com.gs.dmn.signavio.feel.lib;
 
 import com.gs.dmn.feel.lib.DoubleMixedJavaTimeFEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
-import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.context.ContextType;
@@ -28,6 +27,7 @@ import com.gs.dmn.feel.lib.type.string.StringType;
 import com.gs.dmn.feel.lib.type.time.DateTimeType;
 import com.gs.dmn.feel.lib.type.time.DateType;
 import com.gs.dmn.feel.lib.type.time.DurationType;
+import com.gs.dmn.feel.lib.type.time.TimeType;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DoubleSignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DoubleSignavioNumericType;
