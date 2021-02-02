@@ -16,6 +16,7 @@ import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.feel.lib.stub.*;
 import com.gs.dmn.feel.lib.type.*;
+import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.signavio.feel.lib.stub.SignavioDateTimeLibStub;
 import com.gs.dmn.signavio.feel.lib.stub.SignavioListLibStub;

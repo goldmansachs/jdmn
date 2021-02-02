@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.feel.lib.type.*;
+import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import org.slf4j.Logger;

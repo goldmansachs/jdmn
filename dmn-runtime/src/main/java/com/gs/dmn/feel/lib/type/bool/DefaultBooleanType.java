@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.lib.type.bool;
 
 import com.gs.dmn.feel.lib.type.BaseType;
-import com.gs.dmn.feel.lib.type.BooleanType;
 
 import java.util.List;
 
