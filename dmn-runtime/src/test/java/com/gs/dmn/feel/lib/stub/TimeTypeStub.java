@@ -65,4 +65,9 @@ public class TimeTypeStub<TIME, DURATION> implements TimeType<TIME, DURATION> {
     public TIME timeSubtractDuration(TIME TIME, DURATION duration) {
         throw new DMNRuntimeException("Not supported yet");
     }
+
+    @Override
+    public boolean isTime(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
 }

@@ -347,22 +347,31 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
     // Extra conversion functions
     //
     @Override
-    public XMLGregorianCalendar toDate(Object object) {
-        if (!(object instanceof XMLGregorianCalendar)) {
+    public XMLGregorianCalendar toDate(Object from) {
+        if (!(from instanceof XMLGregorianCalendar)) {
             return null;
         }
 
-        XMLGregorianCalendar calendar = (XMLGregorianCalendar) object;
+        XMLGregorianCalendar calendar = (XMLGregorianCalendar) from;
         return date(calendar);
     }
 
     @Override
-    public XMLGregorianCalendar toTime(Object object) {
-        if (!(object instanceof XMLGregorianCalendar)) {
+    public XMLGregorianCalendar toTime(Object from) {
+        if (!(from instanceof XMLGregorianCalendar)) {
             return null;
         }
 
-        return time((XMLGregorianCalendar) object);
+        return time((XMLGregorianCalendar) from);
+    }
+
+    @Override
+    public XMLGregorianCalendar toDateTime(Object from) {
+        if (!(from instanceof XMLGregorianCalendar)) {
+            return null;
+        }
+
+        return dateAndTime(toDate(from), toTime(from));
     }
 
     public TemporalAccessor dateTemporalAccessor(String literal) {

@@ -34,7 +34,6 @@ import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DurationLib;
 import com.gs.dmn.feel.lib.type.time.xml.*;
 
-import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -108,29 +107,6 @@ public class DefaultFEELLib extends BaseStandardFEELLib<BigDecimal, XMLGregorian
                 listType, contextType, rangeType,
                 numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib
         );
-    }
-
-    @Override
-    protected boolean isDate(Object value) {
-        return value instanceof XMLGregorianCalendar
-                && DatatypeConstants.DATE.equals(((XMLGregorianCalendar) value).getXMLSchemaType());
-    }
-
-    @Override
-    protected boolean isTime(Object value) {
-        return value instanceof XMLGregorianCalendar
-                && DatatypeConstants.TIME.equals(((XMLGregorianCalendar) value).getXMLSchemaType());
-    }
-
-    @Override
-    protected boolean isDateTime(Object value) {
-        return value instanceof XMLGregorianCalendar
-                && DatatypeConstants.DATETIME.equals(((XMLGregorianCalendar) value).getXMLSchemaType());
-    }
-
-    @Override
-    protected boolean isDuration(Object value) {
-        return value instanceof Duration;
     }
 
     //

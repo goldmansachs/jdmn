@@ -106,6 +106,12 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
         return time.minus(duration);
     }
 
+    @Override
+    public boolean isTime(Object value) {
+        return value instanceof OffsetTime
+                || value instanceof LocalTime;
+    }
+
     protected Integer compare(Temporal first, Temporal second) {
         if (first instanceof LocalTime && second instanceof LocalTime) {
             return ((LocalTime) first).compareTo((LocalTime) second);

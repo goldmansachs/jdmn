@@ -311,24 +311,4 @@ public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELL
             return null;
         }
     }
-
-    @Override
-    protected boolean isDate(Object value) {
-        return value instanceof LocalDate;
-    }
-
-    @Override
-    protected boolean isTime(Object value) {
-        return value instanceof OffsetTime;
-    }
-
-    @Override
-    protected boolean isDateTime(Object value) {
-        return value instanceof ZonedDateTime;
-    }
-
-    @Override
-    protected boolean isDuration(Object value) {
-        return value instanceof Duration;
-    }
 }

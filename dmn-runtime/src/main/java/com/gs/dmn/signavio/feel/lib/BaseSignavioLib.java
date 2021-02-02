@@ -854,6 +854,11 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
+    public DATE_TIME toDateTime(Object object) {
+        return this.feelLib.toDateTime(object);
+    }
+
+    @Override
     protected NUMBER valueOf(long number) {
         return this.numberLib.valueOf(number);
     }

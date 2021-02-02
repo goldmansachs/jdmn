@@ -113,6 +113,11 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
                 ;
     }
 
+    @Override
+    public boolean isDateTime(Object value) {
+        return value instanceof ZonedDateTime;
+    }
+
     protected Duration toDuration(ZonedDateTime first, ZonedDateTime second) {
         long durationInMilliSeconds = getDurationInMilliSeconds(first, second);
         return datatypeFactory.newDuration(durationInMilliSeconds);

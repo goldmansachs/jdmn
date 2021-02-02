@@ -22,6 +22,8 @@ import java.time.*;
 import java.time.temporal.*;
 import java.util.TimeZone;
 
+import static com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib.UTC;
+
 public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Number, LocalDate, Temporal, Temporal, TemporalAmount> {
     private final DefaultDateTimeLib dateTimeLib;
 
@@ -58,8 +60,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
     public LocalDate date(LocalDate from) {
         return from;
     }
-
-    public LocalDate dateDateTime(Temporal from) {
+    public LocalDate date(Temporal from) {
         if (from == null) {
             return null;
         }
@@ -72,6 +73,23 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
             return ((OffsetDateTime) from).toLocalDate();
         } else if (from instanceof ZonedDateTime) {
             return ((ZonedDateTime) from).toLocalDate();
+        }
+        throw new IllegalArgumentException(String.format("Cannot convert '%s' to date", from.getClass().getSimpleName()));
+    }
+
+    public Temporal dateDateTime(Temporal from) {
+        if (from == null) {
+            return null;
+        }
+
+        if (from instanceof LocalDate) {
+            return ((LocalDate) from).atStartOfDay(UTC);
+        } else if (from instanceof LocalDateTime) {
+            return ((LocalDateTime) from).atZone(UTC);
+        } else if (from instanceof OffsetDateTime) {
+            return ((OffsetDateTime) from).atZoneSameInstant(UTC);
+        } else if (from instanceof ZonedDateTime) {
+            return from;
         }
         throw new IllegalArgumentException(String.format("Cannot convert '%s' to date", from.getClass().getSimpleName()));
     }
@@ -334,16 +352,24 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
     //
     // Extra conversion functions
     //
-    public LocalDate toDate(Object object) {
-        if (object instanceof Temporal) {
-            return dateDateTime((Temporal) object);
+    public LocalDate toDate(Object from) {
+        if (from instanceof Temporal) {
+            return date((Temporal) from);
         }
         return null;
     }
 
-    public Temporal toTime(Object object) {
-        if (object instanceof Temporal) {
-            return time((Temporal) object);
+    public Temporal toTime(Object from) {
+        if (from instanceof Temporal) {
+            return time((Temporal) from);
+        }
+        return null;
+    }
+
+    @Override
+    public Temporal toDateTime(Object from) {
+        if (from instanceof Temporal) {
+            return dateDateTime((Temporal) from);
         }
         return null;
     }

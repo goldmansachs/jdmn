@@ -22,6 +22,8 @@ import java.math.BigDecimal;
 import java.time.*;
 import java.time.temporal.IsoFields;
 
+import static com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib.UTC;
+
 public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Number, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     private final DatatypeFactory datatypeFactory;
 
@@ -406,23 +408,54 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
     //
     // Extra conversion functions
     //
-    public LocalDate toDate(Object object) {
-        if (object instanceof ZonedDateTime) {
-            return date((ZonedDateTime) object);
+    @Override
+    public LocalDate toDate(Object from) {
+        if (from == null) {
+            return null;
         }
-        if (object instanceof LocalDate) {
-            return date((LocalDate) object);
+
+        if (from instanceof LocalDate) {
+            return (LocalDate) from;
+        } else if (from instanceof OffsetTime) {
+            return null;
+        } else if (from instanceof ZonedDateTime) {
+            return date((ZonedDateTime) from);
         }
-        return null;
+        throw new IllegalArgumentException(String.format("Cannot convert '%s' to date", from.getClass().getSimpleName()));
     }
 
-    public OffsetTime toTime(Object object) {
-        if (object instanceof ZonedDateTime) {
-            return time((ZonedDateTime) object);
-        } else if (object instanceof LocalDate) {
-            return time((LocalDate) object);
+    @Override
+    public OffsetTime toTime(Object from) {
+        if (from == null) {
+            return null;
         }
-        return (OffsetTime) object;
+
+        if (from instanceof LocalDate) {
+            return time((LocalDate) from);
+        } else if (from instanceof OffsetTime) {
+            return (OffsetTime) from;
+        } else if (from instanceof ZonedDateTime) {
+            return time((ZonedDateTime) from);
+        }
+        throw new IllegalArgumentException(String.format("Cannot convert '%s' to time", from.getClass().getSimpleName()));
+    }
+
+    @Override
+    public ZonedDateTime toDateTime(Object from) {
+        if (from == null) {
+            return null;
+        }
+
+        if (from instanceof LocalDate) {
+            return ((LocalDate) from).atStartOfDay(UTC);
+        } else if (from instanceof LocalDateTime) {
+            return ((LocalDateTime) from).atZone(UTC);
+        } else if (from instanceof OffsetDateTime) {
+            return ((OffsetDateTime) from).atZoneSameInstant(UTC);
+        } else if (from instanceof ZonedDateTime) {
+            return (ZonedDateTime) from;
+        }
+        throw new IllegalArgumentException(String.format("Cannot convert '%s' to date time", from.getClass().getSimpleName()));
     }
 
     private Duration computeDuration(int secondsOffset) {

@@ -15,7 +15,6 @@ package com.gs.dmn.feel.lib.type.time.xml;
 import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
-import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
@@ -34,13 +33,18 @@ public abstract class BaseDefaultDurationType extends BaseType {
             0,
             0));
 
+    public static final BigDecimal THOUSAND = BigDecimal.valueOf(1000);
+    public static final BigDecimal SIXTY = BigDecimal.valueOf(60);
+    public static final BigDecimal TWENTY_FOUR = BigDecimal.valueOf(24);
+    public static final BigDecimal TWELVE = BigDecimal.valueOf(12);
+
     public static BigDecimal normalize(Duration duration) {
         if (isDuration(duration)) {
             return BigDecimal.valueOf(duration.getTimeInMillis(GREGORIAN.get()));
         } else if (isYearMonthDuration(duration)) {
             BigDecimal years = BigDecimal.valueOf(duration.getYears());
             BigDecimal months = BigDecimal.valueOf(duration.getMonths());
-            BigDecimal totalMonths = years.multiply(BigDecimal.valueOf(12)).add(months);
+            BigDecimal totalMonths = years.multiply(TWELVE).add(months);
             if (duration.getSign() < 0) {
                 totalMonths = totalMonths.negate();
             }
@@ -56,11 +60,11 @@ public abstract class BaseDefaultDurationType extends BaseType {
         return getXMLSchemaType(duration) == DatatypeConstants.DURATION;
     }
 
-    private static boolean isYearMonthDuration(Duration duration) {
+    public static boolean isYearMonthDuration(Duration duration) {
         return getXMLSchemaType(duration) == DatatypeConstants.DURATION_YEARMONTH;
     }
 
-    private static boolean isDayTimeDuration(Duration duration) {
+    public static boolean isDayTimeDuration(Duration duration) {
         return getXMLSchemaType(duration) == DatatypeConstants.DURATION_DAYTIME;
     }
 
@@ -130,7 +134,19 @@ public abstract class BaseDefaultDurationType extends BaseType {
             return null;
         }
 
-        return first.add(second);
+        if (isYearMonthDuration(first) && isYearMonthDuration(second)) {
+            long firstValue = monthsValue(first);
+            long secondValue = monthsValue(second);
+            return makeYearsMonthsDuration(firstValue + secondValue);
+        } else if (isDayTimeDuration(first) && isDayTimeDuration(second)) {
+            long firstValue = secondsValue(first);
+            long secondValue = secondsValue(second);
+            return makeDaysTimeDuration(firstValue + secondValue);
+        } else {
+            long months = monthsValue(first) + monthsValue(second);
+            long seconds = secondsValue(first) + secondsValue(second);
+            return makeDuration(months, seconds);
+        }
     }
 
     public Duration durationSubtract(Duration first, Duration second) {
@@ -138,33 +154,61 @@ public abstract class BaseDefaultDurationType extends BaseType {
             return null;
         }
 
-        return first.subtract(second);
+        return durationAdd(first, second.negate());
     }
 
-    protected Duration durationMultiply(Duration first, Number second) {
-        if (first == null || second == null) {
+    public static Long monthsValue(Duration duration) {
+        if (duration == null) {
             return null;
         }
 
-        return first.multiply(second.intValue());
+        boolean isNegative = duration.getSign() < 0;
+        long months = 12L * duration.getYears() + duration.getMonths();
+        return isNegative ? - months : months;
     }
 
-    protected Duration durationDivide(Duration first, Number second) {
-        if (first == null || second == null) {
+    public static Long secondsValue(Duration duration) {
+        if (duration == null) {
             return null;
         }
 
-        if (isYearMonthDuration(first)) {
-            long months = (first.getYears() * 12 + first.getMonths()) / second.intValue();
-            return this.dataTypeFactory.newDurationYearMonth(String.format("P%dM", months));
-        } else if (isDayTimeDuration(first)) {
-            long hours = 24L * first.getDays() + first.getHours();
-            long minutes = 60L * hours + first.getMinutes();
-            long seconds = 60L * minutes + first.getSeconds();
-            seconds = seconds / second.intValue();
-            return this.dataTypeFactory.newDurationDayTime(seconds * 1000L);
+        boolean isNegative = duration.getSign() < 0;
+        long hours = 24L * duration.getDays() + duration.getHours();
+        long minutes = 60L * hours + duration.getMinutes();
+        long seconds = 60L * minutes + duration.getSeconds();
+        return isNegative ? - seconds : seconds;
+    }
+
+    protected Duration makeYearsMonthsDuration(Number months) {
+        long lMonths = months.longValue();
+        if (lMonths < 0) {
+            String literal = String.format("P%dM", -months.intValue());
+            return this.dataTypeFactory.newDurationYearMonth(literal).negate();
         } else {
-            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+            String literal = String.format("P%dM", months.intValue());
+            return this.dataTypeFactory.newDurationYearMonth(literal);
+        }
+    }
+
+    protected Duration makeDaysTimeDuration(Number seconds) {
+        long millis = seconds.longValue() * 1000L;
+        if (millis < 0) {
+            return this.dataTypeFactory.newDurationDayTime(-millis).negate();
+        } else {
+            return this.dataTypeFactory.newDurationDayTime(millis);
+        }
+    }
+
+    protected Duration makeDuration(Number months, Number seconds) {
+        long lMonths = months.longValue();
+        long lSeconds = seconds.longValue();
+        boolean isNegative = lMonths < 0;
+        if (isNegative) {
+            String literal = String.format("P%dMT%dS", -lMonths, -lSeconds);
+            return this.dataTypeFactory.newDurationYearMonth(literal).negate();
+        } else {
+            String literal = String.format("P%dMT%dS", lMonths, lSeconds);
+            return this.dataTypeFactory.newDuration(literal);
         }
     }
 }

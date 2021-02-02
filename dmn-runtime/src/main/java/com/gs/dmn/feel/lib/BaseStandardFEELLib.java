@@ -209,24 +209,34 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     //
     // Extra conversion functions
     //
-
     @Override
-    public DATE toDate(Object object) {
+    public DATE toDate(Object from) {
         try {
-            return this.dateTimeLib.toDate(object);
+            return this.dateTimeLib.toDate(from);
         } catch (Exception e) {
-            String message = String.format("toDate(%s)", object);
+            String message = String.format("toDate(%s)", from);
             logError(message, e);
             return null;
         }
     }
 
     @Override
-    public TIME toTime(Object object) {
+    public TIME toTime(Object from) {
         try {
-            return this.dateTimeLib.toTime(object);
+            return this.dateTimeLib.toTime(from);
         } catch (Exception e) {
-            String message = String.format("toTime(%s)", object);
+            String message = String.format("toTime(%s)", from);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public DATE_TIME toDateTime(Object from) {
+        try {
+            return this.dateTimeLib.toDateTime(from);
+        } catch (Exception e) {
+            String message = String.format("toTime(%s)", from);
             logError(message, e);
             return null;
         }
@@ -1537,9 +1547,4 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             return null;
         }
     }
-
-    protected abstract boolean isDate(Object value);
-    protected abstract boolean isTime(Object value);
-    protected abstract boolean isDateTime(Object value);
-    protected abstract boolean isDuration(Object value);
 }

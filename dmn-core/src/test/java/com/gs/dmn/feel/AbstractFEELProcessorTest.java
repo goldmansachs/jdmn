@@ -1501,7 +1501,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
         doExpressionTest(entries, "", String.format("%s %s %s", date, "-", date),
                 "Addition(-,DateTimeLiteral(date, \"2016-08-01\"),DateTimeLiteral(date, \"2016-08-01\"))",
-                "years and months duration",
+                "days and time duration",
                 "dateSubtract(date(\"2016-08-01\"), date(\"2016-08-01\"))",
                 this.lib.dateSubtract(this.lib.date("2016-08-01"), this.lib.date("2016-08-01")),
                 this.lib.duration("P0Y0M0DT0H0M0.000S"));
@@ -1664,21 +1664,21 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", String.format("%s %s %s", yearsAndMonthsDuration, "*", number),
                 "Multiplication(*,DateTimeLiteral(duration, \"P1Y1M\"),NumericLiteral(1))",
                 "years and months duration",
-                "durationMultiply(duration(\"P1Y1M\"), number(\"1\"))",
-                this.lib.durationMultiply(this.lib.duration("P1Y1M"), this.lib.number("1")),
+                "durationMultiplyNumber(duration(\"P1Y1M\"), number(\"1\"))",
+                this.lib.durationMultiplyNumber(this.lib.duration("P1Y1M"), this.lib.number("1")),
                 this.lib.duration("P1Y1M"));
         doExpressionTest(entries, "", String.format("%s %s %s", yearsAndMonthsDuration, "/", number),
                 "Multiplication(/,DateTimeLiteral(duration, \"P1Y1M\"),NumericLiteral(1))",
                 "years and months duration",
-                "durationDivide(duration(\"P1Y1M\"), number(\"1\"))",
-                this.lib.durationDivide(this.lib.duration("P1Y1M"), this.lib.number("1")),
+                "durationDivideNumber(duration(\"P1Y1M\"), number(\"1\"))",
+                this.lib.durationDivideNumber(this.lib.duration("P1Y1M"), this.lib.number("1")),
                 this.lib.duration("P1Y1M"));
 
         doExpressionTest(entries, "", String.format("%s %s %s", number, "*", yearsAndMonthsDuration),
                 "Multiplication(*,NumericLiteral(1),DateTimeLiteral(duration, \"P1Y1M\"))",
                 "years and months duration",
-                "durationMultiply(duration(\"P1Y1M\"), number(\"1\"))",
-                this.lib.durationMultiply(this.lib.duration("P1Y1M"), this.lib.number("1")),
+                "durationMultiplyNumber(duration(\"P1Y1M\"), number(\"1\"))",
+                this.lib.durationMultiplyNumber(this.lib.duration("P1Y1M"), this.lib.number("1")),
                 this.lib.duration("P1Y1M"));
 /*
         // should not be in standard
@@ -1694,21 +1694,21 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", String.format("%s %s %s", daysAndTimeDuration, "*", number),
                 "Multiplication(*,DateTimeLiteral(duration, \"P1DT1H\"),NumericLiteral(1))",
                 "days and time duration",
-                "durationMultiply(duration(\"P1DT1H\"), number(\"1\"))",
-                this.lib.durationMultiply(this.lib.duration("P1DT1H"), this.lib.number("1")),
+                "durationMultiplyNumber(duration(\"P1DT1H\"), number(\"1\"))",
+                this.lib.durationMultiplyNumber(this.lib.duration("P1DT1H"), this.lib.number("1")),
                 this.lib.duration("P1DT1H"));
         doExpressionTest(entries, "", String.format("%s %s %s", daysAndTimeDuration, "/", number),
                 "Multiplication(/,DateTimeLiteral(duration, \"P1DT1H\"),NumericLiteral(1))",
                 "days and time duration",
-                "durationDivide(duration(\"P1DT1H\"), number(\"1\"))",
-                this.lib.durationDivide(this.lib.duration("P1DT1H"), this.lib.number("1")),
+                "durationDivideNumber(duration(\"P1DT1H\"), number(\"1\"))",
+                this.lib.durationDivideNumber(this.lib.duration("P1DT1H"), this.lib.number("1")),
                 this.lib.duration("P1DT1H"));
 
         doExpressionTest(entries, "", String.format("%s %s %s", number, "*", daysAndTimeDuration),
                 "Multiplication(*,NumericLiteral(1),DateTimeLiteral(duration, \"P1DT1H\"))",
                 "days and time duration",
-                "durationMultiply(duration(\"P1DT1H\"), number(\"1\"))",
-                this.lib.durationMultiply(this.lib.duration("P1DT1H"), this.lib.number("1")),
+                "durationMultiplyNumber(duration(\"P1DT1H\"), number(\"1\"))",
+                this.lib.durationMultiplyNumber(this.lib.duration("P1DT1H"), this.lib.number("1")),
                 this.lib.duration("P1DT1H"));
 /*
         // should not be in standard

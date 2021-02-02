@@ -103,4 +103,9 @@ public class LocalDateType extends JavaTimeType implements DateType<LocalDate, T
 
         return date.minus(duration);
     }
+
+    @Override
+    public boolean isDate(Object value) {
+        return value instanceof LocalDate;
+    }
 }

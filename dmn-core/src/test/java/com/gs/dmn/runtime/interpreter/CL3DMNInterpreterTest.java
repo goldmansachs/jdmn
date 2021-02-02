@@ -379,6 +379,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_13_cl3_100_arithmetic() {
+        doSingleModelTest("1.3", "0100-arithmetic");
+    }
+
+    @Test
     public void test_13_cl3_1130_feel_interval() {
         doSingleModelTest("1.3", "1130-feel-interval");
     }

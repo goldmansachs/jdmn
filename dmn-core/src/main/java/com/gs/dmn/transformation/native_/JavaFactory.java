@@ -381,7 +381,7 @@ public class JavaFactory implements NativeFactory {
     }
 
     protected String dateToUTCMidnight(String javaType) {
-        return String.format("toDate", javaType);
+        return String.format("toDateTime", javaType);
     }
 
     @Override

@@ -106,7 +106,12 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
             return null;
         }
 
-        return time.minus(toTemporalDuration(duration));
+        return timeAddDuration(time, duration.negate());
+    }
+
+    @Override
+    public boolean isTime(Object value) {
+        return value instanceof OffsetTime;
     }
 
     protected Duration toDuration(OffsetTime first, OffsetTime second) {

@@ -15,10 +15,12 @@ package com.gs.dmn.feel.lib.type.time.xml;
 import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.type.DurationType;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class DefaultDurationType extends BaseDefaultDurationType implements DurationType<Duration, BigDecimal> {
     @Deprecated
@@ -54,12 +56,63 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
     // Duration operators
     //
     @Override
-    public Duration durationMultiply(Duration first, BigDecimal second) {
-        return this.durationMultiply(first, (Number) second);
+    public BigDecimal durationDivide(Duration first, Duration second) {
+        if (first == null || second == null) {
+            return null;
+        }
+
+        if (isYearMonthDuration(first) && isYearMonthDuration(second)) {
+            Long firstValue = monthsValue(first);
+            Long secondValue = monthsValue(second);
+            return secondValue == 0 ? null : BigDecimal.valueOf(firstValue).divide(BigDecimal.valueOf(secondValue), RoundingMode.HALF_DOWN);
+        } else if (isDayTimeDuration(first) && isDayTimeDuration(second)) {
+            Long firstValue = secondsValue(first);
+            Long secondValue = secondsValue(second);
+            return secondValue == 0 ? null : BigDecimal.valueOf(firstValue).divide(BigDecimal.valueOf(secondValue), RoundingMode.HALF_DOWN);
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+        }
     }
 
     @Override
-    public Duration durationDivide(Duration first, BigDecimal second) {
-        return this.durationDivide(first, (Number) second);
+    public Duration durationMultiplyNumber(Duration first, BigDecimal second) {
+        if (first == null || second == null) {
+            return null;
+        }
+
+        if (isYearMonthDuration(first)) {
+            BigDecimal months = BigDecimal.valueOf(monthsValue(first)).multiply(second);
+            return makeYearsMonthsDuration(months);
+        } else if (isDayTimeDuration(first)) {
+            BigDecimal seconds = BigDecimal.valueOf(secondsValue(first)).multiply(second);
+            return makeDaysTimeDuration(seconds);
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+        }
+    }
+
+    @Override
+    public Duration durationDivideNumber(Duration first, BigDecimal second) {
+        if (first == null || second == null) {
+            return null;
+        }
+        if (second.signum() == 0) {
+            return null;
+        }
+
+        if (isYearMonthDuration(first)) {
+            BigDecimal months = BigDecimal.valueOf(monthsValue(first)).divide(second, RoundingMode.HALF_DOWN);
+            return makeYearsMonthsDuration(months);
+        } else if (isDayTimeDuration(first)) {
+            BigDecimal seconds = BigDecimal.valueOf(secondsValue(first)).divide(second, RoundingMode.HALF_DOWN);
+            return makeDaysTimeDuration(seconds);
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+        }
+    }
+
+    @Override
+    public boolean isDuration(Object value) {
+        return value instanceof Duration;
     }
 }

@@ -547,7 +547,9 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     @Override
     public DURATION dateSubtract(DATE first, DATE second) {
         try {
-            return dateType.dateSubtract(first, second);
+            DATE_TIME dateTime1 = toDateTime(first);
+            DATE_TIME dateTime2 = toDateTime(second);
+            return dateTimeType.dateTimeSubtract(dateTime1, dateTime2);
         } catch (Exception e) {
             String message = String.format("dateSubtract(%s, %s)", first, second);
             logError(message, e);
@@ -773,6 +775,12 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     @Override
     public DURATION dateTimeSubtract(DATE_TIME first, DATE_TIME second) {
         try {
+            if (isDate(first)) {
+                first = toDateTime(first);
+            }
+            if (isDate(second)) {
+                second = toDateTime(second);
+            }
             return dateTimeType.dateTimeSubtract(first, second);
         } catch (Exception e) {
             String message = String.format("dateTimeSubtract(%s, %s)", first, second);
@@ -906,9 +914,9 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     @Override
-    public DURATION durationMultiply(DURATION first, NUMBER second) {
+    public NUMBER durationDivide(DURATION first, DURATION second) {
         try {
-            return durationType.durationMultiply(first, second);
+            return durationType.durationDivide(first, second);
         } catch (Exception e) {
             String message = String.format("durationMultiply(%s, %s)", first, second);
             logError(message, e);
@@ -917,9 +925,20 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     @Override
-    public DURATION durationDivide(DURATION first, NUMBER second) {
+    public DURATION durationMultiplyNumber(DURATION first, NUMBER second) {
         try {
-            return durationType.durationDivide(first, second);
+            return durationType.durationMultiplyNumber(first, second);
+        } catch (Exception e) {
+            String message = String.format("durationMultiply(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public DURATION durationDivideNumber(DURATION first, NUMBER second) {
+        try {
+            return durationType.durationDivideNumber(first, second);
         } catch (Exception e) {
             String message = String.format("durationDivide(%s, %s)", first, second);
             logError(message, e);
@@ -1061,7 +1080,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     //
-    // Extra functions
+    // Conversion functions
     //
     @Override
     public<T> List<T> asList(T ...objects) {
@@ -1085,6 +1104,53 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         }
     }
 
+    @Override
+    public boolean isDate(Object value) {
+        try {
+            return this.dateType.isDate(value);
+        } catch (Exception e) {
+            String message = String.format("isDate(%s)", value);
+            logError(message, e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isTime(Object value) {
+        try {
+            return this.timeType.isTime(value);
+        } catch (Exception e) {
+            String message = String.format("isTime(%s)", value);
+            logError(message, e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isDateTime(Object value) {
+        try {
+            return this.dateTimeType.isDateTime(value);
+        } catch (Exception e) {
+            String message = String.format("isDateTime(%s)", value);
+            logError(message, e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isDuration(Object value) {
+        try {
+            return this.durationType.isDuration(value);
+        } catch (Exception e) {
+            String message = String.format("isDuration(%s)", value);
+            logError(message, e);
+            return false;
+        }
+    }
+
+    //
+    // Other functions
+    //
     @Override
     public List<NUMBER> rangeToList(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end) {
         Pair<Integer, Integer> intRange = intRange(isOpenStart, (Number) start, isOpenEnd, (Number) end);

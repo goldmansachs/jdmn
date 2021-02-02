@@ -68,7 +68,9 @@ public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Te
     //
     // Extra conversion functions
     //
-    DATE toDate(Object object);
+    DATE toDate(Object from);
 
-    TIME toTime(Object object);
+    TIME toTime(Object from);
+
+    DATE_TIME toDateTime(Object from);
 }
