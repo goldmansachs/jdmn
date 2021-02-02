@@ -17,6 +17,11 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class NumericTypeStub<NUMBER> implements NumericType<NUMBER> {
     @Override
+    public boolean isNumber(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public NUMBER numericAdd(NUMBER first, NUMBER second) {
         throw new DMNRuntimeException("Not supported yet");
     }

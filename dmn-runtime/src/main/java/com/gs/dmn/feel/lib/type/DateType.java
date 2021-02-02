@@ -13,6 +13,8 @@
 package com.gs.dmn.feel.lib.type;
 
 public interface DateType<DATE, DURATION> {
+    boolean isDate(Object value);
+
     Boolean dateIs(DATE first, DATE second);
 
     Boolean dateEqual(DATE first, DATE second);
@@ -32,6 +34,4 @@ public interface DateType<DATE, DURATION> {
     DATE dateAddDuration(DATE date, DURATION duration);
 
     DATE dateSubtractDuration(DATE date, DURATION duration);
-
-    boolean isDate(Object value);
 }

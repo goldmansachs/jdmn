@@ -18,6 +18,11 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class DateTypeStub<DATE, DURATION> implements DateType<DATE, DURATION> {
     @Override
+    public boolean isDate(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public Boolean dateIs(DATE first, DATE second) {
         throw new DMNRuntimeException("Not supported yet");
     }
@@ -64,11 +69,6 @@ public class DateTypeStub<DATE, DURATION> implements DateType<DATE, DURATION> {
 
     @Override
     public DATE dateSubtractDuration(DATE DATE, DURATION DURATION) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-
-    @Override
-    public boolean isDate(Object value) {
         throw new DMNRuntimeException("Not supported yet");
     }
 }

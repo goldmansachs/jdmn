@@ -12,10 +12,10 @@
  */
 package com.gs.dmn.feel.lib.type.time.pure;
 
-import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.DurationType;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.time.JavaTimeType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.math.BigDecimal;
@@ -24,7 +24,7 @@ import java.time.Duration;
 import java.time.Period;
 import java.time.temporal.TemporalAmount;
 
-public class TemporalAmountDurationType extends BaseType implements DurationType<TemporalAmount, BigDecimal> {
+public class TemporalAmountDurationType extends JavaTimeType implements DurationType<TemporalAmount, BigDecimal> {
     private final BooleanType booleanType;
 
     public TemporalAmountDurationType() {
@@ -34,6 +34,20 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
     //
     // TemporalAmount operators
     //
+    @Override
+    public boolean isDuration(Object value) {
+        return value instanceof TemporalAmount;
+    }
+
+    @Override
+    public boolean isYearsAndMonthsDuration(Object value) {
+        return value instanceof Period;
+    }
+
+    @Override
+    public boolean isDaysAndTimeDuration(Object value) {
+        return value instanceof Duration;
+    }
 
     @Override
     public Boolean durationIs(TemporalAmount first, TemporalAmount second) {
@@ -213,11 +227,6 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
         } else {
             throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
         }
-    }
-
-    @Override
-    public boolean isDuration(Object value) {
-        return value instanceof TemporalAmount;
     }
 
     private int compare(TemporalAmount first, TemporalAmount second) {

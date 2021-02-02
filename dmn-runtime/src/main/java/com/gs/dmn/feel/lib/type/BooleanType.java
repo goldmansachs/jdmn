@@ -15,6 +15,14 @@ package com.gs.dmn.feel.lib.type;
 import java.util.List;
 
 public interface BooleanType {
+    boolean isBoolean(Object value);
+
+    Boolean booleanIs(Boolean first, Boolean second);
+
+    Boolean booleanEqual(Boolean first, Boolean second);
+
+    Boolean booleanNotEqual(Boolean first, Boolean second);
+
     Boolean booleanNot(Object operand);
 
     Boolean booleanOr(List<Object> operands);
@@ -28,10 +36,4 @@ public interface BooleanType {
     Boolean booleanAnd(Object... operands);
 
     Boolean binaryBooleanAnd(Object first, Object second);
-
-    Boolean booleanIs(Boolean first, Boolean second);
-
-    Boolean booleanEqual(Boolean first, Boolean second);
-
-    Boolean booleanNotEqual(Boolean first, Boolean second);
 }

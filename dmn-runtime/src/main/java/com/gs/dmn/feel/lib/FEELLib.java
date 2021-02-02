@@ -14,6 +14,7 @@ package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.range.RangeType;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +31,11 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
 
     default void logError(String message, Throwable e) {
         LOGGER.error(message, e);
+    }
+
+    // Check if value is a function object
+    default boolean isFunction(Object value) {
+        throw new DMNRuntimeException("Function objects are not supported yet");
     }
 
     //
@@ -62,11 +68,6 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     //
     List<NUMBER> rangeToList(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end);
     List<NUMBER> rangeToList(NUMBER start, NUMBER end);
-
-    boolean isDate(Object value);
-    boolean isTime(Object value);
-    boolean isDateTime(Object value);
-    boolean isDuration(Object value);
 
     DATE toDate(Object from);
     TIME toTime(Object from);

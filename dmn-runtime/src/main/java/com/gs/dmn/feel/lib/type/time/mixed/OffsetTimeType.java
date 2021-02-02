@@ -39,6 +39,10 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
     //
     // Time operators
     //
+    @Override
+    public boolean isTime(Object value) {
+        return value instanceof OffsetTime;
+    }
 
     @Override
     public Boolean timeIs(OffsetTime first, OffsetTime second) {
@@ -107,11 +111,6 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
         }
 
         return timeAddDuration(time, duration.negate());
-    }
-
-    @Override
-    public boolean isTime(Object value) {
-        return value instanceof OffsetTime;
     }
 
     protected Duration toDuration(OffsetTime first, OffsetTime second) {

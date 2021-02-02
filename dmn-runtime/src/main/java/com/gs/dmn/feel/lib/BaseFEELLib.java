@@ -63,68 +63,13 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     // Numeric operators
     //
     @Override
-    public NUMBER numericAdd(NUMBER first, NUMBER second) {
+    public boolean isNumber(Object value) {
         try {
-            return numericType.numericAdd(first, second);
+            return numericType.isNumber(value);
         } catch (Exception e) {
-            String message = String.format("numericAdd(%s, %s)", first, second);
+            String message = String.format("isNumber(%s)", value);
             logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public NUMBER numericSubtract(NUMBER first, NUMBER second) {
-        try {
-            return numericType.numericSubtract(first, second);
-        } catch (Exception e) {
-            String message = String.format("numericSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public NUMBER numericMultiply(NUMBER first, NUMBER second) {
-        try {
-            return numericType.numericMultiply(first, second);
-        } catch (Exception e) {
-            String message = String.format("numericMultiply(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public NUMBER numericDivide(NUMBER first, NUMBER second) {
-        try {
-            return numericType.numericDivide(first, second);
-        } catch (Exception e) {
-            String message = String.format("numericDivide(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public NUMBER numericUnaryMinus(NUMBER first) {
-        try {
-            return numericType.numericUnaryMinus(first);
-        } catch (Exception e) {
-            String message = String.format("numericUnaryMinus(%s", first);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public NUMBER numericExponentiation(NUMBER first, NUMBER second) {
-        try {
-            return numericType.numericExponentiation(first, second);
-        } catch (Exception e) {
-            String message = String.format("numericExponentiation(%s, %s)", first, second);
-            logError(message, e);
-            return null;
+            return false;
         }
     }
 
@@ -205,9 +150,119 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         }
     }
 
+    @Override
+    public NUMBER numericAdd(NUMBER first, NUMBER second) {
+        try {
+            return numericType.numericAdd(first, second);
+        } catch (Exception e) {
+            String message = String.format("numericAdd(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public NUMBER numericSubtract(NUMBER first, NUMBER second) {
+        try {
+            return numericType.numericSubtract(first, second);
+        } catch (Exception e) {
+            String message = String.format("numericSubtract(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public NUMBER numericMultiply(NUMBER first, NUMBER second) {
+        try {
+            return numericType.numericMultiply(first, second);
+        } catch (Exception e) {
+            String message = String.format("numericMultiply(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public NUMBER numericDivide(NUMBER first, NUMBER second) {
+        try {
+            return numericType.numericDivide(first, second);
+        } catch (Exception e) {
+            String message = String.format("numericDivide(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public NUMBER numericUnaryMinus(NUMBER first) {
+        try {
+            return numericType.numericUnaryMinus(first);
+        } catch (Exception e) {
+            String message = String.format("numericUnaryMinus(%s", first);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public NUMBER numericExponentiation(NUMBER first, NUMBER second) {
+        try {
+            return numericType.numericExponentiation(first, second);
+        } catch (Exception e) {
+            String message = String.format("numericExponentiation(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
     //
     // Boolean operators
     //
+    @Override
+    public boolean isBoolean(Object value) {
+        try {
+            return this.booleanType.isBoolean(value);
+        } catch (Exception e) {
+            String message = String.format("isBoolean(%s)", value);
+            logError(message, e);
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean booleanIs(Boolean first, Boolean second) {
+        try {
+            return booleanType.booleanIs(first, second);
+        } catch (Exception e) {
+            String message = String.format("booleanIs(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean booleanEqual(Boolean first, Boolean second) {
+        try {
+            return booleanType.booleanEqual(first, second);
+        } catch (Exception e) {
+            String message = String.format("booleanEqual(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean booleanNotEqual(Boolean first, Boolean second) {
+        try {
+            return booleanType.booleanNotEqual(first, second);
+        } catch (Exception e) {
+            String message = String.format("booleanNotEqual(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
     @Override
     public Boolean booleanNot(Object operand) {
         try {
@@ -285,39 +340,6 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         }
     }
 
-    @Override
-    public Boolean booleanIs(Boolean first, Boolean second) {
-        try {
-            return booleanType.booleanIs(first, second);
-        } catch (Exception e) {
-            String message = String.format("booleanIs(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public Boolean booleanEqual(Boolean first, Boolean second) {
-        try {
-            return booleanType.booleanEqual(first, second);
-        } catch (Exception e) {
-            String message = String.format("booleanEqual(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public Boolean booleanNotEqual(Boolean first, Boolean second) {
-        try {
-            return booleanType.booleanNotEqual(first, second);
-        } catch (Exception e) {
-            String message = String.format("booleanNotEqual(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
     @Deprecated
     public Boolean booleanNot(Boolean operand) {
         try {
@@ -377,6 +399,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     // String operators
     //
     @Override
+    public boolean isString(Object value) {
+        try {
+            return stringType.isString(value);
+        } catch (Exception e) {
+            String message = String.format("isString(%s)", value);
+            logError(message, e);
+            return false;
+        }
+    }
+
+    @Override
     public Boolean stringIs(String first, String second) {
         try {
             return stringType.stringIs(first, second);
@@ -404,17 +437,6 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
             return stringType.stringNotEqual(first, second);
         } catch (Exception e) {
             String message = String.format("stringNotEqual(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public String stringAdd(String first, String second) {
-        try {
-            return stringType.stringAdd(first, second);
-        } catch (Exception e) {
-            String message = String.format("stringAdd(%s, %s)", first, second);
             logError(message, e);
             return null;
         }
@@ -464,9 +486,31 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         }
     }
 
+    @Override
+    public String stringAdd(String first, String second) {
+        try {
+            return stringType.stringAdd(first, second);
+        } catch (Exception e) {
+            String message = String.format("stringAdd(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
     //
     // Date operators
     //
+    @Override
+    public boolean isDate(Object value) {
+        try {
+            return this.dateType.isDate(value);
+        } catch (Exception e) {
+            String message = String.format("isDate(%s)", value);
+            logError(message, e);
+            return false;
+        }
+    }
+
     @Override
     public Boolean dateIs(DATE first, DATE second) {
         try {
@@ -583,6 +627,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     // Time operators
     //
     @Override
+    public boolean isTime(Object value) {
+        try {
+            return this.timeType.isTime(value);
+        } catch (Exception e) {
+            String message = String.format("isTime(%s)", value);
+            logError(message, e);
+            return false;
+        }
+    }
+
+    @Override
     public Boolean timeIs(TIME first, TIME second) {
         try {
             return timeType.timeIs(first, second);
@@ -695,6 +750,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     //
     // Date and Time operators
     //
+    @Override
+    public boolean isDateTime(Object value) {
+        try {
+            return this.dateTimeType.isDateTime(value);
+        } catch (Exception e) {
+            String message = String.format("isDateTime(%s)", value);
+            logError(message, e);
+            return false;
+        }
+    }
+
     @Override
     public Boolean dateTimeIs(DATE_TIME first, DATE_TIME second) {
         try {
@@ -814,6 +880,39 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     //
     // Duration operators
     //
+    @Override
+    public boolean isDuration(Object value) {
+        try {
+            return this.durationType.isDuration(value);
+        } catch (Exception e) {
+            String message = String.format("isDuration(%s)", value);
+            logError(message, e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isYearsAndMonthsDuration(Object value) {
+        try {
+            return this.durationType.isYearsAndMonthsDuration(value);
+        } catch (Exception e) {
+            String message = String.format("isYearsAndMonthsDuration(%s)", value);
+            logError(message, e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isDaysAndTimeDuration(Object value) {
+        try {
+            return this.durationType.isDaysAndTimeDuration(value);
+        } catch (Exception e) {
+            String message = String.format("isDaysAndTimeDuration(%s)", value);
+            logError(message, e);
+            return false;
+        }
+    }
+
     @Override
     public Boolean durationIs(DURATION first, DURATION second) {
         try {
@@ -950,6 +1049,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     // List operators
     //
     @Override
+    public boolean isList(Object value) {
+        try {
+            return listType.isList(value);
+        } catch (Exception e) {
+            String message = String.format("isList(%s)", value);
+            logError(message, e);
+            return false;
+        }
+    }
+
+    @Override
     public Boolean listIs(List first, List second) {
         try {
             return listType.listIs(first, second);
@@ -986,6 +1096,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     // Context operators
     //
     @Override
+    public boolean isContext(Object value) {
+        try {
+            return contextType.isContext(value);
+        } catch (Exception e) {
+            String message = String.format("isContext(%s)", value);
+            logError(message, e);
+            return false;
+        }
+    }
+
+    @Override
     public Boolean contextIs(Object c1, Object c2) {
         try {
             return contextType.contextIs(c1, c2);
@@ -1019,8 +1140,44 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     //
+    // Context functions
+    //
+    @Override
+    public List getEntries(Object m) {
+        try {
+            return contextType.getEntries(m);
+        } catch (Exception e) {
+            String message = String.format("getEntries(%s)", m);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Object getValue(Object m, Object key) {
+        try {
+            return contextType.getValue(m, key);
+        } catch (Exception e) {
+            String message = String.format("getValue(%s, %s)", m, key);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    //
     // Range operators
     //
+    @Override
+    public boolean isRange(Object value) {
+        try {
+            return rangeType.isRange(value);
+        } catch (Exception e) {
+            String message = String.format("isRange(%s)", value);
+            logError(message, e);
+            return false;
+        }
+    }
+
     @Override
     public Boolean rangeIs(Range range1, Range range2) {
         try {
@@ -1055,31 +1212,6 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     //
-    // Context functions
-    //
-    @Override
-    public List getEntries(Object m) {
-        try {
-            return contextType.getEntries(m);
-        } catch (Exception e) {
-            String message = String.format("getEntries(%s)", m);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public Object getValue(Object m, Object key) {
-        try {
-            return contextType.getValue(m, key);
-        } catch (Exception e) {
-            String message = String.format("getValue(%s, %s)", m, key);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    //
     // Conversion functions
     //
     @Override
@@ -1101,50 +1233,6 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
             return list.get(0);
         } else {
             return null;
-        }
-    }
-
-    @Override
-    public boolean isDate(Object value) {
-        try {
-            return this.dateType.isDate(value);
-        } catch (Exception e) {
-            String message = String.format("isDate(%s)", value);
-            logError(message, e);
-            return false;
-        }
-    }
-
-    @Override
-    public boolean isTime(Object value) {
-        try {
-            return this.timeType.isTime(value);
-        } catch (Exception e) {
-            String message = String.format("isTime(%s)", value);
-            logError(message, e);
-            return false;
-        }
-    }
-
-    @Override
-    public boolean isDateTime(Object value) {
-        try {
-            return this.dateTimeType.isDateTime(value);
-        } catch (Exception e) {
-            String message = String.format("isDateTime(%s)", value);
-            logError(message, e);
-            return false;
-        }
-    }
-
-    @Override
-    public boolean isDuration(Object value) {
-        try {
-            return this.durationType.isDuration(value);
-        } catch (Exception e) {
-            String message = String.format("isDuration(%s)", value);
-            logError(message, e);
-            return false;
         }
     }
 

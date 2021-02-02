@@ -13,19 +13,17 @@
 package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.DefaultFEELLib;
-import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
-import javax.xml.namespace.QName;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public abstract class BaseDefaultDurationType extends BaseType {
-    static final ThreadLocal<GregorianCalendar> GREGORIAN = ThreadLocal.withInitial(() -> new GregorianCalendar(
+public abstract class BaseDefaultDurationType extends XMLTimeType {
+    private static final ThreadLocal<GregorianCalendar> GREGORIAN = ThreadLocal.withInitial(() -> new GregorianCalendar(
             1970,
             Calendar.JANUARY,
             1,
@@ -33,22 +31,17 @@ public abstract class BaseDefaultDurationType extends BaseType {
             0,
             0));
 
-    public static final BigDecimal THOUSAND = BigDecimal.valueOf(1000);
-    public static final BigDecimal SIXTY = BigDecimal.valueOf(60);
-    public static final BigDecimal TWENTY_FOUR = BigDecimal.valueOf(24);
-    public static final BigDecimal TWELVE = BigDecimal.valueOf(12);
-
     public static BigDecimal normalize(Duration duration) {
         if (isDuration(duration)) {
             return BigDecimal.valueOf(duration.getTimeInMillis(GREGORIAN.get()));
         } else if (isYearMonthDuration(duration)) {
-            BigDecimal years = BigDecimal.valueOf(duration.getYears());
-            BigDecimal months = BigDecimal.valueOf(duration.getMonths());
-            BigDecimal totalMonths = years.multiply(TWELVE).add(months);
+            long years = duration.getYears();
+            long months = duration.getMonths();
+            long totalMonths = years * 12L + months;
             if (duration.getSign() < 0) {
-                totalMonths = totalMonths.negate();
+                totalMonths = -totalMonths;
             }
-            return totalMonths;
+            return BigDecimal.valueOf(totalMonths);
         } else if (isDayTimeDuration(duration)) {
             return BigDecimal.valueOf(duration.getTimeInMillis(GREGORIAN.get()));
         } else {
@@ -60,33 +53,12 @@ public abstract class BaseDefaultDurationType extends BaseType {
         return getXMLSchemaType(duration) == DatatypeConstants.DURATION;
     }
 
-    public static boolean isYearMonthDuration(Duration duration) {
+    private static boolean isYearMonthDuration(Duration duration) {
         return getXMLSchemaType(duration) == DatatypeConstants.DURATION_YEARMONTH;
     }
 
-    public static boolean isDayTimeDuration(Duration duration) {
+    private static boolean isDayTimeDuration(Duration duration) {
         return getXMLSchemaType(duration) == DatatypeConstants.DURATION_DAYTIME;
-    }
-
-    private static QName getXMLSchemaType(Duration duration) {
-        if (duration == null) {
-            return DatatypeConstants.DURATION;
-        }
-
-        boolean yearSet = duration.isSet(DatatypeConstants.YEARS);
-        boolean monthSet = duration.isSet(DatatypeConstants.MONTHS);
-        boolean daySet = duration.isSet(DatatypeConstants.DAYS);
-        boolean hourSet = duration.isSet(DatatypeConstants.HOURS);
-        boolean minuteSet = duration.isSet(DatatypeConstants.MINUTES);
-        boolean secondSet = duration.isSet(DatatypeConstants.SECONDS);
-
-        if ((yearSet || monthSet) && !(daySet || hourSet || minuteSet || secondSet)) {
-            return DatatypeConstants.DURATION_YEARMONTH;
-        } else if (!(yearSet || monthSet) && (daySet || hourSet || minuteSet || secondSet)) {
-            return DatatypeConstants.DURATION_DAYTIME;
-        } else {
-            return DatatypeConstants.DURATION;
-        }
     }
 
     protected final DatatypeFactory dataTypeFactory;
@@ -134,11 +106,11 @@ public abstract class BaseDefaultDurationType extends BaseType {
             return null;
         }
 
-        if (isYearMonthDuration(first) && isYearMonthDuration(second)) {
+        if (isYearsAndMonthsDuration(first) && isYearsAndMonthsDuration(second)) {
             long firstValue = monthsValue(first);
             long secondValue = monthsValue(second);
             return makeYearsMonthsDuration(firstValue + secondValue);
-        } else if (isDayTimeDuration(first) && isDayTimeDuration(second)) {
+        } else if (isDaysAndTimeDuration(first) && isDaysAndTimeDuration(second)) {
             long firstValue = secondsValue(first);
             long secondValue = secondsValue(second);
             return makeDaysTimeDuration(firstValue + secondValue);

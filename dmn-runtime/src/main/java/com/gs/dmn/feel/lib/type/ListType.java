@@ -15,6 +15,8 @@ package com.gs.dmn.feel.lib.type;
 import java.util.List;
 
 public interface ListType {
+    boolean isList(Object value);
+
     Boolean listIs(List list1, List list2);
 
     Boolean listEqual(List list1, List list2);

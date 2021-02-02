@@ -10,24 +10,9 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.lib.type;
+package com.gs.dmn.feel.lib.type.numeric;
 
-public interface StringType {
-    boolean isString(Object value);
+import com.gs.dmn.feel.lib.type.BaseType;
 
-    Boolean stringIs(String first, String second);
-
-    Boolean stringEqual(String first, String second);
-
-    Boolean stringNotEqual(String first, String second);
-
-    String stringAdd(String first, String second);
-
-    Boolean stringLessThan(String first, String second);
-
-    Boolean stringGreaterThan(String first, String second);
-
-    Boolean stringLessEqualThan(String first, String second);
-
-    Boolean stringGreaterEqualThan(String first, String second);
+public abstract class BaseNumericType extends BaseType {
 }

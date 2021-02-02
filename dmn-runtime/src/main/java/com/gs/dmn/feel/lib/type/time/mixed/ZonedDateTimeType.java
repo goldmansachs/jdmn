@@ -34,6 +34,10 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
     //
     // Date and time operators
     //
+    @Override
+    public boolean isDateTime(Object value) {
+        return value instanceof ZonedDateTime;
+    }
 
     @Override
     public Boolean dateTimeIs(ZonedDateTime first, ZonedDateTime second) {
@@ -111,11 +115,6 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
                 .minus(toTemporalPeriod(duration))
                 .minus(toTemporalDuration(duration))
                 ;
-    }
-
-    @Override
-    public boolean isDateTime(Object value) {
-        return value instanceof ZonedDateTime;
     }
 
     protected Duration toDuration(ZonedDateTime first, ZonedDateTime second) {

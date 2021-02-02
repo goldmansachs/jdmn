@@ -14,7 +14,7 @@ package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.DateType;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.datatype.DatatypeFactory;
@@ -25,12 +25,14 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.GregorianCalendar;
 
-import static com.gs.dmn.feel.lib.type.time.xml.BaseDefaultDurationType.*;
+import static com.gs.dmn.feel.lib.type.time.xml.BaseDefaultDurationType.secondsValue;
 import static com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeType.dateTimeValue;
 import static com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeType.dateToDateTime;
 import static com.gs.dmn.feel.lib.type.time.xml.DefaultTimeType.hasTimezone;
 
 public class DefaultDateType extends XMLTimeType implements DateType<XMLGregorianCalendar, Duration> {
+    private static final BigDecimal TWELVE = BigDecimal.valueOf(12);
+
     private final DatatypeFactory datatypeFactory;
     private final DefaultXMLCalendarComparator comparator;
     private final BooleanType booleanType;
@@ -114,22 +116,22 @@ public class DefaultDateType extends XMLTimeType implements DateType<XMLGregoria
             return null;
         }
 
-        if (isYearMonthDuration(duration)) {
+        if (isYearsAndMonthsDuration(duration)) {
             int signum = duration.getSign();
 
             // Calculate months and carry
-            BigInteger startMonth = BigInteger.valueOf(date.getMonth());
-            BigInteger dMonths = (signum < 0) ? BigInteger.valueOf(duration.getMonths()).negate() : BigInteger.valueOf(duration.getMonths());
-            BigInteger temp = startMonth.add(dMonths);
-            int month = temp.subtract(BigInteger.ONE).mod(TWELVE.toBigInteger()).intValue() + 1;
-            BigInteger carry = new BigDecimal(temp.subtract(BigInteger.ONE)).divide(TWELVE, RoundingMode.FLOOR).toBigInteger();
+            long startMonth = date.getMonth();
+            long dMonths = (signum < 0) ? - duration.getMonths() : duration.getMonths();
+            long temp = startMonth + dMonths;
+            int month = BigInteger.valueOf(temp - 1).mod(TWELVE.toBigInteger()).intValue() + 1;
+            BigInteger carry = new BigDecimal(temp -1).divide(TWELVE, RoundingMode.FLOOR).toBigInteger();
 
             // Years (may be modified additionally below)
             BigInteger startYear = date.getEonAndYear();
             BigInteger dYears = (signum < 0) ? BigInteger.valueOf(duration.getYears()).negate() : BigInteger.valueOf(duration.getYears());
             BigInteger endYear = startYear.add(dYears).add(carry);
             return FEELXMLGregorianCalendar.makeDate(endYear, month, date.getDay());
-        } else if (isDayTimeDuration(duration)) {
+        } else if (isDaysAndTimeDuration(duration)) {
             Long value1 = dateTimeValue(date);
             Long value2 = secondsValue(duration);
             GregorianCalendar gc = new GregorianCalendar();

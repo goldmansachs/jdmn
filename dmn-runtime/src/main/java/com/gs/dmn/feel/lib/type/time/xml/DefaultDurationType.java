@@ -61,11 +61,11 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
             return null;
         }
 
-        if (isYearMonthDuration(first) && isYearMonthDuration(second)) {
+        if (isYearsAndMonthsDuration(first) && isYearsAndMonthsDuration(second)) {
             Long firstValue = monthsValue(first);
             Long secondValue = monthsValue(second);
             return secondValue == 0 ? null : BigDecimal.valueOf(firstValue).divide(BigDecimal.valueOf(secondValue), RoundingMode.HALF_DOWN);
-        } else if (isDayTimeDuration(first) && isDayTimeDuration(second)) {
+        } else if (isDaysAndTimeDuration(first) && isDaysAndTimeDuration(second)) {
             Long firstValue = secondsValue(first);
             Long secondValue = secondsValue(second);
             return secondValue == 0 ? null : BigDecimal.valueOf(firstValue).divide(BigDecimal.valueOf(secondValue), RoundingMode.HALF_DOWN);
@@ -80,10 +80,10 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
             return null;
         }
 
-        if (isYearMonthDuration(first)) {
+        if (isYearsAndMonthsDuration(first)) {
             BigDecimal months = BigDecimal.valueOf(monthsValue(first)).multiply(second);
             return makeYearsMonthsDuration(months);
-        } else if (isDayTimeDuration(first)) {
+        } else if (isDaysAndTimeDuration(first)) {
             BigDecimal seconds = BigDecimal.valueOf(secondsValue(first)).multiply(second);
             return makeDaysTimeDuration(seconds);
         } else {
@@ -100,19 +100,14 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
             return null;
         }
 
-        if (isYearMonthDuration(first)) {
+        if (isYearsAndMonthsDuration(first)) {
             BigDecimal months = BigDecimal.valueOf(monthsValue(first)).divide(second, RoundingMode.HALF_DOWN);
             return makeYearsMonthsDuration(months);
-        } else if (isDayTimeDuration(first)) {
+        } else if (isDaysAndTimeDuration(first)) {
             BigDecimal seconds = BigDecimal.valueOf(secondsValue(first)).divide(second, RoundingMode.HALF_DOWN);
             return makeDaysTimeDuration(seconds);
         } else {
             throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
         }
-    }
-
-    @Override
-    public boolean isDuration(Object value) {
-        return value instanceof Duration;
     }
 }

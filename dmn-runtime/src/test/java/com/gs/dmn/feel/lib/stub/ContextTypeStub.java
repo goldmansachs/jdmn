@@ -19,6 +19,11 @@ import java.util.List;
 
 public class ContextTypeStub implements ContextType {
     @Override
+    public boolean isContext(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public Boolean contextIs(Object c1, Object c2) {
         throw new DMNRuntimeException("Not supported yet");
     }

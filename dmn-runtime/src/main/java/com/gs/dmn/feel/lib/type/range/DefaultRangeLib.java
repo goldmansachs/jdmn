@@ -15,7 +15,7 @@ package com.gs.dmn.feel.lib.type.range;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.ComparableComparator;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.time.mixed.LocalDateComparator;
 import com.gs.dmn.feel.lib.type.time.mixed.OffsetTimeComparator;
 import com.gs.dmn.feel.lib.type.time.mixed.ZonedDateTimeComparator;
