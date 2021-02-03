@@ -312,7 +312,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
 
         // timezone offset in seconds
         int secondsOffset = time.getOffset().getTotalSeconds();
-        return computeOffset(secondsOffset);
+        return XMLDurationFactory.INSTANCE.dayTimeWithSeconds(secondsOffset);
     }
     @Override
     public Duration timeOffsetDateTime(ZonedDateTime dateTime) {
@@ -322,7 +322,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
 
         // timezone offset in seconds
         int secondsOffset = dateTime.getOffset().getTotalSeconds();
-        return computeOffset(secondsOffset);
+        return XMLDurationFactory.INSTANCE.dayTimeWithSeconds(secondsOffset);
     }
 
     @Override
@@ -452,7 +452,4 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         throw new IllegalArgumentException(String.format("Cannot convert '%s' to date time", from.getClass().getSimpleName()));
     }
 
-    private Duration computeOffset(int secondsOffset) {
-        return XMLDurationFactory.INSTANCE.offset(secondsOffset);
-    }
 }

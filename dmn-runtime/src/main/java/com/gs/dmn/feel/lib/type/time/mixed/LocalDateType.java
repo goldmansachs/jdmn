@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.time.DateType;
 import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 
@@ -86,8 +85,8 @@ public class LocalDateType extends BaseMixedCalendarType implements DateType<Loc
             return null;
         }
 
-        long durationInMilliSeconds = getDurationInMilliSeconds(first.atStartOfDay(BaseType.UTC), second.atStartOfDay(BaseType.UTC));
-        return XMLDurationFactory.INSTANCE.dayTimeOfMillis(durationInMilliSeconds);
+        long durationInSeconds = dateValue(first) - (long) dateValue(second);
+        return XMLDurationFactory.INSTANCE.fromSeconds(durationInSeconds);
     }
 
     @Override

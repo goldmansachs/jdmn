@@ -19,6 +19,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.time.Period;
 import java.util.GregorianCalendar;
 
 public class XMLDurationFactory {
@@ -34,7 +35,7 @@ public class XMLDurationFactory {
         }
     }
 
-    public Duration of(String from) {
+    public Duration parse(String from) {
         if (StringUtils.isBlank(from)) {
             return null;
         }
@@ -42,62 +43,69 @@ public class XMLDurationFactory {
         return this.datatypeFactory.newDuration(from);
     }
 
-    public Duration of(Number months, Number seconds) {
-        long lMonths = months.longValue();
-        long lSeconds = seconds.longValue();
-        boolean isNegative = lMonths < 0;
+    public Duration fromValue(long totalMonths, long totalSeconds) {
+        boolean isNegative = totalMonths < 0;
         if (isNegative) {
-            String literal = String.format("-P%dMT%dS", -lMonths, -lSeconds);
+            String literal = String.format("-P%dMT%dS", -totalMonths, -totalSeconds);
             return this.datatypeFactory.newDuration(literal).negate();
         } else {
-            String literal = String.format("P%dMT%dS", lMonths, lSeconds);
+            String literal = String.format("P%dMT%dS", totalMonths, totalSeconds);
             return this.datatypeFactory.newDuration(literal);
         }
     }
 
-    public Duration yearMonthOf(boolean isPositive, int years, int months) {
-        return this.datatypeFactory.newDurationYearMonth(isPositive, years, months);
+    public Duration yearMonthFrom(Period period) {
+        int years = period.getYears();
+        int months = period.getMonths();
+        if (period.isNegative()) {
+            years = - years;
+            months = - months;
+        }
+        return this.datatypeFactory.newDurationYearMonth(!period.isNegative(), years, months);
     }
 
-    public Duration yearMonthOf(long months) {
-        if (months < 0) {
-            String literal = String.format("P%dM", -months);
+    public Duration yearMonthFromValue(long totalMonths) {
+        if (totalMonths < 0) {
+            String literal = String.format("P%dM", -totalMonths);
             return this.datatypeFactory.newDurationYearMonth(literal).negate();
         } else {
-            String literal = String.format("P%dM", months);
+            String literal = String.format("P%dM", totalMonths);
             return this.datatypeFactory.newDurationYearMonth(literal);
         }
     }
 
-    public Duration dayTimeOfDays(int days) {
-        boolean isNegative = days < 0;
-        return this.datatypeFactory.newDurationDayTime(!isNegative, isNegative ? -days : days, 0, 0, 0);
+    public Duration yearMonthWithYears(int years) {
+        boolean isNegative = years < 0;
+        return this.datatypeFactory.newDurationYearMonth(!isNegative, isNegative ? - years : years, 0);
     }
 
-    public Duration dayTimeOfDays(boolean isPositive, int days) {
-        return this.datatypeFactory.newDurationDayTime(isPositive, days, 0, 0, 0);
+    public Duration yearMonthWithMonths(int months) {
+        boolean isNegative = months < 0;
+        return this.datatypeFactory.newDurationYearMonth(!isNegative, 0, isNegative ? - months : months);
     }
 
-    public Duration dayTimeOfMillis(long durationInMilliSeconds) {
-        return this.datatypeFactory.newDurationDayTime(durationInMilliSeconds);
+    public Duration fromSeconds(long seconds) {
+        Duration duration = this.datatypeFactory.newDuration(seconds * 1000);
+        return duration;
     }
 
-    public Duration dayTimeOfSeconds(long durationInSeconds) {
-        return this.datatypeFactory.newDuration(durationInSeconds * 1000);
-    }
-
-    public Duration offset(int seconds) {
-        boolean isNegative = seconds < 0;
-        return this.datatypeFactory.newDurationDayTime(!isNegative, 0, 0, 0, isNegative ? -seconds : seconds);
-    }
-
-    public Duration dayTimeOf(Number seconds) {
-        long millis = seconds.longValue() * 1000L;
+    public Duration dayTimeFromValue(long seconds) {
+        long millis = seconds * 1000L;
         if (millis < 0) {
             return this.datatypeFactory.newDurationDayTime(-millis).negate();
         } else {
             return this.datatypeFactory.newDurationDayTime(millis);
         }
+    }
+
+    public Duration dayTimeWithDays(int days) {
+        boolean isNegative = days < 0;
+        return this.datatypeFactory.newDurationDayTime(!isNegative, isNegative ? -days : days, 0, 0, 0);
+    }
+
+    public Duration dayTimeWithSeconds(int seconds) {
+        boolean isNegative = seconds < 0;
+        return this.datatypeFactory.newDurationDayTime(!isNegative, 0, 0, 0, isNegative ? -seconds : seconds);
     }
 
     public XMLGregorianCalendar newXMLGregorianCalendar(GregorianCalendar gc) {
