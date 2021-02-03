@@ -17,7 +17,6 @@ import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.time.DateType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
@@ -33,12 +32,11 @@ public class DefaultDateType extends XMLCalendarType implements DateType<XMLGreg
     private final DefaultXMLCalendarComparator comparator;
     private final BooleanType booleanType;
 
-    public DefaultDateType(DatatypeFactory datatypeFactory) {
-        this(datatypeFactory, new DefaultXMLCalendarComparator());
+    public DefaultDateType() {
+        this(new DefaultXMLCalendarComparator());
     }
 
-    public DefaultDateType(DatatypeFactory datatypeFactory, DefaultXMLCalendarComparator comparator) {
-        super(datatypeFactory);
+    public DefaultDateType(DefaultXMLCalendarComparator comparator) {
         this.comparator = comparator;
         this.booleanType = new DefaultBooleanType();
     }
@@ -103,7 +101,7 @@ public class DefaultDateType extends XMLCalendarType implements DateType<XMLGreg
             return null;
         }
 
-        return makeDuration(getDurationInSeconds(first, second));
+        return XMLDurationFactory.INSTANCE.dayTimeOfSeconds(getDurationInSeconds(first, second));
     }
 
     @Override
@@ -133,7 +131,7 @@ public class DefaultDateType extends XMLCalendarType implements DateType<XMLGreg
             GregorianCalendar gc = new GregorianCalendar();
             long millis = (value1 + value2) * 1000L;
             gc.setTimeInMillis(millis);
-            XMLGregorianCalendar xgc = datatypeFactory.newXMLGregorianCalendar(gc);
+            XMLGregorianCalendar xgc = XMLDurationFactory.INSTANCE.newXMLGregorianCalendar(gc);
             return FEELXMLGregorianCalendar.makeDate(xgc.getEonAndYear(), xgc.getMonth(), xgc.getDay());
         } else {
             throw new DMNRuntimeException(String.format("Cannot add '%s' with '%s'", date, duration));

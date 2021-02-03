@@ -17,7 +17,6 @@ import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
@@ -30,13 +29,6 @@ import java.time.temporal.TemporalQueries;
 import java.util.Calendar;
 
 public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
-
-    private final DatatypeFactory dataTypeFactory;
-
-    public DefaultDateTimeLib(DatatypeFactory dataTypeFactory) {
-        this.dataTypeFactory = dataTypeFactory;
-    }
-
     //
     // Conversion functions
     //
@@ -263,7 +255,7 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         if (secondsOffset == DatatypeConstants.FIELD_UNDEFINED) {
             return null;
         } else {
-            return this.dataTypeFactory.newDuration((long) secondsOffset * 1000);
+            return XMLDurationFactory.INSTANCE.dayTimeOfSeconds(secondsOffset);
         }
     }
     @Override

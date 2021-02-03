@@ -25,9 +25,8 @@ import static java.time.temporal.ChronoField.MILLI_OF_SECOND;
 public class TemporalTimeType extends BasePureCalendarType implements TimeType<Temporal, TemporalAmount> {
     private final TemporalComparator comparator;
 
-    @Deprecated
     public TemporalTimeType() {
-        this.comparator = new TemporalComparator();
+        this(new TemporalComparator());
     }
 
     public TemporalTimeType(TemporalComparator comparator) {

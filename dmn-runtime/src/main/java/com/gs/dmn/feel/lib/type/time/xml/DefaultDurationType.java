@@ -12,29 +12,21 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.DefaultFEELLib;
-import com.gs.dmn.feel.lib.type.time.DurationType;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
+import com.gs.dmn.feel.lib.type.time.DurationType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class DefaultDurationType extends BaseDefaultDurationType implements DurationType<Duration, BigDecimal> {
-    @Deprecated
     public DefaultDurationType() {
-        this(DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator());
+        this(new DefaultDurationComparator());
     }
 
-    @Deprecated
-    public DefaultDurationType(DatatypeFactory dataTypeFactory) {
-        this(dataTypeFactory, new DefaultDurationComparator());
-    }
-
-    public DefaultDurationType(DatatypeFactory dataTypeFactory, RelationalComparator<Duration> durationComparator) {
-        super(dataTypeFactory, durationComparator);
+    public DefaultDurationType(RelationalComparator<Duration> durationComparator) {
+        super(durationComparator);
     }
 
     @Override
@@ -82,10 +74,10 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
 
         if (isYearsAndMonthsDuration(first)) {
             BigDecimal months = BigDecimal.valueOf(monthsValue(first)).multiply(second);
-            return makeYearsMonthsDuration(months);
+            return XMLDurationFactory.INSTANCE.yearMonthOf(months.longValue());
         } else if (isDaysAndTimeDuration(first)) {
             BigDecimal seconds = BigDecimal.valueOf(secondsValue(first)).multiply(second);
-            return makeDaysTimeDuration(seconds);
+            return XMLDurationFactory.INSTANCE.dayTimeOf(seconds);
         } else {
             throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
         }
@@ -102,10 +94,10 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
 
         if (isYearsAndMonthsDuration(first)) {
             BigDecimal months = BigDecimal.valueOf(monthsValue(first)).divide(second, RoundingMode.HALF_DOWN);
-            return makeYearsMonthsDuration(months);
+            return XMLDurationFactory.INSTANCE.yearMonthOf(months.longValue());
         } else if (isDaysAndTimeDuration(first)) {
             BigDecimal seconds = BigDecimal.valueOf(secondsValue(first)).divide(second, RoundingMode.HALF_DOWN);
-            return makeDaysTimeDuration(seconds);
+            return XMLDurationFactory.INSTANCE.dayTimeOf(seconds);
         } else {
             throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
         }

@@ -13,10 +13,8 @@
 package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.time.DurationLib;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.time.LocalDate;
@@ -37,19 +35,12 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, Dur
                 ;
     }
 
-    private final DatatypeFactory dataTypeFactory;
-
-    public DefaultDurationLib(DatatypeFactory dataTypeFactory) {
-        this.dataTypeFactory = dataTypeFactory;
+    public DefaultDurationLib() {
     }
 
     @Override
     public Duration duration(String from) {
-        if (StringUtils.isBlank(from)) {
-            return null;
-        }
-
-        return this.dataTypeFactory.newDuration(from);
+        return XMLDurationFactory.INSTANCE.of(from);
     }
 
     @Override
@@ -60,7 +51,14 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, Dur
 
         LocalDate toLocalDate = LocalDate.of(to.getYear(), to.getMonth(), to.getDay());
         LocalDate fromLocalDate = LocalDate.of(from.getYear(), from.getMonth(), from.getDay());
-        return this.toYearsMonthDuration(this.dataTypeFactory, toLocalDate, fromLocalDate);
+        Period between = Period.between(fromLocalDate, toLocalDate);
+        int years = between.getYears();
+        int months = between.getMonths();
+        if (between.isNegative()) {
+            years = - years;
+            months = - months;
+        }
+        return XMLDurationFactory.INSTANCE.yearMonthOf(!between.isNegative(), years, months);
     }
 
     @Override
@@ -150,14 +148,4 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, Dur
         return duration.getSign() == -1 ? duration.negate() : duration;
     }
 
-    private Duration toYearsMonthDuration(DatatypeFactory datatypeFactory, LocalDate date1, LocalDate date2) {
-        Period between = Period.between(date2, date1);
-        int years = between.getYears();
-        int months = between.getMonths();
-        if (between.isNegative()) {
-            years = - years;
-            months = - months;
-        }
-        return datatypeFactory.newDurationYearMonth(!between.isNegative(), years, months);
-    }
 }

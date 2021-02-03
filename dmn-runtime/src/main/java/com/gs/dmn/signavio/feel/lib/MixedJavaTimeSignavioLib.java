@@ -48,16 +48,14 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
-import static com.gs.dmn.feel.lib.DefaultFEELLib.DATA_TYPE_FACTORY;
-
 public class MixedJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultSignavioNumericType();
     private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
     private static final StringType STRING_TYPE = new DefaultSignavioStringType();
-    private static final DateType<LocalDate, Duration> DATE_TYPE = new SignavioLocalDateType(DATA_TYPE_FACTORY);
-    private static final TimeType<OffsetTime, Duration> TIME_TYPE = new SignavioOffsetTimeType(DATA_TYPE_FACTORY);
-    private static final DateTimeType<ZonedDateTime, Duration> DATE_TIME_TYPE = new SignavioZonedDateTimeType(DATA_TYPE_FACTORY);
-    private static final DurationType<Duration, BigDecimal> DURATION_TYPE = new DefaultSignavioDurationType(DATA_TYPE_FACTORY);
+    private static final DateType<LocalDate, Duration> DATE_TYPE = new SignavioLocalDateType();
+    private static final TimeType<OffsetTime, Duration> TIME_TYPE = new SignavioOffsetTimeType();
+    private static final DateTimeType<ZonedDateTime, Duration> DATE_TIME_TYPE = new SignavioZonedDateTimeType();
+    private static final DurationType<Duration, BigDecimal> DURATION_TYPE = new DefaultSignavioDurationType();
     private static final ListType LIST_TYPE = new DefaultListType();
     private static final ContextType CONTEXT_TYPE = new DefaultContextType();
     private static final RangeType RANGE_TYPE = new DefaultRangeType();

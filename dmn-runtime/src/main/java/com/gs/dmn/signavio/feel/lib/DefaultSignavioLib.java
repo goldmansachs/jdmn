@@ -42,16 +42,14 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
-import static com.gs.dmn.feel.lib.DefaultFEELLib.DATA_TYPE_FACTORY;
-
 public class DefaultSignavioLib extends BaseSignavioLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultSignavioNumericType();
     private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
     private static final StringType STRING_TYPE = new DefaultSignavioStringType();
-    private static final DateType<XMLGregorianCalendar, Duration> DATE_TYPE = new DefaultSignavioDateType(DATA_TYPE_FACTORY);
-    private static final TimeType<XMLGregorianCalendar, Duration> TIME_TYPE = new DefaultSignavioTimeType(DATA_TYPE_FACTORY);
-    private static final DateTimeType<XMLGregorianCalendar, Duration> DATE_TIME_TYPE = new DefaultSignavioDateTimeType(DATA_TYPE_FACTORY);
-    private static final DurationType<Duration, BigDecimal> DURATION_TYPE = new DefaultSignavioDurationType(DATA_TYPE_FACTORY);
+    private static final DateType<XMLGregorianCalendar, Duration> DATE_TYPE = new DefaultSignavioDateType();
+    private static final TimeType<XMLGregorianCalendar, Duration> TIME_TYPE = new DefaultSignavioTimeType();
+    private static final DateTimeType<XMLGregorianCalendar, Duration> DATE_TIME_TYPE = new DefaultSignavioDateTimeType();
+    private static final DurationType<Duration, BigDecimal> DURATION_TYPE = new DefaultSignavioDurationType();
     private static final ListType LIST_TYPE = new DefaultListType();
     private static final ContextType CONTEXT_TYPE = new DefaultContextType();
     private static final RangeType RANGE_TYPE = new DefaultRangeType();

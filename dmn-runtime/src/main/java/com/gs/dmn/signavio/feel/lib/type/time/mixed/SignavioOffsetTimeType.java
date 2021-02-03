@@ -15,12 +15,11 @@ package com.gs.dmn.signavio.feel.lib.type.time.mixed;
 import com.gs.dmn.feel.lib.type.time.TimeType;
 import com.gs.dmn.feel.lib.type.time.mixed.OffsetTimeType;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.time.OffsetTime;
 
 public class SignavioOffsetTimeType extends OffsetTimeType implements TimeType<OffsetTime, Duration> {
-    public SignavioOffsetTimeType(DatatypeFactory datatypeFactory) {
-        super(datatypeFactory, new SignavioOffsetTimeComparator());
+    public SignavioOffsetTimeType() {
+        super(new SignavioOffsetTimeComparator());
     }
 }

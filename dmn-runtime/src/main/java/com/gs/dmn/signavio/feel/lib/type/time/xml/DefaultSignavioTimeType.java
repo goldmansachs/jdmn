@@ -15,12 +15,11 @@ package com.gs.dmn.signavio.feel.lib.type.time.xml;
 import com.gs.dmn.feel.lib.type.time.TimeType;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultTimeType;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 public class DefaultSignavioTimeType extends DefaultTimeType implements TimeType<XMLGregorianCalendar, Duration> {
-    public DefaultSignavioTimeType(DatatypeFactory datatypeFactory) {
-        super(datatypeFactory, new DefaultSignavioXMLCalendarComparator());
+    public DefaultSignavioTimeType() {
+        super(new DefaultSignavioXMLCalendarComparator());
     }
 }

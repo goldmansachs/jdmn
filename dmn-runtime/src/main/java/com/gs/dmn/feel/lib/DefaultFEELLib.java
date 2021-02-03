@@ -37,21 +37,18 @@ import com.gs.dmn.feel.lib.type.string.StringType;
 import com.gs.dmn.feel.lib.type.time.*;
 import com.gs.dmn.feel.lib.type.time.xml.*;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
 public class DefaultFEELLib extends BaseStandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> implements StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
-    public static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
-
     private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultNumericType();
     private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
     private static final StringType STRING_TYPE = new DefaultStringType();
-    private static final DateType<XMLGregorianCalendar, Duration> DATE_TYPE = new DefaultDateType(DATA_TYPE_FACTORY);
-    private static final TimeType<XMLGregorianCalendar, Duration> TIME_TYPE = new DefaultTimeType(DATA_TYPE_FACTORY);
-    private static final DateTimeType<XMLGregorianCalendar, Duration> DATE_TIME_TYPE = new DefaultDateTimeType(DATA_TYPE_FACTORY);
-    private static final DurationType<Duration, BigDecimal> DURATION_TYPE = new DefaultDurationType(DATA_TYPE_FACTORY);
+    private static final DateType<XMLGregorianCalendar, Duration> DATE_TYPE = new DefaultDateType();
+    private static final TimeType<XMLGregorianCalendar, Duration> TIME_TYPE = new DefaultTimeType();
+    private static final DateTimeType<XMLGregorianCalendar, Duration> DATE_TIME_TYPE = new DefaultDateTimeType();
+    private static final DurationType<Duration, BigDecimal> DURATION_TYPE = new DefaultDurationType();
     private static final ListType LIST_TYPE = new DefaultListType();
     private static final ContextType CONTEXT_TYPE = new DefaultContextType();
     private static final RangeType RANGE_TYPE = new DefaultRangeType();
@@ -59,8 +56,8 @@ public class DefaultFEELLib extends BaseStandardFEELLib<BigDecimal, XMLGregorian
     private static final NumericLib<BigDecimal> NUMERIC_LIB = new DefaultNumericLib();
     private static final StringLib STRING_LIB = new DefaultStringLib();
     private static final BooleanLib BOOLEAN_LIB = new DefaultBooleanLib();
-    private static final DateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> DATE_TIME_LIB = new DefaultDateTimeLib(DATA_TYPE_FACTORY);
-    private static final DurationLib<XMLGregorianCalendar, Duration> DURATION_LIB = new DefaultDurationLib(DATA_TYPE_FACTORY);
+    private static final DateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> DATE_TIME_LIB = new DefaultDateTimeLib();
+    private static final DurationLib<XMLGregorianCalendar, Duration> DURATION_LIB = new DefaultDurationLib();
     private static final ListLib LIST_LIB = new DefaultListLib();
     private static final RangeLib RANGE_LIB = new DefaultRangeLib();
 

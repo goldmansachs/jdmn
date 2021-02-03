@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.datatype.DatatypeConstants;
@@ -355,7 +354,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
                 invalidFieldValue(HOUR, getHour());
             }
             setHour(0, false);
-            add(DefaultFEELLib.DATA_TYPE_FACTORY.newDuration(true, 0, 0, 1, 0, 0, 0));
+            add(XMLDurationFactory.INSTANCE.dayTimeOfDays(1));
         }
     }
 
@@ -605,10 +604,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         FEELXMLGregorianCalendar result = (FEELXMLGregorianCalendar) this.clone();
         // normalizing to UTC time negates the timezone offset before addition.
         seconds = -seconds;
-        Duration d = DefaultFEELLib.DATA_TYPE_FACTORY.newDuration(
-                seconds >= 0,
-                0, 0, 0,
-                0, 0, seconds < 0 ? -seconds : seconds);
+        Duration d = XMLDurationFactory.INSTANCE.offset(seconds);
         result.add(d);
         // set to zulu UTC time.
         result.setZoneID("Z");

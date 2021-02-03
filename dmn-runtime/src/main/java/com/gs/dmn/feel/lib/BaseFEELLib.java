@@ -14,10 +14,8 @@ package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.context.ContextType;
-import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.ListType;
 import com.gs.dmn.feel.lib.type.numeric.NumericType;
-import com.gs.dmn.feel.lib.type.range.DefaultRangeType;
 import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringType;
 import com.gs.dmn.feel.lib.type.time.DateTimeType;
@@ -48,12 +46,6 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     protected final ListType listType;
     protected final ContextType contextType;
     protected final RangeType rangeType;
-
-    @Deprecated
-    // Backwards compatibility with 5.3.0
-    protected BaseFEELLib(NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType, DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType, ListType listType) {
-        this(numericType, booleanType, stringType, dateType, timeType, dateTimeType, durationType, listType, new DefaultContextType(), new DefaultRangeType());
-    }
 
     protected BaseFEELLib(NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType, DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType, ListType listType, ContextType contextType, RangeType rangeType) {
         this.numericType = numericType;
