@@ -17,8 +17,7 @@ import com.gs.dmn.feel.lib.type.BaseType;
 import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
-
-import static java.time.temporal.ChronoField.MILLI_OF_SECOND;
+import java.time.temporal.ChronoField;
 
 public class JavaCalendarType extends BaseType {
     public Long dateValue(LocalDate localDate) {
@@ -26,7 +25,7 @@ public class JavaCalendarType extends BaseType {
             return null;
         }
 
-        return dateTimeValue(dateToDateTime(localDate));
+        return dateTimeValue(toDateTime(localDate));
     }
 
     public Long timeValue(OffsetTime time) {
@@ -34,7 +33,7 @@ public class JavaCalendarType extends BaseType {
             return null;
         }
 
-        return (long) time.get(MILLI_OF_SECOND);
+        return (long) time.get(ChronoField.SECOND_OF_DAY);
     }
 
     public Long dateTimeValue(ZonedDateTime dateTime) {
@@ -45,7 +44,7 @@ public class JavaCalendarType extends BaseType {
         return dateTime.toInstant().toEpochMilli() / 1000L;
     }
 
-    public ZonedDateTime dateToDateTime(LocalDate localDate) {
+    public ZonedDateTime toDateTime(LocalDate localDate) {
         return localDate.atStartOfDay(UTC);
     }
 }

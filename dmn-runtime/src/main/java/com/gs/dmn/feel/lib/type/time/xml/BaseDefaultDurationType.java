@@ -51,10 +51,6 @@ public abstract class BaseDefaultDurationType extends XMLCalendarType {
 
     private final RelationalComparator<Duration> comparator;
 
-    protected BaseDefaultDurationType() {
-        this(new DefaultDurationComparator());
-    }
-
     protected BaseDefaultDurationType(RelationalComparator<Duration> comparator) {
         this.comparator = comparator;
     }
@@ -92,17 +88,15 @@ public abstract class BaseDefaultDurationType extends XMLCalendarType {
         }
 
         if (isYearsAndMonthsDuration(first) && isYearsAndMonthsDuration(second)) {
-            long firstValue = monthsValue(first);
-            long secondValue = monthsValue(second);
-            return XMLDurationFactory.INSTANCE.yearMonthOf(firstValue + secondValue);
+            long totalMonths = monthsValue(first) + (long) monthsValue(second);
+            return XMLDurationFactory.INSTANCE.yearMonthFromValue(totalMonths);
         } else if (isDaysAndTimeDuration(first) && isDaysAndTimeDuration(second)) {
-            long firstValue = secondsValue(first);
-            long secondValue = secondsValue(second);
-            return XMLDurationFactory.INSTANCE.dayTimeOf(firstValue + secondValue);
+            long seconds = secondsValue(first) + (long) secondsValue(second);
+            return XMLDurationFactory.INSTANCE.dayTimeFromValue(seconds);
         } else {
             long months = monthsValue(first) + monthsValue(second);
             long seconds = secondsValue(first) + secondsValue(second);
-            return XMLDurationFactory.INSTANCE.of(months, seconds);
+            return XMLDurationFactory.INSTANCE.fromValue(months, seconds);
         }
     }
 

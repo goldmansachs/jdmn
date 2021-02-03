@@ -40,7 +40,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, Dur
 
     @Override
     public Duration duration(String from) {
-        return XMLDurationFactory.INSTANCE.of(from);
+        return XMLDurationFactory.INSTANCE.parse(from);
     }
 
     @Override
@@ -49,16 +49,10 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, Dur
             return null;
         }
 
-        LocalDate toLocalDate = LocalDate.of(to.getYear(), to.getMonth(), to.getDay());
         LocalDate fromLocalDate = LocalDate.of(from.getYear(), from.getMonth(), from.getDay());
-        Period between = Period.between(fromLocalDate, toLocalDate);
-        int years = between.getYears();
-        int months = between.getMonths();
-        if (between.isNegative()) {
-            years = - years;
-            months = - months;
-        }
-        return XMLDurationFactory.INSTANCE.yearMonthOf(!between.isNegative(), years, months);
+        LocalDate toLocalDate = LocalDate.of(to.getYear(), to.getMonth(), to.getDay());
+        Period period = Period.between(fromLocalDate, toLocalDate);
+        return XMLDurationFactory.INSTANCE.yearMonthFrom(period);
     }
 
     @Override

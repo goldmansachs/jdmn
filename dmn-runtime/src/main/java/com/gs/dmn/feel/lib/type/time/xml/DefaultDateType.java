@@ -97,11 +97,12 @@ public class DefaultDateType extends XMLCalendarType implements DateType<XMLGreg
         }
         if (
                 hasTimezone(first) && !hasTimezone(second)
-                        || !hasTimezone(first) && hasTimezone(second)) {
+                || !hasTimezone(first) && hasTimezone(second)) {
             return null;
         }
 
-        return XMLDurationFactory.INSTANCE.dayTimeOfSeconds(getDurationInSeconds(first, second));
+        long durationInSeconds = getDurationInSeconds(first, second);
+        return XMLDurationFactory.INSTANCE.fromSeconds(durationInSeconds);
     }
 
     @Override
@@ -131,7 +132,7 @@ public class DefaultDateType extends XMLCalendarType implements DateType<XMLGreg
             GregorianCalendar gc = new GregorianCalendar();
             long millis = (value1 + value2) * 1000L;
             gc.setTimeInMillis(millis);
-            XMLGregorianCalendar xgc = XMLDurationFactory.INSTANCE.newXMLGregorianCalendar(gc);
+            FEELXMLGregorianCalendar xgc = new FEELXMLGregorianCalendar(gc);
             return FEELXMLGregorianCalendar.makeDate(xgc.getEonAndYear(), xgc.getMonth(), xgc.getDay());
         } else {
             throw new DMNRuntimeException(String.format("Cannot add '%s' with '%s'", date, duration));

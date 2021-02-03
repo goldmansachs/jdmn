@@ -72,10 +72,10 @@ public class DoubleDurationType extends BaseDefaultDurationType implements Durat
 
         if (isYearsAndMonthsDuration(first)) {
             Double months = monthsValue(first) * second;
-            return XMLDurationFactory.INSTANCE.yearMonthOf(months.longValue());
+            return XMLDurationFactory.INSTANCE.yearMonthFromValue(months.longValue());
         } else if (isDaysAndTimeDuration(first)) {
             Double seconds = secondsValue(first) * second;
-            return XMLDurationFactory.INSTANCE.dayTimeOf(seconds);
+            return XMLDurationFactory.INSTANCE.dayTimeFromValue(seconds.longValue());
         } else {
             throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
         }
@@ -92,10 +92,10 @@ public class DoubleDurationType extends BaseDefaultDurationType implements Durat
 
         if (isYearsAndMonthsDuration(first)) {
             Double months = monthsValue(first).doubleValue() / second;
-            return XMLDurationFactory.INSTANCE.yearMonthOf(months.longValue());
+            return XMLDurationFactory.INSTANCE.yearMonthFromValue(months.longValue());
         } else if (isDaysAndTimeDuration(first)) {
             Double seconds = secondsValue(first).doubleValue() / second;
-            return XMLDurationFactory.INSTANCE.dayTimeOf(seconds);
+            return XMLDurationFactory.INSTANCE.dayTimeFromValue(seconds.longValue());
         } else {
             throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
         }

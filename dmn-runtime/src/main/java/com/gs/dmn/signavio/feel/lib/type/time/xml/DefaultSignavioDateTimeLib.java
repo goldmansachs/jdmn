@@ -29,9 +29,7 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     @Override
     public XMLGregorianCalendar yearAdd(XMLGregorianCalendar date, BigDecimal yearsToAdd) {
         XMLGregorianCalendar result = (XMLGregorianCalendar) date.clone();
-        boolean isPositive = yearsToAdd.signum() >= 0;
-        javax.xml.datatype.Duration duration = XMLDurationFactory.INSTANCE.yearMonthOf(
-                isPositive, yearsToAdd.abs().intValue(), 0);
+        javax.xml.datatype.Duration duration = XMLDurationFactory.INSTANCE.yearMonthWithYears(yearsToAdd.intValue());
         result.add(duration);
         return result;
     }
@@ -55,10 +53,7 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     @Override
     public XMLGregorianCalendar monthAdd(XMLGregorianCalendar date, BigDecimal monthsToAdd) {
         XMLGregorianCalendar result = (XMLGregorianCalendar) date.clone();
-        int months = monthsToAdd.intValue();
-        boolean isPositive = months > 0;
-        javax.xml.datatype.Duration duration = XMLDurationFactory.INSTANCE.yearMonthOf(
-                isPositive, 0, monthsToAdd.abs().intValue());
+        javax.xml.datatype.Duration duration = XMLDurationFactory.INSTANCE.yearMonthWithMonths(monthsToAdd.intValue());
         result.add(duration);
         return result;
     }
@@ -82,10 +77,7 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     @Override
     public XMLGregorianCalendar dayAdd(XMLGregorianCalendar date, BigDecimal daysToAdd) {
         XMLGregorianCalendar result = (XMLGregorianCalendar) date.clone();
-        int days = daysToAdd.intValue();
-        boolean isPositive = days > 0;
-        javax.xml.datatype.Duration duration;
-        duration = XMLDurationFactory.INSTANCE.dayTimeOfDays(isPositive, daysToAdd.abs().intValue());
+        javax.xml.datatype.Duration duration = XMLDurationFactory.INSTANCE.dayTimeWithDays(daysToAdd.intValue());
         result.add(duration);
         return result;
     }
@@ -98,8 +90,7 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     @Override
     public Long dayDiff(XMLGregorianCalendar date1, XMLGregorianCalendar date2) {
         java.time.Duration duration = durationBetween(date1, date2);
-        Long diff = duration == null ? null : duration.getSeconds() / (60 * 60 * 24);
-        return diff;
+        return duration == null ? null : duration.getSeconds() / (60 * 60 * 24);
     }
 
     @Override
@@ -129,8 +120,7 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     @Override
     public Long hourDiff(XMLGregorianCalendar time1, XMLGregorianCalendar time2) {
         Duration duration = durationBetween(time1, time2);
-        Long diff = duration == null ? null : duration.getSeconds() / (60 * 60);
-        return diff;
+        return duration == null ? null : duration.getSeconds() / (60 * 60);
     }
 
     @Override
@@ -141,8 +131,7 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     @Override
     public Long minutesDiff(XMLGregorianCalendar time1, XMLGregorianCalendar time2) {
         Duration duration = durationBetween(time1, time2);
-        long diff = duration == null ? null : duration.getSeconds() / 60;
-        return diff;
+        return duration == null ? null : duration.getSeconds() / 60;
     }
 
     @Override

@@ -12,18 +12,13 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.time.TimeType;
 import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 
 import javax.xml.datatype.Duration;
-import java.time.LocalDate;
 import java.time.OffsetTime;
-import java.time.ZonedDateTime;
 
 public class OffsetTimeType extends BaseMixedCalendarType implements TimeType<OffsetTime, Duration> {
-    private static final LocalDate EPOCH = LocalDate.of(1970, 1, 1);
-
     private final OffsetTimeComparator comparator;
 
     public OffsetTimeType() {
@@ -90,7 +85,8 @@ public class OffsetTimeType extends BaseMixedCalendarType implements TimeType<Of
             return null;
         }
 
-        return toDuration(first, second);
+        long durationInSeconds = timeValue(first) - (long) timeValue(second);
+        return XMLDurationFactory.INSTANCE.dayTimeFromValue(durationInSeconds);
     }
 
     @Override
@@ -109,12 +105,5 @@ public class OffsetTimeType extends BaseMixedCalendarType implements TimeType<Of
         }
 
         return timeAddDuration(time, duration.negate());
-    }
-
-    protected Duration toDuration(OffsetTime first, OffsetTime second) {
-        ZonedDateTime first1 = first.atDate(EPOCH).atZoneSameInstant(BaseType.UTC);
-        ZonedDateTime second1 = second.atDate(EPOCH).atZoneSameInstant(BaseType.UTC);
-        long durationInMilliSeconds = getDurationInMilliSeconds(first1, second1);
-        return XMLDurationFactory.INSTANCE.dayTimeOfSeconds(durationInMilliSeconds / 1000);
     }
 }

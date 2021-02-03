@@ -89,7 +89,8 @@ public class ZonedDateTimeType extends BaseMixedCalendarType implements DateTime
             return null;
         }
 
-        return toDuration(first, second);
+        long durationInSeconds = dateTimeValue(first) - (long) dateTimeValue(second);
+        return XMLDurationFactory.INSTANCE.fromSeconds(durationInSeconds);
     }
 
     @Override
@@ -115,8 +116,4 @@ public class ZonedDateTimeType extends BaseMixedCalendarType implements DateTime
                 ;
     }
 
-    protected Duration toDuration(ZonedDateTime first, ZonedDateTime second) {
-        long durationInMilliSeconds = getDurationInMilliSeconds(first, second);
-        return XMLDurationFactory.INSTANCE.dayTimeOfSeconds(durationInMilliSeconds / 1000);
-    }
 }

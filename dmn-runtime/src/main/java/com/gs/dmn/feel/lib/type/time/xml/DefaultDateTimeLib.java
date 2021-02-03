@@ -82,8 +82,8 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         }
 
         XMLGregorianCalendar calendar;
+        BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
         if (offset != null) {
-            BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
             String sign = offset.getSign() < 0 ? "-" : "+";
             int seconds = offset.getSeconds();
             String zoneId;
@@ -94,7 +94,6 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
             }
             calendar = FEELXMLGregorianCalendar.makeTime(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, zoneId);
         } else {
-            BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
             calendar = FEELXMLGregorianCalendar.makeTime(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, null);
         }
         return this.isValidTime(calendar) ? calendar : null;
@@ -255,7 +254,7 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         if (secondsOffset == DatatypeConstants.FIELD_UNDEFINED) {
             return null;
         } else {
-            return XMLDurationFactory.INSTANCE.dayTimeOfSeconds(secondsOffset);
+            return XMLDurationFactory.INSTANCE.dayTimeFromValue(secondsOffset);
         }
     }
     @Override
@@ -389,11 +388,9 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
             TemporalAccessor parsed = FEEL_TIME.parse(literal);
 
             if (parsed.query(TemporalQueries.offset()) != null) {
-                OffsetTime asOffSetTime = parsed.query(OffsetTime::from);
-                return asOffSetTime;
+                return parsed.query(OffsetTime::from);
             } else if (parsed.query(TemporalQueries.zone()) == null) {
-                LocalTime asLocalTime = parsed.query(LocalTime::from);
-                return asLocalTime;
+                return parsed.query(LocalTime::from);
             }
 
             return parsed;
@@ -415,14 +412,11 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
                 TemporalAccessor value = FEEL_DATE_TIME.parse(literal);
 
                 if (value.query(TemporalQueries.zoneId()) != null) {
-                    ZonedDateTime asZonedDateTime = value.query(ZonedDateTime::from);
-                    return asZonedDateTime;
+                    return value.query(ZonedDateTime::from);
                 } else if (value.query(TemporalQueries.offset()) != null) {
-                    OffsetDateTime asOffSetDateTime = value.query(OffsetDateTime::from);
-                    return asOffSetDateTime;
+                    return value.query(OffsetDateTime::from);
                 } else if (value.query(TemporalQueries.zone()) == null) {
-                    LocalDateTime asLocalDateTime = value.query(LocalDateTime::from);
-                    return asLocalDateTime;
+                    return value.query(LocalDateTime::from);
                 }
 
                 return value;

@@ -32,7 +32,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
 
     @Override
     public javax.xml.datatype.Duration duration(String from) {
-        return XMLDurationFactory.INSTANCE.of(from);
+        return XMLDurationFactory.INSTANCE.parse(from);
     }
 
     @Override
@@ -41,39 +41,32 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
             return null;
         }
 
-        return this.toYearsMonthDuration(to, from);
+        Period period = Period.between(from, to);
+        return XMLDurationFactory.INSTANCE.yearMonthFrom(period);
     }
     public javax.xml.datatype.Duration yearsAndMonthsDuration(ZonedDateTime from, ZonedDateTime to) {
         if (from == null || to == null) {
             return null;
         }
 
-        return this.toYearsMonthDuration(toDate(to), toDate(from));
+        Period period = Period.between(toDate(from), toDate(to));
+        return XMLDurationFactory.INSTANCE.yearMonthFrom(period);
     }
     public javax.xml.datatype.Duration yearsAndMonthsDuration(ZonedDateTime from, LocalDate to) {
         if (from == null || to == null) {
             return null;
         }
 
-        return this.toYearsMonthDuration(to, toDate(from));
+        Period period = Period.between(toDate(from), to);
+        return XMLDurationFactory.INSTANCE.yearMonthFrom(period);
     }
     public Duration yearsAndMonthsDuration(LocalDate from, ZonedDateTime to) {
         if (from == null || to == null) {
             return null;
         }
 
-        return this.toYearsMonthDuration(toDate(to), from);
-    }
-
-    private Duration toYearsMonthDuration(LocalDate date1, LocalDate date2) {
-        Period between = Period.between(date2, date1);
-        int years = between.getYears();
-        int months = between.getMonths();
-        if (between.isNegative()) {
-            years = - years;
-            months = - months;
-        }
-        return XMLDurationFactory.INSTANCE.yearMonthOf(!between.isNegative(), years, months);
+        Period period = Period.between(from, toDate(to));
+        return XMLDurationFactory.INSTANCE.yearMonthFrom(period);
     }
 
     private LocalDate toDate(Object object) {
