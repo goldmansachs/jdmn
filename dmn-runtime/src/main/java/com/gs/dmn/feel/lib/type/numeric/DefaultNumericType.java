@@ -52,6 +52,46 @@ public class DefaultNumericType extends BaseNumericType implements NumericType<B
     }
 
     @Override
+    public Boolean numericIs(BigDecimal first, BigDecimal second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return first.unscaledValue().equals(second.unscaledValue())
+                && first.scale() == second.scale();
+    }
+
+    @Override
+    public Boolean numericEqual(BigDecimal first, BigDecimal second) {
+        return this.comparator.equalTo(first, second);
+    }
+
+    @Override
+    public Boolean numericNotEqual(BigDecimal first, BigDecimal second) {
+        return this.comparator.notEqualTo(first, second);
+    }
+
+    @Override
+    public Boolean numericLessThan(BigDecimal first, BigDecimal second) {
+        return this.comparator.lessThan(first, second);
+    }
+
+    @Override
+    public Boolean numericGreaterThan(BigDecimal first, BigDecimal second) {
+        return this.comparator.greaterThan(first, second);
+    }
+
+    @Override
+    public Boolean numericLessEqualThan(BigDecimal first, BigDecimal second) {
+        return this.comparator.lessEqualThan(first, second);
+    }
+
+    @Override
+    public Boolean numericGreaterEqualThan(BigDecimal first, BigDecimal second) {
+        return this.comparator.greaterEqualThan(first, second);
+    }
+
+    @Override
     public BigDecimal numericAdd(BigDecimal first, BigDecimal second) {
         if (first == null || second == null) {
             return null;
@@ -118,45 +158,5 @@ public class DefaultNumericType extends BaseNumericType implements NumericType<B
             BigDecimal temp = first.pow(-second, MATH_CONTEXT);
             return BigDecimal.ONE.divide(temp, MATH_CONTEXT);
         }
-    }
-
-    @Override
-    public Boolean numericIs(BigDecimal first, BigDecimal second) {
-        if (first == null || second == null) {
-            return first == second;
-        }
-
-        return first.unscaledValue().equals(second.unscaledValue())
-                && first.scale() == second.scale();
-    }
-
-    @Override
-    public Boolean numericEqual(BigDecimal first, BigDecimal second) {
-        return this.comparator.equalTo(first, second);
-    }
-
-    @Override
-    public Boolean numericNotEqual(BigDecimal first, BigDecimal second) {
-        return this.comparator.notEqualTo(first, second);
-    }
-
-    @Override
-    public Boolean numericLessThan(BigDecimal first, BigDecimal second) {
-        return this.comparator.lessThan(first, second);
-    }
-
-    @Override
-    public Boolean numericGreaterThan(BigDecimal first, BigDecimal second) {
-        return this.comparator.greaterThan(first, second);
-    }
-
-    @Override
-    public Boolean numericLessEqualThan(BigDecimal first, BigDecimal second) {
-        return this.comparator.lessEqualThan(first, second);
-    }
-
-    @Override
-    public Boolean numericGreaterEqualThan(BigDecimal first, BigDecimal second) {
-        return this.comparator.greaterEqualThan(first, second);
     }
 }

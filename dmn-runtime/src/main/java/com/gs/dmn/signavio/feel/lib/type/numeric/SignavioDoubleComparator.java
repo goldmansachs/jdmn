@@ -12,11 +12,24 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.numeric;
 
-import com.gs.dmn.feel.lib.type.numeric.DoubleNumericType;
-import com.gs.dmn.feel.lib.type.numeric.NumericType;
+import com.gs.dmn.feel.lib.type.numeric.DoubleComparator;
 
-public class DoubleSignavioNumericType extends DoubleNumericType implements NumericType<Double> {
-    public DoubleSignavioNumericType() {
-        super(new SignavioDoubleComparator());
+public class SignavioDoubleComparator extends DoubleComparator {
+    @Override
+    public Boolean lessEqualThan(Comparable<Double> first, Comparable<Double> second) {
+        if (first == null && second == null) {
+            return null;
+        } else {
+            return super.lessEqualThan(first, second);
+        }
+    }
+
+    @Override
+    public Boolean greaterEqualThan(Comparable<Double> first, Comparable<Double> second) {
+        if (first == null && second == null) {
+            return null;
+        } else {
+            return super.greaterEqualThan(first, second);
+        }
     }
 }

@@ -10,13 +10,20 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.signavio.feel.lib.type.numeric;
+package com.gs.dmn.feel.lib.type.numeric;
 
-import com.gs.dmn.feel.lib.type.numeric.DoubleNumericType;
-import com.gs.dmn.feel.lib.type.numeric.NumericType;
+import com.gs.dmn.feel.lib.type.ComparableComparator;
 
-public class DoubleSignavioNumericType extends DoubleNumericType implements NumericType<Double> {
-    public DoubleSignavioNumericType() {
-        super(new SignavioDoubleComparator());
+public class DoubleComparator extends ComparableComparator<Double> {
+    public DoubleComparator() {
+    }
+
+    @Override
+    protected int compareTo(Comparable<Double> first, Comparable<Double> second) {
+        if (((Double) first) == 0 && ((Double) second) == -0 || ((Double) second) == 0 && ((Double) first) == -0) {
+            return 0;
+        } else {
+            return first.compareTo((Double) second);
+        }
     }
 }

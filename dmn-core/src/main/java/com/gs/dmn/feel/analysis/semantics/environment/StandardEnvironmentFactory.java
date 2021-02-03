@@ -24,7 +24,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.*;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
-import static com.gs.dmn.feel.analysis.semantics.type.RangeType.COMPARABLE_RANGE_TYPE;
+import static com.gs.dmn.feel.analysis.semantics.type.RangeType.COMPARABLE_RANGE;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
@@ -186,44 +186,44 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
 
     private static void addRangeFunctions(Environment environment) {
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("before", new BuiltinFunctionType(BOOLEAN, new Parameter("point1", COMPARABLE), new Parameter("point2", COMPARABLE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("before", new BuiltinFunctionType(BOOLEAN, new Parameter("point", COMPARABLE), new Parameter("range", COMPARABLE_RANGE_TYPE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("before", new BuiltinFunctionType(BOOLEAN, new Parameter("range", COMPARABLE_RANGE_TYPE), new Parameter("point", COMPARABLE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("before", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE_TYPE), new Parameter("range2", COMPARABLE_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("before", new BuiltinFunctionType(BOOLEAN, new Parameter("point", COMPARABLE), new Parameter("range", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("before", new BuiltinFunctionType(BOOLEAN, new Parameter("range", COMPARABLE_RANGE), new Parameter("point", COMPARABLE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("before", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
 
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("after", new BuiltinFunctionType(BOOLEAN, new Parameter("point1", COMPARABLE), new Parameter("point2", COMPARABLE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("after", new BuiltinFunctionType(BOOLEAN, new Parameter("point", COMPARABLE), new Parameter("range", COMPARABLE_RANGE_TYPE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("after", new BuiltinFunctionType(BOOLEAN, new Parameter("range", COMPARABLE_RANGE_TYPE), new Parameter("point", COMPARABLE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("after", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE_TYPE), new Parameter("range2", COMPARABLE_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("after", new BuiltinFunctionType(BOOLEAN, new Parameter("point", COMPARABLE), new Parameter("range", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("after", new BuiltinFunctionType(BOOLEAN, new Parameter("range", COMPARABLE_RANGE), new Parameter("point", COMPARABLE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("after", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("meets", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE_TYPE), new Parameter("range2", COMPARABLE_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("meets", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("met by", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE_TYPE), new Parameter("range2", COMPARABLE_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("met by", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("overlaps", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE_TYPE), new Parameter("range2", COMPARABLE_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("overlaps", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("overlaps before", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE_TYPE), new Parameter("range2", COMPARABLE_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("overlaps before", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("overlaps after", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE_TYPE), new Parameter("range2", COMPARABLE_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("overlaps after", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("finishes", new BuiltinFunctionType(BOOLEAN, new Parameter("point", COMPARABLE), new Parameter("range", COMPARABLE_RANGE_TYPE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("finishes", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE_TYPE), new Parameter("range2", COMPARABLE_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("finishes", new BuiltinFunctionType(BOOLEAN, new Parameter("point", COMPARABLE), new Parameter("range", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("finishes", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("finished by", new BuiltinFunctionType(BOOLEAN, new Parameter("range", COMPARABLE_RANGE_TYPE), new Parameter("point", COMPARABLE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("finished by", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE_TYPE), new Parameter("range2", COMPARABLE_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("finished by", new BuiltinFunctionType(BOOLEAN, new Parameter("range", COMPARABLE_RANGE), new Parameter("point", COMPARABLE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("finished by", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("includes", new BuiltinFunctionType(BOOLEAN, new Parameter("range", COMPARABLE_RANGE_TYPE), new Parameter("point", COMPARABLE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("includes", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE_TYPE), new Parameter("range2", COMPARABLE_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("includes", new BuiltinFunctionType(BOOLEAN, new Parameter("range", COMPARABLE_RANGE), new Parameter("point", COMPARABLE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("includes", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("during", new BuiltinFunctionType(BOOLEAN, new Parameter("point", COMPARABLE), new Parameter("range", COMPARABLE_RANGE_TYPE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("during", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE_TYPE), new Parameter("range2", COMPARABLE_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("during", new BuiltinFunctionType(BOOLEAN, new Parameter("point", COMPARABLE), new Parameter("range", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("during", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("starts", new BuiltinFunctionType(BOOLEAN, new Parameter("point", COMPARABLE), new Parameter("range", COMPARABLE_RANGE_TYPE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("starts", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE_TYPE), new Parameter("range2", COMPARABLE_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("starts", new BuiltinFunctionType(BOOLEAN, new Parameter("point", COMPARABLE), new Parameter("range", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("starts", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("started by", new BuiltinFunctionType(BOOLEAN, new Parameter("range", COMPARABLE_RANGE_TYPE), new Parameter("point", COMPARABLE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("started by", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE_TYPE), new Parameter("range2", COMPARABLE_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("started by", new BuiltinFunctionType(BOOLEAN, new Parameter("range", COMPARABLE_RANGE), new Parameter("point", COMPARABLE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("started by", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
 
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("coincides", new BuiltinFunctionType(BOOLEAN, new Parameter("point1", COMPARABLE), new Parameter("point2", COMPARABLE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("coincides", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE_TYPE), new Parameter("range2", COMPARABLE_RANGE_TYPE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("coincides", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
     }
 }
