@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.time.xml.FEELXMLGregorianCalendar;
+import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioBaseDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
 
@@ -24,16 +25,12 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 import java.util.Calendar;
 
-import static com.gs.dmn.feel.lib.DefaultFEELLib.DATA_TYPE_FACTORY;
-
 public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implements SignavioDateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar> {
     @Override
     public XMLGregorianCalendar yearAdd(XMLGregorianCalendar date, BigDecimal yearsToAdd) {
         XMLGregorianCalendar result = (XMLGregorianCalendar) date.clone();
-        int months = yearsToAdd.intValue();
-        boolean isPositive = months > 0;
-        javax.xml.datatype.Duration duration;
-        duration = DATA_TYPE_FACTORY.newDurationYearMonth(
+        boolean isPositive = yearsToAdd.signum() >= 0;
+        javax.xml.datatype.Duration duration = XMLDurationFactory.INSTANCE.yearMonthOf(
                 isPositive, yearsToAdd.abs().intValue(), 0);
         result.add(duration);
         return result;
@@ -60,8 +57,7 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
         XMLGregorianCalendar result = (XMLGregorianCalendar) date.clone();
         int months = monthsToAdd.intValue();
         boolean isPositive = months > 0;
-        javax.xml.datatype.Duration duration;
-        duration = DATA_TYPE_FACTORY.newDurationYearMonth(
+        javax.xml.datatype.Duration duration = XMLDurationFactory.INSTANCE.yearMonthOf(
                 isPositive, 0, monthsToAdd.abs().intValue());
         result.add(duration);
         return result;
@@ -89,8 +85,7 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
         int days = daysToAdd.intValue();
         boolean isPositive = days > 0;
         javax.xml.datatype.Duration duration;
-        duration = DATA_TYPE_FACTORY.newDurationDayTime(
-                isPositive, daysToAdd.abs().intValue(), 0, 0, 0);
+        duration = XMLDurationFactory.INSTANCE.dayTimeOfDays(isPositive, daysToAdd.abs().intValue());
         result.add(duration);
         return result;
     }

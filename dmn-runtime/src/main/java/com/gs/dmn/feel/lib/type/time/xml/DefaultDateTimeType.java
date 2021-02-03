@@ -16,7 +16,6 @@ import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.time.DateTimeType;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
@@ -26,12 +25,11 @@ public class DefaultDateTimeType extends XMLCalendarType implements DateTimeType
     private final DefaultXMLCalendarComparator comparator;
     private final BooleanType booleanType;
 
-    public DefaultDateTimeType(DatatypeFactory datatypeFactory) {
-        this(datatypeFactory, new DefaultXMLCalendarComparator());
+    public DefaultDateTimeType() {
+        this(new DefaultXMLCalendarComparator());
     }
 
-    public DefaultDateTimeType(DatatypeFactory datatypeFactory, DefaultXMLCalendarComparator comparator) {
-        super(datatypeFactory);
+    public DefaultDateTimeType(DefaultXMLCalendarComparator comparator) {
         this.comparator = comparator;
         this.booleanType = new DefaultBooleanType();
     }
@@ -96,7 +94,7 @@ public class DefaultDateTimeType extends XMLCalendarType implements DateTimeType
             return null;
         }
 
-        return makeDuration(getDurationInSeconds(first, second));
+        return XMLDurationFactory.INSTANCE.dayTimeOfSeconds(getDurationInSeconds(first, second));
     }
 
     @Override

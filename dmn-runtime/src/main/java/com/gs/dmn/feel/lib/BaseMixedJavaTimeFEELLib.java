@@ -35,28 +35,25 @@ import com.gs.dmn.feel.lib.type.string.StringType;
 import com.gs.dmn.feel.lib.type.time.*;
 import com.gs.dmn.feel.lib.type.time.mixed.*;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
 public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELLib<NUMBER, LocalDate, OffsetTime, ZonedDateTime, Duration> implements StandardFEELLib<NUMBER, LocalDate, OffsetTime, ZonedDateTime, Duration> {
-    protected static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
-
     private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
     private static final StringType STRING_TYPE = new DefaultStringType();
-    private static final DateType<LocalDate, Duration> DATE_TYPE = new LocalDateType(DATA_TYPE_FACTORY);
-    private static final TimeType<OffsetTime, Duration> TIME_TYPE = new OffsetTimeType(DATA_TYPE_FACTORY);
-    private static final DateTimeType<ZonedDateTime, Duration> DATE_TIME_TYPE = new ZonedDateTimeType(DATA_TYPE_FACTORY);
+    private static final DateType<LocalDate, Duration> DATE_TYPE = new LocalDateType();
+    private static final TimeType<OffsetTime, Duration> TIME_TYPE = new OffsetTimeType();
+    private static final DateTimeType<ZonedDateTime, Duration> DATE_TIME_TYPE = new ZonedDateTimeType();
     private static final ListType LIST_TYPE = new DefaultListType();
     private static final ContextType CONTEXT_TYPE = new DefaultContextType();
     private static final RangeType RANGE_TYPE = new DefaultRangeType();
 
     private static final StringLib STRING_LIB = new DefaultStringLib();
     private static final BooleanLib BOOLEAN_LIB = new DefaultBooleanLib();
-    private static final DateTimeLib DATE_TIME_LIB = new MixedDateTimeLib(DATA_TYPE_FACTORY);
-    private static final DurationLib<LocalDate, Duration> DURATION_LIB = new MixedDurationLib(DATA_TYPE_FACTORY);
+    private static final DateTimeLib DATE_TIME_LIB = new MixedDateTimeLib();
+    private static final DurationLib<LocalDate, Duration> DURATION_LIB = new MixedDurationLib();
     private static final ListLib LIST_LIB = new DefaultListLib();
     private static final RangeLib RANGE_LIB = new DefaultRangeLib();
 

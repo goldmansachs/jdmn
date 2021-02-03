@@ -16,7 +16,6 @@ import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
@@ -31,12 +30,6 @@ public abstract class XMLCalendarType extends BaseType {
             0,
             0,
             0));
-
-    protected final DatatypeFactory datatypeFactory;
-
-    public XMLCalendarType(DatatypeFactory datatypeFactory) {
-        this.datatypeFactory = datatypeFactory;
-    }
 
     protected static QName getXMLSchemaType(Duration duration) {
         if (duration == null) {
@@ -124,8 +117,10 @@ public abstract class XMLCalendarType extends BaseType {
         }
 
         boolean isNegative = duration.getSign() < 0;
-        long months = 12L * duration.getYears() + duration.getMonths();
-        return isNegative ? - months : months;
+        int years = duration.isSet(DatatypeConstants.YEARS) ? duration.getYears() : 0;
+        int months = duration.isSet(DatatypeConstants.MONTHS) ? duration.getMonths() : 0;
+        long totalMonths = 12L * years + months;
+        return isNegative ? - totalMonths : totalMonths;
     }
 
     protected Long secondsValue(Duration duration) {
@@ -133,11 +128,17 @@ public abstract class XMLCalendarType extends BaseType {
             return null;
         }
 
+        // Initial values
         boolean isNegative = duration.getSign() < 0;
-        long hours = 24L * duration.getDays() + duration.getHours();
-        long minutes = 60L * hours + duration.getMinutes();
-        long seconds = 60L * minutes + duration.getSeconds();
-        return isNegative ? - seconds : seconds;
+        int days = duration.isSet(DatatypeConstants.DAYS) ? duration.getDays() : 0;
+        int hours = duration.isSet(DatatypeConstants.HOURS) ? duration.getHours() : 0;
+        int minutes = duration.isSet(DatatypeConstants.MINUTES) ? duration.getMinutes() : 0;
+        int seconds = duration.isSet(DatatypeConstants.SECONDS) ? duration.getSeconds() : 0;
+
+        long totalHours = 24L * days + hours;
+        long totalMinutes = 60L * totalHours + minutes;
+        long totalSeconds = 60L * totalMinutes + seconds;
+        return isNegative ? - totalSeconds : totalSeconds;
     }
 
     protected long getDurationInSeconds(XMLGregorianCalendar first, XMLGregorianCalendar second) {
@@ -155,42 +156,5 @@ public abstract class XMLCalendarType extends BaseType {
         clone.setSecond(0);
         clone.setZoneID("Z");
         return clone;
-    }
-
-    protected Duration makeDuration(long durationInSeconds) {
-        return this.datatypeFactory.newDuration(durationInSeconds * 1000);
-    }
-
-    protected Duration makeYearsMonthsDuration(Number months) {
-        long lMonths = months.longValue();
-        if (lMonths < 0) {
-            String literal = String.format("P%dM", -months.intValue());
-            return this.datatypeFactory.newDurationYearMonth(literal).negate();
-        } else {
-            String literal = String.format("P%dM", months.intValue());
-            return this.datatypeFactory.newDurationYearMonth(literal);
-        }
-    }
-
-    protected Duration makeDaysTimeDuration(Number seconds) {
-        long millis = seconds.longValue() * 1000L;
-        if (millis < 0) {
-            return this.datatypeFactory.newDurationDayTime(-millis).negate();
-        } else {
-            return this.datatypeFactory.newDurationDayTime(millis);
-        }
-    }
-
-    protected Duration makeDuration(Number months, Number seconds) {
-        long lMonths = months.longValue();
-        long lSeconds = seconds.longValue();
-        boolean isNegative = lMonths < 0;
-        if (isNegative) {
-            String literal = String.format("P%dMT%dS", -lMonths, -lSeconds);
-            return this.datatypeFactory.newDurationYearMonth(literal).negate();
-        } else {
-            String literal = String.format("P%dMT%dS", lMonths, lSeconds);
-            return this.datatypeFactory.newDuration(literal);
-        }
     }
 }

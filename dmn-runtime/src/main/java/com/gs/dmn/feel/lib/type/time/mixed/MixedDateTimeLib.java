@@ -14,9 +14,9 @@ package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
+import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 import java.time.*;
@@ -25,12 +25,6 @@ import java.time.temporal.IsoFields;
 import static com.gs.dmn.feel.lib.type.BaseType.UTC;
 
 public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Number, LocalDate, OffsetTime, ZonedDateTime, Duration> {
-    private final DatatypeFactory datatypeFactory;
-
-    public MixedDateTimeLib(DatatypeFactory datatypeFactory) {
-        this.datatypeFactory = datatypeFactory;
-    }
-
     //
     // Conversion functions
     //
@@ -318,7 +312,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
 
         // timezone offset in seconds
         int secondsOffset = time.getOffset().getTotalSeconds();
-        return computeDuration(secondsOffset);
+        return computeOffset(secondsOffset);
     }
     @Override
     public Duration timeOffsetDateTime(ZonedDateTime dateTime) {
@@ -328,7 +322,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
 
         // timezone offset in seconds
         int secondsOffset = dateTime.getOffset().getTotalSeconds();
-        return computeDuration(secondsOffset);
+        return computeOffset(secondsOffset);
     }
 
     @Override
@@ -458,7 +452,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         throw new IllegalArgumentException(String.format("Cannot convert '%s' to date time", from.getClass().getSimpleName()));
     }
 
-    private Duration computeDuration(int secondsOffset) {
-        return this.datatypeFactory.newDuration((long) secondsOffset * 1000);
+    private Duration computeOffset(int secondsOffset) {
+        return XMLDurationFactory.INSTANCE.offset(secondsOffset);
     }
 }

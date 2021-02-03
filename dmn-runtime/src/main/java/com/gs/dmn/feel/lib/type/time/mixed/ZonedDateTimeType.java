@@ -13,21 +13,19 @@
 package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.time.DateTimeType;
+import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.time.ZonedDateTime;
 
 public class ZonedDateTimeType extends BaseMixedCalendarType implements DateTimeType<ZonedDateTime, Duration> {
     private final ZonedDateTimeComparator comparator;
 
-    @Deprecated
-    public ZonedDateTimeType(DatatypeFactory datatypeFactory) {
-        this(datatypeFactory, new ZonedDateTimeComparator());
+    public ZonedDateTimeType() {
+        this(new ZonedDateTimeComparator());
     }
 
-    public ZonedDateTimeType(DatatypeFactory datatypeFactory, ZonedDateTimeComparator comparator) {
-        super(datatypeFactory);
+    public ZonedDateTimeType(ZonedDateTimeComparator comparator) {
         this.comparator = comparator;
     }
 
@@ -119,6 +117,6 @@ public class ZonedDateTimeType extends BaseMixedCalendarType implements DateTime
 
     protected Duration toDuration(ZonedDateTime first, ZonedDateTime second) {
         long durationInMilliSeconds = getDurationInMilliSeconds(first, second);
-        return datatypeFactory.newDuration(durationInMilliSeconds);
+        return XMLDurationFactory.INSTANCE.dayTimeOfSeconds(durationInMilliSeconds / 1000);
     }
 }

@@ -57,7 +57,7 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
     private static final DefaultNumericLib NUMERIC_LIB = new DefaultNumericLib();
     private static final DefaultStringLib STRING_LIB = new DefaultStringLib();
     private static final DefaultBooleanLib BOOLEAN_LIB = new DefaultBooleanLib();
-    private static final DateTimeLib DATE_TIME_LIB = new TemporalDateTimeLib(DefaultFEELLib.DATA_TYPE_FACTORY);
+    private static final DateTimeLib DATE_TIME_LIB = new TemporalDateTimeLib();
     private static final TemporalAmountDurationLib DURATION_LIB = new TemporalAmountDurationLib();
     private static final ListLib LIST_LIB = new DefaultListLib();
     private static final RangeLib RANGE_LIB = new DefaultRangeLib();

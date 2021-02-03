@@ -28,7 +28,6 @@ public class DoubleNumericType extends BaseNumericType implements NumericType<Do
 
     private final ComparableComparator<Double> comparator;
 
-    @Deprecated
     public DoubleNumericType() {
         this(new ComparableComparator<>());
     }

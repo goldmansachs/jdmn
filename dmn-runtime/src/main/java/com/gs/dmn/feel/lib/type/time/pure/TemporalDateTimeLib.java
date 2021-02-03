@@ -17,7 +17,6 @@ import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.xml.datatype.DatatypeFactory;
 import java.time.*;
 import java.time.temporal.*;
 import java.util.TimeZone;
@@ -27,8 +26,8 @@ import static com.gs.dmn.feel.lib.type.BaseType.UTC;
 public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Number, LocalDate, Temporal, Temporal, TemporalAmount> {
     private final DefaultDateTimeLib dateTimeLib;
 
-    public TemporalDateTimeLib(DatatypeFactory datatypeFactory) {
-        this.dateTimeLib = new DefaultDateTimeLib(datatypeFactory);
+    public TemporalDateTimeLib() {
+        this.dateTimeLib = new DefaultDateTimeLib();
     }
 
     //

@@ -33,7 +33,6 @@ public class DefaultNumericType extends BaseNumericType implements NumericType<B
 
     private final ComparableComparator<BigDecimal> comparator;
 
-    @Deprecated
     public DefaultNumericType() {
         this(new ComparableComparator<>());
     }

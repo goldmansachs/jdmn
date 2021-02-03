@@ -15,12 +15,11 @@ package com.gs.dmn.signavio.feel.lib.type.time.xml;
 import com.gs.dmn.feel.lib.type.time.DurationType;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationType;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 
 public class DefaultSignavioDurationType extends DefaultDurationType implements DurationType<Duration, BigDecimal> {
-    public DefaultSignavioDurationType(DatatypeFactory dataTypeFactory) {
-        super(dataTypeFactory, new DefaultSignavioDurationComparator());
+    public DefaultSignavioDurationType() {
+        super(new DefaultSignavioDurationComparator());
     }
 }

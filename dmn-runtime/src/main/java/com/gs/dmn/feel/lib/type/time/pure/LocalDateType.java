@@ -22,7 +22,6 @@ import java.time.temporal.TemporalAmount;
 public class LocalDateType extends BasePureCalendarType implements DateType<LocalDate, TemporalAmount> {
     private final LocalDateComparator comparator;
 
-    @Deprecated
     public LocalDateType() {
         this(new LocalDateComparator());
     }

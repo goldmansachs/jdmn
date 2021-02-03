@@ -12,11 +12,9 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
 
 import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 
@@ -53,13 +51,11 @@ public abstract class BaseDefaultDurationType extends XMLCalendarType {
 
     private final RelationalComparator<Duration> comparator;
 
-    @Deprecated
     protected BaseDefaultDurationType() {
-        this(DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator());
+        this(new DefaultDurationComparator());
     }
 
-    protected BaseDefaultDurationType(DatatypeFactory dataTypeFactory, RelationalComparator<Duration> comparator) {
-        super(dataTypeFactory);
+    protected BaseDefaultDurationType(RelationalComparator<Duration> comparator) {
         this.comparator = comparator;
     }
 
@@ -98,15 +94,15 @@ public abstract class BaseDefaultDurationType extends XMLCalendarType {
         if (isYearsAndMonthsDuration(first) && isYearsAndMonthsDuration(second)) {
             long firstValue = monthsValue(first);
             long secondValue = monthsValue(second);
-            return makeYearsMonthsDuration(firstValue + secondValue);
+            return XMLDurationFactory.INSTANCE.yearMonthOf(firstValue + secondValue);
         } else if (isDaysAndTimeDuration(first) && isDaysAndTimeDuration(second)) {
             long firstValue = secondsValue(first);
             long secondValue = secondsValue(second);
-            return makeDaysTimeDuration(firstValue + secondValue);
+            return XMLDurationFactory.INSTANCE.dayTimeOf(firstValue + secondValue);
         } else {
             long months = monthsValue(first) + monthsValue(second);
             long seconds = secondsValue(first) + secondsValue(second);
-            return makeDuration(months, seconds);
+            return XMLDurationFactory.INSTANCE.of(months, seconds);
         }
     }
 

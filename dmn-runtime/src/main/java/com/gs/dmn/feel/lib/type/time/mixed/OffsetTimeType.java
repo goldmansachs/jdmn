@@ -14,8 +14,8 @@ package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.time.TimeType;
+import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.time.LocalDate;
 import java.time.OffsetTime;
@@ -26,13 +26,11 @@ public class OffsetTimeType extends BaseMixedCalendarType implements TimeType<Of
 
     private final OffsetTimeComparator comparator;
 
-    @Deprecated
-    public OffsetTimeType(DatatypeFactory datatypeFactory) {
-        this(datatypeFactory, new OffsetTimeComparator());
+    public OffsetTimeType() {
+        this(new OffsetTimeComparator());
     }
 
-    public OffsetTimeType(DatatypeFactory datatypeFactory, OffsetTimeComparator comparator) {
-        super(datatypeFactory);
+    public OffsetTimeType(OffsetTimeComparator comparator) {
         this.comparator = comparator;
     }
 
@@ -117,6 +115,6 @@ public class OffsetTimeType extends BaseMixedCalendarType implements TimeType<Of
         ZonedDateTime first1 = first.atDate(EPOCH).atZoneSameInstant(BaseType.UTC);
         ZonedDateTime second1 = second.atDate(EPOCH).atZoneSameInstant(BaseType.UTC);
         long durationInMilliSeconds = getDurationInMilliSeconds(first1, second1);
-        return datatypeFactory.newDuration(durationInMilliSeconds);
+        return XMLDurationFactory.INSTANCE.dayTimeOfSeconds(durationInMilliSeconds / 1000);
     }
 }

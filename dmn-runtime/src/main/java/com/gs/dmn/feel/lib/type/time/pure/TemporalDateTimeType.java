@@ -24,9 +24,8 @@ import java.time.temporal.TemporalAmount;
 public class TemporalDateTimeType extends BasePureCalendarType implements DateTimeType<Temporal, TemporalAmount> {
     private final TemporalComparator comparator;
 
-    @Deprecated
     public TemporalDateTimeType() {
-        this.comparator = new TemporalComparator();
+        this(new TemporalComparator());
     }
 
     public TemporalDateTimeType(TemporalComparator comparator) {

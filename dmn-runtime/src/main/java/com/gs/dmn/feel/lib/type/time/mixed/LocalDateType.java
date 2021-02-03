@@ -14,8 +14,8 @@ package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.time.DateType;
+import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.time.LocalDate;
 import java.time.Period;
@@ -23,13 +23,11 @@ import java.time.Period;
 public class LocalDateType extends BaseMixedCalendarType implements DateType<LocalDate, Duration> {
     protected final LocalDateComparator comparator;
 
-    @Deprecated
-    public LocalDateType(DatatypeFactory datatypeFactory) {
-        this(datatypeFactory, new LocalDateComparator());
+    public LocalDateType() {
+        this(new LocalDateComparator());
     }
 
-    public LocalDateType(DatatypeFactory datatypeFactory, LocalDateComparator comparator) {
-        super(datatypeFactory);
+    public LocalDateType(LocalDateComparator comparator) {
         this.comparator = comparator;
     }
 
@@ -88,7 +86,8 @@ public class LocalDateType extends BaseMixedCalendarType implements DateType<Loc
             return null;
         }
 
-        return toDuration(first, second);
+        long durationInMilliSeconds = getDurationInMilliSeconds(first.atStartOfDay(BaseType.UTC), second.atStartOfDay(BaseType.UTC));
+        return XMLDurationFactory.INSTANCE.dayTimeOfMillis(durationInMilliSeconds);
     }
 
     @Override
@@ -111,8 +110,4 @@ public class LocalDateType extends BaseMixedCalendarType implements DateType<Loc
         return dateAddDuration(date, duration.negate());
     }
 
-    protected Duration toDuration(LocalDate date1, LocalDate date2) {
-        long durationInMilliSeconds = getDurationInMilliSeconds(date1.atStartOfDay(BaseType.UTC), date2.atStartOfDay(BaseType.UTC));
-        return datatypeFactory.newDurationYearMonth(durationInMilliSeconds);
-    }
 }

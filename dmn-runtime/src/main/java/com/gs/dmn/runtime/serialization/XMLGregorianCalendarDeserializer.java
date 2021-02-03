@@ -17,7 +17,6 @@ import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import com.gs.dmn.feel.lib.type.time.xml.FEELXMLGregorianCalendar;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -26,7 +25,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.IOException;
 
 public class XMLGregorianCalendarDeserializer extends JsonDeserializer<XMLGregorianCalendar> {
-    private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib(DefaultFEELLib.DATA_TYPE_FACTORY);
+    private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib();
 
     public XMLGregorianCalendarDeserializer() {
     }

@@ -22,10 +22,6 @@ import static java.lang.Boolean.TRUE;
 import static javax.xml.datatype.DatatypeConstants.*;
 
 public class DefaultXMLCalendarComparator extends XMLCalendarType implements RelationalComparator<XMLGregorianCalendar> {
-    public DefaultXMLCalendarComparator() {
-        super(null);
-    }
-
     @Override
     public Integer compare(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         return (int) this.getDurationInSeconds(first, second);

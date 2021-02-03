@@ -13,9 +13,8 @@
 package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.time.DurationLib;
-import org.apache.commons.lang3.StringUtils;
+import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.time.LocalDate;
 import java.time.Period;
@@ -25,21 +24,15 @@ import static com.gs.dmn.feel.lib.type.time.xml.DefaultDurationLib.hasDayOrTime;
 import static com.gs.dmn.feel.lib.type.time.xml.DefaultDurationLib.hasYearsOrMonths;
 
 public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
-    private final DatatypeFactory dataTypeFactory;
     private final MixedDateTimeLib dateTimeLib;
 
-    public MixedDurationLib(DatatypeFactory dataTypeFactory) {
-        this.dataTypeFactory = dataTypeFactory;
-        this.dateTimeLib = new MixedDateTimeLib(dataTypeFactory);
+    public MixedDurationLib() {
+        this.dateTimeLib = new MixedDateTimeLib();
     }
 
     @Override
     public javax.xml.datatype.Duration duration(String from) {
-        if (StringUtils.isBlank(from)) {
-            return null;
-        }
-
-        return this.dataTypeFactory.newDuration(from);
+        return XMLDurationFactory.INSTANCE.of(from);
     }
 
     @Override
@@ -48,31 +41,31 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
             return null;
         }
 
-        return this.toYearsMonthDuration(this.dataTypeFactory, to, from);
+        return this.toYearsMonthDuration(to, from);
     }
     public javax.xml.datatype.Duration yearsAndMonthsDuration(ZonedDateTime from, ZonedDateTime to) {
         if (from == null || to == null) {
             return null;
         }
 
-        return this.toYearsMonthDuration(this.dataTypeFactory, toDate(to), toDate(from));
+        return this.toYearsMonthDuration(toDate(to), toDate(from));
     }
     public javax.xml.datatype.Duration yearsAndMonthsDuration(ZonedDateTime from, LocalDate to) {
         if (from == null || to == null) {
             return null;
         }
 
-        return this.toYearsMonthDuration(this.dataTypeFactory, to, toDate(from));
+        return this.toYearsMonthDuration(to, toDate(from));
     }
     public Duration yearsAndMonthsDuration(LocalDate from, ZonedDateTime to) {
         if (from == null || to == null) {
             return null;
         }
 
-        return this.toYearsMonthDuration(this.dataTypeFactory, toDate(to), from);
+        return this.toYearsMonthDuration(toDate(to), from);
     }
 
-    private Duration toYearsMonthDuration(DatatypeFactory datatypeFactory, LocalDate date1, LocalDate date2) {
+    private Duration toYearsMonthDuration(LocalDate date1, LocalDate date2) {
         Period between = Period.between(date2, date1);
         int years = between.getYears();
         int months = between.getMonths();
@@ -80,7 +73,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
             years = - years;
             months = - months;
         }
-        return datatypeFactory.newDurationYearMonth(!between.isNegative(), years, months);
+        return XMLDurationFactory.INSTANCE.yearMonthOf(!between.isNegative(), years, months);
     }
 
     private LocalDate toDate(Object object) {
