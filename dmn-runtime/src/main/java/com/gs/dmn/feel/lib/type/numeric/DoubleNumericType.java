@@ -12,8 +12,6 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
-import com.gs.dmn.feel.lib.type.ComparableComparator;
-
 public class DoubleNumericType extends BaseNumericType implements NumericType<Double> {
     public static Double doubleNumericDivide(Double first, Double second) {
         if (first == null || second == null) {
@@ -26,13 +24,13 @@ public class DoubleNumericType extends BaseNumericType implements NumericType<Do
         return first / second;
     }
 
-    private final ComparableComparator<Double> comparator;
+    private final DoubleComparator comparator;
 
     public DoubleNumericType() {
-        this(new ComparableComparator<>());
+        this(new DoubleComparator());
     }
 
-    public DoubleNumericType(ComparableComparator<Double> comparator) {
+    public DoubleNumericType(DoubleComparator comparator) {
         this.comparator = comparator;
     }
 
@@ -44,6 +42,46 @@ public class DoubleNumericType extends BaseNumericType implements NumericType<Do
     @Override
     public Double numericValue(Double value) {
         return value;
+    }
+
+
+    @Override
+    public Boolean numericIs(Double first, Double second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return first.equals(second);
+    }
+
+    @Override
+    public Boolean numericEqual(Double first, Double second) {
+        return this.comparator.equalTo(first, second);
+    }
+
+    @Override
+    public Boolean numericNotEqual(Double first, Double second) {
+        return this.comparator.notEqualTo(first, second);
+    }
+
+    @Override
+    public Boolean numericLessThan(Double first, Double second) {
+        return this.comparator.lessThan(first, second);
+    }
+
+    @Override
+    public Boolean numericGreaterThan(Double first, Double second) {
+        return this.comparator.greaterThan(first, second);
+    }
+
+    @Override
+    public Boolean numericLessEqualThan(Double first, Double second) {
+        return this.comparator.lessEqualThan(first, second);
+    }
+
+    @Override
+    public Boolean numericGreaterEqualThan(Double first, Double second) {
+        return this.comparator.greaterEqualThan(first, second);
     }
 
     @Override
@@ -94,44 +132,5 @@ public class DoubleNumericType extends BaseNumericType implements NumericType<Do
         }
 
         return Math.pow(first, second);
-    }
-
-    @Override
-    public Boolean numericIs(Double first, Double second) {
-        if (first == null || second == null) {
-            return first == second;
-        }
-
-        return first.equals(second);
-    }
-
-    @Override
-    public Boolean numericEqual(Double first, Double second) {
-        return this.comparator.equalTo(first, second);
-    }
-
-    @Override
-    public Boolean numericNotEqual(Double first, Double second) {
-        return this.comparator.notEqualTo(first, second);
-    }
-
-    @Override
-    public Boolean numericLessThan(Double first, Double second) {
-        return this.comparator.lessThan(first, second);
-    }
-
-    @Override
-    public Boolean numericGreaterThan(Double first, Double second) {
-        return this.comparator.greaterThan(first, second);
-    }
-
-    @Override
-    public Boolean numericLessEqualThan(Double first, Double second) {
-        return this.comparator.lessEqualThan(first, second);
-    }
-
-    @Override
-    public Boolean numericGreaterEqualThan(Double first, Double second) {
-        return this.comparator.greaterEqualThan(first, second);
     }
 }

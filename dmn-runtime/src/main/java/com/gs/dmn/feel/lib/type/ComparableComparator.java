@@ -20,7 +20,7 @@ import static java.lang.Boolean.TRUE;
 public class ComparableComparator<T> implements RelationalComparator<Comparable<T>> {
     @Override
     public Integer compare(Comparable<T> first, Comparable<T> second) {
-        return first.compareTo((T) second);
+        return compareTo(first, second);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class ComparableComparator<T> implements RelationalComparator<Comparable<
                 () -> TRUE,
                 () -> FALSE,
                 () -> FALSE,
-                () -> first.compareTo((T) second) == 0
+                () -> compareTo(first, second) == 0
         });
     }
 
@@ -39,7 +39,7 @@ public class ComparableComparator<T> implements RelationalComparator<Comparable<
                 () -> null,
                 () -> null,
                 () -> null,
-                () -> first.compareTo((T) second) < 0
+                () -> compareTo(first, second) < 0
         });
     }
 
@@ -49,7 +49,7 @@ public class ComparableComparator<T> implements RelationalComparator<Comparable<
                 () -> null,
                 () -> null,
                 () -> null,
-                () -> first.compareTo((T) second) > 0
+                () -> compareTo(first, second) > 0
         });
     }
 
@@ -59,7 +59,7 @@ public class ComparableComparator<T> implements RelationalComparator<Comparable<
                 () -> TRUE,
                 () -> null,
                 () -> null,
-                () -> first.compareTo((T) second) <= 0
+                () -> compareTo(first, second) <= 0
         });
     }
 
@@ -69,7 +69,11 @@ public class ComparableComparator<T> implements RelationalComparator<Comparable<
                 () -> TRUE,
                 () -> null,
                 () -> null,
-                () -> first.compareTo((T) second) >= 0
+                () -> compareTo(first, second) >= 0
         });
+    }
+
+    protected int compareTo(Comparable<T> first, Comparable<T> second) {
+        return first.compareTo((T) second);
     }
 }

@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.ComparableDataType.COMPARABLE;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
@@ -23,14 +24,15 @@ import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public class RangeType extends Type {
-    public static final Type NUMBER_RANGE_TYPE = new RangeType(NUMBER);
-    public static final Type STRING_RANGE_TYPE = new RangeType(STRING);
-    public static final Type DATE_RANGE_TYPE = new RangeType(DATE);
-    public static final Type TIME_RANGE_TYPE = new RangeType(TIME);
-    public static final Type DATE_AND_TIME_RANGE_TYPE = new RangeType(DATE_AND_TIME);
-    public static final Type YEARS_AND_MONTHS_DURATION_RANGE_TYPE = new RangeType(YEARS_AND_MONTHS_DURATION);
-    public static final Type DAYS_AND_TIME_DURATION_RANGE_TYPE = new RangeType(DAYS_AND_TIME_DURATION);
-    public static final Type COMPARABLE_RANGE_TYPE = new RangeType(COMPARABLE);
+    public static final Type NUMBER_RANGE = new RangeType(NUMBER);
+    public static final Type STRING_RANGE = new RangeType(STRING);
+    public static final Type DATE_RANGE = new RangeType(DATE);
+    public static final Type TIME_RANGE = new RangeType(TIME);
+    public static final Type DATE_AND_TIME_RANGE = new RangeType(DATE_AND_TIME);
+    public static final Type YEARS_AND_MONTHS_DURATION_RANGE = new RangeType(YEARS_AND_MONTHS_DURATION);
+    public static final Type DAYS_AND_TIME_DURATION_RANGE = new RangeType(DAYS_AND_TIME_DURATION);
+    public static final Type COMPARABLE_RANGE = new RangeType(COMPARABLE);
+    public static final Type ANY_RANGE = new RangeType(ANY);
 
     private final Type type;
 

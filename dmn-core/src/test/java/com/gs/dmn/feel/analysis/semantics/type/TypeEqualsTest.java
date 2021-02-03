@@ -159,10 +159,10 @@ public class TypeEqualsTest {
 
     @Test
     public void testRangeType() {
-        checkEquals(true, RangeType.NUMBER_RANGE_TYPE, RangeType.NUMBER_RANGE_TYPE);
+        checkEquals(true, RangeType.NUMBER_RANGE, RangeType.NUMBER_RANGE);
 
-        checkEquals(false, RangeType.NUMBER_RANGE_TYPE, ANY);
-        checkEquals(false, RangeType.NUMBER_RANGE_TYPE, NUMBER);
+        checkEquals(false, RangeType.NUMBER_RANGE, ANY);
+        checkEquals(false, RangeType.NUMBER_RANGE, NUMBER);
     }
 
     @Test

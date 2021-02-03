@@ -727,6 +727,15 @@
         </resultNode>
     </testCase>
 
+    <testCase id="dt_duration_008">
+        <description>zero dt duration equals zero ym duration</description>
+        <resultNode name="dt_duration_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
     <testCase id="ym_duration_001">
         <description>same durations are equal</description>
         <resultNode name="ym_duration_001" type="decision">
@@ -870,5 +879,131 @@
             </expected>
         </resultNode>
     </testCase> -->
+
+    <testCase id="fn_001">
+        <description>two anon functions with same signature and body are not equal</description>
+        <resultNode name="fn_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="fn_002">
+        <description>two built in functions with same signature are not equal</description>
+        <resultNode name="fn_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="fn_003">
+        <description>a built in function is equal to itself</description>
+        <resultNode name="fn_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="fn_004">
+        <description>a BKM is equal to itself</description>
+        <resultNode name="fn_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="fn_005">
+        <description>a BKM is not equal to another BKM</description>
+        <resultNode name="fn_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_001">
+        <description>ranges with same endpoint and inclusivity are equal</description>
+        <resultNode name="range_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_002">
+        <description>ranges with different upper endpoints are not equal</description>
+        <resultNode name="range_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_003">
+        <description>ranges with different lower endpoints are not equal</description>
+        <resultNode name="range_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_004">
+        <description>ranges with same endpoints, but same though syntactically different lower inclusivity are equal</description>
+        <resultNode name="range_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_005">
+        <description>ranges with same endpoints, but same though syntactically different upper inclusivity are equal</description>
+        <resultNode name="range_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_006">
+        <description>equal ranges though syntactically different: LT </description>
+        <resultNode name="range_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_007">
+        <description>equal ranges though syntactically different: LE </description>
+        <resultNode name="range_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_008">
+        <description>equal ranges though syntactically different: GT </description>
+        <resultNode name="range_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_009">
+        <description>equal ranges though syntactically different: GE </description>
+        <resultNode name="range_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
 
 </testCases>
