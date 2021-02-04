@@ -17,6 +17,7 @@ import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.Pair;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ContextTypeExpression extends TypeExpression {
@@ -33,6 +34,19 @@ public class ContextTypeExpression extends TypeExpression {
     @Override
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContextTypeExpression that = (ContextTypeExpression) o;
+        return Objects.equals(members, that.members);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(members);
     }
 
     @Override

@@ -22,6 +22,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionInvocatio
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
+import java.util.Objects;
+
 public class OperatorRange extends Range {
     private final String operator;
     private final Expression endpoint;
@@ -79,6 +81,19 @@ public class OperatorRange extends Range {
     @Override
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OperatorRange that = (OperatorRange) o;
+        return Objects.equals(operator, that.operator) && Objects.equals(endpoint, that.endpoint) && Objects.equals(endpointsRange, that.endpointsRange);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(operator, endpoint, endpointsRange);
     }
 
     @Override

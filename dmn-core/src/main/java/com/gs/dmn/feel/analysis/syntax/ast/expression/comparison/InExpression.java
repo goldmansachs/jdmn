@@ -20,6 +20,7 @@ import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
@@ -58,6 +59,19 @@ public class InExpression extends Comparison {
     @Override
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        InExpression that = (InExpression) o;
+        return Objects.equals(value, that.value) && Objects.equals(tests, that.tests);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, tests);
     }
 
     @Override

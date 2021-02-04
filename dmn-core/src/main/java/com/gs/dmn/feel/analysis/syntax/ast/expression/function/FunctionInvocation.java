@@ -26,6 +26,7 @@ import com.gs.dmn.runtime.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class FunctionInvocation extends Expression {
@@ -83,6 +84,19 @@ public class FunctionInvocation extends Expression {
     @Override
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FunctionInvocation that = (FunctionInvocation) o;
+        return Objects.equals(function, that.function) && Objects.equals(parameters, that.parameters);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(function, parameters);
     }
 
     @Override

@@ -17,6 +17,7 @@ import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class QualifiedName extends NamedExpression {
     private List<String> names = new ArrayList<>();
@@ -43,6 +44,19 @@ public class QualifiedName extends NamedExpression {
     @Override
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QualifiedName that = (QualifiedName) o;
+        return Objects.equals(names, that.names);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(names);
     }
 
     @Override

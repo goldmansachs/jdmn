@@ -19,6 +19,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.type.TypeExpression;
 import com.gs.dmn.runtime.DMNContext;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class FunctionDefinition extends Expression {
@@ -69,6 +70,19 @@ public class FunctionDefinition extends Expression {
     @Override
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FunctionDefinition that = (FunctionDefinition) o;
+        return external == that.external && Objects.equals(formalParameters, that.formalParameters) && Objects.equals(returnTypeExpression, that.returnTypeExpression) && Objects.equals(body, that.body);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(formalParameters, returnTypeExpression, body, external);
     }
 
     @Override

@@ -16,6 +16,8 @@ import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNContext;
 
+import java.util.Objects;
+
 public abstract class LogicExpression extends Expression {
     private final String operator;
     private final Expression leftOperand;
@@ -44,6 +46,20 @@ public abstract class LogicExpression extends Expression {
         // Not need to check the operand types. or, and, not are total functions
         setType(BooleanType.BOOLEAN);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LogicExpression that = (LogicExpression) o;
+        return Objects.equals(operator, that.operator) && Objects.equals(leftOperand, that.leftOperand) && Objects.equals(rightOperand, that.rightOperand);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(operator, leftOperand, rightOperand);
+    }
+
     @Override
     public String toString() {
         return String.format("%s(%s,%s)", getClass().getSimpleName(), this.leftOperand, this.rightOperand);

@@ -17,6 +17,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNContext;
 
+import java.util.Objects;
+
 public class BetweenExpression extends Comparison {
     private final Expression value;
     private final Expression leftEndpoint;
@@ -50,6 +52,19 @@ public class BetweenExpression extends Comparison {
     @Override
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BetweenExpression that = (BetweenExpression) o;
+        return Objects.equals(value, that.value) && Objects.equals(leftEndpoint, that.leftEndpoint) && Objects.equals(rightEndpoint, that.rightEndpoint);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, leftEndpoint, rightEndpoint);
     }
 
     @Override

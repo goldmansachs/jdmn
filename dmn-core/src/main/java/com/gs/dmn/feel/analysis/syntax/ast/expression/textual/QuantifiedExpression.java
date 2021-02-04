@@ -18,6 +18,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 import com.gs.dmn.runtime.DMNContext;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class QuantifiedExpression extends Expression {
@@ -55,6 +56,19 @@ public class QuantifiedExpression extends Expression {
     @Override
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QuantifiedExpression that = (QuantifiedExpression) o;
+        return Objects.equals(predicate, that.predicate) && Objects.equals(iterators, that.iterators) && Objects.equals(body, that.body);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(predicate, iterators, body);
     }
 
     @Override
