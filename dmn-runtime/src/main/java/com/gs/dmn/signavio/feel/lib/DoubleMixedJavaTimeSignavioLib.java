@@ -18,6 +18,8 @@ import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.context.ContextType;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
+import com.gs.dmn.feel.lib.type.function.DefaultFunctionType;
+import com.gs.dmn.feel.lib.type.function.FunctionType;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.list.ListType;
 import com.gs.dmn.feel.lib.type.numeric.NumericType;
@@ -58,6 +60,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
     private static final ListType LIST_TYPE = new DefaultListType();
     private static final ContextType CONTEXT_TYPE = new DefaultContextType();
     private static final RangeType RANGE_TYPE = new DefaultRangeType();
+    private static final FunctionType FUNCTION_TYPE = new DefaultFunctionType();
 
     private static final DoubleMixedJavaTimeFEELLib FEEL_LIB = new DoubleMixedJavaTimeFEELLib();
     private static final SignavioNumberLib<Double> NUMBER_LIB = new DoubleSignavioNumberLib();
@@ -80,6 +83,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
                 LIST_TYPE,
                 CONTEXT_TYPE,
                 RANGE_TYPE,
+                FUNCTION_TYPE,
                 FEEL_LIB,
                 NUMBER_LIB,
                 STRING_LIB,
@@ -91,7 +95,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
     protected DoubleMixedJavaTimeSignavioLib(
             NumericType<Double> numericType, BooleanType booleanType, StringType stringType,
             DateType<LocalDate, Duration> dateType, TimeType<OffsetTime, Duration> timeType, DateTimeType<ZonedDateTime, Duration> dateTimeType, DurationType<Duration, Double> durationType,
-            ListType listType, ContextType contextType, RangeType rangeType,
+            ListType listType, ContextType contextType, RangeType rangeType, FunctionType functionType,
             StandardFEELLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> feelLib,
             SignavioNumberLib<Double> numberLib,
             SignavioStringLib stringLib,
@@ -99,7 +103,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
             SignavioListLib listLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
-                listType, contextType, rangeType,
+                listType, contextType, rangeType, functionType,
                 feelLib, numberLib, stringLib, dateTimeLib, listLib);
         this.mixedFeelLib = (DoubleMixedJavaTimeFEELLib) this.feelLib;
     }

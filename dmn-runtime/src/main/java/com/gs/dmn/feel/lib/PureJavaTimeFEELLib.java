@@ -18,6 +18,8 @@ import com.gs.dmn.feel.lib.type.bool.DefaultBooleanLib;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.context.ContextType;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
+import com.gs.dmn.feel.lib.type.function.DefaultFunctionType;
+import com.gs.dmn.feel.lib.type.function.FunctionType;
 import com.gs.dmn.feel.lib.type.list.DefaultListLib;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.list.ListLib;
@@ -53,6 +55,7 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
     private static final ListType LIST_TYPE = new DefaultListType();
     private static final ContextType CONTEXT_TYPE = new DefaultContextType();
     private static final RangeType RANGE_TYPE = new DefaultRangeType();
+    private static final FunctionType FUNCTION_TYPE = new DefaultFunctionType();
 
     private static final DefaultNumericLib NUMERIC_LIB = new DefaultNumericLib();
     private static final DefaultStringLib STRING_LIB = new DefaultStringLib();
@@ -75,6 +78,7 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
                 LIST_TYPE,
                 CONTEXT_TYPE,
                 RANGE_TYPE,
+                FUNCTION_TYPE,
                 NUMERIC_LIB,
                 STRING_LIB,
                 BOOLEAN_LIB,
@@ -93,7 +97,7 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
             TimeType<Temporal, TemporalAmount> timeType,
             DateTimeType<Temporal, TemporalAmount> dateTimeType,
             DurationType<TemporalAmount, BigDecimal> durationType,
-            ListType listType, ContextType contextType, RangeType rangeType,
+            ListType listType, ContextType contextType, RangeType rangeType, FunctionType functionType,
             NumericLib<BigDecimal> numericLib,
             StringLib stringLib,
             BooleanLib booleanLib,
@@ -103,7 +107,7 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
             RangeLib rangeLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
-                listType, contextType, rangeType,
+                listType, contextType, rangeType, functionType,
                 numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib
         );
     }

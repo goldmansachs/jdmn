@@ -14,6 +14,7 @@ package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.context.ContextType;
+import com.gs.dmn.feel.lib.type.function.FunctionType;
 import com.gs.dmn.feel.lib.type.list.ListType;
 import com.gs.dmn.feel.lib.type.numeric.NumericType;
 import com.gs.dmn.feel.lib.type.range.RangeType;
@@ -22,14 +23,13 @@ import com.gs.dmn.feel.lib.type.time.DateTimeType;
 import com.gs.dmn.feel.lib.type.time.DateType;
 import com.gs.dmn.feel.lib.type.time.DurationType;
 import com.gs.dmn.feel.lib.type.time.TimeType;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
-        NumericType<NUMBER>, StringType, BooleanType, ListType, ContextType, RangeType,
+        NumericType<NUMBER>, StringType, BooleanType, ListType, ContextType, RangeType, FunctionType,
         DateType<DATE, DURATION>, TimeType<TIME, DURATION>, DateTimeType<DATE_TIME, DURATION>, DurationType<DURATION, NUMBER> {
     Logger LOGGER = LoggerFactory.getLogger(FEELLib.class);
 
@@ -39,11 +39,6 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
 
     default void logError(String message, Throwable e) {
         LOGGER.error(message, e);
-    }
-
-    // Check if value is a function object
-    default boolean isFunction(Object value) {
-        throw new DMNRuntimeException("Function objects are not supported yet");
     }
 
     //

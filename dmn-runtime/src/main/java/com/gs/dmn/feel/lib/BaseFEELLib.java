@@ -14,6 +14,7 @@ package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.context.ContextType;
+import com.gs.dmn.feel.lib.type.function.FunctionType;
 import com.gs.dmn.feel.lib.type.list.ListType;
 import com.gs.dmn.feel.lib.type.numeric.NumericType;
 import com.gs.dmn.feel.lib.type.range.RangeType;
@@ -46,8 +47,9 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     protected final ListType listType;
     protected final ContextType contextType;
     protected final RangeType rangeType;
+    protected final FunctionType functionType;
 
-    protected BaseFEELLib(NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType, DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType, ListType listType, ContextType contextType, RangeType rangeType) {
+    protected BaseFEELLib(NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType, DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType, ListType listType, ContextType contextType, RangeType rangeType, FunctionType functionType) {
         this.numericType = numericType;
         this.booleanType = booleanType;
         this.stringType = stringType;
@@ -58,6 +60,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         this.listType = listType;
         this.contextType = contextType;
         this.rangeType = rangeType;
+        this.functionType = functionType;
     }
 
     //
@@ -1317,6 +1320,64 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
             return rangeType.rangeNotEqual(range1, range2);
         } catch (Exception e) {
             String message = String.format("rangeNotEqual(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    //
+    // Function operators
+    //
+    @Override
+    public boolean isFunction(Object value) {
+        try {
+            return functionType.isFunction(value);
+        } catch (Exception e) {
+            String message = String.format("isFunction(%s)", value);
+            logError(message, e);
+            return false;
+        }
+    }
+
+    @Override
+    public Object functionValue(Object value) {
+        try {
+            return functionType.functionValue(value);
+        } catch (Exception e) {
+            String message = String.format("functionValue(%s)", value);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean functionIs(Object function1, Object function2) {
+        try {
+            return functionType.functionIs(function1, function2);
+        } catch (Exception e) {
+            String message = String.format("functionIs(%s, %s)", function1, function2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean functionEqual(Object function1, Object function2) {
+        try {
+            return functionType.functionEqual(function1, function2);
+        } catch (Exception e) {
+            String message = String.format("functionEqual(%s, %s)", function1, function2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean functionNotEqual(Object function1, Object function2) {
+        try {
+            return functionType.functionNotEqual(function1, function2);
+        } catch (Exception e) {
+            String message = String.format("functionNotEqual(%s, %s)", function1, function2);
             logError(message, e);
             return null;
         }
