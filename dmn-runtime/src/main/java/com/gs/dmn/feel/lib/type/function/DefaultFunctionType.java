@@ -41,9 +41,7 @@ public class DefaultFunctionType extends BaseType implements FunctionType {
 
     @Override
     public Boolean functionEqual(Object function1, Object function2) {
-        boolean result = function1 == null && function2 == null
-                || function1.equals(function2);
-        return result;
+        return function1 == function2;
     }
 
     @Override
