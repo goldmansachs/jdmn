@@ -17,6 +17,7 @@ import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.feel.lib.stub.*;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.context.ContextType;
+import com.gs.dmn.feel.lib.type.function.FunctionType;
 import com.gs.dmn.feel.lib.type.list.ListType;
 import com.gs.dmn.feel.lib.type.numeric.NumericType;
 import com.gs.dmn.feel.lib.type.range.RangeType;
@@ -55,6 +56,7 @@ public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExcepti
         ListType listType = new ListTypeStub();
         ContextType contextType = new ContextTypeStub();
         RangeType rangeType = new RangeTypeStub();
+        FunctionType functionType = new FunctionTypeStub();
         StandardFEELLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> feelLib = new DoubleMixedJavaTimeFEELLib();
         SignavioNumberLib<Double> numberLib = new SignavioNumberLibStub<>();
         SignavioStringLib stringLib = new SignavioStringLibStub();
@@ -63,7 +65,7 @@ public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExcepti
         return new DoubleMixedJavaTimeSignavioLib(
                 numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
-                listType, contextType, rangeType,
+                listType, contextType, rangeType, functionType,
                 feelLib, numberLib, stringLib, dateTimeLib, listLib
         );
     }

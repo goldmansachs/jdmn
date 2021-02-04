@@ -15,6 +15,7 @@ package com.gs.dmn.feel.lib;
 import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.context.ContextType;
+import com.gs.dmn.feel.lib.type.function.FunctionType;
 import com.gs.dmn.feel.lib.type.list.ListLib;
 import com.gs.dmn.feel.lib.type.list.ListType;
 import com.gs.dmn.feel.lib.type.numeric.DoubleNumericLib;
@@ -54,10 +55,10 @@ public class DoubleMixedJavaTimeFEELLib extends BaseMixedJavaTimeFEELLib<Double>
         super(numericType, durationType, numericLib);
     }
 
-    protected DoubleMixedJavaTimeFEELLib(NumericType<Double> numericType, BooleanType booleanType, StringType stringType, DateType<LocalDate, Duration> dateType, TimeType<OffsetTime, Duration> timeType, DateTimeType<ZonedDateTime, Duration> dateTimeType, DurationType<Duration, Double> durationType, ListType listType, ContextType contextType, RangeType rangeType, NumericLib<Double> numericLib, StringLib stringLib, BooleanLib booleanLib, DateTimeLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> dateTimeLib, DurationLib<LocalDate, Duration> durationLib, ListLib listLib, RangeLib rangeLib) {
+    protected DoubleMixedJavaTimeFEELLib(NumericType<Double> numericType, BooleanType booleanType, StringType stringType, DateType<LocalDate, Duration> dateType, TimeType<OffsetTime, Duration> timeType, DateTimeType<ZonedDateTime, Duration> dateTimeType, DurationType<Duration, Double> durationType, ListType listType, ContextType contextType, RangeType rangeType, FunctionType functionType, NumericLib<Double> numericLib, StringLib stringLib, BooleanLib booleanLib, DateTimeLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> dateTimeLib, DurationLib<LocalDate, Duration> durationLib, ListLib listLib, RangeLib rangeLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
-                listType, contextType, rangeType,
+                listType, contextType, rangeType, functionType,
                 numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib
         );
     }
