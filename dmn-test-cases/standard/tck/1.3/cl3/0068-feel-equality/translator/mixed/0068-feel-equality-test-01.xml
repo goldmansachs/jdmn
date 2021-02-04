@@ -880,7 +880,6 @@
         </resultNode>
     </testCase> -->
 
-<!--
     <testCase id="fn_001">
         <description>two anon functions with same signature and body are not equal</description>
         <resultNode name="fn_001" type="decision">
@@ -925,7 +924,6 @@
             </expected>
         </resultNode>
     </testCase>
--->
 
     <testCase id="range_001">
         <description>ranges with same endpoint and inclusivity are equal</description>

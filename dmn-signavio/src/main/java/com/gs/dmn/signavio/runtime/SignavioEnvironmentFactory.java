@@ -12,10 +12,18 @@
  */
 package com.gs.dmn.signavio.runtime;
 
+import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.environment.Parameter;
 import com.gs.dmn.feel.analysis.semantics.type.BuiltinFunctionType;
+import com.gs.dmn.runtime.DMNContext;
+import com.gs.dmn.runtime.DMNContextKind;
+import com.gs.dmn.runtime.Function;
+import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
+
+import java.util.List;
+import java.util.Map;
 
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
@@ -28,11 +36,22 @@ import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public class SignavioEnvironmentFactory implements EnvironmentFactory {
     private static final EnvironmentFactory INSTANCE = new SignavioEnvironmentFactory();
-    private static final Environment BUILT_IN_ENVIRONMENT;
+    private static final DMNContext BUILT_IN_CONTEXT;
 
     static {
-        BUILT_IN_ENVIRONMENT = INSTANCE.emptyEnvironment();
-        addSignavioFunctions(BUILT_IN_ENVIRONMENT);
+        Environment environment = INSTANCE.emptyEnvironment();
+        RuntimeEnvironment runtimeEnvironment = RuntimeEnvironment.of();
+        addSignavioFunctions(environment);
+        for (Map.Entry<String, List<Declaration>> entry: environment.getVariablesTable().entrySet()) {
+            runtimeEnvironment.bind(entry.getKey(), new Function(entry.getValue()));
+        }
+        BUILT_IN_CONTEXT = DMNContext.of(
+                null,
+                DMNContextKind.BUILT_IN,
+                null,
+                environment,
+                runtimeEnvironment
+        );
     }
 
     public static EnvironmentFactory instance() {
@@ -40,8 +59,8 @@ public class SignavioEnvironmentFactory implements EnvironmentFactory {
     }
 
     @Override
-    public Environment getBuiltInEnvironment() {
-        return SignavioEnvironmentFactory.BUILT_IN_ENVIRONMENT;
+    public DMNContext getBuiltInContext() {
+        return SignavioEnvironmentFactory.BUILT_IN_CONTEXT;
     }
 
     private static void addSignavioFunctions(Environment environment) {

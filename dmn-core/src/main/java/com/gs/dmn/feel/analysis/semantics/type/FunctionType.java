@@ -17,17 +17,37 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind.*;
 
 public abstract class FunctionType extends Type {
+    public static final Type ANY_FUNCTION = new FunctionType(Arrays.asList(), ANY) {
+        @Override
+        public boolean match(ParameterTypes parameterTypes) {
+            return false;
+        }
+
+        @Override
+        protected List<Pair<ParameterTypes, ParameterConversions>> matchCandidates(List<Type> argumentTypes) {
+            return null;
+        }
+
+        @Override
+        protected boolean equivalentTo(Type other) {
+            return this == other;
+        }
+
+        @Override
+        protected boolean conformsTo(Type other) {
+            return this == other;
+        }
+    };
+
     protected final List<FormalParameter> parameters = new ArrayList<>();
     protected final List<Type> parameterTypes = new ArrayList<>();
     protected Type returnType;

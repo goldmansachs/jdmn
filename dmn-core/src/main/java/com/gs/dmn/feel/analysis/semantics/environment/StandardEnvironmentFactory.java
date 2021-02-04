@@ -14,6 +14,13 @@ package com.gs.dmn.feel.analysis.semantics.environment;
 
 import com.gs.dmn.feel.analysis.semantics.type.BuiltinFunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
+import com.gs.dmn.runtime.DMNContext;
+import com.gs.dmn.runtime.DMNContextKind;
+import com.gs.dmn.runtime.Function;
+import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
+
+import java.util.List;
+import java.util.Map;
 
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
@@ -30,11 +37,22 @@ import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public class StandardEnvironmentFactory implements EnvironmentFactory {
     private static final EnvironmentFactory INSTANCE = new StandardEnvironmentFactory();
-    private static final Environment BUILT_IN_ENVIRONMENT;
+    private static final DMNContext BUILT_IN_CONTEXT;
 
     static {
-        BUILT_IN_ENVIRONMENT = INSTANCE.emptyEnvironment();
-        addFEELFunctions(BUILT_IN_ENVIRONMENT);
+        Environment environment = INSTANCE.emptyEnvironment();
+        RuntimeEnvironment runtimeEnvironment = RuntimeEnvironment.of();
+        addFEELFunctions(environment);
+        for (Map.Entry<String, List<Declaration>> entry: environment.variablesTable.entrySet()) {
+            runtimeEnvironment.bind(entry.getKey(), new Function(entry.getValue()));
+        }
+        BUILT_IN_CONTEXT = DMNContext.of(
+                null,
+                DMNContextKind.BUILT_IN,
+                null,
+                environment,
+                runtimeEnvironment
+        );
     }
 
     public static EnvironmentFactory instance() {
@@ -45,8 +63,8 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     }
 
     @Override
-    public Environment getBuiltInEnvironment() {
-        return StandardEnvironmentFactory.BUILT_IN_ENVIRONMENT;
+    public DMNContext getBuiltInContext() {
+        return StandardEnvironmentFactory.BUILT_IN_CONTEXT;
     }
 
     private static void addFEELFunctions(Environment environment) {

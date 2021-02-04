@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Environment {
-    private final Map<String, List<Declaration>> variablesTable = new LinkedHashMap<>();
+    final Map<String, List<Declaration>> variablesTable = new LinkedHashMap<>();
 
     // For unary test context (input)
     private final Expression inputExpression;
@@ -42,6 +42,10 @@ public class Environment {
 
     public Type getInputExpressionType() {
         return this.inputExpression == null ? null : this.inputExpression.getType();
+    }
+
+    public Map<String, List<Declaration>> getVariablesTable() {
+        return this.variablesTable;
     }
 
     public void addDeclaration(Declaration declaration) {
