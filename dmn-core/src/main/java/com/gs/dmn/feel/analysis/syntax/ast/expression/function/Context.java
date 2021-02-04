@@ -73,6 +73,19 @@ public class Context extends Expression {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Context context = (Context) o;
+        return Objects.equals(entries, context.entries);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(entries);
+    }
+
+    @Override
     public String toString() {
         String expressions = this.entries.stream().map(ContextEntry::toString).collect(Collectors.joining(","));
         return String.format("%s(%s)", getClass().getSimpleName(), expressions);

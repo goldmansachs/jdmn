@@ -22,6 +22,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.ListLiteral;
 import com.gs.dmn.runtime.DMNContext;
 
 import java.util.List;
+import java.util.Objects;
 
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 
@@ -57,6 +58,19 @@ public class ListTest extends SimplePositiveUnaryTest {
     @Override
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ListTest listTest = (ListTest) o;
+        return Objects.equals(listLiteral, listTest.listLiteral);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(listLiteral);
     }
 
     @Override

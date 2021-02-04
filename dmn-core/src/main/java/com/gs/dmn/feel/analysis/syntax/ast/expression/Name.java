@@ -15,6 +15,8 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.runtime.DMNContext;
 
+import java.util.Objects;
+
 public class Name extends NamedExpression {
     private String name;
 
@@ -34,6 +36,19 @@ public class Name extends NamedExpression {
     @Override
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Name name1 = (Name) o;
+        return Objects.equals(name, name1.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 
     @Override

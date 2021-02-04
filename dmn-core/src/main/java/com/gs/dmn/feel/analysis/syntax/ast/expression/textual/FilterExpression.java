@@ -19,6 +19,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNContext;
 
+import java.util.Objects;
+
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 
@@ -71,6 +73,19 @@ public class FilterExpression extends Expression {
     @Override
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FilterExpression that = (FilterExpression) o;
+        return Objects.equals(source, that.source) && Objects.equals(filter, that.filter);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(source, filter);
     }
 
     @Override

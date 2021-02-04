@@ -17,6 +17,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.TypeExpression;
 import com.gs.dmn.runtime.DMNContext;
 
+import java.util.Objects;
+
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 
 public class InstanceOfExpression extends Expression {
@@ -44,6 +46,19 @@ public class InstanceOfExpression extends Expression {
     @Override
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        InstanceOfExpression that = (InstanceOfExpression) o;
+        return Objects.equals(leftOperand, that.leftOperand) && Objects.equals(rightOperand, that.rightOperand);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(leftOperand, rightOperand);
     }
 
     @Override

@@ -15,6 +15,8 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.runtime.DMNContext;
 
+import java.util.Objects;
+
 public class NamedTypeExpression extends TypeExpression {
     private final String qualifiedName;
 
@@ -29,6 +31,19 @@ public class NamedTypeExpression extends TypeExpression {
     @Override
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NamedTypeExpression that = (NamedTypeExpression) o;
+        return Objects.equals(qualifiedName, that.qualifiedName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(qualifiedName);
     }
 
     @Override

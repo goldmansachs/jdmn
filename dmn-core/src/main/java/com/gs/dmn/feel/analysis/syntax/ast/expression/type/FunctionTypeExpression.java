@@ -16,6 +16,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.runtime.DMNContext;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class FunctionTypeExpression extends TypeExpression {
@@ -38,6 +39,19 @@ public class FunctionTypeExpression extends TypeExpression {
     @Override
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FunctionTypeExpression that = (FunctionTypeExpression) o;
+        return Objects.equals(parameters, that.parameters) && Objects.equals(returnType, that.returnType);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(parameters, returnType);
     }
 
     @Override

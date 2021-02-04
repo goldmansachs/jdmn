@@ -16,6 +16,8 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.runtime.DMNContext;
 
+import java.util.Objects;
+
 public class PathExpression extends Expression {
     private final Expression source;
     private final String member;
@@ -58,6 +60,19 @@ public class PathExpression extends Expression {
     @Override
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PathExpression that = (PathExpression) o;
+        return Objects.equals(source, that.source) && Objects.equals(member, that.member);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(source, member);
     }
 
     @Override

@@ -20,6 +20,7 @@ import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ForExpression extends Expression {
@@ -61,6 +62,19 @@ public class ForExpression extends Expression {
             }
             return (ForExpression) newBody;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ForExpression that = (ForExpression) o;
+        return Objects.equals(iterators, that.iterators) && Objects.equals(body, that.body);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(iterators, body);
     }
 
     @Override

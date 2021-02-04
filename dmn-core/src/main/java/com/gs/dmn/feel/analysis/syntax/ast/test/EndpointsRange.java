@@ -19,6 +19,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
+import java.util.Objects;
+
 public class EndpointsRange extends Range {
     private final boolean openStart;
     private final Expression start;
@@ -64,6 +66,19 @@ public class EndpointsRange extends Range {
     @Override
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EndpointsRange that = (EndpointsRange) o;
+        return openStart == that.openStart && openEnd == that.openEnd && Objects.equals(start, that.start) && Objects.equals(end, that.end);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(openStart, start, openEnd, end);
     }
 
     @Override

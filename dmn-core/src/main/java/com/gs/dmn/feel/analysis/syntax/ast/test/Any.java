@@ -31,5 +31,4 @@ public class Any extends UnaryTests {
     public String toString() {
         return "Any()";
     }
-
 }

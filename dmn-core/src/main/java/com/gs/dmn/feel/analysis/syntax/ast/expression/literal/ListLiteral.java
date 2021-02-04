@@ -22,6 +22,7 @@ import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ListLiteral extends Expression {
@@ -80,6 +81,19 @@ public class ListLiteral extends Expression {
     @Override
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ListLiteral that = (ListLiteral) o;
+        return Objects.equals(expressionList, that.expressionList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(expressionList);
     }
 
     @Override

@@ -16,6 +16,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNContext;
 
+import java.util.Objects;
+
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 
 public class Relational extends Comparison {
@@ -50,6 +52,19 @@ public class Relational extends Comparison {
     @Override
     public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Relational that = (Relational) o;
+        return Objects.equals(operator, that.operator) && Objects.equals(leftOperand, that.leftOperand) && Objects.equals(rightOperand, that.rightOperand);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(operator, leftOperand, rightOperand);
     }
 
     @Override
