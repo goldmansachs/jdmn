@@ -29,6 +29,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MONTHS_DURATION;
+import static com.gs.dmn.feel.analysis.semantics.type.FunctionType.ANY_FUNCTION;
 import static com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType.ANY_ITEM_DEFINITION;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
 import static com.gs.dmn.feel.analysis.semantics.type.NullType.NULL;
@@ -62,6 +63,7 @@ public class OperatorDecisionTable {
         MAPPINGS.put(new OperatorTableInputEntry("=", ANY_CONTEXT, ANY_CONTEXT), new Pair<>(BOOLEAN, new NativeOperator("contextEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("=", ANY_ITEM_DEFINITION, ANY_ITEM_DEFINITION), new Pair<>(BOOLEAN, new NativeOperator("contextEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("=", ANY_RANGE, ANY_RANGE), new Pair<>(BOOLEAN, new NativeOperator("rangeEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("=", ANY_FUNCTION, ANY_FUNCTION), new Pair<>(BOOLEAN, new NativeOperator("functionEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry("=", NULL, NULL), new Pair<>(BOOLEAN, new NativeOperator("==", 2, true, LEFT_RIGHT, INFIX)));
         MAPPINGS.put(new OperatorTableInputEntry("=", ANY, ANY), new Pair<>(BOOLEAN, new NativeOperator("==", 2, true, LEFT_RIGHT, INFIX)));
@@ -78,6 +80,7 @@ public class OperatorDecisionTable {
         MAPPINGS.put(new OperatorTableInputEntry("!=", ANY_CONTEXT, ANY_CONTEXT), new Pair<>(BOOLEAN, new NativeOperator("contextNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("!=", ANY_ITEM_DEFINITION, ANY_ITEM_DEFINITION), new Pair<>(BOOLEAN, new NativeOperator("contextNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("!=", ANY_RANGE, ANY_RANGE), new Pair<>(BOOLEAN, new NativeOperator("rangeNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("!=", ANY_FUNCTION, ANY_FUNCTION), new Pair<>(BOOLEAN, new NativeOperator("functionNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry("!=", NULL, NULL), new Pair<>(BOOLEAN, new NativeOperator("!=", 2, true, LEFT_RIGHT, INFIX)));
         MAPPINGS.put(new OperatorTableInputEntry("!=", ANY, ANY), new Pair<>(BOOLEAN, new NativeOperator("!=", 2, true, LEFT_RIGHT, INFIX)));
@@ -272,6 +275,12 @@ public class OperatorDecisionTable {
         if (rightType instanceof RangeType) {
             rightType = ANY_RANGE;
         }
+        if (leftType instanceof FunctionType) {
+            leftType = ANY_FUNCTION;
+        }
+        if (rightType instanceof FunctionType) {
+            rightType = ANY_FUNCTION;
+        }
 
         // Normalize data types
         if (leftType instanceof DataType && (rightType == NULL || rightType == ANY)) {
@@ -293,6 +302,10 @@ public class OperatorDecisionTable {
         } else if (leftType instanceof RangeType && (rightType == NULL || rightType == ANY)) {
             rightType = leftType;
         } else if (rightType instanceof RangeType && (leftType == NULL || leftType == ANY)) {
+            leftType = rightType;
+        } else if (leftType instanceof FunctionType && (rightType == NULL || rightType == ANY)) {
+            rightType = leftType;
+        } else if (rightType instanceof FunctionType && (leftType == NULL || leftType == ANY)) {
             leftType = rightType;
         }
         return new Pair<>(leftType, rightType);

@@ -589,13 +589,7 @@ public interface BasicDMNToNativeTransformer {
     String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext);
 
     default DMNContext makeBuiltInContext() {
-        return DMNContext.of(
-                null,
-                DMNContextKind.BUILT_IN,
-                null,
-                getEnvironmentFactory().getBuiltInEnvironment(),
-                RuntimeEnvironment.of()
-        );
+        return getEnvironmentFactory().getBuiltInContext();
     }
 
     default DMNContext makeGlobalContext(TDRGElement element) {

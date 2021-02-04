@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics.environment;
 
 import com.gs.dmn.feel.analysis.semantics.type.StringType;
+import com.gs.dmn.runtime.DMNContext;
 import org.junit.Test;
 
 import java.util.List;
@@ -33,10 +34,10 @@ public class EnvironmentTest {
 
     @Test
     public void testLookupFunctionDeclaration() {
-        Environment environment = this.environmentFactory.getBuiltInEnvironment();
+        DMNContext context = this.environmentFactory.getBuiltInContext();
 
         String functionName = "date";
-        List<Declaration> declarations = environment.lookupLocalFunctionDeclaration(functionName);
+        List<Declaration> declarations = context.lookupFunctionDeclaration(functionName);
         assertEquals(4, declarations.size());
         assertEquals(functionName, declarations.get(0).getName());
     }

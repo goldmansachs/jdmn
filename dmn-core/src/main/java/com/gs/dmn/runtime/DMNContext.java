@@ -128,6 +128,10 @@ public class DMNContext {
     }
 
     public boolean isBound(String key) {
+        // Ignore built-in functions, should be invoked for decisions only
+        if (parent == null) {
+            return false;
+        }
         if (this.runtimeEnvironment.isLocalBound(key)) {
             return true;
         } else {
