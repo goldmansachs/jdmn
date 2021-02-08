@@ -50,27 +50,27 @@ public class TemporalComparator implements RelationalComparator<Temporal> {
                 () -> TRUE,
                 () -> FALSE,
                 () -> FALSE,
-                () -> { Integer result = compare(first, second); return result != null && result == 0; }
+                () -> compare(first, second) == 0
         });
     }
 
     @Override
     public Boolean lessThan(Temporal first, Temporal second) {
         return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
                 () -> null,
                 () -> null,
-                () -> { Integer result = compare(first, second); return result != null && result < 0; }
+                () -> null,
+                () -> compare(first, second) < 0
         });
     }
 
     @Override
     public Boolean greaterThan(Temporal first, Temporal second) {
         return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
                 () -> null,
                 () -> null,
-                () -> { Integer result = compare(first, second); return result != null && result > 0; }
+                () -> null,
+                () -> compare(first, second) > 0
         });
     }
 
@@ -80,7 +80,7 @@ public class TemporalComparator implements RelationalComparator<Temporal> {
                 () -> TRUE,
                 () -> null,
                 () -> null,
-                () -> { Integer result = compare(first, second); return result != null && result <= 0; }
+                () -> compare(first, second) <= 0
         });
     }
 
@@ -90,7 +90,7 @@ public class TemporalComparator implements RelationalComparator<Temporal> {
                 () -> TRUE,
                 () -> null,
                 () -> null,
-                () -> { Integer result = compare(first, second); return result != null && result >= 0; }
+                () -> compare(first, second) >= 0
         });
     }
 }

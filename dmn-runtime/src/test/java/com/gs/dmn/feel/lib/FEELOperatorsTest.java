@@ -186,7 +186,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
     @Test
     public void testDateLessThan() {
-        assertFalse(getLib().dateLessThan(null, null));
+        assertNull(getLib().dateLessThan(null, null));
         assertNull(getLib().dateLessThan(null, makeDate("2016-08-01")));
         assertNull(getLib().dateLessThan(makeDate("2016-08-01"), null));
 
@@ -196,7 +196,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
     @Test
     public void testDateGreaterThan() {
-        assertFalse(getLib().dateGreaterThan(null, null));
+        assertNull(getLib().dateGreaterThan(null, null));
         assertNull(getLib().dateGreaterThan(null, makeDate("2016-08-01")));
         assertNull(getLib().dateGreaterThan(makeDate("2016-08-01"), null));
 
@@ -280,7 +280,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
     @Test
     public void testTimeLessThan() {
-        assertFalse(getLib().timeLessThan(null, null));
+        assertNull(getLib().timeLessThan(null, null));
         assertNull(getLib().timeLessThan(null, makeTime("12:00:00Z")));
         assertNull(getLib().timeLessThan(makeTime("12:00:00Z"), null));
 
@@ -290,7 +290,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
     @Test
     public void testTimeGreaterThan() {
-        assertFalse(getLib().timeGreaterThan(null, null));
+        assertNull(getLib().timeGreaterThan(null, null));
         assertNull(getLib().timeGreaterThan(null, makeTime("12:00:00Z")));
         assertNull(getLib().timeGreaterThan(makeTime("12:00:00Z"), null));
 
@@ -374,7 +374,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
     @Test
     public void testDateTimeLessThan() {
-        assertFalse(getLib().dateTimeLessThan(null, null));
+        assertNull(getLib().dateTimeLessThan(null, null));
         assertNull(getLib().dateTimeLessThan(null, makeDateAndTime("2016-08-01T11:00:00Z")));
         assertNull(getLib().dateTimeLessThan(makeDateAndTime("2016-08-01T11:00:00Z"), null));
 
@@ -384,7 +384,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
     @Test
     public void testDateTimeGreaterThan() {
-        assertFalse(getLib().dateTimeGreaterThan(null, null));
+        assertNull(getLib().dateTimeGreaterThan(null, null));
         assertNull(getLib().dateTimeGreaterThan(null, makeDateAndTime("2016-08-01T11:00:00Z")));
         assertNull(getLib().dateTimeGreaterThan(makeDateAndTime("2016-08-01T11:00:00Z"), null));
 

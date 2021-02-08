@@ -21,24 +21,6 @@ public class SignavioOffsetTimeComparator extends OffsetTimeComparator {
     }
 
     @Override
-    public  Boolean lessThan(OffsetTime first, OffsetTime second) {
-        if (first == null && second == null) {
-            return null;
-        } else {
-            return super.lessThan(first, second);
-        }
-    }
-
-    @Override
-    public  Boolean greaterThan(OffsetTime first, OffsetTime second) {
-        if (first == null && second == null) {
-            return null;
-        } else {
-            return super.greaterThan(first, second);
-        }
-    }
-
-    @Override
     public  Boolean lessEqualThan(OffsetTime first, OffsetTime second) {
         if (first == null && second == null) {
             return null;

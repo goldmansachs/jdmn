@@ -18,24 +18,6 @@ import java.time.ZonedDateTime;
 
 public class SignavioZonedDateTimeComparator extends ZonedDateTimeComparator {
     @Override
-    public Boolean lessThan(ZonedDateTime first, ZonedDateTime second) {
-        if (first == null && second == null) {
-            return null;
-        } else {
-            return super.lessThan(first, second);
-        }
-    }
-
-    @Override
-    public Boolean greaterThan(ZonedDateTime first, ZonedDateTime second) {
-        if (first == null && second == null) {
-            return null;
-        } else {
-            return super.greaterThan(first, second);
-        }
-    }
-
-    @Override
     public Boolean lessEqualThan(ZonedDateTime first, ZonedDateTime second) {
         if (first == null && second == null) {
             return null;

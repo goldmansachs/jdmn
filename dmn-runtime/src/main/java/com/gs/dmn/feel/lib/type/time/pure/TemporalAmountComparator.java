@@ -50,27 +50,27 @@ public class TemporalAmountComparator implements RelationalComparator<TemporalAm
                 () -> TRUE,
                 () -> FALSE,
                 () -> FALSE,
-                () -> { Integer result = compare(first, second); return result != null && result == 0; }
+                () -> compare(first, second) == 0
         });
     }
 
     @Override
     public Boolean lessThan(TemporalAmount first, TemporalAmount second) {
         return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
                 () -> null,
                 () -> null,
-                () -> { Integer result = compare(first, second); return result != null && result < 0; }
+                () -> null,
+                () -> compare(first, second) < 0
         });
     }
 
     @Override
     public Boolean greaterThan(TemporalAmount first, TemporalAmount second) {
         return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
                 () -> null,
                 () -> null,
-                () -> { Integer result = compare(first, second); return result != null && result > 0; }
+                () -> null,
+                () -> compare(first, second) > 0
         });
     }
 
@@ -80,7 +80,7 @@ public class TemporalAmountComparator implements RelationalComparator<TemporalAm
                 () -> TRUE,
                 () -> null,
                 () -> null,
-                () -> { Integer result = compare(first, second); return result != null && result <= 0; }
+                () -> compare(first, second) <= 0
         });
     }
 
@@ -90,7 +90,7 @@ public class TemporalAmountComparator implements RelationalComparator<TemporalAm
                 () -> TRUE,
                 () -> null,
                 () -> null,
-                () -> { Integer result = compare(first, second); return result != null && result >= 0; }
+                () -> compare(first, second) >= 0
         });
     }
 }

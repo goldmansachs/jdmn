@@ -42,7 +42,7 @@ public class OffsetTimeComparator implements RelationalComparator<OffsetTime> {
     @Override
     public  Boolean lessThan(OffsetTime first, OffsetTime second) {
         return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
+                () -> null,
                 () -> null,
                 () -> null,
                 () -> first.compareTo(second) < 0
@@ -52,7 +52,7 @@ public class OffsetTimeComparator implements RelationalComparator<OffsetTime> {
     @Override
     public  Boolean greaterThan(OffsetTime first, OffsetTime second) {
         return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
+                () -> null,
                 () -> null,
                 () -> null,
                 () -> first.compareTo(second) > 0
