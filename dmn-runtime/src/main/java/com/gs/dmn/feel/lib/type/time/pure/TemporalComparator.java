@@ -13,20 +13,14 @@
 package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.RelationalComparator;
+import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 
 import java.time.*;
 import java.time.temporal.Temporal;
-import java.util.function.Supplier;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
-
-public class TemporalComparator implements RelationalComparator<Temporal> {
-    public TemporalComparator() {
-    }
-
+public class TemporalComparator extends DateTimeComparator<Temporal> implements RelationalComparator<Temporal> {
     @Override
-    public Integer compare(Temporal first, Temporal second) {
+    protected Integer compareTo(Temporal first, Temporal second) {
         // Time
         if (first instanceof LocalTime && second instanceof LocalTime) {
             return ((LocalTime) first).compareTo((LocalTime) second);
@@ -42,55 +36,5 @@ public class TemporalComparator implements RelationalComparator<Temporal> {
             return ((ZonedDateTime) first).compareTo((ZonedDateTime) second);
         }
         return  null;
-    }
-
-    @Override
-    public Boolean equalTo(Temporal first, Temporal second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> FALSE,
-                () -> FALSE,
-                () -> compare(first, second) == 0
-        });
-    }
-
-    @Override
-    public Boolean lessThan(Temporal first, Temporal second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> null,
-                () -> null,
-                () -> null,
-                () -> compare(first, second) < 0
-        });
-    }
-
-    @Override
-    public Boolean greaterThan(Temporal first, Temporal second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> null,
-                () -> null,
-                () -> null,
-                () -> compare(first, second) > 0
-        });
-    }
-
-    @Override
-    public Boolean lessEqualThan(Temporal first, Temporal second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> null,
-                () -> null,
-                () -> compare(first, second) <= 0
-        });
-    }
-
-    @Override
-    public Boolean greaterEqualThan(Temporal first, Temporal second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> null,
-                () -> null,
-                () -> compare(first, second) >= 0
-        });
     }
 }

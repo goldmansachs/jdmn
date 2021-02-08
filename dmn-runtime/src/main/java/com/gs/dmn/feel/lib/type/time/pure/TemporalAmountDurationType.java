@@ -12,8 +12,6 @@
  */
 package com.gs.dmn.feel.lib.type.time.pure;
 
-import com.gs.dmn.feel.lib.type.bool.BooleanType;
-import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.time.DurationType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
@@ -24,10 +22,10 @@ import java.time.Period;
 import java.time.temporal.TemporalAmount;
 
 public class TemporalAmountDurationType extends BasePureCalendarType implements DurationType<TemporalAmount, BigDecimal> {
-    private final BooleanType booleanType;
+    private final TemporalAmountComparator comparator;
 
     public TemporalAmountDurationType() {
-        this.booleanType = new DefaultBooleanType();
+        this.comparator = new TemporalAmountComparator();
     }
 
     //
@@ -100,72 +98,32 @@ public class TemporalAmountDurationType extends BasePureCalendarType implements 
 
     @Override
     public Boolean durationEqual(TemporalAmount first, TemporalAmount second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return false;
-        } else if (second == null) {
-            return false;
-        } else {
-            return first.equals(second);
-        }
+        return this.comparator.equalTo(first, second);
     }
 
     @Override
     public Boolean durationNotEqual(TemporalAmount first, TemporalAmount second) {
-        return booleanType.booleanNot(durationEqual(first, second));
+        return this.comparator.notEqualTo(first, second);
     }
 
     @Override
     public Boolean durationLessThan(TemporalAmount first, TemporalAmount second) {
-        if (first == null && second == null) {
-            return false;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            return compare(first, second) < 0;
-        }
+        return this.comparator.lessThan(first, second);
     }
 
     @Override
     public Boolean durationGreaterThan(TemporalAmount first, TemporalAmount second) {
-        if (first == null && second == null) {
-            return false;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            return compare(first, second) > 0;
-        }
+        return this.comparator.greaterThan(first, second);
     }
 
     @Override
     public Boolean durationLessEqualThan(TemporalAmount first, TemporalAmount second) {
-        if (first == null && second == null) {
-            return false;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            return compare(first, second) <= 0;
-        }
+        return this.comparator.lessEqualThan(first, second);
     }
 
     @Override
     public Boolean durationGreaterEqualThan(TemporalAmount first, TemporalAmount second) {
-        if (first == null && second == null) {
-            return false;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            return compare(first, second) >= 0;
-        }
+        return this.comparator.greaterEqualThan(first, second);
     }
 
     @Override

@@ -14,66 +14,13 @@ package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
+import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 
 import java.time.ZonedDateTime;
-import java.util.function.Supplier;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
-
-public class ZonedDateTimeComparator implements RelationalComparator<ZonedDateTime> {
+public class ZonedDateTimeComparator extends DateTimeComparator<ZonedDateTime> implements RelationalComparator<ZonedDateTime> {
     @Override
-    public Integer compare(ZonedDateTime first, ZonedDateTime second) {
+    protected Integer compareTo(ZonedDateTime first, ZonedDateTime second) {
         return first.withZoneSameInstant(BaseType.UTC).compareTo(second.withZoneSameInstant(BaseType.UTC));
-    }
-
-    @Override
-    public Boolean equalTo(ZonedDateTime first, ZonedDateTime second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> FALSE,
-                () -> FALSE,
-                () -> compare(first, second) == 0
-        });
-    }
-
-    @Override
-    public Boolean lessThan(ZonedDateTime first, ZonedDateTime second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> null,
-                () -> null,
-                () -> null,
-                () -> compare(first, second) < 0
-        });
-    }
-
-    @Override
-    public Boolean greaterThan(ZonedDateTime first, ZonedDateTime second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> null,
-                () -> null,
-                () -> null,
-                () -> compare(first, second) > 0
-        });
-    }
-
-    @Override
-    public Boolean lessEqualThan(ZonedDateTime first, ZonedDateTime second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> null,
-                () -> null,
-                () -> compare(first, second) <= 0
-        });
-    }
-
-    @Override
-    public Boolean greaterEqualThan(ZonedDateTime first, ZonedDateTime second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> null,
-                () -> null,
-                () -> compare(first, second) >= 0
-        });
     }
 }
