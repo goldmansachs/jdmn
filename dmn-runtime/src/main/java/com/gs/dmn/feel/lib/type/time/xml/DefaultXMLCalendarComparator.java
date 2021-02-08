@@ -40,7 +40,7 @@ public class DefaultXMLCalendarComparator extends XMLCalendarType implements Rel
     @Override
     public Boolean lessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
+                () -> null,
                 () -> null,
                 () -> null,
                 () -> first.compare(second) == LESSER
@@ -50,7 +50,7 @@ public class DefaultXMLCalendarComparator extends XMLCalendarType implements Rel
     @Override
     public Boolean greaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
+                () -> null,
                 () -> null,
                 () -> null,
                 () -> first.compare(second) == GREATER

@@ -39,7 +39,7 @@ public class LocalDateComparator implements RelationalComparator<LocalDate> {
     @Override
     public  Boolean lessThan(LocalDate first, LocalDate second) {
         return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
+                () -> null,
                 () -> null,
                 () -> null,
                 () -> first.compareTo(second) < 0
@@ -49,7 +49,7 @@ public class LocalDateComparator implements RelationalComparator<LocalDate> {
     @Override
     public  Boolean greaterThan(LocalDate first, LocalDate second) {
         return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
+                () -> null,
                 () -> null,
                 () -> null,
                 () -> first.compareTo(second) > 0

@@ -33,63 +33,47 @@ public class ZonedDateTimeComparator implements RelationalComparator<ZonedDateTi
                 () -> TRUE,
                 () -> FALSE,
                 () -> FALSE,
-                () -> first.compareTo(second) == 0
+                () -> compare(first, second) == 0
         });
     }
 
     @Override
     public Boolean lessThan(ZonedDateTime first, ZonedDateTime second) {
-        if (first == null && second == null) {
-            return false;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result < 0;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> null,
+                () -> null,
+                () -> null,
+                () -> compare(first, second) < 0
+        });
     }
 
     @Override
     public Boolean greaterThan(ZonedDateTime first, ZonedDateTime second) {
-        if (first == null && second == null) {
-            return false;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result > 0;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> null,
+                () -> null,
+                () -> null,
+                () -> compare(first, second) > 0
+        });
     }
 
     @Override
     public Boolean lessEqualThan(ZonedDateTime first, ZonedDateTime second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result <= 0;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> null,
+                () -> null,
+                () -> compare(first, second) <= 0
+        });
     }
 
     @Override
     public Boolean greaterEqualThan(ZonedDateTime first, ZonedDateTime second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result >= 0;
-        }
+        return applyOperator(first, second, new Supplier[] {
+                () -> TRUE,
+                () -> null,
+                () -> null,
+                () -> compare(first, second) >= 0
+        });
     }
 }

@@ -33,26 +33,6 @@ public class DefaultSignavioXMLCalendarComparator extends DefaultXMLCalendarComp
     }
 
     @Override
-    public Boolean lessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> null,
-                () -> null,
-                () -> null,
-                () -> first.compare(second) == LESSER
-        });
-    }
-
-    @Override
-    public Boolean greaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> null,
-                () -> null,
-                () -> null,
-                () -> first.compare(second) == GREATER
-        });
-    }
-
-    @Override
     public Boolean lessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         return applyOperator(first, second, new Supplier[] {
                 () -> null,
