@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
 import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 
@@ -21,6 +20,6 @@ import java.time.ZonedDateTime;
 public class ZonedDateTimeComparator extends DateTimeComparator<ZonedDateTime> implements RelationalComparator<ZonedDateTime> {
     @Override
     protected Integer compareTo(ZonedDateTime first, ZonedDateTime second) {
-        return first.withZoneSameInstant(BaseType.UTC).compareTo(second.withZoneSameInstant(BaseType.UTC));
+        return dateTimeValue(first).compareTo(dateTimeValue(second));
     }
 }

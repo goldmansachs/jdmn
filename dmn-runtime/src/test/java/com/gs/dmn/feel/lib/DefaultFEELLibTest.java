@@ -60,7 +60,7 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
     public void testDateTimeEqual() {
         super.testDateTimeEqual();
 
-        assertFalse(getLib().dateTimeEqual(makeDateAndTime("2018-12-08T12:00:00"), makeDateAndTime("2018-12-08T12:00:00+00:00")));
+        assertTrue(getLib().dateTimeEqual(makeDateAndTime("2018-12-08T12:00:00"), makeDateAndTime("2018-12-08T12:00:00+00:00")));
         assertTrue(getLib().dateTimeEqual(makeDateAndTime("2018-12-08T00:00:00+00:00"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
         assertTrue(getLib().dateTimeEqual(makeDateAndTime("2018-12-08T12:00:00Z"), makeDateAndTime("2018-12-08T12:00:00+00:00")));
         assertTrue(getLib().dateTimeEqual(makeDateAndTime("2018-12-08T00:00:00Z"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));

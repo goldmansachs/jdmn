@@ -20,6 +20,6 @@ import java.time.LocalDate;
 public class LocalDateComparator extends DateTimeComparator<LocalDate> implements RelationalComparator<LocalDate> {
     @Override
     protected Integer compareTo(LocalDate first, LocalDate second) {
-        return first.compareTo(second);
+        return dateValue(first).compareTo(dateValue(second));
     }
 }

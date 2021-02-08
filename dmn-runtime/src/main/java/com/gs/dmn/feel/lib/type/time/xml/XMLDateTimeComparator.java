@@ -36,7 +36,7 @@ public abstract class XMLDateTimeComparator<T> extends XMLCalendarType implement
                 () -> TRUE,
                 () -> FALSE,
                 () -> FALSE,
-                () -> compare(first, second) == DatatypeConstants.EQUAL
+                () -> compareTo(first, second) == DatatypeConstants.EQUAL
         });
     }
 
@@ -46,7 +46,7 @@ public abstract class XMLDateTimeComparator<T> extends XMLCalendarType implement
                 () -> null,
                 () -> null,
                 () -> null,
-                () -> compare(first, second) == DatatypeConstants.LESSER
+                () -> compareTo(first, second) == DatatypeConstants.LESSER
         });
     }
 
@@ -56,7 +56,7 @@ public abstract class XMLDateTimeComparator<T> extends XMLCalendarType implement
                 () -> null,
                 () -> null,
                 () -> null,
-                () -> compare(first, second) == DatatypeConstants.GREATER
+                () -> compareTo(first, second) == DatatypeConstants.GREATER
         });
     }
 
@@ -66,7 +66,7 @@ public abstract class XMLDateTimeComparator<T> extends XMLCalendarType implement
                 () -> TRUE,
                 () -> null,
                 () -> null,
-                () -> { Integer result = compare(first, second); return result == DatatypeConstants.LESSER || result == DatatypeConstants.EQUAL; }
+                () -> { Integer result = compareTo(first, second); return result == DatatypeConstants.LESSER || result == DatatypeConstants.EQUAL; }
         });
     }
 
@@ -76,7 +76,7 @@ public abstract class XMLDateTimeComparator<T> extends XMLCalendarType implement
                 () -> TRUE,
                 () -> null,
                 () -> null,
-                () -> { Integer result = compare(first, second); return result == DatatypeConstants.GREATER || result == DatatypeConstants.EQUAL; }
+                () -> { Integer result = compareTo(first, second); return result == DatatypeConstants.GREATER || result == DatatypeConstants.EQUAL; }
         });
     }
 
