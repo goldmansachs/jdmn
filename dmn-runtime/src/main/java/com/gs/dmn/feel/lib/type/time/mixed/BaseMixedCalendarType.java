@@ -39,8 +39,4 @@ public abstract class BaseMixedCalendarType extends JavaCalendarType {
     private int normalize(int number) {
         return number == DatatypeConstants.FIELD_UNDEFINED ? 0 : number;
     }
-
-    protected long getDurationInMilliSeconds(ZonedDateTime first, ZonedDateTime second) {
-        return first.toInstant().toEpochMilli() - second.toInstant().toEpochMilli();
-    }
 }

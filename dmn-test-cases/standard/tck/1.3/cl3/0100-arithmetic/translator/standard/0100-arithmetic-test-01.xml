@@ -114,6 +114,78 @@
         </resultNode>
     </testCase>
 
+    <testCase id="multiply_lhs_dtDuration_by_rhs_number_001">
+        <description>multiply_lhs_dtDuration_by_rhs_number_001</description>
+        <resultNode name="multiply_lhs_dtDuration_by_rhs_number_001" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">P10D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="multiply_lhs_dtDuration_by_rhs_number_002">
+        <description>multiply_lhs_dtDuration_by_rhs_number_002</description>
+        <resultNode name="multiply_lhs_dtDuration_by_rhs_number_002" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">-P10D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="multiply_lhs_dtDuration_by_rhs_number_003">
+        <description>multiply_lhs_dtDuration_by_rhs_number_003</description>
+        <resultNode name="multiply_lhs_dtDuration_by_rhs_number_003" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">P10D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="multiply_lhs_dtDuration_by_rhs_number_004">
+        <description>multiply_lhs_dtDuration_by_rhs_number_004</description>
+        <resultNode name="multiply_lhs_dtDuration_by_rhs_number_004" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">P1D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="multiply_lhs_dtDuration_by_rhs_number_005">
+        <description>multiply_lhs_dtDuration_by_rhs_number_005</description>
+        <resultNode name="multiply_lhs_dtDuration_by_rhs_number_005" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">P1DT2H</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="multiply_lhs_dtDuration_by_rhs_number_006">
+        <description>multiply_lhs_dtDuration_by_rhs_number_006</description>
+        <resultNode name="multiply_lhs_dtDuration_by_rhs_number_006" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">P0D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="multiply_lhs_dtDuration_by_rhs_number_007">
+        <description>multiply_lhs_dtDuration_by_rhs_number_007</description>
+        <resultNode name="multiply_lhs_dtDuration_by_rhs_number_007" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">P6DT1H30M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="multiply_lhs_dtDuration_by_rhs_number_008">
+        <description>multiply_lhs_dtDuration_by_rhs_number_008</description>
+        <resultNode name="multiply_lhs_dtDuration_by_rhs_number_008" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">P2DT9H30M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
     <testCase id="multiply_lhs_number_by_rhs_ymDuration_001">
         <description>multiply_lhs_number_by_rhs_ymDuration_001</description>
         <resultNode name="multiply_lhs_number_by_rhs_ymDuration_001" type="decision" >
@@ -222,20 +294,74 @@
         </resultNode>
     </testCase>
 
-    <testCase id="multiply_lhs_dtDuration_by_rhs_number_001">
-        <description>multiply_lhs_dtDuration_by_rhs_number_001</description>
-        <resultNode name="multiply_lhs_dtDuration_by_rhs_number_001" type="decision" >
+    <testCase id="multiply_lhs_ymDuration_by_rhs_number_003">
+        <description>multiply_lhs_ymDuration_by_rhs_number_003</description>
+        <resultNode name="multiply_lhs_ymDuration_by_rhs_number_003" type="decision" >
             <expected>
-                <value xsi:type="xsd:duration">P10D</value>
+                <value xsi:type="xsd:duration">P10Y</value>
             </expected>
         </resultNode>
     </testCase>
 
-    <testCase id="multiply_lhs_dtDuration_by_rhs_number_002">
-        <description>multiply_lhs_dtDuration_by_rhs_number_002</description>
-        <resultNode name="multiply_lhs_dtDuration_by_rhs_number_002" type="decision" >
+    <testCase id="multiply_lhs_ymDuration_by_rhs_number_004">
+        <description>multiply_lhs_ymDuration_by_rhs_number_004</description>
+        <resultNode name="multiply_lhs_ymDuration_by_rhs_number_004" type="decision" >
             <expected>
-                <value xsi:type="xsd:duration">-P10D</value>
+                <value xsi:type="xsd:duration">P1Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="multiply_lhs_ymDuration_by_rhs_number_005">
+        <description>multiply_lhs_ymDuration_by_rhs_number_005</description>
+        <resultNode name="multiply_lhs_ymDuration_by_rhs_number_005" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">P2Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="multiply_lhs_ymDuration_by_rhs_number_006">
+        <description>multiply_lhs_ymDuration_by_rhs_number_006</description>
+        <resultNode name="multiply_lhs_ymDuration_by_rhs_number_006" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">P2Y2M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="multiply_lhs_ymDuration_by_rhs_number_007">
+        <description>multiply_lhs_ymDuration_by_rhs_number_007</description>
+        <resultNode name="multiply_lhs_ymDuration_by_rhs_number_007" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">P0Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="multiply_lhs_ymDuration_by_rhs_number_008">
+        <description>multiply_lhs_ymDuration_by_rhs_number_008</description>
+        <resultNode name="multiply_lhs_ymDuration_by_rhs_number_008" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">P3M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="multiply_lhs_ymDuration_by_rhs_number_009">
+        <description>multiply_lhs_ymDuration_by_rhs_number_009</description>
+        <resultNode name="multiply_lhs_ymDuration_by_rhs_number_009" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">-P3M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="multiply_lhs_ymDuration_by_rhs_number_010">
+        <description>multiply_lhs_ymDuration_by_rhs_number_010</description>
+        <resultNode name="multiply_lhs_ymDuration_by_rhs_number_010" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">-P4Y9M</value>
             </expected>
         </resultNode>
     </testCase>
@@ -483,6 +609,231 @@
         </resultNode>
     </testCase>
 
+    <testCase id="add_lhs_dateAndTime_to_rhs_ymDuration_010">
+        <description>add_lhs_dateAndTime_to_rhs_ymDuration_010</description>
+        <resultNode name="add_lhs_dateAndTime_to_rhs_ymDuration_010" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-02-01T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dateAndTime_to_rhs_ymDuration_011">
+        <description>add_lhs_dateAndTime_to_rhs_ymDuration_011</description>
+        <resultNode name="add_lhs_dateAndTime_to_rhs_ymDuration_011" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2020-01-01T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dateAndTime_to_rhs_ymDuration_012">
+        <description>add_lhs_dateAndTime_to_rhs_ymDuration_012</description>
+        <resultNode name="add_lhs_dateAndTime_to_rhs_ymDuration_012" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2022-12-01T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dateAndTime_to_rhs_ymDuration_013">
+        <description>add_lhs_dateAndTime_to_rhs_ymDuration_013</description>
+        <resultNode name="add_lhs_dateAndTime_to_rhs_ymDuration_013" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2022-01-01T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dateAndTime_to_rhs_ymDuration_014">
+        <description>add_lhs_dateAndTime_to_rhs_ymDuration_014</description>
+        <resultNode name="add_lhs_dateAndTime_to_rhs_ymDuration_014" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-02-01T10:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dateAndTime_to_rhs_ymDuration_015">
+        <description>add_lhs_dateAndTime_to_rhs_ymDuration_015</description>
+        <resultNode name="add_lhs_dateAndTime_to_rhs_ymDuration_015" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2020-01-01T10:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dateAndTime_to_rhs_ymDuration_016">
+        <description>add_lhs_dateAndTime_to_rhs_ymDuration_016</description>
+        <resultNode name="add_lhs_dateAndTime_to_rhs_ymDuration_016" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2022-12-01T10:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dateAndTime_to_rhs_ymDuration_017">
+        <description>add_lhs_dateAndTime_to_rhs_ymDuration_017</description>
+        <resultNode name="add_lhs_dateAndTime_to_rhs_ymDuration_017" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2022-01-01T10:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_001">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_001</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_001" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2022-01-01T10:10:10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_002">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_002</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_002" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-02-01T10:10:10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_003">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_003</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_003" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2020-01-01T10:10:10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_004">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_004</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_004" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2020-12-01T10:10:10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_005">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_005</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_005" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-01-01T10:10:10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_006">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_006</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_006" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-01-01T10:10:10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_007">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_007</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_007" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-02-01T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_008">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_008</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_008" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2020-12-01T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_009">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_009</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_009" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">2021-02-01T10:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_010">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_010</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_010" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-02-01T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_011">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_011</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_011" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2020-01-01T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_012">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_012</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_012" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2022-12-01T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_013">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_013</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_013" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2022-01-01T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_014">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_014</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_014" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-02-01T10:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_015">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_015</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_015" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2020-01-01T10:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_016">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_016</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_016" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2022-12-01T10:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_017">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_017</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_017" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2022-01-01T10:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
     <testCase id="add_lhs_dateAndTime_to_rhs_dtDuration_001">
         <description>add_lhs_dateAndTime_to_rhs_dtDuration_001</description>
         <resultNode name="add_lhs_dateAndTime_to_rhs_dtDuration_001" type="decision" >
@@ -559,7 +910,7 @@
         <description>add_lhs_dateAndTime_to_rhs_dtDuration_009</description>
         <resultNode name="add_lhs_dateAndTime_to_rhs_dtDuration_009" type="decision" >
             <expected>
-                <value xsi:type="xsd:dateTime">2021-01-01T11:10:10+11:00</value>
+                <value xsi:type="xsd:dateTime">2021-01-02T00:00:01</value>
             </expected>
         </resultNode>
     </testCase>
@@ -568,7 +919,7 @@
         <description>add_lhs_dateAndTime_to_rhs_dtDuration_010</description>
         <resultNode name="add_lhs_dateAndTime_to_rhs_dtDuration_010" type="decision" >
             <expected>
-                <value xsi:type="xsd:dateTime">2021-01-01T09:10:10+11:00</value>
+                <value xsi:type="xsd:dateTime">2021-01-01T23:59:59</value>
             </expected>
         </resultNode>
     </testCase>
@@ -577,7 +928,286 @@
         <description>add_lhs_dateAndTime_to_rhs_dtDuration_011</description>
         <resultNode name="add_lhs_dateAndTime_to_rhs_dtDuration_011" type="decision" >
             <expected>
+                <value xsi:type="xsd:dateTime">2021-01-01T11:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dateAndTime_to_rhs_dtDuration_012">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_012</description>
+        <resultNode name="add_lhs_dateAndTime_to_rhs_dtDuration_012" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-01-01T09:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dateAndTime_to_rhs_dtDuration_013">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_013</description>
+        <resultNode name="add_lhs_dateAndTime_to_rhs_dtDuration_013" type="decision" >
+            <expected>
                 <value xsi:type="xsd:string">2021-01-13T11:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dateAndTime_to_rhs_dtDuration_014">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_014</description>
+        <resultNode name="add_lhs_dateAndTime_to_rhs_dtDuration_014" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-01-01T11:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dateAndTime_to_rhs_dtDuration_015">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_015</description>
+        <resultNode name="add_lhs_dateAndTime_to_rhs_dtDuration_015" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-01-02T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dateAndTime_to_rhs_dtDuration_016">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_016</description>
+        <resultNode name="add_lhs_dateAndTime_to_rhs_dtDuration_016" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-01-01T09:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dateAndTime_to_rhs_dtDuration_017">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_017</description>
+        <resultNode name="add_lhs_dateAndTime_to_rhs_dtDuration_017" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2022-12-31T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dateAndTime_to_rhs_dtDuration_018">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_018</description>
+        <resultNode name="add_lhs_dateAndTime_to_rhs_dtDuration_018" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-01-01T11:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dateAndTime_to_rhs_dtDuration_019">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_019</description>
+        <resultNode name="add_lhs_dateAndTime_to_rhs_dtDuration_019" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-01-02T10:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dateAndTime_to_rhs_dtDuration_020">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_020</description>
+        <resultNode name="add_lhs_dateAndTime_to_rhs_dtDuration_020" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-01-01T09:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dateAndTime_to_rhs_dtDuration_021">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_021</description>
+        <resultNode name="add_lhs_dateAndTime_to_rhs_dtDuration_021" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2022-12-31T10:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_001">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_001</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_001" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-01-13T11:10:10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_002">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_002</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_002" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-01-13T11:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_003">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_003</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_003" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-01-02T10:10:10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_004">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_004</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_004" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-01-01T11:10:10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_005">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_005</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_005" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2020-12-31T10:10:10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_006">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_006</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_006" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-01-01T09:10:10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_007">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_007</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_007" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-01-01T10:10:10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_008">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_008</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_008" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-01-01T10:10:10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_009">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_009</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_009" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-01-02T00:00:01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_010">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_010</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_010" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-01-01T23:59:59</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_011">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_011</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_011" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-01-01T11:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_012">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_012</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_012" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-01-01T09:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_013">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_013</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_013" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">2021-01-13T11:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_014">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_014</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_014" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-01-01T11:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_015">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_015</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_015" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-01-02T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_016">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_016</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_016" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-01-01T09:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_017">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_017</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_017" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2022-12-31T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_018">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_018</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_018" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-01-01T11:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_019">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_019</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_019" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-01-02T10:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_020">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_020</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_020" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-01-01T09:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_021">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_021</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_021" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2022-12-31T10:10:10@Australia/Melbourne</value>
             </expected>
         </resultNode>
     </testCase>
@@ -594,6 +1224,24 @@
     <testCase id="add_lhs_date_to_rhs_ymDuration_002">
         <description>add_lhs_date_to_rhs_ymDuration_002</description>
         <resultNode name="add_lhs_date_to_rhs_ymDuration_002" type="decision" >
+            <expected>
+                <value xsi:type="xsd:date">2021-02-01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_date_001">
+        <description>add_lhs_ymDuration_to_rhs_date_001</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_date_001" type="decision" >
+            <expected>
+                <value xsi:type="xsd:date">2022-01-01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_ymDuration_to_rhs_date_002">
+        <description>add_lhs_ymDuration_to_rhs_date_002</description>
+        <resultNode name="add_lhs_ymDuration_to_rhs_date_002" type="decision" >
             <expected>
                 <value xsi:type="xsd:date">2021-02-01</value>
             </expected>
@@ -621,6 +1269,33 @@
     <testCase id="add_lhs_date_to_rhs_dtDuration_003">
         <description>Date + 2 days (in hours) gives date + 2 days</description>
         <resultNode name="add_lhs_date_to_rhs_dtDuration_003" type="decision" >
+            <expected>
+                <value xsi:type="xsd:date">2021-01-03</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_date_001">
+        <description>add_lhs_dtDuration_to_rhs_date_001</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_date_001" type="decision" >
+            <expected>
+                <value xsi:type="xsd:date">2021-01-02</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_date_002">
+        <description>Date + 1.5 days (in hours) gives date + 1 day</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_date_002" type="decision" >
+            <expected>
+                <value xsi:type="xsd:date">2021-01-02</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_date_003">
+        <description>Date + 2 days (in hours) gives date + 2 days</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_date_003" type="decision" >
             <expected>
                 <value xsi:type="xsd:date">2021-01-03</value>
             </expected>
@@ -659,6 +1334,96 @@
         <resultNode name="add_lhs_time_to_rhs_dtDuration_004" type="decision" >
             <expected>
                 <value xsi:type="xsd:string">10:15:00@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_time_to_rhs_dtDuration_005">
+        <description>add_lhs_time_to_rhs_dtDuration_005</description>
+        <resultNode name="add_lhs_time_to_rhs_dtDuration_005" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">10:15:00@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_time_to_rhs_dtDuration_006">
+        <description>add_lhs_time_to_rhs_dtDuration_006</description>
+        <resultNode name="add_lhs_time_to_rhs_dtDuration_006" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">11:15:00@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_time_to_rhs_dtDuration_007">
+        <description>add_lhs_time_to_rhs_dtDuration_007</description>
+        <resultNode name="add_lhs_time_to_rhs_dtDuration_007" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">09:15:00@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_time_001">
+        <description>add_lhs_dtDuration_to_rhs_time_001</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_time_001" type="decision" >
+            <expected>
+                <value xsi:type="xsd:time">11:15:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_time_002">
+        <description>Time + days duration gives time</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_time_002" type="decision" >
+            <expected>
+                <value xsi:type="xsd:time">10:15:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_time_003">
+        <description>add_lhs_dtDuration_to_rhs_time_003</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_time_003" type="decision" >
+            <expected>
+                <value xsi:type="xsd:time">10:15:00+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_time_004">
+        <description>add_lhs_dtDuration_to_rhs_time_004</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_time_004" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">10:15:00@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_time_005">
+        <description>add_lhs_dtDuration_to_rhs_time_005</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_time_005" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">10:15:00@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_time_006">
+        <description>add_lhs_dtDuration_to_rhs_time_006</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_time_006" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">11:15:00@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="add_lhs_dtDuration_to_rhs_time_007">
+        <description>add_lhs_dtDuration_to_rhs_time_007</description>
+        <resultNode name="add_lhs_dtDuration_to_rhs_time_007" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">09:15:00@Australia/Melbourne</value>
             </expected>
         </resultNode>
     </testCase>
@@ -717,87 +1482,6 @@
         </resultNode>
     </testCase>
 
-    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_001">
-        <description>add_lhs_ymDuration_to_rhs_dateAndTime_001</description>
-        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_001" type="decision" >
-            <expected>
-                <value xsi:type="xsd:dateTime">2022-01-01T10:10:10</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_002">
-        <description>add_lhs_ymDuration_to_rhs_dateAndTime_002</description>
-        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_002" type="decision" >
-            <expected>
-                <value xsi:type="xsd:dateTime">2021-02-01T10:10:10</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_003">
-        <description>add_lhs_ymDuration_to_rhs_dateAndTime_003</description>
-        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_003" type="decision" >
-            <expected>
-                <value xsi:type="xsd:dateTime">2020-01-01T10:10:10</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_004">
-        <description>add_lhs_ymDuration_to_rhs_dateAndTime_004</description>
-        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_004" type="decision" >
-            <expected>
-                <value xsi:type="xsd:dateTime">2020-12-01T10:10:10</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_005">
-        <description>add_lhs_ymDuration_to_rhs_dateAndTime_005</description>
-        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_005" type="decision" >
-            <expected>
-                <value xsi:type="xsd:dateTime">2021-01-01T10:10:10</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_006">
-        <description>add_lhs_ymDuration_to_rhs_dateAndTime_006</description>
-        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_006" type="decision" >
-            <expected>
-                <value xsi:type="xsd:dateTime">2021-01-01T10:10:10</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_007">
-        <description>add_lhs_ymDuration_to_rhs_dateAndTime_007</description>
-        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_007" type="decision" >
-            <expected>
-                <value xsi:type="xsd:dateTime">2021-02-01T10:10:10+11:00</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_ymDuration_to_rhs_dateAndTime_008">
-        <description>add_lhs_ymDuration_to_rhs_dateAndTime_008</description>
-        <resultNode name="add_lhs_ymDuration_to_rhs_dateAndTime_008" type="decision" >
-            <expected>
-                <value xsi:type="xsd:string">2021-02-01T10:10:10@Australia/Melbourne</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_ymDuration_to_rhs_date_001">
-        <description>add_lhs_ymDuration_to_rhs_date_001</description>
-        <resultNode name="add_lhs_ymDuration_to_rhs_date_001" type="decision" >
-            <expected>
-                <value xsi:type="xsd:date">2022-01-01</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
     <testCase id="add_lhs_dtDuration_to_rhs_dtDuration_001">
         <description>add_lhs_dtDuration_to_rhs_dtDuration_001</description>
         <resultNode name="add_lhs_dtDuration_to_rhs_dtDuration_001" type="decision" >
@@ -812,105 +1496,6 @@
         <resultNode name="add_lhs_dtDuration_to_rhs_dtDuration_002" type="decision" >
             <expected>
                 <value xsi:type="xsd:duration">P2D</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_001">
-        <description>add_lhs_dtDuration_to_rhs_dateAndTime_001</description>
-        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_001" type="decision" >
-            <expected>
-                <value xsi:type="xsd:dateTime">2021-01-13T11:10:10</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_002">
-        <description>add_lhs_dtDuration_to_rhs_dateAndTime_002</description>
-        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_002" type="decision" >
-            <expected>
-                <value xsi:type="xsd:dateTime">2021-01-13T11:10:10+11:00</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_dtDuration_to_rhs_dateAndTime_003">
-        <description>add_lhs_dtDuration_to_rhs_dateAndTime_003</description>
-        <resultNode name="add_lhs_dtDuration_to_rhs_dateAndTime_003" type="decision" >
-            <expected>
-                <value xsi:type="xsd:string">2021-01-13T11:10:10@Australia/Melbourne</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_dtDuration_to_rhs_time_001">
-        <description>add_lhs_dtDuration_to_rhs_time_001</description>
-        <resultNode name="add_lhs_dtDuration_to_rhs_time_001" type="decision" >
-            <expected>
-                <value xsi:type="xsd:time">11:15:00</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_dtDuration_to_rhs_time_002">
-        <description>add_lhs_dtDuration_to_rhs_time_002</description>
-        <resultNode name="add_lhs_dtDuration_to_rhs_time_002" type="decision" >
-            <expected>
-                <value xsi:type="xsd:time">10:15:00</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_dtDuration_to_rhs_time_003">
-        <description>add_lhs_dtDuration_to_rhs_time_003</description>
-        <resultNode name="add_lhs_dtDuration_to_rhs_time_003" type="decision" >
-            <expected>
-                <value xsi:type="xsd:time">10:15:00+11:00</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_dtDuration_to_rhs_time_004">
-        <description>add_lhs_dtDuration_to_rhs_time_004</description>
-        <resultNode name="add_lhs_dtDuration_to_rhs_time_004" type="decision" >
-            <expected>
-                <value xsi:type="xsd:string">10:15:00@Australia/Melbourne</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_dtDuration_to_rhs_time_005">
-        <description>add_lhs_dtDuration_to_rhs_time_005</description>
-        <resultNode name="add_lhs_dtDuration_to_rhs_time_005" type="decision" >
-            <expected>
-                <value xsi:type="xsd:string">10:15:00@Australia/Melbourne</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_dtDuration_to_rhs_time_006">
-        <description>add_lhs_dtDuration_to_rhs_time_006</description>
-        <resultNode name="add_lhs_dtDuration_to_rhs_time_006" type="decision" >
-            <expected>
-                <value xsi:type="xsd:string">11:15:00@Australia/Melbourne</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_dtDuration_to_rhs_time_007">
-        <description>add_lhs_dtDuration_to_rhs_time_007</description>
-        <resultNode name="add_lhs_dtDuration_to_rhs_time_007" type="decision" >
-            <expected>
-                <value xsi:type="xsd:string">09:15:00@Australia/Melbourne</value>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="add_lhs_dtDuration_to_rhs_date_001">
-        <description>add_lhs_dtDuration_to_rhs_date_001</description>
-        <resultNode name="add_lhs_dtDuration_to_rhs_date_001" type="decision" >
-            <expected>
-                <value xsi:type="xsd:date">2021-01-02</value>
             </expected>
         </resultNode>
     </testCase>
@@ -1086,6 +1671,24 @@
         </resultNode>
     </testCase>
 
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_dateAndTime_011">
+        <description>year differences are expressed as days and time duration</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dateAndTime_011" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">P9498D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_dateAndTime_012">
+        <description>year differences are expressed as days and time duration</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dateAndTime_012" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">P9498DT5H</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
     <testCase id="subtract_lhs_dateAndTime_minus_rhs_ymDuration_001">
         <description>subtract_lhs_dateAndTime_minus_rhs_ymDuration_001</description>
         <resultNode name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_001" type="decision" >
@@ -1158,6 +1761,78 @@
         </resultNode>
     </testCase>
 
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_ymDuration_009">
+        <description>subtract_lhs_dateAndTime_minus_rhs_ymDuration_009</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_009" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2022-12-01T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_ymDuration_010">
+        <description>subtract_lhs_dateAndTime_minus_rhs_ymDuration_010</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_010" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2022-01-01T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_ymDuration_011">
+        <description>subtract_lhs_dateAndTime_minus_rhs_ymDuration_011</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_011" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-02-01T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_ymDuration_012">
+        <description>subtract_lhs_dateAndTime_minus_rhs_ymDuration_012</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_012" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2020-01-01T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_ymDuration_013">
+        <description>subtract_lhs_dateAndTime_minus_rhs_ymDuration_013</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_013" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2022-12-01T10:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_ymDuration_014">
+        <description>subtract_lhs_dateAndTime_minus_rhs_ymDuration_014</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_014" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2022-01-01T10:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_ymDuration_015">
+        <description>subtract_lhs_dateAndTime_minus_rhs_ymDuration_015</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_015" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-02-01T10:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_ymDuration_016">
+        <description>subtract_lhs_dateAndTime_minus_rhs_ymDuration_016</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_016" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2020-01-01T10:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
     <testCase id="subtract_lhs_dateAndTime_minus_rhs_date_001">
         <description>Both must have zone info and date implies UTC</description>
         <resultNode name="subtract_lhs_dateAndTime_minus_rhs_date_001" type="decision" errorResult="true">
@@ -1181,6 +1856,24 @@
         <resultNode name="subtract_lhs_dateAndTime_minus_rhs_date_003" type="decision" >
             <expected>
                 <value xsi:type="xsd:duration">P1DT9H10M10S</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_date_004">
+        <description>year differences are expressed as days and time duration</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_date_004" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">P9498DT9H10M10S</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_date_005">
+        <description>year differences are expressed as days and time duration</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_date_005" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">P9498DT9H10M10S</value>
             </expected>
         </resultNode>
     </testCase>
@@ -1225,7 +1918,115 @@
         <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_005</description>
         <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_005" type="decision" >
             <expected>
+                <value xsi:type="xsd:dateTime">2021-01-01T23:59:59</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_dtDuration_006">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_006</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_006" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-01-02T00:00:01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_dtDuration_007">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_007</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_007" type="decision" >
+            <expected>
                 <value xsi:type="xsd:string">2020-12-31T10:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_dtDuration_008">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_008</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_008" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-01-01T23:59:59</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_dtDuration_009">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_009</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_009" type="decision" >
+            <expected>
+                <value xsi:type="xsd:dateTime">2021-01-02T00:00:01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_dtDuration_010">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_010</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_010" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-01-01T09:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_dtDuration_011">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_011</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_011" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2022-12-31T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_dtDuration_012">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_012</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_012" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-01-01T11:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_dtDuration_013">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_013</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_013" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-01-02T10:10:10+11:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_dtDuration_014">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_014</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_014" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-01-01T09:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_dtDuration_015">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_015</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_015" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2022-12-31T10:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_dtDuration_016">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_016</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_016" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-01-01T11:10:10@Australia/Melbourne</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_dateAndTime_minus_rhs_dtDuration_017">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_017</description>
+        <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_017" type="decision" >
+            <expected>
+                <value xsi:type="xsd:string">-2021-01-02T10:10:10@Australia/Melbourne</value>
             </expected>
         </resultNode>
     </testCase>
@@ -1266,11 +2067,38 @@
         </resultNode>
     </testCase>
 
+    <testCase id="subtract_lhs_date_minus_rhs_dateAndTime_005">
+        <description>subtract_lhs_date_minus_rhs_dateAndTime_005</description>
+        <resultNode name="subtract_lhs_date_minus_rhs_dateAndTime_005" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">P9498DT49M50S</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
     <testCase id="subtract_lhs_date_minus_rhs_date_001">
         <description>subtract_lhs_date_minus_rhs_date_001</description>
         <resultNode name="subtract_lhs_date_minus_rhs_date_001" type="decision" >
             <expected>
                 <value xsi:type="xsd:duration">P1D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_date_minus_rhs_date_002">
+        <description>subtract_lhs_date_minus_rhs_date_002</description>
+        <resultNode name="subtract_lhs_date_minus_rhs_date_002" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">P9498D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="subtract_lhs_date_minus_rhs_date_003">
+        <description>subtract_lhs_date_minus_rhs_date_003</description>
+        <resultNode name="subtract_lhs_date_minus_rhs_date_003" type="decision" >
+            <expected>
+                <value xsi:type="xsd:duration">P9498D</value>
             </expected>
         </resultNode>
     </testCase>
