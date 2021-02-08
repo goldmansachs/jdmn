@@ -117,6 +117,78 @@
         </literalExpression>
     </decision>
 
+    <decision name="multiply_lhs_dtDuration_by_rhs_number_001" id="_multiply_lhs_dtDuration_by_rhs_number_001">
+        <description>multiply_lhs_dtDuration_by_rhs_number_001</description>
+        <allowedAnswers>P10D (duration)</allowedAnswers>
+        <variable name="multiply_lhs_dtDuration_by_rhs_number_001"/>
+        <literalExpression>
+            <text>@"P1D" * 10</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="multiply_lhs_dtDuration_by_rhs_number_002" id="_multiply_lhs_dtDuration_by_rhs_number_002">
+        <description>multiply_lhs_dtDuration_by_rhs_number_002</description>
+        <allowedAnswers>-P10D (duration)</allowedAnswers>
+        <variable name="multiply_lhs_dtDuration_by_rhs_number_002"/>
+        <literalExpression>
+            <text>@"-P1D" * 10</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="multiply_lhs_dtDuration_by_rhs_number_003" id="_multiply_lhs_dtDuration_by_rhs_number_003">
+        <description>multiply_lhs_dtDuration_by_rhs_number_003</description>
+        <allowedAnswers>P10D (duration)</allowedAnswers>
+        <variable name="multiply_lhs_dtDuration_by_rhs_number_003"/>
+        <literalExpression>
+            <text>@"-P1D" * -10</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="multiply_lhs_dtDuration_by_rhs_number_004" id="_multiply_lhs_dtDuration_by_rhs_number_004">
+        <description>multiply_lhs_dtDuration_by_rhs_number_004</description>
+        <allowedAnswers>P1D (duration)</allowedAnswers>
+        <variable name="multiply_lhs_dtDuration_by_rhs_number_004"/>
+        <literalExpression>
+            <text>@"PT1H" * 24</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="multiply_lhs_dtDuration_by_rhs_number_005" id="_multiply_lhs_dtDuration_by_rhs_number_005">
+        <description>multiply_lhs_dtDuration_by_rhs_number_005</description>
+        <allowedAnswers>P1DT2H (duration)</allowedAnswers>
+        <variable name="multiply_lhs_dtDuration_by_rhs_number_005"/>
+        <literalExpression>
+            <text>@"PT1H" * 26</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="multiply_lhs_dtDuration_by_rhs_number_006" id="_multiply_lhs_dtDuration_by_rhs_number_006">
+        <description>multiply_lhs_dtDuration_by_rhs_number_006</description>
+        <allowedAnswers>P0D (duration)</allowedAnswers>
+        <variable name="multiply_lhs_dtDuration_by_rhs_number_006"/>
+        <literalExpression>
+            <text>@"P1D" * 0</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="multiply_lhs_dtDuration_by_rhs_number_007" id="_multiply_lhs_dtDuration_by_rhs_number_007">
+        <description>multiply_lhs_dtDuration_by_rhs_number_007</description>
+        <allowedAnswers>P6DT1H30M (duration)</allowedAnswers>
+        <variable name="multiply_lhs_dtDuration_by_rhs_number_007"/>
+        <literalExpression>
+            <text>@"P4DT1H" * 1.5</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="multiply_lhs_dtDuration_by_rhs_number_008" id="_multiply_lhs_dtDuration_by_rhs_number_008">
+        <description>multiply_lhs_dtDuration_by_rhs_number_008</description>
+        <allowedAnswers>P2DT9H30M (duration)</allowedAnswers>
+        <variable name="multiply_lhs_dtDuration_by_rhs_number_008"/>
+        <literalExpression>
+            <text>@"PT23H" * 2.5</text>
+        </literalExpression>
+    </decision>
+
     <decision name="multiply_lhs_number_by_rhs_ymDuration_001" id="_multiply_lhs_number_by_rhs_ymDuration_001">
         <description>multiply_lhs_number_by_rhs_ymDuration_001</description>
         <allowedAnswers>P10Y (duration)</allowedAnswers>
@@ -225,21 +297,75 @@
         </literalExpression>
     </decision>
 
-    <decision name="multiply_lhs_dtDuration_by_rhs_number_001" id="_multiply_lhs_dtDuration_by_rhs_number_001">
-        <description>multiply_lhs_dtDuration_by_rhs_number_001</description>
-        <allowedAnswers>P10D (duration)</allowedAnswers>
-        <variable name="multiply_lhs_dtDuration_by_rhs_number_001"/>
+    <decision name="multiply_lhs_ymDuration_by_rhs_number_003" id="_multiply_lhs_ymDuration_by_rhs_number_003">
+        <description>multiply_lhs_ymDuration_by_rhs_number_003</description>
+        <allowedAnswers>P10Y (duration)</allowedAnswers>
+        <variable name="multiply_lhs_ymDuration_by_rhs_number_003"/>
         <literalExpression>
-            <text>@"P1D" * 10</text>
+            <text>@"-P1Y" * -10</text>
         </literalExpression>
     </decision>
 
-    <decision name="multiply_lhs_dtDuration_by_rhs_number_002" id="_multiply_lhs_dtDuration_by_rhs_number_002">
-        <description>multiply_lhs_dtDuration_by_rhs_number_002</description>
-        <allowedAnswers>-P10D (duration)</allowedAnswers>
-        <variable name="multiply_lhs_dtDuration_by_rhs_number_002"/>
+    <decision name="multiply_lhs_ymDuration_by_rhs_number_004" id="_multiply_lhs_ymDuration_by_rhs_number_004">
+        <description>multiply_lhs_ymDuration_by_rhs_number_004</description>
+        <allowedAnswers>P1Y (duration)</allowedAnswers>
+        <variable name="multiply_lhs_ymDuration_by_rhs_number_004"/>
         <literalExpression>
-            <text>@"-P1D" * 10</text>
+            <text>@"P1M" * 12</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="multiply_lhs_ymDuration_by_rhs_number_005" id="_multiply_lhs_ymDuration_by_rhs_number_005">
+        <description>multiply_lhs_ymDuration_by_rhs_number_005</description>
+        <allowedAnswers>P2Y (duration)</allowedAnswers>
+        <variable name="multiply_lhs_ymDuration_by_rhs_number_005"/>
+        <literalExpression>
+            <text>@"P1M" * 24</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="multiply_lhs_ymDuration_by_rhs_number_006" id="_multiply_lhs_ymDuration_by_rhs_number_006">
+        <description>multiply_lhs_ymDuration_by_rhs_number_006</description>
+        <allowedAnswers>P2Y2M (duration)</allowedAnswers>
+        <variable name="multiply_lhs_ymDuration_by_rhs_number_006"/>
+        <literalExpression>
+            <text>@"P1M" * 26</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="multiply_lhs_ymDuration_by_rhs_number_007" id="_multiply_lhs_ymDuration_by_rhs_number_007">
+        <description>multiply_lhs_ymDuration_by_rhs_number_007</description>
+        <allowedAnswers>P0Y (duration)</allowedAnswers>
+        <variable name="multiply_lhs_ymDuration_by_rhs_number_007"/>
+        <literalExpression>
+            <text>@"P1M" * 0</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="multiply_lhs_ymDuration_by_rhs_number_008" id="_multiply_lhs_ymDuration_by_rhs_number_008">
+        <description>multiply_lhs_ymDuration_by_rhs_number_008</description>
+        <allowedAnswers>P3M (duration)</allowedAnswers>
+        <variable name="multiply_lhs_ymDuration_by_rhs_number_008"/>
+        <literalExpression>
+            <text>@"P2M" * 1.5</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="multiply_lhs_ymDuration_by_rhs_number_009" id="_multiply_lhs_ymDuration_by_rhs_number_009">
+        <description>multiply_lhs_ymDuration_by_rhs_number_009</description>
+        <allowedAnswers>-P3M (duration)</allowedAnswers>
+        <variable name="multiply_lhs_ymDuration_by_rhs_number_009"/>
+        <literalExpression>
+            <text>@"P2M" * -1.5</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="multiply_lhs_ymDuration_by_rhs_number_010" id="_multiply_lhs_ymDuration_by_rhs_number_010">
+        <description>multiply_lhs_ymDuration_by_rhs_number_010</description>
+        <allowedAnswers>-P4Y9M (duration)</allowedAnswers>
+        <variable name="multiply_lhs_ymDuration_by_rhs_number_010"/>
+        <literalExpression>
+            <text>@"P1Y11M" * -2.5</text>
         </literalExpression>
     </decision>
 
@@ -486,6 +612,231 @@
         </literalExpression>
     </decision>
 
+    <decision name="add_lhs_dateAndTime_to_rhs_ymDuration_010" id="_add_lhs_dateAndTime_to_rhs_ymDuration_010">
+        <description>add_lhs_dateAndTime_to_rhs_ymDuration_010</description>
+        <allowedAnswers>-2021-02-01T10:10:10+11:00 (string)</allowedAnswers>
+        <variable name="add_lhs_dateAndTime_to_rhs_ymDuration_010"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10+11:00" + @"P1M")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dateAndTime_to_rhs_ymDuration_011" id="_add_lhs_dateAndTime_to_rhs_ymDuration_011">
+        <description>add_lhs_dateAndTime_to_rhs_ymDuration_011</description>
+        <allowedAnswers>-2020-01-01T10:10:10+11:00 (string)</allowedAnswers>
+        <variable name="add_lhs_dateAndTime_to_rhs_ymDuration_011"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10+11:00" + @"P1Y")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dateAndTime_to_rhs_ymDuration_012" id="_add_lhs_dateAndTime_to_rhs_ymDuration_012">
+        <description>add_lhs_dateAndTime_to_rhs_ymDuration_012</description>
+        <allowedAnswers>-2022-12-01T10:10:10+11:00 (string)</allowedAnswers>
+        <variable name="add_lhs_dateAndTime_to_rhs_ymDuration_012"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10+11:00" + @"-P1M")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dateAndTime_to_rhs_ymDuration_013" id="_add_lhs_dateAndTime_to_rhs_ymDuration_013">
+        <description>add_lhs_dateAndTime_to_rhs_ymDuration_013</description>
+        <allowedAnswers>-2022-01-01T10:10:10+11:00 (string)</allowedAnswers>
+        <variable name="add_lhs_dateAndTime_to_rhs_ymDuration_013"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10+11:00" + @"-P1Y")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dateAndTime_to_rhs_ymDuration_014" id="_add_lhs_dateAndTime_to_rhs_ymDuration_014">
+        <description>add_lhs_dateAndTime_to_rhs_ymDuration_014</description>
+        <allowedAnswers>-2021-02-01T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_dateAndTime_to_rhs_ymDuration_014"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10@Australia/Melbourne" + @"P1M")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dateAndTime_to_rhs_ymDuration_015" id="_add_lhs_dateAndTime_to_rhs_ymDuration_015">
+        <description>add_lhs_dateAndTime_to_rhs_ymDuration_015</description>
+        <allowedAnswers>-2020-01-01T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_dateAndTime_to_rhs_ymDuration_015"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10@Australia/Melbourne" + @"P1Y")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dateAndTime_to_rhs_ymDuration_016" id="_add_lhs_dateAndTime_to_rhs_ymDuration_016">
+        <description>add_lhs_dateAndTime_to_rhs_ymDuration_016</description>
+        <allowedAnswers>-2022-12-01T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_dateAndTime_to_rhs_ymDuration_016"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10@Australia/Melbourne" + @"-P1M")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dateAndTime_to_rhs_ymDuration_017" id="_add_lhs_dateAndTime_to_rhs_ymDuration_017">
+        <description>add_lhs_dateAndTime_to_rhs_ymDuration_017</description>
+        <allowedAnswers>-2022-01-01T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_dateAndTime_to_rhs_ymDuration_017"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10@Australia/Melbourne" + @"-P1Y")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_001" id="_add_lhs_ymDuration_to_rhs_dateAndTime_001">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_001</description>
+        <allowedAnswers>2022-01-01T10:10:10 (date and time)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_001"/>
+        <literalExpression>
+            <text>@"P1Y" + @"2021-01-01T10:10:10"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_002" id="_add_lhs_ymDuration_to_rhs_dateAndTime_002">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_002</description>
+        <allowedAnswers>2021-02-01T10:10:10 (date and time)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_002"/>
+        <literalExpression>
+            <text>@"P1M" + @"2021-01-01T10:10:10"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_003" id="_add_lhs_ymDuration_to_rhs_dateAndTime_003">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_003</description>
+        <allowedAnswers>2020-01-01T10:10:10 (date and time)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_003"/>
+        <literalExpression>
+            <text>@"-P1Y" + @"2021-01-01T10:10:10"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_004" id="_add_lhs_ymDuration_to_rhs_dateAndTime_004">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_004</description>
+        <allowedAnswers>2020-12-01T10:10:10 (date and time)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_004"/>
+        <literalExpression>
+            <text>@"-P1M" + @"2021-01-01T10:10:10"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_005" id="_add_lhs_ymDuration_to_rhs_dateAndTime_005">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_005</description>
+        <allowedAnswers>2021-01-01T10:10:10 (date and time)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_005"/>
+        <literalExpression>
+            <text>@"P0Y" + @"2021-01-01T10:10:10"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_006" id="_add_lhs_ymDuration_to_rhs_dateAndTime_006">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_006</description>
+        <allowedAnswers>2021-01-01T10:10:10 (date and time)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_006"/>
+        <literalExpression>
+            <text>@"P0M" + @"2021-01-01T10:10:10"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_007" id="_add_lhs_ymDuration_to_rhs_dateAndTime_007">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_007</description>
+        <allowedAnswers>2021-02-01T10:10:10+11:00 (date and time)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_007"/>
+        <literalExpression>
+            <text>@"P1M" + @"2021-01-01T10:10:10+11:00"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_008" id="_add_lhs_ymDuration_to_rhs_dateAndTime_008">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_008</description>
+        <allowedAnswers>2020-12-01T10:10:10+11:00 (date and time)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_008"/>
+        <literalExpression>
+            <text>@"-P1M" + @"2021-01-01T10:10:10+11:00"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_009" id="_add_lhs_ymDuration_to_rhs_dateAndTime_009">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_009</description>
+        <allowedAnswers>2021-02-01T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_009"/>
+        <literalExpression>
+            <text>string(@"P1M" + @"2021-01-01T10:10:10@Australia/Melbourne")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_010" id="_add_lhs_ymDuration_to_rhs_dateAndTime_010">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_010</description>
+        <allowedAnswers>-2021-02-01T10:10:10+11:00 (string)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_010"/>
+        <literalExpression>
+            <text>string(@"P1M" + @"-2021-01-01T10:10:10+11:00")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_011" id="_add_lhs_ymDuration_to_rhs_dateAndTime_011">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_011</description>
+        <allowedAnswers>-2020-01-01T10:10:10+11:00 (string)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_011"/>
+        <literalExpression>
+            <text>string(@"P1Y" + @"-2021-01-01T10:10:10+11:00")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_012" id="_add_lhs_ymDuration_to_rhs_dateAndTime_012">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_012</description>
+        <allowedAnswers>-2022-12-01T10:10:10+11:00 (string)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_012"/>
+        <literalExpression>
+            <text>string(@"-P1M" + @"-2021-01-01T10:10:10+11:00")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_013" id="_add_lhs_ymDuration_to_rhs_dateAndTime_013">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_013</description>
+        <allowedAnswers>-2022-01-01T10:10:10+11:00 (string)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_013"/>
+        <literalExpression>
+            <text>string(@"-P1Y" + @"-2021-01-01T10:10:10+11:00")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_014" id="_add_lhs_ymDuration_to_rhs_dateAndTime_014">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_014</description>
+        <allowedAnswers>-2021-02-01T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_014"/>
+        <literalExpression>
+            <text>string(@"P1M" + @"-2021-01-01T10:10:10@Australia/Melbourne")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_015" id="_add_lhs_ymDuration_to_rhs_dateAndTime_015">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_015</description>
+        <allowedAnswers>-2020-01-01T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_015"/>
+        <literalExpression>
+            <text>string(@"P1Y" + @"-2021-01-01T10:10:10@Australia/Melbourne")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_016" id="_add_lhs_ymDuration_to_rhs_dateAndTime_016">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_016</description>
+        <allowedAnswers>-2022-12-01T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_016"/>
+        <literalExpression>
+            <text>string(@"-P1M" + @"-2021-01-01T10:10:10@Australia/Melbourne")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_017" id="_add_lhs_ymDuration_to_rhs_dateAndTime_017">
+        <description>add_lhs_ymDuration_to_rhs_dateAndTime_017</description>
+        <allowedAnswers>-2022-01-01T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_017"/>
+        <literalExpression>
+            <text>string(@"-P1Y" + @"-2021-01-01T10:10:10@Australia/Melbourne")</text>
+        </literalExpression>
+    </decision>
+
     <decision name="add_lhs_dateAndTime_to_rhs_dtDuration_001" id="_add_lhs_dateAndTime_to_rhs_dtDuration_001">
         <description>add_lhs_dateAndTime_to_rhs_dtDuration_001</description>
         <allowedAnswers>2021-01-13T11:10:10 (date and time)</allowedAnswers>
@@ -560,28 +911,307 @@
 
     <decision name="add_lhs_dateAndTime_to_rhs_dtDuration_009" id="_add_lhs_dateAndTime_to_rhs_dtDuration_009">
         <description>add_lhs_dateAndTime_to_rhs_dtDuration_009</description>
-        <allowedAnswers>2021-01-01T11:10:10+11:00 (date and time)</allowedAnswers>
+        <allowedAnswers>2021-01-02T00:00:01 (date and time)</allowedAnswers>
         <variable name="add_lhs_dateAndTime_to_rhs_dtDuration_009"/>
         <literalExpression>
-            <text>@"2021-01-01T10:10:10+11:00" + @"PT1H"</text>
+            <text>@"2021-01-01T24:00:00" + @"PT1S"</text>
         </literalExpression>
     </decision>
 
     <decision name="add_lhs_dateAndTime_to_rhs_dtDuration_010" id="_add_lhs_dateAndTime_to_rhs_dtDuration_010">
         <description>add_lhs_dateAndTime_to_rhs_dtDuration_010</description>
-        <allowedAnswers>2021-01-01T09:10:10+11:00 (date and time)</allowedAnswers>
+        <allowedAnswers>2021-01-01T23:59:59 (date and time)</allowedAnswers>
         <variable name="add_lhs_dateAndTime_to_rhs_dtDuration_010"/>
         <literalExpression>
-            <text>@"2021-01-01T10:10:10+11:00" + @"-PT1H"</text>
+            <text>@"2021-01-01T24:00:00" + @"-PT1S"</text>
         </literalExpression>
     </decision>
 
     <decision name="add_lhs_dateAndTime_to_rhs_dtDuration_011" id="_add_lhs_dateAndTime_to_rhs_dtDuration_011">
         <description>add_lhs_dateAndTime_to_rhs_dtDuration_011</description>
-        <allowedAnswers>2021-01-13T11:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <allowedAnswers>2021-01-01T11:10:10+11:00 (date and time)</allowedAnswers>
         <variable name="add_lhs_dateAndTime_to_rhs_dtDuration_011"/>
         <literalExpression>
+            <text>@"2021-01-01T10:10:10+11:00" + @"PT1H"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dateAndTime_to_rhs_dtDuration_012" id="_add_lhs_dateAndTime_to_rhs_dtDuration_012">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_012</description>
+        <allowedAnswers>2021-01-01T09:10:10+11:00 (date and time)</allowedAnswers>
+        <variable name="add_lhs_dateAndTime_to_rhs_dtDuration_012"/>
+        <literalExpression>
+            <text>@"2021-01-01T10:10:10+11:00" + @"-PT1H"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dateAndTime_to_rhs_dtDuration_013" id="_add_lhs_dateAndTime_to_rhs_dtDuration_013">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_013</description>
+        <allowedAnswers>2021-01-13T11:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_dateAndTime_to_rhs_dtDuration_013"/>
+        <literalExpression>
             <text>string(@"2021-01-12T10:10:10@Australia/Melbourne" + @"P1DT1H")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dateAndTime_to_rhs_dtDuration_014" id="_add_lhs_dateAndTime_to_rhs_dtDuration_014">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_014</description>
+        <allowedAnswers>-2021-01-01T11:10:10+11:00 (string)</allowedAnswers>
+        <variable name="add_lhs_dateAndTime_to_rhs_dtDuration_014"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10+11:00" + @"PT1H")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dateAndTime_to_rhs_dtDuration_015" id="_add_lhs_dateAndTime_to_rhs_dtDuration_015">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_015</description>
+        <allowedAnswers>-2021-01-02T10:10:10+11:00 (string)</allowedAnswers>
+        <variable name="add_lhs_dateAndTime_to_rhs_dtDuration_015"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10+11:00" + @"P1D")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dateAndTime_to_rhs_dtDuration_016" id="_add_lhs_dateAndTime_to_rhs_dtDuration_016">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_016</description>
+        <allowedAnswers>-2021-01-01T09:10:10+11:00 (string)</allowedAnswers>
+        <variable name="add_lhs_dateAndTime_to_rhs_dtDuration_016"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10+11:00" + @"-PT1H")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dateAndTime_to_rhs_dtDuration_017" id="_add_lhs_dateAndTime_to_rhs_dtDuration_017">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_017</description>
+        <allowedAnswers>-2022-12-31T10:10:10+11:00 (string)</allowedAnswers>
+        <variable name="add_lhs_dateAndTime_to_rhs_dtDuration_017"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10+11:00" + @"-P1D")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dateAndTime_to_rhs_dtDuration_018" id="_add_lhs_dateAndTime_to_rhs_dtDuration_018">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_018</description>
+        <allowedAnswers>-2021-01-01T11:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_dateAndTime_to_rhs_dtDuration_018"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10@Australia/Melbourne" + @"PT1H")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dateAndTime_to_rhs_dtDuration_019" id="_add_lhs_dateAndTime_to_rhs_dtDuration_019">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_019</description>
+        <allowedAnswers>-2021-01-02T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_dateAndTime_to_rhs_dtDuration_019"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10@Australia/Melbourne" + @"P1D")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dateAndTime_to_rhs_dtDuration_020" id="_add_lhs_dateAndTime_to_rhs_dtDuration_020">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_020</description>
+        <allowedAnswers>-2021-01-01T09:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_dateAndTime_to_rhs_dtDuration_020"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10@Australia/Melbourne" + @"-PT1H")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dateAndTime_to_rhs_dtDuration_021" id="_add_lhs_dateAndTime_to_rhs_dtDuration_021">
+        <description>add_lhs_dateAndTime_to_rhs_dtDuration_021</description>
+        <allowedAnswers>-2022-12-31T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_dateAndTime_to_rhs_dtDuration_021"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10@Australia/Melbourne" + @"-P1D")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_001" id="_add_lhs_dtDuration_to_rhs_dateAndTime_001">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_001</description>
+        <allowedAnswers>2021-01-13T11:10:10 (date and time)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_001"/>
+        <literalExpression>
+            <text>@"P1DT1H" + @"2021-01-12T10:10:10"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_002" id="_add_lhs_dtDuration_to_rhs_dateAndTime_002">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_002</description>
+        <allowedAnswers>2021-01-13T11:10:10+11:00 (date and time)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_002"/>
+        <literalExpression>
+            <text>@"P1DT1H" + @"2021-01-12T10:10:10+11:00"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_003" id="_add_lhs_dtDuration_to_rhs_dateAndTime_003">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_003</description>
+        <allowedAnswers>2021-01-02T10:10:10 (date and time)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_003"/>
+        <literalExpression>
+            <text>@"P1D" + @"2021-01-01T10:10:10"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_004" id="_add_lhs_dtDuration_to_rhs_dateAndTime_004">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_004</description>
+        <allowedAnswers>2021-01-01T11:10:10 (date and time)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_004"/>
+        <literalExpression>
+            <text>@"PT1H" + @"2021-01-01T10:10:10"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_005" id="_add_lhs_dtDuration_to_rhs_dateAndTime_005">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_005</description>
+        <allowedAnswers>2020-12-31T10:10:10 (date and time)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_005"/>
+        <literalExpression>
+            <text>@"-P1D" + @"2021-01-01T10:10:10"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_006" id="_add_lhs_dtDuration_to_rhs_dateAndTime_006">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_006</description>
+        <allowedAnswers>2021-01-01T09:10:10 (date and time)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_006"/>
+        <literalExpression>
+            <text>@"-PT1H" + @"2021-01-01T10:10:10"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_007" id="_add_lhs_dtDuration_to_rhs_dateAndTime_007">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_007</description>
+        <allowedAnswers>2021-01-01T10:10:10 (date and time)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_007"/>
+        <literalExpression>
+            <text>@"P0D" + @"2021-01-01T10:10:10"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_008" id="_add_lhs_dtDuration_to_rhs_dateAndTime_008">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_008</description>
+        <allowedAnswers>2021-01-01T10:10:10 (date and time)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_008"/>
+        <literalExpression>
+            <text>@"PT0H" + @"2021-01-01T10:10:10"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_009" id="_add_lhs_dtDuration_to_rhs_dateAndTime_009">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_009</description>
+        <allowedAnswers>2021-01-02T00:00:01 (date and time)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_009"/>
+        <literalExpression>
+            <text>@"PT1S" + @"2021-01-01T24:00:00"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_010" id="_add_lhs_dtDuration_to_rhs_dateAndTime_010">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_010</description>
+        <allowedAnswers>2021-01-01T23:59:59 (date and time)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_010"/>
+        <literalExpression>
+            <text>@"-PT1S" + @"2021-01-01T24:00:00"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_011" id="_add_lhs_dtDuration_to_rhs_dateAndTime_011">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_011</description>
+        <allowedAnswers>2021-01-01T11:10:10+11:00 (date and time)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_011"/>
+        <literalExpression>
+            <text>@"PT1H" + @"2021-01-01T10:10:10+11:00"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_012" id="_add_lhs_dtDuration_to_rhs_dateAndTime_012">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_012</description>
+        <allowedAnswers>2021-01-01T09:10:10+11:00 (date and time)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_012"/>
+        <literalExpression>
+            <text>@"-PT1H" + @"2021-01-01T10:10:10+11:00"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_013" id="_add_lhs_dtDuration_to_rhs_dateAndTime_013">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_013</description>
+        <allowedAnswers>2021-01-13T11:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_013"/>
+        <literalExpression>
+            <text>string(@"P1DT1H" + @"2021-01-12T10:10:10@Australia/Melbourne")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_014" id="_add_lhs_dtDuration_to_rhs_dateAndTime_014">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_014</description>
+        <allowedAnswers>-2021-01-01T11:10:10+11:00 (string)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_014"/>
+        <literalExpression>
+            <text>string(@"PT1H" + @"-2021-01-01T10:10:10+11:00")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_015" id="_add_lhs_dtDuration_to_rhs_dateAndTime_015">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_015</description>
+        <allowedAnswers>-2021-01-02T10:10:10+11:00 (string)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_015"/>
+        <literalExpression>
+            <text>string(@"P1D" + @"-2021-01-01T10:10:10+11:00")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_016" id="_add_lhs_dtDuration_to_rhs_dateAndTime_016">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_016</description>
+        <allowedAnswers>-2021-01-01T09:10:10+11:00 (string)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_016"/>
+        <literalExpression>
+            <text>string(@"-PT1H" + @"-2021-01-01T10:10:10+11:00")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_017" id="_add_lhs_dtDuration_to_rhs_dateAndTime_017">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_017</description>
+        <allowedAnswers>-2022-12-31T10:10:10+11:00 (string)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_017"/>
+        <literalExpression>
+            <text>string(@"-P1D" + @"-2021-01-01T10:10:10+11:00")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_018" id="_add_lhs_dtDuration_to_rhs_dateAndTime_018">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_018</description>
+        <allowedAnswers>-2021-01-01T11:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_018"/>
+        <literalExpression>
+            <text>string(@"PT1H" + @"-2021-01-01T10:10:10@Australia/Melbourne")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_019" id="_add_lhs_dtDuration_to_rhs_dateAndTime_019">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_019</description>
+        <allowedAnswers>-2021-01-02T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_019"/>
+        <literalExpression>
+            <text>string(@"P1D" + @"-2021-01-01T10:10:10@Australia/Melbourne")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_020" id="_add_lhs_dtDuration_to_rhs_dateAndTime_020">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_020</description>
+        <allowedAnswers>-2021-01-01T09:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_020"/>
+        <literalExpression>
+            <text>string(@"-PT1H" + @"-2021-01-01T10:10:10@Australia/Melbourne")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_021" id="_add_lhs_dtDuration_to_rhs_dateAndTime_021">
+        <description>add_lhs_dtDuration_to_rhs_dateAndTime_021</description>
+        <allowedAnswers>-2022-12-31T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_021"/>
+        <literalExpression>
+            <text>string(@"-P1D" + @"-2021-01-01T10:10:10@Australia/Melbourne")</text>
         </literalExpression>
     </decision>
 
@@ -600,6 +1230,24 @@
         <variable name="add_lhs_date_to_rhs_ymDuration_002"/>
         <literalExpression>
             <text>@"P1M" + @"2021-01-01"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_date_001" id="_add_lhs_ymDuration_to_rhs_date_001">
+        <description>add_lhs_ymDuration_to_rhs_date_001</description>
+        <allowedAnswers>2022-01-01 (date)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_date_001"/>
+        <literalExpression>
+            <text>@"2021-01-01" + @"P1Y"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_ymDuration_to_rhs_date_002" id="_add_lhs_ymDuration_to_rhs_date_002">
+        <description>add_lhs_ymDuration_to_rhs_date_002</description>
+        <allowedAnswers>2021-02-01 (date)</allowedAnswers>
+        <variable name="add_lhs_ymDuration_to_rhs_date_002"/>
+        <literalExpression>
+            <text>@"2021-01-01" + @"P1M"</text>
         </literalExpression>
     </decision>
 
@@ -627,6 +1275,33 @@
         <variable name="add_lhs_date_to_rhs_dtDuration_003"/>
         <literalExpression>
             <text>@"2021-01-01" + @"PT48H"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_date_001" id="_add_lhs_dtDuration_to_rhs_date_001">
+        <description>add_lhs_dtDuration_to_rhs_date_001</description>
+        <allowedAnswers>2021-01-02 (date)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_date_001"/>
+        <literalExpression>
+            <text>@"P1D" + @"2021-01-01"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_date_002" id="_add_lhs_dtDuration_to_rhs_date_002">
+        <description>Date + 1.5 days (in hours) gives date + 1 day</description>
+        <allowedAnswers>2021-01-02 (date)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_date_002"/>
+        <literalExpression>
+            <text>@"PT36H" + @"2021-01-01"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_date_003" id="_add_lhs_dtDuration_to_rhs_date_003">
+        <description>Date + 2 days (in hours) gives date + 2 days</description>
+        <allowedAnswers>2021-01-03 (date)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_date_003"/>
+        <literalExpression>
+            <text>@"PT48H" + @"2021-01-01"</text>
         </literalExpression>
     </decision>
 
@@ -663,6 +1338,96 @@
         <variable name="add_lhs_time_to_rhs_dtDuration_004"/>
         <literalExpression>
             <text>string(@"10:15:00@Australia/Melbourne" + @"P1D")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_time_to_rhs_dtDuration_005" id="_add_lhs_time_to_rhs_dtDuration_005">
+        <description>add_lhs_time_to_rhs_dtDuration_005</description>
+        <allowedAnswers>10:15:00@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_time_to_rhs_dtDuration_005"/>
+        <literalExpression>
+            <text>string(@"10:15:00@Australia/Melbourne" + @"-P1D")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_time_to_rhs_dtDuration_006" id="_add_lhs_time_to_rhs_dtDuration_006">
+        <description>add_lhs_time_to_rhs_dtDuration_006</description>
+        <allowedAnswers>11:15:00@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_time_to_rhs_dtDuration_006"/>
+        <literalExpression>
+            <text>string(@"10:15:00@Australia/Melbourne" + @"PT1H")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_time_to_rhs_dtDuration_007" id="_add_lhs_time_to_rhs_dtDuration_007">
+        <description>add_lhs_time_to_rhs_dtDuration_007</description>
+        <allowedAnswers>09:15:00@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_time_to_rhs_dtDuration_007"/>
+        <literalExpression>
+            <text>string(@"10:15:00@Australia/Melbourne" + @"-PT1H")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_time_001" id="_add_lhs_dtDuration_to_rhs_time_001">
+        <description>add_lhs_dtDuration_to_rhs_time_001</description>
+        <allowedAnswers>11:15:00 (time)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_time_001"/>
+        <literalExpression>
+            <text>@"PT1H" + @"10:15:00"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_time_002" id="_add_lhs_dtDuration_to_rhs_time_002">
+        <description>Time + days duration gives time</description>
+        <allowedAnswers>10:15:00 (time)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_time_002"/>
+        <literalExpression>
+            <text>@"P1D" + @"10:15:00"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_time_003" id="_add_lhs_dtDuration_to_rhs_time_003">
+        <description>add_lhs_dtDuration_to_rhs_time_003</description>
+        <allowedAnswers>10:15:00+11:00 (time)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_time_003"/>
+        <literalExpression>
+            <text>@"P1D" + @"10:15:00+11:00"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_time_004" id="_add_lhs_dtDuration_to_rhs_time_004">
+        <description>add_lhs_dtDuration_to_rhs_time_004</description>
+        <allowedAnswers>10:15:00@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_time_004"/>
+        <literalExpression>
+            <text>string(@"P1D" + @"10:15:00@Australia/Melbourne")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_time_005" id="_add_lhs_dtDuration_to_rhs_time_005">
+        <description>add_lhs_dtDuration_to_rhs_time_005</description>
+        <allowedAnswers>10:15:00@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_time_005"/>
+        <literalExpression>
+            <text>string(@"-P1D" + @"10:15:00@Australia/Melbourne")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_time_006" id="_add_lhs_dtDuration_to_rhs_time_006">
+        <description>add_lhs_dtDuration_to_rhs_time_006</description>
+        <allowedAnswers>11:15:00@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_time_006"/>
+        <literalExpression>
+            <text>string(@"PT1H" + @"10:15:00@Australia/Melbourne")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="add_lhs_dtDuration_to_rhs_time_007" id="_add_lhs_dtDuration_to_rhs_time_007">
+        <description>add_lhs_dtDuration_to_rhs_time_007</description>
+        <allowedAnswers>09:15:00@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="add_lhs_dtDuration_to_rhs_time_007"/>
+        <literalExpression>
+            <text>string(@"-PT1H" + @"10:15:00@Australia/Melbourne")</text>
         </literalExpression>
     </decision>
 
@@ -720,87 +1485,6 @@
         </literalExpression>
     </decision>
 
-    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_001" id="_add_lhs_ymDuration_to_rhs_dateAndTime_001">
-        <description>add_lhs_ymDuration_to_rhs_dateAndTime_001</description>
-        <allowedAnswers>2022-01-01T10:10:10 (date and time)</allowedAnswers>
-        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_001"/>
-        <literalExpression>
-            <text>@"P1Y" + @"2021-01-01T10:10:10"</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_002" id="_add_lhs_ymDuration_to_rhs_dateAndTime_002">
-        <description>add_lhs_ymDuration_to_rhs_dateAndTime_002</description>
-        <allowedAnswers>2021-02-01T10:10:10 (date and time)</allowedAnswers>
-        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_002"/>
-        <literalExpression>
-            <text>@"P1M" + @"2021-01-01T10:10:10"</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_003" id="_add_lhs_ymDuration_to_rhs_dateAndTime_003">
-        <description>add_lhs_ymDuration_to_rhs_dateAndTime_003</description>
-        <allowedAnswers>2020-01-01T10:10:10 (date and time)</allowedAnswers>
-        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_003"/>
-        <literalExpression>
-            <text>@"-P1Y" + @"2021-01-01T10:10:10"</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_004" id="_add_lhs_ymDuration_to_rhs_dateAndTime_004">
-        <description>add_lhs_ymDuration_to_rhs_dateAndTime_004</description>
-        <allowedAnswers>2020-12-01T10:10:10 (date and time)</allowedAnswers>
-        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_004"/>
-        <literalExpression>
-            <text>@"-P1M" + @"2021-01-01T10:10:10"</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_005" id="_add_lhs_ymDuration_to_rhs_dateAndTime_005">
-        <description>add_lhs_ymDuration_to_rhs_dateAndTime_005</description>
-        <allowedAnswers>2021-01-01T10:10:10 (date and time)</allowedAnswers>
-        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_005"/>
-        <literalExpression>
-            <text>@"P0Y" + @"2021-01-01T10:10:10"</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_006" id="_add_lhs_ymDuration_to_rhs_dateAndTime_006">
-        <description>add_lhs_ymDuration_to_rhs_dateAndTime_006</description>
-        <allowedAnswers>2021-01-01T10:10:10 (date and time)</allowedAnswers>
-        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_006"/>
-        <literalExpression>
-            <text>@"P0M" + @"2021-01-01T10:10:10"</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_007" id="_add_lhs_ymDuration_to_rhs_dateAndTime_007">
-        <description>add_lhs_ymDuration_to_rhs_dateAndTime_007</description>
-        <allowedAnswers>2021-02-01T10:10:10+11:00 (date and time)</allowedAnswers>
-        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_007"/>
-        <literalExpression>
-            <text>@"P1M" + @"2021-01-01T10:10:10+11:00"</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_ymDuration_to_rhs_dateAndTime_008" id="_add_lhs_ymDuration_to_rhs_dateAndTime_008">
-        <description>add_lhs_ymDuration_to_rhs_dateAndTime_008</description>
-        <allowedAnswers>2021-02-01T10:10:10@Australia/Melbourne (string)</allowedAnswers>
-        <variable name="add_lhs_ymDuration_to_rhs_dateAndTime_008"/>
-        <literalExpression>
-            <text>string(@"P1M" + @"2021-01-01T10:10:10@Australia/Melbourne")</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_ymDuration_to_rhs_date_001" id="_add_lhs_ymDuration_to_rhs_date_001">
-        <description>add_lhs_ymDuration_to_rhs_date_001</description>
-        <allowedAnswers>2022-01-01 (date)</allowedAnswers>
-        <variable name="add_lhs_ymDuration_to_rhs_date_001"/>
-        <literalExpression>
-            <text>@"2021-01-01" + @"P1Y"</text>
-        </literalExpression>
-    </decision>
-
     <decision name="add_lhs_dtDuration_to_rhs_dtDuration_001" id="_add_lhs_dtDuration_to_rhs_dtDuration_001">
         <description>add_lhs_dtDuration_to_rhs_dtDuration_001</description>
         <allowedAnswers>P3D (duration)</allowedAnswers>
@@ -816,105 +1500,6 @@
         <variable name="add_lhs_dtDuration_to_rhs_dtDuration_002"/>
         <literalExpression>
             <text>@"PT24H" + @"P1D"</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_001" id="_add_lhs_dtDuration_to_rhs_dateAndTime_001">
-        <description>add_lhs_dtDuration_to_rhs_dateAndTime_001</description>
-        <allowedAnswers>2021-01-13T11:10:10 (date and time)</allowedAnswers>
-        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_001"/>
-        <literalExpression>
-            <text>@"P1DT1H" + @"2021-01-12T10:10:10"</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_002" id="_add_lhs_dtDuration_to_rhs_dateAndTime_002">
-        <description>add_lhs_dtDuration_to_rhs_dateAndTime_002</description>
-        <allowedAnswers>2021-01-13T11:10:10+11:00 (date and time)</allowedAnswers>
-        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_002"/>
-        <literalExpression>
-            <text>@"P1DT1H" + @"2021-01-12T10:10:10+11:00"</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_dtDuration_to_rhs_dateAndTime_003" id="_add_lhs_dtDuration_to_rhs_dateAndTime_003">
-        <description>add_lhs_dtDuration_to_rhs_dateAndTime_003</description>
-        <allowedAnswers>2021-01-13T11:10:10@Australia/Melbourne (string)</allowedAnswers>
-        <variable name="add_lhs_dtDuration_to_rhs_dateAndTime_003"/>
-        <literalExpression>
-            <text>string(@"P1DT1H" + @"2021-01-12T10:10:10@Australia/Melbourne")</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_dtDuration_to_rhs_time_001" id="_add_lhs_dtDuration_to_rhs_time_001">
-        <description>add_lhs_dtDuration_to_rhs_time_001</description>
-        <allowedAnswers>11:15:00 (time)</allowedAnswers>
-        <variable name="add_lhs_dtDuration_to_rhs_time_001"/>
-        <literalExpression>
-            <text>@"PT1H" + @"10:15:00"</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_dtDuration_to_rhs_time_002" id="_add_lhs_dtDuration_to_rhs_time_002">
-        <description>add_lhs_dtDuration_to_rhs_time_002</description>
-        <allowedAnswers>10:15:00 (time)</allowedAnswers>
-        <variable name="add_lhs_dtDuration_to_rhs_time_002"/>
-        <literalExpression>
-            <text>@"P1D" + @"10:15:00"</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_dtDuration_to_rhs_time_003" id="_add_lhs_dtDuration_to_rhs_time_003">
-        <description>add_lhs_dtDuration_to_rhs_time_003</description>
-        <allowedAnswers>10:15:00+11:00 (time)</allowedAnswers>
-        <variable name="add_lhs_dtDuration_to_rhs_time_003"/>
-        <literalExpression>
-            <text>@"P1D" + @"10:15:00+11:00"</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_dtDuration_to_rhs_time_004" id="_add_lhs_dtDuration_to_rhs_time_004">
-        <description>add_lhs_dtDuration_to_rhs_time_004</description>
-        <allowedAnswers>10:15:00@Australia/Melbourne (string)</allowedAnswers>
-        <variable name="add_lhs_dtDuration_to_rhs_time_004"/>
-        <literalExpression>
-            <text>string(@"P1D" + @"10:15:00@Australia/Melbourne")</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_dtDuration_to_rhs_time_005" id="_add_lhs_dtDuration_to_rhs_time_005">
-        <description>add_lhs_dtDuration_to_rhs_time_005</description>
-        <allowedAnswers>10:15:00@Australia/Melbourne (string)</allowedAnswers>
-        <variable name="add_lhs_dtDuration_to_rhs_time_005"/>
-        <literalExpression>
-            <text>string(@"-P1D" + @"10:15:00@Australia/Melbourne")</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_dtDuration_to_rhs_time_006" id="_add_lhs_dtDuration_to_rhs_time_006">
-        <description>add_lhs_dtDuration_to_rhs_time_006</description>
-        <allowedAnswers>11:15:00@Australia/Melbourne (string)</allowedAnswers>
-        <variable name="add_lhs_dtDuration_to_rhs_time_006"/>
-        <literalExpression>
-            <text>string(@"PT1H" + @"10:15:00@Australia/Melbourne")</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_dtDuration_to_rhs_time_007" id="_add_lhs_dtDuration_to_rhs_time_007">
-        <description>add_lhs_dtDuration_to_rhs_time_007</description>
-        <allowedAnswers>09:15:00@Australia/Melbourne (string)</allowedAnswers>
-        <variable name="add_lhs_dtDuration_to_rhs_time_007"/>
-        <literalExpression>
-            <text>string(@"-PT1H" + @"10:15:00@Australia/Melbourne")</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="add_lhs_dtDuration_to_rhs_date_001" id="_add_lhs_dtDuration_to_rhs_date_001">
-        <description>add_lhs_dtDuration_to_rhs_date_001</description>
-        <allowedAnswers>2021-01-02 (date)</allowedAnswers>
-        <variable name="add_lhs_dtDuration_to_rhs_date_001"/>
-        <literalExpression>
-            <text>@"P1D" + @"2021-01-01"</text>
         </literalExpression>
     </decision>
 
@@ -1089,6 +1674,24 @@
         </literalExpression>
     </decision>
 
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_dateAndTime_011" id="_subtract_lhs_dateAndTime_minus_rhs_dateAndTime_011">
+        <description>year differences are expressed as days and time duration</description>
+        <allowedAnswers>P9498D (duration)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_dateAndTime_011"/>
+        <literalExpression>
+            <text>@"2021-01-02T10:10:10@Europe/Paris" - @"1995-01-01T10:10:10@Europe/Paris"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_dateAndTime_012" id="_subtract_lhs_dateAndTime_minus_rhs_dateAndTime_012">
+        <description>year differences are expressed as days and time duration</description>
+        <allowedAnswers>P9498DT5H (duration)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_dateAndTime_012"/>
+        <literalExpression>
+            <text>@"2021-01-02T10:10:10@Europe/Paris" - @"1995-01-01T10:10:10@Asia/Dhaka"</text>
+        </literalExpression>
+    </decision>
+
     <decision name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_001" id="_subtract_lhs_dateAndTime_minus_rhs_ymDuration_001">
         <description>subtract_lhs_dateAndTime_minus_rhs_ymDuration_001</description>
         <allowedAnswers>2020-01-01T10:10:10 (date and time)</allowedAnswers>
@@ -1161,6 +1764,78 @@
         </literalExpression>
     </decision>
 
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_009" id="_subtract_lhs_dateAndTime_minus_rhs_ymDuration_009">
+        <description>subtract_lhs_dateAndTime_minus_rhs_ymDuration_009</description>
+        <allowedAnswers>-2022-12-01T10:10:10+11:00 (string)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_009"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10+11:00" - @"P1M")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_010" id="_subtract_lhs_dateAndTime_minus_rhs_ymDuration_010">
+        <description>subtract_lhs_dateAndTime_minus_rhs_ymDuration_010</description>
+        <allowedAnswers>-2022-01-01T10:10:10+11:00 (string)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_010"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10+11:00" - @"P1Y")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_011" id="_subtract_lhs_dateAndTime_minus_rhs_ymDuration_011">
+        <description>subtract_lhs_dateAndTime_minus_rhs_ymDuration_011</description>
+        <allowedAnswers>-2021-02-01T10:10:10+11:00 (string)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_011"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10+11:00" - @"-P1M")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_012" id="_subtract_lhs_dateAndTime_minus_rhs_ymDuration_012">
+        <description>subtract_lhs_dateAndTime_minus_rhs_ymDuration_012</description>
+        <allowedAnswers>-2020-01-01T10:10:10+11:00 (string)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_012"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10+11:00" - @"-P1Y")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_013" id="_subtract_lhs_dateAndTime_minus_rhs_ymDuration_013">
+        <description>subtract_lhs_dateAndTime_minus_rhs_ymDuration_013</description>
+        <allowedAnswers>-2022-12-01T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_013"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10@Australia/Melbourne" - @"P1M")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_014" id="_subtract_lhs_dateAndTime_minus_rhs_ymDuration_014">
+        <description>subtract_lhs_dateAndTime_minus_rhs_ymDuration_014</description>
+        <allowedAnswers>-2022-01-01T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_014"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10@Australia/Melbourne" - @"P1Y")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_015" id="_subtract_lhs_dateAndTime_minus_rhs_ymDuration_015">
+        <description>subtract_lhs_dateAndTime_minus_rhs_ymDuration_015</description>
+        <allowedAnswers>-2021-02-01T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_015"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10@Australia/Melbourne" - @"-P1M")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_016" id="_subtract_lhs_dateAndTime_minus_rhs_ymDuration_016">
+        <description>subtract_lhs_dateAndTime_minus_rhs_ymDuration_016</description>
+        <allowedAnswers>-2020-01-01T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_ymDuration_016"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10@Australia/Melbourne" - @"-P1Y")</text>
+        </literalExpression>
+    </decision>
+
     <decision name="subtract_lhs_dateAndTime_minus_rhs_date_001" id="_subtract_lhs_dateAndTime_minus_rhs_date_001">
         <description>Both must have zone info and date implies UTC</description>
         <allowedAnswers>null (null)</allowedAnswers>
@@ -1185,6 +1860,24 @@
         <variable name="subtract_lhs_dateAndTime_minus_rhs_date_003"/>
         <literalExpression>
             <text>@"2021-01-02T10:10:10+01:00" - @"2021-01-01"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_date_004" id="_subtract_lhs_dateAndTime_minus_rhs_date_004">
+        <description>year differences are expressed as days and time duration</description>
+        <allowedAnswers>P9498DT9H10M10S (duration)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_date_004"/>
+        <literalExpression>
+            <text>@"2021-01-02T10:10:10@Europe/Paris" - @"1995-01-01"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_date_005" id="_subtract_lhs_dateAndTime_minus_rhs_date_005">
+        <description>year differences are expressed as days and time duration</description>
+        <allowedAnswers>P9498DT9H10M10S (duration)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_date_005"/>
+        <literalExpression>
+            <text>@"2021-01-02T10:10:10+01:00" - @"1995-01-01"</text>
         </literalExpression>
     </decision>
 
@@ -1226,10 +1919,118 @@
 
     <decision name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_005" id="_subtract_lhs_dateAndTime_minus_rhs_dtDuration_005">
         <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_005</description>
-        <allowedAnswers>2020-12-31T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <allowedAnswers>2021-01-01T23:59:59 (date and time)</allowedAnswers>
         <variable name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_005"/>
         <literalExpression>
+            <text>@"2021-01-01T24:00:00" - @"PT1S"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_006" id="_subtract_lhs_dateAndTime_minus_rhs_dtDuration_006">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_006</description>
+        <allowedAnswers>2021-01-02T00:00:01 (date and time)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_006"/>
+        <literalExpression>
+            <text>@"2021-01-01T24:00:00" - @"-PT1S"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_007" id="_subtract_lhs_dateAndTime_minus_rhs_dtDuration_007">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_007</description>
+        <allowedAnswers>2020-12-31T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_007"/>
+        <literalExpression>
             <text>string(@"2021-01-01T10:10:10@Australia/Melbourne" - @"P1D")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_008" id="_subtract_lhs_dateAndTime_minus_rhs_dtDuration_008">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_008</description>
+        <allowedAnswers>2021-01-01T23:59:59 (date and time)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_008"/>
+        <literalExpression>
+            <text>@"2021-01-01T24:00:00" - @"PT1S"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_009" id="_subtract_lhs_dateAndTime_minus_rhs_dtDuration_009">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_009</description>
+        <allowedAnswers>2021-01-02T00:00:01 (date and time)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_009"/>
+        <literalExpression>
+            <text>@"2021-01-01T24:00:00" - @"-PT1S"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_010" id="_subtract_lhs_dateAndTime_minus_rhs_dtDuration_010">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_010</description>
+        <allowedAnswers>-2021-01-01T09:10:10+11:00 (string)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_010"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10+11:00" - @"PT1H")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_011" id="_subtract_lhs_dateAndTime_minus_rhs_dtDuration_011">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_011</description>
+        <allowedAnswers>-2022-12-31T10:10:10+11:00 (string)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_011"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10+11:00" - @"P1D")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_012" id="_subtract_lhs_dateAndTime_minus_rhs_dtDuration_012">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_012</description>
+        <allowedAnswers>-2021-01-01T11:10:10+11:00 (string)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_012"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10+11:00" - @"-PT1H")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_013" id="_subtract_lhs_dateAndTime_minus_rhs_dtDuration_013">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_013</description>
+        <allowedAnswers>-2021-01-02T10:10:10+11:00 (string)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_013"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10+11:00" - @"-P1D")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_014" id="_subtract_lhs_dateAndTime_minus_rhs_dtDuration_014">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_014</description>
+        <allowedAnswers>-2021-01-01T09:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_014"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10@Australia/Melbourne" - @"PT1H")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_015" id="_subtract_lhs_dateAndTime_minus_rhs_dtDuration_015">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_015</description>
+        <allowedAnswers>-2022-12-31T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_015"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10@Australia/Melbourne" - @"P1D")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_016" id="_subtract_lhs_dateAndTime_minus_rhs_dtDuration_016">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_016</description>
+        <allowedAnswers>-2021-01-01T11:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_016"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10@Australia/Melbourne" - @"-PT1H")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_017" id="_subtract_lhs_dateAndTime_minus_rhs_dtDuration_017">
+        <description>subtract_lhs_dateAndTime_minus_rhs_dtDuration_017</description>
+        <allowedAnswers>-2021-01-02T10:10:10@Australia/Melbourne (string)</allowedAnswers>
+        <variable name="subtract_lhs_dateAndTime_minus_rhs_dtDuration_017"/>
+        <literalExpression>
+            <text>string(@"-2021-01-01T10:10:10@Australia/Melbourne" - @"-P1D")</text>
         </literalExpression>
     </decision>
 
@@ -1269,12 +2070,39 @@
         </literalExpression>
     </decision>
 
+    <decision name="subtract_lhs_date_minus_rhs_dateAndTime_005" id="_subtract_lhs_date_minus_rhs_dateAndTime_005">
+        <description>subtract_lhs_date_minus_rhs_dateAndTime_005</description>
+        <allowedAnswers>P9498DT49M50S (duration)</allowedAnswers>
+        <variable name="subtract_lhs_date_minus_rhs_dateAndTime_005"/>
+        <literalExpression>
+            <text>@"2021-01-02" - @"1995-01-01T10:10:10@Australia/Melbourne"</text>
+        </literalExpression>
+    </decision>
+
     <decision name="subtract_lhs_date_minus_rhs_date_001" id="_subtract_lhs_date_minus_rhs_date_001">
         <description>subtract_lhs_date_minus_rhs_date_001</description>
         <allowedAnswers>P1D (duration)</allowedAnswers>
         <variable name="subtract_lhs_date_minus_rhs_date_001"/>
         <literalExpression>
             <text>@"2021-01-02" - @"2021-01-01"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_date_minus_rhs_date_002" id="_subtract_lhs_date_minus_rhs_date_002">
+        <description>subtract_lhs_date_minus_rhs_date_002</description>
+        <allowedAnswers>P9498D (duration)</allowedAnswers>
+        <variable name="subtract_lhs_date_minus_rhs_date_002"/>
+        <literalExpression>
+            <text>@"2021-01-02" - @"1995-01-01"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="subtract_lhs_date_minus_rhs_date_003" id="_subtract_lhs_date_minus_rhs_date_003">
+        <description>subtract_lhs_date_minus_rhs_date_003</description>
+        <allowedAnswers>P9498D (duration)</allowedAnswers>
+        <variable name="subtract_lhs_date_minus_rhs_date_003"/>
+        <literalExpression>
+            <text>@"2021-01-02" - @"1995-01-01"</text>
         </literalExpression>
     </decision>
 
