@@ -14,9 +14,7 @@ package com.gs.dmn.feel.lib.type.time;
 
 import com.gs.dmn.feel.lib.type.BaseType;
 
-import java.time.LocalDate;
-import java.time.OffsetTime;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.temporal.ChronoField;
 
 public class JavaCalendarType extends BaseType {
@@ -41,7 +39,15 @@ public class JavaCalendarType extends BaseType {
             return null;
         }
 
-        return dateTime.toInstant().toEpochMilli() / 1000L;
+        return dateTime.toEpochSecond();
+    }
+
+    protected Long monthsValue(Period duration) {
+        return duration.toTotalMonths();
+    }
+
+    protected Long secondsValue(Duration duration) {
+        return duration.toMillis() / 1000;
     }
 
     public ZonedDateTime toDateTime(LocalDate localDate) {

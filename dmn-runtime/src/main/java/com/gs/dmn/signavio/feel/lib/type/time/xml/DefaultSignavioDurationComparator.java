@@ -19,32 +19,6 @@ import javax.xml.datatype.Duration;
 
 public class DefaultSignavioDurationComparator extends DefaultDurationComparator {
     @Override
-    public Boolean lessThan(Duration first, Duration second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            return compare(first, second) == DatatypeConstants.LESSER;
-        }
-    }
-
-    @Override
-    public Boolean greaterThan(Duration first, Duration second) {
-        if (first == null && second == null) {
-            return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            return compare(first, second) == DatatypeConstants.GREATER;
-        }
-    }
-
-    @Override
     public Boolean lessEqualThan(Duration first, Duration second) {
         if (first == null && second == null) {
             return null;
@@ -53,7 +27,7 @@ public class DefaultSignavioDurationComparator extends DefaultDurationComparator
         } else if (second == null) {
             return null;
         } else {
-            int compare = compare(first, second);
+            int compare = compareTo(first, second);
             return compare == DatatypeConstants.LESSER || compare == DatatypeConstants.EQUAL;
         }
     }
@@ -67,7 +41,7 @@ public class DefaultSignavioDurationComparator extends DefaultDurationComparator
         } else if (second == null) {
             return null;
         } else {
-            int compare = compare(first, second);
+            int compare = compareTo(first, second);
             return compare == DatatypeConstants.GREATER || compare == DatatypeConstants.EQUAL;
         }
     }

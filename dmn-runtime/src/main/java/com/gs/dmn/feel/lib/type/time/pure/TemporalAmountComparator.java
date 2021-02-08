@@ -23,16 +23,13 @@ public class TemporalAmountComparator extends DateTimeComparator<TemporalAmount>
     @Override
     protected Integer compareTo(TemporalAmount first, TemporalAmount second) {
         if (first instanceof Period && second instanceof Period) {
-            Period diff = ((Period) first).minus(second);
-            if (diff.isNegative()) {
-                return -1;
-            } else if (diff.isZero()) {
-                return 0;
-            } else {
-                return +1;
-            }
+            Long firstValue = monthsValue((Period) first);
+            Long secondValue = monthsValue((Period) second);
+            return firstValue.compareTo(secondValue);
         } else if (first instanceof Duration && second instanceof Duration) {
-            return ((Duration) first).compareTo((Duration) second);
+            Long firstValue = secondsValue((Duration) first);
+            Long secondValue = secondsValue((Duration) second);
+            return firstValue.compareTo(secondValue);
         }
         return  null;
     }

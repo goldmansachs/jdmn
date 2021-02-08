@@ -20,6 +20,6 @@ import java.time.OffsetTime;
 public class OffsetTimeComparator extends DateTimeComparator<OffsetTime> implements RelationalComparator<OffsetTime> {
     @Override
     protected Integer compareTo(OffsetTime first, OffsetTime second) {
-        return first.compareTo(second);
+        return timeValue(first).compareTo(timeValue(second));
     }
 }

@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.BaseType;
-import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
@@ -93,6 +92,18 @@ public abstract class XMLCalendarType extends BaseType {
         return calendarValue(dateTime);
     }
 
+    public Long value(XMLGregorianCalendar calendar) {
+        if (isDate(calendar)) {
+            return dateValue(calendar);
+        } else if (isTime(calendar)) {
+            return timeValue(calendar);
+        } else if (isDateTime(calendar)) {
+            return dateTimeValue(calendar);
+        } else {
+            return calendarValue(calendar);
+        }
+    }
+
     protected Long calendarValue(XMLGregorianCalendar calendar) {
         return calendar == null ? null : Math.floorDiv(calendar.toGregorianCalendar().getTimeInMillis(), 1000L);
     }
@@ -107,7 +118,7 @@ public abstract class XMLCalendarType extends BaseType {
         } else if (isDaysAndTimeDuration(duration)) {
             return secondsValue(duration);
         } else {
-            throw new DMNRuntimeException(String.format("value() not supported yet for '%s'", duration));
+            return duration.getTimeInMillis(GREGORIAN.get()) / 1000L;
         }
     }
 

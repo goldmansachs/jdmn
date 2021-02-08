@@ -16,14 +16,13 @@ import com.gs.dmn.feel.lib.type.RelationalComparator;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
-import java.math.BigDecimal;
 
 public class DefaultDurationComparator extends XMLDateTimeComparator<Duration> implements RelationalComparator<Duration> {
     @Override
     protected Integer compareTo(Duration first, Duration second) {
-        BigDecimal firstValue = BaseDefaultDurationType.normalize(first);
-        BigDecimal secondValue = BaseDefaultDurationType.normalize(second);
-        int diff = firstValue.subtract(secondValue).intValue();
+        Long firstValue = durationValue(first);
+        Long secondValue = durationValue(second);
+        long diff = firstValue - secondValue;
         if (diff == 0) {
             return DatatypeConstants.EQUAL;
         } else if (diff < 0) {

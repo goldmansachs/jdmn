@@ -61,14 +61,6 @@ public class TemporalAmountDurationType extends BasePureCalendarType implements 
         }
     }
 
-    private Long monthsValue(Period duration) {
-        return duration.toTotalMonths();
-    }
-
-    private Long secondsValue(Duration duration) {
-        return duration.toMillis() / 1000;
-    }
-
     @Override
     public Boolean durationIs(TemporalAmount first, TemporalAmount second) {
         if (first == null || second == null) {

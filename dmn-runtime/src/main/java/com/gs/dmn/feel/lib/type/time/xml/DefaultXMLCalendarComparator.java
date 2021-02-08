@@ -19,6 +19,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class DefaultXMLCalendarComparator extends XMLDateTimeComparator<XMLGregorianCalendar> implements RelationalComparator<XMLGregorianCalendar> {
     @Override
     protected Integer compareTo(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return first.compare(second);
+        Long firstValue = value(first);
+        Long secondValue = value(second);
+        return firstValue.compareTo(secondValue);
     }
 }
