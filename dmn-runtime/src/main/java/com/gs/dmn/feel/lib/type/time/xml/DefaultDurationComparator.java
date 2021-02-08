@@ -17,71 +17,13 @@ import com.gs.dmn.feel.lib.type.RelationalComparator;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
-import java.util.function.Supplier;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
-
-public class DefaultDurationComparator implements RelationalComparator<Duration> {
+public class DefaultDurationComparator extends XMLDateTimeComparator<Duration> implements RelationalComparator<Duration> {
     @Override
-    public Integer compare(Duration first, Duration second) {
+    protected Integer compareTo(Duration first, Duration second) {
         BigDecimal firstValue = BaseDefaultDurationType.normalize(first);
         BigDecimal secondValue = BaseDefaultDurationType.normalize(second);
-        return compare(firstValue, secondValue);
-    }
-
-    @Override
-    public Boolean equalTo(Duration first, Duration second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> FALSE,
-                () -> FALSE,
-                () -> compare(first, second) == DatatypeConstants.EQUAL
-        });
-    }
-
-    @Override
-    public Boolean lessThan(Duration first, Duration second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
-                () -> null,
-                () -> null,
-                () -> compare(first, second) == DatatypeConstants.LESSER
-        });
-    }
-
-    @Override
-    public Boolean greaterThan(Duration first, Duration second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
-                () -> null,
-                () -> null,
-                () -> compare(first, second) == DatatypeConstants.GREATER
-        });
-    }
-
-    @Override
-    public Boolean lessEqualThan(Duration first, Duration second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
-                () -> null,
-                () -> null,
-                () -> { Integer result = compare(first, second); return result == DatatypeConstants.LESSER || result == DatatypeConstants.EQUAL; }
-        });
-    }
-
-    @Override
-    public Boolean greaterEqualThan(Duration first, Duration second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
-                () -> null,
-                () -> null,
-                () -> { Integer result = compare(first, second); return result == DatatypeConstants.GREATER || result == DatatypeConstants.EQUAL; }
-        });
-    }
-
-    private Integer compare(BigDecimal first, BigDecimal second) {
-        int diff = first.subtract(second).intValue();
+        int diff = firstValue.subtract(secondValue).intValue();
         if (diff == 0) {
             return DatatypeConstants.EQUAL;
         } else if (diff < 0) {
