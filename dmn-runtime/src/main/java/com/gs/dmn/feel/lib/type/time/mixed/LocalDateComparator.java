@@ -12,12 +12,11 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.RelationalComparator;
 import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 
 import java.time.LocalDate;
 
-public class LocalDateComparator extends DateTimeComparator<LocalDate> implements RelationalComparator<LocalDate> {
+public class LocalDateComparator extends DateTimeComparator<LocalDate> {
     @Override
     protected Integer compareTo(LocalDate first, LocalDate second) {
         return dateValue(first).compareTo(dateValue(second));

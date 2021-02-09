@@ -43,36 +43,6 @@ public class ComparableComparator<T> implements RelationalComparator<Comparable<
         });
     }
 
-    @Override
-    public Boolean greaterThan(Comparable<T> first, Comparable<T> second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> null,
-                () -> null,
-                () -> null,
-                () -> compareTo(first, second) > 0
-        });
-    }
-
-    @Override
-    public Boolean lessEqualThan(Comparable<T> first, Comparable<T> second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> null,
-                () -> null,
-                () -> compareTo(first, second) <= 0
-        });
-    }
-
-    @Override
-    public Boolean greaterEqualThan(Comparable<T> first, Comparable<T> second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> null,
-                () -> null,
-                () -> compareTo(first, second) >= 0
-        });
-    }
-
     protected int compareTo(Comparable<T> first, Comparable<T> second) {
         return first.compareTo((T) second);
     }

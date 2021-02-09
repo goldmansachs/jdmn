@@ -12,12 +12,11 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.RelationalComparator;
 import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 
 import java.time.ZonedDateTime;
 
-public class ZonedDateTimeComparator extends DateTimeComparator<ZonedDateTime> implements RelationalComparator<ZonedDateTime> {
+public class ZonedDateTimeComparator extends DateTimeComparator<ZonedDateTime> {
     @Override
     protected Integer compareTo(ZonedDateTime first, ZonedDateTime second) {
         return dateTimeValue(first).compareTo(dateTimeValue(second));

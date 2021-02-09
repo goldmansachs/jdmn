@@ -50,35 +50,5 @@ public abstract class XMLDateTimeComparator<T> extends XMLCalendarType implement
         });
     }
 
-    @Override
-    public Boolean greaterThan(T first, T second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> null,
-                () -> null,
-                () -> null,
-                () -> compareTo(first, second) == DatatypeConstants.GREATER
-        });
-    }
-
-    @Override
-    public Boolean lessEqualThan(T first, T second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> null,
-                () -> null,
-                () -> { Integer result = compareTo(first, second); return result == DatatypeConstants.LESSER || result == DatatypeConstants.EQUAL; }
-        });
-    }
-
-    @Override
-    public Boolean greaterEqualThan(T first, T second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> null,
-                () -> null,
-                () -> { Integer result = compareTo(first, second); return result == DatatypeConstants.GREATER || result == DatatypeConstants.EQUAL; }
-        });
-    }
-
     protected abstract Integer compareTo(T first, T second);
 }

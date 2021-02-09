@@ -12,14 +12,13 @@
  */
 package com.gs.dmn.feel.lib.type.time.pure;
 
-import com.gs.dmn.feel.lib.type.RelationalComparator;
 import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 
 import java.time.Duration;
 import java.time.Period;
 import java.time.temporal.TemporalAmount;
 
-public class TemporalAmountComparator extends DateTimeComparator<TemporalAmount> implements RelationalComparator<TemporalAmount> {
+public class TemporalAmountComparator extends DateTimeComparator<TemporalAmount> {
     @Override
     protected Integer compareTo(TemporalAmount first, TemporalAmount second) {
         if (first instanceof Period && second instanceof Period) {

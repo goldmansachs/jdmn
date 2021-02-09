@@ -49,35 +49,5 @@ public abstract class DateTimeComparator<T> extends JavaCalendarType implements 
         });
     }
 
-    @Override
-    public Boolean greaterThan(T first, T second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> null,
-                () -> null,
-                () -> null,
-                () -> compareTo(first, second) > 0
-        });
-    }
-
-    @Override
-    public Boolean lessEqualThan(T first, T second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> null,
-                () -> null,
-                () -> compareTo(first, second) <= 0
-        });
-    }
-
-    @Override
-    public Boolean greaterEqualThan(T first, T second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> null,
-                () -> null,
-                () -> compareTo(first, second) >= 0
-        });
-    }
-
     protected abstract Integer compareTo(T first, T second);
 }

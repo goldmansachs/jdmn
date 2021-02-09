@@ -12,14 +12,22 @@
  */
 package com.gs.dmn.feel.lib.type;
 
+import com.gs.dmn.feel.lib.type.bool.TernaryBooleanLogicUtil;
+
 public interface RelationalComparator<T> extends EqualityComparator<T> {
     Integer compare(T first, T second);
 
     Boolean lessThan(T first, T second);
 
-    Boolean greaterThan(T first, T second);
+    default Boolean greaterThan(T first, T second) {
+        return lessThan(second, first);
+    }
 
-    Boolean lessEqualThan(T first, T second);
+    default Boolean lessEqualThan(T first, T second) {
+        return TernaryBooleanLogicUtil.getInstance().or(lessThan(first, second), equalTo(first, second));
+    }
 
-    Boolean greaterEqualThan(T first, T second);
+    default Boolean greaterEqualThan(T first, T second) {
+        return TernaryBooleanLogicUtil.getInstance().or(greaterThan(first, second), equalTo(first, second));
+    }
 }

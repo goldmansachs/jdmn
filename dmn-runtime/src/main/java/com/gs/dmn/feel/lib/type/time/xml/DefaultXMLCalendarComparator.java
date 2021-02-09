@@ -12,11 +12,9 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.type.RelationalComparator;
-
 import javax.xml.datatype.XMLGregorianCalendar;
 
-public class DefaultXMLCalendarComparator extends XMLDateTimeComparator<XMLGregorianCalendar> implements RelationalComparator<XMLGregorianCalendar> {
+public class DefaultXMLCalendarComparator extends XMLDateTimeComparator<XMLGregorianCalendar> {
     @Override
     protected Integer compareTo(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         Long firstValue = value(first);

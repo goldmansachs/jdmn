@@ -12,12 +12,11 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.RelationalComparator;
 import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 
 import java.time.OffsetTime;
 
-public class OffsetTimeComparator extends DateTimeComparator<OffsetTime> implements RelationalComparator<OffsetTime> {
+public class OffsetTimeComparator extends DateTimeComparator<OffsetTime> {
     @Override
     protected Integer compareTo(OffsetTime first, OffsetTime second) {
         return timeValue(first).compareTo(timeValue(second));
