@@ -12,12 +12,10 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.type.RelationalComparator;
-
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 
-public class DefaultDurationComparator extends XMLDateTimeComparator<Duration> implements RelationalComparator<Duration> {
+public class DefaultDurationComparator extends XMLDateTimeComparator<Duration> {
     @Override
     protected Integer compareTo(Duration first, Duration second) {
         Long firstValue = durationValue(first);

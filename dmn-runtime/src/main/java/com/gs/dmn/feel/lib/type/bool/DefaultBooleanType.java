@@ -32,11 +32,7 @@ public class DefaultBooleanType extends BaseType implements BooleanType {
 
     @Override
     public Boolean booleanNot(Object operand) {
-        if (operand instanceof Boolean) {
-            return ! (Boolean) operand;
-        } else {
-            return null;
-        }
+        return TernaryBooleanLogicUtil.getInstance().not(operand);
     }
 
     @Override
@@ -67,13 +63,7 @@ public class DefaultBooleanType extends BaseType implements BooleanType {
 
     @Override
     public Boolean binaryBooleanOr(Object first, Object second) {
-        if (isBooleanTrue(first) || isBooleanTrue(second)) {
-            return TRUE;
-        } else if (isBooleanFalse(first) && isBooleanFalse(second)) {
-            return FALSE;
-        } else {
-            return null;
-        }
+        return TernaryBooleanLogicUtil.getInstance().or(first, second);
     }
 
     @Override
@@ -104,13 +94,7 @@ public class DefaultBooleanType extends BaseType implements BooleanType {
 
     @Override
     public Boolean binaryBooleanAnd(Object first, Object second) {
-        if (isBooleanFalse(first) || isBooleanFalse(second)) {
-            return FALSE;
-        } else if (isBooleanTrue(first) && isBooleanTrue(second)) {
-            return TRUE;
-        } else {
-            return null;
-        }
+        return TernaryBooleanLogicUtil.getInstance().and(first, second);
     }
 
     @Override
@@ -134,13 +118,5 @@ public class DefaultBooleanType extends BaseType implements BooleanType {
     @Override
     public Boolean booleanNotEqual(Boolean first, Boolean second) {
         return booleanNot(booleanEqual(first, second));
-    }
-
-    private boolean isBooleanTrue(Object obj) {
-        return obj instanceof Boolean && (Boolean )obj;
-    }
-
-    private boolean isBooleanFalse(Object obj) {
-        return obj instanceof Boolean && ! (Boolean )obj;
     }
 }

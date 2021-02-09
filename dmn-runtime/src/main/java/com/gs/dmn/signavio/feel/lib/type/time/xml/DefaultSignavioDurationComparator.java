@@ -14,7 +14,6 @@ package com.gs.dmn.signavio.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationComparator;
 
-import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 
 public class DefaultSignavioDurationComparator extends DefaultDurationComparator {
@@ -22,13 +21,8 @@ public class DefaultSignavioDurationComparator extends DefaultDurationComparator
     public Boolean lessEqualThan(Duration first, Duration second) {
         if (first == null && second == null) {
             return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
         } else {
-            int compare = compareTo(first, second);
-            return compare == DatatypeConstants.LESSER || compare == DatatypeConstants.EQUAL;
+            return super.lessEqualThan(first, second);
         }
     }
 
@@ -36,13 +30,8 @@ public class DefaultSignavioDurationComparator extends DefaultDurationComparator
     public Boolean greaterEqualThan(Duration first, Duration second) {
         if (first == null && second == null) {
             return null;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
         } else {
-            int compare = compareTo(first, second);
-            return compare == DatatypeConstants.GREATER || compare == DatatypeConstants.EQUAL;
+            return super.greaterEqualThan(first, second);
         }
     }
 }
