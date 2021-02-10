@@ -21,19 +21,24 @@ public class TemporalComparator extends DateTimeComparator<Temporal> {
     @Override
     protected Integer compareTo(Temporal first, Temporal second) {
         // Time
-        if (first instanceof LocalTime && second instanceof LocalTime) {
-            return ((LocalTime) first).compareTo((LocalTime) second);
-        } else if (first instanceof OffsetTime && second instanceof OffsetTime) {
-            return ((OffsetTime) first).compareTo((OffsetTime) second);
+        if (isTime(first) && isTime(second)) {
+            return timeValue(first).compareTo(timeValue(second));
 
         // Date time
-        } else if (first instanceof LocalDateTime && second instanceof LocalDateTime) {
-            return ((LocalDateTime) first).compareTo((LocalDateTime) second);
-        } else if (first instanceof OffsetDateTime && second instanceof OffsetDateTime) {
-            return ((OffsetDateTime) first).compareTo((OffsetDateTime) second);
-        } else if (first instanceof ZonedDateTime && second instanceof ZonedDateTime) {
-            return ((ZonedDateTime) first).compareTo((ZonedDateTime) second);
+        } else if (isDateTime(first) && isDateTime(second)) {
+            return dateTimeValue(first).compareTo(dateTimeValue(second));
         }
+
         return  null;
+    }
+
+    private boolean isTime(Temporal dateTime) {
+        return dateTime instanceof LocalTime || dateTime instanceof OffsetTime;
+    }
+
+    private boolean isDateTime(Temporal time) {
+        return time instanceof LocalDateTime
+                || time instanceof OffsetDateTime
+                || time instanceof ZonedDateTime;
     }
 }
