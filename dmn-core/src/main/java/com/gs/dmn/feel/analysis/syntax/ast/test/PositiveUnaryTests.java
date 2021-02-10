@@ -14,12 +14,13 @@ package com.gs.dmn.feel.analysis.syntax.ast.test;
 
 import com.gs.dmn.feel.analysis.semantics.type.TupleType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class PositiveUnaryTests extends UnaryTests {
@@ -32,23 +33,36 @@ public class PositiveUnaryTests extends UnaryTests {
     }
 
     public List<PositiveUnaryTest> getPositiveUnaryTests() {
-        return positiveUnaryTests;
+        return this.positiveUnaryTests;
     }
 
     @Override
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         List<Type> types = getPositiveUnaryTests().stream().map(Expression::getType).collect(Collectors.toList());
         setType(new TupleType(types));
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PositiveUnaryTests that = (PositiveUnaryTests) o;
+        return Objects.equals(positiveUnaryTests, that.positiveUnaryTests);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(positiveUnaryTests);
+    }
+
+    @Override
     public String toString() {
-        String tests = positiveUnaryTests.stream().map(Object::toString).collect(Collectors.joining(","));
-        return String.format("PositiveUnaryTests(%s)", tests);
+        String tests = this.positiveUnaryTests.stream().map(Object::toString).collect(Collectors.joining(","));
+        return String.format("%s(%s)", getClass().getSimpleName(), tests);
     }
 }

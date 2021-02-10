@@ -12,40 +12,24 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.DefaultFEELLib;
-import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
-import com.gs.dmn.runtime.DMNRuntimeException;
-import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
-import javax.xml.namespace.QName;
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
-public abstract class BaseDefaultDurationType extends BaseType {
-    static final ThreadLocal<GregorianCalendar> GREGORIAN = ThreadLocal.withInitial(() -> new GregorianCalendar(
-            1970,
-            Calendar.JANUARY,
-            1,
-            0,
-            0,
-            0));
-
+public abstract class BaseDefaultDurationType extends XMLCalendarType {
     public static BigDecimal normalize(Duration duration) {
         if (isDuration(duration)) {
             return BigDecimal.valueOf(duration.getTimeInMillis(GREGORIAN.get()));
         } else if (isYearMonthDuration(duration)) {
-            BigDecimal years = BigDecimal.valueOf(duration.getYears());
-            BigDecimal months = BigDecimal.valueOf(duration.getMonths());
-            BigDecimal totalMonths = years.multiply(BigDecimal.valueOf(12)).add(months);
+            long years = duration.getYears();
+            long months = duration.getMonths();
+            long totalMonths = years * 12L + months;
             if (duration.getSign() < 0) {
-                totalMonths = totalMonths.negate();
+                totalMonths = -totalMonths;
             }
-            return totalMonths;
+            return BigDecimal.valueOf(totalMonths);
         } else if (isDayTimeDuration(duration)) {
             return BigDecimal.valueOf(duration.getTimeInMillis(GREGORIAN.get()));
         } else {
@@ -65,38 +49,9 @@ public abstract class BaseDefaultDurationType extends BaseType {
         return getXMLSchemaType(duration) == DatatypeConstants.DURATION_DAYTIME;
     }
 
-    private static QName getXMLSchemaType(Duration duration) {
-        if (duration == null) {
-            return DatatypeConstants.DURATION;
-        }
-
-        boolean yearSet = duration.isSet(DatatypeConstants.YEARS);
-        boolean monthSet = duration.isSet(DatatypeConstants.MONTHS);
-        boolean daySet = duration.isSet(DatatypeConstants.DAYS);
-        boolean hourSet = duration.isSet(DatatypeConstants.HOURS);
-        boolean minuteSet = duration.isSet(DatatypeConstants.MINUTES);
-        boolean secondSet = duration.isSet(DatatypeConstants.SECONDS);
-
-        if ((yearSet || monthSet) && !(daySet || hourSet || minuteSet || secondSet)) {
-            return DatatypeConstants.DURATION_YEARMONTH;
-        } else if (!(yearSet || monthSet) && (daySet || hourSet || minuteSet || secondSet)) {
-            return DatatypeConstants.DURATION_DAYTIME;
-        } else {
-            return DatatypeConstants.DURATION;
-        }
-    }
-
-    protected final DatatypeFactory dataTypeFactory;
     private final RelationalComparator<Duration> comparator;
 
-    @Deprecated
-    protected BaseDefaultDurationType(Logger logger) {
-        this(logger, DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator());
-    }
-
-    protected BaseDefaultDurationType(Logger logger, DatatypeFactory dataTypeFactory, RelationalComparator<Duration> comparator) {
-        super(logger);
-        this.dataTypeFactory = dataTypeFactory;
+    protected BaseDefaultDurationType(RelationalComparator<Duration> comparator) {
         this.comparator = comparator;
     }
 
@@ -132,12 +87,16 @@ public abstract class BaseDefaultDurationType extends BaseType {
             return null;
         }
 
-        try {
-            return first.add(second);
-        } catch (Exception e) {
-            String message = String.format("durationAdd(%s, %s)", first, second);
-            logError(message, e);
-            return null;
+        if (isYearsAndMonthsDuration(first) && isYearsAndMonthsDuration(second)) {
+            long totalMonths = monthsValue(first) + (long) monthsValue(second);
+            return XMLDurationFactory.INSTANCE.yearMonthFromValue(totalMonths);
+        } else if (isDaysAndTimeDuration(first) && isDaysAndTimeDuration(second)) {
+            long seconds = secondsValue(first) + (long) secondsValue(second);
+            return XMLDurationFactory.INSTANCE.dayTimeFromValue(seconds);
+        } else {
+            long months = monthsValue(first) + monthsValue(second);
+            long seconds = secondsValue(first) + secondsValue(second);
+            return XMLDurationFactory.INSTANCE.fromValue(months, seconds);
         }
     }
 
@@ -146,51 +105,6 @@ public abstract class BaseDefaultDurationType extends BaseType {
             return null;
         }
 
-        try {
-            return first.subtract(second);
-        } catch (Exception e) {
-            String message = String.format("durationSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    protected Duration durationMultiply(Duration first, Number second) {
-        if (first == null || second == null) {
-            return null;
-        }
-
-        try {
-            return first.multiply(second.intValue());
-        } catch (Exception e) {
-            String message = String.format("durationMultiply(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    protected Duration durationDivide(Duration first, Number second) {
-        if (first == null || second == null) {
-            return null;
-        }
-
-        try {
-            if (isYearMonthDuration(first)) {
-                long months = (first.getYears() * 12 + first.getMonths()) / second.intValue();
-                return this.dataTypeFactory.newDurationYearMonth(String.format("P%dM", months));
-            } else if (isDayTimeDuration(first)) {
-                long hours = 24L * first.getDays() + first.getHours();
-                long minutes = 60L * hours + first.getMinutes();
-                long seconds = 60L * minutes + first.getSeconds();
-                seconds = seconds / second.intValue();
-                return this.dataTypeFactory.newDurationDayTime(seconds * 1000L);
-            } else {
-                throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
-            }
-        } catch (Exception e) {
-            String message = String.format("durationDivide(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return durationAdd(first, second.negate());
     }
 }

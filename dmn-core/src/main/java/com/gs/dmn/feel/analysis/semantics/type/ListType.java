@@ -44,16 +44,15 @@ public class ListType extends Type {
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
+    protected boolean equivalentTo(Type other) {
         return other instanceof ListType
-                && this.elementType.equivalentTo(((ListType) other).elementType);
+                && Type.equivalentTo(this.elementType, ((ListType) other).elementType);
     }
 
     @Override
-    public boolean conformsTo(Type other) {
+    protected boolean conformsTo(Type other) {
         return other instanceof ListType
-                && this.elementType.conformsTo(((ListType) other).elementType)
-                || other == ANY;
+                && Type.conformsTo(this.elementType, ((ListType) other).elementType);
     }
 
     @Override

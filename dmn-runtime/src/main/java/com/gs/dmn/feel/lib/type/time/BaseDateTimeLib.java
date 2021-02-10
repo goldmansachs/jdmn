@@ -15,6 +15,7 @@ package com.gs.dmn.feel.lib.type.time;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.DatatypeConstants;
+import java.text.DateFormatSymbols;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -22,7 +23,7 @@ import java.time.format.SignStyle;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-import static com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib.UTC;
+import static com.gs.dmn.feel.lib.type.BaseType.UTC;
 import static java.time.temporal.ChronoField.*;
 
 public abstract class BaseDateTimeLib {
@@ -35,6 +36,10 @@ public abstract class BaseDateTimeLib {
     protected static final DateTimeFormatter FEEL_DATE_TIME;
     protected static final DateTimeFormatter FEEL_DATE;
     protected static final DateTimeFormatter FEEL_TIME;
+
+    protected static final DateFormatSymbols DATE_FORMAT_SYMBOLS = new DateFormatSymbols();
+    protected static final String[] DAY_NAMES = DATE_FORMAT_SYMBOLS.getWeekdays();
+    protected static final String[] MONTH_NAMES = DATE_FORMAT_SYMBOLS.getMonths();
 
     static {
         FEEL_DATE_FORMAT = new DateTimeFormatterBuilder()
@@ -69,7 +74,7 @@ public abstract class BaseDateTimeLib {
                 .optionalEnd()
                 .optionalStart()
                 .appendLiteral('@')
-                .parseCaseSensitive()
+                .parseCaseInsensitive()
                 .appendZoneRegionId()
                 .optionalEnd()
                 .toFormatter(Locale.getDefault(Locale.Category.FORMAT));
@@ -112,19 +117,25 @@ public abstract class BaseDateTimeLib {
         return literal.indexOf('T') != -1;
     }
 
-    protected boolean hasZone(String literal) {
+    protected boolean hasZoneId(String literal) {
         if (literal == null) {
             return false;
         }
 
-        return literal.endsWith("Z") || literal.endsWith("]") || literal.contains("@");
+        return literal.endsWith("]") || literal.contains("@");
     }
 
-    protected boolean hasOffset(String literal) {
+    protected boolean hasZoneOffset(String literal) {
         if (literal == null) {
             return false;
         }
 
+        // Check for offset ID Z
+        if (literal.endsWith("Z") || literal.endsWith("z")) {
+            return true;
+        }
+
+        // Check for offset ID +/-HH:MM
         // Remove sign
         if (literal.startsWith("-") || literal.startsWith("+")) {
             literal = literal.substring(1);
@@ -243,11 +254,11 @@ public abstract class BaseDateTimeLib {
         if (!isTime(literal)) {
             return null;
         }
-        if (hasZone(literal) && timeHasOffset(literal)) {
+        if (hasZoneId(literal) && timeHasOffset(literal)) {
             return null;
         }
 
-        if (hasZone(literal)) {
+        if (hasZoneId(literal)) {
             if (literal.contains("@")) {
                 int zoneIndex = literal.indexOf("@");
                 String zoneId = literal.substring(literal.indexOf('@') + 1);
@@ -259,7 +270,7 @@ public abstract class BaseDateTimeLib {
             } else {
                 return OffsetTime.parse(literal);
             }
-        } else if (hasOffset(literal)) {
+        } else if (hasZoneOffset(literal)) {
             return OffsetTime.parse(literal);
         } else {
             return OffsetTime.parse(literal + "Z");
@@ -288,9 +299,9 @@ public abstract class BaseDateTimeLib {
         }
 
         literal = fixDateTimeFormat(literal);
-        if (hasZone(literal)) {
+        if (hasZoneId(literal)) {
             return ZonedDateTime.parse(literal, FEEL_DATE_TIME_FORMAT);
-        } else if (hasOffset(literal)) {
+        } else if (hasZoneOffset(literal)) {
             return ZonedDateTime.parse(literal, FEEL_DATE_TIME_FORMAT);
         } else if (hasTime(literal)) {
             return ZonedDateTime.parse(literal + 'Z', FEEL_DATE_TIME_FORMAT);

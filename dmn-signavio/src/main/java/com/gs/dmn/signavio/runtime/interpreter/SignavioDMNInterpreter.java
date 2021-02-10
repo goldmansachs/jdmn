@@ -12,13 +12,11 @@
  */
 package com.gs.dmn.signavio.runtime.interpreter;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.listener.DRGElement;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.extension.Aggregator;
@@ -28,7 +26,6 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.omg.spec.dmn._20191111.model.TDRGElement;
 import org.omg.spec.dmn._20191111.model.TDecision;
 import org.omg.spec.dmn._20191111.model.TExpression;
-import org.omg.spec.dmn._20191111.model.TInputData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,41 +33,41 @@ import java.util.List;
 public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private final SignavioDMNModelRepository dmnModelRepository;
 
-    public SignavioDMNInterpreter(BasicDMNToNativeTransformer dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
-        super(dmnTransformer, feelLib);
+    public SignavioDMNInterpreter(BasicDMNToNativeTransformer dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib, TypeConverter typeConverter) {
+        super(dmnTransformer, feelLib, typeConverter);
         this.dmnModelRepository = (SignavioDMNModelRepository) this.getBasicDMNTransformer().getDMNModelRepository();
     }
 
     @Override
-    protected Result evaluateExpression(TDRGElement element, TExpression expression, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation) {
+    protected Result evaluateExpression(TDRGElement element, TExpression expression, DMNContext context, DRGElement elementAnnotation) {
         if (element instanceof TDecision && this.dmnModelRepository.isMultiInstanceDecision(element)) {
-            return evaluateMultipleInstanceDecision((TDecision) element, environment, runtimeEnvironment, elementAnnotation);
+            return evaluateMultipleInstanceDecision((TDecision) element, context, elementAnnotation);
         } else {
-            return super.evaluateExpression(element, expression, environment, runtimeEnvironment, elementAnnotation);
+            return super.evaluateExpression(element, expression, context, elementAnnotation);
         }
     }
 
-    private Result evaluateMultipleInstanceDecision(TDecision decision, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation) {
+    private Result evaluateMultipleInstanceDecision(TDecision decision, DMNContext parentContext, DRGElement elementAnnotation) {
         // Multi instance attributes
         MultiInstanceDecisionLogic multiInstanceDecision = ((BasicSignavioDMNToJavaTransformer) getBasicDMNTransformer()).multiInstanceDecisionLogic(decision);
         String iterationExpression = multiInstanceDecision.getIterationExpression();
         TDRGElement iterator = multiInstanceDecision.getIterator();
         Aggregator aggregator = multiInstanceDecision.getAggregator();
         TDecision topLevelDecision = multiInstanceDecision.getTopLevelDecision();
-        String lambdaParamName = getBasicDMNTransformer().namedElementVariableName((TInputData) iterator);
+        String lambdaParamName = getBasicDMNTransformer().namedElementVariableName(iterator);
         String topLevelVariableName = getBasicDMNTransformer().namedElementVariableName(topLevelDecision);
 
         // Evaluate source
-        Result result = evaluateLiteralExpression(decision, iterationExpression, environment, runtimeEnvironment);
+        Result result = evaluateLiteralExpression(decision, iterationExpression, parentContext);
         List sourceList = (List) Result.value(result);
 
         // Iterate over source
         List outputList = new ArrayList<>();
-        RuntimeEnvironment newRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(runtimeEnvironment);
+        DMNContext loopContext = this.getBasicDMNTransformer().makeGlobalContext(decision, parentContext);
         for (Object obj : sourceList) {
-            newRuntimeEnvironment.bind(lambdaParamName, obj);
-            applyDecision(this.dmnModelRepository.makeDRGElementReference(topLevelDecision), newRuntimeEnvironment);
-            outputList.add(newRuntimeEnvironment.lookupBinding(topLevelVariableName));
+            loopContext.bind(lambdaParamName, obj);
+            Result decisionResult = evaluateDecisionInContext(this.dmnModelRepository.makeDRGElementReference(topLevelDecision), loopContext);
+            outputList.add(Result.value(decisionResult));
         }
 
         // Aggregate
@@ -94,23 +91,11 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
             } else if (aggregator == Aggregator.ALLFALSE) {
                 output = outputList.stream().anyMatch(o -> o == Boolean.FALSE);
             } else {
-                handleError(String.format("'%s' is not implemented yet", aggregator));
+                this.errorHandler.reportError(String.format("'%s' is not implemented yet", aggregator));
                 output = null;
             }
         }
-        return new Result(output, getBasicDMNTransformer().drgElementOutputFEELType(decision));
-    }
-
-    @Override
-    protected Result convertResult(Result result, Type expectedType) {
-        Object value = Result.value(result);
-        if (value == null) {
-            return null;
-        }
-        if (value instanceof List && ((List) value).size() == 1 && !(expectedType instanceof ListType)) {
-            value = feelLib.asElement((List) value);
-        }
-        return new Result(value, expectedType);
+        return Result.of(output, getBasicDMNTransformer().drgElementOutputFEELType(decision));
     }
 
     @Override

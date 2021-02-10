@@ -13,12 +13,12 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.SimpleLiteral;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.DMNContext;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -33,17 +33,17 @@ public class Context extends Expression {
     }
 
     public List<ContextEntry> getEntries() {
-        return entries;
+        return this.entries;
     }
 
     public ContextEntry entry(String name) {
-        List<ContextEntry> result = entries.stream().filter(e -> name.equals(e.getKey().getKey())).collect(Collectors.toList());
+        List<ContextEntry> result = this.entries.stream().filter(e -> name.equals(e.getKey().getKey())).collect(Collectors.toList());
         return result.size() == 1 ? result.get(0) : null;
     }
 
     public Map<String, Object> toMap() {
         Map<String, Object> result = new LinkedHashMap<>();
-        for(ContextEntry entry: entries) {
+        for(ContextEntry entry: this.entries) {
             String key = entry.getKey().getKey();
             Expression expression = entry.getExpression();
             Object value;
@@ -61,20 +61,33 @@ public class Context extends Expression {
     }
 
     @Override
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         ContextType type = new ContextType();
-        entries.forEach(e -> type.addMember(e.getKey().getKey(), Arrays.asList(), e.getExpression().getType()));
+        this.entries.forEach(e -> type.addMember(e.getKey().getKey(), Arrays.asList(), e.getExpression().getType()));
         setType(type);
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Context context = (Context) o;
+        return Objects.equals(entries, context.entries);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(entries);
+    }
+
+    @Override
     public String toString() {
-        String expressions = entries.stream().map(ContextEntry::toString).collect(Collectors.joining(","));
-        return String.format("Context(%s)", expressions);
+        String expressions = this.entries.stream().map(ContextEntry::toString).collect(Collectors.joining(","));
+        return String.format("%s(%s)", getClass().getSimpleName(), expressions);
     }
 }

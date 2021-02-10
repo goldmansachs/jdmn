@@ -14,6 +14,7 @@
             </expected>
         </resultNode>
     </testCase>
+<!--
     <testCase id="002_ddca5756ca">
         <resultNode errorResult="true" name="feel-duration-function_ErrorCase_002_ddca5756ca" type="decision">
             <expected>
@@ -21,6 +22,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
     <testCase id="003_951e1d1c31">
         <resultNode name="feel-duration-function_003_951e1d1c31" type="decision">
             <expected>
@@ -287,6 +289,7 @@
             </expected>
         </resultNode>
     </testCase>
+<!--
     <testCase id="041_264bc9d682">
         <resultNode errorResult="true" name="feel-duration-function_ErrorCase_041_264bc9d682" type="decision">
             <expected>
@@ -294,6 +297,8 @@
             </expected>
         </resultNode>
     </testCase>
+-->
+<!--
     <testCase id="042_59a0000245">
         <resultNode errorResult="true" name="feel-duration-function_ErrorCase_042_59a0000245" type="decision">
             <expected>
@@ -301,6 +306,8 @@
             </expected>
         </resultNode>
     </testCase>
+-->
+<!--
     <testCase id="043_253815dc6c">
         <resultNode errorResult="true" name="feel-duration-function_ErrorCase_043_253815dc6c" type="decision">
             <expected>
@@ -308,6 +315,8 @@
             </expected>
         </resultNode>
     </testCase>
+-->
+<!--
     <testCase id="044_f3b338d877">
         <resultNode errorResult="true" name="feel-duration-function_ErrorCase_044_f3b338d877" type="decision">
             <expected>
@@ -315,6 +324,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
     <testCase id="045_2ffcc37801">
         <resultNode errorResult="true" name="feel-duration-function_ErrorCase_045_2ffcc37801" type="decision">
             <expected>
@@ -322,6 +332,7 @@
             </expected>
         </resultNode>
     </testCase>
+<!--
     <testCase id="046_eb637de5f6">
         <resultNode errorResult="true" name="feel-duration-function_ErrorCase_046_eb637de5f6" type="decision">
             <expected>
@@ -329,6 +340,8 @@
             </expected>
         </resultNode>
     </testCase>
+-->
+<!--
     <testCase id="047_3210c46a5a">
         <resultNode errorResult="true" name="feel-duration-function_ErrorCase_047_3210c46a5a" type="decision">
             <expected>
@@ -336,6 +349,8 @@
             </expected>
         </resultNode>
     </testCase>
+-->
+<!--
     <testCase id="048_ab6244f767">
         <resultNode errorResult="true" name="feel-duration-function_ErrorCase_048_ab6244f767" type="decision">
             <expected>
@@ -343,6 +358,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
     <testCase id="049_2225b503a0">
         <resultNode errorResult="true" name="feel-duration-function_ErrorCase_049_2225b503a0" type="decision">
             <expected>

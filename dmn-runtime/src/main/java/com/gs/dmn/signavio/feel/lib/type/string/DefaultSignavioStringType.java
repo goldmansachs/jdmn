@@ -12,13 +12,11 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.string;
 
-import com.gs.dmn.feel.lib.type.StringType;
+import com.gs.dmn.feel.lib.type.string.StringType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
-import org.slf4j.Logger;
 
 public class DefaultSignavioStringType extends DefaultStringType implements StringType {
-    public DefaultSignavioStringType(Logger logger) {
-        super(logger);
+    public DefaultSignavioStringType() {
     }
 
     @Override

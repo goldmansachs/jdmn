@@ -12,15 +12,21 @@
  */
 package com.gs.dmn.feel.lib;
 
-import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.bool.BooleanLib;
+import com.gs.dmn.feel.lib.type.bool.BooleanType;
+import com.gs.dmn.feel.lib.type.context.ContextType;
+import com.gs.dmn.feel.lib.type.function.FunctionType;
 import com.gs.dmn.feel.lib.type.list.ListLib;
+import com.gs.dmn.feel.lib.type.list.ListType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
+import com.gs.dmn.feel.lib.type.numeric.NumericType;
+import com.gs.dmn.feel.lib.type.range.RangeLib;
+import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
-import com.gs.dmn.feel.lib.type.time.DateTimeLib;
-import com.gs.dmn.feel.lib.type.time.DurationLib;
+import com.gs.dmn.feel.lib.type.string.StringType;
+import com.gs.dmn.feel.lib.type.time.*;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationType;
 
 import javax.xml.datatype.Duration;
@@ -30,12 +36,16 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
 public class MixedJavaTimeFEELLib extends BaseMixedJavaTimeFEELLib<BigDecimal> implements StandardFEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
-    public static MixedJavaTimeFEELLib INSTANCE = new MixedJavaTimeFEELLib();
+    private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultNumericType();
+    private static final DurationType<Duration, BigDecimal> DURATION_TYPE = new DefaultDurationType();
+    private static final NumericLib<BigDecimal> NUMERIC_LIB = new DefaultNumericLib();
+
+    public static final MixedJavaTimeFEELLib INSTANCE = new MixedJavaTimeFEELLib();
 
     public MixedJavaTimeFEELLib() {
-        this(new DefaultNumericType(LOGGER),
-                new DefaultDurationType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultNumericLib()
+        this(NUMERIC_TYPE,
+                DURATION_TYPE,
+                NUMERIC_LIB
         );
     }
 
@@ -56,16 +66,19 @@ public class MixedJavaTimeFEELLib extends BaseMixedJavaTimeFEELLib<BigDecimal> i
             DurationType<Duration, BigDecimal> durationType,
             ListType listType,
             ContextType contextType,
+            RangeType rangeType,
+            FunctionType functionType,
             NumericLib<BigDecimal> numericLib,
             StringLib stringLib,
             BooleanLib booleanLib,
             DateTimeLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> dateTimeLib,
             DurationLib<LocalDate, Duration> durationLib,
-            ListLib listLib) {
+            ListLib listLib,
+            RangeLib rangeLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
-                listType, contextType,
-                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib
+                listType, contextType, rangeType, functionType,
+                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib
         );
     }
 

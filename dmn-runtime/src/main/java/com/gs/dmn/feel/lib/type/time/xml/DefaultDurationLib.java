@@ -13,48 +13,50 @@
 package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.time.DurationLib;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.TemporalAmount;
-import java.util.Arrays;
-import java.util.List;
 
-public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, javax.xml.datatype.Duration> {
-    private final DatatypeFactory dataTypeFactory;
+public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, Duration> {
+    public static boolean hasYearsOrMonths(Duration duration) {
+        return duration.isSet(DatatypeConstants.YEARS)
+                || duration.isSet(DatatypeConstants.MONTHS)
+                ;
+    }
 
-    public DefaultDurationLib(DatatypeFactory dataTypeFactory) {
-        this.dataTypeFactory = dataTypeFactory;
+    public static boolean hasDayOrTime(Duration duration) {
+        return duration.isSet(DatatypeConstants.DAYS)
+                || duration.isSet(DatatypeConstants.HOURS)
+                || duration.isSet(DatatypeConstants.MINUTES)
+                || duration.isSet(DatatypeConstants.SECONDS)
+                ;
+    }
+
+    public DefaultDurationLib() {
     }
 
     @Override
-    public javax.xml.datatype.Duration duration(String from) {
-        if (StringUtils.isBlank(from)) {
-            return null;
-        }
-
-        return this.dataTypeFactory.newDuration(from);
+    public Duration duration(String from) {
+        return XMLDurationFactory.INSTANCE.parse(from);
     }
 
     @Override
-    public javax.xml.datatype.Duration yearsAndMonthsDuration(XMLGregorianCalendar from, XMLGregorianCalendar to) {
+    public Duration yearsAndMonthsDuration(XMLGregorianCalendar from, XMLGregorianCalendar to) {
         if (from == null || to == null) {
             return null;
         }
 
-        LocalDate toLocalDate = LocalDate.of(to.getYear(), to.getMonth(), to.getDay());
         LocalDate fromLocalDate = LocalDate.of(from.getYear(), from.getMonth(), from.getDay());
-        return this.toYearsMonthDuration(this.dataTypeFactory, toLocalDate, fromLocalDate);
+        LocalDate toLocalDate = LocalDate.of(to.getYear(), to.getMonth(), to.getDay());
+        Period period = Period.between(fromLocalDate, toLocalDate);
+        return XMLDurationFactory.INSTANCE.yearMonthFrom(period);
     }
 
     @Override
-    public Long years(javax.xml.datatype.Duration duration) {
+    public Long years(Duration duration) {
         if (duration == null) {
             return null;
         }
@@ -67,7 +69,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
     }
 
     @Override
-    public Long months(javax.xml.datatype.Duration duration) {
+    public Long months(Duration duration) {
         if (duration == null) {
             return null;
         }
@@ -80,7 +82,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
     }
 
     @Override
-    public Long days(javax.xml.datatype.Duration duration) {
+    public Long days(Duration duration) {
         if (duration == null) {
             return null;
         }
@@ -93,7 +95,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
     }
 
     @Override
-    public Long hours(javax.xml.datatype.Duration duration) {
+    public Long hours(Duration duration) {
         if (duration == null) {
             return null;
         }
@@ -106,7 +108,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
     }
 
     @Override
-    public Long minutes(javax.xml.datatype.Duration duration) {
+    public Long minutes(Duration duration) {
         if (duration == null) {
             return null;
         }
@@ -119,7 +121,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
     }
 
     @Override
-    public Long seconds(javax.xml.datatype.Duration duration) {
+    public Long seconds(Duration duration) {
         if (duration == null) {
             return null;
         }
@@ -131,51 +133,13 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, jav
         }
     }
 
-    private boolean hasYearsOrMonths(javax.xml.datatype.Duration duration) {
-        return duration.isSet(DatatypeConstants.YEARS)
-                || duration.isSet(DatatypeConstants.MONTHS)
-                ;
-    }
-
-    private boolean hasDayOrTime(javax.xml.datatype.Duration duration) {
-        return duration.isSet(DatatypeConstants.DAYS)
-                || duration.isSet(DatatypeConstants.HOURS)
-                || duration.isSet(DatatypeConstants.MINUTES)
-                || duration.isSet(DatatypeConstants.SECONDS)
-                ;
-    }
-
-    private javax.xml.datatype.Duration toYearsMonthDuration(DatatypeFactory datatypeFactory, LocalDate date1, LocalDate date2) {
-        Period between = Period.between(date2, date1);
-        int years = between.getYears();
-        int months = between.getMonths();
-        if (between.isNegative()) {
-            years = - years;
-            months = - months;
-        }
-        return datatypeFactory.newDurationYearMonth(!between.isNegative(), years, months);
-    }
-
-    public static TemporalAmount temporalAmount(String literal) {
-        if (literal == null) {
-            throw new IllegalArgumentException("Duration literal cannot be null");
+    @Override
+    public Duration abs(Duration duration) {
+        if (duration == null) {
+            return null;
         }
 
-        if (literal.indexOf("-") > 0) {
-            throw new IllegalArgumentException("Negative values for units are not allowed.");
-        }
-
-        try {
-            return Duration.parse(literal);
-        } catch (DateTimeParseException e1) {
-            try {
-                return Period.parse(literal).normalized();
-            } catch (DateTimeParseException e2) {
-                throw new RuntimeException("Parsing exception in duration literal",
-                        new RuntimeException(new Throwable() {
-                            public final List<Throwable> causes = Arrays.asList(new Throwable[]{e1, e2});
-                        }));
-            }
-        }
+        return duration.getSign() == -1 ? duration.negate() : duration;
     }
+
 }

@@ -12,15 +12,21 @@
  */
 package com.gs.dmn.feel.lib;
 
-import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.bool.BooleanLib;
+import com.gs.dmn.feel.lib.type.bool.BooleanType;
+import com.gs.dmn.feel.lib.type.context.ContextType;
+import com.gs.dmn.feel.lib.type.function.FunctionType;
 import com.gs.dmn.feel.lib.type.list.ListLib;
+import com.gs.dmn.feel.lib.type.list.ListType;
 import com.gs.dmn.feel.lib.type.numeric.DoubleNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DoubleNumericType;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
+import com.gs.dmn.feel.lib.type.numeric.NumericType;
+import com.gs.dmn.feel.lib.type.range.RangeLib;
+import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
-import com.gs.dmn.feel.lib.type.time.DateTimeLib;
-import com.gs.dmn.feel.lib.type.time.DurationLib;
+import com.gs.dmn.feel.lib.type.string.StringType;
+import com.gs.dmn.feel.lib.type.time.*;
 import com.gs.dmn.feel.lib.type.time.xml.DoubleDurationType;
 
 import javax.xml.datatype.Duration;
@@ -29,12 +35,16 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
 public class DoubleMixedJavaTimeFEELLib extends BaseMixedJavaTimeFEELLib<Double> {
-    public static DoubleMixedJavaTimeFEELLib INSTANCE = new DoubleMixedJavaTimeFEELLib();
+    private static final NumericType<Double> NUMERIC_TYPE = new DoubleNumericType();
+    private static final DurationType<Duration, Double> DURATION_TYPE = new DoubleDurationType();
+    private static final NumericLib<Double> NUMERIC_LIB = new DoubleNumericLib();
+
+    public static final DoubleMixedJavaTimeFEELLib INSTANCE = new DoubleMixedJavaTimeFEELLib();
 
     public DoubleMixedJavaTimeFEELLib() {
-        this(new DoubleNumericType(LOGGER),
-                new DoubleDurationType(LOGGER, DATA_TYPE_FACTORY),
-                new DoubleNumericLib()
+        this(NUMERIC_TYPE,
+                DURATION_TYPE,
+                NUMERIC_LIB
         );
     }
 
@@ -45,14 +55,17 @@ public class DoubleMixedJavaTimeFEELLib extends BaseMixedJavaTimeFEELLib<Double>
         super(numericType, durationType, numericLib);
     }
 
-    protected DoubleMixedJavaTimeFEELLib(NumericType<Double> numericType, BooleanType booleanType, StringType stringType, DateType<LocalDate, Duration> dateType, TimeType<OffsetTime, Duration> timeType, DateTimeType<ZonedDateTime, Duration> dateTimeType, DurationType<Duration, Double> durationType, ListType listType, ContextType contextType, NumericLib<Double> numericLib, StringLib stringLib, BooleanLib booleanLib, DateTimeLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> dateTimeLib, DurationLib<LocalDate, Duration> durationLib, ListLib listLib) {
+    protected DoubleMixedJavaTimeFEELLib(NumericType<Double> numericType, BooleanType booleanType, StringType stringType, DateType<LocalDate, Duration> dateType, TimeType<OffsetTime, Duration> timeType, DateTimeType<ZonedDateTime, Duration> dateTimeType, DurationType<Duration, Double> durationType, ListType listType, ContextType contextType, RangeType rangeType, FunctionType functionType, NumericLib<Double> numericLib, StringLib stringLib, BooleanLib booleanLib, DateTimeLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> dateTimeLib, DurationLib<LocalDate, Duration> durationLib, ListLib listLib, RangeLib rangeLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
-                listType, contextType,
-                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib
+                listType, contextType, rangeType, functionType,
+                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib
         );
     }
 
+    //
+    // Extra conversion functions
+    //
     @Override
     protected Double valueOf(long number) {
         return Double.valueOf(number);

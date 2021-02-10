@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.datatype.DatatypeConstants;
@@ -239,6 +238,29 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         }
     }
 
+    public FEELXMLGregorianCalendar(GregorianCalendar cal) {
+
+        int year1 = cal.get(Calendar.YEAR);
+        if (cal.get(Calendar.ERA) == GregorianCalendar.BC) {
+            year1 = -year1;
+        }
+        this.setYear(year1);
+
+        // Calendar.MONTH is zero based, XSD Date datatype's month field starts
+        // with JANUARY as 1.
+        this.setMonth(cal.get(Calendar.MONTH) + 1);
+        this.setDay(cal.get(Calendar.DAY_OF_MONTH));
+        this.setTime(
+                cal.get(Calendar.HOUR_OF_DAY),
+                cal.get(Calendar.MINUTE),
+                cal.get(Calendar.SECOND),
+                cal.get(Calendar.MILLISECOND));
+
+        // Calendar ZONE_OFFSET and DST_OFFSET fields are in milliseconds.
+        int offsetInMinutes = (cal.get(Calendar.ZONE_OFFSET) + cal.get(Calendar.DST_OFFSET)) / (60 * 1000);
+        this.secondsOffset = offsetInMinutes * 60;
+    }
+
     @Override
     public BigInteger getEon() {
         return eon;
@@ -355,7 +377,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
                 invalidFieldValue(HOUR, getHour());
             }
             setHour(0, false);
-            add(DefaultFEELLib.DATA_TYPE_FACTORY.newDuration(true, 0, 0, 1, 0, 0, 0));
+            add(XMLDurationFactory.INSTANCE.dayTimeWithDays(1));
         }
     }
 
@@ -605,10 +627,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         FEELXMLGregorianCalendar result = (FEELXMLGregorianCalendar) this.clone();
         // normalizing to UTC time negates the timezone offset before addition.
         seconds = -seconds;
-        Duration d = DefaultFEELLib.DATA_TYPE_FACTORY.newDuration(
-                seconds >= 0,
-                0, 0, 0,
-                0, 0, seconds < 0 ? -seconds : seconds);
+        Duration d = XMLDurationFactory.INSTANCE.dayTimeWithSeconds(seconds);
         result.add(d);
         // set to zulu UTC time.
         result.setZoneID("Z");
@@ -1445,7 +1464,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
                 result = String.format("%02d:%02d:%02d%s", hour, minute, second, nanoseconds);
             }
             if (zoneID != null) {
-                if (isOffset(zoneID)) {
+                if (isZoneOffset(zoneID)) {
                     result += zoneID;
                 } else {
                     result += "@" + zoneID;
@@ -1468,7 +1487,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
                 result = String.format("%d-%02d-%02dT%02d:%02d:%02d%s", year, month, day, hour, minute, second, nanoseconds);
             }
             if (zoneID != null) {
-                if (isOffset(zoneID)) {
+                if (isZoneOffset(zoneID)) {
                     result += zoneID;
                 } else {
                     result += "@" + zoneID;
@@ -1480,9 +1499,9 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         }
     }
 
-    private boolean isOffset(String zoneID) {
+    private boolean isZoneOffset(String zoneID) {
         return zoneID != null &&
-                ( zoneID.equals("Z") || zoneID.startsWith("+") || zoneID.startsWith("-") )
+                ( zoneID.equalsIgnoreCase("Z") || zoneID.startsWith("+") || zoneID.startsWith("-") )
                 ;
     }
 

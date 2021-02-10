@@ -26,11 +26,11 @@ public class Conversion {
     }
 
     public ConversionKind getKind() {
-        return kind;
+        return this.kind;
     }
 
     public Type getTargetType() {
-        return targetType;
+        return this.targetType;
     }
 
     @Override
@@ -38,17 +38,17 @@ public class Conversion {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Conversion that = (Conversion) o;
-        return kind == that.kind &&
-                Objects.equals(targetType, that.targetType);
+        return this.kind == that.kind &&
+                Objects.equals(this.targetType, that.targetType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(kind, targetType);
+        return Objects.hash(this.kind, this.targetType);
     }
 
     @Override
     public String toString() {
-        return String.format("Conversion(%s, %s)", kind, targetType);
+        return String.format("%s(%s, %s)", getClass().getSimpleName(), this.kind, this.targetType);
     }
 }

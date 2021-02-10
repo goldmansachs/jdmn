@@ -12,12 +12,22 @@
  */
 package com.gs.dmn.feel.lib.stub;
 
-import com.gs.dmn.feel.lib.type.BooleanType;
+import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.List;
 
 public class BooleanTypeStub implements BooleanType {
+    @Override
+    public boolean isBoolean(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Boolean booleanValue(Boolean value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
     @Override
     public Boolean booleanNot(Object operand) {
         throw new DMNRuntimeException("Not supported yet");
@@ -50,6 +60,11 @@ public class BooleanTypeStub implements BooleanType {
 
     @Override
     public Boolean binaryBooleanAnd(Object first, Object second) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Boolean booleanIs(Boolean first, Boolean second) {
         throw new DMNRuntimeException("Not supported yet");
     }
 

@@ -12,14 +12,15 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.comparison;
 
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.PositiveUnaryTest;
 import com.gs.dmn.feel.analysis.syntax.ast.test.PositiveUnaryTests;
+import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
@@ -31,7 +32,7 @@ public class InExpression extends Comparison {
     public InExpression(Expression value, PositiveUnaryTest test) {
         this.value = value;
         if (test != null) {
-            tests.add(test);
+            this.tests.add(test);
         }
     }
 
@@ -43,26 +44,39 @@ public class InExpression extends Comparison {
     }
 
     public Expression getValue() {
-        return value;
+        return this.value;
     }
 
     public List<PositiveUnaryTest> getTests() {
-        return tests;
+        return this.tests;
     }
 
     @Override
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         setType(BOOLEAN);
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        InExpression that = (InExpression) o;
+        return Objects.equals(value, that.value) && Objects.equals(tests, that.tests);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, tests);
+    }
+
+    @Override
     public String toString() {
-        String right = tests.stream().map(Object::toString).collect(Collectors.joining(", "));
-        return String.format("InExpression(%s, %s)", value.toString(), right);
+        String right = this.tests.stream().map(Object::toString).collect(Collectors.joining(", "));
+        return String.format("%s(%s, %s)", getClass().getSimpleName(), this.value.toString(), right);
     }
 }

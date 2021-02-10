@@ -13,12 +13,13 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.TypeExpression;
+import com.gs.dmn.runtime.DMNContext;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class FunctionDefinition extends Expression {
@@ -55,7 +56,7 @@ public class FunctionDefinition extends Expression {
     }
 
     @Override
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
     }
 
     public Type getReturnType() {
@@ -67,13 +68,26 @@ public class FunctionDefinition extends Expression {
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FunctionDefinition that = (FunctionDefinition) o;
+        return external == that.external && Objects.equals(formalParameters, that.formalParameters) && Objects.equals(returnTypeExpression, that.returnTypeExpression) && Objects.equals(body, that.body);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(formalParameters, returnTypeExpression, body, external);
     }
 
     @Override
     public String toString() {
         String parameters = this.formalParameters.stream().map(FormalParameter::toString).collect(Collectors.joining(","));
-        return String.format("FunctionDefinition(%s, %s, %s)", parameters, this.body.toString(), this.external);
+        return String.format("%s(%s, %s, %s)", getClass().getSimpleName(), parameters, this.body.toString(), this.external);
     }
 }

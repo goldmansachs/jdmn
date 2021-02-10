@@ -12,84 +12,13 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.RelationalComparator;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
+import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 
 import java.time.ZonedDateTime;
-import java.util.function.Supplier;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
-
-public class ZonedDateTimeComparator implements RelationalComparator<ZonedDateTime> {
+public class ZonedDateTimeComparator extends DateTimeComparator<ZonedDateTime> {
     @Override
-    public Integer compare(ZonedDateTime first, ZonedDateTime second) {
-        return first.withZoneSameInstant(DefaultDateTimeLib.UTC).compareTo(second.withZoneSameInstant(DefaultDateTimeLib.UTC));
-    }
-
-    @Override
-    public Boolean equalTo(ZonedDateTime first, ZonedDateTime second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> FALSE,
-                () -> FALSE,
-                () -> first.compareTo(second) == 0
-        });
-    }
-
-    @Override
-    public Boolean lessThan(ZonedDateTime first, ZonedDateTime second) {
-        if (first == null && second == null) {
-            return false;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result < 0;
-        }
-    }
-
-    @Override
-    public Boolean greaterThan(ZonedDateTime first, ZonedDateTime second) {
-        if (first == null && second == null) {
-            return false;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result > 0;
-        }
-    }
-
-    @Override
-    public Boolean lessEqualThan(ZonedDateTime first, ZonedDateTime second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result <= 0;
-        }
-    }
-
-    @Override
-    public Boolean greaterEqualThan(ZonedDateTime first, ZonedDateTime second) {
-        if (first == null && second == null) {
-            return true;
-        } else if (first == null) {
-            return null;
-        } else if (second == null) {
-            return null;
-        } else {
-            int result = compare(first, second);
-            return result >= 0;
-        }
+    protected Integer compareTo(ZonedDateTime first, ZonedDateTime second) {
+        return dateTimeValue(first).compareTo(dateTimeValue(second));
     }
 }

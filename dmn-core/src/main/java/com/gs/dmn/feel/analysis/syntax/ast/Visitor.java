@@ -31,132 +31,129 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.type.FunctionTypeExpressio
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.ListTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.NamedTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
+import com.gs.dmn.runtime.DMNContext;
 
 public interface Visitor {
     //
     // Tests
     //
-    Object visit(PositiveUnaryTests element, FEELContext params);
+    Object visit(PositiveUnaryTests element, DMNContext context);
 
-    Object visit(NegatedPositiveUnaryTests element, FEELContext params);
+    Object visit(NegatedPositiveUnaryTests element, DMNContext context);
 
-    Object visit(SimplePositiveUnaryTests element, FEELContext params);
+    Object visit(Any element, DMNContext context);
 
-    Object visit(NegatedSimplePositiveUnaryTests element, FEELContext params);
+    Object visit(NullTest element, DMNContext context);
 
-    Object visit(Any element, FEELContext params);
+    Object visit(ExpressionTest element, DMNContext context);
 
-    Object visit(NullTest element, FEELContext params);
+    Object visit(OperatorRange element, DMNContext context);
 
-    Object visit(ExpressionTest element, FEELContext params);
+    Object visit(EndpointsRange element, DMNContext context);
 
-    Object visit(OperatorTest element, FEELContext params);
-
-    Object visit(RangeTest element, FEELContext params);
-
-    Object visit(ListTest element, FEELContext params);
+    Object visit(ListTest element, DMNContext context);
 
     //
     // Textual expressions
     //
-    Object visit(FormalParameter element, FEELContext params);
+    Object visit(FormalParameter element, DMNContext context);
 
-    Object visit(FunctionDefinition element, FEELContext params);
+    Object visit(FunctionDefinition element, DMNContext context);
 
-    Object visit(Context element, FEELContext params);
+    Object visit(Context element, DMNContext context);
 
-    Object visit(ContextEntry element, FEELContext params);
+    Object visit(ContextEntry element, DMNContext context);
 
-    Object visit(ContextEntryKey element, FEELContext params);
+    Object visit(ContextEntryKey element, DMNContext context);
 
-    Object visit(ForExpression element, FEELContext params);
+    Object visit(ForExpression element, DMNContext context);
 
-    Object visit(Iterator element, FEELContext params);
+    Object visit(Iterator element, DMNContext context);
 
-    Object visit(ExpressionIteratorDomain element, FEELContext params);
+    Object visit(ExpressionIteratorDomain element, DMNContext context);
 
-    Object visit(RangeIteratorDomain element, FEELContext params);
+    Object visit(RangeIteratorDomain element, DMNContext context);
 
-    Object visit(IfExpression element, FEELContext params);
+    Object visit(IfExpression element, DMNContext context);
 
-    Object visit(QuantifiedExpression element, FEELContext params);
+    Object visit(QuantifiedExpression element, DMNContext context);
 
-    Object visit(FilterExpression element, FEELContext params);
+    Object visit(FilterExpression element, DMNContext context);
 
-    Object visit(InstanceOfExpression element, FEELContext params);
+    Object visit(InstanceOfExpression element, DMNContext context);
 
     //
     // Expressions
     //
-    Object visit(ExpressionList element, FEELContext params);
+    Object visit(ExpressionList element, DMNContext context);
 
     //
     // Logic expressions
     //
-    Object visit(Disjunction element, FEELContext params);
+    Object visit(Disjunction element, DMNContext context);
 
-    Object visit(Conjunction element, FEELContext params);
+    Object visit(Conjunction element, DMNContext context);
 
-    Object visit(LogicNegation element, FEELContext params);
+    Object visit(LogicNegation element, DMNContext context);
 
     //
     // Comparison expressions
     //
-    Object visit(Relational element, FEELContext params);
+    Object visit(Relational element, DMNContext context);
 
-    Object visit(BetweenExpression element, FEELContext params);
+    Object visit(BetweenExpression element, DMNContext context);
 
-    Object visit(InExpression element, FEELContext params);
+    Object visit(InExpression element, DMNContext context);
 
     //
     // Arithmetic expressions
     //
-    Object visit(Addition element, FEELContext params);
+    Object visit(Addition element, DMNContext context);
 
-    Object visit(Multiplication element, FEELContext params);
+    Object visit(Multiplication element, DMNContext context);
 
-    Object visit(Exponentiation element, FEELContext params);
+    Object visit(Exponentiation element, DMNContext context);
 
-    Object visit(ArithmeticNegation element, FEELContext params);
+    Object visit(ArithmeticNegation element, DMNContext context);
 
     //
     // Postfix expressions
     //
-    Object visit(FunctionInvocation element, FEELContext params);
+    Object visit(FunctionInvocation element, DMNContext context);
 
-    Object visit(NamedParameters element, FEELContext params);
+    Object visit(NamedParameters element, DMNContext context);
 
-    Object visit(PositionalParameters element, FEELContext params);
+    Object visit(PositionalParameters element, DMNContext context);
 
-    Object visit(PathExpression element, FEELContext params);
+    Object visit(PathExpression element, DMNContext context);
 
     //
     // Primary expressions
     //
-    Object visit(BooleanLiteral element, FEELContext params);
+    Object visit(BooleanLiteral element, DMNContext context);
 
-    Object visit(DateTimeLiteral element, FEELContext params);
+    Object visit(DateTimeLiteral element, DMNContext context);
 
-    Object visit(NullLiteral element, FEELContext params);
+    Object visit(NullLiteral element, DMNContext context);
 
-    Object visit(NumericLiteral element, FEELContext params);
+    Object visit(NumericLiteral element, DMNContext context);
 
-    Object visit(StringLiteral element, FEELContext params);
+    Object visit(StringLiteral element, DMNContext context);
 
-    Object visit(ListLiteral element, FEELContext params);
+    Object visit(ListLiteral element, DMNContext context);
 
-    Object visit(QualifiedName element, FEELContext params);
+    Object visit(QualifiedName element, DMNContext context);
 
-    Object visit(Name element, FEELContext params);
+    Object visit(Name element, DMNContext context);
 
     //
     // Type expressions
     //
-    Object visit(NamedTypeExpression element, FEELContext params);
+    Object visit(NamedTypeExpression element, DMNContext context);
 
-    Object visit(ListTypeExpression element, FEELContext params);
+    Object visit(ListTypeExpression element, DMNContext context);
 
-    Object visit(ContextTypeExpression element, FEELContext params);
+    Object visit(ContextTypeExpression element, DMNContext context);
 
-    Object visit(FunctionTypeExpression element, FEELContext params);
+    Object visit(FunctionTypeExpression element, DMNContext context);
 }

@@ -12,15 +12,15 @@
  */
 package com.gs.dmn.signavio.runtime.interpreter;
 
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
+import java.util.Map;
 
 public class DecisionTestConfig {
     private final String decisionName;
     private final String diagramName;
-    private final RuntimeEnvironment runtimeContext;
+    private final Map<String, Object> runtimeContext;
     private final Object expectedResult;
 
-    public DecisionTestConfig(String decisionName, String diagramName, RuntimeEnvironment runtimeContext, Object expectedResult) {
+    public DecisionTestConfig(String decisionName, String diagramName, Map<String, Object> runtimeContext, Object expectedResult) {
         this.decisionName = decisionName;
         this.diagramName = diagramName;
         this.runtimeContext = runtimeContext;
@@ -35,7 +35,7 @@ public class DecisionTestConfig {
         return diagramName;
     }
 
-    public RuntimeEnvironment getRuntimeContext() {
+    public Map<String, Object> getRuntimeContext() {
         return runtimeContext;
     }
 

@@ -17,25 +17,29 @@ import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.xml.datatype.DatatypeFactory;
 import java.time.*;
 import java.time.temporal.*;
 import java.util.TimeZone;
 
+import static com.gs.dmn.feel.lib.type.BaseType.UTC;
+
 public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Number, LocalDate, Temporal, Temporal, TemporalAmount> {
     private final DefaultDateTimeLib dateTimeLib;
 
-    public TemporalDateTimeLib(DatatypeFactory datatypeFactory) {
-        this.dateTimeLib = new DefaultDateTimeLib(datatypeFactory);
+    public TemporalDateTimeLib() {
+        this.dateTimeLib = new DefaultDateTimeLib();
     }
 
+    //
+    // Conversion functions
+    //
     @Override
     public LocalDate date(String literal) {
         if (StringUtils.isBlank(literal)) {
             return null;
         }
 
-        if (this.hasTime(literal) || this.hasZone(literal)) {
+        if (this.hasTime(literal) || this.hasZoneId(literal)) {
             return null;
         } else {
             return this.makeLocalDate(literal);
@@ -55,8 +59,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
     public LocalDate date(LocalDate from) {
         return from;
     }
-
-    public LocalDate dateDateTime(Temporal from) {
+    public LocalDate date(Temporal from) {
         if (from == null) {
             return null;
         }
@@ -69,6 +72,23 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
             return ((OffsetDateTime) from).toLocalDate();
         } else if (from instanceof ZonedDateTime) {
             return ((ZonedDateTime) from).toLocalDate();
+        }
+        throw new IllegalArgumentException(String.format("Cannot convert '%s' to date", from.getClass().getSimpleName()));
+    }
+
+    public Temporal dateDateTime(Temporal from) {
+        if (from == null) {
+            return null;
+        }
+
+        if (from instanceof LocalDate) {
+            return ((LocalDate) from).atStartOfDay(UTC);
+        } else if (from instanceof LocalDateTime) {
+            return ((LocalDateTime) from).atZone(UTC);
+        } else if (from instanceof OffsetDateTime) {
+            return ((OffsetDateTime) from).atZoneSameInstant(UTC);
+        } else if (from instanceof ZonedDateTime) {
+            return from;
         }
         throw new IllegalArgumentException(String.format("Cannot convert '%s' to date", from.getClass().getSimpleName()));
     }
@@ -151,6 +171,9 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         throw new IllegalArgumentException(String.format("Cannot convert '%s' and '%s' to date and time", date, time));
     }
 
+    //
+    // Date properties
+    //
     @Override
     public Integer year(LocalDate date) {
         if (date == null) {
@@ -219,6 +242,9 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         return dateTime.get(ChronoField.DAY_OF_WEEK);
     }
 
+    //
+    // Time properties
+    //
     @Override
     public Integer hour(Temporal time) {
         return time.get(ChronoField.HOUR_OF_DAY);
@@ -265,16 +291,84 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         return timezone(dateTime);
     }
 
-    public LocalDate toDate(Object object) {
-        if (object instanceof Temporal) {
-            return dateDateTime((Temporal) object);
+    //
+    // Temporal functions
+    //
+    @Override
+    public Integer dayOfYear(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
+        return date.getDayOfYear();
+    }
+    @Override
+    public Integer dayOfYearDateTime(Temporal dateTime) {
+        return dayOfYear(toDate(dateTime));
+    }
+
+    @Override
+    public String dayOfWeek(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        return DAY_NAMES[dayOfWeek.getValue() + 1];
+    }
+    @Override
+    public String dayOfWeekDateTime(Temporal dateTime) {
+        return dayOfWeek(toDate(dateTime));
+    }
+
+    @Override
+    public Integer weekOfYear(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
+        return date.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
+    }
+    @Override
+    public Integer weekOfYearDateTime(Temporal dateTime) {
+        return weekOfYear(toDate(dateTime));
+    }
+
+    @Override
+    public String monthOfYear(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
+        Month month = date.getMonth();
+        return MONTH_NAMES[month.getValue() - 1];
+    }
+    @Override
+    public String monthOfYearDateTime(Temporal dateTime) {
+        return monthOfYear(toDate(dateTime));
+    }
+
+    //
+    // Extra conversion functions
+    //
+    public LocalDate toDate(Object from) {
+        if (from instanceof Temporal) {
+            return date((Temporal) from);
         }
         return null;
     }
 
-    public Temporal toTime(Object object) {
-        if (object instanceof Temporal) {
-            return time((Temporal) object);
+    public Temporal toTime(Object from) {
+        if (from instanceof Temporal) {
+            return time((Temporal) from);
+        }
+        return null;
+    }
+
+    @Override
+    public Temporal toDateTime(Object from) {
+        if (from instanceof Temporal) {
+            return dateDateTime((Temporal) from);
         }
         return null;
     }

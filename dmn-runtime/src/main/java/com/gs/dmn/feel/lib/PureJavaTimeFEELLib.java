@@ -12,22 +12,31 @@
  */
 package com.gs.dmn.feel.lib;
 
-import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.bool.BooleanLib;
+import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanLib;
+import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.context.ContextType;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
+import com.gs.dmn.feel.lib.type.function.DefaultFunctionType;
+import com.gs.dmn.feel.lib.type.function.FunctionType;
 import com.gs.dmn.feel.lib.type.list.DefaultListLib;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.list.ListLib;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.list.ListType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
+import com.gs.dmn.feel.lib.type.numeric.NumericType;
+import com.gs.dmn.feel.lib.type.range.DefaultRangeLib;
+import com.gs.dmn.feel.lib.type.range.DefaultRangeType;
+import com.gs.dmn.feel.lib.type.range.RangeLib;
+import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
-import com.gs.dmn.feel.lib.type.time.DateTimeLib;
-import com.gs.dmn.feel.lib.type.time.DurationLib;
+import com.gs.dmn.feel.lib.type.string.StringType;
+import com.gs.dmn.feel.lib.type.time.*;
 import com.gs.dmn.feel.lib.type.time.pure.*;
 
 import java.math.BigDecimal;
@@ -36,24 +45,47 @@ import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
 public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> implements StandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
-    public static PureJavaTimeFEELLib INSTANCE = new PureJavaTimeFEELLib();
+    private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultNumericType();
+    private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
+    private static final StringType STRING_TYPE = new DefaultStringType();
+    private static final DateType<LocalDate, TemporalAmount> DATE_TYPE = new LocalDateType();
+    private static final TimeType<Temporal, TemporalAmount> TIME_TYPE = new TemporalTimeType();
+    private static final DateTimeType<Temporal, TemporalAmount> DATE_TIME_TYPE = new TemporalDateTimeType();
+    private static final DurationType<TemporalAmount, BigDecimal> DURATION_TYPE = new TemporalAmountDurationType();
+    private static final ListType LIST_TYPE = new DefaultListType();
+    private static final ContextType CONTEXT_TYPE = new DefaultContextType();
+    private static final RangeType RANGE_TYPE = new DefaultRangeType();
+    private static final FunctionType FUNCTION_TYPE = new DefaultFunctionType();
+
+    private static final DefaultNumericLib NUMERIC_LIB = new DefaultNumericLib();
+    private static final DefaultStringLib STRING_LIB = new DefaultStringLib();
+    private static final DefaultBooleanLib BOOLEAN_LIB = new DefaultBooleanLib();
+    private static final DateTimeLib DATE_TIME_LIB = new TemporalDateTimeLib();
+    private static final TemporalAmountDurationLib DURATION_LIB = new TemporalAmountDurationLib();
+    private static final ListLib LIST_LIB = new DefaultListLib();
+    private static final RangeLib RANGE_LIB = new DefaultRangeLib();
+
+    public static final PureJavaTimeFEELLib INSTANCE = new PureJavaTimeFEELLib();
 
     public PureJavaTimeFEELLib() {
-        this(new DefaultNumericType(LOGGER),
-                new DefaultBooleanType(LOGGER),
-                new DefaultStringType(LOGGER),
-                new LocalDateType(LOGGER),
-                new TemporalTimeType(LOGGER),
-                new TemporalDateTimeType(LOGGER),
-                new TemporalAmountDurationType(LOGGER),
-                new DefaultListType(LOGGER),
-                new DefaultContextType(LOGGER),
-                new DefaultNumericLib(),
-                new DefaultStringLib(),
-                new DefaultBooleanLib(),
-                (DateTimeLib) new TemporalDateTimeLib(DefaultFEELLib.DATA_TYPE_FACTORY),
-                new TemporalAmountDurationLib(),
-                new DefaultListLib()
+        this(NUMERIC_TYPE,
+                BOOLEAN_TYPE,
+                STRING_TYPE,
+                DATE_TYPE,
+                TIME_TYPE,
+                DATE_TIME_TYPE,
+                DURATION_TYPE,
+                LIST_TYPE,
+                CONTEXT_TYPE,
+                RANGE_TYPE,
+                FUNCTION_TYPE,
+                NUMERIC_LIB,
+                STRING_LIB,
+                BOOLEAN_LIB,
+                DATE_TIME_LIB,
+                DURATION_LIB,
+                LIST_LIB,
+                RANGE_LIB
         );
     }
 
@@ -65,22 +97,23 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
             TimeType<Temporal, TemporalAmount> timeType,
             DateTimeType<Temporal, TemporalAmount> dateTimeType,
             DurationType<TemporalAmount, BigDecimal> durationType,
-            ListType listType, ContextType contextType,
+            ListType listType, ContextType contextType, RangeType rangeType, FunctionType functionType,
             NumericLib<BigDecimal> numericLib,
             StringLib stringLib,
             BooleanLib booleanLib,
             DateTimeLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> dateTimeLib,
             DurationLib<LocalDate, TemporalAmount> durationLib,
-            ListLib listLib) {
+            ListLib listLib,
+            RangeLib rangeLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
-                listType, contextType,
-                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib
+                listType, contextType, rangeType, functionType,
+                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib
         );
     }
 
     //
-    // Constructors
+    // Conversion functions
     //
     public TemporalAmount yearsAndMonthsDuration(Temporal from, Temporal to) {
         try {
@@ -93,7 +126,7 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
     }
 
     //
-    // Date functions
+    // Date properties
     //
     public BigDecimal year(Temporal dateTime) {
         try {
@@ -135,6 +168,52 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
         }
     }
 
+    //
+    // Temporal functions
+    //
+    public BigDecimal dayOfYear(Temporal dateTime) {
+        try {
+            return valueOf(this.dateTimeLib.dayOfYearDateTime(dateTime));
+        } catch (Exception e) {
+            String message = String.format("dayOfYear(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    public String dayOfWeek(Temporal dateTime) {
+        try {
+            return this.dateTimeLib.dayOfWeekDateTime(dateTime);
+        } catch (Exception e) {
+            String message = String.format("dayOfWeek(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    public BigDecimal weekOfYear(Temporal dateTime) {
+        try {
+            return valueOf(this.dateTimeLib.weekOfYearDateTime(dateTime));
+        } catch (Exception e) {
+            String message = String.format("weekday(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    public String monthOfYear(Temporal dateTime) {
+        try {
+            return this.dateTimeLib.monthOfYearDateTime(dateTime);
+        } catch (Exception e) {
+            String message = String.format("weekday(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    //
+    // Extra conversion functions
+    //
     @Override
     protected BigDecimal valueOf(long number) {
         return BigDecimal.valueOf(number);

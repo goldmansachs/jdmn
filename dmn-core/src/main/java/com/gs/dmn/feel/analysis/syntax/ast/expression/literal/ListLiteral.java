@@ -16,12 +16,13 @@ import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.AnyType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ListLiteral extends Expression {
@@ -34,21 +35,20 @@ public class ListLiteral extends Expression {
     }
 
     public List<Expression> getExpressionList() {
-        return expressionList;
+        return this.expressionList;
     }
 
     public void add(Expression ast) {
-        expressionList.add(ast);
+        this.expressionList.add(ast);
     }
 
     @Override
-    public void deriveType(FEELContext context) {
-        Environment environment = context.getEnvironment();
-        if (expressionList.isEmpty()) {
-            if (environment.getInputExpressionType() == null) {
+    public void deriveType(DMNContext context) {
+        if (this.expressionList.isEmpty()) {
+            if (context.getInputExpressionType() == null) {
                 setType(new ListType(AnyType.ANY));
             } else {
-                setType(environment.getInputExpressionType());
+                setType(context.getInputExpressionType());
             }
         } else {
             checkListElementTypes();
@@ -56,13 +56,13 @@ public class ListLiteral extends Expression {
     }
 
     private void checkListElementTypes() {
-        List<Type> types = expressionList.stream().map(Expression::getType).collect(Collectors.toList());
+        List<Type> types = this.expressionList.stream().map(Expression::getType).collect(Collectors.toList());
         boolean sameType = true;
         for (int i = 0; i < types.size() - 1; i++) {
             Type type1 = types.get(i);
             for (int j = i + 1; j < types.size(); j++) {
                 Type type2 = types.get(j);
-                if (!type1.conformsTo(type2)) {
+                if (!Type.conformsTo(type1, type2)) {
                     sameType = false;
                     break;
                 }
@@ -79,13 +79,26 @@ public class ListLiteral extends Expression {
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ListLiteral that = (ListLiteral) o;
+        return Objects.equals(expressionList, that.expressionList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(expressionList);
+    }
+
+    @Override
     public String toString() {
-        String expressions = expressionList.stream().map(Object::toString).collect(Collectors.joining(","));
-        return String.format("ListLiteral(%s)", expressions);
+        String expressions = this.expressionList.stream().map(Object::toString).collect(Collectors.joining(","));
+        return String.format("%s(%s)", getClass().getSimpleName(), expressions);
     }
 }

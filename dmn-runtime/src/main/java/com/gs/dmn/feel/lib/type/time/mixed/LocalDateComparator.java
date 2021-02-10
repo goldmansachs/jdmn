@@ -12,67 +12,13 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.RelationalComparator;
+import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 
 import java.time.LocalDate;
-import java.util.function.Supplier;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
-
-public class LocalDateComparator implements RelationalComparator<LocalDate> {
+public class LocalDateComparator extends DateTimeComparator<LocalDate> {
     @Override
-    public Integer compare(LocalDate first, LocalDate second) {
-        return first.compareTo(second);
-    }
-
-    @Override
-    public Boolean equalTo(LocalDate first, LocalDate second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> FALSE,
-                () -> FALSE,
-                () -> first.compareTo(second) == 0
-        });
-    }
-
-    @Override
-    public  Boolean lessThan(LocalDate first, LocalDate second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
-                () -> null,
-                () -> null,
-                () -> first.compareTo(second) < 0
-        });
-    }
-
-    @Override
-    public  Boolean greaterThan(LocalDate first, LocalDate second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
-                () -> null,
-                () -> null,
-                () -> first.compareTo(second) > 0
-        });
-    }
-
-    @Override
-    public  Boolean lessEqualThan(LocalDate first, LocalDate second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> null,
-                () -> null,
-                () -> first.compareTo(second) <= 0
-        });
-    }
-
-    @Override
-    public  Boolean greaterEqualThan(LocalDate first, LocalDate second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> null,
-                () -> null,
-                () -> first.compareTo(second) >= 0
-        });
+    protected Integer compareTo(LocalDate first, LocalDate second) {
+        return dateValue(first).compareTo(dateValue(second));
     }
 }

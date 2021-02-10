@@ -17,8 +17,10 @@ import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
 import com.gs.dmn.feel.analysis.semantics.type.RangeType;
 import com.gs.dmn.feel.analysis.semantics.type.TupleType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
+
+import java.util.Objects;
 
 public class NegatedPositiveUnaryTests extends UnaryTests {
     private final PositiveUnaryTests positiveUnaryTests;
@@ -28,12 +30,12 @@ public class NegatedPositiveUnaryTests extends UnaryTests {
     }
 
     public PositiveUnaryTests getPositiveUnaryTests() {
-        return positiveUnaryTests;
+        return this.positiveUnaryTests;
     }
 
     @Override
-    public void deriveType(FEELContext context) {
-        Type type = positiveUnaryTests.getType();
+    public void deriveType(DMNContext context) {
+        Type type = this.positiveUnaryTests.getType();
         setType(type);
         if (type instanceof TupleType) {
             for (Type child : ((TupleType) type).getTypes()) {
@@ -46,12 +48,25 @@ public class NegatedPositiveUnaryTests extends UnaryTests {
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NegatedPositiveUnaryTests that = (NegatedPositiveUnaryTests) o;
+        return Objects.equals(positiveUnaryTests, that.positiveUnaryTests);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(positiveUnaryTests);
+    }
+
+    @Override
     public String toString() {
-        return String.format("NegatedUnaryTests(%s)", positiveUnaryTests.toString());
+        return String.format("%s(%s)", getClass().getSimpleName(), this.positiveUnaryTests.toString());
     }
 }

@@ -14,24 +14,31 @@ package com.gs.dmn.feel.lib.type.string;
 
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.ComparableComparator;
-import com.gs.dmn.feel.lib.type.StringType;
-import org.slf4j.Logger;
 
 public class DefaultStringType extends BaseType implements StringType {
     private final ComparableComparator<String> comparator;
 
-    public DefaultStringType(Logger logger) {
-        super(logger);
+    public DefaultStringType() {
         this.comparator = new ComparableComparator<>();
     }
 
     @Override
-    public String stringAdd(String first, String second) {
+    public boolean isString(Object value) {
+        return value instanceof String;
+    }
+
+    @Override
+    public String stringValue(String value) {
+        return value;
+    }
+
+    @Override
+    public Boolean stringIs(String first, String second) {
         if (first == null || second == null) {
-            return null;
-        } else {
-            return first + second;
+            return first == second;
         }
+
+        return first.equals(second);
     }
 
     @Override
@@ -62,5 +69,14 @@ public class DefaultStringType extends BaseType implements StringType {
     @Override
     public Boolean stringGreaterEqualThan(String first, String second) {
         return this.comparator.greaterEqualThan(first, second);
+    }
+
+    @Override
+    public String stringAdd(String first, String second) {
+        if (first == null || second == null) {
+            return null;
+        } else {
+            return first + second;
+        }
     }
 }

@@ -12,16 +12,20 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-public class NullType extends Type {
-    public static final NullType NULL = new NullType();
+public class NullType extends NamedType {
+    public static final NullType NULL = new NullType("Null");
+
+    protected NullType(String name) {
+        super(name);
+    }
 
     @Override
-    public boolean equivalentTo(Type other) {
+    protected boolean equivalentTo(Type other) {
         return other == NULL;
     }
 
     @Override
-    public boolean conformsTo(Type other) {
+    protected boolean conformsTo(Type other) {
         return true;
     }
 

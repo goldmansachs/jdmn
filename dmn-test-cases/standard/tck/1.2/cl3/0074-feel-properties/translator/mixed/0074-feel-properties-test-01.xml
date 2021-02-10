@@ -284,7 +284,7 @@
         <description>ym duration - days is null</description>
         <resultNode name="ym_duration_003" type="decision" errorResult="true">
             <expected>
-                <value xsi:type="xsd:decimal">0</value>
+                <value xsi:nil="true"/>
             </expected>
         </resultNode>
     </testCase>
@@ -293,7 +293,7 @@
         <description>ym duration - hours is null</description>
         <resultNode name="ym_duration_004" type="decision" errorResult="true">
             <expected>
-                <value xsi:type="xsd:decimal">0</value>
+                <value xsi:nil="true"/>
             </expected>
         </resultNode>
     </testCase>
@@ -302,7 +302,7 @@
         <description>ym duration - minutes is null</description>
         <resultNode name="ym_duration_005" type="decision" errorResult="true">
             <expected>
-                <value xsi:type="xsd:decimal">0</value>
+                <value xsi:nil="true"/>
             </expected>
         </resultNode>
     </testCase>
@@ -311,7 +311,7 @@
         <description>ym duration - seconds is null</description>
         <resultNode name="ym_duration_006" type="decision" errorResult="true">
             <expected>
-                <value xsi:type="xsd:decimal">0</value>
+                <value xsi:nil="true"/>
             </expected>
         </resultNode>
     </testCase>
@@ -321,7 +321,7 @@
         <description>dt duration - years is null</description>
         <resultNode name="dt_duration_001" type="decision" errorResult="true" >
             <expected>
-                <value xsi:type="xsd:decimal">0</value>
+                <value xsi:nil="true"/>
             </expected>
         </resultNode>
     </testCase>
@@ -330,7 +330,7 @@
         <description>dt duration - months is null</description>
         <resultNode name="dt_duration_002" type="decision" errorResult="true" >
             <expected>
-                <value xsi:type="xsd:decimal">0</value>
+                <value xsi:nil="true"/>
             </expected>
         </resultNode>
     </testCase>

@@ -12,11 +12,12 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.type;
 
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.Pair;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ContextTypeExpression extends TypeExpression {
@@ -27,17 +28,30 @@ public class ContextTypeExpression extends TypeExpression {
     }
 
     public List<Pair<String, TypeExpression>> getMembers() {
-        return members;
+        return this.members;
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContextTypeExpression that = (ContextTypeExpression) o;
+        return Objects.equals(members, that.members);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(members);
+    }
+
+    @Override
     public String toString() {
-        String membersStr = members.stream().map(e -> String.format("%s: %s", e.getLeft(), e.getRight().toString())).collect(Collectors.joining(", "));
-        return String.format("ContextTypeExpression(%s)", membersStr);
+        String membersStr = this.members.stream().map(e -> String.format("%s: %s", e.getLeft(), e.getRight().toString())).collect(Collectors.joining(", "));
+        return String.format("%s(%s)", getClass().getSimpleName(), membersStr);
     }
 }

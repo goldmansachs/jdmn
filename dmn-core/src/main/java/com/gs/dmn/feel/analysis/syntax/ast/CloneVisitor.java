@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
+import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.ArithmeticNegation;
@@ -28,6 +29,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
+import com.gs.dmn.runtime.DMNContext;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -35,13 +37,18 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CloneVisitor extends AbstractVisitor {
-    private final ASTFactory astFactory = new ASTFactory();
+    private final ASTFactory astFactory;
+
+    public CloneVisitor(ErrorHandler errorHandler) {
+        super(errorHandler);
+        this.astFactory = new ASTFactory();
+    }
 
     //
     // Tests
     //
     @Override
-    public Object visit(PositiveUnaryTests element, FEELContext context) {
+    public Object visit(PositiveUnaryTests element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -51,7 +58,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(NegatedPositiveUnaryTests element, FEELContext context) {
+    public Object visit(NegatedPositiveUnaryTests element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -61,37 +68,17 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(SimplePositiveUnaryTests element, FEELContext context) {
-        if (element == null) {
-            return null;
-        }
-
-        List<Expression> expressionList = element.getSimplePositiveUnaryTests().stream().map(sput -> (Expression) sput.accept(this, context)).collect(Collectors.toList());
-        return this.astFactory.toSimplePositiveUnaryTests(expressionList);
-    }
-
-    @Override
-    public Object visit(NegatedSimplePositiveUnaryTests element, FEELContext context) {
-        if (element == null) {
-            return null;
-        }
-
-        SimplePositiveUnaryTests sputs = (SimplePositiveUnaryTests) element.getSimplePositiveUnaryTests().accept(this, context);
-        return this.astFactory.toNegatedSimpleUnaryTests(sputs);
-    }
-
-    @Override
-    public Object visit(Any element, FEELContext context) {
+    public Object visit(Any element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(NullTest element, FEELContext context) {
+    public Object visit(NullTest element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(ExpressionTest element, FEELContext context) {
+    public Object visit(ExpressionTest element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -101,24 +88,24 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(OperatorTest element, FEELContext context) {
+    public Object visit(OperatorRange element, DMNContext context) {
         if (element == null) {
             return null;
         }
 
         Expression endpoint = (Expression) element.getEndpoint().accept(this, context);
-        return this.astFactory.toOperatorTest(element.getOperator(), endpoint);
+        return this.astFactory.toOperatorRange(element.getOperator(), endpoint);
     }
 
     @Override
-    public Object visit(RangeTest element, FEELContext context) {
+    public Object visit(EndpointsRange element, DMNContext context) {
         if (element == null) {
             return null;
         }
 
         Expression start = (Expression) element.getStart().accept(this, context);
         Expression end = (Expression) element.getEnd().accept(this, context);
-        return this.astFactory.toIntervalTest(par(element.isOpenStart()), start, par(element.isOpenEnd()), end);
+        return this.astFactory.toEndpointsRange(par(element.isOpenStart()), start, par(element.isOpenEnd()), end);
     }
 
     private String par(boolean isOpen) {
@@ -126,7 +113,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(ListTest element, FEELContext context) {
+    public Object visit(ListTest element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -139,17 +126,17 @@ public class CloneVisitor extends AbstractVisitor {
     // Textual expressions
     //
     @Override
-    public Object visit(FunctionDefinition element, FEELContext context) {
+    public Object visit(FunctionDefinition element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(FormalParameter element, FEELContext context) {
+    public Object visit(FormalParameter element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(Context element, FEELContext context) {
+    public Object visit(Context element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -159,7 +146,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(ContextEntry element, FEELContext context) {
+    public Object visit(ContextEntry element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -170,7 +157,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(ContextEntryKey element, FEELContext context) {
+    public Object visit(ContextEntryKey element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -179,7 +166,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(ForExpression element, FEELContext context) {
+    public Object visit(ForExpression element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -190,7 +177,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(Iterator element, FEELContext context) {
+    public Object visit(Iterator element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -200,7 +187,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(ExpressionIteratorDomain element, FEELContext context) {
+    public Object visit(ExpressionIteratorDomain element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -210,7 +197,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(RangeIteratorDomain element, FEELContext context) {
+    public Object visit(RangeIteratorDomain element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -221,7 +208,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(IfExpression element, FEELContext context) {
+    public Object visit(IfExpression element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -233,7 +220,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(QuantifiedExpression element, FEELContext context) {
+    public Object visit(QuantifiedExpression element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -244,7 +231,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(FilterExpression element, FEELContext context) {
+    public Object visit(FilterExpression element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -255,7 +242,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(InstanceOfExpression element, FEELContext context) {
+    public Object visit(InstanceOfExpression element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -269,7 +256,7 @@ public class CloneVisitor extends AbstractVisitor {
     // Expressions
     //
     @Override
-    public Object visit(ExpressionList element, FEELContext context) {
+    public Object visit(ExpressionList element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -282,7 +269,7 @@ public class CloneVisitor extends AbstractVisitor {
     // Logic expressions
     //
     @Override
-    public Object visit(Conjunction element, FEELContext context) {
+    public Object visit(Conjunction element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -293,7 +280,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(Disjunction element, FEELContext context) {
+    public Object visit(Disjunction element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -304,7 +291,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(LogicNegation element, FEELContext context) {
+    public Object visit(LogicNegation element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -317,7 +304,7 @@ public class CloneVisitor extends AbstractVisitor {
     // Comparison expressions
     //
     @Override
-    public Object visit(Relational element, FEELContext context) {
+    public Object visit(Relational element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -328,7 +315,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(BetweenExpression element, FEELContext context) {
+    public Object visit(BetweenExpression element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -340,7 +327,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(InExpression element, FEELContext context) {
+    public Object visit(InExpression element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -354,7 +341,7 @@ public class CloneVisitor extends AbstractVisitor {
     // Arithmetic expressions
     //
     @Override
-    public Object visit(Addition element, FEELContext context) {
+    public Object visit(Addition element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -365,7 +352,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(Multiplication element, FEELContext context) {
+    public Object visit(Multiplication element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -376,7 +363,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(Exponentiation element, FEELContext context) {
+    public Object visit(Exponentiation element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -387,7 +374,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(ArithmeticNegation element, FEELContext context) {
+    public Object visit(ArithmeticNegation element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -400,7 +387,7 @@ public class CloneVisitor extends AbstractVisitor {
     // Postfix expressions
     //
     @Override
-    public Object visit(PathExpression element, FEELContext context) {
+    public Object visit(PathExpression element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -410,7 +397,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(FunctionInvocation element, FEELContext context) {
+    public Object visit(FunctionInvocation element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -421,7 +408,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(NamedParameters element, FEELContext context) {
+    public Object visit(NamedParameters element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -436,7 +423,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(PositionalParameters element, FEELContext context) {
+    public Object visit(PositionalParameters element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -449,7 +436,7 @@ public class CloneVisitor extends AbstractVisitor {
     // Primary expressions
     //
     @Override
-    public Object visit(BooleanLiteral element, FEELContext context) {
+    public Object visit(BooleanLiteral element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -458,7 +445,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(DateTimeLiteral element, FEELContext context) {
+    public Object visit(DateTimeLiteral element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -467,7 +454,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(NullLiteral element, FEELContext context) {
+    public Object visit(NullLiteral element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -476,7 +463,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(NumericLiteral element, FEELContext context) {
+    public Object visit(NumericLiteral element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -485,7 +472,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(StringLiteral element, FEELContext context) {
+    public Object visit(StringLiteral element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -494,7 +481,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(ListLiteral element, FEELContext context) {
+    public Object visit(ListLiteral element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -504,7 +491,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(QualifiedName element, FEELContext context) {
+    public Object visit(QualifiedName element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -513,7 +500,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(Name element, FEELContext context) {
+    public Object visit(Name element, DMNContext context) {
         if (element == null) {
             return null;
         }
@@ -522,7 +509,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(NamedTypeExpression element, FEELContext params) {
+    public Object visit(NamedTypeExpression element, DMNContext params) {
         if (element == null) {
             return null;
         }
@@ -531,7 +518,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(ListTypeExpression element, FEELContext params) {
+    public Object visit(ListTypeExpression element, DMNContext params) {
         if (element == null) {
             return null;
         }
@@ -540,7 +527,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(ContextTypeExpression element, FEELContext params) {
+    public Object visit(ContextTypeExpression element, DMNContext params) {
         if (element == null) {
             return null;
         }
@@ -549,7 +536,7 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(FunctionTypeExpression element, FEELContext params) {
+    public Object visit(FunctionTypeExpression element, DMNContext params) {
         if (element == null) {
             return null;
         }

@@ -15,6 +15,8 @@ package com.gs.dmn.signavio.feel.lib.type.string;
 import java.util.List;
 
 public interface SignavioStringLib {
+    Integer len(String text);
+
     String stringAdd(String first, String second);
 
     String concat(List<String> texts);

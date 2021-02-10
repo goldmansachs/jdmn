@@ -12,34 +12,42 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.TimeType;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
-import org.slf4j.Logger;
+import com.gs.dmn.feel.lib.type.time.TimeType;
+import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
-import java.time.LocalDate;
 import java.time.OffsetTime;
-import java.time.ZonedDateTime;
 
-public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<OffsetTime, Duration> {
-    private static final LocalDate EPOCH = LocalDate.of(1970, 1, 1);
-
+public class OffsetTimeType extends BaseMixedCalendarType implements TimeType<OffsetTime, Duration> {
     private final OffsetTimeComparator comparator;
 
-    @Deprecated
-    public OffsetTimeType(Logger logger, DatatypeFactory datatypeFactory) {
-        this(logger, datatypeFactory, new OffsetTimeComparator(logger));
+    public OffsetTimeType() {
+        this(new OffsetTimeComparator());
     }
 
-    public OffsetTimeType(Logger logger, DatatypeFactory datatypeFactory, OffsetTimeComparator comparator) {
-        super(logger, datatypeFactory);
+    public OffsetTimeType(OffsetTimeComparator comparator) {
         this.comparator = comparator;
     }
 
     //
     // Time operators
     //
+    @Override
+    public boolean isTime(Object value) {
+        return value instanceof OffsetTime;
+    }
+
+    @Override
+    public Boolean timeIs(OffsetTime first, OffsetTime second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return first.getHour() == second.getHour()
+                && first.getMinute() == second.getMinute()
+                && first.getSecond() == second.getSecond()
+                && first.getOffset() == second.getOffset();
+    }
 
     @Override
     public Boolean timeEqual(OffsetTime first, OffsetTime second) {
@@ -77,13 +85,8 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
             return null;
         }
 
-        try {
-            return toDuration(first, second);
-        } catch (Exception e) {
-            String message = String.format("timeSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        long durationInSeconds = timeValue(first) - (long) timeValue(second);
+        return XMLDurationFactory.INSTANCE.dayTimeFromValue(durationInSeconds);
     }
 
     @Override
@@ -92,13 +95,7 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
             return null;
         }
 
-        try {
-            return time.plus(toTemporalDuration(duration));
-        } catch (Exception e) {
-            String message = String.format("timeAdd(%s, %s)", time, duration);
-            logError(message, e);
-            return null;
-        }
+        return time.plus(toTemporalDuration(duration));
     }
 
     @Override
@@ -107,19 +104,6 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
             return null;
         }
 
-        try {
-            return time.minus(toTemporalDuration(duration));
-        } catch (Exception e) {
-            String message = String.format("timeSubtract(%s, %s)", time, duration);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    protected Duration toDuration(OffsetTime first, OffsetTime second) {
-        ZonedDateTime first1 = first.atDate(EPOCH).atZoneSameInstant(DefaultDateTimeLib.UTC);
-        ZonedDateTime second1 = second.atDate(EPOCH).atZoneSameInstant(DefaultDateTimeLib.UTC);
-        long durationInMilliSeconds = getDurationInMilliSeconds(first1, second1);
-        return datatypeFactory.newDuration(durationInMilliSeconds);
+        return timeAddDuration(time, duration.negate());
     }
 }

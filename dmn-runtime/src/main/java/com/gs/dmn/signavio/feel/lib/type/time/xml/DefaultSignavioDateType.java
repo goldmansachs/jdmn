@@ -12,16 +12,14 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.type.DateType;
+import com.gs.dmn.feel.lib.type.time.DateType;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDateType;
-import org.slf4j.Logger;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 public class DefaultSignavioDateType extends DefaultDateType implements DateType<XMLGregorianCalendar, Duration> {
-    public DefaultSignavioDateType(Logger logger, DatatypeFactory datatypeFactory) {
-        super(logger, datatypeFactory, new DefaultSignavioXMLCalendarComparator());
+    public DefaultSignavioDateType() {
+        super(new DefaultSignavioXMLCalendarComparator());
     }
 }

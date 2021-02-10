@@ -18,7 +18,7 @@ import java.util.Map;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 
-public class TimeType extends DataType {
+public class TimeType extends ComparableDataType {
     public static final TimeType TIME = new TimeType();
 
     private static final Map<String, Type> MEMBERS = new LinkedHashMap<>();
@@ -39,7 +39,12 @@ public class TimeType extends DataType {
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
+    protected boolean equivalentTo(Type other) {
         return other == TIME;
+    }
+
+    @Override
+    protected boolean conformsTo(Type other) {
+        return other == TIME || other == COMPARABLE;
     }
 }

@@ -39,35 +39,7 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
     }
 
     //
-    // Time operators
-    //
-    @Override
-    @Test
-    public void testTimeEqual() {
-        super.testTimeEqual();
-
-        assertFalse(getLib().timeEqual(makeTime("12:00:00"), makeTime("12:00:00+00:00")));
-        assertFalse(getLib().timeEqual(makeTime("00:00:00+00:00"), makeTime("00:00:00@Etc/UTC")));
-        assertTrue(getLib().timeEqual(makeTime("00:00:00Z"), makeTime("00:00:00+00:00")));
-        assertFalse(getLib().timeEqual(makeTime("00:00:00Z"), makeTime("00:00:00@Etc/UTC")));
-    }
-
-    //
-    // Date and time operators
-    //
-    @Override
-    @Test
-    public void testDateTimeEqual() {
-        super.testDateTimeEqual();
-
-        assertFalse(getLib().dateTimeEqual(makeDateAndTime("2018-12-08T12:00:00"), makeDateAndTime("2018-12-08T12:00:00+00:00")));
-        assertFalse(getLib().dateTimeEqual(makeDateAndTime("2018-12-08T00:00:00+00:00"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
-        assertTrue(getLib().dateTimeEqual(makeDateAndTime("2018-12-08T12:00:00Z"), makeDateAndTime("2018-12-08T12:00:00+00:00")));
-        assertFalse(getLib().dateTimeEqual(makeDateAndTime("2018-12-08T00:00:00Z"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
-    }
-
-    //
-    // Constructors
+    // Conversion functions
     //
     @Override
     @Test
@@ -225,6 +197,27 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
         assertNull(getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
         assertNull(getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02")));
         assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02@Etc/UTC")));
+    }
+
+    //
+    // Date and time functions
+    //
+    @Override
+    @Test
+    public void testDateAndTimeFunctions() {
+        super.testDateAndTimeFunctions();
+
+        assertFalse(getLib().is(makeTime("23:00:50z"), makeTime("23:00:50")));
+
+        assertFalse(getLib().is(makeTime("12:00:00"), makeTime("12:00:00+00:00")));
+        assertFalse(getLib().is(makeTime("00:00:00+00:00"), makeTime("00:00:00@Etc/UTC")));
+        assertTrue(getLib().is(makeTime("00:00:00Z"), makeTime("00:00:00+00:00")));
+        assertFalse(getLib().is(makeTime("00:00:00Z"), makeTime("00:00:00@Etc/UTC")));
+
+        assertFalse(getLib().is(makeDateAndTime("2018-12-08T12:00:00"), makeDateAndTime("2018-12-08T12:00:00+00:00")));
+        assertFalse(getLib().is(makeDateAndTime("2018-12-08T00:00:00+00:00"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
+        assertTrue(getLib().is(makeDateAndTime("2018-12-08T12:00:00Z"), makeDateAndTime("2018-12-08T12:00:00+00:00")));
+        assertFalse(getLib().is(makeDateAndTime("2018-12-08T00:00:00Z"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
     }
 }
 

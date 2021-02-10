@@ -12,8 +12,28 @@
  */
 package com.gs.dmn.runtime.interpreter.environment;
 
-public class RuntimeEnvironment extends Environment<String, Object> {
-    RuntimeEnvironment(Environment<String, Object> parent) {
-        super(parent);
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class RuntimeEnvironment {
+    public static RuntimeEnvironment of() {
+        return new RuntimeEnvironment();
+    }
+
+    private final Map<String, Object> bindings = new LinkedHashMap<>();
+
+    RuntimeEnvironment() {
+    }
+
+    public void bind(String key, Object value) {
+        this.bindings.put(key, value);
+    }
+
+    public Object lookupLocalBinding(String key) {
+        return this.bindings.get(key);
+    }
+
+    public boolean isLocalBound(String key) {
+        return this.bindings.containsKey(key);
     }
 }

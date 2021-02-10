@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
@@ -38,12 +39,26 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
     }
 
     @Override
+    public Double round(Double n, Double scale, String mode) {
+        if (n == null || scale == null || mode == null) {
+            return null;
+        }
+
+        RoundingMode roundingMode = NumericRoundingMode.fromValue(mode);
+        if (roundingMode == null) {
+            throw new DMNRuntimeException(String.format("Unknown rounding mode '%s'. Expected one of '%s'", mode, NumericRoundingMode.ALLOWED_VALUES));
+        } else {
+            return BigDecimal.valueOf(n).setScale(scale.intValue(), roundingMode).doubleValue();
+        }
+    }
+
+    @Override
     public Double floor(Double number) {
         if (number == null) {
             return null;
         }
 
-        return BigDecimal.valueOf(number).setScale(0, BigDecimal.ROUND_FLOOR).doubleValue();
+        return BigDecimal.valueOf(number).setScale(0, RoundingMode.FLOOR).doubleValue();
     }
 
     @Override
@@ -52,7 +67,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
             return null;
         }
 
-        return BigDecimal.valueOf(number).setScale(0, BigDecimal.ROUND_CEILING).doubleValue();
+        return BigDecimal.valueOf(number).setScale(0, RoundingMode.CEILING).doubleValue();
     }
 
     @Override

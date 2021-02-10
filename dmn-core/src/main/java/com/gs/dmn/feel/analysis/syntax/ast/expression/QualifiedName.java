@@ -12,11 +12,12 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class QualifiedName extends NamedExpression {
     private List<String> names = new ArrayList<>();
@@ -41,12 +42,25 @@ public class QualifiedName extends NamedExpression {
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QualifiedName that = (QualifiedName) o;
+        return Objects.equals(names, that.names);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(names);
+    }
+
+    @Override
     public String toString() {
-        return String.format("QualifiedName(%s, %d)", String.join(".", this.names), this.names.size());
+        return String.format("%s(%s, %d)", getClass().getSimpleName(), String.join(".", this.names), this.names.size());
     }
 }

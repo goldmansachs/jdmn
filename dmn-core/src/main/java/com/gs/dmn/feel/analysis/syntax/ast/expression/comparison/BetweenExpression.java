@@ -13,9 +13,11 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.comparison;
 
 import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.DMNContext;
+
+import java.util.Objects;
 
 public class BetweenExpression extends Comparison {
     private final Expression value;
@@ -29,32 +31,45 @@ public class BetweenExpression extends Comparison {
     }
 
     public Expression getValue() {
-        return value;
+        return this.value;
     }
 
     public Expression getLeftEndpoint() {
-        return leftEndpoint;
+        return this.leftEndpoint;
     }
 
     public Expression getRightEndpoint() {
-        return rightEndpoint;
+        return this.rightEndpoint;
     }
 
     @Override
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         setType(BooleanType.BOOLEAN);
-        checkType(">=", value.getType(), leftEndpoint.getType());
-        checkType("<=", value.getType(), rightEndpoint.getType());
+        checkType(">=", this.value.getType(), this.leftEndpoint.getType());
+        checkType("<=", this.value.getType(), this.rightEndpoint.getType());
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BetweenExpression that = (BetweenExpression) o;
+        return Objects.equals(value, that.value) && Objects.equals(leftEndpoint, that.leftEndpoint) && Objects.equals(rightEndpoint, that.rightEndpoint);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, leftEndpoint, rightEndpoint);
+    }
+
+    @Override
     public String toString() {
-        return String.format("BetweenExpression(%s, %s, %s)", value.toString(), leftEndpoint.toString(), rightEndpoint.toString());
+        return String.format("%s(%s, %s, %s)", getClass().getSimpleName(), this.value.toString(), this.leftEndpoint.toString(), this.rightEndpoint.toString());
     }
 
 }

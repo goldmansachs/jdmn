@@ -14,59 +14,39 @@ package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.feel.AbstractFEELProcessor;
 import com.gs.dmn.feel.analysis.FEELAnalyzer;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
+import com.gs.dmn.runtime.DMNContext;
 
-class AbstractFEELTranslator extends AbstractFEELProcessor implements FEELTranslator {
+public abstract class AbstractFEELTranslator extends AbstractFEELProcessor implements FEELTranslator {
     private final FEELToNativeVisitor expressionVisitor;
-    private final SimpleExpressionsToNativeVisitor simpleExpressionsVisitor;
 
-    public AbstractFEELTranslator(FEELAnalyzer feelAnalyzer, FEELToNativeVisitor expressionVisitor, SimpleExpressionsToNativeVisitor simpleExpressionsVisitor) {
+    public AbstractFEELTranslator(FEELAnalyzer feelAnalyzer, FEELToNativeVisitor expressionVisitor) {
         super(feelAnalyzer);
         this.expressionVisitor = expressionVisitor;
-        this.simpleExpressionsVisitor = simpleExpressionsVisitor;
     }
 
     @Override
-    public String unaryTestsToJava(String text, FEELContext context) {
+    public String unaryTestsToJava(String text, DMNContext context) {
         UnaryTests unaryTests = analyzeUnaryTests(text, context);
         return unaryTestsToJava(unaryTests, context);
     }
 
     @Override
-    public String simpleUnaryTestsToJava(String text, FEELContext context) {
-        UnaryTests unaryTests = analyzeSimpleUnaryTests(text, context);
-        return simpleUnaryTestsToJava(unaryTests, context);
-    }
-
-    @Override
-    public String unaryTestsToJava(UnaryTests expression, FEELContext context) {
+    public String unaryTestsToJava(UnaryTests expression, DMNContext context) {
         this.expressionVisitor.init();
         return (String) expression.accept(this.expressionVisitor, context);
     }
 
     @Override
-    public String simpleUnaryTestsToJava(UnaryTests expression, FEELContext context) {
-        return unaryTestsToJava(expression, context);
-    }
-
-    @Override
-    public String expressionToNative(String text, FEELContext context) {
+    public String expressionToNative(String text, DMNContext context) {
         Expression expression = analyzeExpression(text, context);
         return expressionToNative(expression, context);
     }
 
     @Override
-    public String expressionToNative(Expression expression, FEELContext context) {
+    public String expressionToNative(Expression expression, DMNContext context) {
         this.expressionVisitor.init();
         return (String) expression.accept(this.expressionVisitor, context);
-    }
-
-    @Override
-    public String simpleExpressionsToNative(Expression simpleExpressions, FEELContext context) {
-        this.simpleExpressionsVisitor.init();
-        String javaOutputEntryText = (String) simpleExpressions.accept(this.simpleExpressionsVisitor, context);
-        return "-".equals(javaOutputEntryText) ? "null" : javaOutputEntryText;
     }
 }

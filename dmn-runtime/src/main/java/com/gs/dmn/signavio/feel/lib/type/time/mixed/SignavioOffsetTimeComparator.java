@@ -13,31 +13,11 @@
 package com.gs.dmn.signavio.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.time.mixed.OffsetTimeComparator;
-import org.slf4j.Logger;
 
 import java.time.OffsetTime;
 
 public class SignavioOffsetTimeComparator extends OffsetTimeComparator {
-    public SignavioOffsetTimeComparator(Logger logger) {
-        super(logger);
-    }
-
-    @Override
-    public  Boolean lessThan(OffsetTime first, OffsetTime second) {
-        if (first == null && second == null) {
-            return null;
-        } else {
-            return super.lessThan(first, second);
-        }
-    }
-
-    @Override
-    public  Boolean greaterThan(OffsetTime first, OffsetTime second) {
-        if (first == null && second == null) {
-            return null;
-        } else {
-            return super.greaterThan(first, second);
-        }
+    public SignavioOffsetTimeComparator() {
     }
 
     @Override

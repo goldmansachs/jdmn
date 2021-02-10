@@ -13,7 +13,11 @@
 package com.gs.dmn.feel.analysis.semantics.environment;
 
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterConversions;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
+import com.gs.dmn.runtime.Pair;
+
+import java.util.List;
 
 public class FunctionDeclaration extends Declaration {
     private final FunctionType type;
@@ -25,14 +29,18 @@ public class FunctionDeclaration extends Declaration {
 
     @Override
     public FunctionType getType() {
-        return type;
+        return this.type;
     }
 
     public boolean match(ParameterTypes parameterTypes) {
-        return type.match(parameterTypes);
+        return this.type.match(parameterTypes);
+    }
+
+    public List<Pair<ParameterTypes, ParameterConversions>> matchCandidates(ParameterTypes parameterTypes) {
+        return this.type.matchCandidates(parameterTypes);
     }
 
     public String toString() {
-        return String.format("%s -> %s ", name, type);
+        return String.format("%s -> %s ", this.name, this.type);
     }
 }

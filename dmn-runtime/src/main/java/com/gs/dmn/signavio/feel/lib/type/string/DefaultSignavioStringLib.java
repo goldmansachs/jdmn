@@ -19,6 +19,11 @@ import java.util.List;
 
 public class DefaultSignavioStringLib implements SignavioStringLib {
     @Override
+    public Integer len(String text) {
+        return text == null ? null : text.length();
+    }
+
+    @Override
     public String stringAdd(String first, String second) {
         if (first == null && second == null) {
             return "";

@@ -23,12 +23,12 @@ public class LoggingEventListener implements SimpleEventListener {
 
     @Override
     public void startDRGElement(DRGElement element, Arguments arguments) {
-        logger.info("Start element '{}' with inputs '{}'", element.getName(), arguments);
+        logger.info("Start {} '{}' with inputs '{}'", element.getElementKind().getDisplayName(), element.getName(), arguments);
     }
 
     @Override
     public void endDRGElement(DRGElement element, Arguments arguments, Object output, long duration) {
-        logger.info("End element '{}' with output '{}' in {}ms", element.getName(), output, duration);
+        logger.info("End {} '{}' with output '{}' in {}ms", element.getElementKind().getDisplayName(), element.getName(), output, duration);
     }
 
     @Override

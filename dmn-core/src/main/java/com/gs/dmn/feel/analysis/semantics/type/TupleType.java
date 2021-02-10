@@ -35,14 +35,14 @@ public class TupleType extends Type {
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
+    protected boolean equivalentTo(Type other) {
         return other instanceof TupleType
-                && equivalentTo(this.types, ((TupleType) other).types);
+                && Type.equivalentTo(this.types, ((TupleType) other).types);
     }
 
     @Override
-    public boolean conformsTo(Type other) {
-        return other instanceof TupleType && conformsTo(this.types, ((TupleType) other).types)
+    protected boolean conformsTo(Type other) {
+        return other instanceof TupleType && Type.conformsTo(this.types, ((TupleType) other).types)
                 || other == ANY;
     }
 
@@ -74,29 +74,5 @@ public class TupleType extends Type {
     public String toString() {
         String types = this.types.stream().map(Type::toString).collect(Collectors.joining(", "));
         return String.format("TupleType(%s)", types);
-    }
-
-    private boolean conformsTo(List<Type> list1, List<Type> list2) {
-        if (list1.size() != list2.size()) {
-            return false;
-        }
-        for (int i = 0; i < list1.size(); i++) {
-            if (!list1.get(i).conformsTo(list2.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean equivalentTo(List<Type> list1, List<Type> list2) {
-        if (list1.size() != list2.size()) {
-            return false;
-        }
-        for (int i = 0; i < list1.size(); i++) {
-            if (!list1.get(i).equivalentTo(list2.get(i))) {
-                return false;
-            }
-        }
-        return true;
     }
 }

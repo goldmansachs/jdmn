@@ -13,12 +13,22 @@
 package com.gs.dmn.runtime.annotation;
 
 public enum DRGElementKind {
-    DECISION,
-    DECISION_SERVICE,
-    BUSINESS_KNOWLEDGE_MODEL,
-    KNOWLEDGE_SOURCE,
-    INPUT_DATA,
-    OTHER;
+    DECISION("decision"),
+    DECISION_SERVICE("decision service"),
+    BUSINESS_KNOWLEDGE_MODEL("bkm"),
+    KNOWLEDGE_SOURCE("knowldge source"),
+    INPUT_DATA("input"),
+    OTHER("other");
+
+    private final String displayName;
+
+    DRGElementKind(String name) {
+        this.displayName = name;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
 
     public static DRGElementKind kindByClass(Class drgElementClass) {
         String className = drgElementClass.getSimpleName();

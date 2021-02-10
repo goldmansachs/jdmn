@@ -17,7 +17,7 @@ import java.util.Map;
 
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 
-public class DateType extends DataType {
+public class DateType extends ComparableDataType {
     public static final DateType DATE = new DateType();
 
     private static final Map<String, Type> MEMBERS = new LinkedHashMap<>();
@@ -37,13 +37,13 @@ public class DateType extends DataType {
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
+    protected boolean equivalentTo(Type other) {
         return other == DATE;
     }
 
     @Override
-    public boolean conformsTo(Type other) {
-        return equivalentTo(other) || other == AnyType.ANY;
+    protected boolean conformsTo(Type other) {
+        return other == DATE || other == COMPARABLE;
     }
 
 }

@@ -492,6 +492,8 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
 
         assertEqualsNumber(makeNumber("0"), getLib().len(""));
         assertEqualsNumber(makeNumber("4"), getLib().len("abc1"));
+        // Signavio does not support escape sequences, it returns 12
+        assertEqualsNumber(makeNumber("2"), getLib().len("\ud83d\udc0e"));
     }
 
     @Test

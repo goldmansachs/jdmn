@@ -16,6 +16,9 @@ import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+    //
+    // Conversion functions
+    //
     @Override
     public DATE date(String literal) {
         throw new DMNRuntimeException("Not supported yet");
@@ -56,11 +59,13 @@ public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements
         throw new DMNRuntimeException("Not supported yet");
     }
 
+    //
+    // Date properties
+    //
     @Override
     public Integer year(DATE date) {
         throw new DMNRuntimeException("Not supported yet");
     }
-
     @Override
     public Integer yearDateTime(DATE_TIME dateTime) {
         throw new DMNRuntimeException("Not supported yet");
@@ -70,7 +75,6 @@ public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements
     public Integer month(DATE date) {
         throw new DMNRuntimeException("Not supported yet");
     }
-
     @Override
     public Integer monthDateTime(DATE_TIME dateTime) {
         throw new DMNRuntimeException("Not supported yet");
@@ -80,7 +84,6 @@ public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements
     public Integer day(DATE date) {
         throw new DMNRuntimeException("Not supported yet");
     }
-
     @Override
     public Integer dayDateTime(DATE_TIME dateTime) {
         throw new DMNRuntimeException("Not supported yet");
@@ -90,17 +93,18 @@ public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements
     public Integer weekday(DATE date) {
         throw new DMNRuntimeException("Not supported yet");
     }
-
     @Override
     public Integer weekdayDateTime(DATE_TIME dateTime) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
+    //
+    // Time properties
+    //
     @Override
     public Integer hour(TIME time) {
         throw new DMNRuntimeException("Not supported yet");
     }
-
     @Override
     public Integer hourDateTime(DATE_TIME dateTime) {
         throw new DMNRuntimeException("Not supported yet");
@@ -110,7 +114,6 @@ public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements
     public Integer minute(TIME time) {
         throw new DMNRuntimeException("Not supported yet");
     }
-
     @Override
     public Integer minuteDateTime(DATE_TIME dateTime) {
         throw new DMNRuntimeException("Not supported yet");
@@ -120,7 +123,6 @@ public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements
     public Integer second(TIME time) {
         throw new DMNRuntimeException("Not supported yet");
     }
-
     @Override
     public Integer secondDateTime(DATE_TIME dateTime) {
         throw new DMNRuntimeException("Not supported yet");
@@ -130,7 +132,6 @@ public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements
     public DURATION timeOffset(TIME time) {
         throw new DMNRuntimeException("Not supported yet");
     }
-
     @Override
     public DURATION timeOffsetDateTime(DATE_TIME dateTime) {
         throw new DMNRuntimeException("Not supported yet");
@@ -140,19 +141,65 @@ public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements
     public String timezone(TIME time) {
         throw new DMNRuntimeException("Not supported yet");
     }
-
     @Override
     public String timezoneDateTime(DATE_TIME dateTime) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
+    //
+    // Temporal functions
+    //
     @Override
-    public DATE toDate(Object object) {
+    public Integer dayOfYear(DATE date) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+    @Override
+    public Integer dayOfYearDateTime(DATE_TIME date_time) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public TIME toTime(Object object) {
+    public String dayOfWeek(DATE date) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+    @Override
+    public String dayOfWeekDateTime(DATE_TIME date_time) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Integer weekOfYear(DATE date) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+    @Override
+    public Integer weekOfYearDateTime(DATE_TIME date_time) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public String monthOfYear(DATE date) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+    @Override
+    public String monthOfYearDateTime(DATE_TIME date_time) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    //
+    // Extra conversion functions
+    //
+    @Override
+    public DATE toDate(Object from) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public TIME toTime(Object from) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public DATE_TIME toDateTime(Object from) {
         throw new DMNRuntimeException("Not supported yet");
     }
 }

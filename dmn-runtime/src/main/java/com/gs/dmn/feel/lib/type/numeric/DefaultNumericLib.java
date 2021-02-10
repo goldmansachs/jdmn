@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
@@ -39,12 +40,26 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
     }
 
     @Override
+    public BigDecimal round(BigDecimal n, BigDecimal scale, String mode) {
+        if (n == null || scale == null || mode == null) {
+            return null;
+        }
+
+        RoundingMode roundingMode = NumericRoundingMode.fromValue(mode);
+        if (roundingMode == null) {
+            throw new DMNRuntimeException(String.format("Unknown rounding mode '%s'. Expected one of '%s'", mode, NumericRoundingMode.ALLOWED_VALUES));
+        } else {
+            return n.setScale(scale.intValue(), roundingMode);
+        }
+    }
+
+    @Override
     public BigDecimal floor(BigDecimal number) {
         if (number == null) {
             return null;
         }
 
-        return number.setScale(0, BigDecimal.ROUND_FLOOR);
+        return number.setScale(0, RoundingMode.FLOOR);
     }
 
     @Override
@@ -53,7 +68,7 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
             return null;
         }
 
-        return number.setScale(0, BigDecimal.ROUND_CEILING);
+        return number.setScale(0, RoundingMode.CEILING);
     }
 
     @Override
@@ -90,8 +105,8 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
             return null;
         }
 
-        double sqrt = Math.sqrt(number.doubleValue());
-        return BigDecimal.valueOf(sqrt);
+        double value = Math.sqrt(number.doubleValue());
+        return BigDecimal.valueOf(value);
     }
 
     @Override
@@ -100,8 +115,8 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
             return null;
         }
 
-        double sqrt = Math.log(number.doubleValue());
-        return BigDecimal.valueOf(sqrt);
+        double value = Math.log(number.doubleValue());
+        return BigDecimal.valueOf(value);
     }
 
     @Override
@@ -110,8 +125,8 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
             return null;
         }
 
-        double sqrt = Math.exp(number.doubleValue());
-        return BigDecimal.valueOf(sqrt);
+        double value = Math.exp(number.doubleValue());
+        return BigDecimal.valueOf(value);
     }
 
     @Override

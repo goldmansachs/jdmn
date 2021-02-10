@@ -12,37 +12,12 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.NumberType;
-import com.gs.dmn.feel.analysis.semantics.type.StringType;
-import com.gs.dmn.runtime.Pair;
-import org.junit.Test;
-
-import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
+import java.util.stream.Collectors;
 
 public class PositionalParameterTypesTest extends ParameterTypesTest {
     @Override
-    protected ParameterTypes getParameterTypes() {
-        return new PositionalParameterTypes(Arrays.asList(NumberType.NUMBER, StringType.STRING));
-    }
-
-    @Test
-    public void testCandidates() {
-        ParameterTypes pt = getParameterTypes();
-        List<Pair<ParameterTypes, ParameterConversions>> candidates = pt.candidates();
-        assertEquals(0, candidates.size());
-
-        pt = new PositionalParameterTypes(Arrays.asList(ListType.NUMBER_LIST, StringType.STRING, ListType.STRING_LIST));
-        candidates = pt.candidates();
-        assertEquals(3, candidates.size());
-        Pair<ParameterTypes, ParameterConversions> candidate = candidates.get(0);
-        assertEquals("Pair(PositionalParameterTypes(ListType(number), string, string), PositionalParameterConversions([Conversion(NONE, ListType(number)), Conversion(NONE, string), Conversion(LIST_TO_ELEMENT, string)]))", candidate.toString());
-        candidate = candidates.get(1);
-        assertEquals("Pair(PositionalParameterTypes(number, string, ListType(string)), PositionalParameterConversions([Conversion(LIST_TO_ELEMENT, number), Conversion(NONE, string), Conversion(NONE, ListType(string))]))", candidate.toString());
-        candidate = candidates.get(2);
-        assertEquals("Pair(PositionalParameterTypes(number, string, string), PositionalParameterConversions([Conversion(LIST_TO_ELEMENT, number), Conversion(NONE, string), Conversion(LIST_TO_ELEMENT, string)]))", candidate.toString());
+    protected ParameterTypes makeParameterTypes(List<FormalParameter> parameters) {
+        return new PositionalParameterTypes(parameters.stream().map(FormalParameter::getType).collect(Collectors.toList()));
     }
 }

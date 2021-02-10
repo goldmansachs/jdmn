@@ -12,123 +12,33 @@
  */
 package com.gs.dmn.feel.lib.type.time.pure;
 
-import com.gs.dmn.feel.lib.type.RelationalComparator;
-import org.slf4j.Logger;
+import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 
 import java.time.*;
 import java.time.temporal.Temporal;
-import java.util.function.Supplier;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
-
-public class TemporalComparator implements RelationalComparator<Temporal> {
-    private final Logger logger;
-
-    public TemporalComparator(Logger logger) {
-        this.logger = logger;
-    }
-
+public class TemporalComparator extends DateTimeComparator<Temporal> {
     @Override
-    public Integer compare(Temporal first, Temporal second) {
+    protected Integer compareTo(Temporal first, Temporal second) {
         // Time
-        if (first instanceof LocalTime && second instanceof LocalTime) {
-            return ((LocalTime) first).compareTo((LocalTime) second);
-        } else if (first instanceof OffsetTime && second instanceof OffsetTime) {
-            return ((OffsetTime) first).compareTo((OffsetTime) second);
+        if (isTime(first) && isTime(second)) {
+            return timeValue(first).compareTo(timeValue(second));
 
         // Date time
-        } else if (first instanceof LocalDateTime && second instanceof LocalDateTime) {
-            return ((LocalDateTime) first).compareTo((LocalDateTime) second);
-        } else if (first instanceof OffsetDateTime && second instanceof OffsetDateTime) {
-            return ((OffsetDateTime) first).compareTo((OffsetDateTime) second);
-        } else if (first instanceof ZonedDateTime && second instanceof ZonedDateTime) {
-            return ((ZonedDateTime) first).compareTo((ZonedDateTime) second);
+        } else if (isDateTime(first) && isDateTime(second)) {
+            return dateTimeValue(first).compareTo(dateTimeValue(second));
         }
+
         return  null;
     }
 
-    @Override
-    public Boolean equalTo(Temporal first, Temporal second) {
-        try {
-            return applyOperator(first, second, new Supplier[] {
-                    () -> TRUE,
-                    () -> FALSE,
-                    () -> FALSE,
-                    () -> { Integer result = compare(first, second); return result != null && result == 0; }
-            });
-        } catch (Exception e) {
-            String message = String.format("=(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+    private boolean isTime(Temporal dateTime) {
+        return dateTime instanceof LocalTime || dateTime instanceof OffsetTime;
     }
 
-    @Override
-    public Boolean lessThan(Temporal first, Temporal second) {
-        try {
-            return applyOperator(first, second, new Supplier[] {
-                    () -> FALSE,
-                    () -> null,
-                    () -> null,
-                    () -> { Integer result = compare(first, second); return result != null && result < 0; }
-            });
-        } catch (Exception e) {
-            String message = String.format("<(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public Boolean greaterThan(Temporal first, Temporal second) {
-        try {
-            return applyOperator(first, second, new Supplier[] {
-                    () -> FALSE,
-                    () -> null,
-                    () -> null,
-                    () -> { Integer result = compare(first, second); return result != null && result > 0; }
-            });
-        } catch (Exception e) {
-            String message = String.format(">(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public Boolean lessEqualThan(Temporal first, Temporal second) {
-        try {
-            return applyOperator(first, second, new Supplier[] {
-                    () -> TRUE,
-                    () -> null,
-                    () -> null,
-                    () -> { Integer result = compare(first, second); return result != null && result <= 0; }
-            });
-        } catch (Exception e) {
-            String message = String.format("<=(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public Boolean greaterEqualThan(Temporal first, Temporal second) {
-        try {
-            return applyOperator(first, second, new Supplier[] {
-                    () -> TRUE,
-                    () -> null,
-                    () -> null,
-                    () -> { Integer result = compare(first, second); return result != null && result >= 0; }
-            });
-        } catch (Exception e) {
-            String message = String.format(">=(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    protected void logError(String message, Throwable e) {
-        this.logger.error(message, e);
+    private boolean isDateTime(Temporal time) {
+        return time instanceof LocalDateTime
+                || time instanceof OffsetDateTime
+                || time instanceof ZonedDateTime;
     }
 }

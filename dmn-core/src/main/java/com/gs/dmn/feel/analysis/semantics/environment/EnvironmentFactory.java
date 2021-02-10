@@ -15,26 +15,15 @@ package com.gs.dmn.feel.analysis.semantics.environment;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.DMNContext;
 
 public interface EnvironmentFactory {
     default Environment emptyEnvironment() {
         return new Environment();
     }
 
-    default Environment makeEnvironment() {
-        return makeEnvironment(getRootEnvironment(), null);
-    }
-
-    default Environment makeEnvironment(Environment rootEnvironment) {
-        return makeEnvironment(rootEnvironment, null);
-    }
-
     default Environment makeEnvironment(Expression inputExpression) {
-        return new Environment(getRootEnvironment(), inputExpression);
-    }
-
-    default Environment makeEnvironment(Environment environment, Expression valueExp) {
-        return new Environment(environment, valueExp);
+        return new Environment(inputExpression);
     }
 
     default Declaration makeVariableDeclaration(String name, Type type) {
@@ -45,17 +34,5 @@ public interface EnvironmentFactory {
         }
     }
 
-    default Declaration makeFunctionDeclaration(String name, FunctionType type) {
-        return new FunctionDeclaration(name, type);
-    }
-
-    default BusinessKnowledgeModelDeclaration makeBusinessKnowledgeModelDeclaration(String name, FunctionType type) {
-        return new BusinessKnowledgeModelDeclaration(name, type);
-    }
-
-    default DecisionServiceDeclaration makeDecisionServiceDeclaration(String name, FunctionType type) {
-        return new DecisionServiceDeclaration(name, type);
-    }
-
-    Environment getRootEnvironment();
+    DMNContext getBuiltInContext();
 }
