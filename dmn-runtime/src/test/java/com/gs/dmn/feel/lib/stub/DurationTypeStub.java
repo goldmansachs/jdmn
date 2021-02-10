@@ -12,11 +12,35 @@
  */
 package com.gs.dmn.feel.lib.stub;
 
-import com.gs.dmn.feel.lib.type.DurationType;
+import com.gs.dmn.feel.lib.type.time.DurationType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
-
 public class DurationTypeStub<DURATION, NUMBER> implements DurationType<DURATION, NUMBER> {
+    @Override
+    public boolean isDuration(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public boolean isYearsAndMonthsDuration(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public boolean isDaysAndTimeDuration(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Long durationValue(DURATION duration) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Boolean durationIs(DURATION first, DURATION second) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
     @Override
     public Boolean durationEqual(DURATION first, DURATION second) {
         throw new DMNRuntimeException("Not supported yet");
@@ -58,12 +82,17 @@ public class DurationTypeStub<DURATION, NUMBER> implements DurationType<DURATION
     }
 
     @Override
-    public DURATION durationMultiply(DURATION first, NUMBER second) {
+    public NUMBER durationDivide(DURATION first, DURATION second) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public DURATION durationDivide(DURATION first, NUMBER second) {
+    public DURATION durationMultiplyNumber(DURATION first, NUMBER second) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public DURATION durationDivideNumber(DURATION first, NUMBER second) {
         throw new DMNRuntimeException("Not supported yet");
     }
 }

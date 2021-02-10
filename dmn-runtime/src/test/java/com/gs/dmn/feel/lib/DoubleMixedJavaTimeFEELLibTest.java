@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import org.junit.Test;
 
 import javax.xml.datatype.Duration;
@@ -38,12 +38,12 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Doub
     public void testDateSubtract() {
         super.testDateSubtract();
 
-        assertEqualsDateTime("P0Y0M", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")));
-        assertEqualsDateTime("P0Y0M", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-03")));
+        assertEqualsDateTime("P0Y0M0DT0H0M0.000S", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")));
+        assertEqualsDateTime("-P0Y0M2DT0H0M0.000S", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-03")));
     }
 
     //
-    // Constructors
+    // Conversion functions
     //
     @Override
     @Test
@@ -209,6 +209,17 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Doub
         assertEquals("Z", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02")));
     }
 
+    //
+    // Date and time functions
+    //
+    @Override
+    @Test
+    public void testDateAndTimeFunctions() {
+        super.testDateAndTimeFunctions();
+
+//        assertFalse(getLib().is(makeTime("23:00:50z"), makeTime("23:00:50")));
+    }
+
     @Override
     protected void assertEqualsDateTime(String expected, Object actual) {
         if (actual instanceof LocalDate) {
@@ -233,7 +244,7 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Doub
     }
 
     private ZonedDateTime normalize(ZonedDateTime dateTime) {
-        return dateTime.withZoneSameInstant(DefaultDateTimeLib.UTC);
+        return dateTime.withZoneSameInstant(BaseType.UTC);
     }
 }
 

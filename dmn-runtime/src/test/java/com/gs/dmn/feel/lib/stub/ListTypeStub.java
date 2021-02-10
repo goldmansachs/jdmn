@@ -12,12 +12,27 @@
  */
 package com.gs.dmn.feel.lib.stub;
 
-import com.gs.dmn.feel.lib.type.ListType;
+import com.gs.dmn.feel.lib.type.list.ListType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.List;
 
 public class ListTypeStub implements ListType {
+    @Override
+    public boolean isList(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public List listValue(List value) {
+        return null;
+    }
+
+    @Override
+    public Boolean listIs(List list1, List list2) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
     @Override
     public Boolean listEqual(List list1, List list2) {
         throw new DMNRuntimeException("Not supported yet");

@@ -12,15 +12,12 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
-import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.ComparableComparator;
-import com.gs.dmn.feel.lib.type.NumericType;
-import org.slf4j.Logger;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-public class DefaultNumericType extends BaseType implements NumericType<BigDecimal> {
+public class DefaultNumericType extends BaseNumericType implements NumericType<BigDecimal> {
     public static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
 
     public static BigDecimal decimalNumericDivide(BigDecimal first, BigDecimal second) {
@@ -36,125 +33,32 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
 
     private final ComparableComparator<BigDecimal> comparator;
 
-    @Deprecated
-    public DefaultNumericType(Logger logger) {
-        this(logger, new ComparableComparator<>());
+    public DefaultNumericType() {
+        this(new ComparableComparator<>());
     }
 
-    public DefaultNumericType(Logger logger, ComparableComparator<BigDecimal> comparator) {
-        super(logger);
+    public DefaultNumericType(ComparableComparator<BigDecimal> comparator) {
         this.comparator = comparator;
     }
 
     @Override
-    public BigDecimal numericAdd(BigDecimal first, BigDecimal second) {
+    public boolean isNumber(Object value) {
+        return value instanceof BigDecimal;
+    }
+
+    @Override
+    public BigDecimal numericValue(BigDecimal value) {
+        return value;
+    }
+
+    @Override
+    public Boolean numericIs(BigDecimal first, BigDecimal second) {
         if (first == null || second == null) {
-            return null;
+            return first == second;
         }
 
-        try {
-            return first.add(second, MATH_CONTEXT);
-        } catch (Exception e) {
-            String message = String.format("numericAdd(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public BigDecimal numericSubtract(BigDecimal first, BigDecimal second) {
-        if (first == null || second == null) {
-            return null;
-        }
-
-        try {
-            return first.subtract(second, MATH_CONTEXT);
-        } catch (Exception e) {
-            String message = String.format("numericSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public BigDecimal numericMultiply(BigDecimal first, BigDecimal second) {
-        if (first == null || second == null) {
-            return null;
-        }
-
-        try {
-            return first.multiply(second, MATH_CONTEXT);
-        } catch (Exception e) {
-            String message = String.format("numericMultiply(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public BigDecimal numericDivide(BigDecimal first, BigDecimal second) {
-        try {
-            return decimalNumericDivide(first, second);
-        } catch (Exception e) {
-            String message = String.format("numericDivide(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public BigDecimal numericUnaryMinus(BigDecimal first) {
-        if (first == null) {
-            return null;
-        }
-
-        try {
-            return first.negate(MATH_CONTEXT);
-        } catch (Exception e) {
-            String message = String.format("numericUnaryMinus(%s)", first);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public BigDecimal numericExponentiation(BigDecimal first, BigDecimal second) {
-        if (first == null || second == null) {
-            return null;
-        }
-
-        try {
-            if (second.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
-                return numericExponentiation(first, second.intValue());
-            } else {
-                return BigDecimal.valueOf(Math.pow(first.doubleValue(), second.doubleValue()));
-            }
-        } catch (Exception e) {
-            String message = String.format("numericExponentiation(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public BigDecimal numericExponentiation(BigDecimal first, int second) {
-        if (first == null) {
-            return null;
-        }
-
-        try {
-            if (second < 0) {
-                return first.pow(second, MATH_CONTEXT);
-            } else if (second == 0) {
-                return BigDecimal.ONE;
-            } else {
-                BigDecimal temp = first.pow(-second, MATH_CONTEXT);
-                return BigDecimal.ONE.divide(temp, MATH_CONTEXT);
-            }
-        } catch (Exception e) {
-            String message = String.format("numericExponentiation(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return first.unscaledValue().equals(second.unscaledValue())
+                && first.scale() == second.scale();
     }
 
     @Override
@@ -185,5 +89,74 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
     @Override
     public Boolean numericGreaterEqualThan(BigDecimal first, BigDecimal second) {
         return this.comparator.greaterEqualThan(first, second);
+    }
+
+    @Override
+    public BigDecimal numericAdd(BigDecimal first, BigDecimal second) {
+        if (first == null || second == null) {
+            return null;
+        }
+
+        return first.add(second, MATH_CONTEXT);
+    }
+
+    @Override
+    public BigDecimal numericSubtract(BigDecimal first, BigDecimal second) {
+        if (first == null || second == null) {
+            return null;
+        }
+
+        return first.subtract(second, MATH_CONTEXT);
+    }
+
+    @Override
+    public BigDecimal numericMultiply(BigDecimal first, BigDecimal second) {
+        if (first == null || second == null) {
+            return null;
+        }
+
+        return first.multiply(second, MATH_CONTEXT);
+    }
+
+    @Override
+    public BigDecimal numericDivide(BigDecimal first, BigDecimal second) {
+        return decimalNumericDivide(first, second);
+    }
+
+    @Override
+    public BigDecimal numericUnaryMinus(BigDecimal first) {
+        if (first == null) {
+            return null;
+        }
+
+        return first.negate(MATH_CONTEXT);
+    }
+
+    @Override
+    public BigDecimal numericExponentiation(BigDecimal first, BigDecimal second) {
+        if (first == null || second == null) {
+            return null;
+        }
+
+        if (second.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
+            return numericExponentiation(first, second.intValue());
+        } else {
+            return BigDecimal.valueOf(Math.pow(first.doubleValue(), second.doubleValue()));
+        }
+    }
+
+    public BigDecimal numericExponentiation(BigDecimal first, int second) {
+        if (first == null) {
+            return null;
+        }
+
+        if (second < 0) {
+            return first.pow(second, MATH_CONTEXT);
+        } else if (second == 0) {
+            return BigDecimal.ONE;
+        } else {
+            BigDecimal temp = first.pow(-second, MATH_CONTEXT);
+            return BigDecimal.ONE.divide(temp, MATH_CONTEXT);
+        }
     }
 }

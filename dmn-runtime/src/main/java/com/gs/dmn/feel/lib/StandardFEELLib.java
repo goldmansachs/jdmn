@@ -12,11 +12,12 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.range.RangeLib;
 import com.gs.dmn.runtime.LambdaExpression;
 
 import java.util.List;
 
-public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>, RangeLib {
     //
     // Conversion functions
     //
@@ -61,11 +62,14 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     //
     NUMBER decimal(NUMBER n, NUMBER scale);
 
+    // Extension to DMN 1.3
+    NUMBER round(NUMBER n, NUMBER scale, String mode);
+
     NUMBER floor(NUMBER number);
 
     NUMBER ceiling(NUMBER number);
 
-    NUMBER abs(NUMBER number);
+    Object abs(Object n);
 
     NUMBER modulo(NUMBER dividend, NUMBER divisor);
 
@@ -121,7 +125,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     Boolean not(Boolean operand);
 
     //
-    // Date functions
+    // Date properties
     //
     @Override
     NUMBER year(DATE date);
@@ -136,7 +140,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     NUMBER weekday(DATE date);
 
     //
-    // Time functions
+    // Time properties
     //
     @Override
     NUMBER hour(TIME time);
@@ -154,7 +158,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     String timezone(TIME time);
 
     //
-    // Duration functions
+    // Duration properties
     //
     @Override
     NUMBER years(DURATION duration);
@@ -173,6 +177,22 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     @Override
     NUMBER seconds(DURATION duration);
+
+    //
+    // Temporal functions
+    //
+    NUMBER dayOfYear(DATE date);
+
+    String dayOfWeek(DATE date);
+
+    NUMBER weekOfYear(DATE date);
+
+    String monthOfYear(DATE date);
+
+    //
+    // Date and time functions
+    //
+    Boolean is(Object value1, Object value2);
 
     //
     // List functions
@@ -255,6 +275,10 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     List mode(Object... numbers);
 
     void collect(List result, List list);
+
+    //
+    // Temporal built-in functions
+    //
 
     <T> List<T> sort(List<T> list, LambdaExpression<Boolean> comparator);
 }

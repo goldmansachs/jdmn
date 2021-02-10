@@ -14,8 +14,11 @@ package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterConversions;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
+import com.gs.dmn.runtime.Pair;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,18 +37,26 @@ public class FEELFunctionType extends FunctionType {
     }
 
     public FunctionDefinition getFunctionDefinition() {
-        return functionDefinition;
+        return this.functionDefinition;
     }
 
     public boolean isExternal() {
-        return external;
+        return this.external;
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
+    protected boolean equivalentTo(Type other) {
         return other instanceof FEELFunctionType
-                && returnType.equivalentTo(((FEELFunctionType) other).returnType)
-                && equalNames(this.parameterTypes, ((FEELFunctionType) other).parameterTypes);
+                && Type.equivalentTo(this.returnType, ((FunctionType) other).returnType)
+                && Type.equivalentTo(this.parameterTypes, ((FunctionType) other).parameterTypes);
+    }
+
+    @Override
+    protected boolean conformsTo(Type other) {
+        // “contravariant function argument type” and “covariant function return type”
+        return other instanceof FEELFunctionType
+                && Type.equivalentTo(this.returnType, ((FunctionType) other).returnType)
+                && Type.equivalentTo(((FunctionType) other).parameterTypes, this.parameterTypes);
     }
 
     @Override
@@ -58,40 +69,37 @@ public class FEELFunctionType extends FunctionType {
     }
 
     @Override
+    protected List<Pair<ParameterTypes, ParameterConversions>> matchCandidates(List<Type> argumentTypes) {
+        // check size constraint
+        if (argumentTypes.size() != this.parameterTypes.size()) {
+            return new ArrayList<>();
+        }
+        // calculate candidates
+        return calculateCandidates(this.parameterTypes, argumentTypes);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         FEELFunctionType that = (FEELFunctionType) o;
 
-        if (parameters != null ? !parameters.equals(that.parameters) : that.parameters != null)
+        if (this.parameters != null ? !this.parameters.equals(that.parameters) : that.parameters != null)
             return false;
-        return returnType != null ? returnType.equals(that.returnType) : that.returnType == null;
-
+        return this.returnType != null ? this.returnType.equals(that.returnType) : that.returnType == null;
     }
 
     @Override
     public int hashCode() {
-        int result = parameters != null ? parameters.hashCode() : 0;
-        result = 31 * result + (returnType != null ? returnType.hashCode() : 0);
+        int result = this.parameters != null ? this.parameters.hashCode() : 0;
+        result = 31 * result + (this.returnType != null ? this.returnType.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        String types = parameters.stream().map(p -> p == null ? "null" : p.toString()).collect(Collectors.joining(", "));
-        return String.format("FEELFunctionType(%s, %s, %s)", types, returnType, external);
-    }
-
-    private boolean equalNames(List<Type> list1, List<Type> list2) {
-        if (list1.size() != list2.size()) {
-            return false;
-        }
-        for (int i = 0; i < list1.size(); i++) {
-            if (!list1.get(i).equals(list2.get(i))) {
-                return false;
-            }
-        }
-        return true;
+        String types = this.parameters.stream().map(p -> p == null ? "null" : p.toString()).collect(Collectors.joining(", "));
+        return String.format("FEELFunctionType(%s, %s, %s)", types, this.returnType, this.external);
     }
 }

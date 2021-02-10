@@ -12,30 +12,42 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.DateType;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
-import org.slf4j.Logger;
+import com.gs.dmn.feel.lib.type.time.DateType;
+import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.time.LocalDate;
+import java.time.Period;
 
-public class LocalDateType extends JavaTimeCalendarType implements DateType<LocalDate, Duration> {
+public class LocalDateType extends BaseMixedCalendarType implements DateType<LocalDate, Duration> {
     protected final LocalDateComparator comparator;
 
-    @Deprecated
-    public LocalDateType(Logger logger, DatatypeFactory datatypeFactory) {
-        this(logger, datatypeFactory, new LocalDateComparator());
+    public LocalDateType() {
+        this(new LocalDateComparator());
     }
 
-    public LocalDateType(Logger logger, DatatypeFactory datatypeFactory, LocalDateComparator comparator) {
-        super(logger, datatypeFactory);
+    public LocalDateType(LocalDateComparator comparator) {
         this.comparator = comparator;
     }
 
     //
     // Date operators
     //
+    @Override
+    public boolean isDate(Object value) {
+        return value instanceof LocalDate;
+    }
+
+    @Override
+    public Boolean dateIs(LocalDate first, LocalDate second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return first.getYear() == second.getYear()
+                && first.getMonth() == second.getMonth()
+                && first.getDayOfMonth() == second.getDayOfMonth();
+    }
 
     @Override
     public Boolean dateEqual(LocalDate first, LocalDate second) {
@@ -73,13 +85,8 @@ public class LocalDateType extends JavaTimeCalendarType implements DateType<Loca
             return null;
         }
 
-        try {
-            return toDuration(first, second);
-        } catch (Exception e) {
-            String message = String.format("dateSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        long durationInSeconds = dateValue(first) - (long) dateValue(second);
+        return XMLDurationFactory.INSTANCE.fromSeconds(durationInSeconds);
     }
 
     @Override
@@ -88,13 +95,9 @@ public class LocalDateType extends JavaTimeCalendarType implements DateType<Loca
             return null;
         }
 
-        try {
-            return date.plus(toTemporalPeriod(duration));
-        } catch (Exception e) {
-            String message = String.format("dateAddDuration(%s, %s)", date, duration);
-            logError(message, e);
-            return null;
-        }
+        Period yearsMonthsDuration = (Period) toTemporalPeriod(duration);
+        java.time.Duration daysTimeDuration = (java.time.Duration) toTemporalDuration(duration);
+        return date.plus(yearsMonthsDuration).plusDays(daysTimeDuration.toDays());
     }
 
     @Override
@@ -103,17 +106,7 @@ public class LocalDateType extends JavaTimeCalendarType implements DateType<Loca
             return null;
         }
 
-        try {
-            return date.minus(toTemporalPeriod(duration));
-        } catch (Exception e) {
-            String message = String.format("dateSubtractDuration(%s, %s)", date, duration);
-            logError(message, e);
-            return null;
-        }
+        return dateAddDuration(date, duration.negate());
     }
 
-    protected Duration toDuration(LocalDate date1, LocalDate date2) {
-        long durationInMilliSeconds = getDurationInMilliSeconds(date1.atStartOfDay(DefaultDateTimeLib.UTC), date2.atStartOfDay(DefaultDateTimeLib.UTC));
-        return datatypeFactory.newDurationYearMonth(durationInMilliSeconds);
-    }
 }

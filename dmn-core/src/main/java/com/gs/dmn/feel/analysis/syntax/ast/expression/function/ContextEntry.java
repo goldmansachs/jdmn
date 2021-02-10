@@ -13,9 +13,9 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.DMNContext;
 
 public class ContextEntry extends Element {
     private final ContextEntryKey key;
@@ -27,20 +27,20 @@ public class ContextEntry extends Element {
     }
 
     public ContextEntryKey getKey() {
-        return key;
+        return this.key;
     }
 
     public Expression getExpression() {
-        return expression;
+        return this.expression;
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 
     @Override
     public String toString() {
-        return String.format("ContextEntry(%s = %s)", key.toString(), expression.toString());
+        return String.format("%s(%s = %s)", getClass().getSimpleName(), this.key.toString(), this.expression.toString());
     }
 }

@@ -12,14 +12,24 @@
  */
 package com.gs.dmn.feel.lib;
 
-import com.gs.dmn.feel.lib.type.*;
+import com.gs.dmn.feel.lib.type.bool.BooleanType;
+import com.gs.dmn.feel.lib.type.context.ContextType;
+import com.gs.dmn.feel.lib.type.function.FunctionType;
+import com.gs.dmn.feel.lib.type.list.ListType;
+import com.gs.dmn.feel.lib.type.numeric.NumericType;
+import com.gs.dmn.feel.lib.type.range.RangeType;
+import com.gs.dmn.feel.lib.type.string.StringType;
+import com.gs.dmn.feel.lib.type.time.DateTimeType;
+import com.gs.dmn.feel.lib.type.time.DateType;
+import com.gs.dmn.feel.lib.type.time.DurationType;
+import com.gs.dmn.feel.lib.type.time.TimeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
-        NumericType<NUMBER>, StringType, BooleanType, ListType, ContextType,
+        NumericType<NUMBER>, StringType, BooleanType, ListType, ContextType, RangeType, FunctionType,
         DateType<DATE, DURATION>, TimeType<TIME, DURATION>, DateTimeType<DATE_TIME, DURATION>, DurationType<DURATION, NUMBER> {
     Logger LOGGER = LoggerFactory.getLogger(FEELLib.class);
 
@@ -32,7 +42,7 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     }
 
     //
-    // Constructors
+    // Conversion functions
     //
     NUMBER number(String literal);
 
@@ -51,16 +61,20 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     String string(Object object);
 
     //
-    // Conversion functions
+    // Implicit conversion functions
     //
     <T> List<T> asList(T ...objects);
     <T> T asElement(List<T> list);
 
+    //
+    // Extra conversion functions
+    //
     List<NUMBER> rangeToList(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end);
     List<NUMBER> rangeToList(NUMBER start, NUMBER end);
 
-    DATE toDate(Object object);
-    TIME toTime(Object object);
+    DATE toDate(Object from);
+    TIME toTime(Object from);
+    DATE_TIME toDateTime(Object from);
 
     //
     // Boolean functions
@@ -82,11 +96,13 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     //
     // Context functions
     //
+    @Override
     List getEntries(Object m);
+    @Override
     Object getValue(Object m, Object key);
 
     //
-    // Date time functions
+    // Date time properties
     //
     NUMBER year(DATE date);
     NUMBER month(DATE date);
@@ -99,7 +115,7 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     String timezone(TIME time);
 
     //
-    // Duration functions
+    // Duration properties
     //
     NUMBER years(DURATION duration);
     NUMBER months(DURATION duration);

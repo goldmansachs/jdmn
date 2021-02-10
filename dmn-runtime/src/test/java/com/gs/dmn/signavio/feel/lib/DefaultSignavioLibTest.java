@@ -36,7 +36,7 @@ public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLG
     public void testTimeEqual() {
         super.testTimeEqual();
 
-        assertFalse(getLib().timeEqual(makeTime("12:00:00"), makeTime("12:00:00+00:00")));
+        assertTrue(getLib().timeEqual(makeTime("12:00:00"), makeTime("12:00:00+00:00")));
     }
 
     //

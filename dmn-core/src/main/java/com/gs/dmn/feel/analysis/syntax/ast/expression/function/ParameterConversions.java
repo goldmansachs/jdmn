@@ -16,5 +16,7 @@ import java.util.List;
 
 public abstract class ParameterConversions {
     public abstract List<Conversion> getConversions(List<FormalParameter> formalParameters);
+
+    public abstract boolean hasConversion(ConversionKind kind);
 }
 

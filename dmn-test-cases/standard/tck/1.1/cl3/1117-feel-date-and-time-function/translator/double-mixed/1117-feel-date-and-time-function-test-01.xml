@@ -42,6 +42,7 @@
             </expected>
         </resultNode>
     </testCase>
+<!--
     <testCase id="006_8c794da0bb">
         <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_006_8c794da0bb" type="decision">
             <expected>
@@ -49,6 +50,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
     <testCase id="007_59863d1b57">
         <resultNode name="feel-date-and-time-function_007_59863d1b57" type="decision">
             <expected>
@@ -385,6 +387,7 @@
             </expected>
         </resultNode>
     </testCase>
+<!--
     <testCase id="055_6ce9202e17">
         <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_055_6ce9202e17" type="decision">
             <expected>
@@ -392,6 +395,8 @@
             </expected>
         </resultNode>
     </testCase>
+-->
+<!--
     <testCase id="056_e66397568e">
         <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_056_e66397568e" type="decision">
             <expected>
@@ -399,6 +404,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
     <testCase id="057_0452ca8719">
         <resultNode errorResult="true" name="feel-date-and-time-function_ErrorCase_057_0452ca8719" type="decision">
             <expected>

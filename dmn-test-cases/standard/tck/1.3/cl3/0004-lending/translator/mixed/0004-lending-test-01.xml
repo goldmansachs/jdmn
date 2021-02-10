@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<modelName>0004-lending.dmn</modelName>
+	<labels>
+		<label>Compliance Level 3</label>
+		<label>Literal Expression</label>
+		<label>Item Definition</label>
+		<label>Function Invocation</label>
+		<label>Business Knowledge Model</label>
+		<label>Context</label>
+		<label>Decision Table: Single Output</label>
+		<label>Hit Policy: UNIQUE</label>
+		<label>Hit Policy: PRIORITY</label>
+		<label>Hit Policy: COLLECT</label>
+		<label>FEEL Arithmetic</label>
+		<label>FEEL Conditionals</label>
+		<label>Data Type: String</label>
+		<label>Data Type: Number</label>
+		<label>Data Type: Boolean</label>
+		<label>Data Type: Structure</label>
+	</labels>
+	<testCase id="001">
+		<inputNode name="ApplicantData">
+			<component name="Monthly">
+				<component name="Income">
+					<value xsi:type="xsd:decimal">6000</value>
+				</component>
+				<component name="Expenses">
+					<value xsi:type="xsd:decimal">2000</value>
+				</component>
+				<component name="Repayments">
+					<value xsi:type="xsd:decimal">0</value>
+				</component>
+			</component>
+			<component name="Age">
+				<value xsi:type="xsd:decimal">35</value>
+			</component>
+			<component name="ExistingCustomer">
+				<value xsi:type="xsd:boolean">true</value>
+			</component>
+			<component name="MaritalStatus">
+				<value xsi:type="xsd:string">M</value>
+			</component>
+			<component name="EmploymentStatus">
+				<value xsi:type="xsd:string">EMPLOYED</value>
+			</component>
+		</inputNode>
+		<inputNode name="RequestedProduct">
+			<component name="ProductType">
+				<value xsi:type="xsd:string">STANDARD LOAN</value>
+			</component>
+			<component name="Amount">
+				<value xsi:type="xsd:decimal">350000</value>
+			</component>
+			<component name="Rate">
+				<value xsi:type="xsd:decimal">0.0395</value>
+			</component>
+			<component name="Term">
+				<value xsi:type="xsd:decimal">360</value>
+			</component>
+		</inputNode>
+		<inputNode name="BureauData">
+			<component name="CreditScore">
+				<value xsi:type="xsd:decimal">649</value>
+			</component>
+			<component name="Bankrupt">
+				<value xsi:type="xsd:boolean">false</value>
+			</component>
+		</inputNode>
+		<inputNode name="SupportingDocuments">
+			<value xsi:type="xsd:string">YES</value>
+		</inputNode>
+        <resultNode name="Adjudication" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">ACCEPT</value>
+            </expected>
+        </resultNode>
+        <resultNode name="ApplicationRiskScore" type="decision">
+			<expected>
+				<value xsi:type="xsd:decimal">130</value>
+			</expected>
+		</resultNode>
+		<resultNode name="Pre-bureauRiskCategory" type="decision">
+			<expected>
+				<value xsi:type="xsd:string">LOW</value>
+			</expected>
+		</resultNode>
+		<resultNode name="BureauCallType" type="decision">
+			<expected>
+				<value xsi:type="xsd:string">MINI</value>
+			</expected>
+		</resultNode>
+		<resultNode name="Post-bureauRiskCategory" type="decision">
+			<expected>
+				<value xsi:type="xsd:string">LOW</value>
+			</expected>
+		</resultNode>
+		<resultNode name="RequiredMonthlyInstallment" type="decision">
+			<expected>
+				<value xsi:type="xsd:decimal">1680.880325608555</value>
+			</expected>
+		</resultNode>
+		<resultNode name="Pre-bureauAffordability" type="decision">
+			<expected>
+				<value xsi:type="xsd:boolean">true</value>
+			</expected>
+		</resultNode>
+		<resultNode name="Eligibility" type="decision">
+			<expected>
+				<value xsi:type="xsd:string">ELIGIBLE</value>
+			</expected>
+		</resultNode>
+		<resultNode name="Strategy" type="decision">
+			<expected>
+				<value xsi:type="xsd:string">BUREAU</value>
+			</expected>
+		</resultNode>
+		<resultNode name="Post-bureauAffordability" type="decision">
+			<expected>
+				<value xsi:type="xsd:boolean">true</value>
+			</expected>
+		</resultNode>
+		<resultNode name="Routing" type="decision">
+			<expected>
+				<value xsi:type="xsd:string">ACCEPT</value>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

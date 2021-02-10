@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
+import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.ArithmeticNegation;
@@ -31,58 +32,53 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.type.FunctionTypeExpressio
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.ListTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.NamedTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
+import com.gs.dmn.runtime.DMNContext;
 
 public class NopVisitor extends AbstractVisitor {
+    public NopVisitor() {
+        super(NopErrorHandler.INSTANCE);
+    }
+
     //
     // Tests
     //
     @Override
-    public Object visit(PositiveUnaryTests element, FEELContext context) {
+    public Object visit(PositiveUnaryTests element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(NegatedPositiveUnaryTests element, FEELContext context) {
+    public Object visit(NegatedPositiveUnaryTests element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(SimplePositiveUnaryTests element, FEELContext context) {
+    public Object visit(Any element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(NegatedSimplePositiveUnaryTests element, FEELContext context) {
+    public Object visit(NullTest element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(Any element, FEELContext context) {
+    public Object visit(ExpressionTest element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(NullTest element, FEELContext context) {
+    public Object visit(OperatorRange element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(ExpressionTest element, FEELContext context) {
+    public Object visit(EndpointsRange element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(OperatorTest element, FEELContext context) {
-        return element;
-    }
-
-    @Override
-    public Object visit(RangeTest element, FEELContext context) {
-        return element;
-    }
-
-    @Override
-    public Object visit(ListTest element, FEELContext context) {
+    public Object visit(ListTest element, DMNContext context) {
         return element;
     }
 
@@ -90,67 +86,67 @@ public class NopVisitor extends AbstractVisitor {
     // Textual expressions
     //
     @Override
-    public Object visit(FunctionDefinition element, FEELContext context) {
+    public Object visit(FunctionDefinition element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(FormalParameter element, FEELContext context) {
+    public Object visit(FormalParameter element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(Context element, FEELContext context) {
+    public Object visit(Context element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(ContextEntry element, FEELContext context) {
+    public Object visit(ContextEntry element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(ContextEntryKey element, FEELContext context) {
+    public Object visit(ContextEntryKey element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(ForExpression element, FEELContext context) {
+    public Object visit(ForExpression element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(Iterator element, FEELContext context) {
+    public Object visit(Iterator element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(ExpressionIteratorDomain element, FEELContext context) {
+    public Object visit(ExpressionIteratorDomain element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(RangeIteratorDomain element, FEELContext context) {
+    public Object visit(RangeIteratorDomain element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(IfExpression element, FEELContext context) {
+    public Object visit(IfExpression element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(QuantifiedExpression element, FEELContext context) {
+    public Object visit(QuantifiedExpression element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(FilterExpression element, FEELContext context) {
+    public Object visit(FilterExpression element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(InstanceOfExpression element, FEELContext context) {
+    public Object visit(InstanceOfExpression element, DMNContext context) {
         return element;
     }
 
@@ -158,7 +154,7 @@ public class NopVisitor extends AbstractVisitor {
     // Expressions
     //
     @Override
-    public Object visit(ExpressionList element, FEELContext context) {
+    public Object visit(ExpressionList element, DMNContext context) {
         return element;
     }
 
@@ -166,17 +162,17 @@ public class NopVisitor extends AbstractVisitor {
     // Logic expressions
     //
     @Override
-    public Object visit(Conjunction element, FEELContext context) {
+    public Object visit(Conjunction element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(Disjunction element, FEELContext context) {
+    public Object visit(Disjunction element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(LogicNegation element, FEELContext context) {
+    public Object visit(LogicNegation element, DMNContext context) {
         return element;
     }
 
@@ -184,17 +180,17 @@ public class NopVisitor extends AbstractVisitor {
     // Comparison expressions
     //
     @Override
-    public Object visit(Relational element, FEELContext context) {
+    public Object visit(Relational element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(BetweenExpression element, FEELContext context) {
+    public Object visit(BetweenExpression element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(InExpression element, FEELContext context) {
+    public Object visit(InExpression element, DMNContext context) {
         return element;
     }
 
@@ -202,22 +198,22 @@ public class NopVisitor extends AbstractVisitor {
     // Arithmetic expressions
     //
     @Override
-    public Object visit(Addition element, FEELContext context) {
+    public Object visit(Addition element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(Multiplication element, FEELContext context) {
+    public Object visit(Multiplication element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(Exponentiation element, FEELContext context) {
+    public Object visit(Exponentiation element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(ArithmeticNegation element, FEELContext context) {
+    public Object visit(ArithmeticNegation element, DMNContext context) {
         return element;
     }
 
@@ -225,22 +221,22 @@ public class NopVisitor extends AbstractVisitor {
     // Postfix expressions
     //
     @Override
-    public Object visit(PathExpression element, FEELContext context) {
+    public Object visit(PathExpression element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(FunctionInvocation element, FEELContext context) {
+    public Object visit(FunctionInvocation element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(NamedParameters element, FEELContext context) {
+    public Object visit(NamedParameters element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(PositionalParameters element, FEELContext context) {
+    public Object visit(PositionalParameters element, DMNContext context) {
         return element;
     }
 
@@ -248,42 +244,42 @@ public class NopVisitor extends AbstractVisitor {
     // Primary expressions
     //
     @Override
-    public Object visit(BooleanLiteral element, FEELContext context) {
+    public Object visit(BooleanLiteral element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(DateTimeLiteral element, FEELContext context) {
+    public Object visit(DateTimeLiteral element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(NullLiteral element, FEELContext context) {
+    public Object visit(NullLiteral element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(NumericLiteral element, FEELContext context) {
+    public Object visit(NumericLiteral element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(StringLiteral element, FEELContext context) {
+    public Object visit(StringLiteral element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(ListLiteral element, FEELContext context) {
+    public Object visit(ListLiteral element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(QualifiedName element, FEELContext context) {
+    public Object visit(QualifiedName element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(Name element, FEELContext context) {
+    public Object visit(Name element, DMNContext context) {
         return element;
     }
 
@@ -291,22 +287,22 @@ public class NopVisitor extends AbstractVisitor {
     // Type expressions
     //
     @Override
-    public Object visit(NamedTypeExpression element, FEELContext params) {
+    public Object visit(NamedTypeExpression element, DMNContext params) {
         return element;
     }
 
     @Override
-    public Object visit(ListTypeExpression element, FEELContext params) {
+    public Object visit(ListTypeExpression element, DMNContext params) {
         return element;
     }
 
     @Override
-    public Object visit(ContextTypeExpression element, FEELContext params) {
+    public Object visit(ContextTypeExpression element, DMNContext params) {
         return element;
     }
 
     @Override
-    public Object visit(FunctionTypeExpression element, FEELContext params) {
+    public Object visit(FunctionTypeExpression element, DMNContext params) {
         return element;
     }
 }

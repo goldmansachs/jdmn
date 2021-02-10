@@ -14,6 +14,8 @@ package com.gs.dmn.feel;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 
+import java.util.Objects;
+
 class OperatorTableInputEntry {
     private final String operator;
     private final Type leftOperandType;
@@ -39,14 +41,14 @@ class OperatorTableInputEntry {
 
     public boolean equivalentTo(OperatorTableInputEntry other) {
         return this.operator.equals(other.operator)
-                && this.leftOperandType.equivalentTo(other.leftOperandType)
-                && this.rightOperandType.equivalentTo(other.rightOperandType);
+                && Type.equivalentTo(this.leftOperandType, other.leftOperandType)
+                && Type.equivalentTo(this.rightOperandType, other.rightOperandType);
     }
 
     public boolean conformsTo(OperatorTableInputEntry other) {
         return this.operator.equals(other.operator)
-                && this.leftOperandType.conformsTo(other.leftOperandType)
-                && this.rightOperandType.conformsTo(other.rightOperandType);
+                && Type.conformsTo(this.leftOperandType, other.leftOperandType)
+                && Type.conformsTo(this.rightOperandType, other.rightOperandType);
     }
 
     @Override
@@ -56,10 +58,9 @@ class OperatorTableInputEntry {
 
         OperatorTableInputEntry that = (OperatorTableInputEntry) o;
 
-        if (operator != null ? !operator.equals(that.operator) : that.operator != null) return false;
-        if (leftOperandType != null ? !leftOperandType.conformsTo(that.leftOperandType) : that.leftOperandType != null)
-            return false;
-        return rightOperandType != null ? rightOperandType.conformsTo(that.rightOperandType) : that.rightOperandType == null;
+        return Objects.equals(operator, that.operator)
+            && Type.conformsTo(leftOperandType, that.leftOperandType)
+            && Type.conformsTo(rightOperandType, that.rightOperandType);
     }
 
     @Override

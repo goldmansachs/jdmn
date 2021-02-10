@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.time.xml.FEELXMLGregorianCalendar;
+import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioBaseDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
 
@@ -24,17 +25,11 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 import java.util.Calendar;
 
-import static com.gs.dmn.feel.lib.DefaultFEELLib.DATA_TYPE_FACTORY;
-
 public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implements SignavioDateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar> {
     @Override
     public XMLGregorianCalendar yearAdd(XMLGregorianCalendar date, BigDecimal yearsToAdd) {
         XMLGregorianCalendar result = (XMLGregorianCalendar) date.clone();
-        int months = yearsToAdd.intValue();
-        boolean isPositive = months > 0;
-        javax.xml.datatype.Duration duration;
-        duration = DATA_TYPE_FACTORY.newDurationYearMonth(
-                isPositive, yearsToAdd.abs().intValue(), 0);
+        javax.xml.datatype.Duration duration = XMLDurationFactory.INSTANCE.yearMonthWithYears(yearsToAdd.intValue());
         result.add(duration);
         return result;
     }
@@ -58,11 +53,7 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     @Override
     public XMLGregorianCalendar monthAdd(XMLGregorianCalendar date, BigDecimal monthsToAdd) {
         XMLGregorianCalendar result = (XMLGregorianCalendar) date.clone();
-        int months = monthsToAdd.intValue();
-        boolean isPositive = months > 0;
-        javax.xml.datatype.Duration duration;
-        duration = DATA_TYPE_FACTORY.newDurationYearMonth(
-                isPositive, 0, monthsToAdd.abs().intValue());
+        javax.xml.datatype.Duration duration = XMLDurationFactory.INSTANCE.yearMonthWithMonths(monthsToAdd.intValue());
         result.add(duration);
         return result;
     }
@@ -86,11 +77,7 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     @Override
     public XMLGregorianCalendar dayAdd(XMLGregorianCalendar date, BigDecimal daysToAdd) {
         XMLGregorianCalendar result = (XMLGregorianCalendar) date.clone();
-        int days = daysToAdd.intValue();
-        boolean isPositive = days > 0;
-        javax.xml.datatype.Duration duration;
-        duration = DATA_TYPE_FACTORY.newDurationDayTime(
-                isPositive, daysToAdd.abs().intValue(), 0, 0, 0);
+        javax.xml.datatype.Duration duration = XMLDurationFactory.INSTANCE.dayTimeWithDays(daysToAdd.intValue());
         result.add(duration);
         return result;
     }
@@ -103,8 +90,7 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     @Override
     public Long dayDiff(XMLGregorianCalendar date1, XMLGregorianCalendar date2) {
         java.time.Duration duration = durationBetween(date1, date2);
-        Long diff = duration == null ? null : duration.getSeconds() / (60 * 60 * 24);
-        return diff;
+        return duration == null ? null : duration.getSeconds() / (60 * 60 * 24);
     }
 
     @Override
@@ -134,8 +120,7 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     @Override
     public Long hourDiff(XMLGregorianCalendar time1, XMLGregorianCalendar time2) {
         Duration duration = durationBetween(time1, time2);
-        Long diff = duration == null ? null : duration.getSeconds() / (60 * 60);
-        return diff;
+        return duration == null ? null : duration.getSeconds() / (60 * 60);
     }
 
     @Override
@@ -146,8 +131,7 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     @Override
     public Long minutesDiff(XMLGregorianCalendar time1, XMLGregorianCalendar time2) {
         Duration duration = durationBetween(time1, time2);
-        long diff = duration == null ? null : duration.getSeconds() / 60;
-        return diff;
+        return duration == null ? null : duration.getSeconds() / 60;
     }
 
     @Override

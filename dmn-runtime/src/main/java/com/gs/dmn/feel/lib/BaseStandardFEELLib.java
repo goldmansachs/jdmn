@@ -12,14 +12,22 @@
  */
 package com.gs.dmn.feel.lib;
 
-import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.bool.BooleanLib;
+import com.gs.dmn.feel.lib.type.bool.BooleanType;
+import com.gs.dmn.feel.lib.type.context.ContextType;
+import com.gs.dmn.feel.lib.type.function.FunctionType;
 import com.gs.dmn.feel.lib.type.list.ListLib;
+import com.gs.dmn.feel.lib.type.list.ListType;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
+import com.gs.dmn.feel.lib.type.numeric.NumericType;
+import com.gs.dmn.feel.lib.type.range.RangeLib;
+import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
-import com.gs.dmn.feel.lib.type.time.DateTimeLib;
-import com.gs.dmn.feel.lib.type.time.DurationLib;
+import com.gs.dmn.feel.lib.type.string.StringType;
+import com.gs.dmn.feel.lib.type.time.*;
+import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.LambdaExpression;
+import com.gs.dmn.runtime.Range;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,28 +40,31 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     protected final DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> dateTimeLib;
     protected final DurationLib<DATE, DURATION> durationLib;
     private final ListLib listLib;
+    private final RangeLib rangeLib;
 
     protected BaseStandardFEELLib(
             NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType,
             DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType,
-            ListType listType, ContextType contextType,
+            ListType listType, ContextType contextType, RangeType rangeType, FunctionType functionType,
             NumericLib<NUMBER> numberLib,
             StringLib stringLib,
             BooleanLib booleanLib,
             DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> dateTimeLib,
             DurationLib<DATE, DURATION> durationLib,
-            ListLib listLib) {
-        super(numericType, booleanType, stringType, dateType, timeType, dateTimeType, durationType, listType, contextType);
+            ListLib listLib,
+            RangeLib rangeLib) {
+        super(numericType, booleanType, stringType, dateType, timeType, dateTimeType, durationType, listType, contextType, rangeType, functionType);
         this.numberLib = numberLib;
         this.stringLib = stringLib;
         this.booleanLib = booleanLib;
         this.dateTimeLib = dateTimeLib;
         this.durationLib = durationLib;
         this.listLib = listLib;
+        this.rangeLib = rangeLib;
     }
 
     //
-    // Constructors
+    // Conversion functions
     //
 
     @Override
@@ -199,23 +210,37 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         }
     }
 
+    //
+    // Extra conversion functions
+    //
     @Override
-    public DATE toDate(Object object) {
+    public DATE toDate(Object from) {
         try {
-            return this.dateTimeLib.toDate(object);
+            return this.dateTimeLib.toDate(from);
         } catch (Exception e) {
-            String message = String.format("toDate(%s)", object);
+            String message = String.format("toDate(%s)", from);
             logError(message, e);
             return null;
         }
     }
 
     @Override
-    public TIME toTime(Object object) {
+    public TIME toTime(Object from) {
         try {
-            return this.dateTimeLib.toTime(object);
+            return this.dateTimeLib.toTime(from);
         } catch (Exception e) {
-            String message = String.format("toTime(%s)", object);
+            String message = String.format("toTime(%s)", from);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public DATE_TIME toDateTime(Object from) {
+        try {
+            return this.dateTimeLib.toDateTime(from);
+        } catch (Exception e) {
+            String message = String.format("toTime(%s)", from);
             logError(message, e);
             return null;
         }
@@ -230,6 +255,17 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             return this.numberLib.decimal(n, scale);
         } catch (Exception e) {
             String message = String.format("decimal(%s, %s)", n, scale);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public NUMBER round(NUMBER n, NUMBER scale, String mode) {
+        try {
+            return this.numberLib.round(n, scale, mode);
+        } catch (Exception e) {
+            String message = String.format("round(%s, %s, %s)", n, scale, mode);
             logError(message, e);
             return null;
         }
@@ -258,11 +294,15 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER abs(NUMBER number) {
+    public Object abs(Object n) {
         try {
-            return this.numberLib.abs(number);
+            if (n instanceof Number) {
+                return this.numberLib.abs((NUMBER) n);
+            } else {
+                return this.durationLib.abs((DURATION) n);
+            }
         } catch (Exception e) {
-            String message = String.format("abs(%s)", number);
+            String message = String.format("abs(%s)", n);
             logError(message, e);
             return null;
         }
@@ -626,7 +666,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     //
-    // Date functions
+    // Date properties
     //
     @Override
     public NUMBER year(DATE date) {
@@ -673,7 +713,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     //
-    // Time functions
+    // Time properties
     //
     @Override
     public NUMBER hour(TIME time) {
@@ -731,7 +771,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     //
-    // DURATION functions
+    // Duration properties
     //
     @Override
     public NUMBER years(DURATION duration) {
@@ -794,6 +834,95 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             return valueOf(this.durationLib.seconds(duration));
         } catch (Exception e) {
             String message = String.format("seconds(%s)", duration);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    //
+    // Date and time functions
+    //
+    @Override
+    public Boolean is(Object value1, Object value2) {
+        try {
+            if (value1 == null || value2 == null) {
+                return value1 == value2;
+            } else if (value1.getClass() != value2.getClass()) {
+                // Different kind
+                return false;
+            } else if (value1 instanceof Number) {
+                return this.numericType.numericIs((NUMBER) value1, (NUMBER) value2);
+            } else if (value1 instanceof Boolean) {
+                return this.booleanType.booleanIs((Boolean) value1, (Boolean) value2);
+            } else if (value1 instanceof String) {
+                return this.stringType.stringIs((String) value1, (String) value2);
+            } else if (isDate(value1)) {
+                return this.dateType.dateIs((DATE) value1, (DATE) value2);
+            } else if (isTime(value1)) {
+                return this.timeType.timeIs((TIME) value1, (TIME) value2);
+            } else if (isDateTime(value1)) {
+                return this.dateTimeType.dateTimeIs((DATE_TIME) value1, (DATE_TIME) value2);
+            } else if (isDuration(value1)) {
+                return this.durationType.durationIs((DURATION) value1, (DURATION) value2);
+            } else if (value1 instanceof List) {
+                return this.listType.listIs((List) value1, (List) value2);
+            } else if (value1 instanceof Range) {
+                return this.rangeType.rangeIs((Range) value1, (Range) value2);
+            } else if (value1 instanceof Context) {
+                return this.contextType.contextIs(value1, value2);
+            } else {
+                logError(String.format("'%s' is not supported yet", value1.getClass().getSimpleName()));
+                return false;
+            }
+        } catch (Exception e) {
+            String message = String.format("is(%s, %s)", value1, value2);
+            logError(message, e);
+            return false;
+        }
+    }
+
+    //
+    // Temporal functions
+    //
+    @Override
+    public NUMBER dayOfYear(DATE date) {
+        try {
+            return valueOf(this.dateTimeLib.dayOfYear(date));
+        } catch (Exception e) {
+            String message = String.format("dayOfYear(%s)", date);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public String dayOfWeek(DATE date) {
+        try {
+            return this.dateTimeLib.dayOfWeek(date);
+        } catch (Exception e) {
+            String message = String.format("dayOfWeek(%s)", date);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public NUMBER weekOfYear(DATE date) {
+        try {
+            return valueOf(this.dateTimeLib.weekOfYear(date));
+        } catch (Exception e) {
+            String message = String.format("weekOfYear(%s)", date);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public String monthOfYear(DATE date) {
+        try {
+            return this.dateTimeLib.monthOfYear(date);
+        } catch (Exception e) {
+            String message = String.format("weekOfYear(%s)", date);
             logError(message, e);
             return null;
         }
@@ -1118,6 +1247,306 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             return this.listLib.sort(list, comparator);
         } catch (Exception e) {
             String message = String.format("sort(%s)", list);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    //
+    // Range functions
+    //
+    @Override
+    public Boolean before(Object point1, Object point2) {
+        try {
+            return this.rangeLib.before(point1, point2);
+        } catch (Exception e) {
+            String message = String.format("before(%s, %s)", point1, point2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean before(Object point, Range range) {
+        try {
+            return this.rangeLib.before(point, range);
+        } catch (Exception e) {
+            String message = String.format("before(%s, %s)", point, range);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean before(Range range, Object point) {
+        try {
+            return this.rangeLib.before(range, point);
+        } catch (Exception e) {
+            String message = String.format("before(%s, %s)", range, point);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean before(Range range1, Range range2) {
+        try {
+            return this.rangeLib.before(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("before(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean after(Object point1, Object point2) {
+        try {
+            return this.rangeLib.after(point1, point2);
+        } catch (Exception e) {
+            String message = String.format("after(%s, %s)", point1, point2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean after(Object point, Range range) {
+        try {
+            return this.rangeLib.after(point, range);
+        } catch (Exception e) {
+            String message = String.format("after(%s, %s)", point, range);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean after(Range range, Object point) {
+        try {
+            return this.rangeLib.after(range, point);
+        } catch (Exception e) {
+            String message = String.format("after(%s, %s)", range, point);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean after(Range range1, Range range2) {
+        try {
+            return this.rangeLib.after(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("after(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean meets(Range range1, Range range2) {
+        try {
+            return this.rangeLib.meets(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("meets(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean metBy(Range range1, Range range2) {
+        try {
+            return this.rangeLib.metBy(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("metBy(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean overlaps(Range range1, Range range2) {
+        try {
+            return this.rangeLib.overlaps(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("overlaps(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean overlapsBefore(Range range1, Range range2) {
+        try {
+            return this.rangeLib.overlapsBefore(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("overlapsBefore(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean overlapsAfter(Range range1, Range range2) {
+        try {
+            return this.rangeLib.overlapsAfter(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("overlapsAfter(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean finishes(Object point, Range range) {
+        try {
+            return this.rangeLib.finishes(point, range);
+        } catch (Exception e) {
+            String message = String.format("finishes(%s, %s)", point, range);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean finishes(Range range1, Range range2) {
+        try {
+            return this.rangeLib.finishes(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("finishes(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean finishedBy(Range range, Object point) {
+        try {
+            return this.rangeLib.finishedBy(range, point);
+        } catch (Exception e) {
+            String message = String.format("finishedBy(%s, %s)", range, point);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean finishedBy(Range range1, Range range2) {
+        try {
+            return this.rangeLib.finishedBy(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("finishedBy(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean includes(Range range, Object point) {
+        try {
+            return this.rangeLib.includes(range, point);
+        } catch (Exception e) {
+            String message = String.format("includes(%s, %s)", range, point);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean includes(Range range1, Range range2) {
+        try {
+            return this.rangeLib.includes(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("includes(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean during(Object point, Range range) {
+        try {
+            return this.rangeLib.during(point, range);
+        } catch (Exception e) {
+            String message = String.format("during(%s, %s)", point, range);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean during(Range range1, Range range2) {
+        try {
+            return this.rangeLib.during(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("during(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean starts(Object point, Range range) {
+        try {
+            return this.rangeLib.starts(point, range);
+        } catch (Exception e) {
+            String message = String.format("starts(%s, %s)", point, range);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean starts(Range range1, Range range2) {
+        try {
+            return this.rangeLib.starts(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("starts(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean startedBy(Range range, Object point) {
+        try {
+            return this.rangeLib.startedBy(range, point);
+        } catch (Exception e) {
+            String message = String.format("startedBy(%s, %s)", range, point);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean startedBy(Range range1, Range range2) {
+        try {
+            return this.rangeLib.startedBy(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("startedBy(%s, %s)", range1, range2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean coincides(Object point1, Object point2) {
+        try {
+            return this.rangeLib.coincides(point1, point2);
+        } catch (Exception e) {
+            String message = String.format("coincides(%s, %s)", point1, point2);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean coincides(Range range1, Range range2) {
+        try {
+            return this.rangeLib.coincides(range1, range2);
+        } catch (Exception e) {
+            String message = String.format("coincides(%s, %s)", range1, range2);
             logError(message, e);
             return null;
         }

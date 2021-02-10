@@ -14,9 +14,9 @@ package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
-import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.Pair;
 import org.omg.spec.dmn._20191111.model.*;
 
@@ -29,20 +29,20 @@ public interface DMNEnvironmentFactory {
     //
     Type drgElementOutputFEELType(TDRGElement element);
 
-    Type drgElementOutputFEELType(TDRGElement element, Environment environment);
+    Type drgElementOutputFEELType(TDRGElement element, DMNContext context);
 
     Type drgElementVariableFEELType(TDRGElement element);
 
-    Type drgElementVariableFEELType(TDRGElement element, Environment environment);
+    Type drgElementVariableFEELType(TDRGElement element, DMNContext context);
 
     Type toFEELType(TInputData inputData);
 
     //
     // Expression related functions
     //
-    Type expressionType(TDRGElement element, JAXBElement<? extends TExpression> jElement, Environment environment);
+    Type expressionType(TDRGElement element, JAXBElement<? extends TExpression> jElement, DMNContext context);
 
-    Type expressionType(TDRGElement element, TExpression expression, Environment environment);
+    Type expressionType(TDRGElement element, TExpression expression, DMNContext context);
 
     Type toFEELType(TDRGElement element, TOutputClause outputClause, int index);
 
@@ -64,36 +64,32 @@ public interface DMNEnvironmentFactory {
     //
     Environment makeEnvironment(TDRGElement element);
 
-    Environment makeEnvironment(TDRGElement element, Environment parentEnvironment);
-
-    Environment makeEnvironment(TDRGElement element, Environment parentEnvironment, boolean isRecursive);
+    Environment makeEnvironment(TDRGElement element, boolean isRecursive);
 
     //
     // Decision Table
     //
-    Environment makeInputEntryEnvironment(TDRGElement element, Expression inputExpression);
-
-    Environment makeOutputEntryEnvironment(TDRGElement element, EnvironmentFactory environmentFactory);
+    Environment makeUnaryTestEnvironment(TDRGElement element, Expression inputExpression);
 
     //
     // Function Definition
     //
-    Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition, Environment parentEnvironment);
+    Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition);
 
     Declaration makeVariableDeclaration(TDRGElement element, TInformationItem variable);
 
     //
     // Context
     //
-    Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, Environment parentEnvironment);
+    Pair<DMNContext, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext);
 
-    Type entryType(TDRGElement element, TContextEntry entry, Environment contextEnvironment);
+    Type entryType(TDRGElement element, TContextEntry entry, DMNContext localContext);
 
     Type entryType(TDRGElement element, TContextEntry entry, TExpression expression, Expression feelExpression);
 
     //
     // Relation
     //
-    Environment makeRelationEnvironment(TNamedElement element, TRelation relation, Environment environment);
+    Environment makeRelationEnvironment(TNamedElement element, TRelation relation);
 
 }

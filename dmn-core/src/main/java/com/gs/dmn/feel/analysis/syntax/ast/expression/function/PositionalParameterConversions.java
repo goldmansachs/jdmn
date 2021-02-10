@@ -26,12 +26,12 @@ public class PositionalParameterConversions extends ParameterConversions {
 
     public PositionalParameterConversions(List<Type> types) {
         for (Type type: types) {
-            conversions.add(new Conversion(ConversionKind.NONE, type));
+            this.conversions.add(new Conversion(ConversionKind.NONE, type));
         }
     }
 
     public List<Conversion> getConversions() {
-        return conversions;
+        return this.conversions;
     }
 
     public void add(Conversion conversion) {
@@ -48,21 +48,26 @@ public class PositionalParameterConversions extends ParameterConversions {
     }
 
     @Override
+    public boolean hasConversion(ConversionKind kind) {
+        return this.conversions.stream().anyMatch(c -> c.getKind() == kind);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PositionalParameterConversions that = (PositionalParameterConversions) o;
-        return Objects.equals(conversions, that.conversions);
+        return Objects.equals(this.conversions, that.conversions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(conversions);
+        return Objects.hash(this.conversions);
     }
 
     @Override
     public String toString() {
-        return String.format("PositionalParameterConversions(%s)", conversions);
+        return String.format("%s(%s)", getClass().getSimpleName(), this.conversions);
     }
 }
 

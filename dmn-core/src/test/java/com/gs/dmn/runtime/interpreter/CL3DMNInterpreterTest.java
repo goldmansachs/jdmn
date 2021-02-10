@@ -312,4 +312,84 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     public void test_12_cl3_0089_nested_inputdata_imports() {
         doMultipleModelsTest("1.2", Arrays.asList("0089-nested-inputdata-imports", "0089-model-b", "0089-model-b2", "0089-model-a"), new Pair<>("singletonInputData", "false"));
     }
+
+    @Test
+    public void test_13_cl3_0004_lending() {
+        doSingleModelTest("1.3", "0004-lending", new Pair<>("singletonInputData", "false"));
+    }
+
+    @Test
+    public void test_13_cl3_0016_some_every() {
+        doSingleModelTest("1.3", "0016-some-every");
+    }
+
+    @Test
+    public void test_13_cl3_0020_vacation_days() {
+        doSingleModelTest("1.3", "0020-vacation-days");
+    }
+
+    @Test
+    public void test_13_cl3_0031_user_defined_functions() {
+        doSingleModelTest("1.3", "0031-user-defined-functions");
+    }
+
+    @Test
+    public void test_13_cl3_0050_feel_abs_function() {
+        doSingleModelTest("1.3", "0050-feel-abs-function");
+    }
+
+    @Test
+    public void test_13_cl3_0057_feel_context() {
+        doSingleModelTest("1.3", "0057-feel-context");
+    }
+
+    @Test
+    public void test_13_cl3_0068_feel_equality() {
+        doSingleModelTest("1.3", "0068-feel-equality");
+    }
+
+    @Test
+    public void test_13_cl3_0074_feel_properties() {
+        doSingleModelTest("1.3", "0074-feel-properties");
+    }
+
+    @Test
+    public void test_13_cl3_0082_feel_coercion() {
+        doSingleModelTest("1.3", "0082-feel-coercion");
+    }
+
+    @Test
+    public void test_13_cl3_0083_feel_unicode() {
+        doSingleModelTest("1.3", "0083-feel-unicode");
+    }
+
+    @Test
+    public void test_13_cl3_0085_decision_services() {
+        doSingleModelTest("1.3", "0085-decision-services");
+    }
+
+    @Test
+    public void test_13_cl3_0086_import() {
+        doMultipleModelsTest("1.3", Arrays.asList("0086-import", "Imported_Model"), new Pair<>("singletonInputData", "false"));
+    }
+
+    @Test
+    public void test_13_cl3_0088_no_decision_logic() {
+        doSingleModelTest("1.3", "0088-no-decision-logic");
+    }
+
+    @Test
+    public void test_13_cl3_0091_local_hrefs() {
+        doSingleModelTest("1.3", "0091-local-hrefs");
+    }
+
+    @Test
+    public void test_13_cl3_100_arithmetic() {
+        doSingleModelTest("1.3", "0100-arithmetic");
+    }
+
+    @Test
+    public void test_13_cl3_1130_feel_interval() {
+        doSingleModelTest("1.3", "1130-feel-interval");
+    }
 }

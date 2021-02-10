@@ -13,29 +13,27 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.FunctionDeclaration;
 import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
+import com.gs.dmn.runtime.DMNContext;
 
 import java.util.List;
 
 public abstract class NamedExpression extends Expression {
     @Override
-    public void deriveType(FEELContext context) {
-        Environment environment = context.getEnvironment();
+    public void deriveType(DMNContext context) {
         Type type;
         String name = getName();
         // Lookup for variables
-        Declaration declaration = environment.lookupVariableDeclaration(name);
+        Declaration declaration = context.lookupVariableDeclaration(name);
         if (declaration instanceof VariableDeclaration) {
             type = declaration.getType();
             setType(type);
             return;
         }
         // Lookup for functions
-        List<Declaration> declarations = environment.lookupFunctionDeclaration(name);
+        List<Declaration> declarations = context.lookupFunctionDeclaration(name);
         if (declarations != null && declarations.size() == 1) {
             declaration = declarations.get(0);
             type = ((FunctionDeclaration) declaration).getType();

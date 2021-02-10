@@ -50,16 +50,6 @@ public abstract class BaseVisitorTest {
     }
 
     @Test
-    public void testVisitSimplePositiveUnaryTests() {
-        assertNull(getVisitor().visit((SimplePositiveUnaryTests) null, null));
-    }
-
-    @Test
-    public void testVisitNegatedSimplePositiveUnaryTests() {
-        assertNull(getVisitor().visit((NegatedSimplePositiveUnaryTests) null, null));
-    }
-
-    @Test
     public void testVisitAny() {
         assertNull(getVisitor().visit((Any) null, null));
     }
@@ -76,12 +66,12 @@ public abstract class BaseVisitorTest {
 
     @Test
     public void testVisitOperatorTest() {
-        assertNull(getVisitor().visit((OperatorTest) null, null));
+        assertNull(getVisitor().visit((OperatorRange) null, null));
     }
 
     @Test
     public void testVisitRangeTest() {
-        assertNull(getVisitor().visit((RangeTest) null, null));
+        assertNull(getVisitor().visit((EndpointsRange) null, null));
     }
 
     @Test

@@ -12,13 +12,11 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.numeric;
 
-import com.gs.dmn.feel.lib.type.NumericType;
 import com.gs.dmn.feel.lib.type.numeric.DoubleNumericType;
-import com.gs.dmn.signavio.feel.lib.type.SignavioComparableComparator;
-import org.slf4j.Logger;
+import com.gs.dmn.feel.lib.type.numeric.NumericType;
 
 public class DoubleSignavioNumericType extends DoubleNumericType implements NumericType<Double> {
-    public DoubleSignavioNumericType(Logger logger) {
-        super(logger, new SignavioComparableComparator<>());
+    public DoubleSignavioNumericType() {
+        super(new SignavioDoubleComparator());
     }
 }

@@ -12,10 +12,20 @@
  */
 package com.gs.dmn.feel.lib.stub;
 
-import com.gs.dmn.feel.lib.type.NumericType;
+import com.gs.dmn.feel.lib.type.numeric.NumericType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class NumericTypeStub<NUMBER> implements NumericType<NUMBER> {
+    @Override
+    public boolean isNumber(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public NUMBER numericValue(NUMBER value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
     @Override
     public NUMBER numericAdd(NUMBER first, NUMBER second) {
         throw new DMNRuntimeException("Not supported yet");
@@ -43,6 +53,11 @@ public class NumericTypeStub<NUMBER> implements NumericType<NUMBER> {
 
     @Override
     public NUMBER numericExponentiation(NUMBER first, NUMBER second) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Boolean numericIs(NUMBER first, NUMBER second) {
         throw new DMNRuntimeException("Not supported yet");
     }
 

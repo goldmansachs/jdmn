@@ -161,10 +161,10 @@ public class TypeConformanceTest {
 
     @Test
     public void testRangeType() {
-        checkConformsTo(true, RangeType.NUMBER_RANGE_TYPE, RangeType.NUMBER_RANGE_TYPE);
-        checkConformsTo(true, RangeType.NUMBER_RANGE_TYPE, ANY);
+        checkConformsTo(true, RangeType.NUMBER_RANGE, RangeType.NUMBER_RANGE);
+        checkConformsTo(true, RangeType.NUMBER_RANGE, ANY);
 
-        checkConformsTo(false, RangeType.NUMBER_RANGE_TYPE, NUMBER);
+        checkConformsTo(false, RangeType.NUMBER_RANGE, NUMBER);
     }
 
     @Test
@@ -194,6 +194,6 @@ public class TypeConformanceTest {
     }
 
     private void checkConformsTo(boolean expected, Type left, Type right) {
-        assertEquals(String.format("'%s'.conformsTo('%s') mismatch ", left, right), expected, left.conformsTo(right));
+        assertEquals(String.format("'%s'.conformsTo('%s') mismatch ", left, right), expected, Type.conformsTo(left, right));
     }
 }

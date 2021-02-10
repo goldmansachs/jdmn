@@ -12,9 +12,9 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.interpreter.Arguments;
 import com.gs.dmn.runtime.interpreter.PositionalArguments;
 
@@ -38,7 +38,7 @@ public class PositionalParameters extends Parameters {
     }
 
     public List<Expression> getParameters() {
-        return parameters;
+        return this.parameters;
     }
 
     @Override
@@ -48,12 +48,12 @@ public class PositionalParameters extends Parameters {
 
     @Override
     public ParameterTypes getSignature() {
-        return new PositionalParameterTypes(parameters.stream().map(Expression::getType).collect(Collectors.toList()));
+        return new PositionalParameterTypes(this.parameters.stream().map(Expression::getType).collect(Collectors.toList()));
     }
 
     @Override
     public Arguments getOriginalArguments() {
-        return originalArguments;
+        return this.originalArguments;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class PositionalParameters extends Parameters {
 
     @Override
     public ParameterConversions getParameterConversions() {
-        return parameterConversions;
+        return this.parameterConversions;
     }
 
     @Override
@@ -83,40 +83,40 @@ public class PositionalParameters extends Parameters {
 
     @Override
     public Arguments getConvertedArguments() {
-        return convertedArguments;
+        return this.convertedArguments;
     }
 
     @Override
     public Arguments convertArguments(BiFunction<Object, Conversion, Object> convertArgument) {
         if (requiresConversion()) {
             this.convertedArguments = new PositionalArguments();
-            for (int i=0; i<parameterConversions.getConversions().size(); i++) {
-                Object arg = originalArguments.getArguments().get(i);
-                Conversion conversion = parameterConversions.getConversions().get(i);
+            for (int i = 0; i< this.parameterConversions.getConversions().size(); i++) {
+                Object arg = this.originalArguments.getArguments().get(i);
+                Conversion conversion = this.parameterConversions.getConversions().get(i);
                 Object convertedArg = convertArgument.apply(arg, conversion);
-                convertedArguments.add(convertedArg);
+                this.convertedArguments.add(convertedArg);
             }
         } else {
-            this.convertedArguments = originalArguments;
+            this.convertedArguments = this.originalArguments;
         }
-        return convertedArguments;
+        return this.convertedArguments;
     }
 
     private boolean requiresConversion() {
-        if (parameterConversions == null) {
+        if (this.parameterConversions == null) {
             return false;
         }
-        return parameterConversions.getConversions().stream().anyMatch(c -> c.getKind() != ConversionKind.NONE);
+        return this.parameterConversions.getConversions().stream().anyMatch(c -> c.getKind() != ConversionKind.NONE);
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 
     @Override
     public String toString() {
-        String opd = parameters.stream().map(Object::toString).collect(Collectors.joining(", "));
-        return String.format("PositionalParameters(%s)", opd);
+        String opd = this.parameters.stream().map(Object::toString).collect(Collectors.joining(", "));
+        return String.format("%s(%s)", getClass().getSimpleName(), opd);
     }
 }

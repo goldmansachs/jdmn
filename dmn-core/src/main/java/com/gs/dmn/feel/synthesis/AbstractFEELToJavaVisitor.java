@@ -13,16 +13,17 @@
 package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.error.LogAndThrowErrorHandler;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.AbstractAnalysisVisitor;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.QualifiedName;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.ImportContextType;
 import org.apache.commons.lang3.StringUtils;
@@ -59,10 +60,21 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
 
         FEEL_2_JAVA_FUNCTION.put("years and months duration", "yearsAndMonthsDuration");
         FEEL_2_JAVA_FUNCTION.put("date and time", "dateAndTime");
+
+        FEEL_2_JAVA_FUNCTION.put("met by", "metBy");
+        FEEL_2_JAVA_FUNCTION.put("overlaps before", "overlapsBefore");
+        FEEL_2_JAVA_FUNCTION.put("overlaps after", "overlapsAfter");
+        FEEL_2_JAVA_FUNCTION.put("finished by", "finishedBy");
+        FEEL_2_JAVA_FUNCTION.put("started by", "startedBy");
+
+        FEEL_2_JAVA_FUNCTION.put("day of year", "dayOfYear");
+        FEEL_2_JAVA_FUNCTION.put("day of week", "dayOfWeek");
+        FEEL_2_JAVA_FUNCTION.put("month of year", "monthOfYear");
+        FEEL_2_JAVA_FUNCTION.put("week of year", "weekOfYear");
     }
 
     public AbstractFEELToJavaVisitor(BasicDMNToNativeTransformer dmnTransformer) {
-        super(dmnTransformer);
+        super(dmnTransformer, new LogAndThrowErrorHandler(LOGGER));
     }
 
     protected String javaFunctionName(String feelFunctionName) {
@@ -88,11 +100,11 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
             }
         } else if (sourceType instanceof ItemDefinitionType) {
             Type memberType = ((ItemDefinitionType) sourceType).getMemberType(memberName);
-            String javaType = dmnTransformer.toNativeType(memberType);
+            String javaType = this.dmnTransformer.toNativeType(memberType);
             return this.nativeFactory.makeItemDefinitionAccessor(javaType, source, memberName);
         } else if (sourceType instanceof ContextType) {
             Type memberType = ((ContextType) sourceType).getMemberType(memberName);
-            String javaType = dmnTransformer.toNativeType(memberType);
+            String javaType = this.dmnTransformer.toNativeType(memberType);
             return this.nativeFactory.makeContextAccessor(javaType, source, memberName);
         } else if (sourceType instanceof ListType) {
             String filter = makeNavigation(element, ((ListType) sourceType).getElementType(), "x", memberName, memberVariableName);
@@ -105,16 +117,18 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
             return String.format("%s(%s)", javaMemberFunctionName(memberName), source);
         } else if (sourceType instanceof DurationType) {
             return String.format("%s(%s)", javaMemberFunctionName(memberName), source);
+        } else if (sourceType instanceof RangeType) {
+            return String.format("%s.%s", source, javaRangeGetter(memberName));
         } else if (sourceType instanceof AnyType) {
             // source is Context
-            return this.nativeFactory.makeContextSelectExpression(dmnTransformer.contextClassName(), source, memberName);
+            return this.nativeFactory.makeContextSelectExpression(this.dmnTransformer.contextClassName(), source, memberName);
         } else {
             throw new SemanticError(element, String.format("Cannot generate navigation path '%s'", element.toString()));
         }
     }
 
     protected String javaMemberFunctionName(String memberName) {
-        memberName = dmnTransformer.getDMNModelRepository().removeSingleQuotes(memberName);
+        memberName = this.dmnTransformer.getDMNModelRepository().removeSingleQuotes(memberName);
         if ("time offset".equalsIgnoreCase(memberName)) {
             return "timeOffset";
         } else {
@@ -122,13 +136,24 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         }
     }
 
-    protected String javaFriendlyVariableName(String name) {
-        name = dmnTransformer.getDMNModelRepository().removeSingleQuotes(name);
-        String firstChar = Character.toString(Character.toLowerCase(name.charAt(0)));
-        return dmnTransformer.nativeFriendlyName(name.length() == 1 ? firstChar : firstChar + name.substring(1));
+    private String javaRangeGetter(String memberName) {
+        memberName = this.dmnTransformer.getDMNModelRepository().removeSingleQuotes(memberName);
+        if ("start included".equalsIgnoreCase(memberName)) {
+            return "isStartIncluded()";
+        }  else if ("end included".equalsIgnoreCase(memberName)) {
+            return "isEndIncluded()";
+        } else {
+            return this.dmnTransformer.getter(memberName);
+        }
     }
 
-    protected Object makeCondition(String feelOperator, Expression leftOperand, Expression rightOperand, FEELContext context) {
+    protected String javaFriendlyVariableName(String name) {
+        name = this.dmnTransformer.getDMNModelRepository().removeSingleQuotes(name);
+        String firstChar = Character.toString(Character.toLowerCase(name.charAt(0)));
+        return this.dmnTransformer.nativeFriendlyName(name.length() == 1 ? firstChar : firstChar + name.substring(1));
+    }
+
+    protected Object makeCondition(String feelOperator, Expression leftOperand, Expression rightOperand, DMNContext context) {
         String leftOpd = (String) leftOperand.accept(this, context);
         String rightOpd = (String) rightOperand.accept(this, context);
         NativeOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperator, leftOperand.getType(), rightOperand.getType());

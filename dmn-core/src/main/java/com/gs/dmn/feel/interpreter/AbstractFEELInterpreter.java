@@ -14,9 +14,9 @@ package com.gs.dmn.feel.interpreter;
 
 import com.gs.dmn.feel.AbstractFEELProcessor;
 import com.gs.dmn.feel.analysis.FEELAnalyzer;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
 
@@ -29,37 +29,26 @@ abstract class AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     }
 
     @Override
-    public Result evaluateUnaryTests(String text, FEELContext context) {
+    public Result evaluateUnaryTests(String text, DMNContext context) {
         UnaryTests expression = analyzeUnaryTests(text, context);
         return evaluateUnaryTests(expression, context);
     }
 
     @Override
-    public Result evaluateUnaryTests(UnaryTests expression, FEELContext context) {
+    public Result evaluateUnaryTests(UnaryTests expression, DMNContext context) {
         Object value = expression.accept(visitor, context);
-        return new Result(value, expression.getType());
+        return Result.of(value, expression.getType());
     }
 
     @Override
-    public Result evaluateSimpleUnaryTests(String text, FEELContext context) {
-        UnaryTests expression = analyzeSimpleUnaryTests(text, context);
-        return evaluateUnaryTests(expression, context);
-    }
-
-    @Override
-    public Result evaluateSimpleUnaryTests(UnaryTests expression, FEELContext context) {
-        return evaluateUnaryTests(expression, context);
-    }
-
-    @Override
-    public Result evaluateExpression(String text, FEELContext context) {
+    public Result evaluateExpression(String text, DMNContext context) {
         Expression expression = analyzeExpression(text, context);
         return evaluateExpression(expression, context);
     }
 
     @Override
-    public Result evaluateExpression(Expression expression, FEELContext context) {
+    public Result evaluateExpression(Expression expression, DMNContext context) {
         Object object = expression.accept(visitor, context);
-        return new Result(object, expression.getType());
+        return Result.of(object, expression.getType());
     }
 }

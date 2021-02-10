@@ -16,13 +16,12 @@ import com.gs.dmn.runtime.Context;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
 public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
-    // Constructors
+    // Conversion functions
     //
     @Test
     public void testNumber() {
@@ -257,7 +256,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     //
     @Test
     public void testAnd() {
-        assertNull(getLib().and((List) null));
+        assertNull(getLib().and(null));
         assertTrue(getLib().and(Arrays.asList(true, true)));
         assertFalse(getLib().and(Arrays.asList(true, true, false)));
         assertFalse(getLib().and(Arrays.asList(null, false)));
@@ -265,7 +264,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
     @Test
     public void testOr() {
-        assertNull(getLib().or((List) null));
+        assertNull(getLib().or(null));
         assertTrue(getLib().or(Arrays.asList(true, true)));
         assertFalse(getLib().or(Arrays.asList(false, false, false)));
         assertNull(getLib().or(Arrays.asList(null, false)));

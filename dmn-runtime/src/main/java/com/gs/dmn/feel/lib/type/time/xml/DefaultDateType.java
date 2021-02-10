@@ -12,35 +12,47 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.type.BaseType;
-import com.gs.dmn.feel.lib.type.BooleanType;
-import com.gs.dmn.feel.lib.type.DateType;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
-import org.slf4j.Logger;
+import com.gs.dmn.feel.lib.type.bool.BooleanType;
+import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.time.DateType;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.RoundingMode;
+import java.util.GregorianCalendar;
 
-public class DefaultDateType extends BaseType implements DateType<XMLGregorianCalendar, Duration> {
-    private final DatatypeFactory datatypeFactory;
+import static com.gs.dmn.feel.lib.type.time.xml.DefaultTimeType.hasTimezone;
+
+public class DefaultDateType extends XMLCalendarType implements DateType<XMLGregorianCalendar, Duration> {
+    private static final BigDecimal TWELVE = BigDecimal.valueOf(12);
+
     private final DefaultXMLCalendarComparator comparator;
     private final BooleanType booleanType;
 
-    public DefaultDateType(Logger logger, DatatypeFactory datatypeFactory) {
-        this(logger, datatypeFactory, new DefaultXMLCalendarComparator());
+    public DefaultDateType() {
+        this(new DefaultXMLCalendarComparator());
     }
 
-    public DefaultDateType(Logger logger, DatatypeFactory datatypeFactory, DefaultXMLCalendarComparator comparator) {
-        super(logger);
-        this.datatypeFactory = datatypeFactory;
+    public DefaultDateType(DefaultXMLCalendarComparator comparator) {
         this.comparator = comparator;
-        this.booleanType = new DefaultBooleanType(logger);
+        this.booleanType = new DefaultBooleanType();
     }
 
     //
     // Date operators
     //
+
+    @Override
+    public Boolean dateIs(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return ((FEELXMLGregorianCalendar) first).same(second);
+    }
 
     @Override
     public Boolean dateEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
@@ -77,14 +89,20 @@ public class DefaultDateType extends BaseType implements DateType<XMLGregorianCa
         if (first == null || second == null) {
             return null;
         }
-
-        try {
-            return this.datatypeFactory.newDuration(this.comparator.getDurationInMilliSeconds(first, second));
-        } catch (Exception e) {
-            String message = String.format("dateSubtract(%s, %s)", first, second);
-            logError(message, e);
+        if (isDate(first)) {
+            first = dateToDateTime(first);
+        }
+        if (isDate(second)) {
+            second = dateToDateTime(second);
+        }
+        if (
+                hasTimezone(first) && !hasTimezone(second)
+                || !hasTimezone(first) && hasTimezone(second)) {
             return null;
         }
+
+        long durationInSeconds = getDurationInSeconds(first, second);
+        return XMLDurationFactory.INSTANCE.fromSeconds(durationInSeconds);
     }
 
     @Override
@@ -93,14 +111,31 @@ public class DefaultDateType extends BaseType implements DateType<XMLGregorianCa
             return null;
         }
 
-        try {
-            XMLGregorianCalendar clone = (XMLGregorianCalendar) date.clone();
-            clone.add(duration);
-            return clone;
-        } catch (Exception e) {
-            String message = String.format("dateAddDuration(%s, %s)", date, duration);
-            logError(message, e);
-            return null;
+        if (isYearsAndMonthsDuration(duration)) {
+            int signum = duration.getSign();
+
+            // Calculate months and carry
+            long startMonth = date.getMonth();
+            long dMonths = (signum < 0) ? - duration.getMonths() : duration.getMonths();
+            long temp = startMonth + dMonths;
+            int month = BigInteger.valueOf(temp - 1).mod(TWELVE.toBigInteger()).intValue() + 1;
+            BigInteger carry = new BigDecimal(temp -1).divide(TWELVE, RoundingMode.FLOOR).toBigInteger();
+
+            // Years (may be modified additionally below)
+            BigInteger startYear = date.getEonAndYear();
+            BigInteger dYears = (signum < 0) ? BigInteger.valueOf(duration.getYears()).negate() : BigInteger.valueOf(duration.getYears());
+            BigInteger endYear = startYear.add(dYears).add(carry);
+            return FEELXMLGregorianCalendar.makeDate(endYear, month, date.getDay());
+        } else if (isDaysAndTimeDuration(duration)) {
+            Long value1 = dateTimeValue(date);
+            Long value2 = secondsValue(duration);
+            GregorianCalendar gc = new GregorianCalendar();
+            long millis = (value1 + value2) * 1000L;
+            gc.setTimeInMillis(millis);
+            FEELXMLGregorianCalendar xgc = new FEELXMLGregorianCalendar(gc);
+            return FEELXMLGregorianCalendar.makeDate(xgc.getEonAndYear(), xgc.getMonth(), xgc.getDay());
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot add '%s' with '%s'", date, duration));
         }
     }
 
@@ -110,14 +145,6 @@ public class DefaultDateType extends BaseType implements DateType<XMLGregorianCa
             return null;
         }
 
-        try {
-            XMLGregorianCalendar clone = (XMLGregorianCalendar) date.clone();
-            clone.add(duration.negate());
-            return clone;
-        } catch (Exception e) {
-            String message = String.format("dateSubtractDuration(%s, %s)", date, duration);
-            logError(message, e);
-            return null;
-        }
+        return dateAddDuration(date, duration.negate());
     }
 }

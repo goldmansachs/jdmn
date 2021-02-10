@@ -14,9 +14,9 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.TypeExpression;
+import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
@@ -67,7 +67,7 @@ public class FormalParameter extends Element {
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 

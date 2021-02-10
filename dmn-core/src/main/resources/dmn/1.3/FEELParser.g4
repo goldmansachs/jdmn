@@ -40,18 +40,8 @@ unaryTestsRoot returns [UnaryTests ast] :
     EOF
 ;
 
-simpleUnaryTestsRoot returns [SimpleUnaryTests ast] :
-    simpleUnaryTests {$ast = $simpleUnaryTests.ast;}
-    EOF
-;
-
 expressionRoot returns [Expression ast] :
     expression {$ast = $expression.ast;}
-    EOF
-;
-
-simpleExpressionsRoot returns [Expression ast] :
-    simpleExpressions {$ast = $simpleExpressions.ast;}
     EOF
 ;
 
@@ -102,38 +92,10 @@ positiveUnaryTest returns [Expression ast]:
     )
 ;
 
-simpleUnaryTests returns [SimpleUnaryTests ast] :
-    (
-        NOT PAREN_OPEN tests = simplePositiveUnaryTests PAREN_CLOSE
-        {$ast = astFactory.toNegatedSimpleUnaryTests($tests.ast);}
-    )
-    |
-    (
-        tests = simplePositiveUnaryTests
-        {$ast = $tests.ast;}
-    )
-    |
-    (
-        MINUS
-        {$ast = astFactory.toAny();}
-    )
-;
-
-simplePositiveUnaryTests returns [SimplePositiveUnaryTests ast]:
-	{List<Expression> tests = new ArrayList<>();}
-    test = simplePositiveUnaryTest
-    {tests.add($test.ast);}
-    (
-        COMMA test = simplePositiveUnaryTest
-        {tests.add($test.ast);}
-    )*
-    {$ast = astFactory.toSimplePositiveUnaryTests(tests);}
-;
-
 simplePositiveUnaryTest returns [Expression ast] :
     (
         ( op = LT | op = LE | op = GT | op = GE )? opd = endpoint
-        {$ast = $op == null ? astFactory.toOperatorTest(null, $opd.ast) : astFactory.toOperatorTest($op.text, $opd.ast);}
+        {$ast = $op == null ? astFactory.toOperatorRange(null, $opd.ast) : astFactory.toOperatorRange($op.text, $opd.ast);}
     )
     |
     (
@@ -142,9 +104,9 @@ simplePositiveUnaryTest returns [Expression ast] :
     )
 ;
 
-interval returns [RangeTest ast] :
+interval returns [EndpointsRange ast] :
     leftPar = intervalStartPar ep1 = endpoint DOT_DOT ep2 = endpoint rightPar = intervalEndPar
-    {$ast = astFactory.toIntervalTest($leftPar.ast, $ep1.ast, $rightPar.ast, $ep2.ast);}
+    {$ast = astFactory.toEndpointsRange($leftPar.ast, $ep1.ast, $rightPar.ast, $ep2.ast);}
 ;
 
 intervalStartPar returns [String ast] :
@@ -185,32 +147,6 @@ endpoint returns [Expression ast]:
     (
         (op = MINUS)? opd = simpleValue
      	{$ast = ($op == null) ? $opd.ast : astFactory.toNegation($op.text, $opd.ast);}
-    )
-;
-
-//
-// Simple expressions
-//
-simpleExpressions returns [Expression ast] :
-	{List<Expression> expressionList = new ArrayList<>();}
-    exp = simpleExpression
-    {expressionList.add($exp.ast);}
-    (
-        COMMA exp = simpleExpression
-        {expressionList.add($exp.ast);}
-    )*
-    {$ast = astFactory.toExpressionList(expressionList);}
-;
-
-simpleExpression returns [Expression ast]:
-    (
-        arithmeticExpression
-        {$ast = $arithmeticExpression.ast;}
-    )
-    |
-    (
-        simpleValue
-        {$ast = $simpleValue.ast;}
     )
 ;
 
@@ -682,9 +618,17 @@ key returns [ContextEntryKey ast] :
 ;
 
 dateTimeLiteral returns [Expression ast] :
-    ( kind = identifier )
-    PAREN_OPEN stringLiteral PAREN_CLOSE
-    {$ast = astFactory.toDateTimeLiteral($kind.text, $stringLiteral.ast);}
+    token = TEMPORAL
+    (
+        {$ast = astFactory.toDateTimeLiteral($token.text);}
+    )
+    |
+    (
+        ( kind = identifier )
+        PAREN_OPEN stringLiteral PAREN_CLOSE
+        {$ast = astFactory.toDateTimeLiteral($kind.text, $stringLiteral.ast);}
+    )
+
 ;
 
 identifier returns [Token ast] :

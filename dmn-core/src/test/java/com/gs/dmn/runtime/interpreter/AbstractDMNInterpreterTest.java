@@ -50,7 +50,7 @@ import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
 
 public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractDMNInterpreterTest.class));
-    private static final boolean IGNORE_ERROR = true;
+    private static final boolean IGNORE_ERROR_FLAG = true;
 
     private final DMNReader reader = new DMNReader(LOGGER, false);
     private final TestCasesReader testCasesReader = new TestCasesReader(LOGGER);
@@ -181,13 +181,15 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
                 actualValue = Result.value(actualResult);
                 String errorMessage = String.format("%s ResultNode '%s' output mismatch, expected '%s' actual '%s'", testLocation, res.getName(), expectedValue, actualValue);
                 Assert.assertEquals(errorMessage, expectedValue, actualValue);
+                if (!IGNORE_ERROR_FLAG) {
+                    String errorFlagMessage = String.format("%s ResultNode '%s' error flag mismatch", testLocation, res.getName());
+                    Assert.assertEquals(errorFlagMessage,  actualResult.hasErrors(), res.isErrorResult());
+                }
             } catch (Exception e) {
                 String stackTrace = ExceptionUtils.getStackTrace(e);
                 LOGGER.error(stackTrace);
-                if (!IGNORE_ERROR) {
-                    String errorMessage = String.format("%s ResultNode '%s' output mismatch, expected '%s' actual '%s'", testLocation, res.getName(), expectedValue, actualValue);
-                    Assert.assertEquals(errorMessage, expectedValue, actualValue);
-                }
+                String errorMessage = String.format("%s ResultNode '%s' output mismatch, expected '%s' actual '%s'", testLocation, res.getName(), expectedValue, actualValue);
+                org.junit.Assert.fail(errorMessage + ". Exception thrown while testing");
             }
         }
     }

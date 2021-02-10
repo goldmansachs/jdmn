@@ -56,17 +56,20 @@ public class FEELLexerTest extends AbstractLexerTest {
         Token token = checkToken("\"abc\"", STRING, "\"abc\"");
         checkPosition(token, 1, 1, 1, 5, 0, 5);
 
+        token = checkToken("\"\\b\\t\\n\\r\\f\\'\\\"\"", STRING, "\"\\b\\t\\n\\r\\f\\'\\\"\"");
+        checkPosition(token, 1, 1, 1, 16, 0, 16);
+
         token = checkToken("\"a\u0030b\"", STRING, "\"a0b\"");
         checkPosition(token, 1, 1, 1, 5, 0, 5);
 
-        token = checkToken("\".\"", STRING, "\".\"");
-        checkPosition(token, 1, 1, 1, 3, 0, 3);
-
-        token = checkToken("\".\"", STRING, "\".\"");
-        checkPosition(token, 1, 1, 1, 3, 0, 3);
-
-        token = checkToken("\"\\b\\t\\n\\r\\f\\'\\\"\"", STRING, "\"\\b\\t\\n\\r\\f\\'\\\"\"");
+        token = checkToken("\"a\\ud83d\\udca9b\"", STRING, "\"a\\ud83d\\udca9b\"");
         checkPosition(token, 1, 1, 1, 16, 0, 16);
+
+        token = checkToken("\"a\\U01F40Eb\"", STRING, "\"a\uD83D\uDC0Eb\"");
+        checkPosition(token, 1, 1, 1, 6, 0, 12);
+
+        token = checkToken("\".\"", STRING, "\".\"");
+        checkPosition(token, 1, 1, 1, 3, 0, 3);
     }
 
     @Test
@@ -76,6 +79,21 @@ public class FEELLexerTest extends AbstractLexerTest {
 
         token = checkToken("false", FALSE, "false");
         checkPosition(token, 1, 1, 1, 5, 0, 5);
+    }
+
+    @Test
+    public void testTemporalLiteral() {
+        Token token = checkToken("@ \"2019-03-31\"", TEMPORAL, "@ \"2019-03-31\"");
+        checkPosition(token, 1, 1, 1, 14, 0, 14);
+
+        token = checkToken("@\"12:00:00\"", TEMPORAL, "@\"12:00:00\"");
+        checkPosition(token, 1, 1, 1, 11, 0, 11);
+
+        token = checkToken("@\"2019-03-31T12:00:00\"", TEMPORAL, "@\"2019-03-31T12:00:00\"");
+        checkPosition(token, 1, 1, 1, 22, 0, 22);
+
+        token = checkToken("@\"P10Y\"", TEMPORAL, "@\"P10Y\"");
+        checkPosition(token, 1, 1, 1, 7, 0, 7);
     }
 
     @Test

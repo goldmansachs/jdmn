@@ -13,17 +13,13 @@
 package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Parameter;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.NamedParameterTypes;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.PositionalParameterTypes;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
+import com.gs.dmn.runtime.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 
 public class BuiltinFunctionType extends FunctionType {
     private final int totalParamsCount;
@@ -44,6 +40,36 @@ public class BuiltinFunctionType extends FunctionType {
     }
 
     @Override
+    protected List<Pair<ParameterTypes, ParameterConversions>> matchCandidates(List<Type> argumentTypes) {
+        if (this.hasOptionalParams) {
+            // check size constraint
+            if (!(this.mandatoryParamsCount <= argumentTypes.size() && argumentTypes.size() <= this.totalParamsCount)) {
+                return new ArrayList<>();
+            }
+            return calculateCandidates(this.parameterTypes, argumentTypes);
+        } else if (this.hasVarArgs) {
+            // check size constraint
+            if (argumentTypes.size() < this.mandatoryParamsCount) {
+                return new ArrayList<>();
+            }
+            // calculate candidates
+            Type varArgType = this.parameters.get(this.mandatoryParamsCount).getType();
+            List<Type> formalParameters = new ArrayList<>(this.parameterTypes);
+            for (int i = this.mandatoryParamsCount; i < argumentTypes.size(); i++) {
+                formalParameters.add(varArgType);
+            }
+            return calculateCandidates(formalParameters, argumentTypes);
+        } else {
+            // check size constraint
+            if (argumentTypes.size() != this.mandatoryParamsCount) {
+                return new ArrayList<>();
+            }
+            // calculate candidates
+            return calculateCandidates(this.parameterTypes, argumentTypes);
+        }
+    }
+
+    @Override
     public boolean match(ParameterTypes parameterTypes) {
         if (parameterTypes instanceof PositionalParameterTypes) {
             List<Type> argumentTypes = ((PositionalParameterTypes) parameterTypes).getTypes();
@@ -51,7 +77,7 @@ public class BuiltinFunctionType extends FunctionType {
         } else {
             NamedParameterTypes namedSignature = (NamedParameterTypes) parameterTypes;
             List<Type> argumentTypes = new ArrayList<>();
-            for(FormalParameter parameter: parameters) {
+            for(FormalParameter parameter: this.parameters) {
                 Type type = namedSignature.getType(parameter.getName());
                 if (type != null) {
                     argumentTypes.add(type);
@@ -71,44 +97,44 @@ public class BuiltinFunctionType extends FunctionType {
         }
     }
 
-    public boolean match(List<Type> argumentTypes) {
-        if (hasOptionalParams) {
+    private boolean match(List<Type> argumentTypes) {
+        if (this.hasOptionalParams) {
             // check mandatory parameters
-            if (argumentTypes.size() < mandatoryParamsCount) {
+            if (argumentTypes.size() < this.mandatoryParamsCount) {
                 return false;
             }
             if (!compatibleMandatoryParameters(argumentTypes)) {
                 return false;
             }
             // Check optional parameters
-            if (totalParamsCount < argumentTypes.size()) {
+            if (this.totalParamsCount < argumentTypes.size()) {
                 return false;
             }
-            for (int i = mandatoryParamsCount; i < argumentTypes.size(); i++) {
-                if (!conformsTo(argumentTypes, this.parameterTypes, i)) {
+            for (int i = this.mandatoryParamsCount; i < argumentTypes.size(); i++) {
+                if (!Type.conformsTo(argumentTypes.get(i), this.parameterTypes.get(i))) {
                     return false;
                 }
             }
             return true;
-        } else if (hasVarArgs) {
+        } else if (this.hasVarArgs) {
             // check mandatory parameters
-            if (argumentTypes.size() < mandatoryParamsCount) {
+            if (argumentTypes.size() < this.mandatoryParamsCount) {
                 return false;
             }
             if (!compatibleMandatoryParameters(argumentTypes)) {
                 return false;
             }
             // Check varArgs
-            Type varArgType = parameters.get(mandatoryParamsCount).getType();
-            for (int i = mandatoryParamsCount; i < argumentTypes.size(); i++) {
-                if (!argumentTypes.get(i).conformsTo(varArgType)) {
+            Type varArgType = this.parameters.get(this.mandatoryParamsCount).getType();
+            for (int i = this.mandatoryParamsCount; i < argumentTypes.size(); i++) {
+                if (!Type.conformsTo(argumentTypes.get(i), varArgType)) {
                     return false;
                 }
             }
             return true;
         } else {
             // same length and compatible types
-            if (argumentTypes.size() != mandatoryParamsCount) {
+            if (argumentTypes.size() != this.mandatoryParamsCount) {
                 return false;
             }
             return compatibleMandatoryParameters(argumentTypes);
@@ -116,29 +142,22 @@ public class BuiltinFunctionType extends FunctionType {
     }
 
     private boolean compatibleMandatoryParameters(List<Type> argumentTypes) {
-        for (int i = 0; i < mandatoryParamsCount; i++) {
-            if (!conformsTo(argumentTypes, parameterTypes, i)) {
+        for (int i = 0; i < this.mandatoryParamsCount; i++) {
+            if (!Type.conformsTo(argumentTypes.get(i), this.parameterTypes.get(i))) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean conformsTo(List<Type> argumentTypes, List<Type> parameterTypes, int position) {
-        Type argumentType = argumentTypes.get(position);
-        Type parameterType = parameterTypes.get(position);
-        return argumentType.conformsTo(parameterType);
+    @Override
+    protected boolean equivalentTo(Type other) {
+        return this == other;
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
-        return false;
-    }
-
-    @Override
-    public boolean conformsTo(Type other) {
-        return other instanceof BuiltinFunctionType && this.equivalentTo(other)
-                || other == ANY;
+    protected boolean conformsTo(Type other) {
+        return this == other;
     }
 
     @Override
@@ -148,28 +167,28 @@ public class BuiltinFunctionType extends FunctionType {
 
         BuiltinFunctionType that = (BuiltinFunctionType) o;
 
-        if (totalParamsCount != that.totalParamsCount) return false;
-        if (mandatoryParamsCount != that.mandatoryParamsCount) return false;
-        if (hasOptionalParams != that.hasOptionalParams) return false;
-        if (hasVarArgs != that.hasVarArgs) return false;
-        if (parameters != null ? !parameters.equals(that.parameters) : that.parameters != null) return false;
-        return returnType != null ? returnType.equals(that.returnType) : that.returnType == null;
+        if (this.totalParamsCount != that.totalParamsCount) return false;
+        if (this.mandatoryParamsCount != that.mandatoryParamsCount) return false;
+        if (this.hasOptionalParams != that.hasOptionalParams) return false;
+        if (this.hasVarArgs != that.hasVarArgs) return false;
+        if (this.parameters != null ? !this.parameters.equals(that.parameters) : that.parameters != null) return false;
+        return this.returnType != null ? this.returnType.equals(that.returnType) : that.returnType == null;
     }
 
     @Override
     public int hashCode() {
-        int result = parameters != null ? parameters.hashCode() : 0;
-        result = 31 * result + (returnType != null ? returnType.hashCode() : 0);
-        result = 31 * result + totalParamsCount;
-        result = 31 * result + mandatoryParamsCount;
-        result = 31 * result + (hasOptionalParams ? 1 : 0);
-        result = 31 * result + (hasVarArgs ? 1 : 0);
+        int result = this.parameters != null ? this.parameters.hashCode() : 0;
+        result = 31 * result + (this.returnType != null ? this.returnType.hashCode() : 0);
+        result = 31 * result + this.totalParamsCount;
+        result = 31 * result + this.mandatoryParamsCount;
+        result = 31 * result + (this.hasOptionalParams ? 1 : 0);
+        result = 31 * result + (this.hasVarArgs ? 1 : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        String types = parameters.stream().map(p -> p == null ? "null" : p.toString()).collect(Collectors.joining(", "));
-        return String.format("BuiltinFunctionType(%s, %s)", types, returnType);
+        String types = this.parameters.stream().map(p -> p == null ? "null" : p.toString()).collect(Collectors.joining(", "));
+        return String.format("BuiltinFunctionType(%s, %s)", types, this.returnType);
     }
 }

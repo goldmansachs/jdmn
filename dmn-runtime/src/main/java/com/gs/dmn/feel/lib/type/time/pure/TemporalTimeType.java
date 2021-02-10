@@ -1,43 +1,68 @@
 /*
  * Copyright 2016 Goldman Sachs.
- * <p>
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
- * <p>
+ *
  * You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
 package com.gs.dmn.feel.lib.type.time.pure;
 
-import com.gs.dmn.feel.lib.type.TimeType;
-import com.gs.dmn.feel.lib.type.time.JavaTimeType;
-import org.slf4j.Logger;
+import com.gs.dmn.feel.lib.type.time.TimeType;
 
 import java.time.LocalTime;
 import java.time.OffsetTime;
+import java.time.temporal.ChronoField;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
-public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal, TemporalAmount> {
+import static java.time.temporal.ChronoField.MILLI_OF_SECOND;
+
+public class TemporalTimeType extends BasePureCalendarType implements TimeType<Temporal, TemporalAmount> {
     private final TemporalComparator comparator;
 
-    @Deprecated
-    public TemporalTimeType(Logger logger) {
-        super(logger);
-        this.comparator = new TemporalComparator(logger);
+    public TemporalTimeType() {
+        this(new TemporalComparator());
     }
 
-    public TemporalTimeType(Logger logger, TemporalComparator comparator) {
-        super(logger);
+    public TemporalTimeType(TemporalComparator comparator) {
         this.comparator = comparator;
     }
 
     //
     // Time operators
     //
+
+    @Override
+    public boolean isTime(Object value) {
+        return value instanceof LocalTime
+                || value instanceof OffsetTime;
+    }
+
+    @Override
+    public Long timeValue(Temporal time) {
+        if (time == null) {
+            return null;
+        }
+
+        return (long) time.get(MILLI_OF_SECOND);
+    }
+
+    @Override
+    public Boolean timeIs(Temporal first, Temporal second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return first.get(ChronoField.HOUR_OF_DAY) == second.get(ChronoField.HOUR_OF_DAY)
+                && first.get(ChronoField.MINUTE_OF_DAY) == second.get(ChronoField.MINUTE_OF_DAY)
+                && first.get(ChronoField.SECOND_OF_DAY) == second.get(ChronoField.SECOND_OF_DAY)
+                && first.get(ChronoField.OFFSET_SECONDS) == second.get(ChronoField.OFFSET_SECONDS);
+    }
 
     @Override
     public Boolean timeEqual(Temporal first, Temporal second) {
@@ -75,13 +100,7 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
             return null;
         }
 
-        try {
-            return java.time.Duration.between(second, first);
-        } catch (Exception e) {
-            String message = String.format("timeSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        return java.time.Duration.between(second, first);
     }
 
     @Override
@@ -90,13 +109,7 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
             return null;
         }
 
-        try {
-            return time.plus(duration);
-        } catch (Exception e) {
-            String message = String.format("timeAddDuration(%s, %s)", time, duration);
-            logError(message, e);
-            return null;
-        }
+        return time.plus(duration);
     }
 
     @Override
@@ -105,13 +118,7 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
             return null;
         }
 
-        try {
-            return time.minus(duration);
-        } catch (Exception e) {
-            String message = String.format("timeSubtractDuration(%s, %s)", time, duration);
-            logError(message, e);
-            return null;
-        }
+        return time.minus(duration);
     }
 
     protected Integer compare(Temporal first, Temporal second) {

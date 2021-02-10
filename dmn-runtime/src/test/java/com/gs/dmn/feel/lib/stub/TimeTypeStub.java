@@ -12,10 +12,25 @@
  */
 package com.gs.dmn.feel.lib.stub;
 
-import com.gs.dmn.feel.lib.type.TimeType;
+import com.gs.dmn.feel.lib.type.time.TimeType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class TimeTypeStub<TIME, DURATION> implements TimeType<TIME, DURATION> {
+    @Override
+    public boolean isTime(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Long timeValue(TIME time) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Boolean timeIs(TIME first, TIME second) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
     @Override
     public Boolean timeEqual(TIME first, TIME second) {
         throw new DMNRuntimeException("Not supported yet");

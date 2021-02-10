@@ -12,12 +12,13 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.textual;
 
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
+import com.gs.dmn.runtime.DMNContext;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class QuantifiedExpression extends Expression {
@@ -32,34 +33,47 @@ public class QuantifiedExpression extends Expression {
     }
 
     public String getPredicate() {
-        return predicate;
+        return this.predicate;
     }
 
     public List<Iterator> getIterators() {
-        return iterators;
+        return this.iterators;
     }
 
     public Expression getBody() {
-        return body;
+        return this.body;
     }
 
     public ForExpression toForExpression() {
-        return new ForExpression(iterators, body);
+        return new ForExpression(this.iterators, this.body);
     }
 
     @Override
-    public void deriveType(FEELContext context) {
-        setType(body.getType());
+    public void deriveType(DMNContext context) {
+        setType(this.body.getType());
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QuantifiedExpression that = (QuantifiedExpression) o;
+        return Objects.equals(predicate, that.predicate) && Objects.equals(iterators, that.iterators) && Objects.equals(body, that.body);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(predicate, iterators, body);
     }
 
     @Override
     public String toString() {
         String iterators = this.iterators.stream().map(Iterator::toString).collect(Collectors.joining(","));
-        return String.format("QuantifiedExpression(%s, %s -> %s)", predicate, iterators, body.toString());
+        return String.format("%s(%s, %s -> %s)", getClass().getSimpleName(), this.predicate, iterators, this.body.toString());
     }
 }

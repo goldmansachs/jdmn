@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-public class NumberType extends DataType {
+public class NumberType extends ComparableDataType {
     public static final NumberType NUMBER = new NumberType();
 
     public NumberType() {
@@ -20,7 +20,12 @@ public class NumberType extends DataType {
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
+    protected boolean equivalentTo(Type other) {
         return other == NUMBER;
+    }
+
+    @Override
+    protected boolean conformsTo(Type other) {
+        return other == NUMBER || other == COMPARABLE;
     }
 }

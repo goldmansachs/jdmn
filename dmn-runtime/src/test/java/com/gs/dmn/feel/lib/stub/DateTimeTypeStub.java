@@ -12,10 +12,25 @@
  */
 package com.gs.dmn.feel.lib.stub;
 
-import com.gs.dmn.feel.lib.type.DateTimeType;
+import com.gs.dmn.feel.lib.type.time.DateTimeType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class DateTimeTypeStub<DATE_TIME, DURATION> implements DateTimeType<DATE_TIME, DURATION> {
+    @Override
+    public boolean isDateTime(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Long dateTimeValue(DATE_TIME dateTime) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Boolean dateTimeIs(DATE_TIME first, DATE_TIME second) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
     @Override
     public Boolean dateTimeEqual(DATE_TIME first, DATE_TIME second) {
         throw new DMNRuntimeException("Not supported yet");

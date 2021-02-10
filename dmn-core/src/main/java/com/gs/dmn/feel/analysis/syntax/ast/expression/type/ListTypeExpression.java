@@ -12,8 +12,10 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.type;
 
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
+
+import java.util.Objects;
 
 public class ListTypeExpression extends TypeExpression {
     private final TypeExpression elementTypeExpression;
@@ -23,16 +25,29 @@ public class ListTypeExpression extends TypeExpression {
     }
 
     public TypeExpression getElementTypeExpression() {
-        return elementTypeExpression;
+        return this.elementTypeExpression;
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ListTypeExpression that = (ListTypeExpression) o;
+        return Objects.equals(elementTypeExpression, that.elementTypeExpression);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(elementTypeExpression);
+    }
+
+    @Override
     public String toString() {
-        return String.format("ListTypeExpression(%s)", elementTypeExpression.toString());
+        return String.format("%s(%s)", getClass().getSimpleName(), this.elementTypeExpression.toString());
     }
 }

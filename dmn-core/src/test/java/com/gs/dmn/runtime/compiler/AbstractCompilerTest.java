@@ -18,10 +18,10 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.type.BuiltinFunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.NumberType;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.NumericLiteral;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
@@ -43,7 +43,7 @@ public abstract class AbstractCompilerTest extends AbstractTest {
     protected ClassData makeClassData() {
         FunctionDefinition element = new FunctionDefinition(Arrays.asList(), null, new NumericLiteral("123"), false);
         element.setType(new BuiltinFunctionType(Arrays.asList(), NumberType.NUMBER));
-        FEELContext context = null;
+        DMNContext context = null;
         DMNModelRepository repository = new DMNModelRepository();
         InputParameters inputParameters = makeInputParameters();
         BasicDMNToNativeTransformer dmnTransformer = this.dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters);

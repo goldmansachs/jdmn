@@ -13,8 +13,8 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
 
 public class Iterator extends Element {
     private final String name;
@@ -26,20 +26,20 @@ public class Iterator extends Element {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public IteratorDomain getDomain() {
-        return domain;
+        return this.domain;
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 
     @Override
     public String toString() {
-        return String.format("Iterator(%s in %s)", name, domain.toString());
+        return String.format("%s(%s in %s)", getClass().getSimpleName(), this.name, this.domain.toString());
     }
 }

@@ -12,30 +12,38 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.type.BaseType;
-import com.gs.dmn.feel.lib.type.BooleanType;
-import com.gs.dmn.feel.lib.type.TimeType;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
-import org.slf4j.Logger;
+import com.gs.dmn.feel.lib.type.bool.BooleanType;
+import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.time.TimeType;
 
-import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCalendar, Duration> {
-    private final BooleanType booleanType;
-    private final DatatypeFactory datatypeFactory;
-    protected final DefaultXMLCalendarComparator comparator;
-
-    public DefaultTimeType(Logger logger, DatatypeFactory datatypeFactory) {
-        this(logger, datatypeFactory, new DefaultXMLCalendarComparator());
+public class DefaultTimeType extends XMLCalendarType implements TimeType<XMLGregorianCalendar, Duration> {
+    public static boolean hasTimezone(XMLGregorianCalendar calendar) {
+        return calendar.getTimezone() != DatatypeConstants.FIELD_UNDEFINED;
     }
 
-    public DefaultTimeType(Logger logger, DatatypeFactory datatypeFactory, DefaultXMLCalendarComparator comparator) {
-        super(logger);
-        this.datatypeFactory = datatypeFactory;
+    private final BooleanType booleanType;
+    protected final DefaultXMLCalendarComparator comparator;
+
+    public DefaultTimeType() {
+        this(new DefaultXMLCalendarComparator());
+    }
+
+    public DefaultTimeType(DefaultXMLCalendarComparator comparator) {
         this.comparator = comparator;
-        this.booleanType = new DefaultBooleanType(logger);
+        this.booleanType = new DefaultBooleanType();
+    }
+
+    @Override
+    public Boolean timeIs(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return ((FEELXMLGregorianCalendar) first).same(second);
     }
 
     //
@@ -77,13 +85,8 @@ public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCa
             return null;
         }
 
-        try {
-            return this.datatypeFactory.newDuration(this.comparator.getDurationInMilliSeconds(first, second));
-        } catch (Exception e) {
-            String message = String.format("timeSubtract(%s, %s)", first, second);
-            logError(message, e);
-            return null;
-        }
+        long durationInSeconds = getDurationInSeconds(first, second);
+        return XMLDurationFactory.INSTANCE.dayTimeFromValue(durationInSeconds);
     }
 
     @Override
@@ -92,15 +95,9 @@ public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCa
             return null;
         }
 
-        try {
-            XMLGregorianCalendar clone = (XMLGregorianCalendar) time.clone();
-            clone.add(duration);
-            return clone;
-        } catch (Exception e) {
-            String message = String.format("timeAdd(%s, %s)", time, duration);
-            logError(message, e);
-            return null;
-        }
+        XMLGregorianCalendar clone = (XMLGregorianCalendar) time.clone();
+        clone.add(duration);
+        return clone;
     }
 
     @Override
@@ -109,14 +106,6 @@ public class DefaultTimeType extends BaseType implements TimeType<XMLGregorianCa
             return null;
         }
 
-        try {
-            XMLGregorianCalendar clone = (XMLGregorianCalendar) time.clone();
-            clone.add(duration.negate());
-            return clone;
-        } catch (Exception e) {
-            String message = String.format("timeSubtract(%s, %s)", time, duration);
-            logError(message, e);
-            return null;
-        }
+        return timeAddDuration(time, duration.negate());
     }
 }

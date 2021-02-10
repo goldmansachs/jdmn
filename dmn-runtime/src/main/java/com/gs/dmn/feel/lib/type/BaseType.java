@@ -12,20 +12,8 @@
  */
 package com.gs.dmn.feel.lib.type;
 
-import org.slf4j.Logger;
+import java.time.ZoneId;
 
 public abstract class BaseType {
-    private final Logger logger;
-
-    protected BaseType(Logger logger) {
-        this.logger = logger;
-    }
-
-    protected void logError(String message) {
-        this.logger.error(message);
-    }
-
-    protected void logError(String message, Throwable e) {
-        this.logger.error(message, e);
-    }
+    public static final ZoneId UTC = ZoneId.of("UTC");
 }

@@ -12,33 +12,32 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
-import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
+import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
 import org.omg.spec.dmn._20191111.model.TFunctionDefinition;
 import org.omg.spec.dmn._20191111.model.TInvocable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     BasicDMNToNativeTransformer getBasicDMNTransformer();
 
     FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> getFeelLib();
 
-    //
-    // Evaluate DRG nodes
-    //
-    Result evaluate(DRGElementReference<? extends TDRGElement> reference, List<Object> args, RuntimeEnvironment runtimeEnvironment);
-
-    Result evaluate(DRGElementReference<? extends TDRGElement> reference, List<Object> args, FEELContext context);
-
-    Result evaluate(TInvocable invocable, List<Object> argList, FEELContext context);
+    TypeConverter getTypeConverter();
 
     //
-    // Evaluate expressions
+    // Evaluate DRG elements
     //
-    Result evaluate(TFunctionDefinition functionDefinition, List<Object> args, FEELContext context);
+    Result evaluateDecision(String namespace, String decisionName, Map<String, Object> informationRequirements);
+    Result evaluateInvocable(String namespace, String invocableName, List<Object> argList);
+
+    //
+    // Evaluate DMN elements in context
+    //
+    Result evaluate(TInvocable invocable, List<Object> argList, DMNContext context);
+    Result evaluate(TFunctionDefinition functionDefinition, List<Object> args, DMNContext context);
 }

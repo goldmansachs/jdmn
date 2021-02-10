@@ -14,7 +14,17 @@ package com.gs.dmn.signavio.feel.lib;
 
 import com.gs.dmn.feel.lib.BaseFEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
-import com.gs.dmn.feel.lib.type.*;
+import com.gs.dmn.feel.lib.type.bool.BooleanType;
+import com.gs.dmn.feel.lib.type.context.ContextType;
+import com.gs.dmn.feel.lib.type.function.FunctionType;
+import com.gs.dmn.feel.lib.type.list.ListType;
+import com.gs.dmn.feel.lib.type.numeric.NumericType;
+import com.gs.dmn.feel.lib.type.range.RangeType;
+import com.gs.dmn.feel.lib.type.string.StringType;
+import com.gs.dmn.feel.lib.type.time.DateTimeType;
+import com.gs.dmn.feel.lib.type.time.DateType;
+import com.gs.dmn.feel.lib.type.time.DurationType;
+import com.gs.dmn.feel.lib.type.time.TimeType;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.SignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.string.SignavioStringLib;
@@ -33,13 +43,13 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     protected BaseSignavioLib(
             NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType,
             DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType,
-            ListType listType, ContextType contextType,
+            ListType listType, ContextType contextType, RangeType rangeType, FunctionType functionType,
             StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib,
             SignavioNumberLib<NUMBER> numberLib,
             SignavioStringLib stringLib,
             SignavioDateTimeLib<NUMBER, DATE, TIME, DATE_TIME> dateTimeLib,
             SignavioListLib listLib) {
-        super(numericType, booleanType, stringType, dateType, timeType, dateTimeType, durationType, listType, contextType);
+        super(numericType, booleanType, stringType, dateType, timeType, dateTimeType, durationType, listType, contextType, rangeType, functionType);
         this.feelLib = feelLib;
         this.numberLib = numberLib;
         this.stringLib = stringLib;
@@ -76,7 +86,13 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
     @Override
     public NUMBER abs(NUMBER number) {
-        return this.feelLib.abs(number);
+        try {
+            return this.numberLib.abs(number);
+        } catch (Exception e) {
+            String message = String.format("abs(%s)", number);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
@@ -707,6 +723,17 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     // String functions
     //
     @Override
+    public NUMBER len(String text) {
+        try {
+            return valueOf(this.stringLib.len(text));
+        } catch (Exception e) {
+            String message = String.format("len(%s)", text);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public String stringAdd(String first, String second) {
         try {
             return this.stringLib.stringAdd(first, second);
@@ -836,8 +863,8 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER len(String text) {
-        return this.feelLib.stringLength(text);
+    public DATE_TIME toDateTime(Object object) {
+        return this.feelLib.toDateTime(object);
     }
 
     @Override

@@ -16,7 +16,7 @@ import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
+import com.gs.dmn.runtime.DMNContext;
 
 public abstract class Expression extends Element {
     private Type type = AnyType.ANY;
@@ -45,6 +45,8 @@ public abstract class Expression extends Element {
             memberType = DateTimeType.getMemberType(member);
         } else if (sourceType instanceof DurationType) {
             memberType = DurationType.getMemberType(sourceType, member);
+        } else if (sourceType instanceof RangeType) {
+            memberType = ((RangeType) sourceType).getMemberType(member);
         }
         return memberType;
     }
@@ -60,7 +62,7 @@ public abstract class Expression extends Element {
         return type;
     }
 
-    public abstract void deriveType(FEELContext context);
+    public abstract void deriveType(DMNContext context);
 
     protected void checkType(String operator, Type leftOperandType, Type rightOperandType) {
         try {

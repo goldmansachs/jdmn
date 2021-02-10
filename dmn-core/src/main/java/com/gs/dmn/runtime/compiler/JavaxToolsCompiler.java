@@ -13,10 +13,10 @@
 package com.gs.dmn.runtime.compiler;
 
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.native_.NativeFactory;
 import org.apache.commons.io.FileUtils;
@@ -53,7 +53,7 @@ public class JavaxToolsCompiler extends JavaCompilerImpl {
     }
 
     @Override
-    public ClassData makeClassData(FunctionDefinition element, FEELContext context, BasicDMNToNativeTransformer dmnTransformer, FEELTranslator feelTranslator, String libClassName) {
+    public ClassData makeClassData(FunctionDefinition element, DMNContext context, BasicDMNToNativeTransformer dmnTransformer, FEELTranslator feelTranslator, String libClassName) {
         FunctionType functionType = (FunctionType) element.getType();
 
         // Apply method parts

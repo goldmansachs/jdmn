@@ -13,10 +13,10 @@
 package com.gs.dmn.feel.analysis.semantics.environment;
 
 import com.gs.dmn.feel.analysis.semantics.type.StringType;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.PositionalParameterTypes;
+import com.gs.dmn.runtime.DMNContext;
 import org.junit.Test;
 
-import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,18 +25,20 @@ public class EnvironmentTest {
 
     @Test
     public void testLookupVariableDeclaration() {
-        Environment environment = environmentFactory.makeEnvironment();
+        Environment environment = this.environmentFactory.emptyEnvironment();
         String name = "x";
         environment.addDeclaration(new VariableDeclaration(name, StringType.STRING));
 
-        assertEquals("x", environment.lookupVariableDeclaration(name).getName());
+        assertEquals("x", environment.lookupLocalVariableDeclaration(name).getName());
     }
 
     @Test
     public void testLookupFunctionDeclaration() {
-        Environment environment = environmentFactory.makeEnvironment();
+        DMNContext context = this.environmentFactory.getBuiltInContext();
 
         String functionName = "date";
-        assertEquals(functionName, environment.lookupFunctionDeclaration(functionName, new PositionalParameterTypes(Arrays.asList(StringType.STRING))).getName());
+        List<Declaration> declarations = context.lookupFunctionDeclaration(functionName);
+        assertEquals(4, declarations.size());
+        assertEquals(functionName, declarations.get(0).getName());
     }
 }

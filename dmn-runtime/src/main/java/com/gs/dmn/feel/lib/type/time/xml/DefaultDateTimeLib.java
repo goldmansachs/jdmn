@@ -17,26 +17,21 @@ import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.IsoFields;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalQueries;
 import java.util.Calendar;
 
 public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
-    public static final ZoneId UTC = ZoneId.of("UTC");
-
-    private final DatatypeFactory dataTypeFactory;
-
-    public DefaultDateTimeLib(DatatypeFactory dataTypeFactory) {
-        this.dataTypeFactory = dataTypeFactory;
-    }
-
+    //
+    // Conversion functions
+    //
     @Override
     public XMLGregorianCalendar date(String literal) {
         if (StringUtils.isBlank(literal)) {
@@ -87,8 +82,8 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         }
 
         XMLGregorianCalendar calendar;
+        BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
         if (offset != null) {
-            BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
             String sign = offset.getSign() < 0 ? "-" : "+";
             int seconds = offset.getSeconds();
             String zoneId;
@@ -99,7 +94,6 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
             }
             calendar = FEELXMLGregorianCalendar.makeTime(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, zoneId);
         } else {
-            BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
             calendar = FEELXMLGregorianCalendar.makeTime(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, null);
         }
         return this.isValidTime(calendar) ? calendar : null;
@@ -153,6 +147,9 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         return this.isValidDateTime(calendar) ? calendar : null;
     }
 
+    //
+    // Date properties
+    //
     @Override
     public Integer year(XMLGregorianCalendar date) {
         if (date == null) {
@@ -205,6 +202,9 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         return weekday(dateTime);
     }
 
+    //
+    // Time properties
+    //
     @Override
     public Integer hour(XMLGregorianCalendar date) {
         if (date == null) {
@@ -254,7 +254,7 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         if (secondsOffset == DatatypeConstants.FIELD_UNDEFINED) {
             return null;
         } else {
-            return this.dataTypeFactory.newDuration((long) secondsOffset * 1000);
+            return XMLDurationFactory.INSTANCE.dayTimeFromValue(secondsOffset);
         }
     }
     @Override
@@ -275,23 +275,93 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         return timezone(dateTime);
     }
 
+    //
+    // Temporal functions
+    //
     @Override
-    public XMLGregorianCalendar toDate(Object object) {
-        if (!(object instanceof XMLGregorianCalendar)) {
+    public Integer dayOfYear(XMLGregorianCalendar date) {
+        if (date == null) {
             return null;
         }
 
-        XMLGregorianCalendar calendar = (XMLGregorianCalendar) object;
+        return date.toGregorianCalendar().get(Calendar.DAY_OF_YEAR);
+    }
+    @Override
+    public Integer dayOfYearDateTime(XMLGregorianCalendar dateTime) {
+        return dayOfYear(dateTime);
+    }
+
+    @Override
+    public String dayOfWeek(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
+        int dow = date.toGregorianCalendar().get(Calendar.DAY_OF_WEEK);
+        return DAY_NAMES[dow];
+    }
+    @Override
+    public String dayOfWeekDateTime(XMLGregorianCalendar dateTime) {
+        return dayOfWeek(dateTime);
+    }
+
+    @Override
+    public Integer weekOfYear(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
+        LocalDate localDate = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
+        return localDate.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
+    }
+    @Override
+    public Integer weekOfYearDateTime(XMLGregorianCalendar dateTime) {
+        return weekOfYear(dateTime);
+    }
+
+    @Override
+    public String monthOfYear(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
+        int moy = date.getMonth();
+        return MONTH_NAMES[moy - 1];
+    }
+    @Override
+    public String monthOfYearDateTime(XMLGregorianCalendar dateTime) {
+        return monthOfYear(dateTime);
+    }
+
+    //
+    // Extra conversion functions
+    //
+    @Override
+    public XMLGregorianCalendar toDate(Object from) {
+        if (!(from instanceof XMLGregorianCalendar)) {
+            return null;
+        }
+
+        XMLGregorianCalendar calendar = (XMLGregorianCalendar) from;
         return date(calendar);
     }
 
     @Override
-    public XMLGregorianCalendar toTime(Object object) {
-        if (!(object instanceof XMLGregorianCalendar)) {
+    public XMLGregorianCalendar toTime(Object from) {
+        if (!(from instanceof XMLGregorianCalendar)) {
             return null;
         }
 
-        return time((XMLGregorianCalendar) object);
+        return time((XMLGregorianCalendar) from);
+    }
+
+    @Override
+    public XMLGregorianCalendar toDateTime(Object from) {
+        if (!(from instanceof XMLGregorianCalendar)) {
+            return null;
+        }
+
+        return dateAndTime(toDate(from), toTime(from));
     }
 
     public TemporalAccessor dateTemporalAccessor(String literal) {
@@ -318,11 +388,9 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
             TemporalAccessor parsed = FEEL_TIME.parse(literal);
 
             if (parsed.query(TemporalQueries.offset()) != null) {
-                OffsetTime asOffSetTime = parsed.query(OffsetTime::from);
-                return asOffSetTime;
+                return parsed.query(OffsetTime::from);
             } else if (parsed.query(TemporalQueries.zone()) == null) {
-                LocalTime asLocalTime = parsed.query(LocalTime::from);
-                return asLocalTime;
+                return parsed.query(LocalTime::from);
             }
 
             return parsed;
@@ -344,14 +412,11 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
                 TemporalAccessor value = FEEL_DATE_TIME.parse(literal);
 
                 if (value.query(TemporalQueries.zoneId()) != null) {
-                    ZonedDateTime asZonedDateTime = value.query(ZonedDateTime::from);
-                    return asZonedDateTime;
+                    return value.query(ZonedDateTime::from);
                 } else if (value.query(TemporalQueries.offset()) != null) {
-                    OffsetDateTime asOffSetDateTime = value.query(OffsetDateTime::from);
-                    return asOffSetDateTime;
+                    return value.query(OffsetDateTime::from);
                 } else if (value.query(TemporalQueries.zone()) == null) {
-                    LocalDateTime asLocalDateTime = value.query(LocalDateTime::from);
-                    return asLocalDateTime;
+                    return value.query(LocalDateTime::from);
                 }
 
                 return value;
@@ -404,5 +469,4 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
                 calendar.getYear(), calendar.getMonth(), calendar.getDay(),
                 calendar.getHour(), calendar.getMinute(), calendar.getSecond(), calendar.getTimezone());
     }
-
 }

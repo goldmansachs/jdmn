@@ -12,15 +12,13 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.runtime.Pair;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
-
-import static com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind.LIST_TO_ELEMENT;
-import static com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind.NONE;
 
 public class NamedParameterTypes extends ParameterTypes {
     private Map<String, Type> namedTypes = new LinkedHashMap<>();
@@ -33,7 +31,7 @@ public class NamedParameterTypes extends ParameterTypes {
 
     @Override
     public int size() {
-        return namedTypes == null ? 0 : namedTypes.size();
+        return this.namedTypes == null ? 0 : this.namedTypes.size();
     }
 
     @Override
@@ -42,63 +40,17 @@ public class NamedParameterTypes extends ParameterTypes {
             return false;
         }
         for (FormalParameter formalParameter : parameters) {
-            Type argumentType = namedTypes.get(formalParameter.getName());
+            Type argumentType = this.namedTypes.get(formalParameter.getName());
             Type parameterType = formalParameter.getType();
-            if (argumentType == null || !argumentType.conformsTo(parameterType)) {
+            if (!Type.conformsTo(argumentType, parameterType)) {
                 return false;
             }
         }
         return true;
     }
 
-    @Override
-    public List<Pair<ParameterTypes, ParameterConversions>> candidates() {
-        Set<Pair<ParameterTypes, ParameterConversions>> result = new LinkedHashSet<>();
-        int n = namedTypes.size();
-        List<String> paramNames = new ArrayList<>(namedTypes.keySet());
-        int m = ConversionKind.values().length;
-        int[] conversionMap = init(n);
-        conversionMap = next(conversionMap, n, m);
-        while (conversionMap != null) {
-            // Calculate new types and conversions
-            Map<String, Type> newTypes = new LinkedHashMap<>();
-            NamedParameterConversions conversions = new NamedParameterConversions();
-
-            // For every possible conversion sequence
-            boolean different = false;
-            for (int i = 0; i < n; i++) {
-                // Compute new type and conversion
-                ConversionKind kind = ConversionKind.values()[conversionMap[i]];
-                String paramName = paramNames.get(i);
-                Type type = namedTypes.get(paramName);
-                Type newType = type;
-                Conversion conversion = new Conversion(NONE, newType);
-                if (kind == LIST_TO_ELEMENT) {
-                    if (type instanceof ListType) {
-                        newType = ((ListType) type).getElementType();
-                        conversion = new Conversion(kind, newType);
-
-                        different = true;
-                    }
-                }
-                newTypes.put(paramName, newType);
-                conversions.add(paramName, conversion);
-            }
-
-            // Add new candidate
-            if (different) {
-                NamedParameterTypes newSignature = new NamedParameterTypes(newTypes);
-                result.add(new Pair<>(newSignature, conversions));
-            }
-
-            // Next sequence
-            conversionMap = next(conversionMap, n, m);
-        }
-        return new ArrayList<>(result);
-    }
-
     public Type getType(String name) {
-        return namedTypes.get(name);
+        return this.namedTypes.get(name);
     }
 
     @Override
@@ -106,17 +58,17 @@ public class NamedParameterTypes extends ParameterTypes {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NamedParameterTypes that = (NamedParameterTypes) o;
-        return Objects.equals(namedTypes, that.namedTypes);
+        return Objects.equals(this.namedTypes, that.namedTypes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(namedTypes);
+        return Objects.hash(this.namedTypes);
     }
 
     @Override
     public String toString() {
-        String opd = namedTypes.entrySet().stream().map(e -> String.format("%s : %s", e.getKey(), e.getValue().toString())).collect(Collectors.joining(", "));
-        return String.format("NamedParameterTypes(%s)", opd);
+        String opd = this.namedTypes.entrySet().stream().map(e -> String.format("%s : %s", e.getKey(), e.getValue().toString())).collect(Collectors.joining(", "));
+        return String.format("%s(%s)", getClass().getSimpleName(), opd);
     }
 }

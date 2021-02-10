@@ -13,10 +13,12 @@
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
 import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.DMNContext;
+
+import java.util.Objects;
 
 public class ExpressionTest extends PositiveUnaryTest {
     private final Expression expression;
@@ -26,24 +28,37 @@ public class ExpressionTest extends PositiveUnaryTest {
     }
 
     public Expression getExpression() {
-        return expression;
+        return this.expression;
     }
 
     @Override
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         setType(BooleanType.BOOLEAN);
-        if (expression.getType() != BooleanType.BOOLEAN) {
-            throw new DMNRuntimeException(String.format("Illegal type of positive unary test '%s'. Expected boolean found '%s'", expression, expression.getType()));
+        if (this.expression.getType() != BooleanType.BOOLEAN) {
+            throw new DMNRuntimeException(String.format("Illegal type of positive unary test '%s'. Expected boolean found '%s'", this.expression, this.expression.getType()));
         }
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ExpressionTest that = (ExpressionTest) o;
+        return Objects.equals(expression, that.expression);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(expression);
+    }
+
+    @Override
     public String toString() {
-        return String.format("ExpressionTest(%s)", expression);
+        return String.format("%s(%s)", getClass().getSimpleName(), this.expression);
     }
 }

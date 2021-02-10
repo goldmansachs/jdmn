@@ -36,7 +36,7 @@ public class ExportedLiteralDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                 "decision",
                 "simple-decision-feel-boolean-literal-expression",
-                makeRuntimeEnvironment(Arrays.asList(
+                makeInformationRequirements(Arrays.asList(
                         new Pair<>("numberInput", decision.number("-1")),
                         new Pair<>("stringInput", "123"),
                         new Pair<>("booleanInput", true),
@@ -52,7 +52,7 @@ public class ExportedLiteralDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                 "monthly",
                 "simple-decision-feel-complex-literal-expression",
-                makeRuntimeEnvironment(Arrays.asList(
+                makeInformationRequirements(Arrays.asList(
                         new Pair<>("loan", new Context().add("principal", decision.number("1024")).add("rate", decision.number("5")).add("term", decision.number("25")))
                 )),
                 decision.number("1024"))
@@ -64,7 +64,7 @@ public class ExportedLiteralDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                 "decision",
                 "simple-decision-feel-date-literal-expression",
-                makeRuntimeEnvironment(Arrays.asList(
+                makeInformationRequirements(Arrays.asList(
                         new Pair<>("numberInput", decision.number("-1")),
                         new Pair<>("stringInput", "123"),
                         new Pair<>("booleanInput", true),
@@ -80,7 +80,7 @@ public class ExportedLiteralDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                 "decision",
                 "simple-decision-feel-enumeration-literal-expression",
-                makeRuntimeEnvironment(Arrays.asList(
+                makeInformationRequirements(Arrays.asList(
                         new Pair<>("numberInput", decision.number("-1")),
                         new Pair<>("stringInput", "123"),
                         new Pair<>("booleanInput", true),
@@ -95,7 +95,7 @@ public class ExportedLiteralDMNInterpreterTest extends AbstractSignavioDMNInterp
     public void testNumericLiteralExpression() throws Exception {
         doTest(new DecisionTestConfig("decision",
                 "simple-decision-feel-numeric-literal-expression",
-                makeRuntimeEnvironment(Arrays.asList(
+                makeInformationRequirements(Arrays.asList(
                         new Pair<>("numberInput", decision.number("-1")),
                         new Pair<>("stringInput", "123"),
                         new Pair<>("booleanInput", true),
@@ -110,7 +110,7 @@ public class ExportedLiteralDMNInterpreterTest extends AbstractSignavioDMNInterp
     public void testStringLiteralExpression() throws Exception {
         doTest(new DecisionTestConfig("decision",
                 "simple-decision-feel-string-literal-expression",
-                makeRuntimeEnvironment(Arrays.asList(
+                makeInformationRequirements(Arrays.asList(
                         new Pair<>("numberInput", decision.number("-1")),
                         new Pair<>("stringInput", "123"),
                         new Pair<>("booleanInput", true),

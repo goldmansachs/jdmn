@@ -39,14 +39,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DefaultStringLib implements StringLib {
-    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.########");
+    private static final ThreadLocal<DecimalFormat> DECIMAL_FORMAT = new ThreadLocal<DecimalFormat>() {
+        @Override
+        public DecimalFormat initialValue() {
+            return new DecimalFormat("0.########");
+        }
+    };
 
     @Override
     public String string(Object from) {
         if (from == null) {
             return "null";
         } else if (from instanceof Double) {
-            return DECIMAL_FORMAT.format(from);
+            return DECIMAL_FORMAT.get().format(from);
         } else if (from instanceof BigDecimal) {
             return ((BigDecimal) from).toPlainString();
         } else if (from instanceof LocalDate) {
@@ -94,7 +99,11 @@ public class DefaultStringLib implements StringLib {
         if (string == null) {
             return null;
         }
-        return string.length();
+        // The number of Unicode code units in the string
+        int unicodeCodeUnitsCount = string.length();
+        // The number of characters (Unicode code point)
+        int result = string.codePointCount(0, unicodeCodeUnitsCount);
+        return result;
     }
 
     @Override

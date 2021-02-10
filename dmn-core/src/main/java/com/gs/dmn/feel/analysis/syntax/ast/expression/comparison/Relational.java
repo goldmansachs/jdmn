@@ -12,9 +12,11 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.comparison;
 
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.DMNContext;
+
+import java.util.Objects;
 
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 
@@ -30,31 +32,44 @@ public class Relational extends Comparison {
     }
 
     public String getOperator() {
-        return operator;
+        return this.operator;
     }
 
     public Expression getLeftOperand() {
-        return leftOperand;
+        return this.leftOperand;
     }
 
     public Expression getRightOperand() {
-        return rightOperand;
+        return this.rightOperand;
     }
 
     @Override
-    public void deriveType(FEELContext context) {
+    public void deriveType(DMNContext context) {
         setType(BOOLEAN);
-        checkType(operator, leftOperand.getType(), rightOperand.getType());
+        checkType(this.operator, this.leftOperand.getType(), this.rightOperand.getType());
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Relational that = (Relational) o;
+        return Objects.equals(operator, that.operator) && Objects.equals(leftOperand, that.leftOperand) && Objects.equals(rightOperand, that.rightOperand);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(operator, leftOperand, rightOperand);
+    }
+
+    @Override
     public String toString() {
-        return String.format("Relational(%s,%s,%s)", getOperator(), getLeftOperand(), getRightOperand());
+        return String.format("%s(%s,%s,%s)", getClass().getSimpleName(), getOperator(), getLeftOperand(), getRightOperand());
     }
 
 }

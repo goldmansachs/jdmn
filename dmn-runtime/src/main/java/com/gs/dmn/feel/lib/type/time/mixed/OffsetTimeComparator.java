@@ -12,75 +12,13 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.RelationalComparator;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
-import org.slf4j.Logger;
+import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 
 import java.time.OffsetTime;
-import java.util.function.Supplier;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
-
-public class OffsetTimeComparator implements RelationalComparator<OffsetTime> {
-    private final DefaultBooleanType booleanType;
-
-    public OffsetTimeComparator(Logger logger) {
-        this.booleanType = new DefaultBooleanType(logger);
-    }
-
+public class OffsetTimeComparator extends DateTimeComparator<OffsetTime> {
     @Override
-    public Integer compare(OffsetTime first, OffsetTime second) {
-        return first.compareTo(second);
-    }
-
-    @Override
-    public Boolean equalTo(OffsetTime first, OffsetTime second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> FALSE,
-                () -> FALSE,
-                () -> first.compareTo(second) == 0
-        });
-    }
-
-    @Override
-    public  Boolean lessThan(OffsetTime first, OffsetTime second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
-                () -> null,
-                () -> null,
-                () -> first.compareTo(second) < 0
-        });
-    }
-
-    @Override
-    public  Boolean greaterThan(OffsetTime first, OffsetTime second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
-                () -> null,
-                () -> null,
-                () -> first.compareTo(second) > 0
-        });
-    }
-
-    @Override
-    public  Boolean lessEqualThan(OffsetTime first, OffsetTime second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> null,
-                () -> null,
-                () -> first.compareTo(second) <= 0
-        });
-    }
-
-    @Override
-    public  Boolean greaterEqualThan(OffsetTime first, OffsetTime second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> null,
-                () -> null,
-                () -> first.compareTo(second) >= 0
-        });
+    protected Integer compareTo(OffsetTime first, OffsetTime second) {
+        return timeValue(first).compareTo(timeValue(second));
     }
 }

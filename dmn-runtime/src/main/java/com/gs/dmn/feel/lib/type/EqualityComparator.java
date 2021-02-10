@@ -12,14 +12,15 @@
  */
 package com.gs.dmn.feel.lib.type;
 
+import com.gs.dmn.feel.lib.type.bool.TernaryBooleanLogicUtil;
+
 import java.util.function.Supplier;
 
 public interface EqualityComparator<T> {
     Boolean equalTo(T first, T second);
 
     default Boolean notEqualTo(T first, T second) {
-        Boolean equal = equalTo(first, second);
-        return equal == null ? null : ! equal;
+        return TernaryBooleanLogicUtil.getInstance().not(equalTo(first, second));
     }
 
     default Boolean applyOperator(T first, T second, Supplier<Boolean>[] result) {

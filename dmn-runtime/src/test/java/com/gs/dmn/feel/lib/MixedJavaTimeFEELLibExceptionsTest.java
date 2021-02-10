@@ -13,13 +13,19 @@
 package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.feel.lib.stub.*;
-import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.bool.BooleanLib;
+import com.gs.dmn.feel.lib.type.bool.BooleanType;
+import com.gs.dmn.feel.lib.type.context.ContextType;
+import com.gs.dmn.feel.lib.type.function.FunctionType;
 import com.gs.dmn.feel.lib.type.list.ListLib;
+import com.gs.dmn.feel.lib.type.list.ListType;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
+import com.gs.dmn.feel.lib.type.numeric.NumericType;
+import com.gs.dmn.feel.lib.type.range.RangeLib;
+import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
-import com.gs.dmn.feel.lib.type.time.DateTimeLib;
-import com.gs.dmn.feel.lib.type.time.DurationLib;
+import com.gs.dmn.feel.lib.type.string.StringType;
+import com.gs.dmn.feel.lib.type.time.*;
 
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
@@ -39,16 +45,19 @@ public class MixedJavaTimeFEELLibExceptionsTest extends BaseMixedJavaTimeFEELLib
         DurationType<Duration, BigDecimal> durationType = new DurationTypeStub<>();
         ListType listType = new ListTypeStub();
         ContextType contextType = new ContextTypeStub();
+        RangeType rangeType = new RangeTypeStub();
+        FunctionType functionType = new FunctionTypeStub();
         NumericLib<BigDecimal> numericLib = new NumericLibStub<>();
         StringLib stringLib = new StringLibStub();
         BooleanLib booleanLib = new BooleanLibStub();
         DateTimeLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> dateTimeLib = new DateTimeLibStub<>();
         DurationLib<LocalDate, Duration> durationLib = new DurationLibStub<>();
         ListLib listLib = new ListLibStub();
+        RangeLib rangeLib = new RangeLibStub();
         return new MixedJavaTimeFEELLib(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
-                listType, contextType,
-                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib
+                listType, contextType, rangeType, functionType,
+                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib
         );
     }
 }

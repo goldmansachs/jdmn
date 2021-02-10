@@ -13,19 +13,31 @@
 package com.gs.dmn.feel.lib.type.list;
 
 import com.gs.dmn.feel.lib.type.BaseType;
-import com.gs.dmn.feel.lib.type.BooleanType;
-import com.gs.dmn.feel.lib.type.ListType;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
-import org.slf4j.Logger;
+import com.gs.dmn.feel.lib.type.bool.BooleanType;
+import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 
 import java.util.List;
 
 public class DefaultListType extends BaseType implements ListType {
     private final BooleanType booleanType;
 
-    public DefaultListType(Logger logger) {
-        super(logger);
-        this.booleanType = new DefaultBooleanType(logger);
+    public DefaultListType() {
+        this.booleanType = new DefaultBooleanType();
+    }
+
+    @Override
+    public boolean isList(Object value) {
+        return value instanceof List;
+    }
+
+    @Override
+    public List listValue(List value) {
+        return value;
+    }
+
+    @Override
+    public Boolean listIs(List list1, List list2) {
+        return listEqual(list1, list2);
     }
 
     @Override

@@ -12,39 +12,92 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.DefaultFEELLib;
-import com.gs.dmn.feel.lib.type.DurationType;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
-import org.slf4j.Logger;
+import com.gs.dmn.feel.lib.type.time.DurationType;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 
 public class DoubleDurationType extends BaseDefaultDurationType implements DurationType<Duration, Double> {
-    @Deprecated
-    public DoubleDurationType(Logger logger) {
-        this(logger, DefaultFEELLib.DATA_TYPE_FACTORY, new DefaultDurationComparator());
+    public DoubleDurationType() {
+        this(new DefaultDurationComparator());
     }
 
-    @Deprecated
-    public DoubleDurationType(Logger logger, DatatypeFactory dataTypeFactory) {
-        this(logger, dataTypeFactory, new DefaultDurationComparator());
+    public DoubleDurationType(RelationalComparator<Duration> durationComparator) {
+        super(durationComparator);
     }
 
-    public DoubleDurationType(Logger logger, DatatypeFactory dataTypeFactory, RelationalComparator<Duration> durationComparator) {
-        super(logger, dataTypeFactory, durationComparator);
+    @Override
+    public Boolean durationIs(Duration first, Duration second) {
+        if (first == null || second == null) {
+            return first == second;
+        }
+
+        return first.getSign() == second.getSign()
+                && first.getYears() == second.getYears()
+                && first.getMonths() == second.getMonths()
+                && first.getDays() == second.getDays()
+                && first.getHours() == second.getHours()
+                && first.getMinutes() == second.getHours()
+                && first.getSeconds() == second.getSeconds();
     }
 
     //
     // Duration operators
     //
     @Override
-    public Duration durationMultiply(Duration first, Double second) {
-        return this.durationMultiply(first, (Number) second);
+    public Double durationDivide(Duration first, Duration second) {
+        if (first == null || second == null) {
+            return null;
+        }
+
+        if (isYearsAndMonthsDuration(first) && isYearsAndMonthsDuration(second)) {
+            Long firstValue = monthsValue(first);
+            Long secondValue = monthsValue(second);
+            return secondValue == 0 ? null : firstValue.doubleValue() / secondValue.doubleValue();
+        } else if (isDaysAndTimeDuration(first) && isDaysAndTimeDuration(second)) {
+            Long firstValue = secondsValue(first);
+            Long secondValue = secondsValue(second);
+            return secondValue == 0 ? null : firstValue.doubleValue() / secondValue.doubleValue();
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+        }
     }
 
     @Override
-    public Duration durationDivide(Duration first, Double second) {
-        return this.durationDivide(first, (Number) second);
+    public Duration durationMultiplyNumber(Duration first, Double second) {
+        if (first == null || second == null) {
+            return null;
+        }
+
+        if (isYearsAndMonthsDuration(first)) {
+            Double months = monthsValue(first) * second;
+            return XMLDurationFactory.INSTANCE.yearMonthFromValue(months.longValue());
+        } else if (isDaysAndTimeDuration(first)) {
+            Double seconds = secondsValue(first) * second;
+            return XMLDurationFactory.INSTANCE.dayTimeFromValue(seconds.longValue());
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+        }
+    }
+
+    @Override
+    public Duration durationDivideNumber(Duration first, Double second) {
+        if (first == null || second == null) {
+            return null;
+        }
+        if (second == 0) {
+            return null;
+        }
+
+        if (isYearsAndMonthsDuration(first)) {
+            Double months = monthsValue(first).doubleValue() / second;
+            return XMLDurationFactory.INSTANCE.yearMonthFromValue(months.longValue());
+        } else if (isDaysAndTimeDuration(first)) {
+            Double seconds = secondsValue(first).doubleValue() / second;
+            return XMLDurationFactory.INSTANCE.dayTimeFromValue(seconds.longValue());
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+        }
     }
 }

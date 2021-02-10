@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0091-local-hrefs.dmn</modelName>
+
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>FEEL Paths</label>
+        <label>FEEL Qualified Hrefs</label>
+    </labels>
+
+    <testCase id="001">
+        <description>qualified hrefs using model-local namespace</description>
+        <inputNode name="input_001">
+            <value xsi:type="xsd:string">input_001</value>
+        </inputNode>
+        <resultNode name="decision_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">decision_001 input_001 bkm_001</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

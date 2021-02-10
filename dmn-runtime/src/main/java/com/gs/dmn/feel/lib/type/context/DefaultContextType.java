@@ -13,11 +13,9 @@
 package com.gs.dmn.feel.lib.type.context;
 
 import com.gs.dmn.feel.lib.type.BaseType;
-import com.gs.dmn.feel.lib.type.BooleanType;
-import com.gs.dmn.feel.lib.type.ContextType;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.bool.BooleanType;
+import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 import com.gs.dmn.runtime.Context;
-import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +24,23 @@ import java.util.Set;
 public class DefaultContextType extends BaseType implements ContextType {
     private final BooleanType booleanType;
 
-    public DefaultContextType(Logger logger) {
-        super(logger);
-        this.booleanType = new DefaultBooleanType(logger);
+    public DefaultContextType() {
+        this.booleanType = new DefaultBooleanType();
+    }
+
+    @Override
+    public boolean isContext(Object value) {
+        return value instanceof Context;
+    }
+
+    @Override
+    public Context contextValue(Context value) {
+        return value;
+    }
+
+    @Override
+    public Boolean contextIs(Object c1, Object c2) {
+        return contextEqual(c1, c2);
     }
 
     @Override

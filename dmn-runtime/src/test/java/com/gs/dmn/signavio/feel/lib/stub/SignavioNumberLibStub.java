@@ -72,4 +72,9 @@ public class SignavioNumberLibStub<NUMBER> implements SignavioNumberLib<NUMBER> 
     public Number toNumber(NUMBER NUMBER) {
         throw new DMNRuntimeException("Not supported yet");
     }
+
+    @Override
+    public NUMBER abs(NUMBER number) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
 }

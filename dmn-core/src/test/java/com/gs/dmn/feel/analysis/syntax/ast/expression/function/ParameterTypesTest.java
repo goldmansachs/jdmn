@@ -12,17 +12,47 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
+import com.gs.dmn.feel.analysis.semantics.type.NumberType;
+import com.gs.dmn.feel.analysis.semantics.type.StringType;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 public abstract class ParameterTypesTest {
+    private int count;
+
     @Test
-    public void sequenceGeneration() {
-        ParameterTypes pt = getParameterTypes();
-        int[] actual = pt.init(2);
-        while (actual != null) {
-            actual = pt.next(actual, 2, 2);
-        }
+    public void testSize() {
+        assertEquals(0, makeParameterTypes(new ArrayList<>()).size());
     }
 
-    protected abstract ParameterTypes getParameterTypes();
+    @Test
+    public void testCompatibleWhenEmpty() {
+        List<FormalParameter> formalParameters = makeFormalParameters(new ArrayList<>());
+        assertTrue(makeParameterTypes(formalParameters).compatible(formalParameters));
+    }
+
+    @Test
+    public void testCompatible() {
+        List<Type> parameterTypes = Arrays.asList(NumberType.NUMBER, StringType.STRING);
+        List<FormalParameter> formalParameters = makeFormalParameters(parameterTypes);
+        assertTrue(makeParameterTypes(formalParameters).compatible(formalParameters));
+    }
+
+    protected List<FormalParameter> makeFormalParameters(List<Type> types) {
+        return types.stream().map(t -> new FormalParameter(newName(), t)).collect(Collectors.toList());
+    }
+
+    protected String newName() {
+        return String.format("name_%d", count++);
+    }
+
+    protected abstract ParameterTypes makeParameterTypes(List<FormalParameter> parameterTypes);
 }

@@ -12,10 +12,25 @@
  */
 package com.gs.dmn.feel.lib.stub;
 
-import com.gs.dmn.feel.lib.type.StringType;
+import com.gs.dmn.feel.lib.type.string.StringType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class StringTypeStub implements StringType {
+    @Override
+    public boolean isString(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public String stringValue(String value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Boolean stringIs(String first, String second) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
     @Override
     public Boolean stringEqual(String first, String second) {
         throw new DMNRuntimeException("Not supported yet");

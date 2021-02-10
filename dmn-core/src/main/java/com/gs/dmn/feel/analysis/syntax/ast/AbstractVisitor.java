@@ -12,5 +12,12 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
+import com.gs.dmn.error.ErrorHandler;
+
 public abstract class AbstractVisitor implements Visitor {
+    protected final ErrorHandler errorHandler;
+
+    public AbstractVisitor(ErrorHandler errorHandler) {
+        this.errorHandler = errorHandler;
+    }
 }

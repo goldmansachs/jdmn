@@ -14,6 +14,8 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
+import java.util.Objects;
+
 public abstract class ArithmeticExpression extends Expression {
     private final String operator;
     private final Expression leftOperand;
@@ -26,15 +28,33 @@ public abstract class ArithmeticExpression extends Expression {
     }
 
     public Expression getLeftOperand() {
-        return leftOperand;
+        return this.leftOperand;
     }
 
     public Expression getRightOperand() {
-        return rightOperand;
+        return this.rightOperand;
     }
 
     public String getOperator() {
-        return operator;
+        return this.operator;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ArithmeticExpression that = (ArithmeticExpression) o;
+        return Objects.equals(operator, that.operator) && Objects.equals(leftOperand, that.leftOperand) && Objects.equals(rightOperand, that.rightOperand);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(operator, leftOperand, rightOperand);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s(%s,%s)", getClass().getSimpleName(), getLeftOperand(), getRightOperand());
     }
 }
  

@@ -12,12 +12,28 @@
  */
 package com.gs.dmn.feel.lib.stub;
 
-import com.gs.dmn.feel.lib.type.ContextType;
+import com.gs.dmn.feel.lib.type.context.ContextType;
+import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.List;
 
 public class ContextTypeStub implements ContextType {
+    @Override
+    public boolean isContext(Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Context contextValue(Context value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Boolean contextIs(Object c1, Object c2) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
     @Override
     public Boolean contextEqual(Object c1, Object c2) {
         throw new DMNRuntimeException("Not supported yet");

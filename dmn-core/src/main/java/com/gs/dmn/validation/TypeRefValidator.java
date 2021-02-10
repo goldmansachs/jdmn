@@ -16,11 +16,11 @@ package com.gs.dmn.validation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.transformation.InputParameters;
@@ -137,8 +137,8 @@ public class TypeRefValidator extends SimpleDMNValidator {
                 type = dmnEnvironmentFactory.toFEELType(model, typeRef);
             } else {
                 TExpression expression = dmnModelRepository.expression(element);
-                Environment environment = dmnEnvironmentFactory.makeEnvironment(element, dmnTransformer.getEnvironmentFactory().getRootEnvironment(), false);
-                type = dmnEnvironmentFactory.expressionType(element, expression, environment);
+                DMNContext globalContext = dmnTransformer.makeGlobalContext(element, false);
+                type = dmnEnvironmentFactory.expressionType(element, expression, globalContext);
             }
         } catch (Exception e) {
             logger.warn(String.format("Cannot infer type for element '%s'", element.getName()));

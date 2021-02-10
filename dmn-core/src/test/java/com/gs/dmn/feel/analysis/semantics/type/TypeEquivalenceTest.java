@@ -159,10 +159,10 @@ public class TypeEquivalenceTest {
 
     @Test
     public void testRangeType() {
-        checkEquivalentTo(true, RangeType.NUMBER_RANGE_TYPE, RangeType.NUMBER_RANGE_TYPE);
+        checkEquivalentTo(true, RangeType.NUMBER_RANGE, RangeType.NUMBER_RANGE);
 
-        checkEquivalentTo(false, RangeType.NUMBER_RANGE_TYPE, ANY);
-        checkEquivalentTo(false, RangeType.NUMBER_RANGE_TYPE, NUMBER);
+        checkEquivalentTo(false, RangeType.NUMBER_RANGE, ANY);
+        checkEquivalentTo(false, RangeType.NUMBER_RANGE, NUMBER);
     }
 
     @Test
@@ -192,6 +192,6 @@ public class TypeEquivalenceTest {
     }
 
     private void checkEquivalentTo(boolean expected, Type left, Type right) {
-        assertEquals(String.format("'%s'.equivalentTo('%s') mismatch ", left, right), expected, left.equivalentTo(right));
+        assertEquals(String.format("'%s'.equivalentTo('%s') mismatch ", left, right), expected, Type.equivalentTo(left, right));
     }
 }

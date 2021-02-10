@@ -15,8 +15,6 @@ package com.gs.dmn.feel.analysis.semantics.type;
 import java.util.List;
 import java.util.Set;
 
-import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
-
 public interface CompositeDataType {
     static boolean equivalentTo(CompositeDataType self, Type other) {
         if (other instanceof ContextType) {
@@ -28,7 +26,7 @@ public interface CompositeDataType {
             for (String name : selfNames) {
                 Type selfType = self.getMemberType(name);
                 Type otherType = ((ContextType) other).getMemberType(name);
-                if (!selfType.equivalentTo(otherType)) {
+                if (!Type.equivalentTo(selfType, otherType)) {
                     return false;
                 }
             }
@@ -42,7 +40,7 @@ public interface CompositeDataType {
             for (String name : selfNames) {
                 Type selfType = self.getMemberType(name);
                 Type otherType = ((ItemDefinitionType) other).getMemberType(name);
-                if (!selfType.equivalentTo(otherType)) {
+                if (!Type.equivalentTo(selfType, otherType)) {
                     return false;
                 }
             }
@@ -53,9 +51,6 @@ public interface CompositeDataType {
     }
 
     static boolean conformsTo(CompositeDataType self, Type other) {
-        if (other == ANY) {
-            return true;
-        }
         if (other instanceof ContextType) {
             Set<String> selfNames = self.getMembers();
             Set<String> otherNames = ((ContextType) other).getMembers();
@@ -65,7 +60,7 @@ public interface CompositeDataType {
             for (String name : otherNames) {
                 Type selfType = self.getMemberType(name);
                 Type otherType = ((ContextType) other).getMemberType(name);
-                if (!selfType.conformsTo(otherType)) {
+                if (!Type.conformsTo(selfType, otherType)) {
                     return false;
                 }
             }
@@ -79,7 +74,7 @@ public interface CompositeDataType {
             for (String name : otherNames) {
                 Type selfType = self.getMemberType(name);
                 Type otherType = ((ItemDefinitionType) other).getMemberType(name);
-                if (selfType == null || !selfType.conformsTo(otherType)) {
+                if (!Type.conformsTo(selfType, otherType)) {
                     return false;
                 }
             }

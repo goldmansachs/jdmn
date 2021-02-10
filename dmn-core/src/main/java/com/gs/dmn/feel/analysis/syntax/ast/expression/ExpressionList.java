@@ -13,11 +13,12 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
 import com.gs.dmn.feel.analysis.semantics.type.TupleType;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ExpressionList extends Expression {
@@ -31,27 +32,40 @@ public class ExpressionList extends Expression {
     }
 
     public List<Expression> getExpressionList() {
-        return expressionList;
+        return this.expressionList;
     }
 
     public void add(Expression ast) {
-        expressionList.add(ast);
+        this.expressionList.add(ast);
     }
 
     @Override
-    public void deriveType(FEELContext context) {
-        List<com.gs.dmn.feel.analysis.semantics.type.Type> types = expressionList.stream().map(Expression::getType).collect(Collectors.toList());
+    public void deriveType(DMNContext context) {
+        List<com.gs.dmn.feel.analysis.semantics.type.Type> types = this.expressionList.stream().map(Expression::getType).collect(Collectors.toList());
         setType(new TupleType(types));
     }
 
     @Override
-    public Object accept(Visitor visitor, FEELContext params) {
+    public Object accept(Visitor visitor, DMNContext params) {
         return visitor.visit(this, params);
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ExpressionList that = (ExpressionList) o;
+        return Objects.equals(expressionList, that.expressionList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(expressionList);
+    }
+
+    @Override
     public String toString() {
-        String expressions = expressionList.stream().map(Object::toString).collect(Collectors.joining(","));
-        return String.format("ExpressionList(%s)", expressions);
+        String expressions = this.expressionList.stream().map(Object::toString).collect(Collectors.joining(","));
+        return String.format("%s(%s)", getClass().getSimpleName(), expressions);
     }
 }

@@ -110,4 +110,21 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
             throw new IllegalArgumentException(String.format("Cannot extract seconds from '%s'", duration));
         }
     }
+
+    @Override
+    public TemporalAmount abs(TemporalAmount temporalAmount) {
+        if (temporalAmount == null) {
+            return null;
+        }
+
+        if (temporalAmount instanceof Period) {
+            Period period = (Period) temporalAmount;
+            return period.isNegative() ? period.negated() : period;
+        } else if (temporalAmount instanceof Duration) {
+            Duration duration = (Duration) temporalAmount;
+            return duration.isNegative() ? duration.negated() : duration;
+        } else {
+            return null;
+        }
+    }
 }

@@ -12,72 +12,13 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.type.RelationalComparator;
-
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.util.function.Supplier;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
-import static javax.xml.datatype.DatatypeConstants.*;
-
-public class DefaultXMLCalendarComparator implements RelationalComparator<XMLGregorianCalendar> {
+public class DefaultXMLCalendarComparator extends XMLDateTimeComparator<XMLGregorianCalendar> {
     @Override
-    public Integer compare(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return (int) this.getDurationInMilliSeconds(first, second);
-    }
-
-    @Override
-    public Boolean equalTo(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> FALSE,
-                () -> FALSE,
-                () -> ((FEELXMLGregorianCalendar)first).same(second)
-        });
-    }
-
-    @Override
-    public Boolean lessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
-                () -> null,
-                () -> null,
-                () -> first.compare(second) == LESSER
-        });
-    }
-
-    @Override
-    public Boolean greaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> FALSE,
-                () -> null,
-                () -> null,
-                () -> first.compare(second) == GREATER
-        });
-    }
-
-    @Override
-    public Boolean lessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> null,
-                () -> null,
-                () -> { Integer result = first.compare(second); return result == LESSER || result == EQUAL; }
-        });
-    }
-
-    @Override
-    public Boolean greaterEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return applyOperator(first, second, new Supplier[] {
-                () -> TRUE,
-                () -> null,
-                () -> null,
-                () -> { Integer result = first.compare(second); return result == GREATER || result == EQUAL; }
-        });
-    }
-
-    public long getDurationInMilliSeconds(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return first.toGregorianCalendar().getTimeInMillis() - second.toGregorianCalendar().getTimeInMillis();
+    protected Integer compareTo(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+        Long firstValue = value(first);
+        Long secondValue = value(second);
+        return firstValue.compareTo(secondValue);
     }
 }

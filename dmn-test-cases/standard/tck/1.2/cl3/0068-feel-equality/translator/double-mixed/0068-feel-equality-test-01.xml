@@ -137,7 +137,7 @@
         <description>negative zero equality</description>
         <resultNode name="number_004" type="decision">
             <expected>
-                <value xsi:type="xsd:boolean">false</value>
+                <value xsi:type="xsd:boolean">true</value>
             </expected>
         </resultNode>
     </testCase>

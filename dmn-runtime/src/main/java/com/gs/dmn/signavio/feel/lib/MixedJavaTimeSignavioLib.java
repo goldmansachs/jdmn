@@ -14,10 +14,22 @@ package com.gs.dmn.signavio.feel.lib;
 
 import com.gs.dmn.feel.lib.MixedJavaTimeFEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
-import com.gs.dmn.feel.lib.type.*;
+import com.gs.dmn.feel.lib.type.bool.BooleanType;
+import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.context.ContextType;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
+import com.gs.dmn.feel.lib.type.function.DefaultFunctionType;
+import com.gs.dmn.feel.lib.type.function.FunctionType;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
-import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.list.ListType;
+import com.gs.dmn.feel.lib.type.numeric.NumericType;
+import com.gs.dmn.feel.lib.type.range.DefaultRangeType;
+import com.gs.dmn.feel.lib.type.range.RangeType;
+import com.gs.dmn.feel.lib.type.string.StringType;
+import com.gs.dmn.feel.lib.type.time.DateTimeType;
+import com.gs.dmn.feel.lib.type.time.DateType;
+import com.gs.dmn.feel.lib.type.time.DurationType;
+import com.gs.dmn.feel.lib.type.time.TimeType;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumericType;
@@ -38,35 +50,53 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
-import static com.gs.dmn.feel.lib.DefaultFEELLib.DATA_TYPE_FACTORY;
-
 public class MixedJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+    private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultSignavioNumericType();
+    private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
+    private static final StringType STRING_TYPE = new DefaultSignavioStringType();
+    private static final DateType<LocalDate, Duration> DATE_TYPE = new SignavioLocalDateType();
+    private static final TimeType<OffsetTime, Duration> TIME_TYPE = new SignavioOffsetTimeType();
+    private static final DateTimeType<ZonedDateTime, Duration> DATE_TIME_TYPE = new SignavioZonedDateTimeType();
+    private static final DurationType<Duration, BigDecimal> DURATION_TYPE = new DefaultSignavioDurationType();
+    private static final ListType LIST_TYPE = new DefaultListType();
+    private static final ContextType CONTEXT_TYPE = new DefaultContextType();
+    private static final RangeType RANGE_TYPE = new DefaultRangeType();
+    private static final FunctionType FUNCTION_TYPE = new DefaultFunctionType();
+
+    private static final MixedJavaTimeFEELLib FEEL_LIB = new MixedJavaTimeFEELLib();
+    private static final SignavioNumberLib<BigDecimal> NUMBER_LIB = new DefaultSignavioNumberLib();
+    private static final SignavioStringLib STRING_LIB = new DefaultSignavioStringLib();
+    private static final SignavioDateTimeLib DATE_TIME_LIB = new MixedSignavioDateTimeLib();
+    private static final SignavioListLib LIST_LIB = new SignavioListLib();
+
     public static MixedJavaTimeSignavioLib INSTANCE = new MixedJavaTimeSignavioLib();
 
     private final MixedJavaTimeFEELLib mixedFeelLib;
 
     public MixedJavaTimeSignavioLib() {
-        this(new DefaultSignavioNumericType(LOGGER),
-                new DefaultBooleanType(LOGGER),
-                new DefaultSignavioStringType(LOGGER),
-                new SignavioLocalDateType(LOGGER, DATA_TYPE_FACTORY),
-                new SignavioOffsetTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new SignavioZonedDateTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultSignavioDurationType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultListType(LOGGER),
-                new DefaultContextType(LOGGER),
-                new MixedJavaTimeFEELLib(),
-                new DefaultSignavioNumberLib(),
-                new DefaultSignavioStringLib(),
-                (SignavioDateTimeLib) new MixedSignavioDateTimeLib(),
-                new SignavioListLib()
+        this(NUMERIC_TYPE,
+                BOOLEAN_TYPE,
+                STRING_TYPE,
+                DATE_TYPE,
+                TIME_TYPE,
+                DATE_TIME_TYPE,
+                DURATION_TYPE,
+                LIST_TYPE,
+                CONTEXT_TYPE,
+                RANGE_TYPE,
+                FUNCTION_TYPE,
+                FEEL_LIB,
+                NUMBER_LIB,
+                STRING_LIB,
+                DATE_TIME_LIB,
+                LIST_LIB
         );
     }
 
     protected MixedJavaTimeSignavioLib(
             NumericType<BigDecimal> numericType, BooleanType booleanType, StringType stringType,
             DateType<LocalDate, Duration> dateType, TimeType<OffsetTime, Duration> timeType, DateTimeType<ZonedDateTime, Duration> dateTimeType, DurationType<Duration, BigDecimal> durationType,
-            ListType listType, ContextType contextType,
+            ListType listType, ContextType contextType, RangeType rangeType, FunctionType functionType,
             StandardFEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> feelLib,
             SignavioNumberLib<BigDecimal> numberLib,
             SignavioStringLib stringLib,
@@ -74,7 +104,7 @@ public class MixedJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalD
             SignavioListLib listLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
-                listType, contextType,
+                listType, contextType, rangeType, functionType,
                 feelLib, numberLib, stringLib, dateTimeLib, listLib);
         this.mixedFeelLib = (MixedJavaTimeFEELLib) this.feelLib;
     }
