@@ -85,7 +85,11 @@ public abstract class XMLCalendarType extends BaseType {
     }
 
     public Long timeValue(XMLGregorianCalendar time) {
-        return calendarValue(time);
+        long value = time.getHour() * 3600L + time.getMinute() * 60L + time.getSecond();
+        if (time.getTimezone() != DatatypeConstants.FIELD_UNDEFINED) {
+            value -= time.getTimezone();
+        }
+        return value;
     }
 
     public Long dateTimeValue(XMLGregorianCalendar dateTime) {
