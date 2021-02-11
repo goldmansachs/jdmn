@@ -18,9 +18,6 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.Range;
 import org.junit.Test;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

@@ -34,8 +34,8 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
     public void testDateSubtract() {
         super.testDateSubtract();
 
-        assertEqualsDateTime("P0Y0M0DT0H0M0.000S", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")).toString());
-        assertEqualsDateTime("-P0Y0M2DT0H0M0.000S", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-03")).toString());
+        assertEqualsDateTime("P0Y0M0DT0H0M0.000S", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")));
+        assertEqualsDateTime("-P0Y0M2DT0H0M0.000S", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-03")));
     }
 
     //
@@ -76,6 +76,8 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
     public void testDate() {
         super.testDate();
 
+        assertNull(getLib().date("01211-12-31"));
+
         assertEqualsDateTime("2016-08-01", getLib().date(makeDateAndTime("2016-08-01T12:00:00Z")));
     }
 
@@ -107,6 +109,10 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
 
         assertEqualsDateTime("2016-08-01T11:00:00", getLib().dateAndTime("2016-08-01T11:00:00"));
         assertEqualsDateTime("2011-12-03T10:15:30@Europe/Paris", getLib().dateAndTime("2011-12-03T10:15:30@Europe/Paris"));
+
+        // Test minimum and maximum
+        assertEqualsDateTime("-99999-12-31T11:22:33", getLib().dateAndTime("-99999-12-31T11:22:33"));
+        assertEqualsDateTime("99999-12-31T11:22:33", getLib().dateAndTime("99999-12-31T11:22:33"));
     }
 
     @Override
@@ -227,27 +233,6 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
         assertNull(getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
         assertNull(getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02")));
         assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02@Etc/UTC")));
-    }
-
-    //
-    // Date and time functions
-    //
-    @Override
-    @Test
-    public void testDateAndTimeFunctions() {
-        super.testDateAndTimeFunctions();
-
-        assertFalse(getLib().is(makeTime("23:00:50z"), makeTime("23:00:50")));
-
-        assertFalse(getLib().is(makeTime("12:00:00"), makeTime("12:00:00+00:00")));
-        assertFalse(getLib().is(makeTime("00:00:00+00:00"), makeTime("00:00:00@Etc/UTC")));
-        assertTrue(getLib().is(makeTime("00:00:00Z"), makeTime("00:00:00+00:00")));
-        assertFalse(getLib().is(makeTime("00:00:00Z"), makeTime("00:00:00@Etc/UTC")));
-
-        assertFalse(getLib().is(makeDateAndTime("2018-12-08T12:00:00"), makeDateAndTime("2018-12-08T12:00:00+00:00")));
-        assertFalse(getLib().is(makeDateAndTime("2018-12-08T00:00:00+00:00"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
-        assertTrue(getLib().is(makeDateAndTime("2018-12-08T12:00:00Z"), makeDateAndTime("2018-12-08T12:00:00+00:00")));
-        assertFalse(getLib().is(makeDateAndTime("2018-12-08T00:00:00Z"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
     }
 }
 

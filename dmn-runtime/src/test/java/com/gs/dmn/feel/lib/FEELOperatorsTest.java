@@ -1075,45 +1075,24 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
             assertEquals(expected, actual.toString());
         } else if (actual instanceof LocalDate) {
             String actualText = ((LocalDate) actual).format(BaseDateTimeLib.FEEL_DATE_FORMAT);
-            assertEquals(expected, cleanActualText(actualText));
+            assertEquals(expected, actualText);
         } else if (actual instanceof OffsetTime) {
             String actualText = ((OffsetTime) actual).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
-            assertEquals(expected, cleanActualText(actualText));
+            assertEquals(expected, actualText);
         } else if (actual instanceof OffsetDateTime) {
             String actualText = ((OffsetDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
-            assertEquals(expected, cleanActualText(actualText));
+            assertEquals(expected, actualText);
         } else if (actual instanceof ZonedDateTime) {
             String actualText = ((ZonedDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
-            assertEquals(expected, cleanActualText(actualText));
+            assertEquals(expected, actualText);
         } else if (actual instanceof Duration) {
             assertEquals(expected, actual.toString());
         } else if (actual instanceof java.time.Duration) {
             assertEquals(expected, actual.toString());
-        } else if (actual instanceof String) {
-            String actualText = cleanActualText((String) actual);
-            assertEquals(expected, cleanActualText(actualText));
         } else {
             assertEquals(expected, actual);
         }
     }
 
-    protected String cleanActualText(String actualText) {
-        String[] midnightSuffixes = new String[] {
-                "T00:00:00Z@UTC",
-                "T00:00:00Z",
-                "T00:00Z@UTC",
-                "T00:00Z"
-        };
-        String noDatePrefix = "-999999999-01-01T";
-        if (actualText.startsWith(noDatePrefix)) {
-            actualText = actualText.substring(noDatePrefix.length());
-        }
-        for(String midnightSuffix: midnightSuffixes) {
-            if (actualText.endsWith(midnightSuffix)) {
-                actualText = actualText.substring(0, actualText.length() - midnightSuffix.length());
-            }
-        }
-        return actualText;
-    }
 }
 

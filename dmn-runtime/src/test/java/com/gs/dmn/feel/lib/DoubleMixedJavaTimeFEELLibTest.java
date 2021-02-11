@@ -12,8 +12,6 @@
  */
 package com.gs.dmn.feel.lib;
 
-import com.gs.dmn.feel.lib.type.BaseType;
-import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import org.junit.Test;
 
 import javax.xml.datatype.Duration;
@@ -104,7 +102,7 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Doub
         super.testDateTime();
 
         // Test date
-        assertEqualsDateTime("2016-08-01T00:00:00Z", getLib().dateAndTime("2016-08-01"));
+        assertEqualsDateTime("2016-08-01T00:00:00Z@UTC", getLib().dateAndTime("2016-08-01"));
 
         // Missing Z
         assertEqualsDateTime("-2016-01-30T09:05:00Z", getLib().dateAndTime("-2016-01-30T09:05:00"));
@@ -114,8 +112,8 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Doub
         assertEqualsDateTime("2011-12-03T10:15:30+01:00@Europe/Paris", getLib().dateAndTime("2011-12-03T10:15:30@Europe/Paris"));
 
         // Test minimum and maximum
-        assertEqualsDateTime("-99999-12-31T11:22:33Z@UTC", getLib().dateAndTime("-99999-12-31T11:22:33"));
-        assertEqualsDateTime("99999-12-31T11:22:33Z@UTC", getLib().dateAndTime("99999-12-31T11:22:33"));
+        assertEqualsDateTime("-99999-12-31T11:22:33Z", getLib().dateAndTime("-99999-12-31T11:22:33"));
+        assertEqualsDateTime("99999-12-31T11:22:33Z", getLib().dateAndTime("99999-12-31T11:22:33"));
     }
 
     @Override
@@ -236,44 +234,6 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Doub
         assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
         assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02@Etc/UTC")));
         assertEquals("Z", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02")));
-    }
-
-    //
-    // Date and time functions
-    //
-    @Override
-    @Test
-    public void testDateAndTimeFunctions() {
-        super.testDateAndTimeFunctions();
-
-//        assertFalse(getLib().is(makeTime("23:00:50z"), makeTime("23:00:50")));
-    }
-
-    @Override
-    protected void assertEqualsDateTime(String expected, Object actual) {
-        if (actual instanceof LocalDate) {
-            String actualText = ((LocalDate) actual).format(BaseDateTimeLib.FEEL_DATE_FORMAT);
-            assertEquals(expected, cleanActualText(actualText));
-        } else if (actual instanceof OffsetTime) {
-            String actualText = ((OffsetTime) actual).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
-            assertEquals(expected, cleanActualText(actualText));
-        } else if (actual instanceof ZonedDateTime) {
-            ZonedDateTime expectedDateTime = normalize(ZonedDateTime.parse(expected, BaseDateTimeLib.FEEL_DATE_TIME_FORMAT));
-            ZonedDateTime actualDateTime = normalize((ZonedDateTime) actual);
-            assertEquals(expectedDateTime, actualDateTime);
-        } else if (actual instanceof Duration) {
-            String actualText = actual.toString();
-            assertEquals(expected, cleanActualText(actualText));
-        } else if (actual instanceof String) {
-            String actualText = cleanActualText((String) actual);
-            assertEquals(expected, cleanActualText(actualText));
-        } else {
-            assertEquals(expected, actual);
-        }
-    }
-
-    private ZonedDateTime normalize(ZonedDateTime dateTime) {
-        return dateTime.withZoneSameInstant(BaseType.UTC);
     }
 }
 
