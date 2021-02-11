@@ -685,9 +685,6 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
         FEELXMLGregorianCalendar calendar = (FEELXMLGregorianCalendar) o;
         return year == calendar.year &&
                 month == calendar.month &&
@@ -696,7 +693,6 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
                 minute == calendar.minute &&
                 second == calendar.second &&
                 Objects.equals(eon, calendar.eon) &&
-                Objects.equals(fractionalSecond, calendar.fractionalSecond) &&
                 Objects.equals(zoneID, calendar.zoneID);
     }
 

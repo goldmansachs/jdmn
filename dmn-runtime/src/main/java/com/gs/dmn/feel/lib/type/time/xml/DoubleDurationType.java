@@ -38,7 +38,7 @@ public class DoubleDurationType extends BaseDefaultDurationType implements Durat
                 && first.getMonths() == second.getMonths()
                 && first.getDays() == second.getDays()
                 && first.getHours() == second.getHours()
-                && first.getMinutes() == second.getHours()
+                && first.getMinutes() == second.getMinutes()
                 && first.getSeconds() == second.getSeconds();
     }
 

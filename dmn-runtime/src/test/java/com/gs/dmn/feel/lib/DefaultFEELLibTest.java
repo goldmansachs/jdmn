@@ -39,6 +39,36 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
     }
 
     //
+    // Time operators
+    //
+    @Override
+    @Test
+    public void testTimeIs() {
+        super.testTimeIs();
+
+        // times with equivalent offset and zone id are not is()
+        assertFalse(getLib().timeIs(makeTime("12:00:00"), makeTime("12:00:00+00:00")));
+        assertFalse(getLib().timeIs(makeTime("00:00:00+00:00"), makeTime("00:00:00@Etc/UTC")));
+        assertTrue(getLib().timeIs(makeTime("00:00:00Z"), makeTime("00:00:00+00:00")));
+        assertFalse(getLib().timeIs(makeTime("00:00:00Z"), makeTime("00:00:00@Etc/UTC")));
+    }
+
+    //
+    // Date time operators
+    //
+    @Override
+    @Test
+    public void testDateTimeIs() {
+        super.testDateTimeIs();
+
+        // datetime with equivalent offset and zone id are not is()
+        assertFalse(getLib().dateTimeIs(makeDateAndTime("2018-12-08T12:00:00"), makeDateAndTime("2018-12-08T12:00:00+00:00")));
+        assertFalse(getLib().dateTimeIs(makeDateAndTime("2018-12-08T00:00:00+00:00"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
+        assertTrue(getLib().dateTimeIs(makeDateAndTime("2018-12-08T12:00:00Z"), makeDateAndTime("2018-12-08T12:00:00+00:00")));
+        assertFalse(getLib().dateTimeIs(makeDateAndTime("2018-12-08T00:00:00Z"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
+    }
+
+    //
     // Conversion functions
     //
     @Override
