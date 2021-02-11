@@ -36,6 +36,13 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     // Numeric operators
     //
     @Test
+    public void testNumericValue() {
+        assertNull(getLib().numericValue(null));
+
+        assertEquals(makeNumber("1"), getLib().numericValue(makeNumber("1")));
+    }
+
+    @Test
     public void testNumericEqual() {
         assertTrue(getLib().numericEqual(null, null));
         assertFalse(getLib().numericEqual(null, makeNumber("1")));
@@ -165,6 +172,20 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     // Date operators
     //
     @Test
+    public void testDateValue() {
+        assertNull(getLib().dateValue(null));
+
+        assertEquals(Long.valueOf(0L), getLib().dateValue(makeDate("1970-01-01")));
+        assertEquals(Long.valueOf(86400L), getLib().dateValue(makeDate("1970-01-02")));
+        assertEquals(Long.valueOf(2678400L), getLib().dateValue(makeDate("1970-02-01")));
+        assertEquals(Long.valueOf(946684800L), getLib().dateValue(makeDate("2000-01-01")));
+
+        assertEquals(Long.valueOf(-124334265600L), getLib().dateValue(makeDate("-1970-01-02")));
+        assertEquals(Long.valueOf(-124331673600L), getLib().dateValue(makeDate("-1970-02-01")));
+        assertEquals(Long.valueOf(-125281123200L), getLib().dateValue(makeDate("-2000-01-01")));
+    }
+
+    @Test
     public void testDateEqual() {
         assertTrue(getLib().dateEqual(null, null));
         assertFalse(getLib().dateEqual(null, makeDate("2016-08-01")));
@@ -254,6 +275,25 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     //
     // Time operators
     //
+    @Test
+    public void testTimeValue() {
+        assertNull(getLib().timeValue(null));
+
+        // local time
+        assertEquals(Long.valueOf(3723L), getLib().timeValue(makeTime("01:02:03")));
+        assertEquals(Long.valueOf(3723L), getLib().timeValue(makeTime("01:02:03.0004")));
+
+        // offset time
+        assertEquals(Long.valueOf(3723L), getLib().timeValue(makeTime("01:02:03Z")));
+        assertEquals(Long.valueOf(3723L), getLib().timeValue(makeTime("01:02:03Z")));
+        assertEquals(Long.valueOf(3723L), getLib().timeValue(makeTime("01:02:03+00:00")));
+        assertEquals(Long.valueOf(63L), getLib().timeValue(makeTime("01:02:03+01:01")));
+
+        // zoneid time
+        assertEquals(Long.valueOf(123L), getLib().timeValue(makeTime("01:02:03@Europe/Paris")));
+        assertEquals(Long.valueOf(3723L), getLib().timeValue(makeTime("01:02:03@Etc/UTC")));
+    }
+
     @Test
     public void testTimeEqual() {
         assertTrue(getLib().timeEqual(null, null));
@@ -372,6 +412,31 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     //
     // Date and time operators
     //
+    @Test
+    public void testDateTimeValue() {
+        assertNull(getLib().dateTimeValue(null));
+
+        // local date time
+        assertEquals(Long.valueOf(3723L), getLib().dateTimeValue(makeDateAndTime("1970-01-01T01:02:03")));
+        assertEquals(Long.valueOf(3723L), getLib().dateTimeValue(makeDateAndTime("1970-01-01T01:02:03.0004")));
+        assertEquals(Long.valueOf(315536523L), getLib().dateTimeValue(makeDateAndTime("1980-01-01T01:02:03.0004")));
+        assertEquals(Long.valueOf(-124649967477L), getLib().dateTimeValue(makeDateAndTime("-1980-01-01T01:02:03.0004")));
+
+        // offset date time
+        assertEquals(Long.valueOf(3723L), getLib().dateTimeValue(makeDateAndTime("1970-01-01T01:02:03Z")));
+        assertEquals(Long.valueOf(3723L), getLib().dateTimeValue(makeDateAndTime("1970-01-01T01:02:03Z")));
+        assertEquals(Long.valueOf(3723L), getLib().dateTimeValue(makeDateAndTime("1970-01-01T01:02:03+00:00")));
+        assertEquals(Long.valueOf(63L), getLib().dateTimeValue(makeDateAndTime("1970-01-01T01:02:03+01:01")));
+        assertEquals(Long.valueOf(315532863L), getLib().dateTimeValue(makeDateAndTime("1980-01-01T01:02:03+01:01")));
+        assertEquals(Long.valueOf(-124649971137L), getLib().dateTimeValue(makeDateAndTime("-1980-01-01T01:02:03+01:01")));
+
+        // zoneid date time
+        assertEquals(Long.valueOf(123L), getLib().dateTimeValue(makeDateAndTime("1970-01-01T01:02:03@Europe/Paris")));
+        assertEquals(Long.valueOf(3723L), getLib().dateTimeValue(makeDateAndTime("1970-01-01T01:02:03@Etc/UTC")));
+        assertEquals(Long.valueOf(315536523L), getLib().dateTimeValue(makeDateAndTime("1980-01-01T01:02:03@Etc/UTC")));
+        assertEquals(Long.valueOf(-124649967477L), getLib().dateTimeValue(makeDateAndTime("-1980-01-01T01:02:03@Etc/UTC")));
+    }
+
     @Test
     public void testDateTimeEqual() {
         // datetime equals null
@@ -495,6 +560,23 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     //
     // Duration operators
     //
+    @Test
+    public void testDurationValue() {
+        assertNull(getLib().durationValue(null));
+
+        // years and months
+        assertEquals(Long.valueOf(12L + 2L), getLib().durationValue(makeDuration("P1Y2M")));
+        assertEquals(Long.valueOf(-(12L + 2L)), getLib().durationValue(makeDuration("-P1Y2M")));
+
+        // days and time
+        assertEquals(Long.valueOf((24 + 2) * 3600L + 3 * 60L + 4), getLib().durationValue(makeDuration("P1DT2H3M4S")));
+        assertEquals(Long.valueOf(- ((24 + 2) * 3600L + 3 * 60L + 4)), getLib().durationValue(makeDuration("-P1DT2H3M4S")));
+
+        // mixture
+        assertEquals(Long.valueOf(36727384L), getLib().durationValue(makeDuration("P1Y2M1DT2H3M4S")));
+//         assertEquals(Long.valueOf(-36727384L), getLib().durationValue(makeDuration("-P1Y2M1DT2H3M4S")));
+    }
+
     @Test
     public void testDurationEqual() {
         assertTrue(getLib().durationEqual(null, null));
@@ -629,6 +711,12 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     // String operators
     //
     @Test
+    public void testStringValue() {
+        assertNull(getLib().stringValue(null));
+        assertEquals("a", getLib().stringValue("a"));
+    }
+
+    @Test
     public void testStringEqual() {
         assertTrue(getLib().stringEqual(null, null));
         assertFalse(getLib().stringEqual("a", null));
@@ -661,6 +749,13 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     //
     // Boolean operators
     //
+    @Test
+    public void testBooleanValue() {
+        assertNull(getLib().booleanValue(null));
+        assertTrue(getLib().booleanValue(true));
+        assertFalse(getLib().booleanValue(false));
+    }
+
     @Test
     public void testBooleanEqual() {
         assertTrue(getLib().booleanEqual(null, null));

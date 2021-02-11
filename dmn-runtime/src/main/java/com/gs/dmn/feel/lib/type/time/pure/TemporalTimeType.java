@@ -20,8 +20,6 @@ import java.time.temporal.ChronoField;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
-import static java.time.temporal.ChronoField.MILLI_OF_SECOND;
-
 public class TemporalTimeType extends BasePureCalendarType implements TimeType<Temporal, TemporalAmount> {
     private final TemporalComparator comparator;
 
@@ -41,15 +39,6 @@ public class TemporalTimeType extends BasePureCalendarType implements TimeType<T
     public boolean isTime(Object value) {
         return value instanceof LocalTime
                 || value instanceof OffsetTime;
-    }
-
-    @Override
-    public Long timeValue(Temporal time) {
-        if (time == null) {
-            return null;
-        }
-
-        return (long) time.get(MILLI_OF_SECOND);
     }
 
     @Override
