@@ -20,9 +20,7 @@ import java.math.BigDecimal;
 
 public abstract class BaseDefaultDurationType extends XMLCalendarType {
     public static BigDecimal normalize(Duration duration) {
-        if (isDuration(duration)) {
-            return BigDecimal.valueOf(duration.getTimeInMillis(GREGORIAN.get()));
-        } else if (isYearMonthDuration(duration)) {
+        if (isYearMonthDuration(duration)) {
             long years = duration.getYears();
             long months = duration.getMonths();
             long totalMonths = years * 12L + months;
@@ -35,10 +33,6 @@ public abstract class BaseDefaultDurationType extends XMLCalendarType {
         } else {
             return BigDecimal.valueOf(duration.getTimeInMillis(GREGORIAN.get()));
         }
-    }
-
-    private static boolean isDuration(Duration duration) {
-        return getXMLSchemaType(duration) == DatatypeConstants.DURATION;
     }
 
     private static boolean isYearMonthDuration(Duration duration) {

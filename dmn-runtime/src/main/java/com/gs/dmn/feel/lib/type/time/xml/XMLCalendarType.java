@@ -18,8 +18,12 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 
 public abstract class XMLCalendarType extends BaseType {
     protected static final ThreadLocal<GregorianCalendar> GREGORIAN = ThreadLocal.withInitial(() -> new GregorianCalendar(
@@ -81,10 +85,19 @@ public abstract class XMLCalendarType extends BaseType {
     }
 
     public Long dateValue(XMLGregorianCalendar date) {
-        return calendarValue(dateToDateTime(date));
+        if (date == null) {
+            return null;
+        }
+
+        XMLGregorianCalendar dateTime = dateToDateTime(date);
+        return dateTimeValue(dateTime);
     }
 
     public Long timeValue(XMLGregorianCalendar time) {
+        if (time == null) {
+            return null;
+        }
+
         long value = time.getHour() * 3600L + time.getMinute() * 60L + time.getSecond();
         if (time.getTimezone() != DatatypeConstants.FIELD_UNDEFINED) {
             value -= time.getTimezone();
@@ -93,7 +106,21 @@ public abstract class XMLCalendarType extends BaseType {
     }
 
     public Long dateTimeValue(XMLGregorianCalendar dateTime) {
-        return calendarValue(dateTime);
+        if (dateTime == null) {
+            return null;
+        }
+
+        int nanoSeconds = dateTime.getMillisecond() * 1000_000;
+        LocalDateTime localDateTime = LocalDateTime.of(
+                dateTime.getYear(), dateTime.getMonth(), dateTime.getDay(),
+                dateTime.getHour(), dateTime.getMinute(), dateTime.getSecond(), nanoSeconds);
+        int timezone = dateTime.getTimezone();
+        if (timezone == DatatypeConstants.FIELD_UNDEFINED) {
+            timezone = 0;
+        }
+        ZoneOffset offset = ZoneOffset.ofTotalSeconds(timezone);
+        OffsetDateTime offsetDateTime = OffsetDateTime.of(localDateTime, offset);
+        return offsetDateTime.toEpochSecond();
     }
 
     public Long value(XMLGregorianCalendar calendar) {
@@ -104,12 +131,13 @@ public abstract class XMLCalendarType extends BaseType {
         } else if (isDateTime(calendar)) {
             return dateTimeValue(calendar);
         } else {
-            return calendarValue(calendar);
+            return null;
         }
     }
 
-    protected Long calendarValue(XMLGregorianCalendar calendar) {
-        return calendar == null ? null : Math.floorDiv(calendar.toGregorianCalendar().getTimeInMillis(), 1000L);
+    protected Long toEpochSeconds(XMLGregorianCalendar calendar) {
+        Objects.requireNonNull(calendar, "calendar");
+        return Math.floorDiv(calendar.toGregorianCalendar().getTimeInMillis(), 1000L);
     }
 
     public Long durationValue(Duration duration) {
@@ -157,7 +185,7 @@ public abstract class XMLCalendarType extends BaseType {
     }
 
     protected long getDurationInSeconds(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return calendarValue(first) - calendarValue(second);
+        return toEpochSeconds(first) - toEpochSeconds(second);
     }
 
     protected XMLGregorianCalendar dateToDateTime(XMLGregorianCalendar date) {
