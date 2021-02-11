@@ -16,7 +16,6 @@ import com.gs.dmn.feel.lib.type.time.TimeType;
 
 import java.time.LocalTime;
 import java.time.OffsetTime;
-import java.time.temporal.ChronoField;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
@@ -47,10 +46,25 @@ public class TemporalTimeType extends BasePureCalendarType implements TimeType<T
             return first == second;
         }
 
-        return first.get(ChronoField.HOUR_OF_DAY) == second.get(ChronoField.HOUR_OF_DAY)
-                && first.get(ChronoField.MINUTE_OF_DAY) == second.get(ChronoField.MINUTE_OF_DAY)
-                && first.get(ChronoField.SECOND_OF_DAY) == second.get(ChronoField.SECOND_OF_DAY)
-                && first.get(ChronoField.OFFSET_SECONDS) == second.get(ChronoField.OFFSET_SECONDS);
+        if (!first.getClass().equals(second.getClass())) {
+            return false;
+        }
+        if (first instanceof LocalTime) {
+            LocalTime first1 = (LocalTime) first;
+            LocalTime second1 = (LocalTime) second;
+            return first1.getHour() == second1.getHour()
+                    && first1.getMinute() == second1.getMinute()
+                    && first1.getSecond() == second1.getSecond();
+        } else if (first instanceof OffsetTime) {
+            OffsetTime first1 = (OffsetTime) first;
+            OffsetTime second1 = (OffsetTime) second;
+            return first1.getHour() == second1.getHour()
+                    && first1.getMinute() == second1.getMinute()
+                    && first1.getSecond() == second1.getSecond()
+                    && first1.getOffset().equals(second1.getOffset());
+        } else {
+            return false;
+        }
     }
 
     @Override

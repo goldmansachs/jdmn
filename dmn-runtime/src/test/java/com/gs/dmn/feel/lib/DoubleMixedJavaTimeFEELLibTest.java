@@ -21,8 +21,7 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override
@@ -40,6 +39,36 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Doub
 
         assertEqualsDateTime("P0Y0M0DT0H0M0.000S", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")));
         assertEqualsDateTime("-P0Y0M2DT0H0M0.000S", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-03")));
+    }
+
+    //
+    // Time operators
+    //
+    @Override
+    @Test
+    public void testTimeIs() {
+        super.testTimeIs();
+
+        // times with equivalent offset and zone id are not is()
+        assertTrue(getLib().timeIs(makeTime("12:00:00"), makeTime("12:00:00+00:00")));
+        assertTrue(getLib().timeIs(makeTime("00:00:00+00:00"), makeTime("00:00:00@Etc/UTC")));
+        assertTrue(getLib().timeIs(makeTime("00:00:00Z"), makeTime("00:00:00+00:00")));
+        assertTrue(getLib().timeIs(makeTime("00:00:00Z"), makeTime("00:00:00@Etc/UTC")));
+    }
+
+    //
+    // Date time operators
+    //
+    @Override
+    @Test
+    public void testDateTimeIs() {
+        super.testDateTimeIs();
+
+        // datetime with equivalent offset and zone id are not is()
+        assertTrue(getLib().dateTimeIs(makeDateAndTime("2018-12-08T12:00:00"), makeDateAndTime("2018-12-08T12:00:00+00:00")));
+        assertTrue(getLib().dateTimeIs(makeDateAndTime("2018-12-08T00:00:00+00:00"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
+        assertTrue(getLib().dateTimeIs(makeDateAndTime("2018-12-08T12:00:00Z"), makeDateAndTime("2018-12-08T12:00:00+00:00")));
+        assertTrue(getLib().dateTimeIs(makeDateAndTime("2018-12-08T00:00:00Z"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
     }
 
     //
