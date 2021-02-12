@@ -127,7 +127,7 @@ public class DefaultDateType extends XMLCalendarType implements DateType<XMLGreg
             BigInteger endYear = startYear.add(dYears).add(carry);
             return FEELXMLGregorianCalendar.makeDate(endYear, month, date.getDay());
         } else if (isDaysAndTimeDuration(duration)) {
-            Long value1 = dateTimeValue(date);
+            Long value1 = value(date);
             Long value2 = secondsValue(duration);
             GregorianCalendar gc = new GregorianCalendar();
             long millis = (value1 + value2) * 1000L;

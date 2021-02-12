@@ -43,11 +43,6 @@ public class TemporalDateTimeType extends BasePureCalendarType implements DateTi
     }
 
     @Override
-    public Long dateTimeValue(Temporal temporal) {
-        return null;
-    }
-
-    @Override
     public Boolean dateTimeIs(Temporal first, Temporal second) {
         if (first == null || second == null) {
             return first == second;
