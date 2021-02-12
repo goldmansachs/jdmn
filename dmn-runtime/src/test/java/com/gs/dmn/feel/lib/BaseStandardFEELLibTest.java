@@ -14,7 +14,6 @@ package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.LambdaExpression;
-import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.Range;
 import org.junit.Test;
 
@@ -51,36 +50,31 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     @Override
     @Test
-    public void testDuration()  {
-        assertEquals("P1Y8M", getLib().duration("P1Y8M").toString());
-        assertEquals("P2DT20H", getLib().duration("P2DT20H").toString());
-        assertEquals("-PT2H", getLib().duration("-PT2H").toString());
+    public void testDuration() {
+        assertEqualsDateTime("P1Y8M", getLib().duration("P1Y8M"));
+        assertEqualsDateTime("P2DT20H", getLib().duration("P2DT20H"));
+        assertEqualsDateTime("-PT2H", getLib().duration("-PT2H"));
 
-        List<Pair<String, String>> pairs = Arrays.asList(
-//                new Pair<>("P83333333Y3M", "P999999999M"),
-//                new Pair<>("-P83333333Y3M","-P999999999M"),
-                new Pair<>("P367DT6H58M59S","P1Y0M2DT6H58M59.000S")
-// Overflow in duration(from)
-//                new Pair<>("P99999999Y", "P11999999988M"),
-//                new Pair<>("-P99999999Y", "P2129706043D")
-        );
-        for (Pair<String, String> pair: pairs) {
-            DURATION duration = makeDuration(pair.getLeft());
-            DURATION normalizedDuration = makeDuration(pair.getRight());
-            assertTrue(String.format("Error for '%s'", pair.toString()), getLib().durationEqual(duration, normalizedDuration));
-        }
+        assertEqualsDateTime("P1Y8M", getLib().duration("P1Y8M"));
+        assertEqualsDateTime("P2DT20H", getLib().duration("P2DT20H"));
 
+        assertEqualsDateTime("P999999999M", getLib().duration("P999999999M"));
+        assertEqualsDateTime("-P999999999M", getLib().duration("-P999999999M"));
+        assertEqualsDateTime("P1Y0M2DT6H58M59.000S", getLib().duration("P1Y0M2DT6H58M59.000S"));
+        // Overflow in duration(from)
+        assertEqualsDateTime("P11999999988M", getLib().duration("P11999999988M"));
+        assertEqualsDateTime("P2129706043D", getLib().duration("P2129706043D"));
     }
 
     @Test
     public void testYearsAndMonthsDuration() {
         assertNull(getLib().yearsAndMonthsDuration(null, null));
 
-        assertEquals("P0Y0M", getLib().yearsAndMonthsDuration(makeDate("2015-12-24"), makeDate("2015-12-24")).toString());
-        assertEquals("P1Y2M", getLib().yearsAndMonthsDuration(makeDate("2016-09-30"), makeDate("2017-12-28")).toString());
-        assertEquals("P7Y6M", getLib().yearsAndMonthsDuration(makeDate("2010-05-30"), makeDate("2017-12-15")).toString());
-        assertEquals("-P4033Y2M", getLib().yearsAndMonthsDuration(makeDate("2014-12-31"), makeDate("-2019-10-01")).toString());
-        assertEquals("-P4035Y11M", getLib().yearsAndMonthsDuration(makeDate("2017-09-05"), makeDate("-2019-10-01")).toString());
+        assertEqualsDateTime("P0Y0M", getLib().yearsAndMonthsDuration(makeDate("2015-12-24"), makeDate("2015-12-24")));
+        assertEqualsDateTime("P1Y2M", getLib().yearsAndMonthsDuration(makeDate("2016-09-30"), makeDate("2017-12-28")));
+        assertEqualsDateTime("P7Y6M", getLib().yearsAndMonthsDuration(makeDate("2010-05-30"), makeDate("2017-12-15")));
+        assertEqualsDateTime("-P4033Y2M", getLib().yearsAndMonthsDuration(makeDate("2014-12-31"), makeDate("-2019-10-01")));
+        assertEqualsDateTime("-P4035Y11M", getLib().yearsAndMonthsDuration(makeDate("2017-09-05"), makeDate("-2019-10-01")));
     }
 
     //
@@ -697,7 +691,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     @Test
     public void testAppend() {
-        assertEquals("[null]", getLib().append(null, null).toString());
+        assertEqualsList("[null]", getLib().append(null, null));
         assertEquals(Arrays.asList("3"), getLib().append(null, "3"));
         assertEquals(makeNumberList("1", null, "3", null, "3"), getLib().append(makeNumberList(1, null, 3), null, makeNumber(3)));
 
@@ -855,11 +849,11 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     public void testFlatten() {
         assertNull(getLib().flatten(null));
 
-        assertEquals("[1, 2, 3, 4]", getLib().flatten(Arrays.asList(
+        assertEqualsList("[1, 2, 3, 4]", getLib().flatten(Arrays.asList(
                 Arrays.asList(Arrays.asList("1", "2")),
                 Arrays.asList(Arrays.asList("3")),
                 "4"
-        )).toString());
+        )));
     }
 
     @Test

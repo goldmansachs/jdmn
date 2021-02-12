@@ -191,8 +191,10 @@ public class TemporalAmountDurationType extends BasePureCalendarType implements 
         }
 
         if (first instanceof Period) {
-            BigDecimal months = BigDecimal.valueOf(value((Period) first)).divide(second, RoundingMode.HALF_DOWN);
-            return Period.ofMonths(months.intValue());
+            BigDecimal bdMonths = BigDecimal.valueOf(value((Period) first)).divide(second, RoundingMode.HALF_DOWN);
+            int years = bdMonths.intValue() / 12;
+            int months = bdMonths.intValue() % 12;
+            return Period.of(years, months, 0);
         } else if (first instanceof Duration) {
             BigDecimal seconds = BigDecimal.valueOf(value((Duration) first)).divide(second, RoundingMode.HALF_DOWN);
             return Duration.ofSeconds(seconds.longValue());
