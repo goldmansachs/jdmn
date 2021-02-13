@@ -15,6 +15,8 @@ package com.gs.dmn.feel.lib.type.string;
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.ComparableComparator;
 
+import java.util.Objects;
+
 public class DefaultStringType extends BaseType implements StringType {
     private final ComparableComparator<String> comparator;
 
@@ -34,11 +36,7 @@ public class DefaultStringType extends BaseType implements StringType {
 
     @Override
     public Boolean stringIs(String first, String second) {
-        if (first == null || second == null) {
-            return first == second;
-        }
-
-        return first.equals(second);
+        return Objects.equals(first, second);
     }
 
     @Override
