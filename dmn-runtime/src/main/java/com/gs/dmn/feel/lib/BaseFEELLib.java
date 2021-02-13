@@ -1450,9 +1450,9 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         int startValue = intRange.getLeft();
         int endValue = intRange.getRight();
         if (startValue <= endValue) {
-            return Stream.iterate(valueOf(startValue), (i) -> numericAdd(i, valueOf(1))).limit(endValue - startValue + 1).sequential().collect(Collectors.toList());
+            return Stream.iterate(valueOf(startValue), (i) -> numericAdd(i, valueOf(1))).limit((long) endValue - startValue + 1).sequential().collect(Collectors.toList());
         } else {
-            return Stream.iterate(valueOf(startValue), (i) -> numericSubtract(i, valueOf(1))).limit(startValue - endValue + 1).sequential().collect(Collectors.toList());
+            return Stream.iterate(valueOf(startValue), (i) -> numericSubtract(i, valueOf(1))).limit((long) startValue - endValue + 1).sequential().collect(Collectors.toList());
         }
     }
 

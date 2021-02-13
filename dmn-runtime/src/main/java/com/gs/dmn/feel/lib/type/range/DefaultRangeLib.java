@@ -12,9 +12,9 @@
  */
 package com.gs.dmn.feel.lib.type.range;
 
-import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.ComparableComparator;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
+import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.time.mixed.LocalDateComparator;
 import com.gs.dmn.feel.lib.type.time.mixed.OffsetTimeComparator;
@@ -71,7 +71,7 @@ public class DefaultRangeLib implements RangeLib {
         // point1 < point2
         //
         RelationalComparator<Object> rc = resolveComparator(point1);
-        return rc.lessThan(point1, point2);
+        return rc == null ? null : rc.lessThan(point1, point2);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class DefaultRangeLib implements RangeLib {
         //
         Object start = range.getStart();
         RelationalComparator<Object> rc = resolveComparator(point);
-        return BOOLEAN_TYPE.booleanOr(
+        return rc == null ? null : BOOLEAN_TYPE.booleanOr(
                 rc.lessThan(point, start),
                 BOOLEAN_TYPE.booleanAnd(rc.equalTo(point, start), !range.isStartIncluded())
         );
@@ -106,7 +106,7 @@ public class DefaultRangeLib implements RangeLib {
         //
         Object end = range.getEnd();
         RelationalComparator<Object> rc = resolveComparator(point);
-        return BOOLEAN_TYPE.booleanOr(
+        return rc == null ? null : BOOLEAN_TYPE.booleanOr(
                 rc.lessThan(end, point),
                 BOOLEAN_TYPE.booleanAnd(rc.equalTo(end, point), !range.isEndIncluded())
         );
@@ -127,7 +127,7 @@ public class DefaultRangeLib implements RangeLib {
         Object end1 = range1.getEnd();
         Object start2 = range2.getStart();
         RelationalComparator<Object> rc = resolveComparator(start1);
-        return BOOLEAN_TYPE.booleanOr(
+        return rc == null ? null : BOOLEAN_TYPE.booleanOr(
                 rc.lessThan(end1, start2),
                 BOOLEAN_TYPE.booleanAnd(
                         BOOLEAN_TYPE.booleanOr(!range1.isEndIncluded(), !range2.isStartIncluded()),
@@ -146,8 +146,8 @@ public class DefaultRangeLib implements RangeLib {
         // DMN 1.3 spec
         // point1 > point2
         //
-        RelationalComparator relationalComparator = resolveComparator(point1);
-        return relationalComparator.greaterThan(point1, point2);
+        RelationalComparator rc = resolveComparator(point1);
+        return rc == null ? null :  rc.greaterThan(point1, point2);
     }
 
     @Override
@@ -163,7 +163,7 @@ public class DefaultRangeLib implements RangeLib {
         //
         Object end = range.getEnd();
         RelationalComparator<Object> rc = resolveComparator(point);
-        return BOOLEAN_TYPE.booleanOr(
+        return rc == null ? null : BOOLEAN_TYPE.booleanOr(
                 rc.greaterThan(point, end),
                 BOOLEAN_TYPE.booleanAnd(
                         rc.equalTo(point, end),
@@ -185,7 +185,7 @@ public class DefaultRangeLib implements RangeLib {
         //
         Object start = range.getStart();
         RelationalComparator<Object> rc = resolveComparator(start);
-        return BOOLEAN_TYPE.booleanOr(
+        return rc == null ? null : BOOLEAN_TYPE.booleanOr(
                 rc.greaterThan(start, point),
                 BOOLEAN_TYPE.booleanAnd(
                         rc.equalTo(start, point),
@@ -208,7 +208,7 @@ public class DefaultRangeLib implements RangeLib {
         Object start1 = range1.getStart();
         Object end2 = range2.getEnd();
         RelationalComparator<Object> rc = resolveComparator(start1);
-        return BOOLEAN_TYPE.booleanOr(
+        return rc == null ? null : BOOLEAN_TYPE.booleanOr(
                 rc.greaterThan(start1, end2),
                 BOOLEAN_TYPE.booleanAnd(
                         BOOLEAN_TYPE.booleanOr(!range1.isStartIncluded(), !range2.isEndIncluded()),
@@ -233,7 +233,7 @@ public class DefaultRangeLib implements RangeLib {
         Object end1 = range1.getEnd();
         Object start2 = range2.getStart();
         RelationalComparator<Object> rc = resolveComparator(start1);
-        return BOOLEAN_TYPE.booleanAnd(
+        return rc == null ? null : BOOLEAN_TYPE.booleanAnd(
                 range1.isEndIncluded(),
                 range2.isStartIncluded(),
                 rc.equalTo(end1, start2)
@@ -255,7 +255,7 @@ public class DefaultRangeLib implements RangeLib {
         Object start1 = range1.getStart();
         Object end2 = range2.getEnd();
         RelationalComparator<Object> rc = resolveComparator(start1);
-        return BOOLEAN_TYPE.booleanAnd(
+        return rc == null ? null : BOOLEAN_TYPE.booleanAnd(
                 range1.isStartIncluded(),
                 range2.isEndIncluded(),
                 rc.equalTo(start1, end2)
@@ -326,6 +326,10 @@ public class DefaultRangeLib implements RangeLib {
         Object start2 = range2.getStart();
         Object end2 = range2.getEnd();
         RelationalComparator<Object> rc = resolveComparator(start1);
+        if (rc == null) {
+            return null;
+        }
+
         Boolean range1StartsBeforeRange2 = BOOLEAN_TYPE.booleanOr(
                 rc.lessThan(start1, start2),
                 BOOLEAN_TYPE.booleanAnd(
@@ -380,6 +384,10 @@ public class DefaultRangeLib implements RangeLib {
         Object start2 = range2.getStart();
         Object end2 = range2.getEnd();
         RelationalComparator<Object> rc = resolveComparator(start1);
+        if (rc == null) {
+            return null;
+        }
+
         Boolean range2StartsBeforeRange1 = BOOLEAN_TYPE.booleanOr(
                 rc.lessThan(start2, start1),
                 BOOLEAN_TYPE.booleanAnd(rc.equalTo(start2, start1), range2.isStartIncluded(), !range1.isStartIncluded())
@@ -423,7 +431,7 @@ public class DefaultRangeLib implements RangeLib {
         //
         Object end = range.getEnd();
         RelationalComparator<Object> rc = resolveComparator(point);
-        return BOOLEAN_TYPE.booleanAnd(
+        return rc == null ? null : BOOLEAN_TYPE.booleanAnd(
             range.isEndIncluded(),
             rc.equalTo(end, point)
         );
@@ -446,7 +454,7 @@ public class DefaultRangeLib implements RangeLib {
         Object start2 = range2.getStart();
         Object end2 = range2.getEnd();
         RelationalComparator<Object> rc = resolveComparator(start1);
-        return BOOLEAN_TYPE.booleanAnd(
+        return rc == null ? null : BOOLEAN_TYPE.booleanAnd(
                 range1.isEndIncluded() == range2.isEndIncluded(),
                 rc.equalTo(end1, end2),
                 BOOLEAN_TYPE.booleanOr(
@@ -473,7 +481,7 @@ public class DefaultRangeLib implements RangeLib {
         Object start = range.getStart();
         Object end = range.getEnd();
         RelationalComparator<Object> rc = resolveComparator(start);
-        return BOOLEAN_TYPE.booleanAnd(
+        return rc == null ? null : BOOLEAN_TYPE.booleanAnd(
             range.isEndIncluded(),
             rc.equalTo(end, point)
         );
@@ -496,7 +504,7 @@ public class DefaultRangeLib implements RangeLib {
         Object start2 = range2.getStart();
         Object end2 = range2.getEnd();
         RelationalComparator<Object> rc = resolveComparator(start1);
-        return BOOLEAN_TYPE.booleanAnd(
+        return rc == null ? null : BOOLEAN_TYPE.booleanAnd(
                 range1.isEndIncluded() == range2.isEndIncluded(),
                 rc.equalTo(end1, end2),
                 BOOLEAN_TYPE.booleanOr(
@@ -524,7 +532,7 @@ public class DefaultRangeLib implements RangeLib {
         Object start = range.getStart();
         Object end = range.getEnd();
         RelationalComparator<Object> rc = resolveComparator(start);
-        return BOOLEAN_TYPE.booleanOr(
+        return rc == null ? null : BOOLEAN_TYPE.booleanOr(
             BOOLEAN_TYPE.booleanAnd(rc.lessThan(start, point), rc.greaterThan(end, point)),
             BOOLEAN_TYPE.booleanAnd(rc.equalTo(start, point), range.isStartIncluded()),
             BOOLEAN_TYPE.booleanAnd(rc.equalTo(end, point), range.isEndIncluded())
@@ -547,7 +555,7 @@ public class DefaultRangeLib implements RangeLib {
         Object start2 = range2.getStart();
         Object end2 = range2.getEnd();
         RelationalComparator<Object> rc = resolveComparator(start1);
-        return BOOLEAN_TYPE.booleanAnd(
+        return rc == null ? null : BOOLEAN_TYPE.booleanAnd(
             BOOLEAN_TYPE.booleanOr(
                     rc.lessThan(start1, start2),
                     BOOLEAN_TYPE.booleanAnd(
@@ -586,7 +594,7 @@ public class DefaultRangeLib implements RangeLib {
         Object start = range.getStart();
         Object end = range.getEnd();
         RelationalComparator<Object> rc = resolveComparator(point);
-        return BOOLEAN_TYPE.booleanOr(
+        return rc == null ? null : BOOLEAN_TYPE.booleanOr(
                 BOOLEAN_TYPE.booleanAnd(rc.lessThan(start, point), rc.greaterThan(end, point)),
                 BOOLEAN_TYPE.booleanAnd(rc.equalTo(start, point), range.isStartIncluded()),
                 BOOLEAN_TYPE.booleanAnd(rc.equalTo(end, point), range.isEndIncluded())
@@ -609,7 +617,7 @@ public class DefaultRangeLib implements RangeLib {
         Object start2 = range2.getStart();
         Object end2 = range2.getEnd();
         RelationalComparator<Object> rc = resolveComparator(start1);
-        return BOOLEAN_TYPE.booleanAnd(
+        return rc == null ? null : BOOLEAN_TYPE.booleanAnd(
                 BOOLEAN_TYPE.booleanOr(
                         rc.lessThan(start2, start1),
                         BOOLEAN_TYPE.booleanAnd(
@@ -636,7 +644,7 @@ public class DefaultRangeLib implements RangeLib {
         //
         Object start = range.getStart();
         RelationalComparator<Object> rc = resolveComparator(point);
-        return BOOLEAN_TYPE.booleanAnd(
+        return rc == null ? null : BOOLEAN_TYPE.booleanAnd(
             rc.equalTo(start, point),
             range.isStartIncluded()
         );
@@ -659,7 +667,7 @@ public class DefaultRangeLib implements RangeLib {
         Object start2 = range2.getStart();
         Object end2 = range2.getEnd();
         RelationalComparator<Object> rc = resolveComparator(start1);
-        return BOOLEAN_TYPE.booleanAnd(
+        return rc == null ? null : BOOLEAN_TYPE.booleanAnd(
             rc.equalTo(start1, start2),
             range1.isStartIncluded() == range2.isStartIncluded(),
             BOOLEAN_TYPE.booleanOr(
@@ -688,30 +696,10 @@ public class DefaultRangeLib implements RangeLib {
         //
         Object start = range.getStart();
         RelationalComparator<Object> rc = resolveComparator(point);
-        return BOOLEAN_TYPE.booleanAnd(
+        return rc == null ? null : BOOLEAN_TYPE.booleanAnd(
             rc.equalTo(start, point),
             range.isStartIncluded()
         );
-    }
-
-    private RelationalComparator resolveComparator(Object point) {
-        if (point == null) {
-            return null;
-        }
-
-        Class<?> pointClass = point.getClass();
-        RelationalComparator relationalComparator = COMPARATOR_MAP.get(pointClass);
-        if (relationalComparator == null) {
-            // try instance of
-            for (Map.Entry<Class<?>, RelationalComparator> entry: COMPARATOR_MAP.entrySet()) {
-                Class<?> key = entry.getKey();
-                if (key.isAssignableFrom(pointClass)) {
-                    relationalComparator = entry.getValue();
-                    break;
-                }
-            }
-        }
-        return relationalComparator;
     }
 
     @Override
@@ -731,7 +719,7 @@ public class DefaultRangeLib implements RangeLib {
         Object start2 = range2.getStart();
         Object end2 = range2.getEnd();
         RelationalComparator<Object> rc = resolveComparator(start1);
-        return BOOLEAN_TYPE.booleanAnd(
+        return rc == null ? null : BOOLEAN_TYPE.booleanAnd(
                 rc.equalTo(start1, start2),
                 range1.isStartIncluded() == range2.isStartIncluded(),
                 BOOLEAN_TYPE.booleanOr(
@@ -758,7 +746,7 @@ public class DefaultRangeLib implements RangeLib {
         // point1 = point2
         //
         RelationalComparator<Object> rc = resolveComparator(point1);
-        return rc.equalTo(point1, point2);
+        return rc == null ? null : rc.equalTo(point1, point2);
     }
 
     @Override
@@ -779,7 +767,7 @@ public class DefaultRangeLib implements RangeLib {
         Object start2 = range2.getStart();
         Object end2 = range2.getEnd();
         RelationalComparator<Object> rc = resolveComparator(start1);
-        return BOOLEAN_TYPE.booleanAnd(
+        return rc == null ? null : BOOLEAN_TYPE.booleanAnd(
             rc.equalTo(start1, start2),
             range1.isStartIncluded() == range2.isStartIncluded(),
             rc.equalTo(end1, end2),
@@ -789,5 +777,25 @@ public class DefaultRangeLib implements RangeLib {
 
     private boolean checkArguments(Object point, Object range) {
         return point == null || range == null;
+    }
+
+    private RelationalComparator resolveComparator(Object point) {
+        if (point == null) {
+            return null;
+        }
+
+        Class<?> pointClass = point.getClass();
+        RelationalComparator relationalComparator = COMPARATOR_MAP.get(pointClass);
+        if (relationalComparator == null) {
+            // try instance of
+            for (Map.Entry<Class<?>, RelationalComparator> entry: COMPARATOR_MAP.entrySet()) {
+                Class<?> key = entry.getKey();
+                if (key.isAssignableFrom(pointClass)) {
+                    relationalComparator = entry.getValue();
+                    break;
+                }
+            }
+        }
+        return relationalComparator;
     }
 }
