@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
+import java.util.Objects;
+
 public class DoubleNumericType extends BaseNumericType implements NumericType<Double> {
     public static Double doubleNumericDivide(Double first, Double second) {
         if (first == null || second == null) {
@@ -47,11 +49,7 @@ public class DoubleNumericType extends BaseNumericType implements NumericType<Do
 
     @Override
     public Boolean numericIs(Double first, Double second) {
-        if (first == null || second == null) {
-            return first == second;
-        }
-
-        return first.equals(second);
+        return Objects.equals(first, second);
     }
 
     @Override

@@ -132,14 +132,11 @@ public class DMNContext {
         if (parent == null) {
             return false;
         }
+
         if (this.runtimeEnvironment.isLocalBound(key)) {
             return true;
         } else {
-            if (this.parent != null) {
-                return this.parent.isBound(key);
-            } else {
-                return false;
-            }
+            return this.parent.isBound(key);
         }
     }
 
