@@ -67,15 +67,15 @@ public class JavaFunctionInfo {
                 if (arg instanceof BigDecimal) {
                     convertedArgList.add(((BigDecimal) arg).doubleValue());
                 } else if (arg instanceof Double) {
-                    convertedArgList.add(((Double) arg).doubleValue());
+                    convertedArgList.add(arg);
                 } else {
                     throw new DMNRuntimeException(String.format("Conversion from '%s' to '%s' is not supported yet", arg.getClass().getSimpleName(), javaParamType));
                 }
             } else if ("float".equals(javaParamType)) {
                 if (arg instanceof BigDecimal) {
-                    convertedArgList.add((float)((BigDecimal) arg).doubleValue());
+                    convertedArgList.add((float) ((BigDecimal) arg).doubleValue());
                 } else if (arg instanceof Double) {
-                    convertedArgList.add(((Double) arg).doubleValue());
+                    convertedArgList.add((float) ((Double) arg).doubleValue());
                 } else {
                     throw new DMNRuntimeException(String.format("Conversion from '%s' to '%s' is not supported yet", arg.getClass().getSimpleName(), javaParamType));
                 }
