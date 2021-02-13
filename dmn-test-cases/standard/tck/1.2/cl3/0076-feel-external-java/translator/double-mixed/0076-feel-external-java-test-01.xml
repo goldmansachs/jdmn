@@ -128,7 +128,7 @@
         <description>external function definition - float</description>
         <resultNode name="literal_009" type="decision">
             <expected>
-                <value xsi:nil="true"/>
+                <value xsi:type="xsd:decimal">456.78</value>
             </expected>
         </resultNode>
     </testCase>
