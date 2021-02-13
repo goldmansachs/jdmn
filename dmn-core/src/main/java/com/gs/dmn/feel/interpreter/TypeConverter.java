@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.interpreter;
 
+import com.gs.dmn.feel.analysis.semantics.type.DateTimeType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
@@ -46,7 +47,7 @@ public class TypeConverter {
         if (expectedType == null) {
             expectedType = ANY;
         }
-        ConversionKind conversionKind = conversionKind(value, expectedType);
+        ConversionKind conversionKind = conversionKind(value, expectedType, lib);
         Object newValue = convertValue(value, conversionKind, lib);
         return Result.of(newValue, expectedType);
     }
@@ -56,14 +57,14 @@ public class TypeConverter {
         return convertValue(value, kind, lib);
     }
 
-    private ConversionKind conversionKind(Object value, Type expectedType) {
+    private ConversionKind conversionKind(Object value, Type expectedType, FEELLib<?, ?, ?, ?, ?> lib) {
         if (Type.conformsTo(value, expectedType)) {
             return ConversionKind.NONE;
         } else if (isSingletonList(value) && Type.conformsTo(((List) value).get(0), expectedType)) {
             return SINGLETON_LIST_TO_ELEMENT;
         } else if (expectedType instanceof ListType && Type.conformsTo(value, ((ListType) expectedType).getElementType())) {
             return ELEMENT_TO_SINGLETON_LIST;
-        } else if (isSingletonList(value) && Type.conformsTo(((List) value).get(0), expectedType)) {
+        } else if (lib.isDate(value) && expectedType instanceof DateTimeType) {
             return DATE_TO_UTC_MIDNIGHT;
         } else {
             return ConversionKind.CONFORMS_TO;

@@ -161,7 +161,7 @@ public class TemporalAmountDurationType extends BasePureCalendarType implements 
         } else if (first instanceof Duration && second instanceof Duration) {
             Long firstValue = value((Duration) first);
             Long secondValue = value((Duration) second);
-            return secondValue == null ? null : BigDecimal.valueOf(firstValue).divide(BigDecimal.valueOf(secondValue), RoundingMode.HALF_DOWN);
+            return secondValue == 0 ? null : BigDecimal.valueOf(firstValue).divide(BigDecimal.valueOf(secondValue), RoundingMode.HALF_DOWN);
         } else {
             throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
         }
