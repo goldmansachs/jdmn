@@ -18,6 +18,8 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      - name: Display date
+        run: date
       - name: Build with maven
         run: mvn clean install --show-version --batch-mode --errors --update-snapshots
 
