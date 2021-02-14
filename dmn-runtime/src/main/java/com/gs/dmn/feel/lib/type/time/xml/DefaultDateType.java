@@ -19,16 +19,15 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.RoundingMode;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneOffset;
 
 import static com.gs.dmn.feel.lib.type.time.xml.DefaultTimeType.hasTimezone;
 
 public class DefaultDateType extends XMLCalendarType implements DateType<XMLGregorianCalendar, Duration> {
-    private static final BigDecimal TWELVE = BigDecimal.valueOf(12);
-
     private final DefaultXMLCalendarComparator comparator;
     private final BooleanType booleanType;
 
@@ -44,7 +43,6 @@ public class DefaultDateType extends XMLCalendarType implements DateType<XMLGreg
     //
     // Date operators
     //
-
     @Override
     public Boolean dateIs(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null || second == null) {
@@ -112,28 +110,20 @@ public class DefaultDateType extends XMLCalendarType implements DateType<XMLGreg
         }
 
         if (isYearsAndMonthsDuration(duration)) {
-            int signum = duration.getSign();
-
-            // Calculate months and carry
-            long startMonth = date.getMonth();
-            long dMonths = (signum < 0) ? - duration.getMonths() : duration.getMonths();
-            long temp = startMonth + dMonths;
-            int month = BigInteger.valueOf(temp - 1).mod(TWELVE.toBigInteger()).intValue() + 1;
-            BigInteger carry = new BigDecimal(temp -1).divide(TWELVE, RoundingMode.FLOOR).toBigInteger();
-
-            // Years (may be modified additionally below)
-            BigInteger startYear = date.getEonAndYear();
-            BigInteger dYears = (signum < 0) ? BigInteger.valueOf(duration.getYears()).negate() : BigInteger.valueOf(duration.getYears());
-            BigInteger endYear = startYear.add(dYears).add(carry);
-            return FEELXMLGregorianCalendar.makeDate(endYear, month, date.getDay());
+            // Calculate with Java 8 types
+            LocalDate localDate = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
+            Long totalMonths = monthsValue(duration);
+            Period period = Period.ofMonths(totalMonths.intValue());
+            LocalDate newLocalDate = localDate.plus(period);
+            // Convert to XML type
+            return FEELXMLGregorianCalendar.makeDate(BigInteger.valueOf(newLocalDate.getYear()), newLocalDate.getMonthValue(), newLocalDate.getDayOfMonth());
         } else if (isDaysAndTimeDuration(duration)) {
+            // Calculate with Java 8 types
             Long value1 = value(date);
             Long value2 = secondsValue(duration);
-            GregorianCalendar gc = new GregorianCalendar();
-            long millis = (value1 + value2) * 1000L;
-            gc.setTimeInMillis(millis);
-            FEELXMLGregorianCalendar xgc = new FEELXMLGregorianCalendar(gc);
-            return FEELXMLGregorianCalendar.makeDate(xgc.getEonAndYear(), xgc.getMonth(), xgc.getDay());
+            LocalDate localDate = LocalDateTime.ofEpochSecond(value1 + value2, 0, ZoneOffset.UTC).toLocalDate();
+            // Convert to XML type
+            return FEELXMLGregorianCalendar.makeDate(BigInteger.valueOf(localDate.getYear()), localDate.getMonthValue(), localDate.getDayOfMonth());
         } else {
             throw new DMNRuntimeException(String.format("Cannot add '%s' with '%s'", date, duration));
         }
