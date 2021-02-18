@@ -90,18 +90,34 @@
         </resultNode>
     </testCase>
     <testCase id="011">
-        <description>Assert with days duration param</description>
-        <resultNode errorResult="true" name="decision011" type="decision">
+        <description>Assert with negative days duration param</description>
+        <resultNode name="decision011" type="decision">
             <expected>
-                <value xsi:nil="true"/>
+                <value xsi:type="xsd:duration">P1D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="011_a">
+        <description>Assert with positive days duration param</description>
+        <resultNode name="decision011_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:duration">P1D</value>
             </expected>
         </resultNode>
     </testCase>
     <testCase id="012">
-        <description>Assert with months duration param</description>
-        <resultNode errorResult="true" name="decision012" type="decision">
+        <description>Assert with negative months duration param</description>
+        <resultNode name="decision012" type="decision">
             <expected>
-                <value xsi:nil="true"/>
+                <value xsi:type="xsd:duration">P1Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="012_a">
+        <description>Assert with positive months duration param</description>
+        <resultNode name="decision012_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:duration">P1Y</value>
             </expected>
         </resultNode>
     </testCase>
