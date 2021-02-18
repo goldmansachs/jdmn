@@ -364,6 +364,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_13_cl3_0084_feel_for_loops() {
+        doSingleModelTest("1.3", "0084-feel-for-loops");
+    }
+
+    @Test
     public void test_13_cl3_0085_decision_services() {
         doSingleModelTest("1.3", "0085-decision-services");
     }
