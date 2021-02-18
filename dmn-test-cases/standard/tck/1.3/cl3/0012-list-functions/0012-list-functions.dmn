@@ -434,10 +434,6 @@
                 <di:waypoint x="3220.0" y="331.0"/>
                 <di:waypoint x="3220.0" y="211.0"/>
             </dmndi:DMNEdge>
-            <dmndi:DMNEdge dmnElementRef="_883c9eb4-1f4f-4885-82c0-234f9ac9a1d7" id="_c0858816-af7b-40a1-8aa7-6e11b8761215_e30">
-                <di:waypoint x="2150.0" y="331.0"/>
-                <di:waypoint x="2150.0" y="211.0"/>
-            </dmndi:DMNEdge>
         </dmndi:DMNDiagram>
     </dmndi:DMNDI>
 </definitions>
