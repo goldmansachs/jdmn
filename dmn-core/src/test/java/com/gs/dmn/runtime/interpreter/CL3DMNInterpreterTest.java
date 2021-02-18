@@ -379,6 +379,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_13_cl3_0087_chapter_11_example() {
+        doSingleModelTest("1.3", "0087-chapter-11-example");
+    }
+
+    @Test
     public void test_13_cl3_0088_no_decision_logic() {
         doSingleModelTest("1.3", "0088-no-decision-logic");
     }

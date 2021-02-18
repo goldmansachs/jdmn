@@ -127,8 +127,8 @@
 
     <!-- has an explicit context return type but return boolean -->
     <businessKnowledgeModel name="bkm_002" id="_bkm_002">
-        <variable name="bkm_002"/>
-        <encapsulatedLogic typeRef="tNameAndAge">
+        <variable typeRef="tNameAndAge" name="bkm_002"/>
+        <encapsulatedLogic>
             <formalParameter name="nameAndAge" typeRef="tNameAndAge"/>
             <literalExpression>
                 <text>nameAndAge != null</text>
