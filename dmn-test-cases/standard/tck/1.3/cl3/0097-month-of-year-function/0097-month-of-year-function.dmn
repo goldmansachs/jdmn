@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/0097-month-of-year-function"
+             name="0097-month-of-year-function"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+             xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+             xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>month of year function</description>
+
+    <inputData name="date_input_001" id="_date_input_001">
+        <variable name="date_input_001"/>
+    </inputData>
+
+    <decision name="date_001" id="_date_001">
+        <variable name="date_001"/>
+        <informationRequirement>
+            <requiredInput href="#_date_input_001"/>
+        </informationRequirement>
+        <context>
+            <contextEntry>
+                <variable name="2021-01-01"/>
+                <literalExpression><text>month of year(date_input_001)</text></literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="2021-02-01"/>
+                <literalExpression><text>month of year(date_input_001+@"P1M")</text></literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="2021-03-01"/>
+                <literalExpression><text>month of year(date_input_001+@"P2M")</text></literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="2021-04-01"/>
+                <literalExpression><text>month of year(date_input_001+@"P3M")</text></literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="2021-05-01"/>
+                <literalExpression><text>month of year(date_input_001+@"P4M")</text></literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="2021-06-01"/>
+                <literalExpression><text>month of year(date_input_001+@"P5M")</text></literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="2021-07-01"/>
+                <literalExpression><text>month of year(date_input_001+@"P6M")</text></literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="2021-08-01"/>
+                <literalExpression><text>month of year(date_input_001+@"P7M")</text></literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="2021-09-01"/>
+                <literalExpression><text>month of year(date_input_001+@"P8M")</text></literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="2021-10-01"/>
+                <literalExpression><text>month of year(date_input_001+@"P9M")</text></literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="2021-11-01"/>
+                <literalExpression><text>month of year(date_input_001+@"P10M")</text></literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="2021-12-01"/>
+                <literalExpression><text>month of year(date_input_001+@"P11M")</text></literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+
+    <decision name="date_002" id="_date_002">
+        <description>Tests FEEL expression: 'month of year(date: @"2019-09-17")' and expects result: 'September (string)'</description>
+        <question>Result of FEEL expression 'month of year(date: @"2019-09-17")'?</question>
+        <allowedAnswers>September (string)</allowedAnswers>
+        <variable name="date_002"/>
+        <literalExpression>
+            <text>month of year(date: @"2019-09-17")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="datetime_002" id="_datetime_002">
+        <description>Tests FEEL expression: 'month of year(date: @"2019-09-17T10:10:10")' and expects result: 'September (string)'</description>
+        <question>Result of FEEL expression 'month of year(date: @"2019-09-17T10:10:10")'?</question>
+        <allowedAnswers>September (string)</allowedAnswers>
+        <variable name="datetime_002"/>
+        <literalExpression>
+            <text>month of year(date: @"2019-09-17T10:10:10")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_001" id="_null_001">
+        <description>Tests FEEL expression: 'month of year(null)' and expects result: 'null (string)'</description>
+        <question>Result of FEEL expression 'month of year(null)'?</question>
+        <allowedAnswers>null (string)</allowedAnswers>
+        <variable name="null_001"/>
+        <literalExpression>
+            <text>month of year(null)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_002" id="_null_002">
+        <description>Tests FEEL expression: 'month of year()' and expects result: 'null (string)'</description>
+        <question>Result of FEEL expression 'month of year()'?</question>
+        <allowedAnswers>null (string)</allowedAnswers>
+        <variable name="null_002"/>
+        <literalExpression>
+            <text>month of year()</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_003" id="_null_003">
+        <description>Tests FEEL expression: 'month of year("foo")' and expects result: 'null (string)'</description>
+        <question>Result of FEEL expression 'month of year("foo")'?</question>
+        <allowedAnswers>null (string)</allowedAnswers>
+        <variable name="null_003"/>
+        <literalExpression>
+            <text>month of year("foo")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_004" id="_null_004">
+        <description>Tests FEEL expression: 'month of year(date: null)' and expects result: 'null (string)'</description>
+        <question>Result of FEEL expression 'month of year(date: null)'?</question>
+        <allowedAnswers>null (string)</allowedAnswers>
+        <variable name="null_004"/>
+        <literalExpression>
+            <text>month of year(date: null)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_005" id="_null_005">
+        <description>Tests FEEL expression: 'month of year(date: "foo")' and expects result: 'null (string)'</description>
+        <question>Result of FEEL expression 'month of year(date: "foo")'?</question>
+        <allowedAnswers>null (string)</allowedAnswers>
+        <variable name="null_005"/>
+        <literalExpression>
+            <text>month of year(date: "foo")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_006" id="_null_006">
+        <description>Tests FEEL expression: 'month of year(value: @"1970-01-01")' and expects result: 'null (string)'</description>
+        <question>Result of FEEL expression 'month of year(value: @"1970-01-01")'?</question>
+        <allowedAnswers>null (string)</allowedAnswers>
+        <variable name="null_006"/>
+        <literalExpression>
+            <!-- 'value' is not the param name -->
+            <text>month of year(value: @"1970-01-01")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_007" id="_null_007">
+        <variable name="null_007"/>
+        <informationRequirement>
+            <requiredInput href="#_date_input_001"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>month of year(date_input_001)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_008" id="_null_008">
+        <description>Tests FEEL expression: 'wmonth of year(@"1970-01-01", @"1970-01-01")' and expects result: 'null (string)'</description>
+        <question>Result of FEEL expression 'month of year(@"1970-01-01", @"1970-01-01")'?</question>
+        <allowedAnswers>null (string)</allowedAnswers>
+        <variable name="null_008"/>
+        <literalExpression>
+            <!-- too many params -->
+            <text>month of year(@"1970-01-01", @"1970-01-01")</text>
+        </literalExpression>
+    </decision>
+
+
+</definitions>
+
