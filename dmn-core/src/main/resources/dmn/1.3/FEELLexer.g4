@@ -193,69 +193,99 @@ BETWEEN:
     'between'
     ;
 INSTANCE_OF:
-    'instance of'
+    'instance' WhiteSpace+ 'of'
+    { setText("instance of"); }
     ;
 
 NAME:
     // Functions
-    'date and time'
+    'date' WhiteSpace+ 'and' WhiteSpace+ 'time'
+    { setText("date and time"); }
     |
-    'days and time duration'
+    'days' WhiteSpace+ 'and' WhiteSpace+ 'time' WhiteSpace+ 'duration'
+    { setText("days and time duration"); }
     |
-    'years and months duration'
+    'years' WhiteSpace+ 'and' WhiteSpace+ 'months' WhiteSpace+ 'duration'
+    { setText("years and months duration"); }
     |
-    'string length'
+    'string' WhiteSpace+ 'length'
+    { setText("string length"); }
     |
-    'upper case'
+    'upper' WhiteSpace+ 'case'
+    { setText("upper case"); }
     |
-    'lower case'
+    'lower' WhiteSpace+ 'case'
+    { setText("lower case"); }
     |
-    'substring before'
+    'substring' WhiteSpace+ 'before'
+    { setText("substring before"); }
     |
-    'substring after'
+    'substring' WhiteSpace+ 'after'
+    { setText("substring after"); }
     |
-    'starts with'
+    'starts' WhiteSpace+ 'with'
+    { setText("starts with"); }
     |
-    'ends with'
+    'ends' WhiteSpace+ 'with'
+    { setText("ends with"); }
     |
-    'start position'
+    'start' WhiteSpace+ 'position'
+    { setText("start position"); }
     |
-    'list contains'
+    'list' WhiteSpace+ 'contains'
+    { setText("list contains"); }
     |
-    'insert before'
+    'insert' WhiteSpace+ 'before'
+    { setText("insert before"); }
     |
-    'index of'
+    'index' WhiteSpace+ 'of'
+    { setText("index of"); }
     |
-    'distinct values'
+    'distinct' WhiteSpace+ 'values'
+    { setText("distinct values"); }
     |
-    'get entries'
+    'get' WhiteSpace+ 'entries'
+    { setText("get entries"); }
     |
-    'get value'
+    'get' WhiteSpace+ 'value'
+    { setText("get value"); }
     |
-    'met by'
+    'met' WhiteSpace+ 'by'
+    { setText("met by"); }
     |
-    'overlaps before'
+    'overlaps' WhiteSpace+ 'before'
+    { setText("overlaps before"); }
     |
-    'overlaps after'
+    'overlaps' WhiteSpace+ 'after'
+    { setText("overlaps after"); }
     |
-    'finished by'
+    'finished' WhiteSpace+ 'by'
+    { setText("finished by"); }
     |
-    'started by'
+    'started' WhiteSpace+ 'by'
+    { setText("started by"); }
     |
-    'start included'
+    'start' WhiteSpace+ 'included'
+    { setText("start included"); }
     |
-    'end included'
+    'end' WhiteSpace+ 'included'
+    { setText("end included"); }
     |
-    'day of year'
+    'day' WhiteSpace+ 'of' WhiteSpace+ 'year'
+    { setText("day of year"); }
     |
-    'day of week'
+    'day' WhiteSpace+ 'of' WhiteSpace+ 'week'
+    { setText("day of week"); }
     |
-    'month of year'
+    'month' WhiteSpace+ 'of' WhiteSpace+ 'year'
+    { setText("month of year"); }
     |
-    'week of year'
+    'week' WhiteSpace+ 'of' WhiteSpace+ 'year'
+    { setText("week of year"); }
     |
     // Properties
-    'time offset'
+    'time' WhiteSpace+ 'offset'
+    { setText("time offset"); }
     |
     NameStartChar ( NamePartChar )*
     |
