@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/0096-day-of-week-function"
+             name="0096-day-of-week-function"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+             xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+             xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>day of week function</description>
+
+    <inputData name="date_input_001" id="_date_input_001">
+        <variable name="date_input_001"/>
+    </inputData>
+
+    <decision name="date_001" id="_date_001">
+        <variable name="date_001"/>
+        <informationRequirement>
+            <requiredInput href="#_date_input_001"/>
+        </informationRequirement>
+        <context>
+            <contextEntry>
+                <variable name="2021-01-11"/>
+                <literalExpression><text>day of week(date_input_001)</text></literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="2021-01-12"/>
+                <literalExpression><text>day of week(date_input_001+@"P1D")</text></literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="2021-01-13"/>
+                <literalExpression><text>day of week(date_input_001+@"P2D")</text></literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="2021-01-14"/>
+                <literalExpression><text>day of week(date_input_001+@"P3D")</text></literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="2021-01-15"/>
+                <literalExpression><text>day of week(date_input_001+@"P4D")</text></literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="2021-01-16"/>
+                <literalExpression><text>day of week(date_input_001+@"P5D")</text></literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="2021-01-17"/>
+                <literalExpression><text>day of week(date_input_001+@"P6D")</text></literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+
+    <decision name="date_002" id="_date_002">
+        <description>Tests FEEL expression: 'day of week(date: @"2019-09-17")' and expects result: 'Tuesday (string)'</description>
+        <question>Result of FEEL expression 'day of week(date: @"2019-09-17")'?</question>
+        <allowedAnswers>Tuesday (string)</allowedAnswers>
+        <variable name="date_002"/>
+        <literalExpression>
+            <text>day of week(date: @"2019-09-17")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="datetime_002" id="_datetime_002">
+        <description>Tests FEEL expression: 'day of week(date: @"2019-09-17T10:10:10")' and expects result: 'Tuesday (string)'</description>
+        <question>Result of FEEL expression 'day of week(date: @"2019-09-17T10:10:10")'?</question>
+        <allowedAnswers>Tuesday (string)</allowedAnswers>
+        <variable name="datetime_002"/>
+        <literalExpression>
+            <text>day of week(date: @"2019-09-17T10:10:10")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_001" id="_null_001">
+        <description>Tests FEEL expression: 'day of week(null)' and expects result: 'null (string)'</description>
+        <question>Result of FEEL expression 'day of week(null)'?</question>
+        <allowedAnswers>null (string)</allowedAnswers>
+        <variable name="null_001"/>
+        <literalExpression>
+            <text>day of week(null)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_002" id="_null_002">
+        <description>Tests FEEL expression: 'day of week()' and expects result: 'null (string)'</description>
+        <question>Result of FEEL expression 'day of week()'?</question>
+        <allowedAnswers>null (string)</allowedAnswers>
+        <variable name="null_002"/>
+        <literalExpression>
+            <text>day of week()</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_003" id="_null_003">
+        <description>Tests FEEL expression: 'day of week("foo")' and expects result: 'null (string)'</description>
+        <question>Result of FEEL expression 'day of week("foo")'?</question>
+        <allowedAnswers>null (string)</allowedAnswers>
+        <variable name="null_003"/>
+        <literalExpression>
+            <text>day of week("foo")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_004" id="_null_004">
+        <description>Tests FEEL expression: 'day of week(date: null)' and expects result: 'null (string)'</description>
+        <question>Result of FEEL expression 'day of week(date: null)'?</question>
+        <allowedAnswers>null (string)</allowedAnswers>
+        <variable name="null_004"/>
+        <literalExpression>
+            <text>day of week(date: null)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_005" id="_null_005">
+        <description>Tests FEEL expression: 'day of week(date: "foo")' and expects result: 'null (string)'</description>
+        <question>Result of FEEL expression 'day of week(date: "foo")'?</question>
+        <allowedAnswers>null (string)</allowedAnswers>
+        <variable name="null_005"/>
+        <literalExpression>
+            <text>day of week(date: "foo")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_006" id="_null_006">
+        <description>Tests FEEL expression: 'day of week(value: @"1970-01-01")' and expects result: 'null (string)'</description>
+        <question>Result of FEEL expression 'day of week(value: @"1970-01-01")'?</question>
+        <allowedAnswers>null (string)</allowedAnswers>
+        <variable name="null_006"/>
+        <literalExpression>
+            <!-- 'value' is not the param name -->
+            <text>day of week(value: @"1970-01-01")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_007" id="_null_007">
+        <variable name="null_007"/>
+        <informationRequirement>
+            <requiredInput href="#_date_input_001"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>day of week(date_input_001)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_008" id="_null_008">
+        <description>Tests FEEL expression: 'day of week(@"1970-01-01", @"1970-01-01")' and expects result: 'null (string)'</description>
+        <question>Result of FEEL expression 'day of week(@"1970-01-01", @"1970-01-01")'?</question>
+        <allowedAnswers>null (string)</allowedAnswers>
+        <variable name="null_008"/>
+        <literalExpression>
+            <!-- too many params -->
+            <text>day of week(@"1970-01-01", @"1970-01-01")</text>
+        </literalExpression>
+    </decision>
+
+
+</definitions>
+
