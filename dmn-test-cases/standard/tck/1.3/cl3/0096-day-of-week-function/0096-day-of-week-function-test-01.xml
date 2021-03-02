@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0096-day-of-week-function.dmn</modelName>
+
+    <testCase id="date_001">
+        <description>date: day of week</description>
+        <inputNode name="date_input_001">
+            <value xsi:type="xsd:date">2021-01-11</value>
+        </inputNode>
+        <resultNode name="date_001" type="decision">
+            <expected>
+                <component name="2021-01-11">
+                    <value xsi:type="xsd:string">Monday</value>
+                </component>
+                <component name="2021-01-12">
+                    <value xsi:type="xsd:string">Tuesday</value>
+                </component>
+                <component name="2021-01-13">
+                    <value xsi:type="xsd:string">Wednesday</value>
+                </component>
+                <component name="2021-01-14">
+                    <value xsi:type="xsd:string">Thursday</value>
+                </component>
+                <component name="2021-01-15">
+                    <value xsi:type="xsd:string">Friday</value>
+                </component>
+                <component name="2021-01-16">
+                    <value xsi:type="xsd:string">Saturday</value>
+                </component>
+                <component name="2021-01-17">
+                    <value xsi:type="xsd:string">Sunday</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_002">
+        <description>date: will accept date as named param</description>
+        <resultNode name="date_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">Tuesday</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_001">
+        <description>date: day of week</description>
+        <inputNode name="date_input_001">
+            <value xsi:type="xsd:dateTime">2021-01-11T10:10:10</value>
+        </inputNode>
+        <resultNode name="date_001" type="decision">
+            <expected>
+                <component name="2021-01-11">
+                    <value xsi:type="xsd:string">Monday</value>
+                </component>
+                <component name="2021-01-12">
+                    <value xsi:type="xsd:string">Tuesday</value>
+                </component>
+                <component name="2021-01-13">
+                    <value xsi:type="xsd:string">Wednesday</value>
+                </component>
+                <component name="2021-01-14">
+                    <value xsi:type="xsd:string">Thursday</value>
+                </component>
+                <component name="2021-01-15">
+                    <value xsi:type="xsd:string">Friday</value>
+                </component>
+                <component name="2021-01-16">
+                    <value xsi:type="xsd:string">Saturday</value>
+                </component>
+                <component name="2021-01-17">
+                    <value xsi:type="xsd:string">Sunday</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_002">
+        <description>date: will accept datetime as named param</description>
+        <resultNode name="datetime_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">Tuesday</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_001">
+        <description>null param gives null result</description>
+        <resultNode name="null_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_002">
+        <description>no param gives null result</description>
+        <resultNode name="null_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_003">
+        <description>invalid param type gives null result</description>
+        <resultNode name="null_003" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_004">
+        <description>null value named param gives null result</description>
+        <resultNode name="null_004" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_005">
+        <description>invalid type as named param gives null result</description>
+        <resultNode name="null_005" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_006">
+        <description>invalidly named param gives null result</description>
+        <resultNode name="null_006" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_007">
+        <description>unknown type at compile time with invalid type as runtime input</description>
+        <inputNode name="date_input_001">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="null_007" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_008">
+        <description>too many params gives null result</description>
+        <resultNode name="null_008" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+
+</testCases>
