@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0098-week-of-year-function.dmn</modelName>
+
+    <!--
+        http://myweb.ecu.edu/mccartyr/aboutwdc.htm#:~:text=The%20ISO%208601%20rule%20is,ISO%20Week%20Date%20conversion%20algorithm.
+
+        The ISO 8601 rule is: The first week of the year is the week containing the first Thursday.
+        So if January 1 falls on a Friday, it belongs to the last week of the previous year. If December 31
+        falls on a Wednesday, it belongs to week 01 of the following year.
+    -->
+
+    <testCase id="date_001">
+        <description>date: during year 2019-09-17</description>
+        <resultNode name="date_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">38</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_002">
+        <!-- 2004 NYD falls on a thursday, so this in in week 01 of the next year -->
+        <description>date: @"2003-12-29"</description>
+        <resultNode name="date_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_003">
+        <!-- 2004 NYD falls on a thursday, so this in in week 01 of the next year -->
+        <description>date: @"2003-12-31"</description>
+        <resultNode name="date_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_004">
+        <!-- 2004 NYD falls on a thursday, so NYD is current year -->
+        <description>date: @"2004-01-01"</description>
+        <resultNode name="date_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_005">
+        <!-- 2010 NYD falls on a Friday, so NYD is part of the previous year -->
+        <description>date: @"2010-01-01"</description>
+        <resultNode name="date_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">53</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_006">
+        <description>date: unknown type at compile time with valid date as runtime input</description>
+        <inputNode name="date_input_001">
+            <value xsi:type="xsd:date">1970-01-01</value>
+        </inputNode>
+        <resultNode name="date_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_007">
+        <description>date: will accept date as named param</description>
+        <resultNode name="date_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">38</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_008">
+        <description>date: spec examples </description>
+        <resultNode name="date_008" type="decision">
+            <expected>
+                <list>
+                    <!-- other spec examples -->
+                    <item>
+                        <value xsi:type="xsd:decimal">53</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">1</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">1</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_001">
+        <description>datetime: first day of year</description>
+        <resultNode name="datetime_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_004">
+        <description>datetime: unknown type at compile time with valid datetime as runtime input</description>
+        <inputNode name="date_input_001">
+            <value xsi:type="xsd:dateTime">1970-01-01T10:10:10</value>
+        </inputNode>
+        <resultNode name="datetime_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_005">
+        <description>datetime: will accept date time as named param</description>
+        <resultNode name="datetime_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">38</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_001">
+        <description>null param gives null result</description>
+        <resultNode name="null_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_002">
+        <description>no param gives null result</description>
+        <resultNode name="null_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_003">
+        <description>invalid param type gives null result</description>
+        <resultNode name="null_003" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_004">
+        <description>null value named param gives null result</description>
+        <resultNode name="null_004" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_005">
+        <description>invalid type as named param gives null result</description>
+        <resultNode name="null_005" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_006">
+        <description>invalidly named param gives null result</description>
+        <resultNode name="null_006" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_007">
+        <description>unknown type at compile time with invalid type as runtime input</description>
+        <inputNode name="date_input_001">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="null_007" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_008">
+        <description>too many params gives null result</description>
+        <resultNode name="null_008" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>
