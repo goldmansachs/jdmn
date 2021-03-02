@@ -457,7 +457,7 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="time_001">
+     <testCase id="time_001">
         <description>same times are equal</description>
         <resultNode name="time_001" type="decision">
             <expected>
@@ -467,8 +467,26 @@
     </testCase>
 
     <testCase id="time_002">
-        <description>different times are not equal</description>
+        <description>different times are not equal: hours</description>
         <resultNode name="time_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_002_a">
+        <description>different times are not equal: minutes</description>
+        <resultNode name="time_002_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_002_b">
+        <description>different times are not equal: seconds</description>
+        <resultNode name="time_002_b" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
@@ -494,10 +512,10 @@
     </testCase>
 
     <testCase id="time_005">
-        <description>same times with different milliseconds are not equal</description>
+        <description>same times with different milliseconds are equal as value resolution is seconds</description>
         <resultNode name="time_005" type="decision">
             <expected>
-                <value xsi:type="xsd:boolean">false</value>
+                <value xsi:type="xsd:boolean">true</value>
             </expected>
         </resultNode>
     </testCase>
@@ -530,8 +548,26 @@
     </testCase>
 
     <testCase id="time_009">
-        <description>same times = one with offset, the other with zone are not equal</description>
+        <description>same times = one with offset, the other with zone are equal if offsets are equal</description>
         <resultNode name="time_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_009_a">
+        <description>same times are not equal if offsets are not equal - zone vs offset</description>
+        <resultNode name="time_009_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_009_b">
+        <description>same times are not equal if offsets are not equal - both offsets</description>
+        <resultNode name="time_009_b" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
@@ -584,8 +620,17 @@
     </testCase>
 
     <testCase id="datetime_003">
-        <description>datetimes with milliseconds are equal</description>
+        <description>datetimes with same milliseconds are equal</description>
         <resultNode name="datetime_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_003_a">
+        <description>datetimes with different milliseconds are equal as resolution is to the second</description>
+        <resultNode name="datetime_003_a" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">true</value>
             </expected>
@@ -629,7 +674,7 @@
     </testCase>
 
     <testCase id="datetime_008">
-        <description>same datetimes, one with offset and the other with zone are not equal</description>
+        <description>same datetimes, one with offset and the other with zone are equal</description>
         <resultNode name="datetime_008" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
@@ -637,11 +682,29 @@
         </resultNode>
     </testCase>
 
-    <testCase id="datetime_009">
-        <description>datetime with zero offset is not equal to utc zone</description>
-        <resultNode name="datetime_009" type="decision">
+    <testCase id="datetime_008_a">
+        <description>same datetimes, one with offset and the other with zone are equal - DST</description>
+        <resultNode name="datetime_008" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_008_b">
+        <description>same datetimes, with same offsets but different zones equal</description>
+        <resultNode name="datetime_008_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_009">
+        <description>datetime with zero offset is equal to utc zone</description>
+        <resultNode name="datetime_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
             </expected>
         </resultNode>
     </testCase>
@@ -662,7 +725,43 @@
                 <value xsi:nil="true"/>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
+
+    <testCase id="datetime_012">
+        <description>datetime: different times in different zones can be equal</description>
+        <resultNode name="datetime_012" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_013">
+        <description>datetime: different times in different zones can be equal (with negative offset)</description>
+        <resultNode name="datetime_013" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_014">
+        <description>datetime: a date is equal to the same date at zero offset</description>
+        <resultNode name="datetime_014" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_015">
+        <description>datetime equals another type</description>
+        <resultNode name="datetime_015" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
 
     <testCase id="dt_duration_001">
         <description>same durations are equal</description>
@@ -727,14 +826,17 @@
         </resultNode>
     </testCase>
 
+    <!-- commented out pending RTF resolution of whether P0D == P0Y for FEEL (not SFEEL).-->
+<!--
     <testCase id="dt_duration_008">
         <description>zero dt duration equals zero ym duration</description>
         <resultNode name="dt_duration_008" type="decision">
             <expected>
-                <value xsi:nil="true"/>
+                <value xsi:type="xsd:boolean">true</value>
             </expected>
         </resultNode>
     </testCase>
+-->
 
     <testCase id="ym_duration_001">
         <description>same durations are equal</description>
@@ -880,7 +982,7 @@
         </resultNode>
     </testCase> -->
 
-    <testCase id="fn_001">
+<!--    <testCase id="fn_001">
         <description>two anon functions with same signature and body are not equal</description>
         <resultNode name="fn_001" type="decision">
             <expected>
@@ -923,7 +1025,7 @@
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase>
+    </testCase>-->
 
     <testCase id="range_001">
         <description>ranges with same endpoint and inclusivity are equal</description>
