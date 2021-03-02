@@ -107,10 +107,10 @@
     <decision name="datetime_004" id="_datetime_004">
         <variable name="datetime_004"/>
         <informationRequirement>
-            <requiredInput href="#_date_input_001"/>
+            <requiredInput href="#_datetime_input_001"/>
         </informationRequirement>
         <literalExpression>
-            <text>day of year(date_input_001)</text>
+            <text>day of year(datetime_input_001)</text>
         </literalExpression>
     </decision>
 
