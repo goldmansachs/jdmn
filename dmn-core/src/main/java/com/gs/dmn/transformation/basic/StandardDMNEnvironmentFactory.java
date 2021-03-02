@@ -262,6 +262,18 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 return applyPolicies(element, dt, expressionType);
             }
             throw new DMNRuntimeException(String.format("Cannot infer type for '%s' from empty OutputClauses", element.getName()));
+        } else if (expression instanceof TList) {
+            if (typeRef != null) {
+                Type elementType = toFEELType(model, typeRef);
+                return new ListType(elementType);
+            }
+
+            List<JAXBElement<? extends TExpression>> listExpression = ((TList) expression).getExpression();
+            Type elementType = AnyType.ANY;
+            if (listExpression != null && !listExpression.isEmpty()) {
+                elementType = expressionType(element, listExpression.get(0), context);
+            }
+            return new ListType(elementType);
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", expression.getClass().getSimpleName()));
         }
