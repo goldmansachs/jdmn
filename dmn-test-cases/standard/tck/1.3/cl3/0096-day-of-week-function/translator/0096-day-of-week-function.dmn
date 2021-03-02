@@ -54,6 +54,16 @@
         </context>
     </decision>
 
+    <decision name="date_002" id="_date_002">
+        <description>Tests FEEL expression: 'day of week(date: @"2019-09-17")' and expects result: 'Tuesday (string)'</description>
+        <question>Result of FEEL expression 'day of week(date: @"2019-09-17")'?</question>
+        <allowedAnswers>Tuesday (string)</allowedAnswers>
+        <variable name="date_002"/>
+        <literalExpression>
+            <text>day of week(date: @"2019-09-17")</text>
+        </literalExpression>
+    </decision>
+
     <decision name="datetime_001" id="_datetime_001">
         <variable name="datetime_001"/>
         <informationRequirement>
@@ -89,16 +99,6 @@
                 <literalExpression><text>day of week(datetime_input_001+@"P6D")</text></literalExpression>
             </contextEntry>
         </context>
-    </decision>
-
-    <decision name="date_002" id="_date_002">
-        <description>Tests FEEL expression: 'day of week(date: @"2019-09-17")' and expects result: 'Tuesday (string)'</description>
-        <question>Result of FEEL expression 'day of week(date: @"2019-09-17")'?</question>
-        <allowedAnswers>Tuesday (string)</allowedAnswers>
-        <variable name="date_002"/>
-        <literalExpression>
-            <text>day of week(date: @"2019-09-17")</text>
-        </literalExpression>
     </decision>
 
     <decision name="datetime_002" id="_datetime_002">
