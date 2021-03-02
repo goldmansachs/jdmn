@@ -13,6 +13,10 @@
         <variable name="date_input_001" typeRef="date"/>
     </inputData>
 
+    <inputData name="datetime_input_001" id="_datetime_input_001">
+        <variable name="date_input_001" typeRef="date and time"/>
+    </inputData>
+
     <decision name="date_001" id="_date_001">
         <description>Tests FEEL expression: 'day of year(@"1970-01-01")' and expects result: '1 (number)'</description>
         <question>Result of FEEL expression 'day of year(@"1970-01-01")'?</question>
