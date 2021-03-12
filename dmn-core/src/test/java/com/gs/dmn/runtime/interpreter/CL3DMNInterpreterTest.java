@@ -394,8 +394,8 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
-    public void test_13_cl3_100_arithmetic() {
-        doSingleModelTest("1.3", "0100-arithmetic");
+    public void test_13_cl3_0093_feel_at_literals() {
+        doSingleModelTest("1.3", "0093-feel-at-literals");
     }
 
     @Test
@@ -416,6 +416,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     @Test
     public void test_13_cl3_0098_week_of_year_function() {
         doSingleModelTest("1.3", "0098-week-of-year-function");
+    }
+
+    @Test
+    public void test_13_cl3_100_arithmetic() {
+        doSingleModelTest("1.3", "0100-arithmetic");
     }
 
     @Test
