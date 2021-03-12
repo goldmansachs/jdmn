@@ -349,6 +349,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_13_cl3_0071_feel_between() {
+        doSingleModelTest("1.3", "0071-feel-between");
+    }
+
+    @Test
     public void test_13_cl3_0074_feel_properties() {
         doSingleModelTest("1.3", "0074-feel-properties");
     }
