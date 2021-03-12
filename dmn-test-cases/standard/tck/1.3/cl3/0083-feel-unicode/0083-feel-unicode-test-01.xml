@@ -9,10 +9,28 @@
     </labels>
 
     <testCase id="decision_001">
-        <description>Assert length of string with unicode char</description>
+        <description>Assert length of string with 4 digit unicode char</description>
         <resultNode name="decision_001" type="decision">
             <expected>
                 <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_001_a">
+        <description>Assert length of string with 6 digit unicode char</description>
+        <resultNode name="decision_001_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_001_b">
+        <description>Assert string with 6 digit unicode char</description>
+        <resultNode name="decision_001_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
             </expected>
         </resultNode>
     </testCase>
@@ -116,7 +134,7 @@
         <resultNode name="substring_001" type="decision">
             <expected>
                 <value xsi:type="xsd:decimal">-->
-                <!-- THE GRINNING FACE EMOJI --> <!-- ref: https://github.com/dmn-tck/tck/issues/299 why emoji was not preserved in the comment, if uncommenting please do restore original emojis --> 
+                <!-- THE GRINNING FACE EMOJI --> <!-- ref: https://github.com/dmn-tck/tck/issues/299 why emoji was not preserved in the comment, if uncommenting please do restore original emojis -->
                 <!--</value>
             </expected>
         </resultNode>
@@ -143,5 +161,14 @@
             </expected>
         </resultNode>
     </testCase> -->
+
+    <testCase id="substring_004">
+        <description>escape 6 digit unicode substring</description>
+        <resultNode name="substring_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
 
 </testCases>
