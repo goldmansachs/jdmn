@@ -9,6 +9,22 @@
         </literalExpression>
     </decision>
 
+    <decision name="decision_001_a" id="_decision_001_a">
+        <variable name="decision_001_a"/>
+        <literalExpression>
+            <text>string length("\U01F40E")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_001_b" id="_decision_001_b">
+        <variable name="decision_001_b"/>
+        <literalExpression>
+            <!-- NOTE: the published DMN 1.3 spec has a typo reporting "ὀ" instead
+            of the emoji, which has been redacted with https://issues.omg.org/issues/DMN14-72 -->
+            <text>"\U01F40E" = "🐎"</text>
+        </literalExpression>
+    </decision>
+
     <decision name="decision_002" id="_decision_002">
         <variable name="decision_002"/>
         <literalExpression>
@@ -45,14 +61,6 @@
         <literalExpression>
             <!-- horse + grinning face emoji -->
             <text>string length("🐎😀")</text>
-        </literalExpression>
-    </decision>
-
-    <decision name="decision_004_b" id="_decision_004_b">
-        <variable name="decision_004_b"/>
-        <literalExpression>
-            <!-- a horse b -->
-            <text>string length("a\U01F40Eb")</text>
         </literalExpression>
     </decision>
 
@@ -112,10 +120,10 @@
         </literalExpression>
     </decision>
 
-     <decision name="substring_001" id="_substring_001">
+<!--     <decision name="substring_001" id="_substring_001">
         <variable name="substring_001"/>
         <literalExpression>
-            <!-- horse + grinning face emoji-->
+            horse + grinning face emoji
             <text>substring("foo\ud83d\udc0ebar\uD83D\uDE00", 8)</text>
         </literalExpression>
     </decision>
@@ -123,7 +131,7 @@
     <decision name="substring_002" id="_substring_002">
         <variable name="substring_002"/>
         <literalExpression>
-            <!-- horse + grinning face emoji -->
+            horse + grinning face emoji
             <text>substring("foo\ud83d\udc0ebar\uD83D\uDE00", 4, 1)</text>
         </literalExpression>
     </decision>
@@ -131,17 +139,18 @@
     <decision name="substring_003" id="_substring_003">
         <variable name="substring_003"/>
         <literalExpression>
-            <!-- horse + grinning face emoji -->
+            horse + grinning face emoji
             <text>substring("foo\ud83d\udc0ebar\uD83D\uDE00", 4, 4)</text>
         </literalExpression>
-    </decision>
+    </decision> -->
 
     <decision name="substring_004" id="_substring_004">
         <variable name="substring_004"/>
         <literalExpression>
-            <!-- horse + ab -->
-            <text>substring("\U01F40Eab", 2)</text>
+            <text>substring("\U01F40Efoo", 2) = "foo"</text>
         </literalExpression>
     </decision>
+
+
 </definitions>
 
