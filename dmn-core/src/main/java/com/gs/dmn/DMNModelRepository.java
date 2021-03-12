@@ -1032,8 +1032,8 @@ public class DMNModelRepository {
             return ((TInputData) element).getVariable();
         } else if (element instanceof TDecision) {
             return ((TDecision) element).getVariable();
-        } else if (element instanceof TBusinessKnowledgeModel) {
-            return ((TBusinessKnowledgeModel) element).getVariable();
+        } else if (element instanceof TInvocable) {
+            return ((TInvocable) element).getVariable();
         } else if (element instanceof TInformationItem) {
             return (TInformationItem) element;
         }
