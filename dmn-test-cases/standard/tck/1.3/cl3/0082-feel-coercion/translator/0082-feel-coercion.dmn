@@ -11,9 +11,8 @@
     </itemDefinition>
 
     <itemDefinition name="tDS_001">
-        <itemComponent name="decision_ds_001">
-            <typeRef>string</typeRef>
-        </itemComponent>
+        <functionItem outputTypeRef="string">
+        </functionItem>
     </itemDefinition>
 
     <itemDefinition name="tNameAndAge">
@@ -409,7 +408,7 @@
 
     <decisionService name="decisionService_001" id="_decisionService_001">
         <variable name="decisionService_001" typeRef="tDS_001"/>
-        <!-- decision returns number, type expects string -->
+        <!-- decision returns number, functionType typeRef has return type of string -->
         <outputDecision href="#_decision_ds_001"/>
     </decisionService>
 

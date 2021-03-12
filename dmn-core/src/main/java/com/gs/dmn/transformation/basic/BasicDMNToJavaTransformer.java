@@ -1701,10 +1701,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
                     return makeFunctionType(LambdaExpression.class.getName(), returnType);
                 }
             } else if (type instanceof DMNFunctionType) {
-                if (isFEELFunction(((DMNFunctionType) type).getKind())) {
+                TFunctionKind kind = ((DMNFunctionType) type).getKind();
+                if (isFEELFunction(kind)) {
                     String returnType = toNativeType(((FunctionType) type).getReturnType());
                     return makeFunctionType(LambdaExpression.class.getName(), returnType);
-                } else if (isJavaFunction(((DMNFunctionType) type).getKind())) {
+                } else if (isJavaFunction(kind)) {
                     String returnType = toNativeType(((FunctionType) type).getReturnType());
                     return makeFunctionType(JavaExternalFunction.class.getName(), returnType);
                 }

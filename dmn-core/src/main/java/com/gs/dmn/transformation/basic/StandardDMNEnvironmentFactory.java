@@ -108,6 +108,12 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             Type inferredType = inferDRGElementVariableFEELType(element, context);
             return refineDeclaredType(declaredType, inferredType);
         } else {
+            // Augment function type
+            if (DMNFunctionType.class.equals(declaredType.getClass())) {
+                if (element instanceof TInvocable) {
+                    declaredType = ((DMNFunctionType) declaredType).attachElement(element);
+                }
+            }
             return declaredType;
         }
     }
@@ -401,18 +407,23 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         TDefinitions model = this.dmnModelRepository.getModel(itemDefinition);
         QualifiedName typeRef = QualifiedName.toQualifiedName(model, itemDefinition.getTypeRef());
         List<TItemDefinition> itemComponent = itemDefinition.getItemComponent();
-        if (typeRef == null && (itemComponent == null || itemComponent.isEmpty())) {
+        TFunctionItem functionItem = itemDefinition.getFunctionItem();
+        if (typeRef == null && (itemComponent == null || itemComponent.isEmpty()) && functionItem == null) {
             return AnyType.ANY;
         }
         Type type;
         if (typeRef != null) {
             type = toFEELType(model, typeRef);
+        } else if (functionItem != null) {
+            List<FormalParameter> formalParameters = makeFormalParameters(model, functionItem.getParameters());
+            Type outputType = toFEELType(model, functionItem.getOutputTypeRef());
+            type = new DMNFunctionType(formalParameters, outputType);
         } else {
             TDefinitions definitions = this.dmnModelRepository.getModel(itemDefinition);
             String modelName = definitions == null ? null : definitions.getName();
             type = new ItemDefinitionType(itemDefinition.getName(), modelName);
             for(TItemDefinition item: itemComponent) {
-                ((ItemDefinitionType)type).addMember(item.getName(), Collections.singletonList(item.getLabel()), toFEELType(item));
+                ((ItemDefinitionType) type).addMember(item.getName(), Collections.singletonList(item.getLabel()), toFEELType(item));
             }
         }
         if (itemDefinition.isIsCollection()) {
@@ -492,20 +503,25 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 }
             }
             // Make function type
-            List<FormalParameter> parameters = new ArrayList<>();
-            for(TInformationItem param: functionDefinition.getFormalParameter()) {
-                Type paramType = null;
-                String paramTypeRef = param.getTypeRef();
-                if (!StringUtils.isEmpty(paramTypeRef)) {
-                    paramType = toFEELType(model, QualifiedName.toQualifiedName(model, paramTypeRef));
-                }
-                parameters.add(new FormalParameter(param.getName(), paramType));
-            }
+            List<FormalParameter> parameters = makeFormalParameters(model, functionDefinition.getFormalParameter());
             if (bodyType != null) {
                 return new DMNFunctionType(parameters, bodyType, element, functionDefinition);
             }
         }
         return null;
+    }
+
+    private List<FormalParameter> makeFormalParameters(TDefinitions model, List<TInformationItem> informationItems) {
+        List<FormalParameter> parameters = new ArrayList<>();
+        for(TInformationItem param: informationItems) {
+            String paramTypeRef = param.getTypeRef();
+            Type paramType = null;
+            if (!StringUtils.isEmpty(paramTypeRef)) {
+                paramType = toFEELType(model, QualifiedName.toQualifiedName(model, paramTypeRef));
+            }
+            parameters.add(new FormalParameter(param.getName(), paramType));
+        }
+        return parameters;
     }
 
     private String bodyTypeRef(TFunctionDefinition functionDefinition) {
@@ -742,7 +758,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         }
         List<FormalParameter> parameters = this.dmnTransformer.bkmFEELParameters(bkm);
         Type returnType = this.dmnTransformer.drgElementOutputFEELType(bkm);
-        return this.environmentFactory.makeVariableDeclaration(name, new DMNFunctionType(parameters, returnType, bkm, bkm.getEncapsulatedLogic()));
+        return this.environmentFactory.makeVariableDeclaration(name, new DMNFunctionType(parameters, returnType, bkm));
     }
 
     //
