@@ -493,8 +493,8 @@
         <semantic:outputDecision href="#_028a365e-be96-4311-b7a3-80b1786e18e3"/>
     </semantic:decisionService>
     <semantic:decision id="_80e62ec8-7db3-4ef1-ad00-115058ee1cf7" name="before" triso:useOutputTypeAsAnswer="false">
-        <semantic:variable name="before" id="_b910d507-43c2-4cfd-8bf1-87f11bb2a58c" typeRef="Any"/>
-        <semantic:context id="_95da4bcf-c864-411a-936f-f381558f3d67" typeRef="Any" triso:expressionId="_4798dc49-9763-4198-b48c-621a6db4e96f">
+        <semantic:variable name="before" id="_b910d507-43c2-4cfd-8bf1-87f11bb2a58c"/>
+        <semantic:context id="_95da4bcf-c864-411a-936f-f381558f3d67" triso:expressionId="_4798dc49-9763-4198-b48c-621a6db4e96f">
             <semantic:contextEntry id="_3f6d548b-20b3-45f9-baf5-5fbaa9c0734f">
                 <semantic:variable name="beforePPT" id="_924731d7-0fb6-49fb-863f-640a11e56299" typeRef="Any"/>
                 <semantic:literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" triso:unparsed="true" id="_f6ab5eac-9729-4225-9c3e-0c3aacbe8011">
@@ -573,8 +573,8 @@
         <semantic:extensionElements>
             <triso:semanticLink uri="http://www.trisotech.com/definitions/_196553d6-557b-43d1-9928-30aa61681715#_80e62ec8-7db3-4ef1-ad00-115058ee1cf7" name="Intervals - DMN 13 Examples" modelURI="http://www.trisotech.com/definitions/_196553d6-557b-43d1-9928-30aa61681715" id="_a81cc32c-258c-400f-8aaf-40f09cd3d2e6"/>
         </semantic:extensionElements>
-        <semantic:variable name="after" id="_9028b72d-c375-42e5-9a51-c84635229c16" typeRef="Any"/>
-        <semantic:context id="_f8b770a9-b767-461b-8a48-5cfe3b0cc212" typeRef="Any" triso:expressionId="_11ad0bc2-774a-4571-b0c7-326096447e56">
+        <semantic:variable name="after" id="_9028b72d-c375-42e5-9a51-c84635229c16"/>
+        <semantic:context id="_f8b770a9-b767-461b-8a48-5cfe3b0cc212" triso:expressionId="_11ad0bc2-774a-4571-b0c7-326096447e56">
             <semantic:contextEntry id="_ef8083bb-1997-44ca-bc8d-f3ad31e4f031">
                 <semantic:variable name="afterPPT" id="_8df93529-fece-44b9-a529-d7660d94f17b" typeRef="Any"/>
                 <semantic:literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" triso:unparsed="true" id="_52530da1-b13f-4faf-9d40-056e2133496b">
@@ -656,8 +656,8 @@
         </semantic:context>
     </semantic:decision>
     <semantic:decision id="_5724b910-e954-403b-aba8-411035af6792" name="meets" triso:useOutputTypeAsAnswer="false">
-        <semantic:variable name="meets" id="_a2ba05cb-37ae-40b4-9d69-90273c2e7ac1" typeRef="Any"/>
-        <semantic:context id="_75fde4d4-67d9-492b-a6f9-ef170b4885f8" typeRef="Any" triso:expressionId="_18b3985b-f236-429b-88b3-0f5975f44db4">
+        <semantic:variable name="meets" id="_a2ba05cb-37ae-40b4-9d69-90273c2e7ac1"/>
+        <semantic:context id="_75fde4d4-67d9-492b-a6f9-ef170b4885f8" triso:expressionId="_18b3985b-f236-429b-88b3-0f5975f44db4">
             <semantic:contextEntry id="_1131bbdb-5a6f-4e77-a368-c9df1299d332">
                 <semantic:variable name="meetsRRT" id="_9a48b05b-8568-4ba8-bc36-3037d637c0e8" typeRef="Any"/>
                 <semantic:literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" triso:unparsed="true" id="_2d69508a-2f51-46c7-9c60-206e1eb9f36f">
@@ -685,8 +685,8 @@
         </semantic:context>
     </semantic:decision>
     <semantic:decision id="_faf79323-ca20-458f-b257-30bf63a87678" name="met by" triso:useOutputTypeAsAnswer="false">
-        <semantic:variable name="met by" id="_dd762d69-f32e-4801-b043-7b8ef6b0079f" typeRef="Any"/>
-        <semantic:context id="_c260ef1c-0a2c-4b8a-b18c-d741ee3555b0" typeRef="Any" triso:expressionId="_bfadf9f9-97cc-49f0-861f-1a5ea77b5627">
+        <semantic:variable name="met by" id="_dd762d69-f32e-4801-b043-7b8ef6b0079f"/>
+        <semantic:context id="_c260ef1c-0a2c-4b8a-b18c-d741ee3555b0" triso:expressionId="_bfadf9f9-97cc-49f0-861f-1a5ea77b5627">
             <semantic:contextEntry id="_f71d0650-12e7-46c8-bcdd-0440775b92db">
                 <semantic:variable name="metbyRRT" id="_8355a2bb-9496-4627-8a9d-e97447b99446" typeRef="Any"/>
                 <semantic:literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" triso:unparsed="true" id="_52310cdd-9bcd-4be9-88bd-ec14c60aeedb">
@@ -714,8 +714,8 @@
         </semantic:context>
     </semantic:decision>
     <semantic:decision id="_20e70d27-7e01-4171-bb3f-eb81aa497ebe" name="overlaps before" triso:useOutputTypeAsAnswer="false">
-        <semantic:variable name="overlaps before" id="_f905478a-db05-4e08-9b9a-65826cb37cd9" typeRef="Any"/>
-        <semantic:context id="_cec1fe19-05d5-44ee-9438-05b9405911e0" typeRef="Any" triso:expressionId="_4a11ee62-0a42-477a-a13e-ce4df384085d">
+        <semantic:variable name="overlaps before" id="_f905478a-db05-4e08-9b9a-65826cb37cd9"/>
+        <semantic:context id="_cec1fe19-05d5-44ee-9438-05b9405911e0" triso:expressionId="_4a11ee62-0a42-477a-a13e-ce4df384085d">
             <semantic:contextEntry id="_dc5ec338-25fd-4e28-988b-afc9a5a04823">
                 <semantic:variable name="overlapsbeforeRRT" id="_186997ed-dd2e-44b8-9595-06ad075bb310" typeRef="Any"/>
                 <semantic:literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" triso:unparsed="true" id="_e007ca59-fdf3-42d5-8b59-485220161e05">
@@ -773,8 +773,8 @@
         </semantic:context>
     </semantic:decision>
     <semantic:decision id="_27eb4c36-b482-49a9-a0d5-75f986581e02" name="overlaps after" triso:useOutputTypeAsAnswer="false">
-        <semantic:variable name="overlaps after" id="_8739098f-06ef-4721-a03f-b3e546bb4910" typeRef="Any"/>
-        <semantic:context id="_682a4857-363c-4ac2-a7fc-9dffcc901107" typeRef="Any" triso:expressionId="_7c9080bb-8ac8-4424-a57c-13dc0c253e2e">
+        <semantic:variable name="overlaps after" id="_8739098f-06ef-4721-a03f-b3e546bb4910"/>
+        <semantic:context id="_682a4857-363c-4ac2-a7fc-9dffcc901107" triso:expressionId="_7c9080bb-8ac8-4424-a57c-13dc0c253e2e">
             <semantic:contextEntry id="_4b11567a-3735-44c6-bb2c-aa721f3e59c1">
                 <semantic:variable name="overlapsafterRRT" id="_c0bd5913-cfc8-4f11-92ac-6675952ca43c" typeRef="Any"/>
                 <semantic:literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" triso:unparsed="true" id="_abad5aa8-00e5-4e19-a39a-579bfe041b66">
@@ -832,8 +832,8 @@
         </semantic:context>
     </semantic:decision>
     <semantic:decision id="_37232b74-0615-47e4-9d05-875742a5a4d7" name="finishes" triso:useOutputTypeAsAnswer="false">
-        <semantic:variable name="finishes" id="_69236fe8-463f-413f-9647-3a86a8d10660" typeRef="Any"/>
-        <semantic:context id="_d98e0f6c-88ac-4388-ab33-cd8a17a70dcf" typeRef="Any" triso:expressionId="_a9f9ce35-d5a5-42f8-ad08-74bb1a82337a">
+        <semantic:variable name="finishes" id="_69236fe8-463f-413f-9647-3a86a8d10660"/>
+        <semantic:context id="_d98e0f6c-88ac-4388-ab33-cd8a17a70dcf" triso:expressionId="_a9f9ce35-d5a5-42f8-ad08-74bb1a82337a">
             <semantic:contextEntry id="_e197b9b1-353e-427c-baa3-1e42116f1213">
                 <semantic:variable name="fnishesPRT" id="_2377cc99-ada8-4a46-bb29-8889a0d12553" typeRef="Any"/>
                 <semantic:literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" triso:unparsed="true" id="_590036c1-09f1-481f-8722-cc03ee91782c">
@@ -879,8 +879,8 @@
         </semantic:context>
     </semantic:decision>
     <semantic:decision id="_9d5d273e-8b4a-48dd-b788-e0eeb2b712cd" name="finished by" triso:useOutputTypeAsAnswer="false">
-        <semantic:variable name="finished by" id="_0a853dd0-1116-4bbc-9a96-a471c6deea0c" typeRef="Any"/>
-        <semantic:context id="_a8163ecc-af52-4538-a638-7f1c78993eb6" typeRef="Any" triso:expressionId="_d3719e84-a322-440f-b565-145303dfc803">
+        <semantic:variable name="finished by" id="_0a853dd0-1116-4bbc-9a96-a471c6deea0c"/>
+        <semantic:context id="_a8163ecc-af52-4538-a638-7f1c78993eb6" triso:expressionId="_d3719e84-a322-440f-b565-145303dfc803">
             <semantic:contextEntry id="_8a64a5c5-9c28-4991-b3da-37fdd211c451">
                 <semantic:variable name="finishedbyRPT" id="_d0e654b0-4086-466e-8232-7ce86b014843" typeRef="Any"/>
                 <semantic:literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" triso:unparsed="true" id="_0facb316-7d53-45b2-bcc1-5a9199fd7997">
@@ -926,8 +926,8 @@
         </semantic:context>
     </semantic:decision>
     <semantic:decision id="_31e16c94-a1ca-4fa0-b51b-1d5a1400f727" name="includes" triso:useOutputTypeAsAnswer="false">
-        <semantic:variable name="includes" id="_e9384afb-75c1-4e76-a9f4-901c93a0094a" typeRef="Any"/>
-        <semantic:context id="_bd9d7486-5674-4792-84d9-27e2e43c88e3" typeRef="Any" triso:expressionId="_a15d2ba9-4602-4a3d-8619-ecb41979a54c">
+        <semantic:variable name="includes" id="_e9384afb-75c1-4e76-a9f4-901c93a0094a"/>
+        <semantic:context id="_bd9d7486-5674-4792-84d9-27e2e43c88e3" triso:expressionId="_a15d2ba9-4602-4a3d-8619-ecb41979a54c">
             <semantic:contextEntry id="_0101da7f-d6b8-4469-9e1f-7ede912ef47c">
                 <semantic:variable name="includesRPT" id="_0216bab1-4fa6-4318-950c-0d958af6c720" typeRef="Any"/>
                 <semantic:literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" triso:unparsed="true" id="_4e4e4c17-515d-4837-9c53-c8542d33bdad">
@@ -1015,8 +1015,8 @@
         </semantic:context>
     </semantic:decision>
     <semantic:decision id="_7cfd72fa-fc8d-474c-bd87-9ddd67c0994d" name="during" triso:useOutputTypeAsAnswer="false">
-        <semantic:variable name="during" id="_8dc438e6-33d7-402e-820c-18d9493c885a" typeRef="Any"/>
-        <semantic:context id="_0ecfff0d-8a4c-45bb-997b-4b4eb58ff8c5" typeRef="Any" triso:expressionId="_13216006-adf7-40b8-823a-182c2fe2e046">
+        <semantic:variable name="during" id="_8dc438e6-33d7-402e-820c-18d9493c885a"/>
+        <semantic:context id="_0ecfff0d-8a4c-45bb-997b-4b4eb58ff8c5" triso:expressionId="_13216006-adf7-40b8-823a-182c2fe2e046">
             <semantic:contextEntry id="_a01595d3-0a61-4357-b374-269f2db37df5">
                 <semantic:variable name="duringPRT" id="_5c70d394-0215-4ac2-9133-d775594d12ab" typeRef="Any"/>
                 <semantic:literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" triso:unparsed="true" id="_e92d68ac-deb3-46ca-aadb-f3a06da22fe2">
@@ -1104,8 +1104,8 @@
         </semantic:context>
     </semantic:decision>
     <semantic:decision id="_9388274a-d284-4ac8-8c5e-0bf1a471db10" name="starts" triso:useOutputTypeAsAnswer="false">
-        <semantic:variable name="starts" id="_53c4e441-6623-4e00-96b6-005eebc690b8" typeRef="Any"/>
-        <semantic:context id="_aa0d3b55-66bf-4f52-83df-b1575719a1e5" typeRef="Any" triso:expressionId="_f951f156-a5de-4083-8423-c8f0698b062b">
+        <semantic:variable name="starts" id="_53c4e441-6623-4e00-96b6-005eebc690b8"/>
+        <semantic:context id="_aa0d3b55-66bf-4f52-83df-b1575719a1e5" triso:expressionId="_f951f156-a5de-4083-8423-c8f0698b062b">
             <semantic:contextEntry id="_8c318236-3214-4b2c-9900-7507839d0ce6">
                 <semantic:variable name="startsPRT" id="_09a500c5-7983-4671-8bc0-a8165a67e572" typeRef="Any"/>
                 <semantic:literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" triso:unparsed="true" id="_bcc33f31-9221-4102-a277-b75332a8ded2">
@@ -1169,8 +1169,8 @@
         </semantic:context>
     </semantic:decision>
     <semantic:decision id="_0100930c-32a9-47be-b977-cc5ef3076b7c" name="started by" triso:useOutputTypeAsAnswer="false">
-        <semantic:variable name="started by" id="_ff8f9298-d645-4e8a-8266-0b3a63a0ab2e" typeRef="Any"/>
-        <semantic:context id="_c9458df2-63fd-43d1-9e78-82304da267e0" typeRef="Any" triso:expressionId="_c8a0d7e2-6069-44e0-b30c-9630b5727bf4">
+        <semantic:variable name="started by" id="_ff8f9298-d645-4e8a-8266-0b3a63a0ab2e"/>
+        <semantic:context id="_c9458df2-63fd-43d1-9e78-82304da267e0" triso:expressionId="_c8a0d7e2-6069-44e0-b30c-9630b5727bf4">
             <semantic:contextEntry id="_370dbf9b-7abe-427c-b9bb-96ec4eae76b6">
                 <semantic:variable name="startedbyRPT" id="_196e3427-fc94-4e47-a136-710b34c1f925" typeRef="Any"/>
                 <semantic:literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" triso:unparsed="true" id="_faa95d27-1d21-4985-86f0-330611ae3aed">
@@ -1234,8 +1234,8 @@
         </semantic:context>
     </semantic:decision>
     <semantic:decision id="_324b7ce1-0b42-4534-9f6a-71ceb356721c" name="coincides" triso:useOutputTypeAsAnswer="false">
-        <semantic:variable name="coincides" id="_8bbb6a48-dfb6-4c72-b5c8-733b3e9af396" typeRef="Any"/>
-        <semantic:context id="_4aef12b4-1e40-48b7-b454-3b7c447baa30" typeRef="Any" triso:expressionId="_8bc55b04-3e8e-4172-b749-13889c78d286">
+        <semantic:variable name="coincides" id="_8bbb6a48-dfb6-4c72-b5c8-733b3e9af396"/>
+        <semantic:context id="_4aef12b4-1e40-48b7-b454-3b7c447baa30" triso:expressionId="_8bc55b04-3e8e-4172-b749-13889c78d286">
             <semantic:contextEntry id="_e7c6eb69-2e69-47bd-9ef5-6a060534f35a">
                 <semantic:variable name="coincidesPPT" id="_d6e86bc5-a714-4602-a6ff-b49ddcf8fd76" typeRef="Any"/>
                 <semantic:literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" triso:unparsed="true" id="_195e6e1d-5df5-4d68-9946-ddbb909b309b">
@@ -1272,8 +1272,8 @@
         <semantic:extensionElements>
             <triso:semanticLink uri="http://www.trisotech.com/definitions/_4dacb45e-9b17-48e0-9518-8cd1b47d445b#_028a365e-be96-4311-b7a3-80b1786e18e3" name="DMN13 Intervals - overlaps" modelURI="http://www.trisotech.com/definitions/_4dacb45e-9b17-48e0-9518-8cd1b47d445b" id="_72bd46e4-37f3-43f2-8879-8c6e6086c4fb"/>
         </semantic:extensionElements>
-        <semantic:variable name="overlaps" id="_43347072-7bb3-45c8-8e73-5d63f85b6a64" typeRef="Any"/>
-        <semantic:context id="_92b05524-6ee6-4f80-9637-043512f549a2" typeRef="Any" triso:expressionId="_bfbb6171-f338-4553-9ef0-517c47bba72a">
+        <semantic:variable name="overlaps" id="_43347072-7bb3-45c8-8e73-5d63f85b6a64"/>
+        <semantic:context id="_92b05524-6ee6-4f80-9637-043512f549a2" triso:expressionId="_bfbb6171-f338-4553-9ef0-517c47bba72a">
             <semantic:contextEntry id="_d262dd90-1247-4619-9876-954a9b99bb02">
                 <semantic:variable name="overlapsRRT" id="_5c188ca5-b21a-4fd8-82c1-eab9ee27b336" typeRef="Any"/>
                 <semantic:literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" triso:unparsed="true" id="_3d266d8f-42ca-4f17-aedd-a6bf2e23fe23">

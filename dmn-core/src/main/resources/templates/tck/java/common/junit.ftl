@@ -25,7 +25,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
     <#list testCases.testCase>
         <#items as tc>
     @org.junit.Test
-    public void testCase${tc.id}() {
+    public void testCase${tckUtil.testCaseId(tc)}() {
         <@initializeInputs tc/>
 
         <@checkResults tc/>
