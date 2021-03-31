@@ -133,7 +133,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
             if (element instanceof TDecision) {
                 typeRef = dmnModelRepository.inferExpressionTypeRef(model, element);
             }
-            if (typeRef != null) {
+            if (!dmnModelRepository.isNull(typeRef)) {
                 type = dmnEnvironmentFactory.toFEELType(model, typeRef);
             } else {
                 TExpression expression = dmnModelRepository.expression(element);

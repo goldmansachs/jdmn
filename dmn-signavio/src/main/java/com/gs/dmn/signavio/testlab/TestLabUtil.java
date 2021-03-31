@@ -215,7 +215,7 @@ public class TestLabUtil {
         TDefinitions model = this.dmnModelRepository.getModel(type);
         if (type.isIsCollection()) {
             String typeRef = type.getTypeRef();
-            if (typeRef != null) {
+            if (!this.dmnModelRepository.isNull(typeRef)) {
                 return this.dmnModelRepository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
             }
             List<TItemDefinition> itemComponent = type.getItemComponent();
