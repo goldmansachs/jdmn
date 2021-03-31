@@ -136,7 +136,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
             }
             // decision/variable/@typeRef is not null
             QualifiedName typeRef = QualifiedName.toQualifiedName(definitions, variable.getTypeRef());
-            if (typeRef == null) {
+            if (repository.isNull(typeRef)) {
                 String errorMessage = "Missing typRef in variable";
                 errors.add(makeError(repository, definitions, decision, errorMessage));
             }

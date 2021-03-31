@@ -100,7 +100,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     public Type drgElementVariableFEELType(TDRGElement element, DMNContext context) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         QualifiedName typeRef = this.dmnModelRepository.variableTypeRef(model, element);
-        Type declaredType = typeRef == null ? null : toFEELType(model, typeRef);
+        Type declaredType = this.dmnModelRepository.isNull(typeRef) ? null : toFEELType(model, typeRef);
         if (declaredType == null) {
             // Infer type from body
             return inferDRGElementVariableFEELType(element, context);
@@ -180,7 +180,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         QualifiedName typeRef = QualifiedName.toQualifiedName(model, expression.getTypeRef());
         if (expression instanceof TContext) {
-            if (typeRef != null) {
+            if (!dmnModelRepository.isNull(typeRef)) {
                 return toFEELType(model, typeRef);
             }
 
@@ -217,14 +217,14 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             // Infer type from expression
             return functionDefinitionType(element, (TFunctionDefinition) expression, context);
         } else if (expression instanceof TLiteralExpression) {
-            if (typeRef != null) {
+            if (!this.dmnModelRepository.isNull(typeRef)) {
                 return toFEELType(model, typeRef);
             }
 
             // Infer type from expression
             return literalExpressionType(element, (TLiteralExpression) expression, context);
         } else if (expression instanceof TInvocation) {
-            if (typeRef != null) {
+            if (!this.dmnModelRepository.isNull(typeRef)) {
                 return toFEELType(model, typeRef);
             }
 
@@ -241,7 +241,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 throw new DMNRuntimeException(String.format("Not supported '%s'", body.getClass().getSimpleName()));
             }
         } else if (expression instanceof TDecisionTable) {
-            if (typeRef != null) {
+            if (!this.dmnModelRepository.isNull(typeRef)) {
                 return toFEELType(model, typeRef);
             }
 
@@ -269,7 +269,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             }
             throw new DMNRuntimeException(String.format("Cannot infer type for '%s' from empty OutputClauses", element.getName()));
         } else if (expression instanceof TList) {
-            if (typeRef != null) {
+            if (!this.dmnModelRepository.isNull(typeRef)) {
                 Type elementType = toFEELType(model, typeRef);
                 return new ListType(elementType);
             }
@@ -365,7 +365,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     @Override
     public Type toFEELType(TDefinitions model, QualifiedName typeRef) {
-        if (typeRef == null) {
+        if (this.dmnModelRepository.isNull(typeRef)) {
             throw new DMNRuntimeException(String.format("Cannot infer type for typeRef '%s'", typeRef));
         }
 
@@ -408,11 +408,11 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         QualifiedName typeRef = QualifiedName.toQualifiedName(model, itemDefinition.getTypeRef());
         List<TItemDefinition> itemComponent = itemDefinition.getItemComponent();
         TFunctionItem functionItem = itemDefinition.getFunctionItem();
-        if (typeRef == null && (itemComponent == null || itemComponent.isEmpty()) && functionItem == null) {
+        if (this.dmnModelRepository.isNull(typeRef) && (itemComponent == null || itemComponent.isEmpty()) && functionItem == null) {
             return AnyType.ANY;
         }
         Type type;
-        if (typeRef != null) {
+        if (!this.dmnModelRepository.isNull(typeRef)) {
             type = toFEELType(model, typeRef);
         } else if (functionItem != null) {
             List<FormalParameter> formalParameters = makeFormalParameters(model, functionItem.getParameters());
@@ -434,7 +434,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     Type lookupPrimitiveType(QualifiedName typeRef) {
-        if (typeRef == null) {
+        if (this.dmnModelRepository.isNull(typeRef)) {
             return null;
         }
         String importName = typeRef.getNamespace();
@@ -489,7 +489,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             Type bodyType;
             TExpression body = expressionElement.getValue();
             QualifiedName typeRef = QualifiedName.toQualifiedName(model, bodyTypeRef(functionDefinition));
-            if (typeRef != null) {
+            if (!this.dmnModelRepository.isNull(typeRef)) {
                 bodyType = toFEELType(model, typeRef);
             } else {
                 DMNContext functionDefinitionContext = this.dmnTransformer.makeFunctionContext(element, functionDefinition, context);
@@ -800,7 +800,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             return entryType;
         }
         QualifiedName typeRef = expression == null ? null : QualifiedName.toQualifiedName(model, expression.getTypeRef());
-        if (typeRef != null) {
+        if (!this.dmnModelRepository.isNull(typeRef)) {
             entryType = this.dmnTransformer.toFEELType(model, typeRef);
         }
         if (entryType == null) {
@@ -825,7 +825,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         if (variable != null) {
             QualifiedName typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
-            if (typeRef != null) {
+            if (!this.dmnModelRepository.isNull(typeRef)) {
                 return this.dmnTransformer.toFEELType(model, typeRef);
             }
         }
@@ -841,7 +841,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         Environment relationEnvironment = this.environmentFactory.emptyEnvironment();
         for(TInformationItem column: relation.getColumn()) {
             QualifiedName typeRef = QualifiedName.toQualifiedName(model, column.getTypeRef());
-            if (typeRef != null) {
+            if (!this.dmnModelRepository.isNull(typeRef)) {
                 String name = column.getName();
                 relationEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, this.dmnTransformer.toFEELType(model, typeRef)));
             }

@@ -619,7 +619,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                 TExpression exp = expElement.getValue();
                 expResult = evaluateExpression(element, exp, context, elementAnnotation);
                 String typeRef = exp.getTypeRef();
-                if (typeRef != null) {
+                if (!this.repository.isNull(typeRef)) {
                     elementType = this.dmnTransformer.toFEELType(model, typeRef);
                 } else {
                     elementType = this.dmnTransformer.expressionType(element, exp, context);
