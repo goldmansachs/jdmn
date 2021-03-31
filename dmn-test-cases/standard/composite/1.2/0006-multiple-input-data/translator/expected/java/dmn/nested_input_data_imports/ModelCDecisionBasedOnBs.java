@@ -36,11 +36,11 @@ public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.DefaultDMNBaseDe
         this.modelb_evaluatingSayHello = modelb_evaluatingSayHello;
     }
 
-    public Object apply(String modelb2_modela_personName, String modelb_modela_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+    public String apply(String modelb2_modela_personName, String modelb_modela_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         return apply(modelb2_modela_personName, modelb_modela_personName, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public Object apply(String modelb2_modela_personName, String modelb_modela_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(String modelb2_modela_personName, String modelb_modela_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'ModelCDecisionBasedOnBs'
             long modelCDecisionBasedOnBsStartTime_ = System.currentTimeMillis();
@@ -54,7 +54,7 @@ public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.DefaultDMNBaseDe
             String modelb_evaluatingSayHello = this.modelb_evaluatingSayHello.apply(modelb_modela_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // Evaluate decision 'ModelCDecisionBasedOnBs'
-            Object output_ = evaluate(modelb2_evaluatingB2SayHello, modelb_evaluatingSayHello, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(modelb2_evaluatingB2SayHello, modelb_evaluatingSayHello, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'ModelCDecisionBasedOnBs'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, modelCDecisionBasedOnBsArguments_, output_, (System.currentTimeMillis() - modelCDecisionBasedOnBsStartTime_));
@@ -66,7 +66,7 @@ public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.DefaultDMNBaseDe
         }
     }
 
-    protected Object evaluate(String modelb2_evaluatingB2SayHello, String modelb_evaluatingSayHello, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(String modelb2_evaluatingB2SayHello, String modelb_evaluatingSayHello, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         return stringAdd(stringAdd(stringAdd("B: ", modelb_evaluatingSayHello), "; B2: "), modelb2_evaluatingB2SayHello);
     }
 }
