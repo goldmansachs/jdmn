@@ -291,6 +291,11 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
     // Translator - helper delegated methods
     //
+    public String testCaseId(TestCase testCase) {
+        String id = testCase.getId();
+        return this.transformer.nativeFriendlyName(id);
+    }
+
     public String assertClassName() {
         return this.transformer.assertClassName();
     }
@@ -536,7 +541,13 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         } else if (valueType.getList() != null) {
             return toNativeExpression(valueType.getList().getValue(), (ListType) type);
         } else if (valueType.getComponent() != null) {
-            return toNativeExpression(valueType.getComponent(), (ItemDefinitionType) type);
+            if (type instanceof ItemDefinitionType) {
+                return toNativeExpression(valueType.getComponent(), (ItemDefinitionType) type);
+            } else if (type instanceof ContextType) {
+                return toNativeExpression(valueType.getComponent(), (ContextType) type);
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
+            }
         }
         throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
     }
@@ -570,9 +581,25 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             }
         }
         sortParameters(argumentList);
-        String interfaceName = this.transformer.toNativeType(type);
+        String interfaceName = this.transformer.toNativeType((Type) type);
         String arguments = argumentList.stream().map(Pair::getRight).collect(Collectors.joining(", "));
         return this.transformer.constructor(this.transformer.itemDefinitionNativeClassName(interfaceName), arguments);
+    }
+
+    private String toNativeExpression(List<Component> components, ContextType type) {
+        // Initialized members
+        List<Pair<String, String>> membersList = new ArrayList<>();
+        for (Component c : components) {
+            String name = c.getName();
+            Type memberType = type.getMemberType(name);
+            String value = toNativeExpression(c, memberType);
+            membersList.add(new Pair<>(name, value));
+        }
+        // Use builder pattern in Context
+        sortParameters(membersList);
+        String builder = this.transformer.defaultConstructor(this.transformer.contextClassName());
+        String parts = membersList.stream().map(a -> String.format("add(\"%s\", %s)", a.getLeft(), a.getRight())).collect(Collectors.joining("."));
+        return String.format("%s.%s", builder, parts);
     }
 
     public Object makeValue(ValueType valueType) {
