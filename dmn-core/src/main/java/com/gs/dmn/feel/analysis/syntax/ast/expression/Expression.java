@@ -26,7 +26,7 @@ public abstract class Expression extends Element {
     }
 
     public void setType(Type type) {
-        if (type != null) {
+        if (!Type.isNull(type)) {
             this.type = type;
         }
     }

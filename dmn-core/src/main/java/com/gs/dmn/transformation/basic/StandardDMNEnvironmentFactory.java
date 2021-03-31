@@ -314,7 +314,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (outputTypeRef == null) {
             if (index < outputEntries.size()) {
                 type = expressionType(element, outputEntries.get(index), context);
-                if (type == null) {
+                if (Type.isNull(type)) {
                     throw new DMNRuntimeException(String.format("Cannot infer type for '%s' from OutputEntries", element.getName()));
                 }
             } else {
@@ -328,7 +328,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     private Type applyPolicies(TDRGElement element, TDecisionTable decisionTable, Type type) {
         TBuiltinAggregator aggregation = decisionTable.getAggregation();
-        if (decisionTable.getHitPolicy() == THitPolicy.COLLECT && type != null) {
+        if (decisionTable.getHitPolicy() == THitPolicy.COLLECT && !Type.isNull(type)) {
             type = new ListType(type);
         }
         if (aggregation == TBuiltinAggregator.COUNT || aggregation == TBuiltinAggregator.SUM) {
@@ -371,7 +371,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
         // Lookup type
         Type type = this.feelTypeMemoizer.get(model, typeRef);
-        if (type == null) {
+        if (Type.isNull(type)) {
             type = toFEELTypeNoCache(model, typeRef);
             this.feelTypeMemoizer.put(model, typeRef, type);
         }
@@ -395,7 +395,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     @Override
     public Type toFEELType(TItemDefinition itemDefinition) {
         Type type = this.feelTypeMemoizer.get(itemDefinition);
-        if (type == null) {
+        if (Type.isNull(type)) {
             type = toFEELTypeNoCache(itemDefinition);
             this.feelTypeMemoizer.put(itemDefinition, type);
         }
@@ -812,13 +812,13 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     @Override
     public Type entryType(TDRGElement element, TContextEntry entry, DMNContext localContext) {
         TInformationItem variable = entry.getVariable();
-        Type feelType = variableType(element, variable);
-        if (feelType != null) {
-            return feelType;
+        Type type = variableType(element, variable);
+        if (!Type.isNull(type)) {
+            return type;
         }
         // Infer type from expression
-        feelType = this.dmnTransformer.expressionType(element, entry.getExpression(), localContext);
-        return feelType == null ? AnyType.ANY : feelType;
+        type = this.dmnTransformer.expressionType(element, entry.getExpression(), localContext);
+        return type == null ? AnyType.ANY : type;
     }
 
     private Type variableType(TNamedElement element, TInformationItem variable) {

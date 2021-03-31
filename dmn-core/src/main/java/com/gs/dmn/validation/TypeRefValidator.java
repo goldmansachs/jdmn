@@ -83,7 +83,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
         TInformationItem variable = repository.variable(element);
         QualifiedName typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
 
-        String hint = type == null ? "" : String.format(". The inferred type is '%s'", type.toString());
+        String hint = Type.isNull(type) ? "" : String.format(". The inferred type is '%s'", type.toString());
         return makeError(repository, model, element, String.format("Cannot find typeRef '%s'", typeRef.toString()) + hint);
     }
 

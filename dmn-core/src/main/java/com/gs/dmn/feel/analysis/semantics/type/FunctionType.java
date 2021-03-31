@@ -100,7 +100,7 @@ public abstract class FunctionType extends Type {
             List<Type> argumentTypes = new ArrayList<>();
             for(FormalParameter parameter: this.parameters) {
                 Type type = namedSignature.getType(parameter.getName());
-                if (type != null) {
+                if (!Type.isNull(type)) {
                     argumentTypes.add(type);
                 } else {
                     if (parameter instanceof Parameter) {
