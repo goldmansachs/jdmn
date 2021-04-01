@@ -46,7 +46,7 @@ public class Relational extends Comparison {
     @Override
     public void deriveType(DMNContext context) {
         setType(BOOLEAN);
-        checkType(this.operator, this.leftOperand.getType(), this.rightOperand.getType());
+        checkType(this.operator, this.leftOperand.getType(), this.rightOperand.getType(), context);
     }
 
     @Override
