@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.signavio.testlab;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.testlab.expression.ComplexExpression;
 import com.gs.dmn.signavio.testlab.expression.Expression;
 import com.gs.dmn.signavio.testlab.expression.ListExpression;
@@ -33,24 +34,32 @@ public class TestLabEnhancer extends NopTestLabVisitor implements TestLabVisitor
     }
 
     @Override
-    public Object visit(TestLab element, Object... params) {
-        element.getTestCases().forEach(
-            tc -> tc.accept(this, element)
-        );
-        return element;
+    public Object visit(TestLab testLab, Object... params) {
+        List<TestCase> testCases = testLab.getTestCases();
+        for (int i=0; i<testCases.size(); i++) {
+            TestCase tc = testCases.get(i);
+            tc.accept(this, testLab, i);
+        }
+        return testLab;
     }
 
     @Override
     public Object visit(TestCase testCase, Object... params) {
         TestLab testLab = getTestLab(params);
+        int testCaseIndex = getTestCaseIndex(params);
         List<Expression> inputValues = testCase.getInputValues();
         if (inputValues != null) {
             for(int i = 0; i< inputValues.size(); i++) {
                 Expression expression = inputValues.get(i);
                 if (expression != null) {
                     InputParameterDefinition parameterDefinition = testLab.getInputParameterDefinitions().get(i);
-                    TItemDefinition itemDefinition = testLabUtil.lookupItemDefinition(parameterDefinition);
-                    expression.accept(this, testLab, itemDefinition);
+                    try {
+                        TItemDefinition itemDefinition = testLabUtil.lookupItemDefinition(parameterDefinition);
+                        expression.accept(this, testLab, itemDefinition);
+                    } catch (Exception e) {
+                        String requirementName = parameterDefinition.getRequirementName();
+                        throw new DMNRuntimeException(String.format("Error in TestCase '%d' for '%s", testCaseIndex + 1, requirementName), e);
+                    }
                 }
             }
         }
@@ -111,7 +120,11 @@ public class TestLabEnhancer extends NopTestLabVisitor implements TestLabVisitor
     }
 
     private TestLab getTestLab(Object... params) {
-        return (TestLab)params[0];
+        return (TestLab) params[0];
+    }
+
+    private int getTestCaseIndex(Object[] params) {
+        return (int) params[1];
     }
 
     private TItemDefinition getType(Object... params) {
