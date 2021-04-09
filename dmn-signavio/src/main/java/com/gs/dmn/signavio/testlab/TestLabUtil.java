@@ -224,8 +224,9 @@ public class TestLabUtil {
             } else {
                 return type;
             }
+        } else {
+            throw new DMNRuntimeException(String.format("Expected list type, found '%s'", type.getName()));
         }
-        throw new DMNRuntimeException(String.format("Cannot find element type of type '%s'", type.getName()));
     }
 
     TItemDefinition memberType(TItemDefinition itemDefinition, Slot slot) {
@@ -287,14 +288,10 @@ public class TestLabUtil {
     }
 
     private Type elementType(Type type) {
-        Type elementType = null;
         if (type instanceof ListType) {
-            elementType = ((ListType) type).getElementType();
-        }
-        if (elementType == null) {
-            throw new DMNRuntimeException(String.format("Cannot find element type of type '%s'", type));
+            return ((ListType) type).getElementType();
         } else {
-            return elementType;
+            throw new DMNRuntimeException(String.format("Expected list type, found '%s'", type));
         }
     }
 
