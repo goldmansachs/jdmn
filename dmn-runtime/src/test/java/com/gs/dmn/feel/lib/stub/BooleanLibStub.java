@@ -19,7 +19,7 @@ import java.util.List;
 
 public class BooleanLibStub implements BooleanLib {
     @Override
-    public Boolean and(List<Object> list) {
+    public Boolean and(List<?> list) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -29,7 +29,7 @@ public class BooleanLibStub implements BooleanLib {
     }
 
     @Override
-    public Boolean all(List<Object> list) {
+    public Boolean all(List<?> list) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -39,7 +39,7 @@ public class BooleanLibStub implements BooleanLib {
     }
 
     @Override
-    public Boolean or(List<Object> list) {
+    public Boolean or(List<?> list) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -49,7 +49,7 @@ public class BooleanLibStub implements BooleanLib {
     }
 
     @Override
-    public Boolean any(List<Object> list) {
+    public Boolean any(List<?> list) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
