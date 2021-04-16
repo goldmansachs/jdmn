@@ -82,8 +82,8 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     //
     // Boolean functions
     //
-    Boolean and(List list);
-    Boolean or(List list);
+    Boolean and(List<?> list);
+    Boolean or(List<?> list);
 
     //
     // List functions
