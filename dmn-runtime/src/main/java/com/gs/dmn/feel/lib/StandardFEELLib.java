@@ -223,7 +223,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     // Use all instead
     @Override
     @Deprecated
-    Boolean and(List list);
+    Boolean and(List<?> list);
     // Use all instead
     @Deprecated
     Boolean and(Object... args);
@@ -231,15 +231,15 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     // Use any instead
     @Override
     @Deprecated
-    Boolean or(List list);
+    Boolean or(List<?> list);
     // Use any instead
     @Deprecated
     Boolean or(Object... args);
 
-    Boolean all(List list);
+    Boolean all(List<?> list);
     Boolean all(Object... args);
 
-    Boolean any(List list);
+    Boolean any(List<?> list);
     Boolean any(Object... args);
 
     List sublist(List list, NUMBER position);

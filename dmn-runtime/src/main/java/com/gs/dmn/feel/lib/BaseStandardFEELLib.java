@@ -567,7 +567,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     // Boolean functions
     //
     @Override
-    public Boolean and(List list) {
+    public Boolean and(List<?> list) {
         try {
             return this.booleanLib.and(list);
         } catch (Exception e) {
@@ -589,7 +589,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean all(List list) {
+    public Boolean all(List<?> list) {
         try {
             return this.booleanLib.all(list);
         } catch (Exception e) {
@@ -611,7 +611,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean or(List list) {
+    public Boolean or(List<?> list) {
         try {
             return this.booleanLib.or(list);
         } catch (Exception e) {
@@ -633,7 +633,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean any(List list) {
+    public Boolean any(List<?> list) {
         try {
             return this.booleanLib.any(list);
         } catch (Exception e) {

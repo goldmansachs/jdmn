@@ -838,7 +838,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public Boolean and(List list) {
+    public Boolean and(List<?> list) {
         return this.feelLib.and(list);
     }
 
