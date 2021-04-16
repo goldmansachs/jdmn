@@ -15,19 +15,19 @@ package com.gs.dmn.feel.lib.type.bool;
 import java.util.List;
 
 public interface BooleanLib {
-    Boolean and(List<Object> list);
+    Boolean and(List<?> list);
 
     Boolean and(Object... args);
 
-    Boolean all(List<Object> list);
+    Boolean all(List<?> list);
 
     Boolean all(Object... args);
 
-    Boolean or(List<Object> list);
+    Boolean or(List<?> list);
 
     Boolean or(Object... args);
 
-    Boolean any(List<Object> list);
+    Boolean any(List<?> list);
 
     Boolean any(Object... args);
 }
