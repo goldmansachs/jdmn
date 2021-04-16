@@ -214,7 +214,7 @@ public class DefaultStringLib implements StringLib {
     }
 
     @Override
-    public List split(String string, String delimiter) {
+    public List<String> split(String string, String delimiter) {
         if (string == null || delimiter == null) {
             return null;
         }
