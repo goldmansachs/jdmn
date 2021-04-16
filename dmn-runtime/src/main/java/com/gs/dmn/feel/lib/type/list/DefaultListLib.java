@@ -20,18 +20,18 @@ import java.util.List;
 
 public class DefaultListLib implements ListLib {
     @Override
-    public Boolean listContains(List list, Object element) {
+    public <T> Boolean listContains(List<T> list, T element) {
         return list == null ? null : list.contains(element);
     }
 
     @Override
-    public List append(List list, Object... items) {
-        List result = new ArrayList<>();
+    public <T> List<T> append(List<T> list, T... items) {
+        List<T> result = new ArrayList<>();
         if (list != null) {
             result.addAll(list);
         }
         if (items != null) {
-            for (Object item : items) {
+            for (T item : items) {
                 result.add(item);
             }
         } else {
@@ -41,8 +41,8 @@ public class DefaultListLib implements ListLib {
     }
 
     @Override
-    public List sublist(List list, int position) {
-        List result = new ArrayList<>();
+    public <T> List<T> sublist(List<T> list, int position) {
+        List<T> result = new ArrayList<>();
         if (list == null || isOutOfBounds(list, position)) {
             return result;
         }
@@ -61,8 +61,8 @@ public class DefaultListLib implements ListLib {
     }
 
     @Override
-    public List sublist(List list, int position, int length) {
-        List result = new ArrayList<>();
+    public <T> List<T> sublist(List<T> list, int position, int length) {
+        List<T> result = new ArrayList<>();
         if (list == null || isOutOfBounds(list, position)) {
             return result;
         }
@@ -102,8 +102,8 @@ public class DefaultListLib implements ListLib {
     }
 
     @Override
-    public List insertBefore(List list, int position, Object newItem) {
-        List result = new ArrayList<>();
+    public <T> List<T> insertBefore(List<T> list, int position, T newItem) {
+        List<T> result = new ArrayList<>();
         if (list != null) {
             result.addAll(list);
         }
@@ -120,7 +120,7 @@ public class DefaultListLib implements ListLib {
     }
 
     @Override
-    public List remove(List list, int position) {
+    public <T> List<T> remove(List<T> list, int position) {
         List result = new ArrayList<>();
         if (list != null) {
             result.addAll(list);
@@ -130,7 +130,7 @@ public class DefaultListLib implements ListLib {
     }
 
     @Override
-    public List reverse(List list) {
+    public <T> List<T> reverse(List<T> list) {
         List result = new ArrayList<>();
         if (list != null) {
             for (int i = list.size() - 1; i >= 0; i--) {
@@ -152,7 +152,7 @@ public class DefaultListLib implements ListLib {
     }
 
     @Override
-    public List distinctValues(List list1) {
+    public <T> List<T> distinctValues(List<T> list1) {
         List result = new ArrayList<>();
         if (list1 != null) {
             for (Object element : list1) {

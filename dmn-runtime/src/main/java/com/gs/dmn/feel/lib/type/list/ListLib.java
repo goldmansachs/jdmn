@@ -17,25 +17,25 @@ import com.gs.dmn.runtime.LambdaExpression;
 import java.util.List;
 
 public interface ListLib {
-    Boolean listContains(List list, Object element);
+    <T> Boolean listContains(List<T> list, T element);
 
-    List append(List list, Object... items);
+    <T> List<T> append(List<T> list, T... items);
 
-    List sublist(List list, int position);
+    <T> List<T> sublist(List<T> list, int position);
 
-    List sublist(List list, int position, int length);
+    <T> List<T> sublist(List<T> list, int position, int length);
 
     List concatenate(Object... lists);
 
-    List insertBefore(List list, int position, Object newItem);
+    <T> List<T> insertBefore(List<T> list, int position, T newItem);
 
-    List remove(List list, int position);
+    <T> List<T> remove(List<T> list, int position);
 
-    List reverse(List list);
+    <T> List<T> reverse(List<T> list);
 
     List union(Object... lists);
 
-    List distinctValues(List list1);
+    <T> List<T> distinctValues(List<T> list1);
 
     List flatten(List list1);
 
