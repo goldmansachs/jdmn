@@ -1031,7 +1031,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List sublist(List list, NUMBER startPosition) {
+    public <T> List<T> sublist(List<T> list, NUMBER startPosition) {
         try {
             return this.listLib.sublist(list, intValue(startPosition));
         } catch (Exception e) {
@@ -1042,7 +1042,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List sublist(List list, NUMBER startPosition, NUMBER length) {
+    public <T> List<T> sublist(List<T> list, NUMBER startPosition, NUMBER length) {
         try {
             return this.listLib.sublist(list, intValue(startPosition), intValue(length));
         } catch (Exception e) {
@@ -1064,7 +1064,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List insertBefore(List list, NUMBER position, Object newItem) {
+    public <T> List<T> insertBefore(List<T> list, NUMBER position, T newItem) {
         try {
             return this.listLib.insertBefore(list, intValue(position), newItem);
         } catch (Exception e) {
@@ -1075,7 +1075,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List remove(List list, Object position) {
+    public <T> List<T> remove(List<T> list, Object position) {
         try {
             return this.listLib.remove(list, ((Number)position).intValue());
         } catch (Exception e) {
@@ -1086,7 +1086,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List reverse(List list) {
+    public <T> List<T> reverse(List<T> list) {
         try {
             return this.listLib.reverse(list);
         } catch (Exception e) {
@@ -1097,7 +1097,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List indexOf(List list, Object match) {
+    public <T> List<NUMBER> indexOf(List<T> list, Object match) {
         List result = new ArrayList<>();
         if (list != null) {
             for (int i = 0; i < list.size(); i++) {
@@ -1122,7 +1122,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List distinctValues(List list) {
+    public <T> List<T> distinctValues(List<T> list) {
         try {
             return this.listLib.distinctValues(list);
         } catch (Exception e) {
