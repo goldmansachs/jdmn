@@ -246,7 +246,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     <T> List<T> sublist(List<T> list, NUMBER position, NUMBER length);
 
-    List concatenate(Object... lists);
+    <T> List<T> concatenate(List<T>... lists);
 
     <T> List<T> insertBefore(List<T> list, NUMBER position, T newItem);
 
@@ -256,7 +256,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     <T> List<NUMBER> indexOf(List<T> list, Object match);
 
-    List union(Object... lists);
+    <T> List<T> union(List<T>... lists);
 
     <T> List<T> distinctValues(List<T> list1);
 

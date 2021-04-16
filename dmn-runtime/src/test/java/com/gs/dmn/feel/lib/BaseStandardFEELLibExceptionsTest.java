@@ -355,7 +355,6 @@ public abstract class BaseStandardFEELLibExceptionsTest<NUMBER, DATE, TIME, DATE
     @Test
     public void testConcatenate() {
         assertNull(getLib().concatenate((List) null));
-        assertNull(getLib().concatenate((Object) null));
     }
 
     @Test
@@ -381,7 +380,6 @@ public abstract class BaseStandardFEELLibExceptionsTest<NUMBER, DATE, TIME, DATE
     @Test
     public void testUnion() {
         assertNull(getLib().union((List) null));
-        assertNull(getLib().union((Object) null));
     }
 
     @Test

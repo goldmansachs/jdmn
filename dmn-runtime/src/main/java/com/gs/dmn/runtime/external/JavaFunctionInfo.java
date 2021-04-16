@@ -28,11 +28,22 @@ public class JavaFunctionInfo {
             for (int i = 0; i < mandatoryParameterCount; i++) {
                 args[i] = argList.get(i);
             }
-            args[parameterCount - 1] = argList.subList(mandatoryParameterCount, argList.size()).toArray();
+            if (varArgIsList(declaredMethod)) {
+                args[parameterCount - 1] = argList.subList(mandatoryParameterCount, argList.size()).toArray(new List[]{});
+            } else {
+                args[parameterCount - 1] = argList.subList(mandatoryParameterCount, argList.size()).toArray(new Object[]{});
+            }
             return args;
         } else {
             return argList.toArray();
         }
+    }
+
+    private static boolean varArgIsList(Method method) {
+        Class<?>[] parameterTypes = method.getParameterTypes();
+        Class<?> varArgClass = parameterTypes[parameterTypes.length - 1];
+        String simpleName = varArgClass.getSimpleName();
+        return "List[]".equals(simpleName);
     }
 
     private final String className;
