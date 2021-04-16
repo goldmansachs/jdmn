@@ -25,7 +25,7 @@ public interface ListLib {
 
     <T> List<T> sublist(List<T> list, int position, int length);
 
-    List concatenate(Object... lists);
+    <T> List<T> concatenate(List<T>... lists);
 
     <T> List<T> insertBefore(List<T> list, int position, T newItem);
 
@@ -33,7 +33,7 @@ public interface ListLib {
 
     <T> List<T> reverse(List<T> list);
 
-    List union(Object... lists);
+    <T> List<T> union(List<T>... lists);
 
     <T> List<T> distinctValues(List<T> list1);
 

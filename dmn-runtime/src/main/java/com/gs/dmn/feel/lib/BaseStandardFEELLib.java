@@ -1053,7 +1053,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List concatenate(Object... lists) {
+    public <T> List<T> concatenate(List<T>... lists) {
         try {
             return this.listLib.concatenate(lists);
         } catch (Exception e) {
@@ -1111,7 +1111,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List union(Object... lists) {
+    public <T> List<T> union(List<T>... lists) {
         try {
             return this.listLib.union(lists);
         } catch (Exception e) {

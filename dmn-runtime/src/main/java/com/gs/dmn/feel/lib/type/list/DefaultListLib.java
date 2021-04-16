@@ -91,11 +91,11 @@ public class DefaultListLib implements ListLib {
     }
 
     @Override
-    public List concatenate(Object... lists) {
-        List result = new ArrayList<>();
+    public <T> List<T> concatenate(List<T>... lists) {
+        List<T> result = new ArrayList<>();
         if (lists != null) {
-            for (Object list : lists) {
-                result.addAll((List) list);
+            for (List<T> list : lists) {
+                result.addAll(list);
             }
         }
         return result;
@@ -141,11 +141,11 @@ public class DefaultListLib implements ListLib {
     }
 
     @Override
-    public List union(Object... lists) {
-        List result = new ArrayList<>();
+    public <T> List<T> union(List<T>... lists) {
+        List<T> result = new ArrayList<>();
         if (lists != null) {
-            for (Object list : lists) {
-                result.addAll((List) list);
+            for (List<T> list : lists) {
+                result.addAll(list);
             }
         }
         return distinctValues(result);
@@ -153,9 +153,9 @@ public class DefaultListLib implements ListLib {
 
     @Override
     public <T> List<T> distinctValues(List<T> list1) {
-        List result = new ArrayList<>();
+        List<T> result = new ArrayList<>();
         if (list1 != null) {
-            for (Object element : list1) {
+            for (T element : list1) {
                 if (!result.contains(element)) {
                     result.add(element);
                 }

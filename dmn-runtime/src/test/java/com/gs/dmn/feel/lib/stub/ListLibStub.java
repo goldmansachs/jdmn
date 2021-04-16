@@ -40,7 +40,7 @@ public class ListLibStub implements ListLib {
     }
 
     @Override
-    public List concatenate(Object... lists) {
+    public <T> List<T> concatenate(List<T>... lists) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -60,7 +60,7 @@ public class ListLibStub implements ListLib {
     }
 
     @Override
-    public List union(Object... lists) {
+    public <T> List<T> union(List<T>... lists) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
