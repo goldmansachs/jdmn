@@ -553,7 +553,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List split(String string, String delimiter) {
+    public List<String> split(String string, String delimiter) {
         try {
             return this.stringLib.split(string, delimiter);
         } catch (Exception e) {
