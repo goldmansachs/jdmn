@@ -117,7 +117,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     Boolean matches(String input, String pattern, String flags);
 
-    List split(String string, String delimiter);
+    List<String> split(String string, String delimiter);
 
     //
     // Boolean functions
