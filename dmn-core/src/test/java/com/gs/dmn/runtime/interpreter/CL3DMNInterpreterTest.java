@@ -404,12 +404,12 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
-    public void test_13_cl3_0095_day_of_year_function() {
-        doSingleModelTest("1.3", "0095-day-of-year-function");
+    public void test_13_cl3_0095_feel_day_of_year_function() {
+        doSingleModelTest("1.3", "0095-feel-day-of-year-function");
     }
 
     @Test
-    public void test_13_cl3_0096_day_of_week_function() {
+    public void test_13_cl3_0096_feel_day_of_week_function() {
         doSingleModelTest("1.3", "0096-day-of-week-function");
     }
 
