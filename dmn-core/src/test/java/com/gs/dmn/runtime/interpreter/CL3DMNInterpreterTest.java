@@ -409,7 +409,7 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
-    public void test_13_cl3_0096_feel_day_of_week_function() {
+    public void test_13_cl3_0096_day_of_week_function() {
         doSingleModelTest("1.3", "0096-day-of-week-function");
     }
 

@@ -4,7 +4,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation=""
            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <modelName>0095-day-of-year-function.dmn</modelName>
+    <modelName>0095-feel-day-of-year-function.dmn</modelName>
 
     <testCase id="date_001">
         <description>date: first day of year</description>

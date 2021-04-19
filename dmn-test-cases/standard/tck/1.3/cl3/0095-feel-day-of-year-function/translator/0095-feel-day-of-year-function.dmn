@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions namespace="http://www.montera.com.au/spec/DMN/0095-day-of-year-function"
-             name="0095-day-of-year-function"
+<definitions namespace="http://www.montera.com.au/spec/DMN/0095-feel-day-of-year-function"
+             name="0095-feel-day-of-year-function"
              id="_i9fboPUUEeesLuP4RHs4vA"
              xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
              xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
@@ -11,10 +11,6 @@
 
     <inputData name="date_input_001" id="_date_input_001">
         <variable name="date_input_001" typeRef="date"/>
-    </inputData>
-
-    <inputData name="datetime_input_001" id="_datetime_input_001">
-        <variable name="date_input_001" typeRef="date and time"/>
     </inputData>
 
     <decision name="date_001" id="_date_001">
