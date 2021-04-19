@@ -4,7 +4,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation=""
            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <modelName>0097-month-of-year-function.dmn</modelName>
+    <modelName>0097-feel-month-of-year-function.dmn</modelName>
 
     <testCase id="date_001">
         <description>date: month of year</description>
@@ -13,40 +13,40 @@
         </inputNode>
         <resultNode name="date_001" type="decision">
             <expected>
-                <component name="2021-01-01">
+                <component name="_2021-01-01">
                     <value xsi:type="xsd:string">January</value>
                 </component>
-                <component name="2021-02-01">
+                <component name="_2021-02-01">
                     <value xsi:type="xsd:string">February</value>
                 </component>
-                <component name="2021-03-01">
+                <component name="_2021-03-01">
                     <value xsi:type="xsd:string">March</value>
                 </component>
-                <component name="2021-04-01">
+                <component name="_2021-04-01">
                     <value xsi:type="xsd:string">April</value>
                 </component>
-                <component name="2021-05-01">
+                <component name="_2021-05-01">
                     <value xsi:type="xsd:string">May</value>
                 </component>
-                <component name="2021-06-01">
+                <component name="_2021-06-01">
                     <value xsi:type="xsd:string">June</value>
                 </component>
-                <component name="2021-07-01">
+                <component name="_2021-07-01">
                     <value xsi:type="xsd:string">July</value>
                 </component>
-                <component name="2021-08-01">
+                <component name="_2021-08-01">
                     <value xsi:type="xsd:string">August</value>
                 </component>
-                <component name="2021-09-01">
+                <component name="_2021-09-01">
                     <value xsi:type="xsd:string">September</value>
                 </component>
-                <component name="2021-10-01">
+                <component name="_2021-10-01">
                     <value xsi:type="xsd:string">October</value>
                 </component>
-                <component name="2021-11-01">
+                <component name="_2021-11-01">
                     <value xsi:type="xsd:string">November</value>
                 </component>
-                <component name="2021-12-01">
+                <component name="_2021-12-01">
                     <value xsi:type="xsd:string">December</value>
                 </component>
             </expected>
@@ -69,40 +69,40 @@
         </inputNode>
         <resultNode name="date_001" type="decision">
             <expected>
-                <component name="2021-01-01">
+                <component name="_2021-01-01">
                     <value xsi:type="xsd:string">January</value>
                 </component>
-                <component name="2021-02-01">
+                <component name="_2021-02-01">
                     <value xsi:type="xsd:string">February</value>
                 </component>
-                <component name="2021-03-01">
+                <component name="_2021-03-01">
                     <value xsi:type="xsd:string">March</value>
                 </component>
-                <component name="2021-04-01">
+                <component name="_2021-04-01">
                     <value xsi:type="xsd:string">April</value>
                 </component>
-                <component name="2021-05-01">
+                <component name="_2021-05-01">
                     <value xsi:type="xsd:string">May</value>
                 </component>
-                <component name="2021-06-01">
+                <component name="_2021-06-01">
                     <value xsi:type="xsd:string">June</value>
                 </component>
-                <component name="2021-07-01">
+                <component name="_2021-07-01">
                     <value xsi:type="xsd:string">July</value>
                 </component>
-                <component name="2021-08-01">
+                <component name="_2021-08-01">
                     <value xsi:type="xsd:string">August</value>
                 </component>
-                <component name="2021-09-01">
+                <component name="_2021-09-01">
                     <value xsi:type="xsd:string">September</value>
                 </component>
-                <component name="2021-10-01">
+                <component name="_2021-10-01">
                     <value xsi:type="xsd:string">October</value>
                 </component>
-                <component name="2021-11-01">
+                <component name="_2021-11-01">
                     <value xsi:type="xsd:string">November</value>
                 </component>
-                <component name="2021-12-01">
+                <component name="_2021-12-01">
                     <value xsi:type="xsd:string">December</value>
                 </component>
             </expected>
