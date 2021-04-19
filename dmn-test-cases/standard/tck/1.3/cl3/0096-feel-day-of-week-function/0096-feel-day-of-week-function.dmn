@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions namespace="http://www.montera.com.au/spec/DMN/0096-day-of-week-function"
-             name="0096-day-of-week-function"
+<definitions namespace="http://www.montera.com.au/spec/DMN/0096-feel-day-of-week-function"
+             name="0096-feel-day-of-week-function"
              id="_i9fboPUUEeesLuP4RHs4vA"
              xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
              xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
@@ -20,31 +20,31 @@
         </informationRequirement>
         <context>
             <contextEntry>
-                <variable name="2021-01-11"/>
+                <variable name="_2021-01-11"/>
                 <literalExpression><text>day of week(date_input_001)</text></literalExpression>
             </contextEntry>
             <contextEntry>
-                <variable name="2021-01-12"/>
+                <variable name="_2021-01-12"/>
                 <literalExpression><text>day of week(date_input_001+@"P1D")</text></literalExpression>
             </contextEntry>
             <contextEntry>
-                <variable name="2021-01-13"/>
+                <variable name="_2021-01-13"/>
                 <literalExpression><text>day of week(date_input_001+@"P2D")</text></literalExpression>
             </contextEntry>
             <contextEntry>
-                <variable name="2021-01-14"/>
+                <variable name="_2021-01-14"/>
                 <literalExpression><text>day of week(date_input_001+@"P3D")</text></literalExpression>
             </contextEntry>
             <contextEntry>
-                <variable name="2021-01-15"/>
+                <variable name="_2021-01-15"/>
                 <literalExpression><text>day of week(date_input_001+@"P4D")</text></literalExpression>
             </contextEntry>
             <contextEntry>
-                <variable name="2021-01-16"/>
+                <variable name="_2021-01-16"/>
                 <literalExpression><text>day of week(date_input_001+@"P5D")</text></literalExpression>
             </contextEntry>
             <contextEntry>
-                <variable name="2021-01-17"/>
+                <variable name="_2021-01-17"/>
                 <literalExpression><text>day of week(date_input_001+@"P6D")</text></literalExpression>
             </contextEntry>
         </context>
@@ -154,4 +154,3 @@
 
 
 </definitions>
-

@@ -4,7 +4,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation=""
            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <modelName>0096-day-of-week-function.dmn</modelName>
+    <modelName>0096-feel-day-of-week-function.dmn</modelName>
 
     <testCase id="date_001">
         <description>date: day of week</description>
@@ -13,25 +13,25 @@
         </inputNode>
         <resultNode name="date_001" type="decision">
             <expected>
-                <component name="2021-01-11">
+                <component name="_2021-01-11">
                     <value xsi:type="xsd:string">Monday</value>
                 </component>
-                <component name="2021-01-12">
+                <component name="_2021-01-12">
                     <value xsi:type="xsd:string">Tuesday</value>
                 </component>
-                <component name="2021-01-13">
+                <component name="_2021-01-13">
                     <value xsi:type="xsd:string">Wednesday</value>
                 </component>
-                <component name="2021-01-14">
+                <component name="_2021-01-14">
                     <value xsi:type="xsd:string">Thursday</value>
                 </component>
-                <component name="2021-01-15">
+                <component name="_2021-01-15">
                     <value xsi:type="xsd:string">Friday</value>
                 </component>
-                <component name="2021-01-16">
+                <component name="_2021-01-16">
                     <value xsi:type="xsd:string">Saturday</value>
                 </component>
-                <component name="2021-01-17">
+                <component name="_2021-01-17">
                     <value xsi:type="xsd:string">Sunday</value>
                 </component>
             </expected>
@@ -54,25 +54,25 @@
         </inputNode>
         <resultNode name="datetime_001" type="decision">
             <expected>
-                <component name="2021-01-11">
+                <component name="_2021-01-11">
                     <value xsi:type="xsd:string">Monday</value>
                 </component>
-                <component name="2021-01-12">
+                <component name="_2021-01-12">
                     <value xsi:type="xsd:string">Tuesday</value>
                 </component>
-                <component name="2021-01-13">
+                <component name="_2021-01-13">
                     <value xsi:type="xsd:string">Wednesday</value>
                 </component>
-                <component name="2021-01-14">
+                <component name="_2021-01-14">
                     <value xsi:type="xsd:string">Thursday</value>
                 </component>
-                <component name="2021-01-15">
+                <component name="_2021-01-15">
                     <value xsi:type="xsd:string">Friday</value>
                 </component>
-                <component name="2021-01-16">
+                <component name="_2021-01-16">
                     <value xsi:type="xsd:string">Saturday</value>
                 </component>
-                <component name="2021-01-17">
+                <component name="_2021-01-17">
                     <value xsi:type="xsd:string">Sunday</value>
                 </component>
             </expected>
