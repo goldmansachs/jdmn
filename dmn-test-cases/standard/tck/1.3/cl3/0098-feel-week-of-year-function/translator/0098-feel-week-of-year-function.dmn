@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions namespace="http://www.montera.com.au/spec/DMN/0098-week-of-year-function"
-             name="0098-week-of-year-function"
+<definitions namespace="http://www.montera.com.au/spec/DMN/0098-feel-week-of-year-function"
+             name="0098-feel-week-of-year-function"
              id="_i9fboPUUEeesLuP4RHs4vA"
              xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
              xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
