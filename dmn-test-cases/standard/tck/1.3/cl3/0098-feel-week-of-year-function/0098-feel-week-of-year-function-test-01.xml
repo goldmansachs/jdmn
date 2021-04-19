@@ -4,7 +4,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation=""
            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <modelName>0098-week-of-year-function.dmn</modelName>
+    <modelName>0098-feel-week-of-year-function.dmn</modelName>
 
     <!--
         http://myweb.ecu.edu/mccartyr/aboutwdc.htm#:~:text=The%20ISO%208601%20rule%20is,ISO%20Week%20Date%20conversion%20algorithm.
