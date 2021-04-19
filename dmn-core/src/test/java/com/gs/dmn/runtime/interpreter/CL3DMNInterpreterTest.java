@@ -414,13 +414,13 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
-    public void test_13_cl3_feel_0097_month_of_year_function() {
+    public void test_13_cl3_0097_fel_month_of_year_function() {
         doSingleModelTest("1.3", "0097-feel-month-of-year-function");
     }
 
     @Test
-    public void test_13_cl3_0098_week_of_year_function() {
-        doSingleModelTest("1.3", "0098-week-of-year-function");
+    public void test_13_cl3_0098_feel_week_of_year_function() {
+        doSingleModelTest("1.3", "0098-feel-week-of-year-function");
     }
 
     @Test
