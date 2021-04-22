@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.RelationalComparator;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
@@ -33,14 +34,6 @@ public abstract class BaseDefaultDurationType extends XMLCalendarType {
         } else {
             return BigDecimal.valueOf(duration.getTimeInMillis(GREGORIAN.get()));
         }
-    }
-
-    private static boolean isYearMonthDuration(Duration duration) {
-        return getXMLSchemaType(duration) == DatatypeConstants.DURATION_YEARMONTH;
-    }
-
-    private static boolean isDayTimeDuration(Duration duration) {
-        return getXMLSchemaType(duration) == DatatypeConstants.DURATION_DAYTIME;
     }
 
     private final RelationalComparator<Duration> comparator;
@@ -88,9 +81,7 @@ public abstract class BaseDefaultDurationType extends XMLCalendarType {
             long seconds = secondsValue(first) + (long) secondsValue(second);
             return XMLDurationFactory.INSTANCE.dayTimeFromValue(seconds);
         } else {
-            long months = monthsValue(first) + monthsValue(second);
-            long seconds = secondsValue(first) + secondsValue(second);
-            return XMLDurationFactory.INSTANCE.fromValue(months, seconds);
+            throw new DMNRuntimeException(String.format("Cannot add '%s' and '%s'", first, second));
         }
     }
 

@@ -13,15 +13,13 @@
 package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.time.DurationLib;
+import com.gs.dmn.feel.lib.type.time.xml.XMLCalendarType;
 import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 
 import javax.xml.datatype.Duration;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZonedDateTime;
-
-import static com.gs.dmn.feel.lib.type.time.xml.DefaultDurationLib.hasDayOrTime;
-import static com.gs.dmn.feel.lib.type.time.xml.DefaultDurationLib.hasYearsOrMonths;
 
 public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
     private final MixedDateTimeLib dateTimeLib;
@@ -82,7 +80,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
             return null;
         }
 
-        if (hasYearsOrMonths(duration)) {
+        if (XMLCalendarType.isYearMonthDuration(duration)) {
             return (long) duration.getYears();
         } else {
             return null;
@@ -95,7 +93,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
             return null;
         }
 
-        if (hasYearsOrMonths(duration)) {
+        if (XMLCalendarType.isYearMonthDuration(duration)) {
             return (long) duration.getMonths();
         } else {
             return null;
@@ -108,7 +106,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
             return null;
         }
 
-        if (hasDayOrTime(duration)) {
+        if (XMLCalendarType.isDayTimeDuration(duration)) {
             return (long) duration.getDays();
         } else {
             return null;
@@ -121,7 +119,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
             return null;
         }
 
-        if (hasDayOrTime(duration)) {
+        if (XMLCalendarType.isDayTimeDuration(duration)) {
             return (long) duration.getHours();
         } else {
             return null;
@@ -134,7 +132,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
             return null;
         }
 
-        if (hasDayOrTime(duration)) {
+        if (XMLCalendarType.isDayTimeDuration(duration)) {
             return (long) duration.getMinutes();
         } else {
             return null;
@@ -147,7 +145,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
             return null;
         }
 
-        if (hasDayOrTime(duration)) {
+        if (XMLCalendarType.isDayTimeDuration(duration)) {
             return (long) duration.getSeconds();
         } else {
             return null;

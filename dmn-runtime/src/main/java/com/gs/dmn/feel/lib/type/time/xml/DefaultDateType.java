@@ -100,7 +100,7 @@ public class DefaultDateType extends XMLCalendarType implements DateType<XMLGreg
         }
 
         long durationInSeconds = getDurationInSeconds(first, second);
-        return XMLDurationFactory.INSTANCE.fromSeconds(durationInSeconds);
+        return XMLDurationFactory.INSTANCE.dayTimeFromValue(durationInSeconds);
     }
 
     @Override

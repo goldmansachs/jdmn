@@ -229,10 +229,10 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertEqualsNumber(getLib().number("1"), getLib().years(getLib().duration("P1Y2M")));
         assertEqualsNumber(getLib().number("2"), getLib().months(getLib().duration("P1Y2M")));
 
-        assertEqualsNumber(getLib().number("3"), getLib().days(getLib().duration("P1Y2M3DT4H5M6.700S")));
-        assertEqualsNumber(getLib().number("4"), getLib().hours(getLib().duration("P1Y2M3DT4H5M6.700S")));
-        assertEqualsNumber(getLib().number("5"), getLib().minutes(getLib().duration("P1Y2M3DT4H5M6.700S")));
-        assertEqualsNumber(getLib().number("6"), getLib().seconds(getLib().duration("P1Y2M3DT4H5M6.700S")));
+        assertEqualsNumber(getLib().number("3"), getLib().days(getLib().duration("P3DT4H5M6.700S")));
+        assertEqualsNumber(getLib().number("4"), getLib().hours(getLib().duration("P3DT4H5M6.700S")));
+        assertEqualsNumber(getLib().number("5"), getLib().minutes(getLib().duration("P3DT4H5M6.700S")));
+        assertEqualsNumber(getLib().number("6"), getLib().seconds(getLib().duration("P3DT4H5M6.700S")));
     }
 
     //
