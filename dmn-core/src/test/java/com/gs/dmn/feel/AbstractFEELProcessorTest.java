@@ -2349,26 +2349,19 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 new EnvironmentEntry("number", NUMBER, number),
                 new EnvironmentEntry("list", ListType.NUMBER_LIST, list));
 
-        doExpressionTest(expressionPairs, "", "[1, 2, 3]",
-                "ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))",
-                "ListType(number)",
-                "asList(number(\"1\"), number(\"2\"), number(\"3\"))",
-                Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")),
-                Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")));
+        // simple lists
         doExpressionTest(expressionPairs, "", "[]",
                 "ListLiteral()",
                 "ListType(Any)",
                 "asList()",
                 Arrays.asList(),
                 Arrays.asList());
-
         doExpressionTest(expressionPairs, "", "[1]",
                 "ListLiteral(NumericLiteral(1))",
                 "ListType(number)",
                 "asList(number(\"1\"))",
                 Arrays.asList(this.lib.number("1")),
                 Arrays.asList(this.lib.number("1")));
-
         doExpressionTest(expressionPairs, "", "[1, 2, 3]",
                 "ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))",
                 "ListType(number)",
@@ -2376,6 +2369,13 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")),
                 Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")));
 
+        // list of expressions
+        doExpressionTest(expressionPairs, "", "[number >= 1, number > 2, number > 3]",
+                "ListLiteral(Relational(>=,Name(number),NumericLiteral(1)),Relational(>,Name(number),NumericLiteral(2)),Relational(>,Name(number),NumericLiteral(3)))",
+                "ListType(boolean)",
+                "asList(numericGreaterEqualThan(number, number(\"1\")), numericGreaterThan(number, number(\"2\")), numericGreaterThan(number, number(\"3\")))",
+                this.lib.asList(this.lib.numericGreaterEqualThan(number, this.lib.number("1")), this.lib.numericGreaterThan(number, this.lib.number("2")), this.lib.numericGreaterThan(number, this.lib.number("3"))),
+                Arrays.asList(true, false, false));
         doExpressionTest(expressionPairs, "number", "[1, <2, [3..4]]",
                 "ListLiteral(NumericLiteral(1),OperatorRange(<,NumericLiteral(2)),EndpointsRange(false,NumericLiteral(3),false,NumericLiteral(4)))",
                 "ListType(Any)",
@@ -2383,20 +2383,19 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 null,
                 null);
 
+        // list filters
         doExpressionTest(expressionPairs, "", "true[0]",
                 "FilterExpression(BooleanLiteral(true), NumericLiteral(0))",
                 "boolean",
                 "(Boolean)(elementAt(asList(Boolean.TRUE), number(\"0\")))",
                 this.lib.elementAt(this.lib.asList(Boolean.TRUE), this.lib.number("0")),
                 null);
-
         doExpressionTest(expressionPairs, "", "100[0]",
                 "FilterExpression(NumericLiteral(100), NumericLiteral(0))",
                 "number",
                 "(java.math.BigDecimal)(elementAt(asList(number(\"100\")), number(\"0\")))",
                 this.lib.elementAt(this.lib.asList(this.lib.number("100")), this.lib.number("0")),
                 null);
-
         doExpressionTest(expressionPairs, "", "\"foo\"[0]",
                 "FilterExpression(StringLiteral(\"foo\"), NumericLiteral(0))",
                 "string",
@@ -2404,27 +2403,25 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.elementAt(this.lib.asList("foo"), this.lib.number("0")),
                 null);
 
+        // unary tests with lists
         doUnaryTestsTest(testPairs, "list", "[]",
                 "PositiveUnaryTests(ListTest(ListLiteral()))",
                 "TupleType(boolean)",
                 "(listEqual(list, asList()))",
                 (this.lib.listEqual(list, Arrays.asList())),
                 false);
-
         doUnaryTestsTest(testPairs, "list", "[1]",
                 "PositiveUnaryTests(ListTest(ListLiteral(NumericLiteral(1))))",
                 "TupleType(boolean)",
                 "(listEqual(list, asList(number(\"1\"))))",
                 (this.lib.listEqual(list, Arrays.asList(this.lib.number("1")))),
                 true);
-
         doUnaryTestsTest(testPairs, "list", "[1, 2, 3]",
                 "PositiveUnaryTests(ListTest(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
                 "TupleType(boolean)",
                 "(listEqual(list, asList(number(\"1\"), number(\"2\"), number(\"3\"))))",
                 (this.lib.listEqual(list, Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")))),
                 false);
-
 //        doUnaryTestsTest(testPairs, "number", "[<1, <2]",
 //                "PositiveUnaryTests(OperatorRange(<,NumericLiteral(1)),OperatorRange(<,NumericLiteral(2)),EndpointsRange(false,NumericLiteral(3),false,NumericLiteral(4)))",
 //                "",
