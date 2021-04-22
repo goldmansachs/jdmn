@@ -44,10 +44,10 @@
                 <id>test-DIAGRAM_NAME</id>
                 <phase>generate-test-sources</phase>
                 <goals>
-                    <goal>tck-to-jav</goal>
+                    <goal>tck-to-java</goal>
                 </goals>
                 <configuration>
-                    <inputTestFileDirectory>${tck.folder}/DIAGRAM_NAME.json</inputTestFileDirectory>
+                    <inputTestFileDirectory>${tck.folder}/DIAGRAM_NAME.xml</inputTestFileDirectory>
                     <inputModelFileDirectory>${diagram.folder}/DIAGRAM_NAME.dmn</inputModelFileDirectory>
                     <outputFileDirectory>${project.build.directory}/generated-test-sources/tck</outputFileDirectory>
                     <inputParameters>
@@ -119,7 +119,7 @@ Sample:
     </plugin>
 ```
 
-More examples in the pom of the ```dmn-tck-integration-tests``` module.
+More examples in the pom of the [dmn-tck-integration-tests](https://github.com/goldmansachs/jdmn/blob/master/dmn-tck-it/dmn-tck-it-translator/pom.xml) module.
 
 ## How to evaluate a decision using the generated code?
 1. Create an instance of the decision.
