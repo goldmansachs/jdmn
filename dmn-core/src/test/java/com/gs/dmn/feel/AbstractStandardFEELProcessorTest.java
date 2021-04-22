@@ -601,12 +601,71 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
     public void testDurationProperties() {
         List<EnvironmentEntry> entries = new ArrayList<>();
 
+        // years and months duration
         doExpressionTest(entries, "", "duration(\"P10Y4M\").years",
                 "PathExpression(DateTimeLiteral(duration, \"P10Y4M\"), years)",
                 "number",
                 "years(duration(\"P10Y4M\"))",
                 this.lib.years(this.lib.duration("P10Y4M")),
                 this.lib.number("10"));
+        doExpressionTest(entries, "", "duration(\"P10Y4M\").months",
+                "PathExpression(DateTimeLiteral(duration, \"P10Y4M\"), months)",
+                "number",
+                "months(duration(\"P10Y4M\"))",
+                this.lib.months(this.lib.duration("P10Y4M")),
+                this.lib.number("4"));
+
+        // days and time duration
+        doExpressionTest(entries, "", "duration(\"P1DT2H3M4S\").days",
+                "PathExpression(DateTimeLiteral(duration, \"P1DT2H3M4S\"), days)",
+                "number",
+                "days(duration(\"P1DT2H3M4S\"))",
+                this.lib.days(this.lib.duration("P1DT2H3M4S")),
+                this.lib.number("1"));
+        doExpressionTest(entries, "", "duration(\"P1DT2H3M4S\").hours",
+                "PathExpression(DateTimeLiteral(duration, \"P1DT2H3M4S\"), hours)",
+                "number",
+                "hours(duration(\"P1DT2H3M4S\"))",
+                this.lib.hours(this.lib.duration("P1DT2H3M4S")),
+                this.lib.number("2"));
+        doExpressionTest(entries, "", "duration(\"P1DT2H3M4S\").minutes",
+                "PathExpression(DateTimeLiteral(duration, \"P1DT2H3M4S\"), minutes)",
+                "number",
+                "minutes(duration(\"P1DT2H3M4S\"))",
+                this.lib.minutes(this.lib.duration("P1DT2H3M4S")),
+                this.lib.number("3"));
+        doExpressionTest(entries, "", "duration(\"P1DT2H3M4S\").seconds",
+                "PathExpression(DateTimeLiteral(duration, \"P1DT2H3M4S\"), seconds)",
+                "number",
+                "seconds(duration(\"P1DT2H3M4S\"))",
+                this.lib.seconds(this.lib.duration("P1DT2H3M4S")),
+                this.lib.number("4"));
+
+        // complex expressions
+        doExpressionTest(entries, "", "(date(\"2012-03-01\") - date(\"2012-04-01\")).days",
+                "PathExpression(Addition(-,DateTimeLiteral(date, \"2012-03-01\"),DateTimeLiteral(date, \"2012-04-01\")), days)",
+                "number",
+                "days(dateSubtract(date(\"2012-03-01\"), date(\"2012-04-01\")))",
+                this.lib.days(this.lib.dateSubtract(this.lib.date("2012-03-01"), this.lib.date("2012-04-01"))),
+                this.lib.number("31"));
+        doExpressionTest(entries, "", "(date(\"2012-03-01\") - date(\"2012-04-01\")).hours",
+                "PathExpression(Addition(-,DateTimeLiteral(date, \"2012-03-01\"),DateTimeLiteral(date, \"2012-04-01\")), hours)",
+                "number",
+                "hours(dateSubtract(date(\"2012-03-01\"), date(\"2012-04-01\")))",
+                this.lib.hours(this.lib.dateSubtract(this.lib.date("2012-03-01"), this.lib.date("2012-04-01"))),
+                this.lib.number("0"));
+        doExpressionTest(entries, "", "(date(\"2012-03-01\") - date(\"2012-04-01\")).minutes",
+                "PathExpression(Addition(-,DateTimeLiteral(date, \"2012-03-01\"),DateTimeLiteral(date, \"2012-04-01\")), minutes)",
+                "number",
+                "minutes(dateSubtract(date(\"2012-03-01\"), date(\"2012-04-01\")))",
+                this.lib.minutes(this.lib.dateSubtract(this.lib.date("2012-03-01"), this.lib.date("2012-04-01"))),
+                this.lib.number("0"));
+        doExpressionTest(entries, "", "(date(\"2012-03-01\") - date(\"2012-04-01\")).seconds",
+                "PathExpression(Addition(-,DateTimeLiteral(date, \"2012-03-01\"),DateTimeLiteral(date, \"2012-04-01\")), seconds)",
+                "number",
+                "seconds(dateSubtract(date(\"2012-03-01\"), date(\"2012-04-01\")))",
+                this.lib.seconds(this.lib.dateSubtract(this.lib.date("2012-03-01"), this.lib.date("2012-04-01"))),
+                this.lib.number("0"));
     }
 
     @Test

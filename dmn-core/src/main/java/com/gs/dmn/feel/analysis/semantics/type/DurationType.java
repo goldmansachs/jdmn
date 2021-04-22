@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.feel.analysis.semantics.SemanticError;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -64,11 +66,19 @@ public class DurationType extends ComparableDataType {
 
     public static Type getMemberType(Type sourceType, String member) {
         if (YEAR_MONTH_DURATION.equivalentTo(sourceType)) {
-            return YEARS_AND_MONTHS_DURATION_MEMBERS.get(member);
+            Type type = YEARS_AND_MONTHS_DURATION_MEMBERS.get(member);
+            if (type == null) {
+                throw new SemanticError(String.format("Cannot find member '%s' of type '%s'", member, sourceType.toString()));
+            }
+            return type;
         } else if (DAYS_AND_TIME_DURATION.equivalentTo(sourceType)) {
-            return DAYS_AND_TIME_DURATION_MEMBERS.get(member);
+            Type type = DAYS_AND_TIME_DURATION_MEMBERS.get(member);
+            if (type == null) {
+                throw new SemanticError(String.format("Cannot find member '%s' of type '%s'", member, sourceType.toString()));
+            }
+            return type;
         } else {
-            return null;
+            throw new SemanticError(String.format("Cannot find member '%s' of type '%s'", member, sourceType.toString()));
         }
     }
 }
