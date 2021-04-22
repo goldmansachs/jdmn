@@ -627,7 +627,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         FEELXMLGregorianCalendar result = (FEELXMLGregorianCalendar) this.clone();
         // normalizing to UTC time negates the timezone offset before addition.
         seconds = -seconds;
-        Duration d = XMLDurationFactory.INSTANCE.dayTimeWithSeconds(seconds);
+        Duration d = XMLDurationFactory.INSTANCE.dayTimeFromValue(seconds);
         result.add(d);
         // set to zulu UTC time.
         result.setZoneID("Z");

@@ -1733,6 +1733,50 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "durationDivide(duration(\"P1DT1H\"), duration(\"P1DT1H\"))",
                 this.lib.durationDivide(this.lib.duration("P1DT1H"), this.lib.duration("P1DT1H")),
                 this.lib.number("1"));
+
+        // complex divisions
+        doExpressionTest(entries, "", "(date and time(\"2012-04-01T00:00:00Z\") - date and time(\"2012-03-01T00:00:00Z\")) / duration(\"P1D\")",
+                "Multiplication(/,Addition(-,DateTimeLiteral(date and time, \"2012-04-01T00:00:00Z\"),DateTimeLiteral(date and time, \"2012-03-01T00:00:00Z\")),DateTimeLiteral(duration, \"P1D\"))",
+                "number",
+                "durationDivide(dateTimeSubtract(dateAndTime(\"2012-04-01T00:00:00Z\"), dateAndTime(\"2012-03-01T00:00:00Z\")), duration(\"P1D\"))",
+                this.lib.durationDivide(this.lib.dateTimeSubtract(this.lib.dateAndTime("2012-04-01T00:00:00Z"), this.lib.dateAndTime("2012-03-01T00:00:00Z")), this.lib.duration("P1D")),
+                this.lib.number("31"));
+        doExpressionTest(entries, "", "(date(\"2012-04-01\") - date(\"2012-03-01\")) / duration(\"P1D\")",
+                "Multiplication(/,Addition(-,DateTimeLiteral(date, \"2012-04-01\"),DateTimeLiteral(date, \"2012-03-01\")),DateTimeLiteral(duration, \"P1D\"))",
+                "number",
+                "durationDivide(dateSubtract(date(\"2012-04-01\"), date(\"2012-03-01\")), duration(\"P1D\"))",
+                this.lib.durationDivide(this.lib.dateSubtract(this.lib.date("2012-04-01"), this.lib.date("2012-03-01")), this.lib.duration("P1D")),
+                this.lib.number("31"));
+        doExpressionTest(entries, "", "(date(\"2012-03-01\") - date(\"2012-04-01\")) / duration(\"P1D\")",
+                "Multiplication(/,Addition(-,DateTimeLiteral(date, \"2012-03-01\"),DateTimeLiteral(date, \"2012-04-01\")),DateTimeLiteral(duration, \"P1D\"))",
+                "number",
+                "durationDivide(dateSubtract(date(\"2012-03-01\"), date(\"2012-04-01\")), duration(\"P1D\"))",
+                this.lib.durationDivide(this.lib.dateSubtract(this.lib.date("2012-03-01"), this.lib.date("2012-04-01")), this.lib.duration("P1D")),
+                this.lib.number("-31"));
+        doExpressionTest(entries, "", "(date and time(\"2012-04-01T00:00:00Z\") - date and time(\"2012-03-01T00:00:00Z\")) / 2",
+                "Multiplication(/,Addition(-,DateTimeLiteral(date and time, \"2012-04-01T00:00:00Z\"),DateTimeLiteral(date and time, \"2012-03-01T00:00:00Z\")),NumericLiteral(2))",
+                "days and time duration",
+                "durationDivideNumber(dateTimeSubtract(dateAndTime(\"2012-04-01T00:00:00Z\"), dateAndTime(\"2012-03-01T00:00:00Z\")), number(\"2\"))",
+                this.lib.durationDivideNumber(this.lib.dateTimeSubtract(this.lib.dateAndTime("2012-04-01T00:00:00Z"), this.lib.dateAndTime("2012-03-01T00:00:00Z")), this.lib.number("2")),
+                this.lib.duration("P15DT12H0M0.000S"));
+        doExpressionTest(entries, "", "(date and time(\"2012-03-01T00:00:00Z\") - date and time(\"2012-04-01T00:00:00Z\")) / 2",
+                "Multiplication(/,Addition(-,DateTimeLiteral(date and time, \"2012-03-01T00:00:00Z\"),DateTimeLiteral(date and time, \"2012-04-01T00:00:00Z\")),NumericLiteral(2))",
+                "days and time duration",
+                "durationDivideNumber(dateTimeSubtract(dateAndTime(\"2012-03-01T00:00:00Z\"), dateAndTime(\"2012-04-01T00:00:00Z\")), number(\"2\"))",
+                this.lib.durationDivideNumber(this.lib.dateTimeSubtract(this.lib.dateAndTime("2012-03-01T00:00:00Z"), this.lib.dateAndTime("2012-04-01T00:00:00Z")), this.lib.number("2")),
+                this.lib.duration("-P15DT12H0M0.000S"));
+        doExpressionTest(entries, "", "(date(\"2012-04-01\") - date(\"2012-03-01\")) / 2",
+                "Multiplication(/,Addition(-,DateTimeLiteral(date, \"2012-04-01\"),DateTimeLiteral(date, \"2012-03-01\")),NumericLiteral(2))",
+                "days and time duration",
+                "durationDivideNumber(dateSubtract(date(\"2012-04-01\"), date(\"2012-03-01\")), number(\"2\"))",
+                this.lib.durationDivideNumber(this.lib.dateSubtract(this.lib.date("2012-04-01"), this.lib.date("2012-03-01")), this.lib.number("2")),
+                this.lib.duration("P15DT12H0M0.000S"));
+        doExpressionTest(entries, "", "(date(\"2012-02-01\") - date(\"2012-03-01\")) / 2",
+                "Multiplication(/,Addition(-,DateTimeLiteral(date, \"2012-02-01\"),DateTimeLiteral(date, \"2012-03-01\")),NumericLiteral(2))",
+                "days and time duration",
+                "durationDivideNumber(dateSubtract(date(\"2012-02-01\"), date(\"2012-03-01\")), number(\"2\"))",
+                this.lib.durationDivideNumber(this.lib.dateSubtract(this.lib.date("2012-02-01"), this.lib.date("2012-03-01")), this.lib.number("2")),
+                this.lib.duration("-P14DT12H0M0.000S"));
     }
 
     @Test
