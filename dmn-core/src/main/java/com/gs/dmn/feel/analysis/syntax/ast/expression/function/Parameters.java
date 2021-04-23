@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.interpreter.Arguments;
 
 import java.util.function.BiFunction;
@@ -31,4 +33,7 @@ public abstract class Parameters extends Element {
     abstract void setConvertedParameterTypes(ParameterTypes parameterTypes);
     public abstract Arguments getConvertedArguments();
     public abstract Arguments convertArguments(BiFunction<Object, Conversion, Object> convertArgument);
+
+    public abstract Type getParameterType(int position, String name);
+    public abstract Expression getParameter(int position, String name);
 }
