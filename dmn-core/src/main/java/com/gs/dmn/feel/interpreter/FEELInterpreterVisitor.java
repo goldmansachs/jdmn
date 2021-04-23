@@ -422,6 +422,8 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             domain = (List) test.getListLiteral().accept(this, context);
         } else if (expressionDomain instanceof ListLiteral) {
             domain = (List) expressionDomain.accept(this, context);
+        } else if (expressionDomain instanceof FunctionInvocation) {
+            domain = (List) expressionDomain.accept(this, context);
         } else {
             throw new UnsupportedOperationException(String.format("FEEL '%s' is not supported yet with domain '%s'",
                     element.getClass().getSimpleName(), expressionDomain.getClass().getSimpleName()));
