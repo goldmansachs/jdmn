@@ -109,9 +109,41 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
     @Test
     public void testFunctionInvocation() {
         String input = "abc";
+        NUMBER score1 = this.lib.number("1");
+        NUMBER score2 = this.lib.number("2");
+        NUMBER score3 = this.lib.number("3");
+        NUMBER score4 = this.lib.number("4");
+        NUMBER score5 = this.lib.number("5");
+        NUMBER score6 = this.lib.number("6");
+        NUMBER score7 = this.lib.number("7");
+        NUMBER score8 = this.lib.number("8");
         List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", STRING, input));
+                new EnvironmentEntry("input", STRING, input),
+                new EnvironmentEntry("score1", NUMBER, score1),
+                new EnvironmentEntry("score2", NUMBER, score2),
+                new EnvironmentEntry("score3", NUMBER, score3),
+                new EnvironmentEntry("score4", NUMBER, score4),
+                new EnvironmentEntry("score5", NUMBER, score5),
+                new EnvironmentEntry("score6", NUMBER, score6),
+                new EnvironmentEntry("score7", NUMBER, score7),
+                new EnvironmentEntry("score8", NUMBER, score8)
+        );
 
+        // nested functions invocation
+        doExpressionTest(entries, "", "sort([score5, score6, score7, score8], function(x: number, y: number) y < x)",
+                "FunctionInvocation(Name(sort) -> PositionalParameters(ListLiteral(Name(score5),Name(score6),Name(score7),Name(score8)), FunctionDefinition(FormalParameter(x, number),FormalParameter(y, number), Relational(<,Name(y),Name(x)), false)))",
+                "ListType(Any)",
+                "sort(asList(score5, score6, score7, score8), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericLessThan(y, x);}})",
+                this.lib.sort(this.lib.asList(score5, score6, score7, score8), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {NUMBER x = (NUMBER)args[0]; NUMBER y = (NUMBER)args[1];return lib.numericLessThan(y, x);}}),
+                this.lib.asList(this.lib.number("8"), this.lib.number("7"), this.lib.number("6"), this.lib.number("5")));
+        doExpressionTest(entries, "", "sublist(sort([score5, score6, score7, score8], function(x: number, y: number) y < x), 1, 2)",
+                "FunctionInvocation(Name(sublist) -> PositionalParameters(FunctionInvocation(Name(sort) -> PositionalParameters(ListLiteral(Name(score5),Name(score6),Name(score7),Name(score8)), FunctionDefinition(FormalParameter(x, number),FormalParameter(y, number), Relational(<,Name(y),Name(x)), false))), NumericLiteral(1), NumericLiteral(2)))",
+                "ListType(Any)",
+                "sublist(sort(asList(score5, score6, score7, score8), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericLessThan(y, x);}}), number(\"1\"), number(\"2\"))",
+                this.lib.sublist(this.lib.sort(this.lib.asList(score5, score6, score7, score8), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {NUMBER x = (NUMBER)args[0]; NUMBER y = (NUMBER)args[1];return lib.numericLessThan(y, x);}}), this.lib.number("1"), this.lib.number("2")),
+                this.lib.asList(this.lib.number("8"), this.lib.number("7")));
+
+        // invocation with positional arguments
         doExpressionTest(entries, "", "and([true, false, true])",
                 "FunctionInvocation(Name(and) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(false),BooleanLiteral(true))))",
                 "boolean",
@@ -143,12 +175,14 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 this.lib.stringLength(this.lib.substring(input, this.lib.number("1"))),
                 this.lib.number("3"));
 
+        // invocation with named arguments
         doExpressionTest(entries, "", "contains(string : \"abc\", match : \"a\")",
                 "FunctionInvocation(Name(contains) -> NamedParameters(string : StringLiteral(\"abc\"), match : StringLiteral(\"a\")))",
                 "boolean",
-                null,
-                null,
-                null);
+                "contains(\"abc\", \"a\")",
+                this.lib.contains("abc", "a"),
+                true);
+
     }
 
     @Override
@@ -172,9 +206,69 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
     @Test
     public void testConversionFunctions() {
         super.testConversionFunctions();
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
+        List<EnvironmentEntry> entries = Arrays.asList();
+
+        doExpressionTest(entries, "", "date(\"2012-03-01\")",
+                "DateTimeLiteral(date, \"2012-03-01\")",
+                "date",
+                "date(\"2012-03-01\")",
+                this.lib.date("2012-03-01"),
+                this.lib.date("2012-03-01"));
+        doExpressionTest(entries, "", "date(date(\"2012-03-01\"))",
+                "FunctionInvocation(Name(date) -> PositionalParameters(DateTimeLiteral(date, \"2012-03-01\")))",
+                "date",
+                "date(date(\"2012-03-01\"))",
+                this.lib.date(this.lib.date("2012-03-01")),
+                this.lib.date("2012-03-01"));
+        doExpressionTest(entries, "", "date(date and time(\"2012-03-01\"))",
+                "FunctionInvocation(Name(date) -> PositionalParameters(DateTimeLiteral(date and time, \"2012-03-01\")))",
+                "date",
+                "date(dateAndTime(\"2012-03-01\"))",
+                null,
+                null);
+        doExpressionTest(entries, "", "date(2012, 3, 1)",
+                "FunctionInvocation(Name(date) -> PositionalParameters(NumericLiteral(2012), NumericLiteral(3), NumericLiteral(1)))",
+                "date",
+                "date(number(\"2012\"), number(\"3\"), number(\"1\"))",
+                this.lib.date(this.lib.number("2012"), this.lib.number("3"), this.lib.number("1")),
+                this.lib.date("2012-03-01"));
+        doExpressionTest(entries, "", "date and time(date(\"2012-03-01\"), time(\"10:11:12Z\"))",
+                "FunctionInvocation(Name(date and time) -> PositionalParameters(DateTimeLiteral(date, \"2012-03-01\"), DateTimeLiteral(time, \"10:11:12Z\")))",
+                "date and time",
+                "dateAndTime(date(\"2012-03-01\"), time(\"10:11:12Z\"))",
+                this.lib.dateAndTime(this.lib.date("2012-03-01"), this.lib.time("10:11:12Z")),
+                this.lib.dateAndTime("2012-03-01T10:11:12Z"));
+//        doExpressionTest(entries, "", "date and time(date and time(\"2012-03-01T13:14:15Z\"), time(\"10:11:12Z\"))",
+//                "FunctionInvocation(Name(date and time) -> PositionalParameters(DateTimeLiteral(date and time, \"2012-03-01T13:14:15Z\"), DateTimeLiteral(time, \"10:11:12Z\")))",
+//                "date and time",
+//                "dateAndTime(dateAndTime(\"2012-03-01T13:14:15Z\"), time(\"10:11:12Z\"))",
+//                this.lib.date(this.lib.number("2012"), this.lib.number("3"), this.lib.number("1")),
+//                this.lib.dateAndTime("2012-03-01T10:11:12Z"));
+        doExpressionTest(entries, "", "date and time(\"2012-03-01T10:11:12Z\")",
+                "DateTimeLiteral(date and time, \"2012-03-01T10:11:12Z\")",
+                "date and time",
+                "dateAndTime(\"2012-03-01T10:11:12Z\")",
+                this.lib.dateAndTime("2012-03-01T10:11:12Z"),
+                this.lib.dateAndTime("2012-03-01T10:11:12Z"));
+        doExpressionTest(entries, "", "time(\"10:11:12Z\")",
+                "DateTimeLiteral(time, \"10:11:12Z\")",
+                "time",
+                "time(\"10:11:12Z\")",
+                this.lib.time("10:11:12Z"),
+                this.lib.time("10:11:12Z"));
+        doExpressionTest(entries, "", "time(date(\"2012-03-01\"))",
+                "FunctionInvocation(Name(time) -> PositionalParameters(DateTimeLiteral(date, \"2012-03-01\")))",
+                "time",
+                "time(date(\"2012-03-01\"))",
+                null,
+                null);
+        doExpressionTest(entries, "", "time(date and time(\"2012-03-01T10:11:12Z\"))",
+                "FunctionInvocation(Name(time) -> PositionalParameters(DateTimeLiteral(date and time, \"2012-03-01T10:11:12Z\")))",
+                "time",
+                "time(dateAndTime(\"2012-03-01T10:11:12Z\"))",
+                null,
+                null);
         doExpressionTest(entries, "", "number(\"1 000\", \" \", \".\")",
                 "FunctionInvocation(Name(number) -> PositionalParameters(StringLiteral(\"1 000\"), StringLiteral(\" \"), StringLiteral(\".\")))",
                 "number",
@@ -199,12 +293,35 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "string(number(\"1.1\"))",
                 this.lib.string(this.lib.number("1.1")),
                 "1.1");
+        doExpressionTest(entries, "", "duration(\"P1Y2M\")",
+                "DateTimeLiteral(duration, \"P1Y2M\")",
+                "years and months duration",
+                "duration(\"P1Y2M\")",
+                this.lib.duration("P1Y2M"),
+                this.lib.duration("P1Y2M"));
+        doExpressionTest(entries, "", "duration(\"P1DT2H3M3S\")",
+                "DateTimeLiteral(duration, \"P1DT2H3M3S\")",
+                "days and time duration",
+                "duration(\"P1DT2H3M3S\")",
+                this.lib.duration("P1DT2H3M3S"),
+                this.lib.duration("P1DT2H3M3S"));
+//        doExpressionTest(entries, "", "duration(\"P1Y1M2DT3H4M5S\")",
+//                "DateTimeLiteral(duration, \"P1DT2H3M3S\")",
+//                "days and time duration",
+//                "duration(\"P1DT2H3M3S\")",
+//                this.lib.duration("P1DT2H3M3S"),
+//                this.lib.duration("P1DT2H3M3S"));
+        doExpressionTest(entries, "", "years and months duration(date(\"2012-03-01\"), date(\"2013-05-01\"))",
+                "FunctionInvocation(Name(years and months duration) -> PositionalParameters(DateTimeLiteral(date, \"2012-03-01\"), DateTimeLiteral(date, \"2013-05-01\")))",
+                "years and months duration",
+                "yearsAndMonthsDuration(date(\"2012-03-01\"), date(\"2013-05-01\"))",
+                this.lib.yearsAndMonthsDuration(this.lib.date("2012-03-01"), this.lib.date("2013-05-01")),
+                this.lib.duration("P1Y2M"));
     }
 
     @Test
     public void testNumericFunctions() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
+        List<EnvironmentEntry> entries = Arrays.asList();
 
         doExpressionTest(entries, "", "decimal(100, 2)",
                 "FunctionInvocation(Name(decimal) -> PositionalParameters(NumericLiteral(100), NumericLiteral(2)))",
@@ -254,12 +371,59 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "abs(duration(\"-PT5H\"))",
                 this.lib.abs(this.lib.duration("-PT5H")),
                 this.lib.duration("PT5H"));
+        doExpressionTest(entries, "", "modulo(100, 3)",
+                "FunctionInvocation(Name(modulo) -> PositionalParameters(NumericLiteral(100), NumericLiteral(3)))",
+                "number",
+                "modulo(number(\"100\"), number(\"3\"))",
+                this.lib.modulo(this.lib.number("100"), this.lib.number("3")),
+                this.lib.number("1"));
+        doExpressionTest(entries, "", "sqrt(101)",
+                "FunctionInvocation(Name(sqrt) -> PositionalParameters(NumericLiteral(101)))",
+                "number",
+                "sqrt(number(\"101\"))",
+                this.lib.sqrt(this.lib.number("101")),
+                this.lib.number("10.04987562112089"));
+        doExpressionTest(entries, "", "log(100)",
+                "FunctionInvocation(Name(log) -> PositionalParameters(NumericLiteral(100)))",
+                "number",
+                "log(number(\"100\"))",
+                this.lib.log(this.lib.number("100")),
+                this.lib.number("4.605170185988092"));
+        doExpressionTest(entries, "", "exp(100)",
+                "FunctionInvocation(Name(exp) -> PositionalParameters(NumericLiteral(100)))",
+                "number",
+                "exp(number(\"100\"))",
+                this.lib.exp(this.lib.number("100")),
+                this.lib.number("2.6881171418161356E+43"));
+        doExpressionTest(entries, "", "odd(100)",
+                "FunctionInvocation(Name(odd) -> PositionalParameters(NumericLiteral(100)))",
+                "boolean",
+                "odd(number(\"100\"))",
+                this.lib.odd(this.lib.number("100")),
+                false);
+        doExpressionTest(entries, "", "even(100)",
+                "FunctionInvocation(Name(even) -> PositionalParameters(NumericLiteral(100)))",
+                "boolean",
+                "even(number(\"100\"))",
+                this.lib.even(this.lib.number("100")),
+                true);
+    }
+
+    @Test
+    public void testBooleanFunctions() {
+        List<EnvironmentEntry> entries = Arrays.asList();
+
+        doExpressionTest(entries, "", "not(true)",
+                "LogicNegation(BooleanLiteral(true))",
+                "boolean",
+                "booleanNot(Boolean.TRUE)",
+                this.lib.booleanNot(Boolean.TRUE),
+                false);
     }
 
     @Test
     public void testStringFunctions() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
+        List<EnvironmentEntry> entries = Arrays.asList();
 
         doExpressionTest(entries, "", "substring(\"abc\", 3)",
                 "FunctionInvocation(Name(substring) -> PositionalParameters(StringLiteral(\"abc\"), NumericLiteral(3)))",
@@ -267,12 +431,6 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "substring(\"abc\", number(\"3\"))",
                 this.lib.substring("abc", this.lib.number("3")),
                 "c");
-        doExpressionTest(entries, "", "split(\"John Doe\", \"\\s\")",
-                "FunctionInvocation(Name(split) -> PositionalParameters(StringLiteral(\"John Doe\"), StringLiteral(\"\\s\")))",
-                "ListType(string)",
-                "split(\"John Doe\", \"\\\\s\")",
-                this.lib.split("John Doe", "\\s"),
-                this.lib.asList("John", "Doe"));
         doExpressionTest(entries, "", "substring(string: \"abc\", 'start position': 3)",
                 "FunctionInvocation(Name(substring) -> NamedParameters(string : StringLiteral(\"abc\"), 'start position' : NumericLiteral(3)))",
                 "string",
@@ -423,6 +581,12 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "matches(\"?\", \"\\\\p{Nd}+\")",
                 this.lib.matches("?", "\\p{Nd}+"),
                 false);
+        doExpressionTest(entries, "", "split(\"John Doe\", \"\\s\")",
+                "FunctionInvocation(Name(split) -> PositionalParameters(StringLiteral(\"John Doe\"), StringLiteral(\"\\s\")))",
+                "ListType(string)",
+                "split(\"John Doe\", \"\\\\s\")",
+                this.lib.split("John Doe", "\\s"),
+                this.lib.asList("John", "Doe"));
     }
 
     @Test
@@ -448,11 +612,23 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "min(asList(number(\"1\"), number(\"2\"), number(\"3\")))",
                 this.lib.min(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
                 this.lib.number("1"));
+        doExpressionTest(entries, "", "min(1, 2, 3)",
+                "FunctionInvocation(Name(min) -> PositionalParameters(NumericLiteral(1), NumericLiteral(2), NumericLiteral(3)))",
+                "number",
+                "min(number(\"1\"), number(\"2\"), number(\"3\"))",
+                this.lib.min(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")),
+                this.lib.number("1"));
         doExpressionTest(entries, "", "max([1, 2, 3])",
                 "FunctionInvocation(Name(max) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
                 "number",
                 "max(asList(number(\"1\"), number(\"2\"), number(\"3\")))",
                 this.lib.max(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
+                this.lib.number("3"));
+        doExpressionTest(entries, "", "max(1, 2, 3)",
+                "FunctionInvocation(Name(max) -> PositionalParameters(NumericLiteral(1), NumericLiteral(2), NumericLiteral(3)))",
+                "number",
+                "max(number(\"1\"), number(\"2\"), number(\"3\"))",
+                this.lib.max(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")),
                 this.lib.number("3"));
         doExpressionTest(entries, "", "sum([1, 2, 3])",
                 "FunctionInvocation(Name(sum) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
@@ -460,12 +636,74 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "sum(asList(number(\"1\"), number(\"2\"), number(\"3\")))",
                 this.lib.sum(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
                 this.lib.number("6"));
+        doExpressionTest(entries, "", "sum(1, 2, 3)",
+                "FunctionInvocation(Name(sum) -> PositionalParameters(NumericLiteral(1), NumericLiteral(2), NumericLiteral(3)))",
+                "number",
+                "sum(number(\"1\"), number(\"2\"), number(\"3\"))",
+                this.lib.sum(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")),
+                this.lib.number("6"));
         doExpressionTest(entries, "", "mean([1, 2, 3])",
                 "FunctionInvocation(Name(mean) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
                 "number",
                 "mean(asList(number(\"1\"), number(\"2\"), number(\"3\")))",
                 this.lib.mean(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
                 this.lib.number("2"));
+        doExpressionTest(entries, "", "mean(1, 2, 3)",
+                "FunctionInvocation(Name(mean) -> PositionalParameters(NumericLiteral(1), NumericLiteral(2), NumericLiteral(3)))",
+                "number",
+                "mean(number(\"1\"), number(\"2\"), number(\"3\"))",
+                this.lib.mean(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")),
+                this.lib.number("2"));
+        doExpressionTest(entries, "", "and([true, true, false])",
+                "FunctionInvocation(Name(and) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(true),BooleanLiteral(false))))",
+                "boolean",
+                "and(asList(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE))",
+                this.lib.and(this.lib.asList(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE)),
+                false);
+        doExpressionTest(entries, "", "and(true, true, false)",
+                "FunctionInvocation(Name(and) -> PositionalParameters(BooleanLiteral(true), BooleanLiteral(true), BooleanLiteral(false)))",
+                "boolean",
+                "and(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE)",
+                this.lib.and(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE),
+                false);
+        doExpressionTest(entries, "", "all([true, true, false])",
+                "FunctionInvocation(Name(all) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(true),BooleanLiteral(false))))",
+                "boolean",
+                "all(asList(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE))",
+                this.lib.all(this.lib.asList(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE)),
+                false);
+        doExpressionTest(entries, "", "all(true, true, false)",
+                "FunctionInvocation(Name(all) -> PositionalParameters(BooleanLiteral(true), BooleanLiteral(true), BooleanLiteral(false)))",
+                "boolean",
+                "all(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE)",
+                this.lib.all(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE),
+                false);
+        doExpressionTest(entries, "", "or([true, true, false])",
+                "FunctionInvocation(Name(or) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(true),BooleanLiteral(false))))",
+                "boolean",
+                "or(asList(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE))",
+                this.lib.or(this.lib.asList(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE)),
+                true);
+        doExpressionTest(entries, "", "or([true, true, false])",
+                "FunctionInvocation(Name(or) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(true),BooleanLiteral(false))))",
+                "boolean",
+                "or(asList(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE))",
+                this.lib.or(this.lib.asList(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE)),
+                true);
+        doExpressionTest(entries, "", "any([true, true, false])",
+                "FunctionInvocation(Name(any) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(true),BooleanLiteral(false))))",
+                "boolean",
+                "any(asList(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE))",
+                this.lib.any(this.lib.asList(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE)),
+                true);
+        doExpressionTest(entries, "", "any(true, true, false)",
+                "FunctionInvocation(Name(any) -> PositionalParameters(BooleanLiteral(true), BooleanLiteral(true), BooleanLiteral(false)))",
+                "boolean",
+                "any(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE)",
+                this.lib.any(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE),
+                true);
+
+        // function with refined type
         doExpressionTest(entries, "", "sublist([1, 2, 3], 2, 1)",
                 "FunctionInvocation(Name(sublist) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(2), NumericLiteral(1)))",
                 "ListType(Any)",
@@ -484,19 +722,24 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "append(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"4\"))",
                 this.lib.append(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")), this.lib.number("4")),
                 Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"), this.lib.number("4")));
-
+        doExpressionTest(entries, "", "append([1, 2, 3], 4, 5)",
+                "FunctionInvocation(Name(append) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(4), NumericLiteral(5)))",
+                "ListType(Any)",
+                "append(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"4\"), number(\"5\"))",
+                this.lib.append(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")), this.lib.number("4"), this.lib.number("5")),
+                Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"), this.lib.number("4"), this.lib.number("5")));
         doExpressionTest(entries, "", "concatenate([1, 2, 3], [4, 5, 6])",
                 "FunctionInvocation(Name(concatenate) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListLiteral(NumericLiteral(4),NumericLiteral(5),NumericLiteral(6))))",
                 "ListType(Any)",
                 "concatenate(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"4\"), number(\"5\"), number(\"6\")))",
                 this.lib.concatenate(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")), Arrays.asList(this.lib.number("4"), this.lib.number("5"), this.lib.number("6"))),
                 Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"), this.lib.number("4"), this.lib.number("5"), this.lib.number("6")));
-        doExpressionTest(entries, "", "insert before([1, 2, 3], 1, 4)",
-                "FunctionInvocation(Name(insert before) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(1), NumericLiteral(4)))",
+        doExpressionTest(entries, "", "insert before([\"1\", \"2\", \"3\"], 3, \"5\")",
+                "FunctionInvocation(Name(insert before) -> PositionalParameters(ListLiteral(StringLiteral(\"1\"),StringLiteral(\"2\"),StringLiteral(\"3\")), NumericLiteral(3), StringLiteral(\"5\")))",
                 "ListType(Any)",
-                "insertBefore(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"1\"), number(\"4\"))",
-                this.lib.insertBefore(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")), this.lib.number("1"), this.lib.number("4")),
-                Arrays.asList(this.lib.number("4"), this.lib.number("1"), this.lib.number("2"), this.lib.number("3")));
+                "insertBefore(asList(\"1\", \"2\", \"3\"), number(\"3\"), \"5\")",
+                this.lib.insertBefore(this.lib.asList("1", "2", "3"), this.lib.number("3"), "5"),
+                this.lib.asList("1", "2", "5", "3"));
         doExpressionTest(entries, "", "remove([1, 2, 3], 1)",
                 "FunctionInvocation(Name(remove) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(1)))",
                 "ListType(Any)",
@@ -515,24 +758,60 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "indexOf(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"3\"))",
                 this.lib.indexOf(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")), this.lib.number("3")),
                 Arrays.asList(this.lib.number("3")));
-        doExpressionTest(entries, "", "union([1, 2, 3], [4, 5, 6])",
-                "FunctionInvocation(Name(union) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListLiteral(NumericLiteral(4),NumericLiteral(5),NumericLiteral(6))))",
-                "ListType(Any)",
-                "union(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"4\"), number(\"5\"), number(\"6\")))",
-                this.lib.union(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")), Arrays.asList(this.lib.number("4"), this.lib.number("5"), this.lib.number("6"))),
-                Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"), this.lib.number("4"), this.lib.number("5"), this.lib.number("6")));
         doExpressionTest(entries, "", "distinct values([1, 2, 3])",
                 "FunctionInvocation(Name(distinct values) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
                 "ListType(Any)",
                 "distinctValues(asList(number(\"1\"), number(\"2\"), number(\"3\")))",
                 this.lib.distinctValues(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
                 Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")));
+        doExpressionTest(entries, "", "index of([\"1\", \"2\", \"2\"], \"2\")",
+                "FunctionInvocation(Name(index of) -> PositionalParameters(ListLiteral(StringLiteral(\"1\"),StringLiteral(\"2\"),StringLiteral(\"2\")), StringLiteral(\"2\")))",
+                "ListType(Any)",
+                "indexOf(asList(\"1\", \"2\", \"2\"), \"2\")",
+                this.lib.indexOf(this.lib.asList("1", "2", "2"), "2"),
+                this.lib.asList(this.lib.number("2"), this.lib.number("3")));
+        doExpressionTest(entries, "", "union([1, 2, 3], [4, 5, 6])",
+                "FunctionInvocation(Name(union) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListLiteral(NumericLiteral(4),NumericLiteral(5),NumericLiteral(6))))",
+                "ListType(Any)",
+                "union(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"4\"), number(\"5\"), number(\"6\")))",
+                this.lib.union(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")), Arrays.asList(this.lib.number("4"), this.lib.number("5"), this.lib.number("6"))),
+                Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"), this.lib.number("4"), this.lib.number("5"), this.lib.number("6")));
+        doExpressionTest(entries, "", "flatten([])",
+                "FunctionInvocation(Name(flatten) -> PositionalParameters(ListLiteral()))",
+                "ListType(Any)",
+                "flatten(asList())",
+                this.lib.flatten(this.lib.asList()),
+                this.lib.asList());
         doExpressionTest(entries, "", "flatten([1, 2, 3])",
                 "FunctionInvocation(Name(flatten) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
                 "ListType(Any)",
                 "flatten(asList(number(\"1\"), number(\"2\"), number(\"3\")))",
                 this.lib.flatten(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
                 Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")));
+        doExpressionTest(entries, "", "flatten([1, 2, [3, [4]], [5, 6]])",
+                "FunctionInvocation(Name(flatten) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),ListLiteral(NumericLiteral(3),ListLiteral(NumericLiteral(4))),ListLiteral(NumericLiteral(5),NumericLiteral(6)))))",
+                "ListType(Any)",
+                "flatten(asList(number(\"1\"), number(\"2\"), asList(number(\"3\"), asList(number(\"4\"))), asList(number(\"5\"), number(\"6\"))))",
+                this.lib.flatten(this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.asList(this.lib.number("3"), this.lib.asList(this.lib.number("4"))), this.lib.asList(this.lib.number("5"), this.lib.number("6")))),
+                this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"), this.lib.number("4"), this.lib.number("5"), this.lib.number("6")));
+        doExpressionTest(entries, "", "flatten([1, 2, \"3\"])",
+                "FunctionInvocation(Name(flatten) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),StringLiteral(\"3\"))))",
+                "ListType(Any)",
+                "flatten(asList(number(\"1\"), number(\"2\"), \"3\"))",
+                this.lib.flatten(Arrays.asList(this.lib.number("1"), this.lib.number("2"), "3")),
+                Arrays.asList(this.lib.number("1"), this.lib.number("2"), "3"));
+        doExpressionTest(entries, "", "sort([1, 2, 3, 4], function(x: number, y: number) y < x)",
+                "FunctionInvocation(Name(sort) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)), FunctionDefinition(FormalParameter(x, number),FormalParameter(y, number), Relational(<,Name(y),Name(x)), false)))",
+                "ListType(Any)",
+                "sort(asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\")), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericLessThan(y, x);}})",
+                this.lib.sort(this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"), this.lib.number("4")), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {NUMBER x = (NUMBER)args[0]; NUMBER y = (NUMBER)args[1];return lib.numericLessThan(y, x);}}),
+                this.lib.asList(this.lib.number("4"), this.lib.number("3"), this.lib.number("2"), this.lib.number("1")));
+        doExpressionTest(entries, "", "sort([\"1\", \"2\", \"3\", \"4\"], function(x: number, y: number) y < x)",
+                "FunctionInvocation(Name(sort) -> PositionalParameters(ListLiteral(StringLiteral(\"1\"),StringLiteral(\"2\"),StringLiteral(\"3\"),StringLiteral(\"4\")), FunctionDefinition(FormalParameter(x, string),FormalParameter(y, string), Relational(<,Name(y),Name(x)), false)))",
+                "ListType(Any)",
+                "sort(asList(\"1\", \"2\", \"3\", \"4\"), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {String x = (String)args[0]; String y = (String)args[1];return stringLessThan(y, x);}})",
+                this.lib.sort(this.lib.asList("1", "2", "3", "4"), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {String x = (String)args[0]; String y = (String)args[1];return lib.stringLessThan(y, x);}}),
+                this.lib.asList("4", "3", "2", "1"));
     }
 
     @Test
@@ -795,41 +1074,185 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "before(number(\"1\"), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
                 this.lib.before(this.lib.number("1"), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
                 true);
-
         doExpressionTest(entries, "", "before(\"1\", [\"5\"..\"8\"])",
                 "FunctionInvocation(Name(before) -> PositionalParameters(StringLiteral(\"1\"), EndpointsRange(false,StringLiteral(\"5\"),false,StringLiteral(\"8\"))))",
                 "boolean",
                 "before(\"1\", new com.gs.dmn.runtime.Range(true, \"5\", true, \"8\"))",
                 this.lib.before("1", new com.gs.dmn.runtime.Range(true, "5", true, "8")),
                 true);
-
         doExpressionTest(entries, "", "before(@\"2010-10-01\", [@\"2010-10-02\"..@\"2010-10-03\"])",
                 "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(date, \"2010-10-01\"), EndpointsRange(false,DateTimeLiteral(date, \"2010-10-02\"),false,DateTimeLiteral(date, \"2010-10-03\"))))",
                 "boolean",
                 "before(date(\"2010-10-01\"), new com.gs.dmn.runtime.Range(true, date(\"2010-10-02\"), true, date(\"2010-10-03\")))",
                 this.lib.before(this.lib.date("2010-10-01"), new com.gs.dmn.runtime.Range(true, this.lib.date("2010-10-02"), true, this.lib.date("2010-10-03"))),
                 true);
-
         doExpressionTest(entries, "", "before(@\"12:00:00\", [@\"12:00:02\"..@\"12:00:03\"])",
                 "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(time, \"12:00:00\"), EndpointsRange(false,DateTimeLiteral(time, \"12:00:02\"),false,DateTimeLiteral(time, \"12:00:03\"))))",
                 "boolean",
                 "before(time(\"12:00:00\"), new com.gs.dmn.runtime.Range(true, time(\"12:00:02\"), true, time(\"12:00:03\")))",
                 this.lib.before(this.lib.time("12:00:00"), new com.gs.dmn.runtime.Range(true, this.lib.time("12:00:02"), true, this.lib.time("12:00:03"))),
                 true);
-
         doExpressionTest(entries, "", "before(@\"2010-10-01T12:00:00\", [@\"2010-10-02T12:00:00\"..@\"2010-10-03T12:00:00\"])",
                 "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(date and time, \"2010-10-01T12:00:00\"), EndpointsRange(false,DateTimeLiteral(date and time, \"2010-10-02T12:00:00\"),false,DateTimeLiteral(date and time, \"2010-10-03T12:00:00\"))))",
                 "boolean",
                 "before(dateAndTime(\"2010-10-01T12:00:00\"), new com.gs.dmn.runtime.Range(true, dateAndTime(\"2010-10-02T12:00:00\"), true, dateAndTime(\"2010-10-03T12:00:00\")))",
                 this.lib.before(this.lib.dateAndTime("2010-10-01T12:00:00"), new com.gs.dmn.runtime.Range(true, this.lib.dateAndTime("2010-10-02T12:00:00"), true, this.lib.dateAndTime("2010-10-03T12:00:00"))),
                 true);
-
         doExpressionTest(entries, "", "before(@\"P10Y\", [@\"P12Y\"..@\"P13Y\"])",
                 "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(duration, \"P10Y\"), EndpointsRange(false,DateTimeLiteral(duration, \"P12Y\"),false,DateTimeLiteral(duration, \"P13Y\"))))",
                 "boolean",
                 "before(duration(\"P10Y\"), new com.gs.dmn.runtime.Range(true, duration(\"P12Y\"), true, duration(\"P13Y\")))",
                 this.lib.before(this.lib.duration("P10Y"), new com.gs.dmn.runtime.Range(true, this.lib.duration("P12Y"), true, this.lib.duration("P13Y"))),
                 true);
+
+        doExpressionTest(entries, "", "after(1, 5)",
+                "FunctionInvocation(Name(after) -> PositionalParameters(NumericLiteral(1), NumericLiteral(5)))",
+                "boolean",
+                "after(number(\"1\"), number(\"5\"))",
+                this.lib.after(this.lib.number("1"), this.lib.number("5")),
+                false);
+        doExpressionTest(entries, "", "after(1, [5..8])",
+                "FunctionInvocation(Name(after) -> PositionalParameters(NumericLiteral(1), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "boolean",
+                "after(number(\"1\"), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.after(this.lib.number("1"), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                false);
+        doExpressionTest(entries, "", "after([5..8], 1)",
+                "FunctionInvocation(Name(after) -> PositionalParameters(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), NumericLiteral(1)))",
+                "boolean",
+                "after(new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")), number(\"1\"))",
+                this.lib.after(new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8")), this.lib.number("1")),
+                true);
+        doExpressionTest(entries, "", "after([1..2], [5..8])",
+                "FunctionInvocation(Name(after) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "boolean",
+                "after(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.after(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                false);
+
+        doExpressionTest(entries, "", "meets([1..2], [5..8])",
+                "FunctionInvocation(Name(meets) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "boolean",
+                "meets(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.meets(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                false);
+
+        doExpressionTest(entries, "", "met by([1..2], [5..8])",
+                "FunctionInvocation(Name(met by) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "boolean",
+                "metBy(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.metBy(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                false);
+
+        doExpressionTest(entries, "", "overlaps([1..2], [5..8])",
+                "FunctionInvocation(Name(overlaps) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "boolean",
+                "overlaps(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.overlaps(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                false);
+        doExpressionTest(entries, "", "overlaps before([1..2], [5..8])",
+                "FunctionInvocation(Name(overlaps before) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "boolean",
+                "overlapsBefore(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.overlapsBefore(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                false);
+        doExpressionTest(entries, "", "overlaps after([1..2], [5..8])",
+                "FunctionInvocation(Name(overlaps after) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "boolean",
+                "overlapsAfter(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.overlapsAfter(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                false);
+
+        doExpressionTest(entries, "", "finishes(1, [5..8])",
+                "FunctionInvocation(Name(finishes) -> PositionalParameters(NumericLiteral(1), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "boolean",
+                "finishes(number(\"1\"), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.finishes(this.lib.number("1"), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                false);
+        doExpressionTest(entries, "", "finishes([1..2], [5..8])",
+                "FunctionInvocation(Name(finishes) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "boolean",
+                "finishes(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.finishes(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                false);
+
+        doExpressionTest(entries, "", "finished by([5..8], 1)",
+                "FunctionInvocation(Name(finished by) -> PositionalParameters(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), NumericLiteral(1)))",
+                "boolean",
+                "finishedBy(new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")), number(\"1\"))",
+                this.lib.finishedBy(new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8")), this.lib.number("1")),
+                false);
+        doExpressionTest(entries, "", "finished by([1..2], [5..8])",
+                "FunctionInvocation(Name(finished by) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "boolean",
+                "finishedBy(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.finishedBy(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                false);
+
+        doExpressionTest(entries, "", "includes([5..8], 1)",
+                "FunctionInvocation(Name(includes) -> PositionalParameters(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), NumericLiteral(1)))",
+                "boolean",
+                "includes(new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")), number(\"1\"))",
+                this.lib.includes(new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8")), this.lib.number("1")),
+                false);
+        doExpressionTest(entries, "", "includes([1..2], [5..8])",
+                "FunctionInvocation(Name(includes) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "boolean",
+                "includes(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.includes(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                false);
+
+        doExpressionTest(entries, "", "during(1, [5..8])",
+                "FunctionInvocation(Name(during) -> PositionalParameters(NumericLiteral(1), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "boolean",
+                "during(number(\"1\"), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.during(this.lib.number("1"), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                false);
+        doExpressionTest(entries, "", "during([1..2], [5..8])",
+                "FunctionInvocation(Name(during) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "boolean",
+                "during(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.during(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                false);
+
+        doExpressionTest(entries, "", "starts(1, [5..8])",
+                "FunctionInvocation(Name(starts) -> PositionalParameters(NumericLiteral(1), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "boolean",
+                "starts(number(\"1\"), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.starts(this.lib.number("1"), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                false);
+        doExpressionTest(entries, "", "starts([1..2], [5..8])",
+                "FunctionInvocation(Name(starts) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "boolean",
+                "starts(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.starts(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                false);
+
+        doExpressionTest(entries, "", "started by([5..8], 1)",
+                "FunctionInvocation(Name(started by) -> PositionalParameters(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), NumericLiteral(1)))",
+                "boolean",
+                "startedBy(new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")), number(\"1\"))",
+                this.lib.startedBy(new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8")), this.lib.number("1")),
+                false);
+        doExpressionTest(entries, "", "started by([1..2], [5..8])",
+                "FunctionInvocation(Name(started by) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "boolean",
+                "startedBy(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.startedBy(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                false);
+
+        doExpressionTest(entries, "", "coincides(1, 5)",
+                "FunctionInvocation(Name(coincides) -> PositionalParameters(NumericLiteral(1), NumericLiteral(5)))",
+                "boolean",
+                "coincides(number(\"1\"), number(\"5\"))",
+                this.lib.coincides(this.lib.number("1"), this.lib.number("5")),
+                false);
+        doExpressionTest(entries, "", "coincides([1..2], [5..8])",
+                "FunctionInvocation(Name(coincides) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
+                "boolean",
+                "coincides(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.coincides(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                false);
     }
 
     @Test
@@ -897,19 +1320,5 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "new com.gs.dmn.runtime.Range(false, number(\"10\"), false, null).isEndIncluded()",
                 new com.gs.dmn.runtime.Range(false, lib.number("10"), false, null).isEndIncluded(),
                 false);
-    }
-
-    @Test
-    public void testSortInvocation() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-        );
-
-        doExpressionTest(entries, "", "sort([3,1,4,5,2], function(x: feel.number, y: feel.number) x < y)",
-                "FunctionInvocation(Name(sort) -> PositionalParameters(ListLiteral(NumericLiteral(3),NumericLiteral(1),NumericLiteral(4),NumericLiteral(5),NumericLiteral(2)), FunctionDefinition(FormalParameter(x, number),FormalParameter(y, number), Relational(<,Name(x),Name(y)), false)))",
-                "ListType(Any)",
-                "sort(asList(number(\"3\"), number(\"1\"), number(\"4\"), number(\"5\"), number(\"2\")), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericLessThan(x, y);}})",
-                null,
-                null
-        );
     }
 }
