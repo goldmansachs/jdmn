@@ -1098,7 +1098,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
 
     @Override
     public <T> List<NUMBER> indexOf(List<T> list, Object match) {
-        List result = new ArrayList<>();
+        List<NUMBER> result = new ArrayList<>();
         if (list != null) {
             for (int i = 0; i < list.size(); i++) {
                 Object o = list.get(i);

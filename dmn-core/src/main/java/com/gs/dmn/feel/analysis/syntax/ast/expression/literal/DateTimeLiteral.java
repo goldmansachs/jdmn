@@ -51,10 +51,10 @@ public class DateTimeLiteral extends SimpleLiteral {
             } else if (isDaysAndTimeDuration(getLexeme())) {
                 this.setType(DurationType.DAYS_AND_TIME_DURATION);
             } else {
-                throw new SemanticError(this, String.format("Cannot convert duration '%s(%s)'", this.conversionFunction, getLexeme()));
+                throw new SemanticError(this, String.format("Date time literal '%s(%s) is not supported", this.conversionFunction, getLexeme()));
             }
         } else {
-            throw new SemanticError(this, String.format("Cannot convert date time literal '%s(%s)'", this.conversionFunction, getLexeme()));
+            throw new SemanticError(this, String.format("Date time literal '%s(%s)' is not supported", this.conversionFunction, getLexeme()));
         }
     }
 

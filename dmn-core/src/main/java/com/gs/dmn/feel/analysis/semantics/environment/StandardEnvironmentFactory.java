@@ -149,13 +149,13 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("mean", new BuiltinFunctionType(NUMBER, new Parameter("list", ANY_LIST))));
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("mean", new BuiltinFunctionType(NUMBER, new Parameter("n1", ANY), new Parameter("ns", ANY, false, true))));
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("and", new BuiltinFunctionType(BOOLEAN, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("and", new BuiltinFunctionType(NUMBER, new Parameter("b1", ANY), new Parameter("bs", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("and", new BuiltinFunctionType(BOOLEAN, new Parameter("b1", ANY), new Parameter("bs", ANY, false, true))));
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("all", new BuiltinFunctionType(BOOLEAN, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("all", new BuiltinFunctionType(NUMBER, new Parameter("b1", ANY), new Parameter("bs", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("all", new BuiltinFunctionType(BOOLEAN, new Parameter("b1", ANY), new Parameter("bs", ANY, false, true))));
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("or", new BuiltinFunctionType(BOOLEAN, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("or", new BuiltinFunctionType(NUMBER, new Parameter("b1", ANY), new Parameter("bs", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("or", new BuiltinFunctionType(BOOLEAN, new Parameter("b1", ANY), new Parameter("bs", ANY, false, true))));
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("any", new BuiltinFunctionType(BOOLEAN, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("any", new BuiltinFunctionType(NUMBER, new Parameter("b1", ANY), new Parameter("bs", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("any", new BuiltinFunctionType(BOOLEAN, new Parameter("b1", ANY), new Parameter("bs", ANY, false, true))));
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("sublist", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("start position", NUMBER), new Parameter("length", NUMBER, true, false))));
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("append", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("item", ANY))));
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("append", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("item", ANY, false, true))));
