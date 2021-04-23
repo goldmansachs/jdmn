@@ -382,24 +382,31 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "avg(asList(number(\"1\"), number(\"2\"), number(\"3\")))",
                 this.lib.avg(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
                 this.lib.number("2"));
+
+        // function with type refinement
         doExpressionTest(entries, "", "append([1, 2, 3], 4)",
                 "FunctionInvocation(Name(append) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(4)))",
-                "ListType(Any)",
+                "ListType(number)",
                 "append(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"4\"))",
                 this.lib.append(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")), this.lib.number("4")),
                 Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"), this.lib.number("4")));
-
         doExpressionTest(entries, "", "appendAll([1, 2, 3], [4, 5, 6])",
                 "FunctionInvocation(Name(appendAll) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListLiteral(NumericLiteral(4),NumericLiteral(5),NumericLiteral(6))))",
-                "ListType(Any)",
+                "ListType(number)",
                 "appendAll(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"4\"), number(\"5\"), number(\"6\")))",
                 this.lib.appendAll(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")), Arrays.asList(this.lib.number("4"), this.lib.number("5"), this.lib.number("6"))),
                 Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"), this.lib.number("4"), this.lib.number("5"), this.lib.number("6")));
         doExpressionTest(entries, "", "remove([1, 2, 3], 1)",
                 "FunctionInvocation(Name(remove) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(1)))",
-                "ListType(Any)",
+                "ListType(number)",
                 "remove(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"1\"))",
                 this.lib.remove(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")), this.lib.number("1")),
                 Arrays.asList(this.lib.number("2"), this.lib.number("3")));
+        doExpressionTest(entries, "", "removeAll([1, 2, 3], [4, 5, 6])",
+                "FunctionInvocation(Name(removeAll) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListLiteral(NumericLiteral(4),NumericLiteral(5),NumericLiteral(6))))",
+                "ListType(number)",
+                "removeAll(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"4\"), number(\"5\"), number(\"6\")))",
+                this.lib.removeAll(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")), Arrays.asList(this.lib.number("4"), this.lib.number("5"), this.lib.number("6"))),
+                Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")));
     }
 }

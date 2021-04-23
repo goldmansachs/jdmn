@@ -14,6 +14,7 @@ package com.gs.dmn.feel.analysis.semantics.environment;
 
 import com.gs.dmn.feel.analysis.semantics.type.BuiltinFunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNContextKind;
 import com.gs.dmn.runtime.Function;
@@ -57,6 +58,71 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
 
     public static EnvironmentFactory instance() {
         return INSTANCE;
+    }
+
+    public static BuiltinFunctionType makeSublistBuiltInFunctionType(Type listType) {
+        return new BuiltinFunctionType(listType, new Parameter("list", listType), new Parameter("start position", NUMBER), new Parameter("length", NUMBER, true, false));
+    }
+
+    public static BuiltinFunctionType makeAppendBuiltinFunctionType(Type listType, Type itemType) {
+        return new BuiltinFunctionType(listType, new Parameter("list", listType), new Parameter("item", itemType, false, true));
+    }
+
+    public static BuiltinFunctionType makeConcatenateBuiltinFunctionType(Type listType) {
+        return new BuiltinFunctionType(listType, new Parameter("list1", listType, false, true));
+    }
+
+    public static BuiltinFunctionType makeInsertBeforeBuiltinFunctionType(Type listType, Type itemType) {
+        return new BuiltinFunctionType(listType, new Parameter("list", listType), new Parameter("position", NUMBER), new Parameter("new item", itemType));
+    }
+
+    public static BuiltinFunctionType makeRemoveBuiltinFunctionType(Type listType) {
+        return new BuiltinFunctionType(listType, new Parameter("list", listType), new Parameter("position", NUMBER));
+    }
+
+    public static BuiltinFunctionType makeReverseBuiltinFunctionType(Type listType) {
+        return new BuiltinFunctionType(listType, new Parameter("list", listType));
+    }
+
+    public static BuiltinFunctionType makeIndexOfBuiltinFunctionType(Type listType, Type matchType) {
+        return new BuiltinFunctionType(NUMBER_LIST, new Parameter("list", listType), new Parameter("match", matchType));
+    }
+
+    public static BuiltinFunctionType makeDistinctValuesBuiltinFunctionType(Type listType) {
+        return new BuiltinFunctionType(listType, new Parameter("list", listType));
+    }
+
+    public static BuiltinFunctionType makeUnionBuiltinFunctionType(Type listType) {
+        return new BuiltinFunctionType(listType, new Parameter("list1", listType), new Parameter("list2", listType));
+    }
+
+    public static BuiltinFunctionType makeFlattenBuiltinFunctionType(Type listType) {
+        return new BuiltinFunctionType(listType, new Parameter("list", listType));
+    }
+
+    public static BuiltinFunctionType makeSortBuiltinFunctionType(Type listType, Type functionType) {
+        return new BuiltinFunctionType(listType, new Parameter("list", listType), new Parameter("function", functionType));
+    }
+
+    // Signavio
+    public static BuiltinFunctionType makeSignavioAppendBuiltinFunctionType(Type listType, Type elementType) {
+        return new BuiltinFunctionType(listType, new Parameter("list", listType), new Parameter("element", elementType));
+    }
+
+    public static BuiltinFunctionType makeSignavioAppendAllBuiltinFunctionType(Type listType) {
+        return new BuiltinFunctionType(listType, new Parameter("list1", listType), new Parameter("list2", listType));
+    }
+
+    public static BuiltinFunctionType makeSignavioRemoveBuiltinFunctionType(Type listType, Type elementType) {
+        return new BuiltinFunctionType(listType, new Parameter("list", listType), new Parameter("element", elementType));
+    }
+
+    public static BuiltinFunctionType makeSignavioRemoveAllBuiltinFunctionType(Type listType) {
+        return new BuiltinFunctionType(listType, new Parameter("list1", listType), new Parameter("list2", listType));
+    }
+
+    public static BuiltinFunctionType makeSignavioZipBuiltinFunctionType(Type resultType, Type attributesType, Type valuesType) {
+        return new BuiltinFunctionType(resultType, new Parameter("attributes", attributesType), new Parameter("values", valuesType));
     }
 
     private StandardEnvironmentFactory() {
