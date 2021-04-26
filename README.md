@@ -9,6 +9,7 @@
 * [Octavian Patrascoiu](https://github.com/opatrascoiu) jDMN project lead.
 * [Rob Jenks](https://github.com/RobJenks) developer.
 * [Kaizer Poonawala](https://github.com/kaizer) developer.
+* [Lukasz Wojcicki](https://github.com/wojcickiluk) developer.
 
 ## Useful information
 
