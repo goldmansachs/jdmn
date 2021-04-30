@@ -202,7 +202,7 @@
                         <tc:component name="beforePRT">
                             <tc:value>true</tc:value>
                         </tc:component>
-                        <tc:component name="beforePRT">
+                        <tc:component name="beforePRT2">
                             <tc:value>true</tc:value>
                         </tc:component>
                         <tc:component name="beforeRPF">
@@ -335,7 +335,7 @@
                         <tc:component name="finishedbyRPT">
                             <tc:value>true</tc:value>
                         </tc:component>
-                        <tc:component name="finishedbyRRF">
+                        <tc:component name="finishedbyRPF">
                             <tc:value>false</tc:value>
                         </tc:component>
                         <tc:component name="finishedbyRRT">
@@ -520,7 +520,7 @@
                 </semantic:literalExpression>
             </semantic:contextEntry>
             <semantic:contextEntry id="_21cb9587-2d01-49fc-b44c-64d081962c7c">
-                <semantic:variable name="beforePRT" id="_8090dbfe-74f6-4931-b017-1903cfd6095e" typeRef="Any"/>
+                <semantic:variable name="beforePRT2" id="_8090dbfe-74f6-4931-b017-1903cfd6095e" typeRef="Any"/>
                 <semantic:literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" triso:unparsed="true" id="_4c6f479a-2604-4941-b870-299c099b1421">
                     <semantic:text>before( 1, [5..10] )</semantic:text>
                 </semantic:literalExpression>
@@ -888,7 +888,7 @@
                 </semantic:literalExpression>
             </semantic:contextEntry>
             <semantic:contextEntry id="_f9a3bcc6-29f8-4ea9-a594-1a243ac06db7">
-                <semantic:variable name="finishedbyRRF" id="_64da9deb-dad4-4e95-964b-bbb2ba597399" typeRef="Any"/>
+                <semantic:variable name="finishedbyRPF" id="_64da9deb-dad4-4e95-964b-bbb2ba597399" typeRef="Any"/>
                 <semantic:literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" triso:unparsed="true" id="_d93cf74d-fda8-4f0e-b27c-d9d50538beaa">
                     <semantic:text>finished by( [1..10), 10 )</semantic:text>
                 </semantic:literalExpression>

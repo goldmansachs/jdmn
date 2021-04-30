@@ -62,10 +62,6 @@ public abstract class AbstractTest {
         return String.format(pathFormat, dmnVersion, dmnFileName);
     }
 
-    protected String completePath(String pathFormat, String dmnFileName) {
-        return String.format(pathFormat, dmnFileName);
-    }
-
     protected InputParameters makeInputParameters() {
         return new InputParameters(makeInputParametersMap());
     }

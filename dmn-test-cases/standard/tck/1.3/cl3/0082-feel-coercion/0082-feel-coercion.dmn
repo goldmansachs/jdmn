@@ -11,9 +11,8 @@
     </itemDefinition>
 
     <itemDefinition name="tDS_001">
-        <itemComponent name="decision_ds_001">
-            <typeRef>string</typeRef>
-        </itemComponent>
+        <functionItem outputTypeRef="string">
+        </functionItem>
     </itemDefinition>
 
     <itemDefinition name="tNameAndAge">
@@ -125,10 +124,10 @@
         </literalExpression>
     </decision>
 
-    <!-- has an explicit context return type but return boolean -->
+    <!-- has an explicit context return type but returns boolean -->
     <businessKnowledgeModel name="bkm_002" id="_bkm_002">
-        <variable typeRef="tNameAndAge" name="bkm_002"/>
-        <encapsulatedLogic>
+        <variable name="bkm_002"/>
+        <encapsulatedLogic typeRef="tNameAndAge" >
             <formalParameter name="nameAndAge" typeRef="tNameAndAge"/>
             <literalExpression>
                 <text>nameAndAge != null</text>
@@ -147,8 +146,8 @@
     </decision>
 
     <businessKnowledgeModel name="bkm_004" id="_bkm_004">
-        <variable typeRef="tNumberList" name="bkm_004"/>
-        <encapsulatedLogic>
+        <variable name="bkm_004"/>
+        <encapsulatedLogic typeRef="tNumberList">
             <formalParameter name="arg"/>
             <literalExpression>
                 <text>arg</text>
@@ -157,8 +156,8 @@
     </businessKnowledgeModel>
 
     <businessKnowledgeModel name="bkm_005" id="_bkm_005">
-        <variable typeRef="number" name="bkm_005"/>
-        <encapsulatedLogic>
+        <variable name="bkm_005"/>
+        <encapsulatedLogic typeRef="number">
             <formalParameter name="arg"/>
             <literalExpression>
                 <text>[arg]</text>
@@ -409,7 +408,7 @@
 
     <decisionService name="decisionService_001" id="_decisionService_001">
         <variable name="decisionService_001" typeRef="tDS_001"/>
-        <!-- decision returns number, type expects string -->
+        <!-- decision returns number, functionType typeRef has return type of string -->
         <outputDecision href="#_decision_ds_001"/>
     </decisionService>
 

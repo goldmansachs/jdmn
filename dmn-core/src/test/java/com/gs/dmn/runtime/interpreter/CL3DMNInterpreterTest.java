@@ -349,6 +349,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_13_cl3_0071_feel_between() {
+        doSingleModelTest("1.3", "0071-feel-between");
+    }
+
+    @Test
     public void test_13_cl3_0074_feel_properties() {
         doSingleModelTest("1.3", "0074-feel-properties");
     }
@@ -364,6 +369,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_13_cl3_0084_feel_for_loops() {
+        doSingleModelTest("1.3", "0084-feel-for-loops");
+    }
+
+    @Test
     public void test_13_cl3_0085_decision_services() {
         doSingleModelTest("1.3", "0085-decision-services");
     }
@@ -374,6 +384,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_13_cl3_0087_chapter_11_example() {
+        doSingleModelTest("1.3", "0087-chapter-11-example");
+    }
+
+    @Test
     public void test_13_cl3_0088_no_decision_logic() {
         doSingleModelTest("1.3", "0088-no-decision-logic");
     }
@@ -381,6 +396,31 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     @Test
     public void test_13_cl3_0091_local_hrefs() {
         doSingleModelTest("1.3", "0091-local-hrefs");
+    }
+
+    @Test
+    public void test_13_cl3_0093_feel_at_literals() {
+        doSingleModelTest("1.3", "0093-feel-at-literals");
+    }
+
+    @Test
+    public void test_13_cl3_0095_feel_day_of_year_function() {
+        doSingleModelTest("1.3", "0095-feel-day-of-year-function");
+    }
+
+    @Test
+    public void test_13_cl3_0096_feel_day_of_week_function() {
+        doSingleModelTest("1.3", "0096-feel-day-of-week-function");
+    }
+
+    @Test
+    public void test_13_cl3_0097_fel_month_of_year_function() {
+        doSingleModelTest("1.3", "0097-feel-month-of-year-function");
+    }
+
+    @Test
+    public void test_13_cl3_0098_feel_week_of_year_function() {
+        doSingleModelTest("1.3", "0098-feel-week-of-year-function");
     }
 
     @Test

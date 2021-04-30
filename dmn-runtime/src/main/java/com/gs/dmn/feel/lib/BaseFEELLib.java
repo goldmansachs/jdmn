@@ -1413,14 +1413,32 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     //
     @Override
     public List<NUMBER> rangeToList(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end) {
-        Pair<Integer, Integer> intRange = intRange(isOpenStart, (Number) start, isOpenEnd, (Number) end);
-        return numericRangeToList(intRange);
+        return rangeToStream(isOpenStart, start, isOpenEnd, end).collect(Collectors.toList());
     }
 
     @Override
     public List<NUMBER> rangeToList(NUMBER start, NUMBER end) {
+        return rangeToStream(start, end).collect(Collectors.toList());
+    }
+
+    @Override
+    public Stream<NUMBER> rangeToStream(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end) {
+        Pair<Integer, Integer> intRange = intRange(isOpenStart, (Number) start, isOpenEnd, (Number) end);
+        if (intRange == null) {
+            return Stream.of();
+        }
+
+        return intRangeToStream(intRange.getLeft(), intRange.getRight());
+    }
+
+    @Override
+    public Stream<NUMBER> rangeToStream(NUMBER start, NUMBER end) {
         Pair<Integer, Integer> intRange = intRange((Number) start, (Number) end);
-        return numericRangeToList(intRange);
+        if (intRange == null) {
+            return Stream.of();
+        }
+
+        return intRangeToStream(intRange.getLeft(), intRange.getRight());
     }
 
     private Pair<Integer, Integer> intRange(boolean isOpenStart, Number start, boolean isOpenEnd, Number end) {
@@ -1441,18 +1459,11 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         return new Pair<>(startValue, endValue);
     }
 
-    private List<NUMBER> numericRangeToList(Pair<Integer, Integer> intRange) {
-        List<NUMBER> result = new ArrayList<>();
-        if (intRange == null) {
-            return result;
-        }
-
-        int startValue = intRange.getLeft();
-        int endValue = intRange.getRight();
+    private Stream<NUMBER> intRangeToStream(int startValue, int endValue) {
         if (startValue <= endValue) {
-            return Stream.iterate(valueOf(startValue), (i) -> numericAdd(i, valueOf(1))).limit((long) endValue - startValue + 1).sequential().collect(Collectors.toList());
+            return Stream.iterate(valueOf(startValue), (i) -> numericAdd(i, valueOf(1))).limit((long) endValue - startValue + 1).sequential();
         } else {
-            return Stream.iterate(valueOf(startValue), (i) -> numericSubtract(i, valueOf(1))).limit((long) startValue - endValue + 1).sequential().collect(Collectors.toList());
+            return Stream.iterate(valueOf(startValue), (i) -> numericSubtract(i, valueOf(1))).limit((long) startValue - endValue + 1).sequential();
         }
     }
 

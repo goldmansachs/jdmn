@@ -43,17 +43,6 @@ public class XMLDurationFactory {
         return this.datatypeFactory.newDuration(from);
     }
 
-    public Duration fromValue(long totalMonths, long totalSeconds) {
-        boolean isNegative = totalMonths < 0;
-        if (isNegative) {
-            String literal = String.format("-P%dMT%dS", -totalMonths, -totalSeconds);
-            return this.datatypeFactory.newDuration(literal).negate();
-        } else {
-            String literal = String.format("P%dMT%dS", totalMonths, totalSeconds);
-            return this.datatypeFactory.newDuration(literal);
-        }
-    }
-
     public Duration yearMonthFrom(Period period) {
         int years = period.getYears();
         int months = period.getMonths();
@@ -84,31 +73,13 @@ public class XMLDurationFactory {
         return this.datatypeFactory.newDurationYearMonth(!isNegative, 0, isNegative ? - months : months);
     }
 
-    public Duration fromSeconds(long seconds) {
-        Duration duration = this.datatypeFactory.newDuration(seconds * 1000);
-        return duration;
-    }
-
     public Duration dayTimeFromValue(long seconds) {
-        long millis = seconds * 1000L;
-        if (millis < 0) {
-            return this.datatypeFactory.newDurationDayTime(-millis).negate();
-        } else {
-            return this.datatypeFactory.newDurationDayTime(millis);
-        }
+        boolean isNegative = seconds < 0;
+        return this.datatypeFactory.newDurationDayTime(!isNegative, 0, 0, 0, (int) (isNegative ? -seconds : seconds));
     }
 
     public Duration dayTimeWithDays(int days) {
         boolean isNegative = days < 0;
         return this.datatypeFactory.newDurationDayTime(!isNegative, isNegative ? -days : days, 0, 0, 0);
-    }
-
-    public Duration dayTimeWithSeconds(int seconds) {
-        boolean isNegative = seconds < 0;
-        return this.datatypeFactory.newDurationDayTime(!isNegative, 0, 0, 0, isNegative ? -seconds : seconds);
-    }
-
-    public XMLGregorianCalendar newXMLGregorianCalendar(GregorianCalendar gc) {
-        return this.datatypeFactory.newXMLGregorianCalendar(gc);
     }
 }

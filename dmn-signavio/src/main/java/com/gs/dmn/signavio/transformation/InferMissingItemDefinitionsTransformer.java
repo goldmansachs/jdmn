@@ -74,7 +74,7 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
             for (Pair<TDRGElement, Type> pair: errorReport) {
                 TDRGElement element = pair.getLeft();
                 Type type = pair.getRight();
-                if (type == null) {
+                if (Type.isNull(type)) {
                 } else if (isPrimitive(type) || isListOfPrimitive(type)) {
                     if (!resolvedElements.contains(element)) {
                         // Create ItemDefinition and add it

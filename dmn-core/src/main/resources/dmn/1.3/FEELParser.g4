@@ -359,12 +359,12 @@ type returns [TypeExpression ast] :
     )
     |
     (
-        identifier LT type GT {$ast = astFactory.toListTypeExpression($type.ast);}
+        typeName = identifier {"list".equals($typeName.ast.getText())}? LT type GT {$ast = astFactory.toListTypeExpression($type.ast);}
     )
     |
     (
         {List<Pair<String, TypeExpression>> members = new ArrayList<>();}
-        identifier LT
+        typeName = identifier {"context".equals($typeName.ast.getText())}? LT
         id1 = identifier COLON t1 = type {members.add(new Pair<String, TypeExpression>($id1.ast.getText(), $t1.ast));}
         ( COMMA id2 = identifier COLON t2 = type {members.add(new Pair<String, TypeExpression>($id2.ast.getText(), $t2.ast));})*
         GT
@@ -373,7 +373,7 @@ type returns [TypeExpression ast] :
     |
     (
         {List<TypeExpression> parameters = new ArrayList<>();}
-        identifier LT
+        typeName = identifier {"function".equals($typeName.ast.getText())}? LT
         (
             t1 = type {parameters.add($t1.ast);}
             ( COMMA t2 = type )* {parameters.add($t2.ast);}

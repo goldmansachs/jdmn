@@ -41,7 +41,7 @@ public class RangeType extends Type {
     }
 
     public RangeType(Type type) {
-        if (type == null) {
+        if (Type.isNull(type)) {
             type = NUMBER;
         }
         this.type = type;
@@ -75,7 +75,7 @@ public class RangeType extends Type {
 
     @Override
     public boolean isValid() {
-        return type != null && type.isValid();
+        return !Type.isNull(type) && type.isValid();
     }
 
     @Override

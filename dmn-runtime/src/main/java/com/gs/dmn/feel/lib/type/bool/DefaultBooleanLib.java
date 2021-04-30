@@ -20,7 +20,7 @@ import static java.lang.Boolean.TRUE;
 
 public class DefaultBooleanLib implements BooleanLib {
     @Override
-    public Boolean and(List<Object> list) {
+    public Boolean and(List<?> list) {
         return all(list);
     }
 
@@ -30,7 +30,7 @@ public class DefaultBooleanLib implements BooleanLib {
     }
 
     @Override
-    public Boolean all(List<Object> list) {
+    public Boolean all(List<?> list) {
         if (list == null) {
             return null;
         }
@@ -54,7 +54,7 @@ public class DefaultBooleanLib implements BooleanLib {
     }
 
     @Override
-    public Boolean or(List<Object> list) {
+    public Boolean or(List<?> list) {
         return any(list);
     }
 
@@ -64,7 +64,7 @@ public class DefaultBooleanLib implements BooleanLib {
     }
 
     @Override
-    public Boolean any(List<Object> list) {
+    public Boolean any(List<?> list) {
         if (list == null) {
             return null;
         }

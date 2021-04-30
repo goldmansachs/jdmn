@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNContext;
@@ -100,6 +101,24 @@ public class PositionalParameters extends Parameters {
             this.convertedArguments = this.originalArguments;
         }
         return this.convertedArguments;
+    }
+
+    @Override
+    public Expression getParameter(int position, String name) {
+        if (0 > position || position > this.parameters.size()) {
+            return null;
+        } else {
+            return this.parameters.get(position);
+        }
+    }
+
+    @Override
+    public Type getParameterType(int position, String name) {
+        if (0 > position || position > this.parameters.size()) {
+            return null;
+        } else {
+            return this.parameters.get(position).getType();
+        }
     }
 
     private boolean requiresConversion() {

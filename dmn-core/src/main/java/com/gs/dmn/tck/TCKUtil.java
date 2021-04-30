@@ -291,6 +291,11 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
     // Translator - helper delegated methods
     //
+    public String testCaseId(TestCase testCase) {
+        String id = testCase.getId();
+        return this.transformer.nativeFriendlyName(id);
+    }
+
     public String assertClassName() {
         return this.transformer.assertClassName();
     }
@@ -536,7 +541,13 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         } else if (valueType.getList() != null) {
             return toNativeExpression(valueType.getList().getValue(), (ListType) type);
         } else if (valueType.getComponent() != null) {
-            return toNativeExpression(valueType.getComponent(), (ItemDefinitionType) type);
+            if (type instanceof ItemDefinitionType) {
+                return toNativeExpression(valueType.getComponent(), (ItemDefinitionType) type);
+            } else if (type instanceof ContextType) {
+                return toNativeExpression(valueType.getComponent(), (ContextType) type);
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
+            }
         }
         throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
     }
@@ -570,9 +581,25 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             }
         }
         sortParameters(argumentList);
-        String interfaceName = this.transformer.toNativeType(type);
+        String interfaceName = this.transformer.toNativeType((Type) type);
         String arguments = argumentList.stream().map(Pair::getRight).collect(Collectors.joining(", "));
         return this.transformer.constructor(this.transformer.itemDefinitionNativeClassName(interfaceName), arguments);
+    }
+
+    private String toNativeExpression(List<Component> components, ContextType type) {
+        // Initialized members
+        List<Pair<String, String>> membersList = new ArrayList<>();
+        for (Component c : components) {
+            String name = c.getName();
+            Type memberType = type.getMemberType(name);
+            String value = toNativeExpression(c, memberType);
+            membersList.add(new Pair<>(name, value));
+        }
+        // Use builder pattern in Context
+        sortParameters(membersList);
+        String builder = this.transformer.defaultConstructor(this.transformer.contextClassName());
+        String parts = membersList.stream().map(a -> String.format("add(\"%s\", %s)", a.getLeft(), a.getRight())).collect(Collectors.joining("."));
+        return String.format("%s.%s", builder, parts);
     }
 
     public Object makeValue(ValueType valueType) {
@@ -740,7 +767,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         List<Component> components = valueType.getComponent();
         for (Component c : components) {
             String name = c.getName();
-            Type memberType = type == null ? null : type.getMemberType(name);
+            Type memberType = Type.isNull((Type) type) ? null : type.getMemberType(name);
             Object value = makeValue(c, memberType);
             context.add(name, value);
         }
@@ -751,7 +778,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (value instanceof Number) {
             return true;
         }
-        if (type == null) {
+        if (Type.isNull(type)) {
             return false;
         }
         return type == NumberType.NUMBER || Type.equivalentTo(type, ListType.NUMBER_LIST);
@@ -761,7 +788,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (value instanceof String) {
             return true;
         }
-        if (type == null) {
+        if (Type.isNull(type)) {
             return false;
         }
         return type == StringType.STRING || Type.equivalentTo(type, ListType.STRING_LIST);
@@ -771,7 +798,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (value instanceof Boolean) {
             return true;
         }
-        if (type == null) {
+        if (Type.isNull(type)) {
             return false;
         }
         return type == BooleanType.BOOLEAN || Type.equivalentTo(type, ListType.BOOLEAN_LIST);
@@ -781,7 +808,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (value instanceof XMLGregorianCalendar) {
             return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATE;
         }
-        if (type == null) {
+        if (Type.isNull(type)) {
             return false;
         }
         return type == DateType.DATE || Type.equivalentTo(type, ListType.DATE_LIST);
@@ -791,7 +818,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (value instanceof XMLGregorianCalendar) {
             return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.TIME;
         }
-        if (type == null) {
+        if (Type.isNull(type)) {
             return false;
         }
         return type == TimeType.TIME || Type.equivalentTo(type, ListType.TIME_LIST);
@@ -801,7 +828,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (value instanceof XMLGregorianCalendar) {
             return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATETIME;
         }
-        if (type == null) {
+        if (Type.isNull(type)) {
             return false;
         }
         return type == DateTimeType.DATE_AND_TIME || Type.equivalentTo(type, ListType.DATE_AND_TIME_LIST);
@@ -811,7 +838,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (value instanceof Duration) {
             return true;
         }
-        if (type == null) {
+        if (Type.isNull(type)) {
             return false;
         }
         return type instanceof DurationType

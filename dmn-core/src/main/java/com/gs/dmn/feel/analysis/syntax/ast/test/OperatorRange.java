@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
-import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
 import com.gs.dmn.feel.analysis.semantics.type.RangeType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
@@ -70,9 +69,9 @@ public class OperatorRange extends Range {
             } else if (this.endpoint instanceof NamedExpression) {
             } else {
                 if (this.operator == null) {
-                    checkType("=", inputExpressionType, this.endpoint.getType());
+                    checkType("=", inputExpressionType, this.endpoint.getType(), context);
                 } else {
-                    checkType(this.operator, inputExpressionType, this.endpoint.getType());
+                    checkType(this.operator, inputExpressionType, this.endpoint.getType(), context);
                 }
             }
         }

@@ -20,7 +20,9 @@ import org.apache.commons.lang3.StringUtils;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 import java.time.*;
+import java.time.format.TextStyle;
 import java.time.temporal.IsoFields;
+import java.util.Locale;
 
 import static com.gs.dmn.feel.lib.type.BaseType.UTC;
 
@@ -312,7 +314,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
 
         // timezone offset in seconds
         int secondsOffset = time.getOffset().getTotalSeconds();
-        return XMLDurationFactory.INSTANCE.dayTimeWithSeconds(secondsOffset);
+        return XMLDurationFactory.INSTANCE.dayTimeFromValue(secondsOffset);
     }
     @Override
     public Duration timeOffsetDateTime(ZonedDateTime dateTime) {
@@ -322,7 +324,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
 
         // timezone offset in seconds
         int secondsOffset = dateTime.getOffset().getTotalSeconds();
-        return XMLDurationFactory.INSTANCE.dayTimeWithSeconds(secondsOffset);
+        return XMLDurationFactory.INSTANCE.dayTimeFromValue(secondsOffset);
     }
 
     @Override
@@ -365,7 +367,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         }
 
         DayOfWeek dayOfWeek = date.getDayOfWeek();
-        return DAY_NAMES[dayOfWeek.getValue() + 1];
+        return dayOfWeek.getDisplayName(TextStyle.FULL, Locale.US);
     }
     @Override
     public String dayOfWeekDateTime(ZonedDateTime dateTime) {

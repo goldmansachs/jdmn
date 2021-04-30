@@ -1272,6 +1272,36 @@
                     </execution>
 
                     <execution>
+                        <id>cl3-0068-feel-equality</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.13.diagram.folder}/cl3/0068-feel-equality/translator/0068-feel-equality.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0068_feel_equality</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-0068-feel-equality</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.13.diagram.folder}/cl3/0068-feel-equality/translator/0068-feel-equality-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.13.diagram.folder}/cl3/0068-feel-equality/translator/0068-feel-equality.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0068_feel_equality</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
                         <id>cl3-0076-feel-external-java</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -1297,6 +1327,36 @@
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0076_feel_external_java</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>cl3-0083-feel-unicode</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.13.diagram.folder}/cl3/0083-feel-unicode/translator/0083-feel-unicode.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0083_feel_unicode</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-0083-feel-unicode</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.13.diagram.folder}/cl3/0083-feel-unicode/translator/0083-feel-unicode-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.13.diagram.folder}/cl3/0083-feel-unicode/translator/0083-feel-unicode.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0083_feel_unicode</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1387,6 +1447,36 @@
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1102_feel_ceiling_function</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>0093-feel-at-literals</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.13.diagram.folder}/cl3/0093-feel-at-literals/translator/0093-feel-at-literals.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0093_feel_at_literals</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-0093-feel-at-literals</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.13.diagram.folder}/cl3/0093-feel-at-literals/translator/0093-feel-at-literals-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.13.diagram.folder}/cl3/0093-feel-at-literals/translator/0093-feel-at-literals.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0093_feel_at_literals</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1777,6 +1867,36 @@
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1121_feel_years_and_months_duration_function</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>cl3-1130-feel-interval</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.13.diagram.folder}/cl3/1130-feel-interval/translator/1130-feel-interval.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1130_feel_interval</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-1130-feel-interval</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.13.diagram.folder}/cl3/1130-feel-interval/translator/1130-feel-interval-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.13.diagram.folder}/cl3/1130-feel-interval/translator/1130-feel-interval.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1130_feel_interval</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>

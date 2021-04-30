@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
         NumericType<NUMBER>, StringType, BooleanType, ListType, ContextType, RangeType, FunctionType,
@@ -71,6 +72,8 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     //
     List<NUMBER> rangeToList(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end);
     List<NUMBER> rangeToList(NUMBER start, NUMBER end);
+    Stream<NUMBER> rangeToStream(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end);
+    Stream<NUMBER> rangeToStream(NUMBER start, NUMBER endValue);
 
     DATE toDate(Object from);
     TIME toTime(Object from);
@@ -79,8 +82,8 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     //
     // Boolean functions
     //
-    Boolean and(List list);
-    Boolean or(List list);
+    Boolean and(List<?> list);
+    Boolean or(List<?> list);
 
     //
     // List functions

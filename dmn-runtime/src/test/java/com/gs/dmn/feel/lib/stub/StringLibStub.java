@@ -84,7 +84,7 @@ public class StringLibStub implements StringLib {
     }
 
     @Override
-    public List split(String string, String delimiter) {
+    public List<String> split(String string, String delimiter) {
         throw new DMNRuntimeException("Not supported yet");
     }
 }

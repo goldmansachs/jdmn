@@ -159,6 +159,9 @@ public class FEELLexerTest extends AbstractLexerTest {
 
         token = checkToken("distinct values", NAME, "distinct values");
         checkPosition(token, 1, 1, 1, 15, 0, 15);
+
+        token = checkToken("distinct  values", NAME, "distinct values");
+        checkPosition(token, 1, 1, 1, 15, 0, 16);
     }
 
     @Test

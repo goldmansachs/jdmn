@@ -449,7 +449,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         if (arguments instanceof NamedParameters) {
             for(FormalParameter p: parameters) {
                 Type type = p.getType();
-                if (type == null || type == AnyType.ANY) {
+                if (Type.isNullOrAny(type)) {
                     Type newType = ((NamedParameters) arguments).getParameters().get(p.getName()).getType();
                     p.setType(newType);
                 }
@@ -458,7 +458,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
             for(int i=0; i < parameters.size(); i++) {
                 FormalParameter p = parameters.get(i);
                 Type type = p.getType();
-                if (type == null || type == AnyType.ANY) {
+                if (Type.isNullOrAny(type)) {
                     Type newType = ((PositionalParameters) arguments).getParameters().get(i).getType();
                     p.setType(newType);
                 }

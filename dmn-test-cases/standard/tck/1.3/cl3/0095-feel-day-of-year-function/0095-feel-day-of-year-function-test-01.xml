@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0095-feel-day-of-year-function.dmn</modelName>
+
+    <testCase id="date_001">
+        <description>date: first day of year</description>
+        <resultNode name="date_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_002">
+        <description>date: last day of year</description>
+        <resultNode name="date_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">365</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_003">
+        <description>date: leap year has 366 days</description>
+        <resultNode name="date_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">366</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_004">
+        <description>date: spec example</description>
+        <resultNode name="date_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">260</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_005">
+        <description>date: unknown type at compile time with valid date as runtime input</description>
+        <inputNode name="date_input_001">
+            <value xsi:type="xsd:date">1970-01-01</value>
+        </inputNode>
+        <resultNode name="date_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_006">
+        <description>date: will accept date as named param</description>
+        <resultNode name="date_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">260</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_001">
+        <description>datetime: first day of year</description>
+        <resultNode name="datetime_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_002">
+        <description>datetime: last day of year</description>
+        <resultNode name="datetime_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">365</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_003">
+        <description>datetime: leap year has 366 days</description>
+        <resultNode name="datetime_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">366</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_004">
+        <description>datetime: unknown type at compile time with valid datetime as runtime input</description>
+        <inputNode name="date_input_001">
+            <value xsi:type="xsd:dateTime">1970-01-01T10:10:10</value>
+        </inputNode>
+        <resultNode name="datetime_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_005">
+        <description>datetime: will accept date time as named param</description>
+        <resultNode name="datetime_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">260</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="null_001">
+        <description>null param gives null result</description>
+        <resultNode name="null_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_002">
+        <description>no param gives null result</description>
+        <resultNode name="null_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_003">
+        <description>invalid param type gives null result</description>
+        <resultNode name="null_003" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_004">
+        <description>null value named param gives null result</description>
+        <resultNode name="null_004" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_005">
+        <description>invalid type as named param gives null result</description>
+        <resultNode name="null_005" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_006">
+        <description>invalidly named param gives null result</description>
+        <resultNode name="null_006" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_007">
+        <description>unknown type at compile time with invalid type as runtime input</description>
+        <inputNode name="date_input_001">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="null_007" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_008">
+        <description>too many params gives null result</description>
+        <resultNode name="null_008" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

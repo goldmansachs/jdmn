@@ -14,26 +14,12 @@ package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.time.DurationLib;
 
-import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.time.LocalDate;
 import java.time.Period;
 
 public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, Duration> {
-    public static boolean hasYearsOrMonths(Duration duration) {
-        return duration.isSet(DatatypeConstants.YEARS)
-                || duration.isSet(DatatypeConstants.MONTHS)
-                ;
-    }
-
-    public static boolean hasDayOrTime(Duration duration) {
-        return duration.isSet(DatatypeConstants.DAYS)
-                || duration.isSet(DatatypeConstants.HOURS)
-                || duration.isSet(DatatypeConstants.MINUTES)
-                || duration.isSet(DatatypeConstants.SECONDS)
-                ;
-    }
 
     public DefaultDurationLib() {
     }
@@ -61,7 +47,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, Dur
             return null;
         }
 
-        if (hasYearsOrMonths(duration)) {
+        if (XMLCalendarType.isYearMonthDuration(duration)) {
             return (long) duration.getYears();
         } else {
             return null;
@@ -74,7 +60,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, Dur
             return null;
         }
 
-        if (hasYearsOrMonths(duration)) {
+        if (XMLCalendarType.isYearMonthDuration(duration)) {
             return (long) duration.getMonths();
         } else {
             return null;
@@ -87,7 +73,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, Dur
             return null;
         }
 
-        if (hasDayOrTime(duration)) {
+        if (XMLCalendarType.isDayTimeDuration(duration)) {
             return (long) duration.getDays();
         } else {
             return null;
@@ -100,7 +86,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, Dur
             return null;
         }
 
-        if (hasDayOrTime(duration)) {
+        if (XMLCalendarType.isDayTimeDuration(duration)) {
             return (long) duration.getHours();
         } else {
             return null;
@@ -113,7 +99,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, Dur
             return null;
         }
 
-        if (hasDayOrTime(duration)) {
+        if (XMLCalendarType.isDayTimeDuration(duration)) {
             return (long) duration.getMinutes();
         } else {
             return null;
@@ -126,7 +112,7 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, Dur
             return null;
         }
 
-        if (hasDayOrTime(duration)) {
+        if (XMLCalendarType.isDayTimeDuration(duration)) {
             return (long) duration.getSeconds();
         } else {
             return null;

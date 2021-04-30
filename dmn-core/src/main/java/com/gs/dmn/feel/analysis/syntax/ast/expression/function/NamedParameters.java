@@ -106,6 +106,16 @@ public class NamedParameters extends Parameters {
         return this.convertedArguments;
     }
 
+    @Override
+    public Expression getParameter(int position, String name) {
+        return this.parameters.get(name);
+    }
+
+    @Override
+    public Type getParameterType(int position, String name) {
+        return this.parameterTypes.getType(name);
+    }
+
     private boolean requiresConversion() {
         if (this.parameterConversions == null) {
             return false;

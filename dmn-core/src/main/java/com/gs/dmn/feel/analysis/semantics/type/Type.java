@@ -30,6 +30,21 @@ import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public abstract class Type {
+    //
+    // Undefined types
+    //
+    public static boolean isNull(Type type) {
+        return type == null;
+    }
+
+    public static boolean isAny(Type type) {
+        return type == AnyType.ANY;
+    }
+
+    public static boolean isNullOrAny(Type type) {
+        return isNull(type) || isAny(type);
+    }
+
     /*
         A type type1 is equivalent to type type2 when the types are either structurally or name equivalent. The types are compatible without coercion
     */

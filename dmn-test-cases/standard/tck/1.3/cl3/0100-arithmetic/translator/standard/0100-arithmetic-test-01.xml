@@ -2481,6 +2481,51 @@
         </resultNode>
     </testCase>
 
+    <testCase id="exponent_lhs_number_exp_rhs_number_003">
+        <description>exponent is left associative</description>
+        <resultNode name="exponent_lhs_number_exp_rhs_number_003" type="decision" >
+            <expected>
+                <value xsi:type="xsd:decimal">3486784401</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="exponent_lhs_number_exp_rhs_number_004">
+        <description>-a**b parses as (-a)**b not -(a**b)</description>
+        <resultNode name="exponent_lhs_number_exp_rhs_number_004" type="decision" >
+            <expected>
+                <value xsi:type="xsd:decimal">25</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="exponent_lhs_number_exp_rhs_number_005">
+        <description>decimal exponent</description>
+        <resultNode name="exponent_lhs_number_exp_rhs_number_005" type="decision" >
+            <expected>
+                <value xsi:type="xsd:decimal">60.58617166606</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="exponent_lhs_number_exp_rhs_number_006">
+        <description>decimal exponent permitted if integer</description>
+        <resultNode name="exponent_lhs_number_exp_rhs_number_006" type="decision" >
+            <expected>
+                <value xsi:type="xsd:decimal">25</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="exponent_lhs_number_exp_rhs_number_007">
+        <description>base may be a decimal number</description>
+        <resultNode name="exponent_lhs_number_exp_rhs_number_007" type="decision" >
+            <expected>
+                <value xsi:type="xsd:decimal">30.25</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
     <testCase id="error_when_multiply_lhs_number_by_rhs_string">
         <description>invalid arithmetic combination</description>
         <resultNode name="error_when_multiply_lhs_number_by_rhs_string" type="decision" errorResult="true">

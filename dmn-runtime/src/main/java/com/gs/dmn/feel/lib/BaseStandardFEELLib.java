@@ -553,7 +553,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List split(String string, String delimiter) {
+    public List<String> split(String string, String delimiter) {
         try {
             return this.stringLib.split(string, delimiter);
         } catch (Exception e) {
@@ -567,7 +567,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     // Boolean functions
     //
     @Override
-    public Boolean and(List list) {
+    public Boolean and(List<?> list) {
         try {
             return this.booleanLib.and(list);
         } catch (Exception e) {
@@ -589,7 +589,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean all(List list) {
+    public Boolean all(List<?> list) {
         try {
             return this.booleanLib.all(list);
         } catch (Exception e) {
@@ -611,7 +611,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean or(List list) {
+    public Boolean or(List<?> list) {
         try {
             return this.booleanLib.or(list);
         } catch (Exception e) {
@@ -633,7 +633,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean any(List list) {
+    public Boolean any(List<?> list) {
         try {
             return this.booleanLib.any(list);
         } catch (Exception e) {
@@ -1031,7 +1031,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List sublist(List list, NUMBER startPosition) {
+    public <T> List<T> sublist(List<T> list, NUMBER startPosition) {
         try {
             return this.listLib.sublist(list, intValue(startPosition));
         } catch (Exception e) {
@@ -1042,7 +1042,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List sublist(List list, NUMBER startPosition, NUMBER length) {
+    public <T> List<T> sublist(List<T> list, NUMBER startPosition, NUMBER length) {
         try {
             return this.listLib.sublist(list, intValue(startPosition), intValue(length));
         } catch (Exception e) {
@@ -1053,7 +1053,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List concatenate(Object... lists) {
+    public <T> List<T> concatenate(List<T>... lists) {
         try {
             return this.listLib.concatenate(lists);
         } catch (Exception e) {
@@ -1064,7 +1064,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List insertBefore(List list, NUMBER position, Object newItem) {
+    public <T> List<T> insertBefore(List<T> list, NUMBER position, T newItem) {
         try {
             return this.listLib.insertBefore(list, intValue(position), newItem);
         } catch (Exception e) {
@@ -1075,7 +1075,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List remove(List list, Object position) {
+    public <T> List<T> remove(List<T> list, Object position) {
         try {
             return this.listLib.remove(list, ((Number)position).intValue());
         } catch (Exception e) {
@@ -1086,7 +1086,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List reverse(List list) {
+    public <T> List<T> reverse(List<T> list) {
         try {
             return this.listLib.reverse(list);
         } catch (Exception e) {
@@ -1097,8 +1097,8 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List indexOf(List list, Object match) {
-        List result = new ArrayList<>();
+    public <T> List<NUMBER> indexOf(List<T> list, Object match) {
+        List<NUMBER> result = new ArrayList<>();
         if (list != null) {
             for (int i = 0; i < list.size(); i++) {
                 Object o = list.get(i);
@@ -1111,7 +1111,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List union(Object... lists) {
+    public <T> List<T> union(List<T>... lists) {
         try {
             return this.listLib.union(lists);
         } catch (Exception e) {
@@ -1122,7 +1122,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List distinctValues(List list) {
+    public <T> List<T> distinctValues(List<T> list) {
         try {
             return this.listLib.distinctValues(list);
         } catch (Exception e) {
