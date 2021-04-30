@@ -55,14 +55,6 @@ public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, 
     }
 
     @SafeVarargs
-    protected final void doMultipleModelsTest(String dmnFolderName, Pair<String, String>... extraInputParameters) throws Exception {
-        String inputFilePath = getInputPath() + "/" + dmnFolderName;
-        String expectedOutputPath = getExpectedPath() + "/" + friendlyFolderName(dmnFolderName.toLowerCase());
-        URI resource = resource(inputFilePath);
-        doTest(resource.getPath(), expectedOutputPath, extraInputParameters);
-    }
-
-    @SafeVarargs
     protected final void doMultipleModelsTest(String dmnVersion, String dmnFolderName, Pair<String, String>... extraInputParameters) throws Exception {
         String inputFilePath = completePath(getInputPath(), dmnVersion, dmnFolderName) + "/";
         String expectedOutputPath = completePath(getExpectedPath(), dmnVersion, dmnFolderName) + "/";
@@ -72,7 +64,7 @@ public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, 
 
     protected void doTest(String inputFilePath, String expectedOutputPath, Pair<String, String>... extraInputParameters) throws Exception {
         if (inputFilePath == null) {
-            throw new DMNRuntimeException("Input patrh cannot be null");
+            throw new DMNRuntimeException("Input path cannot be null");
         }
 
         File outputFolder = new File("target/" + expectedOutputPath);

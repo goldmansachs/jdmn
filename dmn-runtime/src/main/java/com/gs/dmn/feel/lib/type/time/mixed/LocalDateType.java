@@ -86,7 +86,7 @@ public class LocalDateType extends BaseMixedCalendarType implements DateType<Loc
         }
 
         long durationInSeconds = dateValue(first) - (long) dateValue(second);
-        return XMLDurationFactory.INSTANCE.fromSeconds(durationInSeconds);
+        return XMLDurationFactory.INSTANCE.dayTimeFromValue(durationInSeconds);
     }
 
     @Override

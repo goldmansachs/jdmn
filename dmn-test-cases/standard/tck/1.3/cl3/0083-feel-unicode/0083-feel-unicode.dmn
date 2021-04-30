@@ -9,6 +9,22 @@
         </literalExpression>
     </decision>
 
+    <decision name="decision_001_a" id="_decision_001_a">
+        <variable name="decision_001_a"/>
+        <literalExpression>
+            <text>string length("\U01F40E")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_001_b" id="_decision_001_b">
+        <variable name="decision_001_b"/>
+        <literalExpression>
+            <!-- NOTE: the published DMN 1.3 spec has a typo reporting "ὀ" instead
+            of the emoji, which has been redacted with https://issues.omg.org/issues/DMN14-72 -->
+            <text>"\U01F40E" = "🐎"</text>
+        </literalExpression>
+    </decision>
+
     <decision name="decision_002" id="_decision_002">
         <variable name="decision_002"/>
         <literalExpression>
@@ -127,6 +143,13 @@
             <text>substring("foo\ud83d\udc0ebar\uD83D\uDE00", 4, 4)</text>
         </literalExpression>
     </decision> -->
+
+    <decision name="substring_004" id="_substring_004">
+        <variable name="substring_004"/>
+        <literalExpression>
+            <text>substring("\U01F40Efoo", 2) = "foo"</text>
+        </literalExpression>
+    </decision>
 
 
 </definitions>

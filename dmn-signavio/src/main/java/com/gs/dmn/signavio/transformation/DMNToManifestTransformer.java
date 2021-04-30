@@ -87,7 +87,7 @@ public class DMNToManifestTransformer {
     }
 
     private com.gs.dmn.runtime.metadata.QName makeMetadataTypeRef(TDefinitions model, QualifiedName typeRef) {
-        if (typeRef == null) {
+        if (this.dmnModelRepository.isNull(typeRef)) {
             return null;
         }
         String importName = typeRef.getNamespace();

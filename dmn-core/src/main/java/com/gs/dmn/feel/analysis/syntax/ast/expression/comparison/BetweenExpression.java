@@ -45,8 +45,8 @@ public class BetweenExpression extends Comparison {
     @Override
     public void deriveType(DMNContext context) {
         setType(BooleanType.BOOLEAN);
-        checkType(">=", this.value.getType(), this.leftEndpoint.getType());
-        checkType("<=", this.value.getType(), this.rightEndpoint.getType());
+        checkType(">=", this.value.getType(), this.leftEndpoint.getType(), context);
+        checkType("<=", this.value.getType(), this.rightEndpoint.getType(), context);
     }
 
     @Override

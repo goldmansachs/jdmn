@@ -746,7 +746,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     public QualifiedName drgElementOutputTypeRef(TDRGElement element) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         QualifiedName typeRef = this.dmnModelRepository.outputTypeRef(model, element);
-        if (typeRef == null) {
+        if (this.dmnModelRepository.isNull(typeRef)) {
             throw new DMNRuntimeException(String.format("Cannot infer return type for BKM '%s'", element.getName()));
         }
         return typeRef;
@@ -1059,7 +1059,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     private String parameterType(TDefinitions model, TInformationItem element) {
         QualifiedName typeRef = this.dmnModelRepository.variableTypeRef(model, element);
-        if (typeRef == null) {
+        if (this.dmnModelRepository.isNull(typeRef)) {
             throw new IllegalArgumentException(String.format("Cannot resolve typeRef for element '%s'", element.getName()));
         }
         Type type = toFEELType(model, typeRef);
@@ -1679,7 +1679,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
                     String modelName = ((ItemDefinitionType) type).getModelName();
                     return qualifiedName(nativeTypePackageName(modelName), upperCaseFirst(typeName));
                 } else {
-                    throw new DMNRuntimeException(String.format("Cannot infer platform type for '%s' type", type));
+                    throw new DMNRuntimeException(String.format("Cannot infer native type for '%s' type", type));
                 }
             }
         } else if (type instanceof ContextType) {
@@ -1701,10 +1701,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
                     return makeFunctionType(LambdaExpression.class.getName(), returnType);
                 }
             } else if (type instanceof DMNFunctionType) {
-                if (isFEELFunction(((DMNFunctionType) type).getKind())) {
+                TFunctionKind kind = ((DMNFunctionType) type).getKind();
+                if (isFEELFunction(kind)) {
                     String returnType = toNativeType(((FunctionType) type).getReturnType());
                     return makeFunctionType(LambdaExpression.class.getName(), returnType);
-                } else if (isJavaFunction(((DMNFunctionType) type).getKind())) {
+                } else if (isJavaFunction(kind)) {
                     String returnType = toNativeType(((FunctionType) type).getReturnType());
                     return makeFunctionType(JavaExternalFunction.class.getName(), returnType);
                 }

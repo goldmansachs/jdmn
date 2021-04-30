@@ -55,6 +55,14 @@ public abstract class XMLCalendarType extends BaseType {
         }
     }
 
+    public static boolean isYearMonthDuration(Duration duration) {
+        return getXMLSchemaType(duration) == DatatypeConstants.DURATION_YEARMONTH;
+    }
+
+    public static boolean isDayTimeDuration(Duration duration) {
+        return getXMLSchemaType(duration) == DatatypeConstants.DURATION_DAYTIME;
+    }
+
     public boolean isDate(Object value) {
         return value instanceof XMLGregorianCalendar
                 && ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATE;
@@ -76,12 +84,12 @@ public abstract class XMLCalendarType extends BaseType {
 
     public boolean isYearsAndMonthsDuration(Object value) {
         return value instanceof Duration
-                && getXMLSchemaType((Duration) value) == DatatypeConstants.DURATION_YEARMONTH;
+                && isYearMonthDuration((Duration) value);
     }
 
     public boolean isDaysAndTimeDuration(Object value) {
         return value instanceof Duration
-                && getXMLSchemaType((Duration) value) == DatatypeConstants.DURATION_DAYTIME;
+                && isDayTimeDuration((Duration) value);
     }
 
     public Long dateValue(XMLGregorianCalendar date) {

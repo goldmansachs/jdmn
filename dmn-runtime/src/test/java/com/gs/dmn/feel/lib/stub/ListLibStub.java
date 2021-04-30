@@ -20,52 +20,52 @@ import java.util.List;
 
 public class ListLibStub implements ListLib {
     @Override
-    public Boolean listContains(List list, Object element) {
+    public <T> Boolean listContains(List<T> list, T element) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public List append(List list, Object... items) {
+    public <T> List<T> append(List<T> list, T... items) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public List sublist(List list, int position) {
+    public <T> List<T> sublist(List<T> list, int position) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public List sublist(List list, int position, int length) {
+    public <T> List<T> sublist(List<T> list, int position, int length) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public List concatenate(Object... lists) {
+    public <T> List<T> concatenate(List<T>... lists) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public List insertBefore(List list, int position, Object newItem) {
+    public <T> List<T> insertBefore(List<T> list, int position, T newItem) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public List remove(List list, int position) {
+    public <T> List<T> remove(List<T> list, int position) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public List reverse(List list) {
+    public <T> List<T> reverse(List<T> list) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public List union(Object... lists) {
+    public <T> List<T> union(List<T>... lists) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public List distinctValues(List list1) {
+    public <T> List<T> distinctValues(List<T> list1) {
         throw new DMNRuntimeException("Not supported yet");
     }
 

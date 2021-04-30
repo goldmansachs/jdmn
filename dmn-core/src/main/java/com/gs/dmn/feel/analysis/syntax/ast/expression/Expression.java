@@ -26,7 +26,7 @@ public abstract class Expression extends Element {
     }
 
     public void setType(Type type) {
-        if (type != null) {
+        if (!Type.isNull(type)) {
             this.type = type;
         }
     }
@@ -64,7 +64,7 @@ public abstract class Expression extends Element {
 
     public abstract void deriveType(DMNContext context);
 
-    protected void checkType(String operator, Type leftOperandType, Type rightOperandType) {
+    protected void checkType(String operator, Type leftOperandType, Type rightOperandType, DMNContext context) {
         try {
             Type resultType = OperatorDecisionTable.resultType(operator, normalize(leftOperandType), normalize(rightOperandType));
             if (resultType != null) {
@@ -73,7 +73,7 @@ public abstract class Expression extends Element {
                 throw new SemanticError(this, String.format("Operator '%s' cannot be applied to '%s', '%s'", operator, leftOperandType, rightOperandType));
             }
         } catch (Exception e) {
-            throw new SemanticError(this, String.format("Operator '%s' cannot be applied to '%s', '%s'", operator, leftOperandType, rightOperandType), e);
+            throw new SemanticError(this, String.format("Operator '%s' cannot be applied to '%s', '%s' in element '%s'", operator, leftOperandType, rightOperandType, context.getElementName()), e);
         }
     }
 

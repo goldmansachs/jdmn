@@ -5,7 +5,7 @@
         <description>Tests FEEL expression: 'abs(1)' and expects result: '1 (number)'</description>
         <question>Result of FEEL expression 'abs(1)'?</question>
         <allowedAnswers>1 (number)</allowedAnswers>
-        <variable typeRef="number" name="decision001"/>
+        <variable name="decision001"/>
         <literalExpression>
             <text>abs(1)</text>
         </literalExpression>
@@ -14,7 +14,7 @@
         <description>Tests FEEL expression: 'abs(-1)' and expects result: '1 (number)'</description>
         <question>Result of FEEL expression 'abs(-1)'?</question>
         <allowedAnswers>1 (number)</allowedAnswers>
-        <variable typeRef="number" name="decision002"/>
+        <variable name="decision002"/>
         <literalExpression>
             <text>abs(-1)</text>
         </literalExpression>
@@ -23,7 +23,7 @@
         <description>Tests FEEL expression: 'abs(0)' and expects result: '0 (number)'</description>
         <question>Result of FEEL expression 'abs(0)'?</question>
         <allowedAnswers>0 (number)</allowedAnswers>
-        <variable typeRef="number" name="decision003"/>
+        <variable name="decision003"/>
         <literalExpression>
             <text>abs(0)</text>
         </literalExpression>
@@ -32,7 +32,7 @@
         <description>Tests FEEL expression: 'abs()' and expects result: 'null (number)'</description>
         <question>Result of FEEL expression 'abs()'?</question>
         <allowedAnswers>null (number)</allowedAnswers>
-        <variable typeRef="number" name="decision004"/>
+        <variable name="decision004"/>
         <literalExpression>
             <text>abs()</text>
         </literalExpression>
@@ -41,7 +41,7 @@
         <description>Tests FEEL expression: 'abs(1,1)' and expects result: 'null (number)'</description>
         <question>Result of FEEL expression 'abs(1,1)'?</question>
         <allowedAnswers>null (number)</allowedAnswers>
-        <variable typeRef="number" name="decision005"/>
+        <variable name="decision005"/>
         <literalExpression>
             <text>abs(1,1)</text>
         </literalExpression>
@@ -50,7 +50,7 @@
         <description>Tests FEEL expression: 'abs(n:-1)' and expects result: '1 (number)'</description>
         <question>Result of FEEL expression 'abs(n:-1)'?</question>
         <allowedAnswers>1 (number)</allowedAnswers>
-        <variable typeRef="number" name="decision006"/>
+        <variable name="decision006"/>
         <literalExpression>
             <text>abs(n:-1)</text>
         </literalExpression>
@@ -59,7 +59,7 @@
         <description>Tests FEEL expression: 'abs(number:-1)' and expects result: 'null (number)'</description>
         <question>Result of FEEL expression 'abs(number:-1)'?</question>
         <allowedAnswers>null (number)</allowedAnswers>
-        <variable typeRef="number" name="decision007"/>
+        <variable name="decision007"/>
         <literalExpression>
             <text>abs(number:-1)</text>
         </literalExpression>
@@ -68,7 +68,7 @@
         <description>Tests FEEL expression: 'abs(null)' and expects result: 'null (number)'</description>
         <question>Result of FEEL expression 'abs(null)'?</question>
         <allowedAnswers>null (number)</allowedAnswers>
-        <variable typeRef="number" name="decision008"/>
+        <variable name="decision008"/>
         <literalExpression>
             <text>abs(null)</text>
         </literalExpression>
@@ -77,7 +77,7 @@
         <description>Tests FEEL expression: 'abs("-1")' and expects result: 'null (number)'</description>
         <question>Result of FEEL expression 'abs("-1")'?</question>
         <allowedAnswers>null (number)</allowedAnswers>
-        <variable typeRef="number" name="decision009"/>
+        <variable name="decision009"/>
         <literalExpression>
             <text>abs("-1")</text>
         </literalExpression>
@@ -86,34 +86,52 @@
         <description>Tests FEEL expression: 'abs(true)' and expects result: 'null (number)'</description>
         <question>Result of FEEL expression 'abs(true)'?</question>
         <allowedAnswers>null (number)</allowedAnswers>
-        <variable typeRef="number" name="decision010"/>
+        <variable name="decision010"/>
         <literalExpression>
             <text>abs(true)</text>
         </literalExpression>
     </decision>
     <decision name="decision011" id="_decision011">
-        <description>Tests FEEL expression: 'abs(duration("-P1D"))' and expects result: 'null (number)'</description>
+        <description>Tests FEEL expression: 'abs(duration("-P1D"))' and expects result: 'P1D (days and time duration)'</description>
         <question>Result of FEEL expression 'abs(duration("-P1D"))'?</question>
-        <allowedAnswers>null (number)</allowedAnswers>
-        <variable typeRef="number" name="decision011"/>
+        <allowedAnswers>P1D (days and time duration)</allowedAnswers>
+        <variable name="decision011"/>
         <literalExpression>
             <text>abs(duration("-P1D"))</text>
         </literalExpression>
     </decision>
+    <decision name="decision011_a" id="_decision011_a">
+        <description>Tests FEEL expression: 'abs(duration("P1D"))' and expects result: 'P1D (days and time duration)'</description>
+        <question>Result of FEEL expression 'abs(duration("P1D"))'?</question>
+        <allowedAnswers>P1D (days and time duration)</allowedAnswers>
+        <variable name="decision011_a"/>
+        <literalExpression>
+            <text>abs(duration("P1D"))</text>
+        </literalExpression>
+    </decision>
     <decision name="decision012" id="_decision012">
-        <description>Tests FEEL expression: 'abs(duration("-P1Y"))' and expects result: 'null (number)'</description>
+        <description>Tests FEEL expression: 'abs(duration("-P1Y"))' and expects result: 'P1Y (years and months duration)'</description>
         <question>Result of FEEL expression 'abs(duration("-P1Y"))'?</question>
-        <allowedAnswers>null (number)</allowedAnswers>
-        <variable typeRef="number" name="decision012"/>
+        <allowedAnswers>P1Y (years and months duration)</allowedAnswers>
+        <variable name="decision012"/>
         <literalExpression>
             <text>abs(duration("-P1Y"))</text>
+        </literalExpression>
+    </decision>
+    <decision name="decision012_a" id="_decision012_a">
+        <description>Tests FEEL expression: 'abs(duration("P1Y"))' and expects result: 'P1Y (years and months duration)'</description>
+        <question>Result of FEEL expression 'abs(duration("P1Y"))'?</question>
+        <allowedAnswers>P1Y (years and months duration)</allowedAnswers>
+        <variable name="decision012_a"/>
+        <literalExpression>
+            <text>abs(duration("P1Y"))</text>
         </literalExpression>
     </decision>
     <decision name="decision013" id="_decision013">
         <description>Tests FEEL expression: 'abs(date("-2018-12-06"))' and expects result: 'null (number)'</description>
         <question>Result of FEEL expression 'abs(date("-2018-12-06"))'?</question>
         <allowedAnswers>null (number)</allowedAnswers>
-        <variable typeRef="number" name="decision013"/>
+        <variable name="decision013"/>
         <literalExpression>
             <text>abs(date("-2018-12-06"))</text>
         </literalExpression>
@@ -122,7 +140,7 @@
         <description>Tests FEEL expression: 'abs(time("00:00:00"))' and expects result: 'null (number)'</description>
         <question>Result of FEEL expression 'abs(time("00:00:00"))'?</question>
         <allowedAnswers>null (number)</allowedAnswers>
-        <variable typeRef="number" name="decision014"/>
+        <variable name="decision014"/>
         <literalExpression>
             <text>abs(time("00:00:00"))</text>
         </literalExpression>
@@ -131,7 +149,7 @@
         <description>Tests FEEL expression: 'abs(date and time("2018-12-06T00:00:00"))' and expects result: 'null (number)'</description>
         <question>Result of FEEL expression 'abs(date and time("2018-12-06T00:00:00"))'?</question>
         <allowedAnswers>null (number)</allowedAnswers>
-        <variable typeRef="number" name="decision015"/>
+        <variable name="decision015"/>
         <literalExpression>
             <text>abs(date and time("2018-12-06T00:00:00"))</text>
         </literalExpression>

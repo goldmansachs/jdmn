@@ -122,15 +122,35 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
     @Test
     public void testConversionFunctions() {
         super.testConversionFunctions();
+
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
-        doExpressionTest(entries, "", "date(\"2000-10-10\")",
-                "DateTimeLiteral(date, \"2000-10-10\")",
-                "date",
-                "date(\"2000-10-10\")",
-                this.lib.date("2000-10-10"),
-                this.lib.date("2000-10-10"));
+        doExpressionTest(entries, "", "isDefined(\"2000-10-10\")",
+                "FunctionInvocation(Name(isDefined) -> PositionalParameters(StringLiteral(\"2000-10-10\")))",
+                "boolean",
+                "isDefined(\"2000-10-10\")",
+                this.lib.isDefined("2000-10-10"),
+                true);
+        doExpressionTest(entries, "", "isUndefined(\"2000-10-10\")",
+                "FunctionInvocation(Name(isUndefined) -> PositionalParameters(StringLiteral(\"2000-10-10\")))",
+                "boolean",
+                "isUndefined(\"2000-10-10\")",
+                this.lib.isUndefined("2000-10-10"),
+                false);
+        doExpressionTest(entries, "", "isValid(\"2000-10-10\")",
+                "FunctionInvocation(Name(isValid) -> PositionalParameters(StringLiteral(\"2000-10-10\")))",
+                "boolean",
+                "isValid(\"2000-10-10\")",
+                this.lib.isValid("2000-10-10"),
+                true);
+        doExpressionTest(entries, "", "isInvalid(\"2000-10-10\")",
+                "FunctionInvocation(Name(isInvalid) -> PositionalParameters(StringLiteral(\"2000-10-10\")))",
+                "boolean",
+                "isInvalid(\"2000-10-10\")",
+                this.lib.isInvalid("2000-10-10"),
+                false);
+
         doExpressionTest(entries, "", "string(1.1)",
                 "FunctionInvocation(Name(string) -> PositionalParameters(NumericLiteral(1.1)))",
                 "string",
@@ -144,17 +164,77 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
+        doExpressionTest(entries, "", "abs(100)",
+                "FunctionInvocation(Name(abs) -> PositionalParameters(NumericLiteral(100)))",
+                "number",
+                "abs(number(\"100\"))",
+                this.lib.abs(this.lib.number("100")),
+                this.lib.number("100"));
+        doExpressionTest(entries, "", "round(100, 2)",
+                "FunctionInvocation(Name(round) -> PositionalParameters(NumericLiteral(100), NumericLiteral(2)))",
+                "number",
+                "round(number(\"100\"), number(\"2\"))",
+                this.lib.round(this.lib.number("100"), this.lib.number("2")),
+                this.lib.number("100.00"));
+        doExpressionTest(entries, "", "ceiling(100)",
+                "FunctionInvocation(Name(ceiling) -> PositionalParameters(NumericLiteral(100)))",
+                "number",
+                "ceiling(number(\"100\"))",
+                this.lib.ceiling(this.lib.number("100")),
+                this.lib.number("100"));
         doExpressionTest(entries, "", "floor(100)",
                 "FunctionInvocation(Name(floor) -> PositionalParameters(NumericLiteral(100)))",
                 "number",
                 "floor(number(\"100\"))",
                 this.lib.floor(this.lib.number("100")),
                 this.lib.number("100"));
-        doExpressionTest(entries, "", "ceiling(100)",
-                "FunctionInvocation(Name(ceiling) -> PositionalParameters(NumericLiteral(100)))",
+        doExpressionTest(entries, "", "integer(100)",
+                "FunctionInvocation(Name(integer) -> PositionalParameters(NumericLiteral(100)))",
                 "number",
-                "ceiling(number(\"100\"))",
-                this.lib.ceiling(this.lib.number("100")),
+                "integer(number(\"100\"))",
+                this.lib.integer(this.lib.number("100")),
+                this.lib.number("100"));
+        doExpressionTest(entries, "", "modulo(100, 3)",
+                "FunctionInvocation(Name(modulo) -> PositionalParameters(NumericLiteral(100), NumericLiteral(3)))",
+                "number",
+                "modulo(number(\"100\"), number(\"3\"))",
+                this.lib.modulo(this.lib.number("100"), this.lib.number("3")),
+                this.lib.number("1"));
+        doExpressionTest(entries, "", "percent(100)",
+                "FunctionInvocation(Name(percent) -> PositionalParameters(NumericLiteral(100)))",
+                "number",
+                "percent(number(\"100\"))",
+                this.lib.percent(this.lib.number("100")),
+                this.lib.number("1"));
+        doExpressionTest(entries, "", "power(10, 2)",
+                "FunctionInvocation(Name(power) -> PositionalParameters(NumericLiteral(10), NumericLiteral(2)))",
+                "number",
+                "power(number(\"10\"), number(\"2\"))",
+                this.lib.power(this.lib.number("10"), this.lib.number("2")),
+                this.lib.number("100.0"));
+        doExpressionTest(entries, "", "product([100])",
+                "FunctionInvocation(Name(product) -> PositionalParameters(ListLiteral(NumericLiteral(100))))",
+                "number",
+                "product(asList(number(\"100\")))",
+                this.lib.product(this.lib.asList(this.lib.number("100"))),
+                this.lib.number("100"));
+        doExpressionTest(entries, "", "roundDown(100, 2)",
+                "FunctionInvocation(Name(roundDown) -> PositionalParameters(NumericLiteral(100), NumericLiteral(2)))",
+                "number",
+                "roundDown(number(\"100\"), number(\"2\"))",
+                this.lib.roundDown(this.lib.number("100"), this.lib.number("2")),
+                this.lib.number("100.00"));
+        doExpressionTest(entries, "", "roundUp(100, 2)",
+                "FunctionInvocation(Name(roundUp) -> PositionalParameters(NumericLiteral(100), NumericLiteral(2)))",
+                "number",
+                "roundUp(number(\"100\"), number(\"2\"))",
+                this.lib.roundUp(this.lib.number("100"), this.lib.number("2")),
+                this.lib.number("100.00"));
+        doExpressionTest(entries, "", "sum([100])",
+                "FunctionInvocation(Name(sum) -> PositionalParameters(ListLiteral(NumericLiteral(100))))",
+                "number",
+                "sum(asList(number(\"100\")))",
+                this.lib.sum(this.lib.asList(this.lib.number("100"))),
                 this.lib.number("100"));
     }
 
@@ -302,24 +382,31 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "avg(asList(number(\"1\"), number(\"2\"), number(\"3\")))",
                 this.lib.avg(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
                 this.lib.number("2"));
+
+        // function with type refinement
         doExpressionTest(entries, "", "append([1, 2, 3], 4)",
                 "FunctionInvocation(Name(append) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(4)))",
-                "ListType(Any)",
+                "ListType(number)",
                 "append(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"4\"))",
                 this.lib.append(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")), this.lib.number("4")),
                 Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"), this.lib.number("4")));
-
         doExpressionTest(entries, "", "appendAll([1, 2, 3], [4, 5, 6])",
                 "FunctionInvocation(Name(appendAll) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListLiteral(NumericLiteral(4),NumericLiteral(5),NumericLiteral(6))))",
-                "ListType(Any)",
+                "ListType(number)",
                 "appendAll(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"4\"), number(\"5\"), number(\"6\")))",
                 this.lib.appendAll(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")), Arrays.asList(this.lib.number("4"), this.lib.number("5"), this.lib.number("6"))),
                 Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"), this.lib.number("4"), this.lib.number("5"), this.lib.number("6")));
         doExpressionTest(entries, "", "remove([1, 2, 3], 1)",
                 "FunctionInvocation(Name(remove) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(1)))",
-                "ListType(Any)",
+                "ListType(number)",
                 "remove(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"1\"))",
                 this.lib.remove(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")), this.lib.number("1")),
                 Arrays.asList(this.lib.number("2"), this.lib.number("3")));
+        doExpressionTest(entries, "", "removeAll([1, 2, 3], [4, 5, 6])",
+                "FunctionInvocation(Name(removeAll) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListLiteral(NumericLiteral(4),NumericLiteral(5),NumericLiteral(6))))",
+                "ListType(number)",
+                "removeAll(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"4\"), number(\"5\"), number(\"6\")))",
+                this.lib.removeAll(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")), Arrays.asList(this.lib.number("4"), this.lib.number("5"), this.lib.number("6"))),
+                Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")));
     }
 }

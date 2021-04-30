@@ -14,12 +14,15 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.FunctionDeclaration;
+import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
+import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.QualifiedName;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.ListLiteral;
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -28,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static com.gs.dmn.feel.analysis.semantics.type.AnyType.*;
 
 public class FunctionInvocation extends Expression {
     private final Expression function;
@@ -49,23 +54,11 @@ public class FunctionInvocation extends Expression {
     @Override
     public void deriveType(DMNContext context) {
         if (this.function instanceof Name) {
-            DeclarationMatch declarationMatch = functionResolution(context, ((Name) this.function).getName());
-            Declaration functionDeclaration = declarationMatch.getDeclaration();
-            Type functionType = functionDeclaration.getType();
-            this.function.setType(functionType);
-
-            setInvocationType(functionType);
-            this.parameters.setParameterConversions(declarationMatch.getParameterConversions());
-            this.parameters.setConvertedParameterTypes(declarationMatch.getParameterTypes());
+            String functionName = ((Name) this.function).getName();
+            deriveType(context, functionName);
         } else if (this.function instanceof QualifiedName && ((QualifiedName) this.function).getNames().size() == 1) {
-            DeclarationMatch declarationMatch = functionResolution(context, ((QualifiedName) this.function).getQualifiedName());
-            Declaration functionDeclaration = declarationMatch.getDeclaration();
-            Type functionType = functionDeclaration.getType();
-            this.function.setType(functionType);
-
-            setInvocationType(functionType);
-            this.parameters.setParameterConversions(declarationMatch.getParameterConversions());
-            this.parameters.setConvertedParameterTypes(declarationMatch.getParameterTypes());
+            String functionName = ((QualifiedName) this.function).getQualifiedName();
+            deriveType(context, functionName);
         } else {
             FunctionType functionType = (FunctionType) this.function.getType();
 
@@ -78,6 +71,140 @@ public class FunctionInvocation extends Expression {
                 this.parameters.setParameterConversions(parameterConversions);
             }
             this.parameters.setConvertedParameterTypes(this.parameters.getSignature());
+        }
+    }
+
+    private void deriveType(DMNContext context, String functionName) {
+        DeclarationMatch declarationMatch = functionResolution(context, functionName);
+        Declaration functionDeclaration = declarationMatch.getDeclaration();
+        Type functionType = refineFunctionType(functionDeclaration);
+        this.function.setType(functionType);
+
+        setInvocationType(functionType);
+        this.parameters.setParameterConversions(declarationMatch.getParameterConversions());
+        this.parameters.setConvertedParameterTypes(declarationMatch.getParameterTypes());
+    }
+
+    private Type refineFunctionType(Declaration functionDeclaration) {
+        String functionName = functionDeclaration.getName();
+        if("sublist".equals(functionName)) {
+            Parameters parameters = this.getParameters();
+            Type listType = parameters.getParameterType(0, "list");
+            return StandardEnvironmentFactory.makeSublistBuiltInFunctionType(listType);
+        } else if("append".equals(functionName)) {
+            FormalParameter formalParameter = ((FunctionType) functionDeclaration.getType()).getParameters().get(1);
+            String name = formalParameter.getName();
+            Parameters parameters = this.getParameters();
+            if ("item".equals(name)) {
+                Type listType = parameters.getParameterType(0, "list");
+                Type itemType = parameters.getParameterType(1, "item");
+                return StandardEnvironmentFactory.makeAppendBuiltinFunctionType(listType, itemType);
+            } else {
+                Type listType = parameters.getParameterType(0, "list");
+                Type elementType = parameters.getParameterType(1, "element");
+                return StandardEnvironmentFactory.makeSignavioAppendBuiltinFunctionType(listType, elementType);
+            }
+        } else if("concatenate".equals(functionName)) {
+            Parameters parameters = this.getParameters();
+            Type listType = parameters.getParameterType(0, "list");
+            return StandardEnvironmentFactory.makeConcatenateBuiltinFunctionType(listType);
+        } else if("insert before".equals(functionName)) {
+            Parameters parameters = this.getParameters();
+            Type listType = parameters.getParameterType(0, "list");
+            Type newItemType = parameters.getParameterType(2, "new item");
+            return StandardEnvironmentFactory.makeInsertBeforeBuiltinFunctionType(listType, newItemType);
+        } else if("remove".equals(functionName)) {
+            FormalParameter formalParameter = ((FunctionType) functionDeclaration.getType()).getParameters().get(1);
+            String name = formalParameter.getName();
+            if ("position".equals(name)) {
+                Parameters parameters = this.getParameters();
+                Type listType = parameters.getParameterType(0, "list");
+                return StandardEnvironmentFactory.makeRemoveBuiltinFunctionType(listType);
+            } else {
+                Parameters parameters = this.getParameters();
+                Type listType = parameters.getParameterType(0, "list");
+                Type elementType = parameters.getParameterType(1, "element");
+                return StandardEnvironmentFactory.makeSignavioRemoveBuiltinFunctionType(listType, elementType);
+            }
+        } else if("reverse".equals(functionName)) {
+            Parameters parameters = this.getParameters();
+            Type listType = parameters.getParameterType(0, "list");
+            return StandardEnvironmentFactory.makeReverseBuiltinFunctionType(listType);
+        } else if("index of".equals(functionName)) {
+            Parameters parameters = this.getParameters();
+            Type listType = parameters.getParameterType(0, "list");
+            Type matchType = parameters.getParameterType(1, "match");
+            return StandardEnvironmentFactory.makeIndexOfBuiltinFunctionType(listType, matchType);
+        } else if("distinct values".equals(functionName)) {
+            Parameters parameters = this.getParameters();
+            Type listType = parameters.getParameterType(0, "list");
+            return StandardEnvironmentFactory.makeDistinctValuesBuiltinFunctionType(listType);
+        } else if("union".equals(functionName)) {
+            Parameters parameters = this.getParameters();
+            Type listType = parameters.getParameterType(0, "list");
+            return StandardEnvironmentFactory.makeUnionBuiltinFunctionType(listType);
+        } else if("flatten".equals(functionName)) {
+            Expression listParameter = parameters.getParameter(0, "list");
+            Type elementType = nestedElementType(listParameter);
+            return StandardEnvironmentFactory.makeFlattenBuiltinFunctionType(new ListType(elementType));
+        } else if ("sort".equals(functionName)) {
+            Parameters parameters = this.getParameters();
+            Type listType = parameters.getParameterType(0, "list");
+            Type functionType = parameters.getParameterType(1, "function");
+            return StandardEnvironmentFactory.makeSortBuiltinFunctionType(listType, functionType);
+
+        } else if("appendAll".equals(functionName)) {
+            Parameters parameters = this.getParameters();
+            Type list1Type = parameters.getParameterType(0, "list1");
+            return StandardEnvironmentFactory.makeSignavioAppendAllBuiltinFunctionType(list1Type);
+        } else if("removeAll".equals(functionName)) {
+            Parameters parameters = this.getParameters();
+            Type list1Type = parameters.getParameterType(0, "list1");
+            return StandardEnvironmentFactory.makeRemoveBuiltinFunctionType(list1Type);
+        } else {
+            return functionDeclaration.getType();
+        }
+    }
+
+    private Type nestedElementType(Expression expression) {
+        List<Type> primitiveTypes = new ArrayList<>();
+        collectPrimitiveTypes(expression, primitiveTypes);
+        Type upperBound = null;
+        for (Type type: primitiveTypes) {
+            if (upperBound == null) {
+                upperBound = type;
+            } else {
+                if (!Type.conformsTo(type, upperBound)) {
+                    if (Type.conformsTo(upperBound, type)) {
+                        upperBound = type;
+                    } else {
+                        upperBound = ANY;
+                    }
+                }
+            }
+        }
+        if (upperBound == null) {
+            upperBound = ANY;
+        }
+        return upperBound;
+    }
+
+    private void collectPrimitiveTypes(Expression expression, List<Type> types) {
+        if (expression == null) {
+            return;
+        } else if (expression instanceof ListLiteral) {
+            List<Expression> expressionList = ((ListLiteral) expression).getExpressionList();
+            for (Expression exp: expressionList) {
+                collectPrimitiveTypes(exp, types);
+            }
+        } else {
+            Type type = expression.getType();
+            while (type instanceof ListType) {
+                type = ((ListType) type).getElementType();
+            }
+            if (type != null) {
+                types.add(type);
+            }
         }
     }
 

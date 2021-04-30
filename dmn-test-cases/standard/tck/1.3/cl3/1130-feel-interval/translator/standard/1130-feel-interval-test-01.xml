@@ -355,13 +355,13 @@
                 <tc:component name="finishedbyRPT">
                     <tc:value xsi:type="xsd:boolean">true</tc:value>
                 </tc:component>
-                <tc:component name="finishedbyRRF">
+                <tc:component name="finishedbyRPF">
                     <tc:value xsi:type="xsd:boolean">false</tc:value>
                 </tc:component>
                 <tc:component name="finishedbyRRT">
                     <tc:value xsi:type="xsd:boolean">true</tc:value>
                 </tc:component>
-                <tc:component name="finishedbyRRF2">
+                <tc:component name="finishedbyRRF">
                     <tc:value xsi:type="xsd:boolean">false</tc:value>
                 </tc:component>
                 <tc:component name="finishedbyRRT2">

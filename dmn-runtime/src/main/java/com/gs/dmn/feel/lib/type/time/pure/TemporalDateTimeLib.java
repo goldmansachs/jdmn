@@ -18,7 +18,9 @@ import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.*;
+import java.time.format.TextStyle;
 import java.time.temporal.*;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import static com.gs.dmn.feel.lib.type.BaseType.UTC;
@@ -314,7 +316,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         }
 
         DayOfWeek dayOfWeek = date.getDayOfWeek();
-        return DAY_NAMES[dayOfWeek.getValue() + 1];
+        return dayOfWeek.getDisplayName(TextStyle.FULL, Locale.US);
     }
     @Override
     public String dayOfWeekDateTime(Temporal dateTime) {

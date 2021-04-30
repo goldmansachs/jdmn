@@ -57,7 +57,6 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -375,18 +374,13 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 result.add(element.getBody().accept(this, forContext));
             }
         } else {
-            int start = toNumber(((Pair) domain).getLeft());
-            int end = toNumber(((Pair) domain).getRight());
-            if (start <= end) {
-                for(int value = start; value <= end; value++) {
-                    forContext.bind(iterator.getName(), BigDecimal.valueOf(value));
-                    result.add(element.getBody().accept(this, forContext));
-                }
-            } else {
-                for(int value = start; value >= end; value--) {
-                    forContext.bind(iterator.getName(), BigDecimal.valueOf(value));
-                    result.add(element.getBody().accept(this, forContext));
-                }
+            NUMBER start = toNumber(((Pair) domain).getLeft());
+            NUMBER end = toNumber(((Pair) domain).getRight());
+            java.util.Iterator<NUMBER> numberIterator = this.lib.rangeToStream(start, end).iterator();
+            while (numberIterator.hasNext()) {
+                NUMBER number = numberIterator.next();
+                forContext.bind(iterator.getName(), number);
+                result.add(element.getBody().accept(this, forContext));
             }
         }
         for (int i = 1; i <= iteratorNo - 1; i++) {
@@ -395,11 +389,11 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         return result;
     }
 
-    private int toNumber(Object number) {
-        if (number instanceof BigDecimal) {
-            return ((BigDecimal) number).intValue();
+    private NUMBER toNumber(Object number) {
+        if (number instanceof Number) {
+            return (NUMBER) number;
         }
-        throw new DMNRuntimeException(String.format("Cannot convert '%s' to integer", number));
+        throw new DMNRuntimeException(String.format("Cannot convert '%s' to number", number));
     }
 
     @Override
@@ -427,6 +421,8 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             ListTest test = (ListTest) expressionDomain;
             domain = (List) test.getListLiteral().accept(this, context);
         } else if (expressionDomain instanceof ListLiteral) {
+            domain = (List) expressionDomain.accept(this, context);
+        } else if (expressionDomain instanceof FunctionInvocation) {
             domain = (List) expressionDomain.accept(this, context);
         } else {
             throw new UnsupportedOperationException(String.format("FEEL '%s' is not supported yet with domain '%s'",

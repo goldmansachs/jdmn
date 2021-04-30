@@ -18,7 +18,7 @@
           <text>Grade</text>
         </inputExpression>
       </input>
-      <output id="_5F1FEDAD-C742-445A-B194-47B0112573B8" typeRef="string"/>
+      <output id="_5F1FEDAD-C742-445A-B194-47B0112573B8"/>
       <rule id="_967C2799-CC1E-45C5-9F6B-BF3C2F5BCF36">
         <inputEntry id="_47B77F78-DE9F-4CF3-A78D-AD274A951078">
           <text>"A"</text>

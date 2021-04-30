@@ -12,10 +12,7 @@
  */
 package com.gs.dmn.signavio.runtime;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
-import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
-import com.gs.dmn.feel.analysis.semantics.environment.Parameter;
+import com.gs.dmn.feel.analysis.semantics.environment.*;
 import com.gs.dmn.feel.analysis.semantics.type.BuiltinFunctionType;
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNContextKind;
@@ -128,11 +125,11 @@ public class SignavioEnvironmentFactory implements EnvironmentFactory {
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("yearDiff", new BuiltinFunctionType(NUMBER, new Parameter("datetime1", DATE_AND_TIME), new Parameter("datetime2", DATE))));
 
         // List functions
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("append", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("element", ANY))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("appendAll", new BuiltinFunctionType(ANY_LIST, new Parameter("list1", ANY_LIST), new Parameter("list2", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("remove", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("element", ANY))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("removeAll", new BuiltinFunctionType(ANY_LIST, new Parameter("list1", ANY_LIST), new Parameter("list2", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("zip", new BuiltinFunctionType(ANY_LIST, new Parameter("attributes", ANY_LIST), new Parameter("values", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("append", StandardEnvironmentFactory.makeSignavioAppendBuiltinFunctionType(ANY_LIST, ANY)));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("appendAll", StandardEnvironmentFactory.makeSignavioAppendAllBuiltinFunctionType(ANY_LIST)));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("remove", StandardEnvironmentFactory.makeSignavioRemoveBuiltinFunctionType(ANY_LIST, ANY)));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("removeAll", StandardEnvironmentFactory.makeSignavioRemoveAllBuiltinFunctionType(ANY_LIST)));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("zip", StandardEnvironmentFactory.makeSignavioZipBuiltinFunctionType(ANY_LIST, ANY_LIST, ANY_LIST)));
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("notContainsAny", new BuiltinFunctionType(BOOLEAN, new Parameter("list1", ANY_LIST), new Parameter("list2", ANY_LIST))));
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("containsOnly", new BuiltinFunctionType(BOOLEAN, new Parameter("list1", ANY_LIST), new Parameter("list2", ANY_LIST))));
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("areElementsOf", new BuiltinFunctionType(BOOLEAN, new Parameter("list1", ANY_LIST), new Parameter("list2", ANY_LIST))));

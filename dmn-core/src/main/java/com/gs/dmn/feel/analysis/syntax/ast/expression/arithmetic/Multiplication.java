@@ -26,7 +26,7 @@ public class Multiplication extends ArithmeticExpression {
     @Override
     public void deriveType(DMNContext context) {
         setType(NUMBER);
-        checkType(getOperator(), getLeftOperand().getType(), getRightOperand().getType());
+        checkType(getOperator(), getLeftOperand().getType(), getRightOperand().getType(), context);
     }
 
     @Override

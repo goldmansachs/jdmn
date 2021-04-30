@@ -745,8 +745,24 @@ public class DMNModelRepository {
         }
     }
 
+    public boolean isNull(String typeRef) {
+        return typeRef == null;
+    }
+
+    public boolean isNull(QualifiedName typeRef) {
+        return typeRef == null;
+    }
+
+    public boolean isAny(QualifiedName typeRef) {
+        return typeRef != null && "Any".equals(typeRef.getLocalPart());
+    }
+
+    public boolean isNullOrAny(QualifiedName typeRef) {
+        return isNull(typeRef) || isAny(typeRef);
+    }
+
     public TItemDefinition lookupItemDefinition(TDefinitions model, QualifiedName typeRef) {
-        if (typeRef == null) {
+        if (isNull(typeRef)) {
             return null;
         }
         String importName = typeRef.getNamespace();
@@ -889,7 +905,7 @@ public class DMNModelRepository {
         TInformationItem variable = variable(element);
         QualifiedName typeRef = variable == null ? null : QualifiedName.toQualifiedName(model, variable.getTypeRef());
         // Derive from expression
-        if (typeRef == null && element instanceof TDecision) {
+        if (isNull(typeRef) && element instanceof TDecision) {
             typeRef = inferExpressionTypeRef(model, element);
         }
         return typeRef;
@@ -900,7 +916,7 @@ public class DMNModelRepository {
         TInformationItem variable = variable(element);
         QualifiedName typeRef = variable == null ? null : QualifiedName.toQualifiedName(model, variable.getTypeRef());
         // Derive from expression
-        if (typeRef == null) {
+        if (isNull(typeRef)) {
             typeRef = inferExpressionTypeRef(model, element);
         }
         return typeRef;
@@ -912,7 +928,7 @@ public class DMNModelRepository {
         TExpression expression = expression(element);
         if (expression != null) {
             typeRef = QualifiedName.toQualifiedName(model, expression.getTypeRef());
-            if (typeRef == null) {
+            if (isNull(typeRef)) {
                 if (expression instanceof TContext) {
                     // Derive from return entry
                     List<TContextEntry> contextEntryList = ((TContext) expression).getContextEntry();
@@ -930,7 +946,7 @@ public class DMNModelRepository {
                     List<TOutputClause> outputList = dt.getOutput();
                     if (outputList.size() == 1) {
                         typeRef = QualifiedName.toQualifiedName(model, outputList.get(0).getTypeRef());
-                        if (typeRef == null) {
+                        if (isNull(typeRef)) {
                             // Derive from rules
                             List<TDecisionRule> ruleList = dt.getRule();
                             List<TLiteralExpression> outputEntry = ruleList.get(0).getOutputEntry();
@@ -1032,8 +1048,8 @@ public class DMNModelRepository {
             return ((TInputData) element).getVariable();
         } else if (element instanceof TDecision) {
             return ((TDecision) element).getVariable();
-        } else if (element instanceof TBusinessKnowledgeModel) {
-            return ((TBusinessKnowledgeModel) element).getVariable();
+        } else if (element instanceof TInvocable) {
+            return ((TInvocable) element).getVariable();
         } else if (element instanceof TInformationItem) {
             return (TInformationItem) element;
         }

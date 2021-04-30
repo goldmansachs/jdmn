@@ -43,7 +43,6 @@
                         </inputExpression>
                     </input>
                     <output id="_22740ea7-5a3a-45a2-ba08-95f0f0d98eea"/>
-                    <annotation/>
                     <rule id="_5f3dad91-e3b0-483f-a259-c855a0e6d7d6">
                         <inputEntry id="_6fe43313-b225-4b78-aac1-bf90794b80fd">
                             <text>&lt;=30</text>
@@ -51,9 +50,6 @@
                         <outputEntry id="_25a3221c-9ee1-4b01-9b80-1553d376527e">
                             <text>normal greeting</text>
                         </outputEntry>
-                        <annotationEntry>
-                            <text></text>
-                        </annotationEntry>
                     </rule>
                     <rule id="_b73ea436-a867-43c7-b164-222bc5d65ae3">
                         <inputEntry id="_c4f6a141-36c6-4e4c-b737-3dcafee8c60b">
@@ -62,9 +58,6 @@
                         <outputEntry id="_28977b5a-e0ba-4266-957d-dad963e4c7cf">
                             <text>"Respectfully, "+normal greeting</text>
                         </outputEntry>
-                        <annotationEntry>
-                            <text></text>
-                        </annotationEntry>
                     </rule>
                 </decisionTable>
             </contextEntry>

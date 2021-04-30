@@ -16,6 +16,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterConversions;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
 import com.gs.dmn.runtime.Pair;
+import org.omg.spec.dmn._20191111.model.TBusinessKnowledgeModel;
 import org.omg.spec.dmn._20191111.model.TDRGElement;
 import org.omg.spec.dmn._20191111.model.TFunctionDefinition;
 import org.omg.spec.dmn._20191111.model.TFunctionKind;
@@ -29,8 +30,12 @@ public class DMNFunctionType extends FunctionType {
     private final TDRGElement drgElement;
     private final TFunctionDefinition functionDefinition;
 
+    public DMNFunctionType(List<FormalParameter> formalParameters, Type outputType) {
+        this(formalParameters, outputType, null);
+    }
+
     public DMNFunctionType(List<FormalParameter> parameters, Type returnType, TDRGElement drgElement) {
-        this(parameters, returnType, drgElement, null);
+        this(parameters, returnType, drgElement, drgElement instanceof TBusinessKnowledgeModel ? ((TBusinessKnowledgeModel) drgElement).getEncapsulatedLogic() : null);
     }
 
     public DMNFunctionType(List<FormalParameter> parameters, Type returnType, TDRGElement drgElement, TFunctionDefinition functionDefinition) {
@@ -41,6 +46,10 @@ public class DMNFunctionType extends FunctionType {
 
     public TDRGElement getDRGElement() {
         return this.drgElement;
+    }
+
+    public DMNFunctionType attachElement(TDRGElement element) {
+        return new DMNFunctionType(this.getParameters(), this.getReturnType(), element);
     }
 
     public TFunctionKind getKind() {
@@ -105,6 +114,6 @@ public class DMNFunctionType extends FunctionType {
     @Override
     public String toString() {
         String types = this.parameters.stream().map(p -> p == null ? "null" : p.toString()).collect(Collectors.joining(", "));
-        return String.format("DMNFunctionType(%s, %s)", types, this.returnType);
+        return String.format("%s(%s, %s)", getClass().getSimpleName(), types, this.returnType);
     }
 }
