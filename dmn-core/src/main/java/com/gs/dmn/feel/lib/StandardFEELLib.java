@@ -115,7 +115,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     Boolean matches(String input, String pattern, String flags);
 
-    List split(String string, String delimiter);
+    List<String> split(String string, String delimiter);
 
     //
     // Boolean functions
@@ -184,41 +184,41 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     // Use all instead
     @Deprecated
-    Boolean and(List list);
+    Boolean and(List<?> list);
     // Use all instead
     @Deprecated
     Boolean and(Object... args);
 
     // Use any instead
     @Deprecated
-    Boolean or(List list);
+    Boolean or(List<?> list);
     // Use any instead
     @Deprecated
     Boolean or(Object... args);
 
-    Boolean all(List list);
+    Boolean all(List<?> list);
     Boolean all(Object... args);
 
-    Boolean any(List list);
+    Boolean any(List<?> list);
     Boolean any(Object... args);
 
-    List sublist(List list, NUMBER position);
+    <T> List<T> sublist(List<T> list, NUMBER position);
 
-    List sublist(List list, NUMBER position, NUMBER length);
+    <T> List<T> sublist(List<T> list, NUMBER position, NUMBER length);
 
-    List concatenate(Object... lists);
+    <T> List<T> concatenate(List<T>... lists);
 
-    List insertBefore(List list, NUMBER position, Object newItem);
+    <T> List<T> insertBefore(List<T> list, NUMBER position, T newItem);
 
-    List remove(List list, Object position);
+    <T> List<T> remove(List<T> list, NUMBER position);
 
-    List reverse(List list);
+    <T> List<T> reverse(List<T> list);
 
-    List indexOf(List list, Object match);
+    <T> List<NUMBER> indexOf(List<T> list, Object match);
 
-    List union(Object... lists);
+    <T> List<T> union(List<T>... lists);
 
-    List distinctValues(List list1);
+    <T> List<T> distinctValues(List<T> list1);
 
     List flatten(List list1);
 

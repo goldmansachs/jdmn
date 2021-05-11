@@ -14,11 +14,38 @@ package com.gs.dmn.feel.interpreter;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
 
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JavaFunctionInfo {
+    public static Object[] makeArgs(Method declaredMethod, List<Object> argList) {
+        if (declaredMethod != null && declaredMethod.isVarArgs()) {
+            int parameterCount = declaredMethod.getParameterCount();
+            int mandatoryParameterCount = parameterCount - 1;
+            Object[] args = new Object[parameterCount];
+            for (int i = 0; i < mandatoryParameterCount; i++) {
+                args[i] = argList.get(i);
+            }
+            if (varArgIsList(declaredMethod)) {
+                args[parameterCount - 1] = argList.subList(mandatoryParameterCount, argList.size()).toArray(new List[]{});
+            } else {
+                args[parameterCount - 1] = argList.subList(mandatoryParameterCount, argList.size()).toArray(new Object[]{});
+            }
+            return args;
+        } else {
+            return argList.toArray();
+        }
+    }
+
+    private static boolean varArgIsList(Method method) {
+        Class<?>[] parameterTypes = method.getParameterTypes();
+        Class<?> varArgClass = parameterTypes[parameterTypes.length - 1];
+        String simpleName = varArgClass.getSimpleName();
+        return "List[]".equals(simpleName);
+    }
+
     private final String className;
     private final String methodName;
     private final List<String> paramTypes;

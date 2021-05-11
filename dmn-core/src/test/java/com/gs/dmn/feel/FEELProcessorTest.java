@@ -22,6 +22,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,7 +43,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
 
     @Test
     public void testUnaryTests() {
-        Object input = lib.number("1");
+        BigDecimal input = lib.number("1");
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, input));
 
@@ -73,8 +75,8 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
 
     @Test
     public void testPositiveUnaryTest() {
-        Object inputNumber = lib.number("1");
-        Object inputDate = lib.date("2017-01-01");
+        BigDecimal inputNumber = lib.number("1");
+        XMLGregorianCalendar inputDate = lib.date("2017-01-01");
         String inputString = "abc";
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("inputString", STRING, inputString),
@@ -985,9 +987,9 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
 
     @Test
     public void testBetweenExpression() {
-        Object i = lib.number("1");
-        Object a = lib.number("1");
-        Object b = lib.number("1");
+        BigDecimal i = lib.number("1");
+        BigDecimal a = lib.number("1");
+        BigDecimal b = lib.number("1");
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("i", NUMBER, i),
                 new EnvironmentEntry("a", NUMBER, a),
@@ -1285,7 +1287,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
 
     @Test
     public void testFilterExpression() {
-        List<Object> source = Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"));
+        List<BigDecimal> source = Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"));
         ContextType employeeType = new ContextType();
         employeeType.addMember("id", Arrays.asList(), NumberType.NUMBER);
         employeeType.addMember("dept", Arrays.asList(), NumberType.NUMBER);
@@ -1337,19 +1339,19 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20)))",
                 "ListType(ContextType(id = number, dept = number, name = string))",
                 "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\"))).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> lib.numericEqual(item.get("dept"), lib.number("20"))).collect(Collectors.toList()),
+                employeeValue.stream().filter(item -> lib.numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get("dept")), lib.number("20"))).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1), employeeValue.get(2)));
         doExpressionTest(entries, "", "employee[item.dept = 20].name",
                 "PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)",
                 "ListType(string)",
                 "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\"))).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get(\"name\"))).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> lib.numericEqual(item.get("dept"), lib.number("20"))).collect(Collectors.toList()).stream().map(x -> x.get("name")).collect(Collectors.toList()),
+                employeeValue.stream().filter(item -> lib.numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get("dept")), lib.number("20"))).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get("name"))).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1).get("name"), employeeValue.get(2).get("name")));
         doExpressionTest(entries, "", "employee[dept = 20].name",
                 "PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)",
                 "ListType(string)",
                 "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\"))).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get(\"name\"))).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> lib.numericEqual(item.get("dept"), lib.number("20"))).collect(Collectors.toList()).stream().map(x -> (String) x.get("name")).collect(Collectors.toList()),
+                employeeValue.stream().filter(item -> lib.numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get("dept")), lib.number("20"))).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get("name"))).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1).get("name"), employeeValue.get(2).get("name")));
 
         // numeric filter
@@ -1383,21 +1385,99 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(1)),ContextEntry(ContextEntryKey(y) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(2)),ContextEntry(ContextEntryKey(y) = NumericLiteral(3)))), Relational(=,PathExpression(Name(item), x),NumericLiteral(1)))",
                 "ListType(ContextType(x = number, y = number))",
                 "asList(new com.gs.dmn.runtime.Context().add(\"x\", number(\"1\")).add(\"y\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"x\", number(\"2\")).add(\"y\", number(\"3\"))).stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"x\")), number(\"1\"))).collect(Collectors.toList())",
-                Arrays.asList(new com.gs.dmn.runtime.Context().add("x", lib.number("1")).add("y", lib.number("2")), new com.gs.dmn.runtime.Context().add("x", lib.number("2")).add("y", lib.number("3"))).stream().filter(item -> lib.numericEqual(item.get("x"), lib.number("1"))).collect(Collectors.toList()),
+                lib.asList(new com.gs.dmn.runtime.Context().add("x", lib.number("1")).add("y", lib.number("2")), new com.gs.dmn.runtime.Context().add("x", lib.number("2")).add("y", lib.number("3"))).stream().filter(item -> lib.numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get("x")), lib.number("1"))).collect(Collectors.toList()),
                 Arrays.asList(new com.gs.dmn.runtime.Context().add("x", lib.number("1")).add("y", lib.number("2"))));
     }
 
     @Test
     public void testFunctionInvocation() {
         String input = "abc";
+        BigDecimal score1 = this.lib.number("1");
+        BigDecimal score2 = this.lib.number("2");
+        BigDecimal score3 = this.lib.number("3");
+        BigDecimal score4 = this.lib.number("4");
+        BigDecimal score5 = this.lib.number("5");
+        BigDecimal score6 = this.lib.number("6");
+        BigDecimal score7 = this.lib.number("7");
+        BigDecimal score8 = this.lib.number("8");
         List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", STRING, input));
+                new EnvironmentEntry("input", STRING, input),
+                new EnvironmentEntry("score1", NUMBER, score1),
+                new EnvironmentEntry("score2", NUMBER, score2),
+                new EnvironmentEntry("score3", NUMBER, score3),
+                new EnvironmentEntry("score4", NUMBER, score4),
+                new EnvironmentEntry("score5", NUMBER, score5),
+                new EnvironmentEntry("score6", NUMBER, score6),
+                new EnvironmentEntry("score7", NUMBER, score7),
+                new EnvironmentEntry("score8", NUMBER, score8)
+        );
 
+        // nested functions invocation
+        String list1 = "[score1, score2, score3, score4]";
+        String list2 = "[score5, score6, score7, score8]";
+        String sort2 = "sort(" + list2 + ", function(x: number, y: number) y < x)";
+        String sublist2 = "sublist(" + sort2 + ", 1, 2)";
+        String concatenate = "concatenate(" + list1 + ", " + sublist2 + ")";
+        String sort1 = "sort(" + concatenate + ", function(x: number, y:number) y < x)";
+        String sublist1 = "sublist(" + sort1 + ", 1, 3)";
+        String forExp = "for i in " + sublist1 + "return i*i";
+        String sum = "sum(" + forExp + ")";
+
+        doExpressionTest(entries, "", sort2,
+                "FunctionInvocation(Name(sort) -> PositionalParameters(ListLiteral(Name(score5),Name(score6),Name(score7),Name(score8)), FunctionDefinition(FormalParameter(x, number),FormalParameter(y, number), Relational(<,Name(y),Name(x)), false)))",
+                "ListType(number)",
+                "sort(asList(score5, score6, score7, score8), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericLessThan(y, x);}})",
+                this.lib.sort(this.lib.asList(score5, score6, score7, score8), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return lib.numericLessThan(y, x);}}),
+                this.lib.asList(this.lib.number("8"), this.lib.number("7"), this.lib.number("6"), this.lib.number("5")));
+        doExpressionTest(entries, "", sublist2,
+                "FunctionInvocation(Name(sublist) -> PositionalParameters(FunctionInvocation(Name(sort) -> PositionalParameters(ListLiteral(Name(score5),Name(score6),Name(score7),Name(score8)), FunctionDefinition(FormalParameter(x, number),FormalParameter(y, number), Relational(<,Name(y),Name(x)), false))), NumericLiteral(1), NumericLiteral(2)))",
+                "ListType(number)",
+                "sublist(sort(asList(score5, score6, score7, score8), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericLessThan(y, x);}}), number(\"1\"), number(\"2\"))",
+                this.lib.sublist(this.lib.sort(this.lib.asList(score5, score6, score7, score8), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return lib.numericLessThan(y, x);}}), this.lib.number("1"), this.lib.number("2")),
+                this.lib.asList(this.lib.number("8"), this.lib.number("7")));
+        doExpressionTest(entries, "", sublist1,
+                "FunctionInvocation(Name(sublist) -> PositionalParameters(FunctionInvocation(Name(sort) -> PositionalParameters(FunctionInvocation(Name(concatenate) -> PositionalParameters(ListLiteral(Name(score1),Name(score2),Name(score3),Name(score4)), FunctionInvocation(Name(sublist) -> PositionalParameters(FunctionInvocation(Name(sort) -> PositionalParameters(ListLiteral(Name(score5),Name(score6),Name(score7),Name(score8)), FunctionDefinition(FormalParameter(x, number),FormalParameter(y, number), Relational(<,Name(y),Name(x)), false))), NumericLiteral(1), NumericLiteral(2))))), FunctionDefinition(FormalParameter(x, number),FormalParameter(y, number), Relational(<,Name(y),Name(x)), false))), NumericLiteral(1), NumericLiteral(3)))",
+                "ListType(number)",
+                "sublist(sort(concatenate(asList(score1, score2, score3, score4), sublist(sort(asList(score5, score6, score7, score8), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericLessThan(y, x);}}), number(\"1\"), number(\"2\"))), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericLessThan(y, x);}}), number(\"1\"), number(\"3\"))",
+                this.lib.sublist(this.lib.sort(this.lib.concatenate(this.lib.asList(score1, score2, score3, score4), this.lib.sublist(this.lib.sort(this.lib.asList(score5, score6, score7, score8), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return lib.numericLessThan(y, x);}}), this.lib.number("1"), this.lib.number("2"))), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return lib.numericLessThan(y, x);}}), this.lib.number("1"), this.lib.number("3")),
+                this.lib.asList(this.lib.number("8"), this.lib.number("7"), this.lib.number("4")));
+        doExpressionTest(entries, "", forExp,
+                "ForExpression(Iterator(i in ExpressionIteratorDomain(FunctionInvocation(Name(sublist) -> PositionalParameters(FunctionInvocation(Name(sort) -> PositionalParameters(FunctionInvocation(Name(concatenate) -> PositionalParameters(ListLiteral(Name(score1),Name(score2),Name(score3),Name(score4)), FunctionInvocation(Name(sublist) -> PositionalParameters(FunctionInvocation(Name(sort) -> PositionalParameters(ListLiteral(Name(score5),Name(score6),Name(score7),Name(score8)), FunctionDefinition(FormalParameter(x, number),FormalParameter(y, number), Relational(<,Name(y),Name(x)), false))), NumericLiteral(1), NumericLiteral(2))))), FunctionDefinition(FormalParameter(x, number),FormalParameter(y, number), Relational(<,Name(y),Name(x)), false))), NumericLiteral(1), NumericLiteral(3))))) -> Multiplication(*,Name(i),Name(i)))",
+                "ListType(number)",
+                "sublist(sort(concatenate(asList(score1, score2, score3, score4), sublist(sort(asList(score5, score6, score7, score8), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericLessThan(y, x);}}), number(\"1\"), number(\"2\"))), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericLessThan(y, x);}}), number(\"1\"), number(\"3\")).stream().map(i -> numericMultiply(i, i)).collect(Collectors.toList())",
+                this.lib.sublist(this.lib.sort(this.lib.concatenate(this.lib.asList(score1, score2, score3, score4), this.lib.sublist(this.lib.sort(this.lib.asList(score5, score6, score7, score8), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return lib.numericLessThan(y, x);}}), this.lib.number("1"), this.lib.number("2"))), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return lib.numericLessThan(y, x);}}), this.lib.number("1"), this.lib.number("3")).stream().map(i -> lib.numericMultiply(i, i)).collect(Collectors.toList()),
+                this.lib.asList(this.lib.number("64"), this.lib.number("49"), this.lib.number("16")));
+        doExpressionTest(entries, "", forExp,
+                "ForExpression(Iterator(i in ExpressionIteratorDomain(FunctionInvocation(Name(sublist) -> PositionalParameters(FunctionInvocation(Name(sort) -> PositionalParameters(FunctionInvocation(Name(concatenate) -> PositionalParameters(ListLiteral(Name(score1),Name(score2),Name(score3),Name(score4)), FunctionInvocation(Name(sublist) -> PositionalParameters(FunctionInvocation(Name(sort) -> PositionalParameters(ListLiteral(Name(score5),Name(score6),Name(score7),Name(score8)), FunctionDefinition(FormalParameter(x, number),FormalParameter(y, number), Relational(<,Name(y),Name(x)), false))), NumericLiteral(1), NumericLiteral(2))))), FunctionDefinition(FormalParameter(x, number),FormalParameter(y, number), Relational(<,Name(y),Name(x)), false))), NumericLiteral(1), NumericLiteral(3))))) -> Multiplication(*,Name(i),Name(i)))",
+                "ListType(number)",
+                "sublist(sort(concatenate(asList(score1, score2, score3, score4), sublist(sort(asList(score5, score6, score7, score8), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericLessThan(y, x);}}), number(\"1\"), number(\"2\"))), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericLessThan(y, x);}}), number(\"1\"), number(\"3\")).stream().map(i -> numericMultiply(i, i)).collect(Collectors.toList())",
+                this.lib.sublist(this.lib.sort(this.lib.concatenate(this.lib.asList(score1, score2, score3, score4), this.lib.sublist(this.lib.sort(this.lib.asList(score5, score6, score7, score8), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return lib.numericLessThan(y, x);}}), this.lib.number("1"), this.lib.number("2"))), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return lib.numericLessThan(y, x);}}), this.lib.number("1"), this.lib.number("3")).stream().map(i -> lib.numericMultiply(i, i)).collect(Collectors.toList()),
+                this.lib.asList(this.lib.number("64"), this.lib.number("49"), this.lib.number("16")));
+        doExpressionTest(entries, "", sum,
+                "FunctionInvocation(Name(sum) -> PositionalParameters(ForExpression(Iterator(i in ExpressionIteratorDomain(FunctionInvocation(Name(sublist) -> PositionalParameters(FunctionInvocation(Name(sort) -> PositionalParameters(FunctionInvocation(Name(concatenate) -> PositionalParameters(ListLiteral(Name(score1),Name(score2),Name(score3),Name(score4)), FunctionInvocation(Name(sublist) -> PositionalParameters(FunctionInvocation(Name(sort) -> PositionalParameters(ListLiteral(Name(score5),Name(score6),Name(score7),Name(score8)), FunctionDefinition(FormalParameter(x, number),FormalParameter(y, number), Relational(<,Name(y),Name(x)), false))), NumericLiteral(1), NumericLiteral(2))))), FunctionDefinition(FormalParameter(x, number),FormalParameter(y, number), Relational(<,Name(y),Name(x)), false))), NumericLiteral(1), NumericLiteral(3))))) -> Multiplication(*,Name(i),Name(i)))))",
+                "number",
+                "sum(sublist(sort(concatenate(asList(score1, score2, score3, score4), sublist(sort(asList(score5, score6, score7, score8), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericLessThan(y, x);}}), number(\"1\"), number(\"2\"))), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericLessThan(y, x);}}), number(\"1\"), number(\"3\")).stream().map(i -> numericMultiply(i, i)).collect(Collectors.toList()))",
+                this.lib.sum(this.lib.sublist(this.lib.sort(this.lib.concatenate(this.lib.asList(score1, score2, score3, score4), this.lib.sublist(this.lib.sort(this.lib.asList(score5, score6, score7, score8), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return lib.numericLessThan(y, x);}}), this.lib.number("1"), this.lib.number("2"))), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return lib.numericLessThan(y, x);}}), this.lib.number("1"), this.lib.number("3")).stream().map(i -> lib.numericMultiply(i, i)).collect(Collectors.toList())),
+                this.lib.number("129"));
+
+        // invocation with positional arguments
+        doExpressionTest(entries, "", "and([true, false, true])",
+                "FunctionInvocation(Name(and) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(false),BooleanLiteral(true))))",
+                "boolean",
+                "and(asList(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE))",
+                this.lib.and(this.lib.asList(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE)),
+                false);
+        doExpressionTest(entries, "", "or([true, false, true])",
+                "FunctionInvocation(Name(or) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(false),BooleanLiteral(true))))",
+                "boolean",
+                "or(asList(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE))",
+                this.lib.or(this.lib.asList(Boolean.TRUE, Boolean.FALSE, Boolean.TRUE)),
+                true);
         doExpressionTest(entries, "", "contains(\"abc\", \"a\")",
                 "FunctionInvocation(Name(contains) -> PositionalParameters(StringLiteral(\"abc\"), StringLiteral(\"a\")))",
                 "boolean",
                 "contains(\"abc\", \"a\")",
-                lib.contains("abc", "a"),
+                this.lib.contains("abc", "a"),
                 true);
         doExpressionTest(entries, "", "string(from : 1.1)",
                 "FunctionInvocation(Name(string) -> NamedParameters(from : NumericLiteral(1.1)))",
@@ -1409,15 +1489,17 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "FunctionInvocation(Name(string length) -> PositionalParameters(FunctionInvocation(Name(substring) -> PositionalParameters(Name(input), NumericLiteral(1)))))",
                 "number",
                 "stringLength(substring(input, number(\"1\")))",
-                lib.stringLength(lib.substring(input, lib.number("1"))),
-                lib.number("3"));
+                this.lib.stringLength(this.lib.substring(input, this.lib.number("1"))),
+                this.lib.number("3"));
 
+        // invocation with named arguments
         doExpressionTest(entries, "", "contains(string : \"abc\", match : \"a\")",
                 "FunctionInvocation(Name(contains) -> NamedParameters(string : StringLiteral(\"abc\"), match : StringLiteral(\"a\")))",
                 "boolean",
-                null,
-                null,
-                null);
+                "contains(\"abc\", \"a\")",
+                this.lib.contains("abc", "a"),
+                true);
+
     }
 
     @Ignore
@@ -1430,7 +1512,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "FunctionInvocation(Name(date) -> PositionalParameters(NullLiteral()))",
                 "date",
                 "contains(null)",
-                lib.date(null),
+                lib.date((XMLGregorianCalendar) null),
                 true);
     }
 
@@ -1441,7 +1523,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
 
         doExpressionTest(entries, "", "sort([3,1,4,5,2], function(x: feel.number, y: feel.number) x < y)",
                 "FunctionInvocation(Name(sort) -> PositionalParameters(ListLiteral(NumericLiteral(3),NumericLiteral(1),NumericLiteral(4),NumericLiteral(5),NumericLiteral(2)), FunctionDefinition(FormalParameter(x, number),FormalParameter(y, number), Relational(<,Name(x),Name(y)), false)))",
-                "ListType(AnyType)",
+                "ListType(number)",
                 "sort(asList(number(\"3\"), number(\"1\"), number(\"4\"), number(\"5\"), number(\"2\")), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericLessThan(x, y);}})",
                 null,
                 null
@@ -1741,68 +1823,68 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 lib.number("2"));
         doExpressionTest(entries, "", "sublist([1, 2, 3], 2, 1)",
                 "FunctionInvocation(Name(sublist) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(2), NumericLiteral(1)))",
-                "ListType(AnyType)",
+                "ListType(number)",
                 "sublist(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"2\"), number(\"1\"))",
                 lib.sublist(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.number("2"), lib.number("1")),
                 Arrays.asList(lib.number("2")));
         doExpressionTest(entries, "", "sublist([1, 2, 3], 2)",
                 "FunctionInvocation(Name(sublist) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(2)))",
-                "ListType(AnyType)",
+                "ListType(number)",
                 "sublist(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"2\"))",
                 lib.sublist(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.number("2")),
                 Arrays.asList(lib.number("2"), lib.number("3")));
         doExpressionTest(entries, "", "append([1, 2, 3], 4)",
                 "FunctionInvocation(Name(append) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(4)))",
-                "ListType(AnyType)",
+                "ListType(number)",
                 "append(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"4\"))",
                 lib.append(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.number("4")),
                 Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4")));
 
         doExpressionTest(entries, "", "concatenate([1, 2, 3], [4, 5, 6])",
                 "FunctionInvocation(Name(concatenate) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListLiteral(NumericLiteral(4),NumericLiteral(5),NumericLiteral(6))))",
-                "ListType(AnyType)",
+                "ListType(number)",
                 "concatenate(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"4\"), number(\"5\"), number(\"6\")))",
                 lib.concatenate(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")), Arrays.asList(lib.number("4"), lib.number("5"), lib.number("6"))),
                 Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4"), lib.number("5"), lib.number("6")));
         doExpressionTest(entries, "", "insert before([1, 2, 3], 1, 4)",
                 "FunctionInvocation(Name(insert before) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(1), NumericLiteral(4)))",
-                "ListType(AnyType)",
+                "ListType(number)",
                 "insertBefore(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"1\"), number(\"4\"))",
                 lib.insertBefore(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.number("1"), lib.number("4")),
                 Arrays.asList(lib.number("4"), lib.number("1"), lib.number("2"), lib.number("3")));
         doExpressionTest(entries, "", "remove([1, 2, 3], 1)",
                 "FunctionInvocation(Name(remove) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(1)))",
-                "ListType(AnyType)",
+                "ListType(number)",
                 "remove(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"1\"))",
                 lib.remove(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.number("1")),
                 Arrays.asList(lib.number("2"), lib.number("3")));
         doExpressionTest(entries, "", "reverse([1, 2, 3])",
                 "FunctionInvocation(Name(reverse) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
-                "ListType(AnyType)",
+                "ListType(number)",
                 "reverse(asList(number(\"1\"), number(\"2\"), number(\"3\")))",
                 lib.reverse(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"))),
                 Arrays.asList(lib.number("3"), lib.number("2"), lib.number("1")));
         doExpressionTest(entries, "", "index of([1, 2, 3], 3)",
                 "FunctionInvocation(Name(index of) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(3)))",
-                "ListType(AnyType)",
+                "ListType(number)",
                 "indexOf(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"3\"))",
                 lib.indexOf(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.number("3")),
                 Arrays.asList(lib.number("3")));
         doExpressionTest(entries, "", "union([1, 2, 3], [4, 5, 6])",
                 "FunctionInvocation(Name(union) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListLiteral(NumericLiteral(4),NumericLiteral(5),NumericLiteral(6))))",
-                "ListType(AnyType)",
+                "ListType(number)",
                 "union(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"4\"), number(\"5\"), number(\"6\")))",
                 lib.union(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")), Arrays.asList(lib.number("4"), lib.number("5"), lib.number("6"))),
                 Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4"), lib.number("5"), lib.number("6")));
         doExpressionTest(entries, "", "distinct values([1, 2, 3])",
                 "FunctionInvocation(Name(distinct values) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
-                "ListType(AnyType)",
+                "ListType(number)",
                 "distinctValues(asList(number(\"1\"), number(\"2\"), number(\"3\")))",
                 lib.distinctValues(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"))),
                 Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")));
         doExpressionTest(entries, "", "flatten([1, 2, 3])",
                 "FunctionInvocation(Name(flatten) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
-                "ListType(AnyType)",
+                "ListType(number)",
                 "flatten(asList(number(\"1\"), number(\"2\"), number(\"3\")))",
                 lib.flatten(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"))),
                 Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")));
