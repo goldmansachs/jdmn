@@ -2,6 +2,10 @@
 .idea/
 *.iml
 
+# ANTLR plugin files
+**/gen/FEELLexer*
+**/gen/FEELParser*
+
 # Maven files
 target/
 pom.xml.tag
