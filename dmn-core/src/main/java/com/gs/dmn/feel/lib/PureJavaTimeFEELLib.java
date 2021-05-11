@@ -654,7 +654,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Offs
     }
 
     @Override
-    public List split(String string, String delimiter) {
+    public List<String> split(String string, String delimiter) {
         try {
             return StringUtil.split(string, delimiter);
         } catch (Throwable e) {
@@ -682,7 +682,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Offs
     // Boolean functions
     //
     @Override
-    public Boolean and(List list) {
+    public Boolean and(List<?> list) {
         return all(list);
     }
 
@@ -692,7 +692,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Offs
     }
 
     @Override
-    public Boolean all(List list) {
+    public Boolean all(List<?> list) {
         if (list == null) {
             return null;
         }
@@ -728,7 +728,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Offs
     }
 
     @Override
-    public Boolean or(List list) {
+    public Boolean or(List<?> list) {
         return any(list);
     }
 
@@ -738,7 +738,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Offs
     }
 
     @Override
-    public Boolean any(List list) {
+    public Boolean any(List<?> list) {
         if (list == null) {
             return null;
         }
@@ -992,17 +992,17 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Offs
     }
 
     @Override
-    public List sublist(List list, BigDecimal startPosition) {
+    public <T> List<T> sublist(List<T> list, BigDecimal startPosition) {
         return sublist(list, startPosition.intValue());
     }
 
     @Override
-    public List sublist(List list, BigDecimal startPosition, BigDecimal length) {
+    public <T> List<T> sublist(List<T> list, BigDecimal startPosition, BigDecimal length) {
         return sublist(list, startPosition.intValue(), length.intValue());
     }
 
-    private List sublist(List list, int position) {
-        List result = new ArrayList<>();
+    private <T> List<T> sublist(List<T> list, int position) {
+        List<T> result = new ArrayList<>();
         if (list == null || isOutOfBounds(list, position)) {
             return result;
         }
@@ -1020,8 +1020,8 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Offs
         return result;
     }
 
-    private List sublist(List list, int position, int length) {
-        List result = new ArrayList<>();
+    private <T> List<T> sublist(List<T> list, int position, int length) {
+        List<T> result = new ArrayList<>();
         if (list == null || isOutOfBounds(list, position)) {
             return result;
         }
@@ -1040,7 +1040,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Offs
         return result;
     }
 
-    private boolean isOutOfBounds(List list, int position) {
+    private <T> boolean isOutOfBounds(List<T> list, int position) {
         int length = list.size();
         if (position < 0) {
             return !(-length <= position);
@@ -1050,23 +1050,23 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Offs
     }
 
     @Override
-    public List concatenate(Object... lists) {
-        List result = new ArrayList<>();
+    public <T> List<T> concatenate(List<T>... lists) {
+        List<T> result = new ArrayList<>();
         if (lists != null) {
-            for (Object list : lists) {
-                result.addAll((List) list);
+            for (List<T> list : lists) {
+                result.addAll(list);
             }
         }
         return result;
     }
 
     @Override
-    public List insertBefore(List list, BigDecimal position, Object newItem) {
+    public <T> List<T> insertBefore(List<T> list, BigDecimal position, T newItem) {
         return insertBefore(list, position.intValue(), newItem);
     }
 
-    private List insertBefore(List list, int position, Object newItem) {
-        List result = new ArrayList<>();
+    private <T> List<T> insertBefore(List<T> list, int position, T newItem) {
+        List<T> result = new ArrayList<>();
         if (list != null) {
             result.addAll(list);
         }
@@ -1083,12 +1083,12 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Offs
     }
 
     @Override
-    public List remove(List list, Object position) {
-        return remove(list, ((BigDecimal) position).intValue());
+    public <T> List<T> remove(List<T> list, BigDecimal position) {
+        return remove(list, position.intValue());
     }
 
-    private List remove(List list, int position) {
-        List result = new ArrayList<>();
+    private <T> List<T> remove(List<T> list, int position) {
+        List<T> result = new ArrayList<>();
         if (list != null) {
             result.addAll(list);
         }
@@ -1097,8 +1097,8 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Offs
     }
 
     @Override
-    public List reverse(List list) {
-        List result = new ArrayList<>();
+    public <T> List<T> reverse(List<T> list) {
+        List<T> result = new ArrayList<>();
         if (list != null) {
             for (int i = list.size() - 1; i >= 0; i--) {
                 result.add(list.get(i));
@@ -1122,21 +1122,21 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Offs
     }
 
     @Override
-    public List union(Object... lists) {
-        List result = new ArrayList<>();
+    public <T> List<T> union(List<T>... lists) {
+        List<T> result = new ArrayList<>();
         if (lists != null) {
-            for (Object list : lists) {
-                result.addAll((List) list);
+            for (List<T> list : lists) {
+                result.addAll(list);
             }
         }
         return distinctValues(result);
     }
 
     @Override
-    public List distinctValues(List list1) {
-        List result = new ArrayList<>();
+    public <T> List<T> distinctValues(List<T> list1) {
+        List<T> result = new ArrayList<>();
         if (list1 != null) {
-            for (Object element : list1) {
+            for (T element : list1) {
                 if (!result.contains(element)) {
                     result.add(element);
                 }

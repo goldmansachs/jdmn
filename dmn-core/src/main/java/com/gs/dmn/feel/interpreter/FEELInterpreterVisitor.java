@@ -420,6 +420,8 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             domain = (List) test.getListLiteral().accept(this, context);
         } else if (expressionDomain instanceof ListLiteral) {
             domain = (List) expressionDomain.accept(this, context);
+        } else if (expressionDomain instanceof FunctionInvocation) {
+            domain = (List) expressionDomain.accept(this, context);
         } else {
             throw new UnsupportedOperationException(String.format("FEEL '%s' is not supported yet with domain '%s'",
                     element.getClass().getSimpleName(), expressionDomain.getClass().getSimpleName()));
@@ -899,7 +901,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             if (declaredMethod == null) {
                 throw new DMNRuntimeException(String.format("Cannot resolve '%s.%s(%s)", className, methodName, paramTypes.stream().collect(Collectors.joining(", "))));
             }
-            Object[] args = makeArgs(declaredMethod, convertedArgList);
+            Object[] args = JavaFunctionInfo.makeArgs(declaredMethod, convertedArgList);
 
             // Try both static and instant calls
             if ((declaredMethod.getModifiers() & Modifier.STATIC) != 0) {
@@ -921,26 +923,11 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
                 argTypes[i] = getClass(argList.get(i));
             }
             Method declaredMethod = MethodUtils.resolveMethod(functionName, cls, argTypes);
-            Object[] args = makeArgs(declaredMethod, argList);
+            Object[] args = JavaFunctionInfo.makeArgs(declaredMethod, argList);
             return declaredMethod.invoke(object, args);
         } catch (Exception e) {
             handleError(String.format("Cannot evaluate function '%s'", functionName), e);
             return null;
-        }
-    }
-
-    private Object[] makeArgs(Method declaredMethod, List<Object> argList) {
-        if (declaredMethod.isVarArgs()) {
-            int parameterCount = declaredMethod.getParameterCount();
-            int mandatoryParameterCount = parameterCount - 1;
-            Object[] args = new Object[parameterCount];
-            for (int i = 0; i < mandatoryParameterCount; i++) {
-                args[i] = argList.get(i);
-            }
-            args[parameterCount - 1] = argList.subList(mandatoryParameterCount, argList.size()).toArray();
-            return args;
-        } else {
-            return argList.toArray();
         }
     }
 

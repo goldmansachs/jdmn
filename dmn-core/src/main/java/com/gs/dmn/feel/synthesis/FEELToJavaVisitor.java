@@ -269,6 +269,8 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
             domain = (String) test.getListLiteral().accept(this, context);
         } else if (expressionDomain instanceof ListLiteral) {
             domain = (String) expressionDomain.accept(this, context);
+        } else if (expressionDomain instanceof FunctionInvocation) {
+            domain = (String) expressionDomain.accept(this, context);
         } else {
             throw new UnsupportedOperationException(String.format("FEEL '%s' is not supported yet with domain '%s'",
                     element.getClass().getSimpleName(), expressionDomain.getClass().getSimpleName()));

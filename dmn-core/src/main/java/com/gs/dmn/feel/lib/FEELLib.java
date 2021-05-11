@@ -54,14 +54,14 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     //
     // Boolean
     //
-    Boolean and(List list);
-    Boolean or(List list);
+    Boolean and(List<?> list);
+    Boolean or(List<?> list);
 
     //
     // List functions
     //
     Object elementAt(List list, NUMBER index);
-    Boolean listContains(List list, Object value);
+    <T> Boolean listContains(List<T> list, Object value);
     List flattenFirstLevel(List list);
     NUMBER min(List<NUMBER> numbers);
     NUMBER max(List<NUMBER> numbers);
