@@ -38,17 +38,17 @@ public class NumericLibStub<NUMBER> implements NumericLib<NUMBER> {
         throw new DMNRuntimeException("Not supported yet");    }
 
     @Override
-    public NUMBER floor(NUMBER NUMBER) {
+    public NUMBER floor(NUMBER number) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public NUMBER ceiling(NUMBER NUMBER) {
+    public NUMBER ceiling(NUMBER number) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public NUMBER abs(NUMBER NUMBER) {
+    public NUMBER abs(NUMBER number) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -63,27 +63,27 @@ public class NumericLibStub<NUMBER> implements NumericLib<NUMBER> {
     }
 
     @Override
-    public NUMBER sqrt(NUMBER NUMBER) {
+    public NUMBER sqrt(NUMBER number) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public NUMBER log(NUMBER NUMBER) {
+    public NUMBER log(NUMBER number) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public NUMBER exp(NUMBER NUMBER) {
+    public NUMBER exp(NUMBER number) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean odd(NUMBER NUMBER) {
+    public Boolean odd(NUMBER number) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean even(NUMBER NUMBER) {
+    public Boolean even(NUMBER number) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -138,7 +138,7 @@ public class NumericLibStub<NUMBER> implements NumericLib<NUMBER> {
     }
 
     @Override
-    public NUMBER product(Object... NUMBERs) {
+    public NUMBER product(Object... numbers) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -148,7 +148,7 @@ public class NumericLibStub<NUMBER> implements NumericLib<NUMBER> {
     }
 
     @Override
-    public NUMBER median(Object... NUMBERs) {
+    public NUMBER median(Object... numbers) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -158,7 +158,7 @@ public class NumericLibStub<NUMBER> implements NumericLib<NUMBER> {
     }
 
     @Override
-    public NUMBER stddev(Object... NUMBERs) {
+    public NUMBER stddev(Object... numbers) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -168,7 +168,7 @@ public class NumericLibStub<NUMBER> implements NumericLib<NUMBER> {
     }
 
     @Override
-    public List mode(Object... NUMBERs) {
+    public List mode(Object... numbers) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
