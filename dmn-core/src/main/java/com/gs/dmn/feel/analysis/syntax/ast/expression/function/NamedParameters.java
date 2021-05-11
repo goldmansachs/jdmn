@@ -45,6 +45,16 @@ public class NamedParameters extends Parameters {
     }
 
     @Override
+    public Expression getParameter(int position, String name) {
+        return this.parameters.get(name);
+    }
+
+    @Override
+    public Type getParameterType(int position, String name) {
+        return this.parameters.get(name).getType();
+    }
+
+    @Override
     public Object accept(Visitor visitor, FEELContext params) {
         return visitor.visit(this, params);
     }

@@ -26,6 +26,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.feel.interpreter.FEELInterpreter;
 import com.gs.dmn.feel.lib.StandardFEELLib;
+import com.gs.dmn.feel.lib.XMLDatataypeFactory;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
@@ -35,6 +36,9 @@ import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -51,14 +55,14 @@ public abstract class AbstractFEELProcessorTest {
     protected final DMNInterpreter dmnInterpreter = dialectDefinition.createDMNInterpreter(new DMNModelRepository());
     protected final BasicDMN2JavaTransformer dmnTransformer = dmnInterpreter.getBasicDMNTransformer();
     protected final EnvironmentFactory environmentFactory = dmnTransformer.getEnvironmentFactory();
-    protected final StandardFEELLib lib = (StandardFEELLib) dmnInterpreter.getFeelLib();
+    protected final StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> lib = (StandardFEELLib) dmnInterpreter.getFeelLib();
 
     protected FEELTranslator feelTranslator;
     protected FEELInterpreter feelInterpreter;
 
     @Test
     public void testSimpleUnaryTests() {
-        Object input = lib.number("1");
+        BigDecimal input = lib.number("1");
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, input));
 
@@ -84,7 +88,7 @@ public abstract class AbstractFEELProcessorTest {
 
     @Test
     public void testSimplePositiveUnaryTests() {
-        Object number = lib.number("1");
+        BigDecimal number = lib.number("1");
         String string = "e1";
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("number", NUMBER, number),
@@ -106,12 +110,12 @@ public abstract class AbstractFEELProcessorTest {
 
     @Test
     public void testSimplePositiveUnaryTest() {
-        Object number = lib.number("1");
+        BigDecimal number = lib.number("1");
         String string = "1";
         boolean boolean_ = true;
-        Object date = lib.date("2017-01-03");
-        Object time = lib.time("12:00:00Z");
-        Object dateTime = lib.dateAndTime("2017-01-03T12:00:00Z");
+        XMLGregorianCalendar date = lib.date("2017-01-03");
+        XMLGregorianCalendar time = lib.time("12:00:00Z");
+        XMLGregorianCalendar dateTime = lib.dateAndTime("2017-01-03T12:00:00Z");
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("number", NUMBER, number),
                 new EnvironmentEntry("string", STRING, string),
@@ -257,7 +261,7 @@ public abstract class AbstractFEELProcessorTest {
 
     @Test
     public void testIntervalTest() {
-        Object input = lib.number("1");
+        BigDecimal input = lib.number("1");
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, input));
 

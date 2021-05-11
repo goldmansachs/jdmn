@@ -12,10 +12,15 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 public abstract class Parameters extends Element {
     public abstract boolean isEmpty();
 
     public abstract Signature getSignature();
+
+    public abstract Type getParameterType(int position, String name);
+    public abstract Expression getParameter(int position, String name);
 }

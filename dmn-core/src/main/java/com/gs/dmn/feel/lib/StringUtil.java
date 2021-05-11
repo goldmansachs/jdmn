@@ -18,7 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringUtil {
-    public static List split(String string, String delimiter) {
+    public static List<String> split(String string, String delimiter) {
         if (string == null || delimiter == null) {
             return null;
         }
