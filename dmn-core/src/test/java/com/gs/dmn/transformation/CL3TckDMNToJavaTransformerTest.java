@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
 public class CL3TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransformerTest {
@@ -41,5 +42,10 @@ public class CL3TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
         doSingleModelTest("1.2","0076-feel-external-java");
 
         doSingleModelTest("1.1","9001-recursive-function");
+    }
+
+    @Test
+    public void testCL3Singleton() throws Exception {
+        doSingleModelTest("1.3", "0004-lending", new Pair<>("singletonDecision", "true"));
     }
 }
