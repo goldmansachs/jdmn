@@ -94,31 +94,28 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         String modelName = definitions.getName();
         String lambdaFolderName = lambdaFolderName(modelName);
         String lambdaName = javaClassName(modelName);
-        File lambdaFolder = new File(outputFolder, lambdaFolderName);
-        generateLambdaRequestHandler(modelName, lambdaFolderName, lambdaName, outputFolder);
+        Path srcPath = Paths.get(outputFolder.toPath().toString(), lambdaFolderName, "src", "main", "java");
+        generateLambdaRequestHandler(modelName, lambdaName, srcPath);
         generateLambdaPom(lambdaFolderName, outputFolder);
-        Path targetPath = Paths.get(outputFolder.toPath().toString(), lambdaFolderName, "src", "main", "java");
+        Path targetPath = srcPath;
         dmnToNativeTransformer.transform(inputFile.toPath(), targetPath);
 
         // Generate SAM template
         generateTemplate(modelName, lambdaFolderName, Arrays.asList(lambdaName), outputFolder);
     }
 
-    private void generateLambdaRequestHandler(String modelName, String lambdaFolderName, String lambdaName, File targetFolder) {
+    private void generateLambdaRequestHandler(String modelName, String lambdaName, Path functionPath) {
         // Template
         String baseTemplatePath = getAWSBaseTemplatePath();
         String templateName = "lambdaClass.ftl";
 
         try {
-            // Function folder
-            Path outputPath = Paths.get(targetFolder.toPath().toString(), lambdaFolderName, "src", "main", "java");
-
             // Output file
             String outputFileName = javaClassName(lambdaName);
             String javaPackageName = javaPackageName(lambdaName);
             String relativeFilePath = javaPackageName.replace('.', '/');
             String fileExtension = ".java";
-            File outputFile = makeOutputFile(outputPath, relativeFilePath, outputFileName, fileExtension);
+            File outputFile = makeOutputFile(functionPath, relativeFilePath, outputFileName, fileExtension);
 
             // Make parameters
             Map<String, Object> params = new HashMap<>();
@@ -304,7 +301,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
 
         // Transform
         File inputFileDirectory = new File(STANDARD_FOLDER, "tck/1.3/cl3/0020-vacation-days/0020-vacation-days.dmn");
-        File outputFileDirectory = new File("C:/Work/Projects/aws/dmn-lambda/");
+        File outputFileDirectory = new File("C:/Work/Projects/aws/bpmn-to-aws-examples/dmn-lambda/");
         transformer.transform(inputFileDirectory, outputFileDirectory);
     }
 }
