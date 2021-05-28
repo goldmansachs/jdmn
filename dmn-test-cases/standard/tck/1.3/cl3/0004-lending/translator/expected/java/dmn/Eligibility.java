@@ -23,9 +23,11 @@ public class Eligibility extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         -1
     );
 
-    private static final Eligibility INSTANCE = new Eligibility(PreBureauAffordability.instance(), PreBureauRiskCategory.instance());
+    private static class EligibilityLazyHolder {
+        static final Eligibility INSTANCE = new Eligibility(PreBureauAffordability.instance(), PreBureauRiskCategory.instance());
+    }
     public static Eligibility instance() {
-        return INSTANCE;
+        return EligibilityLazyHolder.INSTANCE;
     }
 
     private final PreBureauAffordability preBureauAffordability;

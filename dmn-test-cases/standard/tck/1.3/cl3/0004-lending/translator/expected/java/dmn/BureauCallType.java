@@ -23,9 +23,11 @@ public class BureauCallType extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         -1
     );
 
-    private static final BureauCallType INSTANCE = new BureauCallType(PreBureauRiskCategory.instance());
+    private static class BureauCallTypeLazyHolder {
+        static final BureauCallType INSTANCE = new BureauCallType(PreBureauRiskCategory.instance());
+    }
     public static BureauCallType instance() {
-        return INSTANCE;
+        return BureauCallTypeLazyHolder.INSTANCE;
     }
 
     private final PreBureauRiskCategory preBureauRiskCategory;

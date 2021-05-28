@@ -23,9 +23,11 @@ public class PostBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDec
         -1
     );
 
-    private static final PostBureauRiskCategory INSTANCE = new PostBureauRiskCategory(ApplicationRiskScore.instance());
+    private static class PostBureauRiskCategoryLazyHolder {
+        static final PostBureauRiskCategory INSTANCE = new PostBureauRiskCategory(ApplicationRiskScore.instance());
+    }
     public static PostBureauRiskCategory instance() {
-        return INSTANCE;
+        return PostBureauRiskCategoryLazyHolder.INSTANCE;
     }
 
     private final ApplicationRiskScore applicationRiskScore;

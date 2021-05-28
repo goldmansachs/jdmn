@@ -23,9 +23,11 @@ public class ApplicationRiskScore extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         -1
     );
 
-    private static final ApplicationRiskScore INSTANCE = new ApplicationRiskScore();
+    private static class ApplicationRiskScoreLazyHolder {
+        static final ApplicationRiskScore INSTANCE = new ApplicationRiskScore();
+    }
     public static ApplicationRiskScore instance() {
-        return INSTANCE;
+        return ApplicationRiskScoreLazyHolder.INSTANCE;
     }
 
     public ApplicationRiskScore() {
