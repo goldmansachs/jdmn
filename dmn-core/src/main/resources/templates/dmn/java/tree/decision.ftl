@@ -49,19 +49,15 @@ public class ${javaClassName} extends ${decisionBaseClass} {
         <@convertProtoResponseToOutput drgElement />
     }
     </#if>
-    <@addSubDecisionFields drgElement/>
-
     <#if transformer.isSingletonDecision()>
-    private static final ${javaClassName}() INSTANCE;
 
-    public synchronized static ${javaClassName} instance() {
-        if (INSTANCE == null) {
-            INSTANCE = ${transformer.singletonDecisionConstructor(javaClassName, drgElement)};
-        }
+    private static final ${javaClassName} INSTANCE = ${transformer.singletonDecisionConstructor(javaClassName, drgElement)};
+    public static ${javaClassName} instance() {
         return INSTANCE;
     }
-
     </#if>
+    <@addSubDecisionFields drgElement/>
+
     public ${javaClassName}() {
         <#if transformer.hasDirectSubDecisions(drgElement)>
         this(${transformer.decisionConstructorNewArgumentList(drgElement)});

@@ -23,17 +23,13 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         3
     );
 
-    private final BureauCallType bureauCallType;
-    private final Eligibility eligibility;
-
-    private static final Strategy() INSTANCE;
-
-    public synchronized static Strategy instance() {
-        if (INSTANCE == null) {
-            INSTANCE = new Strategy(BureauCallType.instance(), Eligibility.instance());
-        }
+    private static final Strategy INSTANCE = new Strategy(BureauCallType.instance(), Eligibility.instance());
+    public static Strategy instance() {
         return INSTANCE;
     }
+
+    private final BureauCallType bureauCallType;
+    private final Eligibility eligibility;
 
     public Strategy() {
         this(new BureauCallType(), new Eligibility());

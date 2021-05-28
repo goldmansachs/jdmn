@@ -23,16 +23,12 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         -1
     );
 
-    private final ApplicationRiskScore applicationRiskScore;
-
-    private static final PreBureauRiskCategory() INSTANCE;
-
-    public synchronized static PreBureauRiskCategory instance() {
-        if (INSTANCE == null) {
-            INSTANCE = new PreBureauRiskCategory(ApplicationRiskScore.instance());
-        }
+    private static final PreBureauRiskCategory INSTANCE = new PreBureauRiskCategory(ApplicationRiskScore.instance());
+    public static PreBureauRiskCategory instance() {
         return INSTANCE;
     }
+
+    private final ApplicationRiskScore applicationRiskScore;
 
     public PreBureauRiskCategory() {
         this(new ApplicationRiskScore());

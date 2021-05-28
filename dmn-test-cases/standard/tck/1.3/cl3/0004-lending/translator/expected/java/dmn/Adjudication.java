@@ -23,12 +23,8 @@ public class Adjudication extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         -1
     );
 
-    private static final Adjudication() INSTANCE;
-
-    public synchronized static Adjudication instance() {
-        if (INSTANCE == null) {
-            INSTANCE = new Adjudication();
-        }
+    private static final Adjudication INSTANCE = new Adjudication();
+    public static Adjudication instance() {
         return INSTANCE;
     }
 
