@@ -2411,6 +2411,7 @@
                             <inputFileDirectory>${tck.13.diagram.folder}/cl3/0004-lending/translator/0004-lending.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
+                                <singletonDecision>true</singletonDecision>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_singleton</javaRootPackage>
                             </inputParameters>
                         </configuration>
@@ -2427,6 +2428,7 @@
                             <inputModelFileDirectory>${tck.13.diagram.folder}/cl3/0004-lending/translator/0004-lending.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
+                                <singletonDecision>true</singletonDecision>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_singleton</javaRootPackage>
                             </inputParameters>
                         </configuration>

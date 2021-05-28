@@ -25,7 +25,12 @@ public class ${testClassName} extends ${decisionBaseClass} {
     <@addTestCases />
 }
 <#macro addDecisionField>
-    private final ${testLabUtil.qualifiedName(testLab, rootOutputParameter)} ${testLabUtil.drgElementVariableName(rootOutputParameter)} = new ${testLabUtil.qualifiedName(testLab, rootOutputParameter)}();
+    <#assign decisionQName = testLabUtil.qualifiedName(testLab, rootOutputParameter) >
+    <#if testLabUtil.isSingletonDecision()>
+    private final ${testLabUtil.qualifiedName(testLab, rootOutputParameter)} ${testLabUtil.drgElementVariableName(rootOutputParameter)} = ${testLabUtil.singletonDecisionInstance(decisionQName)};
+    <#else>
+    private final ${testLabUtil.qualifiedName(testLab, rootOutputParameter)} ${testLabUtil.drgElementVariableName(rootOutputParameter)} = ${testLabUtil.defaultConstructor(decisionQName)};
+    </#if>
 </#macro>
 
 <#macro addTestCases>
@@ -33,7 +38,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
         <#items as testCase>
     @org.junit.Test
     public void testCase${(testCase?index + 1)?c}() {
-        ${testLabUtil.annotationSetClassName()} ${testLabUtil.annotationSetVariableName()} = new ${testLabUtil.annotationSetClassName()}();
+        ${testLabUtil.annotationSetClassName()} ${testLabUtil.annotationSetVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.annotationSetClassName())};
         <@addApplyPart testCase/>
 
         <@addAssertPart testCase/>

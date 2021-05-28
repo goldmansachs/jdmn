@@ -103,7 +103,7 @@ public interface BasicDMNToNativeTransformer {
     String protoSetter(TDRGElement drgElement);
 
     //
-    // TInformationItem related functions
+    // Native factory methods
     //
     String defaultConstructor(String className);
 
