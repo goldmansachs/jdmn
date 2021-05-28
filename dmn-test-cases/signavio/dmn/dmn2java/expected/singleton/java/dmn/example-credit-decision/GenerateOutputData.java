@@ -23,9 +23,11 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
         -1
     );
 
-    private static final GenerateOutputData INSTANCE = new GenerateOutputData(AssessIssueRisk.instance(), CompareAgainstLendingThreshold.instance(), MakeCreditDecision.instance());
+    private static class GenerateOutputDataLazyHolder {
+        static final GenerateOutputData INSTANCE = new GenerateOutputData(AssessIssueRisk.instance(), CompareAgainstLendingThreshold.instance(), MakeCreditDecision.instance());
+    }
     public static GenerateOutputData instance() {
-        return INSTANCE;
+        return GenerateOutputDataLazyHolder.INSTANCE;
     }
 
     private final AssessIssueRisk assessIssueRisk;

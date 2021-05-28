@@ -23,9 +23,11 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         -1
     );
 
-    private static final AssessIssue INSTANCE = new AssessIssue();
+    private static class AssessIssueLazyHolder {
+        static final AssessIssue INSTANCE = new AssessIssue();
+    }
     public static AssessIssue instance() {
-        return INSTANCE;
+        return AssessIssueLazyHolder.INSTANCE;
     }
 
     public AssessIssue() {

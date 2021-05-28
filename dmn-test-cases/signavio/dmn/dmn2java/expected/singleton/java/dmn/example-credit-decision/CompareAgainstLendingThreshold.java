@@ -23,9 +23,11 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
         2
     );
 
-    private static final CompareAgainstLendingThreshold INSTANCE = new CompareAgainstLendingThreshold(AssessApplicantAge.instance(), AssessIssueRisk.instance());
+    private static class CompareAgainstLendingThresholdLazyHolder {
+        static final CompareAgainstLendingThreshold INSTANCE = new CompareAgainstLendingThreshold(AssessApplicantAge.instance(), AssessIssueRisk.instance());
+    }
     public static CompareAgainstLendingThreshold instance() {
-        return INSTANCE;
+        return CompareAgainstLendingThresholdLazyHolder.INSTANCE;
     }
 
     private final AssessApplicantAge assessApplicantAge;
