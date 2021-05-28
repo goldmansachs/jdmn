@@ -23,9 +23,11 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         -1
     );
 
-    private static final PreBureauRiskCategory INSTANCE = new PreBureauRiskCategory(ApplicationRiskScore.instance());
+    private static class PreBureauRiskCategoryLazyHolder {
+        static final PreBureauRiskCategory INSTANCE = new PreBureauRiskCategory(ApplicationRiskScore.instance());
+    }
     public static PreBureauRiskCategory instance() {
-        return INSTANCE;
+        return PreBureauRiskCategoryLazyHolder.INSTANCE;
     }
 
     private final ApplicationRiskScore applicationRiskScore;

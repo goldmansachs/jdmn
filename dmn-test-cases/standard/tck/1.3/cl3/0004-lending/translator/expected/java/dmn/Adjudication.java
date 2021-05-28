@@ -23,9 +23,11 @@ public class Adjudication extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         -1
     );
 
-    private static final Adjudication INSTANCE = new Adjudication();
+    private static class AdjudicationLazyHolder {
+        static final Adjudication INSTANCE = new Adjudication();
+    }
     public static Adjudication instance() {
-        return INSTANCE;
+        return AdjudicationLazyHolder.INSTANCE;
     }
 
     public Adjudication() {

@@ -23,9 +23,11 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         3
     );
 
-    private static final Strategy INSTANCE = new Strategy(BureauCallType.instance(), Eligibility.instance());
+    private static class StrategyLazyHolder {
+        static final Strategy INSTANCE = new Strategy(BureauCallType.instance(), Eligibility.instance());
+    }
     public static Strategy instance() {
-        return INSTANCE;
+        return StrategyLazyHolder.INSTANCE;
     }
 
     private final BureauCallType bureauCallType;

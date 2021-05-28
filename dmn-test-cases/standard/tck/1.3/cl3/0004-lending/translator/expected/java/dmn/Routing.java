@@ -23,9 +23,11 @@ public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         -1
     );
 
-    private static final Routing INSTANCE = new Routing(PostBureauAffordability.instance(), PostBureauRiskCategory.instance());
+    private static class RoutingLazyHolder {
+        static final Routing INSTANCE = new Routing(PostBureauAffordability.instance(), PostBureauRiskCategory.instance());
+    }
     public static Routing instance() {
-        return INSTANCE;
+        return RoutingLazyHolder.INSTANCE;
     }
 
     private final PostBureauAffordability postBureauAffordability;
