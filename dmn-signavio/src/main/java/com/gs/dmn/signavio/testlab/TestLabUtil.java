@@ -356,6 +356,28 @@ public class TestLabUtil {
     }
 
     //
+    // Singleton section
+    //
+    public boolean isSingletonDecision() {
+        return this.dmnTransformer.isSingletonDecision();
+    }
+
+    public String singletonDecisionInstance(String decisionQName) {
+        return this.dmnTransformer.singletonDecisionInstance(decisionQName);
+    }
+
+    //
+    // Native factory methods
+    //
+    public String defaultConstructor(String className) {
+        return this.dmnTransformer.defaultConstructor(className);
+    }
+
+    public String constructor(String className, String arguments) {
+        return this.dmnTransformer.constructor(className, arguments);
+    }
+
+    //
     // Proto section
     //
     public boolean isGenerateProto() {
