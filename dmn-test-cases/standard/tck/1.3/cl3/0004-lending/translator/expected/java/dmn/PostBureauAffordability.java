@@ -23,17 +23,13 @@ public class PostBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDe
         -1
     );
 
-    private final PostBureauRiskCategory postBureauRiskCategory;
-    private final RequiredMonthlyInstallment requiredMonthlyInstallment;
-
-    private static final PostBureauAffordability() INSTANCE;
-
-    public synchronized static PostBureauAffordability instance() {
-        if (INSTANCE == null) {
-            INSTANCE = new PostBureauAffordability(PostBureauRiskCategory.instance(), RequiredMonthlyInstallment.instance());
-        }
+    private static final PostBureauAffordability INSTANCE = new PostBureauAffordability(PostBureauRiskCategory.instance(), RequiredMonthlyInstallment.instance());
+    public static PostBureauAffordability instance() {
         return INSTANCE;
     }
+
+    private final PostBureauRiskCategory postBureauRiskCategory;
+    private final RequiredMonthlyInstallment requiredMonthlyInstallment;
 
     public PostBureauAffordability() {
         this(new PostBureauRiskCategory(), new RequiredMonthlyInstallment());

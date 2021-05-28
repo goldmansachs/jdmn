@@ -23,12 +23,8 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.DefaultDMNBas
         -1
     );
 
-    private static final RequiredMonthlyInstallment() INSTANCE;
-
-    public synchronized static RequiredMonthlyInstallment instance() {
-        if (INSTANCE == null) {
-            INSTANCE = new RequiredMonthlyInstallment();
-        }
+    private static final RequiredMonthlyInstallment INSTANCE = new RequiredMonthlyInstallment();
+    public static RequiredMonthlyInstallment instance() {
         return INSTANCE;
     }
 

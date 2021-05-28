@@ -23,17 +23,13 @@ public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         -1
     );
 
-    private final PostBureauAffordability postBureauAffordability;
-    private final PostBureauRiskCategory postBureauRiskCategory;
-
-    private static final Routing() INSTANCE;
-
-    public synchronized static Routing instance() {
-        if (INSTANCE == null) {
-            INSTANCE = new Routing(PostBureauAffordability.instance(), PostBureauRiskCategory.instance());
-        }
+    private static final Routing INSTANCE = new Routing(PostBureauAffordability.instance(), PostBureauRiskCategory.instance());
+    public static Routing instance() {
         return INSTANCE;
     }
+
+    private final PostBureauAffordability postBureauAffordability;
+    private final PostBureauRiskCategory postBureauRiskCategory;
 
     public Routing() {
         this(new PostBureauAffordability(), new PostBureauRiskCategory());

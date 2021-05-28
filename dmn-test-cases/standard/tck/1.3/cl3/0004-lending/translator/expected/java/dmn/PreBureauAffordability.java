@@ -23,17 +23,13 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDec
         -1
     );
 
-    private final PreBureauRiskCategory preBureauRiskCategory;
-    private final RequiredMonthlyInstallment requiredMonthlyInstallment;
-
-    private static final PreBureauAffordability() INSTANCE;
-
-    public synchronized static PreBureauAffordability instance() {
-        if (INSTANCE == null) {
-            INSTANCE = new PreBureauAffordability(PreBureauRiskCategory.instance(), RequiredMonthlyInstallment.instance());
-        }
+    private static final PreBureauAffordability INSTANCE = new PreBureauAffordability(PreBureauRiskCategory.instance(), RequiredMonthlyInstallment.instance());
+    public static PreBureauAffordability instance() {
         return INSTANCE;
     }
+
+    private final PreBureauRiskCategory preBureauRiskCategory;
+    private final RequiredMonthlyInstallment requiredMonthlyInstallment;
 
     public PreBureauAffordability() {
         this(new PreBureauRiskCategory(), new RequiredMonthlyInstallment());
