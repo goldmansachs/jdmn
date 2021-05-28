@@ -23,9 +23,11 @@ public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.DefaultSignavio
         -1
     );
 
-    private static final AssessIssueRisk INSTANCE = new AssessIssueRisk(ProcessPriorIssues.instance());
+    private static class AssessIssueRiskLazyHolder {
+        static final AssessIssueRisk INSTANCE = new AssessIssueRisk(ProcessPriorIssues.instance());
+    }
     public static AssessIssueRisk instance() {
-        return INSTANCE;
+        return AssessIssueRiskLazyHolder.INSTANCE;
     }
 
     private final ProcessPriorIssues processPriorIssues;

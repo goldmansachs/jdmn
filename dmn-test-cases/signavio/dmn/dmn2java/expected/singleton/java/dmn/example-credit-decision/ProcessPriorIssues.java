@@ -23,9 +23,11 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         5
     );
 
-    private static final ProcessPriorIssues INSTANCE = new ProcessPriorIssues();
+    private static class ProcessPriorIssuesLazyHolder {
+        static final ProcessPriorIssues INSTANCE = new ProcessPriorIssues();
+    }
     public static ProcessPriorIssues instance() {
-        return INSTANCE;
+        return ProcessPriorIssuesLazyHolder.INSTANCE;
     }
 
     public ProcessPriorIssues() {

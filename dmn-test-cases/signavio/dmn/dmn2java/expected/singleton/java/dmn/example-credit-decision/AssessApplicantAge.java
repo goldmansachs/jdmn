@@ -23,9 +23,11 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         3
     );
 
-    private static final AssessApplicantAge INSTANCE = new AssessApplicantAge();
+    private static class AssessApplicantAgeLazyHolder {
+        static final AssessApplicantAge INSTANCE = new AssessApplicantAge();
+    }
     public static AssessApplicantAge instance() {
-        return INSTANCE;
+        return AssessApplicantAgeLazyHolder.INSTANCE;
     }
 
     public AssessApplicantAge() {

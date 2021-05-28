@@ -23,9 +23,11 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
         3
     );
 
-    private static final MakeCreditDecision INSTANCE = new MakeCreditDecision(CompareAgainstLendingThreshold.instance());
+    private static class MakeCreditDecisionLazyHolder {
+        static final MakeCreditDecision INSTANCE = new MakeCreditDecision(CompareAgainstLendingThreshold.instance());
+    }
     public static MakeCreditDecision instance() {
-        return INSTANCE;
+        return MakeCreditDecisionLazyHolder.INSTANCE;
     }
 
     private final CompareAgainstLendingThreshold compareAgainstLendingThreshold;
