@@ -64,7 +64,12 @@ public class ${testClassName} extends ${decisionBaseClass} {
         <#items as result>
         // Check ${result.name}
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
-        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.apply(${tckUtil.drgElementArgumentListExtraCache(tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
+        <#assign decisionQName = tckUtil.qualifiedName(resultInfo) >
+        <#if tckUtil.isSingletonDecision()>
+        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.singletonDecisionInstance(decisionQName)}.apply(${tckUtil.drgElementArgumentListExtraCache(tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
+        <#else>
+        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.defaultConstructor(decisionQName)}.apply(${tckUtil.drgElementArgumentListExtraCache(tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
+        </#if>
         </#items>
     </#list>
 </#macro>

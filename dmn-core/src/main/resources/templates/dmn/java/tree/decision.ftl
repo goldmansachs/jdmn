@@ -51,6 +51,17 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     </#if>
     <@addSubDecisionFields drgElement/>
 
+    <#if transformer.isSingletonDecision()>
+    private static final ${javaClassName}() INSTANCE;
+
+    public synchronized static ${javaClassName} instance() {
+        if (INSTANCE == null) {
+            INSTANCE = ${transformer.singletonDecisionConstructor(javaClassName, drgElement)};
+        }
+        return INSTANCE;
+    }
+
+    </#if>
     public ${javaClassName}() {
         <#if transformer.hasDirectSubDecisions(drgElement)>
         this(${transformer.decisionConstructorNewArgumentList(drgElement)});

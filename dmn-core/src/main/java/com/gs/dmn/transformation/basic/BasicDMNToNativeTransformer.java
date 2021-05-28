@@ -178,6 +178,12 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementArgumentListWithConversionFromString(TDRGElement element);
 
+    boolean isSingletonDecision();
+
+    String singletonDecisionConstructor(String javaClassName, TDecision decision);
+
+    String singletonDecisionInstance(String decisionQName);
+
     String decisionConstructorSignature(TDecision decision);
 
     String decisionConstructorNewArgumentList(TDecision decision);
