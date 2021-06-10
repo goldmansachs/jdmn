@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
+import java.math.RoundingMode;
 import java.util.List;
 
 public interface NumericLib<NUMBER> {
@@ -22,13 +23,13 @@ public interface NumericLib<NUMBER> {
     NUMBER decimal(NUMBER n, NUMBER scale);
 
     // Extension to DMN 1.3
-    NUMBER round(NUMBER n, NUMBER scale, String mode);
+    NUMBER round(NUMBER n, NUMBER scale, RoundingMode mode);
 
-    NUMBER floor(NUMBER n);
+    NUMBER floor(NUMBER n, NUMBER scale);
 
-    NUMBER ceiling(NUMBER n);
+    NUMBER ceiling(NUMBER n, NUMBER scale);
 
-    NUMBER abs(NUMBER number);
+    NUMBER abs(NUMBER n);
 
     NUMBER intModulo(NUMBER dividend, NUMBER divisor);
 
