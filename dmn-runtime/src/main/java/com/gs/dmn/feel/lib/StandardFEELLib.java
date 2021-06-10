@@ -64,10 +64,16 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     // Extension to DMN 1.3
     NUMBER round(NUMBER n, NUMBER scale, String mode);
+    NUMBER roundUp(NUMBER n, NUMBER scale);
+    NUMBER roundDown(NUMBER n, NUMBER scale);
+    NUMBER roundHalfUp(NUMBER n, NUMBER scale);
+    NUMBER roundHalfDown(NUMBER n, NUMBER scale);
 
-    NUMBER floor(NUMBER number);
+    NUMBER floor(NUMBER n);
+    NUMBER floor(NUMBER n, NUMBER scale);
 
-    NUMBER ceiling(NUMBER number);
+    NUMBER ceiling(NUMBER n);
+    NUMBER ceiling(NUMBER n, NUMBER scale);
 
     Object abs(Object n);
 

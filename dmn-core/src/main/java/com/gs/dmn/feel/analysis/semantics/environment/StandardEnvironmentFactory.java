@@ -170,8 +170,14 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     private static void addNumberFunctions(Environment environment) {
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("decimal", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("round", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER), new Parameter("mode", STRING))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("round up", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("round down", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("round half up", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("round half down", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("floor", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("floor", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("ceiling", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("ceiling", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("abs", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("abs", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new Parameter("n", YEARS_AND_MONTHS_DURATION))));
         environment.addDeclaration(INSTANCE.makeVariableDeclaration("abs", new BuiltinFunctionType(DAYS_AND_TIME_DURATION, new Parameter("n", DAYS_AND_TIME_DURATION))));

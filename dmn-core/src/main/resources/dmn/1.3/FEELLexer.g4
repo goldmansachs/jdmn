@@ -283,6 +283,14 @@ NAME:
     'week' WhiteSpace+ 'of' WhiteSpace+ 'year'
     { setText("week of year"); }
     |
+    'round up'
+    |
+    'round down'
+    |
+    'round half up'
+    |
+    'round half down'
+    |
     // Properties
     'time' WhiteSpace+ 'offset'
     { setText("time offset"); }

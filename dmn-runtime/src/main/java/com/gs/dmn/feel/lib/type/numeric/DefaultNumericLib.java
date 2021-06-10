@@ -40,44 +40,39 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
     }
 
     @Override
-    public BigDecimal round(BigDecimal n, BigDecimal scale, String mode) {
+    public BigDecimal round(BigDecimal n, BigDecimal scale, RoundingMode mode) {
         if (n == null || scale == null || mode == null) {
             return null;
         }
 
-        RoundingMode roundingMode = NumericRoundingMode.fromValue(mode);
-        if (roundingMode == null) {
-            throw new DMNRuntimeException(String.format("Unknown rounding mode '%s'. Expected one of '%s'", mode, NumericRoundingMode.ALLOWED_VALUES));
-        } else {
-            return n.setScale(scale.intValue(), roundingMode);
-        }
+        return n.setScale(scale.intValue(), mode);
     }
 
     @Override
-    public BigDecimal floor(BigDecimal number) {
-        if (number == null) {
+    public BigDecimal floor(BigDecimal n, BigDecimal scale) {
+        if (n == null || scale == null) {
             return null;
         }
 
-        return number.setScale(0, RoundingMode.FLOOR);
+        return n.setScale(scale.intValue(), RoundingMode.FLOOR);
     }
 
     @Override
-    public BigDecimal ceiling(BigDecimal number) {
-        if (number == null) {
+    public BigDecimal ceiling(BigDecimal n, BigDecimal scale) {
+        if (n == null || scale == null) {
             return null;
         }
 
-        return number.setScale(0, RoundingMode.CEILING);
+        return n.setScale(scale.intValue(), RoundingMode.CEILING);
     }
 
     @Override
-    public BigDecimal abs(BigDecimal number) {
-        if (number == null) {
+    public BigDecimal abs(BigDecimal n) {
+        if (n == null) {
             return null;
         }
 
-        return number.abs();
+        return n.abs();
     }
 
     @Override
@@ -96,7 +91,7 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
         }
 
         // dividend - divisor*floor(dividend/divisor)
-        return dividend.subtract(divisor.multiply(floor(DefaultNumericType.decimalNumericDivide(dividend, divisor))));
+        return dividend.subtract(divisor.multiply(floor(DefaultNumericType.decimalNumericDivide(dividend, divisor), BigDecimal.ZERO)));
     }
 
     @Override
