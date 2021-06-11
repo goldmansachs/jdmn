@@ -49,6 +49,15 @@ public class ${javaClassName} extends ${decisionBaseClass} {
         <@convertProtoResponseToOutput drgElement />
     }
     </#if>
+    <#if transformer.isSingletonDecision()>
+
+    private static class ${javaClassName}LazyHolder {
+        static final ${javaClassName} INSTANCE = ${transformer.singletonDecisionConstructor(javaClassName, drgElement)};
+    }
+    public static ${javaClassName} instance() {
+        return ${javaClassName}LazyHolder.INSTANCE;
+    }
+    </#if>
     <@addSubDecisionFields drgElement/>
 
     public ${javaClassName}() {

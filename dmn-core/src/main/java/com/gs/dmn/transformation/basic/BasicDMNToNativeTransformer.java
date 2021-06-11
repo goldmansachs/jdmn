@@ -103,7 +103,7 @@ public interface BasicDMNToNativeTransformer {
     String protoSetter(TDRGElement drgElement);
 
     //
-    // TInformationItem related functions
+    // Native factory methods
     //
     String defaultConstructor(String className);
 
@@ -177,6 +177,12 @@ public interface BasicDMNToNativeTransformer {
     String drgElementDefaultArgumentListExtraCache(TDRGElement element);
 
     String drgElementArgumentListWithConversionFromString(TDRGElement element);
+
+    boolean isSingletonDecision();
+
+    String singletonDecisionConstructor(String javaClassName, TDecision decision);
+
+    String singletonDecisionInstance(String decisionQName);
 
     String decisionConstructorSignature(TDecision decision);
 

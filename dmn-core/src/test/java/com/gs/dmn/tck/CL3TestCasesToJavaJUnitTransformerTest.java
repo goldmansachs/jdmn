@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.tck;
 
+import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
 public class CL3TestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCasesToJavaJUnitTransformerTest {
@@ -47,4 +48,10 @@ public class CL3TestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCases
 
         doSingleModelTest("1.1", "9001-recursive-function", "9001-recursive-function-test-01");
     }
+
+    @Test
+    public void testCL3Singleton() throws Exception {
+        doSingleModelTest("1.3", "0004-lending", "0004-lending-test-01", new Pair<>("singletonDecision", "true"));
+    }
+
 }
