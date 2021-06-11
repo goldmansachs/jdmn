@@ -64,6 +64,7 @@ public class InputParameters {
     private final String javaRootPackage;
     private final boolean onePackage;
     private final boolean singletonInputData;
+    private final boolean singletonDecision;
 
     private final boolean caching;
     private final int cachingThreshold;
@@ -94,6 +95,7 @@ public class InputParameters {
         String cachingThresholdParam = InputParameters.getOptionalParam(inputParameters, "cachingThreshold", "1");
         this.cachingThreshold = Integer.parseInt(cachingThresholdParam);
         this.singletonInputData = InputParameters.getOptionalBooleanParam(inputParameters, "singletonInputData", "true");
+        this.singletonDecision = InputParameters.getOptionalBooleanParam(inputParameters, "singletonDecision", "false");
         this.parallelStream = InputParameters.getOptionalBooleanParam(inputParameters, "parallelStream", "false");
         this.generateProtoMessages = InputParameters.getOptionalBooleanParam(inputParameters, "generateProtoMessages", "false");
         this.generateProtoServices = InputParameters.getOptionalBooleanParam(inputParameters, "generateProtoServices", "false");
@@ -141,6 +143,10 @@ public class InputParameters {
 
     public boolean isSingletonInputData() {
         return singletonInputData;
+    }
+
+    public boolean isSingletonDecision() {
+        return singletonDecision;
     }
 
     public boolean isCaching() {

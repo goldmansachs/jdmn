@@ -2396,6 +2396,44 @@
                         </configuration>
                     </execution>
 
+                    <!-- singleton decisions -->
+                    <execution>
+                        <id>singleton-cl3-0004-lending-tree</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <templateProvider>com.gs.dmn.transformation.template.TreeTemplateProvider</templateProvider>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
+                            <inputFileDirectory>${tck.13.diagram.folder}/cl3/0004-lending/translator/0004-lending.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <singletonDecision>true</singletonDecision>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_singleton</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-singleton-cl3-0004-lending-tree</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <templateProvider>com.gs.dmn.transformation.template.TreeTemplateProvider</templateProvider>
+                            <inputTestFileDirectory>${tck.13.diagram.folder}/cl3/0004-lending/translator/0004-lending-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.13.diagram.folder}/cl3/0004-lending/translator/0004-lending.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <singletonDecision>true</singletonDecision>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_singleton</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
                     <!-- non-compliant-->
                     <!--
                                         <execution>

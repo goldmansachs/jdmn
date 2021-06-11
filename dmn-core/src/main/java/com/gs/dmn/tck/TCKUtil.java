@@ -876,6 +876,17 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     //
+    // Singleton section
+    //
+    public boolean isSingletonDecision() {
+        return this.transformer.isSingletonDecision();
+    }
+
+    public String singletonDecisionInstance(String decisionQName) {
+        return this.transformer.singletonDecisionInstance(decisionQName);
+    }
+
+    //
     // Proto section
     //
     public boolean isGenerateProto() {

@@ -34,15 +34,15 @@ public interface NumericLib<NUMBER> {
 
     NUMBER modulo(NUMBER dividend, NUMBER divisor);
 
-    NUMBER sqrt(NUMBER NUMBER);
+    NUMBER sqrt(NUMBER number);
 
-    NUMBER log(NUMBER NUMBER);
+    NUMBER log(NUMBER number);
 
-    NUMBER exp(NUMBER NUMBER);
+    NUMBER exp(NUMBER number);
 
-    Boolean odd(NUMBER NUMBER);
+    Boolean odd(NUMBER number);
 
-    Boolean even(NUMBER NUMBER);
+    Boolean even(NUMBER number);
 
     //
     // List functions
@@ -67,19 +67,19 @@ public interface NumericLib<NUMBER> {
 
     NUMBER product(List list);
 
-    NUMBER product(Object... NUMBERs);
+    NUMBER product(Object... numbers);
 
     NUMBER median(List list);
 
-    NUMBER median(Object... NUMBERs);
+    NUMBER median(Object... numbers);
 
     NUMBER stddev(List list);
 
-    NUMBER stddev(Object... NUMBERs);
+    NUMBER stddev(Object... numbers);
 
     List mode(List list);
 
-    List mode(Object... NUMBERs);
+    List mode(Object... numbers);
 
     Number toNumber(NUMBER number);
 }

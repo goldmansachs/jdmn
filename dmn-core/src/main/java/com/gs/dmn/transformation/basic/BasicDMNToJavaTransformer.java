@@ -602,6 +602,31 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
+    public boolean isSingletonDecision() {
+        return this.inputParameters.isSingletonDecision();
+    }
+
+    @Override
+    public String singletonDecisionConstructor(String javaClassName, TDecision decision) {
+        List<DRGElementReference<TDecision>> directSubDecisionReferences = this.dmnModelRepository.directSubDecisions(decision);
+        if (directSubDecisionReferences.isEmpty()) {
+            return defaultConstructor(javaClassName);
+        } else {
+            this.dmnModelRepository.sortNamedElementReferences(directSubDecisionReferences);
+            String arguments = directSubDecisionReferences
+                    .stream()
+                    .map(d -> singletonDecisionInstance(qualifiedName(d)))
+                    .collect(Collectors.joining(", "));
+            return constructor(javaClassName, arguments);
+        }
+    }
+
+    @Override
+    public String singletonDecisionInstance(String decisionQName) {
+        return String.format("%s.instance()", decisionQName);
+    }
+
+    @Override
     public String decisionConstructorSignature(TDecision decision) {
         List<DRGElementReference<TDecision>> subDecisionReferences = this.dmnModelRepository.directSubDecisions(decision);
         this.dmnModelRepository.sortNamedElementReferences(subDecisionReferences);
@@ -610,9 +635,9 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String decisionConstructorNewArgumentList(TDecision decision) {
-        List<DRGElementReference<TDecision>> subDecisionReferences = this.dmnModelRepository.directSubDecisions(decision);
-        this.dmnModelRepository.sortNamedElementReferences(subDecisionReferences);
-        return subDecisionReferences
+        List<DRGElementReference<TDecision>> directSubDecisionReferences = this.dmnModelRepository.directSubDecisions(decision);
+        this.dmnModelRepository.sortNamedElementReferences(directSubDecisionReferences);
+        return directSubDecisionReferences
                 .stream()
                 .map(d -> String.format("%s", defaultConstructor(qualifiedName(d))))
                 .collect(Collectors.joining(", "));
