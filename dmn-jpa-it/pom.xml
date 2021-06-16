@@ -128,6 +128,21 @@
                             </inputParameters>
                         </configuration>
                     </execution>
+
+                    <execution>
+                        <id>lazy-input-model</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${dmn.diagram.folder}/lazy-input-model.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.lazy_input_model</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
 
