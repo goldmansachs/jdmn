@@ -39,44 +39,39 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
     }
 
     @Override
-    public Double round(Double n, Double scale, String mode) {
+    public Double round(Double n, Double scale, RoundingMode mode) {
         if (n == null || scale == null || mode == null) {
             return null;
         }
 
-        RoundingMode roundingMode = NumericRoundingMode.fromValue(mode);
-        if (roundingMode == null) {
-            throw new DMNRuntimeException(String.format("Unknown rounding mode '%s'. Expected one of '%s'", mode, NumericRoundingMode.ALLOWED_VALUES));
-        } else {
-            return BigDecimal.valueOf(n).setScale(scale.intValue(), roundingMode).doubleValue();
-        }
+        return BigDecimal.valueOf(n).setScale(scale.intValue(), mode).doubleValue();
     }
 
     @Override
-    public Double floor(Double number) {
-        if (number == null) {
+    public Double floor(Double n, Double scale) {
+        if (n == null || scale == null) {
             return null;
         }
 
-        return BigDecimal.valueOf(number).setScale(0, RoundingMode.FLOOR).doubleValue();
+        return BigDecimal.valueOf(n).setScale(scale.intValue(), RoundingMode.FLOOR).doubleValue();
     }
 
     @Override
-    public Double ceiling(Double number) {
-        if (number == null) {
+    public Double ceiling(Double n, Double scale) {
+        if (n == null || scale == null) {
             return null;
         }
 
-        return BigDecimal.valueOf(number).setScale(0, RoundingMode.CEILING).doubleValue();
+        return BigDecimal.valueOf(n).setScale(scale.intValue(), RoundingMode.CEILING).doubleValue();
     }
 
     @Override
-    public Double abs(Double number) {
-        if (number == null) {
+    public Double abs(Double n) {
+        if (n == null) {
             return null;
         }
 
-        return Math.abs(number);
+        return Math.abs(n);
     }
 
     @Override
@@ -94,7 +89,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
             return null;
         }
 
-        return dividend - divisor * floor(dividend/divisor);
+        return dividend - divisor * floor(dividend/divisor, 0.0);
     }
 
     @Override

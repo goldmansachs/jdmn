@@ -19,6 +19,7 @@ import com.gs.dmn.feel.lib.type.function.FunctionType;
 import com.gs.dmn.feel.lib.type.list.ListLib;
 import com.gs.dmn.feel.lib.type.list.ListType;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
+import com.gs.dmn.feel.lib.type.numeric.NumericRoundingMode;
 import com.gs.dmn.feel.lib.type.numeric.NumericType;
 import com.gs.dmn.feel.lib.type.range.RangeLib;
 import com.gs.dmn.feel.lib.type.range.RangeType;
@@ -26,9 +27,11 @@ import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.string.StringType;
 import com.gs.dmn.feel.lib.type.time.*;
 import com.gs.dmn.runtime.Context;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.LambdaExpression;
 import com.gs.dmn.runtime.Range;
 
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -263,7 +266,12 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Override
     public NUMBER round(NUMBER n, NUMBER scale, String mode) {
         try {
-            return this.numberLib.round(n, scale, mode);
+            RoundingMode roundingMode = NumericRoundingMode.fromValue(mode);
+            if (roundingMode == null) {
+                throw new DMNRuntimeException(String.format("Unknown rounding mode '%s'. Expected one of '%s'", mode, NumericRoundingMode.ALLOWED_VALUES));
+            } else {
+                return this.numberLib.round(n, scale, roundingMode);
+            }
         } catch (Exception e) {
             String message = String.format("round(%s, %s, %s)", n, scale, mode);
             logError(message, e);
@@ -272,22 +280,88 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER floor(NUMBER number) {
+    public NUMBER roundUp(NUMBER n, NUMBER scale) {
         try {
-            return this.numberLib.floor(number);
+            return this.numberLib.round(n, scale, RoundingMode.UP);
         } catch (Exception e) {
-            String message = String.format("floor(%s)", number);
+            String message = String.format("roundUp(%s, %s)", n, scale);
             logError(message, e);
             return null;
         }
     }
 
     @Override
-    public NUMBER ceiling(NUMBER number) {
+    public NUMBER roundDown(NUMBER n, NUMBER scale) {
         try {
-            return this.numberLib.ceiling(number);
+            return this.numberLib.round(n, scale, RoundingMode.DOWN);
         } catch (Exception e) {
-            String message = String.format("ceiling(%s)", number);
+            String message = String.format("roundDown(%s, %s)", n, scale);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public NUMBER roundHalfUp(NUMBER n, NUMBER scale) {
+        try {
+            return this.numberLib.round(n, scale, RoundingMode.HALF_UP);
+        } catch (Exception e) {
+            String message = String.format("roundHalfUp(%s, %s)", n, scale);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public NUMBER roundHalfDown(NUMBER n, NUMBER scale) {
+        try {
+            return this.numberLib.round(n, scale, RoundingMode.HALF_DOWN);
+        } catch (Exception e) {
+            String message = String.format("roundHalfDown(%s, %s)", n, scale);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public NUMBER floor(NUMBER n) {
+        try {
+            return this.numberLib.floor(n, valueOf(0));
+        } catch (Exception e) {
+            String message = String.format("floor(%s)", n);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public NUMBER floor(NUMBER n, NUMBER scale) {
+        try {
+            return this.numberLib.floor(n, scale);
+        } catch (Exception e) {
+            String message = String.format("floor(%s, %s)", n, scale);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public NUMBER ceiling(NUMBER n) {
+        try {
+            return this.numberLib.ceiling(n, valueOf(0));
+        } catch (Exception e) {
+            String message = String.format("ceiling(%s)", n);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public NUMBER ceiling(NUMBER number, NUMBER scale) {
+        try {
+            return this.numberLib.ceiling(number, scale);
+        } catch (Exception e) {
+            String message = String.format("ceiling(%s, %s)", number, scale);
             logError(message, e);
             return null;
         }

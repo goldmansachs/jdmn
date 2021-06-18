@@ -15,6 +15,7 @@ package com.gs.dmn.feel.lib.stub;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
+import java.math.RoundingMode;
 import java.util.List;
 
 public class NumericLibStub<NUMBER> implements NumericLib<NUMBER> {
@@ -34,16 +35,16 @@ public class NumericLibStub<NUMBER> implements NumericLib<NUMBER> {
     }
 
     @Override
-    public NUMBER round(NUMBER n, NUMBER scale, String mode) {
+    public NUMBER round(NUMBER n, NUMBER scale, RoundingMode mode) {
         throw new DMNRuntimeException("Not supported yet");    }
 
     @Override
-    public NUMBER floor(NUMBER number) {
+    public NUMBER floor(NUMBER n, NUMBER scale) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public NUMBER ceiling(NUMBER number) {
+    public NUMBER ceiling(NUMBER n, NUMBER scale) {
         throw new DMNRuntimeException("Not supported yet");
     }
 

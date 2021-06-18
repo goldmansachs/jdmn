@@ -100,7 +100,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     }
 
     @Test
-    public void testRoundUp() {
+    public void testRoundWithUpMode() {
         assertNull(getLib().round(null, null, null));
         assertNull(getLib().round(null, makeNumber("128"), null));
         assertNull(getLib().round(makeNumber("10"), makeNumber("2"), null));
@@ -137,7 +137,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     }
 
     @Test
-    public void testRoundDown() {
+    public void testRoundWithDownMode() {
         assertNull(getLib().round(null, null, "down"));
         assertNull(getLib().round(null, makeNumber("128"), "down"));
         assertNull(getLib().round(makeNumber("10"), null, "down"));
@@ -173,7 +173,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     }
 
     @Test
-    public void testRoundHalfUp() {
+    public void testRoundWithHalfUpMode() {
         assertNull(getLib().round(null, null, "half up"));
         assertNull(getLib().round(null, makeNumber("128"), "half up"));
         assertNull(getLib().round(makeNumber("10"), null, "half up"));
@@ -209,7 +209,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     }
 
     @Test
-    public void testRoundHalfDown() {
+    public void testRoundWithHalfDownMode() {
         assertNull(getLib().round(null, null, "half down"));
         assertNull(getLib().round(null, makeNumber("128"), "half down"));
         assertNull(getLib().round(makeNumber("10"), null, "half down"));
@@ -245,7 +245,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     }
 
     @Test
-    public void testRoundHalfEven() {
+    public void testRoundWithHalfEvenMode() {
         assertNull(getLib().round(null, null, "half down"));
         assertNull(getLib().round(null, makeNumber("128"), "half down"));
         assertNull(getLib().round(makeNumber("10"), null, "half down"));
@@ -281,25 +281,183 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     }
 
     @Test
+    public void testRoundUp() {
+        assertNull(getLib().roundUp(null, null));
+        assertNull(getLib().roundUp(null, makeNumber("128")));
+        assertNull(getLib().roundUp(makeNumber("10"), null));
+
+        // From RoundingMode.java https://docs.oracle.com/javase/8/docs/api/java/math/RoundingMode.html
+        assertEqualsNumber(makeNumber("6"), getLib().roundUp(makeNumber("5.5"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("3"), getLib().roundUp(makeNumber("2.5"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("2"), getLib().roundUp(makeNumber("1.6"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("2"), getLib().roundUp(makeNumber("1.1"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("1"), getLib().roundUp(makeNumber("1.0"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-1"), getLib().roundUp(makeNumber("-1.0"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-2"), getLib().roundUp(makeNumber("-1.1"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-2"), getLib().roundUp(makeNumber("-1.6"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-3"), getLib().roundUp(makeNumber("-2.5"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-6"), getLib().roundUp(makeNumber("-5.5"), makeNumber("0")));
+
+        assertEqualsNumber(makeNumber("5.13"), getLib().roundUp(makeNumber("5.125"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("2.13"), getLib().roundUp(makeNumber("2.125"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("1.13"), getLib().roundUp(makeNumber("1.126"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("1.13"), getLib().roundUp(makeNumber("1.121"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("1.12"), getLib().roundUp(makeNumber("1.120"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-1.12"), getLib().roundUp(makeNumber("-1.120"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-1.13"), getLib().roundUp(makeNumber("-1.121"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-1.13"), getLib().roundUp(makeNumber("-1.126"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-2.13"), getLib().roundUp(makeNumber("-2.125"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-5.13"), getLib().roundUp(makeNumber("-5.125"), makeNumber("2")));
+
+        // Negative scale
+        assertEqualsNumber(makeNumber("1.3E+2"), getLib().roundUp(makeNumber("125.125"), makeNumber("-1")));
+        assertEqualsNumber(makeNumber("-1.3E+2"), getLib().roundUp(makeNumber("-125.125"), makeNumber("-1")));
+        assertEqualsNumber(makeNumber("2E+2"), getLib().roundUp(makeNumber("125.125"), makeNumber("-2")));
+        assertEqualsNumber(makeNumber("-2E+2"), getLib().roundUp(makeNumber("-125.125"), makeNumber("-2")));
+    }
+
+    @Test
+    public void testRoundDown() {
+        assertNull(getLib().roundDown(null, null));
+        assertNull(getLib().roundDown(null, makeNumber("128")));
+        assertNull(getLib().roundDown(makeNumber("10"), null));
+
+        // From RoundingMode.java https://docs.oracle.com/javase/8/docs/api/java/math/RoundingMode.html
+        assertEqualsNumber(makeNumber("5"), getLib().roundDown(makeNumber("5.5"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("2"), getLib().roundDown(makeNumber("2.5"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("1"), getLib().roundDown(makeNumber("1.6"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("1"), getLib().roundDown(makeNumber("1.1"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("1"), getLib().roundDown(makeNumber("1.0"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-1"), getLib().roundDown(makeNumber("-1.0"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-1"), getLib().roundDown(makeNumber("-1.1"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-1"), getLib().roundDown(makeNumber("-1.6"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-2"), getLib().roundDown(makeNumber("-2.5"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-5"), getLib().roundDown(makeNumber("-5.5"), makeNumber("0")));
+
+        assertEqualsNumber(makeNumber("5.12"), getLib().roundDown(makeNumber("5.125"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("2.12"), getLib().roundDown(makeNumber("2.125"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("1.12"), getLib().roundDown(makeNumber("1.126"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("1.12"), getLib().roundDown(makeNumber("1.121"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("1.12"), getLib().roundDown(makeNumber("1.120"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-1.12"), getLib().roundDown(makeNumber("-1.120"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-1.12"), getLib().roundDown(makeNumber("-1.121"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-1.12"), getLib().roundDown(makeNumber("-1.126"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-2.12"), getLib().roundDown(makeNumber("-2.125"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-5.12"), getLib().roundDown(makeNumber("-5.125"), makeNumber("2")));
+
+        // Negative scale
+        assertEqualsNumber(makeNumber("1.2E+2"), getLib().roundDown(makeNumber("125.125"), makeNumber("-1")));
+        assertEqualsNumber(makeNumber("-1.2E+2"), getLib().roundDown(makeNumber("-125.125"), makeNumber("-1")));
+        assertEqualsNumber(makeNumber("1E+2"), getLib().roundDown(makeNumber("125.125"), makeNumber("-2")));
+        assertEqualsNumber(makeNumber("-1E+2"), getLib().roundDown(makeNumber("-125.125"), makeNumber("-2")));
+    }
+
+    @Test
+    public void testRoundHalfUp() {
+        assertNull(getLib().roundHalfUp(null, null));
+        assertNull(getLib().roundHalfUp(null, makeNumber("128")));
+        assertNull(getLib().roundHalfUp(makeNumber("10"), null));
+
+        // From RoundingMode.java https://docs.oracle.com/javase/8/docs/api/java/math/RoundingMode.html
+        assertEqualsNumber(makeNumber("6"), getLib().roundHalfUp(makeNumber("5.5"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("3"), getLib().roundHalfUp(makeNumber("2.5"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("2"), getLib().roundHalfUp(makeNumber("1.6"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("1"), getLib().roundHalfUp(makeNumber("1.1"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("1"), getLib().roundHalfUp(makeNumber("1.0"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-1"), getLib().roundHalfUp(makeNumber("-1.0"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-1"), getLib().roundHalfUp(makeNumber("-1.1"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-2"), getLib().roundHalfUp(makeNumber("-1.6"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-3"), getLib().roundHalfUp(makeNumber("-2.5"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-6"), getLib().roundHalfUp(makeNumber("-5.5"), makeNumber("0")));
+
+        assertEqualsNumber(makeNumber("5.13"), getLib().roundHalfUp(makeNumber("5.125"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("2.13"), getLib().roundHalfUp(makeNumber("2.125"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("1.13"), getLib().roundHalfUp(makeNumber("1.126"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("1.12"), getLib().roundHalfUp(makeNumber("1.121"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("1.12"), getLib().roundHalfUp(makeNumber("1.120"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-1.12"), getLib().roundHalfUp(makeNumber("-1.120"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-1.12"), getLib().roundHalfUp(makeNumber("-1.121"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-1.13"), getLib().roundHalfUp(makeNumber("-1.126"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-2.13"), getLib().roundHalfUp(makeNumber("-2.125"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-5.13"), getLib().roundHalfUp(makeNumber("-5.125"), makeNumber("2")));
+
+        // Negative scale
+        assertEqualsNumber(makeNumber("1.3E+2"), getLib().roundHalfUp(makeNumber("125.125"), makeNumber("-1")));
+        assertEqualsNumber(makeNumber("-1.3E+2"), getLib().roundHalfUp(makeNumber("-125.125"), makeNumber("-1")));
+        assertEqualsNumber(makeNumber("1E+2"), getLib().roundHalfUp(makeNumber("125.125"), makeNumber("-2")));
+        assertEqualsNumber(makeNumber("-1E+2"), getLib().roundHalfUp(makeNumber("-125.125"), makeNumber("-2")));
+    }
+
+    @Test
+    public void testRoundHalfDown() {
+        assertNull(getLib().roundHalfDown(null, null));
+        assertNull(getLib().roundHalfDown(null, makeNumber("128")));
+        assertNull(getLib().roundHalfDown(makeNumber("10"), null));
+
+        // From RoundingMode.java https://docs.oracle.com/javase/8/docs/api/java/math/RoundingMode.html
+        assertEqualsNumber(makeNumber("5"), getLib().roundHalfDown(makeNumber("5.5"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("2"), getLib().roundHalfDown(makeNumber("2.5"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("2"), getLib().roundHalfDown(makeNumber("1.6"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("1"), getLib().roundHalfDown(makeNumber("1.1"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("1"), getLib().roundHalfDown(makeNumber("1.0"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-1"), getLib().roundHalfDown(makeNumber("-1.0"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-1"), getLib().roundHalfDown(makeNumber("-1.1"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-2"), getLib().roundHalfDown(makeNumber("-1.6"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-2"), getLib().roundHalfDown(makeNumber("-2.5"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("-5"), getLib().roundHalfDown(makeNumber("-5.5"), makeNumber("0")));
+
+        assertEqualsNumber(makeNumber("5.12"), getLib().roundHalfDown(makeNumber("5.125"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("2.12"), getLib().roundHalfDown(makeNumber("2.125"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("1.13"), getLib().roundHalfDown(makeNumber("1.126"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("1.12"), getLib().roundHalfDown(makeNumber("1.121"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("1.12"), getLib().roundHalfDown(makeNumber("1.120"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-1.12"), getLib().roundHalfDown(makeNumber("-1.120"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-1.12"), getLib().roundHalfDown(makeNumber("-1.121"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-1.13"), getLib().roundHalfDown(makeNumber("-1.126"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-2.12"), getLib().roundHalfDown(makeNumber("-2.125"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("-5.12"), getLib().roundHalfDown(makeNumber("-5.125"), makeNumber("2")));
+
+        // Negative scale
+        assertEqualsNumber(makeNumber("1.3E+2"), getLib().roundHalfDown(makeNumber("125.125"), makeNumber("-1")));
+        assertEqualsNumber(makeNumber("-1.3E+2"), getLib().roundHalfDown(makeNumber("-125.125"), makeNumber("-1")));
+        assertEqualsNumber(makeNumber("1E+2"), getLib().roundHalfDown(makeNumber("125.125"), makeNumber("-2")));
+        assertEqualsNumber(makeNumber("-1E+2"), getLib().roundHalfDown(makeNumber("-125.125"), makeNumber("-2")));
+    }
+
+    @Test
     public void testFloor() {
         assertNull(getLib().floor(null));
+        assertNull(getLib().floor(null, null));
 
         assertEqualsNumber(makeNumber("1"), getLib().floor(makeNumber(1)));
         assertEqualsNumber(makeNumber("1"), getLib().floor(makeNumber(1.23)));
         assertEqualsNumber(makeNumber("1"), getLib().floor(makeNumber(1.5)));
         assertEqualsNumber(makeNumber("1"), getLib().floor(makeNumber(1.56)));
         assertEqualsNumber(makeNumber("-2"), getLib().floor(makeNumber(-1.56)));
+
+        assertEqualsNumber(makeNumber("1"), getLib().floor(makeNumber(1), makeNumber(1)));
+        assertEqualsNumber(makeNumber("1.2"), getLib().floor(makeNumber(1.23), makeNumber(1)));
+        assertEqualsNumber(makeNumber("1.5"), getLib().floor(makeNumber(1.5), makeNumber(1)));
+        assertEqualsNumber(makeNumber("1.5"), getLib().floor(makeNumber(1.56), makeNumber(1)));
+        assertEqualsNumber(makeNumber("-1.6"), getLib().floor(makeNumber(-1.56), makeNumber(1)));
     }
 
     @Test
     public void testCeiling() {
         assertNull(getLib().ceiling(null));
+        assertNull(getLib().ceiling(null, null));
 
         assertEqualsNumber(makeNumber("1"), getLib().ceiling(makeNumber(1)));
         assertEqualsNumber(makeNumber("2"), getLib().ceiling(makeNumber(1.23)));
         assertEqualsNumber(makeNumber("2"), getLib().ceiling(makeNumber(1.5)));
         assertEqualsNumber(makeNumber("2"), getLib().ceiling(makeNumber(1.56)));
         assertEqualsNumber(makeNumber("-1"), getLib().ceiling(makeNumber(-1.5)));
+
+        assertEqualsNumber(makeNumber("1"), getLib().ceiling(makeNumber(1), makeNumber(1)));
+        assertEqualsNumber(makeNumber("1.3"), getLib().ceiling(makeNumber(1.23), makeNumber(1)));
+        assertEqualsNumber(makeNumber("1.5"), getLib().ceiling(makeNumber(1.5), makeNumber(1)));
+        assertEqualsNumber(makeNumber("1.6"), getLib().ceiling(makeNumber(1.56), makeNumber(1)));
+        assertEqualsNumber(makeNumber("-1.5"), getLib().ceiling(makeNumber(-1.56), makeNumber(1)));
     }
 
     @Test
