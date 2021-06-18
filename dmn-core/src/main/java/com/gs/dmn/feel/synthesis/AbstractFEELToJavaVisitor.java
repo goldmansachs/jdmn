@@ -71,6 +71,11 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         FEEL_2_JAVA_FUNCTION.put("day of week", "dayOfWeek");
         FEEL_2_JAVA_FUNCTION.put("month of year", "monthOfYear");
         FEEL_2_JAVA_FUNCTION.put("week of year", "weekOfYear");
+
+        FEEL_2_JAVA_FUNCTION.put("round up", "roundUp");
+        FEEL_2_JAVA_FUNCTION.put("round down", "roundDown");
+        FEEL_2_JAVA_FUNCTION.put("round half up", "roundHalfUp");
+        FEEL_2_JAVA_FUNCTION.put("round half down", "roundHalfDown");
     }
 
     public AbstractFEELToJavaVisitor(BasicDMNToNativeTransformer dmnTransformer) {
