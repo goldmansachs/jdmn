@@ -1,4 +1,4 @@
-# Articles and Resources
+# References
 
 ## Books
 
@@ -14,11 +14,26 @@
 
 ## Conferences
 
+* [DecisionCAMP 2021](https://decisioncamp2021.wordpress.com/)
+* [DecisionCAMP 2020](https://decisioncamp2020.home.blog/)
+* [DecisionCAMP 2019](https://decisioncamp2019.wordpress.com/)
 * [DecisionCAMP 2018](https://decisioncamp2018.wordpress.com/)
 * [DecisionCAMP 2017](http://2017.ruleml-rr.org/decisioncamp-2017/)
 * [DecisionCAMP 2016](http://2016.ruleml.org/decisioncamp)
 
-## Resources
+## Research articles
+
+* [A Modern Appraisal of Decision Tables. A CODASYL Report, 1982](articles/A%20Modern%20Appraisal%20of%20Decision%20Tables.%20A%20CODASYL%20Report.pdf)
+* [Semantics and Analysis of DMN Decision Tables, 2016](articles/Semantics%20and%20Analysis%20of%20DMN%20Decision%20Tables.pdf)
+* [Semantics, Analysis and Simplification of DMN Decision Tables](articles/Semantics,%20Analysis%20and%20Simplification%20of%20DMN%20Decision%20Tables.pdf)
+* [Scalable Sweeping-Based Spatial Join](articles/Scalable%20Sweeping-Based%20Spatial%20Join.pdf)
+* [Listing All Maximal Cliques in Sparse Graphs](articles/Listing%20All%20Maximal%20Cliques%20in%20Sparse%20Graphs.pdf)
+* [Decision Tables Aggregation in Rough Sets Approximation](articles/Decision%20Tables%20Aggregation%20in%20Rough%20Sets%20Approximation.pdf)
+* [Bron-Kerbosch Algorithm](https://en.wikipedia.org/wiki/Bron%E2%80%93Kerbosch_algorithm)
+
+## Other
 
 * [Decision Management Community](https://dmcommunity.org/)
 * [DMN TCK project](https://github.com/dmn-tck/tck)
+* [Prologa](https://feb.kuleuven.be/prologa/)
+
