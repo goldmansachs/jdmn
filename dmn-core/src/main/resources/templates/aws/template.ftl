@@ -28,19 +28,18 @@ Resources:
         ${r.functionName}:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /apply
+            Path: /${r.restPath}
             Method: get
 
 </#list>
-
 Outputs:
-<#list functionResources as r>
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+<#list functionResources as r>
   ${r.functionName}Api:
     Description: "API Gateway endpoint URL for Prod stage for ${r.functionName}"
-    Value: !Sub "https://${r"${ServerlessRestApi}"}.execute-api.${r"${AWS::Region}"}.amazonaws.com/Prod/apply/"
+    Value: !Sub "https://${r"${ServerlessRestApi}"}.execute-api.${r"${AWS::Region}"}.amazonaws.com/Prod/${r.restPath}"
   ${r.functionName}:
     Description: "ARN of ${r.functionName}"
     Value: !GetAtt ${r.functionName}.Arn
