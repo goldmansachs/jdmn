@@ -26,10 +26,11 @@ public class ${testClassName} extends ${decisionBaseClass} {
 }
 <#macro addDecisionField>
     <#assign decisionQName = testLabUtil.qualifiedName(testLab, rootOutputParameter) >
+    <#assign decisionVariableName = testLabUtil.qualifiedName(testLab, rootOutputParameter) >
     <#if testLabUtil.isSingletonDecision()>
-    private final ${testLabUtil.qualifiedName(testLab, rootOutputParameter)} ${testLabUtil.drgElementVariableName(rootOutputParameter)} = ${testLabUtil.singletonDecisionInstance(decisionQName)};
+    private final ${decisionQName} ${decisionVariableName} = ${testLabUtil.singletonDecisionInstance(decisionQName)};
     <#else>
-    private final ${testLabUtil.qualifiedName(testLab, rootOutputParameter)} ${testLabUtil.drgElementVariableName(rootOutputParameter)} = ${testLabUtil.defaultConstructor(decisionQName)};
+    private final ${decisionQName} ${decisionVariableName} = ${testLabUtil.defaultConstructor(decisionQName)};
     </#if>
 </#macro>
 

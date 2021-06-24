@@ -35,6 +35,7 @@ import com.gs.dmn.runtime.annotation.DRGElementKind;
 import com.gs.dmn.runtime.annotation.ExpressionKind;
 import com.gs.dmn.runtime.annotation.HitPolicy;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
+import com.gs.dmn.runtime.listener.TreeTraceEventListener;
 import com.gs.dmn.transformation.native_.NativeFactory;
 import com.gs.dmn.transformation.native_.statement.Statement;
 import com.gs.dmn.transformation.proto.MessageType;
@@ -310,6 +311,8 @@ public interface BasicDMNToNativeTransformer {
     String defaultEventListenerClassName();
 
     String loggingEventListenerClassName();
+
+    String treeTraceEventListenerClassName();
 
     String externalExecutorClassName();
 

@@ -12,7 +12,7 @@
         <maven.compiler.target>11</maven.compiler.target>
 
         <generated.source.code.folder>${r"${project.build.directory}"}/generated-sources/dmn</generated.source.code.folder>
-        <generated.test.code.folder>${r"${project.build.directory}"}"/generated-test-sources/tck</generated.test.code.folder>
+        <generated.test.code.folder>${r"${project.build.directory}"}/generated-test-sources/tck</generated.test.code.folder>
     </properties>
 
     <dependencyManagement>
