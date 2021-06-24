@@ -26,7 +26,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
 }
 <#macro addDecisionField>
     <#assign decisionQName = testLabUtil.qualifiedName(testLab, rootOutputParameter) >
-    <#assign decisionVariableName = testLabUtil.qualifiedName(testLab, rootOutputParameter) >
+    <#assign decisionVariableName = testLabUtil.drgElementVariableName(rootOutputParameter) >
     <#if testLabUtil.isSingletonDecision()>
     private final ${decisionQName} ${decisionVariableName} = ${testLabUtil.singletonDecisionInstance(decisionQName)};
     <#else>
