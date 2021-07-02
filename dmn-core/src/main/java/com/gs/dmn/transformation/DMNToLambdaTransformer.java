@@ -21,6 +21,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
+import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
@@ -30,6 +31,7 @@ import com.gs.dmn.validation.NopDMNValidator;
 import freemarker.template.*;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
 import org.omg.spec.dmn._20191111.model.TDefinitions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +54,9 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
 
     protected static final File STANDARD_FOLDER = new File("dmn-test-cases/standard");
 
+    private final DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dmnDialect;
     private final DMNToNativeTransformer dmnToNativeTransformer;
+    private final LazyEvaluationDetector lazyEvaluationDetector;
     private final InputParameters inputParameters;
     private final BuildLogger logger;
 
@@ -66,6 +70,8 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
             InputParameters inputParameters,
             BuildLogger logger
     ) {
+        this.dmnDialect = dmnDialect;
+        this.lazyEvaluationDetector = lazyEvaluationDetector;
         this.inputParameters = inputParameters;
         this.logger = logger;
         // Create native transformer
@@ -90,24 +96,37 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         }
         TDefinitions definitions = allDefinitions.get(0);
 
-        // Generate lambda
+        // Generate pom file
         String modelName = definitions.getName();
         String lambdaFolderName = lambdaFolderName(modelName);
-        String lambdaName = javaClassName(modelName);
-        Path srcPath = Paths.get(outputFolder.toPath().toString(), lambdaFolderName, "src", "main", "java");
-        generateLambdaRequestHandler(modelName, lambdaName, srcPath);
         generateLambdaPom(lambdaFolderName, outputFolder);
+
+        // Generate code for DMN model
+        Path srcPath = Paths.get(outputFolder.toPath().toString(), lambdaFolderName, "src", "main", "java");
         Path targetPath = srcPath;
         dmnToNativeTransformer.transform(inputFile.toPath(), targetPath);
 
+        // Generate handlers
+        BasicDMNToJavaTransformer basicTransformer = this.dmnDialect.createBasicTransformer(repository, this.lazyEvaluationDetector, this.inputParameters);
+        List<? extends TDRGElement> elements = findRootElements(repository, definitions, inputParameters);
+        for (TDRGElement element: elements) {
+            generateLambdaRequestHandler(modelName, element, basicTransformer, srcPath);
+        }
+
         // Generate SAM template
-        generateTemplate(modelName, lambdaFolderName, Arrays.asList(lambdaName), outputFolder);
+        generateTemplate(modelName, lambdaFolderName, elements, outputFolder);
     }
 
-    private void generateLambdaRequestHandler(String modelName, String lambdaName, Path functionPath) {
+    private List<? extends TDRGElement> findRootElements(DMNModelRepository repository, TDefinitions definitions, InputParameters inputParameters) {
+        return repository.findDecisions(definitions);
+    }
+
+    private void generateLambdaRequestHandler(String modelName, TDRGElement element, BasicDMNToJavaTransformer transformer, Path functionPath) {
         // Template
         String baseTemplatePath = getAWSBaseTemplatePath();
         String templateName = "lambdaClass.ftl";
+        String elementName = element.getName();
+        String lambdaName = lambdaName(elementName);
 
         try {
             // Output file
@@ -120,6 +139,8 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
             // Make parameters
             Map<String, Object> params = new HashMap<>();
             params.put("modelName", modelName);
+            params.put("element", element);
+            params.put("transformer", transformer);
             params.put("javaPackageName", javaPackageName);
             params.put("javaClassName", outputFileName);
 
@@ -155,12 +176,12 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         }
     }
 
-    private void generateTemplate(String modelName, String stackName, List<String> lambdaNames, File outputFolder) {
+    private void generateTemplate(String modelName, String stackName, List<? extends TDRGElement> elements, File outputFolder) {
         // Template
         String baseTemplatePath = getAWSBaseTemplatePath();
         String templateName = "template.ftl";
 
-        List<FunctionResource> functionResources = makeFunctionResources(lambdaNames);
+        List<FunctionResource> functionResources = makeFunctionResources(modelName, elements);
 
         try {
             // Output file
@@ -178,19 +199,22 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
 
             processTemplate(baseTemplatePath, templateName, params, outputFile);
         } catch (Exception e) {
-            throw new RuntimeException(String.format("Cannot generate from template '%s' for '%s'", templateName, lambdaNames), e);
+            throw new RuntimeException(String.format("Cannot generate from template '%s' for '%s'", templateName, elements), e);
         }
     }
 
-    private List<FunctionResource> makeFunctionResources(List<String> lambdaNames) {
+    private List<FunctionResource> makeFunctionResources(String modelName, List<? extends TDRGElement> elements) {
         List<FunctionResource> resources = new ArrayList<>();
-        for (String lambdaName: lambdaNames) {
-            String folderName = lambdaFolderName(lambdaName);
+        for (TDRGElement element: elements) {
+            String elementName = element.getName();
+            String lambdaName = lambdaName(elementName);
+            String folderName = lambdaFolderName(modelName);
             String codeUri = String.format("%s", folderName);
             String javaPackageName = javaPackageName(lambdaName);
             String javaClassName = javaClassName(lambdaName);
             String handler = String.format("%s.%s::handleRequest", javaPackageName, javaClassName);
-            resources.add(new FunctionResource(javaClassName, codeUri, handler));
+            String path = restPath(elementName);
+            resources.add(new FunctionResource(javaClassName, codeUri, handler, path));
         }
         return resources;
     }
@@ -250,6 +274,10 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         return javaFriendlyName(modelName).toLowerCase();
     }
 
+    public String lambdaName(String elementName) {
+        return javaClassName(elementName) + "Lambda";
+    }
+
     // Names
     public String javaPackageName(String lambdaName) {
         return inputParameters.getJavaRootPackage();
@@ -279,6 +307,28 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
 
     public String javaClassName(String lambdaName) {
         return javaFriendlyName(lambdaName).replaceAll("_", "");
+    }
+
+    private String restPath(String name) {
+        StringBuilder restPath = new StringBuilder();
+        boolean foundGap = false;
+        for (int i=0; i<name.length(); i++) {
+            char ch = name.charAt(i);
+            if (Character.isLetterOrDigit(ch)) {
+                if (foundGap) {
+                    restPath.append("-");
+                }
+                foundGap = false;
+                restPath.append(ch);
+            } else {
+                foundGap = true;
+            }
+        }
+        String result = restPath.toString();
+        if (!Character.isLetter(result.charAt(0))) {
+            result = "F" + result;
+        }
+        return "apply/" + result.toLowerCase();
     }
 
     public String getFileExtension() {

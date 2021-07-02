@@ -37,10 +37,8 @@ import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.JavaExternalFunction;
 import com.gs.dmn.runtime.interpreter.ImportPath;
-import com.gs.dmn.runtime.listener.Arguments;
+import com.gs.dmn.runtime.listener.*;
 import com.gs.dmn.runtime.listener.EventListener;
-import com.gs.dmn.runtime.listener.LoggingEventListener;
-import com.gs.dmn.runtime.listener.NopEventListener;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.InputParameters;
@@ -1184,6 +1182,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public String loggingEventListenerClassName() {
         return LoggingEventListener.class.getName();
+    }
+
+    @Override
+    public String treeTraceEventListenerClassName() {
+        return TreeTraceEventListener.class.getName();
     }
 
     @Override
