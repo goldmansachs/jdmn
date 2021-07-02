@@ -32,7 +32,7 @@
 ## How to generate JUnit tests from TCK tests?
 1. Create a Maven project
 2. Write the tests in TCK format
-3. Add the dmn-maven-plugin in the plugins section configured as follow
+3. Add the dmn-maven-plugin in the plugins section configured as follows
 
 ```xml
     <plugin>
@@ -127,17 +127,13 @@ More examples in the pom of the [dmn-tck-integration-tests](https://github.com/g
 3. Invoke one of the apply methods
 For example:
 
-```java
-    GenerateOutputData decision = new GenerateOutputData();
-    AnnotationSet annotationSet = new AnnotationSet();
-    Applicant applicant = new Applicant();
-    applicant.setName("Amy");
-    applicant.setAge(decision.number("38"));
-    applicant.setCreditScore(decision.number("100"));
-    applicant.setPriorIssues(Arrays.asList("Late payment"));
+```
+    com.gs.dmn.generated.example_credit_decision.GenerateOutputData generateOutputData = new com.gs.dmn.generated.example_credit_decision.GenerateOutputData();
     
-    java.math.BigDecimal currentRiskAppetite = decision.number("50");
-    java.math.BigDecimal lendingThreshold = decision.number("25");
+    java.math.BigDecimal currentRiskAppetite = number("50");
+    java.math.BigDecimal lendingThreshold = number("25");
+    com.gs.dmn.generated.example_credit_decision.type.Applicant applicant = new com.gs.dmn.generated.example_credit_decision.type.ApplicantImpl(number("38"), number("100"), "Amy", asList("Late payment"));
     
-    List<Object> result = decision.apply(annotationSet, applicant, currentRiskAppetite, lendingThreshold);
+    com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+    List<com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData> generateOutputData = this.generateOutputData.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_);
 ```
