@@ -9,21 +9,19 @@ Follow the steps:
 
 ```
     // Read DMN file
-    BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(...));
-    DMNReader reader = new DMNReader(LOGGER, false);
-    TDefinitions definitions = reader.read(dmnFileURL);
+    BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger("logger"));
+    File input = new File("model.dmn");
+    DMNReader reader = new DMNReader(LOGGER, true);
+    Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(input);
 
     // Create interpreter
-    DMNDialectDefinition dialect = new StandardDMNDialectDefinition();
-    DMNInterpreter interpreter = dialect.createDMNInterpreter(definitions);
-    
-    // Bind inputs to values
-    RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentFactory.instance().makeEnvironment();
-    T inputValue = ...; // where T is determined by the FEEL data type and the dialect  
-    String inputName = ...;
-    runtimeEnvironment.bind(inputName, inputValue);
+    MixedJavaTimeDMNDialectDefinition dialect = new MixedJavaTimeDMNDialectDefinition();
+    DMNInterpreter<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> interpreter = dialect.createDMNInterpreter(new DMNModelRepository(pair), inputParameters);
 
     // Evaluate decision
-    String decisionName = ...;
-    Object result = interpreter.evaluate(decisionName, runtimeEnvironment);
+    String namespace = "http://www.provider.com/model-id";
+    String decisionName = "Decision A";
+    Map<String, Object> inputs = new LinkedHashMap<>();
+    inputs.put("income", BigDecimal.valueOf(10000));
+    Object result = interpreter.evaluateDecision(namespace, decisionName, inputs);
 ```

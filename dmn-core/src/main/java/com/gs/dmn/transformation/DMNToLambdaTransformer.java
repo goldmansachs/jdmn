@@ -266,6 +266,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
 
         map.put("javaRootPackage", "com.gs.lambda");
         map.put("caching", "true");
+        map.put("singletonDecision", "true");
 
         return new InputParameters(map);
     }
