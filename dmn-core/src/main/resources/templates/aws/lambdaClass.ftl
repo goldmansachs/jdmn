@@ -49,7 +49,7 @@ public class ${javaClassName} implements com.amazonaws.services.lambda.runtime.R
         java.util.Map<String, Object> ${resultVariable} = new java.util.LinkedHashMap<>();
         ${resultVariable}.put("${repository.name(element)}", ${outputVariable});
         if (${traceVariable}) {
-            ${resultVariable}.put("_explain", ((${transformer.treeTraceEventListenerClassName()}) eventListener_).preorderNodes());
+            ${resultVariable}.put("_explain", ((${transformer.treeTraceEventListenerClassName()}) eventListener_).getRoot());
         }
 
         return ${resultVariable};
