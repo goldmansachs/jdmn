@@ -12,10 +12,12 @@
  */
 package com.gs.dmn.ast;
 
+import com.gs.dmn.runtime.DMNContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TPerformanceIndicator extends TBusinessContextElement {
+public class TPerformanceIndicator extends TBusinessContextElement implements Visitable {
     private List<TDMNElementReference> impactingDecision;
 
     public List<TDMNElementReference> getImpactingDecision() {
@@ -23,5 +25,10 @@ public class TPerformanceIndicator extends TBusinessContextElement {
             impactingDecision = new ArrayList<>();
         }
         return this.impactingDecision;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

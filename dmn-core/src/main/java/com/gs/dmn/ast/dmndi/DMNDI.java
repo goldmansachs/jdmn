@@ -12,10 +12,14 @@
  */
 package com.gs.dmn.ast.dmndi;
 
+import com.gs.dmn.ast.Visitable;
+import com.gs.dmn.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class DMNDI {
+public class DMNDI implements Visitable {
     private List<DMNDiagram> dmnDiagram;
     private List<DMNStyle> dmnStyle;
 
@@ -31,5 +35,10 @@ public class DMNDI {
             dmnStyle = new ArrayList<>();
         }
         return this.dmnStyle;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

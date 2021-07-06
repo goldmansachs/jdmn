@@ -12,10 +12,12 @@
  */
 package com.gs.dmn.ast;
 
+import com.gs.dmn.runtime.DMNContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TList extends TExpression {
+public class TList extends TExpression implements Visitable {
     private List<? extends TExpression> expression;
 
     public List<? extends TExpression> getExpression() {
@@ -23,5 +25,10 @@ public class TList extends TExpression {
             expression = new ArrayList<>();
         }
         return this.expression;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

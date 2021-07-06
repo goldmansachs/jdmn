@@ -13,12 +13,13 @@
 package com.gs.dmn.ast;
 
 import com.gs.dmn.ast.dmndi.DMNDI;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.serialization.DMNVersion;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TDefinitions extends TNamedElement {
+public class TDefinitions extends TNamedElement implements Visitable {
     private List<TImport> _import;
     private List<TItemDefinition> itemDefinition;
     private List<? extends TDRGElement> drgElement;
@@ -128,5 +129,10 @@ public class TDefinitions extends TNamedElement {
 
     public void setExporterVersion(String value) {
         this.exporterVersion = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

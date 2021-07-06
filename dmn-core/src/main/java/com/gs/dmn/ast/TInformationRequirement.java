@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.ast;
 
-public class TInformationRequirement extends TDMNElement {
+import com.gs.dmn.runtime.DMNContext;
+
+public class TInformationRequirement extends TDMNElement implements Visitable {
     private TDMNElementReference requiredDecision;
     private TDMNElementReference requiredInput;
 
@@ -30,5 +32,10 @@ public class TInformationRequirement extends TDMNElement {
 
     public void setRequiredInput(TDMNElementReference value) {
         this.requiredInput = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.ast;
 
-public class TKnowledgeRequirement extends TDMNElement {
+import com.gs.dmn.runtime.DMNContext;
+
+public class TKnowledgeRequirement extends TDMNElement implements Visitable {
     private TDMNElementReference requiredKnowledge;
 
     public TDMNElementReference getRequiredKnowledge() {
@@ -21,5 +23,10 @@ public class TKnowledgeRequirement extends TDMNElement {
 
     public void setRequiredKnowledge(TDMNElementReference value) {
         this.requiredKnowledge = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

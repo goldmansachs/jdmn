@@ -12,10 +12,12 @@
  */
 package com.gs.dmn.ast;
 
+import com.gs.dmn.runtime.DMNContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TElementCollection extends TNamedElement {
+public class TElementCollection extends TNamedElement implements Visitable {
     private List<TDMNElementReference> drgElement;
 
     public List<TDMNElementReference> getDrgElement() {
@@ -23,5 +25,10 @@ public class TElementCollection extends TNamedElement {
             drgElement = new ArrayList<>();
         }
         return this.drgElement;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

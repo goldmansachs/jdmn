@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.ast;
 
-public class TImportedValues extends TImport {
+import com.gs.dmn.runtime.DMNContext;
+
+public class TImportedValues extends TImport implements Visitable {
     private String importedElement;
     private String expressionLanguage;
 
@@ -30,5 +32,10 @@ public class TImportedValues extends TImport {
 
     public void setExpressionLanguage(String value) {
         this.expressionLanguage = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

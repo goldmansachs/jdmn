@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.ast;
 
-public class TOutputClause extends TDMNElement {
+import com.gs.dmn.runtime.DMNContext;
+
+public class TOutputClause extends TDMNElement implements Visitable {
     private TUnaryTests outputValues;
     private TLiteralExpression defaultOutputEntry;
     private String name;
@@ -48,5 +50,10 @@ public class TOutputClause extends TDMNElement {
 
     public void setTypeRef(String value) {
         this.typeRef = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

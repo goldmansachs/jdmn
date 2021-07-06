@@ -12,10 +12,12 @@
  */
 package com.gs.dmn.ast;
 
+import com.gs.dmn.runtime.DMNContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TOrganizationUnit extends TBusinessContextElement {
+public class TOrganizationUnit extends TBusinessContextElement implements Visitable {
     private List<TDMNElementReference> decisionMade;
     private List<TDMNElementReference> decisionOwned;
 
@@ -31,5 +33,10 @@ public class TOrganizationUnit extends TBusinessContextElement {
             decisionOwned = new ArrayList<>();
         }
         return this.decisionOwned;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

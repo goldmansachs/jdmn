@@ -12,9 +12,13 @@
  */
 package com.gs.dmn.ast.dmndi;
 
+import com.gs.dmn.ast.Visitable;
+import com.gs.dmn.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
+
 import javax.xml.namespace.QName;
 
-public class DMNEdge extends Edge {
+public class DMNEdge extends Edge implements Visitable {
     private DMNLabel dmnLabel;
     private QName dmnElementRef;
     private QName sourceElement;
@@ -50,5 +54,10 @@ public class DMNEdge extends Edge {
 
     public void setTargetElement(QName value) {
         this.targetElement = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

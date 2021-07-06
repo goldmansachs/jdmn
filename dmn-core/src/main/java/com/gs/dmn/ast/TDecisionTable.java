@@ -12,10 +12,12 @@
  */
 package com.gs.dmn.ast;
 
+import com.gs.dmn.runtime.DMNContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TDecisionTable extends TExpression {
+public class TDecisionTable extends TExpression implements Visitable {
     private List<TInputClause> input;
     private List<TOutputClause> output;
     private List<TRuleAnnotationClause> annotation;
@@ -91,5 +93,10 @@ public class TDecisionTable extends TExpression {
 
     public void setOutputLabel(String value) {
         this.outputLabel = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

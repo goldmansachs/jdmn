@@ -12,9 +12,13 @@
  */
 package com.gs.dmn.ast.dmndi;
 
+import com.gs.dmn.ast.Visitable;
+import com.gs.dmn.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
+
 import javax.xml.namespace.QName;
 
-public class DMNShape extends Shape {
+public class DMNShape extends Shape implements Visitable {
     private DMNLabel dmnLabel;
     private DMNDecisionServiceDividerLine dmnDecisionServiceDividerLine;
     private QName dmnElementRef;
@@ -63,5 +67,10 @@ public class DMNShape extends Shape {
 
     public void setIsCollapsed(Boolean value) {
         this.isCollapsed = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

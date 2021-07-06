@@ -12,10 +12,12 @@
  */
 package com.gs.dmn.ast;
 
+import com.gs.dmn.runtime.DMNContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TItemDefinition extends TNamedElement {
+public class TItemDefinition extends TNamedElement implements Visitable {
     private String typeRef;
     private TUnaryTests allowedValues;
     private List<TItemDefinition> itemComponent;
@@ -72,5 +74,10 @@ public class TItemDefinition extends TNamedElement {
 
     public void setIsCollection(Boolean value) {
         this.isCollection = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

@@ -12,10 +12,12 @@
  */
 package com.gs.dmn.ast;
 
+import com.gs.dmn.runtime.DMNContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TDecisionService extends TInvocable {
+public class TDecisionService extends TInvocable implements Visitable {
     private List<TDMNElementReference> outputDecision;
     private List<TDMNElementReference> encapsulatedDecision;
     private List<TDMNElementReference> inputDecision;
@@ -47,5 +49,10 @@ public class TDecisionService extends TInvocable {
             inputData = new ArrayList<>();
         }
         return this.inputData;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

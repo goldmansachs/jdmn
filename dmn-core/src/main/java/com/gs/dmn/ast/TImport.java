@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.ast;
 
-public class TImport extends TNamedElement {
+import com.gs.dmn.runtime.DMNContext;
+
+public class TImport extends TNamedElement implements Visitable {
     private String namespace;
     private String locationURI;
     private String importType;
@@ -39,5 +41,10 @@ public class TImport extends TNamedElement {
 
     public void setImportType(String value) {
         this.importType = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

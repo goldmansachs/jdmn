@@ -12,10 +12,12 @@
  */
 package com.gs.dmn.ast;
 
+import com.gs.dmn.runtime.DMNContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TKnowledgeSource extends TDRGElement {
+public class TKnowledgeSource extends TDRGElement implements Visitable{
     private List<TAuthorityRequirement> authorityRequirement;
     private String type;
     private TDMNElementReference owner;
@@ -50,5 +52,10 @@ public class TKnowledgeSource extends TDRGElement {
 
     public void setLocationURI(String value) {
         this.locationURI = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

@@ -12,10 +12,12 @@
  */
 package com.gs.dmn.ast;
 
+import com.gs.dmn.runtime.DMNContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TDecisionRule extends TDMNElement {
+public class TDecisionRule extends TDMNElement implements Visitable {
     private List<TUnaryTests> inputEntry;
     private List<TLiteralExpression> outputEntry;
     private List<TRuleAnnotation> annotationEntry;
@@ -39,5 +41,10 @@ public class TDecisionRule extends TDMNElement {
             annotationEntry = new ArrayList<>();
         }
         return this.annotationEntry;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

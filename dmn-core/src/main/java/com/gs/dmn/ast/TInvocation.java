@@ -12,10 +12,12 @@
  */
 package com.gs.dmn.ast;
 
+import com.gs.dmn.runtime.DMNContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TInvocation extends TExpression {
+public class TInvocation extends TExpression implements Visitable {
     private TExpression expression;
     private List<TBinding> binding;
 
@@ -32,5 +34,10 @@ public class TInvocation extends TExpression {
             binding = new ArrayList<>();
         }
         return this.binding;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

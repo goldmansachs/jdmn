@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.ast;
 
-public class TBinding {
+import com.gs.dmn.runtime.DMNContext;
+
+public class TBinding implements Visitable {
     private TInformationItem parameter;
     private TExpression expression;
 
@@ -30,5 +32,10 @@ public class TBinding {
 
     public void setExpression(TExpression value) {
         this.expression = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

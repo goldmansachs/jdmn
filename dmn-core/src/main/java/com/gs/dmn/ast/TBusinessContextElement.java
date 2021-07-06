@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.ast;
 
-public class TBusinessContextElement extends TNamedElement {
+import com.gs.dmn.runtime.DMNContext;
+
+public class TBusinessContextElement extends TNamedElement implements Visitable {
     private String uri;
 
     public String getURI() {
@@ -21,5 +23,10 @@ public class TBusinessContextElement extends TNamedElement {
 
     public void setURI(String value) {
         this.uri = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }
