@@ -14,57 +14,7 @@ package com.gs.dmn.ast;
 
 import com.gs.dmn.ast.dmndi.*;
 
-import javax.xml.namespace.QName;
-
 public class ObjectFactory {
-    private final static QName _DMNElement_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "DMNElement");
-    private final static QName _NamedElement_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "namedElement");
-    private final static QName _Definitions_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "definitions");
-    private final static QName _Import_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "import");
-    private final static QName _ElementCollection_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "elementCollection");
-    private final static QName _DrgElement_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "drgElement");
-    private final static QName _Decision_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "decision");
-    private final static QName _BusinessContextElement_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "businessContextElement");
-    private final static QName _PerformanceIndicator_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "performanceIndicator");
-    private final static QName _OrganizationUnit_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "organizationUnit");
-    private final static QName _Invocable_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "invocable");
-    private final static QName _BusinessKnowledgeModel_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "businessKnowledgeModel");
-    private final static QName _InputData_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "inputData");
-    private final static QName _KnowledgeSource_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "knowledgeSource");
-    private final static QName _InformationRequirement_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "informationRequirement");
-    private final static QName _KnowledgeRequirement_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "knowledgeRequirement");
-    private final static QName _AuthorityRequirement_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "authorityRequirement");
-    private final static QName _Expression_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "expression");
-    private final static QName _ItemDefinition_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "itemDefinition");
-    private final static QName _FunctionItem_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "functionItem");
-    private final static QName _LiteralExpression_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "literalExpression");
-    private final static QName _Invocation_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "invocation");
-    private final static QName _InformationItem_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "informationItem");
-    private final static QName _DecisionTable_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "decisionTable");
-    private final static QName _Artifact_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "artifact");
-    private final static QName _Group_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "group");
-    private final static QName _TextAnnotation_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "textAnnotation");
-    private final static QName _Association_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "association");
-    private final static QName _Context_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "context");
-    private final static QName _ContextEntry_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "contextEntry");
-    private final static QName _FunctionDefinition_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "functionDefinition");
-    private final static QName _Relation_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "relation");
-    private final static QName _List_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "list");
-    private final static QName _DecisionService_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/MODEL/", "decisionService");
-    private final static QName _DMNDI_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/DMNDI/", "DMNDI");
-    private final static QName _DMNDiagram_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/DMNDI/", "DMNDiagram");
-    private final static QName _DMNDiagramElement_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/DMNDI/", "DMNDiagramElement");
-    private final static QName _DMNShape_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/DMNDI/", "DMNShape");
-    private final static QName _DMNEdge_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/DMNDI/", "DMNEdge");
-    private final static QName _DMNStyle_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/DMNDI/", "DMNStyle");
-    private final static QName _Style_QNAME = new QName("http://www.omg.org/spec/DMN/20180521/DI/", "Style");
-    private final static QName _DMNLabel_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/DMNDI/", "DMNLabel");
-    private final static QName _DMNDecisionServiceDividerLine_QNAME = new QName("https://www.omg.org/spec/DMN/20191111/DMNDI/", "DMNDecisionServiceDividerLine");
-    private final static QName _Color_QNAME = new QName("http://www.omg.org/spec/DMN/20180521/DC/", "Color");
-    private final static QName _Point_QNAME = new QName("http://www.omg.org/spec/DMN/20180521/DC/", "Point");
-    private final static QName _Bounds_QNAME = new QName("http://www.omg.org/spec/DMN/20180521/DC/", "Bounds");
-    private final static QName _Dimension_QNAME = new QName("http://www.omg.org/spec/DMN/20180521/DC/", "Dimension");
-
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.omg.spec.dmn._20191111.model
      * 

@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.ast;
 
-public class TRuleAnnotation {
+import com.gs.dmn.runtime.DMNContext;
+
+public class TRuleAnnotation implements Visitable {
     private String text;
 
     public String getText() {
@@ -21,5 +23,10 @@ public class TRuleAnnotation {
 
     public void setText(String value) {
         this.text = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

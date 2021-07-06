@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.ast;
 
-public class TTextAnnotation extends TArtifact {
+import com.gs.dmn.runtime.DMNContext;
+
+public class TTextAnnotation extends TArtifact implements Visitable {
     private String text;
     private String textFormat;
 
@@ -34,5 +36,10 @@ public class TTextAnnotation extends TArtifact {
 
     public void setTextFormat(String value) {
         this.textFormat = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

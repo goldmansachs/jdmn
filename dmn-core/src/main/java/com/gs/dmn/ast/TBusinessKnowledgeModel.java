@@ -12,10 +12,12 @@
  */
 package com.gs.dmn.ast;
 
+import com.gs.dmn.runtime.DMNContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TBusinessKnowledgeModel extends TInvocable {
+public class TBusinessKnowledgeModel extends TInvocable implements Visitable {
     private TFunctionDefinition encapsulatedLogic;
     private List<TKnowledgeRequirement> knowledgeRequirement;
     private List<TAuthorityRequirement> authorityRequirement;
@@ -40,5 +42,10 @@ public class TBusinessKnowledgeModel extends TInvocable {
             authorityRequirement = new ArrayList<>();
         }
         return this.authorityRequirement;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

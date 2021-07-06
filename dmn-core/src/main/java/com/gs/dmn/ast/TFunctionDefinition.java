@@ -12,10 +12,12 @@
  */
 package com.gs.dmn.ast;
 
+import com.gs.dmn.runtime.DMNContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TFunctionDefinition extends TExpression {
+public class TFunctionDefinition extends TExpression implements Visitable {
     private List<TInformationItem> formalParameter;
     private TExpression expression;
     private TFunctionKind kind;
@@ -45,5 +47,10 @@ public class TFunctionDefinition extends TExpression {
 
     public void setKind(TFunctionKind value) {
         this.kind = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.ast;
 
-public class TContextEntry extends TDMNElement {
+import com.gs.dmn.runtime.DMNContext;
+
+public class TContextEntry extends TDMNElement implements Visitable {
     private TInformationItem variable;
     private TExpression expression;
 
@@ -30,5 +32,10 @@ public class TContextEntry extends TDMNElement {
 
     public void setExpression(TExpression value) {
         this.expression = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

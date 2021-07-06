@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.ast;
 
-public class TAuthorityRequirement extends TDMNElement {
+import com.gs.dmn.runtime.DMNContext;
+
+public class TAuthorityRequirement extends TDMNElement implements Visitable {
     private TDMNElementReference requiredDecision;
     private TDMNElementReference requiredInput;
     private TDMNElementReference requiredAuthority;
@@ -39,5 +41,10 @@ public class TAuthorityRequirement extends TDMNElement {
 
     public void setRequiredAuthority(TDMNElementReference value) {
         this.requiredAuthority = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

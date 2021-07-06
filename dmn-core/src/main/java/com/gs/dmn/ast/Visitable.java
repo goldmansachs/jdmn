@@ -14,29 +14,6 @@ package com.gs.dmn.ast;
 
 import com.gs.dmn.runtime.DMNContext;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class TRelation extends TExpression implements Visitable {
-    private List<TInformationItem> column;
-    private List<TList> row;
-
-    public List<TInformationItem> getColumn() {
-        if (column == null) {
-            column = new ArrayList<>();
-        }
-        return this.column;
-    }
-
-    public List<TList> getRow() {
-        if (row == null) {
-            row = new ArrayList<>();
-        }
-        return this.row;
-    }
-
-    @Override
-    public Object accept(Visitor visitor, DMNContext context) {
-        return visitor.visit(this, context);
-    }
+public interface Visitable {
+    Object accept(Visitor visitor, DMNContext context);
 }

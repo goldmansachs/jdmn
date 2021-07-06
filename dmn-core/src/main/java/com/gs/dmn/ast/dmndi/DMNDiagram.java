@@ -12,10 +12,14 @@
  */
 package com.gs.dmn.ast.dmndi;
 
+import com.gs.dmn.ast.Visitable;
+import com.gs.dmn.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class DMNDiagram extends Diagram {
+public class DMNDiagram extends Diagram implements Visitable {
     private Dimension size;
     private List<? extends DiagramElement> dmnDiagramElement;
 
@@ -32,5 +36,10 @@ public class DMNDiagram extends Diagram {
             dmnDiagramElement = new ArrayList<>();
         }
         return this.dmnDiagramElement;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

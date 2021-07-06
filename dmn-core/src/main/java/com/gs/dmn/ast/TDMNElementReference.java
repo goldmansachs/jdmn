@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.ast;
 
-public class TDMNElementReference {
+import com.gs.dmn.runtime.DMNContext;
+
+public class TDMNElementReference implements Visitable {
     private String href;
 
     public String getHref() {
@@ -21,5 +23,10 @@ public class TDMNElementReference {
 
     public void setHref(String value) {
         this.href = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

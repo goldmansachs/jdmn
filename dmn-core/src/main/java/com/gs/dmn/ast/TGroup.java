@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.ast;
 
-public class TGroup extends TArtifact {
+import com.gs.dmn.runtime.DMNContext;
+
+public class TGroup extends TArtifact implements Visitable {
     private String name;
 
     public String getName() {
@@ -21,5 +23,10 @@ public class TGroup extends TArtifact {
 
     public void setName(String value) {
         this.name = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

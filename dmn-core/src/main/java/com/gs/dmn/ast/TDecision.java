@@ -12,10 +12,12 @@
  */
 package com.gs.dmn.ast;
 
+import com.gs.dmn.runtime.DMNContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TDecision extends TDRGElement {
+public class TDecision extends TDRGElement implements Visitable {
     private String question;
     private String allowedAnswers;
     private TInformationItem variable;
@@ -123,5 +125,10 @@ public class TDecision extends TDRGElement {
 
     public void setExpression(TExpression value) {
         this.expression = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

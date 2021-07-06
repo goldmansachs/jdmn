@@ -12,5 +12,13 @@
  */
 package com.gs.dmn.ast.dmndi;
 
-public class DMNDecisionServiceDividerLine extends Edge {
+import com.gs.dmn.ast.Visitable;
+import com.gs.dmn.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
+
+public class DMNDecisionServiceDividerLine extends Edge implements Visitable {
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
+    }
 }

@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.ast;
 
-public class TLiteralExpression extends TExpression {
+import com.gs.dmn.runtime.DMNContext;
+
+public class TLiteralExpression extends TExpression implements Visitable {
     private String text;
     private TImportedValues importedValues;
     private String expressionLanguage;
@@ -39,5 +41,10 @@ public class TLiteralExpression extends TExpression {
 
     public void setExpressionLanguage(String value) {
         this.expressionLanguage = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

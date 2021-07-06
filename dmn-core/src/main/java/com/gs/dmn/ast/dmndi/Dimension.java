@@ -12,7 +12,11 @@
  */
 package com.gs.dmn.ast.dmndi;
 
-public class Dimension {
+import com.gs.dmn.ast.Visitable;
+import com.gs.dmn.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
+
+public class Dimension implements Visitable {
     private double width;
     private double height;
 
@@ -30,5 +34,10 @@ public class Dimension {
 
     public void setHeight(double value) {
         this.height = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

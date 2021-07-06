@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.ast;
 
-public class TInputData extends TDRGElement {
+import com.gs.dmn.runtime.DMNContext;
+
+public class TInputData extends TDRGElement implements Visitable {
     private TInformationItem variable;
 
     public TInformationItem getVariable() {
@@ -21,5 +23,10 @@ public class TInputData extends TDRGElement {
 
     public void setVariable(TInformationItem value) {
         this.variable = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

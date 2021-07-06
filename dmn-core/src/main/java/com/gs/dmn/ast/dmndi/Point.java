@@ -12,7 +12,11 @@
  */
 package com.gs.dmn.ast.dmndi;
 
-public class Point {
+import com.gs.dmn.ast.Visitable;
+import com.gs.dmn.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
+
+public class Point implements Visitable {
     private double x;
     private double y;
 
@@ -30,5 +34,10 @@ public class Point {
 
     public void setY(double value) {
         this.y = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

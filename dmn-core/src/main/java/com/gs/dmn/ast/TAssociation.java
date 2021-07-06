@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.ast;
 
-public class TAssociation extends TArtifact {
+import com.gs.dmn.runtime.DMNContext;
+
+public class TAssociation extends TArtifact implements Visitable {
     private TDMNElementReference sourceRef;
     private TDMNElementReference targetRef;
     private TAssociationDirection associationDirection;
@@ -43,5 +45,10 @@ public class TAssociation extends TArtifact {
 
     public void setAssociationDirection(TAssociationDirection value) {
         this.associationDirection = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

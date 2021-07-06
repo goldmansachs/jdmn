@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.ast;
 
-public class TInputClause extends TDMNElement {
+import com.gs.dmn.runtime.DMNContext;
+
+public class TInputClause extends TDMNElement implements Visitable {
     private TLiteralExpression inputExpression;
     private TUnaryTests inputValues;
 
@@ -30,5 +32,10 @@ public class TInputClause extends TDMNElement {
 
     public void setInputValues(TUnaryTests value) {
         this.inputValues = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

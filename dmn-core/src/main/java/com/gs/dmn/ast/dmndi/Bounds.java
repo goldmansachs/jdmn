@@ -12,7 +12,11 @@
  */
 package com.gs.dmn.ast.dmndi;
 
-public class Bounds {
+import com.gs.dmn.ast.Visitable;
+import com.gs.dmn.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
+
+public class Bounds implements Visitable {
     private double x;
     private double y;
     private double width;
@@ -48,5 +52,10 @@ public class Bounds {
 
     public void setHeight(double value) {
         this.height = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.ast;
 
-public class TInformationItem extends TNamedElement {
+import com.gs.dmn.runtime.DMNContext;
+
+public class TInformationItem extends TNamedElement implements Visitable {
     private String typeRef;
 
     public String getTypeRef() {
@@ -21,5 +23,10 @@ public class TInformationItem extends TNamedElement {
 
     public void setTypeRef(String value) {
         this.typeRef = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

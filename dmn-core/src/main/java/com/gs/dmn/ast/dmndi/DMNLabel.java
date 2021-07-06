@@ -12,7 +12,11 @@
  */
 package com.gs.dmn.ast.dmndi;
 
-public class DMNLabel extends Shape {
+import com.gs.dmn.ast.Visitable;
+import com.gs.dmn.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
+
+public class DMNLabel extends Shape implements Visitable {
     private String text;
 
     public String getText() {
@@ -21,5 +25,10 @@ public class DMNLabel extends Shape {
 
     public void setText(String value) {
         this.text = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

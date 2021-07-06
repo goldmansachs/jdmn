@@ -12,7 +12,11 @@
  */
 package com.gs.dmn.ast.dmndi;
 
-public class DMNStyle extends Style {
+import com.gs.dmn.ast.Visitable;
+import com.gs.dmn.ast.Visitor;
+import com.gs.dmn.runtime.DMNContext;
+
+public class DMNStyle extends Style implements Visitable {
     private Color fillColor;
     private Color strokeColor;
     private Color fontColor;
@@ -111,5 +115,10 @@ public class DMNStyle extends Style {
 
     public void setLabelVerticalAlignment(AlignmentKind value) {
         this.labelVerticalAlignment = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }

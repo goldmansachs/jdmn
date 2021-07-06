@@ -12,10 +12,12 @@
  */
 package com.gs.dmn.ast;
 
+import com.gs.dmn.runtime.DMNContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TFunctionItem extends TDMNElement {
+public class TFunctionItem extends TDMNElement implements Visitable {
     private List<TInformationItem> parameters;
     private String outputTypeRef;
 
@@ -32,5 +34,10 @@ public class TFunctionItem extends TDMNElement {
 
     public void setOutputTypeRef(String value) {
         this.outputTypeRef = value;
+    }
+
+    @Override
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 }
