@@ -12,10 +12,27 @@
  */
 package com.gs.dmn.ast.dmndi;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.ast.Visitable;
 import com.gs.dmn.ast.Visitor;
 import com.gs.dmn.runtime.DMNContext;
 
+@JsonPropertyOrder({
+        "id",
+        "otherAttributes",
+        "extension",
+        "fontFamily",
+        "fontSize",
+        "fontItalic",
+        "fontBold",
+        "fontUnderline",
+        "fontStrikeThrough",
+        "labelHorizontalAlignment",
+        "labelVerticalAlignment",
+        "fillColor",
+        "strokeColor",
+        "fontColor"
+})
 public class DMNStyle extends Style implements Visitable {
     private Color fillColor;
     private Color strokeColor;

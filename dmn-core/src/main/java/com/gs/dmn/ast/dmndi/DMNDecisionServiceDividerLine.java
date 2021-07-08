@@ -12,10 +12,19 @@
  */
 package com.gs.dmn.ast.dmndi;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.ast.Visitable;
 import com.gs.dmn.ast.Visitor;
 import com.gs.dmn.runtime.DMNContext;
 
+@JsonPropertyOrder({
+        "id",
+        "sharedStyle",
+        "otherAttributes",
+        "style",
+        "extension",
+        "waypoint"
+})
 public class DMNDecisionServiceDividerLine extends Edge implements Visitable {
     @Override
     public Object accept(Visitor visitor, DMNContext context) {

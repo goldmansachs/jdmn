@@ -12,5 +12,15 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind")
+@JsonSubTypes({
+        @JsonSubTypes.Type(name = "decision", value = TDecision.class),
+        @JsonSubTypes.Type(name = "inputData", value = TInputData.class),
+        @JsonSubTypes.Type(name = "knowledgeSource", value = TKnowledgeSource.class),
+        @JsonSubTypes.Type(name = "invocable", value = TInvocable.class)
+})
 public abstract class TDRGElement extends TNamedElement {
 }

@@ -12,8 +12,19 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.runtime.DMNContext;
 
+@JsonPropertyOrder({
+        "id",
+        "label",
+        "otherAttributes",
+        "description",
+        "requiredDecision",
+        "requiredInput",
+        "requiredAuthority",
+        "extensionElements"
+})
 public class TAuthorityRequirement extends TDMNElement implements Visitable {
     private TDMNElementReference requiredDecision;
     private TDMNElementReference requiredInput;

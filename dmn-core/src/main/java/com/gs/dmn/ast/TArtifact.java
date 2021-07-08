@@ -12,5 +12,14 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind")
+@JsonSubTypes({
+        @JsonSubTypes.Type(name = "dmnEdge", value = TGroup.class),
+        @JsonSubTypes.Type(name = "textAnnotation", value = TTextAnnotation.class),
+        @JsonSubTypes.Type(name = "association", value = TAssociation.class)
+})
 public abstract class TArtifact extends TDMNElement {
 }

@@ -12,12 +12,29 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind")
+@JsonSubTypes({
+        @JsonSubTypes.Type(name = "informationRequirement", value = TInformationRequirement.class),
+        @JsonSubTypes.Type(name = "knowledgeRequirement", value = TKnowledgeRequirement.class),
+        @JsonSubTypes.Type(name = "authorityRequirement", value = TAuthorityRequirement.class),
+        @JsonSubTypes.Type(name = "functionItem", value = TFunctionItem.class),
+        @JsonSubTypes.Type(name = "artifact", value = TArtifact.class),
+        @JsonSubTypes.Type(name = "contextEntry", value = TContextEntry.class),
+        @JsonSubTypes.Type(name = "inputClause", value = TInputClause.class),
+        @JsonSubTypes.Type(name = "outputClause", value = TOutputClause.class),
+        @JsonSubTypes.Type(name = "decisionRule", value = TDecisionRule.class),
+        @JsonSubTypes.Type(name = "namedElement", value = TNamedElement.class),
+        @JsonSubTypes.Type(name = "expression", value = TExpression.class),
+})
 public abstract class TDMNElement {
     private String description;
     private ExtensionElements extensionElements;

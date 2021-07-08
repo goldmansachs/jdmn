@@ -12,6 +12,14 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind")
+@JsonSubTypes({
+        @JsonSubTypes.Type(name = "bkm", value = TBusinessKnowledgeModel.class),
+        @JsonSubTypes.Type(name = "ds", value = TDecisionService.class)
+})
 public abstract class TInvocable extends TDRGElement {
     private TInformationItem variable;
 

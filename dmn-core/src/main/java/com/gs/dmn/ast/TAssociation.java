@@ -12,8 +12,19 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.runtime.DMNContext;
 
+@JsonPropertyOrder({
+        "id",
+        "label",
+        "otherAttributes",
+        "description",
+        "associationDirection",
+        "sourceRef",
+        "targetRef",
+        "extensionElements"
+})
 public class TAssociation extends TArtifact implements Visitable {
     private TDMNElementReference sourceRef;
     private TDMNElementReference targetRef;

@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.ast.dmndi;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.ast.Visitable;
 import com.gs.dmn.ast.Visitor;
 import com.gs.dmn.runtime.DMNContext;
@@ -19,6 +20,18 @@ import com.gs.dmn.runtime.DMNContext;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonPropertyOrder({
+        "name",
+        "id",
+        "sharedStyle",
+        "otherAttributes",
+        "style",
+        "extension",
+        "documentation",
+        "resolution",
+        "size",
+        "dmnDiagramElement"
+})
 public class DMNDiagram extends Diagram implements Visitable {
     private Dimension size;
     private List<? extends DiagramElement> dmnDiagramElement;

@@ -12,8 +12,18 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.runtime.DMNContext;
 
+@JsonPropertyOrder({
+        "id",
+        "label",
+        "otherAttributes",
+        "description",
+        "variable",
+        "expression",
+        "extensionElements"
+})
 public class TContextEntry extends TDMNElement implements Visitable {
     private TInformationItem variable;
     private TExpression expression;

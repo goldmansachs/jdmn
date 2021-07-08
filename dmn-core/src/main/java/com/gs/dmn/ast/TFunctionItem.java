@@ -12,11 +12,21 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonPropertyOrder({
+        "id",
+        "label",
+        "outputTypeRef",
+        "otherAttributes",
+        "description",
+        "parameters",
+        "extensionElements"
+})
 public class TFunctionItem extends TDMNElement implements Visitable {
     private List<TInformationItem> parameters;
     private String outputTypeRef;

@@ -12,12 +12,22 @@
  */
 package com.gs.dmn.ast.dmndi;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.ast.Visitable;
 import com.gs.dmn.ast.Visitor;
 import com.gs.dmn.runtime.DMNContext;
 
 import javax.xml.namespace.QName;
 
+@JsonPropertyOrder({
+        "id",
+        "sharedStyle",
+        "otherAttributes",
+        "style",
+        "extension",
+        "waypoint",
+        "dmnLabel"
+})
 public class DMNEdge extends Edge implements Visitable {
     private DMNLabel dmnLabel;
     private QName dmnElementRef;

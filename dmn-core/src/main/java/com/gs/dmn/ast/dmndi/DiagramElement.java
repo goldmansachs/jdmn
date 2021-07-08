@@ -12,12 +12,21 @@
  */
 package com.gs.dmn.ast.dmndi;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind")
+@JsonSubTypes({
+        @JsonSubTypes.Type(name = "diagram", value = Diagram.class),
+        @JsonSubTypes.Type(name = "shape", value = Shape.class),
+        @JsonSubTypes.Type(name = "edge", value = Edge.class),
+})
 public abstract class DiagramElement {
     private Extension extension;
     private Style style;
