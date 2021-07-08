@@ -19,14 +19,27 @@ public abstract class DMNDialectTransformerTest<S, T> extends AbstractFileTransf
         T targetDefinitions = transform(sourceDefinitions);
 
         // Write
+        File actualOutputFile = getActualOutputFile(inputFileName);
+        writeModel(targetDefinitions, dmnNamespacePrefixMapping, actualOutputFile);
+
+        // Compare
+        File expectedOutputFile = getExpectedOutputFile(inputFileName);
+        compareFile(expectedOutputFile, actualOutputFile);
+    }
+
+    protected File getActualOutputFile(String inputFileName) {
         File targetFolder = new File(getTargetPath());
         targetFolder.mkdirs();
         File actualOutputFile = new File(targetFolder, inputFileName);
-        dmnWriter.write(targetDefinitions, actualOutputFile, new DMNNamespacePrefixMapper(dmnNamespacePrefixMapping.getLeft(), dmnNamespacePrefixMapping.getRight(), getDMNTargetVersion()));
+        return actualOutputFile;
+    }
 
-        // Compare
-        File expectedOutputFile = new File(resource(getExpectedPath() + inputFileName));
-        compareFile(expectedOutputFile, actualOutputFile);
+    protected void writeModel(T targetDefinitions, Pair<String, String> dmnNamespacePrefixMapping, File actualOutputFile) {
+        dmnWriter.write(targetDefinitions, actualOutputFile, new DMNNamespacePrefixMapper(dmnNamespacePrefixMapping.getLeft(), dmnNamespacePrefixMapping.getRight(), getDMNTargetVersion()));
+    }
+
+    protected File getExpectedOutputFile(String inputFileName) {
+        return new File(resource(getExpectedPath() + inputFileName));
     }
 
     protected abstract DMNVersion getDMNTargetVersion();
