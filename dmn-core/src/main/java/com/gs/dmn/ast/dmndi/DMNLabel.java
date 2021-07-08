@@ -12,10 +12,21 @@
  */
 package com.gs.dmn.ast.dmndi;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.ast.Visitable;
 import com.gs.dmn.ast.Visitor;
 import com.gs.dmn.runtime.DMNContext;
 
+@JsonPropertyOrder({
+        "id",
+        "sharedStyle",
+        "otherAttributes",
+        "style",
+        "extension",
+        "waypoint",
+        "bounds",
+        "text"
+})
 public class DMNLabel extends Shape implements Visitable {
     private String text;
 

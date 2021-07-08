@@ -12,11 +12,24 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonPropertyOrder({
+        "name",
+        "id",
+        "label",
+        "otherAttributes",
+        "description",
+        "authorityRequirement",
+        "type",
+        "owner",
+        "locationURI",
+        "extensionElements"
+})
 public class TKnowledgeSource extends TDRGElement implements Visitable{
     private List<TAuthorityRequirement> authorityRequirement;
     private String type;

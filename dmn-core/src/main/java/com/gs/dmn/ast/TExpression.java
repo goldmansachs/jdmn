@@ -12,6 +12,20 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind")
+@JsonSubTypes({
+        @JsonSubTypes.Type(name = "literalExpression", value = TLiteralExpression.class),
+        @JsonSubTypes.Type(name = "invocation", value = TInvocation.class),
+        @JsonSubTypes.Type(name = "decisionTable", value = TDecisionTable.class),
+        @JsonSubTypes.Type(name = "context", value = TContext.class),
+        @JsonSubTypes.Type(name = "functionDefinition", value = TFunctionDefinition.class),
+        @JsonSubTypes.Type(name = "relation", value = TRelation.class),
+        @JsonSubTypes.Type(name = "list", value = TList.class),
+        @JsonSubTypes.Type(name = "unaryTests", value = TUnaryTests.class)
+})
 public abstract class TExpression extends TDMNElement {
     private String typeRef;
 

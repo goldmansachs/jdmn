@@ -12,8 +12,17 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.runtime.DMNContext;
 
+@JsonPropertyOrder({
+        "id",
+        "label",
+        "otherAttributes",
+        "description",
+        "text",
+        "extensionElements"
+})
 public class TUnaryTests extends TExpression implements Visitable {
     private String text;
     private String expressionLanguage;

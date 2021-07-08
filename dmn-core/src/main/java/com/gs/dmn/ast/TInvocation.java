@@ -12,11 +12,21 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonPropertyOrder({
+        "id",
+        "label",
+        "otherAttributes",
+        "description",
+        "expression",
+        "binding",
+        "extensionElements"
+})
 public class TInvocation extends TExpression implements Visitable {
     private TExpression expression;
     private List<TBinding> binding;

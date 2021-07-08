@@ -12,8 +12,18 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.runtime.DMNContext;
 
+@JsonPropertyOrder({
+        "name",
+        "id",
+        "label",
+        "otherAttributes",
+        "description",
+        "typeRef",
+        "extensionElements"
+})
 public class TInformationItem extends TNamedElement implements Visitable {
     private String typeRef;
 

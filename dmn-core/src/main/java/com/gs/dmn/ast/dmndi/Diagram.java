@@ -12,6 +12,13 @@
  */
 package com.gs.dmn.ast.dmndi;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind")
+@JsonSubTypes({
+        @JsonSubTypes.Type(name = "dmnDiagram", value = DMNDiagram.class)
+})
 public abstract class Diagram extends DiagramElement {
     private String name;
     private String documentation;

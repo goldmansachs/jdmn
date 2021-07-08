@@ -12,11 +12,24 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonPropertyOrder({
+        "name",
+        "id",
+        "label",
+        "otherAttributes",
+        "description",
+        "variable",
+        "encapsulatedLogic",
+        "knowledgeRequirement",
+        "authorityRequirement",
+        "extensionElements"
+})
 public class TBusinessKnowledgeModel extends TInvocable implements Visitable {
     private TFunctionDefinition encapsulatedLogic;
     private List<TKnowledgeRequirement> knowledgeRequirement;

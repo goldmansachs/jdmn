@@ -12,8 +12,18 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.runtime.DMNContext;
 
+@JsonPropertyOrder({
+        "id",
+        "label",
+        "otherAttributes",
+        "description",
+        "inputExpression",
+        "inputValues",
+        "extensionElements"
+})
 public class TInputClause extends TDMNElement implements Visitable {
     private TLiteralExpression inputExpression;
     private TUnaryTests inputValues;

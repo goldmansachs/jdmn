@@ -12,10 +12,16 @@
  */
 package com.gs.dmn.ast.dmndi;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.ast.Visitable;
 import com.gs.dmn.ast.Visitor;
 import com.gs.dmn.runtime.DMNContext;
 
+@JsonPropertyOrder({
+        "red",
+        "green",
+        "blue"
+})
 public class Color implements Visitable {
     private int red;
     private int green;

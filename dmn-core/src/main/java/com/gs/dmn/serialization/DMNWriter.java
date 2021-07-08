@@ -12,6 +12,14 @@
  */
 package com.gs.dmn.serialization;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
@@ -27,8 +35,34 @@ import java.io.OutputStream;
 import static com.gs.dmn.serialization.DMNVersion.*;
 
 public class DMNWriter extends DMNSerializer {
+    public static final ObjectMapper JSON_MAPPER = makeJsonMapper();
+
+    private static ObjectMapper makeJsonMapper() {
+        ObjectMapper objectMapper = JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .visibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
+                .visibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE)
+                .visibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NONE)
+                .visibility(PropertyAccessor.CREATOR, JsonAutoDetect.Visibility.NONE)
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .enable(SerializationFeature.INDENT_OUTPUT)
+                .build();
+
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+        return objectMapper;
+    }
+
     public DMNWriter(BuildLogger logger) {
         super(logger);
+    }
+
+    public void writeASTAsJson(TDefinitions definitions, File output, DMNNamespacePrefixMapper namespacePrefixMapper) {
+        try (FileOutputStream fos = new FileOutputStream(output)) {
+            JSON_MAPPER.writeValue(fos, definitions);
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", output.getPath()), e);
+        }
     }
 
     public void write(Object definitions, File output, DMNNamespacePrefixMapper namespacePrefixMapper) {

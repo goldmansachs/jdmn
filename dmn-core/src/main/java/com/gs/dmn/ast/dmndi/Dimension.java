@@ -12,10 +12,15 @@
  */
 package com.gs.dmn.ast.dmndi;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.ast.Visitable;
 import com.gs.dmn.ast.Visitor;
 import com.gs.dmn.runtime.DMNContext;
 
+@JsonPropertyOrder({
+        "width",
+        "height"
+})
 public class Dimension implements Visitable {
     private double width;
     private double height;

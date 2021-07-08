@@ -12,9 +12,14 @@
  */
 package com.gs.dmn.ast.dmndi;
 
-import com.gs.dmn.ast.dmndi.Bounds;
-import com.gs.dmn.ast.dmndi.DiagramElement;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind")
+@JsonSubTypes({
+        @JsonSubTypes.Type(name = "dmnShape", value = DMNShape.class),
+        @JsonSubTypes.Type(name = "dmnLabel", value = DMNLabel.class)
+})
 public abstract class Shape extends DiagramElement {
     private Bounds bounds;
 

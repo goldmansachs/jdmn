@@ -12,11 +12,33 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonPropertyOrder({
+        "name",
+        "id",
+        "label",
+        "otherAttributes",
+        "description",
+        "question",
+        "allowedAnswers",
+        "variable",
+        "informationRequirement",
+        "knowledgeRequirement",
+        "authorityRequirement",
+        "supportedObjective",
+        "impactedPerformanceIndicator",
+        "decisionMaker",
+        "decisionOwner",
+        "usingProcess",
+        "usingTask",
+        "expression",
+        "extensionElements"
+})
 public class TDecision extends TDRGElement implements Visitable {
     private String question;
     private String allowedAnswers;

@@ -12,11 +12,27 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonPropertyOrder({
+        "id",
+        "label",
+        "hitPolicy",
+        "aggregation",
+        "preferredOrientation",
+        "outputLabel",
+        "otherAttributes",
+        "description",
+        "input",
+        "output",
+        "annotation",
+        "rule",
+        "extensionElements"
+})
 public class TDecisionTable extends TExpression implements Visitable {
     private List<TInputClause> input;
     private List<TOutputClause> output;

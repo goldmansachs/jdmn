@@ -12,6 +12,19 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind")
+@JsonSubTypes({
+        @JsonSubTypes.Type(name = "definitions", value = TDefinitions.class),
+        @JsonSubTypes.Type(name = "elementCollection", value = TElementCollection.class),
+        @JsonSubTypes.Type(name = "businessContextElement", value = TBusinessContextElement.class),
+        @JsonSubTypes.Type(name = "itemDefinition", value = TItemDefinition.class),
+        @JsonSubTypes.Type(name = "informationItem", value = TInformationItem.class),
+        @JsonSubTypes.Type(name = "drgElement", value = TDRGElement.class),
+        @JsonSubTypes.Type(name = "import", value = TImport.class)
+})
 public abstract class TNamedElement extends TDMNElement {
     private String name;
 

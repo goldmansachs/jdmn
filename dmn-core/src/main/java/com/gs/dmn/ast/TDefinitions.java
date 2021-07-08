@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.ast.dmndi.DMNDI;
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.serialization.DMNVersion;
@@ -19,7 +21,28 @@ import com.gs.dmn.serialization.DMNVersion;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonPropertyOrder({
+        "name",
+        "id",
+        "label",
+        "expressionLanguage",
+        "typeLanguage",
+        "namespace",
+        "exporter",
+        "exporterVersion",
+        "otherAttributes",
+        "description",
+        "import",
+        "itemDefinition",
+        "drgElement",
+        "artifact",
+        "elementCollection",
+        "businessContextElement",
+        "dmndi",
+        "extensionElements"
+})
 public class TDefinitions extends TNamedElement implements Visitable {
+    @JsonProperty("import")
     private List<TImport> _import;
     private List<TItemDefinition> itemDefinition;
     private List<? extends TDRGElement> drgElement;

@@ -12,8 +12,18 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.runtime.DMNContext;
 
+@JsonPropertyOrder({
+        "id",
+        "label",
+        "otherAttributes",
+        "description",
+        "outputValues",
+        "defaultOutputEntry",
+        "extensionElements"
+})
 public class TOutputClause extends TDMNElement implements Visitable {
     private TUnaryTests outputValues;
     private TLiteralExpression defaultOutputEntry;

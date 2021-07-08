@@ -12,9 +12,17 @@
  */
 package com.gs.dmn.ast.dmndi;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind")
+@JsonSubTypes({
+        @JsonSubTypes.Type(name = "dmnEdge", value = DMNEdge.class),
+        @JsonSubTypes.Type(name = "dmnDecisionServiceDividerLine", value = DMNDecisionServiceDividerLine.class)
+})
 public abstract class Edge extends DiagramElement {
     private List<Point> waypoint;
 

@@ -12,8 +12,26 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.gs.dmn.runtime.DMNContext;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind")
+@JsonSubTypes({
+        @JsonSubTypes.Type(name = "importedValues", value = TImportedValues.class)
+})
+@JsonPropertyOrder({
+        "name",
+        "id",
+        "label",
+        "otherAttributes",
+        "description",
+        "namespace",
+        "locationURI",
+        "importType",
+        "extensionElements"
+})
 public class TImport extends TNamedElement implements Visitable {
     private String namespace;
     private String locationURI;

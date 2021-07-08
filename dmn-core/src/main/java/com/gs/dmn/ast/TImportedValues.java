@@ -12,8 +12,22 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.runtime.DMNContext;
 
+@JsonPropertyOrder({
+        "name",
+        "id",
+        "label",
+        "expressionLanguage",
+        "otherAttributes",
+        "description",
+        "namespace",
+        "locationURI",
+        "importType",
+        "importedElement",
+        "extensionElements"
+})
 public class TImportedValues extends TImport implements Visitable {
     private String importedElement;
     private String expressionLanguage;
