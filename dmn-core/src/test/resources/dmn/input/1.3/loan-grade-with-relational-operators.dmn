@@ -84,6 +84,20 @@
           <dmn:text/>
         </dmn:annotationEntry>
       </dmn:rule>
+      <dmn:rule id="_C286543B-C4C7-44DA-BA02-D4FB3173A376">
+        <dmn:inputEntry id="_7A0FE061-8976-4364-8AF2-6A5743326E48">
+          <dmn:text>200</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_0C6B8955-4CA6-4ECC-BF16-E16AA7BA79DB">
+          <dmn:text>1000</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_A87C0F80-CF98-40D8-8269-FB3438D61246">
+          <dmn:text>G</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text/>
+        </dmn:annotationEntry>
+      </dmn:rule>
     </dmn:decisionTable>
   </dmn:decision>
   <dmn:inputData id="_3E080FE2-FE1F-459A-BD92-E0399DBDFABC" name="Annual Income">
