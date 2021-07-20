@@ -13,12 +13,12 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.BooleanLiteral;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.NumericLiteral;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.SimpleLiteral;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
-import org.omg.spec.dmn._20191111.model.TDecisionRule;
-import org.omg.spec.dmn._20191111.model.TDecisionTable;
-import org.omg.spec.dmn._20191111.model.TUnaryTests;
+import org.omg.spec.dmn._20191111.model.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class BoundList {
             TDecisionRule rule = decisionTable.getRule().get(ruleIndex);
             List<TUnaryTests> inputEntry = rule.getInputEntry();
             TUnaryTests cell = inputEntry.get(columnIndex);
-            Interval interval = makeInterval(rule, ruleIndex, cell, feelTranslator);
+            Interval interval = makeInterval(decisionTable, columnIndex, rule, ruleIndex, cell, feelTranslator);
             if (interval == null) {
                 canProject = false;
                 break;
@@ -56,7 +56,7 @@ public class BoundList {
         return canProject;
     }
 
-    private Interval makeInterval(TDecisionRule rule, int ruleIndex, TUnaryTests cell, FEELTranslator feelTranslator) {
+    private Interval makeInterval(TDecisionTable decisionTable, int columnIndex, TDecisionRule rule, int ruleIndex, TUnaryTests cell, FEELTranslator feelTranslator) {
         if (cell == null) {
             return null;
         }
@@ -92,14 +92,23 @@ public class BoundList {
                     BigDecimal value = makeBoundValue(operatorRange.getEndpoint());
                     if (value != null) {
                         String operator = operatorRange.getOperator();
-                        if ("<".equals(operator)) {
-                            return new Interval(ruleIndex, false, MINUS_INFINITY, false, value.subtract(DELTA));
-                        } else if ("<=".equals(operator)) {
-                            return new Interval(ruleIndex, false, MINUS_INFINITY, false, value);
-                        } else if (">".equals(operator)) {
-                            return new Interval(ruleIndex, false, value.add(DELTA), false, PLUS_INFINITY);
-                        } else if (">=".equals(operator)) {
-                            return new Interval(ruleIndex, false, value, false, PLUS_INFINITY);
+                        String columnInputType = getInputType(decisionTable, columnIndex);
+                        if (isNumberType(columnInputType)) {
+                            if (operator == null) {
+                                return new Interval(ruleIndex, false, value, false, value);
+                            } if ("<".equals(operator)) {
+                                return new Interval(ruleIndex, false, MINUS_INFINITY, false, value.subtract(DELTA));
+                            } else if ("<=".equals(operator)) {
+                                return new Interval(ruleIndex, false, MINUS_INFINITY, false, value);
+                            } else if (">".equals(operator)) {
+                                return new Interval(ruleIndex, false, value.add(DELTA), false, PLUS_INFINITY);
+                            } else if (">=".equals(operator)) {
+                                return new Interval(ruleIndex, false, value, false, PLUS_INFINITY);
+                            }
+                        } else if (isBooleanType(columnInputType)) {
+                            if (operator == null) {
+                                return new Interval(ruleIndex, false, value, false, value);
+                            }
                         }
                     }
                 }
@@ -111,13 +120,41 @@ public class BoundList {
     private BigDecimal makeBoundValue(Expression exp) {
         BigDecimal value = null;
         if (exp instanceof NumericLiteral) {
-            String lexeme = ((NumericLiteral) exp).getLexeme();
+            String lexeme = ((SimpleLiteral) exp).getLexeme();
             value = new BigDecimal(lexeme);
+        } else if (exp instanceof BooleanLiteral) {
+            String lexeme = ((SimpleLiteral) exp).getLexeme();
+            boolean bValue = Boolean.parseBoolean(lexeme);
+            value = bValue ? BigDecimal.ONE : BigDecimal.ZERO;
         }
         return value;
     }
 
     public void sort() {
         this.bounds.sort(Bound::compareTo);
+    }
+
+    private String getInputType(TDecisionTable decisionTable, int columnIndex) {
+        List<TInputClause> input = decisionTable.getInput();
+        String typeRef = "";
+        if (input != null) {
+            TInputClause inputClause = input.get(columnIndex);
+            if (inputClause != null) {
+                TLiteralExpression inputExpression = inputClause.getInputExpression();
+                if (inputExpression != null) {
+                    typeRef = inputExpression.getTypeRef();
+                }
+            }
+
+        }
+        return typeRef;
+    };
+
+    private boolean isNumberType(String currentColumnType) {
+        return "number".equals(currentColumnType);
+    }
+
+    private boolean isBooleanType(String currentColumnType) {
+        return "boolean".equals(currentColumnType);
     }
 }
