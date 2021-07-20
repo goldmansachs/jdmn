@@ -15,30 +15,19 @@ package com.gs.dmn.validation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.NumericLiteral;
-import com.gs.dmn.feel.analysis.syntax.ast.test.EndpointsRange;
-import com.gs.dmn.feel.analysis.syntax.ast.test.PositiveUnaryTest;
-import com.gs.dmn.feel.analysis.syntax.ast.test.PositiveUnaryTests;
-import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
-import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
-import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.omg.spec.dmn._20191111.model.*;
 
 import javax.xml.bind.JAXBElement;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class RuleOverlapValidator extends SimpleDMNValidator {
     private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition;
@@ -108,7 +97,7 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
             ruleIndex.add(i);
         }
         ArrayList<RuleGroup> overlappingRules = new ArrayList<>();
-        findOverlappingRules(decisionTable, ruleIndex, 0, decisionTable.getInput().size(), overlappingRules, feelTranslator);
+        findOverlappingRules(repository, element, decisionTable, ruleIndex, 0, decisionTable.getInput().size(), overlappingRules, feelTranslator);
         for (RuleGroup ruleGroup: overlappingRules) {
             String error = makeError(element, ruleGroup, repository);
             errorReport.add(error);
@@ -140,7 +129,7 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
     //          else
     //              Lxi.put(currentBound);
     //  return overlappingRuleList;
-    private List<RuleGroup> findOverlappingRules(TDecisionTable decisionTable, List<Integer> comparingRules, int columnIndex, int inputColumnCount, List<RuleGroup> rules, FEELTranslator feelTranslator) {
+    private List<RuleGroup> findOverlappingRules(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, List<Integer> comparingRules, int columnIndex, int inputColumnCount, List<RuleGroup> rules, FEELTranslator feelTranslator) {
         if(columnIndex == inputColumnCount) {
             RuleGroup group = new RuleGroup(new ArrayList<>(comparingRules));
             addGroup(rules, group);
@@ -148,13 +137,13 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
             // define the current list of bounds lxi
             List<Integer> rulesForNextDimension = new ArrayList<>();
             // Project rules on column columnIndex
-            BoundList boundList = new BoundList(decisionTable, comparingRules, columnIndex, feelTranslator);
+            BoundList boundList = new BoundList(repository, element, decisionTable, comparingRules, columnIndex, feelTranslator);
             if (boundList.isCanProject()) {
                 boundList.sort();
                 List<Bound> sortedBounds = boundList.getBounds();
                 for (Bound bound : sortedBounds) {
                     if (!bound.isLowerBound()) {
-                        List<RuleGroup> overlappingRules = findOverlappingRules(decisionTable, rulesForNextDimension, columnIndex + 1, inputColumnCount, rules, feelTranslator);
+                        List<RuleGroup> overlappingRules = findOverlappingRules(repository, element, decisionTable, rulesForNextDimension, columnIndex + 1, inputColumnCount, rules, feelTranslator);
                         rulesForNextDimension.remove((Object) bound.getInterval().getRuleIndex());
 
                         for (RuleGroup group : overlappingRules) {

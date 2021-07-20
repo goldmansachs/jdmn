@@ -19,7 +19,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class RuleOverlapValidatorTest extends AbstractValidatorTest {
     private final RuleOverlapValidator validator = new RuleOverlapValidator(new StandardDMNDialectDefinition());
@@ -72,5 +72,15 @@ public class RuleOverlapValidatorTest extends AbstractValidatorTest {
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[3, 1]' overlap in decision 'Loan Grade'"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-boolean.dmn"), expectedErrors);
+    }
+
+    @Test
+    public void testValidateWhenEnumeration() {
+        List<String> expectedErrors = Arrays.asList(
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[3, 1]' overlap in decision 'Loan Grade'",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[4, 2]' overlap in decision 'Loan Grade'",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[4, 3]' overlap in decision 'Loan Grade'"
+        );
+        validate(validator, resource("dmn/input/1.3/loan-grade-with-enumeration.dmn"), expectedErrors);
     }
 }
