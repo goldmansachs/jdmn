@@ -36,7 +36,7 @@
           <dmn:text>[0..1000]</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="_EE4F8F3A-1AAE-4CE8-85D3-9DDF9C86CE96">
-          <dmn:text>VG</dmn:text>
+          <dmn:text>"VG"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
           <dmn:text/>
@@ -50,7 +50,7 @@
           <dmn:text>[4000..5000]</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="_DE7208F8-EC04-48BF-8C72-55B6E20AF350">
-          <dmn:text>G</dmn:text>
+          <dmn:text>"G"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
           <dmn:text/>
@@ -64,7 +64,7 @@
           <dmn:text>[500..3000]</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="_96D164E3-1AF4-40F6-B7DC-A566053EFBB8">
-          <dmn:text>F</dmn:text>
+          <dmn:text>"F"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
           <dmn:text/>
@@ -78,7 +78,7 @@
           <dmn:text>[0..2000]</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="_39E1401C-7E7A-4F1C-AFFD-5716D3E62C16">
-          <dmn:text>P</dmn:text>
+          <dmn:text>"P"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
           <dmn:text/>
