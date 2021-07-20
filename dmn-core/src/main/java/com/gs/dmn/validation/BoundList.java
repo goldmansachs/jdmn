@@ -12,12 +12,16 @@
  */
 package com.gs.dmn.validation;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.BooleanLiteral;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.NumericLiteral;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.SimpleLiteral;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.StringLiteral;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
+import com.gs.dmn.transformation.basic.QualifiedName;
+import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20191111.model.*;
 
 import java.math.BigDecimal;
@@ -32,12 +36,12 @@ public class BoundList {
     private final List<Bound> bounds = new ArrayList<>();
     private boolean canProject = true;
 
-    public BoundList(TDecisionTable decisionTable, List<Integer> comparingRules, int columnIndex, FEELTranslator feelTranslator) {
+    public BoundList(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, List<Integer> comparingRules, int columnIndex, FEELTranslator feelTranslator) {
         for (int ruleIndex: comparingRules) {
             TDecisionRule rule = decisionTable.getRule().get(ruleIndex);
             List<TUnaryTests> inputEntry = rule.getInputEntry();
             TUnaryTests cell = inputEntry.get(columnIndex);
-            Interval interval = makeInterval(decisionTable, columnIndex, rule, ruleIndex, cell, feelTranslator);
+            Interval interval = makeInterval(repository, element, decisionTable, columnIndex, rule, ruleIndex, cell, feelTranslator);
             if (interval == null) {
                 canProject = false;
                 break;
@@ -56,7 +60,7 @@ public class BoundList {
         return canProject;
     }
 
-    private Interval makeInterval(TDecisionTable decisionTable, int columnIndex, TDecisionRule rule, int ruleIndex, TUnaryTests cell, FEELTranslator feelTranslator) {
+    private Interval makeInterval(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int columnIndex, TDecisionRule rule, int ruleIndex, TUnaryTests cell, FEELTranslator feelTranslator) {
         if (cell == null) {
             return null;
         }
@@ -74,8 +78,8 @@ public class BoundList {
                 // Check intervals
                 if (positiveUnaryTest instanceof EndpointsRange) {
                     EndpointsRange astRange = (EndpointsRange) positiveUnaryTest;
-                    BigDecimal startValue = makeBoundValue(astRange.getStart());
-                    BigDecimal endValue = makeBoundValue(astRange.getEnd());
+                    BigDecimal startValue = makeBoundValue(repository, element, decisionTable, columnIndex, astRange.getStart());
+                    BigDecimal endValue = makeBoundValue(repository, element, decisionTable, columnIndex, astRange.getEnd());
                     if (startValue != null && endValue != null) {
                         boolean openEnd = astRange.isOpenEnd();
                         boolean openStart = astRange.isOpenStart();
@@ -89,14 +93,14 @@ public class BoundList {
                     }
                 } else if (positiveUnaryTest instanceof OperatorRange) {
                     OperatorRange operatorRange = (OperatorRange) positiveUnaryTest;
-                    BigDecimal value = makeBoundValue(operatorRange.getEndpoint());
+                    BigDecimal value = makeBoundValue(repository, element, decisionTable, columnIndex, operatorRange.getEndpoint());
                     if (value != null) {
                         String operator = operatorRange.getOperator();
                         String columnInputType = getInputType(decisionTable, columnIndex);
                         if (isNumberType(columnInputType)) {
                             if (operator == null) {
                                 return new Interval(ruleIndex, false, value, false, value);
-                            } if ("<".equals(operator)) {
+                            } else if ("<".equals(operator)) {
                                 return new Interval(ruleIndex, false, MINUS_INFINITY, false, value.subtract(DELTA));
                             } else if ("<=".equals(operator)) {
                                 return new Interval(ruleIndex, false, MINUS_INFINITY, false, value);
@@ -109,6 +113,16 @@ public class BoundList {
                             if (operator == null) {
                                 return new Interval(ruleIndex, false, value, false, value);
                             }
+                        } else {
+                            // Lookup for enumerations
+                            TDefinitions model = repository.getModel(element);
+                            TItemDefinition itemDefinition = repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, columnInputType));
+                            if (itemDefinition != null) {
+                                String typeRef = itemDefinition.getTypeRef();
+                                if (isStringType(typeRef)) {
+                                    return new Interval(ruleIndex, false, value, false, value);
+                                }
+                            }
                         }
                     }
                 }
@@ -117,7 +131,7 @@ public class BoundList {
         return null;
     }
 
-    private BigDecimal makeBoundValue(Expression exp) {
+    private BigDecimal makeBoundValue(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int columnIndex, Expression exp) {
         BigDecimal value = null;
         if (exp instanceof NumericLiteral) {
             String lexeme = ((SimpleLiteral) exp).getLexeme();
@@ -126,8 +140,49 @@ public class BoundList {
             String lexeme = ((SimpleLiteral) exp).getLexeme();
             boolean bValue = Boolean.parseBoolean(lexeme);
             value = bValue ? BigDecimal.ONE : BigDecimal.ZERO;
+        } else if (exp instanceof StringLiteral) {
+            String lexeme = ((SimpleLiteral) exp).getLexeme();
+            List<String> allowedValues = findAllowedValues(repository, element, decisionTable, columnIndex);
+            for (int i=0; i<allowedValues.size(); i++) {
+                String enumValue = allowedValues.get(i);
+                if (enumValue.equals(lexeme)) {
+                    return new BigDecimal(i);
+                }
+            }
         }
         return value;
+    }
+
+    private List<String> findAllowedValues(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int columnIndex) {
+        List<TInputClause> input = decisionTable.getInput();
+        if (input != null && input.size() > columnIndex) {
+            TInputClause inputClause = input.get(columnIndex);
+            TLiteralExpression inputExpression = inputClause.getInputExpression();
+            if (inputExpression != null) {
+                String typeRef = inputExpression.getTypeRef();
+                if (!StringUtils.isBlank(typeRef)) {
+                    TDefinitions model = repository.getModel(element);
+                    TItemDefinition tItemDefinition = repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
+                    if (tItemDefinition != null) {
+                        TUnaryTests allowedValues = tItemDefinition.getAllowedValues();
+                        if (allowedValues != null) {
+                            String text = allowedValues.getText();
+                            if (!StringUtils.isBlank(text)) {
+                                String[] split = text.split(",");
+                                List<String> enumValues = new ArrayList<>();
+                                for (String part: split) {
+                                    if (part != null) {
+                                        enumValues.add(part.trim());
+                                    }
+                                }
+                                return enumValues;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     public void sort() {
@@ -156,5 +211,9 @@ public class BoundList {
 
     private boolean isBooleanType(String currentColumnType) {
         return "boolean".equals(currentColumnType);
+    }
+
+    private boolean isStringType(String currentColumnType) {
+        return "string".equals(currentColumnType);
     }
 }
