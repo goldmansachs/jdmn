@@ -145,26 +145,23 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
             RuleGroup group = new RuleGroup(new ArrayList<>(comparingRules));
             addGroup(rules, group);
         } else {
-            String currentColumnType = getInputType(decisionTable, columnIndex);
-            if(isNumberType(currentColumnType)) {
-                // define the current list of bounds lxi
-                List<Integer> rulesForNextDimension = new ArrayList<>();
-                // Project rules on column columnIndex
-                BoundList boundList = new BoundList(decisionTable, comparingRules, columnIndex, feelTranslator);
-                if (boundList.isCanProject()) {
-                    boundList.sort();
-                    List<Bound> sortedBounds = boundList.getBounds();
-                    for (Bound bound: sortedBounds) {
-                        if (!bound.isLowerBound()) {
-                            List<RuleGroup> overlappingRules = findOverlappingRules(decisionTable, rulesForNextDimension, columnIndex + 1, inputColumnCount, rules, feelTranslator);
-                            rulesForNextDimension.remove((Object) bound.getInterval().getRuleIndex());
+            // define the current list of bounds lxi
+            List<Integer> rulesForNextDimension = new ArrayList<>();
+            // Project rules on column columnIndex
+            BoundList boundList = new BoundList(decisionTable, comparingRules, columnIndex, feelTranslator);
+            if (boundList.isCanProject()) {
+                boundList.sort();
+                List<Bound> sortedBounds = boundList.getBounds();
+                for (Bound bound : sortedBounds) {
+                    if (!bound.isLowerBound()) {
+                        List<RuleGroup> overlappingRules = findOverlappingRules(decisionTable, rulesForNextDimension, columnIndex + 1, inputColumnCount, rules, feelTranslator);
+                        rulesForNextDimension.remove((Object) bound.getInterval().getRuleIndex());
 
-                            for (RuleGroup group: overlappingRules) {
-                                addGroup(rules, group);
-                            }
-                        } else {
-                            rulesForNextDimension.add(bound.getInterval().getRuleIndex());
+                        for (RuleGroup group : overlappingRules) {
+                            addGroup(rules, group);
                         }
+                    } else {
+                        rulesForNextDimension.add(bound.getInterval().getRuleIndex());
                     }
                 }
             }
@@ -179,25 +176,5 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
                 rules.add(group);
             }
         }
-    }
-
-    private String getInputType(TDecisionTable decisionTable, int columnIndex) {
-        List<TInputClause> input = decisionTable.getInput();
-        String typeRef = "";
-        if (input != null) {
-            TInputClause inputClause = input.get(columnIndex);
-            if (inputClause != null) {
-                TLiteralExpression inputExpression = inputClause.getInputExpression();
-                if (inputExpression != null) {
-                    typeRef = inputExpression.getTypeRef();
-                }
-            }
-
-        }
-        return typeRef;
-    };
-
-    private boolean isNumberType(String currentColumnType) {
-        return "number".equals(currentColumnType);
     }
 }
