@@ -26,6 +26,10 @@ public class RuleGroup {
         return ruleIndexes;
     }
 
+    public String serialize() {
+        return ruleIndexes.stream().sorted().map(i -> i + 1).collect(Collectors.toList()).toString();
+    }
+
     @Override
     public String toString() {
         return ruleIndexes.stream().map(i -> i + 1).collect(Collectors.toList()).toString();
