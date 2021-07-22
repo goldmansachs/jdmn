@@ -33,16 +33,24 @@ public class RuleOverlapValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenRepositoryIsEmpty() {
         List<String> expectedErrors = Arrays.asList();
-        assertEquals(Arrays.asList(), validator.validate(null));
-        assertEquals(Arrays.asList(), validator.validate(new DMNModelRepository()));
+        assertEquals(expectedErrors, validator.validate(null));
+        assertEquals(expectedErrors, validator.validate(new DMNModelRepository()));
     }
 
     @Test
-    public void testValidateWhenIntervals() {
+    public void testValidateWhenIntervals1() {
         List<String> expectedErrors = Arrays.asList(
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3]' overlap in decision 'Loan Grade'"
         );
-        validate(validator, resource("dmn/input/1.3/loan-grade-with-intervals.dmn"), expectedErrors);
+        validate(validator, resource("dmn/input/1.3/loan-grade-with-intervals-1.dmn"), expectedErrors);
+    }
+
+    @Test
+    public void testValidateWhenIntervals2() {
+        List<String> expectedErrors = Arrays.asList(
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3]' overlap in decision 'Loan Grade'"
+        );
+        validate(validator, resource("dmn/input/1.3/loan-grade-with-intervals-2.dmn"), expectedErrors);
     }
 
     @Test
