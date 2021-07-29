@@ -92,6 +92,7 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
         for (int i=0; i<decisionTable.getRule().size(); i++) {
             ruleIndexList.add(i);
         }
+        // Find the overlapping rules
         ArrayList<RuleGroup> overlappingRules = new ArrayList<>();
         findOverlappingRules(ruleIndexList, 0, decisionTable.getInput().size(), overlappingRules, repository, element, decisionTable, feelTranslator);
         for (RuleGroup ruleGroup: overlappingRules) {
