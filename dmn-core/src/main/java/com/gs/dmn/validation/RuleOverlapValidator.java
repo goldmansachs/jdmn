@@ -132,24 +132,20 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
             RuleGroup group = new RuleGroup(new ArrayList<>(ruleList));
             addGroup(overlappingRuleList, group);
         } else {
-            // define the current list of bounds lxi
-            List<Integer> rulesForNextDimension = new ArrayList<>();
+            // Define the current list of bounds lxi
+            List<Integer> lxi = new ArrayList<>();
             // Project rules on column columnIndex
-            BoundList boundList = new BoundList(repository, element, decisionTable, ruleList, columnIndex, feelTranslator);
-            if (boundList.isCanProject()) {
-                boundList.sort();
-                List<Bound> sortedBounds = boundList.getBounds();
-                for (Bound bound : sortedBounds) {
-                    if (!bound.isLowerBound()) {
-                        List<RuleGroup> overlappingRules = findOverlappingRules(rulesForNextDimension, columnIndex + 1, inputColumnCount, overlappingRuleList, repository, element, decisionTable, feelTranslator);
-                        rulesForNextDimension.remove((Object) bound.getInterval().getRuleIndex());
+            List<Bound> sortedListAllBounds = makeBoundList(ruleList, columnIndex, repository, element, decisionTable, feelTranslator);
+            for (Bound bound : sortedListAllBounds) {
+                if (!bound.isLowerBound()) {
+                    List<RuleGroup> overlappingRules = findOverlappingRules(lxi, columnIndex + 1, inputColumnCount, overlappingRuleList, repository, element, decisionTable, feelTranslator);
+                    lxi.remove((Object) bound.getInterval().getRuleIndex());
 
-                        for (RuleGroup group : overlappingRules) {
-                            addGroup(overlappingRuleList, group);
-                        }
-                    } else {
-                        rulesForNextDimension.add(bound.getInterval().getRuleIndex());
+                    for (RuleGroup group : overlappingRules) {
+                        addGroup(overlappingRuleList, group);
                     }
+                } else {
+                    lxi.add(bound.getInterval().getRuleIndex());
                 }
             }
         }
@@ -163,5 +159,14 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
                 rules.add(group);
             }
         }
+    }
+
+    private List<Bound> makeBoundList(List<Integer> ruleList, int columnIndex, DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, FEELTranslator feelTranslator) {
+        BoundList boundList = new BoundList(repository, element, decisionTable, ruleList, columnIndex, feelTranslator);
+        if (boundList.isCanProject()) {
+            boundList.sort();
+            return boundList.getBounds();
+        }
+        return new ArrayList<>();
     }
 }

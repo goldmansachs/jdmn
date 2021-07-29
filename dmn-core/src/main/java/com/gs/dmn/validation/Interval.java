@@ -12,17 +12,17 @@
  */
 package com.gs.dmn.validation;
 
-import org.omg.spec.dmn._20191111.model.TDecisionRule;
-
 import java.math.BigDecimal;
 
 public class Interval {
+    private final int ruleIndex;
+    private final int columnIndex;
     private final Bound lowerBound;
     private final Bound upperBound;
-    private final int ruleIndex;
 
-    public Interval(int ruleIndex, boolean openStart, BigDecimal startValue, boolean openEnd, BigDecimal endValue) {
+    public Interval(int ruleIndex, int columnIndex, boolean openStart, BigDecimal startValue, boolean openEnd, BigDecimal endValue) {
         this.ruleIndex = ruleIndex;
+        this.columnIndex = columnIndex;
         lowerBound = new Bound(this, true, !openStart, startValue);
         upperBound = new Bound(this, false, !openEnd, endValue);
     }
@@ -37,6 +37,24 @@ public class Interval {
 
     public Bound getUpperBound() {
         return upperBound;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Interval interval = (Interval) o;
+
+        if (ruleIndex != interval.ruleIndex) return false;
+        return columnIndex == interval.columnIndex;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = ruleIndex;
+        result = 31 * result + columnIndex;
+        return result;
     }
 
     @Override
