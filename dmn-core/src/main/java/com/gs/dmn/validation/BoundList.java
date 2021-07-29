@@ -69,7 +69,7 @@ public class BoundList {
         String text = cell.getText();
         UnaryTests unaryTests = feelTranslator.parseUnaryTests(text);
         if (unaryTests instanceof Any) {
-            return new Interval(ruleIndex, false, MINUS_INFINITY, false, PLUS_INFINITY);
+            return new Interval(ruleIndex, columnIndex, false, MINUS_INFINITY, false, PLUS_INFINITY);
         } else if (unaryTests instanceof PositiveUnaryTests) {
             List<PositiveUnaryTest> positiveUnaryTests = ((PositiveUnaryTests) unaryTests).getPositiveUnaryTests();
             // Check simple expressions only
@@ -89,7 +89,7 @@ public class BoundList {
                         if (openEnd) {
                             endValue = endValue.subtract(DELTA);
                         }
-                        return new Interval(ruleIndex, false, startValue, false, endValue);
+                        return new Interval(ruleIndex, columnIndex, false, startValue, false, endValue);
                     }
                 } else if (positiveUnaryTest instanceof OperatorRange) {
                     OperatorRange operatorRange = (OperatorRange) positiveUnaryTest;
@@ -98,29 +98,31 @@ public class BoundList {
                         String operator = operatorRange.getOperator();
                         String columnInputType = getInputType(decisionTable, columnIndex);
                         if (isNumberType(columnInputType)) {
+                            // Number
                             if (operator == null) {
-                                return new Interval(ruleIndex, false, value, false, value);
+                                return new Interval(ruleIndex, columnIndex, false, value, false, value);
                             } else if ("<".equals(operator)) {
-                                return new Interval(ruleIndex, false, MINUS_INFINITY, false, value.subtract(DELTA));
+                                return new Interval(ruleIndex, columnIndex, false, MINUS_INFINITY, false, value.subtract(DELTA));
                             } else if ("<=".equals(operator)) {
-                                return new Interval(ruleIndex, false, MINUS_INFINITY, false, value);
+                                return new Interval(ruleIndex, columnIndex, false, MINUS_INFINITY, false, value);
                             } else if (">".equals(operator)) {
-                                return new Interval(ruleIndex, false, value.add(DELTA), false, PLUS_INFINITY);
+                                return new Interval(ruleIndex, columnIndex, false, value.add(DELTA), false, PLUS_INFINITY);
                             } else if (">=".equals(operator)) {
-                                return new Interval(ruleIndex, false, value, false, PLUS_INFINITY);
+                                return new Interval(ruleIndex, columnIndex, false, value, false, PLUS_INFINITY);
                             }
                         } else if (isBooleanType(columnInputType)) {
+                            // Boolean
                             if (operator == null) {
-                                return new Interval(ruleIndex, false, value, false, value);
+                                return new Interval(ruleIndex, columnIndex, false, value, false, value);
                             }
                         } else {
-                            // Lookup for enumerations
+                            // Enumeration
                             TDefinitions model = repository.getModel(element);
                             TItemDefinition itemDefinition = repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, columnInputType));
                             if (itemDefinition != null) {
                                 String typeRef = itemDefinition.getTypeRef();
                                 if (isStringType(typeRef)) {
-                                    return new Interval(ruleIndex, false, value, false, value);
+                                    return new Interval(ruleIndex, columnIndex, false, value, false, value);
                                 }
                             }
                         }

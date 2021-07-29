@@ -16,13 +16,13 @@ import java.math.BigDecimal;
 
 public class Bound implements Comparable<Bound> {
     private final Interval interval;
+    private final boolean isLowerBound;
     private final boolean isIncluded;
     private final Object value;
-    private final boolean lowerBound;
 
     public Bound(Interval interval, boolean lowerBound, boolean isIncluded, Object value) {
         this.interval = interval;
-        this.lowerBound = lowerBound;
+        this.isLowerBound = lowerBound;
         this.isIncluded = isIncluded;
         this.value = value;
     }
@@ -32,7 +32,11 @@ public class Bound implements Comparable<Bound> {
     }
 
     public boolean isLowerBound() {
-        return lowerBound;
+        return isLowerBound;
+    }
+
+    public Object getValue() {
+        return value;
     }
 
     @Override
@@ -48,8 +52,28 @@ public class Bound implements Comparable<Bound> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Bound bound = (Bound) o;
+
+        if (isIncluded != bound.isIncluded) return false;
+        if (isLowerBound != bound.isLowerBound) return false;
+        return value != null ? value.equals(bound.value) : bound.value == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 0 + (isIncluded ? 1 : 0);
+        result = 31 * result + (value != null ? value.hashCode() : 0);
+        result = 31 * result + (isLowerBound ? 1 : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
-        if (lowerBound) {
+        if (isLowerBound) {
             return String.format("%s%s", isIncluded ? "[" : "(", value);
         } else {
             return String.format("%s%s", value, isIncluded ? "]" : ")");
