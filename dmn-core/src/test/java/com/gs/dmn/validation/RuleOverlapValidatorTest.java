@@ -54,6 +54,17 @@ public class RuleOverlapValidatorTest extends AbstractValidatorTest {
     }
 
     @Test
+    public void testValidateWhenIntervals3() {
+        List<String> expectedErrors = Arrays.asList(
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3]' overlap in decision 'Loan Grade'",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3, 5]' overlap in decision 'Loan Grade'",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[3, 6]' overlap in decision 'Loan Grade'",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[3, 5]' overlap in decision 'Loan Grade'"
+        );
+        validate(validator, resource("dmn/input/1.3/loan-grade-with-intervals-3.dmn"), expectedErrors);
+    }
+
+    @Test
     public void testValidateWhenRelationalOperators() {
         List<String> expectedErrors = Arrays.asList(
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3]' overlap in decision 'Loan Grade'",
