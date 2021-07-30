@@ -12,19 +12,51 @@
  */
 package com.gs.dmn.validation;
 
-import java.math.BigDecimal;
+import java.util.Comparator;
+import java.util.Objects;
 
-public class Bound implements Comparable<Bound> {
+public class Bound {
+    public static Comparator<Bound> COMPARATOR = (o1, o2) -> {
+        if (o1 == null && o2 == null) {
+            return 0;
+        } else if (o1 == null) {
+            return 1;
+        } else if (o2 == null) {
+            return -1;
+        } else {
+            if (o1.value == null && o2.value == null) {
+                return 0;
+            } else if (o1.value == null) {
+                return 1;
+            } else if (o2.value == null) {
+                return -1;
+            } else {
+                double diff = o1.compareValue() - o2.compareValue();
+                if (diff < 0) {
+                    return -1;
+                } else if (diff > 0) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        }
+    };
+
     private final Interval interval;
     private final boolean isLowerBound;
     private final boolean isIncluded;
-    private final Object value;
+    private final Number value;
 
     public Bound(Interval interval, boolean lowerBound, boolean isIncluded, Object value) {
         this.interval = interval;
         this.isLowerBound = lowerBound;
         this.isIncluded = isIncluded;
-        this.value = value;
+        if (!(value instanceof Number)) {
+            throw new IllegalArgumentException(String.format("Unexpected value in bound '%s'", value));
+        } else {
+            this.value = (Number) value;
+        }
     }
 
     public Interval getInterval() {
@@ -40,35 +72,16 @@ public class Bound implements Comparable<Bound> {
     }
 
     @Override
-    public int compareTo(Bound other) {
-        if (other == null || other.value == null) {
-            return -1;
-        } else {
-            if (this.value instanceof BigDecimal && other.value instanceof BigDecimal) {
-                return ((BigDecimal) value).compareTo((BigDecimal) other.value);
-            }
-        }
-        return -1;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Bound bound = (Bound) o;
-
-        if (isIncluded != bound.isIncluded) return false;
-        if (isLowerBound != bound.isLowerBound) return false;
-        return value != null ? value.equals(bound.value) : bound.value == null;
+        return isLowerBound == bound.isLowerBound && isIncluded == bound.isIncluded && Objects.equals(interval, bound.interval) && Objects.equals(value, bound.value);
     }
 
     @Override
     public int hashCode() {
-        int result = 0 + (isIncluded ? 1 : 0);
-        result = 31 * result + (value != null ? value.hashCode() : 0);
-        result = 31 * result + (isLowerBound ? 1 : 0);
-        return result;
+        return Objects.hash(interval, isLowerBound, isIncluded, value);
     }
 
     @Override
@@ -77,6 +90,16 @@ public class Bound implements Comparable<Bound> {
             return String.format("%s%s", isIncluded ? "[" : "(", value);
         } else {
             return String.format("%s%s", value, isIncluded ? "]" : ")");
+        }
+    }
+
+    private double compareValue() {
+        if (isIncluded) {
+            return this.value.doubleValue();
+        } else if (isLowerBound) {
+            return this.value.doubleValue() + BoundList.DELTA.doubleValue();
+        } else {
+            return this.value.doubleValue() - BoundList.DELTA.doubleValue();
         }
     }
 }
