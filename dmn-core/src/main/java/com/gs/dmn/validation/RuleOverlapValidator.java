@@ -19,6 +19,7 @@ import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.InputParameters;
+import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20191111.model.*;
 
 import javax.xml.bind.JAXBElement;
@@ -158,6 +159,9 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
     //              Lxi.put(currentBound);
     //  return overlappingRuleList;
     private List<RuleGroup> findOverlappingRules(List<Integer> ruleList, int columnIndex, int inputColumnCount, List<RuleGroup> overlappingRuleList, DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, FEELTranslator feelTranslator) {
+        String indent = StringUtils.repeat("\t", columnIndex);
+        LOGGER.debug("{}findOverlapping rules rules '{}' column '{}' overlapping rules '{}'", indent, ruleList, columnIndex, overlappingRuleList);
+
         if(columnIndex == inputColumnCount) {
             RuleGroup group = new RuleGroup(new ArrayList<>(ruleList));
             addGroup(overlappingRuleList, group);
