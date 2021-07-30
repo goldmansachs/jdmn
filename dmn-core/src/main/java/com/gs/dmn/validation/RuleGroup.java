@@ -12,41 +12,109 @@
  */
 package com.gs.dmn.validation;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class RuleGroup {
+public class RuleGroup implements Comparable<RuleGroup> {
     private final List<Integer> ruleIndexes;
+    private int min;
+
+    public RuleGroup() {
+        this.ruleIndexes = new ArrayList<>();
+        this.min = -1;
+    }
 
     public RuleGroup(List<Integer> ruleIndexes) {
         this.ruleIndexes = ruleIndexes;
+        this.min = -1;
+        for(int index: ruleIndexes) {
+            if (min == -1) {
+                this.min = index;
+            } else if (index < min) {
+                this.min = index;
+            }
+        }
     }
 
     public List<Integer> getRuleIndexes() {
         return ruleIndexes;
     }
 
+    public boolean isEmpty() {
+        return ruleIndexes.isEmpty();
+    }
+
     public String serialize() {
         return ruleIndexes.stream().sorted().map(i -> i + 1).collect(Collectors.toList()).toString();
     }
 
+    public RuleGroup sort() {
+        this.ruleIndexes.sort(Integer::compareTo);
+        return this;
+    }
+
+    public RuleGroup minus(Collection<Integer> nodes) {
+        List<Integer> indexes = new ArrayList<>(this.ruleIndexes);
+        if (nodes != null) {
+            indexes.removeAll(nodes);
+        }
+        return new RuleGroup(indexes);
+    }
+
+    public RuleGroup minus(Integer node) {
+        List<Integer> indexes = new ArrayList<>(this.ruleIndexes);
+        if (node != null) {
+            indexes.remove(node);
+        }
+        return new RuleGroup(indexes);
+    }
+
+    public RuleGroup union(int node) {
+        List<Integer> indexes = new ArrayList<>(this.ruleIndexes);
+        if (!indexes.contains(node)) {
+            indexes.add(node);
+        }
+        return new RuleGroup(indexes);
+    }
+
+    public RuleGroup intersect(Collection<Integer> nodes) {
+        List<Integer> indexes = new ArrayList<>();
+        if (nodes != null) {
+            for (int node: nodes) {
+                if (this.ruleIndexes.contains(node)) {
+                    indexes.add(node);
+                }
+            }
+        }
+        return new RuleGroup(indexes);
+    }
+
     @Override
-    public String toString() {
-        return ruleIndexes.stream().map(i -> i + 1).collect(Collectors.toList()).toString();
+    public int compareTo(RuleGroup other) {
+        if (other == null) {
+            return 1;
+        }
+        return this.min - other.min;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         RuleGroup ruleGroup = (RuleGroup) o;
-
-        return ruleIndexes != null ? ruleIndexes.equals(ruleGroup.ruleIndexes) : ruleGroup.ruleIndexes == null;
+        return min == ruleGroup.min && Objects.equals(ruleIndexes, ruleGroup.ruleIndexes);
     }
 
     @Override
     public int hashCode() {
-        return ruleIndexes != null ? ruleIndexes.hashCode() : 0;
+        return Objects.hash(ruleIndexes, min);
+    }
+
+    @Override
+    public String toString() {
+        return ruleIndexes.toString();
     }
 }
