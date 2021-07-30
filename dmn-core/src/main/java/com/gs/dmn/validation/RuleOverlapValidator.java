@@ -22,10 +22,7 @@ import com.gs.dmn.transformation.InputParameters;
 import org.omg.spec.dmn._20191111.model.*;
 
 import javax.xml.bind.JAXBElement;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RuleOverlapValidator extends SimpleDMNValidator {
     private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition;
@@ -95,7 +92,39 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
         // Find the overlapping rules
         ArrayList<RuleGroup> overlappingRules = new ArrayList<>();
         findOverlappingRules(ruleIndexList, 0, decisionTable.getInput().size(), overlappingRules, repository, element, decisionTable, feelTranslator);
+
+        LOGGER.debug("Overlapping rules {}", overlappingRules);
+
+        // Overlap graph
+        Map<Integer, Set<Integer>> neighbor = new LinkedHashMap<>();
         for (RuleGroup ruleGroup: overlappingRules) {
+            List<Integer> ruleIndexes = ruleGroup.getRuleIndexes();
+            int size = ruleIndexes.size();
+            if (size > 1) {
+                for (int i = 0; i<size-1; i++) {
+                    int n1 = ruleIndexes.get(i);
+                    Set<Integer> n1Neighbor = neighbor.computeIfAbsent(n1, k -> new LinkedHashSet<>());
+                    for (int j=i+1; j<size; j++) {
+                        int n2 = ruleIndexes.get(j);
+                        Set<Integer> n2Neighbor = neighbor.computeIfAbsent(n2, k -> new LinkedHashSet<>());
+                        n1Neighbor.add(n2);
+                        n2Neighbor.add(n1);
+                    }
+                }
+            }
+        }
+
+        LOGGER.debug("Overlap graph {}", neighbor);
+
+        // Generate the maximal cliques of the overlap graph - Bron-Kerbosch
+        List<RuleGroup> maxCliques = new ArrayList<>();
+        maxCliquesBronKerbosch(new RuleGroup(), new RuleGroup(ruleIndexList), new RuleGroup(), neighbor, maxCliques);
+
+        LOGGER.debug("Max cliques {}", maxCliques);
+
+        // Make errors
+        maxCliques.sort(RuleGroup::compareTo);
+        for (RuleGroup ruleGroup: maxCliques) {
             String error = makeError(element, ruleGroup, repository);
             errorReport.add(error);
         }
@@ -169,5 +198,61 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
             return boundList.getBounds();
         }
         return new ArrayList<>();
+    }
+
+    //    algorithm BronKerbosch2(R, P, X) is
+    //      if P and X are both empty then
+    //          report R as a maximal clique
+    //      choose a pivot vertex u in P ⋃ X
+    //      for each vertex v in P \ N(u) do
+    //          BronKerbosch2(R ⋃ {v}, P ⋂ N(v), X ⋂ N(v))
+    //          P := P \ {v}
+    //          X := X ⋃ {v}
+    protected void maxCliquesBronKerbosch(RuleGroup r, RuleGroup p, RuleGroup x, Map<Integer, Set<Integer>> neighbor, List<RuleGroup> maxCliques) {
+        if (p.isEmpty() && x.isEmpty()) {
+            if (r.getRuleIndexes().size() > 1) {
+                maxCliques.add(r.sort());
+            }
+        } else {
+            int u = choosePivot(p, x, neighbor);
+            Set<Integer> uNeighbor = neighbor.get(u);
+            List<Integer> ruleIndexes = p.minus(uNeighbor).getRuleIndexes();
+            for (int v: ruleIndexes) {
+                Set<Integer> vNeighbor = neighbor.get(v);
+                maxCliquesBronKerbosch(r.union(v), p.intersect(vNeighbor), x.intersect(vNeighbor), neighbor, maxCliques);
+                p = p.minus(v);
+                x = x.union(v);
+            }
+        }
+    }
+
+    private int choosePivot(RuleGroup p, RuleGroup x, Map<Integer, Set<Integer>> neighbor) {
+        int max = -1;
+        int u = -1;
+        for (int i: p.getRuleIndexes()) {
+            Set<Integer> nodes = neighbor.get(i);
+            if (nodes != null) {
+                int size = nodes.size();
+                if (size > max) {
+                    u = i;
+                    max = size;
+                }
+            }
+        }
+        for (int i: x.getRuleIndexes()) {
+            Set<Integer> nodes = neighbor.get(i);
+            if (nodes != null) {
+                int size = nodes.size();
+                if (size > max) {
+                    u = i;
+                    max = size;
+                }
+            }
+        }
+        if (u != -1) {
+            return u;
+        } else {
+            throw new IllegalArgumentException(String.format("Cannot calculate pivot for p='%s' and x='%s'", p, x));
+        }
     }
 }
