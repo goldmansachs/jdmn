@@ -160,7 +160,7 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
     //  return overlappingRuleList;
     private List<RuleGroup> findOverlappingRules(List<Integer> ruleList, int columnIndex, int inputColumnCount, List<RuleGroup> overlappingRuleList, DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, FEELTranslator feelTranslator) {
         String indent = StringUtils.repeat("\t", columnIndex);
-        LOGGER.debug("{}findOverlapping rules rules '{}' column '{}' overlapping rules '{}'", indent, ruleList, columnIndex, overlappingRuleList);
+        LOGGER.debug("{}findOverlappingRules active rules '{}' column '{}' overlapping rules '{}'", indent, ruleList, columnIndex, overlappingRuleList);
 
         if(columnIndex == inputColumnCount) {
             RuleGroup group = new RuleGroup(new ArrayList<>(ruleList));
