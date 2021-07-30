@@ -14,24 +14,23 @@ package com.gs.dmn.validation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class BoundList {
-    private final List<Bound> bounds = new ArrayList<>();
+public class Rule {
+    private final List<Interval> intervals = new ArrayList<>();
 
-    public BoundList(List<Integer> comparingRules, int columnIndex, List<Rule> rules) {
-        for (int ruleIndex: comparingRules) {
-            Rule rule = rules.get(ruleIndex);
-            Interval interval = rule.getInterval(columnIndex);
-            this.bounds.add(interval.getLowerBound());
-            this.bounds.add(interval.getUpperBound());
+    public Rule(List<Interval> intervals) {
+        if (intervals != null) {
+            this.intervals.addAll(intervals);
         }
     }
 
-    public List<Bound> getBounds() {
-        return bounds;
+    public Interval getInterval(int columnIndex) {
+        return intervals.get(columnIndex);
     }
 
-    public void sort() {
-        this.bounds.sort(Bound.COMPARATOR);
+    @Override
+    public String toString() {
+        return String.format("[%s]", intervals.stream().map(Interval::toString).collect(Collectors.joining(", ")));
     }
 }
