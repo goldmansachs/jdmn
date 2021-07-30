@@ -12,13 +12,22 @@
  */
 package com.gs.dmn.validation;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
-public class RuleGroup implements Comparable<RuleGroup> {
+public class RuleGroup {
+    public static Comparator<RuleGroup> COMPARATOR = (o1, o2) -> {
+        if (o1 == null && o2 == null) {
+            return 0;
+        } else if (o1 == null) {
+            return 1;
+        } else if (o2 == null) {
+            return -1;
+        } else {
+            return o1.min - o2.min;
+        }
+    };
+
     private final List<Integer> ruleIndexes;
     private int min;
 
@@ -90,14 +99,6 @@ public class RuleGroup implements Comparable<RuleGroup> {
             }
         }
         return new RuleGroup(indexes);
-    }
-
-    @Override
-    public int compareTo(RuleGroup other) {
-        if (other == null) {
-            return 1;
-        }
-        return this.min - other.min;
     }
 
     @Override

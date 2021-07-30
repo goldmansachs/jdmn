@@ -123,7 +123,7 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
         LOGGER.debug("Max cliques {}", maxCliques);
 
         // Make errors
-        maxCliques.sort(RuleGroup::compareTo);
+        maxCliques.sort(RuleGroup.COMPARATOR);
         for (RuleGroup ruleGroup: maxCliques) {
             String error = makeError(element, ruleGroup, repository);
             errorReport.add(error);
