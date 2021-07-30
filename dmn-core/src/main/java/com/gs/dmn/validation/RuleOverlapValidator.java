@@ -28,6 +28,7 @@ import java.util.*;
 public class RuleOverlapValidator extends SimpleDMNValidator {
     private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition;
     private final InputParameters inputParameters;
+    private final RuleFactory ruleFactory = new RuleFactory();
 
     public RuleOverlapValidator() {
         this(new Slf4jBuildLogger(LOGGER));
@@ -85,14 +86,17 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
     private void validate(TDRGElement element, TDecisionTable decisionTable, DMNModelRepository repository, List<String> errorReport) {
         logger.debug(String.format("Validate element '%s'", element.getName()));
 
+        // Find the overlapping rules
         FEELTranslator feelTranslator = this.dmnDialectDefinition.createFEELTranslator(repository, this.inputParameters);
         List<Integer> ruleIndexList = new ArrayList<>();
-        for (int i=0; i<decisionTable.getRule().size(); i++) {
+        int totalNumberOfRules = decisionTable.getRule().size();
+        for (int i = 0; i< totalNumberOfRules; i++) {
             ruleIndexList.add(i);
         }
-        // Find the overlapping rules
+        int totalNumberOfColumns = decisionTable.getInput().size();
+        List<Rule> rules = this.ruleFactory.makeRules(totalNumberOfRules, totalNumberOfColumns, repository, element, decisionTable, feelTranslator);
         ArrayList<RuleGroup> overlappingRules = new ArrayList<>();
-        findOverlappingRules(ruleIndexList, 0, decisionTable.getInput().size(), overlappingRules, repository, element, decisionTable, feelTranslator);
+        findOverlappingRules(ruleIndexList, 0, totalNumberOfColumns, overlappingRules, rules);
 
         LOGGER.debug("Overlapping rules {}", overlappingRules);
 
@@ -158,9 +162,9 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
     //          else
     //              Lxi.put(currentBound);
     //  return overlappingRuleList;
-    private List<RuleGroup> findOverlappingRules(List<Integer> ruleList, int columnIndex, int inputColumnCount, List<RuleGroup> overlappingRuleList, DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, FEELTranslator feelTranslator) {
+    private List<RuleGroup> findOverlappingRules(List<Integer> ruleList, int columnIndex, int inputColumnCount, List<RuleGroup> overlappingRuleList, List<Rule> rules) {
         String indent = StringUtils.repeat("\t", columnIndex);
-        LOGGER.debug("{}findOverlappingRules active rules '{}' column '{}' overlapping rules '{}'", indent, ruleList, columnIndex, overlappingRuleList);
+        LOGGER.debug("{}findOverlappingRules column = '{}' active rules '{}' overlapping rules '{}'", indent, columnIndex, ruleList, overlappingRuleList);
 
         if(columnIndex == inputColumnCount) {
             RuleGroup group = new RuleGroup(new ArrayList<>(ruleList));
@@ -169,10 +173,10 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
             // Define the current list of bounds lxi
             List<Integer> lxi = new ArrayList<>();
             // Project rules on column columnIndex
-            List<Bound> sortedListAllBounds = makeBoundList(ruleList, columnIndex, repository, element, decisionTable, feelTranslator);
+            List<Bound> sortedListAllBounds = makeBoundList(ruleList, columnIndex, rules);
             for (Bound bound : sortedListAllBounds) {
                 if (!bound.isLowerBound()) {
-                    List<RuleGroup> overlappingRules = findOverlappingRules(lxi, columnIndex + 1, inputColumnCount, overlappingRuleList, repository, element, decisionTable, feelTranslator);
+                    List<RuleGroup> overlappingRules = findOverlappingRules(lxi, columnIndex + 1, inputColumnCount, overlappingRuleList, rules);
                     lxi.remove((Object) bound.getInterval().getRuleIndex());
 
                     for (RuleGroup group : overlappingRules) {
@@ -195,13 +199,10 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
         }
     }
 
-    private List<Bound> makeBoundList(List<Integer> ruleList, int columnIndex, DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, FEELTranslator feelTranslator) {
-        BoundList boundList = new BoundList(repository, element, decisionTable, ruleList, columnIndex, feelTranslator);
-        if (boundList.isCanProject()) {
-            boundList.sort();
-            return boundList.getBounds();
-        }
-        return new ArrayList<>();
+    private List<Bound> makeBoundList(List<Integer> ruleList, int columnIndex, List<Rule> rules) {
+        BoundList boundList = new BoundList(ruleList, columnIndex, rules);
+        boundList.sort();
+        return boundList.getBounds();
     }
 
     //    algorithm BronKerbosch2(R, P, X) is

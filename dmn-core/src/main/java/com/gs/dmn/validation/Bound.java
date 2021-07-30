@@ -12,10 +12,15 @@
  */
 package com.gs.dmn.validation;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.Objects;
 
 public class Bound {
+    static final BigDecimal MINUS_INFINITY = BigDecimal.valueOf(-Double.MAX_VALUE);
+    static final BigDecimal PLUS_INFINITY = BigDecimal.valueOf(Double.MAX_VALUE);
+    static final BigDecimal DELTA = new BigDecimal("0.00001");
+
     public static Comparator<Bound> COMPARATOR = (o1, o2) -> {
         if (o1 == null && o2 == null) {
             return 0;
@@ -87,9 +92,21 @@ public class Bound {
     @Override
     public String toString() {
         if (isLowerBound) {
-            return String.format("%s%s", isIncluded ? "[" : "(", value);
+            return String.format("%s%s", isIncluded ? "[" : "(", serialize(value));
         } else {
-            return String.format("%s%s", value, isIncluded ? "]" : ")");
+            return String.format("%s%s", serialize(value), isIncluded ? "]" : ")");
+        }
+    }
+
+    private String serialize(Number value) {
+        if (value == null) {
+            return null;
+        } else if (MINUS_INFINITY.equals(value)) {
+            return "-Infinity";
+        } else if (PLUS_INFINITY.equals(value)) {
+            return "+Infinity";
+        } else {
+            return value.toString();
         }
     }
 
@@ -97,9 +114,9 @@ public class Bound {
         if (isIncluded) {
             return this.value.doubleValue();
         } else if (isLowerBound) {
-            return this.value.doubleValue() + BoundList.DELTA.doubleValue();
+            return this.value.doubleValue() + DELTA.doubleValue();
         } else {
-            return this.value.doubleValue() - BoundList.DELTA.doubleValue();
+            return this.value.doubleValue() - DELTA.doubleValue();
         }
     }
 }
