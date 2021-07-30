@@ -29,9 +29,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoundList {
-    private static final BigDecimal MINUS_INFINITY = new BigDecimal(-Double.MAX_VALUE);
-    private static final BigDecimal PLUS_INFINITY = new BigDecimal(Double.MAX_VALUE);
-    private static final BigDecimal DELTA = new BigDecimal("0.00001");
+    private static final BigDecimal MINUS_INFINITY = BigDecimal.valueOf(-Double.MAX_VALUE);
+    private static final BigDecimal PLUS_INFINITY = BigDecimal.valueOf(Double.MAX_VALUE);
+    static final BigDecimal DELTA = new BigDecimal("0.00001");
 
     private final List<Bound> bounds = new ArrayList<>();
     private boolean canProject = true;
@@ -184,11 +184,11 @@ public class BoundList {
                 }
             }
         }
-        return null;
+        return new ArrayList<>();
     }
 
     public void sort() {
-        this.bounds.sort(Bound::compareTo);
+        this.bounds.sort(Bound.COMPARATOR);
     }
 
     private String getInputType(TDecisionTable decisionTable, int columnIndex) {
@@ -205,7 +205,7 @@ public class BoundList {
 
         }
         return typeRef;
-    };
+    }
 
     private boolean isNumberType(String currentColumnType) {
         return "number".equals(currentColumnType);
