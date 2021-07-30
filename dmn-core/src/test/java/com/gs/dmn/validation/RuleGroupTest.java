@@ -15,6 +15,7 @@ package com.gs.dmn.validation;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -30,6 +31,21 @@ public class RuleGroupTest {
         assertEquals("[]", new RuleGroup().serialize());
         // Indexes start from 1 - user-friendly
         assertEquals("[2, 3]", new RuleGroup(Arrays.asList(1, 2)).serialize());
+    }
+
+    @Test
+    public void testSort() {
+        List<RuleGroup> groups = Arrays.asList(
+                null,
+                null,
+                new RuleGroup(),
+                new RuleGroup(),
+                new RuleGroup(Arrays.asList(3, 1)),
+                new RuleGroup(Arrays.asList(3, 7)),
+                new RuleGroup(Arrays.asList(3, 2))
+        );
+        groups.sort(RuleGroup.COMPARATOR);
+        assertEquals("[[], [], [3, 1], [3, 2], [3, 7], null, null]", groups.toString());
     }
 
     @Test
