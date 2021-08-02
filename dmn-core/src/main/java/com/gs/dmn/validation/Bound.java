@@ -12,14 +12,17 @@
  */
 package com.gs.dmn.validation;
 
-import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Comparator;
 import java.util.Objects;
 
 public class Bound {
-    static final BigDecimal MINUS_INFINITY = BigDecimal.valueOf(-Double.MAX_VALUE);
-    static final BigDecimal PLUS_INFINITY = BigDecimal.valueOf(Double.MAX_VALUE);
-    static final BigDecimal DELTA = new BigDecimal("0.00001");
+    static final Double ZERO = 0.0D;
+    static final Double ONE = 1.0D;
+    static final Double MINUS_INFINITY = -Double.MAX_VALUE;
+    static final Double PLUS_INFINITY = Double.MAX_VALUE;
+    static final Double DELTA = 0.00001D;
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#");
 
     public static Comparator<Bound> COMPARATOR = (o1, o2) -> {
         if (o1 == null && o2 == null) {
@@ -53,15 +56,11 @@ public class Bound {
     private final boolean isIncluded;
     private final Number value;
 
-    public Bound(Interval interval, boolean lowerBound, boolean isIncluded, Object value) {
+    public Bound(Interval interval, boolean lowerBound, boolean isIncluded, Number value) {
         this.interval = interval;
         this.isLowerBound = lowerBound;
         this.isIncluded = isIncluded;
-        if (!(value instanceof Number)) {
-            throw new IllegalArgumentException(String.format("Unexpected value in bound '%s'", value));
-        } else {
-            this.value = (Number) value;
-        }
+        this.value = value;
     }
 
     public Interval getInterval() {
@@ -106,7 +105,7 @@ public class Bound {
         } else if (PLUS_INFINITY.equals(value)) {
             return "+Infinity";
         } else {
-            return value.toString();
+            return DECIMAL_FORMAT.format(value);
         }
     }
 
@@ -114,9 +113,9 @@ public class Bound {
         if (isIncluded) {
             return this.value.doubleValue();
         } else if (isLowerBound) {
-            return this.value.doubleValue() + DELTA.doubleValue();
+            return this.value.doubleValue() + DELTA;
         } else {
-            return this.value.doubleValue() - DELTA.doubleValue();
+            return this.value.doubleValue() - DELTA;
         }
     }
 }
