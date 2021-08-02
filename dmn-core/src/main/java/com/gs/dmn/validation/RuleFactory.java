@@ -76,7 +76,7 @@ public class RuleFactory {
                         List<String> allowedValues = findAllowedValues(repository, element, decisionTable, columnIndex);
                         if (!allowedValues.isEmpty()) {
                             // Number - min, max interval is [0..max+1)
-                            return new Interval(ruleIndex, columnIndex, false, Bound.ZERO, true, allowedValues.size() + 1);
+                            return new Interval(ruleIndex, columnIndex, false, Bound.ZERO, true, allowedValues.size() + 1.0);
                         }
                     }
                 }
