@@ -24,7 +24,6 @@ import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20191111.model.*;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,22 +68,22 @@ public class RuleFactory {
                 // Check intervals
                 if (positiveUnaryTest instanceof EndpointsRange) {
                     EndpointsRange astRange = (EndpointsRange) positiveUnaryTest;
-                    BigDecimal startValue = makeBoundValue(repository, element, decisionTable, columnIndex, astRange.getStart());
-                    BigDecimal endValue = makeBoundValue(repository, element, decisionTable, columnIndex, astRange.getEnd());
+                    Double startValue = makeBoundValue(repository, element, decisionTable, columnIndex, astRange.getStart());
+                    Double endValue = makeBoundValue(repository, element, decisionTable, columnIndex, astRange.getEnd());
                     if (startValue != null && endValue != null) {
                         boolean openEnd = astRange.isOpenEnd();
                         boolean openStart = astRange.isOpenStart();
                         if (openStart) {
-                            startValue = startValue.add(Bound.DELTA);
+                            startValue = startValue + Bound.DELTA;
                         }
                         if (openEnd) {
-                            endValue = endValue.subtract(Bound.DELTA);
+                            endValue = endValue - Bound.DELTA;
                         }
                         return new Interval(ruleIndex, columnIndex, false, startValue, false, endValue);
                     }
                 } else if (positiveUnaryTest instanceof OperatorRange) {
                     OperatorRange operatorRange = (OperatorRange) positiveUnaryTest;
-                    BigDecimal value = makeBoundValue(repository, element, decisionTable, columnIndex, operatorRange.getEndpoint());
+                    Double value = makeBoundValue(repository, element, decisionTable, columnIndex, operatorRange.getEndpoint());
                     if (value != null) {
                         String operator = operatorRange.getOperator();
                         String columnInputType = getInputType(decisionTable, columnIndex);
@@ -93,11 +92,11 @@ public class RuleFactory {
                             if (operator == null) {
                                 return new Interval(ruleIndex, columnIndex, false, value, false, value);
                             } else if ("<".equals(operator)) {
-                                return new Interval(ruleIndex, columnIndex, false, Bound.MINUS_INFINITY, false, value.subtract(Bound.DELTA));
+                                return new Interval(ruleIndex, columnIndex, false, Bound.MINUS_INFINITY, false, value - Bound.DELTA);
                             } else if ("<=".equals(operator)) {
                                 return new Interval(ruleIndex, columnIndex, false, Bound.MINUS_INFINITY, false, value);
                             } else if (">".equals(operator)) {
-                                return new Interval(ruleIndex, columnIndex, false, value.add(Bound.DELTA), false, Bound.PLUS_INFINITY);
+                                return new Interval(ruleIndex, columnIndex, false, value + Bound.DELTA, false, Bound.PLUS_INFINITY);
                             } else if (">=".equals(operator)) {
                                 return new Interval(ruleIndex, columnIndex, false, value, false, Bound.PLUS_INFINITY);
                             }
@@ -124,22 +123,22 @@ public class RuleFactory {
         return null;
     }
 
-    private BigDecimal makeBoundValue(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int columnIndex, Expression exp) {
-        BigDecimal value = null;
+    private Double makeBoundValue(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int columnIndex, Expression exp) {
+        Double value = null;
         if (exp instanceof NumericLiteral) {
             String lexeme = ((SimpleLiteral) exp).getLexeme();
-            value = new BigDecimal(lexeme);
+            value = Double.parseDouble(lexeme);
         } else if (exp instanceof BooleanLiteral) {
             String lexeme = ((SimpleLiteral) exp).getLexeme();
             boolean bValue = Boolean.parseBoolean(lexeme);
-            value = bValue ? BigDecimal.ONE : BigDecimal.ZERO;
+            value = bValue ? Bound.ONE : Bound.ZERO;
         } else if (exp instanceof StringLiteral) {
             String lexeme = ((SimpleLiteral) exp).getLexeme();
             List<String> allowedValues = findAllowedValues(repository, element, decisionTable, columnIndex);
             for (int i=0; i<allowedValues.size(); i++) {
                 String enumValue = allowedValues.get(i);
                 if (enumValue.equals(lexeme)) {
-                    return new BigDecimal(i);
+                    return (double) i;
                 }
             }
         }

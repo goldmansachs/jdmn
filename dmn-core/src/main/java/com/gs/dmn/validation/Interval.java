@@ -12,15 +12,13 @@
  */
 package com.gs.dmn.validation;
 
-import java.math.BigDecimal;
-
 public class Interval {
     private final int ruleIndex;
     private final int columnIndex;
     private final Bound lowerBound;
     private final Bound upperBound;
 
-    public Interval(int ruleIndex, int columnIndex, boolean openStart, BigDecimal startValue, boolean openEnd, BigDecimal endValue) {
+    public Interval(int ruleIndex, int columnIndex, boolean openStart, Number startValue, boolean openEnd, Number endValue) {
         this.ruleIndex = ruleIndex;
         this.columnIndex = columnIndex;
         lowerBound = new Bound(this, true, !openStart, startValue);
