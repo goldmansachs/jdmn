@@ -174,16 +174,22 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
             List<Integer> lxi = new ArrayList<>();
             // Project rules on column columnIndex
             List<Bound> sortedListAllBounds = makeBoundList(ruleList, columnIndex, rules);
-            for (Bound bound : sortedListAllBounds) {
-                if (!bound.isLowerBound()) {
+            for (Bound currentBound : sortedListAllBounds) {
+                LOGGER.debug("{}Current bound = '{}' active rules {}", indent, currentBound, lxi);
+
+                int ruleIndex = currentBound.getInterval().getRuleIndex();
+                if (!currentBound.isLowerBound()) {
                     List<RuleGroup> overlappingRules = findOverlappingRules(lxi, columnIndex + 1, inputColumnCount, overlappingRuleList, rules);
-                    lxi.remove((Object) bound.getInterval().getRuleIndex());
+
+                    LOGGER.debug("{}Remove active rule {}", indent, ruleIndex);
+                    lxi.remove((Object) ruleIndex);
 
                     for (RuleGroup group : overlappingRules) {
                         addGroup(overlappingRuleList, group);
                     }
                 } else {
-                    lxi.add(bound.getInterval().getRuleIndex());
+                    LOGGER.debug("{}Add active rule {}", indent, ruleIndex);
+                    lxi.add(ruleIndex);
                 }
             }
         }

@@ -58,8 +58,29 @@ public class RuleFactory {
         // Parse unary tests
         String text = cell.getText();
         UnaryTests unaryTests = feelTranslator.parseUnaryTests(text);
+        String columnInputType = getInputType(decisionTable, columnIndex);
         if (unaryTests instanceof Any) {
-            return new Interval(ruleIndex, columnIndex, false, Bound.MINUS_INFINITY, false, Bound.PLUS_INFINITY);
+            if (isNumberType(columnInputType)) {
+                // Number - min, max interval is [-Infinity .. +Infinity]
+                return new Interval(ruleIndex, columnIndex, false, Bound.MINUS_INFINITY, false, Bound.PLUS_INFINITY);
+            } else if (isBooleanType(columnInputType)) {
+                // Boolean - min, max interval is [0..2)
+                return new Interval(ruleIndex, columnIndex, false, Bound.ZERO, true, Bound.ONE + 1);
+            } else {
+                // Enumeration
+                TDefinitions model = repository.getModel(element);
+                TItemDefinition itemDefinition = repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, columnInputType));
+                if (itemDefinition != null) {
+                    String typeRef = itemDefinition.getTypeRef();
+                    if (isStringType(typeRef)) {
+                        List<String> allowedValues = findAllowedValues(repository, element, decisionTable, columnIndex);
+                        if (!allowedValues.isEmpty()) {
+                            // Number - min, max interval is [0..max+1)
+                            return new Interval(ruleIndex, columnIndex, false, Bound.ZERO, true, allowedValues.size() + 1);
+                        }
+                    }
+                }
+            }
         } else if (unaryTests instanceof PositiveUnaryTests) {
             List<PositiveUnaryTest> positiveUnaryTests = ((PositiveUnaryTests) unaryTests).getPositiveUnaryTests();
             // Check simple expressions only
@@ -86,7 +107,6 @@ public class RuleFactory {
                     Double value = makeBoundValue(repository, element, decisionTable, columnIndex, operatorRange.getEndpoint());
                     if (value != null) {
                         String operator = operatorRange.getOperator();
-                        String columnInputType = getInputType(decisionTable, columnIndex);
                         if (isNumberType(columnInputType)) {
                             // Number
                             if (operator == null) {
@@ -103,7 +123,8 @@ public class RuleFactory {
                         } else if (isBooleanType(columnInputType)) {
                             // Boolean
                             if (operator == null) {
-                                return new Interval(ruleIndex, columnIndex, false, value, false, value);
+                                // create interval [i..i+1)
+                                return new Interval(ruleIndex, columnIndex, false, value, true, value + 1);
                             }
                         } else {
                             // Enumeration
@@ -112,7 +133,8 @@ public class RuleFactory {
                             if (itemDefinition != null) {
                                 String typeRef = itemDefinition.getTypeRef();
                                 if (isStringType(typeRef)) {
-                                    return new Interval(ruleIndex, columnIndex, false, value, false, value);
+                                    // create interval [i..i+1)
+                                    return new Interval(ruleIndex, columnIndex, false, value, true, value + 1);
                                 }
                             }
                         }
