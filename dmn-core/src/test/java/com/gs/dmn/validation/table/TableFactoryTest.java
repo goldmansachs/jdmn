@@ -109,13 +109,13 @@ public class TableFactoryTest extends AbstractValidatorTest {
     @Test
     public void testMakeTableWhenBoolean() {
         List<String> expectedInputs = Arrays.asList(
-                "boolean", "boolean", "boolean"
+                "boolean [false, true]", "boolean [false, true]", "boolean [false, true]"
         );
         List<String> expectedRules = Arrays.asList(
-                "[[1, 2), [0, 3), [1, 2)]",
-                "[[0, 3), [1, 2), [0, 1)]",
-                "[[0, 3), [0, 1), [0, 3)]",
-                "[[0, 1), [0, 3), [0, 3)]"
+                "[[1, 2), [0, 2), [1, 2)]",
+                "[[0, 2), [1, 2), [0, 1)]",
+                "[[0, 2), [0, 1), [0, 2)]",
+                "[[0, 1), [0, 2), [0, 2)]"
         );
         checkTable(resource("dmn/input/1.3/loan-grade-with-boolean.dmn"), expectedInputs, expectedRules);
     }
@@ -126,10 +126,10 @@ public class TableFactoryTest extends AbstractValidatorTest {
                 "string [\"E11\", \"E12\", \"E13\"]", "string [\"E21\", \"E22\", \"E23\"]", "string [\"E31\", \"E32\", \"E33\"]"
         );
         List<String> expectedRules = Arrays.asList(
-                "[[0, 1), [0, 4), [0, 1)]",
-                "[[0, 4), [0, 1), [1, 2)]",
-                "[[0, 4), [0, 1), [0, 4)]",
-                "[[1, 2), [0, 4), [0, 4)]"
+                "[[0, 1), [0, 3), [0, 1)]",
+                "[[0, 3), [0, 1), [1, 2)]",
+                "[[0, 3), [0, 1), [0, 3)]",
+                "[[1, 2), [0, 3), [0, 3)]"
         );
         checkTable(resource("dmn/input/1.3/loan-grade-with-enumeration.dmn"), expectedInputs, expectedRules);
     }
@@ -146,5 +146,4 @@ public class TableFactoryTest extends AbstractValidatorTest {
         assertEquals(expectedInput.toString(), table.getInputs().toString());
         assertEquals(expectedRules.toString(), table.getRules().toString());
     }
-
 }

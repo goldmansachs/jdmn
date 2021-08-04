@@ -19,19 +19,16 @@ import java.util.List;
 public class EnumerationInterval extends Interval {
     public static final List<String> BOOLEAN_ALLOWED_VALUES = Arrays.asList("false", "true");
 
-    private final List<String> allowedValues = new ArrayList<>();
     private final List<String> values = new ArrayList<>();
 
     public EnumerationInterval(int ruleIndex, int columnIndex, List<String> allowedValues) {
-        super(ruleIndex, columnIndex, false, Bound.ZERO, true, allowedValues.size() + 1.0);
+        super(ruleIndex, columnIndex, false, Bound.ZERO, true, (double) allowedValues.size());
         this.values.addAll(allowedValues);
-        this.allowedValues.addAll(allowedValues);
     }
 
     public EnumerationInterval(int ruleIndex, int columnIndex, List<String> allowedValues, String value) {
-        super(ruleIndex, columnIndex, false, (double) allowedValues.indexOf(value), true, allowedValues.indexOf(value) + 1.0);
+        super(ruleIndex, columnIndex, false, (double) allowedValues.indexOf(value), true, (double) allowedValues.indexOf(value) + 1.0);
         this.values.add(value);
-        this.allowedValues.addAll(allowedValues);
     }
 
     public EnumerationInterval(int ruleIndex, int columnIndex, boolean openStart, Double startValue, boolean openEnd, Double endValue) {
@@ -40,10 +37,6 @@ public class EnumerationInterval extends Interval {
 
     public List<String> getValues() {
         return values;
-    }
-
-    public List<String> getAllowedValues() {
-        return allowedValues;
     }
 
     @Override
