@@ -42,7 +42,7 @@ public class TableFactory {
             if (Input.isNumberType(inputTypeRef)) {
                 inputs.add(new Input(inputTypeRef));
             } else if (Input.isBooleanType(inputTypeRef)) {
-                inputs.add(new Input(inputTypeRef));
+                inputs.add(new Input(inputTypeRef, EnumerationInterval.BOOLEAN_ALLOWED_VALUES));
             } else {
                 // Retrieve allowed values for enumerations
                 TDefinitions model = repository.getModel(element);
@@ -52,7 +52,6 @@ public class TableFactory {
                     if ("string".equals(typeRef)) {
                         List<String> allowedValues = findAllowedValues(repository, element, decisionTable, columnIndex);
                         if (!allowedValues.isEmpty()) {
-                            // Number - min, max interval is [0..max+1)
                             inputs.add(new Input(typeRef, allowedValues));
                         }
                     }
@@ -117,7 +116,7 @@ public class TableFactory {
             // Number - min, max interval is [-Infinity .. +Infinity]
             return new NumericInterval(ruleIndex, columnIndex);
         } else if (input.isBooleanType()) {
-            // Boolean - min, max interval is [0..2)
+            // Boolean - min, max interval is [0..3)
             return new EnumerationInterval(ruleIndex, columnIndex, EnumerationInterval.BOOLEAN_ALLOWED_VALUES);
         } else if (input.isStringType()) {
             List<String> allowedValues = input.getAllowedValues();
@@ -153,7 +152,6 @@ public class TableFactory {
     private Interval makeInterval(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int ruleIndex, int columnIndex, OperatorRange operatorRange) {
         String operator = operatorRange.getOperator();
         Expression endpoint = operatorRange.getEndpoint();
-//        Double value = makeBoundValue(repository, element, decisionTable, columnIndex, operatorRange.getEndpoint());
         if (endpoint instanceof NumericLiteral) {
             // Number
             String lexeme = ((NumericLiteral) endpoint).getLexeme();
