@@ -12,13 +12,19 @@
  */
 package com.gs.dmn.validation;
 
+import com.gs.dmn.validation.table.Bound;
+import com.gs.dmn.validation.table.Interval;
+import com.gs.dmn.validation.table.Rule;
+import com.gs.dmn.validation.table.Table;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class BoundList {
     private final List<Bound> bounds = new ArrayList<>();
 
-    public BoundList(List<Integer> comparingRules, int columnIndex, List<Rule> rules) {
+    public BoundList(List<Integer> comparingRules, int columnIndex, Table table) {
+        List<Rule> rules = table.getRules();
         for (int ruleIndex: comparingRules) {
             Rule rule = rules.get(ruleIndex);
             Interval interval = rule.getInterval(columnIndex);

@@ -10,13 +10,15 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.validation;
+package com.gs.dmn.validation.table;
 
-public class Interval {
-    private final int ruleIndex;
-    private final int columnIndex;
-    private final Bound lowerBound;
-    private final Bound upperBound;
+import java.util.Objects;
+
+public abstract class Interval {
+    protected final int ruleIndex;
+    protected final int columnIndex;
+    protected final Bound lowerBound;
+    protected final Bound upperBound;
 
     public Interval(int ruleIndex, int columnIndex, boolean openStart, Number startValue, boolean openEnd, Number endValue) {
         this.ruleIndex = ruleIndex;
@@ -41,22 +43,12 @@ public class Interval {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Interval interval = (Interval) o;
-
-        if (ruleIndex != interval.ruleIndex) return false;
-        return columnIndex == interval.columnIndex;
+        return ruleIndex == interval.ruleIndex && columnIndex == interval.columnIndex;
     }
 
     @Override
     public int hashCode() {
-        int result = ruleIndex;
-        result = 31 * result + columnIndex;
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%s, %s", lowerBound, upperBound);
+        return Objects.hash(ruleIndex, columnIndex);
     }
 }

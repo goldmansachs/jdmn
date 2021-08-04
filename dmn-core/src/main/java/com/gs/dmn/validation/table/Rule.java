@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.validation;
+package com.gs.dmn.validation.table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class Rule {
     private final List<Interval> intervals = new ArrayList<>();
 
-    public Rule(List<Interval> intervals) {
+    public Rule(List<? extends Interval> intervals) {
         if (intervals != null) {
             this.intervals.addAll(intervals);
         }
@@ -31,6 +31,6 @@ public class Rule {
 
     @Override
     public String toString() {
-        return String.format("[%s]", intervals.stream().map(Interval::toString).collect(Collectors.joining(", ")));
+        return String.format("[%s]", intervals.stream().map(i -> i == null ? null : i.toString()).collect(Collectors.joining(", ")));
     }
 }
