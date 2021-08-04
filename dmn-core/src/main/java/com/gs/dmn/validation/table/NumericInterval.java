@@ -1,0 +1,28 @@
+/*
+ * Copyright 2016 Goldman Sachs.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
+package com.gs.dmn.validation.table;
+
+public class NumericInterval extends Interval {
+    public NumericInterval(int ruleIndex, int columnIndex) {
+        super(ruleIndex, columnIndex, false, Bound.MINUS_INFINITY, false, Bound.PLUS_INFINITY);
+    }
+
+    public NumericInterval(int ruleIndex, int columnIndex, boolean openStart, Number startValue, boolean openEnd, Number endValue) {
+        super(ruleIndex, columnIndex, openStart, startValue, openEnd, endValue);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s, %s", lowerBound, upperBound);
+    }
+}

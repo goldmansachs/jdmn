@@ -19,6 +19,7 @@ import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.InputParameters;
+import com.gs.dmn.validation.table.*;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20191111.model.*;
 
@@ -28,7 +29,7 @@ import java.util.*;
 public class RuleOverlapValidator extends SimpleDMNValidator {
     private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition;
     private final InputParameters inputParameters;
-    private final RuleFactory ruleFactory = new RuleFactory();
+    private final TableFactory factory = new TableFactory();
 
     public RuleOverlapValidator() {
         this(new Slf4jBuildLogger(LOGGER));
@@ -94,9 +95,12 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
             ruleIndexList.add(i);
         }
         int totalNumberOfColumns = decisionTable.getInput().size();
-        List<Rule> rules = this.ruleFactory.makeRules(totalNumberOfRules, totalNumberOfColumns, repository, element, decisionTable, feelTranslator);
+        Table table = this.factory.makeTable(totalNumberOfRules, totalNumberOfColumns, repository, element, decisionTable, feelTranslator);
+
+        LOGGER.debug("Table {}", table);
+
         ArrayList<RuleGroup> overlappingRules = new ArrayList<>();
-        findOverlappingRules(ruleIndexList, 0, totalNumberOfColumns, overlappingRules, rules);
+        findOverlappingRules(ruleIndexList, 0, totalNumberOfColumns, overlappingRules, table);
 
         LOGGER.debug("Overlapping rules {}", overlappingRules);
 
@@ -162,7 +166,7 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
     //          else
     //              Lxi.put(currentBound);
     //  return overlappingRuleList;
-    private List<RuleGroup> findOverlappingRules(List<Integer> ruleList, int columnIndex, int inputColumnCount, List<RuleGroup> overlappingRuleList, List<Rule> rules) {
+    private List<RuleGroup> findOverlappingRules(List<Integer> ruleList, int columnIndex, int inputColumnCount, List<RuleGroup> overlappingRuleList, Table table) {
         String indent = StringUtils.repeat("\t", columnIndex);
         LOGGER.debug("{}findOverlappingRules column = '{}' active rules '{}' overlapping rules '{}'", indent, columnIndex, ruleList, overlappingRuleList);
 
@@ -173,13 +177,13 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
             // Define the current list of bounds lxi
             List<Integer> lxi = new ArrayList<>();
             // Project rules on column columnIndex
-            List<Bound> sortedListAllBounds = makeBoundList(ruleList, columnIndex, rules);
+            List<Bound> sortedListAllBounds = makeBoundList(ruleList, columnIndex, table);
             for (Bound currentBound : sortedListAllBounds) {
                 LOGGER.debug("{}Current bound = '{}' active rules {}", indent, currentBound, lxi);
 
                 int ruleIndex = currentBound.getInterval().getRuleIndex();
                 if (!currentBound.isLowerBound()) {
-                    List<RuleGroup> overlappingRules = findOverlappingRules(lxi, columnIndex + 1, inputColumnCount, overlappingRuleList, rules);
+                    List<RuleGroup> overlappingRules = findOverlappingRules(lxi, columnIndex + 1, inputColumnCount, overlappingRuleList, table);
 
                     LOGGER.debug("{}Remove active rule {}", indent, ruleIndex);
                     lxi.remove((Object) ruleIndex);
@@ -205,8 +209,8 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
         }
     }
 
-    private List<Bound> makeBoundList(List<Integer> ruleList, int columnIndex, List<Rule> rules) {
-        BoundList boundList = new BoundList(ruleList, columnIndex, rules);
+    private List<Bound> makeBoundList(List<Integer> ruleList, int columnIndex, Table table) {
+        BoundList boundList = new BoundList(ruleList, columnIndex, table);
         boundList.sort();
         return boundList.getBounds();
     }

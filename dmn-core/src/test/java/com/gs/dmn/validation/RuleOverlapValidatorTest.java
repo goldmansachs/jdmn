@@ -14,6 +14,7 @@ package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.validation.table.RuleGroup;
 import org.junit.Test;
 
 import java.util.*;
