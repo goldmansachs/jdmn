@@ -230,13 +230,15 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
             }
         } else {
             int u = choosePivot(p, x, neighbor);
-            Set<Integer> uNeighbor = neighbor.get(u);
-            List<Integer> ruleIndexes = p.minus(uNeighbor).getRuleIndexes();
-            for (int v: ruleIndexes) {
-                Set<Integer> vNeighbor = neighbor.get(v);
-                maxCliquesBronKerbosch(r.union(v), p.intersect(vNeighbor), x.intersect(vNeighbor), neighbor, maxCliques);
-                p = p.minus(v);
-                x = x.union(v);
+            if (u != -1) {
+                Set<Integer> uNeighbor = neighbor.get(u);
+                List<Integer> ruleIndexes = p.minus(uNeighbor).getRuleIndexes();
+                for (int v: ruleIndexes) {
+                    Set<Integer> vNeighbor = neighbor.get(v);
+                    maxCliquesBronKerbosch(r.union(v), p.intersect(vNeighbor), x.intersect(vNeighbor), neighbor, maxCliques);
+                    p = p.minus(v);
+                    x = x.union(v);
+                }
             }
         }
     }
@@ -264,10 +266,6 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
                 }
             }
         }
-        if (u != -1) {
-            return u;
-        } else {
-            throw new IllegalArgumentException(String.format("Cannot calculate pivot for p='%s' and x='%s'", p, x));
-        }
+        return u;
     }
 }

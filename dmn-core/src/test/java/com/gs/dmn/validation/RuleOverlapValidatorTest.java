@@ -99,6 +99,13 @@ public class RuleOverlapValidatorTest extends AbstractValidatorTest {
     }
 
     @Test
+    public void testValidateWhenEnumerationMissing() {
+        List<String> expectedErrors = Arrays.asList(
+        );
+        validate(validator, resource("dmn/input/1.3/loan-grade-with-enumeration-missing.dmn"), expectedErrors);
+    }
+
+    @Test
     public void testMaxCliquesBronKerbosch() {
         // https://en.wikipedia.org/wiki/Bron%E2%80%93Kerbosch_algorithm
         RuleGroup nodes = new RuleGroup(Arrays.asList(1, 2, 3, 4, 5, 6));
