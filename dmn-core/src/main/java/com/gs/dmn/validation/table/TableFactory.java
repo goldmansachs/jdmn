@@ -58,11 +58,18 @@ public class TableFactory {
                 }
             }
         }
+        if (inputs.size() < numberOfColumns) {
+            inputs.clear();
+        }
         return inputs;
     }
 
     private List<Rule> makeRules(int totalNumberOfRules, int totalNumberOfColumns, List<Input> inputs, DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, FEELTranslator feelTranslator) {
         List<Rule> rules = new ArrayList<>();
+        if (inputs.isEmpty()) {
+            return rules;
+        }
+
         for (int ruleIndex=0; ruleIndex<totalNumberOfRules; ruleIndex++) {
             TDecisionRule rule = decisionTable.getRule().get(ruleIndex);
             List<Interval> intervals = new ArrayList<>();
