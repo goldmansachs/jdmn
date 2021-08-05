@@ -37,6 +37,10 @@ public class Table {
         return rules;
     }
 
+    public boolean isEmpty() {
+        return inputs.isEmpty() || rules.isEmpty();
+    }
+
     @Override
     public String toString() {
         return String.format("[%s]", rules.stream().map(i -> i == null ? null : i.toString()).collect(Collectors.joining(", ")));

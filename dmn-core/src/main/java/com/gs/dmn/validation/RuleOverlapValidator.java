@@ -100,7 +100,9 @@ public class RuleOverlapValidator extends SimpleDMNValidator {
         LOGGER.debug("Table {}", table);
 
         ArrayList<RuleGroup> overlappingRules = new ArrayList<>();
-        findOverlappingRules(ruleIndexList, 0, totalNumberOfColumns, overlappingRules, table);
+        if (!table.isEmpty()) {
+            findOverlappingRules(ruleIndexList, 0, totalNumberOfColumns, overlappingRules, table);
+        }
 
         LOGGER.debug("Overlapping rules {}", overlappingRules);
 
