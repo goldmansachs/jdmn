@@ -10,12 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.validation;
-
-import com.gs.dmn.validation.table.Bound;
-import com.gs.dmn.validation.table.Interval;
-import com.gs.dmn.validation.table.Rule;
-import com.gs.dmn.validation.table.Table;
+package com.gs.dmn.validation.table;
 
 import java.util.ArrayList;
 import java.util.List;
