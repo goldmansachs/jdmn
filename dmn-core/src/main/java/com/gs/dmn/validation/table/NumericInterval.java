@@ -13,12 +13,12 @@
 package com.gs.dmn.validation.table;
 
 public class NumericInterval extends Interval {
-    public NumericInterval(int ruleIndex, int columnIndex) {
-        super(ruleIndex, columnIndex, false, Bound.MINUS_INFINITY, false, Bound.PLUS_INFINITY);
+    public NumericInterval(int ruleIndex, int columnIndex, Input input) {
+        super(ruleIndex, columnIndex, input, false, Bound.MINUS_INFINITY, false, Bound.PLUS_INFINITY);
     }
 
-    public NumericInterval(int ruleIndex, int columnIndex, boolean openStart, Number startValue, boolean openEnd, Number endValue) {
-        super(ruleIndex, columnIndex, openStart, startValue, openEnd, endValue);
+    public NumericInterval(int ruleIndex, int columnIndex, Input input, boolean openStart, Number startValue, boolean openEnd, Number endValue) {
+        super(ruleIndex, columnIndex, input, openStart, startValue, openEnd, endValue);
     }
 
     @Override

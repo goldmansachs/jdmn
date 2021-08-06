@@ -51,6 +51,14 @@ public class Bound {
         }
     };
 
+    public static boolean areAdjacent(Bound b1, Bound b2) {
+        if (b1 == null || b2 == null) {
+            throw new IllegalArgumentException(String.format("Unexpected null bound '%s' or '%s'", b1, b2));
+        }
+
+        return b1.areAdjacent(b2);
+    }
+
     private final Interval interval;
     private final boolean isLowerBound;
     private final boolean isIncluded;
@@ -77,6 +85,18 @@ public class Bound {
 
     public Number getValue() {
         return value;
+    }
+
+    private boolean areAdjacent(Bound o) {
+        if (this == o) return true;
+        if (o == null || this.interval.getClass() != o.interval.getClass()) return false;
+
+        if (this.interval.getClass() == NumericInterval.class) {
+            return isIncluded == o.isIncluded && Objects.equals(value, o.value);
+        } else if (this.interval.getClass() == EnumerationInterval.class) {
+            return Objects.equals(value, o.value);
+        }
+        return false;
     }
 
     @Override
