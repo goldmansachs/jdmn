@@ -14,84 +14,37 @@ package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
-import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
-import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
-import com.gs.dmn.validation.table.*;
+import com.gs.dmn.validation.table.Bound;
+import com.gs.dmn.validation.table.Interval;
+import com.gs.dmn.validation.table.MissingIntervals;
+import com.gs.dmn.validation.table.Table;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.*;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TDecisionTable;
 
-import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-public class SweepMissingIntervalValidator extends SimpleDMNValidator {
-    private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition;
-    private final InputParameters inputParameters;
-    private final TableFactory factory = new TableFactory();
-
+public class SweepMissingIntervalValidator extends SweepValidator {
     public SweepMissingIntervalValidator() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
     public SweepMissingIntervalValidator(BuildLogger logger) {
         super(logger);
-        this.dmnDialectDefinition = new StandardDMNDialectDefinition();
-        this.inputParameters = new InputParameters(makeInputParametersMap());
     }
 
     public SweepMissingIntervalValidator(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition) {
         super(new Slf4jBuildLogger(LOGGER));
-        this.dmnDialectDefinition = dmnDialectDefinition;
-        this.inputParameters = new InputParameters(makeInputParametersMap());
     }
 
     @Override
-    public List<String> validate(DMNModelRepository dmnModelRepository) {
-        if (isEmpty(dmnModelRepository)) {
-            logger.warn("DMN repository is empty; validator will not run");
-            return new ArrayList<>();
-        }
-
-        return makeErrorReport(dmnModelRepository);
-    }
-
-    private Map<String, String> makeInputParametersMap() {
-        Map<String, String> inputParams = new LinkedHashMap<>();
-        inputParams.put("dmnVersion", "1.1");
-        inputParams.put("modelVersion", "2.0");
-        inputParams.put("platformVersion", "1.0");
-        return inputParams;
-    }
-
-    public List<String> makeErrorReport(DMNModelRepository dmnModelRepository) {
-        List<String> errorReport = new ArrayList<>();
-        BasicDMNToJavaTransformer dmnTransformer = this.dmnDialectDefinition.createBasicTransformer(dmnModelRepository, new NopLazyEvaluationDetector(), this.inputParameters);
-        for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
-            List<TDRGElement> drgElements = dmnModelRepository.findDRGElements(definitions);
-            for (TDRGElement element: drgElements) {
-                if (element instanceof TDecision) {
-                    JAXBElement<? extends TExpression> jaxbExpression = ((TDecision) element).getExpression();
-                    if (jaxbExpression != null) {
-                        TExpression expression = jaxbExpression.getValue();
-                        if (expression instanceof TDecisionTable && ((TDecisionTable) expression).getHitPolicy() == THitPolicy.UNIQUE) {
-                            validate(element, (TDecisionTable) expression, dmnTransformer, dmnModelRepository, errorReport);
-                        }
-                    }
-                }
-            }
-        }
-        return errorReport;
-    }
-
-    private void validate(TDRGElement element, TDecisionTable decisionTable, BasicDMNToJavaTransformer transformer, DMNModelRepository repository, List<String> errorReport) {
+    protected void validate(TDRGElement element, TDecisionTable decisionTable, BasicDMNToJavaTransformer transformer, DMNModelRepository repository, List<String> errorReport) {
         logger.debug(String.format("Validate element '%s'", element.getName()));
 
         FEELTranslator feelTranslator = this.dmnDialectDefinition.createFEELTranslator(repository, this.inputParameters);
@@ -102,7 +55,7 @@ public class SweepMissingIntervalValidator extends SimpleDMNValidator {
         }
         MissingIntervals missingIntervals = new MissingIntervals();
         int totalNumberOfColumns = decisionTable.getInput().size();
-        Table table = factory.makeTable(totalNumberOfRules, totalNumberOfColumns, repository, element, decisionTable, feelTranslator);
+        Table table = this.factory.makeTable(totalNumberOfRules, totalNumberOfColumns, repository, element, decisionTable, feelTranslator);
         if (!table.isEmpty()) {
             findMissingRules(ruleIndex, totalNumberOfColumns, missingIntervals, table);
 
@@ -206,11 +159,5 @@ public class SweepMissingIntervalValidator extends SimpleDMNValidator {
                 lastBound = currentBound;
             }
         }
-    }
-
-    private List<Bound> makeBoundList(List<Integer> ruleList, int columnIndex, Table table) {
-        BoundList boundList = new BoundList(ruleList, columnIndex, table);
-        boundList.sort();
-        return boundList.getBounds();
     }
 }
