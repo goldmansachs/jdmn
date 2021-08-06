@@ -21,8 +21,8 @@ import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
-public class RuleOverlapValidatorTest extends AbstractValidatorTest {
-    private final RuleOverlapValidator validator = new RuleOverlapValidator(new StandardDMNDialectDefinition());
+public class SweepRuleOverlapValidatorTest extends AbstractValidatorTest {
+    private final SweepRuleOverlapValidator validator = new SweepRuleOverlapValidator(new StandardDMNDialectDefinition());
 
     @Test
     public void testValidateWhenCorrect() {

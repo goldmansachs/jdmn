@@ -30,12 +30,12 @@ public class BatchValidationTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(BatchValidationTest.class);
 
     private final DMNReader reader = new DMNReader(new Slf4jBuildLogger(LOGGER), false);
-    private final DMNValidator validator = new RuleOverlapValidator();
+    private final DMNValidator validator = new SweepRuleOverlapValidator();
 
     public void validateFolder(File rootFolder) throws IOException {
         if (rootFolder.exists()) {
             Files.find(Paths.get(rootFolder.getPath()), 999, (p, bfa) -> bfa.isRegularFile()).forEach(
-                    p -> validate(p)
+                    this::validate
             );
         }
 
