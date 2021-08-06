@@ -26,22 +26,22 @@ import org.omg.spec.dmn._20191111.model.*;
 import javax.xml.bind.JAXBElement;
 import java.util.*;
 
-public class RuleOverlapValidator extends SimpleDMNValidator {
+public class SweepRuleOverlapValidator extends SimpleDMNValidator {
     private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition;
     private final InputParameters inputParameters;
     private final TableFactory factory = new TableFactory();
 
-    public RuleOverlapValidator() {
+    public SweepRuleOverlapValidator() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
-    public RuleOverlapValidator(BuildLogger logger) {
+    public SweepRuleOverlapValidator(BuildLogger logger) {
         super(logger);
         this.dmnDialectDefinition = new StandardDMNDialectDefinition();
         this.inputParameters = new InputParameters(makeInputParametersMap());
     }
 
-    public RuleOverlapValidator(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition) {
+    public SweepRuleOverlapValidator(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition) {
         super(new Slf4jBuildLogger(LOGGER));
         this.dmnDialectDefinition = dmnDialectDefinition;
         this.inputParameters = new InputParameters(makeInputParametersMap());
