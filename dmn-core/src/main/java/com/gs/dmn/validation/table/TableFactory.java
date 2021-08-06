@@ -108,9 +108,9 @@ public class TableFactory {
                 PositiveUnaryTest positiveUnaryTest = positiveUnaryTests.get(0);
                 // Check intervals
                 if (positiveUnaryTest instanceof EndpointsRange) {
-                    return makeInterval(repository, element, decisionTable, ruleIndex, columnIndex, (EndpointsRange) positiveUnaryTest);
+                    return makeInterval(repository, element, decisionTable, ruleIndex, columnIndex, input, (EndpointsRange) positiveUnaryTest);
                 } else if (positiveUnaryTest instanceof OperatorRange) {
-                    return makeInterval(repository, element, decisionTable, ruleIndex, columnIndex, (OperatorRange) positiveUnaryTest);
+                    return makeInterval(repository, element, decisionTable, ruleIndex, columnIndex, input, (OperatorRange) positiveUnaryTest);
                 }
             }
         }
@@ -124,18 +124,18 @@ public class TableFactory {
             return new NumericInterval(ruleIndex, columnIndex);
         } else if (input.isBooleanType()) {
             // Boolean - min, max interval is [0..3)
-            return new EnumerationInterval(ruleIndex, columnIndex, EnumerationInterval.BOOLEAN_ALLOWED_VALUES);
+            return new EnumerationInterval(ruleIndex, columnIndex, input);
         } else if (input.isStringType()) {
             List<String> allowedValues = input.getAllowedValues();
             if (!allowedValues.isEmpty()) {
                 // Number - min, max interval is [0..max+1)
-                return new EnumerationInterval(ruleIndex, columnIndex, allowedValues);
+                return new EnumerationInterval(ruleIndex, columnIndex, input);
             }
         }
         return null;
     }
 
-    private Interval makeInterval(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int ruleIndex, int columnIndex, EndpointsRange astRange) {
+    private Interval makeInterval(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int ruleIndex, int columnIndex, Input input, EndpointsRange astRange) {
         Expression start = astRange.getStart();
         Expression end = astRange.getEnd();
         if (start instanceof NumericLiteral && end instanceof NumericLiteral) {
@@ -156,7 +156,7 @@ public class TableFactory {
         return null;
     }
 
-    private Interval makeInterval(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int ruleIndex, int columnIndex, OperatorRange operatorRange) {
+    private Interval makeInterval(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int ruleIndex, int columnIndex, Input input, OperatorRange operatorRange) {
         String operator = operatorRange.getOperator();
         Expression endpoint = operatorRange.getEndpoint();
         if (endpoint instanceof NumericLiteral) {
@@ -179,7 +179,7 @@ public class TableFactory {
             if (operator == null) {
                 String value = ((BooleanLiteral) endpoint).getLexeme();
                 // create interval [i..i+1)
-                return new EnumerationInterval(ruleIndex, columnIndex, EnumerationInterval.BOOLEAN_ALLOWED_VALUES, value);
+                return new EnumerationInterval(ruleIndex, columnIndex, input, value);
             }
         } else if (endpoint instanceof StringLiteral) {
             // Enumeration
@@ -188,7 +188,7 @@ public class TableFactory {
                 List<String> allowedValues = findAllowedValues(repository, element, decisionTable, columnIndex);
                 if (!allowedValues.isEmpty()) {
                     // create interval [i..i+1)
-                    return new EnumerationInterval(ruleIndex, columnIndex, allowedValues, value);
+                    return new EnumerationInterval(ruleIndex, columnIndex, input, value);
                 }
             }
        }

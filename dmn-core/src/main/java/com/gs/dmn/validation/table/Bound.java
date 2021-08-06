@@ -75,7 +75,7 @@ public class Bound {
         return isIncluded;
     }
 
-    public Object getValue() {
+    public Number getValue() {
         return value;
     }
 

@@ -18,25 +18,32 @@ import java.util.List;
 
 public class EnumerationInterval extends Interval {
     public static final List<String> BOOLEAN_ALLOWED_VALUES = Arrays.asList("false", "true");
+    private final Input input;
 
-    private final List<String> values = new ArrayList<>();
-
-    public EnumerationInterval(int ruleIndex, int columnIndex, List<String> allowedValues) {
-        super(ruleIndex, columnIndex, false, Bound.ZERO, true, (double) allowedValues.size());
-        this.values.addAll(allowedValues);
+    public EnumerationInterval(int ruleIndex, int columnIndex, Input input) {
+        super(ruleIndex, columnIndex, false, Bound.ZERO, true, (double) input.getAllowedValues().size());
+        this.input = input;
     }
 
-    public EnumerationInterval(int ruleIndex, int columnIndex, List<String> allowedValues, String value) {
-        super(ruleIndex, columnIndex, false, (double) allowedValues.indexOf(value), true, (double) allowedValues.indexOf(value) + 1.0);
-        this.values.add(value);
+    public EnumerationInterval(int ruleIndex, int columnIndex, Input input, String value) {
+        super(ruleIndex, columnIndex, false, (double) input.getAllowedValues().indexOf(value), true, (double) input.getAllowedValues().indexOf(value) + 1.0);
+        this.input = input;
     }
 
-    public EnumerationInterval(int ruleIndex, int columnIndex, boolean openStart, Double startValue, boolean openEnd, Double endValue) {
+    public EnumerationInterval(int ruleIndex, int columnIndex, Input input, boolean openStart, Double startValue, boolean openEnd, Double endValue) {
         super(ruleIndex, columnIndex, openStart, startValue, openEnd, endValue);
+        this.input = input;
     }
 
-    public List<String> getValues() {
-        return values;
+    @Override
+    public String serialize() {
+        List<String> enumValues = new ArrayList<>();
+        int lowerIndex = this.lowerBound.getValue().intValue();
+        int upperIndex = this.upperBound.getValue().intValue();
+        for (int i=lowerIndex; i<upperIndex; i++) {
+            enumValues.add(input.getAllowedValues().get(i));
+        }
+        return String.join(", ", enumValues);
     }
 
     @Override

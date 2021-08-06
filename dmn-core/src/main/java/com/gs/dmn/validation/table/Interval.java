@@ -12,8 +12,6 @@
  */
 package com.gs.dmn.validation.table;
 
-import java.util.Objects;
-
 public abstract class Interval {
     protected final int ruleIndex;
     protected final int columnIndex;
@@ -39,16 +37,5 @@ public abstract class Interval {
         return upperBound;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Interval interval = (Interval) o;
-        return ruleIndex == interval.ruleIndex && columnIndex == interval.columnIndex;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(ruleIndex, columnIndex);
-    }
+    public abstract String serialize();
 }
