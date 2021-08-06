@@ -17,10 +17,12 @@ public abstract class Interval {
     protected final int columnIndex;
     protected final Bound lowerBound;
     protected final Bound upperBound;
+    protected final Input input;
 
-    public Interval(int ruleIndex, int columnIndex, boolean openStart, Number startValue, boolean openEnd, Number endValue) {
+    public Interval(int ruleIndex, int columnIndex, Input input, boolean openStart, Number startValue, boolean openEnd, Number endValue) {
         this.ruleIndex = ruleIndex;
         this.columnIndex = columnIndex;
+        this.input = input;
         lowerBound = new Bound(this, true, !openStart, startValue);
         upperBound = new Bound(this, false, !openEnd, endValue);
     }

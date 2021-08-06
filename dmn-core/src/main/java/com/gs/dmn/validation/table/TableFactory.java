@@ -27,11 +27,34 @@ import org.omg.spec.dmn._20191111.model.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.gs.dmn.validation.table.Bound.MINUS_INFINITY;
+import static com.gs.dmn.validation.table.Bound.PLUS_INFINITY;
+
 public class TableFactory {
     public Table makeTable(int totalNumberOfRules, int totalNumberOfColumns, DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, FEELTranslator feelTranslator) {
         List<Input> inputs = makeInputs(repository, element, decisionTable);
         List<Rule> rules = makeRules(totalNumberOfRules, totalNumberOfColumns, inputs, repository, element, decisionTable, feelTranslator);
         return new Table(inputs, rules);
+    }
+
+    public Interval makeInterval(int columnIndex, Bound lastBound, Bound currentBound, Table table) {
+        Input input = table.getInput(columnIndex);
+        Double startValue = makeBoundValue(true, lastBound);
+        Double endValue = makeBoundValue(false, currentBound);
+        if (input.isNumberType()) {
+            return new NumericInterval(-1, columnIndex, input, lastBound.isIncluded(), startValue, currentBound.isIncluded(), endValue);
+        } else if (input.isBooleanType() || input.isStringType()) {
+            return new EnumerationInterval(-1, columnIndex, input, lastBound.isIncluded(), startValue, currentBound.isIncluded(), endValue);
+        }
+        throw new IllegalArgumentException(String.format("Unexpected interval type for bounds '%s' or '%s'", lastBound, currentBound));
+    }
+
+    private Double makeBoundValue(boolean isLower, Bound bound) {
+        if (bound == null || bound.getValue() == null) {
+            return  isLower ? MINUS_INFINITY : PLUS_INFINITY;
+        } else {
+            return (Double) bound.getValue();
+        }
     }
 
     private List<Input> makeInputs(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable) {
@@ -121,7 +144,7 @@ public class TableFactory {
         // Any unary test
         if (input.isNumberType()) {
             // Number - min, max interval is [-Infinity .. +Infinity]
-            return new NumericInterval(ruleIndex, columnIndex);
+            return new NumericInterval(ruleIndex, columnIndex, input);
         } else if (input.isBooleanType()) {
             // Boolean - min, max interval is [0..3)
             return new EnumerationInterval(ruleIndex, columnIndex, input);
@@ -150,7 +173,7 @@ public class TableFactory {
                 if (openEnd) {
                     endValue = endValue - Bound.DELTA;
                 }
-                return new NumericInterval(ruleIndex, columnIndex, false, startValue, false, endValue);
+                return new NumericInterval(ruleIndex, columnIndex, input, false, startValue, false, endValue);
             }
         }
         return null;
@@ -164,15 +187,15 @@ public class TableFactory {
             String lexeme = ((NumericLiteral) endpoint).getLexeme();
             Double value = Double.parseDouble(lexeme);
             if (operator == null) {
-                return new NumericInterval(ruleIndex, columnIndex, false, value, false, value);
+                return new NumericInterval(ruleIndex, columnIndex, input, false, value, false, value);
             } else if ("<".equals(operator)) {
-                return new NumericInterval(ruleIndex, columnIndex, false, Bound.MINUS_INFINITY, true, value - Bound.DELTA);
+                return new NumericInterval(ruleIndex, columnIndex, input, false, Bound.MINUS_INFINITY, true, value - Bound.DELTA);
             } else if ("<=".equals(operator)) {
-                return new NumericInterval(ruleIndex, columnIndex, false, Bound.MINUS_INFINITY, false, value);
+                return new NumericInterval(ruleIndex, columnIndex, input, false, Bound.MINUS_INFINITY, false, value);
             } else if (">".equals(operator)) {
-                return new NumericInterval(ruleIndex, columnIndex, true, value + Bound.DELTA, false, Bound.PLUS_INFINITY);
+                return new NumericInterval(ruleIndex, columnIndex, input, true, value + Bound.DELTA, false, Bound.PLUS_INFINITY);
             } else if (">=".equals(operator)) {
-                return new NumericInterval(ruleIndex, columnIndex, false, value, false, Bound.PLUS_INFINITY);
+                return new NumericInterval(ruleIndex, columnIndex, input, false, value, false, Bound.PLUS_INFINITY);
             }
         } else if (endpoint instanceof BooleanLiteral) {
             // Boolean

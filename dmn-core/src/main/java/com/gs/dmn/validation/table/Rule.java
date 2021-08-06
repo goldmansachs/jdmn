@@ -25,6 +25,10 @@ public class Rule {
         }
     }
 
+    public List<Interval> getIntervals() {
+        return intervals;
+    }
+
     public Interval getInterval(int columnIndex) {
         return intervals.get(columnIndex);
     }

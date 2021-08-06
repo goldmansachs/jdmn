@@ -24,13 +24,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 
 public class BatchValidationTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(BatchValidationTest.class);
 
     private final DMNReader reader = new DMNReader(new Slf4jBuildLogger(LOGGER), false);
-    private final DMNValidator validator = new SweepRuleOverlapValidator();
+    private final DMNValidator validator = new CompositeDMNValidator(Arrays.asList(
+            new SweepRuleOverlapValidator(),
+            new SweepMissingIntervalValidator()
+    ));
 
     public void validateFolder(File rootFolder) throws IOException {
         if (rootFolder.exists()) {
@@ -38,7 +42,6 @@ public class BatchValidationTest {
                     this::validate
             );
         }
-
     }
 
     private void validate(Path path) {

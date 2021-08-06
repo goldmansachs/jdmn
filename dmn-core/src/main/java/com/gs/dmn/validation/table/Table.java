@@ -45,6 +45,46 @@ public class Table {
         return inputs.isEmpty() || rules.isEmpty();
     }
 
+    public Bound getLowerBoundForColumn(int columnIndex) {
+        List<Rule> rules = this.getRules();
+        Bound min = null;
+        for (Rule rule: rules) {
+            Interval interval = rule.getInterval(columnIndex);
+            if (interval instanceof NumericInterval) {
+                Bound lowerBound = interval.getLowerBound();
+                if (min == null) {
+                    min = lowerBound;
+                } else if (Bound.COMPARATOR.compare(lowerBound, min) < 0) {
+                    min = lowerBound;
+                }
+            } else if (interval instanceof EnumerationInterval) {
+                return new Bound(interval, true, true, Bound.ZERO);
+            }
+        }
+        return min;
+    }
+
+    public Bound getUpperBoundForColumn(int columnIndex) {
+        List<Rule> rules = this.getRules();
+        Bound max = null;
+        for (Rule rule: rules) {
+            Interval interval = rule.getInterval(columnIndex);
+            if (interval instanceof NumericInterval) {
+                Bound upperBound = interval.getUpperBound();
+                if (max == null) {
+                    max = upperBound;
+                } else if (Bound.COMPARATOR.compare(upperBound, max) > 0) {
+                    max = upperBound;
+                }
+            } else if (interval instanceof EnumerationInterval) {
+                Input input = this.getInput(columnIndex);
+                Double size = (double) input.getAllowedValues().size();
+                return new Bound(interval, false, false, size);
+            }
+        }
+        return max;
+    }
+
     @Override
     public String toString() {
         return String.format("[%s]", rules.stream().map(i -> i == null ? null : i.toString()).collect(Collectors.joining(", ")));

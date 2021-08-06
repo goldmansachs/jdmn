@@ -23,6 +23,7 @@ import org.omg.spec.dmn._20191111.model.TDecision;
 import org.omg.spec.dmn._20191111.model.TDecisionTable;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,7 +45,13 @@ public class TableFactoryTest extends AbstractValidatorTest {
                 "[[500, 1500], [500, 3000]]",
                 "[[2000, 2500], [0, 2000]]"
         );
-        checkTable(resource("dmn/input/1.3/loan-grade-with-intervals-1.dmn"), expectedInputs, expectedRules);
+        List<String> expectedMinList = Arrays.asList(
+                "[0", "[0"
+        );
+        List<String> expectedMaxList = Arrays.asList(
+                "2500]", "5000]"
+        );
+        checkTable(resource("dmn/input/1.3/loan-grade-with-intervals-1.dmn"), expectedInputs, expectedRules, expectedMinList, expectedMaxList);
     }
 
     @Test
@@ -58,7 +65,13 @@ public class TableFactoryTest extends AbstractValidatorTest {
                 "[[500, 1500], [250, 1000]]",
                 "[[1600, 2000], [0, 850]]"
         );
-        checkTable(resource("dmn/input/1.3/loan-grade-with-intervals-2.dmn"), expectedInputs, expectedRules);
+        List<String> expectedMinList = Arrays.asList(
+                "[0", "[0"
+        );
+        List<String> expectedMaxList = Arrays.asList(
+                "2000]", "1500]"
+        );
+        checkTable(resource("dmn/input/1.3/loan-grade-with-intervals-2.dmn"), expectedInputs, expectedRules, expectedMinList, expectedMaxList);
     }
 
     @Test
@@ -74,7 +87,13 @@ public class TableFactoryTest extends AbstractValidatorTest {
                 "[[800, 1200], [200, 300]]",
                 "[[800, 1200], [800, 1300]]"
         );
-        checkTable(resource("dmn/input/1.3/loan-grade-with-intervals-3.dmn"), expectedInputs, expectedRules);
+        List<String> expectedMinList = Arrays.asList(
+                "[0", "[0"
+        );
+        List<String> expectedMaxList = Arrays.asList(
+                "2000]", "1500]"
+        );
+        checkTable(resource("dmn/input/1.3/loan-grade-with-intervals-3.dmn"), expectedInputs, expectedRules, expectedMinList, expectedMaxList);
     }
 
     @Test
@@ -89,7 +108,13 @@ public class TableFactoryTest extends AbstractValidatorTest {
                 "[[2000, +Infinity], [0, 2000]]",
                 "[[200, 200], [1000, 1000]]"
         );
-        checkTable(resource("dmn/input/1.3/loan-grade-with-relational-operators.dmn"), expectedInputs, expectedRules);
+        List<String> expectedMinList = Arrays.asList(
+                "[-Infinity", "[0"
+        );
+        List<String> expectedMaxList = Arrays.asList(
+                "+Infinity], 5000]"
+        );
+        checkTable(resource("dmn/input/1.3/loan-grade-with-relational-operators.dmn"), expectedInputs, expectedRules, expectedMinList, expectedMaxList);
     }
 
     @Test
@@ -103,7 +128,13 @@ public class TableFactoryTest extends AbstractValidatorTest {
                 "[[-Infinity, +Infinity], [500, 3000]]",
                 "[[2000, 2500], [0, 2000]]"
         );
-        checkTable(resource("dmn/input/1.3/loan-grade-with-any.dmn"), expectedInputs, expectedRules);
+        List<String> expectedMinList = Arrays.asList(
+                "[-Infinity", "[0"
+        );
+        List<String> expectedMaxList = Arrays.asList(
+                "+Infinity]", "5000]"
+        );
+        checkTable(resource("dmn/input/1.3/loan-grade-with-any.dmn"), expectedInputs, expectedRules, expectedMinList, expectedMaxList);
     }
 
     @Test
@@ -117,7 +148,13 @@ public class TableFactoryTest extends AbstractValidatorTest {
                 "[[0, 2), [0, 1), [0, 2)]",
                 "[[0, 1), [0, 2), [0, 2)]"
         );
-        checkTable(resource("dmn/input/1.3/loan-grade-with-boolean.dmn"), expectedInputs, expectedRules);
+        List<String> expectedMinList = Arrays.asList(
+                "[0", "[0", "[0"
+        );
+        List<String> expectedMaxList = Arrays.asList(
+                "2)", "2)", "2)"
+        );
+        checkTable(resource("dmn/input/1.3/loan-grade-with-boolean.dmn"), expectedInputs, expectedRules, expectedMinList, expectedMaxList);
     }
 
     @Test
@@ -131,10 +168,16 @@ public class TableFactoryTest extends AbstractValidatorTest {
                 "[[0, 3), [0, 1), [0, 3)]",
                 "[[1, 2), [0, 3), [0, 3)]"
         );
-        checkTable(resource("dmn/input/1.3/loan-grade-with-enumeration.dmn"), expectedInputs, expectedRules);
+        List<String> expectedMinList = Arrays.asList(
+                "[0", "[0", "[0"
+        );
+        List<String> expectedMaxList = Arrays.asList(
+                "3)", "3)", "3)"
+        );
+        checkTable(resource("dmn/input/1.3/loan-grade-with-enumeration.dmn"), expectedInputs, expectedRules, expectedMinList, expectedMaxList);
     }
 
-    private void checkTable(URI fileURI, List<String> expectedInput, List<String> expectedRules) {
+    private void checkTable(URI fileURI, List<String> expectedInput, List<String> expectedRules, List<String> expectedMinList, List<String> expectedMaxList) {
         DMNModelRepository repository = makeRepository(fileURI);
         TDecision element = (TDecision) repository.findDRGElementByName("Loan Grade");
         TDecisionTable decisionTable = (TDecisionTable) element.getExpression().getValue();
@@ -145,5 +188,16 @@ public class TableFactoryTest extends AbstractValidatorTest {
         
         assertEquals(expectedInput.toString(), table.getInputs().toString());
         assertEquals(expectedRules.toString(), table.getRules().toString());
+
+        List<Bound> actualMinList = new ArrayList<>();
+        List<Bound> actualMaxList = new ArrayList<>();
+        for (int columnIndex=0; columnIndex<totalNumberOfColumns; columnIndex++) {
+            Bound lowerBoundForColumn = table.getLowerBoundForColumn(columnIndex);
+            Bound upperBoundForColumn = table.getUpperBoundForColumn(columnIndex);
+            actualMinList.add(lowerBoundForColumn);
+            actualMaxList.add(upperBoundForColumn);
+        }
+        assertEquals(expectedMinList.toString(), actualMinList.toString());
+        assertEquals(expectedMaxList.toString(), actualMaxList.toString());
     }
 }
