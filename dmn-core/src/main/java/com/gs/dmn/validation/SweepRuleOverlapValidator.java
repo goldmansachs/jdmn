@@ -14,11 +14,11 @@ package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.InputParameters;
+import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.validation.table.*;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20191111.model.*;
@@ -26,65 +26,21 @@ import org.omg.spec.dmn._20191111.model.*;
 import javax.xml.bind.JAXBElement;
 import java.util.*;
 
-public class SweepRuleOverlapValidator extends SimpleDMNValidator {
-    private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition;
-    private final InputParameters inputParameters;
-    private final TableFactory factory = new TableFactory();
-
+public class SweepRuleOverlapValidator extends SweepValidator {
     public SweepRuleOverlapValidator() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
     public SweepRuleOverlapValidator(BuildLogger logger) {
         super(logger);
-        this.dmnDialectDefinition = new StandardDMNDialectDefinition();
-        this.inputParameters = new InputParameters(makeInputParametersMap());
     }
 
     public SweepRuleOverlapValidator(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition) {
         super(new Slf4jBuildLogger(LOGGER));
-        this.dmnDialectDefinition = dmnDialectDefinition;
-        this.inputParameters = new InputParameters(makeInputParametersMap());
     }
 
     @Override
-    public List<String> validate(DMNModelRepository dmnModelRepository) {
-        if (isEmpty(dmnModelRepository)) {
-            logger.warn("DMN repository is empty; validator will not run");
-            return new ArrayList<>();
-        }
-
-        return makeErrorReport(dmnModelRepository);
-    }
-
-    private Map<String, String> makeInputParametersMap() {
-        Map<String, String> inputParams = new LinkedHashMap<>();
-        inputParams.put("dmnVersion", "1.1");
-        inputParams.put("modelVersion", "2.0");
-        inputParams.put("platformVersion", "1.0");
-        return inputParams;
-    }
-
-    public List<String> makeErrorReport(DMNModelRepository dmnModelRepository) {
-        List<String> errorReport = new ArrayList<>();
-        for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
-            List<TDRGElement> drgElements = dmnModelRepository.findDRGElements(definitions);
-            for (TDRGElement element: drgElements) {
-                if (element instanceof TDecision) {
-                    JAXBElement<? extends TExpression> jaxbExpression = ((TDecision) element).getExpression();
-                    if (jaxbExpression != null) {
-                        TExpression expression = jaxbExpression.getValue();
-                        if (expression instanceof TDecisionTable && ((TDecisionTable) expression).getHitPolicy() == THitPolicy.UNIQUE) {
-                            validate(element, (TDecisionTable) expression, dmnModelRepository, errorReport);
-                        }
-                    }
-                }
-            }
-        }
-        return errorReport;
-    }
-
-    private void validate(TDRGElement element, TDecisionTable decisionTable, DMNModelRepository repository, List<String> errorReport) {
+    protected void validate(TDRGElement element, TDecisionTable decisionTable, BasicDMNToJavaTransformer transformer, DMNModelRepository repository, List<String> errorReport) {
         logger.debug(String.format("Validate element '%s'", element.getName()));
 
         // Find the overlapping rules
@@ -209,12 +165,6 @@ public class SweepRuleOverlapValidator extends SimpleDMNValidator {
                 rules.add(group);
             }
         }
-    }
-
-    private List<Bound> makeBoundList(List<Integer> ruleList, int columnIndex, Table table) {
-        BoundList boundList = new BoundList(ruleList, columnIndex, table);
-        boundList.sort();
-        return boundList.getBounds();
     }
 
     //    algorithm BronKerbosch2(R, P, X) is
