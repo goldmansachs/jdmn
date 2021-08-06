@@ -33,6 +33,10 @@ public class Table {
         return inputs;
     }
 
+    public Input getInput(int columnIndex) {
+        return inputs.get(columnIndex);
+    }
+
     public List<Rule> getRules() {
         return rules;
     }
