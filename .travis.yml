@@ -24,5 +24,8 @@ env:
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
   - mvn --version
-  - travis_wait 30 bash build.sh
+  - bash build.sh
 
+cache:
+  directories:
+  - $HOME/.m2
