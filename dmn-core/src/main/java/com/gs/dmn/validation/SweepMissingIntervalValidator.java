@@ -25,6 +25,7 @@ import com.gs.dmn.validation.table.Table;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20191111.model.TDRGElement;
 import org.omg.spec.dmn._20191111.model.TDecisionTable;
+import org.omg.spec.dmn._20191111.model.TDefinitions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,11 +73,14 @@ public class SweepMissingIntervalValidator extends SweepValidator {
     }
 
     private String makeError(TDRGElement element, int columnIndex, List<Interval> intervals, DMNModelRepository repository) {
+        TDefinitions model = repository.getModel(element);
         String intervalsString = intervals.stream().map(Interval::serialize).collect(Collectors.joining(", "));
         if (intervals.size() == 1) {
-            return String.format("Interval '%s' is not covered for column %d in '%s' table", intervalsString, columnIndex + 1, repository.displayName(element));
+            String message = String.format("Interval '%s' is not covered for column %d in '%s' table", intervalsString, columnIndex + 1, repository.displayName(element));
+            return makeError(repository, model, element, message);
         } else {
-            return String.format("Intervals '%s' are not covered for column %d in '%s' table", intervalsString, columnIndex + 1, repository.displayName(element));
+            String message = String.format("Intervals '%s' are not covered for column %d in '%s' table", intervalsString, columnIndex + 1, repository.displayName(element));
+            return makeError(repository, model, element, message);
         }
     }
 
