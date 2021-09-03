@@ -167,6 +167,7 @@ public class SweepRuleOverlapValidator extends SweepValidator {
         }
     }
 
+    // https://en.wikipedia.org/wiki/Bron%E2%80%93Kerbosch_algorithm
     //    algorithm BronKerbosch2(R, P, X) is
     //      if P and X are both empty then
     //          report R as a maximal clique
