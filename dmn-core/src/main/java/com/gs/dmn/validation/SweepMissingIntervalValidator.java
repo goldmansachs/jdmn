@@ -57,7 +57,7 @@ public class SweepMissingIntervalValidator extends SweepValidator {
         int totalNumberOfColumns = decisionTable.getInput().size();
         Table table = this.factory.makeTable(totalNumberOfRules, totalNumberOfColumns, repository, element, decisionTable, feelTranslator);
         if (!table.isEmpty()) {
-            findMissingRules(ruleIndex, totalNumberOfColumns, missingIntervals, table);
+            findMissingIntervals(ruleIndex, totalNumberOfColumns, missingIntervals, table);
 
             LOGGER.debug("Found missing intervals {}", missingIntervals);
 
@@ -108,7 +108,7 @@ public class SweepMissingIntervalValidator extends SweepValidator {
     //              Lxi.delete( currentBound);
     //          lastBound = currentBound
     //  return missingRuleList;
-    private void findMissingRules(List<Integer> ruleList, int totalNumberOfColumns, MissingIntervals missingIntervals, Table table) {
+    private void findMissingIntervals(List<Integer> ruleList, int totalNumberOfColumns, MissingIntervals missingIntervals, Table table) {
         for (int columnIndex=0; columnIndex<totalNumberOfColumns; columnIndex++) {
             String indent = StringUtils.repeat("\t", columnIndex);
             List<Bound> sortedListAllBounds = makeBoundList(ruleList, columnIndex, table);
