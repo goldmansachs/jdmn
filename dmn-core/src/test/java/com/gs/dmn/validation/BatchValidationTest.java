@@ -33,7 +33,8 @@ public class BatchValidationTest {
     private final DMNReader reader = new DMNReader(new Slf4jBuildLogger(LOGGER), false);
     private final DMNValidator validator = new CompositeDMNValidator(Arrays.asList(
             new SweepRuleOverlapValidator(),
-            new SweepMissingIntervalValidator()
+            new SweepMissingIntervalValidator(),
+            new SweepMissingRuleValidator()
     ));
 
     public void validateFolder(File rootFolder) throws IOException {

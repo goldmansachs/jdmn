@@ -96,7 +96,7 @@ public class SweepMissingIntervalValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenEnumerationMissing() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Interval '\"E23\"' is not covered for column 2 in 'Loan Grade' table"
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Interval '{\"E23\"}' is not covered for column 2 in 'Loan Grade' table"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-enumeration-missing.dmn"), expectedErrors);
     }

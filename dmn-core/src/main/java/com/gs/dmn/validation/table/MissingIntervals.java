@@ -36,6 +36,15 @@ public class MissingIntervals {
         map.get(columnIndex).add(missingInterval);
     }
 
+    public void putMissingInterval(Integer columnIndex, Interval missingInterval) {
+        String indent = StringUtils.repeat("\t", columnIndex);
+        LOGGER.info("{}Put missing interval '{}'", indent, missingInterval);
+
+        map.computeIfAbsent(columnIndex, k -> new ArrayList<>());
+        map.get(columnIndex).clear();
+        map.get(columnIndex).add(missingInterval);
+    }
+
     public List<Interval> getIntervals(int columnIndex) {
         return map.get(columnIndex);
     }

@@ -18,29 +18,24 @@ import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
-import com.gs.dmn.validation.table.Bound;
-import com.gs.dmn.validation.table.Interval;
-import com.gs.dmn.validation.table.MissingIntervals;
-import com.gs.dmn.validation.table.Table;
+import com.gs.dmn.validation.table.*;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
-import org.omg.spec.dmn._20191111.model.TDecisionTable;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
+import org.omg.spec.dmn._20191111.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SweepMissingIntervalValidator extends SweepValidator {
-    public SweepMissingIntervalValidator() {
+public class SweepMissingRuleValidator extends SweepValidator {
+    public SweepMissingRuleValidator() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
-    public SweepMissingIntervalValidator(BuildLogger logger) {
+    public SweepMissingRuleValidator(BuildLogger logger) {
         super(logger);
     }
 
-    public SweepMissingIntervalValidator(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition) {
+    public SweepMissingRuleValidator(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition) {
         super(dmnDialectDefinition);
     }
 
@@ -55,32 +50,25 @@ public class SweepMissingIntervalValidator extends SweepValidator {
             ruleIndex.add(i);
         }
         MissingIntervals missingIntervals = new MissingIntervals();
+        MissingRuleList missingRuleList = new MissingRuleList();
         int totalNumberOfColumns = decisionTable.getInput().size();
         Table table = this.factory.makeTable(totalNumberOfRules, totalNumberOfColumns, repository, element, decisionTable, feelTranslator);
         if (!table.isEmpty()) {
-            findMissingIntervals(ruleIndex, totalNumberOfColumns, missingIntervals, table);
+            findMissingRules(ruleIndex, 0, totalNumberOfColumns, missingIntervals, missingRuleList, table);
 
-            LOGGER.debug("Found missing intervals {}", missingIntervals);
+            LOGGER.debug("Found missing rules {}", missingRuleList);
 
-            for (int i=0; i<totalNumberOfColumns; i++) {
-                List<Interval> intervals = missingIntervals.getIntervals(i);
-                if (intervals != null && !intervals.isEmpty()) {
-                    String error = makeError(element, i, intervals, repository);
-                    errorReport.add(error);
-                }
+            for (Rule rule: missingRuleList.getRules()) {
+                String error = makeError(element, rule, repository);
+                errorReport.add(error);
             }
         }
     }
 
-    private String makeError(TDRGElement element, int columnIndex, List<Interval> intervals, DMNModelRepository repository) {
+    private String makeError(TDRGElement element, Rule rule, DMNModelRepository repository) {
         TDefinitions model = repository.getModel(element);
-        String intervalsString = intervals.stream().map(Interval::serialize).collect(Collectors.joining(", "));
-        String message;
-        if (intervals.size() == 1) {
-            message = String.format("Interval '%s' is not covered for column %d in '%s' table", intervalsString, columnIndex + 1, repository.displayName(element));
-        } else {
-            message = String.format("Intervals '%s' are not covered for column %d in '%s' table", intervalsString, columnIndex + 1, repository.displayName(element));
-        }
+        String intervalsString = rule.getIntervals().stream().map(Interval::serialize).collect(Collectors.joining(", "));
+        String message = String.format("Found missing rule '[%s]' in '%s' table", intervalsString, repository.displayName(element));
         return makeError(repository, model, element, message);
     }
 
@@ -112,9 +100,11 @@ public class SweepMissingIntervalValidator extends SweepValidator {
     //              Lxi.delete( currentBound);
     //          lastBound = currentBound
     //  return missingRuleList;
-    private void findMissingIntervals(List<Integer> ruleList, int totalNumberOfColumns, MissingIntervals missingIntervals, Table table) {
-        for (int columnIndex=0; columnIndex<totalNumberOfColumns; columnIndex++) {
-            String indent = StringUtils.repeat("\t", columnIndex);
+    private void findMissingRules(List<Integer> ruleList, int columnIndex, int totalNumberOfColumns, MissingIntervals missingIntervals, MissingRuleList missingRuleList, Table table) {
+        String indent = StringUtils.repeat("\t", columnIndex);
+        LOGGER.debug("{}Column = '{}' Active rules = '{}' Missing intervals = '{}'", indent, columnIndex, ruleList, missingIntervals);
+
+        if(columnIndex < totalNumberOfColumns) {
             List<Bound> sortedListAllBounds = makeBoundList(ruleList, columnIndex, table);
             Bound lowerBound = table.getLowerBoundForColumn(columnIndex);
             Bound upperBound = table.getUpperBoundForColumn(columnIndex);
@@ -147,10 +137,16 @@ public class SweepMissingIntervalValidator extends SweepValidator {
                     }
                 }
                 if (missingInterval != null) {
-                    missingIntervals.addMissingInterval(columnIndex, missingInterval);
+                    missingIntervals.putMissingInterval(columnIndex, missingInterval);
+                    missingRuleList.add(columnIndex, totalNumberOfColumns, missingIntervals);
                 }
 
-                // Update active rules
+                if (!lxi.isEmpty() && !Bound.areAdjacent(lastBound, currentBound)) {
+                    missingInterval = factory.makeInterval(columnIndex, lastBound, currentBound, table);
+                    missingIntervals.putMissingInterval(columnIndex, missingInterval);
+                    findMissingRules(lxi, columnIndex + 1, totalNumberOfColumns, missingIntervals, missingRuleList, table);
+                }
+
                 int ruleIndex = currentBound.getInterval().getRuleIndex();
                 if (currentBound.isLowerBound()) {
                     LOGGER.info("{}Add active rule {}", indent, ruleIndex);
@@ -159,7 +155,6 @@ public class SweepMissingIntervalValidator extends SweepValidator {
                     LOGGER.info("{}Remove active rule {}", indent, ruleIndex);
                     lxi.remove((Object) ruleIndex);
                 }
-
                 lastBound = currentBound;
             }
         }

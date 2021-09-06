@@ -27,7 +27,7 @@ public class EnumerationInterval extends Interval {
         super(ruleIndex, columnIndex, input, false, (double) input.getAllowedValues().indexOf(value), true, (double) input.getAllowedValues().indexOf(value) + 1.0);
     }
 
-    public EnumerationInterval(int ruleIndex, int columnIndex, Input input, boolean openStart, Double startValue, boolean openEnd, Double endValue) {
+    public EnumerationInterval(int ruleIndex, int columnIndex, Input input, boolean openStart, Number startValue, boolean openEnd, Number endValue) {
         super(ruleIndex, columnIndex, input, openStart, startValue, openEnd, endValue);
     }
 
@@ -39,7 +39,7 @@ public class EnumerationInterval extends Interval {
         for (int i=lowerIndex; i<upperIndex; i++) {
             enumValues.add(input.getAllowedValues().get(i));
         }
-        return String.join(", ", enumValues);
+        return "{" + String.join(", ", enumValues) + "}";
     }
 
     @Override

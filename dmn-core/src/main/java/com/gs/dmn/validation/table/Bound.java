@@ -19,8 +19,8 @@ import java.util.Objects;
 public class Bound {
     static final Double ZERO = 0.0D;
     static final Double ONE = 1.0D;
-    static final Double MINUS_INFINITY = -Double.MAX_VALUE;
-    static final Double PLUS_INFINITY = Double.MAX_VALUE;
+    public static final Double MINUS_INFINITY = -Double.MAX_VALUE;
+    public static final Double PLUS_INFINITY = Double.MAX_VALUE;
     static final Double DELTA = 0.00001D;
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#");
 
