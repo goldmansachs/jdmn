@@ -30,7 +30,7 @@ public class MissingRuleList {
     }
 
     public void add(int columnIndex, int totalNumberOfColumns, MissingIntervals missingIntervals) {
-        if (columnIndex == totalNumberOfColumns - 1) {
+        if (missingIntervals != null && columnIndex == totalNumberOfColumns - 1) {
             String indent = StringUtils.repeat("\t", columnIndex);
             List<Interval> intervals = new ArrayList<>();
             for (int i=0; i<totalNumberOfColumns; i++) {

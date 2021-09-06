@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.validation.table;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
+
 import java.text.DecimalFormat;
 import java.util.Comparator;
 import java.util.Objects;
@@ -51,9 +53,26 @@ public class Bound {
         }
     };
 
+    public static boolean sameValue(Bound b1, Bound b2) {
+        if (b1 == null || b2 == null) {
+            throw new DMNRuntimeException(String.format("Unexpected null bound '%s' or '%s'", b1, b2));
+        }
+
+        return Objects.equals(b1.value, b2.value);
+    }
+
+    public static boolean sameEnd(Bound b1, Bound b2) {
+        if (b1 == null || b2 == null) {
+            throw new DMNRuntimeException(String.format("Unexpected null bound '%s' or '%s'", b1, b2));
+        }
+
+        return Objects.equals(b1.value, b2.value)
+                && b1.isIncluded == b2.isIncluded;
+    }
+
     public static boolean areAdjacent(Bound b1, Bound b2) {
         if (b1 == null || b2 == null) {
-            throw new IllegalArgumentException(String.format("Unexpected null bound '%s' or '%s'", b1, b2));
+            throw new DMNRuntimeException(String.format("Unexpected null bound '%s' or '%s'", b1, b2));
         }
 
         return b1.areAdjacent(b2);
@@ -92,7 +111,7 @@ public class Bound {
         if (o == null || this.interval.getClass() != o.interval.getClass()) return false;
 
         if (this.interval.getClass() == NumericInterval.class) {
-            return isIncluded == o.isIncluded && Objects.equals(value, o.value);
+             return (isIncluded || o.isIncluded) && Objects.equals(value, o.value);
         } else if (this.interval.getClass() == EnumerationInterval.class) {
             return Objects.equals(value, o.value);
         }
