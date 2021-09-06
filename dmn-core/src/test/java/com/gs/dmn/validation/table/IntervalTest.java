@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.validation.table;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -22,6 +23,46 @@ public class IntervalTest {
     private final Input numericInput = new Input("number");
     private final Input booleanInput = new Input("boolean", EnumerationInterval.BOOLEAN_ALLOWED_VALUES);
     private final Input enumerationInput = new Input("string", Arrays.asList("E1", "E2", "E3"));
+
+    @Test(expected = DMNRuntimeException.class)
+    public void testSameValueWhenNull() {
+        NumericInterval n1 = new NumericInterval(0, 0, numericInput);
+
+        assertTrue(Interval.sameEndValues(null, null));
+        assertTrue(Interval.sameEndValues(null, n1));
+        assertTrue(Interval.sameEndValues(n1, null));
+    }
+
+    @Test
+    public void testSameEndValues() {
+        NumericInterval n1 = new NumericInterval(0, 0, numericInput);
+        NumericInterval n2 = new NumericInterval(0, 0, numericInput, true, 0, false, 5.6);
+        NumericInterval n3 = new NumericInterval(0, 0, numericInput, true, 0, true, 5.6);
+
+        assertTrue(Interval.sameEndValues(n1, n1));
+        assertFalse(Interval.sameEndValues(n1, n2));
+        assertFalse(Interval.sameEndValues(n2, n3));
+    }
+
+    @Test
+    public void testAreAdjacentWhenNull() {
+        NumericInterval n1 = new NumericInterval(0, 0, numericInput);
+
+        assertFalse(Interval.areAdjacent(null, null));
+        assertFalse(Interval.areAdjacent(null, n1));
+        assertFalse(Interval.areAdjacent(n1, null));
+    }
+
+    @Test
+    public void testAreAdjacent() {
+        NumericInterval n1 = new NumericInterval(0, 0, numericInput);
+        NumericInterval n2 = new NumericInterval(0, 0, numericInput, true, 0, false, 5.6);
+        NumericInterval n3 = new NumericInterval(0, 0, numericInput, true, 5.6, true, 6.6);
+
+        assertFalse(Interval.areAdjacent(n1, n1));
+        assertFalse(Interval.areAdjacent(n1, n2));
+        assertTrue(Interval.areAdjacent(n2, n3));
+    }
 
     @Test
     public void serialize() {

@@ -49,6 +49,10 @@ public class MissingIntervals {
         return map.get(columnIndex);
     }
 
+    public int size() {
+        return map.entrySet().size();
+    }
+
     @Override
     public String toString() {
         return map.entrySet().stream().map(e -> String.format("%s -> %s", e.getKey(), e.getValue())).collect(Collectors.joining(", "));

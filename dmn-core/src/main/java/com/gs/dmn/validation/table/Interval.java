@@ -12,7 +12,30 @@
  */
 package com.gs.dmn.validation.table;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
+
 public abstract class Interval {
+    public static boolean sameEndValues(Interval i1, Interval i2) {
+        if (i1 == null || i2 == null) {
+            throw new DMNRuntimeException(String.format("Unexpected null interval '%s' or '%s'", i1, i2));
+        }
+
+        return Bound.sameValue(i1.lowerBound, i2.lowerBound)
+                && Bound.sameValue(i1.upperBound, i2.upperBound)
+                && i1.lowerBound.isIncluded() == i2.lowerBound.isIncluded()
+                && i1.upperBound.isIncluded() == i2.upperBound.isIncluded();
+    }
+
+    public static boolean areAdjacent(Interval i1, Interval i2) {
+        if (i1 == null || i2 == null) {
+            return false;
+        }
+        return
+                Bound.areAdjacent(i1.upperBound, i2.lowerBound) ||
+                Bound.areAdjacent(i2.upperBound, i1.lowerBound)
+        ;
+    }
+
     protected final int ruleIndex;
     protected final int columnIndex;
     protected final Bound lowerBound;
