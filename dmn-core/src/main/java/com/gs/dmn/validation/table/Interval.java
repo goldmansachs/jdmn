@@ -20,10 +20,8 @@ public abstract class Interval {
             throw new DMNRuntimeException(String.format("Unexpected null interval '%s' or '%s'", i1, i2));
         }
 
-        return Bound.sameValue(i1.lowerBound, i2.lowerBound)
-                && Bound.sameValue(i1.upperBound, i2.upperBound)
-                && i1.lowerBound.isIncluded() == i2.lowerBound.isIncluded()
-                && i1.upperBound.isIncluded() == i2.upperBound.isIncluded();
+        return Bound.sameEnd(i1.lowerBound, i2.lowerBound)
+                && Bound.sameEnd(i1.upperBound, i2.upperBound);
     }
 
     public static boolean areAdjacent(Interval i1, Interval i2) {
@@ -42,12 +40,12 @@ public abstract class Interval {
     protected final Bound upperBound;
     protected final Input input;
 
-    public Interval(int ruleIndex, int columnIndex, Input input, boolean openStart, Number startValue, boolean openEnd, Number endValue) {
+    public Interval(int ruleIndex, int columnIndex, Input input, boolean startIncluded, Number startValue, boolean endIncluded, Number endValue) {
         this.ruleIndex = ruleIndex;
         this.columnIndex = columnIndex;
         this.input = input;
-        lowerBound = new Bound(this, true, !openStart, startValue);
-        upperBound = new Bound(this, false, !openEnd, endValue);
+        lowerBound = new Bound(this, true, startIncluded, startValue);
+        upperBound = new Bound(this, false, endIncluded, endValue);
     }
 
     public int getRuleIndex() {

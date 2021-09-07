@@ -36,8 +36,8 @@ public class IntervalTest {
     @Test
     public void testSameEndValues() {
         NumericInterval n1 = new NumericInterval(0, 0, numericInput);
-        NumericInterval n2 = new NumericInterval(0, 0, numericInput, true, 0, false, 5.6);
-        NumericInterval n3 = new NumericInterval(0, 0, numericInput, true, 0, true, 5.6);
+        NumericInterval n2 = new NumericInterval(0, 0, numericInput, false, 0, true, 5.6);
+        NumericInterval n3 = new NumericInterval(0, 0, numericInput, false, 0, false, 5.6);
 
         assertTrue(Interval.sameEndValues(n1, n1));
         assertFalse(Interval.sameEndValues(n1, n2));
@@ -56,8 +56,8 @@ public class IntervalTest {
     @Test
     public void testAreAdjacent() {
         NumericInterval n1 = new NumericInterval(0, 0, numericInput);
-        NumericInterval n2 = new NumericInterval(0, 0, numericInput, true, 0, false, 5.6);
-        NumericInterval n3 = new NumericInterval(0, 0, numericInput, true, 5.6, true, 6.6);
+        NumericInterval n2 = new NumericInterval(0, 0, numericInput, false, 0, true, 5.6);
+        NumericInterval n3 = new NumericInterval(0, 0, numericInput, false, 5.6, false, 6.6);
 
         assertFalse(Interval.areAdjacent(n1, n1));
         assertFalse(Interval.areAdjacent(n1, n2));
@@ -67,7 +67,7 @@ public class IntervalTest {
     @Test
     public void serialize() {
         assertEquals("[-Infinity, +Infinity]", new NumericInterval(0, 0, numericInput).serialize());
-        assertEquals("(0, 5.6]", new NumericInterval(0, 0, numericInput, true, 0, false, 5.6).serialize());
+        assertEquals("(0, 5.6]", new NumericInterval(0, 0, numericInput, false, 0, true, 5.6).serialize());
 
         assertEquals("{false, true}", new EnumerationInterval(0, 0, booleanInput).serialize());
         assertEquals("{false}", new EnumerationInterval(0, 0, booleanInput, "false").serialize());

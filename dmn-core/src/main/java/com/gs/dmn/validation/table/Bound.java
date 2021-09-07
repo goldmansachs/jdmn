@@ -66,7 +66,7 @@ public class Bound {
             throw new DMNRuntimeException(String.format("Unexpected null bound '%s' or '%s'", b1, b2));
         }
 
-        return Objects.equals(b1.value, b2.value)
+        return sameValue(b1, b2)
                 && b1.isIncluded == b2.isIncluded;
     }
 
