@@ -34,7 +34,8 @@ public class BatchValidationTest {
     private final DMNValidator validator = new CompositeDMNValidator(Arrays.asList(
             new SweepRuleOverlapValidator(),
             new SweepMissingIntervalValidator(),
-            new SweepMissingRuleValidator()
+            new SweepMissingRuleValidator(),
+            new SweepMissingRuleValidator(new Slf4jBuildLogger(LOGGER), true)
     ));
 
     public void validateFolder(File rootFolder) throws IOException {

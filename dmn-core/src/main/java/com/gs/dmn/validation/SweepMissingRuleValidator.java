@@ -20,23 +20,34 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.validation.table.*;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.*;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TDecisionTable;
+import org.omg.spec.dmn._20191111.model.TDefinitions;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class SweepMissingRuleValidator extends SweepValidator {
+    private final boolean merge;
+
     public SweepMissingRuleValidator() {
-        this(new Slf4jBuildLogger(LOGGER));
+        this(new Slf4jBuildLogger(LOGGER), false);
     }
 
-    public SweepMissingRuleValidator(BuildLogger logger) {
+    public SweepMissingRuleValidator(BuildLogger logger, boolean merge) {
         super(logger);
+        this.merge = merge;
     }
 
     public SweepMissingRuleValidator(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition) {
         super(dmnDialectDefinition);
+        this.merge = false;
+    }
+
+    public SweepMissingRuleValidator(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition, boolean merge) {
+        super(dmnDialectDefinition);
+        this.merge = merge;
     }
 
     @Override
@@ -138,7 +149,11 @@ public class SweepMissingRuleValidator extends SweepValidator {
                 }
                 if (missingInterval != null) {
                     missingIntervals.putMissingInterval(columnIndex, missingInterval);
-                    missingRuleList.add(columnIndex, totalNumberOfColumns, missingIntervals);
+                    if (merge) {
+                        missingRuleList.addOrMerge(columnIndex, totalNumberOfColumns, missingIntervals);
+                    } else {
+                        missingRuleList.add(columnIndex, totalNumberOfColumns, missingIntervals);
+                    }
                 }
 
                 if (!lxi.isEmpty() && !Bound.areAdjacent(lastBound, currentBound)) {

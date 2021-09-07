@@ -14,40 +14,61 @@ package com.gs.dmn.validation.table;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class MissingRuleListTest {
     @Test
     public void testAddWhenNoMissingIntervals() {
-        checkAdd("[]", new MissingRuleList(), 1, 2, null);
+        checkAddOrMerge("[]", new MissingRuleList(), 1, 2, null);
     }
 
     @Test
     public void testAddWhenNotEnoughColumns() {
-        checkAdd("[]", 0, 2, makeMissingIntervals(makeInterval(true, 0, true, 1)));
+        checkAddOrMerge("[]", 0, 2, makeMissingIntervals(makeInterval(true, 0, true, 1)));
     }
 
     @Test
     public void testAddWhenEnoughColumns() {
-        checkAdd("[[(0, 1)]]", 0, 1, makeMissingIntervals(makeInterval(false, 0, false, 1)));
-        checkAdd("[[(0, 1), (2, 3)]]", 1, 2, makeMissingIntervals(makeInterval(false, 0, false, 1), makeInterval(false, 2, false, 3)));
+        checkAddOrMerge("[[(0, 1)]]", 0, 1, makeMissingIntervals(makeInterval(false, 0, false, 1)));
+        checkAddOrMerge("[[(0, 1), (2, 3)]]", 1, 2, makeMissingIntervals(makeInterval(false, 0, false, 1), makeInterval(false, 2, false, 3)));
     }
 
-    private void checkAdd(String expectedList, MissingRuleList ruleList, int columnIndex, int totalNumberOfColumns, MissingIntervals missingIntervals) {
-        ruleList.add(columnIndex, totalNumberOfColumns, missingIntervals);
+    @Test
+    public void testMerge() {
+        MissingRuleList ruleList = makeRuleList(makeInterval(false, 0, false, 1), makeInterval(false, 2, false, 3));
+        MissingRuleList ruleList1 = makeRuleList(makeInterval(false, 0, false, 1), makeInterval(false, 2, false, 3));
+        MissingRuleList ruleList2 = makeRuleList(makeInterval(false, 0, false, 1), makeInterval(false, 2, false, 3));
+        MissingRuleList ruleList3 = makeRuleList(makeInterval(false, 0, false, 1), makeInterval(false, 2, false, 3));
+        MissingRuleList ruleList4 = makeRuleList(makeInterval(false, 0, false, 1), makeInterval(false, 2, false, 3));
+        assertEquals("[(0, 1), (2, 3)]", ruleList.toString());
+
+        checkAddOrMerge("[[(0, 1), (1.5, 3)]]", ruleList, 1, 2,
+                makeMissingIntervals(makeInterval(false, 0, false, 1), makeInterval(false, 1.5, true, 2)));
+        checkAddOrMerge("[[(0, 1), (2, 3)], [(0, 1), (3, 4)]]", ruleList1, 1, 2,
+                makeMissingIntervals(makeInterval(false, 0, false, 1), makeInterval(false, 3, false, 4)));
+        checkAddOrMerge("[[(0, 1), (2, 4)]]", ruleList2, 1, 2,
+                makeMissingIntervals(makeInterval(false, 0, false, 1), makeInterval(true, 3, false, 4)));
+        checkAddOrMerge("[[(0, 1), (2, 3)], [(1, 2), (2, 3)]]", ruleList3, 1, 2,
+                makeMissingIntervals(makeInterval(false, 1, false, 2), makeInterval(false, 2, false, 3)));
+        checkAddOrMerge("[[(0, 2), (2, 3)]]", ruleList4, 1, 2,
+                makeMissingIntervals(makeInterval(true, 1, false, 2), makeInterval(false, 2, false, 3)));
+    }
+
+    private void checkAddOrMerge(String expectedList, MissingRuleList ruleList, int columnIndex, int totalNumberOfColumns, MissingIntervals missingIntervals) {
+        ruleList.addOrMerge(columnIndex, totalNumberOfColumns, missingIntervals);
         assertEquals(expectedList, ruleList.getRules().toString());
     }
 
-    private void checkAdd(String expectedList, int columnIndex, int totalNumberOfColumns, MissingIntervals missingIntervals) {
+    private void checkAddOrMerge(String expectedList, int columnIndex, int totalNumberOfColumns, MissingIntervals missingIntervals) {
         MissingRuleList ruleList = new MissingRuleList();
-        ruleList.add(columnIndex, totalNumberOfColumns, missingIntervals);
+        ruleList.addOrMerge(columnIndex, totalNumberOfColumns, missingIntervals);
         assertEquals(expectedList, ruleList.getRules().toString());
     }
 
     private MissingRuleList makeRuleList(Interval... intervals) {
         MissingRuleList ruleList = new MissingRuleList();
         int length = intervals.length;
-        ruleList.add(length - 1, length, makeMissingIntervals(intervals));
+        ruleList.addOrMerge(length - 1, length, makeMissingIntervals(intervals));
         return ruleList;
     }
 
