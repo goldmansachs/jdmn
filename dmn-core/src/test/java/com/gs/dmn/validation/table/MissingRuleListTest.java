@@ -29,8 +29,8 @@ public class MissingRuleListTest {
 
     @Test
     public void testAddWhenEnoughColumns() {
-        checkAdd("[[(0, 1)]]", 0, 1, makeMissingIntervals(makeInterval(true, 0, true, 1)));
-        checkAdd("[[(0, 1), (2, 3)]]", 1, 2, makeMissingIntervals(makeInterval(true, 0, true, 1), makeInterval(true, 2, true, 3)));
+        checkAdd("[[(0, 1)]]", 0, 1, makeMissingIntervals(makeInterval(false, 0, false, 1)));
+        checkAdd("[[(0, 1), (2, 3)]]", 1, 2, makeMissingIntervals(makeInterval(false, 0, false, 1), makeInterval(false, 2, false, 3)));
     }
 
     private void checkAdd(String expectedList, MissingRuleList ruleList, int columnIndex, int totalNumberOfColumns, MissingIntervals missingIntervals) {
@@ -59,7 +59,7 @@ public class MissingRuleListTest {
         return missingIntervals;
     }
 
-    private Interval makeInterval(boolean openStart, Number start, boolean openEnd, Number end) {
-        return new NumericInterval(-1, 0, null, openStart, start, openEnd, end);
+    private Interval makeInterval(boolean startIncluded, Number start, boolean endIncluded, Number end) {
+        return new NumericInterval(-1, 0, null, startIncluded, start, endIncluded, end);
     }
 }

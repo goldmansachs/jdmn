@@ -20,15 +20,15 @@ public class EnumerationInterval extends Interval {
     public static final List<String> BOOLEAN_ALLOWED_VALUES = Arrays.asList("false", "true");
 
     public EnumerationInterval(int ruleIndex, int columnIndex, Input input) {
-        super(ruleIndex, columnIndex, input, false, Bound.ZERO, true, (double) input.getAllowedValues().size());
+        super(ruleIndex, columnIndex, input, true, Bound.ZERO, false, (double) input.getAllowedValues().size());
     }
 
     public EnumerationInterval(int ruleIndex, int columnIndex, Input input, String value) {
-        super(ruleIndex, columnIndex, input, false, (double) input.getAllowedValues().indexOf(value), true, (double) input.getAllowedValues().indexOf(value) + 1.0);
+        super(ruleIndex, columnIndex, input, true, (double) input.getAllowedValues().indexOf(value), false, (double) input.getAllowedValues().indexOf(value) + 1.0);
     }
 
-    public EnumerationInterval(int ruleIndex, int columnIndex, Input input, boolean openStart, Number startValue, boolean openEnd, Number endValue) {
-        super(ruleIndex, columnIndex, input, openStart, startValue, openEnd, endValue);
+    public EnumerationInterval(int ruleIndex, int columnIndex, Input input, boolean startIncluded, Number startValue, boolean endIncluded, Number endValue) {
+        super(ruleIndex, columnIndex, input, startIncluded, startValue, endIncluded, endValue);
     }
 
     @Override

@@ -42,9 +42,9 @@ public class TableFactory {
         Double startValue = makeBoundValue(true, lastBound);
         Double endValue = makeBoundValue(false, currentBound);
         if (input.isNumberType()) {
-            return new NumericInterval(-1, columnIndex, input, lastBound.isIncluded(), startValue, currentBound.isIncluded(), endValue);
+            return new NumericInterval(-1, columnIndex, input, !lastBound.isIncluded(), startValue, !currentBound.isIncluded(), endValue);
         } else if (input.isBooleanType() || input.isStringType()) {
-            return new EnumerationInterval(-1, columnIndex, input, lastBound.isIncluded(), startValue, currentBound.isIncluded(), endValue);
+            return new EnumerationInterval(-1, columnIndex, input, !lastBound.isIncluded(), startValue, !currentBound.isIncluded(), endValue);
         }
         throw new IllegalArgumentException(String.format("Unexpected interval type for bounds '%s' or '%s'", lastBound, currentBound));
     }
@@ -173,7 +173,7 @@ public class TableFactory {
                 if (openEnd) {
                     endValue = endValue - Bound.DELTA;
                 }
-                return new NumericInterval(ruleIndex, columnIndex, input, false, startValue, false, endValue);
+                return new NumericInterval(ruleIndex, columnIndex, input, true, startValue, true, endValue);
             }
         }
         return null;
@@ -187,15 +187,15 @@ public class TableFactory {
             String lexeme = ((NumericLiteral) endpoint).getLexeme();
             Double value = Double.parseDouble(lexeme);
             if (operator == null) {
-                return new NumericInterval(ruleIndex, columnIndex, input, false, value, false, value);
+                return new NumericInterval(ruleIndex, columnIndex, input, true, value, true, value);
             } else if ("<".equals(operator)) {
-                return new NumericInterval(ruleIndex, columnIndex, input, false, Bound.MINUS_INFINITY, true, value - Bound.DELTA);
+                return new NumericInterval(ruleIndex, columnIndex, input, true, Bound.MINUS_INFINITY, false, value - Bound.DELTA);
             } else if ("<=".equals(operator)) {
-                return new NumericInterval(ruleIndex, columnIndex, input, false, Bound.MINUS_INFINITY, false, value);
+                return new NumericInterval(ruleIndex, columnIndex, input, true, Bound.MINUS_INFINITY, true, value);
             } else if (">".equals(operator)) {
-                return new NumericInterval(ruleIndex, columnIndex, input, true, value + Bound.DELTA, false, Bound.PLUS_INFINITY);
+                return new NumericInterval(ruleIndex, columnIndex, input, false, value + Bound.DELTA, true, Bound.PLUS_INFINITY);
             } else if (">=".equals(operator)) {
-                return new NumericInterval(ruleIndex, columnIndex, input, false, value, false, Bound.PLUS_INFINITY);
+                return new NumericInterval(ruleIndex, columnIndex, input, true, value, true, Bound.PLUS_INFINITY);
             }
         } else if (endpoint instanceof BooleanLiteral) {
             // Boolean
