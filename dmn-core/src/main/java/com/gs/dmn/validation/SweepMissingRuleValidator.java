@@ -122,13 +122,13 @@ public class SweepMissingRuleValidator extends SweepValidator {
                 Interval missingInterval = null;
                 if (i == 0) {
                     // Check if there is a gap between min(column) and first bound
-                    if (lowerBound != null && !Bound.areAdjacent(lowerBound, currentBound)) {
-                        missingInterval = factory.makeInterval(columnIndex, lowerBound, currentBound, table);
+                    if (lowerBound != null && !Bound.sameEnd(lowerBound, currentBound)) {
+                        missingInterval = factory.makeIntervalMin(columnIndex, lowerBound, currentBound, table);
                     }
                 } else if (i == boundCount - 1) {
                     // Check if there is a gap between last bound and max(column)
-                    if (upperBound != null && !Bound.areAdjacent(currentBound, upperBound)) {
-                        missingInterval = factory.makeInterval(columnIndex, currentBound, upperBound, table);
+                    if (upperBound != null && !Bound.sameEnd(currentBound, upperBound)) {
+                        missingInterval = factory.makeIntervalMax(columnIndex, currentBound, upperBound, table);
                     }
                 } else {
                     // No active intervals yet but values are different (e.g., lastBound is upper bound and current bound is lower bound)
