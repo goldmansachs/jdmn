@@ -71,28 +71,43 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
     @Test
     public void testFunctionInvocation() {
         String input = "abc";
+        String exchangeRegion = "region";
+        String smtpInfoBarrier = "smtp";
         List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", STRING, input));
+                new EnvironmentEntry("input", STRING, input),
+                new EnvironmentEntry("exchangeRegion", STRING, exchangeRegion),
+                new EnvironmentEntry("smtpInfoBarrier", STRING, smtpInfoBarrier)
+        );
 
-        doExpressionTest(entries, "", "contains(\"abc\", \"a\")",
-                "FunctionInvocation(Name(contains) -> PositionalParameters(StringLiteral(\"abc\"), StringLiteral(\"a\")))",
-                "boolean",
-                "contains(\"abc\", \"a\")",
-                this.lib.contains("abc", "a"),
-                true);
-        doExpressionTest(entries, "", "string(from : 1.1)",
-                "FunctionInvocation(Name(string) -> NamedParameters(from : NumericLiteral(1.1)))",
-                "string",
-                null,
-                null,
-                null);
+        // nested functions
         doExpressionTest(entries, "", "len(right(input, 1))",
                 "FunctionInvocation(Name(len) -> PositionalParameters(FunctionInvocation(Name(right) -> PositionalParameters(Name(input), NumericLiteral(1)))))",
                 "number",
                 "len(right(input, number(\"1\")))",
                 this.lib.len(this.lib.right(input, this.lib.number("1"))),
                 this.lib.number("1"));
+        doExpressionTest(entries, "", "concat(appendAll([exchangeRegion, \".\", smtpInfoBarrier], [\".email.gs.com\"]))",
+                "FunctionInvocation(Name(concat) -> PositionalParameters(FunctionInvocation(Name(appendAll) -> PositionalParameters(ListLiteral(Name(exchangeRegion),StringLiteral(\".\"),Name(smtpInfoBarrier)), ListLiteral(StringLiteral(\".email.gs.com\"))))))",
+                "string",
+                "concat(appendAll(asList(exchangeRegion, \".\", smtpInfoBarrier), asList(\".email.gs.com\")))",
+                this.lib.concat(this.lib.appendAll(this.lib.asList(exchangeRegion, ".", smtpInfoBarrier), this.lib.asList(".email.gs.com"))),
+                "region.smtp.email.gs.com");
 
+        // invocation with positional arguments
+        doExpressionTest(entries, "", "contains(\"abc\", \"a\")",
+                "FunctionInvocation(Name(contains) -> PositionalParameters(StringLiteral(\"abc\"), StringLiteral(\"a\")))",
+                "boolean",
+                "contains(\"abc\", \"a\")",
+                this.lib.contains("abc", "a"),
+                true);
+
+        // invocation with named arguments
+        doExpressionTest(entries, "", "string(from : 1.1)",
+                "FunctionInvocation(Name(string) -> NamedParameters(from : NumericLiteral(1.1)))",
+                "string",
+                null,
+                null,
+                null);
         doExpressionTest(entries, "", "contains(text : \"abc\", substring : \"a\")",
                 "FunctionInvocation(Name(contains) -> NamedParameters(text : StringLiteral(\"abc\"), substring : StringLiteral(\"a\")))",
                 "boolean",
