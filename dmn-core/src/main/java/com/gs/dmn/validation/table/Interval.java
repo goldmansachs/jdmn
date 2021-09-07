@@ -36,8 +36,8 @@ public abstract class Interval {
 
     protected final int ruleIndex;
     protected final int columnIndex;
-    protected final Bound lowerBound;
-    protected final Bound upperBound;
+    protected Bound lowerBound;
+    protected Bound upperBound;
     protected final Input input;
 
     public Interval(int ruleIndex, int columnIndex, Input input, boolean startIncluded, Number startValue, boolean endIncluded, Number endValue) {
@@ -60,5 +60,17 @@ public abstract class Interval {
         return upperBound;
     }
 
+    public abstract Interval copy();
+
     public abstract String serialize();
+
+    public void merge(Interval other) {
+        if (Bound.areAdjacent(this.upperBound, other.lowerBound)) {
+            this.upperBound = new Bound(this.upperBound.getInterval(), this.upperBound.isLowerBound(), other.upperBound.isIncluded(), other.upperBound.getValue());
+        } else if (Bound.areAdjacent(other.upperBound, this.lowerBound)) {
+            this.lowerBound = new Bound(this.lowerBound.getInterval(), this.lowerBound.isLowerBound(), other.lowerBound.isIncluded(), other.lowerBound.getValue());
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot merge interval '%s' to '%s'", other, this));
+        }
+    }
 }

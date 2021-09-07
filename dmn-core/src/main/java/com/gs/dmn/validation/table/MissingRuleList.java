@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.validation.table;
 
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.validation.SimpleDMNValidator;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -29,6 +30,17 @@ public class MissingRuleList {
         return rules;
     }
 
+    public void addOrMerge(int columnIndex, int totalNumberOfColumns, MissingIntervals missingIntervals) {
+        if (missingIntervals == null || columnIndex != totalNumberOfColumns -1) {
+            return ;
+        }
+
+        boolean merge = mergeIfPossible(columnIndex, totalNumberOfColumns, missingIntervals);
+        if (!merge) {
+            add(columnIndex, totalNumberOfColumns, missingIntervals);
+        }
+    }
+
     public void add(int columnIndex, int totalNumberOfColumns, MissingIntervals missingIntervals) {
         if (missingIntervals != null && columnIndex == totalNumberOfColumns - 1) {
             String indent = StringUtils.repeat("\t", columnIndex);
@@ -36,7 +48,7 @@ public class MissingRuleList {
             for (int i=0; i<totalNumberOfColumns; i++) {
                 List<Interval> subIntervals = missingIntervals.getIntervals(i);
                 if (subIntervals.size() == 1) {
-                    intervals.add(subIntervals.get(0));
+                    intervals.add(subIntervals.get(0).copy());
                 } else {
                     throw new IllegalArgumentException("Cannot have 2 intervals on same column");
                 }
@@ -44,6 +56,33 @@ public class MissingRuleList {
             LOGGER.info("{}Add missing rule '{}'", indent, intervals);
 
             rules.add(new Rule(intervals));
+        }
+    }
+
+    private boolean mergeIfPossible(int columnIndex, int totalNumberOfColumns, MissingIntervals missingIntervals) {
+        List<Pair<Rule, Integer>> mergeCandidates = new ArrayList<>();
+        for (Rule rule: rules) {
+            int columnToMerge = rule.findColumnToMerge(missingIntervals);
+            if (columnToMerge != -1) {
+                mergeCandidates.add(new Pair<>(rule, columnToMerge));
+            }
+        }
+        if (mergeCandidates.size() != 1) {
+            return false;
+        } else {
+            String indent = StringUtils.repeat("\t", columnIndex);
+            Pair<Rule, Integer> candidate = mergeCandidates.get(0);
+            Rule rule = candidate.getLeft();
+
+            LOGGER.info("{}Merge existing rule '{}'", indent, rule);
+
+            Integer columnToMerge = candidate.getRight();
+            Interval otherInterval = missingIntervals.getIntervals(columnToMerge).get(0);
+            rule.merge(columnToMerge, otherInterval);
+
+            LOGGER.info("{}Merged result '{}'", indent, rule);
+
+            return true;
         }
     }
 

@@ -32,6 +32,11 @@ public class EnumerationInterval extends Interval {
     }
 
     @Override
+    public Interval copy() {
+        return new EnumerationInterval(ruleIndex, columnIndex, input, lowerBound.isIncluded(), lowerBound.getValue(), upperBound.isIncluded(), upperBound.getValue());
+    }
+
+    @Override
     public String serialize() {
         List<String> enumValues = new ArrayList<>();
         int lowerIndex = this.lowerBound.getValue().intValue();

@@ -33,6 +33,37 @@ public class Rule {
         return intervals.get(columnIndex);
     }
 
+    public int findColumnToMerge(MissingIntervals missingIntervals) {
+        if (missingIntervals == null) {
+            return -1;
+        }
+        if (intervals.size() != missingIntervals.size()) {
+            return -1;
+        }
+        List<Integer> columnsToMerge = new ArrayList<>();
+        for (int i=0; i<intervals.size(); i++) {
+            List<Interval> otherIntervals = missingIntervals.getIntervals(i);
+            Interval thisInterval = intervals.get(i);
+            if (otherIntervals.size() == 1) {
+                Interval otherInterval = otherIntervals.get(0);
+                if (Interval.sameEndValues(thisInterval, otherInterval)) {
+                } else if (Interval.areAdjacent(thisInterval, otherInterval)) {
+                    columnsToMerge.add(i);
+                } else {
+                    return -1;
+                }
+            } else {
+                return -1;
+            }
+        }
+        return columnsToMerge.size() == 1 ? columnsToMerge.get(0) : -1;
+    }
+
+    public void merge(Integer columnIndex, Interval otherInterval) {
+        Interval thisInterval = intervals.get(columnIndex);
+        thisInterval.merge(otherInterval);
+    }
+
     @Override
     public String toString() {
         return String.format("[%s]", intervals.stream().map(i -> i == null ? null : i.toString()).collect(Collectors.joining(", ")));

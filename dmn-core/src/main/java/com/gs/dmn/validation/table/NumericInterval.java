@@ -22,6 +22,11 @@ public class NumericInterval extends Interval {
     }
 
     @Override
+    public Interval copy() {
+        return new NumericInterval(ruleIndex, columnIndex, input, lowerBound.isIncluded(), lowerBound.getValue(), upperBound.isIncluded(), upperBound.getValue());
+    }
+
+    @Override
     public String serialize() {
         return String.format("%s, %s", lowerBound, upperBound);
     }
