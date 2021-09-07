@@ -111,9 +111,9 @@ public class Bound {
         if (o == null || this.interval.getClass() != o.interval.getClass()) return false;
 
         if (this.interval.getClass() == NumericInterval.class) {
-             return (isIncluded || o.isIncluded) && Objects.equals(value, o.value);
+             return (isIncluded || o.isIncluded) && sameValue(this, o);
         } else if (this.interval.getClass() == EnumerationInterval.class) {
-            return Objects.equals(value, o.value);
+            return sameValue(this, o);
         }
         return false;
     }
