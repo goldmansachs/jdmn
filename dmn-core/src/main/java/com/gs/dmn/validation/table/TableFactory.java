@@ -37,6 +37,30 @@ public class TableFactory {
         return new Table(inputs, rules);
     }
 
+    public Interval makeIntervalMin(int columnIndex, Bound lastBound, Bound currentBound, Table table) {
+        Input input = table.getInput(columnIndex);
+        Double startValue = makeBoundValue(true, lastBound);
+        Double endValue = makeBoundValue(false, currentBound);
+        if (input.isNumberType()) {
+            return new NumericInterval(-1, columnIndex, input, lastBound.isIncluded(), startValue, !currentBound.isIncluded(), endValue);
+        } else if (input.isBooleanType() || input.isStringType()) {
+            return new EnumerationInterval(-1, columnIndex, input, lastBound.isIncluded(), startValue, !currentBound.isIncluded(), endValue);
+        }
+        throw new IllegalArgumentException(String.format("Unexpected interval type for bounds '%s' or '%s'", lastBound, currentBound));
+    }
+
+    public Interval makeIntervalMax(int columnIndex, Bound lastBound, Bound currentBound, Table table) {
+        Input input = table.getInput(columnIndex);
+        Double startValue = makeBoundValue(true, lastBound);
+        Double endValue = makeBoundValue(false, currentBound);
+        if (input.isNumberType()) {
+            return new NumericInterval(-1, columnIndex, input, !lastBound.isIncluded(), startValue, currentBound.isIncluded(), endValue);
+        } else if (input.isBooleanType() || input.isStringType()) {
+            return new EnumerationInterval(-1, columnIndex, input, !lastBound.isIncluded(), startValue, currentBound.isIncluded(), endValue);
+        }
+        throw new IllegalArgumentException(String.format("Unexpected interval type for bounds '%s' or '%s'", lastBound, currentBound));
+    }
+
     public Interval makeInterval(int columnIndex, Bound lastBound, Bound currentBound, Table table) {
         Input input = table.getInput(columnIndex);
         Double startValue = makeBoundValue(true, lastBound);

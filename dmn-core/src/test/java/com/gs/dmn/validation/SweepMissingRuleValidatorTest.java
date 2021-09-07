@@ -40,14 +40,14 @@ public class SweepMissingRuleValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenIntervals1() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(0, 250), (1000, 5000)]' in 'Loan Grade' table",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(0, 250), (1000, 5000]]' in 'Loan Grade' table",
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(250, 500), (1000, 4000)]' in 'Loan Grade' table",
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(500, 750), (3000, 4000)]' in 'Loan Grade' table",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(750, 1000), (3000, 5000)]' in 'Loan Grade' table",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(1000, 1500), (0, 500)]' in 'Loan Grade' table",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(1000, 1500), (3000, 5000)]' in 'Loan Grade' table",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(750, 1000), (3000, 5000]]' in 'Loan Grade' table",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(1000, 1500), [0, 500)]' in 'Loan Grade' table",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(1000, 1500), (3000, 5000]]' in 'Loan Grade' table",
 //                "[(1500, 2000), (0, 5000)]",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(2000, 2500), (2000, 5000)]' in 'Loan Grade' table"
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(2000, 2500), (2000, 5000]]' in 'Loan Grade' table"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-intervals-1.dmn"), expectedErrors);
     }
@@ -55,14 +55,14 @@ public class SweepMissingRuleValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenIntervals2() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(0, 250), (750, 1500)]' in 'Loan Grade' table",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(0, 250), (750, 1500]]' in 'Loan Grade' table",
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(250, 500), (750, 1200)]' in 'Loan Grade' table",
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(500, 750), (1000, 1200)]' in 'Loan Grade' table",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(750, 1000), (1000, 1500)]' in 'Loan Grade' table",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(1000, 1500), (0, 250)]' in 'Loan Grade' table",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(1000, 1500), (1000, 1500)]' in 'Loan Grade' table",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(750, 1000), (1000, 1500]]' in 'Loan Grade' table",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(1000, 1500), [0, 250)]' in 'Loan Grade' table",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(1000, 1500), (1000, 1500]]' in 'Loan Grade' table",
 //                "[(1500, 1600), (0, 1500)]",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(1600, 2000), (850, 1500)]' in 'Loan Grade' table"
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(1600, 2000), (850, 1500]]' in 'Loan Grade' table"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-intervals-2.dmn"), expectedErrors);
     }
@@ -73,10 +73,10 @@ public class SweepMissingRuleValidatorTest extends AbstractValidatorTest {
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(-Infinity, 200), (1000, 4000)]' in 'Loan Grade' table",
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(200, 500], (1000, 4000)]' in 'Loan Grade' table",
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[[500, 750), (3000, 4000)]' in 'Loan Grade' table",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(750, 1000], (3000, 5000)]' in 'Loan Grade' table",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[[1000, 2000), (0, 500)]' in 'Loan Grade' table",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[[1000, 2000), (3000, 5000)]' in 'Loan Grade' table",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(2000, +Infinity), (3000, 5000)]' in 'Loan Grade' table"
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(750, 1000], (3000, 5000]]' in 'Loan Grade' table",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[[1000, 2000), [0, 500)]' in 'Loan Grade' table",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[[1000, 2000), (3000, 5000]]' in 'Loan Grade' table",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(2000, +Infinity), (3000, 5000]]' in 'Loan Grade' table"
        );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-relational-operators.dmn"), expectedErrors);
     }
@@ -84,11 +84,11 @@ public class SweepMissingRuleValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenAny() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(-Infinity, 250), (3000, 5000)]' in 'Loan Grade' table",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(-Infinity, 250), (3000, 5000]]' in 'Loan Grade' table",
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(250, 750), (3000, 4000)]' in 'Loan Grade' table",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(750, 2000), (3000, 5000)]' in 'Loan Grade' table",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(2000, 2500), (3000, 5000)]' in 'Loan Grade' table",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(2500, +Infinity), (3000, 5000)]' in 'Loan Grade' table"
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(750, 2000), (3000, 5000]]' in 'Loan Grade' table",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(2000, 2500), (3000, 5000]]' in 'Loan Grade' table",
+                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[(2500, +Infinity), (3000, 5000]]' in 'Loan Grade' table"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-any.dmn"), expectedErrors);
     }
