@@ -19,7 +19,7 @@
     <parent>
         <groupId>com.goldmansachs.jdmn</groupId>
         <artifactId>jdmn-parent</artifactId>
-        <version>5.1.0</version>
+        <version>5.0.1-SNAPSHOT</version>
     </parent>
 
     <properties>
