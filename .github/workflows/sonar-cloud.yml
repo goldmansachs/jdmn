@@ -20,17 +20,8 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Display date
         run: date
-      - name: Display tokens
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          echo GitHub Token
-          echo $GITHUB_TOKEN
-          echo Sonar Token
-          echo $SONAR_TOKEN
       - name: Analyze with SonarCloud
-        run: mvn -B -e -Dorg.slf4j.simpleLogger.showDateTime=true -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss:SSS -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean install sonar:sonar -Dsonar.organization=goldmansachs -Dsonar.projectKey=goldmansachs_jdmn -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Psonar-coverage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B -e -Dorg.slf4j.simpleLogger.showDateTime=true -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss:SSS -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean install sonar:sonar -Dsonar.organization=goldmansachs -Dsonar.projectKey=goldmansachs_jdmn -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Psonar-coverage
