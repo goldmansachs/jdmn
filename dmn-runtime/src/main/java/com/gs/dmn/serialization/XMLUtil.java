@@ -22,7 +22,7 @@ import javax.xml.parsers.ParserConfigurationException;
 public class XMLUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(XMLUtil.class);
 
-    public static DocumentBuilderFactory makeDocumentBuilderFactory() throws ParserConfigurationException {
+    public static DocumentBuilderFactory makeDocumentBuilderFactory() {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, ""); // Compliant
         dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, ""); // compliant
@@ -50,6 +50,8 @@ public class XMLUtil {
             // Disable external DTDs as well
             feature = "http://apache.org/xml/features/nonvalidating/load-external-dtd";
             dbf.setFeature(feature, false);
+            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
 
             // and these as well, per Timothy Morgan's 2014 paper: "XML Schema, DTD, and Entity Attacks"
             dbf.setXIncludeAware(false);
