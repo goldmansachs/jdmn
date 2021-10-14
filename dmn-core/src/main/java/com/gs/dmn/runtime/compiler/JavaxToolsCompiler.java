@@ -20,8 +20,8 @@ import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.native_.NativeFactory;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.RandomStringGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +41,8 @@ import java.util.stream.Collectors;
 
 public class JavaxToolsCompiler extends JavaCompilerImpl {
     private static final Logger LOGGER = LoggerFactory.getLogger(JavaxToolsCompiler.class);
+    private static final RandomStringGenerator RANDOM_STRING_GENERATOR = new RandomStringGenerator.Builder()
+            .withinRange('a', 'z').withinRange('0', '9').build();
 
     private final File classesDir;
 
@@ -73,7 +75,7 @@ public class JavaxToolsCompiler extends JavaCompilerImpl {
     }
 
     private String uniqueName() {
-        return RandomStringUtils.randomAlphanumeric(10);
+        return RANDOM_STRING_GENERATOR.generate(10);
     }
 
     private String classText(String packageName, String className, String lib, String returnType, String applyMethod) {
@@ -171,10 +173,22 @@ public class JavaxToolsCompiler extends JavaCompilerImpl {
     }
 
     private File makeTempFolder() {
+/*
+        Recommended Secure Coding Practices
+        Use a dedicated sub-folder with tightly controlled permissions
+        Use secure-by-design APIs to create temporary files. Such API will make sure:
+        The generated filename is unpredictable
+        The file is readable and writable only by the creating user ID
+        The file descriptor is not inherited by child processes
+        The file will be destroyed as soon as it is closed
+*/
         try {
             Path tmpDir = Files.createTempDirectory("jdmn_");
             LOGGER.debug("Created temp folder as: " + tmpDir);
             File file = tmpDir.toFile();
+            file.setReadable(true, true);
+            file.setWritable(true, true);
+            file.setExecutable(true, true);
             Runtime.getRuntime().addShutdownHook(new Thread(() -> FileUtils.deleteQuietly(file)));
             return file;
         } catch (IOException e) {
