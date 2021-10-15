@@ -17,8 +17,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.SimpleLiteral;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.DMNContext;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.*;
 import java.util.stream.Collectors;

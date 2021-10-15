@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.feel.analysis.semantics.type.AnyType.*;
+import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 
 public class FunctionInvocation extends Expression {
     private final Expression function;
