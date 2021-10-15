@@ -101,7 +101,7 @@ public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, 
         return inputParameters;
     }
 
-    private FileTransformer makeTransformer(InputParameters inputParameters, BuildLogger logger) {
+    protected FileTransformer makeTransformer(InputParameters inputParameters, BuildLogger logger) {
         return makeDialectDefinition().createDMNToNativeTransformer(makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputParameters, logger);
     }
 

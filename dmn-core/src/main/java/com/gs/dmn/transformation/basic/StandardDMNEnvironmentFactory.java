@@ -818,7 +818,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         }
         // Infer type from expression
         type = this.dmnTransformer.expressionType(element, entry.getExpression(), localContext);
-        return type == null ? AnyType.ANY : type;
+        return Type.isNull(type) ? AnyType.ANY : type;
     }
 
     private Type variableType(TNamedElement element, TInformationItem variable) {
