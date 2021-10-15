@@ -42,6 +42,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
@@ -863,6 +864,26 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "durationGreaterEqualThan(duration(\"P1Y1M\"), duration(\"P1Y2M\"))",
                 this.lib.durationGreaterEqualThan(this.lib.duration("P1Y1M"), this.lib.duration("P1Y2M")),
                 false);
+
+        // range
+        doExpressionTest(entries, "", "[1..10] = [1..10]",
+                "Relational(=,EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)))",
+                "boolean",
+                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"10\")), new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("10")), new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("10"))),
+                true);
+        doExpressionTest(entries, "", "[1..10] = [1..11]",
+                "Relational(=,EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(11)))",
+                "boolean",
+                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"10\")), new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"11\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("10")), new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("11"))),
+                false);
+        doExpressionTest(entries, "", "[1..10] = [1..10)",
+                "Relational(=,EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(1),true,NumericLiteral(10)))",
+                "boolean",
+                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"10\")), new com.gs.dmn.runtime.Range(true, number(\"1\"), false, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("10")), new com.gs.dmn.runtime.Range(true, this.lib.number("1"), false, this.lib.number("10"))),
+                false);
     }
 
     @Test
@@ -870,7 +891,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
-        // null
+        // number
         doExpressionTest(entries, "", "1 = null",
                 "Relational(=,NumericLiteral(1),NullLiteral())",
                 "boolean",
@@ -896,6 +917,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.numericNotEqual(null, this.lib.number("2")),
                 true);
 
+        // boolean
         doExpressionTest(entries, "", "true = null",
                 "Relational(=,BooleanLiteral(true),NullLiteral())",
                 "boolean",
@@ -921,6 +943,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.booleanNotEqual(null, Boolean.TRUE),
                 true);
 
+        // string
         doExpressionTest(entries, "", "\"abc\" = null",
                 "Relational(=,StringLiteral(\"abc\"),NullLiteral())",
                 "boolean",
@@ -946,6 +969,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.stringNotEqual(null, "abc"),
                 true);
 
+        // date
         doExpressionTest(entries, "", "date(\"2016-03-01\") = null",
                 "Relational(=,DateTimeLiteral(date, \"2016-03-01\"),NullLiteral())",
                 "boolean",
@@ -971,6 +995,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.dateNotEqual(null, this.lib.date("2016-03-02")),
                 true);
 
+        // date and time
         doExpressionTest(entries, "", "date and time(\"2016-03-01T12:00:00Z\") = null",
                 "Relational(=,DateTimeLiteral(date and time, \"2016-03-01T12:00:00Z\"),NullLiteral())",
                 "boolean",
@@ -996,6 +1021,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.dateTimeNotEqual(null, this.lib.dateAndTime("2016-03-02T12:00:00Z")),
                 true);
 
+        // time
         doExpressionTest(entries, "", "time(\"12:00:00Z\") = null",
                 "Relational(=,DateTimeLiteral(time, \"12:00:00Z\"),NullLiteral())",
                 "boolean",
@@ -1021,6 +1047,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.timeNotEqual(null, this.lib.time("12:01:00Z")),
                 true);
 
+        // duration
         doExpressionTest(entries, "", "duration(\"P1Y1M\") = null",
                 "Relational(=,DateTimeLiteral(duration, \"P1Y1M\"),NullLiteral())",
                 "boolean",
@@ -1045,6 +1072,20 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "durationNotEqual(null, duration(\"P1Y2M\"))",
                 this.lib.durationNotEqual(null, this.lib.duration("P1Y2M")),
                 true);
+
+        // range
+        doExpressionTest(entries, "", "[1..10] = null",
+                "Relational(=,EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)),NullLiteral())",
+                "boolean",
+                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"10\")), null)",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("10")), null),
+                false);
+        doExpressionTest(entries, "", "null = [1..10]",
+                "Relational(=,NullLiteral(),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)))",
+                "boolean",
+                "rangeEqual(null, new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"10\")))",
+                this.lib.rangeEqual(null, new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("10"))),
+                false);
 
         doExpressionTest(entries, "", "null = null",
                 "Relational(=,NullLiteral(),NullLiteral())",
@@ -2553,6 +2594,66 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "duration(\"P1DT1H\")",
                 this.lib.duration("P1DT1H"),
                 this.lib.duration("P1DT1H"));
+    }
+
+    @Test
+    public void testTypeIsMissing() {
+        Object null_input = null;
+        Object number = lib.number("1");
+        Object string = "a";
+        Object date = lib.date("1970-01-01");
+        Object dateTime = lib.dateAndTime("1970-01-01T10:10:10");
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("null_input", null, null_input),
+                new EnvironmentEntry("number", null, number),
+                new EnvironmentEntry("string", null, string),
+                new EnvironmentEntry("date", null, date),
+                new EnvironmentEntry("dateTime", null, dateTime)
+        );
+
+        // 0068-feel-equality
+        doExpressionTest(entries, "", "(< 10) = (null_input..10)",
+                "Relational(=,OperatorRange(<,NumericLiteral(10)),EndpointsRange(true,Name(null_input),true,NumericLiteral(10)))",
+                "boolean",
+                "rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, number(\"10\")), new com.gs.dmn.runtime.Range(false, null_input, false, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, this.lib.number("10")), new com.gs.dmn.runtime.Range(false, null_input, false, this.lib.number("10"))),
+                true);
+        doExpressionTest(entries, "", "(>=; 10) = [10..null_input)",
+                "Relational(=,OperatorRange(>=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),true,Name(null_input)))",
+                "boolean",
+                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null), new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null_input))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null_input)),
+                true);
+    }
+
+    @Test
+    public void testTypeIsAny() {
+        Object null_input = null;
+        Object number = lib.number("1");
+        Object string = "a";
+        Object date = lib.date("1970-01-01");
+        Object dateTime = lib.dateAndTime("1970-01-01T10:10:10");
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("null_input", ANY, null_input),
+                new EnvironmentEntry("number", ANY, number),
+                new EnvironmentEntry("string", ANY, string),
+                new EnvironmentEntry("date", ANY, date),
+                new EnvironmentEntry("dateTime", ANY, dateTime)
+        );
+
+        // 0068-feel-equality
+        doExpressionTest(entries, "", "(< 10) = (null_input..10)",
+                "Relational(=,OperatorRange(<,NumericLiteral(10)),EndpointsRange(true,Name(null_input),true,NumericLiteral(10)))",
+                "boolean",
+                "rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, number(\"10\")), new com.gs.dmn.runtime.Range(false, null_input, false, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, this.lib.number("10")), new com.gs.dmn.runtime.Range(false, null_input, false, this.lib.number("10"))),
+                true);
+        doExpressionTest(entries, "", "(>=; 10) = [10..null_input)",
+                "Relational(=,OperatorRange(>=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),true,Name(null_input)))",
+                "boolean",
+                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null), new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null_input))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null_input)),
+                true);
     }
 
     protected void doUnaryTestsTest(List<EnvironmentEntry> entries, String inputExpressionText, String inputEntryText,

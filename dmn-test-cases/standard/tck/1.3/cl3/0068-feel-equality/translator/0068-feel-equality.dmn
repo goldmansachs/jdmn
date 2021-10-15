@@ -7,7 +7,7 @@
     <description>FEEL equality</description>
 
     <inputData name="null_input" id="_null_input">
-        <variable name="null_input" typeRef="number"/>
+        <variable name="null_input" typeRef="Any"/> <!-- some test cases always supply value `null` for this InputData -->
     </inputData>
 
     <decision name="null_001" id="_null_001">
@@ -607,25 +607,29 @@
         </literalExpression>
     </decision>
 
-    <decision name="time_007" id="_time_007">
-        <description>Tests FEEL expression: 'time("10:30:00@Europe/Paris") = time("10:30:00")' and expects result: 'false (boolean)'</description>
-        <question>Result of FEEL expression 'time("10:30:00@Europe/Paris") = time("10:30:00")'?</question>
-        <allowedAnswers>false (boolean)</allowedAnswers>
-        <variable name="time_007"/>
-        <literalExpression>
-            <text>time("10:30:00@Europe/Paris") = time("10:30:00")</text>
-        </literalExpression>
-    </decision>
+    <!-- commented out pending RTF equality comparisons with zones clarification -->
+    <!-- https://github.com/dmn-tck/tck/pull/389#issuecomment-881322326 -->
+<!--    <decision name="time_007" id="_time_007">-->
+<!--        <description>Tests FEEL expression: 'time("10:30:00@Europe/Paris") = time("10:30:00")' and expects result: 'false (boolean)'</description>-->
+<!--        <question>Result of FEEL expression 'time("10:30:00@Europe/Paris") = time("10:30:00")'?</question>-->
+<!--        <allowedAnswers>false (boolean)</allowedAnswers>-->
+<!--        <variable name="time_007"/>-->
+<!--        <literalExpression>-->
+<!--            <text>time("10:30:00@Europe/Paris") = time("10:30:00")</text>-->
+<!--        </literalExpression>-->
+<!--    </decision>-->
 
-    <decision name="time_008" id="_time_008">
-        <description>Tests FEEL expression: 'time("10:30:00@Europe/Paris") = time("10:30:00@Asia/Dhaka")' and expects result: 'false (boolean)'</description>
-        <question>Result of FEEL expression 'time("10:30:00@Europe/Paris") = time("10:30:00@Asia/Dhaka")'?</question>
-        <allowedAnswers>false (boolean)</allowedAnswers>
-        <variable name="time_008"/>
-        <literalExpression>
-            <text>time("10:30:00@Europe/Paris") = time("10:30:00@Asia/Dhaka")</text>
-        </literalExpression>
-    </decision>
+    <!-- commented out pending RTF equality comparisons with zones clarification -->
+    <!-- https://github.com/dmn-tck/tck/pull/389#issuecomment-881322326 -->
+<!--    <decision name="time_008" id="_time_008">-->
+<!--        <description>Tests FEEL expression: 'time("10:30:00@Europe/Paris") = time("10:30:00@Asia/Dhaka")' and expects result: 'false (boolean)'</description>-->
+<!--        <question>Result of FEEL expression 'time("10:30:00@Europe/Paris") = time("10:30:00@Asia/Dhaka")'?</question>-->
+<!--        <allowedAnswers>false (boolean)</allowedAnswers>-->
+<!--        <variable name="time_008"/>-->
+<!--        <literalExpression>-->
+<!--            <text>time("10:30:00@Europe/Paris") = time("10:30:00@Asia/Dhaka")</text>-->
+<!--        </literalExpression>-->
+<!--    </decision>-->
 
     <decision name="time_009" id="_time_009">
         <description>Tests FEEL expression: 'time("10:30:00+01:00") = time("10:30:00@Europe/Paris")' and expects result: 'true (boolean)'</description>
@@ -637,25 +641,29 @@
         </literalExpression>
     </decision>
 
-    <decision name="time_009_a" id="_time_009_a">
-        <description>Tests FEEL expression: 'time("10:30:00+02:00") = time("10:30:00@Europe/Paris")' and expects result: 'false (boolean)'</description>
-        <question>Result of FEEL expression 'time("10:30:00+02:00") = time("10:30:00@Europe/Paris")'?</question>
-        <allowedAnswers>true (boolean)</allowedAnswers>
-        <variable name="time_009_a"/>
-        <literalExpression>
-            <text>time("10:30:00+02:00") = time("10:30:00@Europe/Paris")</text>
-        </literalExpression>
-    </decision>
+    <!-- commented out pending RTF equality comparisons with zones clarification -->
+    <!-- https://github.com/dmn-tck/tck/pull/389#issuecomment-881322326 -->
+<!--    <decision name="time_009_a" id="_time_009_a">-->
+<!--        <description>Tests FEEL expression: 'time("10:30:00+02:00") = time("10:30:00@Europe/Paris")' and expects result: 'false (boolean)'</description>-->
+<!--        <question>Result of FEEL expression 'time("10:30:00+02:00") = time("10:30:00@Europe/Paris")'?</question>-->
+<!--        <allowedAnswers>true (boolean)</allowedAnswers>-->
+<!--        <variable name="time_009_a"/>-->
+<!--        <literalExpression>-->
+<!--            <text>time("10:30:00+02:00") = time("10:30:00@Europe/Paris")</text>-->
+<!--        </literalExpression>-->
+<!--    </decision>-->
 
-    <decision name="time_009_b" id="_time_009_b">
-        <description>Tests FEEL expression: 'time("10:30:00+02:00") = time("10:30:00+01:00")' and expects result: 'false (boolean)'</description>
-        <question>Result of FEEL expression 'time("10:30:00+02:00") = time("10:30:00+01:00")'?</question>
-        <allowedAnswers>true (boolean)</allowedAnswers>
-        <variable name="time_009_b"/>
-        <literalExpression>
-            <text>time("10:30:00+02:00") = time("10:30:00+01:00")</text>
-        </literalExpression>
-    </decision>
+    <!-- commented out pending RTF equality comparisons with zones clarification -->
+    <!-- https://github.com/dmn-tck/tck/pull/389#issuecomment-881322326 -->
+<!--    <decision name="time_009_b" id="_time_009_b">-->
+<!--        <description>Tests FEEL expression: 'time("10:30:00+02:00") = time("10:30:00+01:00")' and expects result: 'false (boolean)'</description>-->
+<!--        <question>Result of FEEL expression 'time("10:30:00+02:00") = time("10:30:00+01:00")'?</question>-->
+<!--        <allowedAnswers>true (boolean)</allowedAnswers>-->
+<!--        <variable name="time_009_b"/>-->
+<!--        <literalExpression>-->
+<!--            <text>time("10:30:00+02:00") = time("10:30:00+01:00")</text>-->
+<!--        </literalExpression>-->
+<!--    </decision>-->
 
     <decision name="time_010" id="_time_010">
         <description>Tests FEEL expression: 'time("10:30:00Z") = time("10:30:00+00:00")' and expects result: 'true (boolean)'</description>
@@ -762,15 +770,17 @@
         </literalExpression>
     </decision>
 
-    <decision name="datetime_007" id="_datetime_007">
-        <description>Tests FEEL expression: 'date and time("2018-12-08T00:00:00") = date and time("2018-12-08T00:00:00@Asia/Dhaka")' and expects result: 'false (boolean)'</description>
-        <question>Result of FEEL expression 'date and time("2018-12-08T00:00:00") = date and time("2018-12-08T00:00:00@Asia/Dhaka")'?</question>
-        <allowedAnswers>false (boolean)</allowedAnswers>
-        <variable name="datetime_007"/>
-        <literalExpression>
-            <text>date and time("2018-12-08T00:00:00") = date and time("2018-12-08T00:00:00@Asia/Dhaka")</text>
-        </literalExpression>
-    </decision>
+    <!-- commented out pending RTF equality comparisons with zones clarification -->
+    <!-- https://github.com/dmn-tck/tck/pull/389#issuecomment-881322326 -->
+<!--    <decision name="datetime_007" id="_datetime_007">-->
+<!--        <description>Tests FEEL expression: 'date and time("2018-12-08T00:00:00") = date and time("2018-12-08T00:00:00@Asia/Dhaka")' and expects result: 'false (boolean)'</description>-->
+<!--        <question>Result of FEEL expression 'date and time("2018-12-08T00:00:00") = date and time("2018-12-08T00:00:00@Asia/Dhaka")'?</question>-->
+<!--        <allowedAnswers>false (boolean)</allowedAnswers>-->
+<!--        <variable name="datetime_007"/>-->
+<!--        <literalExpression>-->
+<!--            <text>date and time("2018-12-08T00:00:00") = date and time("2018-12-08T00:00:00@Asia/Dhaka")</text>-->
+<!--        </literalExpression>-->
+<!--    </decision>-->
 
     <decision name="datetime_008" id="_datetime_008">
         <description>Tests FEEL expression: 'date and time("2018-10-08T00:00:00+01:00") = date and time("2018-10-08T00:00:00@Europe/Paris")' and expects result: 'true (boolean)'</description>
@@ -856,29 +866,29 @@
         </literalExpression>
     </decision>
 
-<!--
-    <decision name="datetime_014" id="_datetime_014">
-        <description>Tests FEEL expression: '@"2002-04-02" = @"2002-04-02T00:00:00Z"' and expects result: 'true (boolean)'</description>
-        <question>Result of FEEL expression '@"2002-04-02" = @"2002-04-02T00:00:00Z"'?</question>
-        <allowedAnswers>true (boolean)</allowedAnswers>
-        <variable name="datetime_014"/>
-        <literalExpression>
-            <text>@"2002-04-02" = @"2002-04-02T00:00:00Z"</text>
-        </literalExpression>
-    </decision>
--->
+    <!-- commented out pending RTF equality comparisons with zones clarification -->
+    <!-- https://github.com/dmn-tck/tck/pull/389#issuecomment-881322326 -->
+<!--    <decision name="datetime_014" id="_datetime_014">-->
+<!--        <description>Tests FEEL expression: '@"2002-04-02" = @"2002-04-02T00:00:00Z"' and expects result: 'true (boolean)'</description>-->
+<!--        <question>Result of FEEL expression '@"2002-04-02" = @"2002-04-02T00:00:00Z"'?</question>-->
+<!--        <allowedAnswers>true (boolean)</allowedAnswers>-->
+<!--        <variable name="datetime_014"/>-->
+<!--        <literalExpression>-->
+<!--            <text>@"2002-04-02" = @"2002-04-02T00:00:00Z"</text>-->
+<!--        </literalExpression>-->
+<!--    </decision>-->
 
-<!--
-    <decision name="datetime_015" id="_datetime_015">
-        <description>Tests FEEL expression: '@"2002-04-02" = @"2002-04-02T00:00:00+00:00"' and expects result: 'true (boolean)'</description>
-        <question>Result of FEEL expression '@"2002-04-02" = @"2002-04-02T00:00:00+00:00"'?</question>
-        <allowedAnswers>true (boolean)</allowedAnswers>
-        <variable name="datetime_015"/>
-        <literalExpression>
-            <text>@"2002-04-02" = @"2002-04-02T00:00:00+00:00"</text>
-        </literalExpression>
-    </decision>
--->
+    <!-- commented out pending RTF equality comparisons with zones clarification -->
+    <!-- https://github.com/dmn-tck/tck/pull/389#issuecomment-881322326 -->
+<!--    <decision name="datetime_015" id="_datetime_015">-->
+<!--        <description>Tests FEEL expression: '@"2002-04-02" = @"2002-04-02T00:00:00+00:00"' and expects result: 'true (boolean)'</description>-->
+<!--        <question>Result of FEEL expression '@"2002-04-02" = @"2002-04-02T00:00:00+00:00"'?</question>-->
+<!--        <allowedAnswers>true (boolean)</allowedAnswers>-->
+<!--        <variable name="datetime_015"/>-->
+<!--        <literalExpression>-->
+<!--            <text>@"2002-04-02" = @"2002-04-02T00:00:00+00:00"</text>-->
+<!--        </literalExpression>-->
+<!--    </decision>-->
 
     <decision name="dt_duration_001" id="_dt_duration_001">
         <description>Tests FEEL expression: 'duration("P1D") = duration("P1D")' and expects result: 'true (boolean)'</description>
@@ -1319,4 +1329,3 @@
     </decision>
 
 </definitions>
-

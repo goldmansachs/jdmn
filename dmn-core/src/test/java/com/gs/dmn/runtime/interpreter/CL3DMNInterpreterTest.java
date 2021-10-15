@@ -345,7 +345,7 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
 
     @Test
     public void test_13_cl3_0068_feel_equality() {
-        doSingleModelTest("1.3", "0068-feel-equality");
+        doSingleModelTest("1.3", "0068-feel-equality", new Pair<>("strongTyping", "false") );
     }
 
     @Test

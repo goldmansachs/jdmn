@@ -336,6 +336,14 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String convertDecisionArgumentFromString(String paramName, Type type) {
+        if (Type.isNull(type)) {
+            if (transformer.isStrongTyping()) {
+                throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));
+            } else {
+                return paramName;
+            }
+        }
+
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
             if (conversionMethod != null) {
@@ -344,6 +352,8 @@ public class JavaFactory implements NativeFactory {
                 return paramName;
             } else if (type == BooleanType.BOOLEAN) {
                 return String.format("(%s != null ? Boolean.valueOf(%s) : null)", paramName, paramName);
+            } else if (Type.isAny(type)) {
+                return paramName;
             } else {
                 throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));
             }
@@ -381,7 +391,7 @@ public class JavaFactory implements NativeFactory {
     }
 
     protected String dateToUTCMidnight(String javaType) {
-        return String.format("toDateTime", javaType);
+        return "toDateTime";
     }
 
     @Override

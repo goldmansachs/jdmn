@@ -75,6 +75,8 @@ public interface BasicDMNToNativeTransformer {
 
     boolean isSingletonInputData();
 
+    boolean isStrongTyping();
+
     //
     // TItemDefinition related functions
     //
@@ -631,13 +633,12 @@ public interface BasicDMNToNativeTransformer {
     }
 
     default DMNContext makeUnaryTestContext(Expression inputExpression, DMNContext parentContext) {
-        DMNContext context = DMNContext.of(
+        return DMNContext.of(
                 parentContext,
                 DMNContextKind.UNARY_TEST_CONTEXT,
                 parentContext.getElement(),
                 getDMNEnvironmentFactory().makeUnaryTestEnvironment((TDRGElement) parentContext.getElement(), inputExpression),
-                parentContext.getRuntimeEnvironment());
-        return context;
+                RuntimeEnvironment.of());
     }
 
     default DMNContext makeLocalContext(DMNContext parentContext) {
@@ -743,24 +744,22 @@ public interface BasicDMNToNativeTransformer {
     }
 
     default DMNContext makeRelationContext(TDRGElement element, TRelation relation, DMNContext parentContext) {
-        DMNContext relationContext = DMNContext.of(
+        return DMNContext.of(
                 parentContext,
                 DMNContextKind.RELATION,
                 element,
                 makeRelationEnvironment(element, relation),
                 RuntimeEnvironment.of()
         );
-        return relationContext;
     }
 
     default DMNContext makeLocalContext(TDRGElement element, TContext context, DMNContext parentContext) {
-        DMNContext localContext = DMNContext.of(
+        return DMNContext.of(
                 parentContext,
                 DMNContextKind.LOCAL,
                 element,
                 this.getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of()
         );
-        return localContext;
     }
 }
