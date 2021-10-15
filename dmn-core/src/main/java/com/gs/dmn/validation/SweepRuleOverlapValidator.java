@@ -17,13 +17,15 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
-import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
-import com.gs.dmn.validation.table.*;
+import com.gs.dmn.validation.table.Bound;
+import com.gs.dmn.validation.table.RuleGroup;
+import com.gs.dmn.validation.table.Table;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.*;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TDecisionTable;
+import org.omg.spec.dmn._20191111.model.TDefinitions;
 
-import javax.xml.bind.JAXBElement;
 import java.util.*;
 
 public class SweepRuleOverlapValidator extends SweepValidator {

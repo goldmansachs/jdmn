@@ -14,44 +14,28 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
-import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
-import com.gs.dmn.transformation.template.TreeTemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
-import com.gs.dmn.validation.NopDMNValidator;
 import freemarker.template.*;
-import org.apache.commons.lang3.StringUtils;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
-import org.omg.spec.dmn._20191111.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TDefinitions;
 
-import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
 public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     private static final Version VERSION = new Version("2.3.23");
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(DMNToLambdaTransformer.class);
-
-    protected static final File STANDARD_FOLDER = new File("dmn-test-cases/standard");
 
     public DMNToLambdaTransformer(
             DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition,
@@ -125,7 +109,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
 
             processTemplate(baseTemplatePath, templateName, params, outputFile);
         } catch (Exception e) {
-            throw new RuntimeException(String.format("Cannot generate from template '%s' for element '%s'", templateName, lambdaName), e);
+            throw new DMNRuntimeException(String.format("Cannot generate from template '%s' for element '%s'", templateName, lambdaName), e);
         }
     }
 
@@ -151,7 +135,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
 
             processTemplate(baseTemplatePath, templateName, params, outputFile);
         } catch (Exception e) {
-            throw new RuntimeException(String.format("Cannot generate from template '%s' for element '%s'", templateName, lambdaFolderName), e);
+            throw new DMNRuntimeException(String.format("Cannot generate from template '%s' for element '%s'", templateName, lambdaFolderName), e);
         }
     }
 
@@ -224,17 +208,6 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
 
     protected String getAWSBaseTemplatePath() {
         return "/templates/aws";
-    }
-
-    protected File makeOutputFile(Path outputPath, String relativeFilePath, String fileName, String fileExtension) {
-        String absoluteFilePath = outputPath.toAbsolutePath().toString();
-        if (!StringUtils.isBlank(relativeFilePath)) {
-            absoluteFilePath += "/" + relativeFilePath;
-        }
-        absoluteFilePath += "/" + fileName + fileExtension;
-        File outputFile = new File(absoluteFilePath);
-        outputFile.getParentFile().mkdirs();
-        return outputFile;
     }
 
     public String lambdaFolderName(String modelName, BasicDMNToJavaTransformer transformer) {
