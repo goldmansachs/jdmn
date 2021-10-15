@@ -15,14 +15,15 @@ package com.gs.dmn.validation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
-import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
-import com.gs.dmn.validation.table.*;
-import org.apache.commons.lang3.StringUtils;
+import com.gs.dmn.validation.table.Bound;
+import com.gs.dmn.validation.table.BoundList;
+import com.gs.dmn.validation.table.Table;
+import com.gs.dmn.validation.table.TableFactory;
 import org.omg.spec.dmn._20191111.model.*;
 
 import javax.xml.bind.JAXBElement;
@@ -30,7 +31,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public abstract class SweepValidator extends SimpleDMNValidator {
     protected final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition;
