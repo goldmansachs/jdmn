@@ -275,37 +275,4 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
     public String getFileExtension() {
         return ".java";
     }
-
-    public static void main(String[] args) {
-        // Create transformer
-        StandardDMNDialectDefinition dmnDialect = new StandardDMNDialectDefinition();
-        DMNValidator dmnValidator = new NopDMNValidator();
-        DMNTransformer<TestCases> dmnTransformer = new ToQuotedNameTransformer();
-        TemplateProvider templateProvider = new TreeTemplateProvider();
-        LazyEvaluationDetector lazyEvaluationDetector = new NopLazyEvaluationDetector();
-        TypeDeserializationConfigurer typeDeserializationConfigurer = new DefaultTypeDeserializationConfigurer();
-        InputParameters inputParameters = makeInputParameters();
-        BuildLogger logger = new Slf4jBuildLogger(LOGGER);
-        DMNToLambdaTransformer<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> transformer = new DMNToLambdaTransformer<>(
-                dmnDialect, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger
-        );
-
-        // Transform
-        File inputFileDirectory = new File(STANDARD_FOLDER, "tck/1.3/cl3/0020-vacation-days/0020-vacation-days.dmn");
-        File outputFileDirectory = new File("C:/Work/Projects/aws/bpmn-to-aws-examples/dmn-lambda/");
-        transformer.transformFile(inputFileDirectory, null, outputFileDirectory.toPath());
-    }
-
-    private static InputParameters makeInputParameters() {
-        Map<String, String> map = new LinkedHashMap<>();
-        map.put("dmnVersion", "1.3");
-        map.put("modelVersion", "1.1");
-        map.put("platformVersion", "5.0.0");
-
-        map.put("javaRootPackage", "com.gs.lambda");
-        map.put("caching", "true");
-        map.put("singletonDecision", "true");
-
-        return new InputParameters(map);
-    }
 }
