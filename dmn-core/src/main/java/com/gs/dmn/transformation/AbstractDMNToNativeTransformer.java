@@ -79,13 +79,12 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         handleValidationErrors(this.dmnValidator.validate(repository));
         dmnTransformer.transform(repository);
         BasicDMNToNativeTransformer dmnTransformer = dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
-        DMNModelRepository dmnModelRepository = dmnTransformer.getDMNModelRepository();
 
         // Transform
-        transform(dmnTransformer, dmnModelRepository, outputPath);
+        transform(dmnTransformer, repository, outputPath);
 
         watch.stop();
-        logger.info("DMN processing time: " + watch.toString());
+        logger.info("DMN processing time: " + watch);
     }
 
     protected void transform(BasicDMNToNativeTransformer dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
