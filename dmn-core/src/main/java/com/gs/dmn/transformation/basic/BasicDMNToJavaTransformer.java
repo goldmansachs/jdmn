@@ -197,6 +197,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         return this.inputParameters.isSingletonInputData();
     }
 
+    @Override
+    public boolean isStrongTyping() {
+        return this.inputParameters.isStrongTyping();
+    }
+
     //
     // TItemDefinition related functions
     //
@@ -1694,6 +1699,14 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     private String toNativeTypeNoCache(Type type) {
+        if (Type.isNull(type)) {
+            if (isStrongTyping()) {
+                throw new DMNRuntimeException(String.format("Cannot infer native type for '%s' type", type));
+            } else {
+                return this.nativeTypeFactory.toNativeType(ANY.getName());
+            }
+        }
+
         if (type instanceof NamedType) {
             String typeName = ((NamedType) type).getName();
             if (StringUtils.isBlank(typeName)) {
