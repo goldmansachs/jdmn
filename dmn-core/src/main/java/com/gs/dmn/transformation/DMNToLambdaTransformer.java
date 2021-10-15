@@ -18,7 +18,6 @@ import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
@@ -79,7 +78,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
 
         // Generate pom file
         String modelName = definitions.getName();
-        String lambdaFolderName = lambdaFolderName(modelName);
+        String lambdaFolderName = lambdaFolderName(modelName, basicTransformer);
         File outputFolder = outputPath.toFile();
         generateLambdaPom(lambdaFolderName, outputFolder);
 
@@ -90,7 +89,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         // Generate handlers
         List<? extends TDRGElement> elements = findRootElements(repository, definitions, inputParameters);
         for (TDRGElement element: elements) {
-            generateLambdaRequestHandler(modelName, element, basicTransformer, Paths.get(outputFolder.toPath().toString(), lambdaFolderName, "src", "main", "java"));
+            generateLambdaRequestHandler(modelName, element, Paths.get(outputFolder.toPath().toString(), lambdaFolderName, "src", "main", "java"), basicTransformer);
         }
 
         // Generate SAM template
@@ -101,16 +100,16 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         return repository.findDecisions(definitions);
     }
 
-    private void generateLambdaRequestHandler(String modelName, TDRGElement element, BasicDMNToJavaTransformer transformer, Path functionPath) {
+    private void generateLambdaRequestHandler(String modelName, TDRGElement element, Path functionPath, BasicDMNToJavaTransformer transformer) {
         // Template
         String baseTemplatePath = getAWSBaseTemplatePath();
         String templateName = "lambdaClass.ftl";
         String elementName = element.getName();
-        String lambdaName = lambdaName(elementName);
+        String lambdaName = lambdaName(elementName, transformer);
 
         try {
             // Output file
-            String outputFileName = javaClassName(lambdaName);
+            String outputFileName = transformer.upperCaseFirst(lambdaName);
             String javaPackageName = transformer.nativeModelPackageName(modelName);
             String relativeFilePath = javaPackageName.replace('.', '/');
             String fileExtension = ".java";
@@ -187,11 +186,11 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         List<FunctionResource> resources = new ArrayList<>();
         for (TDRGElement element: elements) {
             String elementName = element.getName();
-            String lambdaName = lambdaName(elementName);
-            String folderName = lambdaFolderName(modelName);
+            String lambdaName = lambdaName(elementName, transformer);
+            String folderName = lambdaFolderName(modelName, transformer);
             String codeUri = String.format("%s", folderName);
             String javaPackageName = transformer.nativeModelPackageName(modelName);
-            String javaClassName = javaClassName(lambdaName);
+            String javaClassName = transformer.upperCaseFirst(lambdaName);
             String handler = String.format("%s.%s::handleRequest", javaPackageName, javaClassName);
             String path = restPath(elementName);
             resources.add(new FunctionResource(javaClassName, codeUri, handler, path));
@@ -238,39 +237,16 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         return outputFile;
     }
 
-    public String lambdaFolderName(String modelName) {
-        return javaFriendlyName(modelName).toLowerCase();
-    }
-
-    public String lambdaName(String elementName) {
-        return javaClassName(elementName) + "Lambda";
-    }
-
-    // Names
-    private String javaFriendlyName(String name) {
-        StringBuilder javaName = new StringBuilder();
-        boolean upperCase = true;
-        for (int i=0; i<name.length(); i++) {
-            char ch = name.charAt(i);
-            if (Character.isLetterOrDigit(ch)) {
-                if (upperCase) {
-                    ch = Character.toUpperCase(ch);
-                }
-                upperCase = false;
-                javaName.append(ch);
-            } else {
-                upperCase = true;
-            }
+    public String lambdaFolderName(String modelName, BasicDMNToJavaTransformer transformer) {
+        String name = transformer.nativeFriendlyName(modelName);
+        if (!Character.isLetter(name.charAt(0))) {
+            name = "F" + name;
         }
-        String result = javaName.toString();
-        if (!Character.isLetter(result.charAt(0))) {
-            result = "F" + result;
-        }
-        return result;
+        return name.toLowerCase();
     }
 
-    public String javaClassName(String lambdaName) {
-        return javaFriendlyName(lambdaName).replaceAll("_", "");
+    public String lambdaName(String elementName, BasicDMNToJavaTransformer transformer) {
+        return transformer.upperCaseFirst(elementName) + "Lambda";
     }
 
     private String restPath(String name) {
