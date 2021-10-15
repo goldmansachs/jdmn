@@ -124,7 +124,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         if (modelName.endsWith(DMNConstants.DMN_FILE_EXTENSION)) {
             modelName = modelName.substring(0, modelName.length() - 4);
         }
-        return StringUtils.capitalize(dmnTransformer.nativeFriendlyName("Test" + modelName));
+        return dmnTransformer.nativeFriendlyName("Test" + modelName);
     }
 
     private Map<String, Object> makeTemplateParams(TestCases testCases, BasicDMNToNativeTransformer dmnTransformer) {

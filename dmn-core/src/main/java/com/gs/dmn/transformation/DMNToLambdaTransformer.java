@@ -18,10 +18,10 @@ import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
@@ -31,8 +31,7 @@ import com.gs.dmn.validation.NopDMNValidator;
 import freemarker.template.*;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
+import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,21 +46,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
+public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     private static final Version VERSION = new Version("2.3.23");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DMNToLambdaTransformer.class);
 
     protected static final File STANDARD_FOLDER = new File("dmn-test-cases/standard");
 
-    private final DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dmnDialect;
-    private final DMNToNativeTransformer dmnToNativeTransformer;
-    private final LazyEvaluationDetector lazyEvaluationDetector;
-    private final InputParameters inputParameters;
-    private final BuildLogger logger;
-
     public DMNToLambdaTransformer(
-            DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dmnDialect,
+            DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition,
             DMNValidator dmnValidator,
             DMNTransformer<TEST> dmnTransformer,
             TemplateProvider templateProvider,
@@ -70,68 +63,54 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
             InputParameters inputParameters,
             BuildLogger logger
     ) {
-        this.dmnDialect = dmnDialect;
-        this.lazyEvaluationDetector = lazyEvaluationDetector;
-        this.inputParameters = inputParameters;
-        this.logger = logger;
-        // Create native transformer
-        this.dmnToNativeTransformer = dmnDialect.createDMNToNativeTransformer(
-                dmnValidator,
-                dmnTransformer,
-                templateProvider,
-                lazyEvaluationDetector,
-                typeDeserializationConfigurer,
-                inputParameters,
-                logger
-        );
+        super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
     }
 
-    private void transform(File inputFile, File outputFolder) {
-        // Read models
-        DMNReader reader = new DMNReader(logger, false);
-        DMNModelRepository repository = new DMNModelRepository(reader.read(inputFile));
+    @Override
+    protected void transform(BasicDMNToNativeTransformer dmnTransformer, DMNModelRepository repository, Path outputPath) {
+        // Check if there is only one model
         List<TDefinitions> allDefinitions = repository.getAllDefinitions();
         if (allDefinitions.size() != 1) {
             throw new DMNRuntimeException(String.format("Only one model supported at this stage, found '%s'", allDefinitions.size()));
         }
         TDefinitions definitions = allDefinitions.get(0);
+        BasicDMNToJavaTransformer basicTransformer = dialectDefinition.createBasicTransformer(repository, this.lazyEvaluationDetector, this.inputParameters);
 
         // Generate pom file
         String modelName = definitions.getName();
-        String lambdaFolderName = lambdaFolderName(modelName);
+        String lambdaFolderName = lambdaFolderName(modelName, basicTransformer);
+        File outputFolder = outputPath.toFile();
         generateLambdaPom(lambdaFolderName, outputFolder);
 
         // Generate code for DMN model
-        Path srcPath = Paths.get(outputFolder.toPath().toString(), lambdaFolderName, "src", "main", "java");
-        Path targetPath = srcPath;
-        dmnToNativeTransformer.transform(inputFile.toPath(), targetPath);
+        Path targetPath = Paths.get(outputFolder.toPath().toString(), lambdaFolderName, "src", "main", "java");
+        super.transform(basicTransformer, repository, targetPath);
 
         // Generate handlers
-        BasicDMNToJavaTransformer basicTransformer = this.dmnDialect.createBasicTransformer(repository, this.lazyEvaluationDetector, this.inputParameters);
         List<? extends TDRGElement> elements = findRootElements(repository, definitions, inputParameters);
         for (TDRGElement element: elements) {
-            generateLambdaRequestHandler(modelName, element, basicTransformer, srcPath);
+            generateLambdaRequestHandler(modelName, element, Paths.get(outputFolder.toPath().toString(), lambdaFolderName, "src", "main", "java"), basicTransformer);
         }
 
         // Generate SAM template
-        generateTemplate(modelName, lambdaFolderName, elements, outputFolder);
+        generateTemplate(modelName, lambdaFolderName, elements, outputFolder, basicTransformer);
     }
 
     private List<? extends TDRGElement> findRootElements(DMNModelRepository repository, TDefinitions definitions, InputParameters inputParameters) {
         return repository.findDecisions(definitions);
     }
 
-    private void generateLambdaRequestHandler(String modelName, TDRGElement element, BasicDMNToJavaTransformer transformer, Path functionPath) {
+    private void generateLambdaRequestHandler(String modelName, TDRGElement element, Path functionPath, BasicDMNToJavaTransformer transformer) {
         // Template
         String baseTemplatePath = getAWSBaseTemplatePath();
         String templateName = "lambdaClass.ftl";
         String elementName = element.getName();
-        String lambdaName = lambdaName(elementName);
+        String lambdaName = lambdaName(elementName, transformer);
 
         try {
             // Output file
-            String outputFileName = javaClassName(lambdaName);
-            String javaPackageName = javaPackageName(lambdaName);
+            String outputFileName = transformer.upperCaseFirst(lambdaName);
+            String javaPackageName = transformer.nativeModelPackageName(modelName);
             String relativeFilePath = javaPackageName.replace('.', '/');
             String fileExtension = ".java";
             File outputFile = makeOutputFile(functionPath, relativeFilePath, outputFileName, fileExtension);
@@ -176,12 +155,12 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         }
     }
 
-    private void generateTemplate(String modelName, String stackName, List<? extends TDRGElement> elements, File outputFolder) {
+    private void generateTemplate(String modelName, String stackName, List<? extends TDRGElement> elements, File outputFolder, BasicDMNToJavaTransformer transformer) {
         // Template
         String baseTemplatePath = getAWSBaseTemplatePath();
         String templateName = "template.ftl";
 
-        List<FunctionResource> functionResources = makeFunctionResources(modelName, elements);
+        List<FunctionResource> functionResources = makeFunctionResources(modelName, elements, transformer);
 
         try {
             // Output file
@@ -203,15 +182,15 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         }
     }
 
-    private List<FunctionResource> makeFunctionResources(String modelName, List<? extends TDRGElement> elements) {
+    private List<FunctionResource> makeFunctionResources(String modelName, List<? extends TDRGElement> elements, BasicDMNToJavaTransformer transformer) {
         List<FunctionResource> resources = new ArrayList<>();
         for (TDRGElement element: elements) {
             String elementName = element.getName();
-            String lambdaName = lambdaName(elementName);
-            String folderName = lambdaFolderName(modelName);
+            String lambdaName = lambdaName(elementName, transformer);
+            String folderName = lambdaFolderName(modelName, transformer);
             String codeUri = String.format("%s", folderName);
-            String javaPackageName = javaPackageName(lambdaName);
-            String javaClassName = javaClassName(lambdaName);
+            String javaPackageName = transformer.nativeModelPackageName(modelName);
+            String javaClassName = transformer.upperCaseFirst(lambdaName);
             String handler = String.format("%s.%s::handleRequest", javaPackageName, javaClassName);
             String path = restPath(elementName);
             resources.add(new FunctionResource(javaClassName, codeUri, handler, path));
@@ -258,56 +237,16 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         return outputFile;
     }
 
-    private static InputParameters makeInputParameters() {
-        Map<String, String> map = new LinkedHashMap<>();
-        map.put("dmnVersion", "1.3");
-        map.put("modelVersion", "1.1");
-        map.put("platformVersion", "5.0.0");
-
-        map.put("javaRootPackage", "com.gs.lambda");
-        map.put("caching", "true");
-        map.put("singletonDecision", "true");
-
-        return new InputParameters(map);
-    }
-
-    public String lambdaFolderName(String modelName) {
-        return javaFriendlyName(modelName).toLowerCase();
-    }
-
-    public String lambdaName(String elementName) {
-        return javaClassName(elementName) + "Lambda";
-    }
-
-    // Names
-    public String javaPackageName(String lambdaName) {
-        return inputParameters.getJavaRootPackage();
-    }
-
-    private String javaFriendlyName(String name) {
-        StringBuilder javaName = new StringBuilder();
-        boolean upperCase = true;
-        for (int i=0; i<name.length(); i++) {
-            char ch = name.charAt(i);
-            if (Character.isLetterOrDigit(ch)) {
-                if (upperCase) {
-                    ch = Character.toUpperCase(ch);
-                }
-                upperCase = false;
-                javaName.append(ch);
-            } else {
-                upperCase = true;
-            }
+    public String lambdaFolderName(String modelName, BasicDMNToJavaTransformer transformer) {
+        String name = transformer.nativeFriendlyName(modelName);
+        if (!Character.isLetter(name.charAt(0))) {
+            name = "F" + name;
         }
-        String result = javaName.toString();
-        if (!Character.isLetter(result.charAt(0))) {
-            result = "F" + result;
-        }
-        return result;
+        return name.toLowerCase();
     }
 
-    public String javaClassName(String lambdaName) {
-        return javaFriendlyName(lambdaName).replaceAll("_", "");
+    public String lambdaName(String elementName, BasicDMNToJavaTransformer transformer) {
+        return transformer.upperCaseFirst(elementName) + "Lambda";
     }
 
     private String restPath(String name) {
@@ -332,6 +271,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         return "apply/" + result.toLowerCase();
     }
 
+    @Override
     public String getFileExtension() {
         return ".java";
     }
@@ -353,6 +293,19 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         // Transform
         File inputFileDirectory = new File(STANDARD_FOLDER, "tck/1.3/cl3/0020-vacation-days/0020-vacation-days.dmn");
         File outputFileDirectory = new File("C:/Work/Projects/aws/bpmn-to-aws-examples/dmn-lambda/");
-        transformer.transform(inputFileDirectory, outputFileDirectory);
+        transformer.transformFile(inputFileDirectory, null, outputFileDirectory.toPath());
+    }
+
+    private static InputParameters makeInputParameters() {
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("dmnVersion", "1.3");
+        map.put("modelVersion", "1.1");
+        map.put("platformVersion", "5.0.0");
+
+        map.put("javaRootPackage", "com.gs.lambda");
+        map.put("caching", "true");
+        map.put("singletonDecision", "true");
+
+        return new InputParameters(map);
     }
 }

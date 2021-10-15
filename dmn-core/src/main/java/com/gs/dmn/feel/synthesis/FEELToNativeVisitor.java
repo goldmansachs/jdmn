@@ -314,7 +314,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
 
         // Replace 'item' with 'item_xx' to be able to handle multiple filters
         String olderParameterName = FilterExpression.FILTER_PARAMETER_NAME;
-        String newParameterName = this.dmnTransformer.nativeFriendlyName(newParameterName(olderParameterName));
+        String newParameterName = this.dmnTransformer.lowerCaseFirst(newParameterName(olderParameterName));
         element.accept(new ReplaceItemFilterVisitor(olderParameterName, newParameterName, this.errorHandler), context);
 
         // Generate filter
@@ -482,7 +482,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         String source = (String) sourceExpression.accept(this, context);
         String member = element.getMember();
 
-        return makeNavigation(element, sourceType, source, member, javaFriendlyVariableName(member));
+        return makeNavigation(element, sourceType, source, member, nativeFriendlyVariableName(member));
     }
 
     @Override
@@ -607,7 +607,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         if (name.equals(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER)) {
             return inputExpressionToJava(context);
         } else {
-            String javaName = javaFriendlyVariableName(name);
+            String javaName = nativeFriendlyVariableName(name);
             return this.dmnTransformer.lazyEvaluation(name, javaName);
         }
     }
