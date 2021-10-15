@@ -152,10 +152,8 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         }
     }
 
-    protected String javaFriendlyVariableName(String name) {
-        name = this.dmnTransformer.getDMNModelRepository().removeSingleQuotes(name);
-        String firstChar = Character.toString(Character.toLowerCase(name.charAt(0)));
-        return this.dmnTransformer.nativeFriendlyName(name.length() == 1 ? firstChar : firstChar + name.substring(1));
+    protected String nativeFriendlyVariableName(String name) {
+        return this.dmnTransformer.lowerCaseFirst(name);
     }
 
     protected Object makeCondition(String feelOperator, Expression leftOperand, Expression rightOperand, DMNContext context) {
