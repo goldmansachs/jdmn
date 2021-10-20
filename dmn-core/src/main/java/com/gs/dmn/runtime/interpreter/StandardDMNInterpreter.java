@@ -130,6 +130,8 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                             inferredType = NumberType.NUMBER.getName();
                         } else if (feelLib.isBoolean(value)) {
                             inferredType = BooleanType.BOOLEAN.getName();
+                        } else if (feelLib.isString(value)) {
+                            inferredType = StringType.STRING.getName();
                         } else if (feelLib.isDate(value)) {
                             inferredType = DateType.DATE.getName();
                         } else if (feelLib.isTime(value)) {
