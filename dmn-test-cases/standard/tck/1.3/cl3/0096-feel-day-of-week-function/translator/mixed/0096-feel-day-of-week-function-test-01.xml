@@ -49,10 +49,10 @@
 
     <testCase id="datetime_001">
         <description>date: day of week</description>
-        <inputNode name="datetime_input_001">
+        <inputNode name="date_input_001">
             <value xsi:type="xsd:dateTime">2021-01-11T10:10:10</value>
         </inputNode>
-        <resultNode name="datetime_001" type="decision">
+        <resultNode name="date_001" type="decision">
             <expected>
                 <component name="_2021-01-11">
                     <value xsi:type="xsd:string">Monday</value>
