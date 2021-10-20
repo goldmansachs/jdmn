@@ -45,6 +45,10 @@ public abstract class Type {
         return isNull(type) || isAny(type);
     }
 
+    public static boolean isNullOrAny(String typeRef) {
+        return typeRef == null || "Any".equals(typeRef);
+    }
+
     /*
         A type type1 is equivalent to type type2 when the types are either structurally or name equivalent. The types are compatible without coercion
     */
