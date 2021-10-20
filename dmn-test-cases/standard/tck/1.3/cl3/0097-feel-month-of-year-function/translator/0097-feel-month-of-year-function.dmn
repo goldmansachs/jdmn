@@ -10,11 +10,7 @@
     <description>month of year function</description>
 
     <inputData name="date_input_001" id="_date_input_001">
-        <variable name="date_input_001" typeRef="date"/>
-    </inputData>
-
-    <inputData name="datetime_input_001" id="_datetime_input_001">
-        <variable name="datetime_input_001" typeRef="date and time"/>
+        <variable name="date_input_001" typeRef="Any" /> <!-- used to externally supply FEEL:date or other type of values defined in the TCK test file -->
     </inputData>
 
     <decision name="date_001" id="_date_001">
@@ -82,63 +78,6 @@
         <literalExpression>
             <text>month of year(date: @"2019-09-17")</text>
         </literalExpression>
-    </decision>
-
-    <decision name="datetime_001" id="_datetime_001">
-        <variable name="datetime_001"/>
-        <informationRequirement>
-            <requiredInput href="#_datetime_input_001"/>
-        </informationRequirement>
-        <context>
-            <contextEntry>
-                <variable name="_2021-01-01"/>
-                <literalExpression><text>month of year(datetime_input_001)</text></literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable name="_2021-02-01"/>
-                <literalExpression><text>month of year(datetime_input_001+@"P1M")</text></literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable name="_2021-03-01"/>
-                <literalExpression><text>month of year(datetime_input_001+@"P2M")</text></literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable name="_2021-04-01"/>
-                <literalExpression><text>month of year(datetime_input_001+@"P3M")</text></literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable name="_2021-05-01"/>
-                <literalExpression><text>month of year(datetime_input_001+@"P4M")</text></literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable name="_2021-06-01"/>
-                <literalExpression><text>month of year(datetime_input_001+@"P5M")</text></literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable name="_2021-07-01"/>
-                <literalExpression><text>month of year(datetime_input_001+@"P6M")</text></literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable name="_2021-08-01"/>
-                <literalExpression><text>month of year(datetime_input_001+@"P7M")</text></literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable name="_2021-09-01"/>
-                <literalExpression><text>month of year(datetime_input_001+@"P8M")</text></literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable name="_2021-10-01"/>
-                <literalExpression><text>month of year(datetime_input_001+@"P9M")</text></literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable name="_2021-11-01"/>
-                <literalExpression><text>month of year(datetime_input_001+@"P10M")</text></literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable name="_2021-12-01"/>
-                <literalExpression><text>month of year(datetime_input_001+@"P11M")</text></literalExpression>
-            </contextEntry>
-        </context>
     </decision>
 
     <decision name="datetime_002" id="_datetime_002">
