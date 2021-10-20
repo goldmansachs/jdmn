@@ -10,11 +10,7 @@
     <description>day of week function</description>
 
     <inputData name="date_input_001" id="_date_input_001">
-        <variable name="date_input_001" typeRef="date"/>
-    </inputData>
-
-    <inputData name="datetime_input_001" id="_datetime_input_001">
-        <variable name="datetime_input_001" typeRef="date and time"/>
+        <variable name="date_input_001" typeRef="Any" /> <!-- used to externally supply FEEL:date or other type of values defined in the TCK test file -->
     </inputData>
 
     <decision name="date_001" id="_date_001">
@@ -62,43 +58,6 @@
         <literalExpression>
             <text>day of week(date: @"2019-09-17")</text>
         </literalExpression>
-    </decision>
-
-    <decision name="datetime_001" id="_datetime_001">
-        <variable name="datetime_001"/>
-        <informationRequirement>
-            <requiredInput href="#_datetime_input_001"/>
-        </informationRequirement>
-        <context>
-            <contextEntry>
-                <variable name="_2021-01-11"/>
-                <literalExpression><text>day of week(datetime_input_001)</text></literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable name="_2021-01-12"/>
-                <literalExpression><text>day of week(datetime_input_001+@"P1D")</text></literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable name="_2021-01-13"/>
-                <literalExpression><text>day of week(datetime_input_001+@"P2D")</text></literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable name="_2021-01-14"/>
-                <literalExpression><text>day of week(datetime_input_001+@"P3D")</text></literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable name="_2021-01-15"/>
-                <literalExpression><text>day of week(datetime_input_001+@"P4D")</text></literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable name="_2021-01-16"/>
-                <literalExpression><text>day of week(datetime_input_001+@"P5D")</text></literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable name="_2021-01-17"/>
-                <literalExpression><text>day of week(datetime_input_001+@"P6D")</text></literalExpression>
-            </contextEntry>
-        </context>
     </decision>
 
     <decision name="datetime_002" id="_datetime_002">
