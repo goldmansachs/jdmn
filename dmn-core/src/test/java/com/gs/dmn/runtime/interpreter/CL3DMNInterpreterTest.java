@@ -405,7 +405,7 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
 
     @Test
     public void test_13_cl3_0095_feel_day_of_year_function() {
-        doSingleModelTest("1.3", "0095-feel-day-of-year-function");
+        doSingleModelTest("1.3", "0095-feel-day-of-year-function", new Pair<>("strongTyping", "false"));
     }
 
     @Test
