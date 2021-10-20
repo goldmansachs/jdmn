@@ -359,6 +359,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_13_cl3_0080_feel_getvalue_function() {
+        doSingleModelTest("1.3", "0080-feel-getvalue-function", new Pair<>("strongTyping", "false"));
+    }
+
+    @Test
     public void test_13_cl3_0082_feel_coercion() {
         doSingleModelTest("1.3", "0082-feel-coercion");
     }
