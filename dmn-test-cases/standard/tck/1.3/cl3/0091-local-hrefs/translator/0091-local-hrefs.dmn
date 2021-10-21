@@ -6,11 +6,11 @@
     <description>Local (non-imported) qualified hrefs</description>
 
     <inputData name="input_001" id="_input_001">
-        <variable name="input_001" typeRef="string"/>
+        <variable name="input_001"/>
     </inputData>
 
     <decision name="decision_001" id="_decision_001">
-        <variable name="decision_001" typeRef="string"/>
+        <variable name="decision_001"/>
         <literalExpression>
             <text>"decision_001"</text>
         </literalExpression>
@@ -18,7 +18,7 @@
 
     <businessKnowledgeModel name="bkm_001" id="_bkm_001">
         <variable name="bkm_001"/>
-        <encapsulatedLogic typeRef="string">
+        <encapsulatedLogic>
             <literalExpression>
                 <text>"bkm_001"</text>
             </literalExpression>
@@ -27,7 +27,7 @@
 
     <!-- requirements hrefs refer to elements in this model -->
     <decision name="decision_002" id="_decision_002">
-        <variable name="decision_002" typeRef="string"/>
+        <variable name="decision_002"/>
         <informationRequirement>
             <requiredDecision href="http://www.montera.com.au/spec/DMN/0091-local-hrefs#_decision_001"/>
         </informationRequirement>

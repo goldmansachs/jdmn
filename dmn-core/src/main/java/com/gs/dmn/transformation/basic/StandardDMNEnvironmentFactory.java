@@ -372,7 +372,11 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     @Override
     public Type toFEELType(TDefinitions model, QualifiedName typeRef) {
         if (this.dmnModelRepository.isNull(typeRef)) {
-            throw new DMNRuntimeException(String.format("Cannot infer type for typeRef '%s'", typeRef));
+            if (dmnTransformer.isStrongTyping()) {
+                throw new DMNRuntimeException(String.format("Cannot infer type for typeRef '%s'", typeRef));
+            } else {
+                return null;
+            }
         }
 
         // Lookup type
