@@ -64,10 +64,10 @@
 
     <testCase id="datetime_001">
         <description>datetime: month of year</description>
-        <inputNode name="datetime_input_001">
+        <inputNode name="date_input_001">
             <value xsi:type="xsd:dateTime">2021-01-01T10:10:10</value>
         </inputNode>
-        <resultNode name="datetime_001" type="decision">
+        <resultNode name="date_001" type="decision">
             <expected>
                 <component name="_2021-01-01">
                     <value xsi:type="xsd:string">January</value>

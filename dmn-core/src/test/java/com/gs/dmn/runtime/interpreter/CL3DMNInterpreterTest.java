@@ -345,7 +345,7 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
 
     @Test
     public void test_13_cl3_0068_feel_equality() {
-        doSingleModelTest("1.3", "0068-feel-equality");
+        doSingleModelTest("1.3", "0068-feel-equality", new Pair<>("strongTyping", "false") );
     }
 
     @Test
@@ -356,6 +356,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     @Test
     public void test_13_cl3_0074_feel_properties() {
         doSingleModelTest("1.3", "0074-feel-properties");
+    }
+
+    @Test
+    public void test_13_cl3_0080_feel_getvalue_function() {
+        doSingleModelTest("1.3", "0080-feel-getvalue-function", new Pair<>("strongTyping", "false"));
     }
 
     @Test
@@ -395,7 +400,7 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
 
     @Test
     public void test_13_cl3_0091_local_hrefs() {
-        doSingleModelTest("1.3", "0091-local-hrefs");
+        doSingleModelTest("1.3", "0091-local-hrefs", new Pair<>("strongTyping", "false"));
     }
 
     @Test
@@ -405,17 +410,17 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
 
     @Test
     public void test_13_cl3_0095_feel_day_of_year_function() {
-        doSingleModelTest("1.3", "0095-feel-day-of-year-function");
+        doSingleModelTest("1.3", "0095-feel-day-of-year-function", new Pair<>("strongTyping", "false"));
     }
 
     @Test
     public void test_13_cl3_0096_feel_day_of_week_function() {
-        doSingleModelTest("1.3", "0096-feel-day-of-week-function");
+        doSingleModelTest("1.3", "0096-feel-day-of-week-function", new Pair<>("strongTyping", "false"));
     }
 
     @Test
     public void test_13_cl3_0097_fel_month_of_year_function() {
-        doSingleModelTest("1.3", "0097-feel-month-of-year-function");
+        doSingleModelTest("1.3", "0097-feel-month-of-year-function", new Pair<>("strongTyping", "false"));
     }
 
     @Test

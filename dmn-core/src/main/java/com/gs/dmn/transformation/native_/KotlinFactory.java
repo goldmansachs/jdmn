@@ -270,6 +270,14 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
 
     @Override
     public String convertDecisionArgumentFromString(String paramName, Type type) {
+        if (Type.isNull(type)) {
+            if (transformer.isStrongTyping()) {
+                throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));
+            } else {
+                return paramName;
+            }
+        }
+
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
             if (conversionMethod != null) {
@@ -293,7 +301,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
 
     @Override
     protected String listToElementConversionFunction(String javaType) {
-        return String.format("asElement");
+        return "asElement";
     }
 
     @Override

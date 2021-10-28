@@ -545,23 +545,27 @@
         </resultNode>
     </testCase>
 
-    <testCase id="time_007">
-        <description>same times - one with zone one without are not equal</description>
-        <resultNode name="time_007" type="decision">
-            <expected>
-                <value xsi:type="xsd:boolean">false</value>
-            </expected>
-        </resultNode>
-    </testCase>
+    <!-- commented out pending RTF equality comparisons with zones clarification -->
+    <!-- https://github.com/dmn-tck/tck/pull/389#issuecomment-881322326 -->
+<!--    <testCase id="time_007">-->
+<!--        <description>same times - one with zone one without are not equal</description>-->
+<!--        <resultNode name="time_007" type="decision">-->
+<!--            <expected>-->
+<!--                <value xsi:type="xsd:boolean">false</value>-->
+<!--            </expected>-->
+<!--        </resultNode>-->
+<!--    </testCase>-->
 
-    <testCase id="time_008">
-        <description>same times with different zones are not equal</description>
-        <resultNode name="time_008" type="decision">
-            <expected>
-                <value xsi:type="xsd:boolean">false</value>
-            </expected>
-        </resultNode>
-    </testCase>
+    <!-- commented out pending RTF equality comparisons with zones clarification -->
+    <!-- https://github.com/dmn-tck/tck/pull/389#issuecomment-881322326 -->
+<!--    <testCase id="time_008">-->
+<!--        <description>same times with different zones are not equal</description>-->
+<!--        <resultNode name="time_008" type="decision">-->
+<!--            <expected>-->
+<!--                <value xsi:type="xsd:boolean">false</value>-->
+<!--            </expected>-->
+<!--        </resultNode>-->
+<!--    </testCase>-->
 
     <testCase id="time_009">
         <description>same times = one with offset, the other with zone are equal if offsets are equal</description>
@@ -572,23 +576,27 @@
         </resultNode>
     </testCase>
 
-    <testCase id="time_009_a">
-        <description>same times are not equal if offsets are not equal - zone vs offset</description>
-        <resultNode name="time_009_a" type="decision">
-            <expected>
-                <value xsi:type="xsd:boolean">false</value>
-            </expected>
-        </resultNode>
-    </testCase>
+    <!-- commented out pending RTF equality comparisons with zones clarification -->
+    <!-- https://github.com/dmn-tck/tck/pull/389#issuecomment-881322326 -->
+<!--    <testCase id="time_009_a">-->
+<!--        <description>same times are not equal if offsets are not equal - zone vs offset</description>-->
+<!--        <resultNode name="time_009_a" type="decision">-->
+<!--            <expected>-->
+<!--                <value xsi:type="xsd:boolean">false</value>-->
+<!--            </expected>-->
+<!--        </resultNode>-->
+<!--    </testCase>-->
 
-    <testCase id="time_009_b">
-        <description>same times are not equal if offsets are not equal - both offsets</description>
-        <resultNode name="time_009_b" type="decision">
-            <expected>
-                <value xsi:type="xsd:boolean">false</value>
-            </expected>
-        </resultNode>
-    </testCase>
+    <!-- commented out pending RTF equality comparisons with zones clarification -->
+    <!-- https://github.com/dmn-tck/tck/pull/389#issuecomment-881322326 -->
+<!--    <testCase id="time_009_b">-->
+<!--        <description>same times are not equal if offsets are not equal - both offsets</description>-->
+<!--        <resultNode name="time_009_b" type="decision">-->
+<!--            <expected>-->
+<!--                <value xsi:type="xsd:boolean">false</value>-->
+<!--            </expected>-->
+<!--        </resultNode>-->
+<!--    </testCase>-->
 
     <testCase id="time_010">
         <description>same times = one with Z zone, the other with UTC are equal</description>
@@ -682,14 +690,16 @@
         </resultNode>
     </testCase>
 
-    <testCase id="datetime_007">
-        <description>same datetimes, one with zone one without are not equal</description>
-        <resultNode name="datetime_007" type="decision">
-            <expected>
-                <value xsi:type="xsd:boolean">false</value>
-            </expected>
-        </resultNode>
-    </testCase>
+    <!-- commented out pending RTF equality comparisons with zones clarification -->
+    <!-- https://github.com/dmn-tck/tck/pull/389#issuecomment-881322326 -->
+<!--    <testCase id="datetime_007">-->
+<!--        <description>same datetimes, one with zone one without are not equal</description>-->
+<!--        <resultNode name="datetime_007" type="decision">-->
+<!--            <expected>-->
+<!--                <value xsi:type="xsd:boolean">false</value>-->
+<!--            </expected>-->
+<!--        </resultNode>-->
+<!--    </testCase>-->
 
     <testCase id="datetime_008">
         <description>same datetimes, one with offset and the other with zone are equal</description>
@@ -765,27 +775,27 @@
         </resultNode>
     </testCase>
 
-<!--
-    <testCase id="datetime_014">
-        <description>datetime: a date is equal to the same date at zero offset</description>
-        <resultNode name="datetime_014" type="decision">
-            <expected>
-                <value xsi:type="xsd:boolean">true</value>
-            </expected>
-        </resultNode>
-    </testCase>
--->
+    <!-- commented out pending RTF equality comparisons with zones clarification -->
+    <!-- https://github.com/dmn-tck/tck/pull/389#issuecomment-881322326 -->
+<!--    <testCase id="datetime_014">-->
+<!--        <description>datetime: a date is equal to the same date at zero offset</description>-->
+<!--        <resultNode name="datetime_014" type="decision">-->
+<!--            <expected>-->
+<!--                <value xsi:type="xsd:boolean">true</value>-->
+<!--            </expected>-->
+<!--        </resultNode>-->
+<!--    </testCase>-->
 
-<!--
-    <testCase id="datetime_015">
-        <description>datetime equals another type</description>
-        <resultNode name="datetime_015" type="decision">
-            <expected>
-                <value xsi:type="xsd:boolean">true</value>
-            </expected>
-        </resultNode>
-    </testCase>
--->
+    <!-- commented out pending RTF equality comparisons with zones clarification -->
+    <!-- https://github.com/dmn-tck/tck/pull/389#issuecomment-881322326 -->
+<!--    <testCase id="datetime_015">-->
+<!--        <description>datetime equals another type</description>-->
+<!--        <resultNode name="datetime_015" type="decision">-->
+<!--            <expected>-->
+<!--                <value xsi:type="xsd:boolean">true</value>-->
+<!--            </expected>-->
+<!--        </resultNode>-->
+<!--    </testCase>-->
 
     <testCase id="dt_duration_001">
         <description>same durations are equal</description>

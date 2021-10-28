@@ -17,10 +17,7 @@ import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.LogErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
-import com.gs.dmn.feel.analysis.semantics.type.ContextType;
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.NullType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
@@ -97,16 +94,81 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         try {
             TDRGElement element = this.repository.findDRGElementByName(namespace, decisionName);
             if (element instanceof TDecision) {
+                // Infer types for InputData
+                Map<TInputData, Pair<String, String>> inferredTypes = inferInputDataType(element, informationRequirements);
                 // Make context
                 DRGElementReference<TDecision> reference = this.repository.makeDRGElementReference((TDecision) element);
                 DMNContext decisionContext = makeDecisionGlobalContext(element, informationRequirements);
                 // Evaluate decision
-                return evaluateDecision(reference, decisionContext);
+                Result result = evaluateDecision(reference, decisionContext);
+                // Restore original types
+                restoreOriginalTypes(inferredTypes);
+                return result;
             } else {
                 throw new DMNRuntimeException(String.format("Cannot find decision namespace='%s' name='%s'", namespace, decisionName));
             }
         } catch (Exception e) {
             return handleEvaluationError(namespace, "decision", decisionName, e);
+        }
+    }
+
+    private Map<TInputData, Pair<String, String>> inferInputDataType(TDRGElement element, Map<String, Object> informationRequirements) {
+        Map<TInputData, Pair<String, String>> result = new LinkedHashMap<>();
+        if (!this.dmnTransformer.isStrongTyping()) {
+            TDefinitions model = this.repository.getModel(element);
+            for (Map.Entry<String, Object> entry: informationRequirements.entrySet()) {
+                String inputDataName = entry.getKey();
+                Object value = entry.getValue();
+                TDRGElement drgElementByName = findInputData(model, inputDataName);
+                if (drgElementByName instanceof TInputData) {
+                    TInputData inputData = (TInputData) drgElementByName;
+                    TInformationItem variable = inputData.getVariable();
+                    String originalTypeRef = variable.getTypeRef();
+                    if (Type.isNullOrAny(originalTypeRef)) {
+                        String inferredType = null;
+                        if (feelLib.isNumber(value)) {
+                            inferredType = NumberType.NUMBER.getName();
+                        } else if (feelLib.isBoolean(value)) {
+                            inferredType = BooleanType.BOOLEAN.getName();
+                        } else if (feelLib.isString(value)) {
+                            inferredType = StringType.STRING.getName();
+                        } else if (feelLib.isDate(value)) {
+                            inferredType = DateType.DATE.getName();
+                        } else if (feelLib.isTime(value)) {
+                            inferredType = TimeType.TIME.getName();
+                        } else if (feelLib.isDateTime(value)) {
+                            inferredType = DateTimeType.DATE_AND_TIME.getName();
+                        } else if (feelLib.isDaysAndTimeDuration(value)) {
+                            inferredType = DurationType.DAYS_AND_TIME_DURATION.getName();
+                        } else if (feelLib.isYearsAndMonthsDuration(value)) {
+                            inferredType = DurationType.DAYS_AND_TIME_DURATION.getName();
+                        }
+                        if (inferredType != null) {
+                            variable.setTypeRef(inferredType);
+                            result.put(inputData, new Pair<>(originalTypeRef, inferredType));
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    private void restoreOriginalTypes(Map<TInputData, Pair<String, String>> inferredTypes) {
+        if (!this.dmnTransformer.isStrongTyping()) {
+            for(Map.Entry<TInputData, Pair<String, String>> entry: inferredTypes.entrySet()) {
+                TInputData inputData = entry.getKey();
+                String originalTypeRef = entry.getValue().getLeft();
+                inputData.getVariable().setTypeRef(originalTypeRef);
+            }
+        }
+    }
+
+    private TDRGElement findInputData(TDefinitions model, String inputDataName) {
+        try {
+            return this.repository.findDRGElementByName(model, inputDataName);
+        } catch (Exception e) {
+            return null;
         }
     }
 
@@ -222,9 +284,9 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     }
 
     private Result evaluateInvocableInContext(DRGElementReference<? extends TInvocable> reference, List<Object> argList, DMNContext parentContext) {
-        TDRGElement element = reference.getElement();
+        TInvocable element = reference.getElement();
         if (element != null) {
-            DMNContext invocableContext = makeInvocableGlobalContext((TInvocable) element, argList, parentContext);
+            DMNContext invocableContext = makeInvocableGlobalContext(element, argList, parentContext);
             return evaluateInvocable(reference, invocableContext);
         } else {
             throw new DMNRuntimeException(String.format("Cannot evaluate invocable '%s'", reference));
@@ -254,12 +316,11 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         // Execute function body
         TExpression expression = this.repository.expression(bkm);
         Result result = evaluateExpression(bkm, expression, bkmContext, drgElementAnnotation);
-        Object value = Result.value(result);
 
         // Check value and apply implicit conversions
         Type expectedType = this.dmnTransformer.drgElementOutputFEELType(bkm, bkmContext);
         result = this.typeConverter.convertResult(result, expectedType, this.feelLib);
-        value = Result.value(result);
+        Object value = Result.value(result);
 
         // BKM end
         EVENT_LISTENER.endDRGElement(drgElementAnnotation, decisionArguments, value, (System.currentTimeMillis() - startTime_));
@@ -389,7 +450,9 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     // Context
     //
     private DMNContext makeDecisionGlobalContext(TDRGElement element, Map<String, Object> informationRequirements) {
-        DMNContext globalContext = this.dmnTransformer.makeGlobalContext(element);
+        // No caching when is not strongly typed, input data types might be inferred from input data
+        boolean strongTyping = dmnTransformer.isStrongTyping();
+        DMNContext globalContext = strongTyping ? this.dmnTransformer.makeGlobalContext(element) : this.dmnTransformer.makeGlobalContext(element, true);
         for (Map.Entry<String, Object> entry: informationRequirements.entrySet()) {
             globalContext.bind(entry.getKey(), entry.getValue());
         }
@@ -872,8 +935,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     //
     private Object lookupBinding(DMNContext context, DRGElementReference<? extends TDRGElement> reference) {
         if (this.dmnTransformer.isSingletonInputData()) {
-            Object value = context.lookupBinding(this.dmnTransformer.bindingName(reference));
-            return value;
+            return context.lookupBinding(this.dmnTransformer.bindingName(reference));
         } else {
             ImportPath importPath = reference.getImportPath();
             String name = reference.getElementName();
