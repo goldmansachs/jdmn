@@ -5,6 +5,8 @@
 # ANTLR plugin files
 **/gen/FEELLexer*
 **/gen/FEELParser*
+**/gen/SFEELLexer*
+**/gen/SFEELParser*
 
 # Maven files
 target/
