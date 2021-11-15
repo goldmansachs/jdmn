@@ -429,6 +429,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_13_cl3_0099_arithmetic_negation() {
+        doSingleModelTest("1.3", "0099-arithmetic-negation");
+    }
+
+    @Test
     public void test_13_cl3_100_arithmetic() {
         doSingleModelTest("1.3", "0100-arithmetic");
     }
