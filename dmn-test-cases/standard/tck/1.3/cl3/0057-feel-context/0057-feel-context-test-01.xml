@@ -119,12 +119,10 @@
     </testCase>
 
     <testCase id="008">
-        <description>later duplicate name overwrites previous</description>
-        <resultNode name="decision008" type="decision">
+        <description>duplicate context entry keys not allowed (DMN14-178), results in null</description>
+        <resultNode name="decision008" type="decision" errorResult="true">
             <expected>
-                <component name="foo">
-                    <value xsi:type="xsd:string">baz</value>
-                </component>
+                <value xsi:nil="true"/>
             </expected>
         </resultNode>
     </testCase>
