@@ -12,8 +12,14 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.function.BuiltinFunction;
+import com.gs.dmn.runtime.function.DMNFunctionDefinition;
+import com.gs.dmn.runtime.function.DMNInvocable;
+import com.gs.dmn.runtime.function.FEELFunction;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -118,6 +124,18 @@ public abstract class Type {
                 }
             }
             return true;
+        } else if (value instanceof FEELFunction && type instanceof FunctionType) {
+            FunctionDefinition functionDefinition = (FunctionDefinition) ((FEELFunction) value).getFunctionDefinition();
+            return conformsTo(functionDefinition.getType(), type);
+        } else if (value instanceof DMNInvocable && type instanceof FunctionType) {
+            Declaration declaration = (Declaration) ((DMNInvocable) value).getDeclaration();
+            return conformsTo(declaration.getType(), type);
+        } else if (value instanceof DMNFunctionDefinition && type instanceof FunctionType) {
+            Type valueType = (Type) ((DMNFunctionDefinition) value).getType();
+            return conformsTo(valueType, type);
+        } else if (value instanceof BuiltinFunction && type instanceof FunctionType) {
+            Declaration declaration = (Declaration) ((BuiltinFunction) value).getDeclaration();
+            return conformsTo(declaration.getType(), type);
         } else {
             return false;
         }

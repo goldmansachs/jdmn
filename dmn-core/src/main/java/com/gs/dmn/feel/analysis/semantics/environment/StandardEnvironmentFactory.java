@@ -17,7 +17,7 @@ import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNContextKind;
-import com.gs.dmn.runtime.Function;
+import com.gs.dmn.runtime.function.BuiltinFunction;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 
 import java.util.List;
@@ -45,7 +45,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         RuntimeEnvironment runtimeEnvironment = RuntimeEnvironment.of();
         addFEELFunctions(environment);
         for (Map.Entry<String, List<Declaration>> entry: environment.variablesTable.entrySet()) {
-            runtimeEnvironment.bind(entry.getKey(), new Function(entry.getValue()));
+            runtimeEnvironment.bind(entry.getKey(), BuiltinFunction.of(entry.getValue()));
         }
         BUILT_IN_CONTEXT = DMNContext.of(
                 null,

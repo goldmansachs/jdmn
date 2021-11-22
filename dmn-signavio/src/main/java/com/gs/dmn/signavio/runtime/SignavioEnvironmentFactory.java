@@ -16,7 +16,7 @@ import com.gs.dmn.feel.analysis.semantics.environment.*;
 import com.gs.dmn.feel.analysis.semantics.type.BuiltinFunctionType;
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNContextKind;
-import com.gs.dmn.runtime.Function;
+import com.gs.dmn.runtime.function.BuiltinFunction;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 
 import java.util.List;
@@ -40,7 +40,7 @@ public class SignavioEnvironmentFactory implements EnvironmentFactory {
         RuntimeEnvironment runtimeEnvironment = RuntimeEnvironment.of();
         addSignavioFunctions(environment);
         for (Map.Entry<String, List<Declaration>> entry: environment.getVariablesTable().entrySet()) {
-            runtimeEnvironment.bind(entry.getKey(), new Function(entry.getValue()));
+            runtimeEnvironment.bind(entry.getKey(), BuiltinFunction.of(entry.getValue()));
         }
         BUILT_IN_CONTEXT = DMNContext.of(
                 null,

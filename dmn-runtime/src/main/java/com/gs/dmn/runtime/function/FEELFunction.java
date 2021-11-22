@@ -10,7 +10,22 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.runtime;
+package com.gs.dmn.runtime.function;
 
-public abstract class Function {
+import com.gs.dmn.runtime.Function;
+
+public class FEELFunction extends Function {
+    public static Function of(Object functionDefinition) {
+        return new FEELFunction(functionDefinition);
+    }
+
+    private final Object functionDefinition;
+
+    private FEELFunction(Object functionDefinition) {
+        this.functionDefinition = functionDefinition;
+    }
+
+    public Object getFunctionDefinition() {
+        return functionDefinition;
+    }
 }

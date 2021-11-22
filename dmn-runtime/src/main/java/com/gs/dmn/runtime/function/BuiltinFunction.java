@@ -10,7 +10,22 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.runtime;
+package com.gs.dmn.runtime.function;
 
-public abstract class Function {
+import com.gs.dmn.runtime.Function;
+
+public class BuiltinFunction extends Function {
+    public static Function of(Object declaration) {
+        return new BuiltinFunction(declaration);
+    }
+
+    private final Object declaration;
+
+    private BuiltinFunction(Object declaration) {
+        this.declaration = declaration;
+    }
+
+    public Object getDeclaration() {
+        return declaration;
+    }
 }
