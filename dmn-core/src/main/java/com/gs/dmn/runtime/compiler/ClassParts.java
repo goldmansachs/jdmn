@@ -12,35 +12,63 @@
  */
 package com.gs.dmn.runtime.compiler;
 
+import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Function;
+import com.gs.dmn.runtime.function.DMNInvocable;
 import com.gs.dmn.runtime.function.FEELFunction;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
+import com.gs.dmn.transformation.native_.FreeVariable;
 import com.gs.dmn.transformation.native_.NativeFactory;
 import org.apache.commons.text.RandomStringGenerator;
+import org.omg.spec.dmn._20191111.model.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClassParts {
     public static ClassParts makeClassParts(Function function, FEELTranslator feelTranslator, BasicDMNToNativeTransformer dmnTransformer, DMNContext context, String feelLibClassName) {
+        // Apply method parts
+        String signature = "Object[] args";
+        boolean convertToContext = true;
+        List<FreeVariable> freeVariables = new ArrayList<>();
+
+
         if (function instanceof FEELFunction) {
             FunctionDefinition functionDefinition = (FunctionDefinition) ((FEELFunction) function).getFunctionDefinition();
             FunctionType functionType = (FunctionType) functionDefinition.getType();
 
             // Apply method parts
-            String signature = "Object[] args";
-            boolean convertToContext = true;
             String body = feelTranslator.expressionToNative(functionDefinition.getBody(), context);
             NativeFactory nativeFactory = dmnTransformer.getNativeFactory();
-            String applyMethod = nativeFactory.applyMethod(functionType, signature, convertToContext, body);
+            String applyMethod = nativeFactory.applyMethod(functionType, signature, convertToContext, body, freeVariables);
             String returnType = dmnTransformer.toNativeType(dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
 
             return new ClassParts(feelLibClassName, returnType, applyMethod);
-        } else {
-            throw new DMNRuntimeException(String.format("Compilation for lambda '%s' is not supported yet", function));
+        } else if (function instanceof DMNInvocable) {
+            TInvocable invocable = (TInvocable) ((DMNInvocable) function).getInvocable();
+            Declaration declaration = (Declaration) ((DMNInvocable) function).getDeclaration();
+            FunctionType functionType = (FunctionType) declaration.getType();
+            if (invocable instanceof TBusinessKnowledgeModel) {
+                TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) invocable).getEncapsulatedLogic();
+                TExpression value = encapsulatedLogic.getExpression().getValue();
+                if (value instanceof TLiteralExpression) {
+                    String expText = ((TLiteralExpression) value).getText();
+                    String body = feelTranslator.expressionToNative(expText, context);
+                    NativeFactory nativeFactory = dmnTransformer.getNativeFactory();
+
+                    String applyMethod = nativeFactory.applyMethod(functionType, signature, convertToContext, body, freeVariables);
+                    String returnType = dmnTransformer.toNativeType(dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
+
+                    return new ClassParts(feelLibClassName, returnType, applyMethod);
+                }
+            }
         }
+        throw new DMNRuntimeException(String.format("Compilation for lambda '%s' is not supported yet", function));
     }
 
     private static final RandomStringGenerator RANDOM_STRING_GENERATOR = new RandomStringGenerator.Builder()

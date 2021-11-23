@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.error.LogAndThrowErrorHandler;
+import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.AbstractAnalysisVisitor;
@@ -417,6 +418,14 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
                     List<FormalParameter> formalParameters = ((FunctionDefinition) lambdaExpression).getFormalParameters();
                     formalParameters.forEach(p -> p.setType(elementType));
                     success = true;
+                } else if (lambdaExpression instanceof Name) {
+                    Declaration declaration = context.lookupVariableDeclaration(((Name) lambdaExpression).getName());
+                    Type type = declaration.getType();
+                    if (type instanceof FunctionType && !(type instanceof BuiltinFunctionType)) {
+                        List<FormalParameter> formalParameters = ((FunctionType) type).getParameters();
+                        formalParameters.forEach(p -> p.setType(elementType));
+                        success = true;
+                    }
                 }
             }
             lambdaExpression.accept(this, context);

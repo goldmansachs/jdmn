@@ -32,7 +32,9 @@ import org.omg.spec.dmn._20191111.model.TDecision;
 import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class JavaFactory implements NativeFactory {
     protected static final Object DEFAULT_PROTO_NUMBER = "0.0";
@@ -220,9 +222,9 @@ public class JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String applyMethod(FunctionType functionType, String signature, boolean convertTypeToContext, String body) {
+    public String applyMethod(FunctionType functionType, String signature, boolean convertTypeToContext, String body, List<FreeVariable> freeVariables) {
         String returnType = transformer.toNativeType(transformer.convertType(functionType.getReturnType(), convertTypeToContext));
-        String parametersAssignment = parametersAssignment(functionType.getParameters(), convertTypeToContext);
+        String parametersAssignment = parametersAssignment(functionType.getParameters(), convertTypeToContext, freeVariables);
         return applyMethod(returnType, signature, parametersAssignment, body);
     }
 
@@ -235,13 +237,25 @@ public class JavaFactory implements NativeFactory {
                 returnType, signature, parametersAssignment, body);
     }
 
-    protected String parametersAssignment(List<FormalParameter> formalParameters, boolean convertTypeToContext) {
+    protected String parametersAssignment(List<FormalParameter> formalParameters, boolean convertTypeToContext, List<FreeVariable> freeVariables) {
         List<String> parameters = new ArrayList<>();
-        for(int i = 0; i< formalParameters.size(); i++) {
+        Set<String> names = new LinkedHashSet<>();
+        for(int i=0; i<formalParameters.size(); i++) {
             FormalParameter p = formalParameters.get(i);
             String type = transformer.toNativeType(transformer.convertType(p.getType(), convertTypeToContext));
             String name = transformer.nativeFriendlyVariableName(p.getName());
+            names.add(name);
             parameters.add(makeLambdaParameterAssignment(type, name, i));
+        }
+        int argIndex = formalParameters.size();
+        for(int i=0; i<freeVariables.size(); i++) {
+            FreeVariable freeVariable = freeVariables.get(i);
+            String name = freeVariable.getName();
+            if (!names.contains(name)) {
+                String type = freeVariable.getType();
+                parameters.add(makeLambdaParameterAssignment(type, name, argIndex));
+                argIndex++;
+            }
         }
         return String.join(" ", parameters);
     }

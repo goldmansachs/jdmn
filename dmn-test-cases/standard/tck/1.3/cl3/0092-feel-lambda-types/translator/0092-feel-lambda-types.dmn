@@ -11,6 +11,17 @@
         </functionItem>
     </itemDefinition>
 
+    <itemDefinition name="lambda_string_string_returns_bool">
+        <functionItem outputTypeRef="boolean">
+            <parameters name="s1" typeRef="string" />
+            <parameters name="s2" typeRef="string" />
+        </functionItem>
+    </itemDefinition>
+
+    <itemDefinition name="list_of_string" isCollection="true">
+        <typeRef>string</typeRef>
+    </itemDefinition>
+
     <!-- decision returns a UDF lambda (no closures) -->
     <decision name="decision_001_2" id="_decision_001_2">
         <variable name="decision_001_2"/>
@@ -519,8 +530,8 @@
     <businessKnowledgeModel name="bkm_017_1" id="_bkm_017_1">
         <variable name="bkm_017_1"/>
         <encapsulatedLogic>
-            <formalParameter name="fn1"/>
-            <literalExpression>
+            <formalParameter name="fn1" typeRef="lambda_string_string_returns_bool"/>
+            <literalExpression typeRef="list_of_string">
                 <!-- passed in 'precedes' lambda is passed again to sort() -->
                 <text>sort(["a","z", "a", "z"], fn1)</text>
             </literalExpression>
@@ -539,8 +550,8 @@
         <knowledgeRequirement>
             <requiredKnowledge href="#_bkm_017_1"/>
         </knowledgeRequirement>
-        <literalExpression>
-            <text>bkm_017_1(function (a,b) if a = input_017_1 then true else false)</text>
+        <literalExpression typeRef="list_of_string">
+            <text>bkm_017_1(function (a: string, b: string) if a = "a" then true else false)</text>
         </literalExpression>
     </decision>
 
