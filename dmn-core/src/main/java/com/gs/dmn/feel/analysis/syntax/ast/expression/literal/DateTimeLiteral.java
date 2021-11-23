@@ -67,8 +67,8 @@ public class DateTimeLiteral extends SimpleLiteral {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext params) {
-        return visitor.visit(this, params);
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 
     @Override

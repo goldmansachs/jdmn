@@ -190,9 +190,7 @@ public class FunctionInvocation extends Expression {
     }
 
     private void collectPrimitiveTypes(Expression expression, List<Type> types) {
-        if (expression == null) {
-            return;
-        } else if (expression instanceof ListLiteral) {
+        if (expression instanceof ListLiteral) {
             List<Expression> expressionList = ((ListLiteral) expression).getExpressionList();
             for (Expression exp: expressionList) {
                 collectPrimitiveTypes(exp, types);
@@ -209,8 +207,8 @@ public class FunctionInvocation extends Expression {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext params) {
-        return visitor.visit(this, params);
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 
     @Override
