@@ -12,13 +12,7 @@
  */
 package com.gs.dmn.runtime.compiler;
 
-import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
-import com.gs.dmn.feel.synthesis.FEELTranslator;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import com.gs.dmn.transformation.native_.NativeFactory;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.RandomStringGenerator;
@@ -55,27 +49,16 @@ public class JavaxToolsCompiler extends JavaCompilerImpl {
     }
 
     @Override
-    public ClassData makeClassData(FunctionDefinition element, DMNContext context, BasicDMNToNativeTransformer dmnTransformer, FEELTranslator feelTranslator, String libClassName) {
-        FunctionType functionType = (FunctionType) element.getType();
-
-        // Apply method parts
-        String signature = "Object... args";
-        boolean convertToContext = true;
-        String body = feelTranslator.expressionToNative(element.getBody(), context);
-        NativeFactory nativeFactory = dmnTransformer.getNativeFactory();
-        String applyMethod = nativeFactory.applyMethod(functionType, signature, convertToContext, body);
-
+    public ClassData makeClassData(ClassParts config) {
         // Class parts
-        String packageName = "com.gs.dmn.runtime";
-        String className = String.format("LambdaExpression%sImpl", uniqueName());
-        String returnType = dmnTransformer.toNativeType(dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
+        String packageName = config.getPackageName();
+        String className = config.getClassName();
+        String returnType = config.getReturnType();
+        String libClassName = config.getFeelLibClassName();
+        String applyMethod = config.getApplyMethod();
+
         String javaClassText = classText(packageName, className, libClassName, returnType, applyMethod);
-
         return new JavaxToolsClassData(packageName, className, javaClassText);
-    }
-
-    private String uniqueName() {
-        return RANDOM_STRING_GENERATOR.generate(10);
     }
 
     private String classText(String packageName, String className, String lib, String returnType, String applyMethod) {
@@ -85,15 +68,6 @@ public class JavaxToolsCompiler extends JavaCompilerImpl {
                 "    %s" +
                 "}",
                 packageName, className, lib, returnType, applyMethod);
-    }
-
-    private String applyMethod(FunctionDefinition element, String returnType, String parametersAssignment, String body) {
-        return String.format(
-                "public %s apply() {" +
-                        "%s" +
-                        "return %s;" +
-                        "}",
-                returnType, parametersAssignment, body);
     }
 
     @Override

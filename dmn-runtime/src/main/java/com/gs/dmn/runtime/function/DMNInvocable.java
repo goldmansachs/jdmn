@@ -34,4 +34,9 @@ public class DMNInvocable extends Function {
     public Object getDeclaration() {
         return declaration;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s(invocable='%s' declaration='%s')", getClass().getSimpleName(), invocable, declaration);
+    }
 }

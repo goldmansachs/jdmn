@@ -28,4 +28,9 @@ public class FEELFunction extends Function {
     public Object getFunctionDefinition() {
         return functionDefinition;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s(functionDefinition='%s')", getClass().getSimpleName(), functionDefinition);
+    }
 }

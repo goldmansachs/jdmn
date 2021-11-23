@@ -28,4 +28,9 @@ public class BuiltinFunction extends Function {
     public Object getDeclaration() {
         return declaration;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s(declaration='%s')", getClass().getSimpleName(), declaration);
+    }
 }

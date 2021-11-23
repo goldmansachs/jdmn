@@ -24,7 +24,7 @@ public class JavaAssistCompilerTest extends AbstractCompilerTest {
         ClassData classData = makeClassData();
 
         assertEquals(JavaAssistClassData.class.getName(), classData.getClass().getName());
-        assertTrue(classData.getClassName().startsWith("LambdaExpressionImpl"));
+        assertTrue(classData.getClassName().startsWith("LambdaExpression"));
         assertEquals("com.gs.dmn.runtime", classData.getPackageName());
         assertEquals("public Object apply(Object[] args) {\n   return apply(args);\n}\n", ((JavaAssistClassData)classData).getBridgeMethodText());
         assertEquals("public java.math.BigDecimal apply(Object[] args) {return number(\"123\");}", ((JavaAssistClassData)classData).getMethodText());

@@ -45,6 +45,7 @@ import com.gs.dmn.feel.synthesis.NativeOperator;
 import com.gs.dmn.runtime.Range;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.compiler.ClassData;
+import com.gs.dmn.runtime.compiler.ClassParts;
 import com.gs.dmn.runtime.compiler.JavaCompiler;
 import com.gs.dmn.runtime.compiler.JavaxToolsCompiler;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
@@ -54,7 +55,10 @@ import com.gs.dmn.runtime.function.DMNInvocable;
 import com.gs.dmn.runtime.function.FEELFunction;
 import com.gs.dmn.runtime.interpreter.*;
 import com.gs.dmn.transformation.basic.ImportContextType;
-import org.omg.spec.dmn._20191111.model.*;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TFunctionDefinition;
+import org.omg.spec.dmn._20191111.model.TFunctionKind;
+import org.omg.spec.dmn._20191111.model.TInvocable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -311,16 +315,19 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         return FEELFunction.of(element);
     }
 
-    private Object makeLambdaExpression(FunctionDefinition element, DMNContext context) {
+    private Object makeLambdaExpression(Function function, DMNContext context) {
         try {
+            // Make class parts
+            ClassParts classParts = ClassParts.makeClassParts(function, this.feelTranslator, this.dmnTransformer, context, this.lib.getClass().getName());
+
             // Compile
-            ClassData classData = JAVA_COMPILER.makeClassData(element, context, this.dmnTransformer, this.feelTranslator, this.lib.getClass().getName());
+            ClassData classData = JAVA_COMPILER.makeClassData(classParts);
             Class<?> cls = JAVA_COMPILER.compile(classData);
 
             // Create instance
             return cls.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Execution error for FunctionDefinition %s", element.toString()), e);
+            throw new DMNRuntimeException(String.format("Execution error for function %s", function), e);
         }
     }
 
@@ -673,9 +680,8 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             String javaFunctionName = javaFunctionName(functionName);
             if ("sort".equals(javaFunctionName)) {
                 Object sortFunction = argList.get(1);
-                if (sortFunction instanceof FEELFunction) {
-                    FunctionDefinition comparatorDefinition = (FunctionDefinition) ((FEELFunction) sortFunction).getFunctionDefinition();
-                    Object lambdaExpression = makeLambdaExpression(comparatorDefinition, context);
+                if (sortFunction instanceof Function) {
+                    Object lambdaExpression = makeLambdaExpression((Function) sortFunction, context);
                     argList.set(1, lambdaExpression);
                     Object result = evaluateBuiltInFunction(this.lib, javaFunctionName, argList);
                     JAVA_COMPILER.deleteLambdaClass(lambdaExpression);
