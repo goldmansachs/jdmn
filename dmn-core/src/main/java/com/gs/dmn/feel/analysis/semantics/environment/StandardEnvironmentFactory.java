@@ -15,6 +15,7 @@ package com.gs.dmn.feel.analysis.semantics.environment;
 import com.gs.dmn.feel.analysis.semantics.type.BuiltinFunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNContextKind;
 import com.gs.dmn.runtime.function.BuiltinFunction;
@@ -61,68 +62,68 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     }
 
     public static BuiltinFunctionType makeSublistBuiltInFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new Parameter("list", listType), new Parameter("start position", NUMBER), new Parameter("length", NUMBER, true, false));
+        return new BuiltinFunctionType(listType, new FormalParameter("list", listType), new FormalParameter("start position", NUMBER), new FormalParameter("length", NUMBER, true, false));
     }
 
     public static BuiltinFunctionType makeAppendBuiltinFunctionType(Type listType, Type itemType) {
-        return new BuiltinFunctionType(listType, new Parameter("list", listType), new Parameter("item", itemType, false, true));
+        return new BuiltinFunctionType(listType, new FormalParameter("list", listType), new FormalParameter("item", itemType, false, true));
     }
 
     public static BuiltinFunctionType makeConcatenateBuiltinFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new Parameter("list1", listType, false, true));
+        return new BuiltinFunctionType(listType, new FormalParameter("list1", listType, false, true));
     }
 
     public static BuiltinFunctionType makeInsertBeforeBuiltinFunctionType(Type listType, Type itemType) {
-        return new BuiltinFunctionType(listType, new Parameter("list", listType), new Parameter("position", NUMBER), new Parameter("new item", itemType));
+        return new BuiltinFunctionType(listType, new FormalParameter("list", listType), new FormalParameter("position", NUMBER), new FormalParameter("new item", itemType));
     }
 
     public static BuiltinFunctionType makeRemoveBuiltinFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new Parameter("list", listType), new Parameter("position", NUMBER));
+        return new BuiltinFunctionType(listType, new FormalParameter("list", listType), new FormalParameter("position", NUMBER));
     }
 
     public static BuiltinFunctionType makeReverseBuiltinFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new Parameter("list", listType));
+        return new BuiltinFunctionType(listType, new FormalParameter("list", listType));
     }
 
     public static BuiltinFunctionType makeIndexOfBuiltinFunctionType(Type listType, Type matchType) {
-        return new BuiltinFunctionType(NUMBER_LIST, new Parameter("list", listType), new Parameter("match", matchType));
+        return new BuiltinFunctionType(NUMBER_LIST, new FormalParameter("list", listType), new FormalParameter("match", matchType));
     }
 
     public static BuiltinFunctionType makeDistinctValuesBuiltinFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new Parameter("list", listType));
+        return new BuiltinFunctionType(listType, new FormalParameter("list", listType));
     }
 
     public static BuiltinFunctionType makeUnionBuiltinFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new Parameter("list1", listType), new Parameter("list2", listType));
+        return new BuiltinFunctionType(listType, new FormalParameter("list1", listType), new FormalParameter("list2", listType));
     }
 
     public static BuiltinFunctionType makeFlattenBuiltinFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new Parameter("list", ANY_LIST));
+        return new BuiltinFunctionType(listType, new FormalParameter("list", ANY_LIST));
     }
 
     public static BuiltinFunctionType makeSortBuiltinFunctionType(Type listType, Type functionType) {
-        return new BuiltinFunctionType(listType, new Parameter("list", listType), new Parameter("function", functionType));
+        return new BuiltinFunctionType(listType, new FormalParameter("list", listType), new FormalParameter("function", functionType));
     }
 
     // Signavio
     public static BuiltinFunctionType makeSignavioAppendBuiltinFunctionType(Type listType, Type elementType) {
-        return new BuiltinFunctionType(listType, new Parameter("list", listType), new Parameter("element", elementType));
+        return new BuiltinFunctionType(listType, new FormalParameter("list", listType), new FormalParameter("element", elementType));
     }
 
     public static BuiltinFunctionType makeSignavioAppendAllBuiltinFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new Parameter("list1", listType), new Parameter("list2", listType));
+        return new BuiltinFunctionType(listType, new FormalParameter("list1", listType), new FormalParameter("list2", listType));
     }
 
     public static BuiltinFunctionType makeSignavioRemoveBuiltinFunctionType(Type listType, Type elementType) {
-        return new BuiltinFunctionType(listType, new Parameter("list", listType), new Parameter("element", elementType));
+        return new BuiltinFunctionType(listType, new FormalParameter("list", listType), new FormalParameter("element", elementType));
     }
 
     public static BuiltinFunctionType makeSignavioRemoveAllBuiltinFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new Parameter("list1", listType), new Parameter("list2", listType));
+        return new BuiltinFunctionType(listType, new FormalParameter("list1", listType), new FormalParameter("list2", listType));
     }
 
     public static BuiltinFunctionType makeSignavioZipBuiltinFunctionType(Type resultType, Type attributesType, Type valuesType) {
-        return new BuiltinFunctionType(resultType, new Parameter("attributes", attributesType), new Parameter("values", valuesType));
+        return new BuiltinFunctionType(resultType, new FormalParameter("attributes", attributesType), new FormalParameter("values", valuesType));
     }
 
     private StandardEnvironmentFactory() {
@@ -146,174 +147,174 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     }
 
     private static void addConversionFunctions(Environment environment) {
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("date", new BuiltinFunctionType(DATE, new Parameter("from", STRING))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("date", new BuiltinFunctionType(DATE, new Parameter("from", DATE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("date", new BuiltinFunctionType(DATE, new Parameter("from", DATE_AND_TIME))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("date", new BuiltinFunctionType(DATE, new Parameter("year", NUMBER), new Parameter("month", NUMBER), new Parameter("day", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("date and time", new BuiltinFunctionType(DATE_AND_TIME, new Parameter("date", DATE), new Parameter("time", TIME))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("date and time", new BuiltinFunctionType(DATE_AND_TIME, new Parameter("date", DATE_AND_TIME), new Parameter("time", TIME))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("date and time", new BuiltinFunctionType(DATE_AND_TIME, new Parameter("from", STRING))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("time", new BuiltinFunctionType(TIME, new Parameter("from", STRING))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("time", new BuiltinFunctionType(TIME, new Parameter("from", DATE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("time", new BuiltinFunctionType(TIME, new Parameter("from", DATE_AND_TIME))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("time", new BuiltinFunctionType(TIME, new Parameter("hour", NUMBER), new Parameter("minute", NUMBER), new Parameter("second", NUMBER), new Parameter("offset", DAYS_AND_TIME_DURATION, true, false))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("number", new BuiltinFunctionType(NUMBER, new Parameter("from", STRING), new Parameter("'grouping separator'", STRING), new Parameter("'decimal separator'", STRING))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("number", new BuiltinFunctionType(NUMBER, new Parameter("from", STRING), new Parameter("groupingSeparator", STRING), new Parameter("decimalSeparator", STRING))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("string", new BuiltinFunctionType(STRING, new Parameter("from", ANY))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("duration", new BuiltinFunctionType(ANY, new Parameter("from", STRING))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new Parameter("from", DATE), new Parameter("to", DATE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new Parameter("from", DATE_AND_TIME), new Parameter("to", DATE_AND_TIME))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new Parameter("from", DATE), new Parameter("to", DATE_AND_TIME))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new Parameter("from", DATE_AND_TIME), new Parameter("to", DATE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("date", new BuiltinFunctionType(DATE, new FormalParameter("from", STRING))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("date", new BuiltinFunctionType(DATE, new FormalParameter("from", DATE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("date", new BuiltinFunctionType(DATE, new FormalParameter("from", DATE_AND_TIME))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("date", new BuiltinFunctionType(DATE, new FormalParameter("year", NUMBER), new FormalParameter("month", NUMBER), new FormalParameter("day", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("date and time", new BuiltinFunctionType(DATE_AND_TIME, new FormalParameter("date", DATE), new FormalParameter("time", TIME))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("date and time", new BuiltinFunctionType(DATE_AND_TIME, new FormalParameter("date", DATE_AND_TIME), new FormalParameter("time", TIME))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("date and time", new BuiltinFunctionType(DATE_AND_TIME, new FormalParameter("from", STRING))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("time", new BuiltinFunctionType(TIME, new FormalParameter("from", STRING))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("time", new BuiltinFunctionType(TIME, new FormalParameter("from", DATE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("time", new BuiltinFunctionType(TIME, new FormalParameter("from", DATE_AND_TIME))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("time", new BuiltinFunctionType(TIME, new FormalParameter("hour", NUMBER), new FormalParameter("minute", NUMBER), new FormalParameter("second", NUMBER), new FormalParameter("offset", DAYS_AND_TIME_DURATION, true, false))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("number", new BuiltinFunctionType(NUMBER, new FormalParameter("from", STRING), new FormalParameter("'grouping separator'", STRING), new FormalParameter("'decimal separator'", STRING))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("number", new BuiltinFunctionType(NUMBER, new FormalParameter("from", STRING), new FormalParameter("groupingSeparator", STRING), new FormalParameter("decimalSeparator", STRING))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("string", new BuiltinFunctionType(STRING, new FormalParameter("from", ANY))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("duration", new BuiltinFunctionType(ANY, new FormalParameter("from", STRING))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new FormalParameter("from", DATE), new FormalParameter("to", DATE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new FormalParameter("from", DATE_AND_TIME), new FormalParameter("to", DATE_AND_TIME))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new FormalParameter("from", DATE), new FormalParameter("to", DATE_AND_TIME))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new FormalParameter("from", DATE_AND_TIME), new FormalParameter("to", DATE))));
     }
 
     private static void addNumberFunctions(Environment environment) {
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("decimal", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("round", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER), new Parameter("mode", STRING))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("round up", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("round down", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("round half up", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("round half down", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("floor", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("floor", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("ceiling", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("ceiling", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("abs", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("abs", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new Parameter("n", YEARS_AND_MONTHS_DURATION))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("abs", new BuiltinFunctionType(DAYS_AND_TIME_DURATION, new Parameter("n", DAYS_AND_TIME_DURATION))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("modulo", new BuiltinFunctionType(NUMBER, new Parameter("dividend", NUMBER), new Parameter("divisor", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("sqrt", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("log", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("exp", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("odd", new BuiltinFunctionType(BOOLEAN, new Parameter("number", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("even", new BuiltinFunctionType(BOOLEAN, new Parameter("number", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("decimal", new BuiltinFunctionType(NUMBER, new FormalParameter("n", NUMBER), new FormalParameter("scale", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("round", new BuiltinFunctionType(NUMBER, new FormalParameter("n", NUMBER), new FormalParameter("scale", NUMBER), new FormalParameter("mode", STRING))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("round up", new BuiltinFunctionType(NUMBER, new FormalParameter("n", NUMBER), new FormalParameter("scale", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("round down", new BuiltinFunctionType(NUMBER, new FormalParameter("n", NUMBER), new FormalParameter("scale", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("round half up", new BuiltinFunctionType(NUMBER, new FormalParameter("n", NUMBER), new FormalParameter("scale", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("round half down", new BuiltinFunctionType(NUMBER, new FormalParameter("n", NUMBER), new FormalParameter("scale", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("floor", new BuiltinFunctionType(NUMBER, new FormalParameter("n", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("floor", new BuiltinFunctionType(NUMBER, new FormalParameter("n", NUMBER), new FormalParameter("scale", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("ceiling", new BuiltinFunctionType(NUMBER, new FormalParameter("n", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("ceiling", new BuiltinFunctionType(NUMBER, new FormalParameter("n", NUMBER), new FormalParameter("scale", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("abs", new BuiltinFunctionType(NUMBER, new FormalParameter("n", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("abs", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new FormalParameter("n", YEARS_AND_MONTHS_DURATION))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("abs", new BuiltinFunctionType(DAYS_AND_TIME_DURATION, new FormalParameter("n", DAYS_AND_TIME_DURATION))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("modulo", new BuiltinFunctionType(NUMBER, new FormalParameter("dividend", NUMBER), new FormalParameter("divisor", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("sqrt", new BuiltinFunctionType(NUMBER, new FormalParameter("number", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("log", new BuiltinFunctionType(NUMBER, new FormalParameter("number", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("exp", new BuiltinFunctionType(NUMBER, new FormalParameter("number", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("odd", new BuiltinFunctionType(BOOLEAN, new FormalParameter("number", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("even", new BuiltinFunctionType(BOOLEAN, new FormalParameter("number", NUMBER))));
     }
 
     private static void addBooleanFunctions(Environment environment) {
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("not", new BuiltinFunctionType(BOOLEAN, new Parameter("negand", BOOLEAN))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("not", new BuiltinFunctionType(BOOLEAN, new FormalParameter("negand", BOOLEAN))));
     }
 
     private static void addStringFunctions(Environment environment) {
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("substring", new BuiltinFunctionType(STRING, new Parameter("string", STRING), new Parameter("'start position'", NUMBER), new Parameter("length", NUMBER, true, false))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("substring", new BuiltinFunctionType(STRING, new Parameter("string", STRING), new Parameter("startPosition", NUMBER), new Parameter("length", NUMBER, true, false))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("string length", new BuiltinFunctionType(NUMBER, new Parameter("string", STRING))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("upper case", new BuiltinFunctionType(STRING, new Parameter("string", STRING))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("lower case", new BuiltinFunctionType(STRING, new Parameter("string", STRING))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("substring before", new BuiltinFunctionType(STRING, new Parameter("string", STRING), new Parameter("match", STRING))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("substring after", new BuiltinFunctionType(STRING, new Parameter("string", STRING), new Parameter("match", STRING))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("replace", new BuiltinFunctionType(STRING, new Parameter("input", STRING), new Parameter("pattern", STRING), new Parameter("replacement", STRING), new Parameter("flags", STRING, true, false))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("contains", new BuiltinFunctionType(BOOLEAN, new Parameter("string", STRING), new Parameter("match", STRING))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("starts with", new BuiltinFunctionType(BOOLEAN, new Parameter("string", STRING), new Parameter("match", STRING))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("ends with", new BuiltinFunctionType(BOOLEAN, new Parameter("string", STRING), new Parameter("match", STRING))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("matches", new BuiltinFunctionType(BOOLEAN, new Parameter("input", STRING), new Parameter("pattern", STRING), new Parameter("flags", STRING, true, false))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("split", new BuiltinFunctionType(STRING_LIST, new Parameter("string", STRING), new Parameter("delimiter", STRING))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("substring", new BuiltinFunctionType(STRING, new FormalParameter("string", STRING), new FormalParameter("'start position'", NUMBER), new FormalParameter("length", NUMBER, true, false))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("substring", new BuiltinFunctionType(STRING, new FormalParameter("string", STRING), new FormalParameter("startPosition", NUMBER), new FormalParameter("length", NUMBER, true, false))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("string length", new BuiltinFunctionType(NUMBER, new FormalParameter("string", STRING))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("upper case", new BuiltinFunctionType(STRING, new FormalParameter("string", STRING))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("lower case", new BuiltinFunctionType(STRING, new FormalParameter("string", STRING))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("substring before", new BuiltinFunctionType(STRING, new FormalParameter("string", STRING), new FormalParameter("match", STRING))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("substring after", new BuiltinFunctionType(STRING, new FormalParameter("string", STRING), new FormalParameter("match", STRING))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("replace", new BuiltinFunctionType(STRING, new FormalParameter("input", STRING), new FormalParameter("pattern", STRING), new FormalParameter("replacement", STRING), new FormalParameter("flags", STRING, true, false))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("contains", new BuiltinFunctionType(BOOLEAN, new FormalParameter("string", STRING), new FormalParameter("match", STRING))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("starts with", new BuiltinFunctionType(BOOLEAN, new FormalParameter("string", STRING), new FormalParameter("match", STRING))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("ends with", new BuiltinFunctionType(BOOLEAN, new FormalParameter("string", STRING), new FormalParameter("match", STRING))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("matches", new BuiltinFunctionType(BOOLEAN, new FormalParameter("input", STRING), new FormalParameter("pattern", STRING), new FormalParameter("flags", STRING, true, false))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("split", new BuiltinFunctionType(STRING_LIST, new FormalParameter("string", STRING), new FormalParameter("delimiter", STRING))));
     }
 
     private static void addListFunctions(Environment environment) {
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("list contains", new BuiltinFunctionType(BOOLEAN, new Parameter("list", ANY_LIST), new Parameter("element", ANY))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("count", new BuiltinFunctionType(NUMBER, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("min", new BuiltinFunctionType(NUMBER, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("min", new BuiltinFunctionType(NUMBER, new Parameter("c1", ANY), new Parameter("cs", ANY, false, true))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("max", new BuiltinFunctionType(NUMBER, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("max", new BuiltinFunctionType(NUMBER, new Parameter("c1", ANY), new Parameter("cs", ANY, false, true))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("sum", new BuiltinFunctionType(NUMBER, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("sum", new BuiltinFunctionType(NUMBER, new Parameter("n1", ANY), new Parameter("ns", ANY, false, true))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("mean", new BuiltinFunctionType(NUMBER, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("mean", new BuiltinFunctionType(NUMBER, new Parameter("n1", ANY), new Parameter("ns", ANY, false, true))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("and", new BuiltinFunctionType(BOOLEAN, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("and", new BuiltinFunctionType(BOOLEAN, new Parameter("b1", ANY), new Parameter("bs", ANY, false, true))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("all", new BuiltinFunctionType(BOOLEAN, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("all", new BuiltinFunctionType(BOOLEAN, new Parameter("b1", ANY), new Parameter("bs", ANY, false, true))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("or", new BuiltinFunctionType(BOOLEAN, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("or", new BuiltinFunctionType(BOOLEAN, new Parameter("b1", ANY), new Parameter("bs", ANY, false, true))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("any", new BuiltinFunctionType(BOOLEAN, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("any", new BuiltinFunctionType(BOOLEAN, new Parameter("b1", ANY), new Parameter("bs", ANY, false, true))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("sublist", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("start position", NUMBER), new Parameter("length", NUMBER, true, false))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("append", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("item", ANY))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("append", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("item", ANY, false, true))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("concatenate", new BuiltinFunctionType(ANY_LIST, new Parameter("list1", ANY_LIST, false, true))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("insert before", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("position", NUMBER), new Parameter("new item", ANY))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("remove", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("position", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("reverse", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("index of", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("match", ANY))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("distinct values", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("union", new BuiltinFunctionType(ANY_LIST, new Parameter("list1", ANY_LIST), new Parameter("list2", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("flatten", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("product", new BuiltinFunctionType(NUMBER, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("product", new BuiltinFunctionType(NUMBER, new Parameter("n1", ANY), new Parameter("ns", ANY, false, true))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("median", new BuiltinFunctionType(NUMBER, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("median", new BuiltinFunctionType(NUMBER, new Parameter("n1", ANY), new Parameter("ns", ANY, false, true))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("stddev", new BuiltinFunctionType(NUMBER, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("stddev", new BuiltinFunctionType(NUMBER, new Parameter("n1", ANY), new Parameter("ns", ANY, false, true))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("mode", new BuiltinFunctionType(NUMBER, new Parameter("list", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("mode", new BuiltinFunctionType(NUMBER, new Parameter("n1", ANY), new Parameter("ns", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("list contains", new BuiltinFunctionType(BOOLEAN, new FormalParameter("list", ANY_LIST), new FormalParameter("element", ANY))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("count", new BuiltinFunctionType(NUMBER, new FormalParameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("min", new BuiltinFunctionType(NUMBER, new FormalParameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("min", new BuiltinFunctionType(NUMBER, new FormalParameter("c1", ANY), new FormalParameter("cs", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("max", new BuiltinFunctionType(NUMBER, new FormalParameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("max", new BuiltinFunctionType(NUMBER, new FormalParameter("c1", ANY), new FormalParameter("cs", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("sum", new BuiltinFunctionType(NUMBER, new FormalParameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("sum", new BuiltinFunctionType(NUMBER, new FormalParameter("n1", ANY), new FormalParameter("ns", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("mean", new BuiltinFunctionType(NUMBER, new FormalParameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("mean", new BuiltinFunctionType(NUMBER, new FormalParameter("n1", ANY), new FormalParameter("ns", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("and", new BuiltinFunctionType(BOOLEAN, new FormalParameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("and", new BuiltinFunctionType(BOOLEAN, new FormalParameter("b1", ANY), new FormalParameter("bs", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("all", new BuiltinFunctionType(BOOLEAN, new FormalParameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("all", new BuiltinFunctionType(BOOLEAN, new FormalParameter("b1", ANY), new FormalParameter("bs", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("or", new BuiltinFunctionType(BOOLEAN, new FormalParameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("or", new BuiltinFunctionType(BOOLEAN, new FormalParameter("b1", ANY), new FormalParameter("bs", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("any", new BuiltinFunctionType(BOOLEAN, new FormalParameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("any", new BuiltinFunctionType(BOOLEAN, new FormalParameter("b1", ANY), new FormalParameter("bs", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("sublist", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST), new FormalParameter("start position", NUMBER), new FormalParameter("length", NUMBER, true, false))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("append", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST), new FormalParameter("item", ANY))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("append", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST), new FormalParameter("item", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("concatenate", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list1", ANY_LIST, false, true))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("insert before", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST), new FormalParameter("position", NUMBER), new FormalParameter("new item", ANY))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("remove", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST), new FormalParameter("position", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("reverse", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("index of", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST), new FormalParameter("match", ANY))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("distinct values", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("union", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list1", ANY_LIST), new FormalParameter("list2", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("flatten", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("product", new BuiltinFunctionType(NUMBER, new FormalParameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("product", new BuiltinFunctionType(NUMBER, new FormalParameter("n1", ANY), new FormalParameter("ns", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("median", new BuiltinFunctionType(NUMBER, new FormalParameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("median", new BuiltinFunctionType(NUMBER, new FormalParameter("n1", ANY), new FormalParameter("ns", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("stddev", new BuiltinFunctionType(NUMBER, new FormalParameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("stddev", new BuiltinFunctionType(NUMBER, new FormalParameter("n1", ANY), new FormalParameter("ns", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("mode", new BuiltinFunctionType(NUMBER, new FormalParameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("mode", new BuiltinFunctionType(NUMBER, new FormalParameter("n1", ANY), new FormalParameter("ns", ANY, false, true))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("sort", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("function", ANY))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("sort", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST), new FormalParameter("function", ANY))));
     }
 
     private static void addContextFunctions(Environment environment) {
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("get entries", new BuiltinFunctionType(CONTEXT_LIST, new Parameter("m", ContextType.ANY_CONTEXT))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("get value", new BuiltinFunctionType(ANY, new Parameter("m", ContextType.ANY_CONTEXT), new Parameter("key", STRING))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("get entries", new BuiltinFunctionType(CONTEXT_LIST, new FormalParameter("m", ContextType.ANY_CONTEXT))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("get value", new BuiltinFunctionType(ANY, new FormalParameter("m", ContextType.ANY_CONTEXT), new FormalParameter("key", STRING))));
     }
 
     private static void addDateTimeFunctions(Environment environment) {
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("is", new BuiltinFunctionType(BOOLEAN, new Parameter("value1", ANY), new Parameter("value2", ANY))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("is", new BuiltinFunctionType(BOOLEAN, new FormalParameter("value1", ANY), new FormalParameter("value2", ANY))));
     }
 
     private static void addTemporalFunctions(Environment environment) {
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("day of year", new BuiltinFunctionType(NUMBER, new Parameter("date", DATE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("day of year", new BuiltinFunctionType(NUMBER, new Parameter("date", DATE_AND_TIME))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("day of year", new BuiltinFunctionType(NUMBER, new FormalParameter("date", DATE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("day of year", new BuiltinFunctionType(NUMBER, new FormalParameter("date", DATE_AND_TIME))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("day of week", new BuiltinFunctionType(STRING, new Parameter("date", DATE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("day of week", new BuiltinFunctionType(STRING, new Parameter("date", DATE_AND_TIME))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("day of week", new BuiltinFunctionType(STRING, new FormalParameter("date", DATE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("day of week", new BuiltinFunctionType(STRING, new FormalParameter("date", DATE_AND_TIME))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("month of year", new BuiltinFunctionType(STRING, new Parameter("date", DATE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("month of year", new BuiltinFunctionType(STRING, new Parameter("date", DATE_AND_TIME))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("month of year", new BuiltinFunctionType(STRING, new FormalParameter("date", DATE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("month of year", new BuiltinFunctionType(STRING, new FormalParameter("date", DATE_AND_TIME))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("week of year", new BuiltinFunctionType(NUMBER, new Parameter("date", DATE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("week of year", new BuiltinFunctionType(NUMBER, new Parameter("date", DATE_AND_TIME))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("week of year", new BuiltinFunctionType(NUMBER, new FormalParameter("date", DATE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("week of year", new BuiltinFunctionType(NUMBER, new FormalParameter("date", DATE_AND_TIME))));
     }
 
     private static void addRangeFunctions(Environment environment) {
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("before", new BuiltinFunctionType(BOOLEAN, new Parameter("point1", COMPARABLE), new Parameter("point2", COMPARABLE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("before", new BuiltinFunctionType(BOOLEAN, new Parameter("point", COMPARABLE), new Parameter("range", COMPARABLE_RANGE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("before", new BuiltinFunctionType(BOOLEAN, new Parameter("range", COMPARABLE_RANGE), new Parameter("point", COMPARABLE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("before", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("before", new BuiltinFunctionType(BOOLEAN, new FormalParameter("point1", COMPARABLE), new FormalParameter("point2", COMPARABLE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("before", new BuiltinFunctionType(BOOLEAN, new FormalParameter("point", COMPARABLE), new FormalParameter("range", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("before", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range", COMPARABLE_RANGE), new FormalParameter("point", COMPARABLE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("before", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range1", COMPARABLE_RANGE), new FormalParameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("after", new BuiltinFunctionType(BOOLEAN, new Parameter("point1", COMPARABLE), new Parameter("point2", COMPARABLE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("after", new BuiltinFunctionType(BOOLEAN, new Parameter("point", COMPARABLE), new Parameter("range", COMPARABLE_RANGE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("after", new BuiltinFunctionType(BOOLEAN, new Parameter("range", COMPARABLE_RANGE), new Parameter("point", COMPARABLE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("after", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("after", new BuiltinFunctionType(BOOLEAN, new FormalParameter("point1", COMPARABLE), new FormalParameter("point2", COMPARABLE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("after", new BuiltinFunctionType(BOOLEAN, new FormalParameter("point", COMPARABLE), new FormalParameter("range", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("after", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range", COMPARABLE_RANGE), new FormalParameter("point", COMPARABLE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("after", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range1", COMPARABLE_RANGE), new FormalParameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("meets", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("meets", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range1", COMPARABLE_RANGE), new FormalParameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("met by", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("met by", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range1", COMPARABLE_RANGE), new FormalParameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("overlaps", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("overlaps", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range1", COMPARABLE_RANGE), new FormalParameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("overlaps before", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("overlaps before", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range1", COMPARABLE_RANGE), new FormalParameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("overlaps after", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("overlaps after", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range1", COMPARABLE_RANGE), new FormalParameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("finishes", new BuiltinFunctionType(BOOLEAN, new Parameter("point", COMPARABLE), new Parameter("range", COMPARABLE_RANGE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("finishes", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("finishes", new BuiltinFunctionType(BOOLEAN, new FormalParameter("point", COMPARABLE), new FormalParameter("range", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("finishes", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range1", COMPARABLE_RANGE), new FormalParameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("finished by", new BuiltinFunctionType(BOOLEAN, new Parameter("range", COMPARABLE_RANGE), new Parameter("point", COMPARABLE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("finished by", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("finished by", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range", COMPARABLE_RANGE), new FormalParameter("point", COMPARABLE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("finished by", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range1", COMPARABLE_RANGE), new FormalParameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("includes", new BuiltinFunctionType(BOOLEAN, new Parameter("range", COMPARABLE_RANGE), new Parameter("point", COMPARABLE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("includes", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("includes", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range", COMPARABLE_RANGE), new FormalParameter("point", COMPARABLE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("includes", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range1", COMPARABLE_RANGE), new FormalParameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("during", new BuiltinFunctionType(BOOLEAN, new Parameter("point", COMPARABLE), new Parameter("range", COMPARABLE_RANGE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("during", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("during", new BuiltinFunctionType(BOOLEAN, new FormalParameter("point", COMPARABLE), new FormalParameter("range", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("during", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range1", COMPARABLE_RANGE), new FormalParameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("starts", new BuiltinFunctionType(BOOLEAN, new Parameter("point", COMPARABLE), new Parameter("range", COMPARABLE_RANGE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("starts", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("starts", new BuiltinFunctionType(BOOLEAN, new FormalParameter("point", COMPARABLE), new FormalParameter("range", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("starts", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range1", COMPARABLE_RANGE), new FormalParameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("started by", new BuiltinFunctionType(BOOLEAN, new Parameter("range", COMPARABLE_RANGE), new Parameter("point", COMPARABLE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("started by", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("started by", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range", COMPARABLE_RANGE), new FormalParameter("point", COMPARABLE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("started by", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range1", COMPARABLE_RANGE), new FormalParameter("range2", COMPARABLE_RANGE))));
 
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("coincides", new BuiltinFunctionType(BOOLEAN, new Parameter("point1", COMPARABLE), new Parameter("point2", COMPARABLE))));
-        environment.addDeclaration(INSTANCE.makeVariableDeclaration("coincides", new BuiltinFunctionType(BOOLEAN, new Parameter("range1", COMPARABLE_RANGE), new Parameter("range2", COMPARABLE_RANGE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("coincides", new BuiltinFunctionType(BOOLEAN, new FormalParameter("point1", COMPARABLE), new FormalParameter("point2", COMPARABLE))));
+        environment.addDeclaration(INSTANCE.makeVariableDeclaration("coincides", new BuiltinFunctionType(BOOLEAN, new FormalParameter("range1", COMPARABLE_RANGE), new FormalParameter("range2", COMPARABLE_RANGE))));
     }
 }

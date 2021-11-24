@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Parameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
 import com.gs.dmn.runtime.Pair;
 
@@ -27,16 +26,16 @@ public class BuiltinFunctionType extends FunctionType {
     private final boolean hasOptionalParams;
     private final boolean hasVarArgs;
 
-    public BuiltinFunctionType(Type type, Parameter... parameters) {
+    public BuiltinFunctionType(Type type, FormalParameter... parameters) {
         this(Arrays.asList(parameters), type);
     }
 
-    public BuiltinFunctionType(List<Parameter> parameters, Type returnType) {
+    public BuiltinFunctionType(List<FormalParameter> parameters, Type returnType) {
         super(new ArrayList<>(parameters), returnType);
         this.totalParamsCount = parameters.size();
         this.mandatoryParamsCount = (int) parameters.stream().filter(p -> !p.isOptional() && !p.isVarArg()).count();
-        this.hasOptionalParams = parameters.stream().anyMatch(Parameter::isOptional);
-        this.hasVarArgs = parameters.stream().anyMatch(Parameter::isVarArg);
+        this.hasOptionalParams = parameters.stream().anyMatch(FormalParameter::isOptional);
+        this.hasVarArgs = parameters.stream().anyMatch(FormalParameter::isVarArg);
     }
 
     @Override
@@ -81,16 +80,8 @@ public class BuiltinFunctionType extends FunctionType {
                 Type type = namedSignature.getType(parameter.getName());
                 if (!Type.isNull(type)) {
                     argumentTypes.add(type);
-                } else {
-                    if (parameter instanceof Parameter) {
-                        if (((Parameter)parameter).isOptional()) {
-                        } else if (((Parameter)parameter).isVarArg()) {
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        return false;
-                    }
+                } else if (!(parameter.isOptional() || parameter.isVarArg())) {
+                    return false;
                 }
             }
             return match(argumentTypes);

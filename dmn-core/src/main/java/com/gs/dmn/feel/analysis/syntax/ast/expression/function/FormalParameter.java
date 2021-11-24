@@ -43,7 +43,7 @@ public class FormalParameter extends Element {
         this.varArg = false;
     }
 
-    protected FormalParameter(String name, Type type, boolean optional, boolean varArg) {
+    public FormalParameter(String name, Type type, boolean optional, boolean varArg) {
         this.name = name;
         this.type = type;
         this.optional = optional;

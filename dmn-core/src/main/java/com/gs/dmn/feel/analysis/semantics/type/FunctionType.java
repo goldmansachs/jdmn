@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Parameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -102,16 +101,8 @@ public abstract class FunctionType extends Type {
                 Type type = namedSignature.getType(parameter.getName());
                 if (!Type.isNull(type)) {
                     argumentTypes.add(type);
-                } else {
-                    if (parameter instanceof Parameter) {
-                        if (((Parameter) parameter).isOptional()) {
-                        } else if (((Parameter) parameter).isVarArg()) {
-                        } else {
-                            return new ArrayList<>();
-                        }
-                    } else {
-                        return new ArrayList<>();
-                    }
+                } else if (!(parameter.isOptional() || parameter.isVarArg())) {
+                    return new ArrayList<>();
                 }
             }
             return matchCandidates(argumentTypes);
