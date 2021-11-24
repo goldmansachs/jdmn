@@ -14,35 +14,13 @@ package com.gs.dmn.feel.analysis.semantics.environment;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
-import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class Parameter extends FormalParameter {
-    private final boolean optional;
-    private final boolean varArg;
-
     public Parameter(String name, Type type) {
         this(name, type, false, false);
     }
 
     public Parameter(String name, Type type, boolean optional, boolean varArg) {
-        super(name, type);
-        this.optional = optional;
-        this.varArg = varArg;
-        if (optional && varArg) {
-            throw new DMNRuntimeException("Parameter cannot be optional and varArg in the same time");
-        }
-    }
-
-    public boolean isOptional() {
-        return optional;
-    }
-
-    public boolean isVarArg() {
-        return varArg;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%s -> %s, %s, %s)", name, type, optional, varArg);
+        super(name, type, optional, varArg);
     }
 }

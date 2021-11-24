@@ -54,6 +54,7 @@ import com.gs.dmn.runtime.function.DMNFunctionDefinition;
 import com.gs.dmn.runtime.function.DMNInvocable;
 import com.gs.dmn.runtime.function.FEELFunction;
 import com.gs.dmn.runtime.interpreter.*;
+import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.transformation.basic.ImportContextType;
 import org.omg.spec.dmn._20191111.model.TDRGElement;
 import org.omg.spec.dmn._20191111.model.TFunctionDefinition;
@@ -659,25 +660,107 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         parameters.accept(this, context);
         Arguments arguments = parameters.convertArguments((value, conversion) -> this.typeConverter.convertValue(value, conversion, this.lib));
 
+        // Make function context
         Expression function = element.getFunction();
         FunctionType functionType = (FunctionType) element.getFunction().getType();
         List<FormalParameter> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
+        DMNContext functionContext = makeFunctionContext(context, formalParameters, argList);
+
+        // Evaluate function
         if (isSimpleName(function)) {
             String functionName = functionName(function);
-            return evaluateFunction(functionName, functionType, argList, context);
+            return evaluateFunction(functionName, functionType, functionContext);
         } else {
-            Object functionDefinition = function.accept(this, context);
-            return evaluateFunction(functionDefinition, functionType, argList, context);
+            Object functionDefinition = function.accept(this, functionContext);
+            return evaluateFunction(functionDefinition, functionType, functionContext);
         }
     }
 
-    private Object evaluateFunction(String functionName, FunctionType functionType, List<Object> argList, DMNContext context) {
+    private DMNContext makeFunctionContext(DMNContext context, List<FormalParameter> formalParameters, List<Object> argList) {
+        DMNContext functionContext = DMNContext.of(
+                context, DMNContextKind.FUNCTION,
+                context.getElement(),
+                dmnTransformer.getEnvironmentFactory().emptyEnvironment(),
+                RuntimeEnvironment.of()
+        );
+        bindParameters(functionContext, formalParameters, argList);
+        return functionContext;
+    }
+
+    private void bindParameters(DMNContext functionContext, List<FormalParameter> formalParameters, List<Object> argList) {
+        for (int i = 0; i< formalParameters.size(); i++) {
+            FormalParameter parameter = formalParameters.get(i);
+            String name = parameter.getName();
+            Type type = parameter.getType();
+            // check for optional and varArgs parameters (builtin functions)
+            if (parameter.isOptional()) {
+                if (i < argList.size()) {
+                    Object value = applyImplicitConversions(argList, i, type);
+                    // Add variable declaration and bind
+                    functionContext.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
+                    functionContext.bind(name, value);
+                }
+            } else if (parameter.isVarArg()) {
+                List<Object> value = new ArrayList<>();
+                for (int j = i; j < argList.size(); j++) {
+                    Object varArg = applyImplicitConversions(argList, j, type);
+                    value.add(varArg);
+                }
+                // Add variable declaration and bind
+                functionContext.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
+                functionContext.bind(name, value);
+            } else {
+                Object value = applyImplicitConversions(argList, i, type);
+                // Add variable declaration and bind
+                functionContext.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
+                functionContext.bind(name, value);
+            }
+        }
+    }
+
+    private Object applyImplicitConversions(List<Object> argList, int i, Type type) {
+        Object value = argList.get(i);
+        // Check value and apply implicit conversions
+        Result result = this.typeConverter.convertValue(value, type, this.lib);
+        value = Result.value(result);
+        return value;
+    }
+
+    private List<Object> extractArguments(DMNContext context, List<FormalParameter> parameters) {
+        List<Object> argList = new ArrayList<>();
+        for (int i = 0; i< parameters.size(); i++) {
+            FormalParameter parameter = parameters.get(i);
+            String name = parameter.getName();
+            // check for optional and varArgs parameters (builtin functions)
+            if (parameter.isOptional()) {
+                if (context.isBound(name)) {
+                    Object value = context.lookupBinding(name);
+                    argList.add(value);
+                }
+            } else if (parameter.isVarArg()) {
+                if (context.isBound(name)) {
+                    List<Object> varArgs = (List) context.lookupBinding(name);
+                    for (Object varArg: varArgs) {
+                        argList.add(varArg);
+                    }
+                }
+            } else {
+                Object value = context.lookupBinding(name);
+                argList.add(value);
+            }
+        }
+        return argList;
+    }
+
+    private Object evaluateFunction(String functionName, FunctionType functionType, DMNContext context) {
         Object function = context.lookupBinding(functionName);
         if (isFunctionDefinition(function)) {
-            return evaluateFunction(function, functionType, argList, context);
+            return evaluateFunction(function, functionType, context);
         } else {
             String javaFunctionName = javaFunctionName(functionName);
+            List<FormalParameter> parameters = functionType.getParameters();
+            List<Object> argList = extractArguments(context, parameters);
             if ("sort".equals(javaFunctionName)) {
                 Object sortFunction = argList.get(1);
                 if (sortFunction instanceof Function) {
@@ -695,17 +778,18 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         }
     }
 
-    private Object evaluateFunction(Object function, FunctionType functionType, List<Object> argList, DMNContext context) {
+    private Object evaluateFunction(Object function, FunctionType functionType, DMNContext context) {
         if (function == null) {
             throw new DMNRuntimeException(String.format("Missing function definition, expecting value of type for '%s'", functionType));
         } else if (function instanceof DMNInvocable) {
             DMNInvocable runtimeFunction = (DMNInvocable) function;
+            List<Object> argList = extractArguments(context, functionType.getParameters());
             Result result = this.dmnInterpreter.evaluate((TInvocable) runtimeFunction.getInvocable(), argList, context);
             return Result.value(result);
         } else if (function instanceof DMNFunctionDefinition) {
-            return evaluateFunctionDefinition((DMNFunctionDefinition) function, argList, context);
+            return evaluateFunctionDefinition((DMNFunctionDefinition) function, context);
         } else if (function instanceof FEELFunction) {
-            return evaluateFunction((FEELFunction) function, functionType, argList, context);
+            return evaluateFunction((FEELFunction) function, functionType, context);
         } else if (function instanceof LambdaExpression) {
 //            return evaluateLambdaExpression((LambdaExpression) function, argList, context);
             throw new DMNRuntimeException(String.format("Not supported yet %s", function.getClass().getSimpleName()));
@@ -714,8 +798,9 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         }
     }
 
-    private Object evaluateFunction(FEELFunction runtimeFunction, FunctionType functionType, List<Object> argList, DMNContext context) {
+    private Object evaluateFunction(FEELFunction runtimeFunction, FunctionType functionType, DMNContext context) {
         FunctionDefinition functionDefinition = (FunctionDefinition) runtimeFunction.getFunctionDefinition();
+        List<Object> argList = extractArguments(context, functionType.getParameters());
         if (functionDefinition.isExternal()) {
             if (isJavaFunction(functionDefinition.getBody())) {
                 return evaluateExternalJavaFunction(functionDefinition, argList, context);
@@ -727,12 +812,14 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 // Use the one with inferred types
                 functionDefinition = ((FEELFunctionType) functionType).getFunctionDefinition();
             }
-            return evaluateFunctionDefinition(functionDefinition, argList, context);
+            return evaluateFunctionDefinition(functionDefinition, context);
         }
     }
 
-    private Object evaluateFunctionDefinition(DMNFunctionDefinition runtimeFunction, List<Object> argList, DMNContext context) {
+    private Object evaluateFunctionDefinition(DMNFunctionDefinition runtimeFunction, DMNContext context) {
         TFunctionDefinition functionDefinition = (TFunctionDefinition) runtimeFunction.getFunctionDefinition();
+        FunctionType functionType = (FunctionType) runtimeFunction.getType();
+        List<Object> argList = extractArguments(context, functionType.getParameters());
         TFunctionKind kind = functionDefinition.getKind();
         if (this.dmnTransformer.isFEELFunction(kind)) {
             Result result = this.dmnInterpreter.evaluate(functionDefinition, argList, context);
@@ -756,17 +843,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         return evaluateExternalJavaFunction(info, argList);
     }
 
-    public Object evaluateFunctionDefinition(FunctionDefinition functionDefinition, List<Object> argList, DMNContext parentContext) {
-        // Create new environments and bind parameters
-        DMNContext functionContext = this.dmnTransformer.makeFunctionContext(functionDefinition, parentContext);
-        List<FormalParameter> formalParameterList = functionDefinition.getFormalParameters();
-        for (int i = 0; i < formalParameterList.size(); i++) {
-            FormalParameter param = formalParameterList.get(i);
-            String name = param.getName();
-            Object value = argList.get(i);
-            functionContext.bind(name, value);
-        }
-
+    public Object evaluateFunctionDefinition(FunctionDefinition functionDefinition, DMNContext functionContext) {
         // Execute function body
         Expression body = functionDefinition.getBody();
         Object output;
@@ -779,7 +856,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         return output;
     }
 
-    private Object evaluateLambdaExpression(LambdaExpression binding, List<Object> argList, DMNContext context) {
+    private Object evaluateLambdaExpression(LambdaExpression binding, List<Object> argList) {
         String functionName = "apply";
         return evaluateMethod(binding, binding.getClass(), functionName, argList);
     }

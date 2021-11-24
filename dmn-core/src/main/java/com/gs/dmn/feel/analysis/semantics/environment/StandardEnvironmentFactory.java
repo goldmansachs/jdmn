@@ -97,7 +97,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     }
 
     public static BuiltinFunctionType makeFlattenBuiltinFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new Parameter("list", listType));
+        return new BuiltinFunctionType(listType, new Parameter("list", ANY_LIST));
     }
 
     public static BuiltinFunctionType makeSortBuiltinFunctionType(Type listType, Type functionType) {

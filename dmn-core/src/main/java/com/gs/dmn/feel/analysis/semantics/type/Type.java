@@ -16,6 +16,7 @@ import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.Range;
 import com.gs.dmn.runtime.function.BuiltinFunction;
 import com.gs.dmn.runtime.function.DMNFunctionDefinition;
 import com.gs.dmn.runtime.function.DMNInvocable;
@@ -29,7 +30,7 @@ import java.util.List;
 
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
-import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_TIME;
+import static com.gs.dmn.feel.analysis.semantics.type.ComparableDataType.COMPARABLE;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
@@ -81,34 +82,28 @@ public abstract class Type {
 
 
     /*
-        A value conforms to type type when the value is in the semantic domain of type (in varies from one dialect to another)
+        A value conforms to a type when the value is in the semantic domain of type (in varies from one dialect to another)
     */
     public static boolean conformsTo(Object value, Type type) {
         if (type == ANY) {
             return true;
-        } else if (type == NUMBER
-                && value instanceof Number) {
+        } else if (type == NUMBER && isNumber(value)) {
             return true;
-        } else if (type == STRING
-                && value instanceof String) {
+        } else if (type == STRING && isString(value)) {
             return true;
-        } else if (type == BOOLEAN
-                && value instanceof Boolean) {
+        } else if (type == BOOLEAN && value instanceof Boolean) {
             return true;
-        } else if (type == DATE
-                && (value instanceof XMLGregorianCalendar || value instanceof LocalDate)) {
+        } else if (type == DATE && isDate(value)) {
             return true;
-        } else if (type == TIME
-                && (value instanceof XMLGregorianCalendar || value instanceof OffsetTime || value instanceof LocalTime)) {
+        } else if (type == TIME && isTime(value)) {
             return true;
-        } else if (type == DATE_TIME
-                && (value instanceof XMLGregorianCalendar || value instanceof LocalDateTime || value instanceof OffsetDateTime || value instanceof ZonedDateTime)) {
+        } else if (type instanceof DateTimeType && isDateTime(value)) {
             return true;
-        } else if (type instanceof DurationType
-                && (value instanceof Duration || value instanceof TemporalAmount)) {
+        } else if (type instanceof DurationType && isDuration(value)) {
             return true;
-        } else if (value instanceof Context
-                && (type instanceof ContextType || type instanceof ItemDefinitionType)) {
+        } else if (type == COMPARABLE && isComparable(value)) {
+            return true;
+        } else if ((type instanceof ContextType || type instanceof ItemDefinitionType) && value instanceof Context) {
             Context context = (Context) value;
             CompositeDataType contextType = (CompositeDataType) type;
             for (String member : contextType.getMembers()) {
@@ -117,7 +112,9 @@ public abstract class Type {
                 }
             }
             return true;
-        } else if (value instanceof List && type instanceof ListType) {
+        } else if (type instanceof RangeType && value instanceof Range) {
+            return true;
+        } else if (type instanceof ListType && value instanceof List) {
             for (Object obj : (List) value) {
                 if (!conformsTo(obj, ((ListType) type).getElementType())) {
                     return false;
@@ -139,6 +136,35 @@ public abstract class Type {
         } else {
             return false;
         }
+    }
+
+    private static boolean isString(Object value) {
+        return value instanceof String;
+    }
+
+    private static boolean isNumber(Object value) {
+        return value instanceof Number;
+    }
+
+    private static boolean isDuration(Object value) {
+        return value instanceof Duration || value instanceof TemporalAmount;
+    }
+
+    private static boolean isDateTime(Object value) {
+        return value instanceof XMLGregorianCalendar || value instanceof LocalDateTime || value instanceof OffsetDateTime || value instanceof ZonedDateTime;
+    }
+
+    private static boolean isTime(Object value) {
+        return value instanceof XMLGregorianCalendar || value instanceof OffsetTime || value instanceof LocalTime;
+    }
+
+    private static boolean isDate(Object value) {
+        return value instanceof XMLGregorianCalendar || value instanceof LocalDate;
+    }
+
+    private static boolean isComparable(Object value) {
+        return isNumber(value) || isString(value) ||
+                isDate(value) || isTime(value) || isDateTime(value) || isDuration(value);
     }
 
     protected static boolean equivalentTo(List<Type> list1, List<Type> list2) {

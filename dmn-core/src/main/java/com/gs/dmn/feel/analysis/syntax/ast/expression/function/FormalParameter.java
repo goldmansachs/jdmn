@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
+import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
@@ -25,14 +26,31 @@ public class FormalParameter extends Element {
     private TypeExpression typeExpression;
     protected Type type;
 
+    protected final boolean optional;
+    protected final boolean varArg;
+
     public FormalParameter(String name, TypeExpression typeExpression) {
         this.name = name;
         this.typeExpression = typeExpression;
+        this.optional = false;
+        this.varArg = false;
     }
 
     public FormalParameter(String name, Type type) {
         this.name = name;
         this.type = type;
+        this.optional = false;
+        this.varArg = false;
+    }
+
+    protected FormalParameter(String name, Type type, boolean optional, boolean varArg) {
+        this.name = name;
+        this.type = type;
+        this.optional = optional;
+        this.varArg = varArg;
+        if (optional && varArg) {
+            throw new SemanticError("Parameter cannot be optional and varArg in the same time");
+        }
     }
 
     public String getName() {
@@ -49,6 +67,14 @@ public class FormalParameter extends Element {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public boolean isOptional() {
+        return optional;
+    }
+
+    public boolean isVarArg() {
+        return varArg;
     }
 
     @Override
@@ -73,6 +99,6 @@ public class FormalParameter extends Element {
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %s)", this.getClass().getSimpleName(), name, type);
+        return String.format("%s(%s, %s, %s, %s)", this.getClass().getSimpleName(), name, type, optional, varArg);
     }
 }

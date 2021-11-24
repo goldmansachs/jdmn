@@ -144,8 +144,9 @@ public class FunctionInvocation extends Expression {
             Type listType = parameters.getParameterType(0, "list");
             return StandardEnvironmentFactory.makeUnionBuiltinFunctionType(listType);
         } else if("flatten".equals(functionName)) {
-            Expression listParameter = parameters.getParameter(0, "list");
-            Type elementType = nestedElementType(listParameter);
+            Expression inputListParameter = parameters.getParameter(0, "list");
+            Type inputListType = inputListParameter.getType();
+            Type elementType = nestedElementType(inputListParameter);
             return StandardEnvironmentFactory.makeFlattenBuiltinFunctionType(new ListType(elementType));
         } else if ("sort".equals(functionName)) {
             Parameters parameters = this.getParameters();
@@ -160,7 +161,7 @@ public class FunctionInvocation extends Expression {
         } else if("removeAll".equals(functionName)) {
             Parameters parameters = this.getParameters();
             Type list1Type = parameters.getParameterType(0, "list1");
-            return StandardEnvironmentFactory.makeRemoveBuiltinFunctionType(list1Type);
+            return StandardEnvironmentFactory.makeSignavioRemoveAllBuiltinFunctionType(list1Type);
         } else {
             return functionDeclaration.getType();
         }
