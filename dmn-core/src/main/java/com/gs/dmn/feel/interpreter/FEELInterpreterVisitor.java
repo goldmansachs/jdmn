@@ -726,32 +726,6 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         return value;
     }
 
-    private List<Object> extractArguments(DMNContext context, List<FormalParameter> parameters) {
-        List<Object> argList = new ArrayList<>();
-        for (int i = 0; i< parameters.size(); i++) {
-            FormalParameter parameter = parameters.get(i);
-            String name = parameter.getName();
-            // check for optional and varArgs parameters (builtin functions)
-            if (parameter.isOptional()) {
-                if (context.isBound(name)) {
-                    Object value = context.lookupBinding(name);
-                    argList.add(value);
-                }
-            } else if (parameter.isVarArg()) {
-                if (context.isBound(name)) {
-                    List<Object> varArgs = (List) context.lookupBinding(name);
-                    for (Object varArg: varArgs) {
-                        argList.add(varArg);
-                    }
-                }
-            } else {
-                Object value = context.lookupBinding(name);
-                argList.add(value);
-            }
-        }
-        return argList;
-    }
-
     private Object evaluateFunction(String functionName, FunctionType functionType, List<Object> argList, DMNContext context) {
         Object function = context.lookupBinding(functionName);
         if (isFunctionDefinition(function)) {
@@ -781,9 +755,9 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         } else if (function instanceof DMNInvocable) {
             return evaluateInvocableDefinition((DMNInvocable) function, argList);
         } else if (function instanceof DMNFunction) {
-            return evaluateFunctionDefinition((DMNFunction) function, argList, context);
+            return evaluateFunctionDefinition((DMNFunction) function, argList);
         } else if (function instanceof FEELFunction) {
-            return evaluateFunctionDefinition((FEELFunction) function, argList, context);
+            return evaluateFunctionDefinition((FEELFunction) function, argList);
         } else {
             throw new DMNRuntimeException(String.format("Not supported yet %s", function.getClass().getSimpleName()));
         }
@@ -797,14 +771,14 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         return Result.value(result);
     }
 
-    private Object evaluateFunctionDefinition(FEELFunction runtimeFunction, List<Object> argList, DMNContext invocationContext) {
+    private Object evaluateFunctionDefinition(FEELFunction runtimeFunction, List<Object> argList) {
         FunctionDefinition functionDefinition = (FunctionDefinition) runtimeFunction.getFunctionDefinition();
         FunctionType functionType = (FunctionType) functionDefinition.getType();
         DMNContext definitionContext = (DMNContext) runtimeFunction.getDefinitionContext();
         DMNContext functionContext = makeFunctionContext(definitionContext, functionType.getParameters(), argList);
         if (functionDefinition.isExternal()) {
             if (isJavaFunction(functionDefinition.getBody())) {
-                return evaluateExternalJavaFunction(functionDefinition, argList, invocationContext);
+                return evaluateExternalJavaFunction(functionDefinition, argList, functionContext);
             } else {
                 throw new DMNRuntimeException(String.format("Not supported external function '%s'", functionDefinition));
             }
@@ -813,7 +787,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         }
     }
 
-    private Object evaluateFunctionDefinition(DMNFunction runtimeFunction, List<Object> argList, DMNContext invocationContext) {
+    private Object evaluateFunctionDefinition(DMNFunction runtimeFunction, List<Object> argList) {
         TFunctionDefinition functionDefinition = (TFunctionDefinition) runtimeFunction.getFunctionDefinition();
         FunctionType functionType = (FunctionType) runtimeFunction.getType();
         DMNContext definitionContext = (DMNContext) runtimeFunction.getDefinitionContext();
@@ -823,7 +797,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             Result result = this.dmnInterpreter.evaluate(functionDefinition, argList, functionContext);
             return Result.value(result);
         } else if (this.dmnTransformer.isJavaFunction(kind)) {
-            return evaluateExternalJavaFunction(functionDefinition, argList, invocationContext);
+            return evaluateExternalJavaFunction(functionDefinition, argList, functionContext);
         } else {
             throw new DMNRuntimeException(String.format("Kind '%s' is not supported yet", kind.value()));
         }
