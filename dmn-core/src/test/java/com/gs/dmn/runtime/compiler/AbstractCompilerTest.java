@@ -45,7 +45,7 @@ public abstract class AbstractCompilerTest extends AbstractTest {
     protected ClassData makeClassData() {
         FunctionDefinition element = new FunctionDefinition(Arrays.asList(), null, new NumericLiteral("123"), false);
         element.setType(new BuiltinFunctionType(Arrays.asList(), NumberType.NUMBER));
-        Function feelFunction = FEELFunction.of(element);
+        Function feelFunction = FEELFunction.of(element, null);
 
         DMNContext context = null;
         DMNModelRepository repository = new DMNModelRepository();

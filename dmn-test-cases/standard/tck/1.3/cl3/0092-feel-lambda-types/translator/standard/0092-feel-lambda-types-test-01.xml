@@ -43,7 +43,6 @@
         </resultNode>
     </testCase>
 
-<!--
     <testCase id="005">
         <description>A BKM may return a UDF lambda with a closed over formal param</description>
         <resultNode name="decision_005_1" type="decision">
@@ -52,9 +51,7 @@
             </expected>
         </resultNode>
     </testCase>
--->
 
-<!--
     <testCase id="006">
         <description>A BKM may return a Function Definition lambda with a closed over formal param</description>
         <resultNode name="decision_006_1" type="decision">
@@ -63,7 +60,6 @@
             </expected>
         </resultNode>
     </testCase>
--->
 
     <testCase id="007">
         <description>A decision may return a UDF lambda with a closed over info requirement value</description>
@@ -88,7 +84,6 @@
         </resultNode>
     </testCase>
 
-<!--
     <testCase id="009">
         <description>A lambda's named params take precedence over scope values where the lambda is invoked</description>
         <resultNode name="decision_009_1" type="decision">
@@ -97,7 +92,6 @@
             </expected>
         </resultNode>
     </testCase>
--->
 
 <!--
     <testCase id="010">
@@ -110,7 +104,6 @@
     </testCase>
 -->
 
-<!--
     <testCase id="010_a">
         <description>lambdas (func defn) and closures may go more than one level deep - (currying)</description>
         <resultNode name="decision_010_1_a" type="decision">
@@ -119,9 +112,7 @@
             </expected>
         </resultNode>
     </testCase>
--->
 
-<!--
     <testCase id="011">
         <description>lambdas (with closures) may be passed as params</description>
 
@@ -135,9 +126,7 @@
             </expected>
         </resultNode>
     </testCase>
--->
 
-<!--
     <testCase id="012">
         <description>BKM may be passed as lambda</description>
         <resultNode name="decision_012_1" type="decision">
@@ -146,9 +135,7 @@
             </expected>
         </resultNode>
     </testCase>
--->
 
-<!--
     <testCase id="013">
         <description>Decision Service may be passed as lambda</description>
         <resultNode name="decision_013_1" type="decision">
@@ -157,7 +144,6 @@
             </expected>
         </resultNode>
     </testCase>
--->
 
 <!--
     <testCase id="014">
@@ -181,7 +167,6 @@
     </testCase>
 -->
 
-<!--
     <testCase id="016">
         <description>Invoking passed lambda with incorrect params still gives error</description>
         <resultNode name="decision_016_1" type="decision" errorResult="true">
@@ -190,8 +175,8 @@
             </expected>
         </resultNode>
     </testCase>
--->
 
+<!--
     <testCase id="017">
         <description>Local decision scope values may be closed over and used in built-in func</description>
         <inputNode name="input_017_1">
@@ -208,6 +193,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
     <testCase id="018">
         <description>BKM may be passed to sort func</description>

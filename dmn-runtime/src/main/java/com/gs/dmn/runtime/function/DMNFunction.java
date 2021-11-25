@@ -14,17 +14,19 @@ package com.gs.dmn.runtime.function;
 
 import com.gs.dmn.runtime.Function;
 
-public class DMNFunctionDefinition extends Function {
-    public static Function of(Object functionDefinition, Object type) {
-        return new DMNFunctionDefinition(functionDefinition, type);
+public class DMNFunction extends Function {
+    public static Function of(Object functionDefinition, Object type, Object definitionContext) {
+        return new DMNFunction(functionDefinition, type, definitionContext);
     }
 
     private final Object functionDefinition;
     private final Object type;
+    private final Object definitionContext;
 
-    private DMNFunctionDefinition(Object functionDefinition, Object type) {
+    private DMNFunction(Object functionDefinition, Object type, Object definitionContext) {
         this.functionDefinition = functionDefinition;
         this.type = type;
+        this.definitionContext = definitionContext;
     }
 
     public Object getFunctionDefinition() {
@@ -33,6 +35,10 @@ public class DMNFunctionDefinition extends Function {
 
     public Object getType() {
         return type;
+    }
+
+    public Object getDefinitionContext() {
+        return definitionContext;
     }
 
     @Override

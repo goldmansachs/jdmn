@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.runtime.compiler;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
@@ -51,8 +50,7 @@ public class ClassParts {
             return new ClassParts(feelLibClassName, returnType, applyMethod);
         } else if (function instanceof DMNInvocable) {
             TInvocable invocable = (TInvocable) ((DMNInvocable) function).getInvocable();
-            Declaration declaration = (Declaration) ((DMNInvocable) function).getDeclaration();
-            FunctionType functionType = (FunctionType) declaration.getType();
+            FunctionType functionType = (FunctionType) ((DMNInvocable) function).getType();
             if (invocable instanceof TBusinessKnowledgeModel) {
                 TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) invocable).getEncapsulatedLogic();
                 TExpression value = encapsulatedLogic.getExpression().getValue();

@@ -18,7 +18,7 @@ import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Range;
 import com.gs.dmn.runtime.function.BuiltinFunction;
-import com.gs.dmn.runtime.function.DMNFunctionDefinition;
+import com.gs.dmn.runtime.function.DMNFunction;
 import com.gs.dmn.runtime.function.DMNInvocable;
 import com.gs.dmn.runtime.function.FEELFunction;
 
@@ -125,10 +125,10 @@ public abstract class Type {
             FunctionDefinition functionDefinition = (FunctionDefinition) ((FEELFunction) value).getFunctionDefinition();
             return conformsTo(functionDefinition.getType(), type);
         } else if (value instanceof DMNInvocable && type instanceof FunctionType) {
-            Declaration declaration = (Declaration) ((DMNInvocable) value).getDeclaration();
-            return conformsTo(declaration.getType(), type);
-        } else if (value instanceof DMNFunctionDefinition && type instanceof FunctionType) {
-            Type valueType = (Type) ((DMNFunctionDefinition) value).getType();
+            Type valueType = (Type) ((DMNInvocable) value).getType();
+            return conformsTo(valueType, type);
+        } else if (value instanceof DMNFunction && type instanceof FunctionType) {
+            Type valueType = (Type) ((DMNFunction) value).getType();
             return conformsTo(valueType, type);
         } else if (value instanceof BuiltinFunction && type instanceof FunctionType) {
             Declaration declaration = (Declaration) ((BuiltinFunction) value).getDeclaration();

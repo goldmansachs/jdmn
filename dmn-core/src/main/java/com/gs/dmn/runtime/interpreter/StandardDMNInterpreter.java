@@ -16,7 +16,6 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.LogErrorHandler;
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -28,7 +27,7 @@ import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.HitPolicy;
-import com.gs.dmn.runtime.function.DMNFunctionDefinition;
+import com.gs.dmn.runtime.function.DMNFunction;
 import com.gs.dmn.runtime.function.DMNInvocable;
 import com.gs.dmn.runtime.listener.Arguments;
 import com.gs.dmn.runtime.listener.EventListener;
@@ -408,16 +407,16 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         evaluateKnowledgeRequirements(importPath, bkm, knowledgeRequirement, context);
 
         // Bind name to DMN definition
-        Declaration declaration = context.lookupVariableDeclaration(bkm.getName());
-        bind(context, reference, DMNInvocable.of(bkm, declaration));
+        Type type = dmnTransformer.drgElementVariableFEELType(bkm);
+        bind(context, reference, DMNInvocable.of(bkm, type, context));
     }
 
     private void applyDecisionService(DRGElementReference<TDecisionService> reference, DMNContext context) {
         TDecisionService service = reference.getElement();
 
         // Bind name to DMN definition
-        Declaration declaration = context.lookupVariableDeclaration(service.getName());
-        bind(context, reference, DMNInvocable.of(service, declaration));
+        Type type = dmnTransformer.drgElementVariableFEELType(service);
+        bind(context, reference, DMNInvocable.of(service, type, context));
     }
 
     protected boolean dagOptimisation() {
@@ -735,7 +734,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
     private Result evaluateFunctionDefinitionExpression(TDRGElement element, TFunctionDefinition expression, DMNContext context, DRGElement elementAnnotation) {
         Type type = this.dmnTransformer.expressionType(element, expression, context);
-        Function function = DMNFunctionDefinition.of(expression, type);
+        Function function = DMNFunction.of(expression, type, context);
         return Result.of(function, type);
     }
 

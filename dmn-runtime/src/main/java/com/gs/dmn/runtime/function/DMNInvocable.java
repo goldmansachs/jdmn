@@ -15,28 +15,34 @@ package com.gs.dmn.runtime.function;
 import com.gs.dmn.runtime.Function;
 
 public class DMNInvocable extends Function {
-    public static Function of(Object invocable, Object declaration) {
-        return new DMNInvocable(invocable, declaration);
+    public static Function of(Object invocable, Object type, Object definitionContext) {
+        return new DMNInvocable(invocable, type, definitionContext);
     }
 
     private final Object invocable;
-    private final Object declaration;
+    private final Object type;
+    private final Object definitionContext;
 
-    private DMNInvocable(Object invocable, Object declaration) {
+    private DMNInvocable(Object invocable, Object type, Object definitionContext) {
         this.invocable = invocable;
-        this.declaration = declaration;
+        this.type = type;
+        this.definitionContext = definitionContext;
     }
 
     public Object getInvocable() {
         return invocable;
     }
 
-    public Object getDeclaration() {
-        return declaration;
+    public Object getType() {
+        return type;
+    }
+
+    public Object getDefinitionContext() {
+        return definitionContext;
     }
 
     @Override
     public String toString() {
-        return String.format("%s(invocable='%s' declaration='%s')", getClass().getSimpleName(), invocable, declaration);
+        return String.format("%s(invocable='%s' type='%s')", getClass().getSimpleName(), invocable, type);
     }
 }

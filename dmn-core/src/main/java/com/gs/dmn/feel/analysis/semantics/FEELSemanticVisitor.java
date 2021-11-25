@@ -446,7 +446,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
                 // Process function definition
                 FunctionDefinition functionDefinition = feelFunctionType.getFunctionDefinition();
                 if (functionDefinition != null) {
-                    // Bind names to types in function type
+                    // Bind names to types in function definition
                     bindNameToTypes(functionDefinition.getFormalParameters(), arguments);
 
                     // Set return type
