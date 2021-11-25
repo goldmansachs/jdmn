@@ -11,6 +11,13 @@
         </functionItem>
     </itemDefinition>
 
+    <itemDefinition name="lambda_number_number_returns_number">
+        <functionItem outputTypeRef="number">
+            <parameters name="n1" typeRef="number" />
+            <parameters name="n2" typeRef="number" />
+        </functionItem>
+    </itemDefinition>
+
     <itemDefinition name="lambda_string_string_returns_bool">
         <functionItem outputTypeRef="boolean">
             <parameters name="s1" typeRef="string" />
@@ -26,12 +33,12 @@
     <decision name="decision_001_2" id="_decision_001_2">
         <variable name="decision_001_2"/>
         <literalExpression>
-            <text>function (a) 1 + a</text>
+            <text>function (a: number) 1 + a</text>
         </literalExpression>
     </decision>
 
     <decision name="decision_001_1" id="_decision_001_1">
-        <variable name="decision_001_1"/>
+        <variable name="decision_001_1" typeRef="number"/>
         <informationRequirement>
             <requiredDecision href="#_decision_001_2"/>
         </informationRequirement>
@@ -48,14 +55,14 @@
         <variable name="decision_002_2"/>
         <functionDefinition>
             <formalParameter name="a" typeRef="number"/>
-            <literalExpression>
+            <literalExpression typeRef="number">
                 <text>1 + a</text>
             </literalExpression>
         </functionDefinition>
     </decision>
 
     <decision name="decision_002_1" id="_decision_002_1">
-        <variable name="decision_002_1"/>
+        <variable name="decision_002_1" typeRef="number"/>
         <informationRequirement>
             <requiredDecision href="#_decision_002_2"/>
         </informationRequirement>
@@ -72,13 +79,13 @@
         <variable name="bkm_003_1"/>
         <encapsulatedLogic>
             <literalExpression>
-                <text>function (a) 1 + a</text>
+                <text>function (a: number) 1 + a</text>
             </literalExpression>
         </encapsulatedLogic>
     </businessKnowledgeModel>
 
     <decision name="decision_003_1" id="_decision_003_1">
-        <variable name="decision_003_1"/>
+        <variable name="decision_003_1" typeRef="number"/>
         <knowledgeRequirement>
             <requiredKnowledge href="#_bkm_003_1"/>
         </knowledgeRequirement>
@@ -104,7 +111,7 @@
     </businessKnowledgeModel>
 
     <decision name="decision_004_1" id="_decision_004_1">
-        <variable name="decision_004_1"/>
+        <variable name="decision_004_1" typeRef="number"/>
         <knowledgeRequirement>
             <requiredKnowledge href="#_bkm_004_1"/>
         </knowledgeRequirement>
@@ -122,13 +129,13 @@
         <encapsulatedLogic>
             <formalParameter name="a" typeRef="number"/>
             <literalExpression>
-                <text>function (b) a * b</text>
+                <text>function (b: number) a * b</text>
             </literalExpression>
         </encapsulatedLogic>
     </businessKnowledgeModel>
 
     <decision name="decision_005_1" id="_decision_005_1">
-        <variable name="decision_005_1"/>
+        <variable name="decision_005_1" typeRef="number"/>
         <knowledgeRequirement>
             <requiredKnowledge href="#_bkm_005_1"/>
         </knowledgeRequirement>
@@ -155,7 +162,7 @@
     </businessKnowledgeModel>
 
     <decision name="decision_006_1" id="_decision_006_1">
-        <variable name="decision_006_1"/>
+        <variable name="decision_006_1" typeRef="number"/>
         <knowledgeRequirement>
             <requiredKnowledge href="#_bkm_006_1"/>
         </knowledgeRequirement>
@@ -183,7 +190,7 @@
     </decision>
 
     <decision name="decision_007_1" id="_decision_007_1">
-        <variable name="decision_007_1"/>
+        <variable name="decision_007_1" typeRef="number"/>
         <informationRequirement>
             <requiredDecision href="#_decision_007_2"/>
         </informationRequirement>
@@ -201,13 +208,13 @@
         <encapsulatedLogic>
             <formalParameter name="a" typeRef="number"/>
             <literalExpression>
-                <text>function (a, b) a * b</text>
+                <text>function (a: number, b: number) a * b</text>
             </literalExpression>
         </encapsulatedLogic>
     </businessKnowledgeModel>
 
     <decision name="decision_008_1" id="_decision_008_1">
-        <variable name="decision_008_1"/>
+        <variable name="decision_008_1" typeRef="number"/>
         <knowledgeRequirement>
             <requiredKnowledge href="#_bkm_008_1"/>
         </knowledgeRequirement>
@@ -225,7 +232,7 @@
         <encapsulatedLogic>
             <formalParameter name="a" typeRef="number"/>
             <literalExpression>
-                <text>function (b) a * b</text>
+                <text>function (b: number) a * b</text>
             </literalExpression>
         </encapsulatedLogic>
     </businessKnowledgeModel>
@@ -238,7 +245,7 @@
         <context>
             <contextEntry>
                 <!-- var 'a' in scope for expression below -->
-                <variable name="a"/>
+                <variable name="c" typeRef="number"/>
                 <literalExpression>
                     <text>10</text>
                 </literalExpression>
@@ -246,7 +253,7 @@
             <contextEntry>
                 <!-- lambda from bkm has 'a' closed over with value 100 - so it gets used, not the 10 from context
                 var above -->
-                <literalExpression>
+                <literalExpression typeRef="number">
                     <text>bkm_009_1(100)(2)</text>
                 </literalExpression>
             </contextEntry>
@@ -261,13 +268,13 @@
         <encapsulatedLogic>
             <formalParameter name="a" typeRef="number"/>
             <literalExpression>
-                <text>function (b) function(c) function(d) a*b*c*d</text>
+                <text>function (b: number) function(c: number) function(d: number) a*b*c*d</text>
             </literalExpression>
         </encapsulatedLogic>
     </businessKnowledgeModel>
 
     <decision name="decision_010_2" id="_decision_010_2">
-        <variable name="decision_010_2"/>
+        <variable name="decision_010_2" typeRef="number"/>
         <knowledgeRequirement>
             <requiredKnowledge href="#_bkm_010_1"/>
         </knowledgeRequirement>
@@ -279,7 +286,7 @@
     </decision>
 
     <decision name="decision_010_1" id="_decision_010_1">
-        <variable name="decision_010_1"/>
+        <variable name="decision_010_1" typeRef="number"/>
         <informationRequirement>
             <requiredDecision href="#_decision_010_2"/>
         </informationRequirement>
@@ -505,9 +512,9 @@
     <!-- -->
 
     <businessKnowledgeModel name="bkm_016_1" id="_bkm_016_1">
-        <variable name="bkm_016_1"/>
+        <variable name="bkm_016_1" typeRef="number"/>
         <encapsulatedLogic>
-            <formalParameter name="fn1"/>
+            <formalParameter name="fn1" typeRef="lambda_number_number_returns_number"/>
             <literalExpression>
                 <!-- passed in 'sqrt' func is invoked with too many params -->
                 <text>fn1(10,2)</text>
@@ -560,9 +567,9 @@
     <businessKnowledgeModel name="bkm_018" id="_bkm_018">
         <variable name="bkm_018"/>
         <encapsulatedLogic>
-            <formalParameter name="p1"/>
-            <formalParameter name="p2"/>
-            <literalExpression>
+            <formalParameter name="p1" typeRef="string"/>
+            <formalParameter name="p2" typeRef="string"/>
+            <literalExpression typeRef="boolean">
                 <text>if p1 = "a" then true else false</text>
             </literalExpression>
         </encapsulatedLogic>
