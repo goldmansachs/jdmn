@@ -10,7 +10,7 @@
     <description>week of year function</description>
 
     <inputData name="date_input_001" id="_date_input_001">
-        <variable name="date_input_001"/>
+        <variable name="date_input_001" typeRef="Any" /> <!-- used to externally supply FEEL:date or other type of values defined in the TCK test file -->
     </inputData>
 
     <decision name="date_001" id="_date_001">

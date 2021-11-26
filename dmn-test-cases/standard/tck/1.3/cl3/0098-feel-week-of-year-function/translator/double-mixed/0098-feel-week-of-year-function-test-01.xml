@@ -115,7 +115,7 @@
 
     <testCase id="datetime_004">
         <description>datetime: unknown type at compile time with valid datetime as runtime input</description>
-        <inputNode name="datetime_input_001">
+        <inputNode name="date_input_001">
             <value xsi:type="xsd:dateTime">1970-01-01T10:10:10</value>
         </inputNode>
         <resultNode name="datetime_004" type="decision">
