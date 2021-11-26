@@ -93,7 +93,6 @@
         </resultNode>
     </testCase>
 
-<!--
     <testCase id="010">
         <description>lambdas (UDF) and closures may go more than one level deep - (currying)</description>
         <resultNode name="decision_010_1" type="decision">
@@ -102,7 +101,6 @@
             </expected>
         </resultNode>
     </testCase>
--->
 
     <testCase id="010_a">
         <description>lambdas (func defn) and closures may go more than one level deep - (currying)</description>

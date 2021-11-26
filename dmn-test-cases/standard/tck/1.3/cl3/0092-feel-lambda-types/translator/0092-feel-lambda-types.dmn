@@ -274,7 +274,7 @@
     </businessKnowledgeModel>
 
     <decision name="decision_010_2" id="_decision_010_2">
-        <variable name="decision_010_2" typeRef="number"/>
+        <variable name="decision_010_2"/>
         <knowledgeRequirement>
             <requiredKnowledge href="#_bkm_010_1"/>
         </knowledgeRequirement>
