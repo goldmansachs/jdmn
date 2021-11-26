@@ -124,12 +124,12 @@
         </literalExpression>
     </decision>
 
-    <!-- has an explicit context return type but returns boolean -->
+    <!-- has an explicit context return type but return boolean -->
     <businessKnowledgeModel name="bkm_002" id="_bkm_002">
-        <variable name="bkm_002"/>
-        <encapsulatedLogic typeRef="tNameAndAge" >
+        <variable name="bkm_002" />
+        <encapsulatedLogic>
             <formalParameter name="nameAndAge" typeRef="tNameAndAge"/>
-            <literalExpression>
+            <literalExpression typeRef="tNameAndAge">
                 <text>nameAndAge != null</text>
             </literalExpression>
         </encapsulatedLogic>
@@ -147,9 +147,9 @@
 
     <businessKnowledgeModel name="bkm_004" id="_bkm_004">
         <variable name="bkm_004"/>
-        <encapsulatedLogic typeRef="tNumberList">
+        <encapsulatedLogic>
             <formalParameter name="arg"/>
-            <literalExpression>
+            <literalExpression typeRef="tNumberList">
                 <text>arg</text>
             </literalExpression>
         </encapsulatedLogic>
@@ -157,9 +157,9 @@
 
     <businessKnowledgeModel name="bkm_005" id="_bkm_005">
         <variable name="bkm_005"/>
-        <encapsulatedLogic typeRef="number">
+        <encapsulatedLogic>
             <formalParameter name="arg"/>
-            <literalExpression>
+            <literalExpression typeRef="number">
                 <text>[arg]</text>
             </literalExpression>
         </encapsulatedLogic>
@@ -408,7 +408,7 @@
 
     <decisionService name="decisionService_001" id="_decisionService_001">
         <variable name="decisionService_001" typeRef="tDS_001"/>
-        <!-- decision returns number, functionType typeRef has return type of string -->
+        <!-- decision returns number, type expects string -->
         <outputDecision href="#_decision_ds_001"/>
     </decisionService>
 
