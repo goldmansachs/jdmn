@@ -15,20 +15,27 @@ package com.gs.dmn.runtime.function;
 import com.gs.dmn.runtime.Function;
 
 public class FEELFunction extends Function {
-    public static Function of(Object functionDefinition, Object definitionContext) {
-        return new FEELFunction(functionDefinition, definitionContext);
+    public static Function of(Object functionDefinition, Object type, Object definitionContext) {
+        return new FEELFunction(functionDefinition, type, definitionContext);
     }
 
     private final Object functionDefinition;
+    private final Object type;
     private final Object definitionContext;
 
-    private FEELFunction(Object functionDefinition, Object definitionContext) {
+    private FEELFunction(Object functionDefinition, Object type, Object definitionContext) {
         this.functionDefinition = functionDefinition;
+        this.type = type;
         this.definitionContext = definitionContext;
     }
 
     public Object getFunctionDefinition() {
         return functionDefinition;
+    }
+
+    @Override
+    public Object getType() {
+        return type;
     }
 
     public Object getDefinitionContext() {

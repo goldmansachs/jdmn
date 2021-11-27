@@ -21,21 +21,15 @@ import com.gs.dmn.runtime.Function;
 import com.gs.dmn.runtime.function.DMNInvocable;
 import com.gs.dmn.runtime.function.FEELFunction;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import com.gs.dmn.transformation.native_.FreeVariable;
 import com.gs.dmn.transformation.native_.NativeFactory;
 import org.apache.commons.text.RandomStringGenerator;
 import org.omg.spec.dmn._20191111.model.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ClassParts {
     public static ClassParts makeClassParts(Function function, FEELTranslator feelTranslator, BasicDMNToNativeTransformer dmnTransformer, DMNContext context, String feelLibClassName) {
         // Apply method parts
         String signature = "Object[] args";
         boolean convertToContext = true;
-        List<FreeVariable> freeVariables = new ArrayList<>();
-
 
         if (function instanceof FEELFunction) {
             FunctionDefinition functionDefinition = (FunctionDefinition) ((FEELFunction) function).getFunctionDefinition();
@@ -44,13 +38,13 @@ public class ClassParts {
             // Apply method parts
             String body = feelTranslator.expressionToNative(functionDefinition.getBody(), context);
             NativeFactory nativeFactory = dmnTransformer.getNativeFactory();
-            String applyMethod = nativeFactory.applyMethod(functionType, signature, convertToContext, body, freeVariables);
+            String applyMethod = nativeFactory.applyMethod(functionType, signature, convertToContext, body);
             String returnType = dmnTransformer.toNativeType(dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
 
             return new ClassParts(feelLibClassName, returnType, applyMethod);
         } else if (function instanceof DMNInvocable) {
             TInvocable invocable = (TInvocable) ((DMNInvocable) function).getInvocable();
-            FunctionType functionType = (FunctionType) ((DMNInvocable) function).getType();
+            FunctionType functionType = (FunctionType) function.getType();
             if (invocable instanceof TBusinessKnowledgeModel) {
                 TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) invocable).getEncapsulatedLogic();
                 TExpression value = encapsulatedLogic.getExpression().getValue();
@@ -59,7 +53,7 @@ public class ClassParts {
                     String body = feelTranslator.expressionToNative(expText, context);
                     NativeFactory nativeFactory = dmnTransformer.getNativeFactory();
 
-                    String applyMethod = nativeFactory.applyMethod(functionType, signature, convertToContext, body, freeVariables);
+                    String applyMethod = nativeFactory.applyMethod(functionType, signature, convertToContext, body);
                     String returnType = dmnTransformer.toNativeType(dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
 
                     return new ClassParts(feelLibClassName, returnType, applyMethod);

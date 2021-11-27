@@ -13,4 +13,5 @@
 package com.gs.dmn.runtime;
 
 public abstract class Function {
+    public abstract Object getType();
 }

@@ -19,7 +19,6 @@ import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.transformation.native_.FreeVariable;
 import org.omg.spec.dmn._20191111.model.TDecision;
 import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
@@ -102,7 +101,7 @@ public interface NativeExpressionFactory {
     //
     String makeApplyInvocation(String javaFunctionCode, String argumentsText);
 
-    String applyMethod(FunctionType functionType, String signature, boolean convertTypeToContext, String body, List<FreeVariable> freeVariables);
+    String applyMethod(FunctionType functionType, String signature, boolean convertTypeToContext, String body);
 
     String makeExternalExecutorCall(String externalExecutorVariableName, String className, String methodName, String arguments, String returnJavaType);
 

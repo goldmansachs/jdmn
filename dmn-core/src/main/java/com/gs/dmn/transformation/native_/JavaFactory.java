@@ -222,9 +222,9 @@ public class JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String applyMethod(FunctionType functionType, String signature, boolean convertTypeToContext, String body, List<FreeVariable> freeVariables) {
+    public String applyMethod(FunctionType functionType, String signature, boolean convertTypeToContext, String body) {
         String returnType = transformer.toNativeType(transformer.convertType(functionType.getReturnType(), convertTypeToContext));
-        String parametersAssignment = parametersAssignment(functionType.getParameters(), convertTypeToContext, freeVariables);
+        String parametersAssignment = parametersAssignment(functionType.getParameters(), convertTypeToContext);
         return applyMethod(returnType, signature, parametersAssignment, body);
     }
 
@@ -237,7 +237,7 @@ public class JavaFactory implements NativeFactory {
                 returnType, signature, parametersAssignment, body);
     }
 
-    protected String parametersAssignment(List<FormalParameter> formalParameters, boolean convertTypeToContext, List<FreeVariable> freeVariables) {
+    protected String parametersAssignment(List<FormalParameter> formalParameters, boolean convertTypeToContext) {
         List<String> parameters = new ArrayList<>();
         Set<String> names = new LinkedHashSet<>();
         for(int i=0; i<formalParameters.size(); i++) {
@@ -246,16 +246,6 @@ public class JavaFactory implements NativeFactory {
             String name = transformer.nativeFriendlyVariableName(p.getName());
             names.add(name);
             parameters.add(makeLambdaParameterAssignment(type, name, i));
-        }
-        int argIndex = formalParameters.size();
-        for(int i=0; i<freeVariables.size(); i++) {
-            FreeVariable freeVariable = freeVariables.get(i);
-            String name = freeVariable.getName();
-            if (!names.contains(name)) {
-                String type = freeVariable.getType();
-                parameters.add(makeLambdaParameterAssignment(type, name, argIndex));
-                argIndex++;
-            }
         }
         return String.join(" ", parameters);
     }

@@ -131,7 +131,7 @@ public abstract class Type {
             Type valueType = (Type) ((DMNFunction) value).getType();
             return conformsTo(valueType, type);
         } else if (value instanceof BuiltinFunction && type instanceof FunctionType) {
-            Declaration declaration = (Declaration) ((BuiltinFunction) value).getDeclaration();
+            Declaration declaration = (Declaration) ((BuiltinFunction) value).getDeclarations();
             return conformsTo(declaration.getType(), type);
         } else {
             return false;

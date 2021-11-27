@@ -30,7 +30,6 @@ import com.gs.dmn.runtime.annotation.Rule;
 import com.gs.dmn.runtime.external.JavaExternalFunction;
 import com.gs.dmn.runtime.external.JavaFunctionInfo;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
-import com.gs.dmn.transformation.native_.FreeVariable;
 import com.gs.dmn.transformation.native_.NativeFactory;
 import com.gs.dmn.transformation.native_.statement.CompoundStatement;
 import com.gs.dmn.transformation.native_.statement.ExpressionStatement;
@@ -308,8 +307,7 @@ public class DMNExpressionToNativeTransformer {
             String operands = conditionParts.stream().collect(Collectors.joining(",\n" + indent3tabs));
             String eventListenerVariable = this.dmnTransformer.eventListenerVariableName();
             String ruleMetadataVariable = this.dmnTransformer.drgRuleMetadataFieldName();
-            String condition = String.format("%s(%s, %s,\n%s%s\n%s)", ruleMatchesMethodName(), eventListenerVariable, ruleMetadataVariable, indent3tabs, operands, indent2tabs);
-            return condition;
+            return String.format("%s(%s, %s,\n%s%s\n%s)", ruleMatchesMethodName(), eventListenerVariable, ruleMetadataVariable, indent3tabs, operands, indent2tabs);
         }
         throw new DMNRuntimeException("Cannot build condition for " + decisionTable.getClass().getSimpleName());
     }
@@ -518,9 +516,6 @@ public class DMNExpressionToNativeTransformer {
     }
 
     private String functionDefinitionToNative(TDRGElement element, FunctionType functionType, String body, boolean convertToContext) {
-        List<FreeVariable> freeVariables = new ArrayList<>();
-
-
         if (functionType instanceof FEELFunctionType) {
             if (((FEELFunctionType) functionType).isExternal()) {
                 JavaFunctionInfo javaInfo = extractJavaFunctionInfo(element, ((FEELFunctionType) functionType).getFunctionDefinition());
@@ -528,13 +523,13 @@ public class DMNExpressionToNativeTransformer {
             } else {
                 String returnType = this.dmnTransformer.toNativeType(this.dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
                 String signature = "Object... args";
-                String applyMethod = this.nativeFactory.applyMethod(functionType, signature, convertToContext, body, freeVariables);
+                String applyMethod = this.nativeFactory.applyMethod(functionType, signature, convertToContext, body);
                 return functionDefinitionToNative(returnType, applyMethod);
             }
         } else if (functionType instanceof DMNFunctionType) {
             String returnType = this.dmnTransformer.toNativeType(this.dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
             String signature = "Object... args";
-            String applyMethod = this.nativeFactory.applyMethod(functionType, signature, convertToContext, body, freeVariables);
+            String applyMethod = this.nativeFactory.applyMethod(functionType, signature, convertToContext, body);
             return functionDefinitionToNative(returnType, applyMethod);
         }
         throw new DMNRuntimeException(String.format("%s is not supported yet", functionType));

@@ -37,6 +37,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.type.ListTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.NamedTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.AbstractFEELToJavaVisitor;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
@@ -331,7 +332,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     public Object visit(FunctionDefinition element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
-        return FEELFunction.of(element, context);
+        return FEELFunction.of(element, element.getType(), context);
     }
 
     private Object makeLambdaExpression(Function function, DMNContext context) {
@@ -760,15 +761,13 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             String functionName = functionName(function);
             String javaFunctionName = javaFunctionName(functionName);
             if ("sort".equals(javaFunctionName)) {
-                Object sortFunction = argList.get(1);
-                if (sortFunction instanceof Function) {
-                    Object lambdaExpression = makeLambdaExpression((Function) sortFunction, context);
-                    argList.set(1, lambdaExpression);
-                    Object result = evaluateBuiltInFunction(this.lib, javaFunctionName, argList);
-                    JAVA_COMPILER.deleteLambdaClass(lambdaExpression);
+                Object secondArg = argList.get(1);
+                if (secondArg instanceof Function) {
+                    Function sortFunction = (Function) secondArg;
+                    List result = ((StandardFEELLib) lib).sort((List) argList.get(0), makeComparator(sortFunction));
                     return result;
                 } else {
-                    throw new DMNRuntimeException(String.format("'%s' is not supported yet", sortFunction.getClass()));
+                    throw new DMNRuntimeException(String.format("'%s' is not supported yet", secondArg.getClass()));
                 }
             } else {
                 return evaluateBuiltInFunction(this.lib, javaFunctionName, argList);
@@ -776,6 +775,26 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         } else {
             throw new DMNRuntimeException(String.format("Not supported yet %s", functionDefinition.getClass().getSimpleName()));
         }
+    }
+
+    private LambdaExpression<Boolean> makeComparator(Function sortFunction) {
+        return new LambdaExpression<Boolean>() {
+            @Override
+            public Boolean apply(Object... args) {
+                List<Object> argList = new ArrayList<>();
+                argList.add(args[0]);
+                argList.add(args[1]);
+                if (sortFunction instanceof FEELFunction) {
+                    return (Boolean) evaluateFunctionDefinition((FEELFunction) sortFunction, argList);
+                } else if (sortFunction instanceof DMNFunction) {
+                    return (Boolean) evaluateFunctionDefinition((DMNFunction) sortFunction, argList);
+                } else if (sortFunction instanceof DMNInvocable) {
+                    return (Boolean) evaluateInvocableDefinition((DMNInvocable) sortFunction, argList);
+                } else {
+                    throw new DMNRuntimeException(String.format("Not supported yet '%s'", sortFunction.getClass()));
+                }
+            }
+        };
     }
 
     private DMNContext makeFunctionContext(DMNContext context, List<FormalParameter> formalParameters, List<Object> argList) {
@@ -829,8 +848,8 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     private Object evaluateInvocableDefinition(DMNInvocable runtimeFunction, List<Object> argList) {
-        DMNContext definitionContext = (DMNContext) runtimeFunction.getDefinitionContext();
         FunctionType functionType = (FunctionType) runtimeFunction.getType();
+        DMNContext definitionContext = (DMNContext) runtimeFunction.getDefinitionContext();
         DMNContext functionContext = makeFunctionContext(definitionContext, functionType.getParameters(), argList);
         Result result = this.dmnInterpreter.evaluate((TInvocable) runtimeFunction.getInvocable(), argList, functionContext);
         return Result.value(result);
@@ -853,8 +872,8 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     private Object evaluateFunctionDefinition(DMNFunction runtimeFunction, List<Object> argList) {
-        TFunctionDefinition functionDefinition = (TFunctionDefinition) runtimeFunction.getFunctionDefinition();
         FunctionType functionType = (FunctionType) runtimeFunction.getType();
+        TFunctionDefinition functionDefinition = (TFunctionDefinition) runtimeFunction.getFunctionDefinition();
         DMNContext definitionContext = (DMNContext) runtimeFunction.getDefinitionContext();
         DMNContext functionContext = makeFunctionContext(definitionContext, functionType.getParameters(), argList);
         TFunctionKind kind = functionDefinition.getKind();

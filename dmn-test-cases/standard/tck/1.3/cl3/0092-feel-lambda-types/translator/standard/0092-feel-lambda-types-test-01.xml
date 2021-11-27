@@ -152,9 +152,7 @@
             </expected>
         </resultNode>
     </testCase>
--->
 
-<!--
     <testCase id="015">
         <description>Overloaded built-in function may be passed as lambda</description>
         <resultNode name="decision_015_1" type="decision">
@@ -174,7 +172,6 @@
         </resultNode>
     </testCase>
 
-<!--
     <testCase id="017">
         <description>Local decision scope values may be closed over and used in built-in func</description>
         <inputNode name="input_017_1">
@@ -191,7 +188,6 @@
             </expected>
         </resultNode>
     </testCase>
--->
 
     <testCase id="018">
         <description>BKM may be passed to sort func</description>

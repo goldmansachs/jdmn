@@ -12,25 +12,34 @@
  */
 package com.gs.dmn.runtime.function;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Function;
 
+import java.util.List;
+
 public class BuiltinFunction extends Function {
-    public static Function of(Object declaration) {
-        return new BuiltinFunction(declaration);
+    public static Function of(List<?> declarations) {
+        return new BuiltinFunction(declarations);
     }
 
-    private final Object declaration;
+    // List of declarations
+    private final List<?> declarations;
 
-    private BuiltinFunction(Object declaration) {
-        this.declaration = declaration;
+    private BuiltinFunction(List<?> declarations) {
+        this.declarations = declarations;
     }
 
-    public Object getDeclaration() {
-        return declaration;
+    public List<?> getDeclarations() {
+        return declarations;
+    }
+
+    @Override
+    public Object getType() {
+        throw new DMNRuntimeException("Not supported");
     }
 
     @Override
     public String toString() {
-        return String.format("%s(declaration='%s')", getClass().getSimpleName(), declaration);
+        return String.format("%s(declaration='%s')", getClass().getSimpleName(), declarations);
     }
 }

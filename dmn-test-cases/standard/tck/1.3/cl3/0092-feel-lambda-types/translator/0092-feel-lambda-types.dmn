@@ -558,7 +558,7 @@
             <requiredKnowledge href="#_bkm_017_1"/>
         </knowledgeRequirement>
         <literalExpression typeRef="list_of_string">
-            <text>bkm_017_1(function (a: string, b: string) if a = "a" then true else false)</text>
+            <text>bkm_017_1(function (a: string, b: string) if a = input_017_1 then true else false)</text>
         </literalExpression>
     </decision>
 
