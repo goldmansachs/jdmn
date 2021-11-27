@@ -54,13 +54,13 @@ import com.gs.dmn.runtime.external.JavaFunctionInfo;
 import com.gs.dmn.runtime.function.DMNFunction;
 import com.gs.dmn.runtime.function.DMNInvocable;
 import com.gs.dmn.runtime.function.FEELFunction;
+import com.gs.dmn.runtime.function.Function;
 import com.gs.dmn.runtime.interpreter.*;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.transformation.basic.ImportContextType;
 import org.omg.spec.dmn._20191111.model.TDRGElement;
 import org.omg.spec.dmn._20191111.model.TFunctionDefinition;
 import org.omg.spec.dmn._20191111.model.TFunctionKind;
-import org.omg.spec.dmn._20191111.model.TInvocable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -332,7 +332,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     public Object visit(FunctionDefinition element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
-        return FEELFunction.of(element, element.getType(), context);
+        return FEELFunction.of(element, context);
     }
 
     private Object makeLambdaExpression(Function function, DMNContext context) {
@@ -851,14 +851,14 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         FunctionType functionType = (FunctionType) runtimeFunction.getType();
         DMNContext definitionContext = (DMNContext) runtimeFunction.getDefinitionContext();
         DMNContext functionContext = makeFunctionContext(definitionContext, functionType.getParameters(), argList);
-        Result result = this.dmnInterpreter.evaluate((TInvocable) runtimeFunction.getInvocable(), argList, functionContext);
+        Result result = this.dmnInterpreter.evaluate(runtimeFunction.getInvocable(), argList, functionContext);
         return Result.value(result);
     }
 
     private Object evaluateFunctionDefinition(FEELFunction runtimeFunction, List<Object> argList) {
-        FunctionDefinition functionDefinition = (FunctionDefinition) runtimeFunction.getFunctionDefinition();
+        FunctionDefinition functionDefinition = runtimeFunction.getFunctionDefinition();
         FunctionType functionType = (FunctionType) functionDefinition.getType();
-        DMNContext definitionContext = (DMNContext) runtimeFunction.getDefinitionContext();
+        DMNContext definitionContext = runtimeFunction.getDefinitionContext();
         DMNContext functionContext = makeFunctionContext(definitionContext, functionType.getParameters(), argList);
         if (functionDefinition.isExternal()) {
             if (isJavaFunction(functionDefinition.getBody())) {
@@ -873,8 +873,8 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
 
     private Object evaluateFunctionDefinition(DMNFunction runtimeFunction, List<Object> argList) {
         FunctionType functionType = (FunctionType) runtimeFunction.getType();
-        TFunctionDefinition functionDefinition = (TFunctionDefinition) runtimeFunction.getFunctionDefinition();
-        DMNContext definitionContext = (DMNContext) runtimeFunction.getDefinitionContext();
+        TFunctionDefinition functionDefinition = runtimeFunction.getFunctionDefinition();
+        DMNContext definitionContext = runtimeFunction.getDefinitionContext();
         DMNContext functionContext = makeFunctionContext(definitionContext, functionType.getParameters(), argList);
         TFunctionKind kind = functionDefinition.getKind();
         if (this.dmnTransformer.isFEELFunction(kind)) {

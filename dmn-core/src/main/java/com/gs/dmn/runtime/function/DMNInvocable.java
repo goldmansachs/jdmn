@@ -12,32 +12,34 @@
  */
 package com.gs.dmn.runtime.function;
 
-import com.gs.dmn.runtime.Function;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.runtime.DMNContext;
+import org.omg.spec.dmn._20191111.model.TInvocable;
 
 public class DMNInvocable extends Function {
-    public static Function of(Object invocable, Object type, Object definitionContext) {
+    public static Function of(TInvocable invocable, Type type, DMNContext definitionContext) {
         return new DMNInvocable(invocable, type, definitionContext);
     }
 
-    private final Object invocable;
-    private final Object type;
-    private final Object definitionContext;
+    private final TInvocable invocable;
+    private final Type type;
+    private final DMNContext definitionContext;
 
-    private DMNInvocable(Object invocable, Object type, Object definitionContext) {
+    private DMNInvocable(TInvocable invocable, Type type, DMNContext definitionContext) {
         this.invocable = invocable;
         this.type = type;
         this.definitionContext = definitionContext;
     }
 
-    public Object getInvocable() {
+    public TInvocable getInvocable() {
         return invocable;
     }
 
-    public Object getType() {
+    public Type getType() {
         return type;
     }
 
-    public Object getDefinitionContext() {
+    public DMNContext getDefinitionContext() {
         return definitionContext;
     }
 

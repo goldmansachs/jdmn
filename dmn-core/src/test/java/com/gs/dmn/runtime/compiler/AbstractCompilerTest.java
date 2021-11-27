@@ -22,8 +22,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinitio
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.NumericLiteral;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.runtime.DMNContext;
-import com.gs.dmn.runtime.Function;
 import com.gs.dmn.runtime.function.FEELFunction;
+import com.gs.dmn.runtime.function.Function;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
@@ -45,7 +45,7 @@ public abstract class AbstractCompilerTest extends AbstractTest {
     protected ClassData makeClassData() {
         FunctionDefinition element = new FunctionDefinition(Arrays.asList(), null, new NumericLiteral("123"), false);
         element.setType(new BuiltinFunctionType(Arrays.asList(), NumberType.NUMBER));
-        Function feelFunction = FEELFunction.of(element, element.getType(), null);
+        Function feelFunction = FEELFunction.of(element, null);
 
         DMNContext context = null;
         DMNModelRepository repository = new DMNModelRepository();

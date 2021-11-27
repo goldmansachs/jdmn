@@ -12,29 +12,30 @@
  */
 package com.gs.dmn.runtime.function;
 
+import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.runtime.Function;
 
 import java.util.List;
 
 public class BuiltinFunction extends Function {
-    public static Function of(List<?> declarations) {
+    public static Function of(List<Declaration> declarations) {
         return new BuiltinFunction(declarations);
     }
 
     // List of declarations
-    private final List<?> declarations;
+    private final List<Declaration> declarations;
 
-    private BuiltinFunction(List<?> declarations) {
+    private BuiltinFunction(List<Declaration> declarations) {
         this.declarations = declarations;
     }
 
-    public List<?> getDeclarations() {
+    public List<Declaration> getDeclarations() {
         return declarations;
     }
 
     @Override
-    public Object getType() {
+    public Type getType() {
         throw new DMNRuntimeException("Not supported");
     }
 

@@ -29,6 +29,7 @@ import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.HitPolicy;
 import com.gs.dmn.runtime.function.DMNFunction;
 import com.gs.dmn.runtime.function.DMNInvocable;
+import com.gs.dmn.runtime.function.Function;
 import com.gs.dmn.runtime.listener.Arguments;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.*;

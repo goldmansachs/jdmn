@@ -17,9 +17,9 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinitio
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.runtime.Function;
 import com.gs.dmn.runtime.function.DMNInvocable;
 import com.gs.dmn.runtime.function.FEELFunction;
+import com.gs.dmn.runtime.function.Function;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.native_.NativeFactory;
 import org.apache.commons.text.RandomStringGenerator;
@@ -43,7 +43,7 @@ public class ClassParts {
 
             return new ClassParts(feelLibClassName, returnType, applyMethod);
         } else if (function instanceof DMNInvocable) {
-            TInvocable invocable = (TInvocable) ((DMNInvocable) function).getInvocable();
+            TInvocable invocable = ((DMNInvocable) function).getInvocable();
             FunctionType functionType = (FunctionType) function.getType();
             if (invocable instanceof TBusinessKnowledgeModel) {
                 TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) invocable).getEncapsulatedLogic();

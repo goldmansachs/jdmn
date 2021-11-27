@@ -12,32 +12,34 @@
  */
 package com.gs.dmn.runtime.function;
 
-import com.gs.dmn.runtime.Function;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.runtime.DMNContext;
+import org.omg.spec.dmn._20191111.model.TFunctionDefinition;
 
 public class DMNFunction extends Function {
-    public static Function of(Object functionDefinition, Object type, Object definitionContext) {
+    public static Function of(TFunctionDefinition functionDefinition, Type type, DMNContext definitionContext) {
         return new DMNFunction(functionDefinition, type, definitionContext);
     }
 
-    private final Object functionDefinition;
-    private final Object type;
-    private final Object definitionContext;
+    private final TFunctionDefinition functionDefinition;
+    private final Type type;
+    private final DMNContext definitionContext;
 
-    private DMNFunction(Object functionDefinition, Object type, Object definitionContext) {
+    private DMNFunction(TFunctionDefinition functionDefinition, Type type, DMNContext definitionContext) {
         this.functionDefinition = functionDefinition;
         this.type = type;
         this.definitionContext = definitionContext;
     }
 
-    public Object getFunctionDefinition() {
+    public TFunctionDefinition getFunctionDefinition() {
         return functionDefinition;
     }
 
-    public Object getType() {
+    public Type getType() {
         return type;
     }
 
-    public Object getDefinitionContext() {
+    public DMNContext getDefinitionContext() {
         return definitionContext;
     }
 
