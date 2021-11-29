@@ -14,8 +14,6 @@ package com.gs.dmn.feel.analysis.semantics.environment;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 
-import java.util.Objects;
-
 public abstract class Declaration {
     protected final String name;
 
@@ -28,17 +26,4 @@ public abstract class Declaration {
     }
 
     public abstract Type getType();
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Declaration that = (Declaration) o;
-        return Objects.equals(name, that.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
-    }
 }

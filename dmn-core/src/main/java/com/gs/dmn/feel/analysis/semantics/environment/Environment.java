@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics.environment;
 
+import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -55,7 +56,10 @@ public class Environment {
             if (existingDeclarations == null) {
                 existingDeclarations = new ArrayList<>();
             }
-            if (declaration instanceof VariableDeclaration) {
+            if (declaration.getType() instanceof FunctionType) {
+                existingDeclarations.add(declaration);
+                this.variablesTable.put(name, existingDeclarations);
+            } else {
                 // the name must not clash with names already existing in this scope
                 if (existingDeclarations.isEmpty()) {
                     existingDeclarations.add(declaration);
@@ -63,11 +67,6 @@ public class Environment {
                 } else {
                     throw new DMNRuntimeException(String.format("%s '%s' already exists", declaration.getClass().getSimpleName(), name));
                 }
-            } else if (declaration instanceof FunctionDeclaration) {
-                existingDeclarations.add(declaration);
-                this.variablesTable.put(name, existingDeclarations);
-            } else {
-                throw new UnsupportedOperationException(String.format("%s declaration type is not supported", declaration.getClass().getSimpleName()));
             }
         } else {
             throw new DMNRuntimeException(String.format("Could not add declaration with missing name %s", declaration));
@@ -80,7 +79,7 @@ public class Environment {
             return null;
         } else if (declarations.size() == 1) {
             return declarations.get(0);
-        } else if (declarations.stream().allMatch(d -> d instanceof FunctionDeclaration)) {
+        } else if (declarations.stream().allMatch(d -> d.getType() instanceof FunctionType)) {
             return null;
         } else {
             throw new DMNRuntimeException(String.format("Multiple variables for 'name' in the same context %s", declarations));
@@ -89,6 +88,6 @@ public class Environment {
 
     public List<Declaration> lookupLocalFunctionDeclaration(String name) {
         List<Declaration> declarations = this.variablesTable.get(name);
-        return declarations == null ? null : declarations.stream().filter(d -> d instanceof FunctionDeclaration).collect(Collectors.toList());
+        return declarations == null ? null : declarations.stream().filter(d -> d.getType() instanceof FunctionType).collect(Collectors.toList());
     }
 }

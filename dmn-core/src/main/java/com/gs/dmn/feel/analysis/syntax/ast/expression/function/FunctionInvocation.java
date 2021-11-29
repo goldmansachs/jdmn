@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
-import com.gs.dmn.feel.analysis.semantics.environment.FunctionDeclaration;
 import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
@@ -255,18 +254,18 @@ public class FunctionInvocation extends Expression {
         // Phase 1: Look for candidates without conversions
         List<DeclarationMatch> matches = new ArrayList<>();
         for (Declaration declaration : declarations) {
-            FunctionDeclaration functionDeclaration = (FunctionDeclaration) declaration;
-            if (functionDeclaration.match(parameterTypes)) {
+            FunctionType functionType = (FunctionType) declaration.getType();
+            if (functionType.match(parameterTypes)) {
                 // Exact match. no conversion required
-                DeclarationMatch declarationMatch = makeDeclarationMatch(functionDeclaration);
+                DeclarationMatch declarationMatch = makeDeclarationMatch(declaration);
                 matches.add(declarationMatch);
                 return matches;
             }
         }
         // Phase 2: Check for candidates after applying conversions when types do not conform
         for (Declaration declaration : declarations) {
-            FunctionDeclaration functionDeclaration = (FunctionDeclaration) declaration;
-            List<Pair<ParameterTypes, ParameterConversions>> candidates = functionDeclaration.matchCandidates(parameterTypes);
+            FunctionType functionType = (FunctionType) declaration.getType();
+            List<Pair<ParameterTypes, ParameterConversions>> candidates = functionType.matchCandidates(parameterTypes);
             for (Pair<ParameterTypes, ParameterConversions> candidate: candidates) {
                 matches.add(makeDeclarationMatch(declaration, candidate.getLeft(), candidate.getRight()));
             }
@@ -280,8 +279,8 @@ public class FunctionInvocation extends Expression {
         return matches;
     }
 
-    private DeclarationMatch makeDeclarationMatch(FunctionDeclaration functionDeclaration) {
-        FunctionType functionType = functionDeclaration.getType();
+    private DeclarationMatch makeDeclarationMatch(Declaration functionDeclaration) {
+        FunctionType functionType = (FunctionType) functionDeclaration.getType();
         if (this.parameters instanceof NamedParameters) {
             NamedParameterConversions parameterConversions = new NamedParameterConversions(functionType.getParameters());
             ParameterTypes newParameterTypes = this.parameters.getSignature();
