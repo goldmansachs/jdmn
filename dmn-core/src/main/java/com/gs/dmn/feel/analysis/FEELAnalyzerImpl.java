@@ -23,33 +23,60 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class FEELAnalyzerImpl extends AbstractFEELAnalyzer {
+    private Map<String, Expression> expressionMap = new LinkedHashMap<>();
+    private Map<String, UnaryTests> testsMap = new LinkedHashMap<>();
+
     public FEELAnalyzerImpl(BasicDMNToNativeTransformer dmnTransformer) {
         super(dmnTransformer);
     }
 
     @Override
     public UnaryTests parseUnaryTests(String text) {
-        FEELParser parser = makeParser(text);
-        return parser.unaryTestsRoot().ast;
+        if (testsMap.get(text) == null) {
+            FEELParser parser = makeParser(text);
+            UnaryTests ast = parser.unaryTestsRoot().ast;
+
+            this.testsMap.put(text, ast);
+        }
+
+        return testsMap.get(text);
     }
 
     @Override
     public Expression parseExpression(String text) {
-        FEELParser parser = makeParser(text);
-        return parser.expressionRoot().ast;
+        if (expressionMap.get(text) == null) {
+            FEELParser parser = makeParser(text);
+            Expression ast = parser.expressionRoot().ast;
+
+            this.expressionMap.put(text, ast);
+        }
+        return expressionMap.get(text);
     }
 
     @Override
     public Expression parseTextualExpressions(String text) {
-        FEELParser parser = makeParser(text);
-        return parser.textualExpressionsRoot().ast;
+        if (expressionMap.get(text) == null) {
+            FEELParser parser = makeParser(text);
+            Expression ast = parser.textualExpressionsRoot().ast;
+
+            this.expressionMap.put(text, ast);
+        }
+        return expressionMap.get(text);
     }
 
     @Override
     public Expression parseBoxedExpression(String text) {
-        FEELParser parser = makeParser(text);
-        return parser.boxedExpressionRoot().ast;
+        if (expressionMap.get(text) == null) {
+            FEELParser parser = makeParser(text);
+            Expression ast = parser.boxedExpressionRoot().ast;
+
+            this.expressionMap.put(text, ast);
+        }
+        return expressionMap.get(text);
     }
 
     private FEELParser makeParser(String text) {

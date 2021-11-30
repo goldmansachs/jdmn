@@ -14,6 +14,8 @@ package com.gs.dmn.feel.analysis.semantics.environment;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 
+import java.util.Objects;
+
 public class VariableDeclaration extends Declaration {
     private Type type;
 
@@ -29,5 +31,23 @@ public class VariableDeclaration extends Declaration {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VariableDeclaration that = (VariableDeclaration) o;
+        return Objects.equals(type, that.type) && Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, name);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s -> %s ", this.name, this.type);
     }
 }

@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.semantics.environment;
 
-import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNContext;
@@ -27,11 +26,7 @@ public interface EnvironmentFactory {
     }
 
     default Declaration makeVariableDeclaration(String name, Type type) {
-        if (type instanceof FunctionType) {
-            return new FunctionDeclaration(name, (FunctionType) type);
-        } else {
-            return new VariableDeclaration(name, type);
-        }
+        return new VariableDeclaration(name, type);
     }
 
     DMNContext getBuiltInContext();

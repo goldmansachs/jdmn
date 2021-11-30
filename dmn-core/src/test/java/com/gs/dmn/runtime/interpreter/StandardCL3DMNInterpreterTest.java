@@ -14,6 +14,8 @@ package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.runtime.Pair;
+import org.junit.Test;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import javax.xml.datatype.Duration;
@@ -29,5 +31,10 @@ public class StandardCL3DMNInterpreterTest extends CL3DMNInterpreterTest<BigDeci
     @Override
     protected String getTestCasesInputPath() {
         return getDMNInputPath() + "/standard";
+    }
+
+    @Test
+    public void test_13_cl3_0092_feel_lambda_types() {
+        doSingleModelTest("1.3", "0092-feel-lambda-types", new Pair<>("strongTyping", "false"));
     }
 }

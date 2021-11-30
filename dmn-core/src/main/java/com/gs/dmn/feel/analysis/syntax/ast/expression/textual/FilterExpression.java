@@ -57,7 +57,7 @@ public class FilterExpression extends Expression {
             } else if (filterType == BOOLEAN) {
                 setType(sourceType);
             } else {
-                throw new SemanticError(this, String.format("Cannot resolve type for '%s'", this.toString()));
+                throw new SemanticError(this, String.format("Cannot resolve type for '%s'", this));
             }
         } else {
             if (filterType == NUMBER) {
@@ -65,14 +65,14 @@ public class FilterExpression extends Expression {
             } else if (filterType == BOOLEAN) {
                 setType(new ListType(sourceType));
             } else {
-                throw new SemanticError(this, String.format("Cannot resolve type for '%s'", this.toString()));
+                throw new SemanticError(this, String.format("Cannot resolve type for '%s'", this));
             }
         }
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext params) {
-        return visitor.visit(this, params);
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 
     @Override

@@ -12,33 +12,18 @@
  */
 package com.gs.dmn.runtime.compiler;
 
-import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.lib.DefaultFEELLib;
-import com.gs.dmn.feel.synthesis.FEELTranslator;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.LambdaExpression;
-import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import com.gs.dmn.transformation.native_.NativeFactory;
 import javassist.*;
 
 public class JavaAssistCompiler extends JavaCompilerImpl {
     @Override
-    public ClassData makeClassData(FunctionDefinition element, DMNContext context, BasicDMNToNativeTransformer dmnTransformer, FEELTranslator feelTranslator, String libClassName) {
-        FunctionType functionType = (FunctionType) element.getType();
-
-        // Apply method parts
-        String signature = "Object[] args";
-        boolean convertToContext = true;
-        String body = feelTranslator.expressionToNative(element.getBody(), context);
-        NativeFactory nativeFactory = dmnTransformer.getNativeFactory();
-        String applyMethod = nativeFactory.applyMethod(functionType, signature, convertToContext, body);
-
-        String bridgeMethodText = bridgeMethodText();
-
+    public ClassData makeClassData(ClassParts config) {
         // Class parts
-        String packageName = "com.gs.dmn.runtime";
-        String className = "LambdaExpressionImpl" + System.currentTimeMillis();
+        String packageName = config.getPackageName();
+        String className = config.getClassName();
+        String applyMethod = config.getApplyMethod();
+        String bridgeMethodText = bridgeMethodText();
 
         return new JavaAssistClassData(packageName, className, applyMethod, bridgeMethodText);
     }

@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Parameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
@@ -54,9 +53,9 @@ public class NamedArguments extends Arguments {
                 Object arg = arguments.get(parameter.getName());
                 argList.add(arg);
             } else {
-                if (parameter instanceof Parameter) {
-                    if (((Parameter) parameter).isOptional()) {
-                    } else if (((Parameter)parameter).isVarArg()) {
+                if (parameter instanceof FormalParameter) {
+                    if (parameter.isOptional()) {
+                    } else if (parameter.isVarArg()) {
                     } else {
                         throw new DMNRuntimeException(String.format("Missing argument for parameter '%s'", parameter.getName()));
                     }

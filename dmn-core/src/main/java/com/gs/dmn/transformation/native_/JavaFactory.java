@@ -32,7 +32,9 @@ import org.omg.spec.dmn._20191111.model.TDecision;
 import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class JavaFactory implements NativeFactory {
     protected static final Object DEFAULT_PROTO_NUMBER = "0.0";
@@ -237,10 +239,12 @@ public class JavaFactory implements NativeFactory {
 
     protected String parametersAssignment(List<FormalParameter> formalParameters, boolean convertTypeToContext) {
         List<String> parameters = new ArrayList<>();
-        for(int i = 0; i< formalParameters.size(); i++) {
+        Set<String> names = new LinkedHashSet<>();
+        for(int i=0; i<formalParameters.size(); i++) {
             FormalParameter p = formalParameters.get(i);
             String type = transformer.toNativeType(transformer.convertType(p.getType(), convertTypeToContext));
             String name = transformer.nativeFriendlyVariableName(p.getName());
+            names.add(name);
             parameters.add(makeLambdaParameterAssignment(type, name, i));
         }
         return String.join(" ", parameters);

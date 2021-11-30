@@ -307,8 +307,7 @@ public class DMNExpressionToNativeTransformer {
             String operands = conditionParts.stream().collect(Collectors.joining(",\n" + indent3tabs));
             String eventListenerVariable = this.dmnTransformer.eventListenerVariableName();
             String ruleMetadataVariable = this.dmnTransformer.drgRuleMetadataFieldName();
-            String condition = String.format("%s(%s, %s,\n%s%s\n%s)", ruleMatchesMethodName(), eventListenerVariable, ruleMetadataVariable, indent3tabs, operands, indent2tabs);
-            return condition;
+            return String.format("%s(%s, %s,\n%s%s\n%s)", ruleMatchesMethodName(), eventListenerVariable, ruleMetadataVariable, indent3tabs, operands, indent2tabs);
         }
         throw new DMNRuntimeException("Cannot build condition for " + decisionTable.getClass().getSimpleName());
     }

@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
-import com.gs.dmn.feel.analysis.semantics.environment.FunctionDeclaration;
 import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
@@ -144,8 +143,9 @@ public class FunctionInvocation extends Expression {
             Type listType = parameters.getParameterType(0, "list");
             return StandardEnvironmentFactory.makeUnionBuiltinFunctionType(listType);
         } else if("flatten".equals(functionName)) {
-            Expression listParameter = parameters.getParameter(0, "list");
-            Type elementType = nestedElementType(listParameter);
+            Expression inputListParameter = parameters.getParameter(0, "list");
+            Type inputListType = inputListParameter.getType();
+            Type elementType = nestedElementType(inputListParameter);
             return StandardEnvironmentFactory.makeFlattenBuiltinFunctionType(new ListType(elementType));
         } else if ("sort".equals(functionName)) {
             Parameters parameters = this.getParameters();
@@ -160,7 +160,7 @@ public class FunctionInvocation extends Expression {
         } else if("removeAll".equals(functionName)) {
             Parameters parameters = this.getParameters();
             Type list1Type = parameters.getParameterType(0, "list1");
-            return StandardEnvironmentFactory.makeRemoveBuiltinFunctionType(list1Type);
+            return StandardEnvironmentFactory.makeSignavioRemoveAllBuiltinFunctionType(list1Type);
         } else {
             return functionDeclaration.getType();
         }
@@ -190,9 +190,7 @@ public class FunctionInvocation extends Expression {
     }
 
     private void collectPrimitiveTypes(Expression expression, List<Type> types) {
-        if (expression == null) {
-            return;
-        } else if (expression instanceof ListLiteral) {
+        if (expression instanceof ListLiteral) {
             List<Expression> expressionList = ((ListLiteral) expression).getExpressionList();
             for (Expression exp: expressionList) {
                 collectPrimitiveTypes(exp, types);
@@ -209,8 +207,8 @@ public class FunctionInvocation extends Expression {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext params) {
-        return visitor.visit(this, params);
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 
     @Override
@@ -256,18 +254,18 @@ public class FunctionInvocation extends Expression {
         // Phase 1: Look for candidates without conversions
         List<DeclarationMatch> matches = new ArrayList<>();
         for (Declaration declaration : declarations) {
-            FunctionDeclaration functionDeclaration = (FunctionDeclaration) declaration;
-            if (functionDeclaration.match(parameterTypes)) {
+            FunctionType functionType = (FunctionType) declaration.getType();
+            if (functionType.match(parameterTypes)) {
                 // Exact match. no conversion required
-                DeclarationMatch declarationMatch = makeDeclarationMatch(functionDeclaration);
+                DeclarationMatch declarationMatch = makeDeclarationMatch(declaration);
                 matches.add(declarationMatch);
                 return matches;
             }
         }
         // Phase 2: Check for candidates after applying conversions when types do not conform
         for (Declaration declaration : declarations) {
-            FunctionDeclaration functionDeclaration = (FunctionDeclaration) declaration;
-            List<Pair<ParameterTypes, ParameterConversions>> candidates = functionDeclaration.matchCandidates(parameterTypes);
+            FunctionType functionType = (FunctionType) declaration.getType();
+            List<Pair<ParameterTypes, ParameterConversions>> candidates = functionType.matchCandidates(parameterTypes);
             for (Pair<ParameterTypes, ParameterConversions> candidate: candidates) {
                 matches.add(makeDeclarationMatch(declaration, candidate.getLeft(), candidate.getRight()));
             }
@@ -281,8 +279,8 @@ public class FunctionInvocation extends Expression {
         return matches;
     }
 
-    private DeclarationMatch makeDeclarationMatch(FunctionDeclaration functionDeclaration) {
-        FunctionType functionType = functionDeclaration.getType();
+    private DeclarationMatch makeDeclarationMatch(Declaration functionDeclaration) {
+        FunctionType functionType = (FunctionType) functionDeclaration.getType();
         if (this.parameters instanceof NamedParameters) {
             NamedParameterConversions parameterConversions = new NamedParameterConversions(functionType.getParameters());
             ParameterTypes newParameterTypes = this.parameters.getSignature();
