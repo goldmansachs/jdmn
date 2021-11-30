@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=""  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0058-feel-number-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: Number</label>
+        <label>FEEL Functions: conversion</label>
+    </labels>
+    <testCase id="004_c">
+        <description>Decimal separator must be a string</description>
+        <resultNode errorResult="true" name="decision004_c" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="005">
+        <description>Grouping separator may be null when input has no group separators</description>
+        <resultNode name="decision005" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1000000.01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="006">
+        <description>will not error when grouping separator is null and ',' group separators exist</description>
+        <resultNode name="decision006" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1000000.01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="007">
+        <description>Decimal separator may be null when no decimal point</description>
+        <resultNode name="decision007" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1000000</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="008">
+        <description>will not error when decimal separator is null and decimal point exists</description>
+        <resultNode name="decision008" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1000000.00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="009">
+        <description>decimal and group separators not be the same</description>
+        <resultNode errorResult="true" name="decision009" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="010">
+        <description>decimal and group separators may not be the same</description>
+        <resultNode errorResult="true" name="decision010" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="011">
+        <description>'from' may not be null</description>
+        <resultNode errorResult="true" name="decision011" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="012">
+        <description>'from' must be a string</description>
+        <resultNode errorResult="true" name="decision012" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="013">
+        <description>valid named params</description>
+        <resultNode name="decision013" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1000000.01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="014">
+        <description>invalid named params</description>
+        <resultNode errorResult="true" name="decision014" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="015">
+        <description>invalid 'from'</description>
+        <resultNode errorResult="true" name="decision015" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="016">
+        <description>will error when to few params</description>
+        <resultNode errorResult="true" name="decision016" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="017">
+        <description>will error when too many params</description>
+        <resultNode errorResult="true" name="decision017" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

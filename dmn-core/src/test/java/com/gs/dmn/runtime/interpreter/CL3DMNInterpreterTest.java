@@ -23,9 +23,12 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
         return "tck/%s/cl3/%s/translator";
     }
 
+    //
+    // DMN 1.1 files
+    //
+
     @Test
     public void test_11_cl3_0001_filter() {
-        // DMN 1.1 files
         doSingleModelTest("1.1", "0001-filter");
     }
 
@@ -256,7 +259,10 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
         doSingleModelTest("1.1", "9001-recursive-function");
     }
 
+    //
     // DMN 1.2 files
+    //
+
     @Test
     public void test_12_cl3_0012_list_functions() {
         doSingleModelTest("1.2", "0012-list-functions");
@@ -313,6 +319,10 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
         doMultipleModelsTest("1.2", Arrays.asList("0089-nested-inputdata-imports", "0089-model-b", "0089-model-b2", "0089-model-a"), new Pair<>("singletonInputData", "false"));
     }
 
+    //
+    // DMN 1.3 files
+    //
+
     @Test
     public void test_13_cl3_0004_lending() {
         doSingleModelTest("1.3", "0004-lending", new Pair<>("singletonInputData", "false"));
@@ -341,6 +351,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     @Test
     public void test_13_cl3_0057_feel_context() {
         doSingleModelTest("1.3", "0057-feel-context");
+    }
+
+    @Test
+    public void test_13_cl3_0058_feel_number_function() {
+        doSingleModelTest("1.3", "0058-feel-number-function");
     }
 
     @Test
