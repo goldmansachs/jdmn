@@ -125,18 +125,20 @@ public abstract class Type {
             FunctionDefinition functionDefinition = (FunctionDefinition) ((FEELFunction) value).getFunctionDefinition();
             return conformsTo(functionDefinition.getType(), type);
         } else if (value instanceof DMNInvocable && type instanceof FunctionType) {
-            Type valueType = (Type) ((DMNInvocable) value).getType();
+            Type valueType = ((DMNInvocable) value).getType();
             return conformsTo(valueType, type);
         } else if (value instanceof DMNFunction && type instanceof FunctionType) {
-            Type valueType = (Type) ((DMNFunction) value).getType();
+            Type valueType = ((DMNFunction) value).getType();
             return conformsTo(valueType, type);
         } else if (value instanceof BuiltinFunction && type instanceof FunctionType) {
+            // At least one conforms
             List<Declaration> declarations = ((BuiltinFunction) value).getDeclarations();
-            if (declarations.size() == 1) {
-                return conformsTo(declarations.get(0).getType(), type);
-            } else {
-                return false;
+            for (Declaration d: declarations) {
+                if (conformsTo(d.getType(), type)) {
+                    return true;
+                }
             }
+            return false;
         } else {
             return false;
         }
