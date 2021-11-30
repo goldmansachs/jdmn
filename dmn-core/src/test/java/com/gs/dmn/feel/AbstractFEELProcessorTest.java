@@ -2393,7 +2393,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         // simple lists
         doExpressionTest(expressionPairs, "", "[]",
                 "ListLiteral()",
-                "ListType(Any)",
+                "ListType(Null)",
                 "asList()",
                 Arrays.asList(),
                 Arrays.asList());
