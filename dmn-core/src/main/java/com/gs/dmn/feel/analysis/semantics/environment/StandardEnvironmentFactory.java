@@ -73,7 +73,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     }
 
     public static BuiltinFunctionType makeInsertBeforeBuiltinFunctionType(Type listType, Type itemType) {
-        return new BuiltinFunctionType(listType, new FormalParameter("list", listType), new FormalParameter("position", NUMBER), new FormalParameter("new item", itemType));
+        return new BuiltinFunctionType(listType, new FormalParameter("list", listType), new FormalParameter("position", NUMBER), new FormalParameter("'new item'", itemType));
     }
 
     public static BuiltinFunctionType makeRemoveBuiltinFunctionType(Type listType) {
@@ -160,7 +160,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         addFunctionDeclaration(environment, "number", new BuiltinFunctionType(NUMBER, new FormalParameter("from", STRING), new FormalParameter("'grouping separator'", STRING), new FormalParameter("'decimal separator'", STRING)));
         addFunctionDeclaration(environment, "number", new BuiltinFunctionType(NUMBER, new FormalParameter("from", STRING), new FormalParameter("groupingSeparator", STRING), new FormalParameter("decimalSeparator", STRING)));
         addFunctionDeclaration(environment, "string", new BuiltinFunctionType(STRING, new FormalParameter("from", ANY)));
-        addFunctionDeclaration(environment, "duration", new BuiltinFunctionType(ANY, new FormalParameter("from", STRING)));
+        addFunctionDeclaration(environment, "duration", new BuiltinFunctionType(ANY_DURATION, new FormalParameter("from", STRING)));
         addFunctionDeclaration(environment, "years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new FormalParameter("from", DATE), new FormalParameter("to", DATE)));
         addFunctionDeclaration(environment, "years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new FormalParameter("from", DATE_AND_TIME), new FormalParameter("to", DATE_AND_TIME)));
         addFunctionDeclaration(environment, "years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new FormalParameter("from", DATE), new FormalParameter("to", DATE_AND_TIME)));
