@@ -74,8 +74,8 @@ public class RangeType extends Type {
     }
 
     @Override
-    public boolean isValid() {
-        return !Type.isNull(type) && type.isValid();
+    public boolean isFullySpecified() {
+        return !Type.isNullOrAny(type);
     }
 
     @Override

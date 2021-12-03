@@ -204,12 +204,12 @@ public abstract class Type {
     protected abstract boolean conformsTo(Type other);
 
     public void validate() {
-        if (!isValid()) {
-            throw new DMNRuntimeException(String.format("Illegal type '%s'", this));
+        if (!isFullySpecified()) {
+            throw new DMNRuntimeException(String.format("Type '%s' is partially specified", this));
         }
     }
 
-    public abstract boolean isValid();
+    public abstract boolean isFullySpecified();
 
     @Override
     public String toString() {

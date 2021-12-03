@@ -57,11 +57,8 @@ public class ListType extends Type {
     }
 
     @Override
-    public boolean isValid() {
-        if (elementType == null) {
-            return false;
-        }
-        return elementType.isValid();
+    public boolean isFullySpecified() {
+        return !Type.isNullOrAny(elementType);
     }
 
     @Override

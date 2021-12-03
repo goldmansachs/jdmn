@@ -60,11 +60,11 @@ public class ContextType extends Type implements CompositeDataType {
     }
 
     @Override
-    public boolean isValid() {
+    public boolean isFullySpecified() {
         if (members.isEmpty()) {
             return false;
         }
-        return members.values().stream().allMatch(t -> t.isValid() && t != AnyType.ANY);
+        return members.values().stream().noneMatch(Type::isNullOrAny);
     }
 
     @Override

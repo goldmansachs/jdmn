@@ -78,12 +78,12 @@ public abstract class FunctionType extends Type {
     }
 
     @Override
-    public boolean isValid() {
+    public boolean isFullySpecified() {
         if (this.returnType == null) {
             return false;
         }
-        return this.parameterTypes.stream().allMatch(Type::isValid)
-                && this.returnType.isValid();
+        return this.parameterTypes.stream().noneMatch(Type::isNullOrAny)
+                && !Type.isNullOrAny(this.returnType);
     }
 
     public boolean isStaticTyped() {

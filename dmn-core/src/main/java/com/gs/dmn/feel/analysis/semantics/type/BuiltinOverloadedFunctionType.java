@@ -68,7 +68,7 @@ public class BuiltinOverloadedFunctionType extends FunctionType {
     }
 
     @Override
-    public boolean isValid() {
+    public boolean isFullySpecified() {
         throw new SemanticError("Not supported yet");
     }
 
