@@ -86,10 +86,6 @@ public abstract class FunctionType extends Type {
                 && !Type.isNullOrAny(this.returnType);
     }
 
-    public boolean isStaticTyped() {
-        return this.parameters.stream().allMatch(p -> p.getType() != null);
-    }
-
     public List<Pair<ParameterTypes, ParameterConversions>> matchCandidates(ParameterTypes parameterTypes) {
         if (parameterTypes instanceof PositionalParameterTypes) {
             List<Type> argumentTypes = ((PositionalParameterTypes) parameterTypes).getTypes();
