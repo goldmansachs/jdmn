@@ -7,6 +7,60 @@
         <label>Data Type: Number</label>
         <label>FEEL Functions: conversion</label>
     </labels>
+    <testCase id="001">
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1000000.01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="002">
+        <resultNode name="decision002" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1000000.01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003">
+        <description>Grouping separator may be a space</description>
+        <resultNode name="decision003" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1000000.01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003_a">
+        <description>Grouping separator mismatch will result in null</description>
+        <resultNode errorResult="true" name="decision003_a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004">
+        <description>Grouping separator may not be a char other than "," or "." or space</description>
+        <resultNode errorResult="true" name="decision004" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004_a">
+        <description>Grouping separator must be a string</description>
+        <resultNode errorResult="true" name="decision004_a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004_b">
+        <description>Decimal separator may not be a char other than "," or "."</description>
+        <resultNode errorResult="true" name="decision004_b" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
     <testCase id="004_c">
         <description>Decimal separator must be a string</description>
         <resultNode errorResult="true" name="decision004_c" type="decision">
