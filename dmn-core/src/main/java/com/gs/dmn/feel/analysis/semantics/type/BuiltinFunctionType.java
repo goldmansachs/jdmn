@@ -148,7 +148,10 @@ public class BuiltinFunctionType extends FunctionType {
 
     @Override
     protected boolean conformsTo(Type other) {
-        return this == other;
+        // “contravariant function argument type” and “covariant function return type”
+        return other instanceof FunctionType
+                && Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
+                && Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
     }
 
     @Override

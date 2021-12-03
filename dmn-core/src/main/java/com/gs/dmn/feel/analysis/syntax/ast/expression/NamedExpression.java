@@ -14,6 +14,7 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
+import com.gs.dmn.feel.analysis.semantics.type.BuiltinOverloadedFunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.runtime.DMNContext;
 
@@ -36,8 +37,10 @@ public abstract class NamedExpression extends Expression {
         if (declarations != null && declarations.size() == 1) {
             declaration = declarations.get(0);
             type = declaration.getType();
-            setType(type);
+        } else {
+            type = new BuiltinOverloadedFunctionType(declarations);
         }
+        setType(type);
     }
 
     protected abstract String getName();

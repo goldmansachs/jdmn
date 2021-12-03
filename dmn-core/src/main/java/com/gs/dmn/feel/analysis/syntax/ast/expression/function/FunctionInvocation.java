@@ -144,7 +144,6 @@ public class FunctionInvocation extends Expression {
             return StandardEnvironmentFactory.makeUnionBuiltinFunctionType(listType);
         } else if("flatten".equals(functionName)) {
             Expression inputListParameter = parameters.getParameter(0, "list");
-            Type inputListType = inputListParameter.getType();
             Type elementType = nestedElementType(inputListParameter);
             return StandardEnvironmentFactory.makeFlattenBuiltinFunctionType(new ListType(elementType));
         } else if ("sort".equals(functionName)) {

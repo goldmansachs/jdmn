@@ -14,6 +14,7 @@ package com.gs.dmn.feel.interpreter;
 
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
+import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
@@ -51,10 +52,7 @@ import com.gs.dmn.runtime.compiler.JavaCompiler;
 import com.gs.dmn.runtime.compiler.JavaxToolsCompiler;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.JavaFunctionInfo;
-import com.gs.dmn.runtime.function.DMNFunction;
-import com.gs.dmn.runtime.function.DMNInvocable;
-import com.gs.dmn.runtime.function.FEELFunction;
-import com.gs.dmn.runtime.function.Function;
+import com.gs.dmn.runtime.function.*;
 import com.gs.dmn.runtime.interpreter.*;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.transformation.basic.ImportContextType;
@@ -754,6 +752,8 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 return evaluateFunctionDefinition((DMNFunction) functionDefinition, argList);
             } else if (functionDefinition instanceof FEELFunction) {
                 return evaluateFunctionDefinition((FEELFunction) functionDefinition, argList);
+            } else if (functionDefinition instanceof BuiltinFunction) {
+                return evaluateBuiltInFunction((BuiltinFunction) functionDefinition, argList);
             } else {
                 throw new DMNRuntimeException(String.format("Not supported yet %s", functionDefinition.getClass().getSimpleName()));
             }
@@ -831,6 +831,9 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 functionContext.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
                 functionContext.bind(name, value);
             } else {
+                if (name.equals("fn1")) {
+                    int j = 4;
+                }
                 Object value = applyImplicitConversions(argList, i, type);
                 // Add variable declaration and bind
                 functionContext.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
@@ -912,9 +915,10 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         return output;
     }
 
-    private Object evaluateLambdaExpression(LambdaExpression binding, List<Object> argList) {
-        String functionName = "apply";
-        return evaluateMethod(binding, binding.getClass(), functionName, argList);
+    private Object evaluateBuiltInFunction(BuiltinFunction functionDefinition, List<Object> argList) {
+        List<Declaration> declarations = functionDefinition.getDeclarations();
+        String functionName = declarations.get(0).getName();
+        return evaluateBuiltInFunction(this.lib, functionName, argList);
     }
 
     private Object evaluateBuiltInFunction(FEELLib lib, String functionName, List<Object> argList) {

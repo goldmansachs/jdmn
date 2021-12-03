@@ -32,9 +32,4 @@ public class StandardCL3DMNInterpreterTest extends CL3DMNInterpreterTest<BigDeci
     protected String getTestCasesInputPath() {
         return getDMNInputPath() + "/standard";
     }
-
-    @Test
-    public void test_13_cl3_0092_feel_lambda_types() {
-        doSingleModelTest("1.3", "0092-feel-lambda-types", new Pair<>("strongTyping", "false"));
-    }
 }

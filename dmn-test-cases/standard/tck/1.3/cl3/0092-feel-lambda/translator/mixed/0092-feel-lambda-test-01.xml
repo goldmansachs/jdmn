@@ -143,7 +143,6 @@
         </resultNode>
     </testCase>
 
-<!--
     <testCase id="014">
         <description>Built-in function may be passed as lambda</description>
         <resultNode name="decision_014_1" type="decision">
@@ -161,7 +160,6 @@
             </expected>
         </resultNode>
     </testCase>
--->
 
     <testCase id="016">
         <description>Invoking passed lambda with incorrect params still gives error</description>

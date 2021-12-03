@@ -18,6 +18,16 @@
         </functionItem>
     </itemDefinition>
 
+    <itemDefinition name="lambda_list_number_returns_number">
+        <functionItem outputTypeRef="number">
+            <parameters name="ns" typeRef="list_of_number" />
+        </functionItem>
+    </itemDefinition>
+
+    <itemDefinition name="list_of_number" isCollection="true">
+        <typeRef>number</typeRef>
+    </itemDefinition>
+
     <itemDefinition name="lambda_string_string_returns_bool">
         <functionItem outputTypeRef="boolean">
             <parameters name="s1" typeRef="string" />
@@ -466,8 +476,8 @@
     <businessKnowledgeModel name="bkm_014_1" id="_bkm_014_1">
         <variable name="bkm_014_1"/>
         <encapsulatedLogic>
-            <formalParameter name="fn1"/>
-            <formalParameter name="fn2"/>
+            <formalParameter name="fn1" typeRef="lambda_number_returns_number"/>
+            <formalParameter name="fn2" typeRef="lambda_number_returns_number"/>
             <literalExpression>
                 <text>fn1(-5)*fn2(25)</text>
             </literalExpression>
@@ -475,7 +485,7 @@
     </businessKnowledgeModel>
 
     <decision name="decision_014_1" id="_decision_014_1">
-        <variable name="decision_014_1"/>
+        <variable name="decision_014_1" typeRef="number"/>
         <knowledgeRequirement>
             <requiredKnowledge href="#_bkm_014_1"/>
         </knowledgeRequirement>
@@ -490,10 +500,11 @@
     <businessKnowledgeModel name="bkm_015_1" id="_bkm_015_1">
         <variable name="bkm_015_1"/>
         <encapsulatedLogic>
-            <formalParameter name="fn1"/>
+            <formalParameter name="fn1" typeRef="lambda_list_number_returns_number"/>
+            <formalParameter name="fn2" typeRef="lambda_number_number_returns_number"/>
             <literalExpression>
                 <!-- pass in 'sum' func is used both in sum(list) and sum(list..) modes -->
-                <text>fn1([1,2,3])*fn1(1,2)</text>
+                <text>fn1([1,2,3])*fn2(1,2)</text>
             </literalExpression>
         </encapsulatedLogic>
     </businessKnowledgeModel>
@@ -505,7 +516,7 @@
         </knowledgeRequirement>
         <!-- passed overloadable built-in function as param  -->
         <literalExpression>
-            <text>bkm_015_1(sum)</text>
+            <text>bkm_015_1(sum, sum)</text>
         </literalExpression>
     </decision>
 
