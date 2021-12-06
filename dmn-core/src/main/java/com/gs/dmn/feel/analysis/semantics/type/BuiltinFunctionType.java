@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 
 import java.util.ArrayList;
@@ -71,24 +72,14 @@ public class BuiltinFunctionType extends FunctionType {
     @Override
     public boolean match(ParameterTypes parameterTypes) {
         if (parameterTypes instanceof PositionalParameterTypes) {
-            List<Type> argumentTypes = ((PositionalParameterTypes) parameterTypes).getTypes();
-            return match(argumentTypes);
+            return match((PositionalParameterTypes) parameterTypes);
         } else {
-            NamedParameterTypes namedSignature = (NamedParameterTypes) parameterTypes;
-            List<Type> argumentTypes = new ArrayList<>();
-            for(FormalParameter parameter: this.parameters) {
-                Type type = namedSignature.getType(parameter.getName());
-                if (!Type.isNull(type)) {
-                    argumentTypes.add(type);
-                } else if (!(parameter.isOptional() || parameter.isVarArg())) {
-                    return false;
-                }
-            }
-            return match(argumentTypes);
+            return match((NamedParameterTypes) parameterTypes);
         }
     }
 
-    private boolean match(List<Type> argumentTypes) {
+    private boolean match(PositionalParameterTypes parameterTypes) {
+        List<Type> argumentTypes = parameterTypes.getTypes();
         if (this.hasOptionalParams) {
             // check mandatory parameters
             if (argumentTypes.size() < this.mandatoryParamsCount) {
@@ -135,6 +126,29 @@ public class BuiltinFunctionType extends FunctionType {
     private boolean compatibleMandatoryParameters(List<Type> argumentTypes) {
         for (int i = 0; i < this.mandatoryParamsCount; i++) {
             if (!Type.conformsTo(argumentTypes.get(i), this.parameterTypes.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean match(NamedParameterTypes namedParameterTypes) {
+        for (String argName: namedParameterTypes.getNames()) {
+            Type argType = namedParameterTypes.getType(argName);
+            boolean found = false;
+            for(FormalParameter parameter: this.parameters) {
+                if (parameter.getName().equals(argName)) {
+                    found = true;
+                    Type parType = parameter.getType();
+                    if (parameter.isVarArg()) {
+                        throw new DMNRuntimeException("Vararg parameters are not supported yet in named calls");
+                    }
+                    if (!Type.conformsTo(argType, parType)) {
+                        return false;
+                    }
+                }
+            }
+            if (!found) {
                 return false;
             }
         }

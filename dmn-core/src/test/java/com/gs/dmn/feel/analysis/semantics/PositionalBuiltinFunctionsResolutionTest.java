@@ -205,10 +205,10 @@ public class PositionalBuiltinFunctionsResolutionTest extends AbstractStandardBu
         testFunctionInvocation("any(" + booleanList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(boolean), false, false), boolean)", false);
         testFunctionInvocation("any(" + booleanSequence + ")", "BuiltinFunctionType(FormalParameter(b1, boolean, false, false), FormalParameter(bs, boolean, false, true), boolean)", false);
 
-        testFunctionInvocation("sublist(null, null)", "BuiltinFunctionType(FormalParameter(list, Null, false, false), FormalParameter(start position, number, false, false), FormalParameter(length, number, true, false), Null)", false);
-        testFunctionInvocation("sublist(null, null, null)", "BuiltinFunctionType(FormalParameter(list, Null, false, false), FormalParameter(start position, number, false, false), FormalParameter(length, number, true, false), Null)", false);
-        testFunctionInvocation("sublist(" + numberList + ", "  + number + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), FormalParameter(start position, number, false, false), FormalParameter(length, number, true, false), ListType(number))", false);
-        testFunctionInvocation("sublist(" + numberList + ", "  + number + "," + number + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), FormalParameter(start position, number, false, false), FormalParameter(length, number, true, false), ListType(number))", false);
+        testFunctionInvocation("sublist(null, null)", "BuiltinFunctionType(FormalParameter(list, Null, false, false), FormalParameter('start position', number, false, false), FormalParameter(length, number, true, false), Null)", false);
+        testFunctionInvocation("sublist(null, null, null)", "BuiltinFunctionType(FormalParameter(list, Null, false, false), FormalParameter('start position', number, false, false), FormalParameter(length, number, true, false), Null)", false);
+        testFunctionInvocation("sublist(" + numberList + ", "  + number + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), FormalParameter('start position', number, false, false), FormalParameter(length, number, true, false), ListType(number))", false);
+        testFunctionInvocation("sublist(" + numberList + ", "  + number + "," + number + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), FormalParameter('start position', number, false, false), FormalParameter(length, number, true, false), ListType(number))", false);
 
         testFunctionInvocation("append(null, null)", "BuiltinFunctionType(FormalParameter(list, Null, false, false), FormalParameter(item, Null, false, true), Null)", false);
         testFunctionInvocation("append(null, null, null)", "BuiltinFunctionType(FormalParameter(list, Null, false, false), FormalParameter(item, Null, false, true), Null)", false);

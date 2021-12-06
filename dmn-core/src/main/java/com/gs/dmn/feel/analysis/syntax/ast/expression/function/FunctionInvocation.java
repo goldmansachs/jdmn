@@ -110,7 +110,7 @@ public class FunctionInvocation extends Expression {
         } else if("insert before".equals(functionName)) {
             Parameters parameters = this.getParameters();
             Type listType = parameters.getParameterType(0, "list");
-            Type newItemType = parameters.getParameterType(2, "new item");
+            Type newItemType = parameters.getParameterType(2, "'new item'");
             return StandardEnvironmentFactory.makeInsertBeforeBuiltinFunctionType(listType, newItemType);
         } else if("remove".equals(functionName)) {
             FormalParameter formalParameter = ((FunctionType) functionDeclaration.getType()).getParameters().get(1);
@@ -140,7 +140,7 @@ public class FunctionInvocation extends Expression {
             return StandardEnvironmentFactory.makeDistinctValuesBuiltinFunctionType(listType);
         } else if("union".equals(functionName)) {
             Parameters parameters = this.getParameters();
-            Type listType = parameters.getParameterType(0, "list");
+            Type listType = parameters.getParameterType(0, "list1");
             return StandardEnvironmentFactory.makeUnionBuiltinFunctionType(listType);
         } else if("flatten".equals(functionName)) {
             Expression inputListParameter = parameters.getParameter(0, "list");
@@ -266,7 +266,17 @@ public class FunctionInvocation extends Expression {
             FunctionType functionType = (FunctionType) declaration.getType();
             List<Pair<ParameterTypes, ParameterConversions>> candidates = functionType.matchCandidates(parameterTypes);
             for (Pair<ParameterTypes, ParameterConversions> candidate: candidates) {
-                matches.add(makeDeclarationMatch(declaration, candidate.getLeft(), candidate.getRight()));
+                ParameterTypes candidateParameterTypes = candidate.getLeft();
+                ParameterConversions candidateParameterConversions = candidate.getRight();
+                if (this.parameters instanceof NamedParameters) {
+                    // candidates are always positional
+                    List<FormalParameter> formalParameters = functionType.getParameters();
+                    ParameterTypes matchParameterTypes = NamedParameterTypes.toNamedParameterTypes((PositionalParameterTypes) candidateParameterTypes, formalParameters);
+                    NamedParameterConversions matchParameterConversions = NamedParameterConversions.toNamedParameterConversions((PositionalParameterConversions) candidateParameterConversions, formalParameters);
+                    matches.add(makeDeclarationMatch(declaration, matchParameterTypes, matchParameterConversions));
+                } else {
+                    matches.add(makeDeclarationMatch(declaration, candidateParameterTypes, candidateParameterConversions));
+                }
             }
         }
         // Phase 3: Filter candidates without conformTo conversion
@@ -280,13 +290,12 @@ public class FunctionInvocation extends Expression {
 
     private DeclarationMatch makeDeclarationMatch(Declaration functionDeclaration) {
         FunctionType functionType = (FunctionType) functionDeclaration.getType();
+        ParameterTypes newParameterTypes = this.parameters.getSignature();
         if (this.parameters instanceof NamedParameters) {
             NamedParameterConversions parameterConversions = new NamedParameterConversions(functionType.getParameters());
-            ParameterTypes newParameterTypes = this.parameters.getSignature();
             return makeDeclarationMatch(functionDeclaration, newParameterTypes, parameterConversions);
         } else {
             PositionalParameterConversions parameterConversions = new PositionalParameterConversions(functionType.getParameterTypes());
-            ParameterTypes newParameterTypes = this.parameters.getSignature();
             return makeDeclarationMatch(functionDeclaration, newParameterTypes, parameterConversions);
         }
     }

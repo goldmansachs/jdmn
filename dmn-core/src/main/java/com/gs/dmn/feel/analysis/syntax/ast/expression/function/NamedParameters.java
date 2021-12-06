@@ -113,7 +113,7 @@ public class NamedParameters extends Parameters {
 
     @Override
     public Type getParameterType(int position, String name) {
-        return this.parameterTypes.getType(name);
+        return this.getParameters().get(name).getType();
     }
 
     private boolean requiresConversion() {

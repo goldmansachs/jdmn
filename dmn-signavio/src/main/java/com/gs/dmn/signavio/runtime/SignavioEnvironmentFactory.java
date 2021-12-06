@@ -135,7 +135,7 @@ public class SignavioEnvironmentFactory implements EnvironmentFactory {
     }
 
     private static void addBooleanFunctions(Environment environment) {
-        addFunctionDeclaration(environment, "not", new BuiltinFunctionType(BOOLEAN, new FormalParameter("boolean", BOOLEAN)));
+        addFunctionDeclaration(environment, "not", new BuiltinFunctionType(BOOLEAN, new FormalParameter("negand", BOOLEAN)));
     }
 
     private static void addDateTimeFunctions(Environment environment) {

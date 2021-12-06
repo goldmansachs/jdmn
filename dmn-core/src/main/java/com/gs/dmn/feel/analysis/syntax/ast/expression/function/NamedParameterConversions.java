@@ -15,6 +15,16 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 import java.util.*;
 
 public class NamedParameterConversions extends ParameterConversions {
+    public static NamedParameterConversions toNamedParameterConversions(PositionalParameterConversions candidateParameterConversions, List<FormalParameter> formalParameters) {
+        NamedParameterConversions matchParameterConversions = new NamedParameterConversions(formalParameters);
+        List<Conversion> conversions = candidateParameterConversions.getConversions(formalParameters);
+        for (int i = 0; i< formalParameters.size(); i++) {
+            FormalParameter p = formalParameters.get(i);
+            matchParameterConversions.add(p.getName(), conversions.get(i));
+        }
+        return matchParameterConversions;
+    }
+
     private final Map<String, Conversion> conversions;
 
     public NamedParameterConversions() {

@@ -61,7 +61,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     }
 
     public static BuiltinFunctionType makeSublistBuiltInFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new FormalParameter("list", listType), new FormalParameter("start position", NUMBER), new FormalParameter("length", NUMBER, true, false));
+        return new BuiltinFunctionType(listType, new FormalParameter("list", listType), new FormalParameter("'start position'", NUMBER), new FormalParameter("length", NUMBER, true, false));
     }
 
     public static BuiltinFunctionType makeAppendBuiltinFunctionType(Type listType, Type itemType) {
@@ -228,16 +228,16 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         addFunctionDeclaration(environment, "or", new BuiltinFunctionType(BOOLEAN, new FormalParameter("b1", BOOLEAN), new FormalParameter("bs", BOOLEAN, false, true)));
         addFunctionDeclaration(environment, "any", new BuiltinFunctionType(BOOLEAN, new FormalParameter("list", BOOLEAN_LIST)));
         addFunctionDeclaration(environment, "any", new BuiltinFunctionType(BOOLEAN, new FormalParameter("b1", BOOLEAN), new FormalParameter("bs", BOOLEAN, false, true)));
-        addFunctionDeclaration(environment, "sublist", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST), new FormalParameter("start position", NUMBER), new FormalParameter("length", NUMBER, true, false)));
-        addFunctionDeclaration(environment, "append", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST), new FormalParameter("item", ANY, false, true)));
-        addFunctionDeclaration(environment, "concatenate", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list1", ANY_LIST, false, true)));
-        addFunctionDeclaration(environment, "insert before", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST), new FormalParameter("position", NUMBER), new FormalParameter("'new item'", ANY)));
-        addFunctionDeclaration(environment, "remove", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST), new FormalParameter("position", NUMBER)));
-        addFunctionDeclaration(environment, "reverse", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST)));
-        addFunctionDeclaration(environment, "index of", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST), new FormalParameter("match", ANY)));
-        addFunctionDeclaration(environment, "distinct values", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST)));
-        addFunctionDeclaration(environment, "union", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list1", ANY_LIST), new FormalParameter("list2", ANY_LIST)));
-        addFunctionDeclaration(environment, "flatten", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST)));
+        addFunctionDeclaration(environment, "sublist", makeSublistBuiltInFunctionType(ANY_LIST));
+        addFunctionDeclaration(environment, "append", makeAppendBuiltinFunctionType(ANY_LIST, ANY));
+        addFunctionDeclaration(environment, "concatenate", makeConcatenateBuiltinFunctionType(ANY_LIST));
+        addFunctionDeclaration(environment, "insert before", makeInsertBeforeBuiltinFunctionType(ANY_LIST, ANY));
+        addFunctionDeclaration(environment, "remove", makeRemoveBuiltinFunctionType(ANY_LIST));
+        addFunctionDeclaration(environment, "reverse", makeReverseBuiltinFunctionType(ANY_LIST));
+        addFunctionDeclaration(environment, "index of", makeIndexOfBuiltinFunctionType(ANY_LIST, ANY));
+        addFunctionDeclaration(environment, "distinct values", makeDistinctValuesBuiltinFunctionType(ANY_LIST));
+        addFunctionDeclaration(environment, "union", makeUnionBuiltinFunctionType(ANY_LIST));
+        addFunctionDeclaration(environment, "flatten", makeFlattenBuiltinFunctionType(ANY_LIST));
         addFunctionDeclaration(environment, "product", new BuiltinFunctionType(NUMBER, new FormalParameter("list", NUMBER_LIST)));
         addFunctionDeclaration(environment, "product", new BuiltinFunctionType(NUMBER, new FormalParameter("n1", NUMBER), new FormalParameter("ns", NUMBER, false, true)));
         addFunctionDeclaration(environment, "median", new BuiltinFunctionType(NUMBER, new FormalParameter("list", NUMBER_LIST)));
@@ -247,7 +247,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         addFunctionDeclaration(environment, "mode", new BuiltinFunctionType(NUMBER, new FormalParameter("list", NUMBER_LIST)));
         addFunctionDeclaration(environment, "mode", new BuiltinFunctionType(NUMBER, new FormalParameter("n1", NUMBER), new FormalParameter("ns", NUMBER, false, true)));
 
-        addFunctionDeclaration(environment, "sort", new BuiltinFunctionType(ANY_LIST, new FormalParameter("list", ANY_LIST), new FormalParameter("function", ANY)));
+        addFunctionDeclaration(environment, "sort", makeSortBuiltinFunctionType(ANY_LIST, ANY));
     }
 
     private static void addContextFunctions(Environment environment) {

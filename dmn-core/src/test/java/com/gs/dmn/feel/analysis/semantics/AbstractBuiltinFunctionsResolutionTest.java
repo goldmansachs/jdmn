@@ -51,7 +51,8 @@ public abstract class AbstractBuiltinFunctionsResolutionTest {
             }
             assertFalse(error);
         } catch (Exception e) {
-            assertTrue(text + " " + e.getMessage(), error);
+            e.printStackTrace();
+            assertTrue(text, error);
         }
     }
 
