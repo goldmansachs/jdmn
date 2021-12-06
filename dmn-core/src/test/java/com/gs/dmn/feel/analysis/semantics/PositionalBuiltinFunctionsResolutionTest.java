@@ -2,7 +2,7 @@ package com.gs.dmn.feel.analysis.semantics;
 
 import org.junit.Test;
 
-public class PositionalBuiltinFunctionsResolutionTest extends AbstractBuiltinFunctionsResolutionTest {
+public class PositionalBuiltinFunctionsResolutionTest extends AbstractStandardBuiltinFunctionsResolutionTest {
     @Test
     public void testConversionFunctions() {
         testFunctionInvocation("date(null)", "BuiltinFunctionType(FormalParameter(from, string, false, false), date)", false);

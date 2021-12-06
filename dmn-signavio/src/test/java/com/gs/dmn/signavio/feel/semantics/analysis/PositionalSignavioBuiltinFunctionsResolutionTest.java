@@ -159,7 +159,7 @@ public class PositionalSignavioBuiltinFunctionsResolutionTest extends AbstractSi
         testFunctionInvocation("upper(null)", "BuiltinFunctionType(FormalParameter(text, string, false, false), string)", false);
         testFunctionInvocation("upper(" + stringString + ")", "BuiltinFunctionType(FormalParameter(text, string, false, false), string)", false);
         testFunctionInvocation("number(null)", "BuiltinFunctionType(FormalParameter(text, string, false, false), FormalParameter(default_value, number, true, false), number)", false);
-//        testFunctionInvocation("number(\"123\"" + ")", "BuiltinFunctionType(FormalParameter(text, string, false, false), FormalParameter(default_value, number, true, false), number)", false);
+        testFunctionInvocation("number(\"123\"" + ")", "BuiltinFunctionType(FormalParameter(text, string, false, false), FormalParameter(default_value, number, true, false), number)", false);
         testFunctionInvocation("number(" + stringString + ", " + number + ")", "BuiltinFunctionType(FormalParameter(text, string, false, false), FormalParameter(default_value, number, true, false), number)", false);
         testFunctionInvocation("mid(null, null, null)", "BuiltinFunctionType(FormalParameter(text, string, false, false), FormalParameter(start, number, false, false), FormalParameter(num_chars, number, false, false), string)", false);
         testFunctionInvocation("mid(" + stringString + ", " + number + ", " + number + ")", "BuiltinFunctionType(FormalParameter(text, string, false, false), FormalParameter(start, number, false, false), FormalParameter(num_chars, number, false, false), string)", false);
@@ -189,7 +189,6 @@ public class PositionalSignavioBuiltinFunctionsResolutionTest extends AbstractSi
 
     @Test
     public void testBooleanFunctions() {
-        // Boolean functions
         testFunctionInvocation("not(null)", "LogicNegation", false);
         testFunctionInvocation("not(true)", "LogicNegation", false);
     }

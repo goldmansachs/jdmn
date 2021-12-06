@@ -55,7 +55,6 @@ public class FEELTypes {
     });
 
     public static final List<String> FEEL_LITERAL_DATE_TIME_NAMES = Arrays.asList(
-            NumberType.NUMBER.getConversionFunction(),
             DateType.DATE.getConversionFunction(),
             TimeType.TIME.getConversionFunction(),
             DateTimeType.DATE_AND_TIME.getConversionFunction(),
