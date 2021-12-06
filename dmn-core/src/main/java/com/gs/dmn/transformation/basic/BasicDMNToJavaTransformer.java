@@ -15,6 +15,7 @@ package com.gs.dmn.transformation.basic;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementFilter;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.NameUtils;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
@@ -1827,7 +1828,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         if (StringUtils.isBlank(name)) {
             throw new DMNRuntimeException("Cannot build variable name from empty string");
         }
-        name = this.dmnModelRepository.removeSingleQuotes(name);
+        name = NameUtils.removeSingleQuotes(name);
         String[] parts = name.split("\\.");
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < parts.length; i++) {
@@ -1844,7 +1845,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String nativeFriendlyName(String name) {
-        name = this.dmnModelRepository.removeSingleQuotes(name);
+        name = NameUtils.removeSingleQuotes(name);
         StringBuilder result = new StringBuilder();
         boolean skippedPrevious = false;
         for (int i = 0; i < name.length(); i++) {
@@ -1864,14 +1865,14 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String upperCaseFirst(String name) {
-        name = this.dmnModelRepository.removeSingleQuotes(name);
+        name = NameUtils.removeSingleQuotes(name);
         String firstChar = Character.toString(Character.toUpperCase(name.charAt(0)));
         return nativeFriendlyName(name.length() == 1 ? firstChar : firstChar + name.substring(1));
     }
 
     @Override
     public String lowerCaseFirst(String name) {
-        name = this.dmnModelRepository.removeSingleQuotes(name);
+        name = NameUtils.removeSingleQuotes(name);
         String firstChar = Character.toString(Character.toLowerCase(name.charAt(0)));
         return nativeFriendlyName(name.length() == 1 ? firstChar : firstChar + name.substring(1));
     }

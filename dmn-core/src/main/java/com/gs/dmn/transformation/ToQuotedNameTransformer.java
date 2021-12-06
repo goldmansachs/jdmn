@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.NameUtils;
 import com.gs.dmn.log.BuildLogger;
 import org.apache.commons.lang3.StringUtils;
 
@@ -25,13 +26,16 @@ public class ToQuotedNameTransformer extends NameTransformer {
     }
 
     @Override
-    public String transformName(String name) {
-        if (StringUtils.isEmpty(name)) {
-            return name;
-        } else if (isSimpleName(name)) {
-            return name;
+    public String transformName(String oldName) {
+        if (StringUtils.isEmpty(oldName)) {
+            return oldName;
+        } else if (NameUtils.isSimpleName(oldName)) {
+            return oldName;
+        } else if (NameUtils.isQuotedName(oldName)) {
+            return oldName;
         } else {
-            return "'" + name + "'";
+            String newName = oldName.replace("'", "''");
+            return "'" + newName + "'";
         }
     }
 }

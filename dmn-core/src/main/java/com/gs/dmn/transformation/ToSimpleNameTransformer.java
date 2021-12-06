@@ -13,6 +13,7 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.NameUtils;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.NopBuildLogger;
 import com.gs.dmn.runtime.Pair;
@@ -41,7 +42,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
     public String transformName(String oldName) {
         if (StringUtils.isEmpty(oldName)) {
             return oldName;
-        } else if (isSimpleName(oldName)) {
+        } else if (NameUtils.isSimpleName(oldName)) {
             return oldName;
         } else {
             String newName = namesMapping.get(oldName);

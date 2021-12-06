@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.NameUtils;
 import com.gs.dmn.error.LogAndThrowErrorHandler;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
@@ -131,7 +132,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
     }
 
     protected String javaMemberFunctionName(String memberName) {
-        memberName = this.dmnTransformer.getDMNModelRepository().removeSingleQuotes(memberName);
+        memberName = NameUtils.removeSingleQuotes(memberName);
         if ("time offset".equalsIgnoreCase(memberName)) {
             return "timeOffset";
         } else {
@@ -140,7 +141,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
     }
 
     private String javaRangeGetter(String memberName) {
-        memberName = this.dmnTransformer.getDMNModelRepository().removeSingleQuotes(memberName);
+        memberName = NameUtils.removeSingleQuotes(memberName);
         if ("start included".equalsIgnoreCase(memberName)) {
             return "isStartIncluded()";
         }  else if ("end included".equalsIgnoreCase(memberName)) {

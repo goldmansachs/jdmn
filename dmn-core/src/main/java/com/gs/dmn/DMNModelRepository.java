@@ -151,17 +151,6 @@ public class DMNModelRepository {
         }
     }
 
-    public String removeSingleQuotes(String name) {
-        if (isQuotedName(name)) {
-            name = name.substring(1, name.length() - 1);
-        }
-        return name;
-    }
-
-    protected boolean isQuotedName(String name) {
-        return name != null && name.startsWith("'") && name.endsWith("'");
-    }
-
     public TDefinitions getRootDefinitions() {
         int size = this.getAllDefinitions().size();
         if (size == 1) {
@@ -393,11 +382,11 @@ public class DMNModelRepository {
     }
 
     protected void sortDRGElements(List<JAXBElement<? extends TDRGElement>> elements) {
-        elements.sort(Comparator.comparing((JAXBElement<? extends TDRGElement> o) -> removeSingleQuotes(o.getValue().getName())));
+        elements.sort(Comparator.comparing((JAXBElement<? extends TDRGElement> o) -> NameUtils.removeSingleQuotes(o.getValue().getName())));
     }
 
     public void sortNamedElements(List<? extends TNamedElement> elements) {
-        elements.sort(Comparator.comparing((TNamedElement o) -> removeSingleQuotes(o.getName())));
+        elements.sort(Comparator.comparing((TNamedElement o) -> NameUtils.removeSingleQuotes(o.getName())));
     }
 
     private void sortDMNDI(DMNDI dmndi) {
@@ -437,7 +426,7 @@ public class DMNModelRepository {
     }
 
     public void sortNamedElementReferences(List<? extends DRGElementReference<? extends TNamedElement>> references) {
-        references.sort(Comparator.comparing((DRGElementReference<? extends TNamedElement> o) -> removeSingleQuotes(o.getElementName())));
+        references.sort(Comparator.comparing((DRGElementReference<? extends TNamedElement> o) -> NameUtils.removeSingleQuotes(o.getElementName())));
     }
 
     public TDRGElement findDRGElementByRef(TDRGElement parent, String href) {
