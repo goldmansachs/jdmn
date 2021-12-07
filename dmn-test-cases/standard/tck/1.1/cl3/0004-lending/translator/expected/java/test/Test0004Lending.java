@@ -20,21 +20,21 @@ public class Test0004Lending extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         checkValues("ACCEPT", new Adjudication().apply(applicantData, bureauData, supportingDocuments, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check ApplicationRiskScore
         checkValues(number("130"), new ApplicationRiskScore().apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_));
-        // Check PreBureauRiskCategory
+        // Check 'Pre-bureauRiskCategory'
         checkValues("LOW", new PreBureauRiskCategory().apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check BureauCallType
         checkValues("MINI", new BureauCallType().apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_));
-        // Check PostBureauRiskCategory
+        // Check 'Post-bureauRiskCategory'
         checkValues("LOW", new PostBureauRiskCategory().apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check RequiredMonthlyInstallment
         checkValues(number("1680.880325608555"), new RequiredMonthlyInstallment().apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
-        // Check PreBureauAffordability
+        // Check 'Pre-bureauAffordability'
         checkValues(true, new PreBureauAffordability().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check Eligibility
         checkValues("ELIGIBLE", new Eligibility().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check Strategy
         checkValues("BUREAU", new Strategy().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
-        // Check PostBureauAffordability
+        // Check 'Post-bureauAffordability'
         checkValues(true, new PostBureauAffordability().apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check Routing
         checkValues("ACCEPT", new Routing().apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));

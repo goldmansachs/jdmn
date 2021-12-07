@@ -2,10 +2,10 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["bkm.ftl", "PreBureauRiskCategoryTable"])
+@javax.annotation.Generated(value = ["bkm.ftl", "'Pre-bureauRiskCategoryTable'"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "PreBureauRiskCategoryTable",
+    name = "'Pre-bureauRiskCategoryTable'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.BUSINESS_KNOWLEDGE_MODEL,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,
@@ -17,22 +17,22 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     private fun apply(existingCustomer: Boolean?, applicationRiskScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         try {
-            // Start BKM 'PreBureauRiskCategoryTable'
+            // Start BKM ''Pre-bureauRiskCategoryTable''
             val preBureauRiskCategoryTableStartTime_ = System.currentTimeMillis()
             val preBureauRiskCategoryTableArguments_ = com.gs.dmn.runtime.listener.Arguments()
             preBureauRiskCategoryTableArguments_.put("ExistingCustomer", existingCustomer)
             preBureauRiskCategoryTableArguments_.put("ApplicationRiskScore", applicationRiskScore)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryTableArguments_)
 
-            // Evaluate BKM 'PreBureauRiskCategoryTable'
+            // Evaluate BKM ''Pre-bureauRiskCategoryTable''
             val output_: String? = evaluate(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-            // End BKM 'PreBureauRiskCategoryTable'
+            // End BKM ''Pre-bureauRiskCategoryTable''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryTableArguments_, output_, (System.currentTimeMillis() - preBureauRiskCategoryTableStartTime_))
 
             return output_
         } catch (e: Exception) {
-            logError("Exception caught in 'PreBureauRiskCategoryTable' evaluation", e)
+            logError("Exception caught in ''Pre-bureauRiskCategoryTable'' evaluation", e)
             return null
         }
     }
@@ -84,7 +84,7 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.preBureauRiskCategoryTable = "HIGH"
 
             // Add annotation
-            annotationSet_.addAnnotation("PreBureauRiskCategoryTable", 0, "")
+            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 0, "")
         }
 
         // Rule end
@@ -115,7 +115,7 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.preBureauRiskCategoryTable = "MEDIUM"
 
             // Add annotation
-            annotationSet_.addAnnotation("PreBureauRiskCategoryTable", 1, "")
+            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 1, "")
         }
 
         // Rule end
@@ -146,7 +146,7 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.preBureauRiskCategoryTable = "LOW"
 
             // Add annotation
-            annotationSet_.addAnnotation("PreBureauRiskCategoryTable", 2, "")
+            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 2, "")
         }
 
         // Rule end
@@ -177,7 +177,7 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.preBureauRiskCategoryTable = "VERY LOW"
 
             // Add annotation
-            annotationSet_.addAnnotation("PreBureauRiskCategoryTable", 3, "")
+            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 3, "")
         }
 
         // Rule end
@@ -208,7 +208,7 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.preBureauRiskCategoryTable = "DECLINE"
 
             // Add annotation
-            annotationSet_.addAnnotation("PreBureauRiskCategoryTable", 4, "")
+            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 4, "")
         }
 
         // Rule end
@@ -239,7 +239,7 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.preBureauRiskCategoryTable = "HIGH"
 
             // Add annotation
-            annotationSet_.addAnnotation("PreBureauRiskCategoryTable", 5, "")
+            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 5, "")
         }
 
         // Rule end
@@ -270,7 +270,7 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.preBureauRiskCategoryTable = "MEDIUM"
 
             // Add annotation
-            annotationSet_.addAnnotation("PreBureauRiskCategoryTable", 6, "")
+            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 6, "")
         }
 
         // Rule end
@@ -301,7 +301,7 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.preBureauRiskCategoryTable = "LOW"
 
             // Add annotation
-            annotationSet_.addAnnotation("PreBureauRiskCategoryTable", 7, "")
+            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 7, "")
         }
 
         // Rule end
@@ -314,7 +314,7 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     companion object {
         val DRG_ELEMENT_METADATA = com.gs.dmn.runtime.listener.DRGElement(
             "",
-            "PreBureauRiskCategoryTable",
+            "'Pre-bureauRiskCategoryTable'",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.BUSINESS_KNOWLEDGE_MODEL,
             com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,

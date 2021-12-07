@@ -14,7 +14,7 @@ public class Test0020VacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         java.math.BigDecimal age = number("16");
         java.math.BigDecimal yearsOfService = number("1");
 
-        // Check TotalVacationDays
+        // Check 'Total Vacation Days'
         checkValues(number("27"), new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
@@ -28,7 +28,7 @@ public class Test0020VacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         java.math.BigDecimal age = number("25");
         java.math.BigDecimal yearsOfService = number("5");
 
-        // Check TotalVacationDays
+        // Check 'Total Vacation Days'
         checkValues(number("22"), new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
@@ -42,7 +42,7 @@ public class Test0020VacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         java.math.BigDecimal age = number("25");
         java.math.BigDecimal yearsOfService = number("20");
 
-        // Check TotalVacationDays
+        // Check 'Total Vacation Days'
         checkValues(number("24"), new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
@@ -56,7 +56,7 @@ public class Test0020VacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         java.math.BigDecimal age = number("44");
         java.math.BigDecimal yearsOfService = number("30");
 
-        // Check TotalVacationDays
+        // Check 'Total Vacation Days'
         checkValues(number("30"), new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
@@ -70,7 +70,7 @@ public class Test0020VacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         java.math.BigDecimal age = number("50");
         java.math.BigDecimal yearsOfService = number("20");
 
-        // Check TotalVacationDays
+        // Check 'Total Vacation Days'
         checkValues(number("24"), new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
@@ -84,7 +84,7 @@ public class Test0020VacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         java.math.BigDecimal age = number("50");
         java.math.BigDecimal yearsOfService = number("30");
 
-        // Check TotalVacationDays
+        // Check 'Total Vacation Days'
         checkValues(number("30"), new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
@@ -98,7 +98,7 @@ public class Test0020VacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         java.math.BigDecimal age = number("60");
         java.math.BigDecimal yearsOfService = number("20");
 
-        // Check TotalVacationDays
+        // Check 'Total Vacation Days'
         checkValues(number("30"), new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 

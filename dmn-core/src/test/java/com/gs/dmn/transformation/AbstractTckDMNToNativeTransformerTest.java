@@ -24,7 +24,7 @@ import java.net.URI;
 public abstract class AbstractTckDMNToNativeTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     @Override
     protected DMNTransformer<TestCases> makeDMNTransformer(BuildLogger logger) {
-        return new ToSimpleNameTransformer(logger);
+        return new ToQuotedNameTransformer(logger);
     }
 
     @Override

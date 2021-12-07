@@ -3,10 +3,10 @@ package model_a;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "GreetThePerson"})
+@javax.annotation.Generated(value = {"decision.ftl", "'Greet the Person'"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "model_a",
-    name = "GreetThePerson",
+    name = "'Greet the Person'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.LITERAL_EXPRESSION,
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class GreetThePerson extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "model_a",
-        "GreetThePerson",
+        "'Greet the Person'",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.LITERAL_EXPRESSION,
@@ -33,21 +33,21 @@ public class GreetThePerson extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public String apply(String personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            // Start decision 'GreetThePerson'
+            // Start decision ''Greet the Person''
             long greetThePersonStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments greetThePersonArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            greetThePersonArguments_.put("PersonName", personName);
+            greetThePersonArguments_.put("'Person name'", personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, greetThePersonArguments_);
 
-            // Evaluate decision 'GreetThePerson'
+            // Evaluate decision ''Greet the Person''
             String output_ = evaluate(personName, annotationSet_, eventListener_, externalExecutor_, cache_);
 
-            // End decision 'GreetThePerson'
+            // End decision ''Greet the Person''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, greetThePersonArguments_, output_, (System.currentTimeMillis() - greetThePersonStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in 'GreetThePerson' evaluation", e);
+            logError("Exception caught in ''Greet the Person'' evaluation", e);
             return null;
         }
     }

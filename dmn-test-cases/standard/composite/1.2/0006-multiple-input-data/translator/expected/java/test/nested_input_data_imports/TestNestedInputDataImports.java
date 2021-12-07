@@ -12,11 +12,11 @@ public class TestNestedInputDataImports extends com.gs.dmn.runtime.DefaultDMNBas
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
         com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         // Initialize input data
-        String modelb_modela_personName = "B.A.John";
-        String modelb2_modela_personName = "B2.A.John2";
+        String model_b_modela_personName = "B.A.John";
+        String model_b2_modela_personName = "B2.A.John2";
 
-        // Check ModelCDecisionBasedOnBs
-        checkValues("B: Evaluating Say Hello to: Hello, B.A.John; B2: Evaluating Say Hello to: Hello, B2.A.John2", new nested_input_data_imports.ModelCDecisionBasedOnBs().apply(modelb2_modela_personName, modelb_modela_personName, annotationSet_, eventListener_, externalExecutor_, cache_));
+        // Check 'Model C Decision based on Bs'
+        checkValues("B: Evaluating Say Hello to: Hello, B.A.John; B2: Evaluating Say Hello to: Hello, B2.A.John2", new nested_input_data_imports.ModelCDecisionBasedOnBs().apply(model_b2_modela_personName, model_b_modela_personName, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
     private void checkValues(Object expected, Object actual) {

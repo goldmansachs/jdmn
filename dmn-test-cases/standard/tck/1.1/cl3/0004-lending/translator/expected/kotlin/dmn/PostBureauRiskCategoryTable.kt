@@ -2,10 +2,10 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["bkm.ftl", "PostBureauRiskCategoryTable"])
+@javax.annotation.Generated(value = ["bkm.ftl", "'Post-bureauRiskCategoryTable'"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "PostBureauRiskCategoryTable",
+    name = "'Post-bureauRiskCategoryTable'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.BUSINESS_KNOWLEDGE_MODEL,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,
@@ -17,7 +17,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     private fun apply(existingCustomer: Boolean?, applicationRiskScore: java.math.BigDecimal?, creditScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         try {
-            // Start BKM 'PostBureauRiskCategoryTable'
+            // Start BKM ''Post-bureauRiskCategoryTable''
             val postBureauRiskCategoryTableStartTime_ = System.currentTimeMillis()
             val postBureauRiskCategoryTableArguments_ = com.gs.dmn.runtime.listener.Arguments()
             postBureauRiskCategoryTableArguments_.put("ExistingCustomer", existingCustomer)
@@ -25,15 +25,15 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             postBureauRiskCategoryTableArguments_.put("CreditScore", creditScore)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, postBureauRiskCategoryTableArguments_)
 
-            // Evaluate BKM 'PostBureauRiskCategoryTable'
+            // Evaluate BKM ''Post-bureauRiskCategoryTable''
             val output_: String? = evaluate(existingCustomer, applicationRiskScore, creditScore, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-            // End BKM 'PostBureauRiskCategoryTable'
+            // End BKM ''Post-bureauRiskCategoryTable''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, postBureauRiskCategoryTableArguments_, output_, (System.currentTimeMillis() - postBureauRiskCategoryTableStartTime_))
 
             return output_
         } catch (e: Exception) {
-            logError("Exception caught in 'PostBureauRiskCategoryTable' evaluation", e)
+            logError("Exception caught in ''Post-bureauRiskCategoryTable'' evaluation", e)
             return null
         }
     }
@@ -91,7 +91,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.postBureauRiskCategoryTable = "HIGH"
 
             // Add annotation
-            annotationSet_.addAnnotation("PostBureauRiskCategoryTable", 0, "")
+            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 0, "")
         }
 
         // Rule end
@@ -123,7 +123,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.postBureauRiskCategoryTable = "MEDIUM"
 
             // Add annotation
-            annotationSet_.addAnnotation("PostBureauRiskCategoryTable", 1, "")
+            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 1, "")
         }
 
         // Rule end
@@ -155,7 +155,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.postBureauRiskCategoryTable = "LOW"
 
             // Add annotation
-            annotationSet_.addAnnotation("PostBureauRiskCategoryTable", 2, "")
+            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 2, "")
         }
 
         // Rule end
@@ -187,7 +187,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.postBureauRiskCategoryTable = "HIGH"
 
             // Add annotation
-            annotationSet_.addAnnotation("PostBureauRiskCategoryTable", 3, "")
+            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 3, "")
         }
 
         // Rule end
@@ -219,7 +219,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.postBureauRiskCategoryTable = "MEDIUM"
 
             // Add annotation
-            annotationSet_.addAnnotation("PostBureauRiskCategoryTable", 4, "")
+            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 4, "")
         }
 
         // Rule end
@@ -251,7 +251,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.postBureauRiskCategoryTable = "LOW"
 
             // Add annotation
-            annotationSet_.addAnnotation("PostBureauRiskCategoryTable", 5, "")
+            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 5, "")
         }
 
         // Rule end
@@ -283,7 +283,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.postBureauRiskCategoryTable = "VERY LOW"
 
             // Add annotation
-            annotationSet_.addAnnotation("PostBureauRiskCategoryTable", 6, "")
+            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 6, "")
         }
 
         // Rule end
@@ -315,7 +315,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.postBureauRiskCategoryTable = "HIGH"
 
             // Add annotation
-            annotationSet_.addAnnotation("PostBureauRiskCategoryTable", 7, "")
+            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 7, "")
         }
 
         // Rule end
@@ -347,7 +347,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.postBureauRiskCategoryTable = "MEDIUM"
 
             // Add annotation
-            annotationSet_.addAnnotation("PostBureauRiskCategoryTable", 8, "")
+            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 8, "")
         }
 
         // Rule end
@@ -379,7 +379,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.postBureauRiskCategoryTable = "LOW"
 
             // Add annotation
-            annotationSet_.addAnnotation("PostBureauRiskCategoryTable", 9, "")
+            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 9, "")
         }
 
         // Rule end
@@ -411,7 +411,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.postBureauRiskCategoryTable = "HIGH"
 
             // Add annotation
-            annotationSet_.addAnnotation("PostBureauRiskCategoryTable", 10, "")
+            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 10, "")
         }
 
         // Rule end
@@ -443,7 +443,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.postBureauRiskCategoryTable = "MEDIUM"
 
             // Add annotation
-            annotationSet_.addAnnotation("PostBureauRiskCategoryTable", 11, "")
+            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 11, "")
         }
 
         // Rule end
@@ -475,7 +475,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.postBureauRiskCategoryTable = "LOW"
 
             // Add annotation
-            annotationSet_.addAnnotation("PostBureauRiskCategoryTable", 12, "")
+            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 12, "")
         }
 
         // Rule end
@@ -488,7 +488,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     companion object {
         val DRG_ELEMENT_METADATA = com.gs.dmn.runtime.listener.DRGElement(
             "",
-            "PostBureauRiskCategoryTable",
+            "'Post-bureauRiskCategoryTable'",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.BUSINESS_KNOWLEDGE_MODEL,
             com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,

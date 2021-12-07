@@ -14,7 +14,7 @@ public class Test0031UserDefinedFunctions extends com.gs.dmn.runtime.DefaultDMNB
         java.math.BigDecimal inputA = number("10");
         java.math.BigDecimal inputB = number("5");
 
-        // Check fnInvocationPositionalParameters
+        // Check 'fn invocation positional parameters'
         checkValues(new type.TFnInvocationPositionalResultImpl(number("2"), number("50"), number("15")), new FnInvocationPositionalParameters().apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
@@ -28,7 +28,7 @@ public class Test0031UserDefinedFunctions extends com.gs.dmn.runtime.DefaultDMNB
         java.math.BigDecimal inputA = number("10");
         java.math.BigDecimal inputB = number("5");
 
-        // Check fnInvocationNamedParameters
+        // Check 'fn invocation named parameters'
         checkValues(new type.TFnInvocationNamedResultImpl(number("2"), number("50"), number("5"), number("-5")), new FnInvocationNamedParameters().apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
@@ -42,7 +42,7 @@ public class Test0031UserDefinedFunctions extends com.gs.dmn.runtime.DefaultDMNB
         java.math.BigDecimal inputA = number("10");
         java.math.BigDecimal inputB = number("5");
 
-        // Check fnInvocationComplexParameters
+        // Check 'fn invocation complex parameters'
         checkValues(new type.TFnInvocationComplexParamsResultImpl(number("94.247760"), number("200"), number("500")), new FnInvocationComplexParameters().apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 

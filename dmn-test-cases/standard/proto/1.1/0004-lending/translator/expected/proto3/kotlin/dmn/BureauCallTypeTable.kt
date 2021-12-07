@@ -20,7 +20,7 @@ class BureauCallTypeTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start BKM 'BureauCallTypeTable'
             val bureauCallTypeTableStartTime_ = System.currentTimeMillis()
             val bureauCallTypeTableArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            bureauCallTypeTableArguments_.put("PreBureauRiskCategory", preBureauRiskCategory)
+            bureauCallTypeTableArguments_.put("'Pre-bureauRiskCategory'", preBureauRiskCategory)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeTableArguments_)
 
             // Evaluate BKM 'BureauCallTypeTable'

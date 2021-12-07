@@ -97,7 +97,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
 
         for(File child: inputFolder.listFiles()) {
             if (DMNReader.isDMNFile(child)) {
-                ToSimpleNameTransformer simpleNameTransformer = new ToSimpleNameTransformer(new NopBuildLogger());
+                NameTransformer simpleNameTransformer = new ToSimpleNameTransformer(new NopBuildLogger());
 
                 // Clean DMN
                 String dmnFileName = child.getName();
@@ -116,7 +116,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
         }
     }
 
-    private static DMNModelRepository transformDefinitions(ToSimpleNameTransformer transformer, File inputFile, File outputFile, BuildLogger logger) {
+    private static DMNModelRepository transformDefinitions(NameTransformer transformer, File inputFile, File outputFile, BuildLogger logger) {
         // Read
         DMNReader reader = new DMNReader(logger, false);
         Pair<TDefinitions, PrefixNamespaceMappings> result = reader.read(inputFile);
@@ -132,7 +132,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
         return repository;
     }
 
-    private static void transformTestCases(ToSimpleNameTransformer transformer, DMNModelRepository repository, File inputFile, File outputFile, BuildLogger logger) {
+    private static void transformTestCases(NameTransformer transformer, DMNModelRepository repository, File inputFile, File outputFile, BuildLogger logger) {
         // Read
         TestCasesReader reader = new TestCasesReader(logger);
 

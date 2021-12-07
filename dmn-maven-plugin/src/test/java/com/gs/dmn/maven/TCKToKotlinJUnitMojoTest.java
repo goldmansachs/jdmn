@@ -14,7 +14,7 @@ package com.gs.dmn.maven;
 
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.maven.configuration.components.DMNTransformerComponent;
-import com.gs.dmn.transformation.ToSimpleNameTransformer;
+import com.gs.dmn.transformation.ToQuotedNameTransformer;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
 import com.gs.dmn.validation.NopDMNValidator;
 import org.junit.Test;
@@ -34,7 +34,7 @@ public class TCKToKotlinJUnitMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         mojo.project = project;
         mojo.dmnDialect = StandardDMNDialectDefinition.class.getName();
         mojo.dmnValidators = new String[] {NopDMNValidator.class.getName()};
-        mojo.dmnTransformers = new DMNTransformerComponent[] { new DMNTransformerComponent(ToSimpleNameTransformer.class.getName()) };
+        mojo.dmnTransformers = new DMNTransformerComponent[] { new DMNTransformerComponent(ToQuotedNameTransformer.class.getName()) };
         mojo.templateProvider = TreeTemplateProvider.class.getName();
         mojo.inputModelFileDirectory = new File(inputModel);
         mojo.inputTestFileDirectory = new File(inputTest);

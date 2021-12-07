@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "PostBureauAffordability"})
+@javax.annotation.Generated(value = {"decision.ftl", "'Post-bureauAffordability'"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "PostBureauAffordability",
+    name = "'Post-bureauAffordability'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.INVOCATION,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class PostBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "PostBureauAffordability",
+        "'Post-bureauAffordability'",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.INVOCATION,
@@ -59,7 +59,7 @@ public class PostBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDe
 
     public Boolean apply(type.TApplicantData applicantData, type.TBureauData bureauData, type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            // Start decision 'PostBureauAffordability'
+            // Start decision ''Post-bureauAffordability''
             long postBureauAffordabilityStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments postBureauAffordabilityArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             postBureauAffordabilityArguments_.put("ApplicantData", applicantData);
@@ -71,15 +71,15 @@ public class PostBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDe
             String postBureauRiskCategory = this.postBureauRiskCategory.apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_);
             java.math.BigDecimal requiredMonthlyInstallment = this.requiredMonthlyInstallment.apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
 
-            // Evaluate decision 'PostBureauAffordability'
+            // Evaluate decision ''Post-bureauAffordability''
             Boolean output_ = evaluate(applicantData, postBureauRiskCategory, requiredMonthlyInstallment, annotationSet_, eventListener_, externalExecutor_, cache_);
 
-            // End decision 'PostBureauAffordability'
+            // End decision ''Post-bureauAffordability''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, postBureauAffordabilityArguments_, output_, (System.currentTimeMillis() - postBureauAffordabilityStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in 'PostBureauAffordability' evaluation", e);
+            logError("Exception caught in ''Post-bureauAffordability'' evaluation", e);
             return null;
         }
     }

@@ -2,10 +2,10 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["decision.ftl", "PostBureauAffordability"])
+@javax.annotation.Generated(value = ["decision.ftl", "'Post-bureauAffordability'"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "PostBureauAffordability",
+    name = "'Post-bureauAffordability'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.INVOCATION,
@@ -37,7 +37,7 @@ class PostBureauAffordability(val postBureauRiskCategory : PostBureauRiskCategor
 
     fun apply(applicantData: type.TApplicantData?, bureauData: type.TBureauData?, requestedProduct: type.TRequestedProduct?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
         try {
-            // Start decision 'PostBureauAffordability'
+            // Start decision ''Post-bureauAffordability''
             val postBureauAffordabilityStartTime_ = System.currentTimeMillis()
             val postBureauAffordabilityArguments_ = com.gs.dmn.runtime.listener.Arguments()
             postBureauAffordabilityArguments_.put("ApplicantData", applicantData)
@@ -49,15 +49,15 @@ class PostBureauAffordability(val postBureauRiskCategory : PostBureauRiskCategor
             val postBureauRiskCategory: String? = this.postBureauRiskCategory.apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_)
             val requiredMonthlyInstallment: java.math.BigDecimal? = this.requiredMonthlyInstallment.apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-            // Evaluate decision 'PostBureauAffordability'
+            // Evaluate decision ''Post-bureauAffordability''
             val output_: Boolean? = evaluate(applicantData, postBureauRiskCategory, requiredMonthlyInstallment, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-            // End decision 'PostBureauAffordability'
+            // End decision ''Post-bureauAffordability''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, postBureauAffordabilityArguments_, output_, (System.currentTimeMillis() - postBureauAffordabilityStartTime_))
 
             return output_
         } catch (e: Exception) {
-            logError("Exception caught in 'PostBureauAffordability' evaluation", e)
+            logError("Exception caught in ''Post-bureauAffordability'' evaluation", e)
             return null
         }
     }
@@ -69,7 +69,7 @@ class PostBureauAffordability(val postBureauRiskCategory : PostBureauRiskCategor
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
             "",
-            "PostBureauAffordability",
+            "'Post-bureauAffordability'",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
             com.gs.dmn.runtime.annotation.ExpressionKind.INVOCATION,

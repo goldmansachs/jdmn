@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "fnInvocationPositionalParameters"})
+@javax.annotation.Generated(value = {"decision.ftl", "'fn invocation positional parameters'"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "fnInvocationPositionalParameters",
+    name = "'fn invocation positional parameters'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "fnInvocationPositionalParameters",
+        "'fn invocation positional parameters'",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -57,7 +57,7 @@ public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.Default
 
     public type.TFnInvocationPositionalResult apply(java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            // Start decision 'fnInvocationPositionalParameters'
+            // Start decision ''fn invocation positional parameters''
             long fnInvocationPositionalParametersStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments fnInvocationPositionalParametersArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             fnInvocationPositionalParametersArguments_.put("inputA", inputA);
@@ -67,15 +67,15 @@ public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.Default
             // Apply child decisions
             type.TFnLibrary fnLibrary = this.fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
 
-            // Evaluate decision 'fnInvocationPositionalParameters'
+            // Evaluate decision ''fn invocation positional parameters''
             type.TFnInvocationPositionalResult output_ = evaluate(fnLibrary, inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_);
 
-            // End decision 'fnInvocationPositionalParameters'
+            // End decision ''fn invocation positional parameters''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnInvocationPositionalParametersArguments_, output_, (System.currentTimeMillis() - fnInvocationPositionalParametersStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in 'fnInvocationPositionalParameters' evaluation", e);
+            logError("Exception caught in ''fn invocation positional parameters'' evaluation", e);
             return null;
         }
     }

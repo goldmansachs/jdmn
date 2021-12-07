@@ -2,10 +2,10 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["decision.ftl", "fnInvocationComplexParameters"])
+@javax.annotation.Generated(value = ["decision.ftl", "'fn invocation complex parameters'"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "fnInvocationComplexParameters",
+    name = "'fn invocation complex parameters'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -37,7 +37,7 @@ class FnInvocationComplexParameters(val fnLibrary : FnLibrary = FnLibrary()) : c
 
     fun apply(inputA: java.math.BigDecimal?, inputB: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TFnInvocationComplexParamsResult? {
         try {
-            // Start decision 'fnInvocationComplexParameters'
+            // Start decision ''fn invocation complex parameters''
             val fnInvocationComplexParametersStartTime_ = System.currentTimeMillis()
             val fnInvocationComplexParametersArguments_ = com.gs.dmn.runtime.listener.Arguments()
             fnInvocationComplexParametersArguments_.put("inputA", inputA)
@@ -47,15 +47,15 @@ class FnInvocationComplexParameters(val fnLibrary : FnLibrary = FnLibrary()) : c
             // Apply child decisions
             val fnLibrary: type.TFnLibrary? = this.fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
 
-            // Evaluate decision 'fnInvocationComplexParameters'
+            // Evaluate decision ''fn invocation complex parameters''
             val output_: type.TFnInvocationComplexParamsResult? = evaluate(fnLibrary, inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-            // End decision 'fnInvocationComplexParameters'
+            // End decision ''fn invocation complex parameters''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnInvocationComplexParametersArguments_, output_, (System.currentTimeMillis() - fnInvocationComplexParametersStartTime_))
 
             return output_
         } catch (e: Exception) {
-            logError("Exception caught in 'fnInvocationComplexParameters' evaluation", e)
+            logError("Exception caught in ''fn invocation complex parameters'' evaluation", e)
             return null
         }
     }
@@ -74,7 +74,7 @@ class FnInvocationComplexParameters(val fnLibrary : FnLibrary = FnLibrary()) : c
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
             "",
-            "fnInvocationComplexParameters",
+            "'fn invocation complex parameters'",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
             com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
