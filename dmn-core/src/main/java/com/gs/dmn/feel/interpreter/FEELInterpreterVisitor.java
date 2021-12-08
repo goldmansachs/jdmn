@@ -724,18 +724,16 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         Parameters parameters = element.getParameters();
         parameters.accept(this, context);
         Arguments arguments = parameters.convertArguments((value, conversion) -> this.typeConverter.convertValue(value, conversion, this.lib));
-
-        // Make function context
         Expression function = element.getFunction();
-        FunctionType functionType = (FunctionType) element.getFunction().getType();
+        FunctionType functionType = (FunctionType) function.getType();
         List<FormalParameter> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
 
         // Evaluate function
-        return evaluateFunction(context, function, functionType, argList);
+        return evaluateFunction(function, functionType, argList, context);
     }
 
-    private Object evaluateFunction(DMNContext context, Expression function, FunctionType functionType, List<Object> argList) {
+    private Object evaluateFunction(Expression function, FunctionType functionType, List<Object> argList, DMNContext context) {
         Object functionDefinition;
         if (isSimpleName(function)) {
             String functionName = functionName(function);

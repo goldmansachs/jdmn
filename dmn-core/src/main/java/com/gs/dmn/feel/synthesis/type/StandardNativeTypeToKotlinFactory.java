@@ -22,46 +22,49 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.EnumerationType.ENUMERATION;
+import static com.gs.dmn.feel.analysis.semantics.type.NullType.NULL;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public class StandardNativeTypeToKotlinFactory extends KotlinTypeFactory {
-    private static final Map<String, String> STANDARD_FEEL_TO_JAVA_TYPE = new LinkedHashMap<>();
+    private static final Map<String, String> FEEL_TYPE_TO_JAVA_TYPE = new LinkedHashMap<>();
     static {
-        STANDARD_FEEL_TO_JAVA_TYPE.put(ENUMERATION.getName(), String.class.getName());
-        STANDARD_FEEL_TO_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
-        STANDARD_FEEL_TO_JAVA_TYPE.put(DAYS_AND_TIME_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
-        STANDARD_FEEL_TO_JAVA_TYPE.put(DATE_AND_TIME.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
-        STANDARD_FEEL_TO_JAVA_TYPE.put(TIME.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
-        STANDARD_FEEL_TO_JAVA_TYPE.put(DATE.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
-        STANDARD_FEEL_TO_JAVA_TYPE.put(STRING.getName(), String.class.getSimpleName());
-        STANDARD_FEEL_TO_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getSimpleName());
-        STANDARD_FEEL_TO_JAVA_TYPE.put(NUMBER.getName(), java.math.BigDecimal.class.getName());
-        STANDARD_FEEL_TO_JAVA_TYPE.put(ANY.getName(), "kotlin.Any");
+        FEEL_TYPE_TO_JAVA_TYPE.put(ENUMERATION.getName(), String.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(DAYS_AND_TIME_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(DATE_AND_TIME.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(TIME.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(DATE.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(STRING.getName(), String.class.getSimpleName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getSimpleName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(NUMBER.getName(), java.math.BigDecimal.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(ANY.getName(), "kotlin.Any");
+        FEEL_TYPE_TO_JAVA_TYPE.put(NULL.getName(), "kotlin.Any");
     }
 
-    private static final Map<String, String> STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE = new LinkedHashMap<>();
+    private static final Map<String, String> FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE = new LinkedHashMap<>();
     static {
-        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(ENUMERATION.getName(), "kotlin.String");
-        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
-        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(DAYS_AND_TIME_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
-        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(DATE_AND_TIME.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
-        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(TIME.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
-        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(DATE.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
-        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(STRING.getName(), "kotlin.String");
-        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(BOOLEAN.getName(), "kotlin.String");
-        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(NUMBER.getName(), java.math.BigDecimal.class.getName());
-        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(ANY.getName(), "kotlin.Any");
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(ENUMERATION.getName(), "kotlin.String");
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(DAYS_AND_TIME_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(DATE_AND_TIME.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(TIME.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(DATE.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(STRING.getName(), "kotlin.String");
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(NUMBER.getName(), java.math.BigDecimal.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(ANY.getName(), "kotlin.Any");
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(NULL.getName(), "kotlin.Any");
     }
 
     @Override
     public String toNativeType(String feelType) {
-        return STANDARD_FEEL_TO_JAVA_TYPE.get(feelType);
+        return FEEL_TYPE_TO_JAVA_TYPE.get(feelType);
     }
 
     @Override
     public String toQualifiedNativeType(String feelType) {
-        return STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.get(feelType);
+        return FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.get(feelType);
     }
 }

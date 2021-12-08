@@ -22,46 +22,49 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.EnumerationType.ENUMERATION;
+import static com.gs.dmn.feel.analysis.semantics.type.NullType.NULL;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public class DoubleMixedJavaTimeNativeTypeFactory extends JavaTypeFactory {
-    private static final Map<String, String> TIME_FEEL_TO_JAVA_TYPE = new LinkedHashMap<>();
+    private static final Map<String, String> FEEL_TYPE_TO_JAVA_TYPE = new LinkedHashMap<>();
     static {
-        TIME_FEEL_TO_JAVA_TYPE.put(ENUMERATION.getName(), String.class.getSimpleName());
-        TIME_FEEL_TO_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
-        TIME_FEEL_TO_JAVA_TYPE.put(DAYS_AND_TIME_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
-        TIME_FEEL_TO_JAVA_TYPE.put(DATE_AND_TIME.getName(), java.time.ZonedDateTime.class.getName());
-        TIME_FEEL_TO_JAVA_TYPE.put(TIME.getName(), java.time.OffsetTime.class.getName());
-        TIME_FEEL_TO_JAVA_TYPE.put(DATE.getName(), java.time.LocalDate.class.getName());
-        TIME_FEEL_TO_JAVA_TYPE.put(STRING.getName(), String.class.getSimpleName());
-        TIME_FEEL_TO_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getSimpleName());
-        TIME_FEEL_TO_JAVA_TYPE.put(NUMBER.getName(), Double.class.getName());
-        TIME_FEEL_TO_JAVA_TYPE.put(ANY.getName(), Object.class.getSimpleName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(ENUMERATION.getName(), String.class.getSimpleName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(DAYS_AND_TIME_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(DATE_AND_TIME.getName(), java.time.ZonedDateTime.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(TIME.getName(), java.time.OffsetTime.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(DATE.getName(), java.time.LocalDate.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(STRING.getName(), String.class.getSimpleName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getSimpleName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(NUMBER.getName(), Double.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(ANY.getName(), Object.class.getSimpleName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(NULL.getName(), Object.class.getSimpleName());
     }
 
-    private static final Map<String, String> TIME_FEEL_TO_QUALIFIED_JAVA_TYPE = new LinkedHashMap<>();
+    private static final Map<String, String> FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE = new LinkedHashMap<>();
     static {
-        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(ENUMERATION.getName(), String.class.getName());
-        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
-        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(DAYS_AND_TIME_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
-        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(DATE_AND_TIME.getName(), java.time.ZonedDateTime.class.getName());
-        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(TIME.getName(), java.time.OffsetTime.class.getName());
-        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(DATE.getName(), java.time.LocalDate.class.getName());
-        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(STRING.getName(), String.class.getName());
-        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getName());
-        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(NUMBER.getName(), Double.class.getName());
-        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(ANY.getName(), Object.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(ENUMERATION.getName(), String.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(DAYS_AND_TIME_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(DATE_AND_TIME.getName(), java.time.ZonedDateTime.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(TIME.getName(), java.time.OffsetTime.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(DATE.getName(), java.time.LocalDate.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(STRING.getName(), String.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(NUMBER.getName(), Double.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(ANY.getName(), Object.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(NULL.getName(), Object.class.getName());
     }
 
     @Override
     public String toNativeType(String feelType) {
-        return TIME_FEEL_TO_JAVA_TYPE.get(feelType);
+        return FEEL_TYPE_TO_JAVA_TYPE.get(feelType);
     }
 
     @Override
     public String toQualifiedNativeType(String feelType) {
-        return TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.get(feelType);
+        return FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.get(feelType);
     }
 }

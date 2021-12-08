@@ -487,16 +487,17 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(FunctionInvocation element, DMNContext context) {
-        // Evaluate and convert actual parameters
+        // Generate code for actual parameters
         Parameters parameters = element.getParameters();
         parameters.accept(this, context);
         Arguments arguments = parameters.convertArguments(this::convertArgument);
-
         Expression function = element.getFunction();
         FunctionType functionType = (FunctionType) function.getType();
         List<FormalParameter> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
         String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
+
+        // Generate code for function
         String javaFunctionCode = (String) function.accept(this, context);
         if (functionType instanceof BuiltinFunctionType) {
             return String.format("%s(%s)", javaFunctionCode, argumentsText);
@@ -512,7 +513,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         } else if (functionType instanceof FEELFunctionType) {
             return this.nativeFactory.makeApplyInvocation(javaFunctionCode, argumentsText);
         } else {
-            throw new DMNRuntimeException(String.format("Not supported function type '%s' in '%s'", functionType, element));
+            throw new DMNRuntimeException(String.format("Not supported function type '%s' in '%s'", functionType, context.getElementName()));
         }
     }
 

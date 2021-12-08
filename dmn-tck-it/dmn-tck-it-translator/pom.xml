@@ -170,7 +170,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>test-cl2-0002-input-data-number.dmn</id>
+                        <id>test-cl2-0002-input-data-number</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>tck-to-java</goal>

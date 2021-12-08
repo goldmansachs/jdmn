@@ -33,6 +33,7 @@ public class CL3TestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCases
 
     @Test
     public void testCL3() throws Exception {
+        // DMN 1.1
         doSingleModelTest("1.1","0004-lending", "0004-lending-test-01");
         doSingleModelTest("1.1","0005-literal-invocation", "0005-literal-invocation-test-01");
         doSingleModelTest("1.1","0006-join", "0006-join-test-01");
@@ -44,8 +45,11 @@ public class CL3TestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCases
         doSingleModelTest("1.1","0021-singleton-list", "0021-singleton-list-test-01");
         doSingleModelTest("1.1","0030-user-defined-functions", "0030-user-defined-functions-test-01");
         doSingleModelTest("1.1","0031-user-defined-functions", "0031-user-defined-functions-test-01");
+
+        // DMN 1.2
         doSingleModelTest("1.2","0076-feel-external-java", "0076-feel-external-java-test-01");
 
+        // Extensions
         doSingleModelTest("1.1", "9001-recursive-function", "9001-recursive-function-test-01");
     }
 
