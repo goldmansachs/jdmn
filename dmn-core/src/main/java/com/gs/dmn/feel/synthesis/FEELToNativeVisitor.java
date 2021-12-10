@@ -48,8 +48,8 @@ import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.TBusinessKnowledgeModel;
 import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TInvocable;
 import org.omg.spec.dmn._20191111.model.TNamedElement;
 
 import java.util.ArrayList;
@@ -503,9 +503,9 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
             return String.format("%s(%s)", javaFunctionCode, argumentsText);
         } else if (functionType instanceof DMNFunctionType) {
             TNamedElement invocable = ((DMNFunctionType) functionType).getDRGElement();
-            if (invocable instanceof TBusinessKnowledgeModel) {
+            if (invocable instanceof TInvocable) {
                 argumentsText = this.dmnTransformer.drgElementArgumentListExtraCache(this.dmnTransformer.drgElementArgumentListExtra(this.dmnTransformer.augmentArgumentList(argumentsText)));
-                String javaQualifiedName = this.dmnTransformer.bkmQualifiedFunctionName((TBusinessKnowledgeModel) invocable);
+                String javaQualifiedName = this.dmnTransformer.invocableQualifiedFunctionName((TInvocable) invocable);
                 return String.format("%s(%s)", javaQualifiedName, argumentsText);
             } else {
                 return this.nativeFactory.makeApplyInvocation(javaFunctionCode, argumentsText);

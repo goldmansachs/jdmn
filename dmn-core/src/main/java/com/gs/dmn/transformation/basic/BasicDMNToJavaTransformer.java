@@ -606,6 +606,27 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
+    public boolean hasDirectSubDecisions(TDRGElement element) {
+        return !this.dmnModelRepository.directSubDecisions(element).isEmpty();
+    }
+
+    @Override
+    public String drgElementConstructorSignature(TDRGElement element) {
+        List<DRGElementReference<TDecision>> subDecisionReferences = this.dmnModelRepository.directSubDecisions(element);
+        this.dmnModelRepository.sortNamedElementReferences(subDecisionReferences);
+        return subDecisionReferences.stream().map(d -> this.nativeFactory.decisionConstructorParameter(d)).collect(Collectors.joining(", "));
+    }
+
+    public String drgElementConstructorNewArgumentList(TDRGElement element) {
+        List<DRGElementReference<TDecision>> directSubDecisionReferences = this.dmnModelRepository.directSubDecisions(element);
+        this.dmnModelRepository.sortNamedElementReferences(directSubDecisionReferences);
+        return directSubDecisionReferences
+                .stream()
+                .map(d -> String.format("%s", defaultConstructor(qualifiedName(d))))
+                .collect(Collectors.joining(", "));
+    }
+
+    @Override
     public boolean isSingletonDecision() {
         return this.inputParameters.isSingletonDecision();
     }
@@ -628,28 +649,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public String singletonDecisionInstance(String decisionQName) {
         return String.format("%s.instance()", decisionQName);
-    }
-
-    @Override
-    public String decisionConstructorSignature(TDecision decision) {
-        List<DRGElementReference<TDecision>> subDecisionReferences = this.dmnModelRepository.directSubDecisions(decision);
-        this.dmnModelRepository.sortNamedElementReferences(subDecisionReferences);
-        return subDecisionReferences.stream().map(d -> this.nativeFactory.decisionConstructorParameter(d)).collect(Collectors.joining(", "));
-    }
-
-    @Override
-    public String decisionConstructorNewArgumentList(TDecision decision) {
-        List<DRGElementReference<TDecision>> directSubDecisionReferences = this.dmnModelRepository.directSubDecisions(decision);
-        this.dmnModelRepository.sortNamedElementReferences(directSubDecisionReferences);
-        return directSubDecisionReferences
-                .stream()
-                .map(d -> String.format("%s", defaultConstructor(qualifiedName(d))))
-                .collect(Collectors.joining(", "));
-    }
-
-    @Override
-    public boolean hasDirectSubDecisions(TDecision decision) {
-        return !this.dmnModelRepository.directSubDecisions(decision).isEmpty();
     }
 
     //
@@ -684,6 +683,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
             return augmentSignature(javaParameters);
         } else if (element instanceof TBusinessKnowledgeModel) {
             return drgElementSignature(this.dmnModelRepository.makeDRGElementReference(element));
+        } else if (element instanceof TDecisionService) {
+            List<Pair<String, String>> parameters = directInformationRequirementParameters(element);
+            String javaParameters = parameters.stream().map(p -> this.nativeFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
+            return augmentSignature(javaParameters);
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
@@ -696,6 +699,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
             return augmentArgumentList(argumentList);
         } else if (element instanceof TBusinessKnowledgeModel) {
             return drgElementArgumentList(this.dmnModelRepository.makeDRGElementReference(element));
+        } else if (element instanceof TDecisionService) {
+            List<Pair<String, String>> parameters = directInformationRequirementParameters(element);
+            String argumentList = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
+            return augmentArgumentList(argumentList);
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
@@ -744,6 +751,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
             return String.format("Start decision '%s'", element.getName());
         } else if (element instanceof TBusinessKnowledgeModel) {
             return String.format("Start BKM '%s'", element.getName());
+        } else if (element instanceof TDecisionService) {
+            return String.format("Start DS '%s'", element.getName());
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
@@ -755,6 +764,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
             return String.format("End decision '%s'", element.getName());
         } else if (element instanceof TBusinessKnowledgeModel) {
             return String.format("End BKM '%s'", element.getName());
+        } else if (element instanceof TDecisionService) {
+            return String.format("End DS '%s'", element.getName());
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
@@ -766,6 +777,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
             return String.format("Evaluate decision '%s'", element.getName());
         } else if (element instanceof TBusinessKnowledgeModel) {
             return String.format("Evaluate BKM '%s'", element.getName());
+        } else if (element instanceof TDecisionService) {
+            return String.format("Evaluate DS '%s'", element.getName());
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
@@ -798,6 +811,29 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     // Invocable  related functions
     //
     @Override
+    public String invocableFunctionName(DRGElementReference<? extends TDRGElement> reference) {
+        return invocableFunctionName((TInvocable) reference.getElement());
+    }
+
+    @Override
+    public String invocableFunctionName(TInvocable bkm) {
+        String name = bkm.getName();
+        return invocableFunctionName(name);
+    }
+
+    @Override
+    public String invocableFunctionName(String name) {
+        return nativeFriendlyName(name);
+    }
+
+    @Override
+    public String invocableQualifiedFunctionName(TInvocable bkm) {
+        String javaPackageName = qualifiedName(bkm);
+        String javaFunctionName = invocableFunctionName(bkm);
+        return qualifiedName(javaPackageName, javaFunctionName);
+    }
+
+    @Override
     public List<FormalParameter> invocableFEELParameters(TDRGElement invocable) {
         if (invocable instanceof TBusinessKnowledgeModel) {
             return bkmFEELParameters((TBusinessKnowledgeModel) invocable);
@@ -811,29 +847,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     //
     // BKM related functions
     //
-    @Override
-    public String bkmFunctionName(DRGElementReference<? extends TDRGElement> reference) {
-        return bkmFunctionName((TBusinessKnowledgeModel) reference.getElement());
-    }
-
-    @Override
-    public String bkmFunctionName(TBusinessKnowledgeModel bkm) {
-        String name = bkm.getName();
-        return bkmFunctionName(name);
-    }
-
-    @Override
-    public String bkmFunctionName(String name) {
-        return nativeFriendlyName(name);
-    }
-
-    @Override
-    public String bkmQualifiedFunctionName(TBusinessKnowledgeModel bkm) {
-        String javaPackageName = qualifiedName(bkm);
-        String javaFunctionName = bkmFunctionName(bkm);
-        return qualifiedName(javaPackageName, javaFunctionName);
-    }
-
     @Override
     public List<FormalParameter> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
         TDefinitions model = this.dmnModelRepository.getModel(bkm);
@@ -874,17 +887,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     //
     // Decision Service related functions
     //
-    @Override
-    public String dsFunctionName(TDecisionService service) {
-        String name = service.getName();
-        return dsFunctionName(name);
-    }
-
-    @Override
-    public String dsFunctionName(String name) {
-        return nativeFriendlyName(name);
-    }
-
     @Override
     public List<FormalParameter> dsFEELParameters(TDecisionService service) {
         List<FormalParameter> parameters = new ArrayList<>();
@@ -1563,6 +1565,35 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public Type convertType(Type type, boolean convertToContext) {
         return this.dmnEnvironmentFactory.convertType(type, convertToContext);
+    }
+
+    public Statement serviceToNative(TDecisionService element) {
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+        List<DRGElementReference<TDecision>> outputDecisions = this.dmnModelRepository.directSubDecisions(element);
+        if (outputDecisions.size() == 0) {
+            return this.nativeFactory.makeExpressionStatement("null", NullType.NULL);
+        } else if (outputDecisions.size() == 1) {
+            TDecision decision = outputDecisions.get(0).getElement();
+            String decisionVarName = namedElementVariableName(decision);
+            return this.nativeFactory.makeExpressionStatement(decisionVarName, drgElementOutputFEELType(decision));
+        } else {
+            // Make statements
+            CompoundStatement statement = new CompoundStatement();
+            // Create an empty context
+            String outputVar = "output_";
+            String init = String.format("%s %s = %s;", contextClassName(), outputVar, defaultConstructor(contextClassName()));
+            statement.add(this.nativeFactory.makeExpressionStatement(init, null));
+            // Add members
+            for (DRGElementReference<TDecision> ref: outputDecisions) {
+                TDecision od = ref.getElement();
+                String add = String.format("%s.put(\"%s\", %s);", outputVar, elementName(od), namedElementVariableName(od));
+                statement.add(this.nativeFactory.makeExpressionStatement(add, null));
+            }
+            // Return output
+            String return_ = String.format("return %s;", outputVar);
+            statement.add(this.nativeFactory.makeExpressionStatement(return_, null));
+            return statement;
+        }
     }
 
     @Override

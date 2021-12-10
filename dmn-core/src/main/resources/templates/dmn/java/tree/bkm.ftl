@@ -44,7 +44,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     private ${javaClassName}() {
     }
 
-    public static ${transformer.drgElementOutputType(drgElement)} ${transformer.bkmFunctionName(drgElement)}(${transformer.drgElementSignatureExtraCache(drgElement)}) {
+    public static ${transformer.drgElementOutputType(drgElement)} ${transformer.invocableFunctionName(drgElement)}(${transformer.drgElementSignatureExtraCache(drgElement)}) {
         return INSTANCE.apply(${transformer.drgElementArgumentListExtraCache(drgElement)});
     }
 

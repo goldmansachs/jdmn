@@ -17,6 +17,7 @@ public interface TemplateProvider {
     String itemDefinitionInterfaceTemplate();
     String itemDefinitionClassTemplate();
     String bkmTemplateName();
+    String dsTemplateName();
     String decisionTableRuleOutputTemplate();
     String decisionTemplateName();
 

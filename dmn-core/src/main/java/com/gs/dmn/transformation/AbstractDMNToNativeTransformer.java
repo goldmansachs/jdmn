@@ -27,10 +27,7 @@ import com.gs.dmn.transformation.proto.Service;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import org.apache.commons.lang3.time.StopWatch;
-import org.omg.spec.dmn._20191111.model.TBusinessKnowledgeModel;
-import org.omg.spec.dmn._20191111.model.TDecision;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
-import org.omg.spec.dmn._20191111.model.TItemDefinition;
+import org.omg.spec.dmn._20191111.model.*;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -97,6 +94,10 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
             // Generate BKMs
             List<TBusinessKnowledgeModel> businessKnowledgeModels = dmnModelRepository.findBKMs(definitions);
             transformBKMList(definitions, businessKnowledgeModels, dmnTransformer, generatedClasses, outputPath);
+
+            // Generate DSs
+            List<TDecisionService> decisionServices = dmnModelRepository.findDSs(definitions);
+            transformDSList(definitions, decisionServices, dmnTransformer, generatedClasses, outputPath);
 
             // Generate decisions
             List<TDecision> decisions = dmnModelRepository.findDecisions(definitions);
@@ -189,6 +190,21 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         }
     }
 
+    private void transformDSList(TDefinitions definitions, List<TDecisionService> dsList, BasicDMNToNativeTransformer dmnTransformer, List<String> generatedClasses, Path outputPath) {
+        for (TDecisionService ds : dsList) {
+            transformDS(definitions, ds, dmnTransformer, generatedClasses, outputPath, decisionBaseClass);
+        }
+    }
+
+    private void transformDS(TDefinitions definitions, TDecisionService ds, BasicDMNToNativeTransformer dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
+        logger.debug(String.format("Generating code for DS '%s'", ds.getName()));
+
+        String dsPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
+        String dsClassName = dmnTransformer.drgElementClassName(ds);
+        checkDuplicate(generatedClasses, dsPackageName, dsClassName, dmnTransformer);
+        processTemplate(ds, templateProvider.baseTemplatePath(), templateProvider.dsTemplateName(), dmnTransformer, outputPath, dsPackageName, dsClassName, decisionBaseClass);
+    }
+
     private void transformDecisionList(TDefinitions definitions, List<TDecision> decisions, BasicDMNToNativeTransformer dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
         for (TDecision decision : decisions) {
             transformDecision(definitions, decision, dmnTransformer, generatedClasses, outputPath, decisionBaseClass);
@@ -236,10 +252,10 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         }
     }
 
-    private void processTemplate(TBusinessKnowledgeModel bkm, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer dmnTransformer, Path outputPath, String javaPackageName, String javaClassName, String decisionBaseClass) {
+    private void processTemplate(TInvocable in, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer dmnTransformer, Path outputPath, String javaPackageName, String javaClassName, String decisionBaseClass) {
         try {
             // Make parameters
-            Map<String, Object> params = makeTemplateParams(bkm, javaPackageName, javaClassName, decisionBaseClass, dmnTransformer);
+            Map<String, Object> params = makeTemplateParams(in, javaPackageName, javaClassName, decisionBaseClass, dmnTransformer);
 
             // Make output file
             String relativeFilePath = javaPackageName.replace('.', '/');
@@ -249,7 +265,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, true);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot process template '%s' for BKM '%s'", templateName, bkm.getName()), e);
+            throw new DMNRuntimeException(String.format("Cannot process template '%s' for BKM '%s'", templateName, in.getName()), e);
         }
     }
 
@@ -287,9 +303,9 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         return params;
     }
 
-    private Map<String, Object> makeTemplateParams(TBusinessKnowledgeModel bkm, String javaPackageName, String javaClassName, String decisionBaseClass, BasicDMNToNativeTransformer dmnTransformer) {
+    private Map<String, Object> makeTemplateParams(TInvocable invocable, String javaPackageName, String javaClassName, String decisionBaseClass, BasicDMNToNativeTransformer dmnTransformer) {
         Map<String, Object> params = new HashMap<>();
-        params.put("drgElement", bkm);
+        params.put("drgElement", invocable);
         params.put("decisionBaseClass", decisionBaseClass);
         addCommonParams(params, javaPackageName, javaClassName, dmnTransformer);
         return params;

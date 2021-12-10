@@ -12,12 +12,18 @@
  */
 package com.gs.dmn.signavio.transformation.template;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
 
 public class SignavioTreeTemplateProvider extends TreeTemplateProvider {
     @Override
     public String bkmTemplateName() {
         return "tree/signavio-bkm.ftl";
+    }
+
+    @Override
+    public String dsTemplateName() {
+        throw new DMNRuntimeException("DS are not supported in Signavio dialect");
     }
 
     @Override
