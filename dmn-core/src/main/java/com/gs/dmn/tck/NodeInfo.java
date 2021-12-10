@@ -16,12 +16,19 @@ import com.gs.dmn.DRGElementReference;
 import org.omg.spec.dmn._20191111.model.TDRGElement;
 
 public class NodeInfo {
-    private final String rootModelName;
-    private final String nodeName;
-    private final DRGElementReference<? extends TDRGElement> reference;
+    protected static final String INPUT_TYPE = "inputData";
+    protected static final String BKM_TYPE = "bkm";
+    protected static final String DS_TYPE = "decisionService";
+    protected static final String DECISION_TYPE = "decision";
 
-    public NodeInfo(String rootModelName, String nodeName, DRGElementReference<? extends TDRGElement> reference) {
+    protected final String rootModelName;
+    protected final String nodeType;
+    protected final String nodeName;
+    protected final DRGElementReference<? extends TDRGElement> reference;
+
+    public NodeInfo(String rootModelName, String nodeType, String nodeName, DRGElementReference<? extends TDRGElement> reference) {
         this.rootModelName = rootModelName;
+        this.nodeType = nodeType;
         this.nodeName = nodeName;
         this.reference = reference;
     }
@@ -32,6 +39,10 @@ public class NodeInfo {
 
     public String getNodeName() {
         return nodeName;
+    }
+
+    public String getNodeType() {
+        return nodeType;
     }
 
     public DRGElementReference<? extends TDRGElement> getReference() {

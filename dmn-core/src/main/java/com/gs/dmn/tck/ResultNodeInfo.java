@@ -19,12 +19,24 @@ import org.omg.spec.dmn._20191111.model.TDRGElement;
 public class ResultNodeInfo extends NodeInfo {
     private final ValueType expectedValue;
 
-    public ResultNodeInfo(String rootModelName, String nodeName, DRGElementReference<? extends TDRGElement> reference, ValueType expectedValue) {
-        super(rootModelName, nodeName, reference);
+    public ResultNodeInfo(String rootModelName, String nodeType, String nodeName, DRGElementReference<? extends TDRGElement> reference, ValueType expectedValue) {
+        super(rootModelName, nodeType, nodeName, reference);
         this.expectedValue = expectedValue;
     }
 
     public ValueType getExpectedValue() {
         return expectedValue;
+    }
+
+    public boolean isDecision() {
+        return DECISION_TYPE.equals(nodeType);
+    }
+
+    public boolean isBKM() {
+        return BKM_TYPE.equals(nodeType);
+    }
+
+    public boolean isDS() {
+        return DS_TYPE.equals(nodeType);
     }
 }
