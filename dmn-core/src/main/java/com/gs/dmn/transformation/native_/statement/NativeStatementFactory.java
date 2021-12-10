@@ -19,6 +19,7 @@ public interface NativeStatementFactory {
     // Simple statements
     //
     ExpressionStatement makeExpressionStatement(String text, Type type);
+    AssignmentStatement makeAssignmentStatement(String lhsNativeType, String lhs, String rhs, Type lhsType, String text);
 
     //
     // Compound statement

@@ -12,32 +12,38 @@
  */
 package com.gs.dmn.transformation.native_.statement;
 
-import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 
-import java.util.ArrayList;
-import java.util.List;
+public class AssignmentStatement extends Statement {
+    private final String lhsNativeType;
+    private final String lhs;
+    private final String rhs;
+    private final Type lhsType;
+    private final String text;
 
-public class CompoundStatement extends Statement {
-    private final List<Statement> statements = new ArrayList<>();
-
-    public CompoundStatement() {
+    public AssignmentStatement(String lhsNativeType, String lhs, String rhs, Type lshType, String text) {
+        this.lhsNativeType = lhsNativeType;
+        this.lhs = lhs;
+        this.rhs = rhs;
+        this.lhsType = lshType;
+        this.text = text;
     }
 
-    public List<Statement> getStatements() {
-        return this.statements;
+    public String getLhs() {
+        return lhs;
     }
 
-    public void add(Statement statement) {
-        this.statements.add(statement);
+    public String getRhs() {
+        return rhs;
     }
 
     @Override
     public String getText() {
-        throw new DMNRuntimeException("Not supported");
+        return text;
     }
 
     @Override
     public String toString() {
-        return statements.toString();
+        return text;
     }
 }

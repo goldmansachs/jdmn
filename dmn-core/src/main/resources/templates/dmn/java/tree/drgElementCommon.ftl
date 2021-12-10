@@ -243,10 +243,10 @@
     <#assign stm = transformer.expressionToNative(drgElement)>
     <#if transformer.isCompoundStatement(stm)>
         <#list stm.statements as child>
-        ${child.expression}
+        ${child.text}
         </#list>
     <#else>
-        return ${stm.expression};
+        return ${stm.text};
     </#if>
     }
 </#macro>

@@ -385,7 +385,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         try {
             DMNContext context = this.makeGlobalContext(element);
             Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, description, context);
-            return ((ExpressionStatement) statement).getExpression();
+            return ((ExpressionStatement) statement).getText();
         } catch (Exception e) {
             LOGGER.warn(String.format("Cannot process description '%s' for element '%s'", description, element == null ? "" : element.getName()));
             return String.format("\"%s\"", description.replaceAll("\"", "\\\\\""));
@@ -939,7 +939,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         if (!(statement instanceof ExpressionStatement)) {
             return statement;
         }
-        String javaExpression = ((ExpressionStatement) statement).getExpression();
+        String javaExpression = ((ExpressionStatement) statement).getText();
         Type expressionType = ((ExpressionStatement) statement).getExpressionType();
         if ("null".equals(javaExpression)) {
             return this.nativeFactory.makeExpressionStatement(javaExpression, expectedType);
@@ -1604,7 +1604,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public String literalExpressionToNative(TDRGElement element, String expressionText) {
         Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, expressionText);
-        return ((ExpressionStatement) statement).getExpression();
+        return statement.getText();
     }
 
     @Override

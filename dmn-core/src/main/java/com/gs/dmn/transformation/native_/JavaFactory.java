@@ -23,6 +23,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.JsonSerializer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
+import com.gs.dmn.transformation.native_.statement.AssignmentStatement;
 import com.gs.dmn.transformation.native_.statement.CompoundStatement;
 import com.gs.dmn.transformation.native_.statement.ExpressionStatement;
 import com.gs.dmn.transformation.proto.ProtoBufferFactory;
@@ -576,6 +577,11 @@ public class JavaFactory implements NativeFactory {
     @Override
     public ExpressionStatement makeExpressionStatement(String text, Type type) {
         return new ExpressionStatement(text, type);
+    }
+
+    @Override
+    public AssignmentStatement makeAssignmentStatement(String lhsNativeType, String lhs, String rhs, Type lhsType, String text) {
+        return new AssignmentStatement(lhsNativeType, lhs, rhs, lhsType, text);
     }
 
     //

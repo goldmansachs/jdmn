@@ -345,7 +345,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             Statement statement = this.nativeFactory.makeExpressionStatement(javaCode, expressionType);
             Type expectedType = drgElementOutputFEELType(element);
             Statement result = convertExpression(statement, expectedType);
-            return ((ExpressionStatement) result).getExpression();
+            return result.getText();
         } else {
             return super.literalExpressionToNative(element, expression.getText());
         }
