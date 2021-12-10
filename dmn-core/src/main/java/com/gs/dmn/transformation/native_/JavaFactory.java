@@ -383,7 +383,7 @@ public class JavaFactory implements NativeFactory {
         } else if (conversion.getKind() == ConversionKind.DATE_TO_UTC_MIDNIGHT) {
             return dateToUTCMidnight(javaType);
         } else {
-            throw new DMNRuntimeException(String.format("Conversion '%s' is not supported yet", conversion));
+            return toNull(javaType);
         }
     }
 
@@ -397,6 +397,10 @@ public class JavaFactory implements NativeFactory {
 
     protected String dateToUTCMidnight(String javaType) {
         return "toDateTime";
+    }
+
+    protected String toNull(String javaType) {
+        return "toNull";
     }
 
     @Override

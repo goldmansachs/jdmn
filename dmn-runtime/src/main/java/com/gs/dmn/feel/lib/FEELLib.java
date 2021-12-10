@@ -68,6 +68,13 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     <T> T asElement(List<T> list);
 
     //
+    // Error conversions
+    //
+    default <T> T toNull(Object obj) {
+        return null;
+    }
+
+    //
     // Extra conversion functions
     //
     List<NUMBER> rangeToList(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end);
