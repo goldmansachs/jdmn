@@ -407,4 +407,268 @@
         </resultNode>
     </testCase>
 
+    <testCase id="range_001">
+        <description>range - start</description>
+        <resultNode name="range_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_002">
+        <description>range - end</description>
+        <resultNode name="range_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_003">
+        <description>range - start included</description>
+        <resultNode name="range_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_004">
+        <description>range - start included '(' syntax</description>
+        <resultNode name="range_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_005">
+        <description>range - start included ']' syntax</description>
+        <resultNode name="range_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_006">
+        <description>range - end included</description>
+        <resultNode name="range_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_007">
+        <description>range - end included ')' syntax </description>
+        <resultNode name="range_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_008">
+        <description>range - end included '[' syntax</description>
+        <resultNode name="range_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_009">
+        <description>range - start: LT unary syntax</description>
+        <resultNode name="range_009" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_010">
+        <description>range - start: LE unary syntax</description>
+        <resultNode name="range_010" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_011">
+        <description>range - start: GT unary syntax</description>
+        <resultNode name="range_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_012">
+        <description>range - start: GE unary syntax</description>
+        <resultNode name="range_012" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--
+    https://github.com/dmn-tck/tck/pull/394#issuecomment-858583811
+    <testCase id="range_012_a">
+        <description>range - start: ambiguous 'no operation syntax' gives null </description>
+        <resultNode name="range_012_a" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+-->
+
+    <testCase id="range_013">
+        <description>range - end: LT unary syntax</description>
+        <resultNode name="range_013" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_014">
+        <description>range - end: LE unary syntax</description>
+        <resultNode name="range_014" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_015">
+        <description>range - end: GT unary syntax</description>
+        <resultNode name="range_015" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_016">
+        <description>range - end: GE unary syntax</description>
+        <resultNode name="range_016" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--
+    https://github.com/dmn-tck/tck/pull/394#issuecomment-858583811
+    <testCase id="range_016_a">
+        <description>range - end: ambiguous 'no operation syntax' gives null </description>
+        <resultNode name="range_016_a" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+-->
+
+    <testCase id="range_017">
+        <description>range - start included: LT unary syntax</description>
+        <resultNode name="range_017" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_018">
+        <description>range - start included: LE unary syntax</description>
+        <resultNode name="range_018" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_019">
+        <description>range - start included: GT unary syntax</description>
+        <resultNode name="range_019" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_020">
+        <description>range - start included: GE unary syntax</description>
+        <resultNode name="range_020" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--
+    https://github.com/dmn-tck/tck/pull/394#issuecomment-858583811
+    <testCase id="range_020_a">
+        <description>range - start included: ambiguous 'no operation syntax' gives null </description>
+        <resultNode name="range_020_a" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+-->
+
+    <testCase id="range_021">
+        <description>range - end included: LT unary syntax</description>
+        <resultNode name="range_021" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_022">
+        <description>range - end included: LE unary syntax</description>
+        <resultNode name="range_022" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_023">
+        <description>range - end included: GT unary syntax</description>
+        <resultNode name="range_023" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_024">
+        <description>range - end included: GE unary syntax</description>
+        <resultNode name="range_024" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--
+    https://github.com/dmn-tck/tck/pull/394#issuecomment-858583811
+    <testCase id="range_024_a">
+        <description>range - end included: ambiguous 'no operation syntax' gives null </description>
+        <resultNode name="range_024_a" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+-->
+
 </testCases>

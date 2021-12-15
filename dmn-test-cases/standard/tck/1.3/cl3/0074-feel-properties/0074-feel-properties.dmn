@@ -310,4 +310,242 @@
         </literalExpression>
     </decision>
 
+    <decision name="range_001" id="_range_001">
+        <variable name="range_001"/>
+        <literalExpression>
+            <text>[1..10].start</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_002" id="_range_002">
+        <variable name="range_002"/>
+        <literalExpression>
+            <text>[1..10].end</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_003" id="_range_003">
+        <variable name="range_003"/>
+        <literalExpression>
+            <text>[1..10].start included</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_004" id="_range_004">
+        <variable name="range_004"/>
+        <literalExpression>
+            <text>(1..10].start included</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_004_a" id="_range_004_a">
+        <variable name="range_004_a"/>
+        <literalExpression>
+            <text>(&lt; 10).start included</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_004_b" id="_range_004_b">
+        <variable name="range_004_b"/>
+        <literalExpression>
+            <text>(&lt;= 10).start included</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_004_c" id="_range_004_c">
+        <variable name="range_004_c"/>
+        <literalExpression>
+            <text>(&gt; 10).start included</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_004_d" id="_range_004_d">
+        <variable name="range_004_d"/>
+        <literalExpression>
+            <text>(&gt;= 10).start included</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_005" id="_range_005">
+        <variable name="range_005"/>
+        <literalExpression>
+            <text>]1..10].start included</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_006" id="_range_006">
+        <variable name="range_006"/>
+        <literalExpression>
+            <text>[1..10].end included</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_007" id="_range_007">
+        <variable name="range_007"/>
+        <literalExpression>
+            <text>[1..10).end included</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_008" id="_range_008">
+        <variable name="range_008"/>
+        <literalExpression>
+            <text>[1..10[.end included</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_009" id="_range_009">
+        <variable name="range_009"/>
+        <literalExpression>
+            <text>(&lt; 10).start</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_010" id="_range_010">
+        <variable name="range_010"/>
+        <literalExpression>
+            <text>(&lt;= 10).start</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_011" id="_range_011">
+        <variable name="range_011"/>
+        <literalExpression>
+            <text>(&gt; 10).start</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_012" id="_range_012">
+        <variable name="range_012"/>
+        <literalExpression>
+            <text>(&gt;= 10).start</text>
+        </literalExpression>
+    </decision>
+
+<!--
+    https://github.com/dmn-tck/tck/pull/394#issuecomment-858583811
+    <decision name="range_012_a" id="_range_012_a">
+        <variable name="range_012_a"/>
+        <literalExpression>
+            <text>(10).start</text>
+        </literalExpression>
+    </decision>
+-->
+
+    <decision name="range_013" id="_range_013">
+        <variable name="range_013"/>
+        <literalExpression>
+            <text>(&lt; 10).end</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_014" id="_range_014">
+        <variable name="range_014"/>
+        <literalExpression>
+            <text>(&lt;= 10).end</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_015" id="_range_015">
+        <variable name="range_015"/>
+        <literalExpression>
+            <text>(&gt; 10).end</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_016" id="_range_016">
+        <variable name="range_016"/>
+        <literalExpression>
+            <text>(&gt;= 10).end</text>
+        </literalExpression>
+    </decision>
+
+<!--
+    https://github.com/dmn-tck/tck/pull/394#issuecomment-858583811
+    <decision name="range_016_a" id="_range_016_a">
+        <variable name="range_016_a"/>
+        <literalExpression>
+            <text>(10).end</text>
+        </literalExpression>
+    </decision>
+-->
+
+    <decision name="range_017" id="_range_017">
+        <variable name="range_017"/>
+        <literalExpression>
+            <text>(&lt; 10).start included</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_018" id="_range_018">
+        <variable name="range_018"/>
+        <literalExpression>
+            <text>(&lt;= 10).start included</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_019" id="_range_019">
+        <variable name="range_019"/>
+        <literalExpression>
+            <text>(&gt; 10).start included</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_020" id="_range_020">
+        <variable name="range_020"/>
+        <literalExpression>
+            <text>(&gt;= 10).start included</text>
+        </literalExpression>
+    </decision>
+
+<!--
+    https://github.com/dmn-tck/tck/pull/394#issuecomment-858583811
+    <decision name="range_020_a" id="_range_020_a">
+        <variable name="range_020_a"/>
+        <literalExpression>
+            <text>(10).start included</text>
+        </literalExpression>
+    </decision>
+-->
+
+    <decision name="range_021" id="_range_021">
+        <variable name="range_021"/>
+        <literalExpression>
+            <text>(&lt; 10).end included</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_022" id="_range_022">
+        <variable name="range_022"/>
+        <literalExpression>
+            <text>(&lt;= 10).end included</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_023" id="_range_023">
+        <variable name="range_023"/>
+        <literalExpression>
+            <text>(&gt; 10).end included</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="range_024" id="_range_024">
+        <variable name="range_024"/>
+        <literalExpression>
+            <text>(&gt;= 10).end included</text>
+        </literalExpression>
+    </decision>
+
+<!--
+    https://github.com/dmn-tck/tck/pull/394#issuecomment-858583811
+    <decision name="range_024_a" id="_range_024_a">
+        <variable name="range_024_a"/>
+        <literalExpression>
+            <text>(10).end included</text>
+        </literalExpression>
+    </decision>
+-->
+
+
+
 </definitions>
