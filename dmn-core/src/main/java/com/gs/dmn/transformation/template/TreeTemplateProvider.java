@@ -34,6 +34,11 @@ public class TreeTemplateProvider implements TemplateProvider {
     }
 
     @Override
+    public String dsTemplateName() {
+        return "tree/ds.ftl";
+    }
+
+    @Override
     public String decisionTemplateName() {
         return "tree/decision.ftl";
     }

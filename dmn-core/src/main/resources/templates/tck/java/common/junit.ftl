@@ -72,6 +72,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
         checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.defaultConstructor(elementQName)}.apply(${tckUtil.drgElementArgumentListExtraCache(tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
            </#if>
         <#elseif resultInfo.isDS() || resultInfo.isBKM()>
+        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${elementQName}(${tckUtil.drgElementArgumentListExtraCache(tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
         </#if>
         </#items>
     </#list>

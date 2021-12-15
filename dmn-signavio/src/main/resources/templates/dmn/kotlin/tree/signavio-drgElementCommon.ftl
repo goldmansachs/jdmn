@@ -147,7 +147,7 @@
 <#macro importRequiredBKMs drgElement>
     <#list modelRepository.directSubInvocables(drgElement)>
         <#items as subBKM>
-import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName(subBKM)}
+import static ${transformer.qualifiedName(subBKM)}.${transformer.invocableFunctionName(subBKM)}
         </#items>
 
     </#list>

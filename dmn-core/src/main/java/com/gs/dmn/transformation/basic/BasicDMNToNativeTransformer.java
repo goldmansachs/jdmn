@@ -180,17 +180,17 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementArgumentListWithConversionFromString(TDRGElement element);
 
+    boolean hasDirectSubDecisions(TDRGElement element);
+
+    String drgElementConstructorSignature(TDRGElement element);
+
+    String drgElementConstructorNewArgumentList(TDRGElement element);
+
     boolean isSingletonDecision();
 
     String singletonDecisionConstructor(String javaClassName, TDecision decision);
 
     String singletonDecisionInstance(String decisionQName);
-
-    String decisionConstructorSignature(TDecision decision);
-
-    String decisionConstructorNewArgumentList(TDecision decision);
-
-    boolean hasDirectSubDecisions(TDecision decision);
 
     //
     // NamedElement functions
@@ -231,18 +231,18 @@ public interface BasicDMNToNativeTransformer {
     //
     List<FormalParameter> invocableFEELParameters(TDRGElement invocable);
 
+    String invocableFunctionName(DRGElementReference<? extends TDRGElement> reference);
+
+    String invocableFunctionName(TInvocable bkm);
+
+    String invocableFunctionName(String name);
+
+    String invocableQualifiedFunctionName(TInvocable bkm);
+
     //
     // BKM related functions
     //
     List<FormalParameter> bkmFEELParameters(TBusinessKnowledgeModel bkm);
-
-    String bkmFunctionName(DRGElementReference<? extends TDRGElement> reference);
-
-    String bkmFunctionName(TBusinessKnowledgeModel bkm);
-
-    String bkmFunctionName(String name);
-
-    String bkmQualifiedFunctionName(TBusinessKnowledgeModel bkm);
 
     List<String> bkmFEELParameterNames(TBusinessKnowledgeModel bkm);
 
@@ -250,10 +250,6 @@ public interface BasicDMNToNativeTransformer {
     // Decision Service related functions
     //
     List<FormalParameter> dsFEELParameters(TDecisionService service);
-
-    String dsFunctionName(TDecisionService service);
-
-    String dsFunctionName(String name);
 
     List<String> dsFEELParameterNames(TDecisionService service);
 

@@ -49,7 +49,7 @@ class ${javaClassName} : ${decisionBaseClass} {
 
         val INSTANCE = ${javaClassName}()
 
-        fun ${transformer.bkmFunctionName(drgElement)}(${transformer.drgElementSignatureExtraCache(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+        fun ${transformer.invocableFunctionName(drgElement)}(${transformer.drgElementSignatureExtraCache(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
             return INSTANCE.apply(${transformer.drgElementArgumentListExtraCache(drgElement)})
         }
     }

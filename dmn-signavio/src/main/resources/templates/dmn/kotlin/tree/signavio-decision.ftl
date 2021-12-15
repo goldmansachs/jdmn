@@ -29,7 +29,7 @@ import java.util.stream.Collectors
     hitPolicy = ${transformer.hitPolicyAnnotationClassName()}.${transformer.hitPolicy(drgElement)},
     rulesCount = ${modelRepository.rulesCount(drgElement)}
 )
-class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) : ${decisionBaseClass}() {
+class ${javaClassName}(${transformer.drgElementConstructorSignature(drgElement)}) : ${decisionBaseClass}() {
     <#if transformer.shouldGenerateApplyWithConversionFromString(drgElement)>
     fun apply(${transformer.drgElementSignatureWithConversionFromString(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         return try {

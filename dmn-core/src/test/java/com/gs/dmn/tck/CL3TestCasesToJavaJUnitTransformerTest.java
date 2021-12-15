@@ -49,6 +49,9 @@ public class CL3TestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCases
         // DMN 1.2
         doSingleModelTest("1.2","0076-feel-external-java", "0076-feel-external-java-test-01");
 
+        // DMN 1.3
+        doSingleModelTest("1.3", "0085-decision-services", "0085-decision-services-test-01", new Pair<>("caching", "true"));
+
         // Extensions
         doSingleModelTest("1.1", "9001-recursive-function", "9001-recursive-function-test-01");
     }

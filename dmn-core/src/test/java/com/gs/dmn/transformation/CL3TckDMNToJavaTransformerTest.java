@@ -44,6 +44,9 @@ public class CL3TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
         // DMN 1.2
         doSingleModelTest("1.2","0076-feel-external-java");
 
+        // DMN 1.3
+        doSingleModelTest("1.3","0085-decision-services", new Pair<>("caching", "true"));
+
         // extensions
         doSingleModelTest("1.1","9001-recursive-function");
     }
