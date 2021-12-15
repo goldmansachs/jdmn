@@ -15,7 +15,6 @@ package com.gs.dmn.feel.lib.type.time.xml;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
-import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 

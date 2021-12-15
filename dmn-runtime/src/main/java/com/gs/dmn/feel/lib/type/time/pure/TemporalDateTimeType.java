@@ -51,7 +51,7 @@ public class TemporalDateTimeType extends BasePureCalendarType implements DateTi
         if (first.getClass() != second.getClass()) {
             // Different kind
             return false;
-        } else if (first instanceof LocalDateTime && second instanceof LocalDateTime) {
+        } else if (first instanceof LocalDateTime) {
             LocalDateTime first1 = (LocalDateTime) first;
             LocalDateTime second1 = (LocalDateTime) second;
             return first1.getYear() == second1.getYear()
@@ -60,7 +60,7 @@ public class TemporalDateTimeType extends BasePureCalendarType implements DateTi
                     && first1.getHour() == second1.getHour()
                     && first1.getMinute() == second1.getMinute()
                     && first1.getSecond() == second1.getSecond();
-        } else if (first instanceof OffsetDateTime && second instanceof OffsetDateTime) {
+        } else if (first instanceof OffsetDateTime) {
             OffsetDateTime first1 = (OffsetDateTime) first;
             OffsetDateTime second1 = (OffsetDateTime) second;
             return first1.getYear() == second1.getYear()
@@ -70,7 +70,7 @@ public class TemporalDateTimeType extends BasePureCalendarType implements DateTi
                     && first1.getMinute() == second1.getMinute()
                     && first1.getSecond() == second1.getSecond()
                     && first1.getOffset().equals(second1.getOffset());
-        } else if (first instanceof ZonedDateTime && second instanceof ZonedDateTime) {
+        } else if (first instanceof ZonedDateTime) {
             ZonedDateTime first1 = (ZonedDateTime) first;
             ZonedDateTime second1 = (ZonedDateTime) second;
             return first1.getYear() == second1.getYear()

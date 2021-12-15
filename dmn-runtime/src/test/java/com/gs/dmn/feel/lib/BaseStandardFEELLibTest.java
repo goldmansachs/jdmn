@@ -799,7 +799,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 
         assertTrue(getLib().is(makeDuration("P1Y"), makeDuration("P1Y")));
         assertFalse(getLib().is(makeDuration("P1Y"), makeDuration("-P1Y")));
-        assertFalse(getLib().is(makeDuration("P1Y"), makeDuration("P12M")));
+        assertTrue(getLib().is(makeDuration("P1Y"), makeDuration("P12M")));
 
         assertTrue(getLib().is(Arrays.asList(), Arrays.asList()));
         assertTrue(getLib().is(Arrays.asList(makeNumber(1), makeNumber(3)), Arrays.asList(makeNumber(1), makeNumber(3))));
