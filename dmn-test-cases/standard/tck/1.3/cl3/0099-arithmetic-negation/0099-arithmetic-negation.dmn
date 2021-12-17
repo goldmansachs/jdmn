@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/0099-arithmetic-negation"
+             name="0099-arithmetic-negation"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+             xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+             xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>arithmetic negation</description>
+
+    <decision name="decision_001" id="_decision_001">
+        <variable name="decision_001"/>
+        <literalExpression>
+            <text>-10</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_002" id="_decision_002">
+        <variable name="decision_002"/>
+        <literalExpression>
+            <text>--10</text>
+        </literalExpression>
+    </decision>
+
+    <!-- commented as per https://github.com/dmn-tck/tck/pull/401#issuecomment-962982239 -->
+<!--    <decision name="decision_003" id="_decision_003">-->
+<!--        <variable name="decision_003"/>-->
+<!--        <literalExpression>-->
+<!--            <text>-@"P1D"</text>-->
+<!--        </literalExpression>-->
+<!--    </decision>-->
+
+    <!-- commented as per https://github.com/dmn-tck/tck/pull/401#issuecomment-962982239 -->
+<!--    <decision name="decision_003_a" id="_decision_003_a">-->
+<!--        <variable name="decision_003_a"/>-->
+<!--        <literalExpression>-->
+<!--            <text>-@"-P1D"</text>-->
+<!--        </literalExpression>-->
+<!--    </decision>-->
+
+    <!-- commented as per https://github.com/dmn-tck/tck/pull/401#issuecomment-962982239 -->
+<!--    <decision name="decision_004" id="_decision_004">-->
+<!--        <variable name="decision_004"/>-->
+<!--        <literalExpression>-->
+<!--            <text>-@"P1Y"</text>-->
+<!--        </literalExpression>-->
+<!--    </decision>-->
+
+    <!-- commented as per https://github.com/dmn-tck/tck/pull/401#issuecomment-962982239 -->
+<!--    <decision name="decision_004_a" id="_decision_004_a">-->
+<!--        <variable name="decision_004_a"/>-->
+<!--        <literalExpression>-->
+<!--            <text>-@"-P1Y"</text>-->
+<!--        </literalExpression>-->
+<!--    </decision>-->
+
+    <decision name="decision_005" id="_decision_005">
+        <variable name="decision_005"/>
+        <literalExpression>
+            <text>-@"2021-01-01"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_006" id="_decision_006">
+        <variable name="decision_006"/>
+        <literalExpression>
+            <text>-@"2021-01-01T10:10:10"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_007" id="_decision_007">
+        <variable name="decision_007"/>
+        <literalExpression>
+            <text>-@"10:10:10"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_008" id="_decision_008">
+        <variable name="decision_008"/>
+        <literalExpression>
+            <text>-{a: 1}</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_009" id="_decision_009">
+        <variable name="decision_009"/>
+        <literalExpression>
+            <text>-"10"</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_010" id="_decision_010">
+        <variable name="decision_010"/>
+        <literalExpression>
+            <text>-[10]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_011" id="_decision_011">
+        <variable name="decision_011"/>
+        <literalExpression>
+            <text>-[1..5]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_012" id="_decision_012">
+        <variable name="decision_012"/>
+        <literalExpression>
+            <text>-(function(a) a)(10)</text>
+        </literalExpression>
+    </decision>
+
+</definitions>
+

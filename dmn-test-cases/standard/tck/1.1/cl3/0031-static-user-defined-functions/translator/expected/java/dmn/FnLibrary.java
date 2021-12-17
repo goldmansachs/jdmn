@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "fnLibrary"})
+@javax.annotation.Generated(value = {"decision.ftl", "'fn library'"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "fnLibrary",
+    name = "'fn library'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class FnLibrary extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "fnLibrary",
+        "'fn library'",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -32,20 +32,20 @@ public class FnLibrary extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public type.TFnLibrary apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            // Start decision 'fnLibrary'
+            // Start decision ''fn library''
             long fnLibraryStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments fnLibraryArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnLibraryArguments_);
 
-            // Evaluate decision 'fnLibrary'
+            // Evaluate decision ''fn library''
             type.TFnLibrary output_ = evaluate(annotationSet_, eventListener_, externalExecutor_, cache_);
 
-            // End decision 'fnLibrary'
+            // End decision ''fn library''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnLibraryArguments_, output_, (System.currentTimeMillis() - fnLibraryStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in 'fnLibrary' evaluation", e);
+            logError("Exception caught in ''fn library'' evaluation", e);
             return null;
         }
     }

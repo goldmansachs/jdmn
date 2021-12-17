@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.transformation.template;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
+
 public class KotlinTreeTemplateProvider extends TreeTemplateProvider {
     @Override
     public String baseTemplatePath() {
@@ -21,5 +23,10 @@ public class KotlinTreeTemplateProvider extends TreeTemplateProvider {
     @Override
     public String testBaseTemplatePath() {
         return "/templates/tck/kotlin";
+    }
+
+    @Override
+    public String dsTemplateName() {
+        throw new DMNRuntimeException("DS are not supported for Kotlin");
     }
 }

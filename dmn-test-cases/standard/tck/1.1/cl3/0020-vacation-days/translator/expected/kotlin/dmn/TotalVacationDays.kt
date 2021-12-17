@@ -2,10 +2,10 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["decision.ftl", "TotalVacationDays"])
+@javax.annotation.Generated(value = ["decision.ftl", "'Total Vacation Days'"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "TotalVacationDays",
+    name = "'Total Vacation Days'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.LITERAL_EXPRESSION,
@@ -37,11 +37,11 @@ class TotalVacationDays(val baseVacationDays : BaseVacationDays = BaseVacationDa
 
     fun apply(age: java.math.BigDecimal?, yearsOfService: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         try {
-            // Start decision 'TotalVacationDays'
+            // Start decision ''Total Vacation Days''
             val totalVacationDaysStartTime_ = System.currentTimeMillis()
             val totalVacationDaysArguments_ = com.gs.dmn.runtime.listener.Arguments()
             totalVacationDaysArguments_.put("Age", age)
-            totalVacationDaysArguments_.put("YearsOfService", yearsOfService)
+            totalVacationDaysArguments_.put("'Years of Service'", yearsOfService)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, totalVacationDaysArguments_)
 
             // Apply child decisions
@@ -50,15 +50,15 @@ class TotalVacationDays(val baseVacationDays : BaseVacationDays = BaseVacationDa
             val extraDaysCase2: java.math.BigDecimal? = this.extraDaysCase2.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_)
             val extraDaysCase3: java.math.BigDecimal? = this.extraDaysCase3.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-            // Evaluate decision 'TotalVacationDays'
+            // Evaluate decision ''Total Vacation Days''
             val output_: java.math.BigDecimal? = evaluate(baseVacationDays, extraDaysCase1, extraDaysCase2, extraDaysCase3, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-            // End decision 'TotalVacationDays'
+            // End decision ''Total Vacation Days''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, totalVacationDaysArguments_, output_, (System.currentTimeMillis() - totalVacationDaysStartTime_))
 
             return output_
         } catch (e: Exception) {
-            logError("Exception caught in 'TotalVacationDays' evaluation", e)
+            logError("Exception caught in ''Total Vacation Days'' evaluation", e)
             return null
         }
     }
@@ -70,7 +70,7 @@ class TotalVacationDays(val baseVacationDays : BaseVacationDays = BaseVacationDa
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
             "",
-            "TotalVacationDays",
+            "'Total Vacation Days'",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
             com.gs.dmn.runtime.annotation.ExpressionKind.LITERAL_EXPRESSION,

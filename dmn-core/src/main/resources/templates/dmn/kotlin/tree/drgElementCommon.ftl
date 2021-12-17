@@ -222,10 +222,10 @@
     <#assign stm = transformer.expressionToNative(drgElement)>
     <#if transformer.isCompoundStatement(stm)>
         <#list stm.statements as child>
-        ${child.expression}
+        ${child.text}
         </#list>
     <#else>
-        return ${stm.expression} as ${transformer.drgElementOutputType(drgElement)}
+        return ${stm.text} as ${transformer.drgElementOutputType(drgElement)}
     </#if>
     }
 </#macro>

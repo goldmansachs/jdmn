@@ -51,6 +51,7 @@ public class DMNModelRepository {
     protected Map<TDefinitions, List<TDecision>> decisionsByModel = new LinkedHashMap<>();
     protected Map<TDefinitions, List<TInputData>> inputDatasByModel = new LinkedHashMap<>();
     protected Map<TDefinitions, List<TBusinessKnowledgeModel>> bkmsByModel = new LinkedHashMap<>();
+    protected Map<TDefinitions, List<TDecisionService>> dssByModel = new LinkedHashMap<>();
 
     public DMNModelRepository() {
         this(OBJECT_FACTORY.createTDefinitions(), new PrefixNamespaceMappings());
@@ -119,6 +120,9 @@ public class DMNModelRepository {
             for (TDecision decision : findDecisions(definitions)) {
                 addCachedChildren(definitions, decision, parentMap, map);
             }
+            for (TDecisionService service: findDSs(definitions)) {
+                addCachedChildren(definitions, service, parentMap, map);
+            }
         }
 
         Set<String> result = new LinkedHashSet<>();
@@ -151,15 +155,18 @@ public class DMNModelRepository {
         }
     }
 
-    public String removeSingleQuotes(String name) {
-        if (isQuotedName(name)) {
-            name = name.substring(1, name.length() - 1);
+    private void addCachedChildren(TDefinitions definitions, TDecisionService decisionService, Map<String, TDecision> parentMap, Map<String, Integer> map) {
+        for (TDMNElementReference inputDecisionRef : decisionService.getInputDecision()) {
+            if (inputDecisionRef != null) {
+                String href = inputDecisionRef.getHref();
+                if (!hasNamespace(href)) {
+                    href = makeRef(definitions.getNamespace(), href);
+                }
+                map.compute(href, (k, v) -> v == null ? 1 : v + 1);
+                TDecision inputDecision = findDecisionByRef(decisionService, href);
+                parentMap.put(href, inputDecision);
+            }
         }
-        return name;
-    }
-
-    protected boolean isQuotedName(String name) {
-        return name != null && name.startsWith("'") && name.endsWith("'");
     }
 
     public TDefinitions getRootDefinitions() {
@@ -308,6 +315,16 @@ public class DMNModelRepository {
         return result;
     }
 
+    public List<TDecisionService> findDSs(TDefinitions definitions) {
+        List<TDecisionService> result = this.dssByModel.get(definitions);
+        if (result == null) {
+            result = new ArrayList<>();
+            collectDSs(definitions, result);
+            this.dssByModel.put(definitions, result);
+        }
+        return result;
+    }
+
     public List<TItemDefinition> findItemDefinitions(TDefinitions definitions) {
         return definitions.getItemDefinition();
     }
@@ -342,6 +359,15 @@ public class DMNModelRepository {
             TDRGElement element = jaxbElement.getValue();
             if (element instanceof TBusinessKnowledgeModel) {
                 result.add((TBusinessKnowledgeModel) element);
+            }
+        }
+    }
+
+    protected void collectDSs(TDefinitions definitions, List<TDecisionService> result) {
+        for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
+            TDRGElement element = jaxbElement.getValue();
+            if (element instanceof TDecisionService) {
+                result.add((TDecisionService) element);
             }
         }
     }
@@ -393,11 +419,11 @@ public class DMNModelRepository {
     }
 
     protected void sortDRGElements(List<JAXBElement<? extends TDRGElement>> elements) {
-        elements.sort(Comparator.comparing((JAXBElement<? extends TDRGElement> o) -> removeSingleQuotes(o.getValue().getName())));
+        elements.sort(Comparator.comparing((JAXBElement<? extends TDRGElement> o) -> NameUtils.removeSingleQuotes(o.getValue().getName())));
     }
 
     public void sortNamedElements(List<? extends TNamedElement> elements) {
-        elements.sort(Comparator.comparing((TNamedElement o) -> removeSingleQuotes(o.getName())));
+        elements.sort(Comparator.comparing((TNamedElement o) -> NameUtils.removeSingleQuotes(o.getName())));
     }
 
     private void sortDMNDI(DMNDI dmndi) {
@@ -437,7 +463,7 @@ public class DMNModelRepository {
     }
 
     public void sortNamedElementReferences(List<? extends DRGElementReference<? extends TNamedElement>> references) {
-        references.sort(Comparator.comparing((DRGElementReference<? extends TNamedElement> o) -> removeSingleQuotes(o.getElementName())));
+        references.sort(Comparator.comparing((DRGElementReference<? extends TNamedElement> o) -> NameUtils.removeSingleQuotes(o.getElementName())));
     }
 
     public TDRGElement findDRGElementByRef(TDRGElement parent, String href) {
@@ -663,6 +689,18 @@ public class DMNModelRepository {
                 String importName = findImportName(parent, outputDecisionRef);
                 result.add(makeDRGElementReference(importName, child));
             }
+        }
+        sortNamedElementReferences(result);
+        return result;
+    }
+
+    public List<DRGElementReference<TDecision>> directInputDecisions(TDecisionService parent) {
+        List<DRGElementReference<TDecision>> result = new ArrayList<>();
+        // Add reference for direct children
+        for (TDMNElementReference inputDecisionRef : parent.getInputDecision()) {
+            TDecision child = findDecisionByRef(parent, inputDecisionRef.getHref());
+            String importName = findImportName(parent, inputDecisionRef);
+            result.add(makeDRGElementReference(importName, child));
         }
         sortNamedElementReferences(result);
         return result;

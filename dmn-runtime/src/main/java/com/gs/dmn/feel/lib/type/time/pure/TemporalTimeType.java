@@ -47,9 +47,9 @@ public class TemporalTimeType extends BasePureCalendarType implements TimeType<T
         }
 
         if (!first.getClass().equals(second.getClass())) {
+            // Different kind
             return false;
-        }
-        if (first instanceof LocalTime) {
+        } else if (first instanceof LocalTime) {
             LocalTime first1 = (LocalTime) first;
             LocalTime second1 = (LocalTime) second;
             return first1.getHour() == second1.getHour()

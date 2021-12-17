@@ -38,8 +38,8 @@ public class ExpressionIteratorDomain extends IteratorDomain {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext params) {
-        return visitor.visit(this, params);
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 
     @Override

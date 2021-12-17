@@ -20,7 +20,7 @@ public class InputNodeInfo extends NodeInfo {
     private final ValueType value;
 
     public InputNodeInfo(String rootModelName, String nodeName, DRGElementReference<? extends TDRGElement> reference, ValueType value) {
-        super(rootModelName, nodeName, reference);
+        super(rootModelName, INPUT_TYPE, nodeName, reference);
         this.value = value;
     }
 

@@ -35,6 +35,7 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
         super.testTimeIs();
 
         // times with equivalent offset and zone id are not is()
+        assertFalse(getLib().timeIs(makeTime("12:00:00"), makeTime("12:00:00Z")));
         assertFalse(getLib().timeIs(makeTime("12:00:00"), makeTime("12:00:00+00:00")));
         assertFalse(getLib().timeIs(makeTime("00:00:00+00:00"), makeTime("00:00:00@Etc/UTC")));
         assertTrue(getLib().timeIs(makeTime("00:00:00Z"), makeTime("00:00:00+00:00")));

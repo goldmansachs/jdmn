@@ -37,6 +37,18 @@
         }
 </#macro>
 
+<#macro applyServiceMethodBody drgElement>
+        try {
+        <@startDRGElement drgElement/>
+
+        <@bindInputDecisions drgElement/>
+        <@expressionApplyBody drgElement/>
+        } catch (Exception e) {
+            logError("Exception caught in '${modelRepository.name(drgElement)}' evaluation", e);
+            return null;
+        }
+</#macro>
+
 <#---
     Evaluate method
 -->
@@ -59,6 +71,10 @@
 
         <@addEvaluateExpressionMethod drgElement/>
     </#if>
+</#macro>
+
+<#macro evaluateServiceMethod drgElement>
+        <@addEvaluateServiceMethod drgElement/>
 </#macro>
 
 <#--
@@ -243,10 +259,23 @@
     <#assign stm = transformer.expressionToNative(drgElement)>
     <#if transformer.isCompoundStatement(stm)>
         <#list stm.statements as child>
-        ${child.expression}
+        ${child.text}
         </#list>
     <#else>
-        return ${stm.expression};
+        return ${stm.text};
+    </#if>
+    }
+</#macro>
+
+<#macro addEvaluateServiceMethod drgElement>
+    protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementEvaluateSignature(drgElement)}) {
+    <#assign stm = transformer.serviceToNative(drgElement)>
+    <#if transformer.isCompoundStatement(stm)>
+        <#list stm.statements as child>
+        ${child.text}
+        </#list>
+    <#else>
+        return ${stm.text};
     </#if>
     }
 </#macro>
@@ -267,6 +296,23 @@
             <#else>
             ${extraIndent}${transformer.drgElementOutputType(subDecision)} ${transformer.drgElementReferenceVariableName(subDecision)} = this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentListExtraCache(subDecision)});
             </#if>
+        </#items>
+
+    </#list>
+</#macro>
+
+<#--
+    Bind direct input decisions for DS
+-->
+<#macro bindInputDecisions drgElement>
+    <@bindInputDecisionsIndent "" drgElement/>
+</#macro>
+
+<#macro bindInputDecisionsIndent extraIndent drgElement>
+    <#list modelRepository.directInputDecisions(drgElement)>
+            ${extraIndent}// Bind input decisions
+        <#items as inputDecision>
+            ${extraIndent}cache_.bind("${modelRepository.name(inputDecision.element)}", ${transformer.drgElementReferenceVariableName(inputDecision)});
         </#items>
 
     </#list>

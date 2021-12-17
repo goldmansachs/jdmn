@@ -62,12 +62,12 @@ public class ${javaClassName} extends ${decisionBaseClass} {
 
     public ${javaClassName}() {
         <#if transformer.hasDirectSubDecisions(drgElement)>
-        this(${transformer.decisionConstructorNewArgumentList(drgElement)});
+        this(${transformer.drgElementConstructorNewArgumentList(drgElement)});
         </#if>
     }
     <#if transformer.hasDirectSubDecisions(drgElement)>
 
-    public ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) {
+    public ${javaClassName}(${transformer.drgElementConstructorSignature(drgElement)}) {
         <@setSubDecisionFields drgElement/>
     }
     </#if>

@@ -27,7 +27,7 @@ Resources:
         BaseVacationDaysLambda:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /apply/basevacationdays
+            Path: /apply/f-base-vacation-days
             Method: get
 
   ExtraDaysCase1Lambda:
@@ -46,7 +46,7 @@ Resources:
         ExtraDaysCase1Lambda:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /apply/extradayscase1
+            Path: /apply/f-extra-days-case-1
             Method: get
 
   ExtraDaysCase2Lambda:
@@ -65,7 +65,7 @@ Resources:
         ExtraDaysCase2Lambda:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /apply/extradayscase2
+            Path: /apply/f-extra-days-case-2
             Method: get
 
   ExtraDaysCase3Lambda:
@@ -84,7 +84,7 @@ Resources:
         ExtraDaysCase3Lambda:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /apply/extradayscase3
+            Path: /apply/f-extra-days-case-3
             Method: get
 
   TotalVacationDaysLambda:
@@ -103,7 +103,7 @@ Resources:
         TotalVacationDaysLambda:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /apply/totalvacationdays
+            Path: /apply/f-total-vacation-days
             Method: get
 
 Outputs:
@@ -112,7 +112,7 @@ Outputs:
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   BaseVacationDaysLambdaApi:
     Description: "API Gateway endpoint URL for Prod stage for BaseVacationDaysLambda"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/apply/basevacationdays"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/apply/f-base-vacation-days"
   BaseVacationDaysLambda:
     Description: "ARN of BaseVacationDaysLambda"
     Value: !GetAtt BaseVacationDaysLambda.Arn
@@ -122,7 +122,7 @@ Outputs:
 
   ExtraDaysCase1LambdaApi:
     Description: "API Gateway endpoint URL for Prod stage for ExtraDaysCase1Lambda"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/apply/extradayscase1"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/apply/f-extra-days-case-1"
   ExtraDaysCase1Lambda:
     Description: "ARN of ExtraDaysCase1Lambda"
     Value: !GetAtt ExtraDaysCase1Lambda.Arn
@@ -132,7 +132,7 @@ Outputs:
 
   ExtraDaysCase2LambdaApi:
     Description: "API Gateway endpoint URL for Prod stage for ExtraDaysCase2Lambda"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/apply/extradayscase2"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/apply/f-extra-days-case-2"
   ExtraDaysCase2Lambda:
     Description: "ARN of ExtraDaysCase2Lambda"
     Value: !GetAtt ExtraDaysCase2Lambda.Arn
@@ -142,7 +142,7 @@ Outputs:
 
   ExtraDaysCase3LambdaApi:
     Description: "API Gateway endpoint URL for Prod stage for ExtraDaysCase3Lambda"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/apply/extradayscase3"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/apply/f-extra-days-case-3"
   ExtraDaysCase3Lambda:
     Description: "ARN of ExtraDaysCase3Lambda"
     Value: !GetAtt ExtraDaysCase3Lambda.Arn
@@ -152,7 +152,7 @@ Outputs:
 
   TotalVacationDaysLambdaApi:
     Description: "API Gateway endpoint URL for Prod stage for TotalVacationDaysLambda"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/apply/totalvacationdays"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/apply/f-total-vacation-days"
   TotalVacationDaysLambda:
     Description: "ARN of TotalVacationDaysLambda"
     Value: !GetAtt TotalVacationDaysLambda.Arn

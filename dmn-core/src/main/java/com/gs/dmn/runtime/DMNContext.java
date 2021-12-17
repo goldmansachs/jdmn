@@ -97,7 +97,11 @@ public class DMNContext {
         while (context != null) {
             List<Declaration> parentDeclarations = context.getEnvironment().lookupLocalFunctionDeclaration(name);
             if (parentDeclarations != null) {
-                declarations.addAll(parentDeclarations);
+                for (Declaration d: parentDeclarations) {
+                    if (!declarations.contains(d)) {
+                        declarations.add(d);
+                    }
+                }
             }
             context = context.parent;
         }

@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "simpleFunctionInvocation"})
+@javax.annotation.Generated(value = {"decision.ftl", "'simple function invocation'"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "simpleFunctionInvocation",
+    name = "'simple function invocation'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class SimpleFunctionInvocation extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "simpleFunctionInvocation",
+        "'simple function invocation'",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -32,22 +32,22 @@ public class SimpleFunctionInvocation extends com.gs.dmn.runtime.DefaultDMNBaseD
 
     public String apply(String stringInputA, String stringInputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            // Start decision 'simpleFunctionInvocation'
+            // Start decision ''simple function invocation''
             long simpleFunctionInvocationStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments simpleFunctionInvocationArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             simpleFunctionInvocationArguments_.put("stringInputA", stringInputA);
             simpleFunctionInvocationArguments_.put("stringInputB", stringInputB);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, simpleFunctionInvocationArguments_);
 
-            // Evaluate decision 'simpleFunctionInvocation'
+            // Evaluate decision ''simple function invocation''
             String output_ = evaluate(stringInputA, stringInputB, annotationSet_, eventListener_, externalExecutor_, cache_);
 
-            // End decision 'simpleFunctionInvocation'
+            // End decision ''simple function invocation''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, simpleFunctionInvocationArguments_, output_, (System.currentTimeMillis() - simpleFunctionInvocationStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in 'simpleFunctionInvocation' evaluation", e);
+            logError("Exception caught in ''simple function invocation'' evaluation", e);
             return null;
         }
     }

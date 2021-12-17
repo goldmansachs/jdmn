@@ -116,6 +116,7 @@
 
     <!-- passing a param when DS accepts none -->
 
+<!--
     <decisionService name="decisionService_005" id="_decisionService_005">
         <variable name="decisionService_005"/>
         <outputDecision href="#_decision_005_2"/>
@@ -137,6 +138,7 @@
             <text>"foo"</text>
         </literalExpression>
     </decision>
+-->
 
     <!-- passing a single input decision param -->
 
@@ -214,6 +216,7 @@
 
     <!-- passing no params when expects a single param -->
 
+<!--
     <decisionService name="decisionService_008" id="_decisionService_008">
         <variable name="decisionService_008"/>
         <outputDecision href="#_decision_008_2"/>
@@ -240,13 +243,14 @@
         </literalExpression>
     </decision>
 
-    <!-- provided as input, so never gets invoked -->
+    &lt;!&ndash; provided as input, so never gets invoked &ndash;&gt;
     <decision name="decision_008_3" id="_decision_008_3">
         <variable typeRef="string" name="decision_008_3"/>
         <literalExpression>
             <text>"I never get invoked"</text>
         </literalExpression>
     </decision>
+-->
 
     <!-- passing named param -->
 
@@ -286,6 +290,7 @@
 
     <!-- passing badly named param -->
 
+<!--
     <decisionService name="decisionService_010" id="_decisionService_010">
         <variable name="decisionService_010"/>
         <outputDecision href="#_decision_010_2"/>
@@ -312,13 +317,14 @@
         </literalExpression>
     </decision>
 
-    <!-- provided as input, so never gets invoked -->
+    &lt;!&ndash; provided as input, so never gets invoked &ndash;&gt;
     <decision name="decision_010_3" id="_decision_010_3">
         <variable typeRef="string" name="decision_010_3"/>
         <literalExpression>
             <text>"I never get invoked"</text>
         </literalExpression>
     </decision>
+-->
 
     <!-- verify params accepted in correct order : passing two input decision and two input data -->
 

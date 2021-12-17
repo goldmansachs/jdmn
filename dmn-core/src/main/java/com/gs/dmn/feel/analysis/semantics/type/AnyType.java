@@ -30,7 +30,7 @@ public class AnyType extends NamedType {
     }
 
     @Override
-    public boolean isValid() {
+    public boolean isFullySpecified() {
         return true;
     }
 }

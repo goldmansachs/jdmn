@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0092-feel-lambda.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>FEEL Functions: lambda</label>
+    </labels>
+
+    <testCase id="001">
+        <description>A decision may return a user-defined-function (UDF) lambda</description>
+        <resultNode name="decision_001_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:double">3</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <description>A decision may return a Function Definition lambda</description>
+        <resultNode name="decision_002_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:double">4</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003">
+        <description>A BKM may return a UDF lambda</description>
+        <resultNode name="decision_003_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:double">5</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004">
+        <description>A BKM may return a Function Definition lambda</description>
+        <resultNode name="decision_004_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:double">6</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005">
+        <description>A BKM may return a UDF lambda with a closed over formal param</description>
+        <resultNode name="decision_005_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:double">20</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="006">
+        <description>A BKM may return a Function Definition lambda with a closed over formal param</description>
+        <resultNode name="decision_006_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:double">30</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007">
+        <description>A decision may return a UDF lambda with a closed over info requirement value</description>
+
+        <inputNode name="input_007_1">
+            <value xsi:type="xsd:double">20</value>
+        </inputNode>
+
+        <resultNode name="decision_007_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:double">100</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008">
+        <description>A lambda's named params take precedence over scope values where the lambda is created</description>
+        <resultNode name="decision_008_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:double">6</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="009">
+        <description>A lambda's named params take precedence over scope values where the lambda is invoked</description>
+        <resultNode name="decision_009_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:double">200</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="010">
+        <description>lambdas (UDF) and closures may go more than one level deep - (currying)</description>
+        <resultNode name="decision_010_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:double">120</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="010_a">
+        <description>lambdas (func defn) and closures may go more than one level deep - (currying)</description>
+        <resultNode name="decision_010_1_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:double">120</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="011">
+        <description>lambdas (with closures) may be passed as params</description>
+
+        <inputNode name="input_011_1">
+            <value xsi:type="xsd:double">10</value>
+        </inputNode>
+
+        <resultNode name="decision_011_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:double">5000</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="012">
+        <description>BKM may be passed as lambda</description>
+        <resultNode name="decision_012_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:double">5000</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="013">
+        <description>Decision Service may be passed as lambda</description>
+        <resultNode name="decision_013_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:double">5000</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="014">
+        <description>Built-in function may be passed as lambda</description>
+        <resultNode name="decision_014_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:double">25</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="015">
+        <description>Overloaded built-in function may be passed as lambda</description>
+        <resultNode name="decision_015_1" type="decision">
+            <expected>
+                <value xsi:type="xsd:double">18</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="016">
+        <description>Invoking passed lambda with incorrect params still gives error</description>
+        <resultNode name="decision_016_1" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="017">
+        <description>Local decision scope values may be closed over and used in built-in func</description>
+        <inputNode name="input_017_1">
+            <value xsi:type="xsd:string">a</value>
+        </inputNode>
+        <resultNode name="decision_017_1" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:string">a</value></item>
+                    <item><value xsi:type="xsd:string">a</value></item>
+                    <item><value xsi:type="xsd:string">z</value></item>
+                    <item><value xsi:type="xsd:string">z</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="018">
+        <description>BKM may be passed to sort func</description>
+        <resultNode name="decision_018" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:string">a</value></item>
+                    <item><value xsi:type="xsd:string">a</value></item>
+                    <item><value xsi:type="xsd:string">z</value></item>
+                    <item><value xsi:type="xsd:string">z</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

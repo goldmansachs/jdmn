@@ -27,6 +27,9 @@ import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.HitPolicy;
+import com.gs.dmn.runtime.function.DMNFunction;
+import com.gs.dmn.runtime.function.DMNInvocable;
+import com.gs.dmn.runtime.function.Function;
 import com.gs.dmn.runtime.listener.Arguments;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.*;
@@ -405,15 +408,16 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         evaluateKnowledgeRequirements(importPath, bkm, knowledgeRequirement, context);
 
         // Bind name to DMN definition
-        bind(context, reference, bkm);
+        Type type = dmnTransformer.drgElementVariableFEELType(bkm);
+        bind(context, reference, DMNInvocable.of(bkm, type, context));
     }
 
-    private void applyDecisionService(DRGElementReference<TDecisionService> reference, DMNContext dmnContext) {
-        ImportPath importPath = reference.getImportPath();
+    private void applyDecisionService(DRGElementReference<TDecisionService> reference, DMNContext context) {
         TDecisionService service = reference.getElement();
 
         // Bind name to DMN definition
-        bind(dmnContext, reference, service);
+        Type type = dmnTransformer.drgElementVariableFEELType(service);
+        bind(context, reference, DMNInvocable.of(service, type, context));
     }
 
     protected boolean dagOptimisation() {
@@ -731,7 +735,8 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
     private Result evaluateFunctionDefinitionExpression(TDRGElement element, TFunctionDefinition expression, DMNContext context, DRGElement elementAnnotation) {
         Type type = this.dmnTransformer.expressionType(element, expression, context);
-        return Result.of(expression, type);
+        Function function = DMNFunction.of(expression, type, context);
+        return Result.of(function, type);
     }
 
     private Result evaluateDecisionTable(TDRGElement element, TDecisionTable decisionTable, DMNContext context, DRGElement elementAnnotation) {

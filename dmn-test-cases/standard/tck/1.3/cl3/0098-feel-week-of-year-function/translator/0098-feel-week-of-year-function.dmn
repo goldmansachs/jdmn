@@ -10,11 +10,7 @@
     <description>week of year function</description>
 
     <inputData name="date_input_001" id="_date_input_001">
-        <variable name="date_input_001" typeRef="date"/>
-    </inputData>
-
-    <inputData name="datetime_input_001" id="_datetime_input_001">
-        <variable name="datetime_input_001" typeRef="date and time"/>
+        <variable name="date_input_001" typeRef="Any" /> <!-- used to externally supply FEEL:date or other type of values defined in the TCK test file -->
     </inputData>
 
     <decision name="date_001" id="_date_001">
@@ -123,10 +119,10 @@
     <decision name="datetime_004" id="_datetime_004">
         <variable name="datetime_004"/>
         <informationRequirement>
-            <requiredInput href="#_datetime_input_001"/>
+            <requiredInput href="#_date_input_001"/>
         </informationRequirement>
         <literalExpression>
-            <text>week of year(datetime_input_001)</text>
+            <text>week of year(date_input_001)</text>
         </literalExpression>
     </decision>
 

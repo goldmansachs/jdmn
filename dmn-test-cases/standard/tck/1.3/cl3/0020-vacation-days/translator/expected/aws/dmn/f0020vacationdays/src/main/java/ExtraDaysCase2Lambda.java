@@ -2,7 +2,7 @@
 import java.util.Map;
 
 /**
- * Handler for requests to Lambda function for element 'ExtraDaysCase2' in model '0020-vacation-days'.
+ * Handler for requests to Lambda function for element ''Extra days case 2'' in model '0020-vacation-days'.
  */
 public class ExtraDaysCase2Lambda implements com.amazonaws.services.lambda.runtime.RequestHandler<Map<String, String>, Object> {
     private final ExtraDaysCase2 extraDaysCase2 = new ExtraDaysCase2();
@@ -21,7 +21,7 @@ public class ExtraDaysCase2Lambda implements com.amazonaws.services.lambda.runti
         //     Map<String, String>: Object containing details of the event
 
         String age = event_.get("Age");
-        String yearsOfService = event_.get("YearsOfService");
+        String yearsOfService = event_.get("'Years of Service'");
         boolean trace_ = Boolean.parseBoolean(event_.get("_trace"));
 
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
@@ -31,7 +31,7 @@ public class ExtraDaysCase2Lambda implements com.amazonaws.services.lambda.runti
         java.math.BigDecimal output_ = extraDaysCase2.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         java.util.Map<String, Object> result_ = new java.util.LinkedHashMap<>();
-        result_.put("ExtraDaysCase2", output_);
+        result_.put("'Extra days case 2'", output_);
         if (trace_) {
             result_.put("_explain", ((com.gs.dmn.runtime.listener.TreeTraceEventListener) eventListener_).getRoot());
         }

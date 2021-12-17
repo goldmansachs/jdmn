@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "ExtraDaysCase3"})
+@javax.annotation.Generated(value = {"decision.ftl", "'Extra days case 3'"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "ExtraDaysCase3",
+    name = "'Extra days case 3'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class ExtraDaysCase3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "ExtraDaysCase3",
+        "'Extra days case 3'",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,
@@ -50,22 +50,22 @@ public class ExtraDaysCase3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public java.math.BigDecimal apply(java.math.BigDecimal age, java.math.BigDecimal yearsOfService, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            // Start decision 'ExtraDaysCase3'
+            // Start decision ''Extra days case 3''
             long extraDaysCase3StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments extraDaysCase3Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
             extraDaysCase3Arguments_.put("Age", age);
-            extraDaysCase3Arguments_.put("YearsOfService", yearsOfService);
+            extraDaysCase3Arguments_.put("'Years of Service'", yearsOfService);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, extraDaysCase3Arguments_);
 
-            // Evaluate decision 'ExtraDaysCase3'
+            // Evaluate decision ''Extra days case 3''
             java.math.BigDecimal output_ = evaluate(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_);
 
-            // End decision 'ExtraDaysCase3'
+            // End decision ''Extra days case 3''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, extraDaysCase3Arguments_, output_, (System.currentTimeMillis() - extraDaysCase3StartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in 'ExtraDaysCase3' evaluation", e);
+            logError("Exception caught in ''Extra days case 3'' evaluation", e);
             return null;
         }
     }
@@ -111,7 +111,7 @@ public class ExtraDaysCase3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setExtraDaysCase3(number("2"));
 
             // Add annotation
-            annotationSet_.addAnnotation("ExtraDaysCase3", 0, "");
+            annotationSet_.addAnnotation("'Extra days case 3'", 0, "");
         }
 
         // Rule end
@@ -142,7 +142,7 @@ public class ExtraDaysCase3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setExtraDaysCase3(number("2"));
 
             // Add annotation
-            annotationSet_.addAnnotation("ExtraDaysCase3", 1, "");
+            annotationSet_.addAnnotation("'Extra days case 3'", 1, "");
         }
 
         // Rule end

@@ -14,6 +14,8 @@ package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.runtime.Pair;
+import org.junit.Test;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import javax.xml.datatype.Duration;

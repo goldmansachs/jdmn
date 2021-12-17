@@ -113,7 +113,7 @@ public class NamedParameters extends Parameters {
 
     @Override
     public Type getParameterType(int position, String name) {
-        return this.parameterTypes.getType(name);
+        return this.getParameters().get(name).getType();
     }
 
     private boolean requiresConversion() {
@@ -124,8 +124,8 @@ public class NamedParameters extends Parameters {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext params) {
-        return visitor.visit(this, params);
+    public Object accept(Visitor visitor, DMNContext context) {
+        return visitor.visit(this, context);
     }
 
     @Override

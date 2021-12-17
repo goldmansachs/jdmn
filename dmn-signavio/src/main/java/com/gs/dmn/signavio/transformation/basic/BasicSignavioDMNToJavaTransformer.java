@@ -16,7 +16,6 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
-import com.gs.dmn.feel.analysis.semantics.environment.Parameter;
 import com.gs.dmn.feel.analysis.semantics.type.FEELFunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -234,7 +233,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             this.dmnModelRepository.sortNamedElementReferences(allInputDataReferences);
             for (DRGElementReference<TInputData> reference: allInputDataReferences) {
                 TInputData id = reference.getElement();
-                parameters.add(new Parameter(id.getName(), drgElementOutputFEELType(id)));
+                parameters.add(new FormalParameter(id.getName(), drgElementOutputFEELType(id)));
             }
             return parameters;
         } else {
@@ -346,7 +345,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             Statement statement = this.nativeFactory.makeExpressionStatement(javaCode, expressionType);
             Type expectedType = drgElementOutputFEELType(element);
             Statement result = convertExpression(statement, expectedType);
-            return ((ExpressionStatement) result).getExpression();
+            return result.getText();
         } else {
             return super.literalExpressionToNative(element, expression.getText());
         }

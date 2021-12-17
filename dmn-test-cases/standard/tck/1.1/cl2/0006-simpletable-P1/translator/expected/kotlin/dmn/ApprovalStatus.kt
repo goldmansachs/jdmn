@@ -2,10 +2,10 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["decision.ftl", "ApprovalStatus"])
+@javax.annotation.Generated(value = ["decision.ftl", "'Approval Status'"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "ApprovalStatus",
+    name = "'Approval Status'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,
@@ -37,7 +37,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(age: java.math.BigDecimal?, riskCategory: String?, isAffordable: Boolean?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         try {
-            // Start decision 'ApprovalStatus'
+            // Start decision ''Approval Status''
             val approvalStatusStartTime_ = System.currentTimeMillis()
             val approvalStatusArguments_ = com.gs.dmn.runtime.listener.Arguments()
             approvalStatusArguments_.put("Age", age)
@@ -45,15 +45,15 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             approvalStatusArguments_.put("isAffordable", isAffordable)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, approvalStatusArguments_)
 
-            // Evaluate decision 'ApprovalStatus'
+            // Evaluate decision ''Approval Status''
             val output_: String? = evaluate(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-            // End decision 'ApprovalStatus'
+            // End decision ''Approval Status''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, approvalStatusArguments_, output_, (System.currentTimeMillis() - approvalStatusStartTime_))
 
             return output_
         } catch (e: Exception) {
-            logError("Exception caught in 'ApprovalStatus' evaluation", e)
+            logError("Exception caught in ''Approval Status'' evaluation", e)
             return null
         }
     }
@@ -103,7 +103,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             output_.approvalStatusPriority = 2
 
             // Add annotation
-            annotationSet_.addAnnotation("ApprovalStatus", 0, "")
+            annotationSet_.addAnnotation("'Approval Status'", 0, "")
         }
 
         // Rule end
@@ -136,7 +136,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             output_.approvalStatusPriority = 1
 
             // Add annotation
-            annotationSet_.addAnnotation("ApprovalStatus", 1, "")
+            annotationSet_.addAnnotation("'Approval Status'", 1, "")
         }
 
         // Rule end
@@ -169,7 +169,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             output_.approvalStatusPriority = 1
 
             // Add annotation
-            annotationSet_.addAnnotation("ApprovalStatus", 2, "")
+            annotationSet_.addAnnotation("'Approval Status'", 2, "")
         }
 
         // Rule end
@@ -202,7 +202,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             output_.approvalStatusPriority = 1
 
             // Add annotation
-            annotationSet_.addAnnotation("ApprovalStatus", 3, "")
+            annotationSet_.addAnnotation("'Approval Status'", 3, "")
         }
 
         // Rule end
@@ -215,7 +215,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
             "",
-            "ApprovalStatus",
+            "'Approval Status'",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
             com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,

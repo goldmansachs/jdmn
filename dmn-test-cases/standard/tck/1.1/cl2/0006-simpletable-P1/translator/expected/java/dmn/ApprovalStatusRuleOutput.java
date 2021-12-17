@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "ApprovalStatus"})
+@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "'Approval Status'"})
 public class ApprovalStatusRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private String approvalStatus;
     private Integer approvalStatusPriority;
@@ -10,12 +10,12 @@ public class ApprovalStatusRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
-    @com.fasterxml.jackson.annotation.JsonGetter("ApprovalStatus")
+    @com.fasterxml.jackson.annotation.JsonGetter("'Approval Status'")
     public String getApprovalStatus() {
         return this.approvalStatus;
     }
 
-    @com.fasterxml.jackson.annotation.JsonSetter("ApprovalStatus")
+    @com.fasterxml.jackson.annotation.JsonSetter("'Approval Status'")
     public void setApprovalStatus(String approvalStatus) {
         this.approvalStatus = approvalStatus;
     }

@@ -35,32 +35,37 @@
     and the global input data will actually have the same value - so a little difficult to assert where input data value
     came from - param or global input -->
 
+<!--
     <testCase id="002_a" invocableName="decisionService_002" type="decisionService" >
         <description>Direct invocation:  with an input decision but supplying no param</description>
-        <!-- requires decision_002_input but we're not providing it-->
+        &lt;!&ndash; requires decision_002_input but we're not providing it&ndash;&gt;
         <resultNode name="decision_002" errorResult="true">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
         </resultNode>
     </testCase>
+-->
 
+<!--
     <testCase id="002_b" invocableName="decisionService_002" type="decisionService" >
         <description>Direct invocation: with an input decision - but supplying a null value</description>
         <inputNode name="decision_002_input">
             <value xsi:nil="true"/>
         </inputNode>
-        <!-- errorResult is true because of the string + null operation -->
+        &lt;!&ndash; errorResult is true because of the string + null operation &ndash;&gt;
         <resultNode name="decision_002" errorResult="true">
             <expected>
                     <value xsi:nil="true"/>
             </expected>
         </resultNode>
     </testCase>
+-->
 
+<!--
     <testCase id="002_c" invocableName="decisionService_002" type="decisionService" >
         <description>Direct invocation: with an input decision - but supplying an incorrect param type</description>
-        <!-- decision_002_input is a string type but we're providing a number so we expect it to be null-coerced -->
+        &lt;!&ndash; decision_002_input is a string type but we're providing a number so we expect it to be null-coerced &ndash;&gt;
         <inputNode name="decision_002_input">
             <value xsi:type="xsd:decimal">1234</value>
         </inputNode>
@@ -70,6 +75,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
     <testCase id="003" invocableName="decisionService_003" type="decisionService">
         <description>Direct invocation: with two input decisions and an input data</description>
@@ -102,6 +108,7 @@
     </testCase>
 
 
+<!--
     <testCase id="005">
         <description>passing a param when DS has no params</description>
         <resultNode name="decision_005_1" type="decision" errorResult="true">
@@ -110,6 +117,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
 
     <testCase id="006">
@@ -133,6 +141,7 @@
     </testCase>
 
 
+<!--
     <testCase id="008">
         <description>passing no param when DS expects one</description>
         <resultNode name="decision_008_1" type="decision" errorResult="true">
@@ -141,6 +150,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
 
     <testCase id="009">
@@ -154,14 +164,16 @@
     </testCase>
 
 
+<!--
     <testCase id="010">
         <description>passing badly named param</description>
         <resultNode name="decision_010_1" type="decision" errorResult="true">
             <expected>
-                <value xsi:nil="true"/> <!-- DMN13-163 Decision Service output value in the case of single output Decision -->
+                <value xsi:nil="true"/> &lt;!&ndash; DMN13-163 Decision Service output value in the case of single output Decision &ndash;&gt;
             </expected>
         </resultNode>
     </testCase>
+-->
 
 
     <testCase id="011">

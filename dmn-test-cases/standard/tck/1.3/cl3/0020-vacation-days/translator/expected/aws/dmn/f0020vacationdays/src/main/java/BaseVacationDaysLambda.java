@@ -2,7 +2,7 @@
 import java.util.Map;
 
 /**
- * Handler for requests to Lambda function for element 'BaseVacationDays' in model '0020-vacation-days'.
+ * Handler for requests to Lambda function for element ''Base Vacation Days'' in model '0020-vacation-days'.
  */
 public class BaseVacationDaysLambda implements com.amazonaws.services.lambda.runtime.RequestHandler<Map<String, String>, Object> {
     private final BaseVacationDays baseVacationDays = new BaseVacationDays();
@@ -29,7 +29,7 @@ public class BaseVacationDaysLambda implements com.amazonaws.services.lambda.run
         java.math.BigDecimal output_ = baseVacationDays.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
 
         java.util.Map<String, Object> result_ = new java.util.LinkedHashMap<>();
-        result_.put("BaseVacationDays", output_);
+        result_.put("'Base Vacation Days'", output_);
         if (trace_) {
             result_.put("_explain", ((com.gs.dmn.runtime.listener.TreeTraceEventListener) eventListener_).getRoot());
         }

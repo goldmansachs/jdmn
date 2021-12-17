@@ -29,7 +29,7 @@ import com.gs.dmn.tck.TCKUtil;
 import com.gs.dmn.tck.TestCasesReader;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParameters;
-import com.gs.dmn.transformation.ToSimpleNameTransformer;
+import com.gs.dmn.transformation.ToQuotedNameTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
@@ -77,7 +77,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
             Pair<List<String>, List<TestCases>> pair = findTestCases(dmnVersion, dmnFileNames);
 
             // Transform definitions and test cases
-            dmnTransformer = new ToSimpleNameTransformer(LOGGER);
+            dmnTransformer = new ToQuotedNameTransformer(LOGGER);
             dmnTransformer.transform(repository, pair.getRight());
 
             // Set-up execution
@@ -106,7 +106,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
             Pair<List<String>, List<TestCases>> pair = findTestCasesInFolder(testCasesInputFile);
 
             // Transform definitions and test cases
-            dmnTransformer = new ToSimpleNameTransformer(LOGGER);
+            dmnTransformer = new ToQuotedNameTransformer(LOGGER);
             dmnTransformer.transform(repository, pair.getRight());
 
             // Set-up execution

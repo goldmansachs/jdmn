@@ -37,26 +37,6 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     private static final Logger LOGGER = LoggerFactory.getLogger(NameTransformer.class);
     private DMNModelRepository repository;
 
-    public static boolean isSimpleNameStart(int codePoint) {
-        return Character.isJavaIdentifierStart(codePoint);
-    }
-
-    public static boolean isSimpleNamePart(int codePoint) {
-        return Character.isJavaIdentifierPart(codePoint);
-    }
-
-    public static boolean isSimpleName(String name) {
-        if (!isSimpleNameStart(name.codePointAt(0))) {
-            return false;
-        }
-        for (int cp : name.codePoints().toArray()) {
-            if (!(isSimpleNamePart(cp))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     protected final BuildLogger logger;
     private boolean transformDefinition = true;
     private final Set<TDMNElement> renamedElements = new LinkedHashSet<>();

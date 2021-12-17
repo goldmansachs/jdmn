@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "PreBureauRiskCategory"})
+@javax.annotation.Generated(value = {"decision.ftl", "'Pre-bureauRiskCategory'"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "PreBureauRiskCategory",
+    name = "'Pre-bureauRiskCategory'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.INVOCATION,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "PreBureauRiskCategory",
+        "'Pre-bureauRiskCategory'",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.INVOCATION,
@@ -72,17 +72,17 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDeci
 
     public String apply(type.TApplicantData applicantData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            // Start decision 'PreBureauRiskCategory'
+            // Start decision ''Pre-bureauRiskCategory''
             long preBureauRiskCategoryStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments preBureauRiskCategoryArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             preBureauRiskCategoryArguments_.put("ApplicantData", applicantData);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryArguments_);
 
-            if (cache_.contains("PreBureauRiskCategory")) {
+            if (cache_.contains("'Pre-bureauRiskCategory'")) {
                 // Retrieve value from cache
-                String output_ = (String)cache_.lookup("PreBureauRiskCategory");
+                String output_ = (String)cache_.lookup("'Pre-bureauRiskCategory'");
 
-                // End decision 'PreBureauRiskCategory'
+                // End decision ''Pre-bureauRiskCategory''
                 eventListener_.endDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryArguments_, output_, (System.currentTimeMillis() - preBureauRiskCategoryStartTime_));
 
                 return output_;
@@ -90,17 +90,17 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDeci
                 // Apply child decisions
                 java.math.BigDecimal applicationRiskScore = this.applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
 
-                // Evaluate decision 'PreBureauRiskCategory'
+                // Evaluate decision ''Pre-bureauRiskCategory''
                 String output_ = evaluate(applicantData, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_);
-                cache_.bind("PreBureauRiskCategory", output_);
+                cache_.bind("'Pre-bureauRiskCategory'", output_);
 
-                // End decision 'PreBureauRiskCategory'
+                // End decision ''Pre-bureauRiskCategory''
                 eventListener_.endDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryArguments_, output_, (System.currentTimeMillis() - preBureauRiskCategoryStartTime_));
 
                 return output_;
             }
         } catch (Exception e) {
-            logError("Exception caught in 'PreBureauRiskCategory' evaluation", e);
+            logError("Exception caught in ''Pre-bureauRiskCategory'' evaluation", e);
             return null;
         }
     }

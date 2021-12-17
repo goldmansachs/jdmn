@@ -297,7 +297,7 @@ NAME:
     |
     NameStartChar ( NamePartChar )*
     |
-    ('\'' ( ~(['] | [\u000A-\u000D]) )*  '\'' )
+    ('\'' ( ~(['] | [\u000A-\u000D]) | '\'\'')*  '\'' )
     ;
 
 fragment StringEscSeq:

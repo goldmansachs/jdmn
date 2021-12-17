@@ -37,7 +37,7 @@ public class BureauCallTypeTable extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
             // Start BKM 'BureauCallTypeTable'
             long bureauCallTypeTableStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments bureauCallTypeTableArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            bureauCallTypeTableArguments_.put("PreBureauRiskCategory", preBureauRiskCategory);
+            bureauCallTypeTableArguments_.put("'Pre-bureauRiskCategory'", preBureauRiskCategory);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeTableArguments_);
 
             // Evaluate BKM 'BureauCallTypeTable'

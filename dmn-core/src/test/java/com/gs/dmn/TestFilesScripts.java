@@ -16,15 +16,18 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class TestFilesScripts {
+    private static File LOCAL_TCK_FOLDER = new File("C:/Work/Projects/tck/TestCases/compliance-level-3/");
+
     private static File TEST_CASES_FOLDER = new File("dmn-test-cases/standard/");
     private static File TCK_11_CL2_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.1/cl2/");
     private static File TCK_11_CL3_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.1/cl3/");
     private static File TCK_12_CL2_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.2/cl2/");
     private static File TCK_12_CL3_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.2/cl3/");
+    private static File TCK_13_CL2_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.3/cl2/");
+    private static File TCK_13_CL3_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.3/cl3/");
     private static File COMPOSITE_FOLDER = new File(TEST_CASES_FOLDER, "composite/1.2");
     private static File PROTO_FOLDER = new File(TEST_CASES_FOLDER, "proto/1.1");
 
@@ -271,6 +274,133 @@ public class TestFilesScripts {
         }
     }
 
+    private static void copyTestsFromTCK(File sourceFolder, File targetFolder, boolean dryRun) throws IOException {
+        List<String> testNames = Arrays.asList(
+                "0068-feel-equality"
+                , "0074-feel-properties"
+                , "0081-feel-getentries-function"
+                , "0082-feel-coercion"
+                , "0087-chapter-11-example"
+                , "0093-feel-at-literals"
+                , "0098-feel-week-of-year-function"
+        );
+        List<String> dialects = Arrays.asList(
+                "standard",
+                "mixed",
+                "double-mixed"
+        );
+
+        System.out.println(String.format("Copy DMN and TCK files for models '%s' and dialects '%s'", testNames, dialects));
+        for (String testName: testNames) {
+            File sourceTestFolder = new File(sourceFolder, testName);
+            File targetTestFolder = new File(targetFolder, testName);
+            File targetTranslatorFolder = new File(targetTestFolder, "translator");
+            System.out.println(String.format("Processing test folder '%s'", sourceTestFolder.getCanonicalPath()));
+
+            for (File sourceTestFile: sourceTestFolder.listFiles()) {
+                if (isDMN(sourceTestFile) || isTCK(sourceTestFile)) {
+                    File targetTestFile = new File(targetTestFolder, sourceTestFile.getName());
+
+                    // Copy file in main folder
+                    copyFile(sourceTestFile, targetTestFile, testName, dryRun);
+
+                    if (!dialects.isEmpty()) {
+                        if (isDMN(sourceTestFile)) {
+                            // Copy DMN file in translator folder
+                            File targetTranslatorFile = new File(targetTranslatorFolder, sourceTestFile.getName());
+                            copyFile(sourceTestFile, targetTranslatorFile, testName, dryRun);
+                        } else if (isTCK(sourceTestFile)) {
+                            // Copy TCK file in dialect folder
+                            for (String dialect: dialects) {
+                                File targetDialectFile = new File(targetTranslatorFolder, String.format("/%s/%s", dialect, sourceTestFile.getName()));
+                                copyFile(sourceTestFile, targetDialectFile, testName, dryRun);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static void testFilesDifferences(File tckTestCasesFolder, File jdmnTestCasesFolder) throws IOException {
+        Map<String, Integer> modelDiffs = new LinkedHashMap<>();
+        Map<String, Integer> testDiffs = new LinkedHashMap<>();
+
+        List<String> testNames = new ArrayList<>();
+        List<String> dialects = Arrays.asList(
+                "standard",
+                "mixed",
+                "double-mixed"
+        );
+
+        System.out.println("Checking DMN and TCK diffs");
+        for (File tckTestFolder: tckTestCasesFolder.listFiles()) {
+            String testName = tckTestFolder.getName();
+            File jdmnTestFolder = new File(jdmnTestCasesFolder, testName);
+            File jdmnTestTranslatorFolder = new File(jdmnTestFolder, "translator");
+            if (tckTestFolder.isDirectory()) {
+                testNames.add(testName);
+
+//                System.out.println(String.format("Check test '%s'", testName));
+                // Compare TCK and jDMN files
+                for (File tckTestFile: tckTestFolder.listFiles()) {
+                    if (isDMN(tckTestFile)) {
+                        // Compare main DMN and translator DMN
+                        File jdmnFile = new File(jdmnTestFolder, tckTestFile.getName());
+                        File jdmnTranslatorFile = new File(jdmnTestTranslatorFolder, tckTestFile.getName());
+                        int diffs = compareFile(tckTestFile, Arrays.asList(jdmnFile, jdmnTranslatorFile), testName);
+                        modelDiffs.put(testName, diffs);
+                    } else if (isTCK(tckTestFile)) {
+                        // Compare main TCK and dialect files
+                        List<File> jdmnFiles = new ArrayList<>();
+                        File jdmnFile = new File(jdmnTestFolder, tckTestFile.getName());
+                        jdmnFiles.add(jdmnFile);
+                        // Compare TCK files in dialect folders
+                        for (String dialect: dialects) {
+                            File jdmnDialectFile = new File(jdmnTestTranslatorFolder, String.format("/%s/%s", dialect, tckTestFile.getName()));
+                            jdmnFiles.add(jdmnDialectFile);
+                        }
+                        int diffs = compareFile(tckTestFile, jdmnFiles, testName);
+                        testDiffs.put(testName, diffs);
+                    }
+                }
+            }
+//            System.out.println("");
+        }
+
+        Integer totalModelDiffs = modelDiffs.entrySet().stream().map(e -> e.getValue()).reduce(0, Integer::sum);
+        Integer totalTestDiffs = testDiffs.values().stream().reduce(0, Integer::sum);
+        System.out.println(String.format("Found %d DMN diffs and %d TCK diffs", totalModelDiffs, totalTestDiffs));
+        for(String testName: testNames) {
+            Integer mDiffs = modelDiffs.get(testName);
+            Integer tDiffs = testDiffs.get(testName);
+            if (mDiffs != 0 || tDiffs != 0) {
+                System.out.println(String.format("Test '%s' model diffs = '%d' test diffs = '%d'", testName, mDiffs, tDiffs));
+            }
+        }
+    }
+
+    private static int compareFile(File tckTestFile, List<File> jdmnTestFiles, String testName) throws IOException {
+        int diffs = 0;
+        String tckContent = FileUtils.readFileToString(tckTestFile, "UTF-8");
+        for (File jdmnTestFile: jdmnTestFiles) {
+            if (jdmnTestFile.exists()) {
+                String jdmnContent = FileUtils.readFileToString(jdmnTestFile, "UTF-8");
+                if (tckContent.equals(jdmnContent)) {
+//                    System.out.println(String.format("Files '%s' and '%s' are the same", tckTestFile.getName(), jdmnTestFile.getPath()));
+                } else {
+                    diffs++;
+                    System.out.println(String.format("Files '%s' and '%s' are different", tckTestFile.getName(), displayPath(jdmnTestFile.getPath(), testName)));
+                }
+            }
+        }
+        return diffs;
+    }
+
+    private static String displayPath(String path, String testName) {
+        return path.substring(path.indexOf(testName));
+    }
+
     private static File findChild(File parentFolder, String childName, boolean isDirectory) {
         for (File child: parentFolder.listFiles()) {
             if (childName.equals(child.getName()) && child.isDirectory() == isDirectory) {
@@ -316,9 +446,31 @@ public class TestFilesScripts {
         }
     }
 
+    private static void copyFile(File sourceFile, File targetFile, String testName, boolean dryRun) throws IOException {
+        System.out.println(String.format("Copy test file '%s' to '%s", displayPath(sourceFile.getPath(), testName), displayPath(targetFile.getPath(), testName)));
+
+        if (!dryRun) {
+            FileUtils.copyFile(sourceFile, targetFile);
+        }
+    }
+
+    private static boolean isDMN(File file) {
+        String name = file.getName();
+        return name.endsWith(".dmn");
+    }
+
+    private static boolean isTCK(File file) {
+        String name = file.getName();
+        return name.endsWith(".xml");
+    }
+
     public static void main(String[] args) throws IOException {
         boolean dryRun = true;
 
-        copyMissingTestFilesForDialectsFromStandard(dryRun);
+        testFilesDifferences(LOCAL_TCK_FOLDER, TCK_13_CL3_FOLDER);
+        System.out.println();
+        copyTestsFromTCK(LOCAL_TCK_FOLDER, TCK_13_CL3_FOLDER, dryRun);
+        System.out.println();
+        testFilesDifferences(LOCAL_TCK_FOLDER, TCK_13_CL3_FOLDER);
     }
 }

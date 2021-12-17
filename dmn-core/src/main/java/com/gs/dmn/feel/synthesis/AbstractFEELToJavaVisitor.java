@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.NameUtils;
 import com.gs.dmn.error.LogAndThrowErrorHandler;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
@@ -20,7 +21,6 @@ import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.AbstractAnalysisVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.QualifiedName;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral;
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -97,8 +97,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
             DRGElementReference<? extends TDRGElement> memberReference = importContextType.getMemberReference(memberName);
             TDRGElement drgElement = memberReference.getElement();
             if (drgElement instanceof TBusinessKnowledgeModel) {
-                String javaQualifiedName = this.dmnTransformer.bkmQualifiedFunctionName((TBusinessKnowledgeModel) drgElement);
-                return javaQualifiedName;
+                return this.dmnTransformer.invocableQualifiedFunctionName((TBusinessKnowledgeModel) drgElement);
             } else {
                 String javaName = this.dmnTransformer.drgReferenceQualifiedName(memberReference);
                 return this.dmnTransformer.lazyEvaluation(memberReference.getElementName(), javaName);
@@ -128,12 +127,12 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
             // source is Context
             return this.nativeFactory.makeContextSelectExpression(this.dmnTransformer.contextClassName(), source, memberName);
         } else {
-            throw new SemanticError(element, String.format("Cannot generate navigation path '%s'", element.toString()));
+            throw new SemanticError(element, String.format("Cannot generate navigation path '%s'", element));
         }
     }
 
     protected String javaMemberFunctionName(String memberName) {
-        memberName = this.dmnTransformer.getDMNModelRepository().removeSingleQuotes(memberName);
+        memberName = NameUtils.removeSingleQuotes(memberName);
         if ("time offset".equalsIgnoreCase(memberName)) {
             return "timeOffset";
         } else {
@@ -142,7 +141,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
     }
 
     private String javaRangeGetter(String memberName) {
-        memberName = this.dmnTransformer.getDMNModelRepository().removeSingleQuotes(memberName);
+        memberName = NameUtils.removeSingleQuotes(memberName);
         if ("start included".equalsIgnoreCase(memberName)) {
             return "isStartIncluded()";
         }  else if ("end included".equalsIgnoreCase(memberName)) {
@@ -221,12 +220,6 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
     }
 
     protected String functionName(Expression function) {
-        String feelFunctionName;
-        if (function instanceof Name) {
-            feelFunctionName = ((Name) function).getName();
-        } else {
-            feelFunctionName = ((QualifiedName) function).getQualifiedName();
-        }
-        return feelFunctionName;
+        return ((Name) function).getName();
     }
 }

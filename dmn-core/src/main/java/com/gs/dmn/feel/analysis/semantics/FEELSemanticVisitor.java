@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.error.LogAndThrowErrorHandler;
+import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.AbstractAnalysisVisitor;
@@ -385,58 +386,73 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         Expression function = element.getFunction();
         Parameters parameters = element.getParameters();
         if (function instanceof Name && "sort".equals(((Name) function).getName())) {
-            boolean success = false;
-            if (parameters.getSignature().size() == 2) {
-                Expression listExpression;
-                Expression lambdaExpression;
-                if (parameters instanceof PositionalParameters) {
-                    listExpression = ((PositionalParameters) parameters).getParameters().get(0);
-                    lambdaExpression = ((PositionalParameters) parameters).getParameters().get(1);
-                } else {
-                    listExpression = ((NamedParameters) parameters).getParameters().get("list");
-                    lambdaExpression = ((NamedParameters) parameters).getParameters().get("function");
-                }
-                listExpression.accept(this, context);
-                Type listType = listExpression.getType();
-                if (listType instanceof ListType && lambdaExpression instanceof FunctionDefinition) {
-                    List<FormalParameter> formalParameters = ((FunctionDefinition) lambdaExpression).getFormalParameters();
-                    formalParameters.forEach(p -> p.setType(((ListType) listType).getElementType()));
-                    success = true;
-                }
-                lambdaExpression.accept(this, context);
-            }
-            if (!success) {
-                throw new SemanticError(element, String.format("Cannot infer parameter type for lambda in sort call '%s'", element));
-            }
+            visitSortParameters(element, context, parameters);
         } else {
             parameters.accept(this, context);
-            function.accept(this, context);
         }
+        function.accept(this, context);
 
-        inferMissingTypesInFunction(element.getFunction(), element.getParameters(), context);
-
+        inferMissingTypesInFEELFunction(element.getFunction(), element.getParameters(), context);
         element.deriveType(context);
+
         return element;
     }
 
-    private void inferMissingTypesInFunction(Expression function, Parameters arguments, DMNContext context) {
+    private void visitSortParameters(FunctionInvocation element, DMNContext context, Parameters parameters) {
+        boolean success = false;
+        if (parameters.getSignature().size() == 2) {
+            Expression listExpression;
+            Expression lambdaExpression;
+            if (parameters instanceof PositionalParameters) {
+                listExpression = ((PositionalParameters) parameters).getParameters().get(0);
+                lambdaExpression = ((PositionalParameters) parameters).getParameters().get(1);
+            } else {
+                listExpression = ((NamedParameters) parameters).getParameters().get("list");
+                lambdaExpression = ((NamedParameters) parameters).getParameters().get("function");
+            }
+            listExpression.accept(this, context);
+            Type listType = listExpression.getType();
+            if (listType instanceof ListType) {
+                Type elementType = ((ListType) listType).getElementType();
+                if (lambdaExpression instanceof FunctionDefinition) {
+                    List<FormalParameter> formalParameters = ((FunctionDefinition) lambdaExpression).getFormalParameters();
+                    formalParameters.forEach(p -> p.setType(elementType));
+                    success = true;
+                } else if (lambdaExpression instanceof Name) {
+                    Declaration declaration = context.lookupVariableDeclaration(((Name) lambdaExpression).getName());
+                    Type type = declaration.getType();
+                    if (type instanceof FunctionType && !(type instanceof BuiltinFunctionType)) {
+                        List<FormalParameter> formalParameters = ((FunctionType) type).getParameters();
+                        formalParameters.forEach(p -> p.setType(elementType));
+                        success = true;
+                    }
+                }
+            }
+            lambdaExpression.accept(this, context);
+        }
+        if (!success) {
+            throw new SemanticError(element, String.format("Cannot infer parameter type for lambda in sort call '%s'", element));
+        }
+    }
+
+    private void inferMissingTypesInFEELFunction(Expression function, Parameters arguments, DMNContext context) {
         Type functionType = function.getType();
         if (functionType instanceof FEELFunctionType) {
             FEELFunctionType feelFunctionType = (FEELFunctionType) functionType;
-            if (!feelFunctionType.isStaticTyped()) {
+            if (!feelFunctionType.isFullySpecified()) {
                 // Bind names to types in function type
                 bindNameToTypes(feelFunctionType.getParameters(), arguments);
 
                 // Process function definition
                 FunctionDefinition functionDefinition = feelFunctionType.getFunctionDefinition();
                 if (functionDefinition != null) {
-                    // Bind names to types in function type
+                    // Bind names to types in function definition
                     bindNameToTypes(functionDefinition.getFormalParameters(), arguments);
 
                     // Set return type
                     functionDefinition.accept(this, context);
                     Type returnType = feelFunctionType.getReturnType();
-                    if (returnType == null || returnType == AnyType.ANY) {
+                    if (Type.isNullOrAny(returnType)) {
                         Type newReturnType = functionDefinition.getReturnType();
                         feelFunctionType.setReturnType(newReturnType);
                     }
@@ -464,9 +480,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
                 }
             }
         }
-
     }
-
 
     @Override
     public Object visit(NamedParameters element, DMNContext context) {

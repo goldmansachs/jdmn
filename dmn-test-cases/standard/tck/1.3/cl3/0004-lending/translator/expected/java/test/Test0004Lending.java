@@ -20,21 +20,21 @@ public class Test0004Lending extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         checkValues("ACCEPT", Adjudication.instance().apply(applicantData, bureauData, supportingDocuments, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check ApplicationRiskScore
         checkValues(number("130"), ApplicationRiskScore.instance().apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_));
-        // Check PreBureauRiskCategory
+        // Check 'Pre-bureauRiskCategory'
         checkValues("LOW", PreBureauRiskCategory.instance().apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check BureauCallType
         checkValues("MINI", BureauCallType.instance().apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_));
-        // Check PostBureauRiskCategory
+        // Check 'Post-bureauRiskCategory'
         checkValues("LOW", PostBureauRiskCategory.instance().apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check RequiredMonthlyInstallment
         checkValues(number("1680.880325608555"), RequiredMonthlyInstallment.instance().apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
-        // Check PreBureauAffordability
+        // Check 'Pre-bureauAffordability'
         checkValues(true, PreBureauAffordability.instance().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check Eligibility
         checkValues("ELIGIBLE", Eligibility.instance().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check Strategy
         checkValues("BUREAU", Strategy.instance().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
-        // Check PostBureauAffordability
+        // Check 'Post-bureauAffordability'
         checkValues(true, PostBureauAffordability.instance().apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check Routing
         checkValues("ACCEPT", Routing.instance().apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));

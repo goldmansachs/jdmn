@@ -2341,37 +2341,37 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "function (x : feel.string, y : feel.string) x + y",
-                "FunctionDefinition(FormalParameter(x, string),FormalParameter(y, string), Addition(+,Name(x),Name(y)), false)",
-                "FEELFunctionType(FormalParameter(x, string), FormalParameter(y, string), string, false)",
+                "FunctionDefinition(FormalParameter(x, string, false, false),FormalParameter(y, string, false, false), Addition(+,Name(x),Name(y)), false)",
+                "FEELFunctionType(FormalParameter(x, string, false, false), FormalParameter(y, string, false, false), string, false)",
                 null,
                 null,
                 null);
         doExpressionTest(entries, "", "function (x , y) x + y",
-                "FunctionDefinition(FormalParameter(x, null),FormalParameter(y, null), Addition(+,Name(x),Name(y)), false)",
-                "FEELFunctionType(FormalParameter(x, null), FormalParameter(y, null), Any, false)",
+                "FunctionDefinition(FormalParameter(x, null, false, false),FormalParameter(y, null, false, false), Addition(+,Name(x),Name(y)), false)",
+                "FEELFunctionType(FormalParameter(x, null, false, false), FormalParameter(y, null, false, false), Any, false)",
                 null,
                 null,
                 null);
 
         doExpressionTest(entries, "", "function (x : feel.string, y : feel.string) external { " +
                         "java: {class : \"name\", methodSignature: \"signature\" } }",
-                "FunctionDefinition(FormalParameter(x, string),FormalParameter(y, string), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)",
-                "FEELFunctionType(FormalParameter(x, string), FormalParameter(y, string), Any, true)",
+                "FunctionDefinition(FormalParameter(x, string, false, false),FormalParameter(y, string, false, false), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)",
+                "FEELFunctionType(FormalParameter(x, string, false, false), FormalParameter(y, string, false, false), Any, true)",
                 null,
                 null,
                 null);
         doExpressionTest(entries, "", "function (x , y) external { " +
                         "java: {class : \"name\", methodSignature: \"signature\" } }",
-                "FunctionDefinition(FormalParameter(x, null),FormalParameter(y, null), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)",
-                "FEELFunctionType(FormalParameter(x, null), FormalParameter(y, null), Any, true)",
+                "FunctionDefinition(FormalParameter(x, null, false, false),FormalParameter(y, null, false, false), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)",
+                "FEELFunctionType(FormalParameter(x, null, false, false), FormalParameter(y, null, false, false), Any, true)",
                 null,
                 null,
                 null);
         doExpressionTest(entries, "", "function(a: feel.number, b: feel.number) external {" +
                         "java: {class: \"com.gs.dmn.simple_decision_with_user_function.Sum\", methodSignature: \"add(a, b)\", returnType : \"number\"}" +
                         "}",
-                "FunctionDefinition(FormalParameter(a, number),FormalParameter(b, number), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"com.gs.dmn.simple_decision_with_user_function.Sum\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"add(a, b)\")),ContextEntry(ContextEntryKey(returnType) = StringLiteral(\"number\"))))), true)",
-                "FEELFunctionType(FormalParameter(a, number), FormalParameter(b, number), Any, true)",
+                "FunctionDefinition(FormalParameter(a, number, false, false),FormalParameter(b, number, false, false), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"com.gs.dmn.simple_decision_with_user_function.Sum\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"add(a, b)\")),ContextEntry(ContextEntryKey(returnType) = StringLiteral(\"number\"))))), true)",
+                "FEELFunctionType(FormalParameter(a, number, false, false), FormalParameter(b, number, false, false), Any, true)",
                 null,
                 null,
                 null
@@ -2393,7 +2393,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         // simple lists
         doExpressionTest(expressionPairs, "", "[]",
                 "ListLiteral()",
-                "ListType(Any)",
+                "ListType(Null)",
                 "asList()",
                 Arrays.asList(),
                 Arrays.asList());
@@ -2513,8 +2513,8 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 new com.gs.dmn.runtime.Context().add("k1", this.lib.number("1")).add("k2", this.lib.number("2")),
                 new Context().add("k1", this.lib.number("1")).add("k2", this.lib.number("2")));
         doExpressionTest(entries, "", "{ isPositive : function(x : feel.number) x > 1 }",
-                "Context(ContextEntry(ContextEntryKey(isPositive) = FunctionDefinition(FormalParameter(x, number), Relational(>,Name(x),NumericLiteral(1)), false)))",
-                "ContextType(isPositive = FEELFunctionType(FormalParameter(x, number), boolean, false))",
+                "Context(ContextEntry(ContextEntryKey(isPositive) = FunctionDefinition(FormalParameter(x, number, false, false), Relational(>,Name(x),NumericLiteral(1)), false)))",
+                "ContextType(isPositive = FEELFunctionType(FormalParameter(x, number, false, false), boolean, false))",
                 null,
                 null,
                 null);

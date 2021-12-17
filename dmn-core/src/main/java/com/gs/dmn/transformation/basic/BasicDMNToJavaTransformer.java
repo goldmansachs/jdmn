@@ -15,6 +15,7 @@ package com.gs.dmn.transformation.basic;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementFilter;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.NameUtils;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
@@ -384,7 +385,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         try {
             DMNContext context = this.makeGlobalContext(element);
             Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, description, context);
-            return ((ExpressionStatement) statement).getExpression();
+            return ((ExpressionStatement) statement).getText();
         } catch (Exception e) {
             LOGGER.warn(String.format("Cannot process description '%s' for element '%s'", description, element == null ? "" : element.getName()));
             return String.format("\"%s\"", description.replaceAll("\"", "\\\\\""));
@@ -605,6 +606,27 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
+    public boolean hasDirectSubDecisions(TDRGElement element) {
+        return !this.dmnModelRepository.directSubDecisions(element).isEmpty();
+    }
+
+    @Override
+    public String drgElementConstructorSignature(TDRGElement element) {
+        List<DRGElementReference<TDecision>> subDecisionReferences = this.dmnModelRepository.directSubDecisions(element);
+        this.dmnModelRepository.sortNamedElementReferences(subDecisionReferences);
+        return subDecisionReferences.stream().map(d -> this.nativeFactory.decisionConstructorParameter(d)).collect(Collectors.joining(", "));
+    }
+
+    public String drgElementConstructorNewArgumentList(TDRGElement element) {
+        List<DRGElementReference<TDecision>> directSubDecisionReferences = this.dmnModelRepository.directSubDecisions(element);
+        this.dmnModelRepository.sortNamedElementReferences(directSubDecisionReferences);
+        return directSubDecisionReferences
+                .stream()
+                .map(d -> String.format("%s", defaultConstructor(qualifiedName(d))))
+                .collect(Collectors.joining(", "));
+    }
+
+    @Override
     public boolean isSingletonDecision() {
         return this.inputParameters.isSingletonDecision();
     }
@@ -627,28 +649,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public String singletonDecisionInstance(String decisionQName) {
         return String.format("%s.instance()", decisionQName);
-    }
-
-    @Override
-    public String decisionConstructorSignature(TDecision decision) {
-        List<DRGElementReference<TDecision>> subDecisionReferences = this.dmnModelRepository.directSubDecisions(decision);
-        this.dmnModelRepository.sortNamedElementReferences(subDecisionReferences);
-        return subDecisionReferences.stream().map(d -> this.nativeFactory.decisionConstructorParameter(d)).collect(Collectors.joining(", "));
-    }
-
-    @Override
-    public String decisionConstructorNewArgumentList(TDecision decision) {
-        List<DRGElementReference<TDecision>> directSubDecisionReferences = this.dmnModelRepository.directSubDecisions(decision);
-        this.dmnModelRepository.sortNamedElementReferences(directSubDecisionReferences);
-        return directSubDecisionReferences
-                .stream()
-                .map(d -> String.format("%s", defaultConstructor(qualifiedName(d))))
-                .collect(Collectors.joining(", "));
-    }
-
-    @Override
-    public boolean hasDirectSubDecisions(TDecision decision) {
-        return !this.dmnModelRepository.directSubDecisions(decision).isEmpty();
     }
 
     //
@@ -683,6 +683,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
             return augmentSignature(javaParameters);
         } else if (element instanceof TBusinessKnowledgeModel) {
             return drgElementSignature(this.dmnModelRepository.makeDRGElementReference(element));
+        } else if (element instanceof TDecisionService) {
+            List<Pair<String, String>> parameters = directInformationRequirementParameters(element);
+            String javaParameters = parameters.stream().map(p -> this.nativeFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
+            return augmentSignature(javaParameters);
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
@@ -695,6 +699,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
             return augmentArgumentList(argumentList);
         } else if (element instanceof TBusinessKnowledgeModel) {
             return drgElementArgumentList(this.dmnModelRepository.makeDRGElementReference(element));
+        } else if (element instanceof TDecisionService) {
+            List<Pair<String, String>> parameters = directInformationRequirementParameters(element);
+            String argumentList = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
+            return augmentArgumentList(argumentList);
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
@@ -743,6 +751,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
             return String.format("Start decision '%s'", element.getName());
         } else if (element instanceof TBusinessKnowledgeModel) {
             return String.format("Start BKM '%s'", element.getName());
+        } else if (element instanceof TDecisionService) {
+            return String.format("Start DS '%s'", element.getName());
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
@@ -754,6 +764,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
             return String.format("End decision '%s'", element.getName());
         } else if (element instanceof TBusinessKnowledgeModel) {
             return String.format("End BKM '%s'", element.getName());
+        } else if (element instanceof TDecisionService) {
+            return String.format("End DS '%s'", element.getName());
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
@@ -765,6 +777,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
             return String.format("Evaluate decision '%s'", element.getName());
         } else if (element instanceof TBusinessKnowledgeModel) {
             return String.format("Evaluate BKM '%s'", element.getName());
+        } else if (element instanceof TDecisionService) {
+            return String.format("Evaluate DS '%s'", element.getName());
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
@@ -797,6 +811,29 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     // Invocable  related functions
     //
     @Override
+    public String invocableFunctionName(DRGElementReference<? extends TDRGElement> reference) {
+        return invocableFunctionName((TInvocable) reference.getElement());
+    }
+
+    @Override
+    public String invocableFunctionName(TInvocable bkm) {
+        String name = bkm.getName();
+        return invocableFunctionName(name);
+    }
+
+    @Override
+    public String invocableFunctionName(String name) {
+        return nativeFriendlyName(name);
+    }
+
+    @Override
+    public String invocableQualifiedFunctionName(TInvocable bkm) {
+        String javaPackageName = qualifiedName(bkm);
+        String javaFunctionName = invocableFunctionName(bkm);
+        return qualifiedName(javaPackageName, javaFunctionName);
+    }
+
+    @Override
     public List<FormalParameter> invocableFEELParameters(TDRGElement invocable) {
         if (invocable instanceof TBusinessKnowledgeModel) {
             return bkmFEELParameters((TBusinessKnowledgeModel) invocable);
@@ -810,29 +847,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     //
     // BKM related functions
     //
-    @Override
-    public String bkmFunctionName(DRGElementReference<? extends TDRGElement> reference) {
-        return bkmFunctionName((TBusinessKnowledgeModel) reference.getElement());
-    }
-
-    @Override
-    public String bkmFunctionName(TBusinessKnowledgeModel bkm) {
-        String name = bkm.getName();
-        return bkmFunctionName(name);
-    }
-
-    @Override
-    public String bkmFunctionName(String name) {
-        return nativeFriendlyName(name);
-    }
-
-    @Override
-    public String bkmQualifiedFunctionName(TBusinessKnowledgeModel bkm) {
-        String javaPackageName = qualifiedName(bkm);
-        String javaFunctionName = bkmFunctionName(bkm);
-        return qualifiedName(javaPackageName, javaFunctionName);
-    }
-
     @Override
     public List<FormalParameter> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
         TDefinitions model = this.dmnModelRepository.getModel(bkm);
@@ -873,17 +887,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     //
     // Decision Service related functions
     //
-    @Override
-    public String dsFunctionName(TDecisionService service) {
-        String name = service.getName();
-        return dsFunctionName(name);
-    }
-
-    @Override
-    public String dsFunctionName(String name) {
-        return nativeFriendlyName(name);
-    }
-
     @Override
     public List<FormalParameter> dsFEELParameters(TDecisionService service) {
         List<FormalParameter> parameters = new ArrayList<>();
@@ -938,7 +941,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         if (!(statement instanceof ExpressionStatement)) {
             return statement;
         }
-        String javaExpression = ((ExpressionStatement) statement).getExpression();
+        String javaExpression = ((ExpressionStatement) statement).getText();
         Type expressionType = ((ExpressionStatement) statement).getExpressionType();
         if ("null".equals(javaExpression)) {
             return this.nativeFactory.makeExpressionStatement(javaExpression, expectedType);
@@ -1564,6 +1567,35 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         return this.dmnEnvironmentFactory.convertType(type, convertToContext);
     }
 
+    public Statement serviceToNative(TDecisionService element) {
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+        List<DRGElementReference<TDecision>> outputDecisions = this.dmnModelRepository.directSubDecisions(element);
+        if (outputDecisions.size() == 0) {
+            return this.nativeFactory.makeExpressionStatement("null", NullType.NULL);
+        } else if (outputDecisions.size() == 1) {
+            TDecision decision = outputDecisions.get(0).getElement();
+            String decisionVarName = namedElementVariableName(decision);
+            return this.nativeFactory.makeExpressionStatement(decisionVarName, drgElementOutputFEELType(decision));
+        } else {
+            // Make statements
+            CompoundStatement statement = new CompoundStatement();
+            // Create an empty context
+            String outputVar = "output_";
+            String init = String.format("%s %s = %s;", contextClassName(), outputVar, defaultConstructor(contextClassName()));
+            statement.add(this.nativeFactory.makeExpressionStatement(init, null));
+            // Add members
+            for (DRGElementReference<TDecision> ref: outputDecisions) {
+                TDecision od = ref.getElement();
+                String add = String.format("%s.put(\"%s\", %s);", outputVar, elementName(od), namedElementVariableName(od));
+                statement.add(this.nativeFactory.makeExpressionStatement(add, null));
+            }
+            // Return output
+            String return_ = String.format("return %s;", outputVar);
+            statement.add(this.nativeFactory.makeExpressionStatement(return_, null));
+            return statement;
+        }
+    }
+
     @Override
     public Statement expressionToNative(TDRGElement element) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
@@ -1603,7 +1635,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public String literalExpressionToNative(TDRGElement element, String expressionText) {
         Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, expressionText);
-        return ((ExpressionStatement) statement).getExpression();
+        return statement.getText();
     }
 
     @Override
@@ -1827,7 +1859,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         if (StringUtils.isBlank(name)) {
             throw new DMNRuntimeException("Cannot build variable name from empty string");
         }
-        name = this.dmnModelRepository.removeSingleQuotes(name);
+        name = NameUtils.removeSingleQuotes(name);
         String[] parts = name.split("\\.");
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < parts.length; i++) {
@@ -1844,7 +1876,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String nativeFriendlyName(String name) {
-        name = this.dmnModelRepository.removeSingleQuotes(name);
+        name = NameUtils.removeSingleQuotes(name);
         StringBuilder result = new StringBuilder();
         boolean skippedPrevious = false;
         for (int i = 0; i < name.length(); i++) {
@@ -1864,14 +1896,14 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String upperCaseFirst(String name) {
-        name = this.dmnModelRepository.removeSingleQuotes(name);
+        name = NameUtils.removeSingleQuotes(name);
         String firstChar = Character.toString(Character.toUpperCase(name.charAt(0)));
         return nativeFriendlyName(name.length() == 1 ? firstChar : firstChar + name.substring(1));
     }
 
     @Override
     public String lowerCaseFirst(String name) {
-        name = this.dmnModelRepository.removeSingleQuotes(name);
+        name = NameUtils.removeSingleQuotes(name);
         String firstChar = Character.toString(Character.toLowerCase(name.charAt(0)));
         return nativeFriendlyName(name.length() == 1 ? firstChar : firstChar + name.substring(1));
     }

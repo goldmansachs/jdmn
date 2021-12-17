@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.transformation.native_.statement;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,5 +29,15 @@ public class CompoundStatement extends Statement {
 
     public void add(Statement statement) {
         this.statements.add(statement);
+    }
+
+    @Override
+    public String getText() {
+        throw new DMNRuntimeException("Not supported");
+    }
+
+    @Override
+    public String toString() {
+        return statements.toString();
     }
 }

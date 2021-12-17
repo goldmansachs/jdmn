@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "PreBureauRiskCategoryTable"})
+@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "'Pre-bureauRiskCategoryTable'"})
 public class PreBureauRiskCategoryTableRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private String preBureauRiskCategoryTable;
 
@@ -9,12 +9,12 @@ public class PreBureauRiskCategoryTableRuleOutput extends com.gs.dmn.runtime.Rul
         super(matched);
     }
 
-    @com.fasterxml.jackson.annotation.JsonGetter("PreBureauRiskCategoryTable")
+    @com.fasterxml.jackson.annotation.JsonGetter("'Pre-bureauRiskCategoryTable'")
     public String getPreBureauRiskCategoryTable() {
         return this.preBureauRiskCategoryTable;
     }
 
-    @com.fasterxml.jackson.annotation.JsonSetter("PreBureauRiskCategoryTable")
+    @com.fasterxml.jackson.annotation.JsonSetter("'Pre-bureauRiskCategoryTable'")
     public void setPreBureauRiskCategoryTable(String preBureauRiskCategoryTable) {
         this.preBureauRiskCategoryTable = preBureauRiskCategoryTable;
     }

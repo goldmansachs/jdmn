@@ -2,10 +2,10 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["decision.ftl", "ExtraDaysCase3"])
+@javax.annotation.Generated(value = ["decision.ftl", "'Extra days case 3'"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "ExtraDaysCase3",
+    name = "'Extra days case 3'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,
@@ -37,22 +37,22 @@ class ExtraDaysCase3() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(age: java.math.BigDecimal?, yearsOfService: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         try {
-            // Start decision 'ExtraDaysCase3'
+            // Start decision ''Extra days case 3''
             val extraDaysCase3StartTime_ = System.currentTimeMillis()
             val extraDaysCase3Arguments_ = com.gs.dmn.runtime.listener.Arguments()
             extraDaysCase3Arguments_.put("Age", age)
-            extraDaysCase3Arguments_.put("YearsOfService", yearsOfService)
+            extraDaysCase3Arguments_.put("'Years of Service'", yearsOfService)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, extraDaysCase3Arguments_)
 
-            // Evaluate decision 'ExtraDaysCase3'
+            // Evaluate decision ''Extra days case 3''
             val output_: java.math.BigDecimal? = evaluate(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-            // End decision 'ExtraDaysCase3'
+            // End decision ''Extra days case 3''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, extraDaysCase3Arguments_, output_, (System.currentTimeMillis() - extraDaysCase3StartTime_))
 
             return output_
         } catch (e: Exception) {
-            logError("Exception caught in 'ExtraDaysCase3' evaluation", e)
+            logError("Exception caught in ''Extra days case 3'' evaluation", e)
             return null
         }
     }
@@ -98,7 +98,7 @@ class ExtraDaysCase3() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             output_.extraDaysCase3 = number("2")
 
             // Add annotation
-            annotationSet_.addAnnotation("ExtraDaysCase3", 0, "")
+            annotationSet_.addAnnotation("'Extra days case 3'", 0, "")
         }
 
         // Rule end
@@ -129,7 +129,7 @@ class ExtraDaysCase3() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             output_.extraDaysCase3 = number("2")
 
             // Add annotation
-            annotationSet_.addAnnotation("ExtraDaysCase3", 1, "")
+            annotationSet_.addAnnotation("'Extra days case 3'", 1, "")
         }
 
         // Rule end
@@ -142,7 +142,7 @@ class ExtraDaysCase3() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
             "",
-            "ExtraDaysCase3",
+            "'Extra days case 3'",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
             com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,

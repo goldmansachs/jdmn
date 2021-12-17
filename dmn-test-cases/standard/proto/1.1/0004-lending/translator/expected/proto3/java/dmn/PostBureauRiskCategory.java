@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "PostBureauRiskCategory"})
+@javax.annotation.Generated(value = {"decision.ftl", "'Post-bureauRiskCategory'"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "PostBureauRiskCategory",
+    name = "'Post-bureauRiskCategory'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.INVOCATION,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class PostBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "PostBureauRiskCategory",
+        "'Post-bureauRiskCategory'",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.INVOCATION,
@@ -74,18 +74,18 @@ public class PostBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDec
 
     public String apply(type.TApplicantData applicantData, type.TBureauData bureauData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            // Start decision 'PostBureauRiskCategory'
+            // Start decision ''Post-bureauRiskCategory''
             long postBureauRiskCategoryStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments postBureauRiskCategoryArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             postBureauRiskCategoryArguments_.put("ApplicantData", applicantData);
             postBureauRiskCategoryArguments_.put("BureauData", bureauData);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, postBureauRiskCategoryArguments_);
 
-            if (cache_.contains("PostBureauRiskCategory")) {
+            if (cache_.contains("'Post-bureauRiskCategory'")) {
                 // Retrieve value from cache
-                String output_ = (String)cache_.lookup("PostBureauRiskCategory");
+                String output_ = (String)cache_.lookup("'Post-bureauRiskCategory'");
 
-                // End decision 'PostBureauRiskCategory'
+                // End decision ''Post-bureauRiskCategory''
                 eventListener_.endDRGElement(DRG_ELEMENT_METADATA, postBureauRiskCategoryArguments_, output_, (System.currentTimeMillis() - postBureauRiskCategoryStartTime_));
 
                 return output_;
@@ -93,17 +93,17 @@ public class PostBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDec
                 // Apply child decisions
                 java.math.BigDecimal applicationRiskScore = this.applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
 
-                // Evaluate decision 'PostBureauRiskCategory'
+                // Evaluate decision ''Post-bureauRiskCategory''
                 String output_ = evaluate(applicantData, applicationRiskScore, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_);
-                cache_.bind("PostBureauRiskCategory", output_);
+                cache_.bind("'Post-bureauRiskCategory'", output_);
 
-                // End decision 'PostBureauRiskCategory'
+                // End decision ''Post-bureauRiskCategory''
                 eventListener_.endDRGElement(DRG_ELEMENT_METADATA, postBureauRiskCategoryArguments_, output_, (System.currentTimeMillis() - postBureauRiskCategoryStartTime_));
 
                 return output_;
             }
         } catch (Exception e) {
-            logError("Exception caught in 'PostBureauRiskCategory' evaluation", e);
+            logError("Exception caught in ''Post-bureauRiskCategory'' evaluation", e);
             return null;
         }
     }

@@ -47,11 +47,11 @@ public class TupleType extends Type {
     }
 
     @Override
-    public boolean isValid() {
+    public boolean isFullySpecified() {
         if (types.isEmpty()) {
             return false;
         }
-        return types.stream().allMatch(Type::isValid);
+        return types.stream().noneMatch(Type::isNullOrAny);
     }
 
     @Override

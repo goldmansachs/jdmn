@@ -66,7 +66,7 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, T
 
     @Override
     protected DMNTransformer<TestCases> makeDMNTransformer(BuildLogger logger) {
-        return new ToSimpleNameTransformer(logger);
+        return new ToQuotedNameTransformer(logger);
     }
 
     @Override

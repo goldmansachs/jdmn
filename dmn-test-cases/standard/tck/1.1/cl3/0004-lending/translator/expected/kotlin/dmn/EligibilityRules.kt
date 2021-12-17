@@ -20,8 +20,8 @@ class EligibilityRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start BKM 'EligibilityRules'
             val eligibilityRulesStartTime_ = System.currentTimeMillis()
             val eligibilityRulesArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            eligibilityRulesArguments_.put("PreBureauRiskCategory", preBureauRiskCategory)
-            eligibilityRulesArguments_.put("PreBureauAffordability", preBureauAffordability)
+            eligibilityRulesArguments_.put("'Pre-bureauRiskCategory'", preBureauRiskCategory)
+            eligibilityRulesArguments_.put("'Pre-bureauAffordability'", preBureauAffordability)
             eligibilityRulesArguments_.put("Age", age)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, eligibilityRulesArguments_)
 

@@ -23,9 +23,12 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
         return "tck/%s/cl3/%s/translator";
     }
 
+    //
+    // DMN 1.1 files
+    //
+
     @Test
     public void test_11_cl3_0001_filter() {
-        // DMN 1.1 files
         doSingleModelTest("1.1", "0001-filter");
     }
 
@@ -256,7 +259,10 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
         doSingleModelTest("1.1", "9001-recursive-function");
     }
 
+    //
     // DMN 1.2 files
+    //
+
     @Test
     public void test_12_cl3_0012_list_functions() {
         doSingleModelTest("1.2", "0012-list-functions");
@@ -313,6 +319,10 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
         doMultipleModelsTest("1.2", Arrays.asList("0089-nested-inputdata-imports", "0089-model-b", "0089-model-b2", "0089-model-a"), new Pair<>("singletonInputData", "false"));
     }
 
+    //
+    // DMN 1.3 files
+    //
+
     @Test
     public void test_13_cl3_0004_lending() {
         doSingleModelTest("1.3", "0004-lending", new Pair<>("singletonInputData", "false"));
@@ -344,6 +354,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_13_cl3_0058_feel_number_function() {
+        doSingleModelTest("1.3", "0058-feel-number-function");
+    }
+
+    @Test
     public void test_13_cl3_0068_feel_equality() {
         doSingleModelTest("1.3", "0068-feel-equality", new Pair<>("strongTyping", "false") );
     }
@@ -361,6 +376,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     @Test
     public void test_13_cl3_0080_feel_getvalue_function() {
         doSingleModelTest("1.3", "0080-feel-getvalue-function", new Pair<>("strongTyping", "false"));
+    }
+
+    @Test
+    public void test_13_cl3_0081_feel_getentries_function() {
+        doSingleModelTest("1.3", "0081-feel-getentries-function");
     }
 
     @Test
@@ -404,8 +424,18 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_13_cl3_0092_feel_lambda() {
+        doSingleModelTest("1.3", "0092-feel-lambda", new Pair<>("strongTyping", "false"));
+    }
+
+    @Test
     public void test_13_cl3_0093_feel_at_literals() {
         doSingleModelTest("1.3", "0093-feel-at-literals");
+    }
+
+    @Test
+    public void test_13_cl3_0094_feel_product_function() {
+        doSingleModelTest("1.3", "0094-feel-product-function");
     }
 
     @Test
@@ -425,12 +455,22 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
 
     @Test
     public void test_13_cl3_0098_feel_week_of_year_function() {
-        doSingleModelTest("1.3", "0098-feel-week-of-year-function");
+        doSingleModelTest("1.3", "0098-feel-week-of-year-function", new Pair<>("strongTyping", "false"));
+    }
+
+    @Test
+    public void test_13_cl3_0099_arithmetic_negation() {
+        doSingleModelTest("1.3", "0099-arithmetic-negation");
     }
 
     @Test
     public void test_13_cl3_100_arithmetic() {
         doSingleModelTest("1.3", "0100-arithmetic");
+    }
+
+    @Test
+    public void test_13_cl3_0103_feel_is_function() {
+        doSingleModelTest("1.3", "0103-feel-is-function");
     }
 
     @Test

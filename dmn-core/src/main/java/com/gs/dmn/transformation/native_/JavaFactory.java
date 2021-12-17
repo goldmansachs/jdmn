@@ -23,6 +23,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.JsonSerializer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
+import com.gs.dmn.transformation.native_.statement.AssignmentStatement;
 import com.gs.dmn.transformation.native_.statement.CompoundStatement;
 import com.gs.dmn.transformation.native_.statement.ExpressionStatement;
 import com.gs.dmn.transformation.proto.ProtoBufferFactory;
@@ -32,7 +33,9 @@ import org.omg.spec.dmn._20191111.model.TDecision;
 import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class JavaFactory implements NativeFactory {
     protected static final Object DEFAULT_PROTO_NUMBER = "0.0";
@@ -237,10 +240,12 @@ public class JavaFactory implements NativeFactory {
 
     protected String parametersAssignment(List<FormalParameter> formalParameters, boolean convertTypeToContext) {
         List<String> parameters = new ArrayList<>();
-        for(int i = 0; i< formalParameters.size(); i++) {
+        Set<String> names = new LinkedHashSet<>();
+        for(int i=0; i<formalParameters.size(); i++) {
             FormalParameter p = formalParameters.get(i);
             String type = transformer.toNativeType(transformer.convertType(p.getType(), convertTypeToContext));
             String name = transformer.nativeFriendlyVariableName(p.getName());
+            names.add(name);
             parameters.add(makeLambdaParameterAssignment(type, name, i));
         }
         return String.join(" ", parameters);
@@ -378,7 +383,7 @@ public class JavaFactory implements NativeFactory {
         } else if (conversion.getKind() == ConversionKind.DATE_TO_UTC_MIDNIGHT) {
             return dateToUTCMidnight(javaType);
         } else {
-            throw new DMNRuntimeException(String.format("Conversion '%s' is not supported yet", conversion));
+            return toNull(javaType);
         }
     }
 
@@ -392,6 +397,10 @@ public class JavaFactory implements NativeFactory {
 
     protected String dateToUTCMidnight(String javaType) {
         return "toDateTime";
+    }
+
+    protected String toNull(String javaType) {
+        return "toNull";
     }
 
     @Override
@@ -572,6 +581,11 @@ public class JavaFactory implements NativeFactory {
     @Override
     public ExpressionStatement makeExpressionStatement(String text, Type type) {
         return new ExpressionStatement(text, type);
+    }
+
+    @Override
+    public AssignmentStatement makeAssignmentStatement(String lhsNativeType, String lhs, String rhs, Type lhsType, String text) {
+        return new AssignmentStatement(lhsNativeType, lhs, rhs, lhsType, text);
     }
 
     //

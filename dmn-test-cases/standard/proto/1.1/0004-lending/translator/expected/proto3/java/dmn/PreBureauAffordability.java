@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "PreBureauAffordability"})
+@javax.annotation.Generated(value = {"decision.ftl", "'Pre-bureauAffordability'"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "PreBureauAffordability",
+    name = "'Pre-bureauAffordability'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.INVOCATION,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class PreBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "PreBureauAffordability",
+        "'Pre-bureauAffordability'",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.INVOCATION,
@@ -76,7 +76,7 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDec
 
     public Boolean apply(type.TApplicantData applicantData, type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            // Start decision 'PreBureauAffordability'
+            // Start decision ''Pre-bureauAffordability''
             long preBureauAffordabilityStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments preBureauAffordabilityArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             preBureauAffordabilityArguments_.put("ApplicantData", applicantData);
@@ -87,15 +87,15 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDec
             String preBureauRiskCategory = this.preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
             java.math.BigDecimal requiredMonthlyInstallment = this.requiredMonthlyInstallment.apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
 
-            // Evaluate decision 'PreBureauAffordability'
+            // Evaluate decision ''Pre-bureauAffordability''
             Boolean output_ = evaluate(applicantData, preBureauRiskCategory, requiredMonthlyInstallment, annotationSet_, eventListener_, externalExecutor_, cache_);
 
-            // End decision 'PreBureauAffordability'
+            // End decision ''Pre-bureauAffordability''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, preBureauAffordabilityArguments_, output_, (System.currentTimeMillis() - preBureauAffordabilityStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in 'PreBureauAffordability' evaluation", e);
+            logError("Exception caught in ''Pre-bureauAffordability'' evaluation", e);
             return null;
         }
     }

@@ -64,11 +64,15 @@ public class ${testClassName} extends ${decisionBaseClass} {
         <#items as result>
         // Check ${result.name}
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
-        <#assign decisionQName = tckUtil.qualifiedName(resultInfo) >
-        <#if tckUtil.isSingletonDecision()>
-        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.singletonDecisionInstance(decisionQName)}.apply(${tckUtil.drgElementArgumentListExtraCache(tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
-        <#else>
-        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.defaultConstructor(decisionQName)}.apply(${tckUtil.drgElementArgumentListExtraCache(tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
+        <#assign elementQName = tckUtil.qualifiedName(resultInfo) >
+        <#if resultInfo.isDecision()>
+           <#if tckUtil.isSingletonDecision()>
+        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.singletonDecisionInstance(elementQName)}.apply(${tckUtil.drgElementArgumentListExtraCache(tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
+           <#else>
+        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.defaultConstructor(elementQName)}.apply(${tckUtil.drgElementArgumentListExtraCache(tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
+           </#if>
+        <#elseif resultInfo.isDS() || resultInfo.isBKM()>
+        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${elementQName}(${tckUtil.drgElementArgumentListExtraCache(tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
         </#if>
         </#items>
     </#list>

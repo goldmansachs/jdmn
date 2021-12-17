@@ -2,10 +2,10 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["decision.ftl", "PostBureauRiskCategory"])
+@javax.annotation.Generated(value = ["decision.ftl", "'Post-bureauRiskCategory'"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "PostBureauRiskCategory",
+    name = "'Post-bureauRiskCategory'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.INVOCATION,
@@ -37,7 +37,7 @@ class PostBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = A
 
     fun apply(applicantData: type.TApplicantData?, bureauData: type.TBureauData?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         try {
-            // Start decision 'PostBureauRiskCategory'
+            // Start decision ''Post-bureauRiskCategory''
             val postBureauRiskCategoryStartTime_ = System.currentTimeMillis()
             val postBureauRiskCategoryArguments_ = com.gs.dmn.runtime.listener.Arguments()
             postBureauRiskCategoryArguments_.put("ApplicantData", applicantData)
@@ -47,15 +47,15 @@ class PostBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = A
             // Apply child decisions
             val applicationRiskScore: java.math.BigDecimal? = this.applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-            // Evaluate decision 'PostBureauRiskCategory'
+            // Evaluate decision ''Post-bureauRiskCategory''
             val output_: String? = evaluate(applicantData, applicationRiskScore, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-            // End decision 'PostBureauRiskCategory'
+            // End decision ''Post-bureauRiskCategory''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, postBureauRiskCategoryArguments_, output_, (System.currentTimeMillis() - postBureauRiskCategoryStartTime_))
 
             return output_
         } catch (e: Exception) {
-            logError("Exception caught in 'PostBureauRiskCategory' evaluation", e)
+            logError("Exception caught in ''Post-bureauRiskCategory'' evaluation", e)
             return null
         }
     }
@@ -67,7 +67,7 @@ class PostBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = A
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
             "",
-            "PostBureauRiskCategory",
+            "'Post-bureauRiskCategory'",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
             com.gs.dmn.runtime.annotation.ExpressionKind.INVOCATION,

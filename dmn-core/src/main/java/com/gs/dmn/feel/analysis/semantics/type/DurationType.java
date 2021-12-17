@@ -47,7 +47,7 @@ public class DurationType extends ComparableDataType {
 
     @Override
     protected boolean conformsTo(Type other) {
-        return equivalentTo(other) || other == COMPARABLE;
+        return equivalentTo(other) || other == ANY_DURATION || other == COMPARABLE;
     }
 
     private static final Map<String, Type> YEARS_AND_MONTHS_DURATION_MEMBERS = new LinkedHashMap<>();

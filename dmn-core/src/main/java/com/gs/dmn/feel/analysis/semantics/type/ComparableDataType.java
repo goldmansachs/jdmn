@@ -30,7 +30,7 @@ public class ComparableDataType extends DataType {
     }
 
     @Override
-    public boolean isValid() {
+    public boolean isFullySpecified() {
         return true;
     }
 }

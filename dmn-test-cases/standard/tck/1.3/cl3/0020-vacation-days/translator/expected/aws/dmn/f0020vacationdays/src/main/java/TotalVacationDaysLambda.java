@@ -2,7 +2,7 @@
 import java.util.Map;
 
 /**
- * Handler for requests to Lambda function for element 'TotalVacationDays' in model '0020-vacation-days'.
+ * Handler for requests to Lambda function for element ''Total Vacation Days'' in model '0020-vacation-days'.
  */
 public class TotalVacationDaysLambda implements com.amazonaws.services.lambda.runtime.RequestHandler<Map<String, String>, Object> {
     private final TotalVacationDays totalVacationDays = new TotalVacationDays();
@@ -21,7 +21,7 @@ public class TotalVacationDaysLambda implements com.amazonaws.services.lambda.ru
         //     Map<String, String>: Object containing details of the event
 
         String age = event_.get("Age");
-        String yearsOfService = event_.get("YearsOfService");
+        String yearsOfService = event_.get("'Years of Service'");
         boolean trace_ = Boolean.parseBoolean(event_.get("_trace"));
 
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
@@ -31,7 +31,7 @@ public class TotalVacationDaysLambda implements com.amazonaws.services.lambda.ru
         java.math.BigDecimal output_ = totalVacationDays.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         java.util.Map<String, Object> result_ = new java.util.LinkedHashMap<>();
-        result_.put("TotalVacationDays", output_);
+        result_.put("'Total Vacation Days'", output_);
         if (trace_) {
             result_.put("_explain", ((com.gs.dmn.runtime.listener.TreeTraceEventListener) eventListener_).getRoot());
         }

@@ -35,13 +35,13 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
             return first == second;
         }
 
-        return first.getSign() == second.getSign()
-                && first.getYears() == second.getYears()
-                && first.getMonths() == second.getMonths()
-                && first.getDays() == second.getDays()
-                && first.getHours() == second.getHours()
-                && first.getMinutes() == second.getMinutes()
-                && first.getSeconds() == second.getSeconds();
+        if (isYearsAndMonthsDuration(first) && isYearsAndMonthsDuration(second)) {
+            return durationEqual(first, second);
+        } else if(isDayTimeDuration(first) && isDayTimeDuration(second)) {
+            return durationEqual(first, second);
+        } else {
+            return false;
+        }
     }
 
     //

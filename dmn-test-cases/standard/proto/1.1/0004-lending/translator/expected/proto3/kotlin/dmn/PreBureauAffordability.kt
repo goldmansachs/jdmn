@@ -2,10 +2,10 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["decision.ftl", "PreBureauAffordability"])
+@javax.annotation.Generated(value = ["decision.ftl", "'Pre-bureauAffordability'"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "PreBureauAffordability",
+    name = "'Pre-bureauAffordability'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.INVOCATION,
@@ -37,7 +37,7 @@ class PreBureauAffordability(val preBureauRiskCategory : PreBureauRiskCategory =
 
     fun apply(applicantData: type.TApplicantData?, requestedProduct: type.TRequestedProduct?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
         try {
-            // Start decision 'PreBureauAffordability'
+            // Start decision ''Pre-bureauAffordability''
             val preBureauAffordabilityStartTime_ = System.currentTimeMillis()
             val preBureauAffordabilityArguments_ = com.gs.dmn.runtime.listener.Arguments()
             preBureauAffordabilityArguments_.put("ApplicantData", applicantData)
@@ -48,15 +48,15 @@ class PreBureauAffordability(val preBureauRiskCategory : PreBureauRiskCategory =
             val preBureauRiskCategory: String? = this.preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
             val requiredMonthlyInstallment: java.math.BigDecimal? = this.requiredMonthlyInstallment.apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-            // Evaluate decision 'PreBureauAffordability'
+            // Evaluate decision ''Pre-bureauAffordability''
             val output_: Boolean? = evaluate(applicantData, preBureauRiskCategory, requiredMonthlyInstallment, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-            // End decision 'PreBureauAffordability'
+            // End decision ''Pre-bureauAffordability''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, preBureauAffordabilityArguments_, output_, (System.currentTimeMillis() - preBureauAffordabilityStartTime_))
 
             return output_
         } catch (e: Exception) {
-            logError("Exception caught in 'PreBureauAffordability' evaluation", e)
+            logError("Exception caught in ''Pre-bureauAffordability'' evaluation", e)
             return null
         }
     }
@@ -87,7 +87,7 @@ class PreBureauAffordability(val preBureauRiskCategory : PreBureauRiskCategory =
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
             "",
-            "PreBureauAffordability",
+            "'Pre-bureauAffordability'",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
             com.gs.dmn.runtime.annotation.ExpressionKind.INVOCATION,

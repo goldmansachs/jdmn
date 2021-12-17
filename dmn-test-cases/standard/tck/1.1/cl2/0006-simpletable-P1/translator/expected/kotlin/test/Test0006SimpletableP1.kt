@@ -15,7 +15,7 @@ class Test0006SimpletableP1 : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val riskCategory: String? = "Medium"
         val isAffordable: Boolean? = true
 
-        // Check ApprovalStatus
+        // Check 'Approval Status'
         checkValues("Approved", ApprovalStatus().apply(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_, cache_))
     }
 
@@ -30,7 +30,7 @@ class Test0006SimpletableP1 : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val riskCategory: String? = "Medium"
         val isAffordable: Boolean? = true
 
-        // Check ApprovalStatus
+        // Check 'Approval Status'
         checkValues("Declined", ApprovalStatus().apply(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_, cache_))
     }
 
@@ -45,7 +45,7 @@ class Test0006SimpletableP1 : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val riskCategory: String? = "High"
         val isAffordable: Boolean? = true
 
-        // Check ApprovalStatus
+        // Check 'Approval Status'
         checkValues("Declined", ApprovalStatus().apply(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_, cache_))
     }
 

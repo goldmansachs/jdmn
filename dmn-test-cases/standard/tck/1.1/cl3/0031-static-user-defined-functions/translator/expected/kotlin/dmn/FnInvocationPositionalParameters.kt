@@ -2,10 +2,10 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["decision.ftl", "fnInvocationPositionalParameters"])
+@javax.annotation.Generated(value = ["decision.ftl", "'fn invocation positional parameters'"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "fnInvocationPositionalParameters",
+    name = "'fn invocation positional parameters'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -37,7 +37,7 @@ class FnInvocationPositionalParameters(val fnLibrary : FnLibrary = FnLibrary()) 
 
     fun apply(inputA: java.math.BigDecimal?, inputB: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TFnInvocationPositionalResult? {
         try {
-            // Start decision 'fnInvocationPositionalParameters'
+            // Start decision ''fn invocation positional parameters''
             val fnInvocationPositionalParametersStartTime_ = System.currentTimeMillis()
             val fnInvocationPositionalParametersArguments_ = com.gs.dmn.runtime.listener.Arguments()
             fnInvocationPositionalParametersArguments_.put("inputA", inputA)
@@ -47,15 +47,15 @@ class FnInvocationPositionalParameters(val fnLibrary : FnLibrary = FnLibrary()) 
             // Apply child decisions
             val fnLibrary: type.TFnLibrary? = this.fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
 
-            // Evaluate decision 'fnInvocationPositionalParameters'
+            // Evaluate decision ''fn invocation positional parameters''
             val output_: type.TFnInvocationPositionalResult? = evaluate(fnLibrary, inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-            // End decision 'fnInvocationPositionalParameters'
+            // End decision ''fn invocation positional parameters''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnInvocationPositionalParametersArguments_, output_, (System.currentTimeMillis() - fnInvocationPositionalParametersStartTime_))
 
             return output_
         } catch (e: Exception) {
-            logError("Exception caught in 'fnInvocationPositionalParameters' evaluation", e)
+            logError("Exception caught in ''fn invocation positional parameters'' evaluation", e)
             return null
         }
     }
@@ -74,7 +74,7 @@ class FnInvocationPositionalParameters(val fnLibrary : FnLibrary = FnLibrary()) 
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
             "",
-            "fnInvocationPositionalParameters",
+            "'fn invocation positional parameters'",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
             com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,

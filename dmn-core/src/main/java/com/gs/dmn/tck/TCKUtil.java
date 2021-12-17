@@ -227,7 +227,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     public ResultNodeInfo extractResultNodeInfo(TestCases testCases, TestCase testCase, ResultNode resultNode) {
         TDRGElement element = findDRGElement(testCases, testCase, resultNode);
         DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
-        return new ResultNodeInfo(testCases.getModelName(), resultNode.getName(), reference, resultNode.getExpected());
+        return new ResultNodeInfo(testCases.getModelName(), testCase.getType().value(), resultNode.getName(), reference, resultNode.getExpected());
     }
 
     public String toNativeExpression(ResultNodeInfo info) {
@@ -247,9 +247,16 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     public String qualifiedName(ResultNodeInfo info) {
-        String pkg = this.transformer.nativeModelPackageName(info.getRootModelName());
-        String cls = this.transformer.drgElementClassName(info.getReference().getElement());
-        return this.transformer.qualifiedName(pkg, cls);
+        if (info.isDecision()) {
+            String pkg = this.transformer.nativeModelPackageName(info.getRootModelName());
+            String cls = this.transformer.drgElementClassName(info.getReference().getElement());
+            return this.transformer.qualifiedName(pkg, cls);
+        } else if (info.isBKM() || info.isDS()) {
+            String name = this.transformer.invocableQualifiedFunctionName((TInvocable) info.getReference().getElement());
+            return name;
+        } else {
+            throw new DMNRuntimeException(String.format("Not supported '%s' in '%s'", info.getNodeType(), info.getNodeName()));
+        }
     }
 
     public String drgElementArgumentListExtraCache(String arguments) {
@@ -261,8 +268,18 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     public String drgElementArgumentList(ResultNodeInfo info) {
-        TDecision decision = (TDecision) info.getReference().getElement();
-        return this.transformer.drgElementArgumentList(this.dmnModelRepository.makeDRGElementReference(decision));
+        if (info.isDecision()) {
+            TDecision decision = (TDecision) info.getReference().getElement();
+            return this.transformer.drgElementArgumentList(this.dmnModelRepository.makeDRGElementReference(decision));
+        } else if (info.isBKM()) {
+            TBusinessKnowledgeModel bkm = (TBusinessKnowledgeModel) info.getReference().getElement();
+            return this.transformer.drgElementArgumentList(this.dmnModelRepository.makeDRGElementReference(bkm));
+        } else if (info.isDS()) {
+            TDecisionService ds = (TDecisionService) info.getReference().getElement();
+            return this.transformer.drgElementArgumentList(this.dmnModelRepository.makeDRGElementReference(ds));
+        } else {
+            throw new DMNRuntimeException(String.format("Not supported node type '%s'", info.getNodeType()));
+        }
     }
 
     private Type toFEELType(ResultNodeInfo resultNode) {

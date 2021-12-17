@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "namedFunctionInvocation"})
+@javax.annotation.Generated(value = {"decision.ftl", "'named function invocation'"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "namedFunctionInvocation",
+    name = "'named function invocation'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class NamedFunctionInvocation extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "namedFunctionInvocation",
+        "'named function invocation'",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -32,22 +32,22 @@ public class NamedFunctionInvocation extends com.gs.dmn.runtime.DefaultDMNBaseDe
 
     public String apply(String stringInputA, String stringInputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            // Start decision 'namedFunctionInvocation'
+            // Start decision ''named function invocation''
             long namedFunctionInvocationStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments namedFunctionInvocationArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             namedFunctionInvocationArguments_.put("stringInputA", stringInputA);
             namedFunctionInvocationArguments_.put("stringInputB", stringInputB);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, namedFunctionInvocationArguments_);
 
-            // Evaluate decision 'namedFunctionInvocation'
+            // Evaluate decision ''named function invocation''
             String output_ = evaluate(stringInputA, stringInputB, annotationSet_, eventListener_, externalExecutor_, cache_);
 
-            // End decision 'namedFunctionInvocation'
+            // End decision ''named function invocation''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, namedFunctionInvocationArguments_, output_, (System.currentTimeMillis() - namedFunctionInvocationStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in 'namedFunctionInvocation' evaluation", e);
+            logError("Exception caught in ''named function invocation'' evaluation", e);
             return null;
         }
     }

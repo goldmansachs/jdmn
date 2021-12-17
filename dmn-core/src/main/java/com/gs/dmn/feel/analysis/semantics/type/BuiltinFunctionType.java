@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Parameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 
 import java.util.ArrayList;
@@ -27,16 +27,16 @@ public class BuiltinFunctionType extends FunctionType {
     private final boolean hasOptionalParams;
     private final boolean hasVarArgs;
 
-    public BuiltinFunctionType(Type type, Parameter... parameters) {
+    public BuiltinFunctionType(Type type, FormalParameter... parameters) {
         this(Arrays.asList(parameters), type);
     }
 
-    public BuiltinFunctionType(List<Parameter> parameters, Type returnType) {
+    public BuiltinFunctionType(List<FormalParameter> parameters, Type returnType) {
         super(new ArrayList<>(parameters), returnType);
         this.totalParamsCount = parameters.size();
         this.mandatoryParamsCount = (int) parameters.stream().filter(p -> !p.isOptional() && !p.isVarArg()).count();
-        this.hasOptionalParams = parameters.stream().anyMatch(Parameter::isOptional);
-        this.hasVarArgs = parameters.stream().anyMatch(Parameter::isVarArg);
+        this.hasOptionalParams = parameters.stream().anyMatch(FormalParameter::isOptional);
+        this.hasVarArgs = parameters.stream().anyMatch(FormalParameter::isVarArg);
     }
 
     @Override
@@ -72,32 +72,14 @@ public class BuiltinFunctionType extends FunctionType {
     @Override
     public boolean match(ParameterTypes parameterTypes) {
         if (parameterTypes instanceof PositionalParameterTypes) {
-            List<Type> argumentTypes = ((PositionalParameterTypes) parameterTypes).getTypes();
-            return match(argumentTypes);
+            return match((PositionalParameterTypes) parameterTypes);
         } else {
-            NamedParameterTypes namedSignature = (NamedParameterTypes) parameterTypes;
-            List<Type> argumentTypes = new ArrayList<>();
-            for(FormalParameter parameter: this.parameters) {
-                Type type = namedSignature.getType(parameter.getName());
-                if (!Type.isNull(type)) {
-                    argumentTypes.add(type);
-                } else {
-                    if (parameter instanceof Parameter) {
-                        if (((Parameter)parameter).isOptional()) {
-                        } else if (((Parameter)parameter).isVarArg()) {
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        return false;
-                    }
-                }
-            }
-            return match(argumentTypes);
+            return match((NamedParameterTypes) parameterTypes);
         }
     }
 
-    private boolean match(List<Type> argumentTypes) {
+    private boolean match(PositionalParameterTypes parameterTypes) {
+        List<Type> argumentTypes = parameterTypes.getTypes();
         if (this.hasOptionalParams) {
             // check mandatory parameters
             if (argumentTypes.size() < this.mandatoryParamsCount) {
@@ -150,6 +132,29 @@ public class BuiltinFunctionType extends FunctionType {
         return true;
     }
 
+    private boolean match(NamedParameterTypes namedParameterTypes) {
+        for (String argName: namedParameterTypes.getNames()) {
+            Type argType = namedParameterTypes.getType(argName);
+            boolean found = false;
+            for(FormalParameter parameter: this.parameters) {
+                if (parameter.getName().equals(argName)) {
+                    found = true;
+                    Type parType = parameter.getType();
+                    if (parameter.isVarArg()) {
+                        throw new DMNRuntimeException("Vararg parameters are not supported yet in named calls");
+                    }
+                    if (!Type.conformsTo(argType, parType)) {
+                        return false;
+                    }
+                }
+            }
+            if (!found) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     protected boolean equivalentTo(Type other) {
         return this == other;
@@ -157,7 +162,10 @@ public class BuiltinFunctionType extends FunctionType {
 
     @Override
     protected boolean conformsTo(Type other) {
-        return this == other;
+        // “contravariant function argument type” and “covariant function return type”
+        return other instanceof FunctionType
+                && Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
+                && Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
     }
 
     @Override

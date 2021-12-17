@@ -170,7 +170,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>test-cl2-0002-input-data-number.dmn</id>
+                        <id>test-cl2-0002-input-data-number</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>tck-to-java</goal>
@@ -1364,6 +1364,66 @@
                     </execution>
 
                     <execution>
+                        <id>cl3-0085-decision-services</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.13.diagram.folder}/cl3/0085-decision-services/translator/0085-decision-services.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0085_decision_services</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-0085-decision-services</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.13.diagram.folder}/cl3/0085-decision-services/translator/0085-decision-services-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.13.diagram.folder}/cl3/0085-decision-services/translator/0085-decision-services.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0085_decision_services</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>0093-feel-at-literals</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.13.diagram.folder}/cl3/0093-feel-at-literals/translator/0093-feel-at-literals.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0093_feel_at_literals</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-0093-feel-at-literals</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.13.diagram.folder}/cl3/0093-feel-at-literals/translator/0093-feel-at-literals-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.13.diagram.folder}/cl3/0093-feel-at-literals/translator/0093-feel-at-literals.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0093_feel_at_literals</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
                         <id>cl3-1100-feel-decimal-function</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -1384,11 +1444,11 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1100-feel-decimal-function/translator/1100-feel-decimal-function-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${tck.11.diagram.folder}/cl3/1100-feel-decimal-function/translator/1100-feel-decimal-function.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${tck.13.diagram.folder}/cl3/0093-feel-at-literals/translator/0093-feel-at-literals-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.13.diagram.folder}/cl3/0093-feel-at-literals/translator/0093-feel-at-literals.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_1100_feel_decimal_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0093_feel_at_literals</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1434,51 +1494,6 @@
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1102_feel_ceiling_function</javaRootPackage>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-1102-FeelCeilingFunctionTest</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>tck-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1102-feel-ceiling-function/translator/1102-feel-ceiling-function-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${tck.11.diagram.folder}/cl3/1102-feel-ceiling-function/translator/1102-feel-ceiling-function.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_1102_feel_ceiling_function</javaRootPackage>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>0093-feel-at-literals</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>dmn-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <inputFileDirectory>${tck.13.diagram.folder}/cl3/0093-feel-at-literals/translator/0093-feel-at-literals.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_0093_feel_at_literals</javaRootPackage>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-0093-feel-at-literals</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>tck-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <inputTestFileDirectory>${tck.13.diagram.folder}/cl3/0093-feel-at-literals/translator/0093-feel-at-literals-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${tck.13.diagram.folder}/cl3/0093-feel-at-literals/translator/0093-feel-at-literals.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_0093_feel_at_literals</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>

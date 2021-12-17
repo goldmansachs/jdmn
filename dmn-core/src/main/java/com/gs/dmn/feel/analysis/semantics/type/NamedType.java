@@ -24,7 +24,7 @@ public abstract class NamedType extends Type {
     }
 
     @Override
-    public boolean isValid() {
+    public boolean isFullySpecified() {
         return name != null && !name.isEmpty();
     }
 

@@ -104,7 +104,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (declaredType == null) {
             // Infer type from body
             return inferDRGElementVariableFEELType(element, context);
-        } else if (!declaredType.isValid()) {
+        } else if (!declaredType.isFullySpecified()) {
             Type inferredType = inferDRGElementVariableFEELType(element, context);
             return refineDeclaredType(declaredType, inferredType);
         } else {

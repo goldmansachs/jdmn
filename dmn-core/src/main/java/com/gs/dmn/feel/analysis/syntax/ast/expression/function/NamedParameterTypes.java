@@ -14,13 +14,19 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class NamedParameterTypes extends ParameterTypes {
+    public static ParameterTypes toNamedParameterTypes(PositionalParameterTypes candidateParameterTypes, List<FormalParameter> formalParameters) {
+        Map<String, Type> map = new LinkedHashMap<>();
+        for (int i = 0; i< formalParameters.size(); i++) {
+            FormalParameter p = formalParameters.get(i);
+            map.put(p.getName(), candidateParameterTypes.getTypes().get(i));
+        }
+        return new NamedParameterTypes(map);
+    }
+
     private Map<String, Type> namedTypes = new LinkedHashMap<>();
 
     public NamedParameterTypes(Map<String, Type> namedTypes) {
@@ -47,6 +53,10 @@ public class NamedParameterTypes extends ParameterTypes {
             }
         }
         return true;
+    }
+
+    public Set<String> getNames() {
+        return this.namedTypes.keySet();
     }
 
     public Type getType(String name) {

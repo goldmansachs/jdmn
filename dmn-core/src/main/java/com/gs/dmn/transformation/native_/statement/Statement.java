@@ -13,4 +13,5 @@
 package com.gs.dmn.transformation.native_.statement;
 
 public abstract class Statement {
+    public abstract String getText();
 }

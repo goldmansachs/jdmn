@@ -36,6 +36,7 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Doub
         super.testTimeIs();
 
         // times with equivalent offset and zone id are not is()
+        assertTrue(getLib().timeIs(makeTime("12:00:00"), makeTime("12:00:00Z")));
         assertTrue(getLib().timeIs(makeTime("12:00:00"), makeTime("12:00:00+00:00")));
         assertTrue(getLib().timeIs(makeTime("00:00:00+00:00"), makeTime("00:00:00@Etc/UTC")));
         assertTrue(getLib().timeIs(makeTime("00:00:00Z"), makeTime("00:00:00+00:00")));

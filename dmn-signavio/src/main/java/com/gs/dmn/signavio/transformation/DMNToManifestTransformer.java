@@ -141,7 +141,7 @@ public class DMNToManifestTransformer {
         String label = bkm.getLabel();
         String diagramId = ((SignavioDMNModelRepository) this.dmnModelRepository).getDiagramId(bkm);
         String shapeId = ((SignavioDMNModelRepository) this.dmnModelRepository).getShapeId(bkm);
-        String javaFunctionName = this.dmnTransformer.bkmFunctionName(bkm);
+        String javaFunctionName = this.dmnTransformer.invocableFunctionName(bkm);
         String javaTypeName = this.dmnTransformer.qualifiedName(this.dmnTransformer.nativeModelPackageName(definitions.getName()), this.dmnTransformer.drgElementClassName(bkm));
         String javaOutputTypeName = this.dmnTransformer.drgElementOutputType(bkm);
         com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, this.dmnTransformer.drgElementOutputTypeRef(bkm));

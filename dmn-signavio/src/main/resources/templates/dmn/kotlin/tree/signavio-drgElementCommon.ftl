@@ -147,7 +147,7 @@
 <#macro importRequiredBKMs drgElement>
     <#list modelRepository.directSubInvocables(drgElement)>
         <#items as subBKM>
-import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName(subBKM)}
+import static ${transformer.qualifiedName(subBKM)}.${transformer.invocableFunctionName(subBKM)}
         </#items>
 
     </#list>
@@ -322,10 +322,10 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
         <#assign stm = transformer.expressionToNative(drgElement)>
         <#if transformer.isCompoundStatement(stm)>
             <#list stm.statements as child>
-        ${child.expression}
+        ${child.text}
             </#list>
         <#else>
-        return ${stm.expression} as ${transformer.drgElementOutputType(drgElement)}
+        return ${stm.text} as ${transformer.drgElementOutputType(drgElement)}
         </#if>
     </#if>
     }

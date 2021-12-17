@@ -333,7 +333,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertTrue(getLib().timeIs(makeTime("10:30:00.0001"), makeTime("10:30:00.0001")));
         // different times with different milliseconds are is()
         assertTrue(getLib().timeIs(makeTime("10:30:00.0001"), makeTime("10:30:00.0002")));
-        // different times in same zone are is()
+        // same times in same zone are is()
         assertTrue(getLib().timeIs(makeTime("10:30:00@Europe/Paris"), makeTime("10:30:00@Europe/Paris")));
         // same times - one with zone one without are not is()
         assertFalse(getLib().timeIs(makeTime("10:30:00@Europe/Paris"), makeTime("10:30:00")));
@@ -667,10 +667,15 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertFalse(getLib().durationIs(makeDuration("P1Y1M"), null));
 
         assertTrue(getLib().durationIs(makeDuration("P1Y1M"), makeDuration("P1Y1M")));
+        assertTrue(getLib().durationIs(makeDuration("P1Y1M"), makeDuration("P0Y13M")));
         assertFalse(getLib().durationIs(makeDuration("P1Y1M"), makeDuration("P1Y2M")));
 
         assertTrue(getLib().durationIs(makeDuration("P1DT1H"), makeDuration("P1DT1H")));
+        assertTrue(getLib().durationIs(makeDuration("P1DT1H"), makeDuration("P0DT25H")));
         assertFalse(getLib().durationIs(makeDuration("P1DT1H"), makeDuration("P1DT2H")));
+
+        // different semantic domains
+        assertFalse(getLib().durationIs(makeDuration("P0Y"), makeDuration("P0D")));
     }
 
     @Test
@@ -680,9 +685,11 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertFalse(getLib().durationEqual(makeDuration("P1Y1M"), null));
 
         assertTrue(getLib().durationEqual(makeDuration("P1Y1M"), makeDuration("P1Y1M")));
+        assertTrue(getLib().durationEqual(makeDuration("P1Y1M"), makeDuration("P0Y13M")));
         assertFalse(getLib().durationEqual(makeDuration("P1Y1M"), makeDuration("P1Y2M")));
 
         assertTrue(getLib().durationEqual(makeDuration("P1DT1H"), makeDuration("P1DT1H")));
+        assertTrue(getLib().durationEqual(makeDuration("P1DT1H"), makeDuration("P0DT25H")));
         assertFalse(getLib().durationEqual(makeDuration("P1DT1H"), makeDuration("P1DT2H")));
     }
 
@@ -693,9 +700,11 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertTrue(getLib().durationNotEqual(makeDuration("P1Y1M"), null));
 
         assertFalse(getLib().durationNotEqual(makeDuration("P1Y1M"), makeDuration("P1Y1M")));
+        assertFalse(getLib().durationNotEqual(makeDuration("P1Y1M"), makeDuration("P0Y13M")));
         assertTrue(getLib().durationNotEqual(makeDuration("P1Y1M"), makeDuration("P1Y2M")));
 
         assertFalse(getLib().durationNotEqual(makeDuration("P1DT1H"), makeDuration("P1DT1H")));
+        assertFalse(getLib().durationNotEqual(makeDuration("P1DT1H"), makeDuration("P0DT25H")));
         assertTrue(getLib().durationNotEqual(makeDuration("P1DT1H"), makeDuration("P1DT2H")));
     }
 
@@ -706,9 +715,11 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().durationLessThan(makeDuration("P1Y1M"), null));
 
         assertFalse(getLib().durationLessThan(makeDuration("P1Y1M"), makeDuration("P1Y1M")));
+        assertFalse(getLib().durationLessThan(makeDuration("P1Y1M"), makeDuration("P0Y13M")));
         assertTrue(getLib().durationLessThan(makeDuration("P1Y1M"), makeDuration("P1Y2M")));
 
         assertFalse(getLib().durationLessThan(makeDuration("P1DT1H"), makeDuration("P1DT1H")));
+        assertFalse(getLib().durationLessThan(makeDuration("P1DT1H"), makeDuration("P0DT25H")));
         assertTrue(getLib().durationLessThan(makeDuration("P1DT1H"), makeDuration("P1DT2H")));
     }
 
@@ -719,9 +730,11 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().durationGreaterThan(makeDuration("P1Y1M"), null));
 
         assertFalse(getLib().durationGreaterThan(makeDuration("P1Y1M"), makeDuration("P1Y1M")));
+        assertFalse(getLib().durationGreaterThan(makeDuration("P1Y1M"), makeDuration("P0Y13M")));
         assertFalse(getLib().durationGreaterThan(makeDuration("P1Y1M"), makeDuration("P1Y2M")));
 
         assertFalse(getLib().durationGreaterThan(makeDuration("P1DT1H"), makeDuration("P1DT1H")));
+        assertFalse(getLib().durationGreaterThan(makeDuration("P1DT1H"), makeDuration("P0DT25H")));
         assertFalse(getLib().durationGreaterThan(makeDuration("P1DT1H"), makeDuration("P1DT2H")));
     }
 
@@ -732,9 +745,11 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().durationLessEqualThan(makeDuration("P1Y1M"), null));
 
         assertTrue(getLib().durationLessEqualThan(makeDuration("P1Y1M"), makeDuration("P1Y1M")));
+        assertTrue(getLib().durationLessEqualThan(makeDuration("P1Y1M"), makeDuration("P0Y13M")));
         assertTrue(getLib().durationLessEqualThan(makeDuration("P1Y1M"), makeDuration("P1Y2M")));
 
         assertTrue(getLib().durationLessEqualThan(makeDuration("P1DT1H"), makeDuration("P1DT1H")));
+        assertTrue(getLib().durationLessEqualThan(makeDuration("P1DT1H"), makeDuration("P0DT25H")));
         assertTrue(getLib().durationLessEqualThan(makeDuration("P1DT1H"), makeDuration("P1DT2H")));
     }
 
@@ -745,9 +760,11 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().durationGreaterEqualThan(makeDuration("P1Y1M"), null));
 
         assertTrue(getLib().durationGreaterEqualThan(makeDuration("P1Y1M"), makeDuration("P1Y1M")));
+        assertTrue(getLib().durationGreaterEqualThan(makeDuration("P1Y1M"), makeDuration("P0Y13M")));
         assertFalse(getLib().durationGreaterEqualThan(makeDuration("P1Y1M"), makeDuration("P1Y2M")));
 
         assertTrue(getLib().durationGreaterEqualThan(makeDuration("P1DT1H"), makeDuration("P1DT1H")));
+        assertTrue(getLib().durationGreaterEqualThan(makeDuration("P1DT1H"), makeDuration("P0DT25H")));
         assertFalse(getLib().durationGreaterEqualThan(makeDuration("P1DT1H"), makeDuration("P1DT2H")));
     }
 

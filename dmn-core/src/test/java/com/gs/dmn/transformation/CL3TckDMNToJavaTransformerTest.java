@@ -28,6 +28,7 @@ public class CL3TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
 
     @Test
     public void testCL3() throws Exception {
+        // DMN 1.1
         doSingleModelTest("1.1", "0004-lending");
         doSingleModelTest("1.1","0005-literal-invocation");
         doSingleModelTest("1.1","0006-join");
@@ -39,8 +40,14 @@ public class CL3TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
         doSingleModelTest("1.1","0021-singleton-list");
         doSingleModelTest("1.1","0030-user-defined-functions");
         doSingleModelTest("1.1","0031-static-user-defined-functions");
+
+        // DMN 1.2
         doSingleModelTest("1.2","0076-feel-external-java");
 
+        // DMN 1.3
+        doSingleModelTest("1.3","0085-decision-services", new Pair<>("caching", "true"));
+
+        // extensions
         doSingleModelTest("1.1","9001-recursive-function");
     }
 

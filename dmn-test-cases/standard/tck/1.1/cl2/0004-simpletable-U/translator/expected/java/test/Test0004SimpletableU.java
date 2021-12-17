@@ -15,7 +15,7 @@ public class Test0004SimpletableU extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         String riskCategory = "Medium";
         Boolean isAffordable = true;
 
-        // Check ApprovalStatus
+        // Check 'Approval Status'
         checkValues("Approved", new ApprovalStatus().apply(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
@@ -30,7 +30,7 @@ public class Test0004SimpletableU extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         String riskCategory = "Medium";
         Boolean isAffordable = true;
 
-        // Check ApprovalStatus
+        // Check 'Approval Status'
         checkValues("Declined", new ApprovalStatus().apply(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
@@ -45,7 +45,7 @@ public class Test0004SimpletableU extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         String riskCategory = "High";
         Boolean isAffordable = true;
 
-        // Check ApprovalStatus
+        // Check 'Approval Status'
         checkValues("Declined", new ApprovalStatus().apply(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 

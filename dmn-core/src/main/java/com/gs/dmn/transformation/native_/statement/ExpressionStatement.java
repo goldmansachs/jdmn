@@ -15,19 +15,25 @@ package com.gs.dmn.transformation.native_.statement;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 
 public class ExpressionStatement extends Statement {
-    private final String expression;
+    private final String text;
     private final Type expressionType;
 
-    public ExpressionStatement(String expression, Type expressionType) {
-        this.expression = expression;
+    public ExpressionStatement(String text, Type expressionType) {
+        this.text = text;
         this.expressionType = expressionType;
     }
 
-    public String getExpression() {
-        return expression;
+    @Override
+    public String getText() {
+        return text;
     }
 
     public Type getExpressionType() {
         return expressionType;
+    }
+
+    @Override
+    public String toString() {
+        return text;
     }
 }

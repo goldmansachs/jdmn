@@ -3,10 +3,10 @@ package model_b;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "EvaluatingSayHello"})
+@javax.annotation.Generated(value = {"decision.ftl", "'Evaluating Say Hello'"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "model_b",
-    name = "EvaluatingSayHello",
+    name = "'Evaluating Say Hello'",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.LITERAL_EXPRESSION,
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class EvaluatingSayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "model_b",
-        "EvaluatingSayHello",
+        "'Evaluating Say Hello'",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.LITERAL_EXPRESSION,
@@ -40,24 +40,24 @@ public class EvaluatingSayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecisio
 
     public String apply(String modela_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            // Start decision 'EvaluatingSayHello'
+            // Start decision ''Evaluating Say Hello''
             long evaluatingSayHelloStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments evaluatingSayHelloArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            evaluatingSayHelloArguments_.put("modelA.PersonName", modela_personName);
+            evaluatingSayHelloArguments_.put("modelA.'Person name'", modela_personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, evaluatingSayHelloArguments_);
 
             // Apply child decisions
             String modela_greetThePerson = this.modela_greetThePerson.apply(modela_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
 
-            // Evaluate decision 'EvaluatingSayHello'
+            // Evaluate decision ''Evaluating Say Hello''
             String output_ = evaluate(modela_greetThePerson, annotationSet_, eventListener_, externalExecutor_, cache_);
 
-            // End decision 'EvaluatingSayHello'
+            // End decision ''Evaluating Say Hello''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, evaluatingSayHelloArguments_, output_, (System.currentTimeMillis() - evaluatingSayHelloStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in 'EvaluatingSayHello' evaluation", e);
+            logError("Exception caught in ''Evaluating Say Hello'' evaluation", e);
             return null;
         }
     }

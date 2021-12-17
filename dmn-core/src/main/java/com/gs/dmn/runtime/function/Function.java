@@ -10,16 +10,8 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.runtime;
+package com.gs.dmn.runtime.function;
 
-public class Function {
-    private final Object internalRepresentation;
-
-    public Function(Object internalRepresentation) {
-        this.internalRepresentation = internalRepresentation;
-    }
-
-    public Object getInternalRepresentation() {
-        return internalRepresentation;
-    }
+public abstract class Function {
+    public abstract Object getType();
 }

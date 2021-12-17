@@ -48,8 +48,8 @@ import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.TBusinessKnowledgeModel;
 import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TInvocable;
 import org.omg.spec.dmn._20191111.model.TNamedElement;
 
 import java.util.ArrayList;
@@ -487,24 +487,25 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(FunctionInvocation element, DMNContext context) {
-        // Evaluate and convert actual parameters
+        // Generate code for actual parameters
         Parameters parameters = element.getParameters();
         parameters.accept(this, context);
         Arguments arguments = parameters.convertArguments(this::convertArgument);
-
         Expression function = element.getFunction();
         FunctionType functionType = (FunctionType) function.getType();
         List<FormalParameter> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
         String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
+
+        // Generate code for function
         String javaFunctionCode = (String) function.accept(this, context);
         if (functionType instanceof BuiltinFunctionType) {
             return String.format("%s(%s)", javaFunctionCode, argumentsText);
         } else if (functionType instanceof DMNFunctionType) {
             TNamedElement invocable = ((DMNFunctionType) functionType).getDRGElement();
-            if (invocable instanceof TBusinessKnowledgeModel) {
+            if (invocable instanceof TInvocable) {
                 argumentsText = this.dmnTransformer.drgElementArgumentListExtraCache(this.dmnTransformer.drgElementArgumentListExtra(this.dmnTransformer.augmentArgumentList(argumentsText)));
-                String javaQualifiedName = this.dmnTransformer.bkmQualifiedFunctionName((TBusinessKnowledgeModel) invocable);
+                String javaQualifiedName = this.dmnTransformer.invocableQualifiedFunctionName((TInvocable) invocable);
                 return String.format("%s(%s)", javaQualifiedName, argumentsText);
             } else {
                 return this.nativeFactory.makeApplyInvocation(javaFunctionCode, argumentsText);
@@ -512,7 +513,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         } else if (functionType instanceof FEELFunctionType) {
             return this.nativeFactory.makeApplyInvocation(javaFunctionCode, argumentsText);
         } else {
-            throw new DMNRuntimeException(String.format("Not supported function type '%s' in '%s'", functionType, element));
+            throw new DMNRuntimeException(String.format("Not supported function type '%s' in '%s'", functionType, context.getElementName()));
         }
     }
 
