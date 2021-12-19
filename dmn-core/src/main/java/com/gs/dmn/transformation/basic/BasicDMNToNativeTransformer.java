@@ -233,11 +233,11 @@ public interface BasicDMNToNativeTransformer {
 
     String invocableFunctionName(DRGElementReference<? extends TDRGElement> reference);
 
-    String invocableFunctionName(TInvocable bkm);
+    String invocableFunctionName(TInvocable invocable);
 
     String invocableFunctionName(String name);
 
-    String invocableQualifiedFunctionName(TInvocable bkm);
+    String invocableQualifiedFunctionName(TInvocable invocable);
 
     //
     // BKM related functions

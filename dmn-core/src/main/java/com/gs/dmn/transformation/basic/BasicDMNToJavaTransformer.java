@@ -816,8 +816,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public String invocableFunctionName(TInvocable bkm) {
-        String name = bkm.getName();
+    public String invocableFunctionName(TInvocable invocable) {
+        String name = invocable.getName();
         return invocableFunctionName(name);
     }
 
@@ -827,9 +827,9 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public String invocableQualifiedFunctionName(TInvocable bkm) {
-        String javaPackageName = qualifiedName(bkm);
-        String javaFunctionName = invocableFunctionName(bkm);
+    public String invocableQualifiedFunctionName(TInvocable invocable) {
+        String javaPackageName = qualifiedName(invocable);
+        String javaFunctionName = invocableFunctionName(invocable);
         return qualifiedName(javaPackageName, javaFunctionName);
     }
 
