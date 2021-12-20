@@ -17,8 +17,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class JavaAssistCompilerTest extends AbstractCompilerTest {
-    private final JavaCompiler compiler = new JavaAssistCompiler();
-
     @Test
     public void testMakeClassData() {
         ClassData classData = makeClassData();
