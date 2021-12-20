@@ -45,7 +45,11 @@ import java.util.stream.Collectors;
 import static com.gs.dmn.transformation.DMNToJavaTransformer.DECISION_RULE_OUTPUT_CLASS_SUFFIX;
 
 public class DMNExpressionToNativeTransformer {
-    private final String indent = "\t\t\t\t";
+    private static final String LAMBDA_INDENT = "";
+    private static final String LAMBDA_BODY_INDENT = "";
+    private static final String LAMBDA_LINE_SEPARATOR = "";
+    private static final String TAB = "    ";
+    private static final String RELATION_INDENT = TAB + TAB + TAB + TAB;
 
     private final BasicDMNToNativeTransformer dmnTransformer;
     private final DMNModelRepository dmnModelRepository;
@@ -744,7 +748,7 @@ public class DMNExpressionToNativeTransformer {
 
         // Make a list
         Type elementType = ((ListType) resultType).getElementType();
-        String result = this.nativeFactory.asList(elementType, String.join(",\n" + this.indent, rowValues));
+        String result = this.nativeFactory.asList(elementType, String.join(",\n" + this.RELATION_INDENT, rowValues));
         return this.nativeFactory.makeExpressionStatement(result, resultType);
     }
 }

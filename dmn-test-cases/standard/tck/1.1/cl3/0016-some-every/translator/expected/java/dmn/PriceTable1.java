@@ -52,7 +52,7 @@ public class PriceTable1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     protected List<type.TItemPrice> evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         return asList(new type.TItemPriceImpl("widget", number("25")),
-				new type.TItemPriceImpl("sprocket", number("15")),
-				new type.TItemPriceImpl("trinket", number("1.5")));
+                new type.TItemPriceImpl("sprocket", number("15")),
+                new type.TItemPriceImpl("trinket", number("1.5")));
     }
 }
