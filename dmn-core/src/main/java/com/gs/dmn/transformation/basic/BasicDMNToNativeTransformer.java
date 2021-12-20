@@ -231,13 +231,7 @@ public interface BasicDMNToNativeTransformer {
     //
     List<FormalParameter> invocableFEELParameters(TDRGElement invocable);
 
-    String invocableFunctionName(DRGElementReference<? extends TDRGElement> reference);
-
-    String invocableFunctionName(TInvocable invocable);
-
-    String invocableFunctionName(String name);
-
-    String invocableQualifiedFunctionName(TInvocable invocable);
+    String singletonInvocableInstance(TInvocable invocable);
 
     //
     // BKM related functions

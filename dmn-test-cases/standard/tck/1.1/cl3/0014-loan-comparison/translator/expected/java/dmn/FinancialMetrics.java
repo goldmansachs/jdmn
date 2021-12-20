@@ -23,16 +23,17 @@ public class FinancialMetrics extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
         -1
     );
 
-    public static final FinancialMetrics INSTANCE = new FinancialMetrics();
+    private static class FinancialMetricsLazyHolder {
+        static final FinancialMetrics INSTANCE = new FinancialMetrics();
+    }
+    public static FinancialMetrics instance() {
+        return FinancialMetricsLazyHolder.INSTANCE;
+    }
 
     private FinancialMetrics() {
     }
 
-    public static type.TMetric FinancialMetrics(type.TLoanProduct product, java.math.BigDecimal requestedAmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(product, requestedAmt, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private type.TMetric apply(type.TLoanProduct product, java.math.BigDecimal requestedAmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public type.TMetric apply(type.TLoanProduct product, java.math.BigDecimal requestedAmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'FinancialMetrics'
             long financialMetricsStartTime_ = System.currentTimeMillis();
@@ -61,8 +62,8 @@ public class FinancialMetrics extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
         java.math.BigDecimal fee = ((java.math.BigDecimal)(product != null ? product.getFee() : null));
         java.math.BigDecimal loanAmt = numericAdd(numericMultiply(requestedAmt, numericAdd(number("1"), numericDivide(points, number("100")))), fee);
         java.math.BigDecimal downPmtAmt = numericMultiply(number("0.2"), loanAmt);
-        java.math.BigDecimal paymentAmt = MonthlyPayment.monthlyPayment(loanAmt, rate, number("360"), annotationSet_, eventListener_, externalExecutor_, cache_);
-        java.math.BigDecimal equity36moPct = numericSubtract(number("1"), numericMultiply(numericDivide(Equity36Mo.equity36Mo(loanAmt, rate, number("36"), paymentAmt, annotationSet_, eventListener_, externalExecutor_, cache_), requestedAmt), number("0.8")));
+        java.math.BigDecimal paymentAmt = MonthlyPayment.instance().apply(loanAmt, rate, number("360"), annotationSet_, eventListener_, externalExecutor_, cache_);
+        java.math.BigDecimal equity36moPct = numericSubtract(number("1"), numericMultiply(numericDivide(Equity36Mo.instance().apply(loanAmt, rate, number("36"), paymentAmt, annotationSet_, eventListener_, externalExecutor_, cache_), requestedAmt), number("0.8")));
         type.TMetricImpl financialMetrics = new type.TMetricImpl();
         financialMetrics.setLenderName(lenderName);
         financialMetrics.setRate(rate);

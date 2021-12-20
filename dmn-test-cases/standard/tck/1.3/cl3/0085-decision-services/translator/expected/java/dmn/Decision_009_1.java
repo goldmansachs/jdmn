@@ -51,6 +51,6 @@ public class Decision_009_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     protected String evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return DecisionService_009.decisionService_009("bar", annotationSet_, eventListener_, externalExecutor_, cache_);
+        return DecisionService_009.instance().apply("bar", annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 }

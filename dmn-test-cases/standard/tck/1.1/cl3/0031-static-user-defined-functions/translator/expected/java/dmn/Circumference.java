@@ -23,16 +23,17 @@ public class Circumference extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         -1
     );
 
-    public static final Circumference INSTANCE = new Circumference();
+    private static class CircumferenceLazyHolder {
+        static final Circumference INSTANCE = new Circumference();
+    }
+    public static Circumference instance() {
+        return CircumferenceLazyHolder.INSTANCE;
+    }
 
     private Circumference() {
     }
 
-    public static java.math.BigDecimal Circumference(java.math.BigDecimal radius, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(radius, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private java.math.BigDecimal apply(java.math.BigDecimal radius, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public java.math.BigDecimal apply(java.math.BigDecimal radius, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'Circumference'
             long circumferenceStartTime_ = System.currentTimeMillis();

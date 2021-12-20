@@ -23,16 +23,17 @@ public class BureauCallTypeTable extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         3
     );
 
-    public static final BureauCallTypeTable INSTANCE = new BureauCallTypeTable();
+    private static class BureauCallTypeTableLazyHolder {
+        static final BureauCallTypeTable INSTANCE = new BureauCallTypeTable();
+    }
+    public static BureauCallTypeTable instance() {
+        return BureauCallTypeTableLazyHolder.INSTANCE;
+    }
 
     private BureauCallTypeTable() {
     }
 
-    public static String BureauCallTypeTable(String preBureauRiskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private String apply(String preBureauRiskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(String preBureauRiskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'BureauCallTypeTable'
             long bureauCallTypeTableStartTime_ = System.currentTimeMillis();

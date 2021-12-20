@@ -23,16 +23,17 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
         11
     );
 
-    public static final ApplicationRiskScoreModel INSTANCE = new ApplicationRiskScoreModel();
+    private static class ApplicationRiskScoreModelLazyHolder {
+        static final ApplicationRiskScoreModel INSTANCE = new ApplicationRiskScoreModel();
+    }
+    public static ApplicationRiskScoreModel instance() {
+        return ApplicationRiskScoreModelLazyHolder.INSTANCE;
+    }
 
     private ApplicationRiskScoreModel() {
     }
 
-    public static java.math.BigDecimal ApplicationRiskScoreModel(java.math.BigDecimal age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private java.math.BigDecimal apply(java.math.BigDecimal age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public java.math.BigDecimal apply(java.math.BigDecimal age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'ApplicationRiskScoreModel'
             long applicationRiskScoreModelStartTime_ = System.currentTimeMillis();

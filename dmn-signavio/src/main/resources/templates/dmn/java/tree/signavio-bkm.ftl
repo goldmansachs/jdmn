@@ -39,16 +39,17 @@ public class ${javaClassName} extends ${decisionBaseClass} {
         ${modelRepository.rulesCount(drgElement)}
     );
 
-    public static final ${javaClassName} INSTANCE = new ${javaClassName}();
+    private static class ${javaClassName}LazyHolder {
+        static final ${javaClassName} INSTANCE = new ${javaClassName}();
+    }
+    public static ${javaClassName} instance() {
+        return ${javaClassName}LazyHolder.INSTANCE;
+    }
 
     private ${javaClassName}() {
     }
 
-    public static ${transformer.drgElementOutputType(drgElement)} ${transformer.invocableFunctionName(drgElement)}(${transformer.drgElementSignatureExtraCache(drgElement)}) {
-        return INSTANCE.apply(${transformer.drgElementArgumentListExtraCache(drgElement)});
-    }
-
-    private ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(drgElement)}) {
+    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(drgElement)}) {
         <@applyMethodBody drgElement />
     }
     <@evaluateExpressionMethod drgElement />

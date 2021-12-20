@@ -23,16 +23,17 @@ public class BKM extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         -1
     );
 
-    public static final BKM INSTANCE = new BKM();
+    private static class BKMLazyHolder {
+        static final BKM INSTANCE = new BKM();
+    }
+    public static BKM instance() {
+        return BKMLazyHolder.INSTANCE;
+    }
 
     private BKM() {
     }
 
-    public static java.math.BigDecimal bKM(java.math.BigDecimal a, java.math.BigDecimal b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(a, b, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private java.math.BigDecimal apply(java.math.BigDecimal a, java.math.BigDecimal b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public java.math.BigDecimal apply(java.math.BigDecimal a, java.math.BigDecimal b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'bKM'
             long bKMStartTime_ = System.currentTimeMillis();

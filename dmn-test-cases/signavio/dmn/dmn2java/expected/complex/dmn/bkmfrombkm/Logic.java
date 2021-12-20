@@ -23,16 +23,17 @@ public class Logic extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         -1
     );
 
-    public static final Logic INSTANCE = new Logic();
+    private static class LogicLazyHolder {
+        static final Logic INSTANCE = new Logic();
+    }
+    public static Logic instance() {
+        return LogicLazyHolder.INSTANCE;
+    }
 
     private Logic() {
     }
 
-    public static String logic(javax.xml.datatype.XMLGregorianCalendar dateInput, javax.xml.datatype.XMLGregorianCalendar timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(dateInput, timeInput, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private String apply(javax.xml.datatype.XMLGregorianCalendar dateInput, javax.xml.datatype.XMLGregorianCalendar timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(javax.xml.datatype.XMLGregorianCalendar dateInput, javax.xml.datatype.XMLGregorianCalendar timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'logic'
             long logicStartTime_ = System.currentTimeMillis();

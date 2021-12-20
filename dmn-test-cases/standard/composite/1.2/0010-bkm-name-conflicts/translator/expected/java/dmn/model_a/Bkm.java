@@ -24,16 +24,17 @@ public class Bkm extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         -1
     );
 
-    public static final Bkm INSTANCE = new Bkm();
+    private static class BkmLazyHolder {
+        static final Bkm INSTANCE = new Bkm();
+    }
+    public static Bkm instance() {
+        return BkmLazyHolder.INSTANCE;
+    }
 
     private Bkm() {
     }
 
-    public static String bkm(java.math.BigDecimal x, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(x, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private String apply(java.math.BigDecimal x, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(java.math.BigDecimal x, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'bkm'
             long bkmStartTime_ = System.currentTimeMillis();

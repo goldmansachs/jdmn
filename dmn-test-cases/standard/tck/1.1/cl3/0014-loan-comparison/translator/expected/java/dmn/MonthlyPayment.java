@@ -23,16 +23,17 @@ public class MonthlyPayment extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         -1
     );
 
-    public static final MonthlyPayment INSTANCE = new MonthlyPayment();
+    private static class MonthlyPaymentLazyHolder {
+        static final MonthlyPayment INSTANCE = new MonthlyPayment();
+    }
+    public static MonthlyPayment instance() {
+        return MonthlyPaymentLazyHolder.INSTANCE;
+    }
 
     private MonthlyPayment() {
     }
 
-    public static java.math.BigDecimal monthlyPayment(java.math.BigDecimal p, java.math.BigDecimal r, java.math.BigDecimal n, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(p, r, n, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private java.math.BigDecimal apply(java.math.BigDecimal p, java.math.BigDecimal r, java.math.BigDecimal n, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public java.math.BigDecimal apply(java.math.BigDecimal p, java.math.BigDecimal r, java.math.BigDecimal n, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'monthlyPayment'
             long monthlyPaymentStartTime_ = System.currentTimeMillis();

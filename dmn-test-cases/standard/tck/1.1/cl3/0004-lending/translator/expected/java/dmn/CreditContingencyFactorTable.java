@@ -23,16 +23,17 @@ public class CreditContingencyFactorTable extends com.gs.dmn.runtime.DefaultDMNB
         3
     );
 
-    public static final CreditContingencyFactorTable INSTANCE = new CreditContingencyFactorTable();
+    private static class CreditContingencyFactorTableLazyHolder {
+        static final CreditContingencyFactorTable INSTANCE = new CreditContingencyFactorTable();
+    }
+    public static CreditContingencyFactorTable instance() {
+        return CreditContingencyFactorTableLazyHolder.INSTANCE;
+    }
 
     private CreditContingencyFactorTable() {
     }
 
-    public static java.math.BigDecimal CreditContingencyFactorTable(String riskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(riskCategory, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private java.math.BigDecimal apply(String riskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public java.math.BigDecimal apply(String riskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'CreditContingencyFactorTable'
             long creditContingencyFactorTableStartTime_ = System.currentTimeMillis();

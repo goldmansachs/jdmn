@@ -51,6 +51,6 @@ public class Decision_007_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     protected Boolean evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return DecisionService_007.decisionService_007(toNull(number("123")), annotationSet_, eventListener_, externalExecutor_, cache_);
+        return DecisionService_007.instance().apply(toNull(number("123")), annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 }

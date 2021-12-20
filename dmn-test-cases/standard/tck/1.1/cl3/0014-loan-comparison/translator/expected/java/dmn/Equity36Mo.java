@@ -23,16 +23,17 @@ public class Equity36Mo extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         -1
     );
 
-    public static final Equity36Mo INSTANCE = new Equity36Mo();
+    private static class Equity36MoLazyHolder {
+        static final Equity36Mo INSTANCE = new Equity36Mo();
+    }
+    public static Equity36Mo instance() {
+        return Equity36MoLazyHolder.INSTANCE;
+    }
 
     private Equity36Mo() {
     }
 
-    public static java.math.BigDecimal equity36Mo(java.math.BigDecimal p, java.math.BigDecimal r, java.math.BigDecimal n, java.math.BigDecimal pmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(p, r, n, pmt, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private java.math.BigDecimal apply(java.math.BigDecimal p, java.math.BigDecimal r, java.math.BigDecimal n, java.math.BigDecimal pmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public java.math.BigDecimal apply(java.math.BigDecimal p, java.math.BigDecimal r, java.math.BigDecimal n, java.math.BigDecimal pmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'equity36Mo'
             long equity36MoStartTime_ = System.currentTimeMillis();

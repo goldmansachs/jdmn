@@ -23,16 +23,17 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         5
     );
 
-    public static final RoutingRules INSTANCE = new RoutingRules();
+    private static class RoutingRulesLazyHolder {
+        static final RoutingRules INSTANCE = new RoutingRules();
+    }
+    public static RoutingRules instance() {
+        return RoutingRulesLazyHolder.INSTANCE;
+    }
 
     private RoutingRules() {
     }
 
-    public static String RoutingRules(String postBureauRiskCategory, Boolean postBureauAffordability, Boolean bankrupt, java.math.BigDecimal creditScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private String apply(String postBureauRiskCategory, Boolean postBureauAffordability, Boolean bankrupt, java.math.BigDecimal creditScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(String postBureauRiskCategory, Boolean postBureauAffordability, Boolean bankrupt, java.math.BigDecimal creditScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'RoutingRules'
             long routingRulesStartTime_ = System.currentTimeMillis();

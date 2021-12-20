@@ -23,23 +23,24 @@ public class DecisionService_004 extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         -1
     );
 
-    public static final DecisionService_004 INSTANCE = new DecisionService_004();
+    private static class DecisionService_004LazyHolder {
+        static final DecisionService_004 INSTANCE = new DecisionService_004();
+    }
+    public static DecisionService_004 instance() {
+        return DecisionService_004LazyHolder.INSTANCE;
+    }
 
     private final Decision_004_2 decision_004_2;
 
-    public DecisionService_004() {
+    private DecisionService_004() {
         this(new Decision_004_2());
     }
 
-    public DecisionService_004(Decision_004_2 decision_004_2) {
+    private DecisionService_004(Decision_004_2 decision_004_2) {
         this.decision_004_2 = decision_004_2;
     }
 
-    public static String decisionService_004(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private String apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start DS 'decisionService_004'
             long decisionService_004StartTime_ = System.currentTimeMillis();

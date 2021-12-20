@@ -70,6 +70,6 @@ public class Main extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     protected java.math.BigDecimal evaluate(java.math.BigDecimal n, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return FACT.FACT(n, annotationSet_, eventListener_, externalExecutor_, cache_);
+        return FACT.instance().apply(n, annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 }

@@ -23,23 +23,24 @@ public class DecisionService_003 extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         -1
     );
 
-    public static final DecisionService_003 INSTANCE = new DecisionService_003();
+    private static class DecisionService_003LazyHolder {
+        static final DecisionService_003 INSTANCE = new DecisionService_003();
+    }
+    public static DecisionService_003 instance() {
+        return DecisionService_003LazyHolder.INSTANCE;
+    }
 
     private final Decision_003 decision_003;
 
-    public DecisionService_003() {
+    private DecisionService_003() {
         this(new Decision_003());
     }
 
-    public DecisionService_003(Decision_003 decision_003) {
+    private DecisionService_003(Decision_003 decision_003) {
         this.decision_003 = decision_003;
     }
 
-    public static String decisionService_003(String inputData_003, String decision_003_input_1, String decision_003_input_2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(inputData_003, decision_003_input_1, decision_003_input_2, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private String apply(String inputData_003, String decision_003_input_1, String decision_003_input_2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(String inputData_003, String decision_003_input_1, String decision_003_input_2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start DS 'decisionService_003'
             long decisionService_003StartTime_ = System.currentTimeMillis();

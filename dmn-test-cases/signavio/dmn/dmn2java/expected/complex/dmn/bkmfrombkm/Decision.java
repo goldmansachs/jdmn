@@ -71,6 +71,6 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     protected String evaluate(javax.xml.datatype.XMLGregorianCalendar d, javax.xml.datatype.XMLGregorianCalendar t, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return Logic.logic(d, t, annotationSet_, eventListener_, externalExecutor_, cache_);
+        return Logic.instance().apply(d, t, annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 }

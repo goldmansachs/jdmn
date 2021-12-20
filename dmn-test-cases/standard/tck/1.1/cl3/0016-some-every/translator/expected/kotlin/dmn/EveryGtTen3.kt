@@ -41,7 +41,7 @@ class EveryGtTen3(val priceTable1 : PriceTable1 = PriceTable1()) : com.gs.dmn.ru
     }
 
     private inline fun evaluate(priceTable1: List<type.TItemPrice?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
-        return booleanAnd(priceTable1?.stream()?.map({ i -> booleanEqual(GtTen.gtTen(i?.let({ it.price as java.math.BigDecimal? }), annotationSet_, eventListener_, externalExecutor_, cache_), true) })?.collect(Collectors.toList())?.toList()) as Boolean?
+        return booleanAnd(priceTable1?.stream()?.map({ i -> booleanEqual(GtTen.instance().apply(i?.let({ it.price as java.math.BigDecimal? }), annotationSet_, eventListener_, externalExecutor_, cache_), true) })?.collect(Collectors.toList())?.toList()) as Boolean?
     }
 
     companion object {

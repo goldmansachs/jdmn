@@ -811,26 +811,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     // Invocable  related functions
     //
     @Override
-    public String invocableFunctionName(DRGElementReference<? extends TDRGElement> reference) {
-        return invocableFunctionName((TInvocable) reference.getElement());
-    }
-
-    @Override
-    public String invocableFunctionName(TInvocable invocable) {
-        String name = invocable.getName();
-        return invocableFunctionName(name);
-    }
-
-    @Override
-    public String invocableFunctionName(String name) {
-        return nativeFriendlyName(name);
-    }
-
-    @Override
-    public String invocableQualifiedFunctionName(TInvocable invocable) {
-        String javaPackageName = qualifiedName(invocable);
-        String javaFunctionName = invocableFunctionName(invocable);
-        return qualifiedName(javaPackageName, javaFunctionName);
+    public String singletonInvocableInstance(TInvocable invocable) {
+        return qualifiedName(qualifiedName(invocable), "instance()");
     }
 
     @Override

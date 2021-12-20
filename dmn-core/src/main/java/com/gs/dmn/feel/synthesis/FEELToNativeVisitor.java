@@ -505,8 +505,8 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
             TNamedElement invocable = ((DMNFunctionType) functionType).getDRGElement();
             if (invocable instanceof TInvocable) {
                 argumentsText = this.dmnTransformer.drgElementArgumentListExtraCache(this.dmnTransformer.drgElementArgumentListExtra(this.dmnTransformer.augmentArgumentList(argumentsText)));
-                String javaQualifiedName = this.dmnTransformer.invocableQualifiedFunctionName((TInvocable) invocable);
-                return String.format("%s(%s)", javaQualifiedName, argumentsText);
+                String javaQualifiedName = this.dmnTransformer.singletonInvocableInstance((TInvocable) invocable);
+                return String.format("%s.apply(%s)", javaQualifiedName, argumentsText);
             } else {
                 return this.nativeFactory.makeApplyInvocation(javaFunctionCode, argumentsText);
             }

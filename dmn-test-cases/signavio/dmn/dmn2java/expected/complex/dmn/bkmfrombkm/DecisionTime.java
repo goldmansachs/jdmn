@@ -70,6 +70,6 @@ public class DecisionTime extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
     }
 
     protected List<String> evaluate(javax.xml.datatype.XMLGregorianCalendar timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return ImportedLogicTime.importedLogicTime(timeInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+        return ImportedLogicTime.instance().apply(timeInput, annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 }

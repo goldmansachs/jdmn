@@ -70,6 +70,6 @@ public class DecisionDate extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
     }
 
     protected List<String> evaluate(javax.xml.datatype.XMLGregorianCalendar dateInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return ImportedLogicDates.importedLogicDates(dateInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+        return ImportedLogicDates.instance().apply(dateInput, annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 }

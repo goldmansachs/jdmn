@@ -62,7 +62,7 @@ public class Decision_014_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     protected com.gs.dmn.runtime.Context evaluate(String decision_014_3, String inputData_014_1, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        String decisionService_014 = DecisionService_014.decisionService_014("A", "B", annotationSet_, eventListener_, externalExecutor_, cache_);
+        String decisionService_014 = DecisionService_014.instance().apply("A", "B", annotationSet_, eventListener_, externalExecutor_, cache_);
         com.gs.dmn.runtime.Context decision_014_1 = new com.gs.dmn.runtime.Context();
         decision_014_1.put("inputData_014_1",  inputData_014_1);
         decision_014_1.put("decision_014_3",  decision_014_3);

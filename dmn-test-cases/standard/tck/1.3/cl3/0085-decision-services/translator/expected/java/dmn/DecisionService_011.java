@@ -23,23 +23,24 @@ public class DecisionService_011 extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         -1
     );
 
-    public static final DecisionService_011 INSTANCE = new DecisionService_011();
+    private static class DecisionService_011LazyHolder {
+        static final DecisionService_011 INSTANCE = new DecisionService_011();
+    }
+    public static DecisionService_011 instance() {
+        return DecisionService_011LazyHolder.INSTANCE;
+    }
 
     private final Decision_011_2 decision_011_2;
 
-    public DecisionService_011() {
+    private DecisionService_011() {
         this(new Decision_011_2());
     }
 
-    public DecisionService_011(Decision_011_2 decision_011_2) {
+    private DecisionService_011(Decision_011_2 decision_011_2) {
         this.decision_011_2 = decision_011_2;
     }
 
-    public static String decisionService_011(String inputData_011_1, String inputData_011_2, String decision_011_3, String decision_011_4, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(inputData_011_1, inputData_011_2, decision_011_3, decision_011_4, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private String apply(String inputData_011_1, String inputData_011_2, String decision_011_3, String decision_011_4, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(String inputData_011_1, String inputData_011_2, String decision_011_3, String decision_011_4, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start DS 'decisionService_011'
             long decisionService_011StartTime_ = System.currentTimeMillis();

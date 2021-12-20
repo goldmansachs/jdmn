@@ -72,6 +72,6 @@ public class C extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     protected String evaluate(java.math.BigDecimal aa, String ba, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return stringAdd(stringAdd(stringAdd("AA: ", model_a.Bkm.bkm(aa, annotationSet_, eventListener_, externalExecutor_, cache_)), "; BA: "), model_b.Bkm.bkm(ba, annotationSet_, eventListener_, externalExecutor_, cache_));
+        return stringAdd(stringAdd(stringAdd("AA: ", model_a.Bkm.instance().apply(aa, annotationSet_, eventListener_, externalExecutor_, cache_)), "; BA: "), model_b.Bkm.instance().apply(ba, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 }

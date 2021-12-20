@@ -23,16 +23,17 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
         8
     );
 
-    public static final PreBureauRiskCategoryTable INSTANCE = new PreBureauRiskCategoryTable();
+    private static class PreBureauRiskCategoryTableLazyHolder {
+        static final PreBureauRiskCategoryTable INSTANCE = new PreBureauRiskCategoryTable();
+    }
+    public static PreBureauRiskCategoryTable instance() {
+        return PreBureauRiskCategoryTableLazyHolder.INSTANCE;
+    }
 
     private PreBureauRiskCategoryTable() {
     }
 
-    public static String PreBureauRiskCategoryTable(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private String apply(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM ''Pre-bureauRiskCategoryTable''
             long preBureauRiskCategoryTableStartTime_ = System.currentTimeMillis();

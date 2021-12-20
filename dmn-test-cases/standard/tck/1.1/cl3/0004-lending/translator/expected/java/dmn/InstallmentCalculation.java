@@ -23,16 +23,17 @@ public class InstallmentCalculation extends com.gs.dmn.runtime.DefaultDMNBaseDec
         -1
     );
 
-    public static final InstallmentCalculation INSTANCE = new InstallmentCalculation();
+    private static class InstallmentCalculationLazyHolder {
+        static final InstallmentCalculation INSTANCE = new InstallmentCalculation();
+    }
+    public static InstallmentCalculation instance() {
+        return InstallmentCalculationLazyHolder.INSTANCE;
+    }
 
     private InstallmentCalculation() {
     }
 
-    public static java.math.BigDecimal InstallmentCalculation(String productType, java.math.BigDecimal rate, java.math.BigDecimal term, java.math.BigDecimal amount, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(productType, rate, term, amount, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private java.math.BigDecimal apply(String productType, java.math.BigDecimal rate, java.math.BigDecimal term, java.math.BigDecimal amount, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public java.math.BigDecimal apply(String productType, java.math.BigDecimal rate, java.math.BigDecimal term, java.math.BigDecimal amount, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'InstallmentCalculation'
             long installmentCalculationStartTime_ = System.currentTimeMillis();

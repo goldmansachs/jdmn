@@ -23,16 +23,17 @@ public class GtTen extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         -1
     );
 
-    public static final GtTen INSTANCE = new GtTen();
+    private static class GtTenLazyHolder {
+        static final GtTen INSTANCE = new GtTen();
+    }
+    public static GtTen instance() {
+        return GtTenLazyHolder.INSTANCE;
+    }
 
     private GtTen() {
     }
 
-    public static Boolean gtTen(java.math.BigDecimal theNumber, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(theNumber, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private Boolean apply(java.math.BigDecimal theNumber, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public Boolean apply(java.math.BigDecimal theNumber, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'gtTen'
             long gtTenStartTime_ = System.currentTimeMillis();

@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class EligibilityRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    private fun apply(preBureauRiskCategory: String?, preBureauAffordability: Boolean?, age: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
+    public fun apply(preBureauRiskCategory: String?, preBureauAffordability: Boolean?, age: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         try {
             // Start BKM 'EligibilityRules'
             val eligibilityRulesStartTime_ = System.currentTimeMillis()
@@ -203,10 +203,11 @@ class EligibilityRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             4
         )
 
-        val INSTANCE = EligibilityRules()
+        private val INSTANCE = EligibilityRules()
 
-        fun EligibilityRules(preBureauRiskCategory: String?, preBureauAffordability: Boolean?, age: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
-            return INSTANCE.apply(preBureauRiskCategory, preBureauAffordability, age, annotationSet_, eventListener_, externalExecutor_, cache_)
+        @JvmStatic
+        fun instance(): EligibilityRules {
+            return INSTANCE
         }
     }
 }

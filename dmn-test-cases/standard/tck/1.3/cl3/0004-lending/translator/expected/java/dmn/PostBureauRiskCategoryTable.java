@@ -23,16 +23,17 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
         13
     );
 
-    public static final PostBureauRiskCategoryTable INSTANCE = new PostBureauRiskCategoryTable();
+    private static class PostBureauRiskCategoryTableLazyHolder {
+        static final PostBureauRiskCategoryTable INSTANCE = new PostBureauRiskCategoryTable();
+    }
+    public static PostBureauRiskCategoryTable instance() {
+        return PostBureauRiskCategoryTableLazyHolder.INSTANCE;
+    }
 
     private PostBureauRiskCategoryTable() {
     }
 
-    public static String PostBureauRiskCategoryTable(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, java.math.BigDecimal creditScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(existingCustomer, applicationRiskScore, creditScore, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private String apply(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, java.math.BigDecimal creditScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, java.math.BigDecimal creditScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM ''Post-bureauRiskCategoryTable''
             long postBureauRiskCategoryTableStartTime_ = System.currentTimeMillis();
