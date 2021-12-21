@@ -27,6 +27,8 @@
             <@expressionApplyBody drgElement/>
         <#elseif modelRepository.isRelationExpression(drgElement)>
             <@expressionApplyBody drgElement/>
+        <#elseif modelRepository.isFunctionDefinitionExpression(drgElement)>
+            <@expressionApplyBody drgElement/>
         <#else >
             logError("${modelRepository.expression(drgElement).class.simpleName} is not implemented yet");
             return null;
@@ -68,6 +70,9 @@
 
         <@addEvaluateExpressionMethod drgElement/>
     <#elseif modelRepository.isRelationExpression(drgElement)>
+
+        <@addEvaluateExpressionMethod drgElement/>
+    <#elseif modelRepository.isFunctionDefinitionExpression(drgElement)>
 
         <@addEvaluateExpressionMethod drgElement/>
     </#if>

@@ -69,7 +69,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     protected static final Logger LOGGER = LoggerFactory.getLogger(BasicDMNToJavaTransformer.class);
 
-    private DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect;
+    private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect;
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
     protected final NativeTypeFactory nativeTypeFactory;
@@ -385,7 +385,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         try {
             DMNContext context = this.makeGlobalContext(element);
             Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, description, context);
-            return ((ExpressionStatement) statement).getText();
+            return statement.getText();
         } catch (Exception e) {
             LOGGER.warn(String.format("Cannot process description '%s' for element '%s'", description, element == null ? "" : element.getName()));
             return String.format("\"%s\"", description.replaceAll("\"", "\\\\\""));
@@ -849,10 +849,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         return bkmFEELParameters(bkm).stream().map(FormalParameter::getName).collect(Collectors.toList());
     }
 
-    protected List<Pair<String, Type>> bkmParameters(DRGElementReference<TBusinessKnowledgeModel> reference) {
-        return bkmParameters(reference, this::nativeName);
-    }
-
     protected List<Pair<String, Type>> bkmParameters(DRGElementReference<TBusinessKnowledgeModel> reference, Function<Object, String> nameProducer) {
         List<Pair<String, Type>> parameters = new ArrayList<>();
         TBusinessKnowledgeModel bkm = reference.getElement();
@@ -923,7 +919,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         if (!(statement instanceof ExpressionStatement)) {
             return statement;
         }
-        String javaExpression = ((ExpressionStatement) statement).getText();
+        String javaExpression = statement.getText();
         Type expressionType = ((ExpressionStatement) statement).getExpressionType();
         if ("null".equals(javaExpression)) {
             return this.nativeFactory.makeExpressionStatement(javaExpression, expectedType);
@@ -1550,7 +1546,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     public Statement serviceToNative(TDecisionService element) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
         List<DRGElementReference<TDecision>> outputDecisions = this.dmnModelRepository.directSubDecisions(element);
         if (outputDecisions.size() == 0) {
             return this.nativeFactory.makeExpressionStatement("null", NullType.NULL);
@@ -1580,16 +1575,17 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public Statement expressionToNative(TDRGElement element) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
         TExpression expression = this.dmnModelRepository.expression(element);
         if (expression instanceof TContext) {
             return this.expressionToNativeTransformer.contextExpressionToNative(element, (TContext) expression);
+        } else if (expression instanceof TFunctionDefinition) {
+            return this.expressionToNativeTransformer.functionDefinitionToNative(element, (TFunctionDefinition) expression);
+        } else if (expression instanceof TInvocation) {
+            return this.expressionToNativeTransformer.invocationExpressionToNative(element, (TInvocation) expression);
         } else if (expression instanceof TLiteralExpression) {
             Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, ((TLiteralExpression) expression).getText());
             Type expectedType = drgElementOutputFEELType(element);
             return convertExpression(statement, expectedType);
-        } else if (expression instanceof TInvocation) {
-            return this.expressionToNativeTransformer.invocationExpressionToNative(element, (TInvocation) expression);
         } else if (expression instanceof TRelation) {
             return this.expressionToNativeTransformer.relationExpressionToNative(element, (TRelation) expression);
         } else {
@@ -1603,10 +1599,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
             return this.expressionToNativeTransformer.contextExpressionToNative(element, (TContext) expression, context);
         } else if (expression instanceof TFunctionDefinition) {
             return this.expressionToNativeTransformer.functionDefinitionToNative(element, (TFunctionDefinition) expression, context);
-        } else if (expression instanceof TLiteralExpression) {
-            return this.expressionToNativeTransformer.literalExpressionToNative(element, ((TLiteralExpression) expression).getText(), context);
         } else if (expression instanceof TInvocation) {
             return this.expressionToNativeTransformer.invocationExpressionToNative(element, (TInvocation) expression, context);
+        } else if (expression instanceof TLiteralExpression) {
+            return this.expressionToNativeTransformer.literalExpressionToNative(element, ((TLiteralExpression) expression).getText(), context);
         } else if (expression instanceof TRelation) {
             return this.expressionToNativeTransformer.relationExpressionToNative(element, (TRelation) expression, context);
         } else {
@@ -1748,11 +1744,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
             }
         } else if (type instanceof FunctionType) {
             if (type instanceof FEELFunctionType) {
+                String returnType = toNativeType(((FunctionType) type).getReturnType());
                 if (((FEELFunctionType) type).isExternal()) {
-                    String returnType = toNativeType(((FunctionType) type).getReturnType());
                     return makeFunctionType(JavaExternalFunction.class.getName(), returnType);
                 } else {
-                    String returnType = toNativeType(((FunctionType) type).getReturnType());
                     return makeFunctionType(LambdaExpression.class.getName(), returnType);
                 }
             } else if (type instanceof DMNFunctionType) {

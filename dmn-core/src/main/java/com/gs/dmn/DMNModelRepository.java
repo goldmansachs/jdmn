@@ -927,6 +927,11 @@ public class DMNModelRepository {
         return expression instanceof TRelation;
     }
 
+    public boolean isFunctionDefinitionExpression(TDRGElement element) {
+        TExpression expression = expression(element);
+        return expression instanceof TFunctionDefinition;
+    }
+
     //
     // Item definition related functions
     //
