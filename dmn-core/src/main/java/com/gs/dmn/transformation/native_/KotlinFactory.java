@@ -248,11 +248,6 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     // Conversions
     //
     @Override
-    public String convertListToElement(String expression, Type type) {
-        return String.format("%s", asElement(expression));
-    }
-
-    @Override
     public String asList(Type elementType, String exp) {
         if (StringUtils.isBlank(exp)) {
             String elementJavaType = this.typeFactory.nullableType(this.transformer.toNativeType(elementType));
@@ -260,6 +255,11 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
         } else {
             return String.format("asList(%s)", exp);
         }
+    }
+
+    @Override
+    public String convertListToElement(String expression, Type type) {
+        return String.format("%s", asElement(expression));
     }
 
     @Override

@@ -124,11 +124,11 @@ public interface NativeExpressionFactory {
     //
     // Conversions
     //
-    String convertListToElement(String expression, Type type);
-
     String asList(Type elementType, String exp);
 
     String asElement(String exp);
+
+    String convertListToElement(String expression, Type type);
 
     String convertElementToList(String expression, Type type);
 

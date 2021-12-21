@@ -295,11 +295,6 @@ public class JavaFactory implements NativeFactory {
     // Conversions
     //
     @Override
-    public String convertListToElement(String expression, Type type) {
-        return String.format("this.<%s>%s", transformer.toNativeType(type), asElement(expression));
-    }
-
-    @Override
     public String asList(Type elementType, String exp) {
         return String.format("asList(%s)", exp);
     }
@@ -307,6 +302,11 @@ public class JavaFactory implements NativeFactory {
     @Override
     public String asElement(String exp) {
         return String.format("asElement(%s)", exp);
+    }
+
+    @Override
+    public String convertListToElement(String expression, Type type) {
+        return asElement(expression);
     }
 
     @Override
@@ -392,7 +392,7 @@ public class JavaFactory implements NativeFactory {
     }
 
     protected String listToElementConversionFunction(String javaType) {
-        return String.format("this.<%s>asElement", javaType);
+        return "asElement";
     }
 
     protected String dateToUTCMidnight(String javaType) {

@@ -70,6 +70,6 @@ public class Decision2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     protected String evaluate(List<String> employees, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return this.<String>asElement(sublist(employees, number("2"), number("1")));
+        return asElement(sublist(employees, number("2"), number("1")));
     }
 }
