@@ -45,11 +45,8 @@ public class Decision_013_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             decision_013_1Arguments_.put("inputData_013_1", inputData_013_1);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision_013_1Arguments_);
 
-            // Apply child decisions
-            String decision_013_3 = this.decision_013_3.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'decision_013_1'
-            com.gs.dmn.runtime.Context output_ = evaluate(decision_013_3, inputData_013_1, annotationSet_, eventListener_, externalExecutor_, cache_);
+            com.gs.dmn.runtime.Context output_ = evaluate(inputData_013_1, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'decision_013_1'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decision_013_1Arguments_, output_, (System.currentTimeMillis() - decision_013_1StartTime_));
@@ -61,7 +58,10 @@ public class Decision_013_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected com.gs.dmn.runtime.Context evaluate(String decision_013_3, String inputData_013_1, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected com.gs.dmn.runtime.Context evaluate(String inputData_013_1, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        String decision_013_3 = Decision_013_1.this.decision_013_3.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+
         String decisionService_013 = DecisionService_013.instance().apply("A", "B", annotationSet_, eventListener_, externalExecutor_, cache_);
         com.gs.dmn.runtime.Context decision_013_1 = new com.gs.dmn.runtime.Context();
         decision_013_1.put("decisionService_013",  decisionService_013);

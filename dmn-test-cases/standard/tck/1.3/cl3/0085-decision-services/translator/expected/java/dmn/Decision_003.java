@@ -47,12 +47,8 @@ public class Decision_003 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             decision_003Arguments_.put("inputData_003", inputData_003);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision_003Arguments_);
 
-            // Apply child decisions
-            String decision_003_input_1 = this.decision_003_input_1.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
-            String decision_003_input_2 = this.decision_003_input_2.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'decision_003'
-            String output_ = evaluate(decision_003_input_1, decision_003_input_2, inputData_003, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(inputData_003, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'decision_003'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decision_003Arguments_, output_, (System.currentTimeMillis() - decision_003StartTime_));
@@ -64,7 +60,11 @@ public class Decision_003 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected String evaluate(String decision_003_input_1, String decision_003_input_2, String inputData_003, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(String inputData_003, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        String decision_003_input_1 = Decision_003.this.decision_003_input_1.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+        String decision_003_input_2 = Decision_003.this.decision_003_input_2.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+
         return stringAdd(stringAdd(stringAdd(stringAdd(stringAdd("A ", decision_003_input_1), " "), decision_003_input_2), " "), inputData_003);
     }
 }

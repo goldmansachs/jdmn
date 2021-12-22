@@ -66,12 +66,8 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             strategyArguments_.put("RequestedProduct", requestedProduct);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, strategyArguments_);
 
-            // Apply child decisions
-            String bureauCallType = this.bureauCallType.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
-            String eligibility = this.eligibility.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'Strategy'
-            String output_ = evaluate(bureauCallType, eligibility, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'Strategy'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, strategyArguments_, output_, (System.currentTimeMillis() - strategyStartTime_));
@@ -83,7 +79,11 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected String evaluate(String bureauCallType, String eligibility, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(type.TApplicantData applicantData, type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        String bureauCallType = Strategy.this.bureauCallType.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
+        String eligibility = Strategy.this.eligibility.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(bureauCallType, eligibility, annotationSet_, eventListener_, externalExecutor_));

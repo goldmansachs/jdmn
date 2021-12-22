@@ -87,11 +87,8 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDeci
 
                 return output_;
             } else {
-                // Apply child decisions
-                java.math.BigDecimal applicationRiskScore = this.applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
-
                 // Evaluate decision ''Pre-bureauRiskCategory''
-                String output_ = evaluate(applicantData, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_);
+                String output_ = evaluate(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
                 cache_.bind("'Pre-bureauRiskCategory'", output_);
 
                 // End decision ''Pre-bureauRiskCategory''
@@ -123,7 +120,10 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         return builder_.build();
     }
 
-    protected String evaluate(type.TApplicantData applicantData, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(type.TApplicantData applicantData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        java.math.BigDecimal applicationRiskScore = PreBureauRiskCategory.this.applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         return PreBureauRiskCategoryTable.instance().apply(((Boolean)(applicantData != null ? applicantData.getExistingCustomer() : null)), applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 }

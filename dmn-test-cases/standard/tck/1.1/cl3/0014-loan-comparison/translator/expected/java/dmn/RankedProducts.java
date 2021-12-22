@@ -63,11 +63,8 @@ public class RankedProducts extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             rankedProductsArguments_.put("RequestedAmt", requestedAmt);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, rankedProductsArguments_);
 
-            // Apply child decisions
-            List<type.TLoanProduct> bankrates = this.bankrates.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'RankedProducts'
-            type.TRankedProducts output_ = evaluate(bankrates, requestedAmt, annotationSet_, eventListener_, externalExecutor_, cache_);
+            type.TRankedProducts output_ = evaluate(requestedAmt, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'RankedProducts'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, rankedProductsArguments_, output_, (System.currentTimeMillis() - rankedProductsStartTime_));
@@ -79,7 +76,10 @@ public class RankedProducts extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected type.TRankedProducts evaluate(List<type.TLoanProduct> bankrates, java.math.BigDecimal requestedAmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected type.TRankedProducts evaluate(java.math.BigDecimal requestedAmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        List<type.TLoanProduct> bankrates = RankedProducts.this.bankrates.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+
         List<type.TMetric> metricsTable = bankrates.stream().map(i -> FinancialMetrics.instance().apply(i, requestedAmt, annotationSet_, eventListener_, externalExecutor_, cache_)).collect(Collectors.toList());
         List<type.TMetric> rankByRate = sort(metricsTable, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {type.TMetric x = (type.TMetric)args[0]; type.TMetric y = (type.TMetric)args[1];return numericLessThan(((java.math.BigDecimal)(x != null ? x.getRate() : null)), ((java.math.BigDecimal)(y != null ? y.getRate() : null)));}});
         List<type.TMetric> rankByDownPmt = sort(metricsTable, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {type.TMetric x = (type.TMetric)args[0]; type.TMetric y = (type.TMetric)args[1];return numericLessThan(((java.math.BigDecimal)(x != null ? x.getDownPmtAmt() : null)), ((java.math.BigDecimal)(y != null ? y.getDownPmtAmt() : null)));}});

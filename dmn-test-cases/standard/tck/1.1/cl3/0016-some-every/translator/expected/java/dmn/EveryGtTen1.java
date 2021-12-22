@@ -44,11 +44,8 @@ public class EveryGtTen1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             com.gs.dmn.runtime.listener.Arguments everyGtTen1Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, everyGtTen1Arguments_);
 
-            // Apply child decisions
-            List<type.TItemPrice> priceTable1 = this.priceTable1.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'everyGtTen1'
-            Boolean output_ = evaluate(priceTable1, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean output_ = evaluate(annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'everyGtTen1'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, everyGtTen1Arguments_, output_, (System.currentTimeMillis() - everyGtTen1StartTime_));
@@ -60,7 +57,10 @@ public class EveryGtTen1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected Boolean evaluate(List<type.TItemPrice> priceTable1, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected Boolean evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        List<type.TItemPrice> priceTable1 = EveryGtTen1.this.priceTable1.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+
         return booleanAnd((List)priceTable1.stream().map(i -> numericGreaterThan(((java.math.BigDecimal)(i != null ? i.getPrice() : null)), number("10"))).collect(Collectors.toList()));
     }
 }

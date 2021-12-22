@@ -64,11 +64,8 @@ public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.Default
             fnInvocationPositionalParametersArguments_.put("inputB", inputB);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationPositionalParametersArguments_);
 
-            // Apply child decisions
-            type.TFnLibrary fnLibrary = this.fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision ''fn invocation positional parameters''
-            type.TFnInvocationPositionalResult output_ = evaluate(fnLibrary, inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_);
+            type.TFnInvocationPositionalResult output_ = evaluate(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision ''fn invocation positional parameters''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnInvocationPositionalParametersArguments_, output_, (System.currentTimeMillis() - fnInvocationPositionalParametersStartTime_));
@@ -80,7 +77,10 @@ public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.Default
         }
     }
 
-    protected type.TFnInvocationPositionalResult evaluate(type.TFnLibrary fnLibrary, java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected type.TFnInvocationPositionalResult evaluate(java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        type.TFnLibrary fnLibrary = FnInvocationPositionalParameters.this.fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+
         java.math.BigDecimal sumResult = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSumFn() : null)).apply(inputA, inputB);
         java.math.BigDecimal multiplicationResultPositional = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getMultiplyFn() : null)).apply(inputA, inputB);
         java.math.BigDecimal divisionResultPositional = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getDivideFn() : null)).apply(inputA, inputB);

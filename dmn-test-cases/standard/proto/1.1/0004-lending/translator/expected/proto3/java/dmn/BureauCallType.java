@@ -78,11 +78,8 @@ public class BureauCallType extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             bureauCallTypeArguments_.put("ApplicantData", applicantData);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeArguments_);
 
-            // Apply child decisions
-            String preBureauRiskCategory = this.preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'BureauCallType'
-            String output_ = evaluate(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'BureauCallType'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeArguments_, output_, (System.currentTimeMillis() - bureauCallTypeStartTime_));
@@ -112,7 +109,10 @@ public class BureauCallType extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         return builder_.build();
     }
 
-    protected String evaluate(String preBureauRiskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(type.TApplicantData applicantData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        String preBureauRiskCategory = BureauCallType.this.preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         return BureauCallTypeTable.instance().apply(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 }

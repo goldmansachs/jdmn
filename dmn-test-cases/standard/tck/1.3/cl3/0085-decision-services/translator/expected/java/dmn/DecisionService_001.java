@@ -47,11 +47,8 @@ public class DecisionService_001 extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
             com.gs.dmn.runtime.listener.Arguments decisionService_001Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionService_001Arguments_);
 
-            // Apply child decisions
-            String decision_001 = this.decision_001.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate DS 'decisionService_001'
-            String output_ = evaluate(decision_001, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End DS 'decisionService_001'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decisionService_001Arguments_, output_, (System.currentTimeMillis() - decisionService_001StartTime_));
@@ -63,7 +60,10 @@ public class DecisionService_001 extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         }
     }
 
-    protected String evaluate(String decision_001, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        String decision_001 = DecisionService_001.this.decision_001.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+
         return decision_001;
     }
 }

@@ -66,12 +66,8 @@ public class Eligibility extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eligibilityArguments_.put("RequestedProduct", requestedProduct);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, eligibilityArguments_);
 
-            // Apply child decisions
-            Boolean preBureauAffordability = this.preBureauAffordability.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
-            String preBureauRiskCategory = this.preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'Eligibility'
-            String output_ = evaluate(applicantData, preBureauAffordability, preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'Eligibility'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, eligibilityArguments_, output_, (System.currentTimeMillis() - eligibilityStartTime_));
@@ -83,7 +79,11 @@ public class Eligibility extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected String evaluate(type.TApplicantData applicantData, Boolean preBureauAffordability, String preBureauRiskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(type.TApplicantData applicantData, type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        Boolean preBureauAffordability = Eligibility.this.preBureauAffordability.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
+        String preBureauRiskCategory = Eligibility.this.preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         return EligibilityRules.instance().apply(preBureauRiskCategory, preBureauAffordability, ((java.math.BigDecimal)(applicantData != null ? applicantData.getAge() : null)), annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 }

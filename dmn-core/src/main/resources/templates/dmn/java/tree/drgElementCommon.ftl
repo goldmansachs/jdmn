@@ -106,7 +106,8 @@
     Decision table
 -->
 <#macro addEvaluateDecisionTableMethod drgElement>
-    protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementEvaluateSignature(drgElement)}) {
+    protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementSignatureExtraCache(drgElement)}) {
+    <@applySubDecisions drgElement/>
     <#assign expression = modelRepository.expression(drgElement)>
         <@collectRuleResults drgElement expression />
 
@@ -243,24 +244,23 @@
 
                 <@endDRGElementAndReturnIndent "    " drgElement "output_" />
             } else {
-                <@applySubDecisionsIndent "    " drgElement/>
                 // ${transformer.evaluateElementCommentText(drgElement)}
-                ${transformer.drgElementOutputType(drgElement)} output_ = evaluate(${transformer.drgElementEvaluateArgumentList(drgElement)});
+                ${transformer.drgElementOutputType(drgElement)} output_ = evaluate(${transformer.drgElementArgumentListExtraCache(drgElement)});
                 cache_.bind("${modelRepository.name(drgElement)}", output_);
 
                 <@endDRGElementAndReturnIndent "    " drgElement "output_" />
             }
         <#else>
-            <@applySubDecisions drgElement/>
             // ${transformer.evaluateElementCommentText(drgElement)}
-            ${transformer.drgElementOutputType(drgElement)} output_ = evaluate(${transformer.drgElementEvaluateArgumentList(drgElement)});
+            ${transformer.drgElementOutputType(drgElement)} output_ = evaluate(${transformer.drgElementArgumentListExtraCache(drgElement)});
 
             <@endDRGElementAndReturn drgElement "output_" />
         </#if>
 </#macro>
 
 <#macro addEvaluateExpressionMethod drgElement>
-    protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementEvaluateSignature(drgElement)}) {
+    protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementSignatureExtraCache(drgElement)}) {
+    <@applySubDecisions drgElement/>
     <#assign stm = transformer.expressionToNative(drgElement)>
     <#if transformer.isCompoundStatement(stm)>
         <#list stm.statements as child>
@@ -273,7 +273,8 @@
 </#macro>
 
 <#macro addEvaluateServiceMethod drgElement>
-    protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementEvaluateSignature(drgElement)}) {
+    protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementSignatureExtraCache(drgElement)}) {
+    <@applySubDecisions drgElement/>
     <#assign stm = transformer.serviceToNative(drgElement)>
     <#if transformer.isCompoundStatement(stm)>
         <#list stm.statements as child>
@@ -294,12 +295,12 @@
 
 <#macro applySubDecisionsIndent extraIndent drgElement>
     <#list modelRepository.directSubDecisions(drgElement)>
-            ${extraIndent}// Apply child decisions
+        ${extraIndent}// Apply child decisions
         <#items as subDecision>
             <#if transformer.isLazyEvaluated(subDecision)>
-            ${extraIndent}${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.drgElementReferenceVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentListExtraCache(subDecision)}));
+        ${extraIndent}${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.drgElementReferenceVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> ${javaClassName}.this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentListExtraCache(subDecision)}));
             <#else>
-            ${extraIndent}${transformer.drgElementOutputType(subDecision)} ${transformer.drgElementReferenceVariableName(subDecision)} = this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentListExtraCache(subDecision)});
+        ${extraIndent}${transformer.drgElementOutputType(subDecision)} ${transformer.drgElementReferenceVariableName(subDecision)} = ${javaClassName}.this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentListExtraCache(subDecision)});
             </#if>
         </#items>
 

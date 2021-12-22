@@ -45,11 +45,8 @@ public class EvaluatingB1SayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecis
             evaluatingB1SayHelloArguments_.put("Person Name", personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, evaluatingB1SayHelloArguments_);
 
-            // Apply child decisions
-            String greetThePerson = this.greetThePerson.apply(personName, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'evaluatingB1SayHello'
-            String output_ = evaluate(greetThePerson, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(personName, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'evaluatingB1SayHello'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, evaluatingB1SayHelloArguments_, output_, (System.currentTimeMillis() - evaluatingB1SayHelloStartTime_));
@@ -61,7 +58,10 @@ public class EvaluatingB1SayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         }
     }
 
-    protected String evaluate(String greetThePerson, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(String personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        String greetThePerson = EvaluatingB1SayHello.this.greetThePerson.apply(personName, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         return stringAdd("Evaluating Say Hello to: ", greetThePerson);
     }
 }

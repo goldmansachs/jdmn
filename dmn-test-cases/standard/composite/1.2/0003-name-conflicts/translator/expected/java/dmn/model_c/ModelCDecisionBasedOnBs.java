@@ -48,12 +48,8 @@ public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.DefaultDMNBaseDe
             modelCDecisionBasedOnBsArguments_.put("model-a.Person Name", model_a_personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, modelCDecisionBasedOnBsArguments_);
 
-            // Apply child decisions
-            String model_b1_evaluatingSayHello = this.model_b1_evaluatingSayHello.apply(model_a_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
-            String model_b2_evaluatingSayHello = this.model_b2_evaluatingSayHello.apply(model_a_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'modelCDecisionBasedOnBs'
-            String output_ = evaluate(model_b1_evaluatingSayHello, model_b2_evaluatingSayHello, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(model_a_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'modelCDecisionBasedOnBs'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, modelCDecisionBasedOnBsArguments_, output_, (System.currentTimeMillis() - modelCDecisionBasedOnBsStartTime_));
@@ -65,7 +61,11 @@ public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.DefaultDMNBaseDe
         }
     }
 
-    protected String evaluate(String model_b1_evaluatingSayHello, String model_b2_evaluatingSayHello, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(String model_a_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        String model_b1_evaluatingSayHello = ModelCDecisionBasedOnBs.this.model_b1_evaluatingSayHello.apply(model_a_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
+        String model_b2_evaluatingSayHello = ModelCDecisionBasedOnBs.this.model_b2_evaluatingSayHello.apply(model_a_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         return stringAdd(stringAdd(stringAdd("B1: ", model_b1_evaluatingSayHello), "; B2: "), model_b2_evaluatingSayHello);
     }
 }
