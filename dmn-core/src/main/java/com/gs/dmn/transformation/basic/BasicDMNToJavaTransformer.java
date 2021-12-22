@@ -664,85 +664,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     //
-    // Evaluate method related functions
-    //
-    @Override
-    public String drgElementEvaluateSignature(TDRGElement element) {
-        return drgElementSignatureExtraCache(drgElementSignatureExtra(drgElementDirectSignature(element)));
-    }
-
-    @Override
-    public String drgElementEvaluateArgumentList(TDRGElement element) {
-        return drgElementArgumentListExtraCache(drgElementArgumentListExtra(drgElementDirectArgumentList(element)));
-    }
-
-    protected String drgElementDirectSignature(TDRGElement element) {
-        if (element instanceof TDecision) {
-            List<Pair<String, String>> parameters = directInformationRequirementParameters(element);
-            String javaParameters = parameters.stream().map(p -> this.nativeFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
-            return augmentSignature(javaParameters);
-        } else if (element instanceof TBusinessKnowledgeModel) {
-            return drgElementSignature(this.dmnModelRepository.makeDRGElementReference(element));
-        } else if (element instanceof TDecisionService) {
-            List<Pair<String, String>> parameters = directInformationRequirementParameters(element);
-            String javaParameters = parameters.stream().map(p -> this.nativeFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
-            return augmentSignature(javaParameters);
-        } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
-        }
-    }
-
-    protected String drgElementDirectArgumentList(TDRGElement element) {
-        if (element instanceof TDecision) {
-            List<Pair<String, String>> parameters = directInformationRequirementParameters(element);
-            String argumentList = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
-            return augmentArgumentList(argumentList);
-        } else if (element instanceof TBusinessKnowledgeModel) {
-            return drgElementArgumentList(this.dmnModelRepository.makeDRGElementReference(element));
-        } else if (element instanceof TDecisionService) {
-            List<Pair<String, String>> parameters = directInformationRequirementParameters(element);
-            String argumentList = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
-            return augmentArgumentList(argumentList);
-        } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
-        }
-    }
-
-    private List<Pair<String, String>> directInformationRequirementParameters(TDRGElement element) {
-        List<DRGElementReference<? extends TDRGElement>> inputs = directInformationRequirements(element);
-        this.dmnModelRepository.sortNamedElementReferences(inputs);
-
-        List<Pair<String, String>> parameters = new ArrayList<>();
-        for (DRGElementReference<? extends TDRGElement> reference : inputs) {
-            TDRGElement input = reference.getElement();
-            if (input instanceof TInputData) {
-                TInputData inputData = (TInputData) input;
-                String parameterName = drgElementReferenceVariableName(reference);
-                String parameterNativeType = inputDataType(inputData);
-                parameters.add(new Pair<>(parameterName, parameterNativeType));
-            } else if (input instanceof TDecision) {
-                TDecision subDecision = (TDecision) input;
-                String parameterName = drgElementReferenceVariableName(reference);
-                String parameterNativeType = drgElementOutputType(subDecision);
-                parameters.add(new Pair<>(parameterName, lazyEvaluationType(input, parameterNativeType)));
-            } else {
-                throw new UnsupportedOperationException(String.format("'%s' is not supported yet", input.getClass().getSimpleName()));
-            }
-        }
-        return parameters;
-    }
-
-    protected List<DRGElementReference<? extends TDRGElement>> directInformationRequirements(TDRGElement element) {
-        List<DRGElementReference<TInputData>> directInputReferences = this.dmnModelRepository.directInputDatas(element);
-        List<DRGElementReference<TDecision>> directSubDecisionsReferences = this.dmnModelRepository.directSubDecisions(element);
-
-        List<DRGElementReference<? extends TDRGElement>> inputs = new ArrayList<>();
-        inputs.addAll(directInputReferences);
-        inputs.addAll(directSubDecisionsReferences);
-        return inputs;
-    }
-
-    //
     // Comment related functions
     //
     @Override
@@ -1545,6 +1466,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         return this.dmnEnvironmentFactory.convertType(type, convertToContext);
     }
 
+    @Override
     public Statement serviceToNative(TDecisionService element) {
         List<DRGElementReference<TDecision>> outputDecisions = this.dmnModelRepository.directSubDecisions(element);
         if (outputDecisions.size() == 0) {

@@ -160,24 +160,6 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
     }
 
     @Override
-    public String drgElementDirectSignature(TDRGElement element) {
-        if (this.dmnModelRepository.isMultiInstanceDecision(element)) {
-            return iterationSignature((TDecision) element);
-        } else {
-            return super.drgElementDirectSignature(element);
-        }
-    }
-
-    @Override
-    public String drgElementDirectArgumentList(TDRGElement element) {
-        if (this.dmnModelRepository.isMultiInstanceDecision(element)) {
-            return iterationArgumentList((TDecision) element);
-        } else {
-            return super.drgElementDirectArgumentList(element);
-        }
-    }
-
-    @Override
     public String drgElementConvertedArgumentList(DRGElementReference<? extends TDRGElement> reference) {
         TDRGElement element = reference.getElement();
         if (this.dmnModelRepository.isBKMLinkedToDecision(element)) {
@@ -336,7 +318,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
                 String returnNativeType = toNativeType(type);
                 String className = externalFunctionClassName(body);
                 String methodName = externalFunctionMethodName(body);
-                String arguments = drgElementEvaluateArgumentList(element);
+                String arguments = drgElementArgumentList(element);
                 javaCode = this.nativeFactory.makeExternalExecutorCall(externalExecutorVariableName(), className, methodName, arguments, returnNativeType);
             } else {
                 javaCode = this.feelTranslator.expressionToNative(body, globalContext);

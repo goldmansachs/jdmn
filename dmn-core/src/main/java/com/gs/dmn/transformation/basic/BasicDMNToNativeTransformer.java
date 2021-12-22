@@ -204,13 +204,6 @@ public interface BasicDMNToNativeTransformer {
     String nativeName(Object obj);
 
     //
-    // Evaluate method related functions
-    //
-    String drgElementEvaluateSignature(TDRGElement element);
-
-    String drgElementEvaluateArgumentList(TDRGElement element);
-
-    //
     // Comment related functions
     //
     String startElementCommentText(TDRGElement element);
@@ -246,6 +239,8 @@ public interface BasicDMNToNativeTransformer {
     List<FormalParameter> dsFEELParameters(TDecisionService service);
 
     List<String> dsFEELParameterNames(TDecisionService service);
+
+    Statement serviceToNative(TDecisionService element);
 
     String convertMethodName(TItemDefinition itemDefinition);
 
