@@ -69,13 +69,8 @@ public class Pick extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             pickArguments_.put("time", time);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, pickArguments_);
 
-            // Apply child decisions
-            List<String> dateOperators = this.dateOperators.apply(date, annotationSet_, eventListener_, externalExecutor_, cache_);
-            List<String> datetimeOperators = this.datetimeOperators.apply(datetime, annotationSet_, eventListener_, externalExecutor_, cache_);
-            List<String> timeOperators = this.timeOperators.apply(time, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'pick'
-            String output_ = evaluate(dateOperators, datetimeOperators, timeOperators, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(date, datetime, time, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'pick'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, pickArguments_, output_, (System.currentTimeMillis() - pickStartTime_));
@@ -87,7 +82,12 @@ public class Pick extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         }
     }
 
-    protected String evaluate(List<String> dateOperators, List<String> datetimeOperators, List<String> timeOperators, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar datetime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        List<String> dateOperators = this.dateOperators.apply(date, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<String> datetimeOperators = this.datetimeOperators.apply(datetime, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<String> timeOperators = this.timeOperators.apply(time, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(dateOperators, datetimeOperators, timeOperators, annotationSet_, eventListener_, externalExecutor_));

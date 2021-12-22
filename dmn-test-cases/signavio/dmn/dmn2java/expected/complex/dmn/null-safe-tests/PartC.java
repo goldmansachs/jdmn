@@ -73,14 +73,8 @@ public class PartC extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
             partCArguments_.put("time", time);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, partCArguments_);
 
-            // Apply child decisions
-            Boolean logical = this.logical.apply(booleanA, booleanB, annotationSet_, eventListener_, externalExecutor_, cache_);
-            Boolean temporal = this.temporal.apply(dateTime, annotationSet_, eventListener_, externalExecutor_, cache_);
-            List<String> temporalComparator = this.temporalComparator.apply(dateTime, annotationSet_, eventListener_, externalExecutor_, cache_);
-            Boolean temporalDiff = this.temporalDiff.apply(date, dateTime, time, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'partC'
-            String output_ = evaluate(logical, temporal, temporalComparator, temporalDiff, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(booleanA, booleanB, date, dateTime, time, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'partC'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, partCArguments_, output_, (System.currentTimeMillis() - partCStartTime_));
@@ -92,7 +86,13 @@ public class PartC extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         }
     }
 
-    protected String evaluate(Boolean logical, Boolean temporal, List<String> temporalComparator, Boolean temporalDiff, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(Boolean booleanA, Boolean booleanB, javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        Boolean logical = this.logical.apply(booleanA, booleanB, annotationSet_, eventListener_, externalExecutor_, cache_);
+        Boolean temporal = this.temporal.apply(dateTime, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<String> temporalComparator = this.temporalComparator.apply(dateTime, annotationSet_, eventListener_, externalExecutor_, cache_);
+        Boolean temporalDiff = this.temporalDiff.apply(date, dateTime, time, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(logical, temporal, temporalComparator, temporalDiff, annotationSet_, eventListener_, externalExecutor_));

@@ -68,12 +68,8 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
             decideArguments_.put("time 2", time2);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decideArguments_);
 
-            // Apply child decisions
-            String pick = this.pick.apply(date, datetime, time, annotationSet_, eventListener_, externalExecutor_, cache_);
-            java.math.BigDecimal sum = this.sum.apply(date, datetime, time, time2, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'decide'
-            String output_ = evaluate(pick, sum, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(date, datetime, time, time2, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'decide'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decideArguments_, output_, (System.currentTimeMillis() - decideStartTime_));
@@ -85,7 +81,11 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
         }
     }
 
-    protected String evaluate(String pick, java.math.BigDecimal sum, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar datetime, javax.xml.datatype.XMLGregorianCalendar time, javax.xml.datatype.XMLGregorianCalendar time2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        String pick = this.pick.apply(date, datetime, time, annotationSet_, eventListener_, externalExecutor_, cache_);
+        java.math.BigDecimal sum = this.sum.apply(date, datetime, time, time2, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(pick, sum, annotationSet_, eventListener_, externalExecutor_));

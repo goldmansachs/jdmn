@@ -77,13 +77,8 @@ public class AllTogether extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             allTogetherArguments_.put("time", time);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, allTogetherArguments_);
 
-            // Apply child decisions
-            String partA = this.partA.apply(booleanList, annotationSet_, eventListener_, externalExecutor_, cache_);
-            String partB = this.partB.apply(numberA, numberB, numberList, string, stringList, annotationSet_, eventListener_, externalExecutor_, cache_);
-            String partC = this.partC.apply(booleanA, booleanB, date, dateTime, time, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'allTogether'
-            String output_ = evaluate(partA, partB, partC, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'allTogether'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, allTogetherArguments_, output_, (System.currentTimeMillis() - allTogetherStartTime_));
@@ -95,7 +90,12 @@ public class AllTogether extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         }
     }
 
-    protected String evaluate(String partA, String partB, String partC, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(Boolean booleanA, Boolean booleanB, List<Boolean> booleanList, javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, java.math.BigDecimal numberA, java.math.BigDecimal numberB, List<java.math.BigDecimal> numberList, String string, List<String> stringList, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        String partA = this.partA.apply(booleanList, annotationSet_, eventListener_, externalExecutor_, cache_);
+        String partB = this.partB.apply(numberA, numberB, numberList, string, stringList, annotationSet_, eventListener_, externalExecutor_, cache_);
+        String partC = this.partC.apply(booleanA, booleanB, date, dateTime, time, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(partA, partB, partC, annotationSet_, eventListener_, externalExecutor_));

@@ -64,11 +64,8 @@ public class Loop extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             loopArguments_.put("B", b);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, loopArguments_);
 
-            // Apply child decisions
-            List<type.Zip1> zip1 = this.zip1.apply(a4, b, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Iterate and aggregate
-            List<java.math.BigDecimal> output_ = evaluate(a4, b, zip1, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<java.math.BigDecimal> output_ = evaluate(a4, b, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'loop'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, loopArguments_, output_, (System.currentTimeMillis() - loopStartTime_));
@@ -80,7 +77,10 @@ public class Loop extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         }
     }
 
-    protected List<java.math.BigDecimal> evaluate(List<java.math.BigDecimal> a4, List<java.math.BigDecimal> b, List<type.Zip1> zip1, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected List<java.math.BigDecimal> evaluate(List<java.math.BigDecimal> a4, List<java.math.BigDecimal> b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        List<type.Zip1> zip1 = this.zip1.apply(a4, b, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         Body body = new Body();
         return zip1.stream().map(it_iterator -> body.apply(type.It.toIt(it_iterator), annotationSet_, eventListener_, externalExecutor_, cache_)).collect(Collectors.toList());
     }

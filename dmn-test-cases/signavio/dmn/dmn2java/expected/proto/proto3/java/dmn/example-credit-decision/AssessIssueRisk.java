@@ -81,11 +81,8 @@ public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.DefaultSignavio
             assessIssueRiskArguments_.put("Current risk appetite", currentRiskAppetite);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, assessIssueRiskArguments_);
 
-            // Apply child decisions
-            List<java.math.BigDecimal> processPriorIssues = this.processPriorIssues.apply(applicant, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Iterate and aggregate
-            java.math.BigDecimal output_ = evaluate(applicant, currentRiskAppetite, processPriorIssues, annotationSet_, eventListener_, externalExecutor_, cache_);
+            java.math.BigDecimal output_ = evaluate(applicant, currentRiskAppetite, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'assessIssueRisk'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, assessIssueRiskArguments_, output_, (System.currentTimeMillis() - assessIssueRiskStartTime_));
@@ -116,7 +113,10 @@ public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.DefaultSignavio
         return builder_.build();
     }
 
-    protected java.math.BigDecimal evaluate(type.Applicant applicant, java.math.BigDecimal currentRiskAppetite, List<java.math.BigDecimal> processPriorIssues, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected java.math.BigDecimal evaluate(type.Applicant applicant, java.math.BigDecimal currentRiskAppetite, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        List<java.math.BigDecimal> processPriorIssues = this.processPriorIssues.apply(applicant, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         AssessIssue assessIssue = new AssessIssue();
         return sum(processPriorIssues.stream().map(priorIssue_iterator -> assessIssue.apply(currentRiskAppetite, priorIssue_iterator, annotationSet_, eventListener_, externalExecutor_, cache_)).collect(Collectors.toList()));
     }

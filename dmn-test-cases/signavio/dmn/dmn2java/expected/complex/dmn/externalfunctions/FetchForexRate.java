@@ -66,11 +66,8 @@ public class FetchForexRate extends com.gs.dmn.signavio.runtime.DefaultSignavioB
             fetchForexRateArguments_.put("TransactionTaxMetaData", transactionTaxMetaData);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fetchForexRateArguments_);
 
-            // Apply child decisions
-            Boolean isForexRateRequired = this.isForexRateRequired.apply(derivativeType, taxChargeType, transactionTaxMetaData, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'fetchForexRate'
-            String output_ = evaluate(isForexRateRequired, transaction, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(derivativeType, taxChargeType, transaction, transactionTaxMetaData, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'fetchForexRate'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fetchForexRateArguments_, output_, (System.currentTimeMillis() - fetchForexRateStartTime_));
@@ -82,7 +79,10 @@ public class FetchForexRate extends com.gs.dmn.signavio.runtime.DefaultSignavioB
         }
     }
 
-    protected String evaluate(Boolean isForexRateRequired, type.Transaction transaction, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(String derivativeType, String taxChargeType, type.Transaction transaction, type.TransactionTaxMetaData transactionTaxMetaData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        Boolean isForexRateRequired = this.isForexRateRequired.apply(derivativeType, taxChargeType, transactionTaxMetaData, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         return ((com.gs.dmn.runtime.external.JavaExternalFunction<String>)((com.gs.dmn.runtime.Context)new com.gs.dmn.runtime.Context().add("f", new com.gs.dmn.runtime.external.JavaExternalFunction<>(new com.gs.dmn.runtime.external.JavaFunctionInfo("com.gs.dmn.generated.external_functions.ForexRateService", "fetchECBForexRateFor", Arrays.asList("com.gs.dmn.generated.external_functions.type.Transaction", "java.lang.Boolean")), externalExecutor_, String.class))).get("f")).apply(transaction, isForexRateRequired);
     }
 }

@@ -68,12 +68,8 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
             compoundOutputCompoundDecisionArguments_.put("EnumerationInput", enumerationInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compoundOutputCompoundDecisionArguments_);
 
-            // Apply child decisions
-            type.DependentDecision1 dependentDecision1 = this.dependentDecision1.apply(dD1TextInput, annotationSet_, eventListener_, externalExecutor_, cache_);
-            type.DependentDecision2 dependentDecision2 = this.dependentDecision2.apply(dD2NumberInput, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'compoundOutputCompoundDecision'
-            type.CompoundOutputCompoundDecision output_ = evaluate(booleanInput, dependentDecision1, dependentDecision2, enumerationInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+            type.CompoundOutputCompoundDecision output_ = evaluate(booleanInput, dD1TextInput, dD2NumberInput, enumerationInput, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'compoundOutputCompoundDecision'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, compoundOutputCompoundDecisionArguments_, output_, (System.currentTimeMillis() - compoundOutputCompoundDecisionStartTime_));
@@ -85,7 +81,11 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
         }
     }
 
-    protected type.CompoundOutputCompoundDecision evaluate(Boolean booleanInput, type.DependentDecision1 dependentDecision1, type.DependentDecision2 dependentDecision2, String enumerationInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected type.CompoundOutputCompoundDecision evaluate(Boolean booleanInput, String dD1TextInput, java.math.BigDecimal dD2NumberInput, String enumerationInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        type.DependentDecision1 dependentDecision1 = this.dependentDecision1.apply(dD1TextInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+        type.DependentDecision2 dependentDecision2 = this.dependentDecision2.apply(dD2NumberInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         com.gs.dmn.runtime.RuleOutput tempRuleOutput_ = rule0(booleanInput, dependentDecision1, dependentDecision2, enumerationInput, annotationSet_, eventListener_, externalExecutor_);

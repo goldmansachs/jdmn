@@ -63,11 +63,8 @@ public class ChildObject extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             childObjectArguments_.put("num", num);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, childObjectArguments_);
 
-            // Apply child decisions
-            java.math.BigDecimal abc = this.abc.apply(num, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'childObject'
-            java.math.BigDecimal output_ = evaluate(abc, annotationSet_, eventListener_, externalExecutor_, cache_);
+            java.math.BigDecimal output_ = evaluate(num, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'childObject'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, childObjectArguments_, output_, (System.currentTimeMillis() - childObjectStartTime_));
@@ -79,7 +76,10 @@ public class ChildObject extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal abc, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected java.math.BigDecimal evaluate(java.math.BigDecimal num, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        java.math.BigDecimal abc = this.abc.apply(num, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         return abc;
     }
 }

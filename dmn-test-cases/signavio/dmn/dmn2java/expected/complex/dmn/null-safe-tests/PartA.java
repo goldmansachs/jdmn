@@ -67,13 +67,8 @@ public class PartA extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
             partAArguments_.put("booleanList", booleanList);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, partAArguments_);
 
-            // Apply child decisions
-            Boolean allFalseAggregation = this.allFalseAggregation.apply(booleanList, annotationSet_, eventListener_, externalExecutor_, cache_);
-            Boolean allTrueAggregation = this.allTrueAggregation.apply(booleanList, annotationSet_, eventListener_, externalExecutor_, cache_);
-            Boolean anyTrueAggregation = this.anyTrueAggregation.apply(booleanList, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'partA'
-            String output_ = evaluate(allFalseAggregation, allTrueAggregation, anyTrueAggregation, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(booleanList, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'partA'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, partAArguments_, output_, (System.currentTimeMillis() - partAStartTime_));
@@ -85,7 +80,12 @@ public class PartA extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         }
     }
 
-    protected String evaluate(Boolean allFalseAggregation, Boolean allTrueAggregation, Boolean anyTrueAggregation, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(List<Boolean> booleanList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        Boolean allFalseAggregation = this.allFalseAggregation.apply(booleanList, annotationSet_, eventListener_, externalExecutor_, cache_);
+        Boolean allTrueAggregation = this.allTrueAggregation.apply(booleanList, annotationSet_, eventListener_, externalExecutor_, cache_);
+        Boolean anyTrueAggregation = this.anyTrueAggregation.apply(booleanList, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(allFalseAggregation, allTrueAggregation, anyTrueAggregation, annotationSet_, eventListener_, externalExecutor_));
