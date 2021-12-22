@@ -45,12 +45,8 @@ class CompareAgainstLendingThreshold(val assessApplicantAge : AssessApplicantAge
             compareAgainstLendingThresholdArguments_.put("Lending threshold", lendingThreshold)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compareAgainstLendingThresholdArguments_)
 
-            // Apply child decisions
-            val assessApplicantAge: java.math.BigDecimal? = this.assessApplicantAge.apply(applicant, annotationSet_, eventListener_, externalExecutor_, cache_)
-            val assessIssueRisk: java.math.BigDecimal? = this.assessIssueRisk.apply(applicant, currentRiskAppetite, annotationSet_, eventListener_, externalExecutor_, cache_)
-
             // Evaluate decision 'compareAgainstLendingThreshold'
-            val output_: java.math.BigDecimal? = evaluate(assessApplicantAge, assessIssueRisk, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: java.math.BigDecimal? = evaluate(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End decision 'compareAgainstLendingThreshold'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, compareAgainstLendingThresholdArguments_, output_, (System.currentTimeMillis() - compareAgainstLendingThresholdStartTime_))
@@ -82,7 +78,11 @@ class CompareAgainstLendingThreshold(val assessApplicantAge : AssessApplicantAge
         return builder_.build()
     }
 
-    private inline fun evaluate(assessApplicantAge: java.math.BigDecimal?, assessIssueRisk: java.math.BigDecimal?, lendingThreshold: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    private inline fun evaluate(applicant: type.Applicant?, currentRiskAppetite: java.math.BigDecimal?, lendingThreshold: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+        // Apply child decisions
+        val assessApplicantAge: java.math.BigDecimal? = this.assessApplicantAge.apply(applicant, annotationSet_, eventListener_, externalExecutor_, cache_)
+        val assessIssueRisk: java.math.BigDecimal? = this.assessIssueRisk.apply(applicant, currentRiskAppetite, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()
         ruleOutputList_.add(rule0(assessApplicantAge, assessIssueRisk, lendingThreshold, annotationSet_, eventListener_, externalExecutor_))
