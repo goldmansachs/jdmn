@@ -44,11 +44,8 @@ class FnInvocationNamedParameters(val fnLibrary : FnLibrary = FnLibrary()) : com
             fnInvocationNamedParametersArguments_.put("inputB", inputB)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationNamedParametersArguments_)
 
-            // Apply child decisions
-            val fnLibrary: type.TFnLibrary? = this.fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
-
             // Evaluate decision ''fn invocation named parameters''
-            val output_: type.TFnInvocationNamedResult? = evaluate(fnLibrary, inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: type.TFnInvocationNamedResult? = evaluate(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End decision ''fn invocation named parameters''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnInvocationNamedParametersArguments_, output_, (System.currentTimeMillis() - fnInvocationNamedParametersStartTime_))
@@ -60,7 +57,10 @@ class FnInvocationNamedParameters(val fnLibrary : FnLibrary = FnLibrary()) : com
         }
     }
 
-    private inline fun evaluate(fnLibrary: type.TFnLibrary?, inputA: java.math.BigDecimal?, inputB: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TFnInvocationNamedResult? {
+    private inline fun evaluate(inputA: java.math.BigDecimal?, inputB: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TFnInvocationNamedResult? {
+        // Apply child decisions
+        val fnLibrary: type.TFnLibrary? = this@FnInvocationNamedParameters.fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
+
         val subResult: java.math.BigDecimal? = fnLibrary?.let({ it.subFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(inputA, inputB) as java.math.BigDecimal?
         val multiplicationResultNamed: java.math.BigDecimal? = fnLibrary?.let({ it.multiplyFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(inputA, inputB) as java.math.BigDecimal?
         val subResultMixed: java.math.BigDecimal? = fnLibrary?.let({ it.subFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(inputB, inputA) as java.math.BigDecimal?

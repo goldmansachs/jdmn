@@ -43,11 +43,8 @@ class RankedProducts(val bankrates : Bankrates = Bankrates()) : com.gs.dmn.runti
             rankedProductsArguments_.put("RequestedAmt", requestedAmt)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, rankedProductsArguments_)
 
-            // Apply child decisions
-            val bankrates: List<type.TLoanProduct?>? = this.bankrates.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
-
             // Evaluate decision 'RankedProducts'
-            val output_: type.TRankedProducts? = evaluate(bankrates, requestedAmt, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: type.TRankedProducts? = evaluate(requestedAmt, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End decision 'RankedProducts'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, rankedProductsArguments_, output_, (System.currentTimeMillis() - rankedProductsStartTime_))
@@ -59,7 +56,10 @@ class RankedProducts(val bankrates : Bankrates = Bankrates()) : com.gs.dmn.runti
         }
     }
 
-    private inline fun evaluate(bankrates: List<type.TLoanProduct?>?, requestedAmt: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TRankedProducts? {
+    private inline fun evaluate(requestedAmt: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TRankedProducts? {
+        // Apply child decisions
+        val bankrates: List<type.TLoanProduct?>? = this@RankedProducts.bankrates.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
+
         val metricsTable: List<type.TMetric?>? = bankrates?.stream()?.map({ i -> FinancialMetrics.instance().apply(i, requestedAmt, annotationSet_, eventListener_, externalExecutor_, cache_) })?.collect(Collectors.toList()) as List<type.TMetric?>?
         val rankByRate: List<type.TMetric?>? = sort(metricsTable, com.gs.dmn.runtime.LambdaExpression<Boolean> { args -> val x: type.TMetric? = args[0] as type.TMetric?; val y: type.TMetric? = args[1] as type.TMetric?;numericLessThan(x?.let({ it.rate as java.math.BigDecimal? }), y?.let({ it.rate as java.math.BigDecimal? })) }) as List<type.TMetric?>?
         val rankByDownPmt: List<type.TMetric?>? = sort(metricsTable, com.gs.dmn.runtime.LambdaExpression<Boolean> { args -> val x: type.TMetric? = args[0] as type.TMetric?; val y: type.TMetric? = args[1] as type.TMetric?;numericLessThan(x?.let({ it.downPmtAmt as java.math.BigDecimal? }), y?.let({ it.downPmtAmt as java.math.BigDecimal? })) }) as List<type.TMetric?>?
