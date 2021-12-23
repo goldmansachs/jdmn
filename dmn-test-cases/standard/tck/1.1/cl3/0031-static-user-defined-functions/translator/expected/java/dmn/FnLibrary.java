@@ -52,16 +52,16 @@ public class FnLibrary extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public com.gs.dmn.runtime.LambdaExpression<type.TFnLibrary> lambda =
         new com.gs.dmn.runtime.LambdaExpression<type.TFnLibrary>() {
-            public type.TFnLibrary apply(Object... args) {
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 0 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[0] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 1 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[1] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 2 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[2] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 3 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[3] : null;
+            public type.TFnLibrary apply(Object... args_) {
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 0 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[0] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 1 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[1] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 2 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[2] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 3 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[3] : null;
 
-                com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> sumFn = new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {public java.math.BigDecimal apply(Object... args) {java.math.BigDecimal a = (java.math.BigDecimal)args[0]; java.math.BigDecimal b = (java.math.BigDecimal)args[1];return numericAdd(a, b);}};
-                com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> subFn = new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {public java.math.BigDecimal apply(Object... args) {java.math.BigDecimal a = (java.math.BigDecimal)args[0]; java.math.BigDecimal b = (java.math.BigDecimal)args[1];return numericSubtract(a, b);}};
-                com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> multiplyFn = new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {public java.math.BigDecimal apply(Object... args) {java.math.BigDecimal a = (java.math.BigDecimal)args[0]; java.math.BigDecimal b = (java.math.BigDecimal)args[1];return numericMultiply(a, b);}};
-                com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> divideFn = new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {public java.math.BigDecimal apply(Object... args) {java.math.BigDecimal a = (java.math.BigDecimal)args[0]; java.math.BigDecimal b = (java.math.BigDecimal)args[1];return (booleanEqual(numericEqual(b, number("0")), Boolean.TRUE)) ? null : numericDivide(a, b);}};
+                com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> sumFn = new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {public java.math.BigDecimal apply(Object... args_) {java.math.BigDecimal a = (java.math.BigDecimal)args_[0]; java.math.BigDecimal b = (java.math.BigDecimal)args_[1];return numericAdd(a, b);}};
+                com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> subFn = new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {public java.math.BigDecimal apply(Object... args_) {java.math.BigDecimal a = (java.math.BigDecimal)args_[0]; java.math.BigDecimal b = (java.math.BigDecimal)args_[1];return numericSubtract(a, b);}};
+                com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> multiplyFn = new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {public java.math.BigDecimal apply(Object... args_) {java.math.BigDecimal a = (java.math.BigDecimal)args_[0]; java.math.BigDecimal b = (java.math.BigDecimal)args_[1];return numericMultiply(a, b);}};
+                com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> divideFn = new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {public java.math.BigDecimal apply(Object... args_) {java.math.BigDecimal a = (java.math.BigDecimal)args_[0]; java.math.BigDecimal b = (java.math.BigDecimal)args_[1];return (booleanEqual(numericEqual(b, number("0")), Boolean.TRUE)) ? null : numericDivide(a, b);}};
                 type.TFnLibraryImpl fnLibrary = new type.TFnLibraryImpl();
                 fnLibrary.setSumFn(sumFn);
                 fnLibrary.setSubFn(subFn);

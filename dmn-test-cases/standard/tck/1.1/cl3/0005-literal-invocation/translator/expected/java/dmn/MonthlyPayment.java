@@ -72,13 +72,13 @@ public class MonthlyPayment extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
         new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
-            public java.math.BigDecimal apply(Object... args) {
-                type.TLoan loan = 0 < args.length ? (type.TLoan) args[0] : null;
-                java.math.BigDecimal fee = 1 < args.length ? (java.math.BigDecimal) args[1] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[2] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[3] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[4] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[5] : null;
+            public java.math.BigDecimal apply(Object... args_) {
+                type.TLoan loan = 0 < args_.length ? (type.TLoan) args_[0] : null;
+                java.math.BigDecimal fee = 1 < args_.length ? (java.math.BigDecimal) args_[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[2] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[3] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[4] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[5] : null;
 
                 return numericAdd(PMT.instance().apply(((java.math.BigDecimal)(loan != null ? loan.getAmount() : null)), ((java.math.BigDecimal)(loan != null ? loan.getRate() : null)), ((java.math.BigDecimal)(loan != null ? loan.getTerm() : null)), annotationSet_, eventListener_, externalExecutor_, cache_), fee);
             }

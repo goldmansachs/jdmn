@@ -57,13 +57,13 @@ public class FinancialMetrics extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
 
     public com.gs.dmn.runtime.LambdaExpression<type.TMetric> lambda =
         new com.gs.dmn.runtime.LambdaExpression<type.TMetric>() {
-            public type.TMetric apply(Object... args) {
-                type.TLoanProduct product = 0 < args.length ? (type.TLoanProduct) args[0] : null;
-                java.math.BigDecimal requestedAmt = 1 < args.length ? (java.math.BigDecimal) args[1] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[2] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[3] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[4] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[5] : null;
+            public type.TMetric apply(Object... args_) {
+                type.TLoanProduct product = 0 < args_.length ? (type.TLoanProduct) args_[0] : null;
+                java.math.BigDecimal requestedAmt = 1 < args_.length ? (java.math.BigDecimal) args_[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[2] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[3] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[4] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[5] : null;
 
                 String lenderName = ((String)(product != null ? product.getLenderName() : null));
                 java.math.BigDecimal rate = ((java.math.BigDecimal)(product != null ? product.getRate() : null));

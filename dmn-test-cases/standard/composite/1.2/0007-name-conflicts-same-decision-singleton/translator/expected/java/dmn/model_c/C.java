@@ -55,13 +55,13 @@ public class C extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public com.gs.dmn.runtime.LambdaExpression<String> lambda =
         new com.gs.dmn.runtime.LambdaExpression<String>() {
-            public String apply(Object... args) {
-                String model_a_a = 0 < args.length ? (String) args[0] : null;
-                String model_b_a = 1 < args.length ? (String) args[1] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[2] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[3] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[4] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[5] : null;
+            public String apply(Object... args_) {
+                String model_a_a = 0 < args_.length ? (String) args_[0] : null;
+                String model_b_a = 1 < args_.length ? (String) args_[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[2] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[3] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[4] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[5] : null;
 
                 return stringAdd(stringAdd(stringAdd("A: ", model_a_a), "; B: "), model_b_a);
             }

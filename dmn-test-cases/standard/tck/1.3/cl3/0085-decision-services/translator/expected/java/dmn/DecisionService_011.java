@@ -70,15 +70,15 @@ public class DecisionService_011 extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
 
     public com.gs.dmn.runtime.LambdaExpression<String> lambda =
         new com.gs.dmn.runtime.LambdaExpression<String>() {
-            public String apply(Object... args) {
-                String inputData_011_1 = 0 < args.length ? (String) args[0] : null;
-                String inputData_011_2 = 1 < args.length ? (String) args[1] : null;
-                String decision_011_3 = 2 < args.length ? (String) args[2] : null;
-                String decision_011_4 = 3 < args.length ? (String) args[3] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 4 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[4] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 5 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[5] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 6 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[6] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 7 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[7] : null;
+            public String apply(Object... args_) {
+                String inputData_011_1 = 0 < args_.length ? (String) args_[0] : null;
+                String inputData_011_2 = 1 < args_.length ? (String) args_[1] : null;
+                String decision_011_3 = 2 < args_.length ? (String) args_[2] : null;
+                String decision_011_4 = 3 < args_.length ? (String) args_[3] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 4 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[4] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 5 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[5] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 6 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[6] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 7 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[7] : null;
 
                 // Apply child decisions
                 String decision_011_2 = DecisionService_011.this.decision_011_2.apply(inputData_011_1, inputData_011_2, annotationSet_, eventListener_, externalExecutor_, cache_);

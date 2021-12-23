@@ -79,13 +79,13 @@ public class FnInvocationComplexParameters extends com.gs.dmn.runtime.DefaultDMN
 
     public com.gs.dmn.runtime.LambdaExpression<type.TFnInvocationComplexParamsResult> lambda =
         new com.gs.dmn.runtime.LambdaExpression<type.TFnInvocationComplexParamsResult>() {
-            public type.TFnInvocationComplexParamsResult apply(Object... args) {
-                java.math.BigDecimal inputA = 0 < args.length ? (java.math.BigDecimal) args[0] : null;
-                java.math.BigDecimal inputB = 1 < args.length ? (java.math.BigDecimal) args[1] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[2] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[3] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[4] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[5] : null;
+            public type.TFnInvocationComplexParamsResult apply(Object... args_) {
+                java.math.BigDecimal inputA = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
+                java.math.BigDecimal inputB = 1 < args_.length ? (java.math.BigDecimal) args_[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[2] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[3] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[4] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[5] : null;
 
                 // Apply child decisions
                 type.TFnLibrary fnLibrary = FnInvocationComplexParameters.this.fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_, cache_);

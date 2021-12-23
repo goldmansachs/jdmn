@@ -537,7 +537,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String lambdaArgsVariableName() {
-        return "args";
+        return "args_";
     }
 
     @Override

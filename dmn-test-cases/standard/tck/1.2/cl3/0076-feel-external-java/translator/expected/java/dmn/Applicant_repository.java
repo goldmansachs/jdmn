@@ -52,11 +52,11 @@ public class Applicant_repository extends com.gs.dmn.runtime.DefaultDMNBaseDecis
 
     public com.gs.dmn.runtime.LambdaExpression<type.Applicant> lambda =
         new com.gs.dmn.runtime.LambdaExpression<type.Applicant>() {
-            public type.Applicant apply(Object... args) {
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 0 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[0] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 1 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[1] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 2 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[2] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 3 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[3] : null;
+            public type.Applicant apply(Object... args_) {
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 0 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[0] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 1 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[1] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 2 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[2] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 3 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[3] : null;
 
                 com.gs.dmn.runtime.external.JavaExternalFunction<type.Applicant> lookup = new com.gs.dmn.runtime.external.JavaExternalFunction<>(new com.gs.dmn.runtime.external.JavaFunctionInfo("com.gs.dmn.generated.tck.cl3_0076_feel_external_java.ApplicantRepository", "find", Arrays.asList("java.lang.String")), externalExecutor_, type.Applicant.class);
                 return lookup.apply("john");

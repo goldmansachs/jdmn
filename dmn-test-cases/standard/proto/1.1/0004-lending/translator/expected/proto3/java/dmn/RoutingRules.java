@@ -59,15 +59,15 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public com.gs.dmn.runtime.LambdaExpression<String> lambda =
         new com.gs.dmn.runtime.LambdaExpression<String>() {
-            public String apply(Object... args) {
-                String postBureauRiskCategory = 0 < args.length ? (String) args[0] : null;
-                Boolean postBureauAffordability = 1 < args.length ? (Boolean) args[1] : null;
-                Boolean bankrupt = 2 < args.length ? (Boolean) args[2] : null;
-                java.math.BigDecimal creditScore = 3 < args.length ? (java.math.BigDecimal) args[3] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 4 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[4] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 5 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[5] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 6 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[6] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 7 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[7] : null;
+            public String apply(Object... args_) {
+                String postBureauRiskCategory = 0 < args_.length ? (String) args_[0] : null;
+                Boolean postBureauAffordability = 1 < args_.length ? (Boolean) args_[1] : null;
+                Boolean bankrupt = 2 < args_.length ? (Boolean) args_[2] : null;
+                java.math.BigDecimal creditScore = 3 < args_.length ? (java.math.BigDecimal) args_[3] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 4 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[4] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 5 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[5] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 6 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[6] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 7 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[7] : null;
 
                 // Apply rules and collect results
                 com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();

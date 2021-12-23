@@ -73,13 +73,13 @@ public class DateCompare2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public com.gs.dmn.runtime.LambdaExpression<Boolean> lambda =
         new com.gs.dmn.runtime.LambdaExpression<Boolean>() {
-            public Boolean apply(Object... args) {
-                javax.xml.datatype.XMLGregorianCalendar decisioninputs_dateD = 0 < args.length ? (javax.xml.datatype.XMLGregorianCalendar) args[0] : null;
-                javax.xml.datatype.XMLGregorianCalendar decisioninputs_dateE = 1 < args.length ? (javax.xml.datatype.XMLGregorianCalendar) args[1] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[2] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[3] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[4] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[5] : null;
+            public Boolean apply(Object... args_) {
+                javax.xml.datatype.XMLGregorianCalendar decisioninputs_dateD = 0 < args_.length ? (javax.xml.datatype.XMLGregorianCalendar) args_[0] : null;
+                javax.xml.datatype.XMLGregorianCalendar decisioninputs_dateE = 1 < args_.length ? (javax.xml.datatype.XMLGregorianCalendar) args_[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[2] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[3] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[4] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[5] : null;
 
                 // Apply rules and collect results
                 com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();

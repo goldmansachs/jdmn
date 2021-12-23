@@ -58,14 +58,14 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
 
     public com.gs.dmn.runtime.LambdaExpression<String> lambda =
         new com.gs.dmn.runtime.LambdaExpression<String>() {
-            public String apply(Object... args) {
-                String preBureauRiskCategory = 0 < args.length ? (String) args[0] : null;
-                Boolean preBureauAffordability = 1 < args.length ? (Boolean) args[1] : null;
-                java.math.BigDecimal age = 2 < args.length ? (java.math.BigDecimal) args[2] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 3 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[3] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 4 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[4] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 5 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[5] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 6 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[6] : null;
+            public String apply(Object... args_) {
+                String preBureauRiskCategory = 0 < args_.length ? (String) args_[0] : null;
+                Boolean preBureauAffordability = 1 < args_.length ? (Boolean) args_[1] : null;
+                java.math.BigDecimal age = 2 < args_.length ? (java.math.BigDecimal) args_[2] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 3 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[3] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 4 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[4] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 5 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[5] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 6 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[6] : null;
 
                 // Apply rules and collect results
                 com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
