@@ -45,7 +45,7 @@ public class Equity36Mo extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, equity36MoArguments_);
 
             // Evaluate BKM 'equity36Mo'
-            java.math.BigDecimal output_ = evaluate(p, r, n, pmt, annotationSet_, eventListener_, externalExecutor_, cache_);
+            java.math.BigDecimal output_ = lambda.apply(p, r, n, pmt, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End BKM 'equity36Mo'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, equity36MoArguments_, output_, (System.currentTimeMillis() - equity36MoStartTime_));
@@ -57,7 +57,19 @@ public class Equity36Mo extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal p, java.math.BigDecimal r, java.math.BigDecimal n, java.math.BigDecimal pmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return numericSubtract(numericMultiply(p, numericExponentiation(numericAdd(number("1"), numericDivide(r, number("12"))), n)), numericDivide(numericMultiply(pmt, numericAdd(numericUnaryMinus(number("1")), numericExponentiation(numericAdd(number("1"), numericDivide(r, number("12"))), n))), r));
-    }
+    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
+            public java.math.BigDecimal apply(Object... args) {
+                java.math.BigDecimal p = 0 < args.length ? (java.math.BigDecimal) args[0] : null;
+                java.math.BigDecimal r = 1 < args.length ? (java.math.BigDecimal) args[1] : null;
+                java.math.BigDecimal n = 2 < args.length ? (java.math.BigDecimal) args[2] : null;
+                java.math.BigDecimal pmt = 3 < args.length ? (java.math.BigDecimal) args[3] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 4 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[4] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 5 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[5] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 6 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[6] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 7 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[7] : null;
+
+                return numericSubtract(numericMultiply(p, numericExponentiation(numericAdd(number("1"), numericDivide(r, number("12"))), n)), numericDivide(numericMultiply(pmt, numericAdd(numericUnaryMinus(number("1")), numericExponentiation(numericAdd(number("1"), numericDivide(r, number("12"))), n))), r));
+            }
+        };
 }

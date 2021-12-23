@@ -67,7 +67,7 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, strategyArguments_);
 
             // Evaluate decision 'Strategy'
-            String output_ = evaluate(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'Strategy'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, strategyArguments_, output_, (System.currentTimeMillis() - strategyStartTime_));
@@ -79,29 +79,39 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected String evaluate(type.TApplicantData applicantData, type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        // Apply child decisions
-        String bureauCallType = Strategy.this.bureauCallType.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
-        String eligibility = Strategy.this.eligibility.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
+    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<String>() {
+            public String apply(Object... args) {
+                type.TApplicantData applicantData = 0 < args.length ? (type.TApplicantData) args[0] : null;
+                type.TRequestedProduct requestedProduct = 1 < args.length ? (type.TRequestedProduct) args[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[2] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[3] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[4] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[5] : null;
 
-        // Apply rules and collect results
-        com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        ruleOutputList_.add(rule0(bureauCallType, eligibility, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule1(bureauCallType, eligibility, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule2(bureauCallType, eligibility, annotationSet_, eventListener_, externalExecutor_));
+                // Apply child decisions
+                String bureauCallType = Strategy.this.bureauCallType.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
+                String eligibility = Strategy.this.eligibility.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
 
-        // Return results based on hit policy
-        String output_;
-        if (ruleOutputList_.noMatchedRules()) {
-            // Default value
-            output_ = null;
-        } else {
-            com.gs.dmn.runtime.RuleOutput ruleOutput_ = ruleOutputList_.applySingle(com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE);
-            output_ = ruleOutput_ == null ? null : ((StrategyRuleOutput)ruleOutput_).getStrategy();
-        }
+                // Apply rules and collect results
+                com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
+                ruleOutputList_.add(rule0(bureauCallType, eligibility, annotationSet_, eventListener_, externalExecutor_));
+                ruleOutputList_.add(rule1(bureauCallType, eligibility, annotationSet_, eventListener_, externalExecutor_));
+                ruleOutputList_.add(rule2(bureauCallType, eligibility, annotationSet_, eventListener_, externalExecutor_));
 
-        return output_;
-    }
+                // Return results based on hit policy
+                String output_;
+                if (ruleOutputList_.noMatchedRules()) {
+                    // Default value
+                    output_ = null;
+                } else {
+                    com.gs.dmn.runtime.RuleOutput ruleOutput_ = ruleOutputList_.applySingle(com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE);
+                    output_ = ruleOutput_ == null ? null : ((StrategyRuleOutput)ruleOutput_).getStrategy();
+                }
+
+                return output_;
+            }
+    };
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(String bureauCallType, String eligibility, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {

@@ -79,7 +79,7 @@ public class BureauCallType extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeArguments_);
 
             // Evaluate decision 'BureauCallType'
-            String output_ = evaluate(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'BureauCallType'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeArguments_, output_, (System.currentTimeMillis() - bureauCallTypeStartTime_));
@@ -109,10 +109,19 @@ public class BureauCallType extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         return builder_.build();
     }
 
-    protected String evaluate(type.TApplicantData applicantData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        // Apply child decisions
-        String preBureauRiskCategory = BureauCallType.this.preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
+    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<String>() {
+            public String apply(Object... args) {
+                type.TApplicantData applicantData = 0 < args.length ? (type.TApplicantData) args[0] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 1 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[1] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 2 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[2] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 3 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[3] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 4 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[4] : null;
 
-        return BureauCallTypeTable.instance().apply(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
+                // Apply child decisions
+                String preBureauRiskCategory = BureauCallType.this.preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
+
+                return BureauCallTypeTable.instance().apply(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_);
+            }
+        };
 }

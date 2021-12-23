@@ -1394,6 +1394,38 @@
                     </execution>
 
                     <execution>
+                        <id>0092-feel-lambda</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.13.diagram.folder}/cl3/0092-feel-lambda/translator/0092-feel-lambda.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <strongTyping>false</strongTyping>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0092_feel_lambda</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-0092-feel-lambda</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.13.diagram.folder}/cl3/0092-feel-lambda/translator/0092-feel-lambda-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.13.diagram.folder}/cl3/0092-feel-lambda/translator/0092-feel-lambda.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <strongTyping>false</strongTyping>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0092_feel_lambda</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
                         <id>0093-feel-at-literals</id>
                         <phase>generate-sources</phase>
                         <goals>

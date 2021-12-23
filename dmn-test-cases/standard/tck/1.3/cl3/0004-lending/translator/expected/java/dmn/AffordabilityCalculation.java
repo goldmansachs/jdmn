@@ -46,7 +46,7 @@ public class AffordabilityCalculation extends com.gs.dmn.runtime.DefaultDMNBaseD
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, affordabilityCalculationArguments_);
 
             // Evaluate BKM 'AffordabilityCalculation'
-            Boolean output_ = evaluate(monthlyIncome, monthlyRepayments, monthlyExpenses, riskCategory, requiredMonthlyInstallment, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean output_ = lambda.apply(monthlyIncome, monthlyRepayments, monthlyExpenses, riskCategory, requiredMonthlyInstallment, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End BKM 'AffordabilityCalculation'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, affordabilityCalculationArguments_, output_, (System.currentTimeMillis() - affordabilityCalculationStartTime_));
@@ -58,10 +58,23 @@ public class AffordabilityCalculation extends com.gs.dmn.runtime.DefaultDMNBaseD
         }
     }
 
-    protected Boolean evaluate(java.math.BigDecimal monthlyIncome, java.math.BigDecimal monthlyRepayments, java.math.BigDecimal monthlyExpenses, String riskCategory, java.math.BigDecimal requiredMonthlyInstallment, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        java.math.BigDecimal disposableIncome = numericSubtract(monthlyIncome, numericAdd(monthlyExpenses, monthlyRepayments));
-        java.math.BigDecimal creditContingencyFactor = CreditContingencyFactorTable.instance().apply(riskCategory, annotationSet_, eventListener_, externalExecutor_, cache_);
-        Boolean affordability = (booleanEqual(numericGreaterThan(numericMultiply(disposableIncome, creditContingencyFactor), requiredMonthlyInstallment), Boolean.TRUE)) ? Boolean.TRUE : Boolean.FALSE;
-        return affordability;
-    }
+    public com.gs.dmn.runtime.LambdaExpression<Boolean> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<Boolean>() {
+            public Boolean apply(Object... args) {
+                java.math.BigDecimal monthlyIncome = 0 < args.length ? (java.math.BigDecimal) args[0] : null;
+                java.math.BigDecimal monthlyRepayments = 1 < args.length ? (java.math.BigDecimal) args[1] : null;
+                java.math.BigDecimal monthlyExpenses = 2 < args.length ? (java.math.BigDecimal) args[2] : null;
+                String riskCategory = 3 < args.length ? (String) args[3] : null;
+                java.math.BigDecimal requiredMonthlyInstallment = 4 < args.length ? (java.math.BigDecimal) args[4] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 5 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[5] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 6 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[6] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 7 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[7] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 8 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[8] : null;
+
+                java.math.BigDecimal disposableIncome = numericSubtract(monthlyIncome, numericAdd(monthlyExpenses, monthlyRepayments));
+                java.math.BigDecimal creditContingencyFactor = CreditContingencyFactorTable.instance().apply(riskCategory, annotationSet_, eventListener_, externalExecutor_, cache_);
+                Boolean affordability = (booleanEqual(numericGreaterThan(numericMultiply(disposableIncome, creditContingencyFactor), requiredMonthlyInstallment), Boolean.TRUE)) ? Boolean.TRUE : Boolean.FALSE;
+                return affordability;
+            }
+        };
 }

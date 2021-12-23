@@ -108,8 +108,10 @@ public interface NativeExpressionFactory {
     //
     // Parameters
     //
+    String nullableParameterType(String parameterType);
     String nullableParameter(String parameterType, String parameterName);
 
+    String parameterType(String parameterType);
     String parameter(String parameterType, String parameterName);
 
     String decisionConstructorParameter(DRGElementReference<TDecision> d);

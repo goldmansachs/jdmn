@@ -43,7 +43,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryTableArguments_);
 
             // Evaluate BKM ''Pre-bureauRiskCategoryTable''
-            String output_ = evaluate(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End BKM ''Pre-bureauRiskCategoryTable''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryTableArguments_, output_, (System.currentTimeMillis() - preBureauRiskCategoryTableStartTime_));
@@ -55,30 +55,40 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
         }
     }
 
-    protected String evaluate(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        // Apply rules and collect results
-        com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        ruleOutputList_.add(rule0(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule1(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule2(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule3(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule4(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule5(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule6(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule7(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_));
+    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<String>() {
+            public String apply(Object... args) {
+                Boolean existingCustomer = 0 < args.length ? (Boolean) args[0] : null;
+                java.math.BigDecimal applicationRiskScore = 1 < args.length ? (java.math.BigDecimal) args[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[2] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[3] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[4] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[5] : null;
 
-        // Return results based on hit policy
-        String output_;
-        if (ruleOutputList_.noMatchedRules()) {
-            // Default value
-            output_ = null;
-        } else {
-            com.gs.dmn.runtime.RuleOutput ruleOutput_ = ruleOutputList_.applySingle(com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE);
-            output_ = ruleOutput_ == null ? null : ((PreBureauRiskCategoryTableRuleOutput)ruleOutput_).getPreBureauRiskCategoryTable();
-        }
+                // Apply rules and collect results
+                com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
+                ruleOutputList_.add(rule0(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_));
+                ruleOutputList_.add(rule1(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_));
+                ruleOutputList_.add(rule2(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_));
+                ruleOutputList_.add(rule3(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_));
+                ruleOutputList_.add(rule4(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_));
+                ruleOutputList_.add(rule5(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_));
+                ruleOutputList_.add(rule6(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_));
+                ruleOutputList_.add(rule7(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_));
 
-        return output_;
-    }
+                // Return results based on hit policy
+                String output_;
+                if (ruleOutputList_.noMatchedRules()) {
+                    // Default value
+                    output_ = null;
+                } else {
+                    com.gs.dmn.runtime.RuleOutput ruleOutput_ = ruleOutputList_.applySingle(com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE);
+                    output_ = ruleOutput_ == null ? null : ((PreBureauRiskCategoryTableRuleOutput)ruleOutput_).getPreBureauRiskCategoryTable();
+                }
+
+                return output_;
+            }
+    };
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {

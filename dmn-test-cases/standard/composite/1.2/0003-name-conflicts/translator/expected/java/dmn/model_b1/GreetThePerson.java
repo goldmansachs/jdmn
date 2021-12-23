@@ -40,7 +40,7 @@ public class GreetThePerson extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, greetThePersonArguments_);
 
             // Evaluate decision 'greetThePerson'
-            String output_ = evaluate(model_a_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(model_a_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'greetThePerson'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, greetThePersonArguments_, output_, (System.currentTimeMillis() - greetThePersonStartTime_));
@@ -52,7 +52,16 @@ public class GreetThePerson extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected String evaluate(String model_a_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return stringAdd("Hello, ", model_a_personName);
-    }
+    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<String>() {
+            public String apply(Object... args) {
+                String model_a_personName = 0 < args.length ? (String) args[0] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 1 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[1] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 2 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[2] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 3 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[3] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 4 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[4] : null;
+
+                return stringAdd("Hello, ", model_a_personName);
+            }
+        };
 }

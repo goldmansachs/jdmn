@@ -536,13 +536,13 @@ public class DMNExpressionToNativeTransformer {
                 return javaFunctionToNative(javaInfo, functionType);
             } else {
                 String returnType = this.dmnTransformer.toNativeType(this.dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
-                String signature = "Object... args";
+                String signature = dmnTransformer.lambdaApplySignature();
                 String applyMethod = this.nativeFactory.applyMethod(functionType, signature, convertToContext, body);
                 return functionDefinitionToNative(returnType, applyMethod);
             }
         } else if (functionType instanceof DMNFunctionType) {
             String returnType = this.dmnTransformer.toNativeType(this.dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
-            String signature = "Object... args";
+            String signature = dmnTransformer.lambdaApplySignature();
             String applyMethod = this.nativeFactory.applyMethod(functionType, signature, convertToContext, body);
             return functionDefinitionToNative(returnType, applyMethod);
         }

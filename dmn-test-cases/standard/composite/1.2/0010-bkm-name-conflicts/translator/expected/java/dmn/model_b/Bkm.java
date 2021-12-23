@@ -43,7 +43,7 @@ public class Bkm extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bkmArguments_);
 
             // Evaluate BKM 'bkm'
-            String output_ = evaluate(x, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(x, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End BKM 'bkm'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, bkmArguments_, output_, (System.currentTimeMillis() - bkmStartTime_));
@@ -55,7 +55,16 @@ public class Bkm extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected String evaluate(String x, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return x;
-    }
+    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<String>() {
+            public String apply(Object... args) {
+                String x = 0 < args.length ? (String) args[0] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 1 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[1] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 2 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[2] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 3 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[3] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 4 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[4] : null;
+
+                return x;
+            }
+        };
 }

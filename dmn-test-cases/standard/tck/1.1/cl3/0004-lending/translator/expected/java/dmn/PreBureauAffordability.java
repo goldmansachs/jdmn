@@ -67,7 +67,7 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDec
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauAffordabilityArguments_);
 
             // Evaluate decision ''Pre-bureauAffordability''
-            Boolean output_ = evaluate(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean output_ = lambda.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision ''Pre-bureauAffordability''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, preBureauAffordabilityArguments_, output_, (System.currentTimeMillis() - preBureauAffordabilityStartTime_));
@@ -79,11 +79,21 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDec
         }
     }
 
-    protected Boolean evaluate(type.TApplicantData applicantData, type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        // Apply child decisions
-        String preBureauRiskCategory = PreBureauAffordability.this.preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
-        java.math.BigDecimal requiredMonthlyInstallment = PreBureauAffordability.this.requiredMonthlyInstallment.apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
+    public com.gs.dmn.runtime.LambdaExpression<Boolean> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<Boolean>() {
+            public Boolean apply(Object... args) {
+                type.TApplicantData applicantData = 0 < args.length ? (type.TApplicantData) args[0] : null;
+                type.TRequestedProduct requestedProduct = 1 < args.length ? (type.TRequestedProduct) args[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[2] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[3] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[4] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[5] : null;
 
-        return AffordabilityCalculation.instance().apply(((java.math.BigDecimal)(((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)) != null ? ((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)).getIncome() : null)), ((java.math.BigDecimal)(((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)) != null ? ((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)).getRepayments() : null)), ((java.math.BigDecimal)(((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)) != null ? ((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)).getExpenses() : null)), preBureauRiskCategory, requiredMonthlyInstallment, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
+                // Apply child decisions
+                String preBureauRiskCategory = PreBureauAffordability.this.preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
+                java.math.BigDecimal requiredMonthlyInstallment = PreBureauAffordability.this.requiredMonthlyInstallment.apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
+
+                return AffordabilityCalculation.instance().apply(((java.math.BigDecimal)(((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)) != null ? ((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)).getIncome() : null)), ((java.math.BigDecimal)(((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)) != null ? ((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)).getRepayments() : null)), ((java.math.BigDecimal)(((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)) != null ? ((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)).getExpenses() : null)), preBureauRiskCategory, requiredMonthlyInstallment, annotationSet_, eventListener_, externalExecutor_, cache_);
+            }
+        };
 }

@@ -47,7 +47,7 @@ public class EvaluatingB2SayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecis
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, evaluatingB2SayHelloArguments_);
 
             // Evaluate decision ''Evaluating B2 Say Hello''
-            String output_ = evaluate(modela_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(modela_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision ''Evaluating B2 Say Hello''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, evaluatingB2SayHelloArguments_, output_, (System.currentTimeMillis() - evaluatingB2SayHelloStartTime_));
@@ -59,10 +59,19 @@ public class EvaluatingB2SayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         }
     }
 
-    protected String evaluate(String modela_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        // Apply child decisions
-        String modela_greetThePerson = EvaluatingB2SayHello.this.modela_greetThePerson.apply(modela_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
+    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<String>() {
+            public String apply(Object... args) {
+                String modela_personName = 0 < args.length ? (String) args[0] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 1 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[1] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 2 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[2] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 3 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[3] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 4 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[4] : null;
 
-        return stringAdd("Evaluating Say Hello to: ", modela_greetThePerson);
-    }
+                // Apply child decisions
+                String modela_greetThePerson = EvaluatingB2SayHello.this.modela_greetThePerson.apply(modela_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
+
+                return stringAdd("Evaluating Say Hello to: ", modela_greetThePerson);
+            }
+        };
 }

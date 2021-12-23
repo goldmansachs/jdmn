@@ -624,17 +624,8 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                     elementEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), paramType));
                 }
             }
-        } else if (element instanceof TDecisionService) {
-            TDecisionService service = (TDecisionService) element;
-            // Bind parameters
-            List<FormalParameter> formalParameterList = this.dmnTransformer.dsFEELParameters(service);
-            for (int i = 0; i < formalParameterList.size(); i++) {
-                FormalParameter param = formalParameterList.get(i);
-                String name = param.getName();
-                Type type = param.getType();
-                elementEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, type));
-            }
         }
+        // No need to add parameters for DecisionService, added in the first step
 
         return elementEnvironment;
     }

@@ -45,7 +45,7 @@ public class InstallmentCalculation extends com.gs.dmn.runtime.DefaultDMNBaseDec
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, installmentCalculationArguments_);
 
             // Evaluate BKM 'InstallmentCalculation'
-            java.math.BigDecimal output_ = evaluate(productType, rate, term, amount, annotationSet_, eventListener_, externalExecutor_, cache_);
+            java.math.BigDecimal output_ = lambda.apply(productType, rate, term, amount, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End BKM 'InstallmentCalculation'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, installmentCalculationArguments_, output_, (System.currentTimeMillis() - installmentCalculationStartTime_));
@@ -57,9 +57,21 @@ public class InstallmentCalculation extends com.gs.dmn.runtime.DefaultDMNBaseDec
         }
     }
 
-    protected java.math.BigDecimal evaluate(String productType, java.math.BigDecimal rate, java.math.BigDecimal term, java.math.BigDecimal amount, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        java.math.BigDecimal monthlyFee = (booleanEqual(stringEqual(productType, "STANDARD LOAN"), Boolean.TRUE)) ? number("20.00") : (booleanEqual(stringEqual(productType, "SPECIAL LOAN"), Boolean.TRUE)) ? number("25.00") : null;
-        java.math.BigDecimal monthlyRepayment = numericDivide(numericDivide(numericMultiply(amount, rate), number("12")), numericSubtract(number("1"), numericExponentiation(numericAdd(number("1"), numericDivide(rate, number("12"))), numericUnaryMinus(term))));
-        return numericAdd(monthlyRepayment, monthlyFee);
-    }
+    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
+            public java.math.BigDecimal apply(Object... args) {
+                String productType = 0 < args.length ? (String) args[0] : null;
+                java.math.BigDecimal rate = 1 < args.length ? (java.math.BigDecimal) args[1] : null;
+                java.math.BigDecimal term = 2 < args.length ? (java.math.BigDecimal) args[2] : null;
+                java.math.BigDecimal amount = 3 < args.length ? (java.math.BigDecimal) args[3] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 4 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[4] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 5 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[5] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 6 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[6] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 7 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[7] : null;
+
+                java.math.BigDecimal monthlyFee = (booleanEqual(stringEqual(productType, "STANDARD LOAN"), Boolean.TRUE)) ? number("20.00") : (booleanEqual(stringEqual(productType, "SPECIAL LOAN"), Boolean.TRUE)) ? number("25.00") : null;
+                java.math.BigDecimal monthlyRepayment = numericDivide(numericDivide(numericMultiply(amount, rate), number("12")), numericSubtract(number("1"), numericExponentiation(numericAdd(number("1"), numericDivide(rate, number("12"))), numericUnaryMinus(term))));
+                return numericAdd(monthlyRepayment, monthlyFee);
+            }
+        };
 }

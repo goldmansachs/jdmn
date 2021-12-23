@@ -47,7 +47,7 @@ public class Decision_003_input_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecis
                 return output_;
             } else {
                 // Evaluate decision 'decision_003_input_1'
-                String output_ = evaluate(annotationSet_, eventListener_, externalExecutor_, cache_);
+                String output_ = lambda.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
                 cache_.bind("decision_003_input_1", output_);
 
                 // End decision 'decision_003_input_1'
@@ -61,7 +61,15 @@ public class Decision_003_input_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         }
     }
 
-    protected String evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return "d3_1";
-    }
+    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<String>() {
+            public String apply(Object... args) {
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 0 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[0] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 1 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[1] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 2 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[2] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 3 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[3] : null;
+
+                return "d3_1";
+            }
+        };
 }

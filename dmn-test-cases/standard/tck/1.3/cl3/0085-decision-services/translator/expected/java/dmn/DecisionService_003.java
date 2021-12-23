@@ -55,7 +55,7 @@ public class DecisionService_003 extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
             cache_.bind("decision_003_input_2", decision_003_input_2);
 
             // Evaluate DS 'decisionService_003'
-            String output_ = evaluate(inputData_003, decision_003_input_1, decision_003_input_2, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(inputData_003, decision_003_input_1, decision_003_input_2, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End DS 'decisionService_003'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decisionService_003Arguments_, output_, (System.currentTimeMillis() - decisionService_003StartTime_));
@@ -67,10 +67,21 @@ public class DecisionService_003 extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         }
     }
 
-    protected String evaluate(String inputData_003, String decision_003_input_1, String decision_003_input_2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        // Apply child decisions
-        String decision_003 = DecisionService_003.this.decision_003.apply(inputData_003, annotationSet_, eventListener_, externalExecutor_, cache_);
+    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<String>() {
+            public String apply(Object... args) {
+                String inputData_003 = 0 < args.length ? (String) args[0] : null;
+                String decision_003_input_1 = 1 < args.length ? (String) args[1] : null;
+                String decision_003_input_2 = 2 < args.length ? (String) args[2] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 3 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[3] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 4 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[4] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 5 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[5] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 6 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[6] : null;
 
-        return decision_003;
-    }
+                // Apply child decisions
+                String decision_003 = DecisionService_003.this.decision_003.apply(inputData_003, annotationSet_, eventListener_, externalExecutor_, cache_);
+
+                return decision_003;
+            }
+    };
 }

@@ -38,7 +38,7 @@ public class Boxed_001 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, boxed_001Arguments_);
 
             // Evaluate decision 'boxed_001'
-            Object output_ = evaluate(annotationSet_, eventListener_, externalExecutor_, cache_);
+            Object output_ = lambda.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'boxed_001'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, boxed_001Arguments_, output_, (System.currentTimeMillis() - boxed_001StartTime_));
@@ -50,8 +50,16 @@ public class Boxed_001 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected Object evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        com.gs.dmn.runtime.external.JavaExternalFunction<Object> maxDouble = new com.gs.dmn.runtime.external.JavaExternalFunction<>(new com.gs.dmn.runtime.external.JavaFunctionInfo("java.lang.Math", "max", Arrays.asList("double", "double")), externalExecutor_, Object.class);
-        return maxDouble.apply(number("123"), number("456"));
-    }
+    public com.gs.dmn.runtime.LambdaExpression<Object> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<Object>() {
+            public Object apply(Object... args) {
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 0 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[0] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 1 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[1] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 2 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[2] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 3 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[3] : null;
+
+                com.gs.dmn.runtime.external.JavaExternalFunction<Object> maxDouble = new com.gs.dmn.runtime.external.JavaExternalFunction<>(new com.gs.dmn.runtime.external.JavaFunctionInfo("java.lang.Math", "max", Arrays.asList("double", "double")), externalExecutor_, Object.class);
+                return maxDouble.apply(number("123"), number("456"));
+            }
+        };
 }

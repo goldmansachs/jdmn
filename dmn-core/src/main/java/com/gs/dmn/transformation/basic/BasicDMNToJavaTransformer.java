@@ -406,6 +406,19 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
+    public List<Pair<String, String>> drgElementSignatureParameters(DRGElementReference<? extends TDRGElement> reference) {
+        List<Pair<String, Type>> parameters = drgElementTypeSignature(reference, this::nativeName);
+        List<Pair<String, String>> decisionSignature = parameters.stream().map(p -> new Pair<>(this.nativeFactory.nullableParameterType(toNativeType(p.getRight())), p.getLeft())).collect(Collectors.toList());
+        return augmentSignatureParameters(decisionSignature);
+    }
+
+    @Override
+    public List<Pair<String, String>> drgElementSignatureExtraCacheParameters(TDRGElement element) {
+        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
+        return drgElementSignatureExtraCacheParameters(drgElementSignatureExtraParameters(drgElementSignatureParameters(reference)));
+    }
+
+    @Override
     public List<Pair<String, Type>> drgElementTypeSignature(DRGElementReference<? extends TDRGElement> reference, Function<Object, String> nameProducer) {
         TDRGElement element = reference.getElement();
         if (element instanceof TBusinessKnowledgeModel) {
@@ -515,6 +528,16 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
             return namedElementVariableName((TNamedElement) obj);
         }
         throw new DMNRuntimeException(String.format("Variable name cannot be null for '%s'", obj));
+    }
+
+    @Override
+    public String lambdaApplySignature() {
+        return "Object... " + lambdaArgsVariableName();
+    }
+
+    @Override
+    public String lambdaArgsVariableName() {
+        return "args";
     }
 
     @Override
@@ -882,6 +905,14 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
+    public List<Pair<String, String>> augmentSignatureParameters(List<Pair<String, String>> signature) {
+        List<Pair<String, String>> result = new ArrayList<>(signature);
+        Pair<String, String> annotationParameter = new Pair<>(annotationSetClassName(), annotationSetVariableName());
+        result.add(annotationParameter);
+        return result;
+    }
+
+    @Override
     public String augmentArgumentList(String arguments) {
         String extra = annotationSetVariableName();
         if (StringUtils.isBlank(arguments)) {
@@ -985,6 +1016,14 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
             throw new UnsupportedOperationException(String.format("'%s' is not supported", element.getClass().getSimpleName()));
         }
         return parameterNativeType;
+    }
+
+    @Override
+    public String extractParameterFromArgs(Pair<String, String> parameter, int index) {
+        String type = parameter.getLeft();
+        String name = parameter.getRight();
+        return String.format("%s %s = %s < %s.length ? (%s) %s[%s] : null;",
+                type, name, index, lambdaArgsVariableName(), type, lambdaArgsVariableName(), index);
     }
 
     private String parameterType(TDefinitions model, TInformationItem element) {
@@ -1150,6 +1189,14 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
+    public List<Pair<String, String>> drgElementSignatureExtraParameters(List<Pair<String, String>> signature) {
+        List<Pair<String, String>> result = new ArrayList<>(signature);
+        result.add(new Pair<>(this.nativeFactory.parameterType(eventListenerClassName()), eventListenerVariableName()));
+        result.add(new Pair<>(this.nativeFactory.parameterType(externalExecutorClassName()), externalExecutorVariableName()));
+        return result;
+    }
+
+    @Override
     public String drgElementArgumentListExtra(DRGElementReference<? extends TDRGElement> reference) {
         String arguments = drgElementArgumentList(reference);
         return drgElementArgumentListExtra(arguments);
@@ -1224,6 +1271,13 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         } else {
             return String.format("%s, %s", signature, cacheParameter);
         }
+    }
+
+    @Override
+    public List<Pair<String, String>> drgElementSignatureExtraCacheParameters(List<Pair<String, String>> signature) {
+        List<Pair<String, String>> result = new ArrayList<>(signature);
+        result.add(new Pair<>(this.nativeFactory.parameterType(cacheInterfaceName()), cacheVariableName()));
+        return result;
     }
 
     @Override

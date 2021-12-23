@@ -44,7 +44,7 @@ public class MonthlyPayment extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, monthlyPaymentArguments_);
 
             // Evaluate BKM 'monthlyPayment'
-            java.math.BigDecimal output_ = evaluate(p, r, n, annotationSet_, eventListener_, externalExecutor_, cache_);
+            java.math.BigDecimal output_ = lambda.apply(p, r, n, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End BKM 'monthlyPayment'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, monthlyPaymentArguments_, output_, (System.currentTimeMillis() - monthlyPaymentStartTime_));
@@ -56,7 +56,18 @@ public class MonthlyPayment extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal p, java.math.BigDecimal r, java.math.BigDecimal n, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return numericDivide(numericDivide(numericMultiply(p, r), number("12")), numericSubtract(number("1"), numericExponentiation(numericAdd(number("1"), numericDivide(r, number("12"))), numericUnaryMinus(n))));
-    }
+    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
+            public java.math.BigDecimal apply(Object... args) {
+                java.math.BigDecimal p = 0 < args.length ? (java.math.BigDecimal) args[0] : null;
+                java.math.BigDecimal r = 1 < args.length ? (java.math.BigDecimal) args[1] : null;
+                java.math.BigDecimal n = 2 < args.length ? (java.math.BigDecimal) args[2] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 3 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[3] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 4 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[4] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 5 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[5] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 6 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[6] : null;
+
+                return numericDivide(numericDivide(numericMultiply(p, r), number("12")), numericSubtract(number("1"), numericExponentiation(numericAdd(number("1"), numericDivide(r, number("12"))), numericUnaryMinus(n))));
+            }
+        };
 }

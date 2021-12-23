@@ -71,7 +71,7 @@ public class TotalVacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecision
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, totalVacationDaysArguments_);
 
             // Evaluate decision ''Total Vacation Days''
-            java.math.BigDecimal output_ = evaluate(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_);
+            java.math.BigDecimal output_ = lambda.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision ''Total Vacation Days''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, totalVacationDaysArguments_, output_, (System.currentTimeMillis() - totalVacationDaysStartTime_));
@@ -83,13 +83,23 @@ public class TotalVacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecision
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal age, java.math.BigDecimal yearsOfService, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        // Apply child decisions
-        java.math.BigDecimal baseVacationDays = TotalVacationDays.this.baseVacationDays.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
-        java.math.BigDecimal extraDaysCase1 = TotalVacationDays.this.extraDaysCase1.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_);
-        java.math.BigDecimal extraDaysCase2 = TotalVacationDays.this.extraDaysCase2.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_);
-        java.math.BigDecimal extraDaysCase3 = TotalVacationDays.this.extraDaysCase3.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_);
+    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
+            public java.math.BigDecimal apply(Object... args) {
+                java.math.BigDecimal age = 0 < args.length ? (java.math.BigDecimal) args[0] : null;
+                java.math.BigDecimal yearsOfService = 1 < args.length ? (java.math.BigDecimal) args[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[2] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[3] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[4] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[5] : null;
 
-        return numericAdd(numericAdd(baseVacationDays, max(extraDaysCase1, extraDaysCase3)), extraDaysCase2);
-    }
+                // Apply child decisions
+                java.math.BigDecimal baseVacationDays = TotalVacationDays.this.baseVacationDays.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+                java.math.BigDecimal extraDaysCase1 = TotalVacationDays.this.extraDaysCase1.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_);
+                java.math.BigDecimal extraDaysCase2 = TotalVacationDays.this.extraDaysCase2.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_);
+                java.math.BigDecimal extraDaysCase3 = TotalVacationDays.this.extraDaysCase3.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_);
+
+                return numericAdd(numericAdd(baseVacationDays, max(extraDaysCase1, extraDaysCase3)), extraDaysCase2);
+            }
+        };
 }

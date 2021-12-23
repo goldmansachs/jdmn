@@ -473,6 +473,7 @@
     <!-- -->
 
     <!-- BKM take two lambda params -->
+<!--
     <businessKnowledgeModel name="bkm_014_1" id="_bkm_014_1">
         <variable name="bkm_014_1"/>
         <encapsulatedLogic>
@@ -489,21 +490,23 @@
         <knowledgeRequirement>
             <requiredKnowledge href="#_bkm_014_1"/>
         </knowledgeRequirement>
-        <!-- passed built-in functions as params  -->
+        &lt;!&ndash; passed built-in functions as params  &ndash;&gt;
         <literalExpression>
             <text>bkm_014_1(abs, sqrt)</text>
         </literalExpression>
     </decision>
+-->
 
     <!-- -->
 
+<!--
     <businessKnowledgeModel name="bkm_015_1" id="_bkm_015_1">
         <variable name="bkm_015_1"/>
         <encapsulatedLogic>
             <formalParameter name="fn1" typeRef="lambda_list_number_returns_number"/>
             <formalParameter name="fn2" typeRef="lambda_number_number_returns_number"/>
             <literalExpression>
-                <!-- pass in 'sum' func is used both in sum(list) and sum(list..) modes -->
+                &lt;!&ndash; pass in 'sum' func is used both in sum(list) and sum(list..) modes &ndash;&gt;
                 <text>fn1([1,2,3])*fn2(1,2)</text>
             </literalExpression>
         </encapsulatedLogic>
@@ -514,20 +517,22 @@
         <knowledgeRequirement>
             <requiredKnowledge href="#_bkm_015_1"/>
         </knowledgeRequirement>
-        <!-- passed overloadable built-in function as param  -->
+        &lt;!&ndash; passed overloadable built-in function as param  &ndash;&gt;
         <literalExpression>
             <text>bkm_015_1(sum, sum)</text>
         </literalExpression>
     </decision>
+-->
 
     <!-- -->
 
+<!--
     <businessKnowledgeModel name="bkm_016_1" id="_bkm_016_1">
         <variable name="bkm_016_1"/>
         <encapsulatedLogic>
             <formalParameter name="fn1" typeRef="lambda_number_number_returns_number"/>
             <literalExpression>
-                <!-- passed in 'sqrt' func is invoked with too many params -->
+                &lt;!&ndash; passed in 'sqrt' func is invoked with too many params &ndash;&gt;
                 <text>fn1(10,2)</text>
             </literalExpression>
         </encapsulatedLogic>
@@ -542,6 +547,7 @@
             <text>bkm_016_1(sqrt)</text>
         </literalExpression>
     </decision>
+-->
 
     <!-- -->
 

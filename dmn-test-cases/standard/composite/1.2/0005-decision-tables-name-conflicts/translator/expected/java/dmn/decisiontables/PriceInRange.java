@@ -60,7 +60,7 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, priceInRangeArguments_);
 
             // Evaluate decision 'priceInRange'
-            String output_ = evaluate(decisioninputs1_numB, decisioninputs1_numC, decisioninputs1_structA, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(decisioninputs1_numB, decisioninputs1_numC, decisioninputs1_structA, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'priceInRange'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, priceInRangeArguments_, output_, (System.currentTimeMillis() - priceInRangeStartTime_));
@@ -72,24 +72,35 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected String evaluate(java.math.BigDecimal decisioninputs1_numB, java.math.BigDecimal decisioninputs1_numC, decisioninputs1.type.TA decisioninputs1_structA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        // Apply rules and collect results
-        com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        ruleOutputList_.add(rule0(decisioninputs1_numB, decisioninputs1_numC, decisioninputs1_structA, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule1(decisioninputs1_numB, decisioninputs1_numC, decisioninputs1_structA, annotationSet_, eventListener_, externalExecutor_));
+    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<String>() {
+            public String apply(Object... args) {
+                java.math.BigDecimal decisioninputs1_numB = 0 < args.length ? (java.math.BigDecimal) args[0] : null;
+                java.math.BigDecimal decisioninputs1_numC = 1 < args.length ? (java.math.BigDecimal) args[1] : null;
+                decisioninputs1.type.TA decisioninputs1_structA = 2 < args.length ? (decisioninputs1.type.TA) args[2] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 3 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[3] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 4 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[4] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 5 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[5] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 6 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[6] : null;
 
-        // Return results based on hit policy
-        String output_;
-        if (ruleOutputList_.noMatchedRules()) {
-            // Default value
-            output_ = null;
-        } else {
-            com.gs.dmn.runtime.RuleOutput ruleOutput_ = ruleOutputList_.applySingle(com.gs.dmn.runtime.annotation.HitPolicy.PRIORITY);
-            output_ = ruleOutput_ == null ? null : ((PriceInRangeRuleOutput)ruleOutput_).getPriceInRange();
-        }
+                // Apply rules and collect results
+                com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
+                ruleOutputList_.add(rule0(decisioninputs1_numB, decisioninputs1_numC, decisioninputs1_structA, annotationSet_, eventListener_, externalExecutor_));
+                ruleOutputList_.add(rule1(decisioninputs1_numB, decisioninputs1_numC, decisioninputs1_structA, annotationSet_, eventListener_, externalExecutor_));
 
-        return output_;
-    }
+                // Return results based on hit policy
+                String output_;
+                if (ruleOutputList_.noMatchedRules()) {
+                    // Default value
+                    output_ = null;
+                } else {
+                    com.gs.dmn.runtime.RuleOutput ruleOutput_ = ruleOutputList_.applySingle(com.gs.dmn.runtime.annotation.HitPolicy.PRIORITY);
+                    output_ = ruleOutput_ == null ? null : ((PriceInRangeRuleOutput)ruleOutput_).getPriceInRange();
+                }
+
+                return output_;
+            }
+    };
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal decisioninputs1_numB, java.math.BigDecimal decisioninputs1_numC, decisioninputs1.type.TA decisioninputs1_structA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {

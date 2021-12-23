@@ -15,9 +15,11 @@ package com.gs.dmn.feel.synthesis;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.ReplaceItemFilterVisitor;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
+import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.ArithmeticNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Exponentiation;
@@ -52,10 +54,7 @@ import org.omg.spec.dmn._20191111.model.TDRGElement;
 import org.omg.spec.dmn._20191111.model.TInvocable;
 import org.omg.spec.dmn._20191111.model.TNamedElement;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
@@ -495,26 +494,49 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         FunctionType functionType = (FunctionType) function.getType();
         List<FormalParameter> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
-        String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
 
         // Generate code for function
         String javaFunctionCode = (String) function.accept(this, context);
         if (functionType instanceof BuiltinFunctionType) {
+            String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
             return String.format("%s(%s)", javaFunctionCode, argumentsText);
         } else if (functionType instanceof DMNFunctionType) {
+            if (!dmnTransformer.isJavaFunction(((DMNFunctionType) functionType).getKind())) {
+                addExtraArguments(argList);
+            }
             TNamedElement invocable = ((DMNFunctionType) functionType).getDRGElement();
             if (invocable instanceof TInvocable) {
-                argumentsText = this.dmnTransformer.drgElementArgumentListExtraCache(this.dmnTransformer.drgElementArgumentListExtra(this.dmnTransformer.augmentArgumentList(argumentsText)));
-                String javaQualifiedName = this.dmnTransformer.singletonInvocableInstance((TInvocable) invocable);
-                return String.format("%s.apply(%s)", javaQualifiedName, argumentsText);
+                String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
+                if (function instanceof Name) {
+                    if (((Name) function).getName().equals(invocable.getName())) {
+                        String javaQualifiedName = this.dmnTransformer.singletonInvocableInstance((TInvocable) invocable);
+                        return String.format("%s.apply(%s)", javaQualifiedName, argumentsText);
+                    } else {
+                        return String.format("%s.apply(%s)", javaFunctionCode, argumentsText);
+                    }
+                } else {
+                    return String.format("%s.apply(%s)", javaFunctionCode, argumentsText);
+                }
             } else {
+                String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
                 return this.nativeFactory.makeApplyInvocation(javaFunctionCode, argumentsText);
             }
         } else if (functionType instanceof FEELFunctionType) {
+            if (!((FEELFunctionType) functionType).isExternal()) {
+                addExtraArguments(argList);
+            }
+            String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
             return this.nativeFactory.makeApplyInvocation(javaFunctionCode, argumentsText);
         } else {
             throw new DMNRuntimeException(String.format("Not supported function type '%s' in '%s'", functionType, context.getElementName()));
         }
+    }
+
+    private void addExtraArguments(List<Object> argList) {
+        argList.add(String.format("%s", dmnTransformer.annotationSetVariableName()));
+        argList.add(String.format("%s", dmnTransformer.eventListenerVariableName()));
+        argList.add(String.format("%s", dmnTransformer.externalExecutorVariableName()));
+        argList.add(String.format("%s", dmnTransformer.cacheVariableName()));
     }
 
     protected Object convertArgument(Object param, Conversion conversion) {
@@ -608,6 +630,23 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         if (name.equals(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER)) {
             return inputExpressionToJava(context);
         } else {
+            // Return lambda when DMN Invocable
+            Declaration declaration = context.lookupVariableDeclaration(name);
+            if (declaration != null) {
+                Type type = declaration.getType();
+                if (type instanceof DMNFunctionType) {
+                    // DRG Element names
+                    TDRGElement drgElement = ((DMNFunctionType) type).getDRGElement();
+                    if (drgElement instanceof TInvocable) {
+                        String drgElementName = drgElement.getName();
+                        if (drgElementName.equals(name)) {
+                            String javaQualifiedName = this.dmnTransformer.qualifiedName(drgElement);
+                            return String.format("%s.instance().lambda", javaQualifiedName);
+                        }
+                    }
+                }
+            }
+            // Other names
             String javaName = nativeFriendlyVariableName(name);
             return this.dmnTransformer.lazyEvaluation(name, javaName);
         }

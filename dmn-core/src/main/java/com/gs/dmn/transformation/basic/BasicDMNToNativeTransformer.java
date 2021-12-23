@@ -146,6 +146,10 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementSignature(DRGElementReference<? extends TDRGElement> reference);
 
+    List<Pair<String, String>> drgElementSignatureParameters(DRGElementReference<? extends TDRGElement> reference);
+
+    List<Pair<String, String>> drgElementSignatureExtraCacheParameters(TDRGElement element);
+
     String drgElementArgumentList(TDRGElement element);
 
     String drgElementArgumentList(DRGElementReference<? extends TDRGElement> reference);
@@ -203,6 +207,10 @@ public interface BasicDMNToNativeTransformer {
 
     String nativeName(Object obj);
 
+    String lambdaApplySignature();
+
+    String lambdaArgsVariableName();
+
     //
     // Comment related functions
     //
@@ -246,6 +254,8 @@ public interface BasicDMNToNativeTransformer {
 
     String augmentSignature(String signature);
 
+    List<Pair<String, String>> augmentSignatureParameters(List<Pair<String, String>> signature);
+
     String augmentArgumentList(String arguments);
 
     List<DRGElementReference<TInputData>> inputDataClosure(DRGElementReference<TDecision> reference);
@@ -259,6 +269,8 @@ public interface BasicDMNToNativeTransformer {
     String parameterNativeType(TDefinitions model, TInformationItem element);
 
     String parameterNativeType(TDRGElement element);
+
+    String extractParameterFromArgs(Pair<String, String> parameter, int index);
 
     boolean isLazyEvaluated(DRGElementReference<? extends TDRGElement> reference);
 
@@ -318,6 +330,8 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementSignatureExtra(String signature);
 
+    List<Pair<String, String>> drgElementSignatureExtraParameters(List<Pair<String, String>> signature);
+
     String drgElementArgumentListExtra(DRGElementReference<? extends TDRGElement> reference);
 
     String drgElementArgumentListExtra(TDRGElement element);
@@ -339,6 +353,8 @@ public interface BasicDMNToNativeTransformer {
     String drgElementSignatureExtraCache(TDRGElement element);
 
     String drgElementSignatureExtraCache(String signature);
+
+    List<Pair<String, String>> drgElementSignatureExtraCacheParameters(List<Pair<String, String>> signature);
 
     String drgElementArgumentListExtraCache(DRGElementReference<? extends TDRGElement> reference);
 

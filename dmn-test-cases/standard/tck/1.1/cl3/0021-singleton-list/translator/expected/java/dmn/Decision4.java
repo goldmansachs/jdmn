@@ -57,7 +57,7 @@ public class Decision4 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision4Arguments_);
 
             // Evaluate decision 'decision4'
-            String output_ = evaluate(employees, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(employees, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'decision4'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decision4Arguments_, output_, (System.currentTimeMillis() - decision4StartTime_));
@@ -69,7 +69,16 @@ public class Decision4 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected String evaluate(List<String> employees, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return asElement(employees.stream().filter(item -> stringEqual(item, "Bob")).collect(Collectors.toList()));
-    }
+    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<String>() {
+            public String apply(Object... args) {
+                List<String> employees = 0 < args.length ? (List<String>) args[0] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 1 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[1] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 2 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[2] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 3 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[3] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 4 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[4] : null;
+
+                return asElement(employees.stream().filter(item -> stringEqual(item, "Bob")).collect(Collectors.toList()));
+            }
+        };
 }

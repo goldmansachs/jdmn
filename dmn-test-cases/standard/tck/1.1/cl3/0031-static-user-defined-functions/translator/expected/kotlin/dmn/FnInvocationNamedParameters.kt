@@ -61,10 +61,10 @@ class FnInvocationNamedParameters(val fnLibrary : FnLibrary = FnLibrary()) : com
         // Apply child decisions
         val fnLibrary: type.TFnLibrary? = this@FnInvocationNamedParameters.fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
 
-        val subResult: java.math.BigDecimal? = fnLibrary?.let({ it.subFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(inputA, inputB) as java.math.BigDecimal?
-        val multiplicationResultNamed: java.math.BigDecimal? = fnLibrary?.let({ it.multiplyFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(inputA, inputB) as java.math.BigDecimal?
-        val subResultMixed: java.math.BigDecimal? = fnLibrary?.let({ it.subFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(inputB, inputA) as java.math.BigDecimal?
-        val divisionResultNamed: java.math.BigDecimal? = fnLibrary?.let({ it.divideFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(inputA, inputB) as java.math.BigDecimal?
+        val subResult: java.math.BigDecimal? = fnLibrary?.let({ it.subFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_) as java.math.BigDecimal?
+        val multiplicationResultNamed: java.math.BigDecimal? = fnLibrary?.let({ it.multiplyFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_) as java.math.BigDecimal?
+        val subResultMixed: java.math.BigDecimal? = fnLibrary?.let({ it.subFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(inputB, inputA, annotationSet_, eventListener_, externalExecutor_, cache_) as java.math.BigDecimal?
+        val divisionResultNamed: java.math.BigDecimal? = fnLibrary?.let({ it.divideFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_) as java.math.BigDecimal?
         val fnInvocationNamedParameters: type.TFnInvocationNamedResultImpl? = type.TFnInvocationNamedResultImpl() as type.TFnInvocationNamedResultImpl?
         fnInvocationNamedParameters?.subResult = subResult
         fnInvocationNamedParameters?.multiplicationResultNamed = multiplicationResultNamed

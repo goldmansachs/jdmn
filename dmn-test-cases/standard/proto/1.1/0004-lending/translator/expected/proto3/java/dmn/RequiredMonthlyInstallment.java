@@ -81,7 +81,7 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.DefaultDMNBas
                 return output_;
             } else {
                 // Evaluate decision 'RequiredMonthlyInstallment'
-                java.math.BigDecimal output_ = evaluate(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
+                java.math.BigDecimal output_ = lambda.apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
                 cache_.bind("RequiredMonthlyInstallment", output_);
 
                 // End decision 'RequiredMonthlyInstallment'
@@ -113,7 +113,16 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.DefaultDMNBas
         return builder_.build();
     }
 
-    protected java.math.BigDecimal evaluate(type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return InstallmentCalculation.instance().apply(((String)(requestedProduct != null ? requestedProduct.getProductType() : null)), ((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getRate() : null)), ((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getTerm() : null)), ((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getAmount() : null)), annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
+    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
+            public java.math.BigDecimal apply(Object... args) {
+                type.TRequestedProduct requestedProduct = 0 < args.length ? (type.TRequestedProduct) args[0] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 1 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[1] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 2 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[2] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 3 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[3] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 4 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[4] : null;
+
+                return InstallmentCalculation.instance().apply(((String)(requestedProduct != null ? requestedProduct.getProductType() : null)), ((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getRate() : null)), ((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getTerm() : null)), ((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getAmount() : null)), annotationSet_, eventListener_, externalExecutor_, cache_);
+            }
+        };
 }

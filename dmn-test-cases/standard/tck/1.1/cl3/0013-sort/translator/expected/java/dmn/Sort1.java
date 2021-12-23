@@ -57,7 +57,7 @@ public class Sort1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sort1Arguments_);
 
             // Evaluate decision 'sort1'
-            List<java.math.BigDecimal> output_ = evaluate(listA, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<java.math.BigDecimal> output_ = lambda.apply(listA, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'sort1'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, sort1Arguments_, output_, (System.currentTimeMillis() - sort1StartTime_));
@@ -69,7 +69,16 @@ public class Sort1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected List<java.math.BigDecimal> evaluate(List<java.math.BigDecimal> listA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return sort(listA, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericGreaterThan(x, y);}});
-    }
+    public com.gs.dmn.runtime.LambdaExpression<List<java.math.BigDecimal>> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<List<java.math.BigDecimal>>() {
+            public List<java.math.BigDecimal> apply(Object... args) {
+                List<java.math.BigDecimal> listA = 0 < args.length ? (List<java.math.BigDecimal>) args[0] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 1 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[1] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 2 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[2] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 3 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[3] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 4 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[4] : null;
+
+                return sort(listA, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericGreaterThan(x, y);}});
+            }
+        };
 }

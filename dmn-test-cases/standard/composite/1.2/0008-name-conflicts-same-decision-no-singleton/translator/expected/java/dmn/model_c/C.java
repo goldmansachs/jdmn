@@ -41,7 +41,7 @@ public class C extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, cArguments_);
 
             // Evaluate decision 'c'
-            String output_ = evaluate(modela_a, modelb_a, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(modela_a, modelb_a, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'c'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, cArguments_, output_, (System.currentTimeMillis() - cStartTime_));
@@ -53,7 +53,17 @@ public class C extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected String evaluate(String modela_a, String modelb_a, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return stringAdd(stringAdd(stringAdd("A: ", modela_a), "; B: "), modelb_a);
-    }
+    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<String>() {
+            public String apply(Object... args) {
+                String modela_a = 0 < args.length ? (String) args[0] : null;
+                String modelb_a = 1 < args.length ? (String) args[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[2] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[3] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[4] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[5] : null;
+
+                return stringAdd(stringAdd(stringAdd("A: ", modela_a), "; B: "), modelb_a);
+            }
+        };
 }

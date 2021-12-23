@@ -32,10 +32,7 @@ import org.omg.spec.dmn._20191111.model.TDRGElement;
 import org.omg.spec.dmn._20191111.model.TDecision;
 import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class JavaFactory implements NativeFactory {
     protected static final Object DEFAULT_PROTO_NUMBER = "0.0";
@@ -252,7 +249,7 @@ public class JavaFactory implements NativeFactory {
     }
 
     protected String makeLambdaParameterAssignment(String type, String name, int i) {
-        return String.format("%s %s = (%s)args[%s];", type, name, type, i);
+        return String.format("%s %s = (%s)%s[%s];", type, name, type, transformer.lambdaArgsVariableName(), i);
     }
 
     @Override
@@ -264,8 +261,18 @@ public class JavaFactory implements NativeFactory {
     // Parameters
     //
     @Override
+    public String nullableParameterType(String parameterType) {
+        return String.format("%s", parameterType);
+    }
+
+    @Override
     public String nullableParameter(String parameterType, String parameterName) {
         return String.format("%s %s", parameterType, parameterName);
+    }
+
+    @Override
+    public String parameterType(String parameterType) {
+        return String.format("%s", parameterType);
     }
 
     @Override

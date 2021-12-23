@@ -42,7 +42,7 @@ public class GtTen extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, gtTenArguments_);
 
             // Evaluate BKM 'gtTen'
-            Boolean output_ = evaluate(theNumber, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean output_ = lambda.apply(theNumber, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End BKM 'gtTen'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, gtTenArguments_, output_, (System.currentTimeMillis() - gtTenStartTime_));
@@ -54,7 +54,16 @@ public class GtTen extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected Boolean evaluate(java.math.BigDecimal theNumber, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return numericGreaterThan(theNumber, number("10"));
-    }
+    public com.gs.dmn.runtime.LambdaExpression<Boolean> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<Boolean>() {
+            public Boolean apply(Object... args) {
+                java.math.BigDecimal theNumber = 0 < args.length ? (java.math.BigDecimal) args[0] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 1 < args.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args[1] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 2 < args.length ? (com.gs.dmn.runtime.listener.EventListener) args[2] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 3 < args.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args[3] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 4 < args.length ? (com.gs.dmn.runtime.cache.Cache) args[4] : null;
+
+                return numericGreaterThan(theNumber, number("10"));
+            }
+        };
 }
