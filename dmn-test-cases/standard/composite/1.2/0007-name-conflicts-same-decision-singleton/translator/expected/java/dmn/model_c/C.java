@@ -41,7 +41,7 @@ public class C extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, cArguments_);
 
             // Evaluate decision 'c'
-            String output_ = evaluate(model_a_a, model_b_a, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(model_a_a, model_b_a, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'c'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, cArguments_, output_, (System.currentTimeMillis() - cStartTime_));
@@ -53,7 +53,17 @@ public class C extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected String evaluate(String model_a_a, String model_b_a, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return stringAdd(stringAdd(stringAdd("A: ", model_a_a), "; B: "), model_b_a);
-    }
+    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<String>() {
+            public String apply(Object... args_) {
+                String model_a_a = 0 < args_.length ? (String) args_[0] : null;
+                String model_b_a = 1 < args_.length ? (String) args_[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[2] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[3] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[4] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[5] : null;
+
+                return stringAdd(stringAdd(stringAdd("A: ", model_a_a), "; B: "), model_b_a);
+            }
+        };
 }

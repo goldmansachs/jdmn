@@ -46,10 +46,6 @@ import com.gs.dmn.feel.synthesis.FEELTranslatorForInterpreter;
 import com.gs.dmn.feel.synthesis.NativeOperator;
 import com.gs.dmn.runtime.Range;
 import com.gs.dmn.runtime.*;
-import com.gs.dmn.runtime.compiler.ClassData;
-import com.gs.dmn.runtime.compiler.ClassParts;
-import com.gs.dmn.runtime.compiler.JavaCompiler;
-import com.gs.dmn.runtime.compiler.JavaxToolsCompiler;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.JavaFunctionInfo;
 import com.gs.dmn.runtime.function.*;
@@ -72,9 +68,6 @@ import static com.gs.dmn.transformation.AbstractDMNToNativeTransformer.INPUT_ENT
 
 class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELToJavaVisitor {
     private static final Logger LOGGER = LoggerFactory.getLogger(FEELInterpreterVisitor.class);
-
-    // private static final JavaCompiler JAVA_COMPILER = new JavaAssistCompiler();
-    private static final JavaCompiler JAVA_COMPILER = new JavaxToolsCompiler();
 
     private final DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter;
     private final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib;
@@ -331,22 +324,6 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         LOGGER.debug("Visiting element '{}'", element);
 
         return FEELFunction.of(element, context);
-    }
-
-    private Object makeLambdaExpression(Function function, DMNContext context) {
-        try {
-            // Make class parts
-            ClassParts classParts = ClassParts.makeClassParts(function, this.feelTranslator, this.dmnTransformer, context, this.lib.getClass().getName());
-
-            // Compile
-            ClassData classData = JAVA_COMPILER.makeClassData(classParts);
-            Class<?> cls = JAVA_COMPILER.compile(classData);
-
-            // Create instance
-            return cls.getDeclaredConstructor().newInstance();
-        } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Execution error for function %s", function), e);
-        }
     }
 
     @Override

@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    private fun apply(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    public fun apply(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         try {
             // Start BKM 'ApplicationRiskScoreModel'
             val applicationRiskScoreModelStartTime_ = System.currentTimeMillis()
@@ -430,10 +430,11 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             11
         )
 
-        val INSTANCE = ApplicationRiskScoreModel()
+        private val INSTANCE = ApplicationRiskScoreModel()
 
-        fun ApplicationRiskScoreModel(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
-            return INSTANCE.apply(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_)
+        @JvmStatic
+        fun instance(): ApplicationRiskScoreModel {
+            return INSTANCE
         }
     }
 }

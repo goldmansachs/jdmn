@@ -70,14 +70,8 @@ public class TotalVacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecision
             totalVacationDaysArguments_.put("'Years of Service'", yearsOfService);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, totalVacationDaysArguments_);
 
-            // Apply child decisions
-            java.math.BigDecimal baseVacationDays = this.baseVacationDays.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
-            java.math.BigDecimal extraDaysCase1 = this.extraDaysCase1.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_);
-            java.math.BigDecimal extraDaysCase2 = this.extraDaysCase2.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_);
-            java.math.BigDecimal extraDaysCase3 = this.extraDaysCase3.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision ''Total Vacation Days''
-            java.math.BigDecimal output_ = evaluate(baseVacationDays, extraDaysCase1, extraDaysCase2, extraDaysCase3, annotationSet_, eventListener_, externalExecutor_, cache_);
+            java.math.BigDecimal output_ = lambda.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision ''Total Vacation Days''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, totalVacationDaysArguments_, output_, (System.currentTimeMillis() - totalVacationDaysStartTime_));
@@ -89,7 +83,23 @@ public class TotalVacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecision
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal baseVacationDays, java.math.BigDecimal extraDaysCase1, java.math.BigDecimal extraDaysCase2, java.math.BigDecimal extraDaysCase3, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return numericAdd(numericAdd(baseVacationDays, max(extraDaysCase1, extraDaysCase3)), extraDaysCase2);
-    }
+    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
+            public java.math.BigDecimal apply(Object... args_) {
+                java.math.BigDecimal age = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
+                java.math.BigDecimal yearsOfService = 1 < args_.length ? (java.math.BigDecimal) args_[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[2] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[3] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[4] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[5] : null;
+
+                // Apply child decisions
+                java.math.BigDecimal baseVacationDays = TotalVacationDays.this.baseVacationDays.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+                java.math.BigDecimal extraDaysCase1 = TotalVacationDays.this.extraDaysCase1.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_);
+                java.math.BigDecimal extraDaysCase2 = TotalVacationDays.this.extraDaysCase2.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_);
+                java.math.BigDecimal extraDaysCase3 = TotalVacationDays.this.extraDaysCase3.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_);
+
+                return numericAdd(numericAdd(baseVacationDays, max(extraDaysCase1, extraDaysCase3)), extraDaysCase2);
+            }
+        };
 }

@@ -40,7 +40,7 @@ public class NamedFunctionInvocation extends com.gs.dmn.runtime.DefaultDMNBaseDe
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, namedFunctionInvocationArguments_);
 
             // Evaluate decision ''named function invocation''
-            String output_ = evaluate(stringInputA, stringInputB, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(stringInputA, stringInputB, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision ''named function invocation''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, namedFunctionInvocationArguments_, output_, (System.currentTimeMillis() - namedFunctionInvocationStartTime_));
@@ -52,9 +52,19 @@ public class NamedFunctionInvocation extends com.gs.dmn.runtime.DefaultDMNBaseDe
         }
     }
 
-    protected String evaluate(String stringInputA, String stringInputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        com.gs.dmn.runtime.LambdaExpression<String> boxedFnDefinition = new com.gs.dmn.runtime.LambdaExpression<String>() {public String apply(Object... args) {String a = (String)args[0]; String b = (String)args[1];return stringAdd(a, b);}};
-        com.gs.dmn.runtime.LambdaExpression<String> literalFnDefinition = new com.gs.dmn.runtime.LambdaExpression<String>() {public String apply(Object... args) {String a = (String)args[0]; String b = (String)args[1];return stringAdd(a, b);}};
-        return stringAdd(boxedFnDefinition.apply(stringInputB, stringInputA), literalFnDefinition.apply(stringInputB, stringInputA));
-    }
+    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<String>() {
+            public String apply(Object... args_) {
+                String stringInputA = 0 < args_.length ? (String) args_[0] : null;
+                String stringInputB = 1 < args_.length ? (String) args_[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[2] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[3] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[4] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[5] : null;
+
+                com.gs.dmn.runtime.LambdaExpression<String> boxedFnDefinition = new com.gs.dmn.runtime.LambdaExpression<String>() {public String apply(Object... args_) {String a = (String)args_[0]; String b = (String)args_[1];return stringAdd(a, b);}};
+                com.gs.dmn.runtime.LambdaExpression<String> literalFnDefinition = new com.gs.dmn.runtime.LambdaExpression<String>() {public String apply(Object... args_) {String a = (String)args_[0]; String b = (String)args_[1];return stringAdd(a, b);}};
+                return stringAdd(boxedFnDefinition.apply(stringInputB, stringInputA, annotationSet_, eventListener_, externalExecutor_, cache_), literalFnDefinition.apply(stringInputB, stringInputA, annotationSet_, eventListener_, externalExecutor_, cache_));
+            }
+        };
 }

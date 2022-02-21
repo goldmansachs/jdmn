@@ -76,6 +76,6 @@ public class DecisionLitexp extends com.gs.dmn.signavio.runtime.DefaultSignavioB
     }
 
     protected List<type.Zip> evaluate(List<String> censored, List<String> labels, List<java.math.BigDecimal> numz, String redgreenblue1, String redgreenblue2, List<String> redgreenbluelist1, List<String> redgreenbluelist2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return LitexpLogic.litexpLogic(censored, numz, labels, redgreenblue1, redgreenbluelist1, redgreenblue2, redgreenbluelist2, annotationSet_, eventListener_, externalExecutor_, cache_);
+        return LitexpLogic.instance().apply(censored, numz, labels, redgreenblue1, redgreenbluelist1, redgreenblue2, redgreenbluelist2, annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 }

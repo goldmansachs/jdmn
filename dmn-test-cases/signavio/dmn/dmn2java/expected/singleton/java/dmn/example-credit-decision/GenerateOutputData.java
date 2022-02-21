@@ -76,13 +76,8 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
             generateOutputDataArguments_.put("Lending threshold", lendingThreshold);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, generateOutputDataArguments_);
 
-            // Apply child decisions
-            java.math.BigDecimal assessIssueRisk = this.assessIssueRisk.apply(applicant, currentRiskAppetite, annotationSet_, eventListener_, externalExecutor_, cache_);
-            java.math.BigDecimal compareAgainstLendingThreshold = this.compareAgainstLendingThreshold.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
-            String makeCreditDecision = this.makeCreditDecision.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'generateOutputData'
-            List<type.GenerateOutputData> output_ = evaluate(assessIssueRisk, compareAgainstLendingThreshold, makeCreditDecision, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<type.GenerateOutputData> output_ = evaluate(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'generateOutputData'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, generateOutputDataArguments_, output_, (System.currentTimeMillis() - generateOutputDataStartTime_));
@@ -94,7 +89,12 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
-    protected List<type.GenerateOutputData> evaluate(java.math.BigDecimal assessIssueRisk, java.math.BigDecimal compareAgainstLendingThreshold, String makeCreditDecision, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected List<type.GenerateOutputData> evaluate(type.Applicant applicant, java.math.BigDecimal currentRiskAppetite, java.math.BigDecimal lendingThreshold, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        java.math.BigDecimal assessIssueRisk = this.assessIssueRisk.apply(applicant, currentRiskAppetite, annotationSet_, eventListener_, externalExecutor_, cache_);
+        java.math.BigDecimal compareAgainstLendingThreshold = this.compareAgainstLendingThreshold.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
+        String makeCreditDecision = this.makeCreditDecision.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         return zip(asList("Decision", "Assessment", "Issue"), asList(asList(makeCreditDecision), asList(compareAgainstLendingThreshold), asList(assessIssueRisk))).stream().map(x -> type.GenerateOutputData.toGenerateOutputData(x)).collect(Collectors.toList());
     }
 }

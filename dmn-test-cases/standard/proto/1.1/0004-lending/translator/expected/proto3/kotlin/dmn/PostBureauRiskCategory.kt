@@ -53,11 +53,8 @@ class PostBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = A
 
                 return output_
             } else {
-                // Apply child decisions
-                val applicationRiskScore: java.math.BigDecimal? = this.applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
-
                 // Evaluate decision ''Post-bureauRiskCategory''
-                val output_: String? = evaluate(applicantData, applicationRiskScore, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_)
+                val output_: String? = evaluate(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_)
                 cache_.bind("'Post-bureauRiskCategory'", output_)
 
                 // End decision ''Post-bureauRiskCategory''
@@ -90,8 +87,11 @@ class PostBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = A
         return builder_.build()
     }
 
-    private inline fun evaluate(applicantData: type.TApplicantData?, applicationRiskScore: java.math.BigDecimal?, bureauData: type.TBureauData?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
-        return PostBureauRiskCategoryTable.PostBureauRiskCategoryTable(applicantData?.let({ it.existingCustomer as Boolean? }), applicationRiskScore, bureauData?.let({ it.creditScore as java.math.BigDecimal? }), annotationSet_, eventListener_, externalExecutor_, cache_) as String?
+    private inline fun evaluate(applicantData: type.TApplicantData?, bureauData: type.TBureauData?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
+        // Apply child decisions
+        val applicationRiskScore: java.math.BigDecimal? = this@PostBureauRiskCategory.applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+
+        return PostBureauRiskCategoryTable.instance().apply(applicantData?.let({ it.existingCustomer as Boolean? }), applicationRiskScore, bureauData?.let({ it.creditScore as java.math.BigDecimal? }), annotationSet_, eventListener_, externalExecutor_, cache_) as String?
     }
 
     companion object {

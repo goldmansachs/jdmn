@@ -72,7 +72,7 @@ public class Time extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, timeArguments_);
 
             // Evaluate decision 'Time'
-            javax.xml.datatype.XMLGregorianCalendar output_ = evaluate(inputTime, annotationSet_, eventListener_, externalExecutor_, cache_);
+            javax.xml.datatype.XMLGregorianCalendar output_ = lambda.apply(inputTime, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'Time'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, timeArguments_, output_, (System.currentTimeMillis() - timeStartTime_));
@@ -102,7 +102,16 @@ public class Time extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         return builder_.build();
     }
 
-    protected javax.xml.datatype.XMLGregorianCalendar evaluate(javax.xml.datatype.XMLGregorianCalendar inputTime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return inputTime;
-    }
+    public com.gs.dmn.runtime.LambdaExpression<javax.xml.datatype.XMLGregorianCalendar> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<javax.xml.datatype.XMLGregorianCalendar>() {
+            public javax.xml.datatype.XMLGregorianCalendar apply(Object... args_) {
+                javax.xml.datatype.XMLGregorianCalendar inputTime = 0 < args_.length ? (javax.xml.datatype.XMLGregorianCalendar) args_[0] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 1 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[1] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 2 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[2] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 3 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[3] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 4 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[4] : null;
+
+                return inputTime;
+            }
+        };
 }

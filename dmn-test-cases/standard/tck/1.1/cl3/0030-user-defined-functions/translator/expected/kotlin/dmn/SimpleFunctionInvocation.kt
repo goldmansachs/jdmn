@@ -40,9 +40,9 @@ class SimpleFunctionInvocation() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     }
 
     private inline fun evaluate(stringInputA: String?, stringInputB: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
-        val boxedFnDefinition: com.gs.dmn.runtime.LambdaExpression<String?>? = com.gs.dmn.runtime.LambdaExpression<String> { args -> val a: String? = args[0] as String?; val b: String? = args[1] as String?;stringAdd(a, b) } as com.gs.dmn.runtime.LambdaExpression<String?>?
-        val literalFnDefinition: com.gs.dmn.runtime.LambdaExpression<String?>? = com.gs.dmn.runtime.LambdaExpression<String> { args -> val a: String? = args[0] as String?; val b: String? = args[1] as String?;stringAdd(a, b) } as com.gs.dmn.runtime.LambdaExpression<String?>?
-        return stringAdd(boxedFnDefinition?.apply(stringInputA, stringInputB), literalFnDefinition?.apply(stringInputA, stringInputB))
+        val boxedFnDefinition: com.gs.dmn.runtime.LambdaExpression<String?>? = com.gs.dmn.runtime.LambdaExpression<String> { args_ -> val a: String? = args_[0] as String?; val b: String? = args_[1] as String?;stringAdd(a, b) } as com.gs.dmn.runtime.LambdaExpression<String?>?
+        val literalFnDefinition: com.gs.dmn.runtime.LambdaExpression<String?>? = com.gs.dmn.runtime.LambdaExpression<String> { args_ -> val a: String? = args_[0] as String?; val b: String? = args_[1] as String?;stringAdd(a, b) } as com.gs.dmn.runtime.LambdaExpression<String?>?
+        return stringAdd(boxedFnDefinition?.apply(stringInputA, stringInputB, annotationSet_, eventListener_, externalExecutor_, cache_), literalFnDefinition?.apply(stringInputA, stringInputB, annotationSet_, eventListener_, externalExecutor_, cache_))
     }
 
     companion object {

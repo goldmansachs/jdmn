@@ -70,13 +70,8 @@ public class Appendall extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
             appendallArguments_.put("rgb2 list", rgb2List);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, appendallArguments_);
 
-            // Apply child decisions
-            List<String> append = this.append.apply(rgb1, rgb2, annotationSet_, eventListener_, externalExecutor_, cache_);
-            List<String> remove = this.remove.apply(rgb2, rgb2List, annotationSet_, eventListener_, externalExecutor_, cache_);
-            List<String> removeall2 = this.removeall2.apply(rgb1, rgb1List, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'appendall'
-            List<String> output_ = evaluate(append, remove, removeall2, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<String> output_ = evaluate(rgb1, rgb1List, rgb2, rgb2List, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'appendall'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, appendallArguments_, output_, (System.currentTimeMillis() - appendallStartTime_));
@@ -88,7 +83,12 @@ public class Appendall extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
         }
     }
 
-    protected List<String> evaluate(List<String> append, List<String> remove, List<String> removeall2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected List<String> evaluate(String rgb1, List<String> rgb1List, String rgb2, List<String> rgb2List, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        List<String> append = this.append.apply(rgb1, rgb2, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<String> remove = this.remove.apply(rgb2, rgb2List, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<String> removeall2 = this.removeall2.apply(rgb1, rgb1List, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         return appendAll(append, appendAll(remove, removeall2));
     }
 }

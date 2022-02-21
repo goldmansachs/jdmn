@@ -141,12 +141,12 @@ public class DMNToManifestTransformer {
         String label = bkm.getLabel();
         String diagramId = ((SignavioDMNModelRepository) this.dmnModelRepository).getDiagramId(bkm);
         String shapeId = ((SignavioDMNModelRepository) this.dmnModelRepository).getShapeId(bkm);
-        String javaFunctionName = this.dmnTransformer.invocableFunctionName(bkm);
+        String javaParameterName = this.dmnTransformer.namedElementVariableName(bkm);
         String javaTypeName = this.dmnTransformer.qualifiedName(this.dmnTransformer.nativeModelPackageName(definitions.getName()), this.dmnTransformer.drgElementClassName(bkm));
         String javaOutputTypeName = this.dmnTransformer.drgElementOutputType(bkm);
         com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, this.dmnTransformer.drgElementOutputTypeRef(bkm));
         List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(bkm.getKnowledgeRequirement());
-        return new BKM(id, name, label, diagramId, shapeId, javaFunctionName, javaTypeName, javaOutputTypeName, typeRef, knowledgeReferences);
+        return new BKM(id, name, label, diagramId, shapeId, javaParameterName, javaTypeName, javaOutputTypeName, typeRef, knowledgeReferences);
     }
 
     private Decision makeMetadataDecision(TDefinitions definitions, TDecision decision) {

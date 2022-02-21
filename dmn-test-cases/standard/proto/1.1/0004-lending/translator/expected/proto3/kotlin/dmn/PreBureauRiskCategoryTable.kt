@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    private fun apply(existingCustomer: Boolean?, applicationRiskScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
+    public fun apply(existingCustomer: Boolean?, applicationRiskScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         try {
             // Start BKM ''Pre-bureauRiskCategoryTable''
             val preBureauRiskCategoryTableStartTime_ = System.currentTimeMillis()
@@ -322,10 +322,11 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             8
         )
 
-        val INSTANCE = PreBureauRiskCategoryTable()
+        private val INSTANCE = PreBureauRiskCategoryTable()
 
-        fun PreBureauRiskCategoryTable(existingCustomer: Boolean?, applicationRiskScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
-            return INSTANCE.apply(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_)
+        @JvmStatic
+        fun instance(): PreBureauRiskCategoryTable {
+            return INSTANCE
         }
     }
 }

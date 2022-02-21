@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class MonthlyPayment : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    private fun apply(p: java.math.BigDecimal?, r: java.math.BigDecimal?, n: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    public fun apply(p: java.math.BigDecimal?, r: java.math.BigDecimal?, n: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         try {
             // Start BKM 'monthlyPayment'
             val monthlyPaymentStartTime_ = System.currentTimeMillis()
@@ -53,10 +53,11 @@ class MonthlyPayment : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             -1
         )
 
-        val INSTANCE = MonthlyPayment()
+        private val INSTANCE = MonthlyPayment()
 
-        fun monthlyPayment(p: java.math.BigDecimal?, r: java.math.BigDecimal?, n: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
-            return INSTANCE.apply(p, r, n, annotationSet_, eventListener_, externalExecutor_, cache_)
+        @JvmStatic
+        fun instance(): MonthlyPayment {
+            return INSTANCE
         }
     }
 }

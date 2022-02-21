@@ -143,6 +143,7 @@
         </resultNode>
     </testCase>
 
+<!--
     <testCase id="014">
         <description>Built-in function may be passed as lambda</description>
         <resultNode name="decision_014_1" type="decision">
@@ -151,7 +152,9 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
+<!--
     <testCase id="015">
         <description>Overloaded built-in function may be passed as lambda</description>
         <resultNode name="decision_015_1" type="decision">
@@ -160,7 +163,9 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
+<!--
     <testCase id="016">
         <description>Invoking passed lambda with incorrect params still gives error</description>
         <resultNode name="decision_016_1" type="decision" errorResult="true">
@@ -169,6 +174,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
     <testCase id="017">
         <description>Local decision scope values may be closed over and used in built-in func</description>

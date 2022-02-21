@@ -23,23 +23,24 @@ public class DecisionService_006 extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         -1
     );
 
-    public static final DecisionService_006 INSTANCE = new DecisionService_006();
+    private static class DecisionService_006LazyHolder {
+        static final DecisionService_006 INSTANCE = new DecisionService_006();
+    }
+    public static DecisionService_006 instance() {
+        return DecisionService_006LazyHolder.INSTANCE;
+    }
 
     private final Decision_006_2 decision_006_2;
 
-    public DecisionService_006() {
+    private DecisionService_006() {
         this(new Decision_006_2());
     }
 
-    public DecisionService_006(Decision_006_2 decision_006_2) {
+    private DecisionService_006(Decision_006_2 decision_006_2) {
         this.decision_006_2 = decision_006_2;
     }
 
-    public static String decisionService_006(String decision_006_3, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(decision_006_3, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private String apply(String decision_006_3, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(String decision_006_3, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start DS 'decisionService_006'
             long decisionService_006StartTime_ = System.currentTimeMillis();
@@ -50,11 +51,8 @@ public class DecisionService_006 extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
             // Bind input decisions
             cache_.bind("decision_006_3", decision_006_3);
 
-            // Apply child decisions
-            String decision_006_2 = this.decision_006_2.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate DS 'decisionService_006'
-            String output_ = evaluate(decision_006_2, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(decision_006_3, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End DS 'decisionService_006'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decisionService_006Arguments_, output_, (System.currentTimeMillis() - decisionService_006StartTime_));
@@ -66,7 +64,19 @@ public class DecisionService_006 extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         }
     }
 
-    protected String evaluate(String decision_006_2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return decision_006_2;
-    }
+    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<String>() {
+            public String apply(Object... args_) {
+                String decision_006_3 = 0 < args_.length ? (String) args_[0] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 1 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[1] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 2 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[2] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 3 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[3] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 4 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[4] : null;
+
+                // Apply child decisions
+                String decision_006_2 = DecisionService_006.this.decision_006_2.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+
+                return decision_006_2;
+            }
+    };
 }

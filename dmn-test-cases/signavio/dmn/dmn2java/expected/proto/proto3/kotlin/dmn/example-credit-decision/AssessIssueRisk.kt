@@ -44,11 +44,8 @@ class AssessIssueRisk(val processPriorIssues : ProcessPriorIssues = ProcessPrior
             assessIssueRiskArguments_.put("Current risk appetite", currentRiskAppetite)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, assessIssueRiskArguments_)
 
-            // Apply child decisions
-            val processPriorIssues: List<java.math.BigDecimal?>? = this.processPriorIssues.apply(applicant, annotationSet_, eventListener_, externalExecutor_, cache_)
-
             // Iterate and aggregate
-            var output_: java.math.BigDecimal? = evaluate(applicant, currentRiskAppetite, processPriorIssues, annotationSet_, eventListener_, externalExecutor_, cache_)
+            var output_: java.math.BigDecimal? = evaluate(applicant, currentRiskAppetite, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End decision 'assessIssueRisk'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, assessIssueRiskArguments_, output_, (System.currentTimeMillis() - assessIssueRiskStartTime_))
@@ -79,7 +76,10 @@ class AssessIssueRisk(val processPriorIssues : ProcessPriorIssues = ProcessPrior
         return builder_.build()
     }
 
-    private inline fun evaluate(applicant: type.Applicant?, currentRiskAppetite: java.math.BigDecimal?, processPriorIssues: List<java.math.BigDecimal?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    private inline fun evaluate(applicant: type.Applicant?, currentRiskAppetite: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+        // Apply child decisions
+        val processPriorIssues: List<java.math.BigDecimal?>? = this.processPriorIssues.apply(applicant, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         val assessIssue: AssessIssue = AssessIssue()
         return sum(processPriorIssues?.stream()?.map({priorIssue_iterator -> assessIssue.apply(currentRiskAppetite, priorIssue_iterator, annotationSet_, eventListener_, externalExecutor_, cache_)})?.collect(Collectors.toList()))
     }

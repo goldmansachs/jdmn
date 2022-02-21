@@ -38,7 +38,7 @@ public class PriceTable1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, priceTable1Arguments_);
 
             // Evaluate decision 'priceTable1'
-            List<type.TItemPrice> output_ = evaluate(annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<type.TItemPrice> output_ = lambda.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'priceTable1'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, priceTable1Arguments_, output_, (System.currentTimeMillis() - priceTable1StartTime_));
@@ -50,9 +50,17 @@ public class PriceTable1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected List<type.TItemPrice> evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return asList(new type.TItemPriceImpl("widget", number("25")),
-				new type.TItemPriceImpl("sprocket", number("15")),
-				new type.TItemPriceImpl("trinket", number("1.5")));
-    }
+    public com.gs.dmn.runtime.LambdaExpression<List<type.TItemPrice>> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<List<type.TItemPrice>>() {
+            public List<type.TItemPrice> apply(Object... args_) {
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 0 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[0] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 1 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[1] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 2 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[2] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 3 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[3] : null;
+
+                return asList(new type.TItemPriceImpl("widget", number("25")),
+                new type.TItemPriceImpl("sprocket", number("15")),
+                new type.TItemPriceImpl("trinket", number("1.5")));
+            }
+        };
 }

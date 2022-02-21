@@ -52,11 +52,8 @@ class PreBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = Ap
 
                 return output_
             } else {
-                // Apply child decisions
-                val applicationRiskScore: java.math.BigDecimal? = this.applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
-
                 // Evaluate decision ''Pre-bureauRiskCategory''
-                val output_: String? = evaluate(applicantData, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_)
+                val output_: String? = evaluate(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
                 cache_.bind("'Pre-bureauRiskCategory'", output_)
 
                 // End decision ''Pre-bureauRiskCategory''
@@ -88,8 +85,11 @@ class PreBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = Ap
         return builder_.build()
     }
 
-    private inline fun evaluate(applicantData: type.TApplicantData?, applicationRiskScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
-        return PreBureauRiskCategoryTable.PreBureauRiskCategoryTable(applicantData?.let({ it.existingCustomer as Boolean? }), applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_) as String?
+    private inline fun evaluate(applicantData: type.TApplicantData?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
+        // Apply child decisions
+        val applicationRiskScore: java.math.BigDecimal? = this@PreBureauRiskCategory.applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+
+        return PreBureauRiskCategoryTable.instance().apply(applicantData?.let({ it.existingCustomer as Boolean? }), applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_) as String?
     }
 
     companion object {

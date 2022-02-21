@@ -44,11 +44,8 @@ public class EveryGtTen3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             com.gs.dmn.runtime.listener.Arguments everyGtTen3Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, everyGtTen3Arguments_);
 
-            // Apply child decisions
-            List<type.TItemPrice> priceTable1 = this.priceTable1.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'everyGtTen3'
-            Boolean output_ = evaluate(priceTable1, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean output_ = lambda.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'everyGtTen3'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, everyGtTen3Arguments_, output_, (System.currentTimeMillis() - everyGtTen3StartTime_));
@@ -60,7 +57,18 @@ public class EveryGtTen3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected Boolean evaluate(List<type.TItemPrice> priceTable1, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return booleanAnd((List)priceTable1.stream().map(i -> booleanEqual(GtTen.gtTen(((java.math.BigDecimal)(i != null ? i.getPrice() : null)), annotationSet_, eventListener_, externalExecutor_, cache_), Boolean.TRUE)).collect(Collectors.toList()));
-    }
+    public com.gs.dmn.runtime.LambdaExpression<Boolean> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<Boolean>() {
+            public Boolean apply(Object... args_) {
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 0 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[0] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 1 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[1] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 2 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[2] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 3 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[3] : null;
+
+                // Apply child decisions
+                List<type.TItemPrice> priceTable1 = EveryGtTen3.this.priceTable1.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+
+                return booleanAnd((List)priceTable1.stream().map(i -> booleanEqual(GtTen.instance().apply(((java.math.BigDecimal)(i != null ? i.getPrice() : null)), annotationSet_, eventListener_, externalExecutor_, cache_), Boolean.TRUE)).collect(Collectors.toList()));
+            }
+        };
 }

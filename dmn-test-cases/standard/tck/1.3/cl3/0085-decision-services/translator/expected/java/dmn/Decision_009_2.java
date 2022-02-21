@@ -44,11 +44,8 @@ public class Decision_009_2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             com.gs.dmn.runtime.listener.Arguments decision_009_2Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision_009_2Arguments_);
 
-            // Apply child decisions
-            String decision_009_3 = this.decision_009_3.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'decision_009_2'
-            String output_ = evaluate(decision_009_3, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'decision_009_2'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decision_009_2Arguments_, output_, (System.currentTimeMillis() - decision_009_2StartTime_));
@@ -60,7 +57,18 @@ public class Decision_009_2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected String evaluate(String decision_009_3, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return stringAdd("foo ", decision_009_3);
-    }
+    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<String>() {
+            public String apply(Object... args_) {
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 0 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[0] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 1 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[1] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 2 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[2] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 3 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[3] : null;
+
+                // Apply child decisions
+                String decision_009_3 = Decision_009_2.this.decision_009_3.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+
+                return stringAdd("foo ", decision_009_3);
+            }
+        };
 }

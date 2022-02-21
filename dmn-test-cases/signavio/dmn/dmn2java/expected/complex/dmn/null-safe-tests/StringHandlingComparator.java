@@ -65,11 +65,8 @@ public class StringHandlingComparator extends com.gs.dmn.signavio.runtime.Defaul
             stringHandlingComparatorArguments_.put("stringList", stringList);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, stringHandlingComparatorArguments_);
 
-            // Apply child decisions
-            String stringHandling = this.stringHandling.apply(numberA, numberB, stringList, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'stringHandlingComparator'
-            Boolean output_ = evaluate(stringHandling, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean output_ = evaluate(numberA, numberB, stringList, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'stringHandlingComparator'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, stringHandlingComparatorArguments_, output_, (System.currentTimeMillis() - stringHandlingComparatorStartTime_));
@@ -81,7 +78,10 @@ public class StringHandlingComparator extends com.gs.dmn.signavio.runtime.Defaul
         }
     }
 
-    protected Boolean evaluate(String stringHandling, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected Boolean evaluate(java.math.BigDecimal numberA, java.math.BigDecimal numberB, List<String> stringList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        String stringHandling = this.stringHandling.apply(numberA, numberB, stringList, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         return booleanAnd(booleanAnd(booleanAnd(booleanAnd(booleanAnd(booleanAnd(isAlpha(stringHandling), isAlphanumeric(stringHandling)), isNumeric(stringHandling)), isSpaces(stringHandling)), startsWith(stringHandling, stringHandling)), endsWith(stringHandling, stringHandling)), contains(stringHandling, stringHandling));
     }
 }

@@ -24,11 +24,8 @@ class EveryGtTen3(val priceTable1 : PriceTable1 = PriceTable1()) : com.gs.dmn.ru
             val everyGtTen3Arguments_ = com.gs.dmn.runtime.listener.Arguments()
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, everyGtTen3Arguments_)
 
-            // Apply child decisions
-            val priceTable1: List<type.TItemPrice?>? = this.priceTable1.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
-
             // Evaluate decision 'everyGtTen3'
-            val output_: Boolean? = evaluate(priceTable1, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: Boolean? = evaluate(annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End decision 'everyGtTen3'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, everyGtTen3Arguments_, output_, (System.currentTimeMillis() - everyGtTen3StartTime_))
@@ -40,8 +37,11 @@ class EveryGtTen3(val priceTable1 : PriceTable1 = PriceTable1()) : com.gs.dmn.ru
         }
     }
 
-    private inline fun evaluate(priceTable1: List<type.TItemPrice?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
-        return booleanAnd(priceTable1?.stream()?.map({ i -> booleanEqual(GtTen.gtTen(i?.let({ it.price as java.math.BigDecimal? }), annotationSet_, eventListener_, externalExecutor_, cache_), true) })?.collect(Collectors.toList())?.toList()) as Boolean?
+    private inline fun evaluate(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
+        // Apply child decisions
+        val priceTable1: List<type.TItemPrice?>? = this@EveryGtTen3.priceTable1.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
+
+        return booleanAnd(priceTable1?.stream()?.map({ i -> booleanEqual(GtTen.instance().apply(i?.let({ it.price as java.math.BigDecimal? }), annotationSet_, eventListener_, externalExecutor_, cache_), true) })?.collect(Collectors.toList())?.toList()) as Boolean?
     }
 
     companion object {

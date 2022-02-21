@@ -66,12 +66,8 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             finalDecisionArguments_.put("time input", timeInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, finalDecisionArguments_);
 
-            // Apply child decisions
-            List<String> decisionDate = this.decisionDate.apply(dateInput, annotationSet_, eventListener_, externalExecutor_, cache_);
-            List<String> decisionTime = this.decisionTime.apply(timeInput, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'finalDecision'
-            String output_ = evaluate(decisionDate, decisionTime, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(dateInput, timeInput, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'finalDecision'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, finalDecisionArguments_, output_, (System.currentTimeMillis() - finalDecisionStartTime_));
@@ -83,7 +79,11 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         }
     }
 
-    protected String evaluate(List<String> decisionDate, List<String> decisionTime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(javax.xml.datatype.XMLGregorianCalendar dateInput, javax.xml.datatype.XMLGregorianCalendar timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        List<String> decisionDate = this.decisionDate.apply(dateInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<String> decisionTime = this.decisionTime.apply(timeInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(decisionDate, decisionTime, annotationSet_, eventListener_, externalExecutor_));

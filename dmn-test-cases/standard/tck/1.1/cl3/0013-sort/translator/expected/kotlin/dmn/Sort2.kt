@@ -57,7 +57,7 @@ class Sort2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     }
 
     private inline fun evaluate(tableB: List<type.TRow?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): List<type.TRow?>? {
-        return sort(tableB, com.gs.dmn.runtime.LambdaExpression<Boolean> { args -> val x: type.TRow? = args[0] as type.TRow?; val y: type.TRow? = args[1] as type.TRow?;numericLessThan(x?.let({ it.col2 as java.math.BigDecimal? }), y?.let({ it.col2 as java.math.BigDecimal? })) })?.map({ x -> type.TRow.toTRow(x) }) as List<type.TRow?>?
+        return sort(tableB, com.gs.dmn.runtime.LambdaExpression<Boolean> { args_ -> val x: type.TRow? = args_[0] as type.TRow?; val y: type.TRow? = args_[1] as type.TRow?;numericLessThan(x?.let({ it.col2 as java.math.BigDecimal? }), y?.let({ it.col2 as java.math.BigDecimal? })) })?.map({ x -> type.TRow.toTRow(x) }) as List<type.TRow?>?
     }
 
     companion object {

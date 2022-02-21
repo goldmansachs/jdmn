@@ -68,11 +68,8 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             temporalDiffsArguments_.put("year", year);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, temporalDiffsArguments_);
 
-            // Apply child decisions
-            type.GenerateTemporalObjects generateTemporalObjects = this.generateTemporalObjects.apply(day, hour, minute, month, second, year, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'temporalDiffs'
-            List<type.TemporalDiffs> output_ = evaluate(generateTemporalObjects, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<type.TemporalDiffs> output_ = evaluate(day, hour, minute, month, second, year, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'temporalDiffs'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, temporalDiffsArguments_, output_, (System.currentTimeMillis() - temporalDiffsStartTime_));
@@ -84,7 +81,10 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         }
     }
 
-    protected List<type.TemporalDiffs> evaluate(type.GenerateTemporalObjects generateTemporalObjects, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected List<type.TemporalDiffs> evaluate(java.math.BigDecimal day, java.math.BigDecimal hour, java.math.BigDecimal minute, java.math.BigDecimal month, java.math.BigDecimal second, java.math.BigDecimal year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        type.GenerateTemporalObjects generateTemporalObjects = this.generateTemporalObjects.apply(day, hour, minute, month, second, year, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(generateTemporalObjects, annotationSet_, eventListener_, externalExecutor_));

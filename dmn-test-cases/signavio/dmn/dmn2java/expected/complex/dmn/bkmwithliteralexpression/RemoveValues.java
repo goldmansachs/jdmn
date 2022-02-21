@@ -63,11 +63,8 @@ public class RemoveValues extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
             removeValuesArguments_.put("ListOfNumbers", listOfNumbers);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, removeValuesArguments_);
 
-            // Apply child decisions
-            List<java.math.BigDecimal> addExtraValues = this.addExtraValues.apply(listOfNumbers, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'removeValues'
-            List<java.math.BigDecimal> output_ = evaluate(addExtraValues, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<java.math.BigDecimal> output_ = evaluate(listOfNumbers, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'removeValues'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, removeValuesArguments_, output_, (System.currentTimeMillis() - removeValuesStartTime_));
@@ -79,7 +76,10 @@ public class RemoveValues extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         }
     }
 
-    protected List<java.math.BigDecimal> evaluate(List<java.math.BigDecimal> addExtraValues, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected List<java.math.BigDecimal> evaluate(List<java.math.BigDecimal> listOfNumbers, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        List<java.math.BigDecimal> addExtraValues = this.addExtraValues.apply(listOfNumbers, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         return removeAll(addExtraValues, asList(number("2"), number("4"), number("6"), number("8")));
     }
 }

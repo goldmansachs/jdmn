@@ -44,14 +44,8 @@ class TotalVacationDays(val baseVacationDays : BaseVacationDays = BaseVacationDa
             totalVacationDaysArguments_.put("'Years of Service'", yearsOfService)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, totalVacationDaysArguments_)
 
-            // Apply child decisions
-            val baseVacationDays: java.math.BigDecimal? = this.baseVacationDays.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
-            val extraDaysCase1: java.math.BigDecimal? = this.extraDaysCase1.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_)
-            val extraDaysCase2: java.math.BigDecimal? = this.extraDaysCase2.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_)
-            val extraDaysCase3: java.math.BigDecimal? = this.extraDaysCase3.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_)
-
             // Evaluate decision ''Total Vacation Days''
-            val output_: java.math.BigDecimal? = evaluate(baseVacationDays, extraDaysCase1, extraDaysCase2, extraDaysCase3, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: java.math.BigDecimal? = evaluate(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End decision ''Total Vacation Days''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, totalVacationDaysArguments_, output_, (System.currentTimeMillis() - totalVacationDaysStartTime_))
@@ -63,7 +57,13 @@ class TotalVacationDays(val baseVacationDays : BaseVacationDays = BaseVacationDa
         }
     }
 
-    private inline fun evaluate(baseVacationDays: java.math.BigDecimal?, extraDaysCase1: java.math.BigDecimal?, extraDaysCase2: java.math.BigDecimal?, extraDaysCase3: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    private inline fun evaluate(age: java.math.BigDecimal?, yearsOfService: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+        // Apply child decisions
+        val baseVacationDays: java.math.BigDecimal? = this@TotalVacationDays.baseVacationDays.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
+        val extraDaysCase1: java.math.BigDecimal? = this@TotalVacationDays.extraDaysCase1.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_)
+        val extraDaysCase2: java.math.BigDecimal? = this@TotalVacationDays.extraDaysCase2.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_)
+        val extraDaysCase3: java.math.BigDecimal? = this@TotalVacationDays.extraDaysCase3.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         return numericAdd(numericAdd(baseVacationDays, max(extraDaysCase1, extraDaysCase3)), extraDaysCase2) as java.math.BigDecimal?
     }
 

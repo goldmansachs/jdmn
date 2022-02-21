@@ -65,12 +65,8 @@ public class TopDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             topDecisionArguments_.put("TestPersonType", testPersonType6_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, topDecisionArguments_);
 
-            // Apply child decisions
-            String decision = this.decision.apply(testPersonType6_iterator, annotationSet_, eventListener_, externalExecutor_, cache_);
-            List<String> smallMid = this.smallMid.apply(testPersonType6_iterator, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'topDecision'
-            Boolean output_ = evaluate(decision, smallMid, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean output_ = evaluate(testPersonType6_iterator, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'topDecision'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, topDecisionArguments_, output_, (System.currentTimeMillis() - topDecisionStartTime_));
@@ -82,7 +78,11 @@ public class TopDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         }
     }
 
-    protected Boolean evaluate(String decision, List<String> smallMid, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected Boolean evaluate(type.TestPersonType testPersonType6_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        String decision = this.decision.apply(testPersonType6_iterator, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<String> smallMid = this.smallMid.apply(testPersonType6_iterator, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(decision, smallMid, annotationSet_, eventListener_, externalExecutor_));

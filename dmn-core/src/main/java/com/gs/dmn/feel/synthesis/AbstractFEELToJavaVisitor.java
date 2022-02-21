@@ -97,7 +97,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
             DRGElementReference<? extends TDRGElement> memberReference = importContextType.getMemberReference(memberName);
             TDRGElement drgElement = memberReference.getElement();
             if (drgElement instanceof TBusinessKnowledgeModel) {
-                return this.dmnTransformer.invocableQualifiedFunctionName((TBusinessKnowledgeModel) drgElement);
+                return this.dmnTransformer.singletonInvocableInstance((TBusinessKnowledgeModel) drgElement);
             } else {
                 String javaName = this.dmnTransformer.drgReferenceQualifiedName(memberReference);
                 return this.dmnTransformer.lazyEvaluation(memberReference.getElementName(), javaName);

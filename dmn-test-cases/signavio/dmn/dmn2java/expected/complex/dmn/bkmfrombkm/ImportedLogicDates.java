@@ -23,16 +23,17 @@ public class ImportedLogicDates extends com.gs.dmn.signavio.runtime.DefaultSigna
         -1
     );
 
-    public static final ImportedLogicDates INSTANCE = new ImportedLogicDates();
+    private static class ImportedLogicDatesLazyHolder {
+        static final ImportedLogicDates INSTANCE = new ImportedLogicDates();
+    }
+    public static ImportedLogicDates instance() {
+        return ImportedLogicDatesLazyHolder.INSTANCE;
+    }
 
     private ImportedLogicDates() {
     }
 
-    public static List<String> importedLogicDates(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return INSTANCE.apply(date, annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
-
-    private List<String> apply(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public List<String> apply(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'importedLogicDates'
             long importedLogicDatesStartTime_ = System.currentTimeMillis();

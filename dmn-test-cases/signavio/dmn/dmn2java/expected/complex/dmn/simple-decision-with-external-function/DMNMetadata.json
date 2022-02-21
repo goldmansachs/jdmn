@@ -67,8 +67,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "c5718c9e0d74413e9371e1c26c4ebef9",
-    "extensions" : [
-    ],
+    "extensions" : [ ],
     "id" : "id-04494bc9ee85e8ee15276fe57dfd7504",
     "informationReferences" : [ {
       "reference" : "id-10403bb637fc37587a8a51587a70d76a"

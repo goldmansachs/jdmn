@@ -64,11 +64,8 @@ public class DotProduct extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
             dotProductArguments_.put("B", b);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dotProductArguments_);
 
-            // Apply child decisions
-            java.math.BigDecimal calculateDotProduct = this.calculateDotProduct.apply(a, b, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'dotProduct'
-            type.DotProduct output_ = evaluate(a, b, calculateDotProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
+            type.DotProduct output_ = evaluate(a, b, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'dotProduct'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, dotProductArguments_, output_, (System.currentTimeMillis() - dotProductStartTime_));
@@ -80,7 +77,10 @@ public class DotProduct extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
         }
     }
 
-    protected type.DotProduct evaluate(List<java.math.BigDecimal> a, List<java.math.BigDecimal> b, java.math.BigDecimal calculateDotProduct, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected type.DotProduct evaluate(List<java.math.BigDecimal> a, List<java.math.BigDecimal> b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        java.math.BigDecimal calculateDotProduct = this.calculateDotProduct.apply(a, b, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(a, b, calculateDotProduct, annotationSet_, eventListener_, externalExecutor_));

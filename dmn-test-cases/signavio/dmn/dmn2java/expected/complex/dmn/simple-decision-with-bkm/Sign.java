@@ -71,6 +71,6 @@ public class Sign extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
     }
 
     protected java.math.BigDecimal evaluate(java.math.BigDecimal a2, java.math.BigDecimal b3, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return BKM.bKM(b3, a2, annotationSet_, eventListener_, externalExecutor_, cache_);
+        return BKM.instance().apply(b3, a2, annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 }

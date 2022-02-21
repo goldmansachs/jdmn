@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class InstallmentCalculation : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    private fun apply(productType: String?, rate: java.math.BigDecimal?, term: java.math.BigDecimal?, amount: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    public fun apply(productType: String?, rate: java.math.BigDecimal?, term: java.math.BigDecimal?, amount: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         try {
             // Start BKM 'InstallmentCalculation'
             val installmentCalculationStartTime_ = System.currentTimeMillis()
@@ -56,10 +56,11 @@ class InstallmentCalculation : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             -1
         )
 
-        val INSTANCE = InstallmentCalculation()
+        private val INSTANCE = InstallmentCalculation()
 
-        fun InstallmentCalculation(productType: String?, rate: java.math.BigDecimal?, term: java.math.BigDecimal?, amount: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
-            return INSTANCE.apply(productType, rate, term, amount, annotationSet_, eventListener_, externalExecutor_, cache_)
+        @JvmStatic
+        fun instance(): InstallmentCalculation {
+            return INSTANCE
         }
     }
 }

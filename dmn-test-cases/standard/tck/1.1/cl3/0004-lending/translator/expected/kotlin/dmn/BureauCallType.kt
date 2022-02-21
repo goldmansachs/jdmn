@@ -43,11 +43,8 @@ class BureauCallType(val preBureauRiskCategory : PreBureauRiskCategory = PreBure
             bureauCallTypeArguments_.put("ApplicantData", applicantData)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeArguments_)
 
-            // Apply child decisions
-            val preBureauRiskCategory: String? = this.preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
-
             // Evaluate decision 'BureauCallType'
-            val output_: String? = evaluate(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: String? = evaluate(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End decision 'BureauCallType'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeArguments_, output_, (System.currentTimeMillis() - bureauCallTypeStartTime_))
@@ -59,8 +56,11 @@ class BureauCallType(val preBureauRiskCategory : PreBureauRiskCategory = PreBure
         }
     }
 
-    private inline fun evaluate(preBureauRiskCategory: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
-        return BureauCallTypeTable.BureauCallTypeTable(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_) as String?
+    private inline fun evaluate(applicantData: type.TApplicantData?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
+        // Apply child decisions
+        val preBureauRiskCategory: String? = this@BureauCallType.preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+
+        return BureauCallTypeTable.instance().apply(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_) as String?
     }
 
     companion object {

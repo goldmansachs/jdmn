@@ -24,11 +24,8 @@ class SomeGtTen1(val priceTable1 : PriceTable1 = PriceTable1()) : com.gs.dmn.run
             val someGtTen1Arguments_ = com.gs.dmn.runtime.listener.Arguments()
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, someGtTen1Arguments_)
 
-            // Apply child decisions
-            val priceTable1: List<type.TItemPrice?>? = this.priceTable1.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
-
             // Evaluate decision 'someGtTen1'
-            val output_: Boolean? = evaluate(priceTable1, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: Boolean? = evaluate(annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End decision 'someGtTen1'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, someGtTen1Arguments_, output_, (System.currentTimeMillis() - someGtTen1StartTime_))
@@ -40,7 +37,10 @@ class SomeGtTen1(val priceTable1 : PriceTable1 = PriceTable1()) : com.gs.dmn.run
         }
     }
 
-    private inline fun evaluate(priceTable1: List<type.TItemPrice?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
+    private inline fun evaluate(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
+        // Apply child decisions
+        val priceTable1: List<type.TItemPrice?>? = this@SomeGtTen1.priceTable1.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
+
         return booleanOr(priceTable1?.stream()?.map({ i -> numericGreaterThan(i?.let({ it.price as java.math.BigDecimal? }), number("10")) })?.collect(Collectors.toList())?.toList()) as Boolean?
     }
 

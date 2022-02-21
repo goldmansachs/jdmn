@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.omg.spec.dmn._20191111.model.TBuiltinAggregator.COUNT;
 import static org.omg.spec.dmn._20191111.model.TBuiltinAggregator.SUM;
@@ -736,28 +737,27 @@ public class DMNModelRepository {
     protected List<TDMNElementReference> requiredInputDataReferences(TDRGElement parent) {
         List<TDMNElementReference> references = new ArrayList<>();
         if (parent instanceof TDecision) {
-            for (TInformationRequirement ir : ((TDecision) parent).getInformationRequirement()) {
-                TDMNElementReference requiredInput = ir.getRequiredInput();
-                if (requiredInput != null) {
-                    references.add(requiredInput);
-                }
-            }
+            List<TInformationRequirement> informationRequirements = ((TDecision) parent).getInformationRequirement();
+            references.addAll(informationRequirements.stream().map(TInformationRequirement::getRequiredInput).filter(Objects::nonNull).collect(Collectors.toList()));
+        } else if (parent instanceof TDecisionService) {
+            List<TDMNElementReference> inputData = ((TDecisionService) parent).getInputData();
+            references.addAll(inputData.stream().filter(Objects::nonNull).collect(Collectors.toList()));
         }
-
         return references;
     }
 
     protected List<TDMNElementReference> requiredDecisionReferences(TDRGElement parent) {
         List<TDMNElementReference> references = new ArrayList<>();
         if (parent instanceof TDecision) {
-            for (TInformationRequirement ir : ((TDecision) parent).getInformationRequirement()) {
-                TDMNElementReference requiredDecision = ir.getRequiredDecision();
-                if (requiredDecision != null) {
-                    references.add(requiredDecision);
-                }
-            }
+            List<TInformationRequirement> informationRequirements = ((TDecision) parent).getInformationRequirement();
+            references.addAll(informationRequirements.stream().map(TInformationRequirement::getRequiredDecision).filter(Objects::nonNull).collect(Collectors.toList()));
         } else if (parent instanceof TDecisionService) {
-            references.addAll(((TDecisionService) parent).getOutputDecision());
+            List<TDMNElementReference> inputDecisions = ((TDecisionService) parent).getInputDecision();
+            references.addAll(inputDecisions.stream().filter(Objects::nonNull).collect(Collectors.toList()));
+            List<TDMNElementReference> outputDecisions = ((TDecisionService) parent).getOutputDecision();
+            references.addAll(outputDecisions.stream().filter(Objects::nonNull).collect(Collectors.toList()));
+            List<TDMNElementReference> encapsulatedDecision = ((TDecisionService) parent).getEncapsulatedDecision();
+            references.addAll(encapsulatedDecision.stream().filter(Objects::nonNull).collect(Collectors.toList()));
         }
         return references;
     }
@@ -925,6 +925,11 @@ public class DMNModelRepository {
     public boolean isRelationExpression(TDRGElement element) {
         TExpression expression = expression(element);
         return expression instanceof TRelation;
+    }
+
+    public boolean isFunctionDefinitionExpression(TDRGElement element) {
+        TExpression expression = expression(element);
+        return expression instanceof TFunctionDefinition;
     }
 
     //

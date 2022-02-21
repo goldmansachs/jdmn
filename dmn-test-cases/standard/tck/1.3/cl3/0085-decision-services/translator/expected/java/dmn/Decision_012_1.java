@@ -38,7 +38,7 @@ public class Decision_012_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision_012_1Arguments_);
 
             // Evaluate decision 'decision_012_1'
-            String output_ = evaluate(annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'decision_012_1'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decision_012_1Arguments_, output_, (System.currentTimeMillis() - decision_012_1StartTime_));
@@ -50,7 +50,15 @@ public class Decision_012_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected String evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return DecisionService_012.decisionService_012("A", "B", "C", "D", annotationSet_, eventListener_, externalExecutor_, cache_);
-    }
+    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<String>() {
+            public String apply(Object... args_) {
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 0 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[0] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 1 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[1] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 2 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[2] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 3 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[3] : null;
+
+                return DecisionService_012.instance().apply("A", "B", "C", "D", annotationSet_, eventListener_, externalExecutor_, cache_);
+            }
+        };
 }

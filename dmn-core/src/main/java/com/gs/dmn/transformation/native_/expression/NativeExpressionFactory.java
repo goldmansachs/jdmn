@@ -108,8 +108,10 @@ public interface NativeExpressionFactory {
     //
     // Parameters
     //
+    String nullableParameterType(String parameterType);
     String nullableParameter(String parameterType, String parameterName);
 
+    String parameterType(String parameterType);
     String parameter(String parameterType, String parameterName);
 
     String decisionConstructorParameter(DRGElementReference<TDecision> d);
@@ -124,11 +126,11 @@ public interface NativeExpressionFactory {
     //
     // Conversions
     //
-    String convertListToElement(String expression, Type type);
-
     String asList(Type elementType, String exp);
 
     String asElement(String exp);
+
+    String convertListToElement(String expression, Type type);
 
     String convertElementToList(String expression, Type type);
 

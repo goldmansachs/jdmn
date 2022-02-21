@@ -64,11 +64,8 @@ public class FnInvocationNamedParameters extends com.gs.dmn.runtime.DefaultDMNBa
             fnInvocationNamedParametersArguments_.put("inputB", inputB);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationNamedParametersArguments_);
 
-            // Apply child decisions
-            type.TFnLibrary fnLibrary = this.fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision ''fn invocation named parameters''
-            type.TFnInvocationNamedResult output_ = evaluate(fnLibrary, inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_);
+            type.TFnInvocationNamedResult output_ = lambda.apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision ''fn invocation named parameters''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnInvocationNamedParametersArguments_, output_, (System.currentTimeMillis() - fnInvocationNamedParametersStartTime_));
@@ -80,16 +77,29 @@ public class FnInvocationNamedParameters extends com.gs.dmn.runtime.DefaultDMNBa
         }
     }
 
-    protected type.TFnInvocationNamedResult evaluate(type.TFnLibrary fnLibrary, java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        java.math.BigDecimal subResult = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSubFn() : null)).apply(inputA, inputB);
-        java.math.BigDecimal multiplicationResultNamed = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getMultiplyFn() : null)).apply(inputA, inputB);
-        java.math.BigDecimal subResultMixed = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSubFn() : null)).apply(inputB, inputA);
-        java.math.BigDecimal divisionResultNamed = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getDivideFn() : null)).apply(inputA, inputB);
-        type.TFnInvocationNamedResultImpl fnInvocationNamedParameters = new type.TFnInvocationNamedResultImpl();
-        fnInvocationNamedParameters.setSubResult(subResult);
-        fnInvocationNamedParameters.setMultiplicationResultNamed(multiplicationResultNamed);
-        fnInvocationNamedParameters.setSubResultMixed(subResultMixed);
-        fnInvocationNamedParameters.setDivisionResultNamed(divisionResultNamed);
-        return fnInvocationNamedParameters;
-    }
+    public com.gs.dmn.runtime.LambdaExpression<type.TFnInvocationNamedResult> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<type.TFnInvocationNamedResult>() {
+            public type.TFnInvocationNamedResult apply(Object... args_) {
+                java.math.BigDecimal inputA = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
+                java.math.BigDecimal inputB = 1 < args_.length ? (java.math.BigDecimal) args_[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[2] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[3] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[4] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[5] : null;
+
+                // Apply child decisions
+                type.TFnLibrary fnLibrary = FnInvocationNamedParameters.this.fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+
+                java.math.BigDecimal subResult = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSubFn() : null)).apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_);
+                java.math.BigDecimal multiplicationResultNamed = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getMultiplyFn() : null)).apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_);
+                java.math.BigDecimal subResultMixed = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSubFn() : null)).apply(inputB, inputA, annotationSet_, eventListener_, externalExecutor_, cache_);
+                java.math.BigDecimal divisionResultNamed = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getDivideFn() : null)).apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_);
+                type.TFnInvocationNamedResultImpl fnInvocationNamedParameters = new type.TFnInvocationNamedResultImpl();
+                fnInvocationNamedParameters.setSubResult(subResult);
+                fnInvocationNamedParameters.setMultiplicationResultNamed(multiplicationResultNamed);
+                fnInvocationNamedParameters.setSubResultMixed(subResultMixed);
+                fnInvocationNamedParameters.setDivisionResultNamed(divisionResultNamed);
+                return fnInvocationNamedParameters;
+            }
+        };
 }

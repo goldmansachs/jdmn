@@ -44,12 +44,8 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
             strategyArguments_.put("RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, strategyArguments_)
 
-            // Apply child decisions
-            val bureauCallType: String? = this.bureauCallType.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
-            val eligibility: String? = this.eligibility.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
-
             // Evaluate decision 'Strategy'
-            val output_: String? = evaluate(bureauCallType, eligibility, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: String? = evaluate(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End decision 'Strategy'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, strategyArguments_, output_, (System.currentTimeMillis() - strategyStartTime_))
@@ -80,7 +76,11 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
         return builder_.build()
     }
 
-    private inline fun evaluate(bureauCallType: String?, eligibility: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
+    private inline fun evaluate(applicantData: type.TApplicantData?, requestedProduct: type.TRequestedProduct?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
+        // Apply child decisions
+        val bureauCallType: String? = this@Strategy.bureauCallType.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+        val eligibility: String? = this@Strategy.eligibility.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()
         ruleOutputList_.add(rule0(bureauCallType, eligibility, annotationSet_, eventListener_, externalExecutor_))

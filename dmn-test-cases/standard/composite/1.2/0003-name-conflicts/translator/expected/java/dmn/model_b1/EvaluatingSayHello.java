@@ -46,11 +46,8 @@ public class EvaluatingSayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecisio
             evaluatingSayHelloArguments_.put("model-a.Person Name", model_a_personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, evaluatingSayHelloArguments_);
 
-            // Apply child decisions
-            String greetThePerson = this.greetThePerson.apply(model_a_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'evaluatingSayHello'
-            String output_ = evaluate(greetThePerson, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(model_a_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'evaluatingSayHello'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, evaluatingSayHelloArguments_, output_, (System.currentTimeMillis() - evaluatingSayHelloStartTime_));
@@ -62,7 +59,19 @@ public class EvaluatingSayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecisio
         }
     }
 
-    protected String evaluate(String greetThePerson, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return stringAdd("Evaluating Say Hello to: ", greetThePerson);
-    }
+    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<String>() {
+            public String apply(Object... args_) {
+                String model_a_personName = 0 < args_.length ? (String) args_[0] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 1 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[1] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 2 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[2] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 3 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[3] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 4 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[4] : null;
+
+                // Apply child decisions
+                String greetThePerson = EvaluatingSayHello.this.greetThePerson.apply(model_a_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
+
+                return stringAdd("Evaluating Say Hello to: ", greetThePerson);
+            }
+        };
 }

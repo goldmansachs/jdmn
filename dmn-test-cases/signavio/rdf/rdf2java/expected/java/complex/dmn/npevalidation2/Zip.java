@@ -82,17 +82,8 @@ public class Zip extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
             zipArguments_.put("year", year);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, zipArguments_);
 
-            // Apply child decisions
-            List<java.math.BigDecimal> accessCertainTemporalUnits = this.accessCertainTemporalUnits.apply(day, hour, minute, month, second, year, annotationSet_, eventListener_, externalExecutor_, cache_);
-            Boolean buildDateStringInAnnotation = this.buildDateStringInAnnotation.apply(day, month, year, annotationSet_, eventListener_, externalExecutor_, cache_);
-            List<String> describeAgesList = this.describeAgesList.apply(ages, annotationSet_, eventListener_, externalExecutor_, cache_);
-            java.math.BigDecimal negateSecond = this.negateSecond.apply(second, annotationSet_, eventListener_, externalExecutor_, cache_);
-            List<Boolean> noRuleMatchesMultiHit = this.noRuleMatchesMultiHit.apply(second, annotationSet_, eventListener_, externalExecutor_, cache_);
-            Boolean noRuleMatchesSingleHit = this.noRuleMatchesSingleHit.apply(second, annotationSet_, eventListener_, externalExecutor_, cache_);
-            List<type.TemporalDiffs> temporalDiffs = this.temporalDiffs.apply(day, hour, minute, month, second, year, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'zip'
-            List<type.Zip> output_ = evaluate(accessCertainTemporalUnits, ages, buildDateStringInAnnotation, describeAgesList, names, negateSecond, noRuleMatchesMultiHit, noRuleMatchesSingleHit, temporalDiffs, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<type.Zip> output_ = evaluate(ages, day, hour, minute, month, names, second, year, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'zip'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, zipArguments_, output_, (System.currentTimeMillis() - zipStartTime_));
@@ -104,7 +95,16 @@ public class Zip extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         }
     }
 
-    protected List<type.Zip> evaluate(List<java.math.BigDecimal> accessCertainTemporalUnits, List<java.math.BigDecimal> ages, Boolean buildDateStringInAnnotation, List<String> describeAgesList, List<String> names, java.math.BigDecimal negateSecond, List<Boolean> noRuleMatchesMultiHit, Boolean noRuleMatchesSingleHit, List<type.TemporalDiffs> temporalDiffs, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected List<type.Zip> evaluate(List<java.math.BigDecimal> ages, java.math.BigDecimal day, java.math.BigDecimal hour, java.math.BigDecimal minute, java.math.BigDecimal month, List<String> names, java.math.BigDecimal second, java.math.BigDecimal year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        List<java.math.BigDecimal> accessCertainTemporalUnits = this.accessCertainTemporalUnits.apply(day, hour, minute, month, second, year, annotationSet_, eventListener_, externalExecutor_, cache_);
+        Boolean buildDateStringInAnnotation = this.buildDateStringInAnnotation.apply(day, month, year, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<String> describeAgesList = this.describeAgesList.apply(ages, annotationSet_, eventListener_, externalExecutor_, cache_);
+        java.math.BigDecimal negateSecond = this.negateSecond.apply(second, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<Boolean> noRuleMatchesMultiHit = this.noRuleMatchesMultiHit.apply(second, annotationSet_, eventListener_, externalExecutor_, cache_);
+        Boolean noRuleMatchesSingleHit = this.noRuleMatchesSingleHit.apply(second, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<type.TemporalDiffs> temporalDiffs = this.temporalDiffs.apply(day, hour, minute, month, second, year, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         return zip(asList("names", "ages", "dateDiffs", "dateTimeDiffs", "temporalUnits", "agesListDescription"), asList(names, ages, temporalDiffs.stream().map(x -> ((java.math.BigDecimal)(x != null ? x.getDateDiff() : null))).collect(Collectors.toList()), temporalDiffs.stream().map(x -> ((java.math.BigDecimal)(x != null ? x.getDateTimeDiff() : null))).collect(Collectors.toList()), accessCertainTemporalUnits, describeAgesList)).stream().map(x -> type.Zip.toZip(x)).collect(Collectors.toList());
     }
 }

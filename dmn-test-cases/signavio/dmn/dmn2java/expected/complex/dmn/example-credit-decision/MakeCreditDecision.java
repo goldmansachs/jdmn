@@ -65,11 +65,8 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
             makeCreditDecisionArguments_.put("Lending threshold", lendingThreshold);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, makeCreditDecisionArguments_);
 
-            // Apply child decisions
-            java.math.BigDecimal compareAgainstLendingThreshold = this.compareAgainstLendingThreshold.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'makeCreditDecision'
-            String output_ = evaluate(compareAgainstLendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'makeCreditDecision'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, makeCreditDecisionArguments_, output_, (System.currentTimeMillis() - makeCreditDecisionStartTime_));
@@ -81,7 +78,10 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
-    protected String evaluate(java.math.BigDecimal compareAgainstLendingThreshold, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(type.Applicant applicant, java.math.BigDecimal currentRiskAppetite, java.math.BigDecimal lendingThreshold, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        java.math.BigDecimal compareAgainstLendingThreshold = this.compareAgainstLendingThreshold.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(compareAgainstLendingThreshold, annotationSet_, eventListener_, externalExecutor_));

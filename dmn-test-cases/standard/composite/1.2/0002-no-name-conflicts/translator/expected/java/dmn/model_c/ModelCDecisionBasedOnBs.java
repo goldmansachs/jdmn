@@ -48,12 +48,8 @@ public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.DefaultDMNBaseDe
             modelCDecisionBasedOnBsArguments_.put("model-a.Person Name", model_a_personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, modelCDecisionBasedOnBsArguments_);
 
-            // Apply child decisions
-            String model_b1_evaluatingB1SayHello = this.model_b1_evaluatingB1SayHello.apply(model_a_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
-            String model_b2_evaluatingB2SayHello = this.model_b2_evaluatingB2SayHello.apply(model_a_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'modelCDecisionBasedOnBs'
-            String output_ = evaluate(model_b1_evaluatingB1SayHello, model_b2_evaluatingB2SayHello, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(model_a_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'modelCDecisionBasedOnBs'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, modelCDecisionBasedOnBsArguments_, output_, (System.currentTimeMillis() - modelCDecisionBasedOnBsStartTime_));
@@ -65,7 +61,20 @@ public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.DefaultDMNBaseDe
         }
     }
 
-    protected String evaluate(String model_b1_evaluatingB1SayHello, String model_b2_evaluatingB2SayHello, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return stringAdd(stringAdd(stringAdd("B1: ", model_b1_evaluatingB1SayHello), "; B2: "), model_b2_evaluatingB2SayHello);
-    }
+    public com.gs.dmn.runtime.LambdaExpression<String> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<String>() {
+            public String apply(Object... args_) {
+                String model_a_personName = 0 < args_.length ? (String) args_[0] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 1 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[1] : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = 2 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[2] : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 3 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[3] : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = 4 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[4] : null;
+
+                // Apply child decisions
+                String model_b1_evaluatingB1SayHello = ModelCDecisionBasedOnBs.this.model_b1_evaluatingB1SayHello.apply(model_a_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
+                String model_b2_evaluatingB2SayHello = ModelCDecisionBasedOnBs.this.model_b2_evaluatingB2SayHello.apply(model_a_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
+
+                return stringAdd(stringAdd(stringAdd("B1: ", model_b1_evaluatingB1SayHello), "; B2: "), model_b2_evaluatingB2SayHello);
+            }
+        };
 }

@@ -73,13 +73,8 @@ public class Zip extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
             zipArguments_.put("rgb2 list", rgb2List);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, zipArguments_);
 
-            // Apply child decisions
-            List<String> appendall = this.appendall.apply(rgb1, rgb1List, rgb2, rgb2List, annotationSet_, eventListener_, externalExecutor_, cache_);
-            List<java.math.BigDecimal> removeValues = this.removeValues.apply(listOfNumbers, annotationSet_, eventListener_, externalExecutor_, cache_);
-            List<String> removeall = this.removeall.apply(blacklist, names, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'zip'
-            List<type.Zip> output_ = evaluate(appendall, removeValues, removeall, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<type.Zip> output_ = evaluate(blacklist, listOfNumbers, names, rgb1, rgb1List, rgb2, rgb2List, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'zip'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, zipArguments_, output_, (System.currentTimeMillis() - zipStartTime_));
@@ -91,7 +86,12 @@ public class Zip extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         }
     }
 
-    protected List<type.Zip> evaluate(List<String> appendall, List<java.math.BigDecimal> removeValues, List<String> removeall, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected List<type.Zip> evaluate(List<String> blacklist, List<java.math.BigDecimal> listOfNumbers, List<String> names, String rgb1, List<String> rgb1List, String rgb2, List<String> rgb2List, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        List<String> appendall = this.appendall.apply(rgb1, rgb1List, rgb2, rgb2List, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<java.math.BigDecimal> removeValues = this.removeValues.apply(listOfNumbers, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<String> removeall = this.removeall.apply(blacklist, names, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         return zip(asList("n", "e", "t"), asList(removeValues, appendall, removeall)).stream().map(x -> type.Zip.toZip(x)).collect(Collectors.toList());
     }
 }

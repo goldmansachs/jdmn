@@ -252,8 +252,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             String cls = this.transformer.drgElementClassName(info.getReference().getElement());
             return this.transformer.qualifiedName(pkg, cls);
         } else if (info.isBKM() || info.isDS()) {
-            String name = this.transformer.invocableQualifiedFunctionName((TInvocable) info.getReference().getElement());
-            return name;
+            return this.transformer.singletonInvocableInstance((TInvocable) info.getReference().getElement());
         } else {
             throw new DMNRuntimeException(String.format("Not supported '%s' in '%s'", info.getNodeType(), info.getNodeName()));
         }

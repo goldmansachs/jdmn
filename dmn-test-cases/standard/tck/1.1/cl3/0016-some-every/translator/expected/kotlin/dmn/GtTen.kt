@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class GtTen : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    private fun apply(theNumber: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
+    public fun apply(theNumber: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
         try {
             // Start BKM 'gtTen'
             val gtTenStartTime_ = System.currentTimeMillis()
@@ -51,10 +51,11 @@ class GtTen : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             -1
         )
 
-        val INSTANCE = GtTen()
+        private val INSTANCE = GtTen()
 
-        fun gtTen(theNumber: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
-            return INSTANCE.apply(theNumber, annotationSet_, eventListener_, externalExecutor_, cache_)
+        @JvmStatic
+        fun instance(): GtTen {
+            return INSTANCE
         }
     }
 }

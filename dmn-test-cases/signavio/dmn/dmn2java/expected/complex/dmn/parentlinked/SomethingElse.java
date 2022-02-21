@@ -63,11 +63,8 @@ public class SomethingElse extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             somethingElseArguments_.put("num", num);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, somethingElseArguments_);
 
-            // Apply child decisions
-            java.math.BigDecimal childObject = this.childObject.apply(num, annotationSet_, eventListener_, externalExecutor_, cache_);
-
             // Evaluate decision 'somethingElse'
-            java.math.BigDecimal output_ = evaluate(childObject, annotationSet_, eventListener_, externalExecutor_, cache_);
+            java.math.BigDecimal output_ = evaluate(num, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'somethingElse'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, somethingElseArguments_, output_, (System.currentTimeMillis() - somethingElseStartTime_));
@@ -79,7 +76,10 @@ public class SomethingElse extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal childObject, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected java.math.BigDecimal evaluate(java.math.BigDecimal num, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        // Apply child decisions
+        java.math.BigDecimal childObject = this.childObject.apply(num, annotationSet_, eventListener_, externalExecutor_, cache_);
+
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(childObject, annotationSet_, eventListener_, externalExecutor_));

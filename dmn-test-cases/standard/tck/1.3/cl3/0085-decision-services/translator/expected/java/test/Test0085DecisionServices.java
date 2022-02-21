@@ -12,7 +12,7 @@ public class Test0085DecisionServices extends com.gs.dmn.runtime.DefaultDMNBaseD
         com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
 
         // Check decision_001
-        checkValues("foo", DecisionService_001.decisionService_001(annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues("foo", DecisionService_001.instance().apply(annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
     @org.junit.Test
@@ -26,7 +26,7 @@ public class Test0085DecisionServices extends com.gs.dmn.runtime.DefaultDMNBaseD
         cache_.bind("decision_002_input", decision_002_input);
 
         // Check decision_002
-        checkValues("foo baz", DecisionService_002.decisionService_002(decision_002_input, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues("foo baz", DecisionService_002.instance().apply(decision_002_input, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
     @org.junit.Test
@@ -43,7 +43,7 @@ public class Test0085DecisionServices extends com.gs.dmn.runtime.DefaultDMNBaseD
         String inputData_003 = "D";
 
         // Check decision_003
-        checkValues("A B C D", DecisionService_003.decisionService_003(inputData_003, decision_003_input_1, decision_003_input_2, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues("A B C D", DecisionService_003.instance().apply(inputData_003, decision_003_input_1, decision_003_input_2, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
     @org.junit.Test

@@ -31,7 +31,7 @@ import java.util.stream.Collectors
 class ${javaClassName} : ${decisionBaseClass} {
     private constructor() {}
 
-    private fun apply(${transformer.drgElementSignatureExtraCache(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    public fun apply(${transformer.drgElementSignatureExtraCache(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         <@applyMethodBody drgElement />
     }
     <@evaluateExpressionMethod drgElement />
@@ -47,10 +47,11 @@ class ${javaClassName} : ${decisionBaseClass} {
             ${modelRepository.rulesCount(drgElement)}
         )
 
-        val INSTANCE = ${javaClassName}()
+        private val INSTANCE = ${javaClassName}()
 
-        fun ${transformer.invocableFunctionName(drgElement)}(${transformer.drgElementSignatureExtraCache(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
-            return INSTANCE.apply(${transformer.drgElementArgumentListExtraCache(drgElement)})
+        @JvmStatic
+        fun instance(): ${javaClassName} {
+            return INSTANCE
         }
     }
 }

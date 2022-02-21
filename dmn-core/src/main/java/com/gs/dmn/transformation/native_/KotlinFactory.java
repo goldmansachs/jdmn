@@ -43,7 +43,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
 
     @Override
     public String functionalInterfaceConstructor(String functionalInterface, String returnType, String applyMethod) {
-        return String.format("%s<%s> { args -> %s }", functionalInterface, returnType, applyMethod);
+        return String.format("%s<%s> { %s -> %s }", functionalInterface, returnType, transformer.lambdaArgsVariableName(), applyMethod);
     }
 
     //
@@ -205,7 +205,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     @Override
     protected String makeLambdaParameterAssignment(String type, String name, int i) {
         String nullableType = this.typeFactory.nullableType(type);
-        return String.format("val %s: %s = args[%s] as %s;", name, nullableType, i, nullableType);
+        return String.format("val %s: %s = %s[%s] as %s;", name, nullableType, transformer.lambdaArgsVariableName(), i, nullableType);
     }
 
     @Override
@@ -217,8 +217,18 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     // Parameters
     //
     @Override
+    public String nullableParameterType(String parameterType) {
+        return String.format("%s", this.typeFactory.nullableType(parameterType));
+    }
+
+    @Override
     public String nullableParameter(String parameterType, String parameterName) {
         return String.format("%s: %s", parameterName, this.typeFactory.nullableType(parameterType));
+    }
+
+    @Override
+    public String parameterType(String parameterType) {
+        return String.format("%s", parameterType);
     }
 
     @Override
@@ -248,11 +258,6 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     // Conversions
     //
     @Override
-    public String convertListToElement(String expression, Type type) {
-        return String.format("%s", asElement(expression));
-    }
-
-    @Override
     public String asList(Type elementType, String exp) {
         if (StringUtils.isBlank(exp)) {
             String elementJavaType = this.typeFactory.nullableType(this.transformer.toNativeType(elementType));
@@ -260,6 +265,11 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
         } else {
             return String.format("asList(%s)", exp);
         }
+    }
+
+    @Override
+    public String convertListToElement(String expression, Type type) {
+        return String.format("%s", asElement(expression));
     }
 
     @Override

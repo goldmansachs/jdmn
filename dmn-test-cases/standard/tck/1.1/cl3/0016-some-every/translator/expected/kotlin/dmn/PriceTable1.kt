@@ -39,8 +39,8 @@ class PriceTable1() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     private inline fun evaluate(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): List<type.TItemPrice?>? {
         return asList(type.TItemPriceImpl("widget", number("25")),
-				type.TItemPriceImpl("sprocket", number("15")),
-				type.TItemPriceImpl("trinket", number("1.5"))) as List<type.TItemPrice?>?
+                type.TItemPriceImpl("sprocket", number("15")),
+                type.TItemPriceImpl("trinket", number("1.5"))) as List<type.TItemPrice?>?
     }
 
     companion object {
