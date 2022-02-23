@@ -1,0 +1,10 @@
+{
+  "corrections": {
+    "correction": {
+      "name": "processPriorIssues",
+      "oldValue": "priorIssues.priorIssues",
+      "newValue": "priorIssues",
+      "ruleIndexes": ""
+    }
+  }
+}
