@@ -188,7 +188,7 @@ public class CorrectPathsInDecisionsTransformer extends SimpleDMNTransformer<Tes
             for (int i=0; i<inputList.size(); i++) {
                 if (inputIndexes.contains(i + 1)) {
                     TInputClause inputClause = inputList.get(i);
-                    updateLiteralExpression(inputClause.getInputExpression(), oldValue, newValue);
+                    updateLiteralExpression(inputClause.getInputExpression(), oldValue, newValue, decision);
                 }
             }
             // Correct Rules
@@ -197,7 +197,7 @@ public class CorrectPathsInDecisionsTransformer extends SimpleDMNTransformer<Tes
                 if (ruleIndexes.contains(i + 1)) {
                     TDecisionRule rule = ruleList.get(i);
                     for (TLiteralExpression outputEntry: rule.getOutputEntry()) {
-                        updateLiteralExpression(outputEntry, oldValue, newValue);
+                        updateLiteralExpression(outputEntry, oldValue, newValue, decision);
                     }
                 }
             }
@@ -207,8 +207,12 @@ public class CorrectPathsInDecisionsTransformer extends SimpleDMNTransformer<Tes
 
     }
 
-    private void updateLiteralExpression(TLiteralExpression expression, String oldValue, String newValue) {
-        String newText = expression.getText().replace(oldValue, newValue);
+    private void updateLiteralExpression(TLiteralExpression expression, String oldValue, String newValue, TDecision decision) {
+        String oldText = expression.getText();
+        String newText = oldText.replace(oldValue, newValue);
+
+        logger.info(String.format("Replacing expression '%s' with '%s' in decision '%s'", oldText, newText, decision.getName()));
+
         expression.setText(newText);
     }
 
