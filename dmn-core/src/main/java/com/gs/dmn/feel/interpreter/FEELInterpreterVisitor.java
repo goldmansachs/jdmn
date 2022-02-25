@@ -49,7 +49,8 @@ import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.JavaFunctionInfo;
 import com.gs.dmn.runtime.function.*;
-import com.gs.dmn.runtime.interpreter.*;
+import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.transformation.basic.ImportContextType;
 import org.omg.spec.dmn._20191111.model.TDRGElement;
@@ -528,7 +529,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             Object e1 = element.getLeftOperand().accept(this, context);
             Type e2 = element.getRightOperand().getType();
             if (e1 == null) {
-                return e2 == NullType.NULL;
+                return Type.isNullType(e2);
             } else {
                 return Type.conformsTo(element.getLeftOperand().getType(), e2);
             }

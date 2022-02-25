@@ -353,11 +353,11 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         if (conditionType != BOOLEAN) {
             throw new SemanticError(element, String.format("Condition type must be boolean. Found '%s' instead.", conditionType));
         }
-        if (thenType == NullType.NULL && elseType == NullType.NULL) {
+        if (Type.isNullType(thenType) && Type.isNullType(elseType)) {
             throw new SemanticError(element, String.format("Types of then and else branches are incompatible. Found '%s' and '%s'.", thenType, elseType));
-        } else if (thenType == NullType.NULL) {
+        } else if (Type.isNullType(thenType)) {
             element.setType(elseType);
-        } else if (elseType == NullType.NULL) {
+        } else if (Type.isNullType(elseType)) {
             element.setType(thenType);
         } else {
             if (Type.conformsTo(thenType, elseType)) {

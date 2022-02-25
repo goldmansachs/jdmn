@@ -12,8 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.literal;
 
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNContext;
@@ -38,29 +36,6 @@ public class ListLiteral extends Expression {
 
     public void add(Expression ast) {
         this.expressionList.add(ast);
-    }
-
-    private void checkListElementTypes() {
-        List<Type> types = this.expressionList.stream().map(Expression::getType).collect(Collectors.toList());
-        boolean sameType = true;
-        for (int i = 0; i < types.size() - 1; i++) {
-            Type type1 = types.get(i);
-            for (int j = i + 1; j < types.size(); j++) {
-                Type type2 = types.get(j);
-                if (!Type.conformsTo(type1, type2)) {
-                    sameType = false;
-                    break;
-                }
-            }
-            if (!sameType) {
-                break;
-            }
-        }
-        if (sameType) {
-            setType(new ListType(types.get(0)));
-        } else {
-            setType(ListType.ANY_LIST);
-        }
     }
 
     @Override

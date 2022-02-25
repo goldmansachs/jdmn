@@ -283,29 +283,29 @@ public class OperatorDecisionTable {
         }
 
         // Normalize data types
-        if (leftType instanceof DataType && (rightType == NULL || rightType == ANY)) {
+        if (leftType instanceof DataType && Type.isNullOrAnyType(rightType)) {
             rightType = leftType;
-        } else if (rightType instanceof DataType && (leftType == NULL || leftType == ANY)) {
+        } else if (rightType instanceof DataType && Type.isNullOrAnyType(leftType)) {
             leftType = rightType;
-        } else if (leftType instanceof ListType && (rightType == NULL || rightType == ANY)) {
+        } else if (leftType instanceof ListType && Type.isNullOrAnyType(rightType)) {
             rightType = leftType;
-        } else if (rightType instanceof ListType && (leftType == NULL || leftType == ANY)) {
+        } else if (rightType instanceof ListType && Type.isNullOrAnyType(leftType)) {
             leftType = rightType;
-        } else if (leftType instanceof ContextType && (rightType == NULL || rightType == ANY)) {
+        } else if (leftType instanceof ContextType && Type.isNullOrAnyType(rightType)) {
             rightType = leftType;
-        } else if (rightType instanceof ContextType && (leftType == NULL || leftType == ANY)) {
+        } else if (rightType instanceof ContextType && Type.isNullOrAnyType(leftType)) {
             leftType = rightType;
-        } else if (leftType instanceof ItemDefinitionType && (rightType == NULL || rightType == ANY)) {
+        } else if (leftType instanceof ItemDefinitionType && Type.isNullOrAnyType(rightType)) {
             rightType = leftType;
-        } else if (rightType instanceof ItemDefinitionType && (leftType == NULL || leftType == ANY)) {
+        } else if (rightType instanceof ItemDefinitionType && Type.isNullOrAnyType(leftType)) {
             leftType = rightType;
-        } else if (leftType instanceof RangeType && (rightType == NULL || rightType == ANY)) {
+        } else if (leftType instanceof RangeType && Type.isNullOrAnyType(rightType)) {
             rightType = leftType;
-        } else if (rightType instanceof RangeType && (leftType == NULL || leftType == ANY)) {
+        } else if (rightType instanceof RangeType && Type.isNullOrAnyType(leftType)) {
             leftType = rightType;
-        } else if (leftType instanceof FunctionType && (rightType == NULL || rightType == ANY)) {
+        } else if (leftType instanceof FunctionType && Type.isNullOrAnyType(rightType)) {
             rightType = leftType;
-        } else if (rightType instanceof FunctionType && (leftType == NULL || leftType == ANY)) {
+        } else if (rightType instanceof FunctionType && Type.isNullOrAnyType(leftType)) {
             leftType = rightType;
         }
         return new Pair<>(leftType, rightType);

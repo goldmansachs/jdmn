@@ -44,12 +44,20 @@ public abstract class Type {
         return type == null;
     }
 
+    public static boolean isNullType(Type type) {
+        return type == NullType.NULL;
+    }
+
     public static boolean isAny(Type type) {
         return type == AnyType.ANY;
     }
 
     public static boolean isNullOrAny(Type type) {
         return isNull(type) || isAny(type);
+    }
+
+    public static boolean isNullOrAnyType(Type type) {
+        return isNull(type) || isNullType(type) || isAny(type);
     }
 
     public static boolean isNullOrAny(String typeRef) {

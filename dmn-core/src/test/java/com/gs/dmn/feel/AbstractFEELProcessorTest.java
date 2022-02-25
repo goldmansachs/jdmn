@@ -2348,7 +2348,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 null);
         doExpressionTest(entries, "", "function (x , y) x + y",
                 "FunctionDefinition(FormalParameter(x, null, false, false),FormalParameter(y, null, false, false), Addition(+,Name(x),Name(y)), false)",
-                "FEELFunctionType(FormalParameter(x, null, false, false), FormalParameter(y, null, false, false), Any, false)",
+                "FEELFunctionType(FormalParameter(x, null, false, false), FormalParameter(y, null, false, false), null, false)",
                 null,
                 null,
                 null);
