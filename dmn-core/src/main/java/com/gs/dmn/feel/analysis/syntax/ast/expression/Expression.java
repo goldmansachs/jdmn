@@ -15,7 +15,7 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 
-public abstract class Expression extends Element {
+public abstract class Expression<C> extends Element<C> {
     private Type type;
 
     public Type getType() {

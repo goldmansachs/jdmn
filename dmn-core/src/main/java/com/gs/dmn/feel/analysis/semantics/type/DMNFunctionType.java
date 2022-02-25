@@ -26,19 +26,19 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class DMNFunctionType extends FunctionType {
+public class DMNFunctionType<C> extends FunctionType<C> {
     private final TDRGElement drgElement;
     private final TFunctionDefinition functionDefinition;
 
-    public DMNFunctionType(List<FormalParameter> formalParameters, Type outputType) {
+    public DMNFunctionType(List<FormalParameter<C>> formalParameters, Type outputType) {
         this(formalParameters, outputType, null);
     }
 
-    public DMNFunctionType(List<FormalParameter> parameters, Type returnType, TDRGElement drgElement) {
+    public DMNFunctionType(List<FormalParameter<C>> parameters, Type returnType, TDRGElement drgElement) {
         this(parameters, returnType, drgElement, drgElement instanceof TBusinessKnowledgeModel ? ((TBusinessKnowledgeModel) drgElement).getEncapsulatedLogic() : null);
     }
 
-    public DMNFunctionType(List<FormalParameter> parameters, Type returnType, TDRGElement drgElement, TFunctionDefinition functionDefinition) {
+    public DMNFunctionType(List<FormalParameter<C>> parameters, Type returnType, TDRGElement drgElement, TFunctionDefinition functionDefinition) {
         super(parameters, returnType);
         this.drgElement = drgElement;
         this.functionDefinition = functionDefinition;
@@ -48,8 +48,8 @@ public class DMNFunctionType extends FunctionType {
         return this.drgElement;
     }
 
-    public DMNFunctionType attachElement(TDRGElement element) {
-        return new DMNFunctionType(this.getParameters(), this.getReturnType(), element);
+    public DMNFunctionType<C> attachElement(TDRGElement element) {
+        return new DMNFunctionType<>(this.getParameters(), this.getReturnType(), element);
     }
 
     public TFunctionKind getKind() {
@@ -59,21 +59,21 @@ public class DMNFunctionType extends FunctionType {
     @Override
     protected boolean equivalentTo(Type other) {
         return other instanceof DMNFunctionType
-                && Type.equivalentTo(this.returnType, ((FunctionType) other).returnType)
-                && Type.equivalentTo(this.parameterTypes, ((FunctionType) other).parameterTypes);
+                && Type.equivalentTo(this.returnType, ((FunctionType<C>) other).returnType)
+                && Type.equivalentTo(this.parameterTypes, ((FunctionType<C>) other).parameterTypes);
     }
 
     @Override
     protected boolean conformsTo(Type other) {
         // “contravariant function argument type” and “covariant function return type”
         return other instanceof FunctionType
-                && Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
-                && Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
+                && Type.conformsTo(this.returnType, ((FunctionType<C>) other).returnType)
+                && Type.conformsTo(((FunctionType<C>) other).parameterTypes, this.parameterTypes);
     }
 
     @Override
-    public boolean match(ParameterTypes parameterTypes) {
-        List<FormalParameter> parameters = getParameters();
+    public boolean match(ParameterTypes<C> parameterTypes) {
+        List<FormalParameter<C>> parameters = getParameters();
         if (parameters.size() != parameterTypes.size()) {
             return false;
         }
@@ -82,7 +82,7 @@ public class DMNFunctionType extends FunctionType {
 
 
     @Override
-    protected List<Pair<ParameterTypes, ParameterConversions>> matchCandidates(List<Type> argumentTypes) {
+    protected List<Pair<ParameterTypes<C>, ParameterConversions<C>>> matchCandidates(List<Type> argumentTypes) {
         // check size constraint
         if (argumentTypes.size() != this.parameterTypes.size()) {
             return new ArrayList<>();

@@ -13,27 +13,26 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
-public class RangeIteratorDomain extends IteratorDomain {
-    private final Expression start;
-    private final Expression end;
+public class RangeIteratorDomain<C> extends IteratorDomain<C> {
+    private final Expression<C> start;
+    private final Expression<C> end;
 
-    public RangeIteratorDomain(Expression start, Expression end) {
+    public RangeIteratorDomain(Expression<C> start, Expression<C> end) {
         this.start = start;
         this.end = end;
     }
 
-    public Expression getStart() {
+    public Expression<C> getStart() {
         return this.start;
     }
 
-    public Expression getEnd() {
+    public Expression<C> getEnd() {
         return this.end;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

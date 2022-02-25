@@ -21,7 +21,7 @@ import com.gs.dmn.runtime.Pair;
 
 import java.util.List;
 
-public class BuiltinOverloadedFunctionType extends FunctionType {
+public class BuiltinOverloadedFunctionType<C> extends FunctionType<C> {
     private final List<Declaration> declarations;
 
     public BuiltinOverloadedFunctionType(List<Declaration> declarations) {
@@ -51,7 +51,7 @@ public class BuiltinOverloadedFunctionType extends FunctionType {
         return false;
     }
 
-    public List<FormalParameter> getParameters() {
+    public List<FormalParameter<C>> getParameters() {
         throw new SemanticError("Not supported yet");
     }
 
@@ -73,12 +73,12 @@ public class BuiltinOverloadedFunctionType extends FunctionType {
     }
 
     @Override
-    public boolean match(ParameterTypes parameterTypes) {
+    public boolean match(ParameterTypes<C> parameterTypes) {
         throw new SemanticError("Not supported yet");
     }
 
     @Override
-    protected List<Pair<ParameterTypes, ParameterConversions>> matchCandidates(List<Type> argumentTypes) {
+    protected List<Pair<ParameterTypes<C>, ParameterConversions<C>>> matchCandidates(List<Type> argumentTypes) {
         throw new SemanticError("Not supported yet");
     }
 }

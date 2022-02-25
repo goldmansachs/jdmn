@@ -39,7 +39,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
-public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor {
+public abstract class AbstractFEELToJavaVisitor<C> extends AbstractAnalysisVisitor<C> {
     private static final Map<String, String> FEEL_2_JAVA_FUNCTION = new LinkedHashMap<>();
     static {
         FEEL_2_JAVA_FUNCTION.put("get value", "getValue");
@@ -91,7 +91,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         }
     }
 
-    protected String makeNavigation(Expression element, Type sourceType, String source, String memberName, String memberVariableName) {
+    protected String makeNavigation(Expression<DMNContext> element, Type sourceType, String source, String memberName, String memberVariableName) {
         if (sourceType instanceof ImportContextType) {
             ImportContextType importContextType = (ImportContextType) sourceType;
             DRGElementReference<? extends TDRGElement> memberReference = importContextType.getMemberReference(memberName);
@@ -155,7 +155,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         return this.dmnTransformer.lowerCaseFirst(name);
     }
 
-    protected Object makeCondition(String feelOperator, Expression leftOperand, Expression rightOperand, DMNContext context) {
+    protected Object makeCondition(String feelOperator, Expression<C> leftOperand, Expression<C> rightOperand, C context) {
         String leftOpd = (String) leftOperand.accept(this, context);
         String rightOpd = (String) rightOperand.accept(this, context);
         NativeOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperator, leftOperand.getType(), rightOperand.getType());
@@ -186,7 +186,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         }
     }
 
-    protected String listTestOperator(String feelOperatorName, Expression leftOperand, Expression rightOperand) {
+    protected String listTestOperator(String feelOperatorName, Expression<C> leftOperand, Expression<C> rightOperand) {
         NativeOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperatorName, rightOperand.getType(), rightOperand.getType());
         if (javaOperator != null) {
             return javaOperator.getName();
@@ -203,7 +203,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         return String.format("(%s) %s (%s)", leftOpd, javaOperator, rightOpd);
     }
 
-    protected Object dateTimeLiteralToJava(DateTimeLiteral element) {
+    protected Object dateTimeLiteralToJava(DateTimeLiteral<C> element) {
         Type type = element.getType();
         String value = element.getLexeme();
         if (type == DATE) {
@@ -219,7 +219,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         }
     }
 
-    protected String functionName(Expression function) {
-        return ((Name) function).getName();
+    protected String functionName(Expression<C> function) {
+        return ((Name<C>) function).getName();
     }
 }

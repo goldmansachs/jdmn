@@ -22,21 +22,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FEELFunctionType extends FunctionType {
-    private final FunctionDefinition functionDefinition;
+public class FEELFunctionType<C> extends FunctionType<C> {
+    private final FunctionDefinition<C> functionDefinition;
     private final boolean external;
 
-    public FEELFunctionType(List<FormalParameter> parameters, Type returnType, boolean external) {
+    public FEELFunctionType(List<FormalParameter<C>> parameters, Type returnType, boolean external) {
         this(parameters, returnType, external, null);
     }
 
-    public FEELFunctionType(List<FormalParameter> parameters, Type returnType, boolean external, FunctionDefinition functionDefinition) {
+    public FEELFunctionType(List<FormalParameter<C>> parameters, Type returnType, boolean external, FunctionDefinition<C> functionDefinition) {
         super(parameters, returnType);
         this.functionDefinition = functionDefinition;
         this.external = external;
     }
 
-    public FunctionDefinition getFunctionDefinition() {
+    public FunctionDefinition<C> getFunctionDefinition() {
         return this.functionDefinition;
     }
 
@@ -60,8 +60,8 @@ public class FEELFunctionType extends FunctionType {
     }
 
     @Override
-    public boolean match(ParameterTypes parameterTypes) {
-        List<FormalParameter> parameters = getParameters();
+    public boolean match(ParameterTypes<C> parameterTypes) {
+        List<FormalParameter<C>> parameters = getParameters();
         if (parameters.size() != parameterTypes.size()) {
             return false;
         }
@@ -69,7 +69,7 @@ public class FEELFunctionType extends FunctionType {
     }
 
     @Override
-    protected List<Pair<ParameterTypes, ParameterConversions>> matchCandidates(List<Type> argumentTypes) {
+    protected List<Pair<ParameterTypes<C>, ParameterConversions<C>>> matchCandidates(List<Type> argumentTypes) {
         // check size constraint
         if (argumentTypes.size() != this.parameterTypes.size()) {
             return new ArrayList<>();
@@ -83,7 +83,7 @@ public class FEELFunctionType extends FunctionType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        FEELFunctionType that = (FEELFunctionType) o;
+        FEELFunctionType<?> that = (FEELFunctionType<?>) o;
 
         if (this.parameters != null ? !this.parameters.equals(that.parameters) : that.parameters != null)
             return false;

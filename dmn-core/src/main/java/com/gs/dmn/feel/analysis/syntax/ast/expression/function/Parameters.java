@@ -18,21 +18,21 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 import java.util.function.BiFunction;
 
-public abstract class Parameters extends Element {
+public abstract class Parameters<C> extends Element<C> {
     // API for initial status
     public abstract boolean isEmpty();
-    public abstract ParameterTypes getSignature();
-    public abstract Arguments getOriginalArguments();
-    public abstract void setOriginalArguments(Arguments originalArguments);
+    public abstract ParameterTypes<C> getSignature();
+    public abstract Arguments<C> getOriginalArguments();
+    public abstract void setOriginalArguments(Arguments<C> originalArguments);
 
     // API during and after conversion
-    public abstract ParameterConversions getParameterConversions();
-    public abstract void setParameterConversions(ParameterConversions parameterConversions);
-    public abstract ParameterTypes getConvertedParameterTypes();
-    public abstract void setConvertedParameterTypes(ParameterTypes parameterTypes);
-    public abstract Arguments getConvertedArguments();
-    public abstract Arguments convertArguments(BiFunction<Object, Conversion, Object> convertArgument);
+    public abstract ParameterConversions<C> getParameterConversions();
+    public abstract void setParameterConversions(ParameterConversions<C> parameterConversions);
+    public abstract ParameterTypes<C> getConvertedParameterTypes();
+    public abstract void setConvertedParameterTypes(ParameterTypes<C> parameterTypes);
+    public abstract Arguments<C> getConvertedArguments();
+    public abstract Arguments<C> convertArguments(BiFunction<Object, Conversion, Object> convertArgument);
 
     public abstract Type getParameterType(int position, String name);
-    public abstract Expression getParameter(int position, String name);
+    public abstract Expression<C> getParameter(int position, String name);
 }

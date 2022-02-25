@@ -17,9 +17,8 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.CloneVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.ForExpression;
-import com.gs.dmn.runtime.DMNContext;
 
-public class UpdatePartialVisitor extends CloneVisitor {
+public class UpdatePartialVisitor<C> extends CloneVisitor<C> {
     private final Type partialType;
 
     public UpdatePartialVisitor(Type partialType, ErrorHandler errorHandler) {
@@ -31,7 +30,7 @@ public class UpdatePartialVisitor extends CloneVisitor {
     // Primary expressions
     //
     @Override
-    public Object visit(Name element, DMNContext context) {
+    public Object visit(Name<C> element, C context) {
         if (element == null) {
             return null;
         }

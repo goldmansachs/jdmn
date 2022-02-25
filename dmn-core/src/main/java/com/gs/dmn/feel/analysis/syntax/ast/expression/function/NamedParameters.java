@@ -15,28 +15,27 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
-public class NamedParameters extends Parameters {
-    private final Map<String, Expression> parameters;
-    private NamedArguments originalArguments;
-    private NamedParameterConversions parameterConversions;
-    private NamedParameterTypes parameterTypes;
-    private NamedArguments convertedArguments;
+public class NamedParameters<C> extends Parameters<C> {
+    private final Map<String, Expression<C>> parameters;
+    private NamedArguments<C> originalArguments;
+    private NamedParameterConversions<C> parameterConversions;
+    private NamedParameterTypes<C> parameterTypes;
+    private NamedArguments<C> convertedArguments;
 
-    public NamedParameters(Map<String, Expression> params) {
+    public NamedParameters(Map<String, Expression<C>> params) {
         if (params == null) {
             params = new LinkedHashMap<>();
         }
         this.parameters = params;
     }
 
-    public Map<String, Expression> getParameters() {
+    public Map<String, Expression<C>> getParameters() {
         return this.parameters;
     }
 
@@ -46,51 +45,51 @@ public class NamedParameters extends Parameters {
     }
 
     @Override
-    public ParameterTypes getSignature() {
+    public ParameterTypes<C> getSignature() {
         Map<String, Type> signature = new LinkedHashMap<>();
         this.parameters.forEach((key, value) -> signature.put(key, value.getType()));
-        return new NamedParameterTypes(signature);
+        return new NamedParameterTypes<>(signature);
     }
 
     @Override
-    public Arguments getOriginalArguments() {
+    public Arguments<C> getOriginalArguments() {
         return this.originalArguments;
     }
 
     @Override
-    public void setOriginalArguments(Arguments originalArguments) {
-        this.originalArguments = (NamedArguments) originalArguments;
+    public void setOriginalArguments(Arguments<C> originalArguments) {
+        this.originalArguments = (NamedArguments<C>) originalArguments;
     }
 
     @Override
-    public ParameterConversions getParameterConversions() {
+    public ParameterConversions<C> getParameterConversions() {
         return this.parameterConversions;
     }
 
     @Override
-    public void setParameterConversions(ParameterConversions parameterConversions) {
-        this.parameterConversions = (NamedParameterConversions) parameterConversions;
+    public void setParameterConversions(ParameterConversions<C> parameterConversions) {
+        this.parameterConversions = (NamedParameterConversions<C>) parameterConversions;
     }
 
     @Override
-    public ParameterTypes getConvertedParameterTypes() {
+    public ParameterTypes<C> getConvertedParameterTypes() {
         return this.parameterTypes;
     }
 
     @Override
-    public void setConvertedParameterTypes(ParameterTypes parameterTypes) {
-        this.parameterTypes = (NamedParameterTypes) parameterTypes;
+    public void setConvertedParameterTypes(ParameterTypes<C> parameterTypes) {
+        this.parameterTypes = (NamedParameterTypes<C>) parameterTypes;
     }
 
     @Override
-    public Arguments getConvertedArguments() {
+    public Arguments<C> getConvertedArguments() {
         return this.convertedArguments;
     }
 
     @Override
-    public Arguments convertArguments(BiFunction<Object, Conversion, Object> convertArgument) {
+    public Arguments<C> convertArguments(BiFunction<Object, Conversion, Object> convertArgument) {
         if (requiresConversion()) {
-            this.convertedArguments = new NamedArguments();
+            this.convertedArguments = new NamedArguments<>();
             for (Map.Entry<String, Conversion> entry : this.parameterConversions.getConversions().entrySet()) {
                 String key = entry.getKey();
                 Object arg = this.originalArguments.getArguments().get(key);
@@ -105,7 +104,7 @@ public class NamedParameters extends Parameters {
     }
 
     @Override
-    public Expression getParameter(int position, String name) {
+    public Expression<C> getParameter(int position, String name) {
         return this.parameters.get(name);
     }
 
@@ -122,7 +121,7 @@ public class NamedParameters extends Parameters {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

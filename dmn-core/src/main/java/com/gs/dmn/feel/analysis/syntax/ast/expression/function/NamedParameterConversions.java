@@ -14,12 +14,12 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import java.util.*;
 
-public class NamedParameterConversions extends ParameterConversions {
-    public static NamedParameterConversions toNamedParameterConversions(PositionalParameterConversions candidateParameterConversions, List<FormalParameter> formalParameters) {
-        NamedParameterConversions matchParameterConversions = new NamedParameterConversions(formalParameters);
+public class NamedParameterConversions<C> extends ParameterConversions<C> {
+    public static <C> NamedParameterConversions<C> toNamedParameterConversions(PositionalParameterConversions<C> candidateParameterConversions, List<FormalParameter<C>> formalParameters) {
+        NamedParameterConversions<C> matchParameterConversions = new NamedParameterConversions<>(formalParameters);
         List<Conversion> conversions = candidateParameterConversions.getConversions(formalParameters);
         for (int i = 0; i< formalParameters.size(); i++) {
-            FormalParameter p = formalParameters.get(i);
+            FormalParameter<C> p = formalParameters.get(i);
             matchParameterConversions.add(p.getName(), conversions.get(i));
         }
         return matchParameterConversions;
@@ -38,9 +38,9 @@ public class NamedParameterConversions extends ParameterConversions {
         this.conversions = conversions;
     }
 
-    public NamedParameterConversions(List<FormalParameter> parameters) {
+    public NamedParameterConversions(List<FormalParameter<C>> parameters) {
         this.conversions = new LinkedHashMap<>();
-        for (FormalParameter parameter: parameters) {
+        for (FormalParameter<C> parameter: parameters) {
             this.conversions.put(parameter.getName(), new Conversion(ConversionKind.NONE, parameter.getType()));
         }
     }
@@ -54,9 +54,9 @@ public class NamedParameterConversions extends ParameterConversions {
     }
 
     @Override
-    public List<Conversion> getConversions(List<FormalParameter> formalParameters) {
+    public List<Conversion> getConversions(List<FormalParameter<C>> formalParameters) {
         List<Conversion> conversions = new ArrayList<>();
-        for(FormalParameter parameter: formalParameters) {
+        for(FormalParameter<C> parameter: formalParameters) {
             conversions.add(this.conversions.get(parameter.getName()));
         }
         return conversions;
@@ -71,7 +71,7 @@ public class NamedParameterConversions extends ParameterConversions {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NamedParameterConversions that = (NamedParameterConversions) o;
+        NamedParameterConversions<?> that = (NamedParameterConversions<?>) o;
         return Objects.equals(this.conversions, that.conversions);
     }
 

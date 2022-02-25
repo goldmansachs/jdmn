@@ -14,32 +14,31 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.literal;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ListLiteral extends Expression {
-    private final List<Expression> expressionList = new ArrayList<>();
+public class ListLiteral<C> extends Expression<C> {
+    private final List<Expression<C>> expressionList = new ArrayList<>();
 
-    public ListLiteral(List<Expression> expressionList) {
+    public ListLiteral(List<Expression<C>> expressionList) {
         if (expressionList != null) {
             this.expressionList.addAll(expressionList);
         }
     }
 
-    public List<Expression> getExpressionList() {
+    public List<Expression<C>> getExpressionList() {
         return this.expressionList;
     }
 
-    public void add(Expression ast) {
+    public void add(Expression<C> ast) {
         this.expressionList.add(ast);
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -47,7 +46,7 @@ public class ListLiteral extends Expression {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ListLiteral that = (ListLiteral) o;
+        ListLiteral<?> that = (ListLiteral<?>) o;
         return Objects.equals(expressionList, that.expressionList);
     }
 

@@ -15,18 +15,17 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.textual;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class QuantifiedExpression extends Expression {
+public class QuantifiedExpression<C> extends Expression<C> {
     private final String predicate;
-    private final List<Iterator> iterators;
-    private final Expression body;
+    private final List<Iterator<C>> iterators;
+    private final Expression<C> body;
 
-    public QuantifiedExpression(String predicate, List<Iterator> iterators, Expression body) {
+    public QuantifiedExpression(String predicate, List<Iterator<C>> iterators, Expression<C> body) {
         this.predicate = predicate;
         this.iterators = iterators;
         this.body = body;
@@ -36,20 +35,20 @@ public class QuantifiedExpression extends Expression {
         return this.predicate;
     }
 
-    public List<Iterator> getIterators() {
+    public List<Iterator<C>> getIterators() {
         return this.iterators;
     }
 
-    public Expression getBody() {
+    public Expression<C> getBody() {
         return this.body;
     }
 
-    public ForExpression toForExpression() {
-        return new ForExpression(this.iterators, this.body);
+    public ForExpression<C> toForExpression() {
+        return new ForExpression<>(this.iterators, this.body);
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -57,7 +56,7 @@ public class QuantifiedExpression extends Expression {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        QuantifiedExpression that = (QuantifiedExpression) o;
+        QuantifiedExpression<?> that = (QuantifiedExpression<?>) o;
         return Objects.equals(predicate, that.predicate) && Objects.equals(iterators, that.iterators) && Objects.equals(body, that.body);
     }
 

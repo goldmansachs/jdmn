@@ -14,16 +14,15 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.comparison;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
-public class Relational extends Comparison {
+public class Relational<C> extends Comparison<C> {
     private final String operator;
-    private final Expression leftOperand;
-    private final Expression rightOperand;
+    private final Expression<C> leftOperand;
+    private final Expression<C> rightOperand;
 
-    public Relational(String operator, Expression leftOperand, Expression rightOperand) {
+    public Relational(String operator, Expression<C> leftOperand, Expression<C> rightOperand) {
         this.operator = operator;
         this.leftOperand = leftOperand;
         this.rightOperand = rightOperand;
@@ -33,16 +32,16 @@ public class Relational extends Comparison {
         return this.operator;
     }
 
-    public Expression getLeftOperand() {
+    public Expression<C> getLeftOperand() {
         return this.leftOperand;
     }
 
-    public Expression getRightOperand() {
+    public Expression<C> getRightOperand() {
         return this.rightOperand;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -50,7 +49,7 @@ public class Relational extends Comparison {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Relational that = (Relational) o;
+        Relational<?> that = (Relational<?>) o;
         return Objects.equals(operator, that.operator) && Objects.equals(leftOperand, that.leftOperand) && Objects.equals(rightOperand, that.rightOperand);
     }
 

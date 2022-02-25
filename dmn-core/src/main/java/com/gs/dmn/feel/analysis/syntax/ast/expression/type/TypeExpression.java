@@ -14,5 +14,5 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.type;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-public abstract class TypeExpression extends Expression {
+public abstract class TypeExpression<C> extends Expression<C> {
 }

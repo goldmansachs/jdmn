@@ -14,12 +14,12 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 
-public class DeclarationMatch {
+public class DeclarationMatch<C> {
     private final Declaration declaration;
-    private final ParameterTypes parameterTypes;
-    private final ParameterConversions parameterConversions;
+    private final ParameterTypes<C> parameterTypes;
+    private final ParameterConversions<C> parameterConversions;
 
-    public DeclarationMatch(Declaration declaration, ParameterTypes parameterTypes, ParameterConversions parameterConversions) {
+    public DeclarationMatch(Declaration declaration, ParameterTypes<C> parameterTypes, ParameterConversions<C> parameterConversions) {
         this.declaration = declaration;
         this.parameterTypes = parameterTypes;
         this.parameterConversions = parameterConversions;
@@ -29,11 +29,11 @@ public class DeclarationMatch {
         return this.declaration;
     }
 
-    public ParameterTypes getParameterTypes() {
+    public ParameterTypes<C> getParameterTypes() {
         return this.parameterTypes;
     }
 
-    public ParameterConversions getParameterConversions() {
+    public ParameterConversions<C> getParameterConversions() {
         return this.parameterConversions;
     }
 

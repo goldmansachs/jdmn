@@ -13,21 +13,20 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
-public class ExpressionIteratorDomain extends IteratorDomain {
-    private final Expression expression;
+public class ExpressionIteratorDomain<C> extends IteratorDomain<C> {
+    private final Expression<C> expression;
 
-    public ExpressionIteratorDomain(Expression expression) {
+    public ExpressionIteratorDomain(Expression<C> expression) {
         this.expression = expression;
     }
 
-    public Expression getExpression() {
+    public Expression<C> getExpression() {
         return this.expression;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

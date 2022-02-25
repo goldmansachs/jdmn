@@ -13,28 +13,27 @@
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class PositiveUnaryTests extends UnaryTests {
-    private List<PositiveUnaryTest> positiveUnaryTests = new ArrayList<>();
+public class PositiveUnaryTests<C> extends UnaryTests<C> {
+    private List<PositiveUnaryTest<C>> positiveUnaryTests = new ArrayList<>();
 
-    public PositiveUnaryTests(List<PositiveUnaryTest> positiveUnaryTests) {
+    public PositiveUnaryTests(List<PositiveUnaryTest<C>> positiveUnaryTests) {
         if (positiveUnaryTests != null) {
             this.positiveUnaryTests = positiveUnaryTests;
         }
     }
 
-    public List<PositiveUnaryTest> getPositiveUnaryTests() {
+    public List<PositiveUnaryTest<C>> getPositiveUnaryTests() {
         return this.positiveUnaryTests;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -42,7 +41,7 @@ public class PositiveUnaryTests extends UnaryTests {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PositiveUnaryTests that = (PositiveUnaryTests) o;
+        PositiveUnaryTests<?> that = (PositiveUnaryTests<?>) o;
         return Objects.equals(positiveUnaryTests, that.positiveUnaryTests);
     }
 

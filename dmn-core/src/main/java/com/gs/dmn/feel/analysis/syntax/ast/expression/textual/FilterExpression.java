@@ -14,35 +14,34 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.textual;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
-public class FilterExpression extends Expression {
+public class FilterExpression<C> extends Expression<C> {
     public static final String FILTER_PARAMETER_NAME = "item";
 
-    private final Expression source;
-    private Expression filter;
+    private final Expression<C> source;
+    private Expression<C> filter;
 
-    public FilterExpression(Expression source, Expression filter) {
+    public FilterExpression(Expression<C> source, Expression<C> filter) {
         this.source = source;
         this.filter = filter;
     }
 
-    public Expression getSource() {
+    public Expression<C> getSource() {
         return this.source;
     }
 
-    public Expression getFilter() {
+    public Expression<C> getFilter() {
         return this.filter;
     }
 
-    public void setFilter(Expression filter) {
+    public void setFilter(Expression<C> filter) {
         this.filter = filter;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -50,7 +49,7 @@ public class FilterExpression extends Expression {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FilterExpression that = (FilterExpression) o;
+        FilterExpression<?> that = (FilterExpression<?>) o;
         return Objects.equals(source, that.source) && Objects.equals(filter, that.filter);
     }
 

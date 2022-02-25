@@ -16,41 +16,40 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.PositiveUnaryTest;
 import com.gs.dmn.feel.analysis.syntax.ast.test.PositiveUnaryTests;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class InExpression extends Comparison {
-    private final Expression value;
-    private final List<PositiveUnaryTest> tests = new ArrayList<>();
+public class InExpression<C> extends Comparison<C> {
+    private final Expression<C> value;
+    private final List<PositiveUnaryTest<C>> tests = new ArrayList<>();
 
-    public InExpression(Expression value, PositiveUnaryTest test) {
+    public InExpression(Expression<C> value, PositiveUnaryTest<C> test) {
         this.value = value;
         if (test != null) {
             this.tests.add(test);
         }
     }
 
-    public InExpression(Expression value, PositiveUnaryTests tests) {
+    public InExpression(Expression<C> value, PositiveUnaryTests<C> tests) {
         this.value = value;
         if (tests != null) {
             this.tests.addAll(tests.getPositiveUnaryTests());
         }
     }
 
-    public Expression getValue() {
+    public Expression<C> getValue() {
         return this.value;
     }
 
-    public List<PositiveUnaryTest> getTests() {
+    public List<PositiveUnaryTest<C>> getTests() {
         return this.tests;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -58,7 +57,7 @@ public class InExpression extends Comparison {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        InExpression that = (InExpression) o;
+        InExpression<?> that = (InExpression<?>) o;
         return Objects.equals(value, that.value) && Objects.equals(tests, that.tests);
     }
 

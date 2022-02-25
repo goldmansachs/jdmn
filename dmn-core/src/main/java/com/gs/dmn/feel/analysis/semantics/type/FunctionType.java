@@ -24,34 +24,34 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind.*;
 
-public abstract class FunctionType extends Type {
+public abstract class FunctionType<C> extends Type {
     public static final Type ANY_FUNCTION = new FunctionType(Arrays.asList(), ANY) {
+        @Override
+        protected boolean equivalentTo(Type other) {
+            return false;
+        }
+
+        @Override
+        protected boolean conformsTo(Type other) {
+            return false;
+        }
+
         @Override
         public boolean match(ParameterTypes parameterTypes) {
             return false;
         }
 
         @Override
-        protected List<Pair<ParameterTypes, ParameterConversions>> matchCandidates(List<Type> argumentTypes) {
+        protected List<Pair<ParameterTypes, ParameterConversions>> matchCandidates(List argumentTypes) {
             return null;
-        }
-
-        @Override
-        protected boolean equivalentTo(Type other) {
-            return this == other;
-        }
-
-        @Override
-        protected boolean conformsTo(Type other) {
-            return this == other;
         }
     };
 
-    protected final List<FormalParameter> parameters = new ArrayList<>();
+    protected final List<FormalParameter<C>> parameters = new ArrayList<>();
     protected final List<Type> parameterTypes = new ArrayList<>();
     protected Type returnType;
 
-    protected FunctionType(List<FormalParameter> parameters, Type returnType) {
+    protected FunctionType(List<FormalParameter<C>> parameters, Type returnType) {
         this.returnType = returnType;
         if (parameters != null) {
             this.parameters.addAll(parameters);
@@ -59,7 +59,7 @@ public abstract class FunctionType extends Type {
         }
     }
 
-    public List<FormalParameter> getParameters() {
+    public List<FormalParameter<C>> getParameters() {
         return this.parameters;
     }
 
@@ -86,14 +86,14 @@ public abstract class FunctionType extends Type {
                 && !Type.isNullOrAny(this.returnType);
     }
 
-    public List<Pair<ParameterTypes, ParameterConversions>> matchCandidates(ParameterTypes parameterTypes) {
+    public List<Pair<ParameterTypes<C>, ParameterConversions<C>>> matchCandidates(ParameterTypes<C> parameterTypes) {
         if (parameterTypes instanceof PositionalParameterTypes) {
-            List<Type> argumentTypes = ((PositionalParameterTypes) parameterTypes).getTypes();
+            List<Type> argumentTypes = ((PositionalParameterTypes<C>) parameterTypes).getTypes();
             return matchCandidates(argumentTypes);
         } else {
-            NamedParameterTypes namedSignature = (NamedParameterTypes) parameterTypes;
+            NamedParameterTypes<C> namedSignature = (NamedParameterTypes<C>) parameterTypes;
             List<Type> argumentTypes = new ArrayList<>();
-            for(FormalParameter parameter: this.parameters) {
+            for(FormalParameter<C> parameter: this.parameters) {
                 Type type = namedSignature.getType(parameter.getName());
                 if (!Type.isNull(type)) {
                     argumentTypes.add(type);
@@ -105,9 +105,9 @@ public abstract class FunctionType extends Type {
         }
     }
 
-    protected ArrayList<Pair<ParameterTypes, ParameterConversions>> calculateCandidates(List<Type> parameterTypes, List<Type> argumentTypes) {
+    protected ArrayList<Pair<ParameterTypes<C>, ParameterConversions<C>>> calculateCandidates(List<Type> parameterTypes, List<Type> argumentTypes) {
         // calculate candidates
-        Set<Pair<ParameterTypes, ParameterConversions>> candidates = new LinkedHashSet<>();
+        Set<Pair<ParameterTypes<C>, ParameterConversions<C>>> candidates = new LinkedHashSet<>();
         int argumentSize = argumentTypes.size();
         ConversionKind[] candidateConversions = FUNCTION_RESOLUTION_CANDIDATES;
         int conversionSize = candidateConversions.length;
@@ -118,7 +118,7 @@ public abstract class FunctionType extends Type {
         while (conversionMap != null) {
             // Calculate new types and conversions for every argument
             List<Type> newTypes = new ArrayList<>();
-            PositionalParameterConversions conversions = new PositionalParameterConversions();
+            PositionalParameterConversions<C> conversions = new PositionalParameterConversions<>();
             boolean different = false;
             for (int i = 0; i < argumentSize; i++) {
                 // Compute new type and conversion
@@ -181,7 +181,7 @@ public abstract class FunctionType extends Type {
 
             // Add new candidate
             if (different) {
-                PositionalParameterTypes newSignature = new PositionalParameterTypes(newTypes);
+                PositionalParameterTypes<C> newSignature = new PositionalParameterTypes<>(newTypes);
                 candidates.add(new Pair<>(newSignature, conversions));
             }
 
@@ -221,7 +221,7 @@ public abstract class FunctionType extends Type {
         return end ? null : vector;
     }
 
-    public abstract boolean match(ParameterTypes parameterTypes);
+    public abstract boolean match(ParameterTypes<C> parameterTypes);
 
-    protected abstract List<Pair<ParameterTypes, ParameterConversions>> matchCandidates(List<Type> argumentTypes);
+    protected abstract List<Pair<ParameterTypes<C>, ParameterConversions<C>>> matchCandidates(List<Type> argumentTypes);
 }

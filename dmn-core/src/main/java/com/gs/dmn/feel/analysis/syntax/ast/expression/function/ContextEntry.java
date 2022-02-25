@@ -15,27 +15,26 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
-public class ContextEntry extends Element {
-    private final ContextEntryKey key;
-    private final Expression expression;
+public class ContextEntry<C> extends Element<C> {
+    private final ContextEntryKey<C> key;
+    private final Expression<C> expression;
 
-    public ContextEntry(ContextEntryKey key, Expression expression) {
+    public ContextEntry(ContextEntryKey<C> key, Expression<C> expression) {
         this.key = key;
         this.expression = expression;
     }
 
-    public ContextEntryKey getKey() {
+    public ContextEntryKey<C> getKey() {
         return this.key;
     }
 
-    public Expression getExpression() {
+    public Expression<C> getExpression() {
         return this.expression;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

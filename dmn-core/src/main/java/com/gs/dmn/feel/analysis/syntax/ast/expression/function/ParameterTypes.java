@@ -14,9 +14,9 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import java.util.List;
 
-public abstract class ParameterTypes {
+public abstract class ParameterTypes<C> {
     public abstract int size();
 
-    public abstract boolean compatible(List<FormalParameter> parameters);
+    public abstract boolean compatible(List<FormalParameter<C>> parameters);
 }
 

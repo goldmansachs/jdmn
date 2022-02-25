@@ -21,18 +21,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BuiltinFunctionType extends FunctionType {
+public class BuiltinFunctionType<C> extends FunctionType<C> {
     private final int totalParamsCount;
     private final int mandatoryParamsCount;
     private final boolean hasOptionalParams;
     private final boolean hasVarArgs;
 
-    public BuiltinFunctionType(Type type, FormalParameter... parameters) {
+    public BuiltinFunctionType(Type type, FormalParameter<C>... parameters) {
         this(Arrays.asList(parameters), type);
     }
 
-    public BuiltinFunctionType(List<FormalParameter> parameters, Type returnType) {
-        super(new ArrayList<>(parameters), returnType);
+    public BuiltinFunctionType(List<FormalParameter<C>> parameters, Type returnType) {
+        super(new ArrayList<FormalParameter<C>>(parameters), returnType);
         this.totalParamsCount = parameters.size();
         this.mandatoryParamsCount = (int) parameters.stream().filter(p -> !p.isOptional() && !p.isVarArg()).count();
         this.hasOptionalParams = parameters.stream().anyMatch(FormalParameter::isOptional);
@@ -40,7 +40,7 @@ public class BuiltinFunctionType extends FunctionType {
     }
 
     @Override
-    protected List<Pair<ParameterTypes, ParameterConversions>> matchCandidates(List<Type> argumentTypes) {
+    protected List<Pair<ParameterTypes<C>, ParameterConversions<C>>> matchCandidates(List<Type> argumentTypes) {
         if (this.hasOptionalParams) {
             // check size constraint
             if (!(this.mandatoryParamsCount <= argumentTypes.size() && argumentTypes.size() <= this.totalParamsCount)) {
@@ -132,11 +132,11 @@ public class BuiltinFunctionType extends FunctionType {
         return true;
     }
 
-    private boolean match(NamedParameterTypes namedParameterTypes) {
+    private boolean match(NamedParameterTypes<C> namedParameterTypes) {
         for (String argName: namedParameterTypes.getNames()) {
             Type argType = namedParameterTypes.getType(argName);
             boolean found = false;
-            for(FormalParameter parameter: this.parameters) {
+            for(FormalParameter<C> parameter: this.parameters) {
                 if (parameter.getName().equals(argName)) {
                     found = true;
                     Type parType = parameter.getType();
@@ -164,8 +164,8 @@ public class BuiltinFunctionType extends FunctionType {
     protected boolean conformsTo(Type other) {
         // “contravariant function argument type” and “covariant function return type”
         return other instanceof FunctionType
-                && Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
-                && Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
+                && Type.conformsTo(this.returnType, ((FunctionType<C>) other).returnType)
+                && Type.conformsTo(((FunctionType<C>) other).parameterTypes, this.parameterTypes);
     }
 
     @Override

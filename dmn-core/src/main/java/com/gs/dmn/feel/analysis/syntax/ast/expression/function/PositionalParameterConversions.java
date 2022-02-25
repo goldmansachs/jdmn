@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class PositionalParameterConversions extends ParameterConversions {
+public class PositionalParameterConversions<C> extends ParameterConversions<C> {
     private final List<Conversion> conversions = new ArrayList<>();
 
     public PositionalParameterConversions() {
@@ -43,7 +43,7 @@ public class PositionalParameterConversions extends ParameterConversions {
     }
 
     @Override
-    public List<Conversion> getConversions(List<FormalParameter> formalParameters) {
+    public List<Conversion> getConversions(List<FormalParameter<C>> formalParameters) {
         return this.conversions;
     }
 
@@ -56,7 +56,7 @@ public class PositionalParameterConversions extends ParameterConversions {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PositionalParameterConversions that = (PositionalParameterConversions) o;
+        PositionalParameterConversions<?> that = (PositionalParameterConversions<?>) o;
         return Objects.equals(this.conversions, that.conversions);
     }
 

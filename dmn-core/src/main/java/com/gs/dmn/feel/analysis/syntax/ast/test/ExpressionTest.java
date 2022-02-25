@@ -14,23 +14,22 @@ package com.gs.dmn.feel.analysis.syntax.ast.test;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
-public class ExpressionTest extends PositiveUnaryTest {
-    private final Expression expression;
+public class ExpressionTest<C> extends PositiveUnaryTest<C> {
+    private final Expression<C> expression;
 
-    public ExpressionTest(Expression expression) {
+    public ExpressionTest(Expression<C> expression) {
         this.expression = expression;
     }
 
-    public Expression getExpression() {
+    public Expression<C> getExpression() {
         return this.expression;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -38,7 +37,7 @@ public class ExpressionTest extends PositiveUnaryTest {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ExpressionTest that = (ExpressionTest) o;
+        ExpressionTest<?> that = (ExpressionTest<?>) o;
         return Objects.equals(expression, that.expression);
     }
 

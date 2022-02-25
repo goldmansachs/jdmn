@@ -15,6 +15,7 @@ package com.gs.dmn.feel.synthesis;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 public class FEELToNativeForInterpreterVisitor extends FEELToNativeVisitor {
@@ -23,7 +24,7 @@ public class FEELToNativeForInterpreterVisitor extends FEELToNativeVisitor {
     }
 
     @Override
-    protected String makeNavigation(Expression element, Type sourceType, String source, String memberName, String memberVariableName) {
+    protected String makeNavigation(Expression<DMNContext> element, Type sourceType, String source, String memberName, String memberVariableName) {
         if (sourceType instanceof ItemDefinitionType) {
             String javaType = dmnTransformer.toNativeType(((ItemDefinitionType) sourceType).getMemberType(memberName));
             return this.nativeFactory.makeItemDefinitionSelectExpression(source, memberName, javaType);

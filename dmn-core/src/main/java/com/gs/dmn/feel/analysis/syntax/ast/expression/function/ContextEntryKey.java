@@ -14,9 +14,8 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
-public class ContextEntryKey extends Element {
+public class ContextEntryKey<C> extends Element<C> {
     private final String key;
 
     public ContextEntryKey(String key) {
@@ -32,7 +31,7 @@ public class ContextEntryKey extends Element {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

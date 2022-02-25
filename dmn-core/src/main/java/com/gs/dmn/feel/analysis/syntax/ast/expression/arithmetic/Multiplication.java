@@ -14,15 +14,14 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
-public class Multiplication extends ArithmeticExpression {
-    public Multiplication(String operator, Expression leftOperand, Expression rightOperand) {
+public class Multiplication<C> extends ArithmeticExpression<C> {
+    public Multiplication(String operator, Expression<C> leftOperand, Expression<C> rightOperand) {
         super(operator, leftOperand, rightOperand);
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

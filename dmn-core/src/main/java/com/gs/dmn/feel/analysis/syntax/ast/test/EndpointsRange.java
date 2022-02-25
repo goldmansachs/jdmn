@@ -14,28 +14,27 @@ package com.gs.dmn.feel.analysis.syntax.ast.test;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
-public class EndpointsRange extends Range {
+public class EndpointsRange<C> extends Range<C> {
     private final boolean openStart;
-    private final Expression start;
+    private final Expression<C> start;
     private final boolean openEnd;
-    private final Expression end;
+    private final Expression<C> end;
 
-    public EndpointsRange(boolean isOpenStart, Expression start, boolean isOpenEnd, Expression end) {
+    public EndpointsRange(boolean isOpenStart, Expression<C> start, boolean isOpenEnd, Expression<C> end) {
         this.openStart = isOpenStart;
         this.start = start;
         this.openEnd = isOpenEnd;
         this.end = end;
     }
 
-    public Expression getStart() {
+    public Expression<C> getStart() {
         return this.start;
     }
 
-    public Expression getEnd() {
+    public Expression<C> getEnd() {
         return this.end;
     }
 
@@ -48,7 +47,7 @@ public class EndpointsRange extends Range {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -56,7 +55,7 @@ public class EndpointsRange extends Range {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EndpointsRange that = (EndpointsRange) o;
+        EndpointsRange<?> that = (EndpointsRange<?>) o;
         return openStart == that.openStart && openEnd == that.openEnd && Objects.equals(start, that.start) && Objects.equals(end, that.end);
     }
 

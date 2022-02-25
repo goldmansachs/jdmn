@@ -13,31 +13,30 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.type;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class FunctionTypeExpression extends TypeExpression {
-    private final List<TypeExpression> parameters;
-    private final TypeExpression returnType;
+public class FunctionTypeExpression<C> extends TypeExpression<C> {
+    private final List<TypeExpression<C>> parameters;
+    private final TypeExpression<C> returnType;
 
-    public FunctionTypeExpression(List<TypeExpression> parameters, TypeExpression returnType) {
+    public FunctionTypeExpression(List<TypeExpression<C>> parameters, TypeExpression<C> returnType) {
         this.parameters = parameters;
         this.returnType = returnType;
     }
 
-    public List<TypeExpression> getParameters() {
+    public List<TypeExpression<C>> getParameters() {
         return this.parameters;
     }
 
-    public TypeExpression getReturnType() {
+    public TypeExpression<C> getReturnType() {
         return this.returnType;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -45,7 +44,7 @@ public class FunctionTypeExpression extends TypeExpression {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FunctionTypeExpression that = (FunctionTypeExpression) o;
+        FunctionTypeExpression<?> that = (FunctionTypeExpression<?>) o;
         return Objects.equals(parameters, that.parameters) && Objects.equals(returnType, that.returnType);
     }
 

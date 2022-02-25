@@ -17,14 +17,14 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class NamedParameterTypes extends ParameterTypes {
-    public static ParameterTypes toNamedParameterTypes(PositionalParameterTypes candidateParameterTypes, List<FormalParameter> formalParameters) {
+public class NamedParameterTypes<C> extends ParameterTypes<C> {
+    public static <C> ParameterTypes<C> toNamedParameterTypes(PositionalParameterTypes<C> candidateParameterTypes, List<FormalParameter<C>> formalParameters) {
         Map<String, Type> map = new LinkedHashMap<>();
         for (int i = 0; i< formalParameters.size(); i++) {
-            FormalParameter p = formalParameters.get(i);
+            FormalParameter<C> p = formalParameters.get(i);
             map.put(p.getName(), candidateParameterTypes.getTypes().get(i));
         }
-        return new NamedParameterTypes(map);
+        return new NamedParameterTypes<>(map);
     }
 
     private Map<String, Type> namedTypes = new LinkedHashMap<>();
@@ -41,11 +41,11 @@ public class NamedParameterTypes extends ParameterTypes {
     }
 
     @Override
-    public boolean compatible(List<FormalParameter> parameters) {
+    public boolean compatible(List<FormalParameter<C>> parameters) {
         if (size() != parameters.size()) {
             return false;
         }
-        for (FormalParameter formalParameter : parameters) {
+        for (FormalParameter<C> formalParameter : parameters) {
             Type argumentType = this.namedTypes.get(formalParameter.getName());
             Type parameterType = formalParameter.getType();
             if (!Type.conformsTo(argumentType, parameterType)) {
@@ -67,7 +67,7 @@ public class NamedParameterTypes extends ParameterTypes {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NamedParameterTypes that = (NamedParameterTypes) o;
+        NamedParameterTypes<?> that = (NamedParameterTypes<?>) o;
         return Objects.equals(this.namedTypes, that.namedTypes);
     }
 

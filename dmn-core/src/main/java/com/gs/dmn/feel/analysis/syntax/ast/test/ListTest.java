@@ -14,23 +14,22 @@ package com.gs.dmn.feel.analysis.syntax.ast.test;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.ListLiteral;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
-public class ListTest extends SimplePositiveUnaryTest {
-    private final ListLiteral listLiteral;
+public class ListTest<C> extends SimplePositiveUnaryTest<C> {
+    private final ListLiteral<C> listLiteral;
 
-    public ListTest(ListLiteral listLiteral) {
+    public ListTest(ListLiteral<C> listLiteral) {
         this.listLiteral = listLiteral;
     }
 
-    public ListLiteral getListLiteral() {
+    public ListLiteral<C> getListLiteral() {
         return this.listLiteral;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -38,7 +37,7 @@ public class ListTest extends SimplePositiveUnaryTest {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ListTest listTest = (ListTest) o;
+        ListTest<?> listTest = (ListTest<?>) o;
         return Objects.equals(listLiteral, listTest.listLiteral);
     }
 

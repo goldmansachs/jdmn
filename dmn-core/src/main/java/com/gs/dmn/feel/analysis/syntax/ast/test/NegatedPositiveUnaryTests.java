@@ -13,23 +13,22 @@
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
-public class NegatedPositiveUnaryTests extends UnaryTests {
-    private final PositiveUnaryTests positiveUnaryTests;
+public class NegatedPositiveUnaryTests<C> extends UnaryTests<C> {
+    private final PositiveUnaryTests<C> positiveUnaryTests;
 
-    public NegatedPositiveUnaryTests(PositiveUnaryTests positiveUnaryTests) {
+    public NegatedPositiveUnaryTests(PositiveUnaryTests<C> positiveUnaryTests) {
         this.positiveUnaryTests = positiveUnaryTests;
     }
 
-    public PositiveUnaryTests getPositiveUnaryTests() {
+    public PositiveUnaryTests<C> getPositiveUnaryTests() {
         return this.positiveUnaryTests;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -37,7 +36,7 @@ public class NegatedPositiveUnaryTests extends UnaryTests {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NegatedPositiveUnaryTests that = (NegatedPositiveUnaryTests) o;
+        NegatedPositiveUnaryTests<?> that = (NegatedPositiveUnaryTests<?>) o;
         return Objects.equals(positiveUnaryTests, that.positiveUnaryTests);
     }
 

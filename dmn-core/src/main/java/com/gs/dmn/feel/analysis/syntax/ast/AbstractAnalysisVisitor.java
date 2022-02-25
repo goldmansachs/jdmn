@@ -23,7 +23,7 @@ import com.gs.dmn.transformation.native_.NativeFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
+public abstract class AbstractAnalysisVisitor<C> extends AbstractVisitor<C> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractAnalysisVisitor.class);
 
     protected final BasicDMNToNativeTransformer dmnTransformer;

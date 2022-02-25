@@ -14,15 +14,14 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
-public class ArithmeticNegation extends ArithmeticExpression {
-    public ArithmeticNegation(Expression leftOperand) {
+public class ArithmeticNegation<C> extends ArithmeticExpression<C> {
+    public ArithmeticNegation(Expression<C> leftOperand) {
         super("-", leftOperand, null);
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

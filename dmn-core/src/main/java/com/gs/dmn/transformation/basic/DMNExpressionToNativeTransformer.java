@@ -585,17 +585,17 @@ public class DMNExpressionToNativeTransformer {
         }
     }
 
-    public JavaFunctionInfo extractJavaFunctionInfo(TDRGElement element, FunctionDefinition functionDefinition) {
+    public JavaFunctionInfo extractJavaFunctionInfo(TDRGElement element, FunctionDefinition<DMNContext> functionDefinition) {
         // Extract class, method and param types names
         String className = null;
         String methodName = null;
         List<String> paramTypes = new ArrayList<>();
-        Expression body = functionDefinition.getBody();
+        Expression<DMNContext> body = functionDefinition.getBody();
         if (body instanceof Context) {
-            body = ((Context) body).getEntries().get(0).getExpression();
+            body = ((Context<DMNContext>) body).getEntries().get(0).getExpression();
         }
         if (body instanceof Context) {
-            for (ContextEntry entry: ((Context) body).getEntries()) {
+            for (ContextEntry<DMNContext> entry: ((Context<DMNContext>) body).getEntries()) {
                 String name = entry.getKey().getKey();
                 if ("class".equals(name)) {
                     Expression value = entry.getExpression();

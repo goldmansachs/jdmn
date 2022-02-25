@@ -14,8 +14,8 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import java.util.List;
 
-public abstract class ParameterConversions {
-    public abstract List<Conversion> getConversions(List<FormalParameter> formalParameters);
+public abstract class ParameterConversions<C> {
+    public abstract List<Conversion> getConversions(List<FormalParameter<C>> formalParameters);
 
     public abstract boolean hasConversion(ConversionKind kind);
 }

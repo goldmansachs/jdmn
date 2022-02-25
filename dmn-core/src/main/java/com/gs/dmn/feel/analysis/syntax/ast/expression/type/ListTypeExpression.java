@@ -13,23 +13,22 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.type;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
-public class ListTypeExpression extends TypeExpression {
-    private final TypeExpression elementTypeExpression;
+public class ListTypeExpression<C> extends TypeExpression<C> {
+    private final TypeExpression<C> elementTypeExpression;
 
-    public ListTypeExpression(TypeExpression listType) {
+    public ListTypeExpression(TypeExpression<C> listType) {
         this.elementTypeExpression = listType;
     }
 
-    public TypeExpression getElementTypeExpression() {
+    public TypeExpression<C> getElementTypeExpression() {
         return this.elementTypeExpression;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -37,7 +36,7 @@ public class ListTypeExpression extends TypeExpression {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ListTypeExpression that = (ListTypeExpression) o;
+        ListTypeExpression<?> that = (ListTypeExpression<?>) o;
         return Objects.equals(elementTypeExpression, that.elementTypeExpression);
     }
 

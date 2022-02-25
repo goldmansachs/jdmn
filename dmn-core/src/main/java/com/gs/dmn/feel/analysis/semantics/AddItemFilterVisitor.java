@@ -21,10 +21,9 @@ import com.gs.dmn.feel.analysis.syntax.ast.CloneVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.PathExpression;
-import com.gs.dmn.runtime.DMNContext;
 
-public class AddItemFilterVisitor extends CloneVisitor {
-    private final ASTFactory astFactory = new ASTFactory();
+public class AddItemFilterVisitor<C> extends CloneVisitor<C> {
+    private final ASTFactory<C> astFactory = new ASTFactory<>();
 
     private final String lambdaParameterName;
     private final Type lambdaParameterType;
@@ -39,12 +38,12 @@ public class AddItemFilterVisitor extends CloneVisitor {
     // Postfix expressions
     //
     @Override
-    public Object visit(PathExpression element, DMNContext context) {
-        Expression source = element.getSource();
+    public Object visit(PathExpression<C> element, C context) {
+        Expression<C> source = element.getSource();
         if (source instanceof Name) {
-            String name = ((Name) source).getName();
+            String name = ((Name<C>) source).getName();
             if (isMember(name, this.lambdaParameterType)) {
-                Expression newSource = this.astFactory.toPathExpression(this.astFactory.toName(this.lambdaParameterName), name);
+                Expression<C> newSource = this.astFactory.toPathExpression(this.astFactory.toName(this.lambdaParameterName), name);
                 return this.astFactory.toPathExpression(newSource, element.getMember());
             }
         }
@@ -55,14 +54,14 @@ public class AddItemFilterVisitor extends CloneVisitor {
     // Primary expressions
     //
     @Override
-    public Object visit(Name element, DMNContext context) {
+    public Object visit(Name<C> element, C context) {
         if (element == null) {
             return null;
         }
 
         String name = element.getName();
         if (isMember(name, this.lambdaParameterType)) {
-            Expression source = this.astFactory.toName(this.lambdaParameterName);
+            Expression<C> source = this.astFactory.toName(this.lambdaParameterName);
             return this.astFactory.toPathExpression(source, element.getName());
         } else {
             return element;

@@ -15,29 +15,28 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.textual;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.TypeExpression;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
-public class InstanceOfExpression extends Expression {
-    private final Expression leftOperand;
-    private final TypeExpression rightOperand;
+public class InstanceOfExpression<C> extends Expression<C> {
+    private final Expression<C> leftOperand;
+    private final TypeExpression<C> rightOperand;
 
-    public InstanceOfExpression(Expression leftOperand, TypeExpression rightOperand) {
+    public InstanceOfExpression(Expression<C> leftOperand, TypeExpression<C> rightOperand) {
         this.leftOperand = leftOperand;
         this.rightOperand = rightOperand;
     }
 
-    public Expression getLeftOperand() {
+    public Expression<C> getLeftOperand() {
         return this.leftOperand;
     }
 
-    public TypeExpression getRightOperand() {
+    public TypeExpression<C> getRightOperand() {
         return this.rightOperand;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -45,7 +44,7 @@ public class InstanceOfExpression extends Expression {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        InstanceOfExpression that = (InstanceOfExpression) o;
+        InstanceOfExpression<?> that = (InstanceOfExpression<?>) o;
         return Objects.equals(leftOperand, that.leftOperand) && Objects.equals(rightOperand, that.rightOperand);
     }
 

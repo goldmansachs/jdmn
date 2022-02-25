@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class PositionalParameterTypes extends ParameterTypes {
+public class PositionalParameterTypes<C> extends ParameterTypes<C> {
     private List<Type> types = new ArrayList<>();
 
     public PositionalParameterTypes(List<Type> types) {
@@ -38,7 +38,7 @@ public class PositionalParameterTypes extends ParameterTypes {
     }
 
     @Override
-    public boolean compatible(List<FormalParameter> parameters) {
+    public boolean compatible(List<FormalParameter<C>> parameters) {
         if (size() != parameters.size()) {
             return false;
         }
@@ -56,7 +56,7 @@ public class PositionalParameterTypes extends ParameterTypes {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PositionalParameterTypes that = (PositionalParameterTypes) o;
+        PositionalParameterTypes<?> that = (PositionalParameterTypes<?>) o;
         return Objects.equals(this.types, that.types);
     }
 

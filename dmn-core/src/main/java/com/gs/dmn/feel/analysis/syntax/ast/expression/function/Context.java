@@ -16,40 +16,39 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.SimpleLiteral;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Context extends Expression {
-    private final List<ContextEntry> entries = new ArrayList<>();
+public class Context<C> extends Expression<C> {
+    private final List<ContextEntry<C>> entries = new ArrayList<>();
 
-    public Context(List<ContextEntry> entries) {
+    public Context(List<ContextEntry<C>> entries) {
         if (entries != null) {
             this.entries.addAll(entries);
         }
     }
 
-    public List<ContextEntry> getEntries() {
+    public List<ContextEntry<C>> getEntries() {
         return this.entries;
     }
 
-    public ContextEntry entry(String name) {
-        List<ContextEntry> result = this.entries.stream().filter(e -> name.equals(e.getKey().getKey())).collect(Collectors.toList());
+    public ContextEntry<C> entry(String name) {
+        List<ContextEntry<C>> result = this.entries.stream().filter(e -> name.equals(e.getKey().getKey())).collect(Collectors.toList());
         return result.size() == 1 ? result.get(0) : null;
     }
 
     public Map<String, Object> toMap() {
         Map<String, Object> result = new LinkedHashMap<>();
-        for(ContextEntry entry: this.entries) {
+        for(ContextEntry<C> entry: this.entries) {
             String key = entry.getKey().getKey();
-            Expression expression = entry.getExpression();
+            Expression<C> expression = entry.getExpression();
             Object value;
             if (expression instanceof Context) {
-                value = ((Context) expression).toMap();
+                value = ((Context<C>) expression).toMap();
             } else if (expression instanceof SimpleLiteral) {
-                String lexeme = ((SimpleLiteral) expression).getLexeme();
+                String lexeme = ((SimpleLiteral<C>) expression).getLexeme();
                 value = StringEscapeUtil.stripQuotes(lexeme);
             } else {
                 throw new DMNRuntimeException(String.format("'%s' is not supported", expression.getClass().getSimpleName()));
@@ -60,7 +59,7 @@ public class Context extends Expression {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -68,7 +67,7 @@ public class Context extends Expression {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Context context = (Context) o;
+        Context<?> context = (Context<?>) o;
         return Objects.equals(entries, context.entries);
     }
 

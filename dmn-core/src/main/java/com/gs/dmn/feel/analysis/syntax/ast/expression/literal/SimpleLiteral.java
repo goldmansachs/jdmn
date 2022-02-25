@@ -14,7 +14,7 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.literal;
 
 import java.util.Objects;
 
-public abstract class SimpleLiteral extends Literal {
+public abstract class SimpleLiteral<C> extends Literal<C> {
     protected final String lexeme;
 
     protected SimpleLiteral(String lexeme) {
@@ -29,7 +29,7 @@ public abstract class SimpleLiteral extends Literal {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SimpleLiteral that = (SimpleLiteral) o;
+        SimpleLiteral<?> that = (SimpleLiteral<?>) o;
         return Objects.equals(lexeme, that.lexeme);
     }
 

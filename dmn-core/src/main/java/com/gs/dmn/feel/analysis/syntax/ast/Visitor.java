@@ -31,129 +31,128 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.type.FunctionTypeExpressio
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.ListTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.NamedTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
-import com.gs.dmn.runtime.DMNContext;
 
-public interface Visitor {
+public interface Visitor<C> {
     //
     // Tests
     //
-    Object visit(PositiveUnaryTests element, DMNContext context);
+    Object visit(PositiveUnaryTests<C> element, C context);
 
-    Object visit(NegatedPositiveUnaryTests element, DMNContext context);
+    Object visit(NegatedPositiveUnaryTests<C> element, C context);
 
-    Object visit(Any element, DMNContext context);
+    Object visit(Any<C> element, C context);
 
-    Object visit(NullTest element, DMNContext context);
+    Object visit(NullTest<C> element, C context);
 
-    Object visit(ExpressionTest element, DMNContext context);
+    Object visit(ExpressionTest<C> element, C context);
 
-    Object visit(OperatorRange element, DMNContext context);
+    Object visit(OperatorRange<C> element, C context);
 
-    Object visit(EndpointsRange element, DMNContext context);
+    Object visit(EndpointsRange<C> element, C context);
 
-    Object visit(ListTest element, DMNContext context);
+    Object visit(ListTest<C> element, C context);
 
     //
     // Textual expressions
     //
-    Object visit(FormalParameter element, DMNContext context);
+    Object visit(FormalParameter<C> element, C context);
 
-    Object visit(FunctionDefinition element, DMNContext context);
+    Object visit(FunctionDefinition<C> element, C context);
 
-    Object visit(Context element, DMNContext context);
+    Object visit(Context<C> element, C context);
 
-    Object visit(ContextEntry element, DMNContext context);
+    Object visit(ContextEntry<C> element, C context);
 
-    Object visit(ContextEntryKey element, DMNContext context);
+    Object visit(ContextEntryKey<C> element, C context);
 
-    Object visit(ForExpression element, DMNContext context);
+    Object visit(ForExpression<C> element, C context);
 
-    Object visit(Iterator element, DMNContext context);
+    Object visit(Iterator<C> element, C context);
 
-    Object visit(ExpressionIteratorDomain element, DMNContext context);
+    Object visit(ExpressionIteratorDomain<C> element, C context);
 
-    Object visit(RangeIteratorDomain element, DMNContext context);
+    Object visit(RangeIteratorDomain<C> element, C context);
 
-    Object visit(IfExpression element, DMNContext context);
+    Object visit(IfExpression<C> element, C context);
 
-    Object visit(QuantifiedExpression element, DMNContext context);
+    Object visit(QuantifiedExpression<C> element, C context);
 
-    Object visit(FilterExpression element, DMNContext context);
+    Object visit(FilterExpression<C> element, C context);
 
-    Object visit(InstanceOfExpression element, DMNContext context);
+    Object visit(InstanceOfExpression<C> element, C context);
 
     //
     // Expressions
     //
-    Object visit(ExpressionList element, DMNContext context);
+    Object visit(ExpressionList<C> element, C context);
 
     //
     // Logic expressions
     //
-    Object visit(Disjunction element, DMNContext context);
+    Object visit(Disjunction<C> element, C context);
 
-    Object visit(Conjunction element, DMNContext context);
+    Object visit(Conjunction<C> element, C context);
 
-    Object visit(LogicNegation element, DMNContext context);
+    Object visit(LogicNegation<C> element, C context);
 
     //
     // Comparison expressions
     //
-    Object visit(Relational element, DMNContext context);
+    Object visit(Relational<C> element, C context);
 
-    Object visit(BetweenExpression element, DMNContext context);
+    Object visit(BetweenExpression<C> element, C context);
 
-    Object visit(InExpression element, DMNContext context);
+    Object visit(InExpression<C> element, C context);
 
     //
     // Arithmetic expressions
     //
-    Object visit(Addition element, DMNContext context);
+    Object visit(Addition<C> element, C context);
 
-    Object visit(Multiplication element, DMNContext context);
+    Object visit(Multiplication<C> element, C context);
 
-    Object visit(Exponentiation element, DMNContext context);
+    Object visit(Exponentiation<C> element, C context);
 
-    Object visit(ArithmeticNegation element, DMNContext context);
+    Object visit(ArithmeticNegation<C> element, C context);
 
     //
     // Postfix expressions
     //
-    Object visit(FunctionInvocation element, DMNContext context);
+    Object visit(FunctionInvocation<C> element, C context);
 
-    Object visit(NamedParameters element, DMNContext context);
+    Object visit(NamedParameters<C> element, C context);
 
-    Object visit(PositionalParameters element, DMNContext context);
+    Object visit(PositionalParameters<C> element, C context);
 
-    Object visit(PathExpression element, DMNContext context);
+    Object visit(PathExpression<C> element, C context);
 
     //
     // Primary expressions
     //
-    Object visit(BooleanLiteral element, DMNContext context);
+    Object visit(BooleanLiteral<C> element, C context);
 
-    Object visit(DateTimeLiteral element, DMNContext context);
+    Object visit(DateTimeLiteral<C> element, C context);
 
-    Object visit(NullLiteral element, DMNContext context);
+    Object visit(NullLiteral<C> element, C context);
 
-    Object visit(NumericLiteral element, DMNContext context);
+    Object visit(NumericLiteral<C> element, C context);
 
-    Object visit(StringLiteral element, DMNContext context);
+    Object visit(StringLiteral<C> element, C context);
 
-    Object visit(ListLiteral element, DMNContext context);
+    Object visit(ListLiteral<C> element, C context);
 
-    Object visit(QualifiedName element, DMNContext context);
+    Object visit(QualifiedName<C> element, C context);
 
-    Object visit(Name element, DMNContext context);
+    Object visit(Name<C> element, C context);
 
     //
     // Type expressions
     //
-    Object visit(NamedTypeExpression element, DMNContext context);
+    Object visit(NamedTypeExpression<C> element, C context);
 
-    Object visit(ListTypeExpression element, DMNContext context);
+    Object visit(ListTypeExpression<C> element, C context);
 
-    Object visit(ContextTypeExpression element, DMNContext context);
+    Object visit(ContextTypeExpression<C> element, C context);
 
-    Object visit(FunctionTypeExpression element, DMNContext context);
+    Object visit(FunctionTypeExpression<C> element, C context);
 }

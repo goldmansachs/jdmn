@@ -17,19 +17,18 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.TypeExpression;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
-public class FormalParameter extends Element {
+public class FormalParameter<C> extends Element<C> {
     protected final String name;
-    private TypeExpression typeExpression;
+    private TypeExpression<C> typeExpression;
     protected Type type;
 
     protected final boolean optional;
     protected final boolean varArg;
 
-    public FormalParameter(String name, TypeExpression typeExpression) {
+    public FormalParameter(String name, TypeExpression<C> typeExpression) {
         this.name = name;
         this.typeExpression = typeExpression;
         this.optional = false;
@@ -57,7 +56,7 @@ public class FormalParameter extends Element {
         return name;
     }
 
-    public TypeExpression getTypeExpression() {
+    public TypeExpression<C> getTypeExpression() {
         return this.typeExpression;
     }
 
@@ -81,7 +80,7 @@ public class FormalParameter extends Element {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FormalParameter that = (FormalParameter) o;
+        FormalParameter<?> that = (FormalParameter<?>) o;
         return Objects.equals(name, that.name) &&
                 Objects.equals(typeExpression, that.typeExpression) &&
                 Objects.equals(type, that.type);
@@ -93,7 +92,7 @@ public class FormalParameter extends Element {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

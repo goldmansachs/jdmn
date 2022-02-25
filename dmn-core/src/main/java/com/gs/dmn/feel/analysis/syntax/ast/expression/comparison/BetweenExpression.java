@@ -14,35 +14,34 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.comparison;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
-public class BetweenExpression extends Comparison {
-    private final Expression value;
-    private final Expression leftEndpoint;
-    private final Expression rightEndpoint;
+public class BetweenExpression<C> extends Comparison<C> {
+    private final Expression<C> value;
+    private final Expression<C> leftEndpoint;
+    private final Expression<C> rightEndpoint;
 
-    public BetweenExpression(Expression value, Expression leftEndpoint, Expression rightEndpoint) {
+    public BetweenExpression(Expression<C> value, Expression<C> leftEndpoint, Expression<C> rightEndpoint) {
         this.value = value;
         this.leftEndpoint = leftEndpoint;
         this.rightEndpoint = rightEndpoint;
     }
 
-    public Expression getValue() {
+    public Expression<C> getValue() {
         return this.value;
     }
 
-    public Expression getLeftEndpoint() {
+    public Expression<C> getLeftEndpoint() {
         return this.leftEndpoint;
     }
 
-    public Expression getRightEndpoint() {
+    public Expression<C> getRightEndpoint() {
         return this.rightEndpoint;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -50,7 +49,7 @@ public class BetweenExpression extends Comparison {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BetweenExpression that = (BetweenExpression) o;
+        BetweenExpression<?> that = (BetweenExpression<?>) o;
         return Objects.equals(value, that.value) && Objects.equals(leftEndpoint, that.leftEndpoint) && Objects.equals(rightEndpoint, that.rightEndpoint);
     }
 

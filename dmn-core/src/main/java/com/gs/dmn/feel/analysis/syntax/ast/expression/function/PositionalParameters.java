@@ -15,28 +15,27 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
-public class PositionalParameters extends Parameters {
-    private final List<Expression> parameters;
-    private PositionalArguments originalArguments;
-    private PositionalParameterConversions parameterConversions;
-    private PositionalParameterTypes parameterTypes;
-    private PositionalArguments convertedArguments;
+public class PositionalParameters<C> extends Parameters<C> {
+    private final List<Expression<C>> parameters;
+    private PositionalArguments<C> originalArguments;
+    private PositionalParameterConversions<C> parameterConversions;
+    private PositionalParameterTypes<C> parameterTypes;
+    private PositionalArguments<C> convertedArguments;
 
-    public PositionalParameters(List<Expression> params) {
+    public PositionalParameters(List<Expression<C>> params) {
         if (params == null) {
             params = new ArrayList<>();
         }
         this.parameters = params;
     }
 
-    public List<Expression> getParameters() {
+    public List<Expression<C>> getParameters() {
         return this.parameters;
     }
 
@@ -46,49 +45,49 @@ public class PositionalParameters extends Parameters {
     }
 
     @Override
-    public ParameterTypes getSignature() {
-        return new PositionalParameterTypes(this.parameters.stream().map(Expression::getType).collect(Collectors.toList()));
+    public ParameterTypes<C> getSignature() {
+        return new PositionalParameterTypes<>(this.parameters.stream().map(Expression::getType).collect(Collectors.toList()));
     }
 
     @Override
-    public Arguments getOriginalArguments() {
+    public Arguments<C> getOriginalArguments() {
         return this.originalArguments;
     }
 
     @Override
-    public void setOriginalArguments(Arguments originalArguments) {
-        this.originalArguments = (PositionalArguments) originalArguments;
+    public void setOriginalArguments(Arguments<C> originalArguments) {
+        this.originalArguments = (PositionalArguments<C>) originalArguments;
     }
 
     @Override
-    public ParameterConversions getParameterConversions() {
+    public ParameterConversions<C> getParameterConversions() {
         return this.parameterConversions;
     }
 
     @Override
-    public void setParameterConversions(ParameterConversions parameterConversions) {
-        this.parameterConversions = (PositionalParameterConversions) parameterConversions;
+    public void setParameterConversions(ParameterConversions<C> parameterConversions) {
+        this.parameterConversions = (PositionalParameterConversions<C>) parameterConversions;
     }
 
     @Override
-    public ParameterTypes getConvertedParameterTypes() {
+    public ParameterTypes<C> getConvertedParameterTypes() {
         return this.parameterTypes;
     }
 
     @Override
-    public void setConvertedParameterTypes(ParameterTypes parameterTypes) {
-        this.parameterTypes = (PositionalParameterTypes) parameterTypes;
+    public void setConvertedParameterTypes(ParameterTypes<C> parameterTypes) {
+        this.parameterTypes = (PositionalParameterTypes<C>) parameterTypes;
     }
 
     @Override
-    public Arguments getConvertedArguments() {
+    public Arguments<C> getConvertedArguments() {
         return this.convertedArguments;
     }
 
     @Override
-    public Arguments convertArguments(BiFunction<Object, Conversion, Object> convertArgument) {
+    public Arguments<C> convertArguments(BiFunction<Object, Conversion, Object> convertArgument) {
         if (requiresConversion()) {
-            this.convertedArguments = new PositionalArguments();
+            this.convertedArguments = new PositionalArguments<>();
             for (int i = 0; i< this.parameterConversions.getConversions().size(); i++) {
                 Object arg = this.originalArguments.getArguments().get(i);
                 Conversion conversion = this.parameterConversions.getConversions().get(i);
@@ -102,7 +101,7 @@ public class PositionalParameters extends Parameters {
     }
 
     @Override
-    public Expression getParameter(int position, String name) {
+    public Expression<C> getParameter(int position, String name) {
         if (0 > position || position > this.parameters.size()) {
             return null;
         } else {
@@ -127,7 +126,7 @@ public class PositionalParameters extends Parameters {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

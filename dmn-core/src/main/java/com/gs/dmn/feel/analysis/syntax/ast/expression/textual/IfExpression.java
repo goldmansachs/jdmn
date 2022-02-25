@@ -14,35 +14,34 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.textual;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
-public class IfExpression extends Expression {
-    private final Expression condition;
-    private final Expression thenExpression;
-    private final Expression elseExpression;
+public class IfExpression<C> extends Expression<C> {
+    private final Expression<C> condition;
+    private final Expression<C> thenExpression;
+    private final Expression<C> elseExpression;
 
-    public IfExpression(Expression condition, Expression thenExpression, Expression elseExpression) {
+    public IfExpression(Expression<C> condition, Expression<C> thenExpression, Expression<C> elseExpression) {
         this.condition = condition;
         this.thenExpression = thenExpression;
         this.elseExpression = elseExpression;
     }
 
-    public Expression getCondition() {
+    public Expression<C> getCondition() {
         return this.condition;
     }
 
-    public Expression getThenExpression() {
+    public Expression<C> getThenExpression() {
         return this.thenExpression;
     }
 
-    public Expression getElseExpression() {
+    public Expression<C> getElseExpression() {
         return this.elseExpression;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -50,7 +49,7 @@ public class IfExpression extends Expression {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        IfExpression that = (IfExpression) o;
+        IfExpression<?> that = (IfExpression<?>) o;
         return Objects.equals(condition, that.condition) && Objects.equals(thenExpression, that.thenExpression) && Objects.equals(elseExpression, that.elseExpression);
     }
 

@@ -67,7 +67,7 @@ import java.util.stream.Collectors;
 import static com.gs.dmn.feel.analysis.syntax.ast.expression.textual.ForExpression.PARTIAL_PARAMETER_NAME;
 import static com.gs.dmn.transformation.AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER;
 
-class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELToJavaVisitor {
+class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELToJavaVisitor<DMNContext> {
     private static final Logger LOGGER = LoggerFactory.getLogger(FEELInterpreterVisitor.class);
 
     private final DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter;
@@ -86,7 +86,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(PositiveUnaryTests element, DMNContext context) {
+    public Object visit(PositiveUnaryTests<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         List<Boolean> positiveUnaryTests = element.getPositiveUnaryTests().stream().map(put -> (Boolean) put.accept(this, context)).collect(Collectors.toList());
@@ -98,7 +98,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(NegatedPositiveUnaryTests element, DMNContext context) {
+    public Object visit(NegatedPositiveUnaryTests<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         Boolean positiveUnaryTests = (Boolean) element.getPositiveUnaryTests().accept(this, context);
@@ -106,14 +106,14 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(Any element, DMNContext context) {
+    public Object visit(Any<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         return Boolean.TRUE;
     }
 
     @Override
-    public Object visit(NullTest element, DMNContext context) {
+    public Object visit(NullTest<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         Object self = context.lookupBinding(INPUT_ENTRY_PLACE_HOLDER);
@@ -121,14 +121,14 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(ExpressionTest element, DMNContext context) {
+    public Object visit(ExpressionTest<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         return element.getExpression().accept(this, context);
     }
 
     @Override
-    public Object visit(OperatorRange element, DMNContext context) {
+    public Object visit(OperatorRange<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         String operator = element.getOperator();
@@ -163,7 +163,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         }
     }
 
-    private Object evaluateOperatorRange(Expression element, String operator, Object self, Expression endpointExpression, DMNContext context) throws Exception {
+    private Object evaluateOperatorRange(Expression<DMNContext> element, String operator, Object self, Expression endpointExpression, DMNContext context) throws Exception {
         Object endpointValue = endpointExpression.accept(this, context);
         if (context.isExpressionContext()) {
             if (operator == null || "=".equals(operator)) {
@@ -184,7 +184,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         }
     }
 
-    private Object evaluateOperatorRange(Expression element, String operator, Object self, Type inputExpressionType, Type endpointType, Object endpointValue) throws IllegalAccessException, InvocationTargetException {
+    private Object evaluateOperatorRange(Expression<DMNContext> element, String operator, Object self, Type inputExpressionType, Type endpointType, Object endpointValue) throws IllegalAccessException, InvocationTargetException {
         NativeOperator javaOperator = javaOperator(operator, inputExpressionType, endpointType);
         if (javaOperator == null) {
             this.errorHandler.reportError(String.format("Cannot find method for '%s' '%s'", operator, element));
@@ -209,7 +209,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         }
     }
 
-    private Object evaluateBinaryOperator(Expression element, String operator, Expression leftOperand, Expression rightOperand, DMNContext context) throws Exception {
+    private Object evaluateBinaryOperator(Expression<DMNContext> element, String operator, Expression leftOperand, Expression rightOperand, DMNContext context) throws Exception {
         NativeOperator javaOperator = javaOperator(operator, leftOperand, rightOperand);
         if (javaOperator == null) {
             this.errorHandler.reportError(String.format("Cannot find method for '%s' '%s'", operator, element));
@@ -259,7 +259,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(EndpointsRange element, DMNContext context) {
+    public Object visit(EndpointsRange<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         Expression startExpression = element.getStart();
@@ -289,7 +289,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(ListTest element, DMNContext context) {
+    public Object visit(ListTest<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         try {
@@ -321,21 +321,21 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(FunctionDefinition element, DMNContext context) {
+    public Object visit(FunctionDefinition<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         return FEELFunction.of(element, context);
     }
 
     @Override
-    public Object visit(FormalParameter element, DMNContext context) {
+    public Object visit(FormalParameter<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     @Override
-    public Object visit(Context element, DMNContext parentContext) {
+    public Object visit(Context<DMNContext> element, DMNContext parentContext) {
         LOGGER.debug("Visiting element '{}'", element);
 
         DMNContext entryContext = this.dmnTransformer.makeLocalContext(parentContext);
@@ -348,7 +348,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(ContextEntry element, DMNContext context) {
+    public Object visit(ContextEntry<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         Object key = element.getKey().accept(this, context);
@@ -359,14 +359,14 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(ContextEntryKey element, DMNContext context) {
+    public Object visit(ContextEntryKey<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         return element.getKey();
     }
 
     @Override
-    public Object visit(ForExpression element, DMNContext context) {
+    public Object visit(ForExpression<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         // Transform into equivalent nested for expressions
@@ -413,14 +413,14 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(Iterator element, DMNContext context) {
+    public Object visit(Iterator<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     @Override
-    public Object visit(ExpressionIteratorDomain element, DMNContext context) {
+    public Object visit(ExpressionIteratorDomain<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         Expression expressionDomain = element.getExpression();
@@ -452,7 +452,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(RangeIteratorDomain element, DMNContext context) {
+    public Object visit(RangeIteratorDomain<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         Object start = element.getStart().accept(this, context);
@@ -461,7 +461,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(IfExpression element, DMNContext context) {
+    public Object visit(IfExpression<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         Object condition = element.getCondition().accept(this, context);
@@ -473,7 +473,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(QuantifiedExpression element, DMNContext context) {
+    public Object visit(QuantifiedExpression<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         // Transform into nested for expressions
@@ -492,7 +492,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(FilterExpression element, DMNContext context) {
+    public Object visit(FilterExpression<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         Type sourceType = element.getSource().getType();
@@ -522,7 +522,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(InstanceOfExpression element, DMNContext context) {
+    public Object visit(InstanceOfExpression<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         try {
@@ -540,14 +540,14 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(ExpressionList element, DMNContext context) {
+    public Object visit(ExpressionList<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     @Override
-    public Object visit(Disjunction element, DMNContext context) {
+    public Object visit(Disjunction<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         try {
@@ -561,7 +561,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(Conjunction element, DMNContext context) {
+    public Object visit(Conjunction<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         try {
@@ -575,7 +575,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(LogicNegation element, DMNContext context) {
+    public Object visit(LogicNegation<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         Object leftOperand = element.getLeftOperand().accept(this, context);
@@ -583,7 +583,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(Relational element, DMNContext context) {
+    public Object visit(Relational<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         try {
@@ -595,7 +595,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(BetweenExpression element, DMNContext context) {
+    public Object visit(BetweenExpression<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         try {
@@ -628,18 +628,18 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(InExpression element, DMNContext context) {
+    public Object visit(InExpression<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
-        Expression valueExp = element.getValue();
+        Expression<DMNContext> valueExp = element.getValue();
         Object value = valueExp.accept(this, context);
 
         DMNContext inParams = this.dmnTransformer.makeUnaryTestContext(valueExp, context);
         inParams.bind(INPUT_ENTRY_PLACE_HOLDER, value);
 
         List<Object> result = new ArrayList<>();
-        List<PositiveUnaryTest> positiveUnaryTests = element.getTests();
-        for (PositiveUnaryTest positiveUnaryTest : positiveUnaryTests) {
+        List<PositiveUnaryTest<DMNContext>> positiveUnaryTests = element.getTests();
+        for (PositiveUnaryTest<DMNContext> positiveUnaryTest : positiveUnaryTests) {
             Object test = positiveUnaryTest.accept(this, inParams);
             result.add(test);
         }
@@ -651,7 +651,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(Addition element, DMNContext context) {
+    public Object visit(Addition<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         try {
@@ -663,7 +663,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(Multiplication element, DMNContext context) {
+    public Object visit(Multiplication<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         try {
@@ -675,7 +675,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(Exponentiation element, DMNContext context) {
+    public Object visit(Exponentiation<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         try {
@@ -687,7 +687,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(ArithmeticNegation element, DMNContext context) {
+    public Object visit(ArithmeticNegation<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         Object leftOperand = element.getLeftOperand().accept(this, context);
@@ -695,16 +695,16 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(FunctionInvocation element, DMNContext context) {
+    public Object visit(FunctionInvocation<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         // Evaluate and convert actual parameters
-        Parameters parameters = element.getParameters();
+        Parameters<DMNContext> parameters = element.getParameters();
         parameters.accept(this, context);
-        Arguments arguments = parameters.convertArguments((value, conversion) -> this.typeConverter.convertValue(value, conversion, this.lib));
-        Expression function = element.getFunction();
-        FunctionType functionType = (FunctionType) function.getType();
-        List<FormalParameter> formalParameters = functionType.getParameters();
+        Arguments<DMNContext> arguments = parameters.convertArguments((value, conversion) -> this.typeConverter.convertValue(value, conversion, this.lib));
+        Expression<DMNContext> function = element.getFunction();
+        FunctionType<DMNContext> functionType = (FunctionType<DMNContext>) function.getType();
+        List<FormalParameter<DMNContext>> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
 
         // Evaluate function
@@ -786,7 +786,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
 
     private void bindParameters(DMNContext functionContext, List<FormalParameter> formalParameters, List<Object> argList) {
         for (int i = 0; i< formalParameters.size(); i++) {
-            FormalParameter parameter = formalParameters.get(i);
+            FormalParameter<DMNContext> parameter = formalParameters.get(i);
             String name = parameter.getName();
             Type type = parameter.getType();
             // check for optional and varArgs parameters (builtin functions)
@@ -933,31 +933,31 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 || binding instanceof FEELFunction;
     }
 
-    private boolean isJavaFunction(Expression body) {
+    private boolean isJavaFunction(Expression<DMNContext> body) {
         return  body instanceof Context &&
-                ((Context) body).getEntries().size() == 1 &&
-                "java".equals(((Context) body).getEntries().get(0).getKey().getKey());
+                ((Context<DMNContext>) body).getEntries().size() == 1 &&
+                "java".equals(((Context<DMNContext>) body).getEntries().get(0).getKey().getKey());
     }
 
     @Override
-    public Object visit(NamedParameters element, DMNContext context) {
+    public Object visit(NamedParameters<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         Map<String, Object> arguments = new LinkedHashMap<>();
-        Map<String, Expression> parameters = element.getParameters();
+        Map<String, Expression<DMNContext>> parameters = element.getParameters();
 
-        for (Map.Entry<String, Expression> entry : parameters.entrySet()) {
+        for (Map.Entry<String, Expression<DMNContext>> entry : parameters.entrySet()) {
             String key = entry.getKey();
-            Expression expression = entry.getValue();
+            Expression<DMNContext> expression = entry.getValue();
             Object value = expression.accept(this, context);
             arguments.put(key, value);
         }
-        element.setOriginalArguments(new NamedArguments(arguments));
+        element.setOriginalArguments(new NamedArguments<>(arguments));
         return element;
     }
 
     @Override
-    public Object visit(PositionalParameters element, DMNContext context) {
+    public Object visit(PositionalParameters<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         List<Object> arguments = new ArrayList<>();
@@ -967,7 +967,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(PathExpression element, DMNContext context) {
+    public Object visit(PathExpression<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         Expression source = element.getSource();
@@ -989,7 +989,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         }
     }
 
-    private Object navigate(PathExpression element, Type sourceType, Object source, String member) {
+    private Object navigate(PathExpression<DMNContext> element, Type sourceType, Object source, String member) {
         try {
             if (sourceType instanceof ImportContextType) {
                 List<String> aliases = ((ImportContextType) sourceType).getAliases(member);
@@ -1082,14 +1082,14 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(BooleanLiteral element, DMNContext context) {
+    public Object visit(BooleanLiteral<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         return Boolean.parseBoolean(element.getLexeme());
     }
 
     @Override
-    public Object visit(DateTimeLiteral element, DMNContext context) {
+    public Object visit(DateTimeLiteral<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         Type type = element.getType();
@@ -1109,21 +1109,21 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(NullLiteral element, DMNContext context) {
+    public Object visit(NullLiteral<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         return null;
     }
 
     @Override
-    public Object visit(NumericLiteral element, DMNContext context) {
+    public Object visit(NumericLiteral<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         return this.lib.number(element.getLexeme());
     }
 
     @Override
-    public Object visit(StringLiteral element, DMNContext context) {
+    public Object visit(StringLiteral<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         String lexeme = element.getLexeme();
@@ -1132,12 +1132,12 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(ListLiteral element, DMNContext context) {
+    public Object visit(ListLiteral<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
-        List<Expression> expressionList = element.getExpressionList();
+        List<Expression<DMNContext>> expressionList = element.getExpressionList();
         List result = new ArrayList();
-        for (Expression exp : expressionList) {
+        for (Expression<DMNContext> exp : expressionList) {
             Object value = exp.accept(this, context);
             result.add(value);
         }
@@ -1145,7 +1145,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(QualifiedName element, DMNContext context) {
+    public Object visit(QualifiedName<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         if (element.getNames().size() == 1) {
@@ -1161,7 +1161,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     @Override
-    public Object visit(Name element, DMNContext context) {
+    public Object visit(Name<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         String variableName = element.getName();
@@ -1172,28 +1172,28 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     // Type expressions
     //
     @Override
-    public Object visit(NamedTypeExpression element, DMNContext params) {
+    public Object visit(NamedTypeExpression<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     @Override
-    public Object visit(ListTypeExpression element, DMNContext params) {
+    public Object visit(ListTypeExpression<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     @Override
-    public Object visit(ContextTypeExpression element, DMNContext params) {
+    public Object visit(ContextTypeExpression<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     @Override
-    public Object visit(FunctionTypeExpression element, DMNContext params) {
+    public Object visit(FunctionTypeExpression<DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
