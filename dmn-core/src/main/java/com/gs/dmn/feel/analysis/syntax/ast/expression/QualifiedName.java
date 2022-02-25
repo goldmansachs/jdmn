@@ -37,7 +37,7 @@ public class QualifiedName extends NamedExpression {
     }
 
     @Override
-    protected String getName() {
+    public String getName() {
         return getQualifiedName();
     }
 

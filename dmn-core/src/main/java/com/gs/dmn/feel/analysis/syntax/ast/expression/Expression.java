@@ -12,11 +12,9 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
-import com.gs.dmn.feel.OperatorDecisionTable;
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.type.*;
+import com.gs.dmn.feel.analysis.semantics.type.AnyType;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
-import com.gs.dmn.runtime.DMNContext;
 
 public abstract class Expression extends Element {
     private Type type = AnyType.ANY;
@@ -29,56 +27,6 @@ public abstract class Expression extends Element {
         if (!Type.isNull(type)) {
             this.type = type;
         }
-    }
-
-    public Type memberType(Type sourceType, String member) {
-        Type memberType = AnyType.ANY;
-        if (sourceType instanceof ItemDefinitionType) {
-            memberType = ((ItemDefinitionType) sourceType).getMemberType(member);
-        } else if (sourceType instanceof ContextType) {
-            memberType = ((ContextType) sourceType).getMemberType(member);
-        } else if (sourceType instanceof DateType) {
-            memberType = DateType.getMemberType(member);
-        } else if (sourceType instanceof TimeType) {
-            memberType = TimeType.getMemberType(member);
-        } else if (sourceType instanceof DateTimeType) {
-            memberType = DateTimeType.getMemberType(member);
-        } else if (sourceType instanceof DurationType) {
-            memberType = DurationType.getMemberType(sourceType, member);
-        } else if (sourceType instanceof RangeType) {
-            memberType = ((RangeType) sourceType).getMemberType(member);
-        }
-        return memberType;
-    }
-
-    public Type navigationType(Type sourceType, String member) {
-        Type type;
-        if (sourceType instanceof ListType) {
-            Type memberType = memberType(((ListType) sourceType).getElementType(), member);
-            type = new ListType(memberType);
-        } else {
-            type = memberType(sourceType, member);
-        }
-        return type;
-    }
-
-    public abstract void deriveType(DMNContext context);
-
-    protected void checkType(String operator, Type leftOperandType, Type rightOperandType, DMNContext context) {
-        try {
-            Type resultType = OperatorDecisionTable.resultType(operator, normalize(leftOperandType), normalize(rightOperandType));
-            if (resultType != null) {
-                setType(resultType);
-            } else {
-                throw new SemanticError(this, String.format("Operator '%s' cannot be applied to '%s', '%s'", operator, leftOperandType, rightOperandType));
-            }
-        } catch (Exception e) {
-            throw new SemanticError(this, String.format("Operator '%s' cannot be applied to '%s', '%s' in element '%s'", operator, leftOperandType, rightOperandType, context.getElementName()), e);
-        }
-    }
-
-    private Type normalize(Type type) {
-        return type;
     }
 }
  

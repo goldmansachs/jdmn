@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.textual;
 
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
@@ -40,11 +39,6 @@ public class ForExpression extends Expression {
 
     public Expression getBody() {
         return this.body;
-    }
-
-    @Override
-    public void deriveType(DMNContext context) {
-        setType(new ListType(this.body.getType()));
     }
 
     @Override

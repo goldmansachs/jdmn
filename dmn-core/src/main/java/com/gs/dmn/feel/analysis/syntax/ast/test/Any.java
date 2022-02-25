@@ -12,15 +12,10 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
-import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.runtime.DMNContext;
 
 public class Any extends UnaryTests {
-    @Override
-    public void deriveType(DMNContext context) {
-        setType(BooleanType.BOOLEAN);
-    }
 
     @Override
     public Object accept(Visitor visitor, DMNContext context) {

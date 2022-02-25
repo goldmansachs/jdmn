@@ -70,7 +70,7 @@ public class NamedParameters extends Parameters {
     }
 
     @Override
-    void setParameterConversions(ParameterConversions parameterConversions) {
+    public void setParameterConversions(ParameterConversions parameterConversions) {
         this.parameterConversions = (NamedParameterConversions) parameterConversions;
     }
 
@@ -80,7 +80,7 @@ public class NamedParameters extends Parameters {
     }
 
     @Override
-    void setConvertedParameterTypes(ParameterTypes parameterTypes) {
+    public void setConvertedParameterTypes(ParameterTypes parameterTypes) {
         this.parameterTypes = (NamedParameterTypes) parameterTypes;
     }
 

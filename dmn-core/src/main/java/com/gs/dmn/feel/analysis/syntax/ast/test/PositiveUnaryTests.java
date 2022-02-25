@@ -12,10 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
-import com.gs.dmn.feel.analysis.semantics.type.TupleType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
@@ -34,12 +31,6 @@ public class PositiveUnaryTests extends UnaryTests {
 
     public List<PositiveUnaryTest> getPositiveUnaryTests() {
         return this.positiveUnaryTests;
-    }
-
-    @Override
-    public void deriveType(DMNContext context) {
-        List<Type> types = getPositiveUnaryTests().stream().map(Expression::getType).collect(Collectors.toList());
-        setType(new TupleType(types));
     }
 
     @Override

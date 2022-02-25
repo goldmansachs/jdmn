@@ -68,7 +68,7 @@ public class PositionalParameters extends Parameters {
     }
 
     @Override
-    void setParameterConversions(ParameterConversions parameterConversions) {
+    public void setParameterConversions(ParameterConversions parameterConversions) {
         this.parameterConversions = (PositionalParameterConversions) parameterConversions;
     }
 
@@ -78,7 +78,7 @@ public class PositionalParameters extends Parameters {
     }
 
     @Override
-    void setConvertedParameterTypes(ParameterTypes parameterTypes) {
+    public void setConvertedParameterTypes(ParameterTypes parameterTypes) {
         this.parameterTypes = (PositionalParameterTypes) parameterTypes;
     }
 

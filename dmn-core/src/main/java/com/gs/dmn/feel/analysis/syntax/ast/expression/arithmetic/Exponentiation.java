@@ -16,17 +16,9 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNContext;
 
-import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
-
 public class Exponentiation extends ArithmeticExpression {
     public Exponentiation(Expression leftOperand, Expression rightOperand) {
         super("**", leftOperand, rightOperand);
-    }
-
-    @Override
-    public void deriveType(DMNContext context) {
-        setType(NUMBER);
-        checkType(getOperator(), getLeftOperand().getType(), getRightOperand().getType(), context);
     }
 
     @Override

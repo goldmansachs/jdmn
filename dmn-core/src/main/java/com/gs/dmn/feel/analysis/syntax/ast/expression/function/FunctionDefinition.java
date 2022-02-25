@@ -55,10 +55,6 @@ public class FunctionDefinition extends Expression {
         return this.external;
     }
 
-    @Override
-    public void deriveType(DMNContext context) {
-    }
-
     public Type getReturnType() {
         if (this.external) {
             return null;

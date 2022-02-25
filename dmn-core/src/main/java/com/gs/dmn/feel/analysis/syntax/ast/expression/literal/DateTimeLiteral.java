@@ -12,11 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.literal;
 
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.type.DateTimeType;
-import com.gs.dmn.feel.analysis.semantics.type.DateType;
-import com.gs.dmn.feel.analysis.semantics.type.DurationType;
-import com.gs.dmn.feel.analysis.semantics.type.TimeType;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.runtime.DMNContext;
 
@@ -37,32 +32,11 @@ public class DateTimeLiteral extends SimpleLiteral {
         return this.conversionFunction;
     }
 
-    @Override
-    public void deriveType(DMNContext context) {
-        if (DateType.DATE.hasConversionFunction(this.conversionFunction)) {
-            this.setType(DateType.DATE);
-        } else if (TimeType.TIME.hasConversionFunction(this.conversionFunction)) {
-            this.setType(TimeType.TIME);
-        } else if (DateTimeType.DATE_AND_TIME.hasConversionFunction(this.conversionFunction)) {
-            this.setType(DateTimeType.DATE_AND_TIME);
-        } else if (DurationType.CONVERSION_FUNCTION.equals(this.conversionFunction)) {
-            if (isYearsAndMonthsDuration(getLexeme())) {
-                this.setType(DurationType.YEARS_AND_MONTHS_DURATION);
-            } else if (isDaysAndTimeDuration(getLexeme())) {
-                this.setType(DurationType.DAYS_AND_TIME_DURATION);
-            } else {
-                throw new SemanticError(this, String.format("Date time literal '%s(%s) is not supported", this.conversionFunction, getLexeme()));
-            }
-        } else {
-            throw new SemanticError(this, String.format("Date time literal '%s(%s)' is not supported", this.conversionFunction, getLexeme()));
-        }
-    }
-
-    private boolean isDaysAndTimeDuration(String value) {
+    public boolean isDaysAndTimeDuration(String value) {
         return DAYS_AND_TIME_DURATION_PATTERN.matcher(value).matches();
     }
 
-    private boolean isYearsAndMonthsDuration(String value) {
+    public boolean isYearsAndMonthsDuration(String value) {
         return YEARS_AND_MONTHS_DURATION_PATTERN.matcher(value).matches();
     }
 

@@ -18,8 +18,6 @@ import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
-import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
-
 public class Relational extends Comparison {
     private final String operator;
     private final Expression leftOperand;
@@ -41,12 +39,6 @@ public class Relational extends Comparison {
 
     public Expression getRightOperand() {
         return this.rightOperand;
-    }
-
-    @Override
-    public void deriveType(DMNContext context) {
-        setType(BOOLEAN);
-        checkType(this.operator, this.leftOperand.getType(), this.rightOperand.getType(), context);
     }
 
     @Override

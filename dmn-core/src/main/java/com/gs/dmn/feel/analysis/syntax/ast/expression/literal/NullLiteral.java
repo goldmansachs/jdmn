@@ -12,17 +12,11 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.literal;
 
-import com.gs.dmn.feel.analysis.semantics.type.NullType;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.runtime.DMNContext;
 
 public class NullLiteral extends Literal {
     public NullLiteral() {
-    }
-
-    @Override
-    public void deriveType(DMNContext context) {
-        setType(NullType.NULL);
     }
 
     @Override

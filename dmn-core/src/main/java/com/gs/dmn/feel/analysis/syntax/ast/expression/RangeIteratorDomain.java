@@ -12,15 +12,12 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
-import com.gs.dmn.feel.analysis.semantics.type.RangeType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.runtime.DMNContext;
 
 public class RangeIteratorDomain extends IteratorDomain {
     private final Expression start;
     private final Expression end;
-    private Type type;
 
     public RangeIteratorDomain(Expression start, Expression end) {
         this.start = start;
@@ -33,15 +30,6 @@ public class RangeIteratorDomain extends IteratorDomain {
 
     public Expression getEnd() {
         return this.end;
-    }
-
-    public void deriveType(DMNContext context) {
-        this.type = new RangeType(this.start.getType());
-    }
-
-    @Override
-    public Type getType() {
-        return this.type;
     }
 
     @Override

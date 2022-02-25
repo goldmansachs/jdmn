@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.SimpleLiteral;
@@ -58,13 +57,6 @@ public class Context extends Expression {
             result.put(key, value);
         }
         return result;
-    }
-
-    @Override
-    public void deriveType(DMNContext context) {
-        ContextType type = new ContextType();
-        this.entries.forEach(e -> type.addMember(e.getKey().getKey(), Arrays.asList(), e.getExpression().getType()));
-        setType(type);
     }
 
     @Override

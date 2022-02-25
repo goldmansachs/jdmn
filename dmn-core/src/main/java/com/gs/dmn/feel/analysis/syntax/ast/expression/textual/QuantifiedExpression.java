@@ -49,11 +49,6 @@ public class QuantifiedExpression extends Expression {
     }
 
     @Override
-    public void deriveType(DMNContext context) {
-        setType(this.body.getType());
-    }
-
-    @Override
     public Object accept(Visitor visitor, DMNContext context) {
         return visitor.visit(this, context);
     }

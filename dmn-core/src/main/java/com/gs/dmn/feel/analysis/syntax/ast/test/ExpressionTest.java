@@ -12,11 +12,9 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
-import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNContext;
-import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.Objects;
 
@@ -29,14 +27,6 @@ public class ExpressionTest extends PositiveUnaryTest {
 
     public Expression getExpression() {
         return this.expression;
-    }
-
-    @Override
-    public void deriveType(DMNContext context) {
-        setType(BooleanType.BOOLEAN);
-        if (this.expression.getType() != BooleanType.BOOLEAN) {
-            throw new DMNRuntimeException(String.format("Illegal type of positive unary test '%s'. Expected boolean found '%s'", this.expression, this.expression.getType()));
-        }
     }
 
     @Override

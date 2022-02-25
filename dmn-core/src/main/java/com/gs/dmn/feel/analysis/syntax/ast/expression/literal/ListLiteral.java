@@ -12,9 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.literal;
 
-import com.gs.dmn.feel.analysis.semantics.type.AnyType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.NullType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -40,20 +38,6 @@ public class ListLiteral extends Expression {
 
     public void add(Expression ast) {
         this.expressionList.add(ast);
-    }
-
-    @Override
-    public void deriveType(DMNContext context) {
-        if (this.expressionList.isEmpty()) {
-            if (context.getInputExpressionType() == null) {
-                // conforms to any other list
-                setType(new ListType(NullType.NULL));
-            } else {
-                setType(context.getInputExpressionType());
-            }
-        } else {
-            checkListElementTypes();
-        }
     }
 
     private void checkListElementTypes() {

@@ -16,17 +16,9 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNContext;
 
-import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
-
 public class Addition extends ArithmeticExpression {
     public Addition(String operator, Expression leftOperand, Expression rightOperand) {
         super(operator, leftOperand, rightOperand);
-    }
-
-    @Override
-    public void deriveType(DMNContext context) {
-        setType(NUMBER);
-        checkType(getOperator(), getLeftOperand().getType(), getRightOperand().getType(), context);
     }
 
     @Override

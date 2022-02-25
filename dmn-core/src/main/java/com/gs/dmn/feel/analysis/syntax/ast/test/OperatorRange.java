@@ -12,12 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
-import com.gs.dmn.feel.analysis.semantics.type.RangeType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.NamedExpression;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionInvocation;
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
@@ -56,25 +52,6 @@ public class OperatorRange extends Range {
 
     public EndpointsRange getEndpointsRange() {
         return this.endpointsRange;
-    }
-
-    @Override
-    public void deriveType(DMNContext context) {
-        if (context.isExpressionContext()) {
-            this.setType(new RangeType(this.endpoint.getType()));
-        } else {
-            Type inputExpressionType = context.getInputExpressionType();
-            this.setType(new RangeType(this.endpoint.getType()));
-            if (this.endpoint instanceof FunctionInvocation) {
-            } else if (this.endpoint instanceof NamedExpression) {
-            } else {
-                if (this.operator == null) {
-                    checkType("=", inputExpressionType, this.endpoint.getType(), context);
-                } else {
-                    checkType(this.operator, inputExpressionType, this.endpoint.getType(), context);
-                }
-            }
-        }
     }
 
     @Override

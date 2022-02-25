@@ -12,9 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.logic;
 
-import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
@@ -39,12 +37,6 @@ public abstract class LogicExpression extends Expression {
 
     public Expression getRightOperand() {
         return this.rightOperand;
-    }
-
-    @Override
-    public void deriveType(DMNContext context) {
-        // Not need to check the operand types. or, and, not are total functions
-        setType(BooleanType.BOOLEAN);
     }
 
     @Override

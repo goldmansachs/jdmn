@@ -19,8 +19,6 @@ import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
-import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
-
 public class InstanceOfExpression extends Expression {
     private final Expression leftOperand;
     private final TypeExpression rightOperand;
@@ -36,11 +34,6 @@ public class InstanceOfExpression extends Expression {
 
     public TypeExpression getRightOperand() {
         return this.rightOperand;
-    }
-
-    @Override
-    public void deriveType(DMNContext context) {
-        setType(BOOLEAN);
     }
 
     @Override

@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.runtime.DMNContext;
 
@@ -48,13 +47,6 @@ public class PathExpression extends Expression {
             return String.format("%s.%s", getPath(this.source), this.member);
         }
         return String.format("%s.%s", getPath(this.source), this.member);
-    }
-
-    @Override
-    public void deriveType(DMNContext context) {
-        Type sourceType = this.source.getType();
-        Type type = navigationType(sourceType, this.member);
-        setType(type);
     }
 
     @Override

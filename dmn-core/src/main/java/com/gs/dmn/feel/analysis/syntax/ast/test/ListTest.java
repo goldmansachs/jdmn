@@ -12,19 +12,11 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.RangeType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.ListLiteral;
 import com.gs.dmn.runtime.DMNContext;
 
-import java.util.List;
 import java.util.Objects;
-
-import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 
 public class ListTest extends SimplePositiveUnaryTest {
     private final ListLiteral listLiteral;
@@ -35,24 +27,6 @@ public class ListTest extends SimplePositiveUnaryTest {
 
     public ListLiteral getListLiteral() {
         return this.listLiteral;
-    }
-
-    @Override
-    public void deriveType(DMNContext context) {
-        setType(BOOLEAN);
-        List<Expression> expressionList = this.listLiteral.getExpressionList();
-        if (!expressionList.isEmpty()) {
-            Type listType = this.listLiteral.getType();
-            Type listElementType = ((ListType) listType).getElementType();
-            Type inputExpressionType = context.getInputExpressionType();
-            if (Type.conformsTo(inputExpressionType, listType)) {
-            } else if (Type.conformsTo(inputExpressionType, listElementType)) {
-            } else if (listElementType instanceof RangeType &&Type.conformsTo(inputExpressionType, ((RangeType) listElementType).getRangeType())) {
-            } else {
-                throw new SemanticError(this, String.format("Cannot compare '%s', '%s'", inputExpressionType, listType));
-            }
-        }
-
     }
 
     @Override

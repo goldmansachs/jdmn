@@ -12,13 +12,11 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.runtime.DMNContext;
 
 public class ExpressionIteratorDomain extends IteratorDomain {
     private final Expression expression;
-    private Type type;
 
     public ExpressionIteratorDomain(Expression expression) {
         this.expression = expression;
@@ -26,15 +24,6 @@ public class ExpressionIteratorDomain extends IteratorDomain {
 
     public Expression getExpression() {
         return this.expression;
-    }
-
-    public void deriveType(DMNContext context) {
-        this.type = this.expression.getType();
-    }
-
-    @Override
-    public Type getType() {
-        return this.type;
     }
 
     @Override

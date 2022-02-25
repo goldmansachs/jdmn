@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
-import com.gs.dmn.feel.analysis.semantics.type.TupleType;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.runtime.DMNContext;
 
@@ -37,12 +36,6 @@ public class ExpressionList extends Expression {
 
     public void add(Expression ast) {
         this.expressionList.add(ast);
-    }
-
-    @Override
-    public void deriveType(DMNContext context) {
-        List<com.gs.dmn.feel.analysis.semantics.type.Type> types = this.expressionList.stream().map(Expression::getType).collect(Collectors.toList());
-        setType(new TupleType(types));
     }
 
     @Override

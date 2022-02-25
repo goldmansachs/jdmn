@@ -23,8 +23,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
-
 public class InExpression extends Comparison {
     private final Expression value;
     private final List<PositiveUnaryTest> tests = new ArrayList<>();
@@ -49,11 +47,6 @@ public class InExpression extends Comparison {
 
     public List<PositiveUnaryTest> getTests() {
         return this.tests;
-    }
-
-    @Override
-    public void deriveType(DMNContext context) {
-        setType(BOOLEAN);
     }
 
     @Override
