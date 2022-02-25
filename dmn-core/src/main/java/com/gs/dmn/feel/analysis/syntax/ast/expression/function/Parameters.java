@@ -15,7 +15,6 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.interpreter.Arguments;
 
 import java.util.function.BiFunction;
 

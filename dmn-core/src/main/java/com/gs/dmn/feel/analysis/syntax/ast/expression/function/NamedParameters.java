@@ -16,8 +16,6 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNContext;
-import com.gs.dmn.runtime.interpreter.Arguments;
-import com.gs.dmn.runtime.interpreter.NamedArguments;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

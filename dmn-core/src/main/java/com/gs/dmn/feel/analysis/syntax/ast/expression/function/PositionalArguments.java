@@ -10,9 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.runtime.interpreter;
-
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
+package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import java.util.ArrayList;
 import java.util.List;
