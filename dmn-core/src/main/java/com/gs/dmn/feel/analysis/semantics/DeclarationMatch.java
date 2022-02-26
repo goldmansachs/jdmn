@@ -10,16 +10,19 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
+package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterConversions;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
+import com.gs.dmn.runtime.DMNContext;
 
-public class DeclarationMatch<C> {
+public class DeclarationMatch {
     private final Declaration declaration;
-    private final ParameterTypes<C> parameterTypes;
-    private final ParameterConversions<C> parameterConversions;
+    private final ParameterTypes<DMNContext> parameterTypes;
+    private final ParameterConversions<DMNContext> parameterConversions;
 
-    public DeclarationMatch(Declaration declaration, ParameterTypes<C> parameterTypes, ParameterConversions<C> parameterConversions) {
+    public DeclarationMatch(Declaration declaration, ParameterTypes<DMNContext> parameterTypes, ParameterConversions<DMNContext> parameterConversions) {
         this.declaration = declaration;
         this.parameterTypes = parameterTypes;
         this.parameterConversions = parameterConversions;
@@ -29,11 +32,11 @@ public class DeclarationMatch<C> {
         return this.declaration;
     }
 
-    public ParameterTypes<C> getParameterTypes() {
+    public ParameterTypes<DMNContext> getParameterTypes() {
         return this.parameterTypes;
     }
 
-    public ParameterConversions<C> getParameterConversions() {
+    public ParameterConversions<DMNContext> getParameterConversions() {
         return this.parameterConversions;
     }
 
