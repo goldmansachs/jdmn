@@ -19,6 +19,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.JsonSerializer;
@@ -32,7 +33,10 @@ import org.omg.spec.dmn._20191111.model.TDRGElement;
 import org.omg.spec.dmn._20191111.model.TDecision;
 import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 public class JavaFactory implements NativeFactory {
     protected static final Object DEFAULT_PROTO_NUMBER = "0.0";
@@ -235,11 +239,11 @@ public class JavaFactory implements NativeFactory {
                 returnType, signature, parametersAssignment, body);
     }
 
-    protected String parametersAssignment(List<FormalParameter> formalParameters, boolean convertTypeToContext) {
+    protected String parametersAssignment(List<FormalParameter<DMNContext>> formalParameters, boolean convertTypeToContext) {
         List<String> parameters = new ArrayList<>();
         Set<String> names = new LinkedHashSet<>();
         for(int i=0; i<formalParameters.size(); i++) {
-            FormalParameter p = formalParameters.get(i);
+            FormalParameter<DMNContext> p = formalParameters.get(i);
             String type = transformer.toNativeType(transformer.convertType(p.getType(), convertTypeToContext));
             String name = transformer.nativeFriendlyVariableName(p.getName());
             names.add(name);

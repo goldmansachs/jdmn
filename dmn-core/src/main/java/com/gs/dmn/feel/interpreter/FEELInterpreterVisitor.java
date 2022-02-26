@@ -703,7 +703,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         parameters.accept(this, context);
         Arguments<DMNContext> arguments = parameters.convertArguments((value, conversion) -> this.typeConverter.convertValue(value, conversion, this.lib));
         Expression<DMNContext> function = element.getFunction();
-        FunctionType<DMNContext> functionType = (FunctionType<DMNContext>) function.getType();
+        FunctionType functionType = (FunctionType) function.getType();
         List<FormalParameter<DMNContext>> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
 
@@ -773,7 +773,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         };
     }
 
-    private DMNContext makeFunctionContext(DMNContext context, List<FormalParameter> formalParameters, List<Object> argList) {
+    private DMNContext makeFunctionContext(DMNContext context, List<FormalParameter<DMNContext>> formalParameters, List<Object> argList) {
         DMNContext functionContext = DMNContext.of(
                 context, DMNContextKind.FUNCTION,
                 context.getElement(),
@@ -784,7 +784,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         return functionContext;
     }
 
-    private void bindParameters(DMNContext functionContext, List<FormalParameter> formalParameters, List<Object> argList) {
+    private void bindParameters(DMNContext functionContext, List<FormalParameter<DMNContext>> formalParameters, List<Object> argList) {
         for (int i = 0; i< formalParameters.size(); i++) {
             FormalParameter<DMNContext> parameter = formalParameters.get(i);
             String name = parameter.getName();
@@ -828,7 +828,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
 
     private Object evaluateInvocableDefinition(DMNInvocable runtimeFunction, List<Object> argList) {
         FunctionType functionType = (FunctionType) runtimeFunction.getType();
-        DMNContext definitionContext = (DMNContext) runtimeFunction.getDefinitionContext();
+        DMNContext definitionContext = runtimeFunction.getDefinitionContext();
         DMNContext functionContext = makeFunctionContext(definitionContext, functionType.getParameters(), argList);
         Result result = this.dmnInterpreter.evaluate(runtimeFunction.getInvocable(), argList, functionContext);
         return Result.value(result);

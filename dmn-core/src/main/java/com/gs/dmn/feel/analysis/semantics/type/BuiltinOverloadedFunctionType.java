@@ -17,11 +17,12 @@ import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterConversions;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.Pair;
 
 import java.util.List;
 
-public class BuiltinOverloadedFunctionType<C> extends FunctionType<C> {
+public class BuiltinOverloadedFunctionType extends FunctionType {
     private final List<Declaration> declarations;
 
     public BuiltinOverloadedFunctionType(List<Declaration> declarations) {
@@ -51,7 +52,7 @@ public class BuiltinOverloadedFunctionType<C> extends FunctionType<C> {
         return false;
     }
 
-    public List<FormalParameter<C>> getParameters() {
+    public List<FormalParameter<DMNContext>> getParameters() {
         throw new SemanticError("Not supported yet");
     }
 
@@ -73,12 +74,12 @@ public class BuiltinOverloadedFunctionType<C> extends FunctionType<C> {
     }
 
     @Override
-    public boolean match(ParameterTypes<C> parameterTypes) {
+    public boolean match(ParameterTypes<DMNContext> parameterTypes) {
         throw new SemanticError("Not supported yet");
     }
 
     @Override
-    protected List<Pair<ParameterTypes<C>, ParameterConversions<C>>> matchCandidates(List<Type> argumentTypes) {
+    protected List<Pair<ParameterTypes<DMNContext>, ParameterConversions<DMNContext>>> matchCandidates(List<Type> argumentTypes) {
         throw new SemanticError("Not supported yet");
     }
 }

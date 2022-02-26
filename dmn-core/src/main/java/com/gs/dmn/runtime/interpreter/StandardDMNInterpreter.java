@@ -30,7 +30,6 @@ import com.gs.dmn.runtime.annotation.HitPolicy;
 import com.gs.dmn.runtime.function.DMNFunction;
 import com.gs.dmn.runtime.function.DMNInvocable;
 import com.gs.dmn.runtime.function.Function;
-import com.gs.dmn.runtime.listener.Arguments;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.*;
 import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
@@ -510,9 +509,9 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
     private void bindArguments(TDecisionService service, List<Object> argList, DMNContext serviceContext) {
         // Bind parameters
-        List<FormalParameter> formalParameterList = this.dmnTransformer.dsFEELParameters(service);
+        List<FormalParameter<DMNContext>> formalParameterList = this.dmnTransformer.dsFEELParameters(service);
         for (int i = 0; i < formalParameterList.size(); i++) {
-            FormalParameter param = formalParameterList.get(i);
+            FormalParameter<DMNContext> param = formalParameterList.get(i);
             String name = param.getName();
             Type type = param.getType();
             Object value = argList.get(i);

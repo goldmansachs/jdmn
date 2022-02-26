@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 
@@ -24,7 +25,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind.*;
 
-public abstract class FunctionType<C> extends Type {
+public abstract class FunctionType extends Type {
     public static final Type ANY_FUNCTION = new FunctionType(Arrays.asList(), ANY) {
         @Override
         protected boolean equivalentTo(Type other) {
@@ -37,21 +38,21 @@ public abstract class FunctionType<C> extends Type {
         }
 
         @Override
-        public boolean match(ParameterTypes parameterTypes) {
+        public boolean match(ParameterTypes<DMNContext> parameterTypes) {
             return false;
         }
 
         @Override
-        protected List<Pair<ParameterTypes, ParameterConversions>> matchCandidates(List argumentTypes) {
+        protected List<Pair<ParameterTypes<DMNContext>, ParameterConversions<DMNContext>>> matchCandidates(List argumentTypes) {
             return null;
         }
     };
 
-    protected final List<FormalParameter<C>> parameters = new ArrayList<>();
+    protected final List<FormalParameter<DMNContext>> parameters = new ArrayList<>();
     protected final List<Type> parameterTypes = new ArrayList<>();
     protected Type returnType;
 
-    protected FunctionType(List<FormalParameter<C>> parameters, Type returnType) {
+    protected FunctionType(List<FormalParameter<DMNContext>> parameters, Type returnType) {
         this.returnType = returnType;
         if (parameters != null) {
             this.parameters.addAll(parameters);
@@ -59,7 +60,7 @@ public abstract class FunctionType<C> extends Type {
         }
     }
 
-    public List<FormalParameter<C>> getParameters() {
+    public List<FormalParameter<DMNContext>> getParameters() {
         return this.parameters;
     }
 
@@ -86,14 +87,14 @@ public abstract class FunctionType<C> extends Type {
                 && !Type.isNullOrAny(this.returnType);
     }
 
-    public List<Pair<ParameterTypes<C>, ParameterConversions<C>>> matchCandidates(ParameterTypes<C> parameterTypes) {
+    public List<Pair<ParameterTypes<DMNContext>, ParameterConversions<DMNContext>>> matchCandidates(ParameterTypes<DMNContext> parameterTypes) {
         if (parameterTypes instanceof PositionalParameterTypes) {
-            List<Type> argumentTypes = ((PositionalParameterTypes<C>) parameterTypes).getTypes();
+            List<Type> argumentTypes = ((PositionalParameterTypes<DMNContext>) parameterTypes).getTypes();
             return matchCandidates(argumentTypes);
         } else {
-            NamedParameterTypes<C> namedSignature = (NamedParameterTypes<C>) parameterTypes;
+            NamedParameterTypes<DMNContext> namedSignature = (NamedParameterTypes<DMNContext>) parameterTypes;
             List<Type> argumentTypes = new ArrayList<>();
-            for(FormalParameter<C> parameter: this.parameters) {
+            for(FormalParameter<DMNContext> parameter: this.parameters) {
                 Type type = namedSignature.getType(parameter.getName());
                 if (!Type.isNull(type)) {
                     argumentTypes.add(type);
@@ -105,9 +106,9 @@ public abstract class FunctionType<C> extends Type {
         }
     }
 
-    protected ArrayList<Pair<ParameterTypes<C>, ParameterConversions<C>>> calculateCandidates(List<Type> parameterTypes, List<Type> argumentTypes) {
+    protected ArrayList<Pair<ParameterTypes<DMNContext>, ParameterConversions<DMNContext>>> calculateCandidates(List<Type> parameterTypes, List<Type> argumentTypes) {
         // calculate candidates
-        Set<Pair<ParameterTypes<C>, ParameterConversions<C>>> candidates = new LinkedHashSet<>();
+        Set<Pair<ParameterTypes<DMNContext>, ParameterConversions<DMNContext>>> candidates = new LinkedHashSet<>();
         int argumentSize = argumentTypes.size();
         ConversionKind[] candidateConversions = FUNCTION_RESOLUTION_CANDIDATES;
         int conversionSize = candidateConversions.length;
@@ -118,7 +119,7 @@ public abstract class FunctionType<C> extends Type {
         while (conversionMap != null) {
             // Calculate new types and conversions for every argument
             List<Type> newTypes = new ArrayList<>();
-            PositionalParameterConversions<C> conversions = new PositionalParameterConversions<>();
+            PositionalParameterConversions<DMNContext> conversions = new PositionalParameterConversions<>();
             boolean different = false;
             for (int i = 0; i < argumentSize; i++) {
                 // Compute new type and conversion
@@ -181,7 +182,7 @@ public abstract class FunctionType<C> extends Type {
 
             // Add new candidate
             if (different) {
-                PositionalParameterTypes<C> newSignature = new PositionalParameterTypes<>(newTypes);
+                PositionalParameterTypes<DMNContext> newSignature = new PositionalParameterTypes<>(newTypes);
                 candidates.add(new Pair<>(newSignature, conversions));
             }
 
@@ -221,7 +222,7 @@ public abstract class FunctionType<C> extends Type {
         return end ? null : vector;
     }
 
-    public abstract boolean match(ParameterTypes<C> parameterTypes);
+    public abstract boolean match(ParameterTypes<DMNContext> parameterTypes);
 
-    protected abstract List<Pair<ParameterTypes<C>, ParameterConversions<C>>> matchCandidates(List<Type> argumentTypes);
+    protected abstract List<Pair<ParameterTypes<DMNContext>, ParameterConversions<DMNContext>>> matchCandidates(List<Type> argumentTypes);
 }

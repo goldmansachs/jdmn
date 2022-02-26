@@ -760,7 +760,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public List<FormalParameter> invocableFEELParameters(TDRGElement invocable) {
+    public List<FormalParameter<DMNContext>> invocableFEELParameters(TDRGElement invocable) {
         if (invocable instanceof TBusinessKnowledgeModel) {
             return bkmFEELParameters((TBusinessKnowledgeModel) invocable);
         } else if (invocable instanceof TDecisionService) {
@@ -774,16 +774,16 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     // BKM related functions
     //
     @Override
-    public List<FormalParameter> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
+    public List<FormalParameter<DMNContext>> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
         TDefinitions model = this.dmnModelRepository.getModel(bkm);
-        List<FormalParameter> parameters = new ArrayList<>();
+        List<FormalParameter<DMNContext>> parameters = new ArrayList<>();
         for (TInformationItem p: bkm.getEncapsulatedLogic().getFormalParameter()) {
             String typeRef = p.getTypeRef();
             Type type = null;
             if (!StringUtils.isEmpty(typeRef)) {
                 type = toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
             }
-            parameters.add(new FormalParameter(p.getName(), type));
+            parameters.add(new FormalParameter<>(p.getName(), type));
         }
         return parameters;
     }
@@ -810,15 +810,15 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     // Decision Service related functions
     //
     @Override
-    public List<FormalParameter> dsFEELParameters(TDecisionService service) {
-        List<FormalParameter> parameters = new ArrayList<>();
+    public List<FormalParameter<DMNContext>> dsFEELParameters(TDecisionService service) {
+        List<FormalParameter<DMNContext>> parameters = new ArrayList<>();
         for (TDMNElementReference er : service.getInputData()) {
             TInputData inputData = getDMNModelRepository().findInputDataByRef(service, er.getHref());
-            parameters.add(new FormalParameter(inputData.getName(), toFEELType(inputData)));
+            parameters.add(new FormalParameter<>(inputData.getName(), toFEELType(inputData)));
         }
         for (TDMNElementReference er : service.getInputDecision()) {
             TDecision decision = getDMNModelRepository().findDecisionByRef(service, er.getHref());
-            parameters.add(new FormalParameter(decision.getName(), drgElementOutputFEELType(decision)));
+            parameters.add(new FormalParameter<>(decision.getName(), drgElementOutputFEELType(decision)));
         }
         return parameters;
     }

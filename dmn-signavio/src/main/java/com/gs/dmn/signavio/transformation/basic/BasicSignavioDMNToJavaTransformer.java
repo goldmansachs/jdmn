@@ -205,17 +205,17 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
     }
 
     @Override
-    public List<FormalParameter> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
+    public List<FormalParameter<DMNContext>> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
         TFunctionDefinition encapsulatedLogic = bkm.getEncapsulatedLogic();
         if (encapsulatedLogic == null) {
-            List<FormalParameter> parameters = new ArrayList<>();
+            List<FormalParameter<DMNContext>> parameters = new ArrayList<>();
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
             DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.inputDataClosure(outputReference, this.drgElementFilter);
             this.dmnModelRepository.sortNamedElementReferences(allInputDataReferences);
             for (DRGElementReference<TInputData> reference: allInputDataReferences) {
                 TInputData id = reference.getElement();
-                parameters.add(new FormalParameter(id.getName(), drgElementOutputFEELType(id)));
+                parameters.add(new FormalParameter<>(id.getName(), drgElementOutputFEELType(id)));
             }
             return parameters;
         } else {

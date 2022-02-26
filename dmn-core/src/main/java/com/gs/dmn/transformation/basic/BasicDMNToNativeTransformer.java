@@ -230,21 +230,21 @@ public interface BasicDMNToNativeTransformer {
     //
     // Invocable  related functions
     //
-    List<FormalParameter> invocableFEELParameters(TDRGElement invocable);
+    List<FormalParameter<DMNContext>> invocableFEELParameters(TDRGElement invocable);
 
     String singletonInvocableInstance(TInvocable invocable);
 
     //
     // BKM related functions
     //
-    List<FormalParameter> bkmFEELParameters(TBusinessKnowledgeModel bkm);
+    List<FormalParameter<DMNContext>> bkmFEELParameters(TBusinessKnowledgeModel bkm);
 
     List<String> bkmFEELParameterNames(TBusinessKnowledgeModel bkm);
 
     //
     // Decision Service related functions
     //
-    List<FormalParameter> dsFEELParameters(TDecisionService service);
+    List<FormalParameter<DMNContext>> dsFEELParameters(TDecisionService service);
 
     List<String> dsFEELParameterNames(TDecisionService service);
 

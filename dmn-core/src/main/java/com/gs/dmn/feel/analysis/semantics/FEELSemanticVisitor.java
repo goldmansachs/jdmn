@@ -234,7 +234,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<DMNContext> {
                 returnType = body.getType();
             }
         }
-        FEELFunctionType<DMNContext> type = new FEELFunctionType<>(element.getFormalParameters(), returnType, element.isExternal(), element);
+        FEELFunctionType type = new FEELFunctionType(element.getFormalParameters(), returnType, element.isExternal(), element);
         element.setType(type);
 
         return element;
@@ -656,7 +656,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<DMNContext> {
             String functionName = ((QualifiedName<DMNContext>) function).getQualifiedName();
             FunctionInvocationUtils.deriveType(element, context, functionName);
         } else {
-            FunctionType<DMNContext> functionType = (FunctionType<DMNContext>) function.getType();
+            FunctionType functionType = (FunctionType) function.getType();
 
             FunctionInvocationUtils.setInvocationType(element, functionType);
             if (parameters instanceof NamedParameters) {
@@ -696,7 +696,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<DMNContext> {
                     Declaration declaration = context.lookupVariableDeclaration(((Name<DMNContext>) lambdaExpression).getName());
                     Type type = declaration.getType();
                     if (type instanceof FunctionType && !(type instanceof BuiltinFunctionType)) {
-                        List<FormalParameter<DMNContext>> formalParameters = ((FunctionType<DMNContext>) type).getParameters();
+                        List<FormalParameter<DMNContext>> formalParameters = ((FunctionType) type).getParameters();
                         formalParameters.forEach(p -> p.setType(elementType));
                         success = true;
                     }
@@ -712,7 +712,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<DMNContext> {
     private void inferMissingTypesInFEELFunction(Expression<DMNContext> function, Parameters<DMNContext> arguments, DMNContext context) {
         Type functionType = function.getType();
         if (functionType instanceof FEELFunctionType) {
-            FEELFunctionType<DMNContext> feelFunctionType = (FEELFunctionType<DMNContext>) functionType;
+            FEELFunctionType feelFunctionType = (FEELFunctionType) functionType;
             if (!feelFunctionType.isFullySpecified()) {
                 // Bind names to types in function type
                 bindNameToTypes(feelFunctionType.getParameters(), arguments);
@@ -914,7 +914,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<DMNContext> {
             declaration = declarations.get(0);
             type = declaration.getType();
         } else {
-            type = new BuiltinOverloadedFunctionType<>(declarations);
+            type = new BuiltinOverloadedFunctionType(declarations);
         }
         element.setType(type);
     }
@@ -935,7 +935,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<DMNContext> {
                 declaration = declarations.get(0);
                 type = declaration.getType();
             } else {
-                type = new BuiltinOverloadedFunctionType<>(declarations);
+                type = new BuiltinOverloadedFunctionType(declarations);
             }
             element.setType(type);
         }
@@ -988,7 +988,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<DMNContext> {
         // Derive type
         List<FormalParameter<DMNContext>> parameters = element.getParameters().stream().map(e -> new FormalParameter<DMNContext>(null, e.getType())).collect(Collectors.toList());
         Type returnType = element.getReturnType().getType();
-        FunctionType<DMNContext> functionType = new FEELFunctionType<>(parameters, returnType, false);
+        FunctionType functionType = new FEELFunctionType(parameters, returnType, false);
         element.setType(functionType);
         return element;
     }

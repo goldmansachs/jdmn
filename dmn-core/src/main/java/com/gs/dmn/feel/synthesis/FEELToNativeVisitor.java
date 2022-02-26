@@ -490,7 +490,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
         parameters.accept(this, context);
         Arguments<DMNContext> arguments = parameters.convertArguments(this::convertArgument);
         Expression<DMNContext> function = element.getFunction();
-        FunctionType<DMNContext> functionType = (FunctionType<DMNContext>) function.getType();
+        FunctionType functionType = (FunctionType) function.getType();
         List<FormalParameter<DMNContext>> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
 
@@ -500,10 +500,10 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
             String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
             return String.format("%s(%s)", javaFunctionCode, argumentsText);
         } else if (functionType instanceof DMNFunctionType) {
-            if (!dmnTransformer.isJavaFunction(((DMNFunctionType<DMNContext>) functionType).getKind())) {
+            if (!dmnTransformer.isJavaFunction(((DMNFunctionType) functionType).getKind())) {
                 addExtraArguments(argList);
             }
-            TNamedElement invocable = ((DMNFunctionType<DMNContext>) functionType).getDRGElement();
+            TNamedElement invocable = ((DMNFunctionType) functionType).getDRGElement();
             if (invocable instanceof TInvocable) {
                 String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
                 if (function instanceof Name) {
@@ -521,7 +521,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
                 return this.nativeFactory.makeApplyInvocation(javaFunctionCode, argumentsText);
             }
         } else if (functionType instanceof FEELFunctionType) {
-            if (!((FEELFunctionType<DMNContext>) functionType).isExternal()) {
+            if (!((FEELFunctionType) functionType).isExternal()) {
                 addExtraArguments(argList);
             }
             String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
@@ -635,7 +635,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
                 Type type = declaration.getType();
                 if (type instanceof DMNFunctionType) {
                     // DRG Element names
-                    TDRGElement drgElement = ((DMNFunctionType<DMNContext>) type).getDRGElement();
+                    TDRGElement drgElement = ((DMNFunctionType) type).getDRGElement();
                     if (drgElement instanceof TInvocable) {
                         String drgElementName = drgElement.getName();
                         if (drgElementName.equals(name)) {

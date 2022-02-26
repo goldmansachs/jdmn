@@ -19,6 +19,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.Context;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
@@ -421,7 +422,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         List<Object> args = new ArrayList<>();
         if (drgElement instanceof TInvocable) {
             // Preserve de order in the call
-            List<FormalParameter> formalParameters = this.transformer.invocableFEELParameters(drgElement);
+            List<FormalParameter<DMNContext>> formalParameters = this.transformer.invocableFEELParameters(drgElement);
             Map<String, Object> map = new LinkedHashMap<>();
             List<InputNode> inputNode = testCase.getInputNode();
             for (int i = 0; i < inputNode.size(); i++) {

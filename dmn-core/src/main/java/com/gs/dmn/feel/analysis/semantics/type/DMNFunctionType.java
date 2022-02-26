@@ -15,6 +15,7 @@ package com.gs.dmn.feel.analysis.semantics.type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterConversions;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.Pair;
 import org.omg.spec.dmn._20191111.model.TBusinessKnowledgeModel;
 import org.omg.spec.dmn._20191111.model.TDRGElement;
@@ -26,19 +27,19 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class DMNFunctionType<C> extends FunctionType<C> {
+public class DMNFunctionType extends FunctionType {
     private final TDRGElement drgElement;
     private final TFunctionDefinition functionDefinition;
 
-    public DMNFunctionType(List<FormalParameter<C>> formalParameters, Type outputType) {
+    public DMNFunctionType(List<FormalParameter<DMNContext>> formalParameters, Type outputType) {
         this(formalParameters, outputType, null);
     }
 
-    public DMNFunctionType(List<FormalParameter<C>> parameters, Type returnType, TDRGElement drgElement) {
+    public DMNFunctionType(List<FormalParameter<DMNContext>> parameters, Type returnType, TDRGElement drgElement) {
         this(parameters, returnType, drgElement, drgElement instanceof TBusinessKnowledgeModel ? ((TBusinessKnowledgeModel) drgElement).getEncapsulatedLogic() : null);
     }
 
-    public DMNFunctionType(List<FormalParameter<C>> parameters, Type returnType, TDRGElement drgElement, TFunctionDefinition functionDefinition) {
+    public DMNFunctionType(List<FormalParameter<DMNContext>> parameters, Type returnType, TDRGElement drgElement, TFunctionDefinition functionDefinition) {
         super(parameters, returnType);
         this.drgElement = drgElement;
         this.functionDefinition = functionDefinition;
@@ -48,8 +49,8 @@ public class DMNFunctionType<C> extends FunctionType<C> {
         return this.drgElement;
     }
 
-    public DMNFunctionType<C> attachElement(TDRGElement element) {
-        return new DMNFunctionType<>(this.getParameters(), this.getReturnType(), element);
+    public DMNFunctionType attachElement(TDRGElement element) {
+        return new DMNFunctionType(this.getParameters(), this.getReturnType(), element);
     }
 
     public TFunctionKind getKind() {
@@ -59,21 +60,21 @@ public class DMNFunctionType<C> extends FunctionType<C> {
     @Override
     protected boolean equivalentTo(Type other) {
         return other instanceof DMNFunctionType
-                && Type.equivalentTo(this.returnType, ((FunctionType<C>) other).returnType)
-                && Type.equivalentTo(this.parameterTypes, ((FunctionType<C>) other).parameterTypes);
+                && Type.equivalentTo(this.returnType, ((FunctionType) other).returnType)
+                && Type.equivalentTo(this.parameterTypes, ((FunctionType) other).parameterTypes);
     }
 
     @Override
     protected boolean conformsTo(Type other) {
         // “contravariant function argument type” and “covariant function return type”
         return other instanceof FunctionType
-                && Type.conformsTo(this.returnType, ((FunctionType<C>) other).returnType)
-                && Type.conformsTo(((FunctionType<C>) other).parameterTypes, this.parameterTypes);
+                && Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
+                && Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
     }
 
     @Override
-    public boolean match(ParameterTypes<C> parameterTypes) {
-        List<FormalParameter<C>> parameters = getParameters();
+    public boolean match(ParameterTypes<DMNContext> parameterTypes) {
+        List<FormalParameter<DMNContext>> parameters = getParameters();
         if (parameters.size() != parameterTypes.size()) {
             return false;
         }
@@ -82,7 +83,7 @@ public class DMNFunctionType<C> extends FunctionType<C> {
 
 
     @Override
-    protected List<Pair<ParameterTypes<C>, ParameterConversions<C>>> matchCandidates(List<Type> argumentTypes) {
+    protected List<Pair<ParameterTypes<DMNContext>, ParameterConversions<DMNContext>>> matchCandidates(List<Type> argumentTypes) {
         // check size constraint
         if (argumentTypes.size() != this.parameterTypes.size()) {
             return new ArrayList<>();

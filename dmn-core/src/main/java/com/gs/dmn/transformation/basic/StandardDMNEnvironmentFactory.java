@@ -425,7 +425,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (!this.dmnModelRepository.isNull(typeRef)) {
             type = toFEELType(model, typeRef);
         } else if (functionItem != null) {
-            List<FormalParameter> formalParameters = makeFormalParameters(model, functionItem.getParameters());
+            List<FormalParameter<DMNContext>> formalParameters = makeFormalParameters(model, functionItem.getParameters());
             Type outputType = toFEELType(model, functionItem.getOutputTypeRef());
             type = new DMNFunctionType(formalParameters, outputType);
         } else {
@@ -487,7 +487,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     private FunctionType makeDSVariableType(TDecisionService decisionService) {
-        List<FormalParameter> parameters = this.dmnTransformer.dsFEELParameters(decisionService);
+        List<FormalParameter<DMNContext>> parameters = this.dmnTransformer.dsFEELParameters(decisionService);
         return new DMNFunctionType(parameters, makeDSOutputType(decisionService), decisionService);
     }
 
@@ -513,7 +513,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 }
             }
             // Make function type
-            List<FormalParameter> parameters = makeFormalParameters(model, functionDefinition.getFormalParameter());
+            List<FormalParameter<DMNContext>> parameters = makeFormalParameters(model, functionDefinition.getFormalParameter());
             if (bodyType != null) {
                 return new DMNFunctionType(parameters, bodyType, element, functionDefinition);
             }
@@ -521,15 +521,15 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         return null;
     }
 
-    private List<FormalParameter> makeFormalParameters(TDefinitions model, List<TInformationItem> informationItems) {
-        List<FormalParameter> parameters = new ArrayList<>();
+    private List<FormalParameter<DMNContext>> makeFormalParameters(TDefinitions model, List<TInformationItem> informationItems) {
+        List<FormalParameter<DMNContext>> parameters = new ArrayList<>();
         for(TInformationItem param: informationItems) {
             String paramTypeRef = param.getTypeRef();
             Type paramType = null;
             if (!StringUtils.isEmpty(paramTypeRef)) {
                 paramType = toFEELType(model, QualifiedName.toQualifiedName(model, paramTypeRef));
             }
-            parameters.add(new FormalParameter(param.getName(), paramType));
+            parameters.add(new FormalParameter<>(param.getName(), paramType));
         }
         return parameters;
     }
@@ -754,7 +754,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (StringUtils.isBlank(name)) {
             throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
         }
-        List<FormalParameter> parameters = this.dmnTransformer.bkmFEELParameters(bkm);
+        List<FormalParameter<DMNContext>> parameters = this.dmnTransformer.bkmFEELParameters(bkm);
         Type returnType = this.dmnTransformer.drgElementOutputFEELType(bkm);
         return this.environmentFactory.makeVariableDeclaration(name, new DMNFunctionType(parameters, returnType, bkm));
     }

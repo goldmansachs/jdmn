@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 
@@ -21,18 +22,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BuiltinFunctionType<C> extends FunctionType<C> {
+public class BuiltinFunctionType extends FunctionType {
     private final int totalParamsCount;
     private final int mandatoryParamsCount;
     private final boolean hasOptionalParams;
     private final boolean hasVarArgs;
 
-    public BuiltinFunctionType(Type type, FormalParameter<C>... parameters) {
+    public BuiltinFunctionType(Type type, FormalParameter<DMNContext>... parameters) {
         this(Arrays.asList(parameters), type);
     }
 
-    public BuiltinFunctionType(List<FormalParameter<C>> parameters, Type returnType) {
-        super(new ArrayList<FormalParameter<C>>(parameters), returnType);
+    public BuiltinFunctionType(List<FormalParameter<DMNContext>> parameters, Type returnType) {
+        super(new ArrayList<>(parameters), returnType);
         this.totalParamsCount = parameters.size();
         this.mandatoryParamsCount = (int) parameters.stream().filter(p -> !p.isOptional() && !p.isVarArg()).count();
         this.hasOptionalParams = parameters.stream().anyMatch(FormalParameter::isOptional);
@@ -40,7 +41,7 @@ public class BuiltinFunctionType<C> extends FunctionType<C> {
     }
 
     @Override
-    protected List<Pair<ParameterTypes<C>, ParameterConversions<C>>> matchCandidates(List<Type> argumentTypes) {
+    protected List<Pair<ParameterTypes<DMNContext>, ParameterConversions<DMNContext>>> matchCandidates(List<Type> argumentTypes) {
         if (this.hasOptionalParams) {
             // check size constraint
             if (!(this.mandatoryParamsCount <= argumentTypes.size() && argumentTypes.size() <= this.totalParamsCount)) {
@@ -70,15 +71,15 @@ public class BuiltinFunctionType<C> extends FunctionType<C> {
     }
 
     @Override
-    public boolean match(ParameterTypes parameterTypes) {
+    public boolean match(ParameterTypes<DMNContext> parameterTypes) {
         if (parameterTypes instanceof PositionalParameterTypes) {
-            return match((PositionalParameterTypes) parameterTypes);
+            return match((PositionalParameterTypes<DMNContext>) parameterTypes);
         } else {
-            return match((NamedParameterTypes) parameterTypes);
+            return match((NamedParameterTypes<DMNContext>) parameterTypes);
         }
     }
 
-    private boolean match(PositionalParameterTypes parameterTypes) {
+    private boolean match(PositionalParameterTypes<DMNContext> parameterTypes) {
         List<Type> argumentTypes = parameterTypes.getTypes();
         if (this.hasOptionalParams) {
             // check mandatory parameters
@@ -132,11 +133,11 @@ public class BuiltinFunctionType<C> extends FunctionType<C> {
         return true;
     }
 
-    private boolean match(NamedParameterTypes<C> namedParameterTypes) {
+    private boolean match(NamedParameterTypes<DMNContext> namedParameterTypes) {
         for (String argName: namedParameterTypes.getNames()) {
             Type argType = namedParameterTypes.getType(argName);
             boolean found = false;
-            for(FormalParameter<C> parameter: this.parameters) {
+            for(FormalParameter<DMNContext> parameter: this.parameters) {
                 if (parameter.getName().equals(argName)) {
                     found = true;
                     Type parType = parameter.getType();
@@ -164,8 +165,8 @@ public class BuiltinFunctionType<C> extends FunctionType<C> {
     protected boolean conformsTo(Type other) {
         // “contravariant function argument type” and “covariant function return type”
         return other instanceof FunctionType
-                && Type.conformsTo(this.returnType, ((FunctionType<C>) other).returnType)
-                && Type.conformsTo(((FunctionType<C>) other).parameterTypes, this.parameterTypes);
+                && Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
+                && Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
     }
 
     @Override
