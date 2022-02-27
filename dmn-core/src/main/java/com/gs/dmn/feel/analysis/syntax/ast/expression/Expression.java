@@ -12,17 +12,16 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 
-public abstract class Expression<C> extends Element<C> {
-    private Type type;
+public abstract class Expression<T, C> extends Element<T, C> {
+    private T type;
 
-    public Type getType() {
+    public T getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(T type) {
         if (type != null) {
             this.type = type;
         }

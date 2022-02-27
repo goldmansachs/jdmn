@@ -16,19 +16,19 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
 import java.util.Objects;
 
-public class NegatedPositiveUnaryTests<C> extends UnaryTests<C> {
-    private final PositiveUnaryTests<C> positiveUnaryTests;
+public class NegatedPositiveUnaryTests<T, C> extends UnaryTests<T, C> {
+    private final PositiveUnaryTests<T, C> positiveUnaryTests;
 
-    public NegatedPositiveUnaryTests(PositiveUnaryTests<C> positiveUnaryTests) {
+    public NegatedPositiveUnaryTests(PositiveUnaryTests<T, C> positiveUnaryTests) {
         this.positiveUnaryTests = positiveUnaryTests;
     }
 
-    public PositiveUnaryTests<C> getPositiveUnaryTests() {
+    public PositiveUnaryTests<T, C> getPositiveUnaryTests() {
         return this.positiveUnaryTests;
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -36,7 +36,7 @@ public class NegatedPositiveUnaryTests<C> extends UnaryTests<C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NegatedPositiveUnaryTests<?> that = (NegatedPositiveUnaryTests<?>) o;
+        NegatedPositiveUnaryTests<?, ?> that = (NegatedPositiveUnaryTests<?, ?>) o;
         return Objects.equals(positiveUnaryTests, that.positiveUnaryTests);
     }
 

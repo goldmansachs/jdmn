@@ -17,21 +17,21 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinitio
 import com.gs.dmn.runtime.DMNContext;
 
 public class FEELFunction extends Function {
-    public static Function of(FunctionDefinition functionDefinition, DMNContext definitionContext) {
+    public static Function of(FunctionDefinition<Type, DMNContext> functionDefinition, DMNContext definitionContext) {
         return new FEELFunction(functionDefinition, definitionContext);
     }
 
-    private final FunctionDefinition functionDefinition;
+    private final FunctionDefinition<Type, DMNContext> functionDefinition;
     private final Type type;
     private final DMNContext definitionContext;
 
-    private FEELFunction(FunctionDefinition functionDefinition, DMNContext definitionContext) {
+    private FEELFunction(FunctionDefinition<Type, DMNContext> functionDefinition, DMNContext definitionContext) {
         this.functionDefinition = functionDefinition;
-        this.type = functionDefinition.getType();
+        this.type = this.functionDefinition.getType();
         this.definitionContext = definitionContext;
     }
 
-    public FunctionDefinition getFunctionDefinition() {
+    public FunctionDefinition<Type, DMNContext> getFunctionDefinition() {
         return functionDefinition;
     }
 

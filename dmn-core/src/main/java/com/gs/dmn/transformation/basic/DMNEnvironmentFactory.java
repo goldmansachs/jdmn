@@ -57,7 +57,7 @@ public interface DMNEnvironmentFactory {
 
     Type toFEELType(TItemDefinition itemDefinition);
 
-    Type externalFunctionReturnFEELType(TNamedElement element, Expression body);
+    Type externalFunctionReturnFEELType(TNamedElement element, Expression<Type, DMNContext> body);
 
     //
     // Environments
@@ -69,7 +69,7 @@ public interface DMNEnvironmentFactory {
     //
     // Decision Table
     //
-    Environment makeUnaryTestEnvironment(TDRGElement element, Expression inputExpression);
+    Environment makeUnaryTestEnvironment(TDRGElement element, Expression<Type, DMNContext> inputExpression);
 
     //
     // Function Definition
@@ -81,11 +81,11 @@ public interface DMNEnvironmentFactory {
     //
     // Context
     //
-    Pair<DMNContext, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext);
+    Pair<DMNContext, Map<TContextEntry, Expression<Type, DMNContext>>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext);
 
     Type entryType(TDRGElement element, TContextEntry entry, DMNContext localContext);
 
-    Type entryType(TDRGElement element, TContextEntry entry, TExpression expression, Expression feelExpression);
+    Type entryType(TDRGElement element, TContextEntry entry, TExpression expression, Expression<Type, DMNContext> feelExpression);
 
     //
     // Relation

@@ -16,7 +16,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
 import java.util.Objects;
 
-public class NamedTypeExpression<C> extends TypeExpression<C> {
+public class NamedTypeExpression<T, C> extends TypeExpression<T, C> {
     private final String qualifiedName;
 
     public NamedTypeExpression(String qualifiedName) {
@@ -28,7 +28,7 @@ public class NamedTypeExpression<C> extends TypeExpression<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -36,7 +36,7 @@ public class NamedTypeExpression<C> extends TypeExpression<C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NamedTypeExpression<?> that = (NamedTypeExpression<?>) o;
+        NamedTypeExpression<?, ?> that = (NamedTypeExpression<?, ?>) o;
         return Objects.equals(qualifiedName, that.qualifiedName);
     }
 

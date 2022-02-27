@@ -36,7 +36,6 @@ import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
-import com.gs.dmn.transformation.native_.statement.ExpressionStatement;
 import com.gs.dmn.transformation.native_.statement.Statement;
 import com.gs.dmn.transformation.proto.ProtoBufferJavaFactory;
 import org.omg.spec.dmn._20191111.model.*;
@@ -63,7 +62,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
     }
 
     @Override
-    protected void setDMNEnvironmentFactory(BasicDMNToNativeTransformer transformer) {
+    protected void setDMNEnvironmentFactory(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
         this.dmnEnvironmentFactory = new SignavioDMNEnvironmentFactory(transformer);
     }
 
@@ -97,13 +96,13 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
         }
     }
 
-    public String externalFunctionClassName(Expression body) {
+    public String externalFunctionClassName(Expression<Type, DMNContext> body) {
         if (body instanceof Context) {
-            Expression javaExpression = ((Context) body).entry("java").getExpression();
+            Expression<Type, DMNContext> javaExpression = ((Context<Type, DMNContext>) body).entry("java").getExpression();
             if (javaExpression instanceof Context) {
-                Expression returnTypeExp = ((Context) javaExpression).entry("class").getExpression();
+                Expression<Type, DMNContext> returnTypeExp = ((Context<Type, DMNContext>) javaExpression).entry("class").getExpression();
                 if (returnTypeExp instanceof StringLiteral) {
-                    String lexeme = ((StringLiteral) returnTypeExp).getLexeme();
+                    String lexeme = ((StringLiteral<Type, DMNContext>) returnTypeExp).getLexeme();
                     return StringEscapeUtil.stripQuotes(lexeme);
                 }
             }
@@ -111,14 +110,14 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
         throw new DMNRuntimeException(String.format("Missing class in '%s'", body));
     }
 
-    public String externalFunctionMethodName(Expression body) {
+    public String externalFunctionMethodName(Expression<Type, DMNContext> body) {
         if (body instanceof Context) {
-            Expression javaExpression = ((Context) body).entry("java").getExpression();
+            Expression<Type, DMNContext> javaExpression = ((Context<Type, DMNContext>) body).entry("java").getExpression();
             if (javaExpression instanceof Context) {
-                Expression returnTypeExp = ((Context) javaExpression).entry("methodSignature").getExpression();
+                Expression<Type, DMNContext> returnTypeExp = ((Context<Type, DMNContext>) javaExpression).entry("methodSignature").getExpression();
                 if (returnTypeExp instanceof StringLiteral) {
                     // Signature should be methodName(arg1, arg2, ..., argN)
-                    String lexeme = ((StringLiteral) returnTypeExp).getLexeme();
+                    String lexeme = ((StringLiteral<Type, DMNContext>) returnTypeExp).getLexeme();
                     String signature = StringEscapeUtil.stripQuotes(lexeme);
                     int index = signature.indexOf('(');
                     if (index != -1) {
@@ -205,10 +204,10 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
     }
 
     @Override
-    public List<FormalParameter<DMNContext>> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
+    public List<FormalParameter<Type, DMNContext>> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
         TFunctionDefinition encapsulatedLogic = bkm.getEncapsulatedLogic();
         if (encapsulatedLogic == null) {
-            List<FormalParameter<DMNContext>> parameters = new ArrayList<>();
+            List<FormalParameter<Type, DMNContext>> parameters = new ArrayList<>();
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
             DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.inputDataClosure(outputReference, this.drgElementFilter);
@@ -306,11 +305,11 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
     public String freeTextLiteralExpressionToNative(TDRGElement element) {
         TLiteralExpression expression = (TLiteralExpression) this.dmnModelRepository.expression(element);
         DMNContext globalContext = this.makeGlobalContext(element);
-        Expression literalExpression = this.feelTranslator.analyzeExpression(expression.getText(), globalContext);
+        Expression<Type, DMNContext> literalExpression = this.feelTranslator.analyzeExpression(expression.getText(), globalContext);
         if (literalExpression instanceof FunctionDefinition) {
-            Expression body = ((FunctionDefinition) literalExpression).getBody();
+            Expression<Type, DMNContext> body = ((FunctionDefinition<Type, DMNContext>) literalExpression).getBody();
             String javaCode;
-            if (((FunctionDefinition) literalExpression).isExternal()) {
+            if (((FunctionDefinition<Type, DMNContext>) literalExpression).isExternal()) {
                 Type type = literalExpression.getType();
                 if (type instanceof FEELFunctionType) {
                     type = ((FEELFunctionType) type).getReturnType();

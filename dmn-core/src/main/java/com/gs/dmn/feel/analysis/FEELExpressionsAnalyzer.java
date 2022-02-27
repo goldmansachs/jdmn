@@ -15,16 +15,16 @@ package com.gs.dmn.feel.analysis;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNContext;
 
-public interface FEELExpressionsAnalyzer {
-    Expression parseExpression(String text);
+public interface FEELExpressionsAnalyzer<T, C> {
+    Expression<T, C> parseExpression(String text);
 
-    Expression parseTextualExpressions(String text);
+    Expression<T, C> parseTextualExpressions(String text);
 
-    Expression parseBoxedExpression(String text);
+    Expression<T, C> parseBoxedExpression(String text);
 
-    Expression analyzeExpression(String text, DMNContext context);
+    Expression<T, C> analyzeExpression(String text, DMNContext context);
 
-    Expression analyzeTextualExpressions(String text, DMNContext context);
+    Expression<T, C> analyzeTextualExpressions(String text, DMNContext context);
 
-    Expression analyzeBoxedExpression(String text, DMNContext context);
+    Expression<T, C> analyzeBoxedExpression(String text, DMNContext context);
 }

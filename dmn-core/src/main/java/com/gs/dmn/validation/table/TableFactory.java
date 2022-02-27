@@ -13,6 +13,7 @@
 package com.gs.dmn.validation.table;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.BooleanLiteral;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.NumericLiteral;
@@ -20,6 +21,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.SimpleLiteral;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.StringLiteral;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20191111.model.*;
@@ -31,7 +33,7 @@ import static com.gs.dmn.validation.table.Bound.MINUS_INFINITY;
 import static com.gs.dmn.validation.table.Bound.PLUS_INFINITY;
 
 public class TableFactory {
-    public Table makeTable(int totalNumberOfRules, int totalNumberOfColumns, DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, FEELTranslator feelTranslator) {
+    public Table makeTable(int totalNumberOfRules, int totalNumberOfColumns, DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, FEELTranslator<Type, DMNContext> feelTranslator) {
         List<Input> inputs = makeInputs(repository, element, decisionTable);
         List<Rule> rules = makeRules(totalNumberOfRules, totalNumberOfColumns, inputs, repository, element, decisionTable, feelTranslator);
         return new Table(inputs, rules);
@@ -111,7 +113,7 @@ public class TableFactory {
         return inputs;
     }
 
-    private List<Rule> makeRules(int totalNumberOfRules, int totalNumberOfColumns, List<Input> inputs, DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, FEELTranslator feelTranslator) {
+    private List<Rule> makeRules(int totalNumberOfRules, int totalNumberOfColumns, List<Input> inputs, DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, FEELTranslator<Type, DMNContext> feelTranslator) {
         List<Rule> rules = new ArrayList<>();
         if (inputs.isEmpty()) {
             return rules;
@@ -138,26 +140,26 @@ public class TableFactory {
         return rules;
     }
 
-    private Interval makeInterval(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int ruleIndex, int columnIndex, TUnaryTests cell, Input input, FEELTranslator feelTranslator) {
+    private Interval makeInterval(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int ruleIndex, int columnIndex, TUnaryTests cell, Input input, FEELTranslator<Type, DMNContext> feelTranslator) {
         if (cell == null) {
             return null;
         }
 
         // Parse unary tests
         String text = cell.getText();
-        UnaryTests unaryTests = feelTranslator.parseUnaryTests(text);
+        UnaryTests<Type, DMNContext> unaryTests = feelTranslator.parseUnaryTests(text);
         if (unaryTests instanceof Any) {
             return makeAnyInterval(ruleIndex, columnIndex, input);
         } else if (unaryTests instanceof PositiveUnaryTests) {
-            List<PositiveUnaryTest> positiveUnaryTests = ((PositiveUnaryTests) unaryTests).getPositiveUnaryTests();
+            List<PositiveUnaryTest<Type, DMNContext>> positiveUnaryTests = ((PositiveUnaryTests<Type, DMNContext>) unaryTests).getPositiveUnaryTests();
             // Check simple expressions only
             if (positiveUnaryTests.size() == 1) {
-                PositiveUnaryTest positiveUnaryTest = positiveUnaryTests.get(0);
+                PositiveUnaryTest<Type, DMNContext> positiveUnaryTest = positiveUnaryTests.get(0);
                 // Check intervals
                 if (positiveUnaryTest instanceof EndpointsRange) {
-                    return makeInterval(repository, element, decisionTable, ruleIndex, columnIndex, input, (EndpointsRange) positiveUnaryTest);
+                    return makeInterval(repository, element, decisionTable, ruleIndex, columnIndex, input, (EndpointsRange<Type, DMNContext>) positiveUnaryTest);
                 } else if (positiveUnaryTest instanceof OperatorRange) {
-                    return makeInterval(repository, element, decisionTable, ruleIndex, columnIndex, input, (OperatorRange) positiveUnaryTest);
+                    return makeInterval(repository, element, decisionTable, ruleIndex, columnIndex, input, (OperatorRange<Type, DMNContext>) positiveUnaryTest);
                 }
             }
         }
@@ -182,9 +184,9 @@ public class TableFactory {
         return null;
     }
 
-    private Interval makeInterval(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int ruleIndex, int columnIndex, Input input, EndpointsRange astRange) {
-        Expression start = astRange.getStart();
-        Expression end = astRange.getEnd();
+    private Interval makeInterval(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int ruleIndex, int columnIndex, Input input, EndpointsRange<Type, DMNContext> astRange) {
+        Expression<Type, DMNContext> start = astRange.getStart();
+        Expression<Type, DMNContext> end = astRange.getEnd();
         if (start instanceof NumericLiteral && end instanceof NumericLiteral) {
             Double startValue = makeBoundValue(repository, element, decisionTable, columnIndex, start);
             Double endValue = makeBoundValue(repository, element, decisionTable, columnIndex, end);
@@ -203,12 +205,12 @@ public class TableFactory {
         return null;
     }
 
-    private Interval makeInterval(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int ruleIndex, int columnIndex, Input input, OperatorRange operatorRange) {
+    private Interval makeInterval(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int ruleIndex, int columnIndex, Input input, OperatorRange<Type, DMNContext> operatorRange) {
         String operator = operatorRange.getOperator();
-        Expression endpoint = operatorRange.getEndpoint();
+        Expression<Type, DMNContext> endpoint = operatorRange.getEndpoint();
         if (endpoint instanceof NumericLiteral) {
             // Number
-            String lexeme = ((NumericLiteral) endpoint).getLexeme();
+            String lexeme = ((NumericLiteral<Type, DMNContext>) endpoint).getLexeme();
             Double value = Double.parseDouble(lexeme);
             if (operator == null) {
                 return new NumericInterval(ruleIndex, columnIndex, input, true, value, true, value);
@@ -224,14 +226,14 @@ public class TableFactory {
         } else if (endpoint instanceof BooleanLiteral) {
             // Boolean
             if (operator == null) {
-                String value = ((BooleanLiteral) endpoint).getLexeme();
+                String value = ((BooleanLiteral<Type, DMNContext>) endpoint).getLexeme();
                 // create interval [i..i+1)
                 return new EnumerationInterval(ruleIndex, columnIndex, input, value);
             }
         } else if (endpoint instanceof StringLiteral) {
             // Enumeration
             if (operator == null) {
-                String value = ((SimpleLiteral) endpoint).getLexeme();
+                String value = ((SimpleLiteral<Type, DMNContext>) endpoint).getLexeme();
                 List<String> allowedValues = findAllowedValues(repository, element, decisionTable, columnIndex);
                 if (!allowedValues.isEmpty()) {
                     // create interval [i..i+1)
@@ -242,17 +244,17 @@ public class TableFactory {
         return null;
     }
 
-    private Double makeBoundValue(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int columnIndex, Expression exp) {
+    private Double makeBoundValue(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int columnIndex, Expression<Type, DMNContext> exp) {
         Double value = null;
         if (exp instanceof NumericLiteral) {
-            String lexeme = ((SimpleLiteral) exp).getLexeme();
+            String lexeme = ((SimpleLiteral<Type, DMNContext>) exp).getLexeme();
             value = Double.parseDouble(lexeme);
         } else if (exp instanceof BooleanLiteral) {
-            String lexeme = ((SimpleLiteral) exp).getLexeme();
+            String lexeme = ((SimpleLiteral<Type, DMNContext>) exp).getLexeme();
             boolean bValue = Boolean.parseBoolean(lexeme);
             value = bValue ? Bound.ONE : Bound.ZERO;
         } else if (exp instanceof StringLiteral) {
-            String lexeme = ((SimpleLiteral) exp).getLexeme();
+            String lexeme = ((SimpleLiteral<Type, DMNContext>) exp).getLexeme();
             List<String> allowedValues = findAllowedValues(repository, element, decisionTable, columnIndex);
             for (int i=0; i<allowedValues.size(); i++) {
                 String enumValue = allowedValues.get(i);

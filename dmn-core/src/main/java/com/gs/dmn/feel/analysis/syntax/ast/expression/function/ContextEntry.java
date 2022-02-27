@@ -16,25 +16,25 @@ import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-public class ContextEntry<C> extends Element<C> {
-    private final ContextEntryKey<C> key;
-    private final Expression<C> expression;
+public class ContextEntry<T, C> extends Element<T, C> {
+    private final ContextEntryKey<T, C> key;
+    private final Expression<T, C> expression;
 
-    public ContextEntry(ContextEntryKey<C> key, Expression<C> expression) {
+    public ContextEntry(ContextEntryKey<T, C> key, Expression<T, C> expression) {
         this.key = key;
         this.expression = expression;
     }
 
-    public ContextEntryKey<C> getKey() {
+    public ContextEntryKey<T, C> getKey() {
         return this.key;
     }
 
-    public Expression<C> getExpression() {
+    public Expression<T, C> getExpression() {
         return this.expression;
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

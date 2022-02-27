@@ -56,11 +56,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
+public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
     private static final int INITIAL_VALUE = -1;
     private int filterCount = INITIAL_VALUE;
 
-    public FEELToNativeVisitor(BasicDMNToNativeTransformer dmnTransformer) {
+    public FEELToNativeVisitor(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         super(dmnTransformer);
     }
 
@@ -72,45 +72,45 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     // Tests
     //
     @Override
-    public Object visit(PositiveUnaryTests<DMNContext> element, DMNContext context) {
-        List<PositiveUnaryTest<DMNContext>> simplePositiveUnaryTests = element.getPositiveUnaryTests();
+    public Object visit(PositiveUnaryTests<Type, DMNContext> element, DMNContext context) {
+        List<PositiveUnaryTest<Type, DMNContext>> simplePositiveUnaryTests = element.getPositiveUnaryTests();
         List<String> operands = simplePositiveUnaryTests.stream().map(t -> String.format("(%s)", t.accept(this, context))).collect(Collectors.toList());
         return toBooleanOr(operands);
     }
 
     @Override
-    public Object visit(NegatedPositiveUnaryTests<DMNContext> element, DMNContext context) {
-        PositiveUnaryTests<DMNContext> simplePositiveUnaryTests = element.getPositiveUnaryTests();
+    public Object visit(NegatedPositiveUnaryTests<Type, DMNContext> element, DMNContext context) {
+        PositiveUnaryTests<Type, DMNContext> simplePositiveUnaryTests = element.getPositiveUnaryTests();
         String condition = (String) simplePositiveUnaryTests.accept(this, context);
         condition = String.format("booleanNot(%s)", condition);
         return condition;
     }
 
     @Override
-    public Object visit(Any<DMNContext> element, DMNContext context) {
+    public Object visit(Any<Type, DMNContext> element, DMNContext context) {
         return this.nativeFactory.trueConstant();
     }
 
     @Override
-    public Object visit(NullTest<DMNContext> element, DMNContext context) {
+    public Object visit(NullTest<Type, DMNContext> element, DMNContext context) {
         return String.format("%s == null", inputExpressionToJava(context));
     }
 
     @Override
-    public Object visit(ExpressionTest<DMNContext> element, DMNContext context) {
-        Expression<DMNContext> expression = element.getExpression();
+    public Object visit(ExpressionTest<Type, DMNContext> element, DMNContext context) {
+        Expression<Type, DMNContext> expression = element.getExpression();
         return expression.accept(this, context);
     }
 
     @Override
-    public Object visit(OperatorRange<DMNContext> element, DMNContext context) {
+    public Object visit(OperatorRange<Type, DMNContext> element, DMNContext context) {
         if (context.isExpressionContext()) {
             // Evaluate as range
             return element.getEndpointsRange().accept(this, context);
         } else {
             // Evaluate as test
             String operator = element.getOperator();
-            Expression<DMNContext> endpoint = element.getEndpoint();
+            Expression<Type, DMNContext> endpoint = element.getEndpoint();
             String condition;
             if (endpoint instanceof FunctionInvocation) {
                 condition = (String) endpoint.accept(this, context);
@@ -126,9 +126,9 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     }
 
     @Override
-    public Object visit(EndpointsRange<DMNContext> element, DMNContext context) {
-        Expression<DMNContext> startEndpoint = element.getStart();
-        Expression<DMNContext> endEndpoint = element.getEnd();
+    public Object visit(EndpointsRange<Type, DMNContext> element, DMNContext context) {
+        Expression<Type, DMNContext> startEndpoint = element.getStart();
+        Expression<Type, DMNContext> endEndpoint = element.getEnd();
         if (context.isExpressionContext()) {
             // Evaluate as range
             boolean startIncluded = !element.isOpenStart();
@@ -145,8 +145,8 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     }
 
     @Override
-    public Object visit(ListTest<DMNContext> element, DMNContext context) {
-        ListLiteral<DMNContext> listLiteral = element.getListLiteral();
+    public Object visit(ListTest<Type, DMNContext> element, DMNContext context) {
+        ListLiteral<Type, DMNContext> listLiteral = element.getListLiteral();
         Type listType = listLiteral.getType();
         Type listElementType = ((ListType) listType).getElementType();
         Type inputExpressionType = context.getInputExpressionType();
@@ -171,7 +171,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     // Textual expressions
     //
     @Override
-    public Object visit(FunctionDefinition<DMNContext> element, DMNContext context) {
+    public Object visit(FunctionDefinition<Type, DMNContext> element, DMNContext context) {
         if (element.isStaticTyped()) {
             String body = (String)element.getBody().accept(this, context);
             return this.dmnTransformer.functionDefinitionToNative((TDRGElement) context.getElement(), element, false, body);
@@ -181,24 +181,24 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     }
 
     @Override
-    public Object visit(FormalParameter<DMNContext> element, DMNContext context) {
+    public Object visit(FormalParameter<Type, DMNContext> element, DMNContext context) {
         throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     @Override
-    public Object visit(Context<DMNContext> element, DMNContext context) {
+    public Object visit(Context<Type, DMNContext> element, DMNContext context) {
         String addMethods = element.getEntries().stream().map(e -> (String) e.accept(this, context)).collect(Collectors.joining(""));
         return this.nativeFactory.fluentConstructor(DMNToJavaTransformer.CONTEXT_CLASS_NAME, addMethods);
     }
 
     @Override
-    public Object visit(NamedParameters<DMNContext> element, DMNContext context) {
+    public Object visit(NamedParameters<Type, DMNContext> element, DMNContext context) {
         Map<String, Object> arguments = new LinkedHashMap<>();
-        Map<String, Expression<DMNContext>> parameters = element.getParameters();
+        Map<String, Expression<Type, DMNContext>> parameters = element.getParameters();
 
-        for (Map.Entry<String, Expression<DMNContext>> entry : parameters.entrySet()) {
+        for (Map.Entry<String, Expression<Type, DMNContext>> entry : parameters.entrySet()) {
             String key = entry.getKey();
-            Expression<DMNContext> expression = entry.getValue();
+            Expression<Type, DMNContext> expression = entry.getValue();
             Object value = expression.accept(this, context);
             arguments.put(key, value);
         }
@@ -207,7 +207,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     }
 
     @Override
-    public Object visit(PositionalParameters<DMNContext> element, DMNContext context) {
+    public Object visit(PositionalParameters<Type, DMNContext> element, DMNContext context) {
         List<Object> arguments = new ArrayList<>();
         element.getParameters().forEach(p -> arguments.add(p.accept(this, context)));
         element.setOriginalArguments(new PositionalArguments<>(arguments));
@@ -215,25 +215,25 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     }
 
     @Override
-    public Object visit(ContextEntry<DMNContext> element, DMNContext context) {
+    public Object visit(ContextEntry<Type, DMNContext> element, DMNContext context) {
         String key = (String) element.getKey().accept(this, context);
         String value = (String) element.getExpression().accept(this, context);
         return String.format(".add(%s, %s)", key, value);
     }
 
     @Override
-    public Object visit(ContextEntryKey<DMNContext> element, DMNContext context) {
+    public Object visit(ContextEntryKey<Type, DMNContext> element, DMNContext context) {
         return String.format("\"%s\"", element.getKey());
     }
 
     @Override
-    public Object visit(ForExpression<DMNContext> element, DMNContext context) {
+    public Object visit(ForExpression<Type, DMNContext> element, DMNContext context) {
         DMNContext forContext = this.dmnTransformer.makeForContext(element, context);
 
-        List<Iterator<DMNContext>> iterators = element.getIterators();
+        List<Iterator<Type, DMNContext>> iterators = element.getIterators();
         List<Pair<String, String>> domainIterators = new ArrayList<>();
-        for (Iterator<DMNContext> it : iterators) {
-            IteratorDomain<DMNContext> expressionDomain = it.getDomain();
+        for (Iterator<Type, DMNContext> it : iterators) {
+            IteratorDomain<Type, DMNContext> expressionDomain = it.getDomain();
             String domain = (String) expressionDomain.accept(this, forContext);
             domainIterators.add(new Pair<>(domain, it.getName()));
         }
@@ -242,24 +242,24 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     }
 
     @Override
-    public Object visit(Iterator<DMNContext> element, DMNContext context) {
+    public Object visit(Iterator<Type, DMNContext> element, DMNContext context) {
         throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     @Override
-    public Object visit(ExpressionIteratorDomain<DMNContext> element, DMNContext context) {
-        Expression<DMNContext>expressionDomain = element.getExpression();
+    public Object visit(ExpressionIteratorDomain<Type, DMNContext> element, DMNContext context) {
+        Expression<Type, DMNContext>expressionDomain = element.getExpression();
         String domain;
         if (expressionDomain instanceof Name) {
-            String name = ((Name<DMNContext>) expressionDomain).getName();
+            String name = ((Name<Type, DMNContext>) expressionDomain).getName();
             domain = this.dmnTransformer.nativeFriendlyVariableName(name);
         } else if (expressionDomain instanceof EndpointsRange) {
-            EndpointsRange<DMNContext> test = (EndpointsRange<DMNContext>) expressionDomain;
+            EndpointsRange<Type, DMNContext> test = (EndpointsRange<Type, DMNContext>) expressionDomain;
             String start = (String) test.getStart().accept(this, context);
             String end = (String) test.getEnd().accept(this, context);
             domain = String.format("rangeToList(%s, %s, %s, %s)", test.isOpenStart(), start, test.isOpenEnd(), end);
         } else if (expressionDomain instanceof ListTest) {
-            ListTest<DMNContext> test = (ListTest<DMNContext>) expressionDomain;
+            ListTest<Type, DMNContext> test = (ListTest<Type, DMNContext>) expressionDomain;
             domain = (String) test.getListLiteral().accept(this, context);
         } else if (expressionDomain instanceof ListLiteral) {
             domain = (String) expressionDomain.accept(this, context);
@@ -274,14 +274,14 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
 
     @Override
     // TODO optimize generated code
-    public Object visit(RangeIteratorDomain<DMNContext> element, DMNContext context) {
+    public Object visit(RangeIteratorDomain<Type, DMNContext> element, DMNContext context) {
         String start = (String) element.getStart().accept(this, context);
         String end = (String) element.getEnd().accept(this, context);
         return String.format("rangeToList(%s, %s)", start, end);
     }
 
     @Override
-    public Object visit(IfExpression<DMNContext> element, DMNContext context) {
+    public Object visit(IfExpression<Type, DMNContext> element, DMNContext context) {
         String condition = (String) element.getCondition().accept(this, context);
         String thenExp = (String) element.getThenExpression().accept(this, context);
         String elseExp = (String) element.getElseExpression().accept(this, context);
@@ -289,8 +289,8 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     }
 
     @Override
-    public Object visit(QuantifiedExpression<DMNContext> element, DMNContext context) {
-        ForExpression<DMNContext> forExpression = element.toForExpression();
+    public Object visit(QuantifiedExpression<Type, DMNContext> element, DMNContext context) {
+        ForExpression<Type, DMNContext> forExpression = element.toForExpression();
         String forList = (String) forExpression.accept(this, context);
         // Add boolean predicate
         String predicate = element.getPredicate();
@@ -304,7 +304,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     }
 
     @Override
-    public Object visit(FilterExpression<DMNContext> element, DMNContext context) {
+    public Object visit(FilterExpression<Type, DMNContext> element, DMNContext context) {
         // Generate source
         Type sourceType = element.getSource().getType();
         Type filterType = element.getFilter().getType();
@@ -353,7 +353,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     }
 
     @Override
-    public Object visit(InstanceOfExpression<DMNContext> element, DMNContext context) {
+    public Object visit(InstanceOfExpression<Type, DMNContext> element, DMNContext context) {
         String leftOperand = (String) element.getLeftOperand().accept(this, context);
         Type rightOperandType = element.getRightOperand().getType();
         String javaType = this.nativeTypeFactory.toNativeType(rightOperandType.toString());
@@ -364,7 +364,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     // Expressions
     //
     @Override
-    public Object visit(ExpressionList<DMNContext> element, DMNContext context) {
+    public Object visit(ExpressionList<Type, DMNContext> element, DMNContext context) {
         throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
@@ -372,24 +372,24 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     // Logic expressions
     //
     @Override
-    public Object visit(Disjunction<DMNContext> element, DMNContext context) {
-        Expression<DMNContext> leftOperand = element.getLeftOperand();
-        Expression<DMNContext> rightOperand = element.getRightOperand();
+    public Object visit(Disjunction<Type, DMNContext> element, DMNContext context) {
+        Expression<Type, DMNContext> leftOperand = element.getLeftOperand();
+        Expression<Type, DMNContext> rightOperand = element.getRightOperand();
         String feelOperator = element.getOperator();
         return makeCondition(feelOperator, leftOperand, rightOperand, context);
     }
 
     @Override
-    public Object visit(Conjunction<DMNContext> element, DMNContext context) {
-        Expression<DMNContext> leftOperand = element.getLeftOperand();
-        Expression<DMNContext> rightOperand = element.getRightOperand();
+    public Object visit(Conjunction<Type, DMNContext> element, DMNContext context) {
+        Expression<Type, DMNContext> leftOperand = element.getLeftOperand();
+        Expression<Type, DMNContext> rightOperand = element.getRightOperand();
         String feelOperator = element.getOperator();
         return makeCondition(feelOperator, leftOperand, rightOperand, context);
     }
 
     @Override
-    public Object visit(LogicNegation<DMNContext> element, DMNContext context) {
-        Expression<DMNContext> leftOperand = element.getLeftOperand();
+    public Object visit(LogicNegation<Type, DMNContext> element, DMNContext context) {
+        Expression<Type, DMNContext> leftOperand = element.getLeftOperand();
         String leftOpd = (String) leftOperand.accept(this, context);
         return String.format("booleanNot(%s)", leftOpd);
     }
@@ -398,18 +398,18 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     // Comparison expressions
     //
     @Override
-    public Object visit(Relational<DMNContext> element, DMNContext context) {
-        Expression<DMNContext> leftOperand = element.getLeftOperand();
-        Expression<DMNContext> rightOperand = element.getRightOperand();
+    public Object visit(Relational<Type, DMNContext> element, DMNContext context) {
+        Expression<Type, DMNContext> leftOperand = element.getLeftOperand();
+        Expression<Type, DMNContext> rightOperand = element.getRightOperand();
         String feelOperator = element.getOperator();
         return makeCondition(feelOperator, leftOperand, rightOperand, context);
     }
 
     @Override
-    public Object visit(BetweenExpression<DMNContext> element, DMNContext context) {
+    public Object visit(BetweenExpression<Type, DMNContext> element, DMNContext context) {
         String value = (String) element.getValue().accept(this, context);
-        Expression<DMNContext> leftEndpoint = element.getLeftEndpoint();
-        Expression<DMNContext> rightEndpoint = element.getRightEndpoint();
+        Expression<Type, DMNContext> leftEndpoint = element.getLeftEndpoint();
+        Expression<Type, DMNContext> rightEndpoint = element.getRightEndpoint();
         String leftOpd = (String) leftEndpoint.accept(this, context);
         String rightOpd = (String) rightEndpoint.accept(this, context);
         String feelOperator = "<=";
@@ -420,13 +420,13 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     }
 
     @Override
-    public Object visit(InExpression<DMNContext> element, DMNContext context) {
-        Expression<DMNContext> valueExp = element.getValue();
-        List<PositiveUnaryTest<DMNContext>> positiveUnaryTests = element.getTests();
+    public Object visit(InExpression<Type, DMNContext> element, DMNContext context) {
+        Expression<Type, DMNContext> valueExp = element.getValue();
+        List<PositiveUnaryTest<Type, DMNContext>> positiveUnaryTests = element.getTests();
 
         DMNContext inContext = this.dmnTransformer.makeUnaryTestContext(valueExp, context);
         List<String> result = new ArrayList<>();
-        for (PositiveUnaryTest<DMNContext> positiveUnaryTest: positiveUnaryTests) {
+        for (PositiveUnaryTest<Type, DMNContext> positiveUnaryTest: positiveUnaryTests) {
             String test = (String) positiveUnaryTest.accept(this, inContext);
             result.add(test);
         }
@@ -441,31 +441,31 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     // Arithmetic expressions
     //
     @Override
-    public Object visit(Addition<DMNContext> element, DMNContext context) {
-        Expression<DMNContext> leftOperand = element.getLeftOperand();
-        Expression<DMNContext> rightOperand = element.getRightOperand();
+    public Object visit(Addition<Type, DMNContext> element, DMNContext context) {
+        Expression<Type, DMNContext> leftOperand = element.getLeftOperand();
+        Expression<Type, DMNContext> rightOperand = element.getRightOperand();
         String feelOperator = element.getOperator();
         return makeCondition(feelOperator, leftOperand, rightOperand, context);
     }
 
     @Override
-    public Object visit(Multiplication<DMNContext> element, DMNContext context) {
-        Expression<DMNContext> leftOperand = element.getLeftOperand();
-        Expression<DMNContext> rightOperand = element.getRightOperand();
+    public Object visit(Multiplication<Type, DMNContext> element, DMNContext context) {
+        Expression<Type, DMNContext> leftOperand = element.getLeftOperand();
+        Expression<Type, DMNContext> rightOperand = element.getRightOperand();
         String feelOperator = element.getOperator();
         return makeCondition(feelOperator, leftOperand, rightOperand, context);
     }
 
     @Override
-    public Object visit(Exponentiation<DMNContext> element, DMNContext context) {
+    public Object visit(Exponentiation<Type, DMNContext> element, DMNContext context) {
         String leftOpd = (String) element.getLeftOperand().accept(this, context);
         String rightOpd = (String) element.getRightOperand().accept(this, context);
         return String.format("numericExponentiation(%s, %s)", leftOpd, rightOpd);
     }
 
     @Override
-    public Object visit(ArithmeticNegation<DMNContext> element, DMNContext context) {
-        Expression<DMNContext> leftOperand = element.getLeftOperand();
+    public Object visit(ArithmeticNegation<Type, DMNContext> element, DMNContext context) {
+        Expression<Type, DMNContext> leftOperand = element.getLeftOperand();
         String leftOpd = (String) leftOperand.accept(this, context);
         return String.format("numericUnaryMinus(%s)", leftOpd);
     }
@@ -474,8 +474,8 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     // Postfix expressions
     //
     @Override
-    public Object visit(PathExpression<DMNContext> element, DMNContext context) {
-        Expression<DMNContext> sourceExpression = element.getSource();
+    public Object visit(PathExpression<Type, DMNContext> element, DMNContext context) {
+        Expression<Type, DMNContext> sourceExpression = element.getSource();
         Type sourceType = sourceExpression.getType();
         String source = (String) sourceExpression.accept(this, context);
         String member = element.getMember();
@@ -484,14 +484,14 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     }
 
     @Override
-    public Object visit(FunctionInvocation<DMNContext> element, DMNContext context) {
+    public Object visit(FunctionInvocation<Type, DMNContext> element, DMNContext context) {
         // Generate code for actual parameters
-        Parameters<DMNContext> parameters = element.getParameters();
+        Parameters<Type, DMNContext> parameters = element.getParameters();
         parameters.accept(this, context);
-        Arguments<DMNContext> arguments = parameters.convertArguments(this::convertArgument);
-        Expression<DMNContext> function = element.getFunction();
+        Arguments<Type, DMNContext> arguments = parameters.convertArguments(this::convertArgument);
+        Expression<Type, DMNContext> function = element.getFunction();
         FunctionType functionType = (FunctionType) function.getType();
-        List<FormalParameter<DMNContext>> formalParameters = functionType.getParameters();
+        List<FormalParameter<Type, DMNContext>> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
 
         // Generate code for function
@@ -507,7 +507,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
             if (invocable instanceof TInvocable) {
                 String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
                 if (function instanceof Name) {
-                    if (((Name<DMNContext>) function).getName().equals(invocable.getName())) {
+                    if (((Name<Type, DMNContext>) function).getName().equals(invocable.getName())) {
                         String javaQualifiedName = this.dmnTransformer.singletonInvocableInstance((TInvocable) invocable);
                         return String.format("%s.apply(%s)", javaQualifiedName, argumentsText);
                     } else {
@@ -538,7 +538,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
         argList.add(String.format("%s", dmnTransformer.cacheVariableName()));
     }
 
-    protected Object convertArgument(Object param, Conversion conversion) {
+    protected Object convertArgument(Object param, Conversion<Type> conversion) {
         String conversionFunction = this.nativeFactory.conversionFunction(conversion, this.dmnTransformer.toNativeType(conversion.getTargetType()));
         if (conversionFunction != null) {
             param = String.format("%s(%s)", conversionFunction, param);
@@ -550,12 +550,12 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     // Primary expressions
     //
     @Override
-    public Object visit(NumericLiteral<DMNContext> element, DMNContext context) {
+    public Object visit(NumericLiteral<Type, DMNContext> element, DMNContext context) {
         return String.format("number(\"%s\")", element.getLexeme());
     }
 
     @Override
-    public Object visit(StringLiteral<DMNContext> element, DMNContext context) {
+    public Object visit(StringLiteral<Type, DMNContext> element, DMNContext context) {
         String lexeme = element.getLexeme();
         String value = StringEscapeUtil.unescapeFEEL(lexeme);
         value = StringEscapeUtil.escapeFEEL(value);
@@ -564,31 +564,31 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     }
 
     @Override
-    public Object visit(BooleanLiteral<DMNContext> element, DMNContext context) {
+    public Object visit(BooleanLiteral<Type, DMNContext> element, DMNContext context) {
         String value = element.getLexeme();
         return "true".equals(value) ? this.nativeFactory.trueConstant() : this.nativeFactory.falseConstant();
     }
 
     @Override
-    public Object visit(DateTimeLiteral<DMNContext> element, DMNContext context) {
+    public Object visit(DateTimeLiteral<Type, DMNContext> element, DMNContext context) {
         return dateTimeLiteralToJava(element);
     }
 
     @Override
-    public Object visit(NullLiteral<DMNContext> element, DMNContext context) {
+    public Object visit(NullLiteral<Type, DMNContext> element, DMNContext context) {
         return "null";
     }
 
     @Override
-    public Object visit(ListLiteral<DMNContext> element, DMNContext context) {
-        List<Expression<DMNContext>> expressionList = element.getExpressionList();
+    public Object visit(ListLiteral<Type, DMNContext> element, DMNContext context) {
+        List<Expression<Type, DMNContext>> expressionList = element.getExpressionList();
         String elements = expressionList.stream().map(e -> (String) e.accept(this, context)).collect(Collectors.joining(", "));
         Type elementType = ((ListType) element.getType()).getElementType();
         return this.dmnTransformer.asList(elementType, elements);
     }
 
     @Override
-    public Object visit(QualifiedName<DMNContext> element, DMNContext context) {
+    public Object visit(QualifiedName<Type, DMNContext> element, DMNContext context) {
         if (element.getNames().size() == 1) {
             return nameToJava(element.getNames().get(0), context);
         } else {
@@ -597,7 +597,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     }
 
     @Override
-    public Object visit(Name<DMNContext> element, DMNContext context) {
+    public Object visit(Name<Type, DMNContext> element, DMNContext context) {
         String name = element.getName();
         return nameToJava(name, context);
     }
@@ -606,22 +606,22 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
     // Type expressions
     //
     @Override
-    public Object visit(NamedTypeExpression<DMNContext> element, DMNContext context) {
+    public Object visit(NamedTypeExpression<Type, DMNContext> element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(ListTypeExpression<DMNContext> element, DMNContext context) {
+    public Object visit(ListTypeExpression<Type, DMNContext> element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(ContextTypeExpression<DMNContext> element, DMNContext context) {
+    public Object visit(ContextTypeExpression<Type, DMNContext> element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
     @Override
-    public Object visit(FunctionTypeExpression<DMNContext> element, DMNContext context) {
+    public Object visit(FunctionTypeExpression<Type, DMNContext> element, DMNContext context) {
         return handleNotSupportedElement(element);
     }
 
@@ -668,7 +668,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
         }
     }
 
-    private String makeListTestCondition(String feelOperator, String inputExpression, Expression<DMNContext> rightOperand, DMNContext context) {
+    private String makeListTestCondition(String feelOperator, String inputExpression, Expression<Type, DMNContext> rightOperand, DMNContext context) {
         String rightOpd = (String) rightOperand.accept(this, context);
         String condition;
         String javaOperator = listTestOperator(feelOperator, context.getInputExpression(), rightOperand);
@@ -680,7 +680,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<DMNContext> {
         return condition;
     }
 
-    protected Object handleNotSupportedElement(Element<DMNContext> element) {
+    protected Object handleNotSupportedElement(Element<Type, DMNContext> element) {
         throw new UnsupportedOperationException("FEEL '" + (element == null ? null : element.getClass().getSimpleName()) + "' is not supported in this context");
     }
 }

@@ -13,46 +13,47 @@
 package com.gs.dmn.feel;
 
 import com.gs.dmn.feel.analysis.FEELAnalyzer;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.runtime.DMNContext;
 
 public class AbstractFEELProcessor {
-    private final FEELAnalyzer feelAnalyzer;
+    private final FEELAnalyzer<Type, DMNContext> feelAnalyzer;
 
-    public AbstractFEELProcessor(FEELAnalyzer feelAnalyzer) {
+    public AbstractFEELProcessor(FEELAnalyzer<Type, DMNContext> feelAnalyzer) {
         this.feelAnalyzer = feelAnalyzer;
     }
 
-    public UnaryTests parseUnaryTests(String text) {
+    public UnaryTests<Type, DMNContext> parseUnaryTests(String text) {
         return this.feelAnalyzer.parseUnaryTests(text);
     }
 
-    public UnaryTests analyzeUnaryTests(String text, DMNContext context) {
+    public UnaryTests<Type, DMNContext> analyzeUnaryTests(String text, DMNContext context) {
         return this.feelAnalyzer.analyzeUnaryTests(text, context);
     }
 
-    public Expression parseExpression(String text) {
+    public Expression<Type, DMNContext> parseExpression(String text) {
         return this.feelAnalyzer.parseExpression(text);
     }
 
-    public Expression parseTextualExpressions(String text) {
+    public Expression<Type, DMNContext> parseTextualExpressions(String text) {
         return this.feelAnalyzer.parseTextualExpressions(text);
     }
 
-    public Expression parseBoxedExpression(String text) {
+    public Expression<Type, DMNContext> parseBoxedExpression(String text) {
         return this.feelAnalyzer.parseBoxedExpression(text);
     }
 
-    public Expression analyzeExpression(String text, DMNContext context) {
+    public Expression<Type, DMNContext> analyzeExpression(String text, DMNContext context) {
         return this.feelAnalyzer.analyzeExpression(text, context);
     }
 
-    public Expression analyzeTextualExpressions(String text, DMNContext context) {
+    public Expression<Type, DMNContext> analyzeTextualExpressions(String text, DMNContext context) {
         return this.feelAnalyzer.analyzeTextualExpressions(text, context);
     }
 
-    public Expression analyzeBoxedExpression(String text, DMNContext context) {
+    public Expression<Type, DMNContext> analyzeBoxedExpression(String text, DMNContext context) {
         return this.feelAnalyzer.analyzeBoxedExpression(text, context);
     }
 }

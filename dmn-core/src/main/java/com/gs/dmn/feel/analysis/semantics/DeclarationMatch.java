@@ -13,16 +13,17 @@
 package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterConversions;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
 import com.gs.dmn.runtime.DMNContext;
 
 public class DeclarationMatch {
     private final Declaration declaration;
-    private final ParameterTypes<DMNContext> parameterTypes;
-    private final ParameterConversions<DMNContext> parameterConversions;
+    private final ParameterTypes<Type, DMNContext> parameterTypes;
+    private final ParameterConversions<Type, DMNContext> parameterConversions;
 
-    public DeclarationMatch(Declaration declaration, ParameterTypes<DMNContext> parameterTypes, ParameterConversions<DMNContext> parameterConversions) {
+    public DeclarationMatch(Declaration declaration, ParameterTypes<Type, DMNContext> parameterTypes, ParameterConversions<Type, DMNContext> parameterConversions) {
         this.declaration = declaration;
         this.parameterTypes = parameterTypes;
         this.parameterConversions = parameterConversions;
@@ -32,11 +33,11 @@ public class DeclarationMatch {
         return this.declaration;
     }
 
-    public ParameterTypes<DMNContext> getParameterTypes() {
+    public ParameterTypes<Type, DMNContext> getParameterTypes() {
         return this.parameterTypes;
     }
 
-    public ParameterConversions<DMNContext> getParameterConversions() {
+    public ParameterConversions<Type, DMNContext> getParameterConversions() {
         return this.parameterConversions;
     }
 

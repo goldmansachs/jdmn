@@ -12,5 +12,5 @@
  */
 package com.gs.dmn.feel.interpreter;
 
-public interface FEELInterpreter extends FEELTestsInterpreter, FEELExpressionsInterpreter {
+public interface FEELInterpreter<T, C> extends FEELTestsInterpreter<T, C>, FEELExpressionsInterpreter<T, C> {
 }

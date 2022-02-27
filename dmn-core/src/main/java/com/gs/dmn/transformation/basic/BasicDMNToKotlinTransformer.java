@@ -16,7 +16,9 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.native_.KotlinFactory;
@@ -35,7 +37,7 @@ public class BasicDMNToKotlinTransformer extends BasicDMNToJavaTransformer {
     }
 
     @Override
-    protected void setNativeFactory(BasicDMNToNativeTransformer transformer) {
+    protected void setNativeFactory(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
         this.nativeFactory = new KotlinFactory(this);
     }
 

@@ -53,7 +53,7 @@ public abstract class FunctionTypeTest {
     }
 
     private void doTest(List<Type> parameterTypes, List<Type> argumentTypes, String expectedCandidates) {
-        List<Pair<ParameterTypes<DMNContext>, ParameterConversions<DMNContext>>> candidates = makeFunctionType().calculateCandidates(parameterTypes, argumentTypes);
+        List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> candidates = makeFunctionType().calculateCandidates(parameterTypes, argumentTypes);
         assertEquals(expectedCandidates, candidates.toString());
     }
 }

@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
@@ -21,21 +20,21 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
-public class NamedParameters<C> extends Parameters<C> {
-    private final Map<String, Expression<C>> parameters;
-    private NamedArguments<C> originalArguments;
-    private NamedParameterConversions<C> parameterConversions;
-    private NamedParameterTypes<C> parameterTypes;
-    private NamedArguments<C> convertedArguments;
+public class NamedParameters<T, C> extends Parameters<T, C> {
+    private final Map<String, Expression<T, C>> parameters;
+    private NamedArguments<T, C> originalArguments;
+    private NamedParameterConversions<T, C> parameterConversions;
+    private NamedParameterTypes<T, C> parameterTypes;
+    private NamedArguments<T, C> convertedArguments;
 
-    public NamedParameters(Map<String, Expression<C>> params) {
+    public NamedParameters(Map<String, Expression<T, C>> params) {
         if (params == null) {
             params = new LinkedHashMap<>();
         }
         this.parameters = params;
     }
 
-    public Map<String, Expression<C>> getParameters() {
+    public Map<String, Expression<T, C>> getParameters() {
         return this.parameters;
     }
 
@@ -45,55 +44,55 @@ public class NamedParameters<C> extends Parameters<C> {
     }
 
     @Override
-    public ParameterTypes<C> getSignature() {
-        Map<String, Type> signature = new LinkedHashMap<>();
+    public ParameterTypes<T, C> getSignature() {
+        Map<String, T> signature = new LinkedHashMap<>();
         this.parameters.forEach((key, value) -> signature.put(key, value.getType()));
         return new NamedParameterTypes<>(signature);
     }
 
     @Override
-    public Arguments<C> getOriginalArguments() {
+    public Arguments<T, C> getOriginalArguments() {
         return this.originalArguments;
     }
 
     @Override
-    public void setOriginalArguments(Arguments<C> originalArguments) {
-        this.originalArguments = (NamedArguments<C>) originalArguments;
+    public void setOriginalArguments(Arguments<T, C> originalArguments) {
+        this.originalArguments = (NamedArguments<T, C>) originalArguments;
     }
 
     @Override
-    public ParameterConversions<C> getParameterConversions() {
+    public ParameterConversions<T, C> getParameterConversions() {
         return this.parameterConversions;
     }
 
     @Override
-    public void setParameterConversions(ParameterConversions<C> parameterConversions) {
-        this.parameterConversions = (NamedParameterConversions<C>) parameterConversions;
+    public void setParameterConversions(ParameterConversions<T, C> parameterConversions) {
+        this.parameterConversions = (NamedParameterConversions<T, C>) parameterConversions;
     }
 
     @Override
-    public ParameterTypes<C> getConvertedParameterTypes() {
+    public ParameterTypes<T, C> getConvertedParameterTypes() {
         return this.parameterTypes;
     }
 
     @Override
-    public void setConvertedParameterTypes(ParameterTypes<C> parameterTypes) {
-        this.parameterTypes = (NamedParameterTypes<C>) parameterTypes;
+    public void setConvertedParameterTypes(ParameterTypes<T, C> parameterTypes) {
+        this.parameterTypes = (NamedParameterTypes<T, C>) parameterTypes;
     }
 
     @Override
-    public Arguments<C> getConvertedArguments() {
+    public Arguments<T, C> getConvertedArguments() {
         return this.convertedArguments;
     }
 
     @Override
-    public Arguments<C> convertArguments(BiFunction<Object, Conversion, Object> convertArgument) {
+    public Arguments<T, C> convertArguments(BiFunction<Object, Conversion<T>, Object> convertArgument) {
         if (requiresConversion()) {
             this.convertedArguments = new NamedArguments<>();
-            for (Map.Entry<String, Conversion> entry : this.parameterConversions.getConversions().entrySet()) {
+            for (Map.Entry<String, Conversion<T>> entry : this.parameterConversions.getConversions().entrySet()) {
                 String key = entry.getKey();
                 Object arg = this.originalArguments.getArguments().get(key);
-                Conversion conversion = entry.getValue();
+                Conversion<T> conversion = entry.getValue();
                 Object convertedArg = convertArgument.apply(arg, conversion);
                 this.convertedArguments.add(key, convertedArg);
             }
@@ -104,12 +103,12 @@ public class NamedParameters<C> extends Parameters<C> {
     }
 
     @Override
-    public Expression<C> getParameter(int position, String name) {
+    public Expression<T, C> getParameter(int position, String name) {
         return this.parameters.get(name);
     }
 
     @Override
-    public Type getParameterType(int position, String name) {
+    public T getParameterType(int position, String name) {
         return this.getParameters().get(name).getType();
     }
 
@@ -121,7 +120,7 @@ public class NamedParameters<C> extends Parameters<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

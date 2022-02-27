@@ -17,31 +17,31 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 import java.util.Objects;
 
-public class BetweenExpression<C> extends Comparison<C> {
-    private final Expression<C> value;
-    private final Expression<C> leftEndpoint;
-    private final Expression<C> rightEndpoint;
+public class BetweenExpression<T, C> extends Comparison<T, C> {
+    private final Expression<T, C> value;
+    private final Expression<T, C> leftEndpoint;
+    private final Expression<T, C> rightEndpoint;
 
-    public BetweenExpression(Expression<C> value, Expression<C> leftEndpoint, Expression<C> rightEndpoint) {
+    public BetweenExpression(Expression<T, C> value, Expression<T, C> leftEndpoint, Expression<T, C> rightEndpoint) {
         this.value = value;
         this.leftEndpoint = leftEndpoint;
         this.rightEndpoint = rightEndpoint;
     }
 
-    public Expression<C> getValue() {
+    public Expression<T, C> getValue() {
         return this.value;
     }
 
-    public Expression<C> getLeftEndpoint() {
+    public Expression<T, C> getLeftEndpoint() {
         return this.leftEndpoint;
     }
 
-    public Expression<C> getRightEndpoint() {
+    public Expression<T, C> getRightEndpoint() {
         return this.rightEndpoint;
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -49,7 +49,7 @@ public class BetweenExpression<C> extends Comparison<C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BetweenExpression<?> that = (BetweenExpression<?>) o;
+        BetweenExpression<?, ?> that = (BetweenExpression<?, ?>) o;
         return Objects.equals(value, that.value) && Objects.equals(leftEndpoint, that.leftEndpoint) && Objects.equals(rightEndpoint, that.rightEndpoint);
     }
 

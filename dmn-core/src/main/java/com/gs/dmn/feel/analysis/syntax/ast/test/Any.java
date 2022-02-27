@@ -14,10 +14,10 @@ package com.gs.dmn.feel.analysis.syntax.ast.test;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
-public class Any<C> extends UnaryTests<C> {
+public class Any<T, C> extends UnaryTests<T, C> {
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

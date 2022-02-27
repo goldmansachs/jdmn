@@ -58,12 +58,12 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     private final EnvironmentFactory environmentFactory;
     protected final ErrorHandler errorHandler;
 
-    private final BasicDMNToNativeTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
     protected final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib;
-    private final FEELInterpreter feelInterpreter;
+    private final FEELInterpreter<Type, DMNContext> feelInterpreter;
     private final TypeConverter typeConverter;
 
-    public StandardDMNInterpreter(BasicDMNToNativeTransformer dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib, TypeConverter typeConverter) {
+    public StandardDMNInterpreter(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib, TypeConverter typeConverter) {
         this.errorHandler = new LogErrorHandler(LOGGER);
         this.typeConverter = typeConverter;
         this.dmnTransformer = dmnTransformer;
@@ -74,7 +74,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     }
 
     @Override
-    public BasicDMNToNativeTransformer getBasicDMNTransformer() {
+    public BasicDMNToNativeTransformer<Type, DMNContext> getBasicDMNTransformer() {
         return this.dmnTransformer;
     }
 
@@ -509,9 +509,9 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
     private void bindArguments(TDecisionService service, List<Object> argList, DMNContext serviceContext) {
         // Bind parameters
-        List<FormalParameter<DMNContext>> formalParameterList = this.dmnTransformer.dsFEELParameters(service);
+        List<FormalParameter<Type, DMNContext>> formalParameterList = this.dmnTransformer.dsFEELParameters(service);
         for (int i = 0; i < formalParameterList.size(); i++) {
-            FormalParameter<DMNContext> param = formalParameterList.get(i);
+            FormalParameter<Type, DMNContext> param = formalParameterList.get(i);
             String name = param.getName();
             Type type = param.getType();
             Object value = argList.get(i);
@@ -606,13 +606,13 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         TDefinitions model = this.repository.getModel(element);
 
         // Make entry context
-        Pair<DMNContext, Map<TContextEntry, Expression>> pair = this.dmnTransformer.makeContextEnvironment(element, context, parentContext);
+        Pair<DMNContext, Map<TContextEntry, Expression<Type, DMNContext>>> pair = this.dmnTransformer.makeContextEnvironment(element, context, parentContext);
         DMNContext localContext = pair.getLeft();
 
         // Evaluate entries
         Result returnResult = null;
         Map<TContextEntry, Result> entryResultMap = new LinkedHashMap<>();
-        Map<TContextEntry, Expression> literalExpressionMap = pair.getRight();
+        Map<TContextEntry, Expression<Type, DMNContext>> literalExpressionMap = pair.getRight();
         for(TContextEntry entry: context.getContextEntry()) {
             // Evaluate entry value
             Result entryResult;
@@ -620,7 +620,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             if (jaxbElement != null) {
                 TExpression expression = jaxbElement.getValue();
                 if (expression instanceof TLiteralExpression) {
-                    Expression feelExpression = literalExpressionMap.get(entry);
+                    Expression<Type, DMNContext> feelExpression = literalExpressionMap.get(entry);
                     entryResult = this.feelInterpreter.evaluateExpression(feelExpression, localContext);
                 } else {
                     entryResult = evaluateExpression(element, expression, localContext, elementAnnotation);
@@ -744,7 +744,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         for (TInputClause inputClause : decisionTable.getInput()) {
             TLiteralExpression inputExpression = inputClause.getInputExpression();
             String inputExpressionText = inputExpression.getText();
-            Expression expression = this.feelInterpreter.analyzeExpression(inputExpressionText, context);
+            Expression<Type, DMNContext> expression = this.feelInterpreter.analyzeExpression(inputExpressionText, context);
             Result inputExpressionResult = this.feelInterpreter.evaluateExpression(expression, context);
             Object inputExpressionValue = Result.value(inputExpressionResult);
             inputClauseList.add(new InputClausePair(expression, inputExpressionValue));
@@ -779,11 +779,11 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         for (int index = 0; index < inputEntry.size(); index++) {
             TUnaryTests unaryTest = inputEntry.get(index);
             String text = unaryTest.getText();
-            Expression inputExpression = inputClauseList.get(index).getExpression();
+            Expression<Type, DMNContext> inputExpression = inputClauseList.get(index).getExpression();
             DMNContext testContext = this.dmnTransformer.makeUnaryTestContext(inputExpression, context);
             testContext.bind(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputClauseList.get(index).getValue());
-            Expression ast = this.feelInterpreter.analyzeUnaryTests(text, testContext);
-            Result result = this.feelInterpreter.evaluateUnaryTests((UnaryTests) ast, testContext);
+            Expression<Type, DMNContext> ast = this.feelInterpreter.analyzeUnaryTests(text, testContext);
+            Result result = this.feelInterpreter.evaluateUnaryTests((UnaryTests<Type, DMNContext>) ast, testContext);
             Object testMatched = Result.value(result);
             if (isFalse(testMatched)) {
                 ruleMatched = false;
@@ -882,7 +882,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         }
     }
 
-    private Object evaluateDefaultValue(TDRGElement element, TDecisionTable decisionTable, BasicDMNToNativeTransformer dmnTransformer, DMNContext context, DRGElement elementAnnotation) {
+    private Object evaluateDefaultValue(TDRGElement element, TDecisionTable decisionTable, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNContext context, DRGElement elementAnnotation) {
         if (this.repository.hasDefaultValue(decisionTable)) {
             // Evaluate and collect default values
             List<TOutputClause> outputClauses = decisionTable.getOutput();

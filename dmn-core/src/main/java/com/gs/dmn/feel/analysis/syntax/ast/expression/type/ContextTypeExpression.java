@@ -19,19 +19,19 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ContextTypeExpression<C> extends TypeExpression<C> {
-    private final List<Pair<String, TypeExpression<C>>> members;
+public class ContextTypeExpression<T, C> extends TypeExpression<T, C> {
+    private final List<Pair<String, TypeExpression<T, C>>> members;
 
-    public ContextTypeExpression(List<Pair<String, TypeExpression<C>>> contextType) {
+    public ContextTypeExpression(List<Pair<String, TypeExpression<T, C>>> contextType) {
         this.members = contextType;
     }
 
-    public List<Pair<String, TypeExpression<C>>> getMembers() {
+    public List<Pair<String, TypeExpression<T, C>>> getMembers() {
         return this.members;
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -39,7 +39,7 @@ public class ContextTypeExpression<C> extends TypeExpression<C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ContextTypeExpression<?> that = (ContextTypeExpression<?>) o;
+        ContextTypeExpression<?, ?> that = (ContextTypeExpression<?, ?>) o;
         return Objects.equals(members, that.members);
     }
 

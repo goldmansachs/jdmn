@@ -13,10 +13,9 @@
 package com.gs.dmn.feel.analysis;
 
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
-import com.gs.dmn.runtime.DMNContext;
 
-public interface FEELTestsAnalyzer {
-    UnaryTests parseUnaryTests(String text);
+public interface FEELTestsAnalyzer<T, C> {
+    UnaryTests<T, C> parseUnaryTests(String text);
 
-    UnaryTests analyzeUnaryTests(String text, DMNContext context);
+    UnaryTests<T, C> analyzeUnaryTests(String text, C context);
 }

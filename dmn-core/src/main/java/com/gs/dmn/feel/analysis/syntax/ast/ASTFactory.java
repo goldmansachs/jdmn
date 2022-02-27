@@ -37,11 +37,11 @@ import java.util.*;
 
 import static com.gs.dmn.feel.analysis.semantics.type.FEELTypes.FEEL_LITERAL_DATE_TIME_NAMES;
 
-public class ASTFactory<C> {
+public class ASTFactory<T, C> {
     //
     // Expressions
     //
-    public Expression<C> toExpressionList(List<Expression<C>> expressionList) {
+    public Expression<T, C> toExpressionList(List<Expression<T, C>> expressionList) {
         if (expressionList.size() == 1) {
             return expressionList.get(0);
         } else {
@@ -49,25 +49,25 @@ public class ASTFactory<C> {
         }
     }
 
-    public Expression<C> toComparison(String operator, Expression<C> leftOperand, Expression<C> rightOperand) {
+    public Expression<T, C> toComparison(String operator, Expression<T, C> leftOperand, Expression<T, C> rightOperand) {
         return new Relational<>(operator, leftOperand, rightOperand);
     }
 
-    public Expression<C> toMultiplication(String operator, Expression<C> leftOperand, Expression<C> rightOperand) {
+    public Expression<T, C> toMultiplication(String operator, Expression<T, C> leftOperand, Expression<T, C> rightOperand) {
         return new Multiplication<>(operator, leftOperand, rightOperand);
     }
 
-    public Expression<C> toAddition(String operator, Expression<C> leftOperand, Expression<C> rightOperand) {
+    public Expression<T, C> toAddition(String operator, Expression<T, C> leftOperand, Expression<T, C> rightOperand) {
         return new Addition<>(operator, leftOperand, rightOperand);
     }
 
-    public Expression<C> toExponentiation(Expression<C> leftOperand, Expression<C> rightOperand) {
+    public Expression<T, C> toExponentiation(Expression<T, C> leftOperand, Expression<T, C> rightOperand) {
         return new Exponentiation<>(leftOperand, rightOperand);
     }
 
-    public Expression<C> toNegation(List<String> kindList, Expression<C> operand) {
+    public Expression<T, C> toNegation(List<String> kindList, Expression<T, C> operand) {
         kindList = optimizeDoubleNegation(kindList);
-        Expression<C> result = operand;
+        Expression<T, C> result = operand;
         for(int i = kindList.size() - 1; i >= 0; i--) {
             String kind = kindList.get(i);
             result = toNegation(kind, result);
@@ -103,7 +103,7 @@ public class ASTFactory<C> {
         return true;
     }
 
-    public Expression<C> toNegation(String kind, Expression<C> operand) {
+    public Expression<T, C> toNegation(String kind, Expression<T, C> operand) {
         if ("-".equals(kind)) {
             return new ArithmeticNegation<>(operand);
         } else if ("not".equals(kind)) {
@@ -113,19 +113,19 @@ public class ASTFactory<C> {
         }
     }
 
-    public NumericLiteral<C> toNumericLiteral(String lexeme) {
+    public NumericLiteral<T, C> toNumericLiteral(String lexeme) {
         return new NumericLiteral<>(lexeme);
     }
 
-    public StringLiteral<C> toStringLiteral(String lexeme) {
+    public StringLiteral<T, C> toStringLiteral(String lexeme) {
         return new StringLiteral<>(lexeme);
     }
 
-    public BooleanLiteral<C> toBooleanLiteral(String lexeme) {
+    public BooleanLiteral<T, C> toBooleanLiteral(String lexeme) {
         return new BooleanLiteral<>(lexeme);
     }
 
-    public Expression<C> toDateTimeLiteral(String lexeme) {
+    public Expression<T, C> toDateTimeLiteral(String lexeme) {
         String stringLiteral = temporalStringLiteral(lexeme);
         String kind = temporalLiteralKind(stringLiteral);
         return this.toDateTimeLiteral(kind, stringLiteral);
@@ -155,23 +155,23 @@ public class ASTFactory<C> {
         return kind;
     }
 
-    public Expression<C> toDateTimeLiteral(String kind, Expression<C> stringLiteral) {
+    public Expression<T, C> toDateTimeLiteral(String kind, Expression<T, C> stringLiteral) {
         return toFunctionInvocation(toName(kind), new PositionalParameters<>(Collections.singletonList(stringLiteral)));
     }
 
-    public Expression<C> toDateTimeLiteral(String kind, String lexeme) {
+    public Expression<T, C> toDateTimeLiteral(String kind, String lexeme) {
         return new DateTimeLiteral<>(kind, lexeme);
     }
 
-    public Expression<C> toName(String name) {
+    public Expression<T, C> toName(String name) {
         return new Name<>(name);
     }
 
-    public Expression<C> toQualifiedName(String... names) {
+    public Expression<T, C> toQualifiedName(String... names) {
         return toQualifiedName(Arrays.asList(names));
     }
 
-    public Expression<C> toQualifiedName(List<String> names) {
+    public Expression<T, C> toQualifiedName(List<String> names) {
         if (names.size() > 0) {
             return toPathExpression(names);
         } else {
@@ -182,18 +182,18 @@ public class ASTFactory<C> {
     //
     // Tests
     //
-    public UnaryTests<C> toAny() {
+    public UnaryTests<T, C> toAny() {
         return new Any<>();
     }
 
-    public PositiveUnaryTest<C> toPositiveUnaryTest(Expression<C> expression) {
+    public PositiveUnaryTest<T, C> toPositiveUnaryTest(Expression<T, C> expression) {
         if (expression instanceof SimplePositiveUnaryTest) {
-            return (PositiveUnaryTest<C>) expression;
+            return (PositiveUnaryTest<T, C>) expression;
         } else if (expression instanceof NullLiteral) {
             return toNullPositiveUnaryTest();
         } else if (expression instanceof SimpleLiteral) {
             return toOperatorRange(null, expression);
-        } else if (expression instanceof ArithmeticNegation && ((ArithmeticNegation<C>) expression).getLeftOperand() instanceof NumericLiteral) {
+        } else if (expression instanceof ArithmeticNegation && ((ArithmeticNegation<T, C>) expression).getLeftOperand() instanceof NumericLiteral) {
             return toOperatorRange(null, expression);
         } else if (expression instanceof NamedExpression || expression instanceof PathExpression) {
             return toOperatorRange(null, expression);
@@ -203,45 +203,45 @@ public class ASTFactory<C> {
             // TODO refactor to use ExpressionTest
             return toOperatorRange(null, expression);
         } else if (expression instanceof ListLiteral) {
-            return toListTest((ListLiteral<C>) expression);
+            return toListTest((ListLiteral<T, C>) expression);
         } else {
             return toExpressionTest(expression);
         }
     }
 
-    public NullTest<C> toNullPositiveUnaryTest() {
+    public NullTest<T, C> toNullPositiveUnaryTest() {
         return new NullTest<>();
     }
 
-    public ExpressionTest<C> toExpressionTest(Expression<C> expression) {
+    public ExpressionTest<T, C> toExpressionTest(Expression<T, C> expression) {
         return new ExpressionTest<>(expression);
     }
 
-    public OperatorRange<C> toOperatorRange(String operator, Expression<C> endpoint) {
+    public OperatorRange<T, C> toOperatorRange(String operator, Expression<T, C> endpoint) {
         return new OperatorRange<>(operator, endpoint);
     }
 
-    public EndpointsRange<C> toEndpointsRange(String leftPar, Expression<C> start, String rightPar, Expression<C> end) {
+    public EndpointsRange<T, C> toEndpointsRange(String leftPar, Expression<T, C> start, String rightPar, Expression<T, C> end) {
         return new EndpointsRange<>(!"[".equals(leftPar), start, !"]".equals(rightPar), end);
     }
 
-    public ListTest<C> toListTest(ListLiteral<C> expression) {
+    public ListTest<T, C> toListTest(ListLiteral<T, C> expression) {
         return new ListTest<>(expression);
     }
 
-    public ListTest<C> toListTest(List<Expression<C>> expressions) {
-        return new ListTest<>((ListLiteral<C>) toListLiteral(expressions));
+    public ListTest<T, C> toListTest(List<Expression<T, C>> expressions) {
+        return new ListTest<>((ListLiteral<T, C>) toListLiteral(expressions));
     }
 
-    public UnaryTests<C> toNegatedUnaryTests(PositiveUnaryTests<C> ast) {
+    public UnaryTests<T, C> toNegatedUnaryTests(PositiveUnaryTests<T, C> ast) {
         return new NegatedPositiveUnaryTests<>(ast);
     }
 
-    public PositiveUnaryTests<C> toPositiveUnaryTests(List<Expression<C>> expressions) {
-        List<PositiveUnaryTest<C>> positiveUnaryTests = new ArrayList<>();
-        for (Expression<C> e : expressions) {
+    public PositiveUnaryTests<T, C> toPositiveUnaryTests(List<Expression<T, C>> expressions) {
+        List<PositiveUnaryTest<T, C>> positiveUnaryTests = new ArrayList<>();
+        for (Expression<T, C> e : expressions) {
             if (e instanceof PositiveUnaryTest) {
-                positiveUnaryTests.add((PositiveUnaryTest<C>) e);
+                positiveUnaryTests.add((PositiveUnaryTest<T, C>) e);
             } else {
                 positiveUnaryTests.add(toPositiveUnaryTest(e));
             }
@@ -249,23 +249,23 @@ public class ASTFactory<C> {
         return new PositiveUnaryTests<>(positiveUnaryTests);
     }
 
-    public FormalParameter<C> toFormalParameter(String parameterName, TypeExpression<C> typeExpression) {
+    public FormalParameter<T, C> toFormalParameter(String parameterName, TypeExpression<T, C> typeExpression) {
         return new FormalParameter<>(parameterName, typeExpression);
     }
 
-    public Expression<C> toFunctionDefinition(List<FormalParameter<C>> formalParameters, TypeExpression<C> returnTypeExpression, Expression<C> body, boolean external) {
+    public Expression<T, C> toFunctionDefinition(List<FormalParameter<T, C>> formalParameters, TypeExpression<T, C> returnTypeExpression, Expression<T, C> body, boolean external) {
         return new FunctionDefinition<>(formalParameters, returnTypeExpression, body, external);
     }
 
-    public Iterator<C> toIterator(String name, Expression<C> domain) {
+    public Iterator<T, C> toIterator(String name, Expression<T, C> domain) {
         return new Iterator<>(name, toIteratorDomain(domain, null));
     }
 
-    public Iterator<C> toIterator(String name, IteratorDomain<C> domain) {
+    public Iterator<T, C> toIterator(String name, IteratorDomain<T, C> domain) {
         return new Iterator<>(name, domain);
     }
 
-    public IteratorDomain<C> toIteratorDomain(Expression<C> start, Expression<C> end) {
+    public IteratorDomain<T, C> toIteratorDomain(Expression<T, C> start, Expression<T, C> end) {
         if (end == null) {
             return new ExpressionIteratorDomain<>(start);
         } else {
@@ -273,139 +273,139 @@ public class ASTFactory<C> {
         }
     }
 
-    public Expression<C> toContext(List<ContextEntry<C>> entries) {
+    public Expression<T, C> toContext(List<ContextEntry<T, C>> entries) {
         return new Context<>(entries);
     }
 
-    public ContextEntryKey<C> toContextEntryKey(String text) {
+    public ContextEntryKey<T, C> toContextEntryKey(String text) {
         return new ContextEntryKey<>(text);
     }
 
-    public ContextEntry<C> toContextEntry(ContextEntryKey<C> key, Expression<C> expression) {
+    public ContextEntry<T, C> toContextEntry(ContextEntryKey<T, C> key, Expression<T, C> expression) {
         return new ContextEntry<>(key, expression);
     }
 
-    public Expression<C> toListLiteral(List<Expression<C>> expressions) {
+    public Expression<T, C> toListLiteral(List<Expression<T, C>> expressions) {
         return new ListLiteral<>(expressions);
     }
 
-    public Expression<C> toNullLiteral() {
+    public Expression<T, C> toNullLiteral() {
         return new NullLiteral<>();
     }
 
-    public Expression<C> toForExpression(List<Iterator<C>> iterators, Expression<C> body) {
+    public Expression<T, C> toForExpression(List<Iterator<T, C>> iterators, Expression<T, C> body) {
         return new ForExpression<>(iterators, body);
     }
 
-    public IfExpression<C> toIfExpression(Expression<C> condition, Expression<C> thenExpression, Expression<C> elseExpression) {
+    public IfExpression<T, C> toIfExpression(Expression<T, C> condition, Expression<T, C> thenExpression, Expression<T, C> elseExpression) {
         return new IfExpression<>(condition, thenExpression, elseExpression);
     }
 
-    public Expression<C> toQuantifiedExpression(String predicate, List<Iterator<C>> iterators, Expression<C> body) {
+    public Expression<T, C> toQuantifiedExpression(String predicate, List<Iterator<T, C>> iterators, Expression<T, C> body) {
         return new QuantifiedExpression<>(predicate, iterators, body);
     }
 
-    public Expression<C> toDisjunction(Expression<C> left, Expression<C> right) {
+    public Expression<T, C> toDisjunction(Expression<T, C> left, Expression<T, C> right) {
         return new Disjunction<>(left, right);
     }
 
-    public Expression<C> toConjunction(Expression<C> left, Expression<C> right) {
+    public Expression<T, C> toConjunction(Expression<T, C> left, Expression<T, C> right) {
         return new Conjunction<>(left, right);
     }
 
-    public Expression<C> toBetweenExpression(Expression<C> value, Expression<C> leftEndpoint, Expression<C> rightEndpoint) {
+    public Expression<T, C> toBetweenExpression(Expression<T, C> value, Expression<T, C> leftEndpoint, Expression<T, C> rightEndpoint) {
         return new BetweenExpression<>(value, leftEndpoint, rightEndpoint);
     }
 
-    public Expression<C> toInExpression(Expression<C> value, Expression<C> expression) {
+    public Expression<T, C> toInExpression(Expression<T, C> value, Expression<T, C> expression) {
         if (expression instanceof PositiveUnaryTest) {
-            return new InExpression<>(value, (PositiveUnaryTest<C>) expression);
+            return new InExpression<>(value, (PositiveUnaryTest<T, C>) expression);
         } else if (expression instanceof PositiveUnaryTests) {
-            return new InExpression<>(value, (PositiveUnaryTests<C>) expression);
+            return new InExpression<>(value, (PositiveUnaryTests<T, C>) expression);
         } else {
             return new InExpression<>(value, toOperatorRange(null, expression));
         }
     }
 
-    public Expression<C> toInstanceOf(Expression<C> expression, TypeExpression<C> typeExpresion) {
+    public Expression<T, C> toInstanceOf(Expression<T, C> expression, TypeExpression<T, C> typeExpresion) {
         return new InstanceOfExpression<>(expression, typeExpresion);
     }
 
-    public Expression<C> toPathExpression(Expression<C> source, String member) {
+    public Expression<T, C> toPathExpression(Expression<T, C> source, String member) {
         return new PathExpression<>(source, member);
     }
 
-    public Expression<C> toPathExpression(List<String> names) {
-        Expression<C> source = toName(names.get(0));
+    public Expression<T, C> toPathExpression(List<String> names) {
+        Expression<T, C> source = toName(names.get(0));
         for(int i = 1; i < names.size(); i++) {
             source = toPathExpression(source, names.get(i));
         }
         return source;
     }
 
-    public Expression<C> toFilterExpression(Expression<C> value, Expression<C> filter) {
+    public Expression<T, C> toFilterExpression(Expression<T, C> value, Expression<T, C> filter) {
         return new FilterExpression<>(value, filter);
     }
 
-    public Expression<C> toFunctionInvocation(Expression<C> function, Parameters<C> parameters) {
+    public Expression<T, C> toFunctionInvocation(Expression<T, C> function, Parameters<T, C> parameters) {
         if (isDateTimeLiteral(function, parameters)) {
             String functionName;
             if (function instanceof Name) {
-                functionName = ((Name<C>) function).getName();
+                functionName = ((Name<T, C>) function).getName();
             } else {
-                functionName = ((QualifiedName<C>) function).getQualifiedName();
+                functionName = ((QualifiedName<T, C>) function).getQualifiedName();
             }
-            StringLiteral<C> stringLiteral = (StringLiteral<C>) ((PositionalParameters<C>) parameters).getParameters().get(0);
+            StringLiteral<T, C> stringLiteral = (StringLiteral<T, C>) ((PositionalParameters<T, C>) parameters).getParameters().get(0);
             return new DateTimeLiteral<>(functionName, stringLiteral.getLexeme());
         } else {
             return new FunctionInvocation<>(function, parameters);
         }
     }
 
-    private boolean isDateTimeLiteral(Expression<C> function, Parameters<C> parameters) {
+    private boolean isDateTimeLiteral(Expression<T, C> function, Parameters<T, C> parameters) {
         return (
-                function instanceof Name && FEEL_LITERAL_DATE_TIME_NAMES.contains(((Name<C>) function).getName())
+                function instanceof Name && FEEL_LITERAL_DATE_TIME_NAMES.contains(((Name<T, C>) function).getName())
                         ||
-                        function instanceof QualifiedName && FEEL_LITERAL_DATE_TIME_NAMES.contains(((QualifiedName<C>) function).getQualifiedName())
+                        function instanceof QualifiedName && FEEL_LITERAL_DATE_TIME_NAMES.contains(((QualifiedName<T, C>) function).getQualifiedName())
         )
                 && parameters instanceof PositionalParameters
-                && ((PositionalParameters<C>) parameters).getParameters().size() == 1
-                && ((PositionalParameters<C>) parameters).getParameters().get(0) instanceof StringLiteral;
+                && ((PositionalParameters<T, C>) parameters).getParameters().size() == 1
+                && ((PositionalParameters<T, C>) parameters).getParameters().get(0) instanceof StringLiteral;
     }
 
-    public NamedParameters<C> toNamedParameters(Map<String, Expression<C>> params) {
+    public NamedParameters<T, C> toNamedParameters(Map<String, Expression<T, C>> params) {
         return new NamedParameters<>(params);
     }
 
-    public PositionalParameters<C> toPositionalParameters(List<Expression<C>> params) {
+    public PositionalParameters<T, C> toPositionalParameters(List<Expression<T, C>> params) {
         return new PositionalParameters<>(params);
     }
 
-    public TypeExpression<C> toNamedTypeExpression(String qualifiedName) {
+    public TypeExpression<T, C> toNamedTypeExpression(String qualifiedName) {
         return new NamedTypeExpression<>(qualifiedName);
     }
 
-    public TypeExpression<C> toNamedTypeExpression(Expression<C> exp) {
+    public TypeExpression<T, C> toNamedTypeExpression(Expression<T, C> exp) {
         if (exp instanceof Name) {
-            return toNamedTypeExpression(((Name<C>) exp).getName());
+            return toNamedTypeExpression(((Name<T, C>) exp).getName());
         } else if (exp instanceof QualifiedName) {
-            return toNamedTypeExpression(((QualifiedName<C>) exp).getQualifiedName());
+            return toNamedTypeExpression(((QualifiedName<T, C>) exp).getQualifiedName());
         } else if (exp instanceof PathExpression) {
-            return toNamedTypeExpression(((PathExpression<C>) exp).getPath());
+            return toNamedTypeExpression(((PathExpression<T, C>) exp).getPath());
         } else {
             throw new UnsupportedOperationException("Not supported" + exp.toString());
         }
     }
 
-    public TypeExpression<C> toListTypeExpression(TypeExpression<C> elementType) {
+    public TypeExpression<T, C> toListTypeExpression(TypeExpression<T, C> elementType) {
         return new ListTypeExpression<>(elementType);
     }
 
-    public TypeExpression<C> toContextTypeExpression(List<Pair<String, TypeExpression<C>>> members) {
+    public TypeExpression<T, C> toContextTypeExpression(List<Pair<String, TypeExpression<T, C>>> members) {
         return new ContextTypeExpression<>(members);
     }
 
-    public TypeExpression<C> toFunctionTypeExpression(List<TypeExpression<C>> parameters, TypeExpression<C> returnType) {
+    public TypeExpression<T, C> toFunctionTypeExpression(List<TypeExpression<T, C>> parameters, TypeExpression<T, C> returnType) {
         return new FunctionTypeExpression<>(parameters, returnType);
     }
 }

@@ -12,5 +12,5 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
-public abstract class SimplePositiveUnaryTest<C> extends PositiveUnaryTest<C> {
+public abstract class SimplePositiveUnaryTest<T, C> extends PositiveUnaryTest<T, C> {
 }

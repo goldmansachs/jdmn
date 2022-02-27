@@ -17,19 +17,19 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.ListLiteral;
 
 import java.util.Objects;
 
-public class ListTest<C> extends SimplePositiveUnaryTest<C> {
-    private final ListLiteral<C> listLiteral;
+public class ListTest<T, C> extends SimplePositiveUnaryTest<T, C> {
+    private final ListLiteral<T, C> listLiteral;
 
-    public ListTest(ListLiteral<C> listLiteral) {
+    public ListTest(ListLiteral<T, C> listLiteral) {
         this.listLiteral = listLiteral;
     }
 
-    public ListLiteral<C> getListLiteral() {
+    public ListLiteral<T, C> getListLiteral() {
         return this.listLiteral;
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -37,7 +37,7 @@ public class ListTest<C> extends SimplePositiveUnaryTest<C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ListTest<?> listTest = (ListTest<?>) o;
+        ListTest<?, ?> listTest = (ListTest<?, ?>) o;
         return Objects.equals(listLiteral, listTest.listLiteral);
     }
 

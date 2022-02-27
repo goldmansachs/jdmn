@@ -20,25 +20,25 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ListLiteral<C> extends Expression<C> {
-    private final List<Expression<C>> expressionList = new ArrayList<>();
+public class ListLiteral<T, C> extends Expression<T, C> {
+    private final List<Expression<T, C>> expressionList = new ArrayList<>();
 
-    public ListLiteral(List<Expression<C>> expressionList) {
+    public ListLiteral(List<Expression<T, C>> expressionList) {
         if (expressionList != null) {
             this.expressionList.addAll(expressionList);
         }
     }
 
-    public List<Expression<C>> getExpressionList() {
+    public List<Expression<T, C>> getExpressionList() {
         return this.expressionList;
     }
 
-    public void add(Expression<C> ast) {
+    public void add(Expression<T, C> ast) {
         this.expressionList.add(ast);
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -46,7 +46,7 @@ public class ListLiteral<C> extends Expression<C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ListLiteral<?> that = (ListLiteral<?>) o;
+        ListLiteral<?, ?> that = (ListLiteral<?, ?>) o;
         return Objects.equals(expressionList, that.expressionList);
     }
 

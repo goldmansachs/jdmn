@@ -17,24 +17,24 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 import java.util.Objects;
 
-public class EndpointsRange<C> extends Range<C> {
+public class EndpointsRange<T, C> extends Range<T, C> {
     private final boolean openStart;
-    private final Expression<C> start;
+    private final Expression<T, C> start;
     private final boolean openEnd;
-    private final Expression<C> end;
+    private final Expression<T, C> end;
 
-    public EndpointsRange(boolean isOpenStart, Expression<C> start, boolean isOpenEnd, Expression<C> end) {
+    public EndpointsRange(boolean isOpenStart, Expression<T, C> start, boolean isOpenEnd, Expression<T, C> end) {
         this.openStart = isOpenStart;
         this.start = start;
         this.openEnd = isOpenEnd;
         this.end = end;
     }
 
-    public Expression<C> getStart() {
+    public Expression<T, C> getStart() {
         return this.start;
     }
 
-    public Expression<C> getEnd() {
+    public Expression<T, C> getEnd() {
         return this.end;
     }
 
@@ -47,7 +47,7 @@ public class EndpointsRange<C> extends Range<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -55,7 +55,7 @@ public class EndpointsRange<C> extends Range<C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EndpointsRange<?> that = (EndpointsRange<?>) o;
+        EndpointsRange<?, ?> that = (EndpointsRange<?, ?>) o;
         return openStart == that.openStart && openEnd == that.openEnd && Objects.equals(start, that.start) && Objects.equals(end, that.end);
     }
 

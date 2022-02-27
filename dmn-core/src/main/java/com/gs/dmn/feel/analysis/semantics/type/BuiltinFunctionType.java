@@ -28,11 +28,11 @@ public class BuiltinFunctionType extends FunctionType {
     private final boolean hasOptionalParams;
     private final boolean hasVarArgs;
 
-    public BuiltinFunctionType(Type type, FormalParameter<DMNContext>... parameters) {
+    public BuiltinFunctionType(Type type, FormalParameter<Type, DMNContext>... parameters) {
         this(Arrays.asList(parameters), type);
     }
 
-    public BuiltinFunctionType(List<FormalParameter<DMNContext>> parameters, Type returnType) {
+    public BuiltinFunctionType(List<FormalParameter<Type, DMNContext>> parameters, Type returnType) {
         super(new ArrayList<>(parameters), returnType);
         this.totalParamsCount = parameters.size();
         this.mandatoryParamsCount = (int) parameters.stream().filter(p -> !p.isOptional() && !p.isVarArg()).count();
@@ -41,7 +41,7 @@ public class BuiltinFunctionType extends FunctionType {
     }
 
     @Override
-    protected List<Pair<ParameterTypes<DMNContext>, ParameterConversions<DMNContext>>> matchCandidates(List<Type> argumentTypes) {
+    protected List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> matchCandidates(List<Type> argumentTypes) {
         if (this.hasOptionalParams) {
             // check size constraint
             if (!(this.mandatoryParamsCount <= argumentTypes.size() && argumentTypes.size() <= this.totalParamsCount)) {
@@ -71,15 +71,15 @@ public class BuiltinFunctionType extends FunctionType {
     }
 
     @Override
-    public boolean match(ParameterTypes<DMNContext> parameterTypes) {
+    public boolean match(ParameterTypes<Type, DMNContext> parameterTypes) {
         if (parameterTypes instanceof PositionalParameterTypes) {
-            return match((PositionalParameterTypes<DMNContext>) parameterTypes);
+            return match((PositionalParameterTypes<Type, DMNContext>) parameterTypes);
         } else {
-            return match((NamedParameterTypes<DMNContext>) parameterTypes);
+            return match((NamedParameterTypes<Type, DMNContext>) parameterTypes);
         }
     }
 
-    private boolean match(PositionalParameterTypes<DMNContext> parameterTypes) {
+    private boolean match(PositionalParameterTypes<Type, DMNContext> parameterTypes) {
         List<Type> argumentTypes = parameterTypes.getTypes();
         if (this.hasOptionalParams) {
             // check mandatory parameters
@@ -133,11 +133,11 @@ public class BuiltinFunctionType extends FunctionType {
         return true;
     }
 
-    private boolean match(NamedParameterTypes<DMNContext> namedParameterTypes) {
+    private boolean match(NamedParameterTypes<Type, DMNContext> namedParameterTypes) {
         for (String argName: namedParameterTypes.getNames()) {
             Type argType = namedParameterTypes.getType(argName);
             boolean found = false;
-            for(FormalParameter<DMNContext> parameter: this.parameters) {
+            for(FormalParameter<Type, DMNContext> parameter: this.parameters) {
                 if (parameter.getName().equals(argName)) {
                     found = true;
                     Type parType = parameter.getType();

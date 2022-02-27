@@ -66,7 +66,7 @@ import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 
-public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
+public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Type, DMNContext> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(BasicDMNToJavaTransformer.class);
 
     private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect;
@@ -84,7 +84,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     protected DMNEnvironmentFactory dmnEnvironmentFactory;
     protected NativeFactory nativeFactory;
-    protected FEELTranslator feelTranslator;
+    protected FEELTranslator<Type, DMNContext> feelTranslator;
     protected DMNExpressionToNativeTransformer expressionToNativeTransformer;
     protected final DRGElementFilter drgElementFilter;
     protected final JavaTypeMemoizer nativeTypeMemoizer;
@@ -119,19 +119,19 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         this.protoFactory = new ProtoBufferJavaFactory(this);
     }
 
-    protected void setDMNEnvironmentFactory(BasicDMNToNativeTransformer transformer) {
+    protected void setDMNEnvironmentFactory(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
         this.dmnEnvironmentFactory = new StandardDMNEnvironmentFactory(transformer);
     }
 
-    protected void setNativeFactory(BasicDMNToNativeTransformer transformer) {
+    protected void setNativeFactory(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
         this.nativeFactory = new JavaFactory(transformer);
     }
 
-    private void setExpressionToNativeTransformer(BasicDMNToNativeTransformer transformer) {
+    private void setExpressionToNativeTransformer(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
         this.expressionToNativeTransformer = new DMNExpressionToNativeTransformer(transformer);
     }
 
-    private void setFEELTranslator(BasicDMNToNativeTransformer transformer) {
+    private void setFEELTranslator(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
         this.feelTranslator = new FEELTranslatorImpl(transformer);
     }
 
@@ -156,7 +156,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public FEELTranslator getFEELTranslator() {
+    public FEELTranslator<Type, DMNContext> getFEELTranslator() {
         return this.feelTranslator;
     }
 
@@ -760,7 +760,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public List<FormalParameter<DMNContext>> invocableFEELParameters(TDRGElement invocable) {
+    public List<FormalParameter<Type, DMNContext>> invocableFEELParameters(TDRGElement invocable) {
         if (invocable instanceof TBusinessKnowledgeModel) {
             return bkmFEELParameters((TBusinessKnowledgeModel) invocable);
         } else if (invocable instanceof TDecisionService) {
@@ -774,9 +774,9 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     // BKM related functions
     //
     @Override
-    public List<FormalParameter<DMNContext>> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
+    public List<FormalParameter<Type, DMNContext>> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
         TDefinitions model = this.dmnModelRepository.getModel(bkm);
-        List<FormalParameter<DMNContext>> parameters = new ArrayList<>();
+        List<FormalParameter<Type, DMNContext>> parameters = new ArrayList<>();
         for (TInformationItem p: bkm.getEncapsulatedLogic().getFormalParameter()) {
             String typeRef = p.getTypeRef();
             Type type = null;
@@ -810,8 +810,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     // Decision Service related functions
     //
     @Override
-    public List<FormalParameter<DMNContext>> dsFEELParameters(TDecisionService service) {
-        List<FormalParameter<DMNContext>> parameters = new ArrayList<>();
+    public List<FormalParameter<Type, DMNContext>> dsFEELParameters(TDecisionService service) {
+        List<FormalParameter<Type, DMNContext>> parameters = new ArrayList<>();
         for (TDMNElementReference er : service.getInputData()) {
             TInputData inputData = getDMNModelRepository().findInputDataByRef(service, er.getHref());
             parameters.add(new FormalParameter<>(inputData.getName(), toFEELType(inputData)));
@@ -1593,7 +1593,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public String functionDefinitionToNative(TDRGElement element, FunctionDefinition functionDefinition, boolean convertTypeToContext, String body) {
+    public String functionDefinitionToNative(TDRGElement element, FunctionDefinition<Type, DMNContext> functionDefinition, boolean convertTypeToContext, String body) {
         return this.expressionToNativeTransformer.functionDefinitionToNative(element, functionDefinition, body, convertTypeToContext);
     }
 
@@ -1969,7 +1969,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public Pair<DMNContext, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext) {
+    public Pair<DMNContext, Map<TContextEntry, Expression<Type, DMNContext>>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext) {
         return this.dmnEnvironmentFactory.makeContextEnvironment(element, context, parentContext);
     }
 

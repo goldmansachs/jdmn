@@ -14,11 +14,10 @@ package com.gs.dmn.feel.interpreter;
 
 import com.gs.dmn.feel.analysis.FEELTestsAnalyzer;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.interpreter.Result;
 
-interface FEELTestsInterpreter extends FEELTestsAnalyzer {
-    Result evaluateUnaryTests(String text, DMNContext context);
+interface FEELTestsInterpreter<T, C> extends FEELTestsAnalyzer<T, C> {
+    Result evaluateUnaryTests(String text, C context);
 
-    Result evaluateUnaryTests(UnaryTests expression, DMNContext context);
+    Result evaluateUnaryTests(UnaryTests<T, C> expression, C context);
 }

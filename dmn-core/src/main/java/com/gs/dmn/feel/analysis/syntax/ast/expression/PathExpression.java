@@ -16,11 +16,11 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
 import java.util.Objects;
 
-public class PathExpression<C> extends Expression<C> {
-    private final Expression<C> source;
+public class PathExpression<T, C> extends Expression<T, C> {
+    private final Expression<T, C> source;
     private final String member;
 
-    public PathExpression(Expression<C> source, String member) {
+    public PathExpression(Expression<T, C> source, String member) {
         this.source = source;
         this.member = member;
     }
@@ -29,7 +29,7 @@ public class PathExpression<C> extends Expression<C> {
         return this.member;
     }
 
-    public Expression<C> getSource() {
+    public Expression<T, C> getSource() {
         return this.source;
     }
 
@@ -37,11 +37,11 @@ public class PathExpression<C> extends Expression<C> {
         return getPath(this);
     }
 
-    private String getPath(Expression<C> exp) {
+    private String getPath(Expression<T, C> exp) {
         if (exp instanceof Name) {
-            return ((Name<C>) exp).getName();
+            return ((Name<T, C>) exp).getName();
         } else if (exp instanceof QualifiedName) {
-            return ((QualifiedName<C>) exp).getQualifiedName();
+            return ((QualifiedName<T, C>) exp).getQualifiedName();
         } else if (exp instanceof PathExpression) {
             return String.format("%s.%s", getPath(this.source), this.member);
         }
@@ -49,7 +49,7 @@ public class PathExpression<C> extends Expression<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -57,7 +57,7 @@ public class PathExpression<C> extends Expression<C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PathExpression<?> that = (PathExpression<?>) o;
+        PathExpression<?, ?> that = (PathExpression<?, ?>) o;
         return Objects.equals(source, that.source) && Objects.equals(member, that.member);
     }
 

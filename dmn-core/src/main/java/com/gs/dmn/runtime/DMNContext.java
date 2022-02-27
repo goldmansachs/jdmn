@@ -55,7 +55,7 @@ public class DMNContext {
         return this.environment;
     }
 
-    public Expression getInputExpression() {
+    public Expression<Type, DMNContext> getInputExpression() {
         return this.environment.getInputExpression();
     }
 

@@ -16,8 +16,8 @@ import com.gs.dmn.feel.analysis.FEELTestsAnalyzer;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.runtime.DMNContext;
 
-interface FEELTestsTranslator extends FEELTestsAnalyzer {
+interface FEELTestsTranslator<T, C> extends FEELTestsAnalyzer<T, C> {
     String unaryTestsToJava(String text, DMNContext context);
 
-    String unaryTestsToJava(UnaryTests expression, DMNContext context);
+    String unaryTestsToJava(UnaryTests<T, C> expression, DMNContext context);
 }

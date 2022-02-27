@@ -13,43 +13,44 @@
 package com.gs.dmn.feel.analysis;
 
 import com.gs.dmn.feel.analysis.semantics.FEELSemanticVisitor;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
-abstract class AbstractFEELAnalyzer implements FEELAnalyzer {
-    private final BasicDMNToNativeTransformer dmnTransformer;
+abstract class AbstractFEELAnalyzer implements FEELAnalyzer<Type, DMNContext> {
+    private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
 
-    protected AbstractFEELAnalyzer(BasicDMNToNativeTransformer dmnTransformer) {
+    protected AbstractFEELAnalyzer(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         this.dmnTransformer = dmnTransformer;
     }
 
     @Override
-    public UnaryTests analyzeUnaryTests(String text, DMNContext context) {
-        UnaryTests unaryTests = parseUnaryTests(text);
+    public UnaryTests<Type, DMNContext> analyzeUnaryTests(String text, DMNContext context) {
+        UnaryTests<Type, DMNContext> unaryTests = parseUnaryTests(text);
         FEELSemanticVisitor visitor = new FEELSemanticVisitor(dmnTransformer);
-        return (UnaryTests) unaryTests.accept(visitor, context);
+        return (UnaryTests<Type, DMNContext>) unaryTests.accept(visitor, context);
     }
 
     @Override
-    public Expression analyzeExpression(String text, DMNContext context) {
-        Expression expression = parseExpression(text);
+    public Expression<Type, DMNContext> analyzeExpression(String text, DMNContext context) {
+        Expression<Type, DMNContext> expression = parseExpression(text);
         FEELSemanticVisitor visitor = new FEELSemanticVisitor(dmnTransformer);
-        return (Expression) expression.accept(visitor, context);
+        return (Expression<Type, DMNContext>) expression.accept(visitor, context);
     }
 
     @Override
-    public Expression analyzeTextualExpressions(String text, DMNContext context) {
-        Expression expression = parseTextualExpressions(text);
+    public Expression<Type, DMNContext> analyzeTextualExpressions(String text, DMNContext context) {
+        Expression<Type, DMNContext> expression = parseTextualExpressions(text);
         FEELSemanticVisitor visitor = new FEELSemanticVisitor(dmnTransformer);
-        return (Expression) expression.accept(visitor, context);
+        return (Expression<Type, DMNContext>) expression.accept(visitor, context);
     }
 
     @Override
-    public Expression analyzeBoxedExpression(String text, DMNContext context) {
-        Expression expression = parseBoxedExpression(text);
+    public Expression<Type, DMNContext> analyzeBoxedExpression(String text, DMNContext context) {
+        Expression<Type, DMNContext> expression = parseBoxedExpression(text);
         FEELSemanticVisitor visitor = new FEELSemanticVisitor(dmnTransformer);
-        return (Expression) expression.accept(visitor, context);
+        return (Expression<Type, DMNContext>) expression.accept(visitor, context);
     }
 }

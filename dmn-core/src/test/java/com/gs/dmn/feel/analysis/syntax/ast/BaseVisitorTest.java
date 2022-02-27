@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.ArithmeticNegation;
@@ -31,6 +32,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.type.FunctionTypeExpressio
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.ListTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.NamedTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
+import com.gs.dmn.runtime.DMNContext;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNull;
@@ -41,42 +43,42 @@ public abstract class BaseVisitorTest {
     //
     @Test
     public void testVisitPositiveUnaryTests() {
-        assertNull(getVisitor().visit((PositiveUnaryTests) null, null));
+        assertNull(getVisitor().visit((PositiveUnaryTests<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitNegatedPositiveUnaryTests() {
-        assertNull(getVisitor().visit((NegatedPositiveUnaryTests) null, null));
+        assertNull(getVisitor().visit((NegatedPositiveUnaryTests<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitAny() {
-        assertNull(getVisitor().visit((Any) null, null));
+        assertNull(getVisitor().visit((Any<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitNullTest() {
-        assertNull(getVisitor().visit((NullTest) null, null));
+        assertNull(getVisitor().visit((NullTest<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitExpressionTest() {
-        assertNull(getVisitor().visit((ExpressionTest) null, null));
+        assertNull(getVisitor().visit((ExpressionTest<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitOperatorTest() {
-        assertNull(getVisitor().visit((OperatorRange) null, null));
+        assertNull(getVisitor().visit((OperatorRange<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitRangeTest() {
-        assertNull(getVisitor().visit((EndpointsRange) null, null));
+        assertNull(getVisitor().visit((EndpointsRange<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitListTest() {
-        assertNull(getVisitor().visit((ListTest) null, null));
+        assertNull(getVisitor().visit((ListTest<Type, DMNContext>) null, null));
     }
 
     //
@@ -84,67 +86,67 @@ public abstract class BaseVisitorTest {
     //
     @Test
     public void testVisitFunctionDefinition() {
-        assertNull(getVisitor().visit((FunctionDefinition) null, null));
+        assertNull(getVisitor().visit((FunctionDefinition<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitFormalParameter() {
-        assertNull(getVisitor().visit((FormalParameter) null, null));
+        assertNull(getVisitor().visit((FormalParameter<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitContext() {
-        assertNull(getVisitor().visit((Context) null, null));
+        assertNull(getVisitor().visit((Context<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitContextEntry() {
-        assertNull(getVisitor().visit((ContextEntry) null, null));
+        assertNull(getVisitor().visit((ContextEntry<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitContextEntryKey() {
-        assertNull(getVisitor().visit((ContextEntryKey) null, null));
+        assertNull(getVisitor().visit((ContextEntryKey<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitForExpression() {
-        assertNull(getVisitor().visit((ForExpression) null, null));
+        assertNull(getVisitor().visit((ForExpression<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitIterator() {
-        assertNull(getVisitor().visit((Iterator) null, null));
+        assertNull(getVisitor().visit((Iterator<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitExpressionIteratorDomain() {
-        assertNull(getVisitor().visit((ExpressionIteratorDomain) null, null));
+        assertNull(getVisitor().visit((ExpressionIteratorDomain<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitRangeIteratorDomain() {
-        assertNull(getVisitor().visit((RangeIteratorDomain) null, null));
+        assertNull(getVisitor().visit((RangeIteratorDomain<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitIfExpression() {
-        assertNull(getVisitor().visit((IfExpression) null, null));
+        assertNull(getVisitor().visit((IfExpression<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitQuantifiedExpression() {
-        assertNull(getVisitor().visit((QuantifiedExpression) null, null));
+        assertNull(getVisitor().visit((QuantifiedExpression<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitFilterExpression() {
-        assertNull(getVisitor().visit((FilterExpression) null, null));
+        assertNull(getVisitor().visit((FilterExpression<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitInstanceOfExpression() {
-        assertNull(getVisitor().visit((InstanceOfExpression) null, null));
+        assertNull(getVisitor().visit((InstanceOfExpression<Type, DMNContext>) null, null));
     }
 
     //
@@ -152,7 +154,7 @@ public abstract class BaseVisitorTest {
     //
     @Test
     public void testVisitExpressionList() {
-        assertNull(getVisitor().visit((ExpressionList) null, null));
+        assertNull(getVisitor().visit((ExpressionList<Type, DMNContext>) null, null));
     }
 
     //
@@ -160,17 +162,17 @@ public abstract class BaseVisitorTest {
     //
     @Test
     public void testVisitConjunction() {
-        assertNull(getVisitor().visit((Conjunction) null, null));
+        assertNull(getVisitor().visit((Conjunction<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitDisjunction() {
-        assertNull(getVisitor().visit((Disjunction) null, null));
+        assertNull(getVisitor().visit((Disjunction<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitLogicNegation() {
-        assertNull(getVisitor().visit((LogicNegation) null, null));
+        assertNull(getVisitor().visit((LogicNegation<Type, DMNContext>) null, null));
     }
 
     //
@@ -178,17 +180,17 @@ public abstract class BaseVisitorTest {
     //
     @Test
     public void testVisitRelational() {
-        assertNull(getVisitor().visit((Relational) null, null));
+        assertNull(getVisitor().visit((Relational<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitBetweenExpression() {
-        assertNull(getVisitor().visit((BetweenExpression) null, null));
+        assertNull(getVisitor().visit((BetweenExpression<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitInExpression() {
-        assertNull(getVisitor().visit((InExpression) null, null));
+        assertNull(getVisitor().visit((InExpression<Type, DMNContext>) null, null));
     }
 
     //
@@ -196,22 +198,22 @@ public abstract class BaseVisitorTest {
     //
     @Test
     public void testVisitAddition() {
-        assertNull(getVisitor().visit((Addition) null, null));
+        assertNull(getVisitor().visit((Addition<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitMultiplication() {
-        assertNull(getVisitor().visit((Multiplication) null, null));
+        assertNull(getVisitor().visit((Multiplication<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitExponentiation() {
-        assertNull(getVisitor().visit((Exponentiation) null, null));
+        assertNull(getVisitor().visit((Exponentiation<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitArithmeticNegation() {
-        assertNull(getVisitor().visit((ArithmeticNegation) null, null));
+        assertNull(getVisitor().visit((ArithmeticNegation<Type, DMNContext>) null, null));
     }
 
     //
@@ -219,22 +221,22 @@ public abstract class BaseVisitorTest {
     //
     @Test
     public void testVisitPathExpression() {
-        assertNull(getVisitor().visit((PathExpression) null, null));
+        assertNull(getVisitor().visit((PathExpression<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitFunctionInvocation() {
-        assertNull(getVisitor().visit((FunctionInvocation) null, null));
+        assertNull(getVisitor().visit((FunctionInvocation<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitNamedParameters() {
-        assertNull(getVisitor().visit((NamedParameters) null, null));
+        assertNull(getVisitor().visit((NamedParameters<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitPositionalParameters() {
-        assertNull(getVisitor().visit((PositionalParameters) null, null));
+        assertNull(getVisitor().visit((PositionalParameters<Type, DMNContext>) null, null));
     }
 
     //
@@ -242,42 +244,42 @@ public abstract class BaseVisitorTest {
     //
     @Test
     public void testVisitBooleanLiteral() {
-        assertNull(getVisitor().visit((BooleanLiteral) null, null));
+        assertNull(getVisitor().visit((BooleanLiteral<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitDateTimeLiteral() {
-        assertNull(getVisitor().visit((DateTimeLiteral) null, null));
+        assertNull(getVisitor().visit((DateTimeLiteral<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitNullLiteral() {
-        assertNull(getVisitor().visit((NullLiteral) null, null));
+        assertNull(getVisitor().visit((NullLiteral<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitNumericLiteral() {
-        assertNull(getVisitor().visit((NumericLiteral) null, null));
+        assertNull(getVisitor().visit((NumericLiteral<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitStringLiteral() {
-        assertNull(getVisitor().visit((StringLiteral) null, null));
+        assertNull(getVisitor().visit((StringLiteral<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitListLiteral() {
-        assertNull(getVisitor().visit((ListLiteral) null, null));
+        assertNull(getVisitor().visit((ListLiteral<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitQualifiedName() {
-        assertNull(getVisitor().visit((QualifiedName) null, null));
+        assertNull(getVisitor().visit((QualifiedName<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitName() {
-        assertNull(getVisitor().visit((Name) null, null));
+        assertNull(getVisitor().visit((Name<Type, DMNContext>) null, null));
     }
 
     //
@@ -285,24 +287,24 @@ public abstract class BaseVisitorTest {
     //
     @Test
     public void testVisitNamedTypeExpression() {
-        assertNull(getVisitor().visit((NamedTypeExpression) null, null));
+        assertNull(getVisitor().visit((NamedTypeExpression<Type, DMNContext>) null, null));
 
     }
 
     @Test
     public void testVisitListTypeExpression() {
-        assertNull(getVisitor().visit((ListTypeExpression) null, null));
+        assertNull(getVisitor().visit((ListTypeExpression<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitContextTypeExpression() {
-        assertNull(getVisitor().visit((ContextTypeExpression) null, null));
+        assertNull(getVisitor().visit((ContextTypeExpression<Type, DMNContext>) null, null));
     }
 
     @Test
     public void testVisitFunctionTypeExpression() {
-        assertNull(getVisitor().visit((FunctionTypeExpression) null, null));
+        assertNull(getVisitor().visit((FunctionTypeExpression<Type, DMNContext>) null, null));
     }
 
-    abstract protected Visitor getVisitor();
+    abstract protected Visitor<Type, DMNContext> getVisitor();
 }

@@ -51,11 +51,11 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     private final DMNModelRepository dmnModelRepository;
 
-    private final BasicDMNToNativeTransformer transformer;
+    private final BasicDMNToNativeTransformer<Type, DMNContext> transformer;
     private final StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib;
     private final NativeTypeFactory typeFactory;
 
-    public TCKUtil(BasicDMNToNativeTransformer transformer, StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
+    public TCKUtil(BasicDMNToNativeTransformer<Type, DMNContext> transformer, StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
         this.transformer = transformer;
         this.feelLib = feelLib;
         this.dmnModelRepository = transformer.getDMNModelRepository();
@@ -422,7 +422,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         List<Object> args = new ArrayList<>();
         if (drgElement instanceof TInvocable) {
             // Preserve de order in the call
-            List<FormalParameter<DMNContext>> formalParameters = this.transformer.invocableFEELParameters(drgElement);
+            List<FormalParameter<Type, DMNContext>> formalParameters = this.transformer.invocableFEELParameters(drgElement);
             Map<String, Object> map = new LinkedHashMap<>();
             List<InputNode> inputNode = testCase.getInputNode();
             for (int i = 0; i < inputNode.size(); i++) {
@@ -435,7 +435,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
                     throw new DMNRuntimeException(String.format("Cannot process input node '%s' for TestCase %d for DRGElement '%s'", input.getName(), i, drgElement.getName()), e);
                 }
             }
-            for (FormalParameter parameter: formalParameters) {
+            for (FormalParameter<Type, DMNContext> parameter: formalParameters) {
                 args.add(map.get(parameter.getName()));
             }
         }

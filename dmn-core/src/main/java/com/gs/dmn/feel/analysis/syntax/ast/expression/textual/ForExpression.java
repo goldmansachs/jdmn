@@ -21,39 +21,39 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ForExpression<C> extends Expression<C> {
+public class ForExpression<T, C> extends Expression<T, C> {
     public static final String PARTIAL_PARAMETER_NAME = "partial";
 
-    private final List<Iterator<C>> iterators;
-    private final Expression<C> body;
+    private final List<Iterator<T, C>> iterators;
+    private final Expression<T, C> body;
 
-    public ForExpression(List<Iterator<C>> iterators, Expression<C> body) {
+    public ForExpression(List<Iterator<T, C>> iterators, Expression<T, C> body) {
         this.iterators = iterators;
         this.body = body;
     }
 
-    public List<Iterator<C>> getIterators() {
+    public List<Iterator<T, C>> getIterators() {
         return this.iterators;
     }
 
-    public Expression<C> getBody() {
+    public Expression<T, C> getBody() {
         return this.body;
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
-    public ForExpression<C> toNestedForExpression() {
+    public ForExpression<T, C> toNestedForExpression() {
         if (this.iterators.size() == 1) {
             return this;
         } else {
-            Expression<C> newBody = this.body;
+            Expression<T, C> newBody = this.body;
             for(int i=this.iterators.size()-1; i>=0; i--) {
                 newBody = new ForExpression<>(Arrays.asList(this.iterators.get(i)), newBody);
             }
-            return (ForExpression<C>) newBody;
+            return (ForExpression<T, C>) newBody;
         }
     }
 
@@ -61,7 +61,7 @@ public class ForExpression<C> extends Expression<C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ForExpression<?> that = (ForExpression<?>) o;
+        ForExpression<?, ?> that = (ForExpression<?, ?>) o;
         return Objects.equals(iterators, that.iterators) && Objects.equals(body, that.body);
     }
 

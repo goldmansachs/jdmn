@@ -12,18 +12,20 @@
  */
 package com.gs.dmn.feel.analysis.semantics;
 
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.DMNContext;
 
 public class SemanticError extends RuntimeException {
     public SemanticError(String errorMessage) {
         super(errorMessage);
     }
 
-    public SemanticError(Expression expression, String errorMessage) {
+    public SemanticError(Expression<Type, DMNContext> expression, String errorMessage) {
         super(String.format("'%s': %s", expression.getClass().getSimpleName(), errorMessage));
     }
 
-    public SemanticError(Expression expression, String errorMessage, Exception e) {
+    public SemanticError(Expression<Type, DMNContext> expression, String errorMessage, Exception e) {
         super(String.format("'%s': %s", expression.getClass().getSimpleName(), errorMessage), e);
     }
 }

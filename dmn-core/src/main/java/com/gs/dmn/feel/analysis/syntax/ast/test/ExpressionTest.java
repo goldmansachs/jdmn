@@ -17,19 +17,19 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 import java.util.Objects;
 
-public class ExpressionTest<C> extends PositiveUnaryTest<C> {
-    private final Expression<C> expression;
+public class ExpressionTest<T, C> extends PositiveUnaryTest<T, C> {
+    private final Expression<T, C> expression;
 
-    public ExpressionTest(Expression<C> expression) {
+    public ExpressionTest(Expression<T, C> expression) {
         this.expression = expression;
     }
 
-    public Expression<C> getExpression() {
+    public Expression<T, C> getExpression() {
         return this.expression;
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -37,7 +37,7 @@ public class ExpressionTest<C> extends PositiveUnaryTest<C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ExpressionTest<?> that = (ExpressionTest<?>) o;
+        ExpressionTest<?, ?> that = (ExpressionTest<?, ?>) o;
         return Objects.equals(expression, that.expression);
     }
 

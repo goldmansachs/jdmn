@@ -12,6 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
-public interface Visitable<C> {
-    Object accept(Visitor<C> visitor, C context);
+public interface Visitable<T, C> {
+    Object accept(Visitor<T, C> visitor, C context);
 }

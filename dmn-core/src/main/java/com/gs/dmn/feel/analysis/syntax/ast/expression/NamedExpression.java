@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
-public abstract class NamedExpression<C> extends Expression<C> {
+public abstract class NamedExpression<T, C> extends Expression<T, C> {
 
     protected abstract String getName();
 }

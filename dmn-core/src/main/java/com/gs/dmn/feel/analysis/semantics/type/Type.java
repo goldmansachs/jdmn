@@ -15,6 +15,7 @@ package com.gs.dmn.feel.analysis.semantics.type;
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.runtime.Context;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Range;
 import com.gs.dmn.runtime.function.BuiltinFunction;
@@ -130,7 +131,7 @@ public abstract class Type {
             }
             return true;
         } else if (value instanceof FEELFunction && type instanceof FunctionType) {
-            FunctionDefinition functionDefinition = (FunctionDefinition) ((FEELFunction) value).getFunctionDefinition();
+            FunctionDefinition<Type, DMNContext> functionDefinition = ((FEELFunction) value).getFunctionDefinition();
             return conformsTo(functionDefinition.getType(), type);
         } else if (value instanceof DMNInvocable && type instanceof FunctionType) {
             Type valueType = ((DMNInvocable) value).getType();

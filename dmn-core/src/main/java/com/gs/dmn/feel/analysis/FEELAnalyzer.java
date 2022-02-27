@@ -12,5 +12,5 @@
  */
 package com.gs.dmn.feel.analysis;
 
-public interface FEELAnalyzer extends FEELTestsAnalyzer, FEELExpressionsAnalyzer {
+public interface FEELAnalyzer<T, C> extends FEELTestsAnalyzer<T, C>, FEELExpressionsAnalyzer<T, C> {
 }

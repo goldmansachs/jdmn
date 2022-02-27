@@ -19,12 +19,12 @@ import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 public class FEELToNativeForInterpreterVisitor extends FEELToNativeVisitor {
-    public FEELToNativeForInterpreterVisitor(BasicDMNToNativeTransformer dmnTransformer) {
+    public FEELToNativeForInterpreterVisitor(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         super(dmnTransformer);
     }
 
     @Override
-    protected String makeNavigation(Expression<DMNContext> element, Type sourceType, String source, String memberName, String memberVariableName) {
+    protected String makeNavigation(Expression<Type, DMNContext> element, Type sourceType, String source, String memberName, String memberVariableName) {
         if (sourceType instanceof ItemDefinitionType) {
             String javaType = dmnTransformer.toNativeType(((ItemDefinitionType) sourceType).getMemberType(memberName));
             return this.nativeFactory.makeItemDefinitionSelectExpression(source, memberName, javaType);

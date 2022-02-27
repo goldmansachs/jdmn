@@ -14,8 +14,10 @@ package com.gs.dmn.dialect;
 
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
@@ -52,7 +54,7 @@ public abstract class AbstractDMNDialectDefinitionTest<NUMBER, DATE, TIME, DATE_
 
     @Test
     public void testCreateBasicTransformer() {
-        BasicDMNToNativeTransformer basicTransformer = dialect.createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters);
+        BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer = dialect.createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters);
         assertEquals(getBasicTransformerClass(), basicTransformer.getClass().getName());
     }
 

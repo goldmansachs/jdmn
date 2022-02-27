@@ -13,15 +13,14 @@
 package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.error.ErrorHandler;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.CloneVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.ForExpression;
 
-public class UpdatePartialVisitor<C> extends CloneVisitor<C> {
-    private final Type partialType;
+public class UpdatePartialVisitor<T, C> extends CloneVisitor<T, C> {
+    private final T partialType;
 
-    public UpdatePartialVisitor(Type partialType, ErrorHandler errorHandler) {
+    public UpdatePartialVisitor(T partialType, ErrorHandler errorHandler) {
         super(errorHandler);
         this.partialType = partialType;
     }
@@ -30,7 +29,7 @@ public class UpdatePartialVisitor<C> extends CloneVisitor<C> {
     // Primary expressions
     //
     @Override
-    public Object visit(Name<C> element, C context) {
+    public Object visit(Name<T, C> element, C context) {
         if (element == null) {
             return null;
         }

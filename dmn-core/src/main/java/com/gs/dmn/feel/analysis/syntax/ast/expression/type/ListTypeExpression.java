@@ -16,19 +16,19 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
 import java.util.Objects;
 
-public class ListTypeExpression<C> extends TypeExpression<C> {
-    private final TypeExpression<C> elementTypeExpression;
+public class ListTypeExpression<T, C> extends TypeExpression<T, C> {
+    private final TypeExpression<T, C> elementTypeExpression;
 
-    public ListTypeExpression(TypeExpression<C> listType) {
+    public ListTypeExpression(TypeExpression<T, C> listType) {
         this.elementTypeExpression = listType;
     }
 
-    public TypeExpression<C> getElementTypeExpression() {
+    public TypeExpression<T, C> getElementTypeExpression() {
         return this.elementTypeExpression;
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -36,7 +36,7 @@ public class ListTypeExpression<C> extends TypeExpression<C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ListTypeExpression<?> that = (ListTypeExpression<?>) o;
+        ListTypeExpression<?, ?> that = (ListTypeExpression<?, ?>) o;
         return Objects.equals(elementTypeExpression, that.elementTypeExpression);
     }
 

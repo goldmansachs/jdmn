@@ -26,7 +26,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind.*;
 
 public abstract class FunctionType extends Type {
-    public static final Type ANY_FUNCTION = new FunctionType(Arrays.asList(), ANY) {
+    public static final FunctionType ANY_FUNCTION = new FunctionType(Arrays.asList(), ANY) {
         @Override
         protected boolean equivalentTo(Type other) {
             return false;
@@ -38,21 +38,21 @@ public abstract class FunctionType extends Type {
         }
 
         @Override
-        public boolean match(ParameterTypes<DMNContext> parameterTypes) {
+        public boolean match(ParameterTypes<Type, DMNContext> parameterTypes) {
             return false;
         }
 
         @Override
-        protected List<Pair<ParameterTypes<DMNContext>, ParameterConversions<DMNContext>>> matchCandidates(List argumentTypes) {
+        protected List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> matchCandidates(List argumentTypes) {
             return null;
         }
     };
 
-    protected final List<FormalParameter<DMNContext>> parameters = new ArrayList<>();
+    protected final List<FormalParameter<Type, DMNContext>> parameters = new ArrayList<>();
     protected final List<Type> parameterTypes = new ArrayList<>();
     protected Type returnType;
 
-    protected FunctionType(List<FormalParameter<DMNContext>> parameters, Type returnType) {
+    protected FunctionType(List<FormalParameter<Type, DMNContext>> parameters, Type returnType) {
         this.returnType = returnType;
         if (parameters != null) {
             this.parameters.addAll(parameters);
@@ -60,7 +60,7 @@ public abstract class FunctionType extends Type {
         }
     }
 
-    public List<FormalParameter<DMNContext>> getParameters() {
+    public List<FormalParameter<Type, DMNContext>> getParameters() {
         return this.parameters;
     }
 
@@ -87,14 +87,14 @@ public abstract class FunctionType extends Type {
                 && !Type.isNullOrAny(this.returnType);
     }
 
-    public List<Pair<ParameterTypes<DMNContext>, ParameterConversions<DMNContext>>> matchCandidates(ParameterTypes<DMNContext> parameterTypes) {
+    public List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> matchCandidates(ParameterTypes<Type, DMNContext> parameterTypes) {
         if (parameterTypes instanceof PositionalParameterTypes) {
-            List<Type> argumentTypes = ((PositionalParameterTypes<DMNContext>) parameterTypes).getTypes();
+            List<Type> argumentTypes = ((PositionalParameterTypes<Type, DMNContext>) parameterTypes).getTypes();
             return matchCandidates(argumentTypes);
         } else {
-            NamedParameterTypes<DMNContext> namedSignature = (NamedParameterTypes<DMNContext>) parameterTypes;
+            NamedParameterTypes<Type, DMNContext> namedSignature = (NamedParameterTypes<Type, DMNContext>) parameterTypes;
             List<Type> argumentTypes = new ArrayList<>();
-            for(FormalParameter<DMNContext> parameter: this.parameters) {
+            for(FormalParameter<Type, DMNContext> parameter: this.parameters) {
                 Type type = namedSignature.getType(parameter.getName());
                 if (!Type.isNull(type)) {
                     argumentTypes.add(type);
@@ -106,9 +106,9 @@ public abstract class FunctionType extends Type {
         }
     }
 
-    protected ArrayList<Pair<ParameterTypes<DMNContext>, ParameterConversions<DMNContext>>> calculateCandidates(List<Type> parameterTypes, List<Type> argumentTypes) {
+    protected ArrayList<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> calculateCandidates(List<Type> parameterTypes, List<Type> argumentTypes) {
         // calculate candidates
-        Set<Pair<ParameterTypes<DMNContext>, ParameterConversions<DMNContext>>> candidates = new LinkedHashSet<>();
+        Set<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> candidates = new LinkedHashSet<>();
         int argumentSize = argumentTypes.size();
         ConversionKind[] candidateConversions = FUNCTION_RESOLUTION_CANDIDATES;
         int conversionSize = candidateConversions.length;
@@ -119,14 +119,14 @@ public abstract class FunctionType extends Type {
         while (conversionMap != null) {
             // Calculate new types and conversions for every argument
             List<Type> newTypes = new ArrayList<>();
-            PositionalParameterConversions<DMNContext> conversions = new PositionalParameterConversions<>();
+            PositionalParameterConversions<Type, DMNContext> conversions = new PositionalParameterConversions<>();
             boolean different = false;
             for (int i = 0; i < argumentSize; i++) {
                 // Compute new type and conversion
                 ConversionKind kind = candidateConversions[conversionMap[i]];
                 Type argumentType = argumentTypes.get(i);
                 Type newType = argumentType;
-                Conversion conversion = new Conversion(NONE, newType);
+                Conversion<Type> conversion = new Conversion<>(NONE, newType);
                 if (i < parameterTypes.size()) {
                     Type parameterType = parameterTypes.get(i);
                     if (!Type.conformsTo(argumentType, parameterType)) {
@@ -137,7 +137,7 @@ public abstract class FunctionType extends Type {
                             if (parameterType instanceof ListType) {
                                 if (Type.equivalentTo(argumentType, ((ListType) parameterType).getElementType())) {
                                     newType = new ListType(argumentType);
-                                    conversion = new Conversion(kind, newType);
+                                    conversion = new Conversion<>(kind, newType);
 
                                     different = true;
                                 }
@@ -148,7 +148,7 @@ public abstract class FunctionType extends Type {
                             if (argumentType instanceof ListType) {
                                 if (Type.equivalentTo(parameterType, ((ListType) argumentType).getElementType())) {
                                     newType = ((ListType) argumentType).getElementType();
-                                    conversion = new Conversion(kind, newType);
+                                    conversion = new Conversion<>(kind, newType);
 
                                     different = true;
                                 }
@@ -158,7 +158,7 @@ public abstract class FunctionType extends Type {
                             // the expression is converted to UTC midnight data and time.
                             if (Type.equivalentTo(argumentType, DATE) && Type.equivalentTo(parameterType, DATE_AND_TIME)) {
                                 newType = DATE_AND_TIME;
-                                conversion = new Conversion(kind, newType);
+                                conversion = new Conversion<>(kind, newType);
 
                                 different = true;
                             }
@@ -167,7 +167,7 @@ public abstract class FunctionType extends Type {
                             // remains unchanged. Otherwise the result is null.
                             if (!Type.conformsTo(argumentType, parameterType)) {
                                 newType = NullType.NULL;
-                                conversion = new Conversion(kind, newType);
+                                conversion = new Conversion<>(kind, newType);
 
                                 different = true;
                             }
@@ -182,7 +182,7 @@ public abstract class FunctionType extends Type {
 
             // Add new candidate
             if (different) {
-                PositionalParameterTypes<DMNContext> newSignature = new PositionalParameterTypes<>(newTypes);
+                PositionalParameterTypes<Type, DMNContext> newSignature = new PositionalParameterTypes<>(newTypes);
                 candidates.add(new Pair<>(newSignature, conversions));
             }
 
@@ -222,7 +222,43 @@ public abstract class FunctionType extends Type {
         return end ? null : vector;
     }
 
-    public abstract boolean match(ParameterTypes<DMNContext> parameterTypes);
+    protected boolean compatible(ParameterTypes<Type, DMNContext> parameterTypes, List<FormalParameter<Type, DMNContext>> parameters) {
+        if (parameterTypes instanceof PositionalParameterTypes) {
+            return compatible((PositionalParameterTypes<Type, DMNContext>) parameterTypes, parameters);
+        } else {
+            return compatible((NamedParameterTypes<Type, DMNContext>) parameterTypes, parameters);
+        }
+    }
 
-    protected abstract List<Pair<ParameterTypes<DMNContext>, ParameterConversions<DMNContext>>> matchCandidates(List<Type> argumentTypes);
+    private boolean compatible(PositionalParameterTypes<Type, DMNContext> parameterTypes, List<FormalParameter<Type, DMNContext>> parameters) {
+        if (parameterTypes.size() != parameters.size()) {
+            return false;
+        }
+        for (int i = 0; i < parameters.size(); i++) {
+            Type formalParameterType = parameters.get(i).getType();
+            Type argumentType = parameterTypes.getTypes().get(i);
+            if (!Type.conformsTo(argumentType, formalParameterType)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean compatible(NamedParameterTypes<Type, DMNContext> parameterTypes, List<FormalParameter<Type, DMNContext>> parameters) {
+        if (parameterTypes.size() != parameters.size()) {
+            return false;
+        }
+        for (FormalParameter<Type, DMNContext> formalParameter : parameters) {
+            Type argumentType = parameterTypes.getType(formalParameter.getName());
+            Type parameterType = formalParameter.getType();
+            if (!Type.conformsTo(argumentType, parameterType)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public abstract boolean match(ParameterTypes<Type, DMNContext> parameterTypes);
+
+    protected abstract List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> matchCandidates(List<Type> argumentTypes);
 }

@@ -52,7 +52,7 @@ public class BuiltinOverloadedFunctionType extends FunctionType {
         return false;
     }
 
-    public List<FormalParameter<DMNContext>> getParameters() {
+    public List<FormalParameter<Type, DMNContext>> getParameters() {
         throw new SemanticError("Not supported yet");
     }
 
@@ -74,12 +74,12 @@ public class BuiltinOverloadedFunctionType extends FunctionType {
     }
 
     @Override
-    public boolean match(ParameterTypes<DMNContext> parameterTypes) {
+    public boolean match(ParameterTypes<Type, DMNContext> parameterTypes) {
         throw new SemanticError("Not supported yet");
     }
 
     @Override
-    protected List<Pair<ParameterTypes<DMNContext>, ParameterConversions<DMNContext>>> matchCandidates(List<Type> argumentTypes) {
+    protected List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> matchCandidates(List<Type> argumentTypes) {
         throw new SemanticError("Not supported yet");
     }
 }

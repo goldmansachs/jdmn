@@ -10,9 +10,12 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
+package com.gs.dmn.feel.analysis.semantics.type;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.NamedParameterTypes;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
+import com.gs.dmn.runtime.DMNContext;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,11 +23,11 @@ import java.util.Map;
 
 public class NamedParameterTypesTest extends ParameterTypesTest {
     @Override
-    protected ParameterTypes makeParameterTypes(List<FormalParameter> parameters) {
+    protected ParameterTypes<Type, DMNContext> makeParameterTypes(List<FormalParameter<Type, DMNContext>> parameters) {
         Map<String, Type> namedTypes = new LinkedHashMap<>();
-        for (FormalParameter fp: parameters) {
-            namedTypes.put(fp.getName(), fp.type);
+        for (FormalParameter<Type, DMNContext> fp: parameters) {
+            namedTypes.put(fp.getName(), fp.getType());
         }
-        return new NamedParameterTypes(namedTypes);
+        return new NamedParameterTypes<>(namedTypes);
     }
 }

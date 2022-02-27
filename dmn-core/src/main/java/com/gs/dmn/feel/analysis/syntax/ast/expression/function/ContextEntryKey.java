@@ -15,7 +15,7 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
-public class ContextEntryKey<C> extends Element<C> {
+public class ContextEntryKey<T, C> extends Element<T, C> {
     private final String key;
 
     public ContextEntryKey(String key) {
@@ -31,7 +31,7 @@ public class ContextEntryKey<C> extends Element<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

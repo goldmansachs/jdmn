@@ -14,12 +14,12 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.literal;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
-public class NullLiteral<C> extends Literal<C> {
+public class NullLiteral<T, C> extends Literal<T, C> {
     public NullLiteral() {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

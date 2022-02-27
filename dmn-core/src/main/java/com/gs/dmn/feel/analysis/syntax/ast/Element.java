@@ -12,6 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
-public abstract class Element<C> implements Visitable<C> {
+public abstract class Element<T, C> implements Visitable<T, C> {
 }
  

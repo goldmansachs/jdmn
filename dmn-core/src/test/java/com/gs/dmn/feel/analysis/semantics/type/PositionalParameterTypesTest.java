@@ -10,14 +10,19 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
+package com.gs.dmn.feel.analysis.semantics.type;
+
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.PositionalParameterTypes;
+import com.gs.dmn.runtime.DMNContext;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class PositionalParameterTypesTest extends ParameterTypesTest {
     @Override
-    protected ParameterTypes makeParameterTypes(List<FormalParameter> parameters) {
-        return new PositionalParameterTypes(parameters.stream().map(FormalParameter::getType).collect(Collectors.toList()));
+    protected ParameterTypes<Type, DMNContext> makeParameterTypes(List<FormalParameter<Type, DMNContext>> parameters) {
+        return new PositionalParameterTypes<>(parameters.stream().map(FormalParameter::getType).collect(Collectors.toList()));
     }
 }

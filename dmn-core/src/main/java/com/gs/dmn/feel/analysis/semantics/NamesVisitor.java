@@ -19,7 +19,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class NamesVisitor<C> extends TraversalVisitor<C> {
+public class NamesVisitor<T, C> extends TraversalVisitor<T, C> {
     private final Set<String> names;
 
     public NamesVisitor(ErrorHandler errorHandler) {
@@ -35,7 +35,7 @@ public class NamesVisitor<C> extends TraversalVisitor<C> {
     // Primary expressions
     //
     @Override
-    public Object visit(Name<C> element, C context) {
+    public Object visit(Name<T, C> element, C context) {
         if (element == null) {
             return null;
         }

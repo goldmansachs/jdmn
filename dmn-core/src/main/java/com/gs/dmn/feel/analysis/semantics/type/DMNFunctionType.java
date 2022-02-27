@@ -31,15 +31,15 @@ public class DMNFunctionType extends FunctionType {
     private final TDRGElement drgElement;
     private final TFunctionDefinition functionDefinition;
 
-    public DMNFunctionType(List<FormalParameter<DMNContext>> formalParameters, Type outputType) {
+    public DMNFunctionType(List<FormalParameter<Type, DMNContext>> formalParameters, Type outputType) {
         this(formalParameters, outputType, null);
     }
 
-    public DMNFunctionType(List<FormalParameter<DMNContext>> parameters, Type returnType, TDRGElement drgElement) {
+    public DMNFunctionType(List<FormalParameter<Type, DMNContext>> parameters, Type returnType, TDRGElement drgElement) {
         this(parameters, returnType, drgElement, drgElement instanceof TBusinessKnowledgeModel ? ((TBusinessKnowledgeModel) drgElement).getEncapsulatedLogic() : null);
     }
 
-    public DMNFunctionType(List<FormalParameter<DMNContext>> parameters, Type returnType, TDRGElement drgElement, TFunctionDefinition functionDefinition) {
+    public DMNFunctionType(List<FormalParameter<Type, DMNContext>> parameters, Type returnType, TDRGElement drgElement, TFunctionDefinition functionDefinition) {
         super(parameters, returnType);
         this.drgElement = drgElement;
         this.functionDefinition = functionDefinition;
@@ -73,17 +73,16 @@ public class DMNFunctionType extends FunctionType {
     }
 
     @Override
-    public boolean match(ParameterTypes<DMNContext> parameterTypes) {
-        List<FormalParameter<DMNContext>> parameters = getParameters();
+    public boolean match(ParameterTypes<Type, DMNContext> parameterTypes) {
+        List<FormalParameter<Type, DMNContext>> parameters = getParameters();
         if (parameters.size() != parameterTypes.size()) {
             return false;
         }
-        return parameterTypes.compatible(parameters);
+        return compatible(parameterTypes, parameters);
     }
 
-
     @Override
-    protected List<Pair<ParameterTypes<DMNContext>, ParameterConversions<DMNContext>>> matchCandidates(List<Type> argumentTypes) {
+    protected List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> matchCandidates(List<Type> argumentTypes) {
         // check size constraint
         if (argumentTypes.size() != this.parameterTypes.size()) {
             return new ArrayList<>();

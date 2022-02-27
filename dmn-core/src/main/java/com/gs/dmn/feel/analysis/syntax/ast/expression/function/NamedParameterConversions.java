@@ -14,49 +14,49 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import java.util.*;
 
-public class NamedParameterConversions<C> extends ParameterConversions<C> {
-    public static <C> NamedParameterConversions<C> toNamedParameterConversions(PositionalParameterConversions<C> candidateParameterConversions, List<FormalParameter<C>> formalParameters) {
-        NamedParameterConversions<C> matchParameterConversions = new NamedParameterConversions<>(formalParameters);
-        List<Conversion> conversions = candidateParameterConversions.getConversions(formalParameters);
+public class NamedParameterConversions<T, C> extends ParameterConversions<T, C> {
+    public static <T, C> NamedParameterConversions<T, C> toNamedParameterConversions(PositionalParameterConversions<T, C> candidateParameterConversions, List<FormalParameter<T, C>> formalParameters) {
+        NamedParameterConversions<T, C> matchParameterConversions = new NamedParameterConversions<>(formalParameters);
+        List<Conversion<T>> conversions = candidateParameterConversions.getConversions(formalParameters);
         for (int i = 0; i< formalParameters.size(); i++) {
-            FormalParameter<C> p = formalParameters.get(i);
+            FormalParameter<T, C> p = formalParameters.get(i);
             matchParameterConversions.add(p.getName(), conversions.get(i));
         }
         return matchParameterConversions;
     }
 
-    private final Map<String, Conversion> conversions;
+    private final Map<String, Conversion<T>> conversions;
 
     public NamedParameterConversions() {
         this(new LinkedHashMap<>());
     }
 
-    public NamedParameterConversions(Map<String, Conversion> conversions) {
+    public NamedParameterConversions(Map<String, Conversion<T>> conversions) {
         if (conversions == null) {
             conversions = new LinkedHashMap<>();
         }
         this.conversions = conversions;
     }
 
-    public NamedParameterConversions(List<FormalParameter<C>> parameters) {
+    public NamedParameterConversions(List<FormalParameter<T, C>> parameters) {
         this.conversions = new LinkedHashMap<>();
-        for (FormalParameter<C> parameter: parameters) {
-            this.conversions.put(parameter.getName(), new Conversion(ConversionKind.NONE, parameter.getType()));
+        for (FormalParameter<T, C> parameter: parameters) {
+            this.conversions.put(parameter.getName(), new Conversion<>(ConversionKind.NONE, parameter.getType()));
         }
     }
 
-    public Map<String, Conversion> getConversions() {
+    public Map<String, Conversion<T>> getConversions() {
         return this.conversions;
     }
 
-    public void add(String key, Conversion conversion) {
+    public void add(String key, Conversion<T> conversion) {
         this.conversions.put(key, conversion);
     }
 
     @Override
-    public List<Conversion> getConversions(List<FormalParameter<C>> formalParameters) {
-        List<Conversion> conversions = new ArrayList<>();
-        for(FormalParameter<C> parameter: formalParameters) {
+    public List<Conversion<T>> getConversions(List<FormalParameter<T, C>> formalParameters) {
+        List<Conversion<T>> conversions = new ArrayList<>();
+        for(FormalParameter<T, C> parameter: formalParameters) {
             conversions.add(this.conversions.get(parameter.getName()));
         }
         return conversions;
@@ -71,7 +71,7 @@ public class NamedParameterConversions<C> extends ParameterConversions<C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NamedParameterConversions<?> that = (NamedParameterConversions<?>) o;
+        NamedParameterConversions<?, ?> that = (NamedParameterConversions<?, ?>) o;
         return Objects.equals(this.conversions, that.conversions);
     }
 

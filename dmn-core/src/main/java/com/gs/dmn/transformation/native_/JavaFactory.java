@@ -43,12 +43,12 @@ public class JavaFactory implements NativeFactory {
     protected static final Object DEFAULT_PROTO_BOOLEAN = "false";
     protected static final Object DEFAULT_PROTO_STRING = "\"\"";
 
-    protected final BasicDMNToNativeTransformer transformer;
+    protected final BasicDMNToNativeTransformer<Type, DMNContext> transformer;
     protected final ProtoBufferFactory protoFactory;
     protected final NativeTypeFactory typeFactory;
     protected final DMNModelRepository repository;
 
-    public JavaFactory(BasicDMNToNativeTransformer transformer) {
+    public JavaFactory(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
         this.transformer = transformer;
         this.repository = transformer.getDMNModelRepository();
         this.protoFactory = transformer.getProtoFactory();
@@ -239,11 +239,11 @@ public class JavaFactory implements NativeFactory {
                 returnType, signature, parametersAssignment, body);
     }
 
-    protected String parametersAssignment(List<FormalParameter<DMNContext>> formalParameters, boolean convertTypeToContext) {
+    protected String parametersAssignment(List<FormalParameter<Type, DMNContext>> formalParameters, boolean convertTypeToContext) {
         List<String> parameters = new ArrayList<>();
         Set<String> names = new LinkedHashSet<>();
         for(int i=0; i<formalParameters.size(); i++) {
-            FormalParameter<DMNContext> p = formalParameters.get(i);
+            FormalParameter<Type, DMNContext> p = formalParameters.get(i);
             String type = transformer.toNativeType(transformer.convertType(p.getType(), convertTypeToContext));
             String name = transformer.nativeFriendlyVariableName(p.getName());
             names.add(name);
@@ -384,7 +384,7 @@ public class JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String conversionFunction(Conversion conversion, String javaType) {
+    public String conversionFunction(Conversion<Type> conversion, String javaType) {
         if (conversion.getKind() == ConversionKind.NONE) {
             return null;
         } else if (conversion.getKind() == ConversionKind.ELEMENT_TO_SINGLETON_LIST) {

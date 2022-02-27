@@ -15,13 +15,13 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-public class Exponentiation<C> extends ArithmeticExpression<C> {
-    public Exponentiation(Expression<C> leftOperand, Expression<C> rightOperand) {
+public class Exponentiation<T, C> extends ArithmeticExpression<T, C> {
+    public Exponentiation(Expression<T, C> leftOperand, Expression<T, C> rightOperand) {
         super("**", leftOperand, rightOperand);
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

@@ -14,38 +14,39 @@ package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.feel.AbstractFEELProcessor;
 import com.gs.dmn.feel.analysis.FEELAnalyzer;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.runtime.DMNContext;
 
-public abstract class AbstractFEELTranslator extends AbstractFEELProcessor implements FEELTranslator {
+public abstract class AbstractFEELTranslator extends AbstractFEELProcessor implements FEELTranslator<Type, DMNContext> {
     private final FEELToNativeVisitor expressionVisitor;
 
-    public AbstractFEELTranslator(FEELAnalyzer feelAnalyzer, FEELToNativeVisitor expressionVisitor) {
+    public AbstractFEELTranslator(FEELAnalyzer<Type, DMNContext> feelAnalyzer, FEELToNativeVisitor expressionVisitor) {
         super(feelAnalyzer);
         this.expressionVisitor = expressionVisitor;
     }
 
     @Override
     public String unaryTestsToJava(String text, DMNContext context) {
-        UnaryTests unaryTests = analyzeUnaryTests(text, context);
+        UnaryTests<Type, DMNContext> unaryTests = analyzeUnaryTests(text, context);
         return unaryTestsToJava(unaryTests, context);
     }
 
     @Override
-    public String unaryTestsToJava(UnaryTests expression, DMNContext context) {
+    public String unaryTestsToJava(UnaryTests<Type, DMNContext> expression, DMNContext context) {
         this.expressionVisitor.init();
         return (String) expression.accept(this.expressionVisitor, context);
     }
 
     @Override
     public String expressionToNative(String text, DMNContext context) {
-        Expression expression = analyzeExpression(text, context);
+        Expression<Type, DMNContext> expression = analyzeExpression(text, context);
         return expressionToNative(expression, context);
     }
 
     @Override
-    public String expressionToNative(Expression expression, DMNContext context) {
+    public String expressionToNative(Expression<Type, DMNContext> expression, DMNContext context) {
         this.expressionVisitor.init();
         return (String) expression.accept(this.expressionVisitor, context);
     }

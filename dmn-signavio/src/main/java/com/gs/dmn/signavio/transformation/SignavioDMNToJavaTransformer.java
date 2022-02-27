@@ -14,7 +14,9 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.metadata.DMNMetadata;
@@ -67,14 +69,14 @@ public class SignavioDMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    protected void transform(BasicDMNToNativeTransformer dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
+    protected void transform(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
         super.transform(dmnTransformer, dmnModelRepository, outputPath);
 
         // Generate metadata
         processManifest(dmnTransformer, DMN_METADATA_FILE_NAME, outputPath);
     }
 
-    private void processManifest(BasicDMNToNativeTransformer dmnTransformer, String jsonFileName, Path outputPath) {
+    private void processManifest(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, String jsonFileName, Path outputPath) {
         String javaPackageName = dmnTransformer.nativeRootPackageName();
         String filePath = javaPackageName.replace('.', '/');
         String fileExtension = ".json";
