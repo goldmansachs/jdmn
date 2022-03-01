@@ -134,12 +134,13 @@ public class DMNVersion {
     }
 
     private void addMap(String namespace, String prefix) {
-        if (!StringUtils.isEmpty(namespace) && !StringUtils.isEmpty(prefix)) {
-            this.namespaceToPrefixMap.put(namespace, prefix);
+        if (StringUtils.isEmpty(namespace)) {
+            throw new IllegalArgumentException("Namespace cannot be null or empty");
         }
         if (prefix == null) {
             prefix = "";
         }
+        this.namespaceToPrefixMap.put(namespace, prefix);
         this.prefixToNamespaceMap.put(prefix, namespace);
     }
 }
