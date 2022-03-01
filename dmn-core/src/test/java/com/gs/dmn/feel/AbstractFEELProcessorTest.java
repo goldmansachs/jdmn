@@ -51,13 +51,13 @@ import static com.gs.dmn.transformation.AbstractDMNToNativeTransformer.INPUT_ENT
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractTest {
-    protected final FEELTranslator feelTranslator;
+    protected final FEELTranslator<Type, DMNContext> feelTranslator;
     protected final DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter;
-    protected final FEELInterpreter feelInterpreter;
+    protected final FEELInterpreter<Type, DMNContext> feelInterpreter;
 
     protected final EnvironmentFactory environmentFactory;
     private final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib;
-    private final BasicDMNToNativeTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
 
     protected AbstractFEELProcessorTest() {
         DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition = makeDialect();
@@ -2348,7 +2348,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 null);
         doExpressionTest(entries, "", "function (x , y) x + y",
                 "FunctionDefinition(FormalParameter(x, null, false, false),FormalParameter(y, null, false, false), Addition(+,Name(x),Name(y)), false)",
-                "FEELFunctionType(FormalParameter(x, null, false, false), FormalParameter(y, null, false, false), Any, false)",
+                "FEELFunctionType(FormalParameter(x, null, false, false), FormalParameter(y, null, false, false), null, false)",
                 null,
                 null,
                 null);
@@ -2660,11 +2660,11 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                                     String expectedAST, String expectedType, String expectedJavaCode, Object expectedGeneratedValue, Object expectedEvaluatedValue) {
         // Analyze input expression
         DMNContext globalContext = makeContext(entries);
-        Expression inputExpression = this.feelTranslator.analyzeExpression(inputExpressionText, globalContext);
+        Expression<Type, DMNContext> inputExpression = this.feelTranslator.analyzeExpression(inputExpressionText, globalContext);
 
         // Analyze input entry
         DMNContext inputEntryContext = this.dmnTransformer.makeUnaryTestContext(inputExpression, globalContext);
-        UnaryTests inputEntryTest = this.feelTranslator.analyzeUnaryTests(inputEntryText, inputEntryContext);
+        UnaryTests<Type, DMNContext> inputEntryTest = this.feelTranslator.analyzeUnaryTests(inputEntryText, inputEntryContext);
 
         // Check input entry
         assertEquals(expectedAST, inputEntryTest.toString());
@@ -2684,11 +2684,11 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                                             String expectedAST, String expectedType, String expectedJavaCode, Object expectedGeneratedValue, Object expectedEvaluatedValue) {
         // Analyze input expression
         DMNContext globalContext = makeContext(entries);
-        Expression inputExpression = this.feelTranslator.analyzeExpression(inputExpressionText, globalContext);
+        Expression<Type, DMNContext> inputExpression = this.feelTranslator.analyzeExpression(inputExpressionText, globalContext);
 
         // Analyze input entry
         DMNContext inputEntryContext = this.dmnTransformer.makeUnaryTestContext(inputExpression, globalContext);
-        UnaryTests inputEntry = this.feelTranslator.analyzeUnaryTests(inputEntryText, inputEntryContext);
+        UnaryTests<Type, DMNContext> inputEntry = this.feelTranslator.analyzeUnaryTests(inputEntryText, inputEntryContext);
 
         // Check input entry
         assertEquals(expectedAST, inputEntry.toString());
@@ -2706,7 +2706,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     protected void doExpressionTest(List<EnvironmentEntry> entries, String inputExpressionText, String expressionText,
                                     String expectedAST, String expectedType, String expectedJavaCode, Object expectedGeneratedValue, Object expectedEvaluatedValue) {
-        Expression inputExpression = null;
+        Expression<Type, DMNContext> inputExpression = null;
         DMNContext globalContext = makeContext(entries);
         if (!StringUtils.isEmpty(inputExpressionText)) {
             // Analyze input expression
@@ -2715,7 +2715,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
         // Analyse expression
         DMNContext expressionContext = this.dmnTransformer.makeUnaryTestContext(inputExpression, globalContext);
-        Expression actual = this.feelTranslator.analyzeExpression(expressionText, expressionContext);
+        Expression<Type, DMNContext> actual = this.feelTranslator.analyzeExpression(expressionText, expressionContext);
 
         // Check expression
         assertEquals("Augmented AST mismatch", expectedAST, actual.toString());
@@ -2735,7 +2735,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                                             String expectedAST, String expectedType, String expectedJavaCode, Object expectedGeneratedValue, Object expectedEvaluatedValue) {
         // Analyze expression
         DMNContext context = makeContext(entries);
-        Expression expression = this.feelTranslator.analyzeTextualExpressions(expressionText, context);
+        Expression<Type, DMNContext> expression = this.feelTranslator.analyzeTextualExpressions(expressionText, context);
 
         // Check analysis result
         assertEquals(expectedAST, expression.toString());
@@ -2755,7 +2755,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                                          String expectedAST, String expectedType, String expectedJavaCode, Object expectedGeneratedValue, Object expectedEvaluatedValue) {
         // Analyze expression
         DMNContext context = makeContext(entries);
-        Expression actual = this.feelTranslator.analyzeBoxedExpression(expressionText, context);
+        Expression<Type, DMNContext> actual = this.feelTranslator.analyzeBoxedExpression(expressionText, context);
 
         // Check analysis result
         assertEquals(expectedAST, actual.toString());
@@ -2775,7 +2775,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         assertEquals("Evaluated and generated value mismatch", expectedEvaluatedValue, expectedGeneratedValue);
     }
 
-    private Result evaluateInputEntry(Expression inputExpression, DMNContext inputExpressionContext, UnaryTests inputEntryTest, DMNContext inputEntryContext) {
+    private Result evaluateInputEntry(Expression<Type, DMNContext> inputExpression, DMNContext inputExpressionContext, UnaryTests<Type, DMNContext> inputEntryTest, DMNContext inputEntryContext) {
         // Evaluate input expression
         Result inputExpressionResult = this.feelInterpreter.evaluateExpression(inputExpression, inputExpressionContext);
         Object inputExpressionValue = Result.value(inputExpressionResult);
@@ -2784,21 +2784,21 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         return this.feelInterpreter.evaluateUnaryTests(inputEntryTest, inputEntryContext);
     }
 
-    private void doCodeGenerationTest(UnaryTests inputEntry, DMNContext inputEntryContext, String expectedJavaCode) {
+    private void doCodeGenerationTest(UnaryTests<Type, DMNContext> inputEntry, DMNContext inputEntryContext, String expectedJavaCode) {
         if (expectedJavaCode != null) {
             String javaCode = this.feelTranslator.expressionToNative(inputEntry, inputEntryContext);
             assertEquals("Generated code mismatch", expectedJavaCode, javaCode);
         }
     }
 
-    private void doCodeGenerationTest(Expression expression, DMNContext expressionContext, String expectedJavaCode) {
+    private void doCodeGenerationTest(Expression<Type, DMNContext> expression, DMNContext expressionContext, String expectedJavaCode) {
         if (expectedJavaCode != null) {
             String javaCode = this.feelTranslator.expressionToNative(expression, expressionContext);
             assertEquals("Generated code mismatch", expectedJavaCode, javaCode);
         }
     }
 
-    private void doEvaluationTest(Expression inputExpression, DMNContext inputExpressionContext, UnaryTests inputEntry, DMNContext inputEntryContext, Object expectedEvaluatedValue) {
+    private void doEvaluationTest(Expression<Type, DMNContext> inputExpression, DMNContext inputExpressionContext, UnaryTests<Type, DMNContext> inputEntry, DMNContext inputEntryContext, Object expectedEvaluatedValue) {
         if (expectedEvaluatedValue != null) {
             Result actualResult = evaluateInputEntry(inputExpression, inputExpressionContext, inputEntry, inputEntryContext);
             Object actualValue = Result.value(actualResult);
@@ -2806,7 +2806,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         }
     }
 
-    private void doEvaluationTest(Expression expression, DMNContext context, Object expectedEvaluatedValue) {
+    private void doEvaluationTest(Expression<Type, DMNContext> expression, DMNContext context, Object expectedEvaluatedValue) {
         if (expectedEvaluatedValue != null) {
             Result actualResult = this.feelInterpreter.evaluateExpression(expression, context);
             Object actualValue = Result.value(actualResult);

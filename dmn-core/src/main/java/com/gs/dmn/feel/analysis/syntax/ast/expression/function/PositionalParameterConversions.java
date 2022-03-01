@@ -12,38 +12,36 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class PositionalParameterConversions extends ParameterConversions {
-    private final List<Conversion> conversions = new ArrayList<>();
+public class PositionalParameterConversions<T, C> extends ParameterConversions<T, C> {
+    private final List<Conversion<T>> conversions = new ArrayList<>();
 
     public PositionalParameterConversions() {
     }
 
-    public PositionalParameterConversions(List<Type> types) {
-        for (Type type: types) {
-            this.conversions.add(new Conversion(ConversionKind.NONE, type));
+    public PositionalParameterConversions(List<T> types) {
+        for (T type: types) {
+            this.conversions.add(new Conversion<>(ConversionKind.NONE, type));
         }
     }
 
-    public List<Conversion> getConversions() {
+    public List<Conversion<T>> getConversions() {
         return this.conversions;
     }
 
-    public void add(Conversion conversion) {
+    public void add(Conversion<T> conversion) {
         this.conversions.add(conversion);
     }
 
-    public void set(int i, Conversion conversion) {
+    public void set(int i, Conversion<T> conversion) {
         this.conversions.set(i, conversion);
     }
 
     @Override
-    public List<Conversion> getConversions(List<FormalParameter> formalParameters) {
+    public List<Conversion<T>> getConversions(List<FormalParameter<T, C>> formalParameters) {
         return this.conversions;
     }
 
@@ -56,7 +54,7 @@ public class PositionalParameterConversions extends ParameterConversions {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PositionalParameterConversions that = (PositionalParameterConversions) o;
+        PositionalParameterConversions<?, ?> that = (PositionalParameterConversions<?, ?>) o;
         return Objects.equals(this.conversions, that.conversions);
     }
 

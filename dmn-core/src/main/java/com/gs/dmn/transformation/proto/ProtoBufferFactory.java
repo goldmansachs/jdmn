@@ -14,6 +14,7 @@ package com.gs.dmn.transformation.proto;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.type.*;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
@@ -60,7 +61,7 @@ public abstract class ProtoBufferFactory {
         FEEL_TYPE_TO_PROTO_TYPE.put(ANY.getName(), null);
     }
 
-    private final BasicDMNToNativeTransformer transformer;
+    private final BasicDMNToNativeTransformer<Type, DMNContext> transformer;
     private final DMNModelRepository repository;
 
     protected ProtoBufferFactory(BasicDMNToJavaTransformer transformer) {

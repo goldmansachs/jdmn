@@ -16,6 +16,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterConversions;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.Pair;
 
 import java.util.ArrayList;
@@ -23,20 +24,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FEELFunctionType extends FunctionType {
-    private final FunctionDefinition functionDefinition;
+    private final FunctionDefinition<Type, DMNContext> functionDefinition;
     private final boolean external;
 
-    public FEELFunctionType(List<FormalParameter> parameters, Type returnType, boolean external) {
+    public FEELFunctionType(List<FormalParameter<Type, DMNContext>> parameters, Type returnType, boolean external) {
         this(parameters, returnType, external, null);
     }
 
-    public FEELFunctionType(List<FormalParameter> parameters, Type returnType, boolean external, FunctionDefinition functionDefinition) {
+    public FEELFunctionType(List<FormalParameter<Type, DMNContext>> parameters, Type returnType, boolean external, FunctionDefinition<Type, DMNContext> functionDefinition) {
         super(parameters, returnType);
         this.functionDefinition = functionDefinition;
         this.external = external;
     }
 
-    public FunctionDefinition getFunctionDefinition() {
+    public FunctionDefinition<Type, DMNContext> getFunctionDefinition() {
         return this.functionDefinition;
     }
 
@@ -60,16 +61,16 @@ public class FEELFunctionType extends FunctionType {
     }
 
     @Override
-    public boolean match(ParameterTypes parameterTypes) {
-        List<FormalParameter> parameters = getParameters();
+    public boolean match(ParameterTypes<Type, DMNContext> parameterTypes) {
+        List<FormalParameter<Type, DMNContext>> parameters = getParameters();
         if (parameters.size() != parameterTypes.size()) {
             return false;
         }
-        return parameterTypes.compatible(parameters);
+        return compatible(parameterTypes, parameters);
     }
 
     @Override
-    protected List<Pair<ParameterTypes, ParameterConversions>> matchCandidates(List<Type> argumentTypes) {
+    protected List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> matchCandidates(List<Type> argumentTypes) {
         // check size constraint
         if (argumentTypes.size() != this.parameterTypes.size()) {
             return new ArrayList<>();

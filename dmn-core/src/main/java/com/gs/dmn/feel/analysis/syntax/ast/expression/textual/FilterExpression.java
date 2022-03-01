@@ -12,66 +12,36 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.textual;
 
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
-import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
-import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
-
-public class FilterExpression extends Expression {
+public class FilterExpression<T, C> extends Expression<T, C> {
     public static final String FILTER_PARAMETER_NAME = "item";
 
-    private final Expression source;
-    private Expression filter;
+    private final Expression<T, C> source;
+    private Expression<T, C> filter;
 
-    public FilterExpression(Expression source, Expression filter) {
+    public FilterExpression(Expression<T, C> source, Expression<T, C> filter) {
         this.source = source;
         this.filter = filter;
     }
 
-    public Expression getSource() {
+    public Expression<T, C> getSource() {
         return this.source;
     }
 
-    public Expression getFilter() {
+    public Expression<T, C> getFilter() {
         return this.filter;
     }
 
-    public void setFilter(Expression filter) {
+    public void setFilter(Expression<T, C> filter) {
         this.filter = filter;
     }
 
     @Override
-    public void deriveType(DMNContext context) {
-        Type sourceType = this.source.getType();
-        Type filterType = this.filter.getType();
-        if (sourceType instanceof ListType) {
-            if (filterType == NUMBER) {
-                setType(((ListType) sourceType).getElementType());
-            } else if (filterType == BOOLEAN) {
-                setType(sourceType);
-            } else {
-                throw new SemanticError(this, String.format("Cannot resolve type for '%s'", this));
-            }
-        } else {
-            if (filterType == NUMBER) {
-                setType(sourceType);
-            } else if (filterType == BOOLEAN) {
-                setType(new ListType(sourceType));
-            } else {
-                throw new SemanticError(this, String.format("Cannot resolve type for '%s'", this));
-            }
-        }
-    }
-
-    @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -79,7 +49,7 @@ public class FilterExpression extends Expression {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FilterExpression that = (FilterExpression) o;
+        FilterExpression<?, ?> that = (FilterExpression<?, ?>) o;
         return Objects.equals(source, that.source) && Objects.equals(filter, that.filter);
     }
 

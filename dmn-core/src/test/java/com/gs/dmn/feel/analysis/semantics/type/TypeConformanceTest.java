@@ -93,9 +93,9 @@ public class TypeConformanceTest {
 
     @Test
     public void testFunctionType() {
-        FEELFunctionType type1 = new FEELFunctionType(Arrays.asList(new FormalParameter("p", STRING)), STRING, false);
-        FEELFunctionType type2 = new FEELFunctionType(Arrays.asList(new FormalParameter("p", NUMBER)), STRING, false);
-        FEELFunctionType tyep3 = new FEELFunctionType(Arrays.asList(new FormalParameter("p1", STRING), new FormalParameter("p2", NUMBER)), STRING, false);
+        FEELFunctionType type1 = new FEELFunctionType(Arrays.asList(new FormalParameter<>("p", STRING)), STRING, false);
+        FEELFunctionType type2 = new FEELFunctionType(Arrays.asList(new FormalParameter<>("p", NUMBER)), STRING, false);
+        FEELFunctionType tyep3 = new FEELFunctionType(Arrays.asList(new FormalParameter<>("p1", STRING), new FormalParameter<>("p2", NUMBER)), STRING, false);
 
         checkConformsTo(true, type1, type1);
         checkConformsTo(true, type1, ANY);

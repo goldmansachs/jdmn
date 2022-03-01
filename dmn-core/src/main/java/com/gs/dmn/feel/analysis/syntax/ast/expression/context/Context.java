@@ -10,47 +10,45 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
+package com.gs.dmn.feel.analysis.syntax.ast.expression.context;
 
-import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.SimpleLiteral;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Context extends Expression {
-    private final List<ContextEntry> entries = new ArrayList<>();
+public class Context<T, C> extends Expression<T, C> {
+    private final List<ContextEntry<T, C>> entries = new ArrayList<>();
 
-    public Context(List<ContextEntry> entries) {
+    public Context(List<ContextEntry<T, C>> entries) {
         if (entries != null) {
             this.entries.addAll(entries);
         }
     }
 
-    public List<ContextEntry> getEntries() {
+    public List<ContextEntry<T, C>> getEntries() {
         return this.entries;
     }
 
-    public ContextEntry entry(String name) {
-        List<ContextEntry> result = this.entries.stream().filter(e -> name.equals(e.getKey().getKey())).collect(Collectors.toList());
+    public ContextEntry<T, C> entry(String name) {
+        List<ContextEntry<T, C>> result = this.entries.stream().filter(e -> name.equals(e.getKey().getKey())).collect(Collectors.toList());
         return result.size() == 1 ? result.get(0) : null;
     }
 
     public Map<String, Object> toMap() {
         Map<String, Object> result = new LinkedHashMap<>();
-        for(ContextEntry entry: this.entries) {
+        for(ContextEntry<T, C> entry: this.entries) {
             String key = entry.getKey().getKey();
-            Expression expression = entry.getExpression();
+            Expression<T, C> expression = entry.getExpression();
             Object value;
             if (expression instanceof Context) {
-                value = ((Context) expression).toMap();
+                value = ((Context<T, C>) expression).toMap();
             } else if (expression instanceof SimpleLiteral) {
-                String lexeme = ((SimpleLiteral) expression).getLexeme();
+                String lexeme = ((SimpleLiteral<T, C>) expression).getLexeme();
                 value = StringEscapeUtil.stripQuotes(lexeme);
             } else {
                 throw new DMNRuntimeException(String.format("'%s' is not supported", expression.getClass().getSimpleName()));
@@ -61,14 +59,7 @@ public class Context extends Expression {
     }
 
     @Override
-    public void deriveType(DMNContext context) {
-        ContextType type = new ContextType();
-        this.entries.forEach(e -> type.addMember(e.getKey().getKey(), Arrays.asList(), e.getExpression().getType()));
-        setType(type);
-    }
-
-    @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -76,7 +67,7 @@ public class Context extends Expression {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Context context = (Context) o;
+        Context<?, ?> context = (Context<?, ?>) o;
         return Objects.equals(entries, context.entries);
     }
 

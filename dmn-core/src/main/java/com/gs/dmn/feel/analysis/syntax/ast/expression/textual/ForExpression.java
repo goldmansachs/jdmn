@@ -12,55 +12,48 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.textual;
 
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ForExpression extends Expression {
+public class ForExpression<T, C> extends Expression<T, C> {
     public static final String PARTIAL_PARAMETER_NAME = "partial";
 
-    private final List<Iterator> iterators;
-    private final Expression body;
+    private final List<Iterator<T, C>> iterators;
+    private final Expression<T, C> body;
 
-    public ForExpression(List<Iterator> iterators, Expression body) {
+    public ForExpression(List<Iterator<T, C>> iterators, Expression<T, C> body) {
         this.iterators = iterators;
         this.body = body;
     }
 
-    public List<Iterator> getIterators() {
+    public List<Iterator<T, C>> getIterators() {
         return this.iterators;
     }
 
-    public Expression getBody() {
+    public Expression<T, C> getBody() {
         return this.body;
     }
 
     @Override
-    public void deriveType(DMNContext context) {
-        setType(new ListType(this.body.getType()));
-    }
-
-    @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
-    public ForExpression toNestedForExpression() {
+    public ForExpression<T, C> toNestedForExpression() {
         if (this.iterators.size() == 1) {
             return this;
         } else {
-            Expression newBody = this.body;
+            Expression<T, C> newBody = this.body;
             for(int i=this.iterators.size()-1; i>=0; i--) {
-                newBody = new ForExpression(Arrays.asList(this.iterators.get(i)), newBody);
+                newBody = new ForExpression<>(Arrays.asList(this.iterators.get(i)), newBody);
             }
-            return (ForExpression) newBody;
+            return (ForExpression<T, C>) newBody;
         }
     }
 
@@ -68,7 +61,7 @@ public class ForExpression extends Expression {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ForExpression that = (ForExpression) o;
+        ForExpression<?, ?> that = (ForExpression<?, ?>) o;
         return Objects.equals(iterators, that.iterators) && Objects.equals(body, that.body);
     }
 

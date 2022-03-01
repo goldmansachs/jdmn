@@ -52,7 +52,7 @@ public class TypeConverter {
         return Result.of(newValue, expectedType);
     }
 
-    public Object convertValue(Object value, Conversion conversion, FEELLib<?, ?, ?, ?, ?> lib) {
+    public Object convertValue(Object value, Conversion<Type> conversion, FEELLib<?, ?, ?, ?, ?> lib) {
         ConversionKind kind = conversion.getKind();
         return convertValue(value, kind, lib);
     }

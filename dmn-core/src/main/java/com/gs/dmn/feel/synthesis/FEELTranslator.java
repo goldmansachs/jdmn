@@ -12,5 +12,5 @@
  */
 package com.gs.dmn.feel.synthesis;
 
-public interface FEELTranslator extends FEELTestsTranslator, FEELExpressionsTranslator {
+public interface FEELTranslator<T, C> extends FEELTestsTranslator<T, C>, FEELExpressionsTranslator<T, C> {
 }

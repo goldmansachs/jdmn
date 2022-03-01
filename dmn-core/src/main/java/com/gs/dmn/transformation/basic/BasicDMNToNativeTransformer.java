@@ -47,7 +47,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-public interface BasicDMNToNativeTransformer {
+public interface BasicDMNToNativeTransformer<T, C> {
     DMNDialectDefinition<?, ?, ?, ?, ?, ?> getDialect();
 
     DMNModelRepository getDMNModelRepository();
@@ -56,7 +56,7 @@ public interface BasicDMNToNativeTransformer {
 
     DMNEnvironmentFactory getDMNEnvironmentFactory();
 
-    FEELTranslator getFEELTranslator();
+    FEELTranslator<T, C> getFEELTranslator();
 
     NativeTypeFactory getNativeTypeFactory();
 
@@ -230,21 +230,21 @@ public interface BasicDMNToNativeTransformer {
     //
     // Invocable  related functions
     //
-    List<FormalParameter> invocableFEELParameters(TDRGElement invocable);
+    List<FormalParameter<Type, DMNContext>> invocableFEELParameters(TDRGElement invocable);
 
     String singletonInvocableInstance(TInvocable invocable);
 
     //
     // BKM related functions
     //
-    List<FormalParameter> bkmFEELParameters(TBusinessKnowledgeModel bkm);
+    List<FormalParameter<Type, DMNContext>> bkmFEELParameters(TBusinessKnowledgeModel bkm);
 
     List<String> bkmFEELParameterNames(TBusinessKnowledgeModel bkm);
 
     //
     // Decision Service related functions
     //
-    List<FormalParameter> dsFEELParameters(TDecisionService service);
+    List<FormalParameter<Type, DMNContext>> dsFEELParameters(TDecisionService service);
 
     List<String> dsFEELParameterNames(TDecisionService service);
 
@@ -459,7 +459,7 @@ public interface BasicDMNToNativeTransformer {
 
     String literalExpressionToNative(TDRGElement element, String expressionText);
 
-    String functionDefinitionToNative(TDRGElement element, FunctionDefinition functionDefinition, boolean convertTypeToContext, String body);
+    String functionDefinitionToNative(TDRGElement element, FunctionDefinition<Type, DMNContext> functionDefinition, boolean convertTypeToContext, String body);
 
     boolean isCompoundStatement(Statement stm);
 
@@ -534,7 +534,7 @@ public interface BasicDMNToNativeTransformer {
 
     Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition);
 
-    Pair<DMNContext, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext);
+    Pair<DMNContext, Map<TContextEntry, Expression<Type, DMNContext>>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext);
 
     Environment makeRelationEnvironment(TNamedElement element, TRelation relation);
 
@@ -633,7 +633,7 @@ public interface BasicDMNToNativeTransformer {
         );
     }
 
-    default DMNContext makeUnaryTestContext(Expression inputExpression, DMNContext parentContext) {
+    default DMNContext makeUnaryTestContext(Expression<Type, DMNContext> inputExpression, DMNContext parentContext) {
         return DMNContext.of(
                 parentContext,
                 DMNContextKind.UNARY_TEST_CONTEXT,
@@ -690,16 +690,16 @@ public interface BasicDMNToNativeTransformer {
         return functionContext;
     }
 
-    default DMNContext makeFunctionContext(FunctionDefinition functionDefinition, DMNContext parentContext) {
+    default DMNContext makeFunctionContext(FunctionDefinition<Type, DMNContext> functionDefinition, DMNContext parentContext) {
         DMNContext functionContext = DMNContext.of(
                 parentContext,
                 DMNContextKind.FUNCTION,
                 parentContext.getElement(),
                 getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of());
-        List<FormalParameter> formalParameterList = functionDefinition.getFormalParameters();
+        List<FormalParameter<Type, DMNContext>> formalParameterList = functionDefinition.getFormalParameters();
         for (int i = 0; i < formalParameterList.size(); i++) {
-            FormalParameter param = formalParameterList.get(i);
+            FormalParameter<Type, DMNContext> param = formalParameterList.get(i);
             String name = param.getName();
             Type type = param.getType();
             functionContext.addDeclaration(getEnvironmentFactory().makeVariableDeclaration(name, type));
@@ -707,7 +707,7 @@ public interface BasicDMNToNativeTransformer {
         return functionContext;
     }
 
-    default DMNContext makeForContext(ForExpression expression, DMNContext parentContext) {
+    default DMNContext makeForContext(ForExpression<Type, DMNContext> expression, DMNContext parentContext) {
         return DMNContext.of(
                 parentContext,
                 DMNContextKind.FOR,
@@ -727,8 +727,8 @@ public interface BasicDMNToNativeTransformer {
         );
     }
 
-    default DMNContext makeFilterContext(FilterExpression filterExpression, String filterParameterName, DMNContext parentContext) {
-        Expression source = filterExpression.getSource();
+    default DMNContext makeFilterContext(FilterExpression<Type, DMNContext> filterExpression, String filterParameterName, DMNContext parentContext) {
+        Expression<Type, DMNContext> source = filterExpression.getSource();
         Type itemType = AnyType.ANY;
         if (source.getType() instanceof ListType) {
             itemType = ((ListType) source.getType()).getElementType();

@@ -15,6 +15,7 @@ package com.gs.dmn.feel.analysis.semantics.environment;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.ArrayList;
@@ -27,17 +28,17 @@ public class Environment {
     final Map<String, List<Declaration>> variablesTable = new LinkedHashMap<>();
 
     // For unary test context (input)
-    private final Expression inputExpression;
+    private final Expression<Type, DMNContext> inputExpression;
 
     Environment() {
         this(null);
     }
 
-    Environment(Expression inputExpression) {
+    Environment(Expression<Type, DMNContext> inputExpression) {
         this.inputExpression = inputExpression;
     }
 
-    public Expression getInputExpression() {
+    public Expression<Type, DMNContext> getInputExpression() {
         return this.inputExpression;
     }
 

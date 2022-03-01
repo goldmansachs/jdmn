@@ -16,22 +16,22 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 import java.util.Objects;
 
-public abstract class ArithmeticExpression extends Expression {
+public abstract class ArithmeticExpression<T, C> extends Expression<T, C> {
     private final String operator;
-    private final Expression leftOperand;
-    private final Expression rightOperand;
+    private final Expression<T, C> leftOperand;
+    private final Expression<T, C> rightOperand;
 
-    protected ArithmeticExpression(String operator, Expression leftOperand, Expression rightOperand) {
+    protected ArithmeticExpression(String operator, Expression<T, C> leftOperand, Expression<T, C> rightOperand) {
         this.operator = operator;
         this.leftOperand = leftOperand;
         this.rightOperand = rightOperand;
     }
 
-    public Expression getLeftOperand() {
+    public Expression<T, C> getLeftOperand() {
         return this.leftOperand;
     }
 
-    public Expression getRightOperand() {
+    public Expression<T, C> getRightOperand() {
         return this.rightOperand;
     }
 
@@ -43,7 +43,7 @@ public abstract class ArithmeticExpression extends Expression {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ArithmeticExpression that = (ArithmeticExpression) o;
+        ArithmeticExpression<?, ?> that = (ArithmeticExpression<?, ?>) o;
         return Objects.equals(operator, that.operator) && Objects.equals(leftOperand, that.leftOperand) && Objects.equals(rightOperand, that.rightOperand);
     }
 

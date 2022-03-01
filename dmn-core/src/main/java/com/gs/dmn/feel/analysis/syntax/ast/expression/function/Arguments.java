@@ -12,19 +12,9 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
-
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
-public class NamedParameterTypesTest extends ParameterTypesTest {
-    @Override
-    protected ParameterTypes makeParameterTypes(List<FormalParameter> parameters) {
-        Map<String, Type> namedTypes = new LinkedHashMap<>();
-        for (FormalParameter fp: parameters) {
-            namedTypes.put(fp.getName(), fp.type);
-        }
-        return new NamedParameterTypes(namedTypes);
-    }
+public abstract class Arguments<T, C> {
+    // Order arguments based on the order of the formal parameters
+    public abstract List<Object> argumentList(List<FormalParameter<T, C>> formalParameters);
 }

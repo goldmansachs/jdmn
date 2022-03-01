@@ -13,37 +13,35 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.TypeExpression;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
-public class FormalParameter extends Element {
+public class FormalParameter<T, C> extends Element<T, C> {
     protected final String name;
-    private TypeExpression typeExpression;
-    protected Type type;
+    private TypeExpression<T, C> typeExpression;
+    protected T type;
 
     protected final boolean optional;
     protected final boolean varArg;
 
-    public FormalParameter(String name, TypeExpression typeExpression) {
+    public FormalParameter(String name, TypeExpression<T, C> typeExpression) {
         this.name = name;
         this.typeExpression = typeExpression;
         this.optional = false;
         this.varArg = false;
     }
 
-    public FormalParameter(String name, Type type) {
+    public FormalParameter(String name, T type) {
         this.name = name;
         this.type = type;
         this.optional = false;
         this.varArg = false;
     }
 
-    public FormalParameter(String name, Type type, boolean optional, boolean varArg) {
+    public FormalParameter(String name, T type, boolean optional, boolean varArg) {
         this.name = name;
         this.type = type;
         this.optional = optional;
@@ -57,15 +55,15 @@ public class FormalParameter extends Element {
         return name;
     }
 
-    public TypeExpression getTypeExpression() {
+    public TypeExpression<T, C> getTypeExpression() {
         return this.typeExpression;
     }
 
-    public Type getType() {
+    public T getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(T type) {
         this.type = type;
     }
 
@@ -81,7 +79,7 @@ public class FormalParameter extends Element {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FormalParameter that = (FormalParameter) o;
+        FormalParameter<?, ?> that = (FormalParameter<?, ?>) o;
         return Objects.equals(name, that.name) &&
                 Objects.equals(typeExpression, that.typeExpression) &&
                 Objects.equals(type, that.type);
@@ -93,7 +91,7 @@ public class FormalParameter extends Element {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

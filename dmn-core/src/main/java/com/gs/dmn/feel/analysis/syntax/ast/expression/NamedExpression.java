@@ -12,36 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
-import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
-import com.gs.dmn.feel.analysis.semantics.type.BuiltinOverloadedFunctionType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.runtime.DMNContext;
-
-import java.util.List;
-
-public abstract class NamedExpression extends Expression {
-    @Override
-    public void deriveType(DMNContext context) {
-        Type type;
-        String name = getName();
-        // Lookup for variables
-        Declaration declaration = context.lookupVariableDeclaration(name);
-        if (declaration instanceof VariableDeclaration) {
-            type = declaration.getType();
-            setType(type);
-            return;
-        }
-        // Lookup for functions
-        List<Declaration> declarations = context.lookupFunctionDeclaration(name);
-        if (declarations != null && declarations.size() == 1) {
-            declaration = declarations.get(0);
-            type = declaration.getType();
-        } else {
-            type = new BuiltinOverloadedFunctionType(declarations);
-        }
-        setType(type);
-    }
+public abstract class NamedExpression<T, C> extends Expression<T, C> {
 
     protected abstract String getName();
 }

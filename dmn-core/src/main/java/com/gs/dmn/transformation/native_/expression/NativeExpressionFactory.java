@@ -144,7 +144,7 @@ public interface NativeExpressionFactory {
 
     String convertDecisionArgumentFromString(String paramName, Type type);
 
-    String conversionFunction(Conversion conversion, String javaType);
+    String conversionFunction(Conversion<Type> conversion, String javaType);
 
     //
     // Proto conversions

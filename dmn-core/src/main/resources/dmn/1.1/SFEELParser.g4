@@ -9,6 +9,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.comparison.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.context.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.*;

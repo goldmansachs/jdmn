@@ -14,15 +14,14 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.logic;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
-public class LogicNegation extends LogicExpression {
-    public LogicNegation(Expression operand) {
+public class LogicNegation<T, C> extends LogicExpression<T, C> {
+    public LogicNegation(Expression<T, C> operand) {
         super("not", operand, null);
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

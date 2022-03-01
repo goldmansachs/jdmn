@@ -13,26 +13,25 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.type;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.Pair;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ContextTypeExpression extends TypeExpression {
-    private final List<Pair<String, TypeExpression>> members;
+public class ContextTypeExpression<T, C> extends TypeExpression<T, C> {
+    private final List<Pair<String, TypeExpression<T, C>>> members;
 
-    public ContextTypeExpression(List<Pair<String, TypeExpression>> contextType) {
+    public ContextTypeExpression(List<Pair<String, TypeExpression<T, C>>> contextType) {
         this.members = contextType;
     }
 
-    public List<Pair<String, TypeExpression>> getMembers() {
+    public List<Pair<String, TypeExpression<T, C>>> getMembers() {
         return this.members;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -40,7 +39,7 @@ public class ContextTypeExpression extends TypeExpression {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ContextTypeExpression that = (ContextTypeExpression) o;
+        ContextTypeExpression<?, ?> that = (ContextTypeExpression<?, ?>) o;
         return Objects.equals(members, that.members);
     }
 

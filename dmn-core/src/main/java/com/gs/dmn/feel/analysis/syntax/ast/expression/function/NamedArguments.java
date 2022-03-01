@@ -10,16 +10,14 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.runtime.interpreter;
-
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
+package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NamedArguments extends Arguments {
+public class NamedArguments<T, C> extends Arguments<T, C> {
     private final Map<String, Object> arguments;
 
     public NamedArguments() {
@@ -42,12 +40,12 @@ public class NamedArguments extends Arguments {
     }
 
     @Override
-    public List<Object> argumentList(List<FormalParameter> formalParameters) {
+    public List<Object> argumentList(List<FormalParameter<T, C>> formalParameters) {
         List<Object> argList = new ArrayList<>();
         if (arguments == null) {
             return argList;
         }
-        for(FormalParameter parameter: formalParameters) {
+        for(FormalParameter<T, C> parameter: formalParameters) {
             if (arguments.containsKey(parameter.getName())) {
                 Object arg = arguments.get(parameter.getName());
                 argList.add(arg);

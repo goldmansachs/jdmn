@@ -14,9 +14,11 @@ package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.validation.table.Bound;
 import com.gs.dmn.validation.table.RuleGroup;
@@ -46,7 +48,7 @@ public class SweepRuleOverlapValidator extends SweepValidator {
         logger.debug(String.format("Validate element '%s'", element.getName()));
 
         // Find the overlapping rules
-        FEELTranslator feelTranslator = this.dmnDialectDefinition.createFEELTranslator(repository, this.inputParameters);
+        FEELTranslator<Type, DMNContext> feelTranslator = this.dmnDialectDefinition.createFEELTranslator(repository, this.inputParameters);
         List<Integer> ruleIndexList = new ArrayList<>();
         int totalNumberOfRules = decisionTable.getRule().size();
         for (int i = 0; i< totalNumberOfRules; i++) {

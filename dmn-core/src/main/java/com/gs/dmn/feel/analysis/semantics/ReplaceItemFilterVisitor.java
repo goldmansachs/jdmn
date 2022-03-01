@@ -15,9 +15,8 @@ package com.gs.dmn.feel.analysis.semantics;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.feel.analysis.syntax.ast.CloneVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
-import com.gs.dmn.runtime.DMNContext;
 
-public class ReplaceItemFilterVisitor extends CloneVisitor {
+public class ReplaceItemFilterVisitor<T, C> extends CloneVisitor<T, C> {
     private final String oldLambdaParameterName;
     private final String newLambdaParameterName;
 
@@ -31,7 +30,7 @@ public class ReplaceItemFilterVisitor extends CloneVisitor {
     // Primary expressions
     //
     @Override
-    public Object visit(Name element, DMNContext context) {
+    public Object visit(Name<T, C> element, C context) {
         if (element == null) {
             return null;
         }

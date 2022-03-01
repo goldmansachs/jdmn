@@ -10,37 +10,19 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.runtime.interpreter;
+package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.PositionalParameterTypes;
+import com.gs.dmn.runtime.DMNContext;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class PositionalArguments extends Arguments {
-    private final List<Object> arguments;
-
-    public PositionalArguments() {
-        this(new ArrayList<>());
-    }
-
-    public PositionalArguments(List<Object> arguments) {
-        if (arguments == null) {
-            arguments = new ArrayList<>();
-        }
-        this.arguments = arguments;
-    }
-
-    public List<Object> getArguments() {
-        return arguments;
-    }
-
-    public void add(Object arg) {
-        this.arguments.add(arg);
-    }
-
+public class PositionalParameterTypesTest extends ParameterTypesTest {
     @Override
-    public List<Object> argumentList(List<FormalParameter> formalParameters) {
-        return arguments;
+    protected ParameterTypes<Type, DMNContext> makeParameterTypes(List<FormalParameter<Type, DMNContext>> parameters) {
+        return new PositionalParameterTypes<>(parameters.stream().map(FormalParameter::getType).collect(Collectors.toList()));
     }
 }

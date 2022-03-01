@@ -12,38 +12,28 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
-import com.gs.dmn.feel.analysis.semantics.type.TupleType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class PositiveUnaryTests extends UnaryTests {
-    private List<PositiveUnaryTest> positiveUnaryTests = new ArrayList<>();
+public class PositiveUnaryTests<T, C> extends UnaryTests<T, C> {
+    private List<PositiveUnaryTest<T, C>> positiveUnaryTests = new ArrayList<>();
 
-    public PositiveUnaryTests(List<PositiveUnaryTest> positiveUnaryTests) {
+    public PositiveUnaryTests(List<PositiveUnaryTest<T, C>> positiveUnaryTests) {
         if (positiveUnaryTests != null) {
             this.positiveUnaryTests = positiveUnaryTests;
         }
     }
 
-    public List<PositiveUnaryTest> getPositiveUnaryTests() {
+    public List<PositiveUnaryTest<T, C>> getPositiveUnaryTests() {
         return this.positiveUnaryTests;
     }
 
     @Override
-    public void deriveType(DMNContext context) {
-        List<Type> types = getPositiveUnaryTests().stream().map(Expression::getType).collect(Collectors.toList());
-        setType(new TupleType(types));
-    }
-
-    @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -51,7 +41,7 @@ public class PositiveUnaryTests extends UnaryTests {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PositiveUnaryTests that = (PositiveUnaryTests) o;
+        PositiveUnaryTests<?, ?> that = (PositiveUnaryTests<?, ?>) o;
         return Objects.equals(positiveUnaryTests, that.positiveUnaryTests);
     }
 

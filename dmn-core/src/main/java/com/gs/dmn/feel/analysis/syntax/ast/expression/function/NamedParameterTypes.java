@@ -12,24 +12,22 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class NamedParameterTypes extends ParameterTypes {
-    public static ParameterTypes toNamedParameterTypes(PositionalParameterTypes candidateParameterTypes, List<FormalParameter> formalParameters) {
-        Map<String, Type> map = new LinkedHashMap<>();
+public class NamedParameterTypes<T, C> extends ParameterTypes<T, C> {
+    public static <T, C> ParameterTypes<T, C> toNamedParameterTypes(PositionalParameterTypes<T, C> candidateParameterTypes, List<FormalParameter<T, C>> formalParameters) {
+        Map<String, T> map = new LinkedHashMap<>();
         for (int i = 0; i< formalParameters.size(); i++) {
-            FormalParameter p = formalParameters.get(i);
+            FormalParameter<T, C> p = formalParameters.get(i);
             map.put(p.getName(), candidateParameterTypes.getTypes().get(i));
         }
-        return new NamedParameterTypes(map);
+        return new NamedParameterTypes<>(map);
     }
 
-    private Map<String, Type> namedTypes = new LinkedHashMap<>();
+    private Map<String, T> namedTypes = new LinkedHashMap<>();
 
-    public NamedParameterTypes(Map<String, Type> namedTypes) {
+    public NamedParameterTypes(Map<String, T> namedTypes) {
         if (namedTypes != null) {
             this.namedTypes = namedTypes;
         }
@@ -40,26 +38,11 @@ public class NamedParameterTypes extends ParameterTypes {
         return this.namedTypes == null ? 0 : this.namedTypes.size();
     }
 
-    @Override
-    public boolean compatible(List<FormalParameter> parameters) {
-        if (size() != parameters.size()) {
-            return false;
-        }
-        for (FormalParameter formalParameter : parameters) {
-            Type argumentType = this.namedTypes.get(formalParameter.getName());
-            Type parameterType = formalParameter.getType();
-            if (!Type.conformsTo(argumentType, parameterType)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public Set<String> getNames() {
         return this.namedTypes.keySet();
     }
 
-    public Type getType(String name) {
+    public T getType(String name) {
         return this.namedTypes.get(name);
     }
 
@@ -67,7 +50,7 @@ public class NamedParameterTypes extends ParameterTypes {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NamedParameterTypes that = (NamedParameterTypes) o;
+        NamedParameterTypes<?, ?> that = (NamedParameterTypes<?, ?>) o;
         return Objects.equals(this.namedTypes, that.namedTypes);
     }
 

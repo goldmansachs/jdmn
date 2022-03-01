@@ -13,15 +13,13 @@
 package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.error.ErrorHandler;
-import com.gs.dmn.feel.analysis.syntax.ast.CloneVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.TraversalVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class NamesVisitor extends TraversalVisitor {
+public class NamesVisitor<T, C> extends TraversalVisitor<T, C> {
     private final Set<String> names;
 
     public NamesVisitor(ErrorHandler errorHandler) {
@@ -37,7 +35,7 @@ public class NamesVisitor extends TraversalVisitor {
     // Primary expressions
     //
     @Override
-    public Object visit(Name element, DMNContext context) {
+    public Object visit(Name<T, C> element, C context) {
         if (element == null) {
             return null;
         }

@@ -12,41 +12,33 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
-import com.gs.dmn.feel.analysis.semantics.type.TupleType;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ExpressionList extends Expression {
-    private List<Expression> expressionList = new ArrayList<>();
+public class ExpressionList<T, C> extends Expression<T, C> {
+    private List<Expression<T, C>> expressionList = new ArrayList<>();
 
     public ExpressionList() {
     }
 
-    public ExpressionList(List<Expression> expressionList) {
+    public ExpressionList(List<Expression<T, C>> expressionList) {
         this.expressionList = expressionList;
     }
 
-    public List<Expression> getExpressionList() {
+    public List<Expression<T, C>> getExpressionList() {
         return this.expressionList;
     }
 
-    public void add(Expression ast) {
+    public void add(Expression<T, C> ast) {
         this.expressionList.add(ast);
     }
 
     @Override
-    public void deriveType(DMNContext context) {
-        List<com.gs.dmn.feel.analysis.semantics.type.Type> types = this.expressionList.stream().map(Expression::getType).collect(Collectors.toList());
-        setType(new TupleType(types));
-    }
-
-    @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -54,7 +46,7 @@ public class ExpressionList extends Expression {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ExpressionList that = (ExpressionList) o;
+        ExpressionList<?, ?> that = (ExpressionList<?, ?>) o;
         return Objects.equals(expressionList, that.expressionList);
     }
 

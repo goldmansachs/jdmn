@@ -14,8 +14,10 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.Context;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNVersion;
@@ -75,7 +77,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         DMNModelRepository repository = readModels(file);
         handleValidationErrors(this.dmnValidator.validate(repository));
         dmnTransformer.transform(repository);
-        BasicDMNToNativeTransformer dmnTransformer = dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
+        BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer = dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
 
         // Transform
         transform(dmnTransformer, repository, outputPath);
@@ -84,7 +86,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         logger.info("DMN processing time: " + watch);
     }
 
-    protected void transform(BasicDMNToNativeTransformer dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
+    protected void transform(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
         for(TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
             // Generate data types
             List<String> generatedClasses = new ArrayList<>();
@@ -108,7 +110,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         }
     }
 
-    private void transformItemDefinitionList(TDefinitions definitions, List<TItemDefinition> itemDefinitionList, BasicDMNToNativeTransformer dmnTransformer, List<String> generatedClasses, Path outputPath) {
+    private void transformItemDefinitionList(TDefinitions definitions, List<TItemDefinition> itemDefinitionList, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath) {
         if (itemDefinitionList != null) {
             for (TItemDefinition itemDefinition : itemDefinitionList) {
                 transformItemDefinition(definitions, itemDefinition, dmnTransformer, generatedClasses, outputPath);
@@ -116,7 +118,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         }
     }
 
-    private void transformItemDefinition(TDefinitions definitions, TItemDefinition itemDefinition, BasicDMNToNativeTransformer dmnTransformer, List<String> generatedClasses, Path outputPath) {
+    private void transformItemDefinition(TDefinitions definitions, TItemDefinition itemDefinition, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath) {
         if (itemDefinition == null) {
             return;
         }
@@ -137,7 +139,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         }
     }
 
-    private void transformItemDefinition(TItemDefinition itemDefinition, BasicDMNToNativeTransformer dmnTransformer, String baseTemplatePath, String itemDefinitionTemplate, List<String> generatedClasses, Path outputPath, String typePackageName, String typeName) {
+    private void transformItemDefinition(TItemDefinition itemDefinition, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, String baseTemplatePath, String itemDefinitionTemplate, List<String> generatedClasses, Path outputPath, String typePackageName, String typeName) {
         String qualifiedName = dmnTransformer.qualifiedName(typePackageName, typeName);
         if (generatedClasses.contains(qualifiedName)) {
             logger.warn(String.format("Class '%s' has already been generated", typeName));
@@ -147,7 +149,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         }
     }
 
-    private void generateProtoFile(TDefinitions definitions, BasicDMNToNativeTransformer dmnTransformer, Path outputPath) {
+    private void generateProtoFile(TDefinitions definitions, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath) {
         Pair<Pair<List<MessageType>, List<MessageType>>, List<Service>> pair = dmnTransformer.dmnToProto(definitions);
         if (pair == null) {
             return;
@@ -169,13 +171,13 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         }
     }
 
-    private void transformBKMList(TDefinitions definitions, List<TBusinessKnowledgeModel> bkmList, BasicDMNToNativeTransformer dmnTransformer, List<String> generatedClasses, Path outputPath) {
+    private void transformBKMList(TDefinitions definitions, List<TBusinessKnowledgeModel> bkmList, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath) {
         for (TBusinessKnowledgeModel bkm : bkmList) {
             transformBKM(definitions, bkm, dmnTransformer, generatedClasses, outputPath, decisionBaseClass);
         }
     }
 
-    private void transformBKM(TDefinitions definitions, TBusinessKnowledgeModel bkm, BasicDMNToNativeTransformer dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
+    private void transformBKM(TDefinitions definitions, TBusinessKnowledgeModel bkm, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
         logger.debug(String.format("Generating code for BKM '%s'", bkm.getName()));
 
         String bkmPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
@@ -190,13 +192,13 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         }
     }
 
-    private void transformDSList(TDefinitions definitions, List<TDecisionService> dsList, BasicDMNToNativeTransformer dmnTransformer, List<String> generatedClasses, Path outputPath) {
+    private void transformDSList(TDefinitions definitions, List<TDecisionService> dsList, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath) {
         for (TDecisionService ds : dsList) {
             transformDS(definitions, ds, dmnTransformer, generatedClasses, outputPath, decisionBaseClass);
         }
     }
 
-    private void transformDS(TDefinitions definitions, TDecisionService ds, BasicDMNToNativeTransformer dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
+    private void transformDS(TDefinitions definitions, TDecisionService ds, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
         logger.debug(String.format("Generating code for DS '%s'", ds.getName()));
 
         String dsPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
@@ -205,13 +207,13 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         processTemplate(ds, templateProvider.baseTemplatePath(), templateProvider.dsTemplateName(), dmnTransformer, outputPath, dsPackageName, dsClassName, decisionBaseClass);
     }
 
-    private void transformDecisionList(TDefinitions definitions, List<TDecision> decisions, BasicDMNToNativeTransformer dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
+    private void transformDecisionList(TDefinitions definitions, List<TDecision> decisions, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
         for (TDecision decision : decisions) {
             transformDecision(definitions, decision, dmnTransformer, generatedClasses, outputPath, decisionBaseClass);
         }
     }
 
-    private void transformDecision(TDefinitions definitions, TDecision decision, BasicDMNToNativeTransformer dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
+    private void transformDecision(TDefinitions definitions, TDecision decision, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
         logger.debug(String.format("Generating code for Decision '%s'", decision.getName()));
 
         String decisionPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
@@ -226,7 +228,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         }
     }
 
-    private void checkDuplicate(List<String> generatedClasses, String pkg, String className, BasicDMNToNativeTransformer dmnTransformer) {
+    private void checkDuplicate(List<String> generatedClasses, String pkg, String className, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         String qualifiedName = dmnTransformer.qualifiedName(pkg, className);
         if (generatedClasses.contains(qualifiedName)) {
             throw new DMNRuntimeException(String.format("Class '%s' has already been generated", qualifiedName));
@@ -235,7 +237,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         }
     }
 
-    private void processTemplate(TItemDefinition itemDefinition, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer dmnTransformer, Path outputPath, String javaPackageName, String javaClassName) {
+    private void processTemplate(TItemDefinition itemDefinition, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath, String javaPackageName, String javaClassName) {
         try {
             // Make parameters
             Map<String, Object> params = makeTemplateParams(itemDefinition, javaPackageName, javaClassName, dmnTransformer);
@@ -252,7 +254,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         }
     }
 
-    private void processTemplate(TInvocable in, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer dmnTransformer, Path outputPath, String javaPackageName, String javaClassName, String decisionBaseClass) {
+    private void processTemplate(TInvocable in, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath, String javaPackageName, String javaClassName, String decisionBaseClass) {
         try {
             // Make parameters
             Map<String, Object> params = makeTemplateParams(in, javaPackageName, javaClassName, decisionBaseClass, dmnTransformer);
@@ -269,7 +271,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         }
     }
 
-    private void processTemplate(TDecision decision, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer dmnTransformer, Path outputPath, String javaPackageName, String javaClassName, String decisionBaseClass) {
+    private void processTemplate(TDecision decision, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath, String javaPackageName, String javaClassName, String decisionBaseClass) {
         try {
             // Make parameters
             Map<String, Object> params = makeTemplateParams(decision, javaPackageName, javaClassName, decisionBaseClass, dmnTransformer);
@@ -291,7 +293,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     //
     // FreeMarker model methods
     //
-    private Map<String, Object> makeTemplateParams(TItemDefinition itemDefinition, String javaPackageName, String javaClassName, BasicDMNToNativeTransformer dmnTransformer) {
+    private Map<String, Object> makeTemplateParams(TItemDefinition itemDefinition, String javaPackageName, String javaClassName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         Map<String, Object> params = new HashMap<>();
         params.put("itemDefinition", itemDefinition);
 
@@ -303,7 +305,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         return params;
     }
 
-    private Map<String, Object> makeTemplateParams(TInvocable invocable, String javaPackageName, String javaClassName, String decisionBaseClass, BasicDMNToNativeTransformer dmnTransformer) {
+    private Map<String, Object> makeTemplateParams(TInvocable invocable, String javaPackageName, String javaClassName, String decisionBaseClass, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         Map<String, Object> params = new HashMap<>();
         params.put("drgElement", invocable);
         params.put("decisionBaseClass", decisionBaseClass);
@@ -311,7 +313,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         return params;
     }
 
-    private Map<String, Object> makeTemplateParams(TDecision decision, String javaPackageName, String javaClassName, String decisionBaseClass, BasicDMNToNativeTransformer dmnTransformer) {
+    private Map<String, Object> makeTemplateParams(TDecision decision, String javaPackageName, String javaClassName, String decisionBaseClass, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         Map<String, Object> params = new HashMap<>();
         params.put("drgElement", decision);
         params.put("decisionBaseClass", decisionBaseClass);
@@ -319,7 +321,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         return params;
     }
 
-    private Map<String, Object> makeProtoTemplateParams(Pair<List<MessageType>, List<MessageType>> messageTypes, List<Service> services, String javaPackageName, BasicDMNToNativeTransformer dmnTransformer) {
+    private Map<String, Object> makeProtoTemplateParams(Pair<List<MessageType>, List<MessageType>> messageTypes, List<Service> services, String javaPackageName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         Map<String, Object> params = new HashMap<>();
         params.put("protoPackageName", dmnTransformer.protoPackage(javaPackageName));
         params.put("dataTypes", messageTypes.getLeft());
@@ -329,7 +331,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         return params;
     }
 
-    private void addCommonParams(Map<String, Object> params, String javaPackageName, String javaClassName, BasicDMNToNativeTransformer dmnTransformer) {
+    private void addCommonParams(Map<String, Object> params, String javaPackageName, String javaClassName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         params.put("javaPackageName", javaPackageName);
         params.put("javaClassName", javaClassName);
         params.put("transformer", dmnTransformer);

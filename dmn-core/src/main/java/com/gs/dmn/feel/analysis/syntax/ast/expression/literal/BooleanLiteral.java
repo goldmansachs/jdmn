@@ -12,22 +12,15 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.literal;
 
-import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
-public class BooleanLiteral extends SimpleLiteral {
+public class BooleanLiteral<T, C> extends SimpleLiteral<T, C> {
     public BooleanLiteral(String value) {
         super(value);
     }
 
     @Override
-    public void deriveType(DMNContext context) {
-        this.setType(BooleanType.BOOLEAN);
-    }
-
-    @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

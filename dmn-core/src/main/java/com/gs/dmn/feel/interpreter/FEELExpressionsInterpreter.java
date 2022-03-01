@@ -14,11 +14,10 @@ package com.gs.dmn.feel.interpreter;
 
 import com.gs.dmn.feel.analysis.FEELExpressionsAnalyzer;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.interpreter.Result;
 
-interface FEELExpressionsInterpreter extends FEELExpressionsAnalyzer {
-    Result evaluateExpression(String text, DMNContext context);
+interface FEELExpressionsInterpreter<T, C> extends FEELExpressionsAnalyzer<T, C> {
+    Result evaluateExpression(String text, C context);
 
-    Result evaluateExpression(Expression expression, DMNContext context);
+    Result evaluateExpression(Expression<T, C> expression, C context);
 }

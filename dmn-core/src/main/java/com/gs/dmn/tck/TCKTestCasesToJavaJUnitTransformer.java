@@ -14,8 +14,10 @@ package com.gs.dmn.tck;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
@@ -39,7 +41,7 @@ import java.util.Map;
 import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
 
 public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesToJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
-    protected final BasicDMNToNativeTransformer basicTransformer;
+    protected final BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer;
 
     protected final TestCasesReader testCasesReader;
     private final TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil;
@@ -97,7 +99,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         }
     }
 
-    protected void processTemplate(TestCases testCases, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer dmnTransformer, Path outputPath, String testClassName) {
+    protected void processTemplate(TestCases testCases, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath, String testClassName) {
         try {
             // Make output file
             String javaPackageName = dmnTransformer.nativeModelPackageName(testCases.getModelName());
@@ -118,7 +120,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         }
     }
 
-    protected String testClassName(TestCases testCases, BasicDMNToNativeTransformer dmnTransformer) {
+    protected String testClassName(TestCases testCases, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         String modelName = testCases.getModelName();
         if (modelName.endsWith(DMNConstants.DMN_FILE_EXTENSION)) {
             modelName = modelName.substring(0, modelName.length() - 4);
@@ -126,7 +128,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         return dmnTransformer.nativeFriendlyName("Test" + modelName);
     }
 
-    private Map<String, Object> makeTemplateParams(TestCases testCases, BasicDMNToNativeTransformer dmnTransformer) {
+    private Map<String, Object> makeTemplateParams(TestCases testCases, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         Map<String, Object> params = new HashMap<>();
         params.put("testCases", testCases);
         params.put("tckUtil", tckUtil);

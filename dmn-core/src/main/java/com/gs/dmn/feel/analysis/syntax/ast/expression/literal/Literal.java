@@ -14,7 +14,7 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.literal;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-public abstract class Literal extends Expression {
+public abstract class Literal<T, C> extends Expression<T, C> {
     protected Literal() {
     }
 }

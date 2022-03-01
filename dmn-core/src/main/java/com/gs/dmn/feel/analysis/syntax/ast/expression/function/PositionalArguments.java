@@ -12,12 +12,33 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class PositionalParameterTypesTest extends ParameterTypesTest {
+public class PositionalArguments<T, C> extends Arguments<T, C> {
+    private final List<Object> arguments;
+
+    public PositionalArguments() {
+        this(new ArrayList<>());
+    }
+
+    public PositionalArguments(List<Object> arguments) {
+        if (arguments == null) {
+            arguments = new ArrayList<>();
+        }
+        this.arguments = arguments;
+    }
+
+    public List<Object> getArguments() {
+        return arguments;
+    }
+
+    public void add(Object arg) {
+        this.arguments.add(arg);
+    }
+
     @Override
-    protected ParameterTypes makeParameterTypes(List<FormalParameter> parameters) {
-        return new PositionalParameterTypes(parameters.stream().map(FormalParameter::getType).collect(Collectors.toList()));
+    public List<Object> argumentList(List<FormalParameter<T, C>> formalParameters) {
+        return arguments;
     }
 }

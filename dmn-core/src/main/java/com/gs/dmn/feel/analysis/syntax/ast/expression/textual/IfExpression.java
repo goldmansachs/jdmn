@@ -12,67 +12,36 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.textual;
 
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.type.NullType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
-import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
+public class IfExpression<T, C> extends Expression<T, C> {
+    private final Expression<T, C> condition;
+    private final Expression<T, C> thenExpression;
+    private final Expression<T, C> elseExpression;
 
-public class IfExpression extends Expression {
-    private final Expression condition;
-    private final Expression thenExpression;
-    private final Expression elseExpression;
-
-    public IfExpression(Expression condition, Expression thenExpression, Expression elseExpression) {
+    public IfExpression(Expression<T, C> condition, Expression<T, C> thenExpression, Expression<T, C> elseExpression) {
         this.condition = condition;
         this.thenExpression = thenExpression;
         this.elseExpression = elseExpression;
     }
 
-    public Expression getCondition() {
+    public Expression<T, C> getCondition() {
         return this.condition;
     }
 
-    public Expression getThenExpression() {
+    public Expression<T, C> getThenExpression() {
         return this.thenExpression;
     }
 
-    public Expression getElseExpression() {
+    public Expression<T, C> getElseExpression() {
         return this.elseExpression;
     }
 
     @Override
-    public void deriveType(DMNContext context) {
-        Type conditionType = this.condition.getType();
-        Type thenType = this.thenExpression.getType();
-        Type elseType = this.elseExpression.getType();
-        if (conditionType != BOOLEAN) {
-            throw new SemanticError(this, String.format("Condition type must be boolean. Found '%s' instead.", conditionType));
-        }
-        if (thenType == NullType.NULL && elseType == NullType.NULL) {
-            throw new SemanticError(this, String.format("Types of then and else branches are incompatible. Found '%s' and '%s'.", thenType, elseType));
-        } else if (thenType == NullType.NULL) {
-            setType(elseType);
-        } else if (elseType == NullType.NULL) {
-            setType(thenType);
-        } else {
-            if (Type.conformsTo(thenType, elseType)) {
-                setType(elseType);
-            } else if (Type.conformsTo(elseType, thenType)) {
-                setType(thenType);
-            } else {
-                throw new SemanticError(this, String.format("Types of then and else branches are incompatible. Found '%s' and '%s'.", thenType, elseType));
-            }
-        }
-    }
-
-    @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -80,7 +49,7 @@ public class IfExpression extends Expression {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        IfExpression that = (IfExpression) o;
+        IfExpression<?, ?> that = (IfExpression<?, ?>) o;
         return Objects.equals(condition, that.condition) && Objects.equals(thenExpression, that.thenExpression) && Objects.equals(elseExpression, that.elseExpression);
     }
 

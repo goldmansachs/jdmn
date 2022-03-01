@@ -12,43 +12,23 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
-import com.gs.dmn.feel.analysis.semantics.type.RangeType;
-import com.gs.dmn.feel.analysis.semantics.type.TupleType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.Objects;
 
-public class NegatedPositiveUnaryTests extends UnaryTests {
-    private final PositiveUnaryTests positiveUnaryTests;
+public class NegatedPositiveUnaryTests<T, C> extends UnaryTests<T, C> {
+    private final PositiveUnaryTests<T, C> positiveUnaryTests;
 
-    public NegatedPositiveUnaryTests(PositiveUnaryTests positiveUnaryTests) {
+    public NegatedPositiveUnaryTests(PositiveUnaryTests<T, C> positiveUnaryTests) {
         this.positiveUnaryTests = positiveUnaryTests;
     }
 
-    public PositiveUnaryTests getPositiveUnaryTests() {
+    public PositiveUnaryTests<T, C> getPositiveUnaryTests() {
         return this.positiveUnaryTests;
     }
 
     @Override
-    public void deriveType(DMNContext context) {
-        Type type = this.positiveUnaryTests.getType();
-        setType(type);
-        if (type instanceof TupleType) {
-            for (Type child : ((TupleType) type).getTypes()) {
-                if (child == BooleanType.BOOLEAN || child instanceof RangeType) {
-                } else {
-                    throw new SemanticError(this, String.format("Operator '%s' cannot be applied to '%s'", "not", child));
-                }
-            }
-        }
-    }
-
-    @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -56,7 +36,7 @@ public class NegatedPositiveUnaryTests extends UnaryTests {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NegatedPositiveUnaryTests that = (NegatedPositiveUnaryTests) o;
+        NegatedPositiveUnaryTests<?, ?> that = (NegatedPositiveUnaryTests<?, ?>) o;
         return Objects.equals(positiveUnaryTests, that.positiveUnaryTests);
     }
 

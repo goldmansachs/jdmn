@@ -21,6 +21,9 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Multiplication;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.comparison.BetweenExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.comparison.InExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.comparison.Relational;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.context.Context;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.context.ContextEntry;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.context.ContextEntryKey;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Conjunction;
@@ -32,9 +35,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.type.FunctionTypeExpressio
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.ListTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.NamedTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
-import com.gs.dmn.runtime.DMNContext;
 
-public class TraversalVisitor extends AbstractVisitor {
+public class TraversalVisitor<T, C> extends AbstractVisitor<T, C> {
     public TraversalVisitor(ErrorHandler errorHandler) {
         super(errorHandler);
     }
@@ -43,7 +45,7 @@ public class TraversalVisitor extends AbstractVisitor {
     // Tests
     //
     @Override
-    public Object visit(PositiveUnaryTests element, DMNContext context) {
+    public Object visit(PositiveUnaryTests<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -53,7 +55,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(NegatedPositiveUnaryTests element, DMNContext context) {
+    public Object visit(NegatedPositiveUnaryTests<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -63,17 +65,17 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(Any element, DMNContext context) {
+    public Object visit(Any<T, C> element, C context) {
         return element;
     }
 
     @Override
-    public Object visit(NullTest element, DMNContext context) {
+    public Object visit(NullTest<T, C> element, C context) {
         return element;
     }
 
     @Override
-    public Object visit(ExpressionTest element, DMNContext context) {
+    public Object visit(ExpressionTest<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -83,7 +85,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(OperatorRange element, DMNContext context) {
+    public Object visit(OperatorRange<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -93,7 +95,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(EndpointsRange element, DMNContext context) {
+    public Object visit(EndpointsRange<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -108,7 +110,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(ListTest element, DMNContext context) {
+    public Object visit(ListTest<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -121,19 +123,19 @@ public class TraversalVisitor extends AbstractVisitor {
     // Textual expressions
     //
     @Override
-    public Object visit(FunctionDefinition element, DMNContext context) {
+    public Object visit(FunctionDefinition<T, C> element, C context) {
         element.getBody().accept(this, context);
         element.getFormalParameters().forEach(p -> p.accept(this, context));
         return element;
     }
 
     @Override
-    public Object visit(FormalParameter element, DMNContext context) {
+    public Object visit(FormalParameter<T, C> element, C context) {
         return element;
     }
 
     @Override
-    public Object visit(Context element, DMNContext context) {
+    public Object visit(Context<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -143,7 +145,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(ContextEntry element, DMNContext context) {
+    public Object visit(ContextEntry<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -154,7 +156,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(ContextEntryKey element, DMNContext context) {
+    public Object visit(ContextEntryKey<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -163,7 +165,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(ForExpression element, DMNContext context) {
+    public Object visit(ForExpression<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -174,7 +176,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(Iterator element, DMNContext context) {
+    public Object visit(Iterator<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -184,7 +186,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(ExpressionIteratorDomain element, DMNContext context) {
+    public Object visit(ExpressionIteratorDomain<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -194,7 +196,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(RangeIteratorDomain element, DMNContext context) {
+    public Object visit(RangeIteratorDomain<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -205,7 +207,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(IfExpression element, DMNContext context) {
+    public Object visit(IfExpression<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -217,7 +219,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(QuantifiedExpression element, DMNContext context) {
+    public Object visit(QuantifiedExpression<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -228,7 +230,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(FilterExpression element, DMNContext context) {
+    public Object visit(FilterExpression<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -239,7 +241,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(InstanceOfExpression element, DMNContext context) {
+    public Object visit(InstanceOfExpression<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -253,7 +255,7 @@ public class TraversalVisitor extends AbstractVisitor {
     // Expressions
     //
     @Override
-    public Object visit(ExpressionList element, DMNContext context) {
+    public Object visit(ExpressionList<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -266,7 +268,7 @@ public class TraversalVisitor extends AbstractVisitor {
     // Logic expressions
     //
     @Override
-    public Object visit(Conjunction element, DMNContext context) {
+    public Object visit(Conjunction<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -277,7 +279,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(Disjunction element, DMNContext context) {
+    public Object visit(Disjunction<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -288,7 +290,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(LogicNegation element, DMNContext context) {
+    public Object visit(LogicNegation<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -301,7 +303,7 @@ public class TraversalVisitor extends AbstractVisitor {
     // Comparison expressions
     //
     @Override
-    public Object visit(Relational element, DMNContext context) {
+    public Object visit(Relational<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -312,7 +314,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(BetweenExpression element, DMNContext context) {
+    public Object visit(BetweenExpression<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -324,7 +326,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(InExpression element, DMNContext context) {
+    public Object visit(InExpression<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -338,7 +340,7 @@ public class TraversalVisitor extends AbstractVisitor {
     // Arithmetic expressions
     //
     @Override
-    public Object visit(Addition element, DMNContext context) {
+    public Object visit(Addition<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -349,7 +351,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(Multiplication element, DMNContext context) {
+    public Object visit(Multiplication<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -360,7 +362,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(Exponentiation element, DMNContext context) {
+    public Object visit(Exponentiation<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -371,7 +373,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(ArithmeticNegation element, DMNContext context) {
+    public Object visit(ArithmeticNegation<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -384,7 +386,7 @@ public class TraversalVisitor extends AbstractVisitor {
     // Postfix expressions
     //
     @Override
-    public Object visit(PathExpression element, DMNContext context) {
+    public Object visit(PathExpression<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -394,7 +396,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(FunctionInvocation element, DMNContext context) {
+    public Object visit(FunctionInvocation<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -405,7 +407,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(NamedParameters element, DMNContext context) {
+    public Object visit(NamedParameters<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -415,7 +417,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(PositionalParameters element, DMNContext context) {
+    public Object visit(PositionalParameters<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -428,7 +430,7 @@ public class TraversalVisitor extends AbstractVisitor {
     // Primary expressions
     //
     @Override
-    public Object visit(BooleanLiteral element, DMNContext context) {
+    public Object visit(BooleanLiteral<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -437,7 +439,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(DateTimeLiteral element, DMNContext context) {
+    public Object visit(DateTimeLiteral<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -446,7 +448,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(NullLiteral element, DMNContext context) {
+    public Object visit(NullLiteral<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -455,7 +457,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(NumericLiteral element, DMNContext context) {
+    public Object visit(NumericLiteral<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -464,7 +466,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(StringLiteral element, DMNContext context) {
+    public Object visit(StringLiteral<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -473,7 +475,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(ListLiteral element, DMNContext context) {
+    public Object visit(ListLiteral<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -483,7 +485,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(QualifiedName element, DMNContext context) {
+    public Object visit(QualifiedName<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -492,7 +494,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(Name element, DMNContext context) {
+    public Object visit(Name<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -501,7 +503,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(NamedTypeExpression element, DMNContext params) {
+    public Object visit(NamedTypeExpression<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -510,7 +512,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(ListTypeExpression element, DMNContext params) {
+    public Object visit(ListTypeExpression<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -519,7 +521,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(ContextTypeExpression element, DMNContext params) {
+    public Object visit(ContextTypeExpression<T, C> element, C context) {
         if (element == null) {
             return null;
         }
@@ -528,7 +530,7 @@ public class TraversalVisitor extends AbstractVisitor {
     }
 
     @Override
-    public Object visit(FunctionTypeExpression element, DMNContext params) {
+    public Object visit(FunctionTypeExpression<T, C> element, C context) {
         if (element == null) {
             return null;
         }

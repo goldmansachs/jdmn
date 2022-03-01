@@ -10,34 +10,36 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
+package com.gs.dmn.feel.analysis.syntax.ast.expression.context;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-public class ContextEntryKey extends Element {
-    private final String key;
+public class ContextEntry<T, C> extends Element<T, C> {
+    private final ContextEntryKey<T, C> key;
+    private final Expression<T, C> expression;
 
-    public ContextEntryKey(String key) {
-        // Remove quotes from key if key is string
-        if (key.startsWith("\"") && key.endsWith("\"")) {
-            key = key.substring(1, key.length() - 1);
-        }
+    public ContextEntry(ContextEntryKey<T, C> key, Expression<T, C> expression) {
         this.key = key;
+        this.expression = expression;
     }
 
-    public String getKey() {
+    public ContextEntryKey<T, C> getKey() {
         return this.key;
     }
 
+    public Expression<T, C> getExpression() {
+        return this.expression;
+    }
+
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
     @Override
     public String toString() {
-        return String.format("%s(%s)", getClass().getSimpleName(), this.key);
+        return String.format("%s(%s = %s)", getClass().getSimpleName(), this.key.toString(), this.expression.toString());
     }
 }
