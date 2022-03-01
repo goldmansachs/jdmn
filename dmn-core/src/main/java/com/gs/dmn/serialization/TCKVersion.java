@@ -22,7 +22,7 @@ import java.util.Map;
 public class TCKVersion {
     protected static final LinkedHashMap<String, String> TCK_1_OTHER_NAMESPACES = new LinkedHashMap<>();
     public static final TCKVersion TCK_1 = new TCKVersion("1", "tck/testCases.xsd",
-            null, "",
+            "", "http://www.omg.org/spec/DMN/20160719/testcase",
             TCK_1_OTHER_NAMESPACES,
             "org.omg.dmn.tck.marshaller._20160719"
     );
