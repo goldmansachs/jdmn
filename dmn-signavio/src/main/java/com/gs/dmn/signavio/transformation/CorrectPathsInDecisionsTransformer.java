@@ -184,27 +184,36 @@ public class CorrectPathsInDecisionsTransformer extends SimpleDMNTransformer<Tes
 
             // Correct InputClauses
             TDecisionTable dte = (TDecisionTable) expression;
-            List<TInputClause> inputList = dte.getInput();
-            for (int i=0; i<inputList.size(); i++) {
-                if (inputIndexes.contains(i + 1)) {
-                    TInputClause inputClause = inputList.get(i);
-                    updateLiteralExpression(inputClause.getInputExpression(), oldValue, newValue, decision);
-                }
-            }
+            boolean correctAll = inputIndexes.isEmpty() && ruleIndexes.isEmpty();
+            correctInputClauses(decision, oldValue, newValue, inputIndexes, correctAll, dte);
             // Correct Rules
-            List<TDecisionRule> ruleList = dte.getRule();
-            for (int i=0; i<ruleList.size(); i++) {
-                if (ruleIndexes.contains(i + 1)) {
-                    TDecisionRule rule = ruleList.get(i);
-                    for (TLiteralExpression outputEntry: rule.getOutputEntry()) {
-                        updateLiteralExpression(outputEntry, oldValue, newValue, decision);
-                    }
-                }
-            }
+            correctRules(decision, oldValue, newValue, ruleIndexes, correctAll, dte);
         } else {
             reportInvalidConfig(String.format("Correction '%s' is not supported for decision '%s' yet", cor, decision));
         }
 
+    }
+
+    private void correctRules(TDecision decision, String oldValue, String newValue, List<Integer> ruleIndexes, boolean correctAll, TDecisionTable dte) {
+        List<TDecisionRule> ruleList = dte.getRule();
+        for (int i=0; i<ruleList.size(); i++) {
+            if (correctAll || ruleIndexes.contains(i + 1)) {
+                TDecisionRule rule = ruleList.get(i);
+                for (TLiteralExpression outputEntry: rule.getOutputEntry()) {
+                    updateLiteralExpression(outputEntry, oldValue, newValue, decision);
+                }
+            }
+        }
+    }
+
+    private void correctInputClauses(TDecision decision, String oldValue, String newValue, List<Integer> inputIndexes, boolean correctAll, TDecisionTable dte) {
+        List<TInputClause> inputList = dte.getInput();
+        for (int i=0; i<inputList.size(); i++) {
+            if (correctAll || inputIndexes.contains(i + 1)) {
+                TInputClause inputClause = inputList.get(i);
+                updateLiteralExpression(inputClause.getInputExpression(), oldValue, newValue, decision);
+            }
+        }
     }
 
     private void updateLiteralExpression(TLiteralExpression expression, String oldValue, String newValue, TDecision decision) {
