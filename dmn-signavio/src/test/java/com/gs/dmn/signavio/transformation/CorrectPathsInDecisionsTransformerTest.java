@@ -187,8 +187,8 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractFileTransfor
         TDecision decision = (TDecision) drgElement;
         TExpression expression = repository.expression(decision);
         assertTrue(expression instanceof TDecisionTable);
-        assertEquals("applicant.priorIssues.priorIssues", ((TDecisionTable) expression).getInput().get(0).getInputExpression().getText());
-        assertEquals("(count(applicant.priorIssues.priorIssues)*(-5))", ((TDecisionTable) expression).getRule().get(4).getOutputEntry().get(0).getText());
+        assertEquals("applicant.priorIssues", ((TDecisionTable) expression).getInput().get(0).getInputExpression().getText());
+        assertEquals("(count(applicant.priorIssues)*(-5))", ((TDecisionTable) expression).getRule().get(4).getOutputEntry().get(0).getText());
     }
 
     @Test
