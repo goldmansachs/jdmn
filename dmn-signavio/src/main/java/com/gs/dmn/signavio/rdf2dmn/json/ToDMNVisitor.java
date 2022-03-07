@@ -15,6 +15,7 @@ package com.gs.dmn.signavio.rdf2dmn.json;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
@@ -60,7 +61,7 @@ public class ToDMNVisitor implements Visitor {
 
     private final RDFModel rdfModel;
     private final DMNDialectDefinition dialectDefinition;
-    private final BasicDMNToNativeTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
 
     public ToDMNVisitor(RDFModel rdfModel, InputParameters inputParameters) {
         this.dialectDefinition = new SignavioDMNDialectDefinition();

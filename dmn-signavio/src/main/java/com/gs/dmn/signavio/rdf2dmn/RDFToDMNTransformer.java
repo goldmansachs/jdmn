@@ -14,7 +14,9 @@ package com.gs.dmn.signavio.rdf2dmn;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gs.dmn.dialect.DMNDialectDefinition;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
@@ -85,7 +87,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     private RDFModel rdfModel;
     private final RDFReader rdfReader;
     private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialectDefinition;
-    private final BasicDMNToNativeTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
     private final DMNReader dmnReader;
     private final DMNWriter dmnWriter;
 
