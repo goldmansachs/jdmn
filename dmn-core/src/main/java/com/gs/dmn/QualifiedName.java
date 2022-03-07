@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.transformation.basic;
+package com.gs.dmn;
 
 import com.gs.dmn.serialization.DMNVersion;
 import org.omg.spec.dmn._20191111.model.TDefinitions;

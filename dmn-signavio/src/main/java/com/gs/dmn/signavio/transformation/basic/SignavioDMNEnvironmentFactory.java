@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.signavio.transformation.basic;
 
+import com.gs.dmn.QualifiedName;
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.FEELFunctionType;
@@ -22,7 +23,6 @@ import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.basic.StandardDMNEnvironmentFactory;
 import org.omg.spec.dmn._20191111.model.*;
 

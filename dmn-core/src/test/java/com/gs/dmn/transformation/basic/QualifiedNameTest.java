@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.transformation.basic;
 
+import com.gs.dmn.QualifiedName;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

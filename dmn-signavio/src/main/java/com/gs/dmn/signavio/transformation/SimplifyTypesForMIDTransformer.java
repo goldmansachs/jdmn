@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.QualifiedName;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
@@ -27,7 +28,6 @@ import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20191111.model.TDecision;

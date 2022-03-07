@@ -14,6 +14,8 @@ package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.ImportPath;
+import com.gs.dmn.QualifiedName;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.LogErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
@@ -34,7 +36,6 @@ import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.*;
 import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;

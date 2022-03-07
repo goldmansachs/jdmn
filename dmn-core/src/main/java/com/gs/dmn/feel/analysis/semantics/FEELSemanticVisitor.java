@@ -954,7 +954,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
     public Object visit(NamedTypeExpression<Type, DMNContext> element, DMNContext context) {
         // Derive type
         TDefinitions model = this.dmnModelRepository.getModel(context.getElement());
-        com.gs.dmn.transformation.basic.QualifiedName typeRef = com.gs.dmn.transformation.basic.QualifiedName.toQualifiedName(model, element.getQualifiedName());
+        com.gs.dmn.QualifiedName typeRef = com.gs.dmn.QualifiedName.toQualifiedName(model, element.getQualifiedName());
         element.setType(this.dmnTransformer.toFEELType(null, typeRef));
         return element;
     }

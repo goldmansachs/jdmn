@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.testlab;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.QualifiedName;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.DMNContext;
@@ -21,7 +22,6 @@ import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.expression.*;
 import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.native_.expression.NativeExpressionFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;

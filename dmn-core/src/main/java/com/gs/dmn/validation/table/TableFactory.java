@@ -13,6 +13,7 @@
 package com.gs.dmn.validation.table;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.QualifiedName;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.BooleanLiteral;
@@ -22,7 +23,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.StringLiteral;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.runtime.DMNContext;
-import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20191111.model.*;
 

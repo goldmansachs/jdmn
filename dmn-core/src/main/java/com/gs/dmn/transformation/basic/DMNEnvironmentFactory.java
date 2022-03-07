@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.transformation.basic;
 
+import com.gs.dmn.QualifiedName;
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
