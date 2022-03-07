@@ -14,11 +14,8 @@ package com.gs.dmn;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.runtime.interpreter.ImportPath;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
-import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
-import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
@@ -32,6 +29,7 @@ import static org.omg.spec.dmn._20191111.model.TBuiltinAggregator.COUNT;
 import static org.omg.spec.dmn._20191111.model.TBuiltinAggregator.SUM;
 
 public class DMNModelRepository {
+    public static final String FREE_TEXT_LANGUAGE = "free_text";
     protected static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(DMNModelRepository.class);
@@ -898,7 +896,7 @@ public class DMNModelRepository {
     public boolean isFreeTextLiteralExpression(TDRGElement element) {
         TExpression expression = expression(element);
         return expression instanceof TLiteralExpression
-                && AbstractDMNToNativeTransformer.FREE_TEXT_LANGUAGE.equals(((TLiteralExpression)expression).getExpressionLanguage());
+                && FREE_TEXT_LANGUAGE.equals(((TLiteralExpression)expression).getExpressionLanguage());
     }
 
     public boolean isDecisionTableExpression(TDRGElement element) {

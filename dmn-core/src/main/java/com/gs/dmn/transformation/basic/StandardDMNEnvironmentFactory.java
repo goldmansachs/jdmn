@@ -14,6 +14,8 @@ package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.ImportPath;
+import com.gs.dmn.QualifiedName;
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
@@ -29,7 +31,6 @@ import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.runtime.interpreter.ImportPath;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;

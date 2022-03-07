@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.TypeExpression;
@@ -47,7 +46,7 @@ public class FormalParameter<T, C> extends Element<T, C> {
         this.optional = optional;
         this.varArg = varArg;
         if (optional && varArg) {
-            throw new SemanticError("Parameter cannot be optional and varArg in the same time");
+            throw new IllegalArgumentException("Parameter cannot be optional and varArg in the same time");
         }
     }
 

@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.rdf2dmn;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.log.BuildLogger;
@@ -32,7 +33,6 @@ import com.gs.dmn.signavio.rdf2dmn.json.expression.FunctionCall;
 import com.gs.dmn.signavio.rdf2dmn.json.expression.Reference;
 import com.gs.dmn.signavio.rdf2dmn.json.relation.EnumerationProperty;
 import com.gs.dmn.signavio.rdf2dmn.json.relation.Relation;
-import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.AbstractFileTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
@@ -526,7 +526,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         tLiteralExpression.setText(text(expression));
         String expressionLanguage = expression.getExpressionLanguage();
         if (StringUtils.isBlank(expressionLanguage)) {
-            tLiteralExpression.setExpressionLanguage(AbstractDMNToNativeTransformer.FREE_TEXT_LANGUAGE);
+            tLiteralExpression.setExpressionLanguage(DMNModelRepository.FREE_TEXT_LANGUAGE);
         }
         return tLiteralExpression;
     }
