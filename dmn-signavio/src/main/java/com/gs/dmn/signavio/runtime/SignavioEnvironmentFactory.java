@@ -84,95 +84,95 @@ public class SignavioEnvironmentFactory implements EnvironmentFactory {
     }
 
     private static void addDataAcceptanceFunctions(Environment environment) {
-        addFunctionDeclaration(environment, "isDefined", new BuiltinFunctionType(BOOLEAN, new FormalParameter("arg", ANY)));
-        addFunctionDeclaration(environment, "isUndefined", new BuiltinFunctionType(BOOLEAN, new FormalParameter("arg", ANY)));
-        addFunctionDeclaration(environment, "isValid", new BuiltinFunctionType(BOOLEAN, new FormalParameter("arg", ANY)));
-        addFunctionDeclaration(environment, "isInvalid", new BuiltinFunctionType(BOOLEAN, new FormalParameter("arg", ANY)));
+        addFunctionDeclaration(environment, "isDefined", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("arg", ANY)));
+        addFunctionDeclaration(environment, "isUndefined", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("arg", ANY)));
+        addFunctionDeclaration(environment, "isValid", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("arg", ANY)));
+        addFunctionDeclaration(environment, "isInvalid", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("arg", ANY)));
     }
 
     private static void addConversionFunctions(Environment environment) {
-        addFunctionDeclaration(environment, "date", new BuiltinFunctionType(DATE, new FormalParameter("from", STRING)));
-        addFunctionDeclaration(environment, "date and time", new BuiltinFunctionType(DATE_AND_TIME, new FormalParameter("from", STRING)));
-        addFunctionDeclaration(environment, "time", new BuiltinFunctionType(TIME, new FormalParameter("from", STRING)));
-        addFunctionDeclaration(environment, "string", new BuiltinFunctionType(STRING, new FormalParameter("from", ANY)));
+        addFunctionDeclaration(environment, "date", new BuiltinFunctionType(DATE, new FormalParameter<>("from", STRING)));
+        addFunctionDeclaration(environment, "date and time", new BuiltinFunctionType(DATE_AND_TIME, new FormalParameter<>("from", STRING)));
+        addFunctionDeclaration(environment, "time", new BuiltinFunctionType(TIME, new FormalParameter<>("from", STRING)));
+        addFunctionDeclaration(environment, "string", new BuiltinFunctionType(STRING, new FormalParameter<>("from", ANY)));
     }
 
     private static void addNumberFunctions(Environment environment) {
-        addFunctionDeclaration(environment, "abs", new BuiltinFunctionType(NUMBER, new FormalParameter("number", NUMBER)));
-        addFunctionDeclaration(environment, "count", new BuiltinFunctionType(NUMBER, new FormalParameter("list", ANY_LIST)));
-        addFunctionDeclaration(environment, "round", new BuiltinFunctionType(NUMBER, new FormalParameter("number", NUMBER), new FormalParameter("digits", NUMBER)));
-        addFunctionDeclaration(environment, "ceiling", new BuiltinFunctionType(NUMBER, new FormalParameter("n", NUMBER)));
-        addFunctionDeclaration(environment, "floor", new BuiltinFunctionType(NUMBER, new FormalParameter("n", NUMBER)));
-        addFunctionDeclaration(environment, "integer", new BuiltinFunctionType(NUMBER, new FormalParameter("number", NUMBER)));
-        addFunctionDeclaration(environment, "modulo", new BuiltinFunctionType(NUMBER, new FormalParameter("dividend", NUMBER), new FormalParameter("divisor", NUMBER)));
-        addFunctionDeclaration(environment, "percent", new BuiltinFunctionType(NUMBER, new FormalParameter("number", NUMBER)));
-        addFunctionDeclaration(environment, "power", new BuiltinFunctionType(NUMBER, new FormalParameter("base", NUMBER), new FormalParameter("exponent", NUMBER)));
-        addFunctionDeclaration(environment, "product", new BuiltinFunctionType(NUMBER, new FormalParameter("list", ANY_LIST)));
-        addFunctionDeclaration(environment, "roundDown", new BuiltinFunctionType(NUMBER, new FormalParameter("number", NUMBER), new FormalParameter("digits", NUMBER)));
-        addFunctionDeclaration(environment, "roundUp", new BuiltinFunctionType(NUMBER, new FormalParameter("number", NUMBER), new FormalParameter("digits", NUMBER)));
-        addFunctionDeclaration(environment, "sum", new BuiltinFunctionType(NUMBER, new FormalParameter("list", ANY_LIST)));
+        addFunctionDeclaration(environment, "abs", new BuiltinFunctionType(NUMBER, new FormalParameter<>("number", NUMBER)));
+        addFunctionDeclaration(environment, "count", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", ANY_LIST)));
+        addFunctionDeclaration(environment, "round", new BuiltinFunctionType(NUMBER, new FormalParameter<>("number", NUMBER), new FormalParameter<>("digits", NUMBER)));
+        addFunctionDeclaration(environment, "ceiling", new BuiltinFunctionType(NUMBER, new FormalParameter<>("n", NUMBER)));
+        addFunctionDeclaration(environment, "floor", new BuiltinFunctionType(NUMBER, new FormalParameter<>("n", NUMBER)));
+        addFunctionDeclaration(environment, "integer", new BuiltinFunctionType(NUMBER, new FormalParameter<>("number", NUMBER)));
+        addFunctionDeclaration(environment, "modulo", new BuiltinFunctionType(NUMBER, new FormalParameter<>("dividend", NUMBER), new FormalParameter<>("divisor", NUMBER)));
+        addFunctionDeclaration(environment, "percent", new BuiltinFunctionType(NUMBER, new FormalParameter<>("number", NUMBER)));
+        addFunctionDeclaration(environment, "power", new BuiltinFunctionType(NUMBER, new FormalParameter<>("base", NUMBER), new FormalParameter<>("exponent", NUMBER)));
+        addFunctionDeclaration(environment, "product", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", ANY_LIST)));
+        addFunctionDeclaration(environment, "roundDown", new BuiltinFunctionType(NUMBER, new FormalParameter<>("number", NUMBER), new FormalParameter<>("digits", NUMBER)));
+        addFunctionDeclaration(environment, "roundUp", new BuiltinFunctionType(NUMBER, new FormalParameter<>("number", NUMBER), new FormalParameter<>("digits", NUMBER)));
+        addFunctionDeclaration(environment, "sum", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", ANY_LIST)));
     }
 
     private static void addStringFunctions(Environment environment) {
-        addFunctionDeclaration(environment, "concat", new BuiltinFunctionType(STRING, new FormalParameter("list", ANY_LIST)));
-        addFunctionDeclaration(environment, "isAlpha", new BuiltinFunctionType(BOOLEAN, new FormalParameter("text", STRING)));
-        addFunctionDeclaration(environment, "isAlphanumeric", new BuiltinFunctionType(BOOLEAN, new FormalParameter("text", STRING)));
-        addFunctionDeclaration(environment, "isNumeric", new BuiltinFunctionType(BOOLEAN, new FormalParameter("text", STRING)));
-        addFunctionDeclaration(environment, "isSpaces", new BuiltinFunctionType(BOOLEAN, new FormalParameter("text", STRING)));
-        addFunctionDeclaration(environment, "len", new BuiltinFunctionType(NUMBER, new FormalParameter("text", STRING)));
-        addFunctionDeclaration(environment, "lower", new BuiltinFunctionType(STRING, new FormalParameter("text", STRING)));
-        addFunctionDeclaration(environment, "trim", new BuiltinFunctionType(STRING, new FormalParameter("text", STRING)));
-        addFunctionDeclaration(environment, "upper", new BuiltinFunctionType(STRING, new FormalParameter("text", STRING)));
-        addFunctionDeclaration(environment, "number", new BuiltinFunctionType(NUMBER, new FormalParameter("text", STRING), new FormalParameter("default_value", NUMBER, true, false)));
-        addFunctionDeclaration(environment, "mid", new BuiltinFunctionType(STRING, new FormalParameter("text", STRING), new FormalParameter("start", NUMBER), new FormalParameter("num_chars", NUMBER)));
-        addFunctionDeclaration(environment, "left", new BuiltinFunctionType(STRING, new FormalParameter("text", STRING), new FormalParameter("num_chars", NUMBER)));
-        addFunctionDeclaration(environment, "right", new BuiltinFunctionType(STRING, new FormalParameter("text", STRING), new FormalParameter("num_chars", NUMBER)));
-        addFunctionDeclaration(environment, "text", new BuiltinFunctionType(STRING, new FormalParameter("num", NUMBER), new FormalParameter("format_text", STRING)));
-        addFunctionDeclaration(environment, "textOccurrences", new BuiltinFunctionType(NUMBER, new FormalParameter("find_text", STRING), new FormalParameter("within_text", STRING)));
-        addFunctionDeclaration(environment, "contains", new BuiltinFunctionType(BOOLEAN, new FormalParameter("text", STRING), new FormalParameter("substring", STRING)));
-        addFunctionDeclaration(environment, "startsWith", new BuiltinFunctionType(BOOLEAN, new FormalParameter("string", STRING), new FormalParameter("prefix", STRING)));
-        addFunctionDeclaration(environment, "endsWith", new BuiltinFunctionType(BOOLEAN, new FormalParameter("string", STRING), new FormalParameter("suffix", STRING)));
+        addFunctionDeclaration(environment, "concat", new BuiltinFunctionType(STRING, new FormalParameter<>("list", ANY_LIST)));
+        addFunctionDeclaration(environment, "isAlpha", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("text", STRING)));
+        addFunctionDeclaration(environment, "isAlphanumeric", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("text", STRING)));
+        addFunctionDeclaration(environment, "isNumeric", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("text", STRING)));
+        addFunctionDeclaration(environment, "isSpaces", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("text", STRING)));
+        addFunctionDeclaration(environment, "len", new BuiltinFunctionType(NUMBER, new FormalParameter<>("text", STRING)));
+        addFunctionDeclaration(environment, "lower", new BuiltinFunctionType(STRING, new FormalParameter<>("text", STRING)));
+        addFunctionDeclaration(environment, "trim", new BuiltinFunctionType(STRING, new FormalParameter<>("text", STRING)));
+        addFunctionDeclaration(environment, "upper", new BuiltinFunctionType(STRING, new FormalParameter<>("text", STRING)));
+        addFunctionDeclaration(environment, "number", new BuiltinFunctionType(NUMBER, new FormalParameter<>("text", STRING), new FormalParameter<>("default_value", NUMBER, true, false)));
+        addFunctionDeclaration(environment, "mid", new BuiltinFunctionType(STRING, new FormalParameter<>("text", STRING), new FormalParameter<>("start", NUMBER), new FormalParameter<>("num_chars", NUMBER)));
+        addFunctionDeclaration(environment, "left", new BuiltinFunctionType(STRING, new FormalParameter<>("text", STRING), new FormalParameter<>("num_chars", NUMBER)));
+        addFunctionDeclaration(environment, "right", new BuiltinFunctionType(STRING, new FormalParameter<>("text", STRING), new FormalParameter<>("num_chars", NUMBER)));
+        addFunctionDeclaration(environment, "text", new BuiltinFunctionType(STRING, new FormalParameter<>("num", NUMBER), new FormalParameter<>("format_text", STRING)));
+        addFunctionDeclaration(environment, "textOccurrences", new BuiltinFunctionType(NUMBER, new FormalParameter<>("find_text", STRING), new FormalParameter<>("within_text", STRING)));
+        addFunctionDeclaration(environment, "contains", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("text", STRING), new FormalParameter<>("substring", STRING)));
+        addFunctionDeclaration(environment, "startsWith", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("string", STRING), new FormalParameter<>("prefix", STRING)));
+        addFunctionDeclaration(environment, "endsWith", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("string", STRING), new FormalParameter<>("suffix", STRING)));
     }
 
     private static void addBooleanFunctions(Environment environment) {
-        addFunctionDeclaration(environment, "not", new BuiltinFunctionType(BOOLEAN, new FormalParameter("negand", BOOLEAN)));
+        addFunctionDeclaration(environment, "not", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("negand", BOOLEAN)));
     }
 
     private static void addDateTimeFunctions(Environment environment) {
-        addFunctionDeclaration(environment, "day", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime", DATE)));
-        addFunctionDeclaration(environment, "day", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime", DATE_AND_TIME)));
-        addFunctionDeclaration(environment, "dayAdd", new BuiltinFunctionType(DATE, new FormalParameter("datetime", DATE), new FormalParameter("days_to_add", NUMBER)));
-        addFunctionDeclaration(environment, "dayAdd", new BuiltinFunctionType(DATE, new FormalParameter("datetime", DATE_AND_TIME), new FormalParameter("days_to_add", NUMBER)));
-        addFunctionDeclaration(environment, "dayDiff", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime1", DATE), new FormalParameter("datetime2", DATE)));
-        addFunctionDeclaration(environment, "dayDiff", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime1", DATE_AND_TIME), new FormalParameter("datetime2", DATE_AND_TIME)));
-        addFunctionDeclaration(environment, "date", new BuiltinFunctionType(DATE, new FormalParameter("year", NUMBER), new FormalParameter("month", NUMBER), new FormalParameter("day", NUMBER)));
-        addFunctionDeclaration(environment, "dateTime", new BuiltinFunctionType(DATE_AND_TIME, new FormalParameter("day", NUMBER), new FormalParameter("month", NUMBER), new FormalParameter("year", NUMBER), new FormalParameter("hour", NUMBER), new FormalParameter("minute", NUMBER), new FormalParameter("second", NUMBER), new FormalParameter("hourOffset", NUMBER, true, false)));
-        addFunctionDeclaration(environment, "hour", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime", TIME)));
-        addFunctionDeclaration(environment, "hour", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime", DATE_AND_TIME)));
-        addFunctionDeclaration(environment, "hourDiff", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime1", TIME), new FormalParameter("datetime2", TIME)));
-        addFunctionDeclaration(environment, "hourDiff", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime1", DATE_AND_TIME), new FormalParameter("datetime2", DATE_AND_TIME)));
-        addFunctionDeclaration(environment, "minute", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime", TIME)));
-        addFunctionDeclaration(environment, "minute", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime", DATE_AND_TIME)));
-        addFunctionDeclaration(environment, "minutesDiff", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime1", TIME), new FormalParameter("datetime2", TIME)));
-        addFunctionDeclaration(environment, "minutesDiff", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime1", DATE_AND_TIME), new FormalParameter("datetime2", DATE_AND_TIME)));
-        addFunctionDeclaration(environment, "month", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime", DATE)));
-        addFunctionDeclaration(environment, "month", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime", DATE_AND_TIME)));
-        addFunctionDeclaration(environment, "monthAdd", new BuiltinFunctionType(DATE, new FormalParameter("datetime", DATE), new FormalParameter("months_to_add", NUMBER)));
-        addFunctionDeclaration(environment, "monthAdd", new BuiltinFunctionType(DATE, new FormalParameter("datetime", DATE_AND_TIME), new FormalParameter("months_to_add", NUMBER)));
-        addFunctionDeclaration(environment, "monthDiff", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime1", DATE), new FormalParameter("datetime2", DATE)));
-        addFunctionDeclaration(environment, "monthDiff", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime1", DATE_AND_TIME), new FormalParameter("datetime2", DATE_AND_TIME)));
+        addFunctionDeclaration(environment, "day", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE)));
+        addFunctionDeclaration(environment, "day", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE_AND_TIME)));
+        addFunctionDeclaration(environment, "dayAdd", new BuiltinFunctionType(DATE, new FormalParameter<>("datetime", DATE), new FormalParameter<>("days_to_add", NUMBER)));
+        addFunctionDeclaration(environment, "dayAdd", new BuiltinFunctionType(DATE, new FormalParameter<>("datetime", DATE_AND_TIME), new FormalParameter<>("days_to_add", NUMBER)));
+        addFunctionDeclaration(environment, "dayDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE), new FormalParameter<>("datetime2", DATE)));
+        addFunctionDeclaration(environment, "dayDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE_AND_TIME), new FormalParameter<>("datetime2", DATE_AND_TIME)));
+        addFunctionDeclaration(environment, "date", new BuiltinFunctionType(DATE, new FormalParameter<>("year", NUMBER), new FormalParameter<>("month", NUMBER), new FormalParameter<>("day", NUMBER)));
+        addFunctionDeclaration(environment, "dateTime", new BuiltinFunctionType(DATE_AND_TIME, new FormalParameter<>("day", NUMBER), new FormalParameter<>("month", NUMBER), new FormalParameter<>("year", NUMBER), new FormalParameter<>("hour", NUMBER), new FormalParameter<>("minute", NUMBER), new FormalParameter<>("second", NUMBER), new FormalParameter<>("hourOffset", NUMBER, true, false)));
+        addFunctionDeclaration(environment, "hour", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", TIME)));
+        addFunctionDeclaration(environment, "hour", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE_AND_TIME)));
+        addFunctionDeclaration(environment, "hourDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", TIME), new FormalParameter<>("datetime2", TIME)));
+        addFunctionDeclaration(environment, "hourDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE_AND_TIME), new FormalParameter<>("datetime2", DATE_AND_TIME)));
+        addFunctionDeclaration(environment, "minute", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", TIME)));
+        addFunctionDeclaration(environment, "minute", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE_AND_TIME)));
+        addFunctionDeclaration(environment, "minutesDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", TIME), new FormalParameter<>("datetime2", TIME)));
+        addFunctionDeclaration(environment, "minutesDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE_AND_TIME), new FormalParameter<>("datetime2", DATE_AND_TIME)));
+        addFunctionDeclaration(environment, "month", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE)));
+        addFunctionDeclaration(environment, "month", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE_AND_TIME)));
+        addFunctionDeclaration(environment, "monthAdd", new BuiltinFunctionType(DATE, new FormalParameter<>("datetime", DATE), new FormalParameter<>("months_to_add", NUMBER)));
+        addFunctionDeclaration(environment, "monthAdd", new BuiltinFunctionType(DATE, new FormalParameter<>("datetime", DATE_AND_TIME), new FormalParameter<>("months_to_add", NUMBER)));
+        addFunctionDeclaration(environment, "monthDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE), new FormalParameter<>("datetime2", DATE)));
+        addFunctionDeclaration(environment, "monthDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE_AND_TIME), new FormalParameter<>("datetime2", DATE_AND_TIME)));
         addFunctionDeclaration(environment, "now", new BuiltinFunctionType(DATE_AND_TIME));
         addFunctionDeclaration(environment, "today", new BuiltinFunctionType(DATE));
-        addFunctionDeclaration(environment, "weekday", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime", DATE)));
-        addFunctionDeclaration(environment, "weekday", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime", DATE_AND_TIME)));
-        addFunctionDeclaration(environment, "year", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime", DATE)));
-        addFunctionDeclaration(environment, "year", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime", DATE_AND_TIME)));
-        addFunctionDeclaration(environment, "yearAdd", new BuiltinFunctionType(DATE_AND_TIME, new FormalParameter("datetime", DATE), new FormalParameter("years_to_add", NUMBER)));
-        addFunctionDeclaration(environment, "yearAdd", new BuiltinFunctionType(DATE_AND_TIME, new FormalParameter("datetime", DATE_AND_TIME), new FormalParameter("years_to_add", NUMBER)));
-        addFunctionDeclaration(environment, "yearDiff", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime1", DATE), new FormalParameter("datetime2", DATE)));
-        addFunctionDeclaration(environment, "yearDiff", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime1", DATE_AND_TIME), new FormalParameter("datetime2", DATE_AND_TIME)));
-        addFunctionDeclaration(environment, "yearDiff", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime1", DATE), new FormalParameter("datetime2", DATE_AND_TIME)));
-        addFunctionDeclaration(environment, "yearDiff", new BuiltinFunctionType(NUMBER, new FormalParameter("datetime1", DATE_AND_TIME), new FormalParameter("datetime2", DATE)));
+        addFunctionDeclaration(environment, "weekday", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE)));
+        addFunctionDeclaration(environment, "weekday", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE_AND_TIME)));
+        addFunctionDeclaration(environment, "year", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE)));
+        addFunctionDeclaration(environment, "year", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE_AND_TIME)));
+        addFunctionDeclaration(environment, "yearAdd", new BuiltinFunctionType(DATE_AND_TIME, new FormalParameter<>("datetime", DATE), new FormalParameter<>("years_to_add", NUMBER)));
+        addFunctionDeclaration(environment, "yearAdd", new BuiltinFunctionType(DATE_AND_TIME, new FormalParameter<>("datetime", DATE_AND_TIME), new FormalParameter<>("years_to_add", NUMBER)));
+        addFunctionDeclaration(environment, "yearDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE), new FormalParameter<>("datetime2", DATE)));
+        addFunctionDeclaration(environment, "yearDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE_AND_TIME), new FormalParameter<>("datetime2", DATE_AND_TIME)));
+        addFunctionDeclaration(environment, "yearDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE), new FormalParameter<>("datetime2", DATE_AND_TIME)));
+        addFunctionDeclaration(environment, "yearDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE_AND_TIME), new FormalParameter<>("datetime2", DATE)));
     }
 
     private static void addListFunctions(Environment environment) {
@@ -181,18 +181,18 @@ public class SignavioEnvironmentFactory implements EnvironmentFactory {
         addFunctionDeclaration(environment, "remove", StandardEnvironmentFactory.makeSignavioRemoveBuiltinFunctionType(ANY_LIST, ANY));
         addFunctionDeclaration(environment, "removeAll", StandardEnvironmentFactory.makeSignavioRemoveAllBuiltinFunctionType(ANY_LIST));
         addFunctionDeclaration(environment, "zip", StandardEnvironmentFactory.makeSignavioZipBuiltinFunctionType(ANY_LIST, ANY_LIST, ANY_LIST));
-        addFunctionDeclaration(environment, "notContainsAny", new BuiltinFunctionType(BOOLEAN, new FormalParameter("list1", ANY_LIST), new FormalParameter("list2", ANY_LIST)));
-        addFunctionDeclaration(environment, "containsOnly", new BuiltinFunctionType(BOOLEAN, new FormalParameter("list1", ANY_LIST), new FormalParameter("list2", ANY_LIST)));
-        addFunctionDeclaration(environment, "areElementsOf", new BuiltinFunctionType(BOOLEAN, new FormalParameter("list1", ANY_LIST), new FormalParameter("list2", ANY_LIST)));
-        addFunctionDeclaration(environment, "elementOf", new BuiltinFunctionType(BOOLEAN, new FormalParameter("list1", ANY), new FormalParameter("list2", ANY_LIST)));
+        addFunctionDeclaration(environment, "notContainsAny", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list1", ANY_LIST), new FormalParameter<>("list2", ANY_LIST)));
+        addFunctionDeclaration(environment, "containsOnly", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list1", ANY_LIST), new FormalParameter<>("list2", ANY_LIST)));
+        addFunctionDeclaration(environment, "areElementsOf", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list1", ANY_LIST), new FormalParameter<>("list2", ANY_LIST)));
+        addFunctionDeclaration(environment, "elementOf", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list1", ANY), new FormalParameter<>("list2", ANY_LIST)));
     }
 
     private static void addStatisticalFunctions(Environment environment) {
-        addFunctionDeclaration(environment, "avg", new BuiltinFunctionType(NUMBER, new FormalParameter("list", ANY_LIST)));
-        addFunctionDeclaration(environment, "max", new BuiltinFunctionType(NUMBER, new FormalParameter("list", ANY_LIST)));
-        addFunctionDeclaration(environment, "median", new BuiltinFunctionType(NUMBER, new FormalParameter("list", ANY_LIST)));
-        addFunctionDeclaration(environment, "min", new BuiltinFunctionType(NUMBER, new FormalParameter("list", ANY_LIST)));
-        addFunctionDeclaration(environment, "mode", new BuiltinFunctionType(NUMBER, new FormalParameter("list", ANY_LIST)));
+        addFunctionDeclaration(environment, "avg", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", ANY_LIST)));
+        addFunctionDeclaration(environment, "max", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", ANY_LIST)));
+        addFunctionDeclaration(environment, "median", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", ANY_LIST)));
+        addFunctionDeclaration(environment, "min", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", ANY_LIST)));
+        addFunctionDeclaration(environment, "mode", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", ANY_LIST)));
     }
 
     private static void addFunctionDeclaration(Environment environment, String name, BuiltinFunctionType functionType) {

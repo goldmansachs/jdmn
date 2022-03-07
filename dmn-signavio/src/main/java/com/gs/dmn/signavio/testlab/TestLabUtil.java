@@ -15,6 +15,7 @@ package com.gs.dmn.signavio.testlab;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.expression.*;
@@ -35,12 +36,12 @@ import java.util.stream.Collectors;
 public class TestLabUtil {
     protected static final Logger LOGGER = LoggerFactory.getLogger(TestLabUtil.class);
 
-    private final BasicDMNToNativeTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
     private final SignavioDMNModelRepository dmnModelRepository;
     private final NativeExpressionFactory nativeFactory;
     private final NativeTypeFactory typeFactory;
 
-    public TestLabUtil(BasicDMNToNativeTransformer dmnTransformer) {
+    public TestLabUtil(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         DMNModelRepository dmnModelRepository = dmnTransformer.getDMNModelRepository();
         if (dmnModelRepository instanceof SignavioDMNModelRepository) {
             this.dmnModelRepository = (SignavioDMNModelRepository) dmnModelRepository;

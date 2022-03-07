@@ -29,7 +29,7 @@ import org.omg.spec.dmn._20191111.model.*;
 public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory {
     private final SignavioDMNModelRepository dmnModelRepository;
 
-    public SignavioDMNEnvironmentFactory(BasicDMNToNativeTransformer basicDMNToNativeTransformer) {
+    public SignavioDMNEnvironmentFactory(BasicDMNToNativeTransformer<Type, DMNContext> basicDMNToNativeTransformer) {
         super(basicDMNToNativeTransformer);
         this.dmnModelRepository = (SignavioDMNModelRepository) super.dmnModelRepository;
     }

@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.signavio.runtime.interpreter;
 
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.DMNContext;
@@ -33,7 +34,7 @@ import java.util.List;
 public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private final SignavioDMNModelRepository dmnModelRepository;
 
-    public SignavioDMNInterpreter(BasicDMNToNativeTransformer dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib, TypeConverter typeConverter) {
+    public SignavioDMNInterpreter(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib, TypeConverter typeConverter) {
         super(dmnTransformer, feelLib, typeConverter);
         this.dmnModelRepository = (SignavioDMNModelRepository) this.getBasicDMNTransformer().getDMNModelRepository();
     }

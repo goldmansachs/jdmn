@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.metadata.*;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
@@ -28,10 +29,10 @@ import java.util.stream.Collectors;
 import static com.gs.dmn.serialization.DMNVersion.DMN_11;
 
 public class DMNToManifestTransformer {
-    private final BasicDMNToNativeTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer<com.gs.dmn.feel.analysis.semantics.type.Type, DMNContext> dmnTransformer;
     private final DMNModelRepository dmnModelRepository;
 
-    public DMNToManifestTransformer(BasicDMNToNativeTransformer dmnTransformer) {
+    public DMNToManifestTransformer(BasicDMNToNativeTransformer<com.gs.dmn.feel.analysis.semantics.type.Type, DMNContext> dmnTransformer) {
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
     }
