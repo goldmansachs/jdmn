@@ -19,7 +19,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.runtime.DMNContext;
 
-public abstract class AbstractFEELTranslator extends AbstractFEELProcessor implements FEELTranslator<Type, DMNContext> {
+public abstract class AbstractFEELTranslator extends AbstractFEELProcessor<Type, DMNContext> implements FEELTranslator<Type, DMNContext> {
     private final FEELToNativeVisitor expressionVisitor;
 
     public AbstractFEELTranslator(FEELAnalyzer<Type, DMNContext> feelAnalyzer, FEELToNativeVisitor expressionVisitor) {

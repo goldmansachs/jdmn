@@ -53,7 +53,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.syntax.ast.expression.textual.ForExpression.PARTIAL_PARAMETER_NAME;
 
-public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
+public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContext> {
     public FEELSemanticVisitor(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         super(dmnTransformer, new LogAndThrowErrorHandler(LOGGER));
     }

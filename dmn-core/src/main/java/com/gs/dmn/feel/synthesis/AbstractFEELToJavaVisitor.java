@@ -39,7 +39,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
-public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor {
+public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor<Type, DMNContext> {
     private static final Map<String, String> FEEL_2_JAVA_FUNCTION = new LinkedHashMap<>();
     static {
         FEEL_2_JAVA_FUNCTION.put("get value", "getValue");
