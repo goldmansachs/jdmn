@@ -16,7 +16,7 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNContext;
 
-public interface  EnvironmentFactory {
+public interface EnvironmentFactory {
     default Environment emptyEnvironment() {
         return new Environment();
     }
