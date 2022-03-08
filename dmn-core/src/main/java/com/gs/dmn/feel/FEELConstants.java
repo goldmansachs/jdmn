@@ -24,4 +24,7 @@ public class FEELConstants {
     public static final List<String> DATE_TIME_LITERAL_NAMES = Arrays.asList(
             DATE_LITERAL_FUNCTION_NAME, TIME_LITERAL_FUNCTION_NAME, DATE_AND_TIME_LITERAL_FUNCTION_NAME, DURATION_LITERAL_FUNCTION_NAME
     );
+
+    private FEELConstants() {
+    }
 }
