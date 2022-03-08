@@ -43,10 +43,8 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     public static final String DATA_PACKAGE = "type";
     public static final String DECISION_RULE_OUTPUT_CLASS_SUFFIX = "RuleOutput";
     public static final String PRIORITY_SUFFIX = "Priority";
-    public static final String INPUT_ENTRY_PLACE_HOLDER = "?";
 
     public static final String LIST_TYPE = "List";
-    public static final String QUALIFIED_LIST_TYPE = "java.util.List";
     public static final String CONTEXT_CLASS_NAME = Context.class.getName();
 
     public static final List<String> SUPPORTED_LANGUAGES = Arrays.asList(DMNVersion.LATEST.getFeelPrefix(), DMNModelRepository.FREE_TEXT_LANGUAGE);

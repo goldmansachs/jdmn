@@ -32,7 +32,6 @@ import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNVersion;
-import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20191111.model.*;
 
@@ -685,7 +684,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     public Environment makeUnaryTestEnvironment(TDRGElement element, Expression<Type, DMNContext> inputExpression) {
         Environment environment = this.environmentFactory.makeEnvironment(inputExpression);
         if (inputExpression != null) {
-            environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
+            environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(DMNContext.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
         }
         return environment;
     }

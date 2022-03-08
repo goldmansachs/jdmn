@@ -67,7 +67,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.syntax.ast.expression.textual.ForExpression.PARTIAL_PARAMETER_NAME;
-import static com.gs.dmn.transformation.AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER;
+import static com.gs.dmn.runtime.DMNContext.INPUT_ENTRY_PLACE_HOLDER;
 
 class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELToJavaVisitor {
     private static final Logger LOGGER = LoggerFactory.getLogger(FEELInterpreterVisitor.class);

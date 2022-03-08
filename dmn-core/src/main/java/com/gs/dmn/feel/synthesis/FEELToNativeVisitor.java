@@ -45,7 +45,6 @@ import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.Range;
-import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
@@ -629,7 +628,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
     }
 
     protected Object nameToJava(String name, DMNContext context) {
-        if (name.equals(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER)) {
+        if (name.equals(DMNContext.INPUT_ENTRY_PLACE_HOLDER)) {
             return inputExpressionToJava(context);
         } else {
             // Return lambda when DMN Invocable

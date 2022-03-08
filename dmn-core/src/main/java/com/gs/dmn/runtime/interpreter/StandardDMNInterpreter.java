@@ -34,7 +34,6 @@ import com.gs.dmn.runtime.function.DMNInvocable;
 import com.gs.dmn.runtime.function.Function;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.*;
-import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20191111.model.*;
@@ -782,7 +781,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             String text = unaryTest.getText();
             Expression<Type, DMNContext> inputExpression = inputClauseList.get(index).getExpression();
             DMNContext testContext = this.dmnTransformer.makeUnaryTestContext(inputExpression, context);
-            testContext.bind(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputClauseList.get(index).getValue());
+            testContext.bind(DMNContext.INPUT_ENTRY_PLACE_HOLDER, inputClauseList.get(index).getValue());
             Expression<Type, DMNContext> ast = this.feelInterpreter.analyzeUnaryTests(text, testContext);
             Result result = this.feelInterpreter.evaluateUnaryTests((UnaryTests<Type, DMNContext>) ast, testContext);
             Object testMatched = Result.value(result);

@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DMNContext {
+    public static final String INPUT_ENTRY_PLACE_HOLDER = "?";
+
     private final DMNContext parent;
 
     private final DMNContextKind kind;

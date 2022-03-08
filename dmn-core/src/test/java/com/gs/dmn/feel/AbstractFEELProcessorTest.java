@@ -47,7 +47,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
-import static com.gs.dmn.transformation.AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER;
+import static com.gs.dmn.runtime.DMNContext.INPUT_ENTRY_PLACE_HOLDER;
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractTest {
