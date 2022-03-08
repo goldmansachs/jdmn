@@ -19,7 +19,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.AbstractVisitor;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.DMNEnvironmentFactory;
-import com.gs.dmn.transformation.basic.DMNExpressionToNativeTransformer;
+import com.gs.dmn.transformation.basic.ExternalFunctionExtractor;
 import com.gs.dmn.transformation.native_.NativeFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +36,7 @@ public abstract class AbstractAnalysisVisitor<T, C> extends AbstractVisitor<T, C
     protected final NativeFactory nativeFactory;
 
     protected final DMNEnvironmentFactory dmnEnvironmentFactory;
-    protected final DMNExpressionToNativeTransformer expressionToNativeTransformer;
+    protected final ExternalFunctionExtractor functionExtractor;
 
     protected AbstractAnalysisVisitor(BasicDMNToNativeTransformer<T, C> dmnTransformer, ErrorHandler errorHandler) {
         super(errorHandler);
@@ -47,8 +47,7 @@ public abstract class AbstractAnalysisVisitor<T, C> extends AbstractVisitor<T, C
 
         this.nativeTypeFactory = dmnTransformer.getNativeTypeFactory();
         this.dmnEnvironmentFactory = dmnTransformer.getDMNEnvironmentFactory();
+        this.functionExtractor = new ExternalFunctionExtractor();
         this.nativeFactory = dmnTransformer.getNativeFactory();
-
-        this.expressionToNativeTransformer = dmnTransformer.getExpressionToNativeTransformer();
     }
 }

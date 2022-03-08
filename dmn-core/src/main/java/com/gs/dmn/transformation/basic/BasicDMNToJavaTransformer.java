@@ -167,11 +167,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public DMNExpressionToNativeTransformer getExpressionToNativeTransformer() {
-        return this.expressionToNativeTransformer;
-    }
-
-    @Override
     public DRGElementFilter getDrgElementFilter() {
         return this.drgElementFilter;
     }

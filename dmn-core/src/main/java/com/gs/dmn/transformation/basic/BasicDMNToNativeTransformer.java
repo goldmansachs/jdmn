@@ -63,8 +63,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     NativeFactory getNativeFactory();
 
-    DMNExpressionToNativeTransformer getExpressionToNativeTransformer();
-
     DRGElementFilter getDrgElementFilter();
 
     ProtoBufferFactory getProtoFactory();
