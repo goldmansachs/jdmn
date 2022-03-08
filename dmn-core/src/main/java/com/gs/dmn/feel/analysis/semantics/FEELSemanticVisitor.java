@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.error.LogAndThrowErrorHandler;
+import com.gs.dmn.feel.FEELConstants;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.AbstractAnalysisVisitor;
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
@@ -796,7 +797,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
             element.setType(TimeType.TIME);
         } else if (DateTimeType.DATE_AND_TIME.hasConversionFunction(conversionFunction)) {
             element.setType(DateTimeType.DATE_AND_TIME);
-        } else if (DurationType.CONVERSION_FUNCTION.equals(conversionFunction)) {
+        } else if (FEELConstants.DURATION_LITERAL_FUNCTION_NAME.equals(conversionFunction)) {
             if (element.isYearsAndMonthsDuration(element.getLexeme())) {
                 element.setType(DurationType.YEARS_AND_MONTHS_DURATION);
             } else if (element.isDaysAndTimeDuration(element.getLexeme())) {

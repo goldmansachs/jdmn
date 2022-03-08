@@ -38,7 +38,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
-import static com.gs.dmn.feel.analysis.semantics.type.FEELTypes.FEEL_LITERAL_DATE_TIME_NAMES;
+import static com.gs.dmn.feel.FEELConstants.DATE_TIME_LITERAL_NAMES;
 
 public class ASTFactory<T, C> {
     //
@@ -367,13 +367,13 @@ public class ASTFactory<T, C> {
 
     private boolean isDateTimeLiteral(Expression<T, C> function, Parameters<T, C> parameters) {
         return (
-                function instanceof Name && FEEL_LITERAL_DATE_TIME_NAMES.contains(((Name<T, C>) function).getName())
-                        ||
-                        function instanceof QualifiedName && FEEL_LITERAL_DATE_TIME_NAMES.contains(((QualifiedName<T, C>) function).getQualifiedName())
-        )
-                && parameters instanceof PositionalParameters
-                && ((PositionalParameters<T, C>) parameters).getParameters().size() == 1
-                && ((PositionalParameters<T, C>) parameters).getParameters().get(0) instanceof StringLiteral;
+                function instanceof Name && DATE_TIME_LITERAL_NAMES.contains(((Name<T, C>) function).getName())
+                ||
+                function instanceof QualifiedName && DATE_TIME_LITERAL_NAMES.contains(((QualifiedName<T, C>) function).getQualifiedName())
+               )
+               && parameters instanceof PositionalParameters
+               && ((PositionalParameters<T, C>) parameters).getParameters().size() == 1
+               && ((PositionalParameters<T, C>) parameters).getParameters().get(0) instanceof StringLiteral;
     }
 
     public NamedParameters<T, C> toNamedParameters(Map<String, Expression<T, C>> params) {

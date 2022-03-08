@@ -54,13 +54,6 @@ public class FEELTypes {
             DurationType.YEARS_AND_MONTHS_DURATION
     });
 
-    public static final List<String> FEEL_LITERAL_DATE_TIME_NAMES = Arrays.asList(
-            DateType.DATE.getConversionFunction(),
-            TimeType.TIME.getConversionFunction(),
-            DateTimeType.DATE_AND_TIME.getConversionFunction(),
-            DurationType.DAYS_AND_TIME_DURATION.getConversionFunction(),
-            DurationType.YEARS_AND_MONTHS_DURATION.getConversionFunction());
-
     public static final Map<Type, String> FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION = new LinkedHashMap<>();
     static {
         FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(NumberType.NUMBER, "number");
