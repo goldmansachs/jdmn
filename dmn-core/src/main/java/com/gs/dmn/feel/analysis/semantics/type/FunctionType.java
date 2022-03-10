@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 

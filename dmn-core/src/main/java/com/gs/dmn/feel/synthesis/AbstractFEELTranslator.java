@@ -12,12 +12,12 @@
  */
 package com.gs.dmn.feel.synthesis;
 
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.feel.AbstractFEELProcessor;
 import com.gs.dmn.feel.analysis.FEELAnalyzer;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
-import com.gs.dmn.runtime.DMNContext;
 
 public abstract class AbstractFEELTranslator extends AbstractFEELProcessor<Type, DMNContext> implements FEELTranslator<Type, DMNContext> {
     private final FEELToNativeVisitor expressionVisitor;

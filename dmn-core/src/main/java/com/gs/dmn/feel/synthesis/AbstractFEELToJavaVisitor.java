@@ -14,6 +14,7 @@ package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.NameUtils;
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.error.LogAndThrowErrorHandler;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.AbstractAnalysisVisitor;
@@ -22,7 +23,6 @@ import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.ImportContextType;

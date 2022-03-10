@@ -1,11 +1,11 @@
 package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.feel.analysis.FEELAnalyzer;
 import com.gs.dmn.feel.analysis.FEELAnalyzerImpl;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;

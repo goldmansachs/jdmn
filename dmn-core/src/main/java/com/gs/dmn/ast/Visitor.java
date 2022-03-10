@@ -13,7 +13,7 @@
 package com.gs.dmn.ast;
 
 import com.gs.dmn.ast.dmndi.*;
-import com.gs.dmn.runtime.DMNContext;
+import com.gs.dmn.context.DMNContext;
 
 public interface Visitor {
     //

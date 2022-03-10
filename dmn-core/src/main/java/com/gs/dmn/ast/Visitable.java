@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.ast;
 
-import com.gs.dmn.runtime.DMNContext;
+import com.gs.dmn.context.DMNContext;
 
 public interface Visitable {
     Object accept(Visitor visitor, DMNContext context);

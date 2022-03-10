@@ -10,24 +10,20 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.semantics.environment;
+package com.gs.dmn.context.environment;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
-public interface EnvironmentFactory {
-    default Environment emptyEnvironment() {
-        return new Environment();
+public abstract class Declaration {
+    protected final String name;
+
+    protected Declaration(String name) {
+        this.name = name;
     }
 
-    default Environment makeEnvironment(Expression<Type, DMNContext> inputExpression) {
-        return new Environment(inputExpression);
+    public String getName() {
+        return this.name;
     }
 
-    default Declaration makeVariableDeclaration(String name, Type type) {
-        return new VariableDeclaration(name, type);
-    }
-
-    DMNContext getBuiltInContext();
+    public abstract Type getType();
 }

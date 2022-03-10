@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.ast;
 
-import com.gs.dmn.runtime.DMNContext;
+import com.gs.dmn.context.DMNContext;
 
 public class TDMNElementReference implements Visitable {
     private String href;

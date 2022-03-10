@@ -14,7 +14,7 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.QualifiedName;
-import com.gs.dmn.runtime.DMNContext;
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.metadata.*;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;

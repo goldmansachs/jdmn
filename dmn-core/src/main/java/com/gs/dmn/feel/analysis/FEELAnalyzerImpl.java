@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis;
 
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ErrorListener;
 import com.gs.dmn.feel.analysis.syntax.antlrv4.FEELLexer;
@@ -19,7 +20,6 @@ import com.gs.dmn.feel.analysis.syntax.antlrv4.FEELParser;
 import com.gs.dmn.feel.analysis.syntax.ast.ASTFactory;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;

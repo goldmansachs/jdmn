@@ -10,30 +10,24 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.runtime.interpreter.environment;
+package com.gs.dmn.context.environment;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-public class RuntimeEnvironment {
-    public static RuntimeEnvironment of() {
-        return new RuntimeEnvironment();
+public interface EnvironmentFactory {
+    default Environment emptyEnvironment() {
+        return new Environment();
     }
 
-    private final Map<String, Object> bindings = new LinkedHashMap<>();
-
-    RuntimeEnvironment() {
+    default Environment makeEnvironment(Expression<Type, DMNContext> inputExpression) {
+        return new Environment(inputExpression);
     }
 
-    public void bind(String key, Object value) {
-        this.bindings.put(key, value);
+    default Declaration makeVariableDeclaration(String name, Type type) {
+        return new VariableDeclaration(name, type);
     }
 
-    public Object lookupLocalBinding(String key) {
-        return this.bindings.get(key);
-    }
-
-    public boolean isLocalBound(String key) {
-        return this.bindings.containsKey(key);
-    }
+    DMNContext getBuiltInContext();
 }

@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.semantics.environment;
+package com.gs.dmn.context.environment;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 
@@ -19,7 +19,7 @@ import java.util.Objects;
 public class VariableDeclaration extends Declaration {
     private Type type;
 
-    VariableDeclaration(String name, Type type) {
+    public VariableDeclaration(String name, Type type) {
         super(name);
         this.type = type;
     }

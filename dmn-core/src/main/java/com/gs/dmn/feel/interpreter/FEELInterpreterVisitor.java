@@ -12,9 +12,12 @@
  */
 package com.gs.dmn.feel.interpreter;
 
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.context.DMNContextKind;
+import com.gs.dmn.context.environment.Declaration;
+import com.gs.dmn.context.environment.RuntimeEnvironment;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
@@ -46,14 +49,15 @@ import com.gs.dmn.feel.synthesis.AbstractFEELToJavaVisitor;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.FEELTranslatorForInterpreter;
 import com.gs.dmn.feel.synthesis.NativeOperator;
+import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.LambdaExpression;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.Range;
-import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.JavaFunctionInfo;
 import com.gs.dmn.runtime.function.*;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.transformation.basic.ImportContextType;
 import org.omg.spec.dmn._20191111.model.TDRGElement;
 import org.omg.spec.dmn._20191111.model.TFunctionDefinition;
@@ -66,8 +70,8 @@ import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.gs.dmn.context.DMNContext.INPUT_ENTRY_PLACE_HOLDER;
 import static com.gs.dmn.feel.analysis.syntax.ast.expression.textual.ForExpression.PARTIAL_PARAMETER_NAME;
-import static com.gs.dmn.runtime.DMNContext.INPUT_ENTRY_PLACE_HOLDER;
 
 class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELToJavaVisitor {
     private static final Logger LOGGER = LoggerFactory.getLogger(FEELInterpreterVisitor.class);

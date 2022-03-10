@@ -14,10 +14,10 @@ package com.gs.dmn.signavio.rdf2dmn;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNNamespacePrefixMapper;

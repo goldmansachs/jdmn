@@ -12,12 +12,13 @@
  */
 package com.gs.dmn.feel.analysis.semantics;
 
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.context.environment.Declaration;
+import com.gs.dmn.context.environment.VariableDeclaration;
 import com.gs.dmn.error.LogAndThrowErrorHandler;
 import com.gs.dmn.feel.FEELConstants;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.AbstractAnalysisVisitor;
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
-import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
@@ -38,7 +39,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;

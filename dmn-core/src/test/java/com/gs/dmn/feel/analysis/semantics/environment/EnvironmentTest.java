@@ -12,8 +12,12 @@
  */
 package com.gs.dmn.feel.analysis.semantics.environment;
 
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.context.environment.Declaration;
+import com.gs.dmn.context.environment.Environment;
+import com.gs.dmn.context.environment.EnvironmentFactory;
+import com.gs.dmn.context.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.StringType;
-import com.gs.dmn.runtime.DMNContext;
 import org.junit.Test;
 
 import java.util.List;

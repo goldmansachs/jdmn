@@ -12,10 +12,10 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.PositionalParameterTypes;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.List;
 import java.util.stream.Collectors;

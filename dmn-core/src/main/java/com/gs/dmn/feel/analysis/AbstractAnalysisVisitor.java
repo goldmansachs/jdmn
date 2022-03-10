@@ -13,8 +13,8 @@
 package com.gs.dmn.feel.analysis;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.error.ErrorHandler;
-import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.syntax.ast.AbstractVisitor;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;

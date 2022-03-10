@@ -12,14 +12,14 @@
  */
 package com.gs.dmn.feel.interpreter;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.Context;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Range;
 import com.gs.dmn.runtime.function.BuiltinFunction;

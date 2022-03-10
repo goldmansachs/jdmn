@@ -10,20 +10,30 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.semantics.environment;
+package com.gs.dmn.context.environment;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-public abstract class Declaration {
-    protected final String name;
-
-    protected Declaration(String name) {
-        this.name = name;
+public class RuntimeEnvironment {
+    public static RuntimeEnvironment of() {
+        return new RuntimeEnvironment();
     }
 
-    public String getName() {
-        return this.name;
+    private final Map<String, Object> bindings = new LinkedHashMap<>();
+
+    RuntimeEnvironment() {
     }
 
-    public abstract Type getType();
+    public void bind(String key, Object value) {
+        this.bindings.put(key, value);
+    }
+
+    public Object lookupLocalBinding(String key) {
+        return this.bindings.get(key);
+    }
+
+    public boolean isLocalBound(String key) {
+        return this.bindings.containsKey(key);
+    }
 }
