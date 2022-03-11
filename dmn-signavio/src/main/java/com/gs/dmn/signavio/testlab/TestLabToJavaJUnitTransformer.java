@@ -17,7 +17,6 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
