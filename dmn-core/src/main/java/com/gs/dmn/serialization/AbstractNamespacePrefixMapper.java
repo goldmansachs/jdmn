@@ -27,10 +27,6 @@ public abstract class AbstractNamespacePrefixMapper extends NamespacePrefixMappe
 
     protected final Map<String, String> namespaceMap = new LinkedHashMap<>();
 
-    public AbstractNamespacePrefixMapper() {
-        this(null, null, null);
-    }
-
     public AbstractNamespacePrefixMapper(String namespace, String prefix, Map<String, String> otherNamespaces) {
         this.userNamespace = namespace;
         this.userPrefix = prefix;

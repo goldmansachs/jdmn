@@ -19,7 +19,7 @@
     <parent>
         <groupId>com.goldmansachs.jdmn</groupId>
         <artifactId>jdmn-parent</artifactId>
-        <version>5.4.1-SNAPSHOT</version>
+        <version>5.5.1-SNAPSHOT</version>
     </parent>
 
     <properties>
@@ -113,6 +113,20 @@
         <dependency>
             <groupId>org.skyscreamer</groupId>
             <artifactId>jsonassert</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.xmlunit</groupId>
+            <artifactId>xmlunit-core</artifactId>
+            <version>2.9.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.xmlunit</groupId>
+            <artifactId>xmlunit-matchers</artifactId>
+            <version>2.9.0</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
