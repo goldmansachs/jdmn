@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.signavio.rdf2dmn.json;
 
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
 import com.gs.dmn.feel.analysis.semantics.type.Type;

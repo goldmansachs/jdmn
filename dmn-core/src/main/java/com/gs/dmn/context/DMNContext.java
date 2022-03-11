@@ -10,20 +10,23 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.runtime;
+package com.gs.dmn.context;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
-import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
+import com.gs.dmn.context.environment.Declaration;
+import com.gs.dmn.context.environment.Environment;
+import com.gs.dmn.context.environment.RuntimeEnvironment;
+import com.gs.dmn.context.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.omg.spec.dmn._20191111.model.TNamedElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DMNContext {
+    public static final String INPUT_ENTRY_PLACE_HOLDER = "?";
+
     private final DMNContext parent;
 
     private final DMNContextKind kind;

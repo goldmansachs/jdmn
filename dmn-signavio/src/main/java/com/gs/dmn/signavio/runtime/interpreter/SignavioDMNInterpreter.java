@@ -12,10 +12,10 @@
  */
 package com.gs.dmn.signavio.runtime.interpreter;
 
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.runtime.listener.DRGElement;

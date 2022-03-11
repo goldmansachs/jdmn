@@ -14,10 +14,9 @@ package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.feel.analysis.FEELExpressionsAnalyzer;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
 interface FEELExpressionsTranslator<T, C> extends FEELExpressionsAnalyzer<T, C> {
-    String expressionToNative(String text, DMNContext context);
+    String expressionToNative(String text, C context);
 
-    String expressionToNative(Expression<T, C> expression, DMNContext context);
+    String expressionToNative(Expression<T, C> expression, C context);
 }

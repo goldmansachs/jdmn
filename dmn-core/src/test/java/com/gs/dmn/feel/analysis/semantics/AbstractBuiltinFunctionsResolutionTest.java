@@ -1,12 +1,12 @@
 package com.gs.dmn.feel.analysis.semantics;
 
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.feel.analysis.FEELAnalyzer;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionInvocation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.SimpleLiteral;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
-import com.gs.dmn.runtime.DMNContext;
 
 import static org.junit.Assert.*;
 

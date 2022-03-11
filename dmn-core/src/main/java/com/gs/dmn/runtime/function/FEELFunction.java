@@ -12,9 +12,9 @@
  */
 package com.gs.dmn.runtime.function;
 
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
-import com.gs.dmn.runtime.DMNContext;
 
 public class FEELFunction extends Function {
     public static Function of(FunctionDefinition<Type, DMNContext> functionDefinition, DMNContext definitionContext) {

@@ -10,9 +10,8 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.ast;
+package com.gs.dmn.ast.dmndi;
 
-import com.gs.dmn.ast.dmndi.KnownColor;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

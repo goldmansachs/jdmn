@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.runtime.function;
 
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.runtime.DMNContext;
 import org.omg.spec.dmn._20191111.model.TFunctionDefinition;
 
 public class DMNFunction extends Function {

@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.analysis;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
 public interface FEELExpressionsAnalyzer<T, C> {
     Expression<T, C> parseExpression(String text);
@@ -22,9 +21,9 @@ public interface FEELExpressionsAnalyzer<T, C> {
 
     Expression<T, C> parseBoxedExpression(String text);
 
-    Expression<T, C> analyzeExpression(String text, DMNContext context);
+    Expression<T, C> analyzeExpression(String text, C context);
 
-    Expression<T, C> analyzeTextualExpressions(String text, DMNContext context);
+    Expression<T, C> analyzeTextualExpressions(String text, C context);
 
-    Expression<T, C> analyzeBoxedExpression(String text, DMNContext context);
+    Expression<T, C> analyzeBoxedExpression(String text, C context);
 }

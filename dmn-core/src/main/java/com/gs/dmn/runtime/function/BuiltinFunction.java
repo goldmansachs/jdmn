@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.runtime.function;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
+import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.runtime.DMNRuntimeException;
 

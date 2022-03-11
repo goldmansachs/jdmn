@@ -12,11 +12,13 @@
  */
 package com.gs.dmn.feel.analysis.semantics;
 
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.context.environment.Declaration;
+import com.gs.dmn.context.environment.VariableDeclaration;
 import com.gs.dmn.error.LogAndThrowErrorHandler;
+import com.gs.dmn.feel.FEELConstants;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.AbstractAnalysisVisitor;
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
-import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
@@ -37,7 +39,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
@@ -52,7 +53,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.syntax.ast.expression.textual.ForExpression.PARTIAL_PARAMETER_NAME;
 
-public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
+public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContext> {
     public FEELSemanticVisitor(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         super(dmnTransformer, new LogAndThrowErrorHandler(LOGGER));
     }
@@ -796,7 +797,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
             element.setType(TimeType.TIME);
         } else if (DateTimeType.DATE_AND_TIME.hasConversionFunction(conversionFunction)) {
             element.setType(DateTimeType.DATE_AND_TIME);
-        } else if (DurationType.CONVERSION_FUNCTION.equals(conversionFunction)) {
+        } else if (FEELConstants.DURATION_LITERAL_FUNCTION_NAME.equals(conversionFunction)) {
             if (element.isYearsAndMonthsDuration(element.getLexeme())) {
                 element.setType(DurationType.YEARS_AND_MONTHS_DURATION);
             } else if (element.isDaysAndTimeDuration(element.getLexeme())) {

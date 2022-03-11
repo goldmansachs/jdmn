@@ -13,9 +13,10 @@
 package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.*;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.context.environment.Environment;
+import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
-import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
@@ -164,11 +165,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public NativeFactory getNativeFactory() {
         return this.nativeFactory;
-    }
-
-    @Override
-    public DMNExpressionToNativeTransformer getExpressionToNativeTransformer() {
-        return this.expressionToNativeTransformer;
     }
 
     @Override

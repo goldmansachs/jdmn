@@ -13,7 +13,7 @@
 package com.gs.dmn.dialect;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
+import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;

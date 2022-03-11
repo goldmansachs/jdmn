@@ -15,7 +15,7 @@ package com.gs.dmn.ast;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.gs.dmn.runtime.DMNContext;
+import com.gs.dmn.context.DMNContext;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind")
 @JsonSubTypes({

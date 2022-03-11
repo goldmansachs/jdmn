@@ -15,7 +15,7 @@ package com.gs.dmn.ast;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.ast.dmndi.DMNDI;
-import com.gs.dmn.runtime.DMNContext;
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.serialization.DMNVersion;
 
 import java.util.ArrayList;

@@ -12,9 +12,9 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.omg.spec.dmn._20191111.model.TFunctionDefinition;
 import org.omg.spec.dmn._20191111.model.TInvocable;

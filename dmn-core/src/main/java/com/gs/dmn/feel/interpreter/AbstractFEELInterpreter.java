@@ -12,16 +12,16 @@
  */
 package com.gs.dmn.feel.interpreter;
 
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.feel.AbstractFEELProcessor;
 import com.gs.dmn.feel.analysis.FEELAnalyzer;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
 
-abstract class AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELProcessor implements FEELInterpreter<Type, DMNContext> {
+abstract class AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELProcessor<Type, DMNContext> implements FEELInterpreter<Type, DMNContext> {
     private final FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> visitor;
 
     protected AbstractFEELInterpreter(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter, FEELAnalyzer<Type, DMNContext> feelAnalyzer) {

@@ -16,9 +16,12 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementFilter;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.QualifiedName;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.context.DMNContextKind;
+import com.gs.dmn.context.environment.Environment;
+import com.gs.dmn.context.environment.EnvironmentFactory;
+import com.gs.dmn.context.environment.RuntimeEnvironment;
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
-import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.AnyType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
@@ -29,13 +32,10 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.FilterExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.ForExpression;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
-import com.gs.dmn.runtime.DMNContext;
-import com.gs.dmn.runtime.DMNContextKind;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.annotation.DRGElementKind;
 import com.gs.dmn.runtime.annotation.ExpressionKind;
 import com.gs.dmn.runtime.annotation.HitPolicy;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.transformation.native_.NativeFactory;
 import com.gs.dmn.transformation.native_.statement.Statement;
 import com.gs.dmn.transformation.proto.MessageType;
@@ -62,8 +62,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
     NativeTypeFactory getNativeTypeFactory();
 
     NativeFactory getNativeFactory();
-
-    DMNExpressionToNativeTransformer getExpressionToNativeTransformer();
 
     DRGElementFilter getDrgElementFilter();
 

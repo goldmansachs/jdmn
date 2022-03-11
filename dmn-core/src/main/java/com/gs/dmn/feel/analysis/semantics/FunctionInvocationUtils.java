@@ -12,7 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.semantics;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
@@ -20,7 +21,6 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.ListLiteral;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 

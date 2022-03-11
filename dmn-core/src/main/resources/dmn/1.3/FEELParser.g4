@@ -18,7 +18,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
-import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.runtime.Pair;
 }
 

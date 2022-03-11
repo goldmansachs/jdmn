@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.feel.FEELConstants;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 
 import java.util.LinkedHashMap;
@@ -29,10 +30,8 @@ public class DurationType extends ComparableDataType {
     public static final DurationType DAY_TIME_DURATION = new DurationType("dayTimeDuration");
     public static final DurationType YEAR_MONTH_DURATION = new DurationType("yearMonthDuration");
 
-    public static final String CONVERSION_FUNCTION = "duration";
-
     public DurationType(String name) {
-        super(name, CONVERSION_FUNCTION);
+        super(name, FEELConstants.DURATION_LITERAL_FUNCTION_NAME);
     }
 
     @Override

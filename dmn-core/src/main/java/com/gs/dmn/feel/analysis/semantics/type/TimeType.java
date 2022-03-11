@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.feel.FEELConstants;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -35,7 +37,7 @@ public class TimeType extends ComparableDataType {
     }
 
     public TimeType() {
-        super("time", "time");
+        super("time", FEELConstants.TIME_LITERAL_FUNCTION_NAME);
     }
 
     @Override

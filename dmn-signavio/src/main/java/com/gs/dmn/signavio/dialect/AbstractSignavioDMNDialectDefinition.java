@@ -13,8 +13,8 @@
 package com.gs.dmn.signavio.dialect;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.dialect.AbstractDMNDialectDefinition;
-import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
 import com.gs.dmn.signavio.runtime.interpreter.SignavioDMNInterpreter;

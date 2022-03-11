@@ -26,4 +26,7 @@ public class DMNConstants {
     // TCK
     public static final String TCK_NS = "http://www.omg.org/spec/DMN/20160719/testcase";
     public static final String TCK_PACKAGE = "org.omg.dmn.tck.marshaller._20160719";
+
+    private DMNConstants() {
+    }
 }

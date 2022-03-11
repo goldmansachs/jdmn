@@ -10,23 +10,20 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.ast;
+package com.gs.dmn.context.environment;
 
-import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 
-public class TDMNElementReference implements Visitable {
-    private String href;
+public abstract class Declaration {
+    protected final String name;
 
-    public String getHref() {
-        return href;
+    protected Declaration(String name) {
+        this.name = name;
     }
 
-    public void setHref(String value) {
-        this.href = value;
+    public String getName() {
+        return this.name;
     }
 
-    @Override
-    public Object accept(Visitor visitor, DMNContext context) {
-        return visitor.visit(this, context);
-    }
+    public abstract Type getType();
 }

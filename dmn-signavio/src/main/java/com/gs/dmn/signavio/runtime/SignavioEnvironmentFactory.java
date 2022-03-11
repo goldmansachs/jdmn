@@ -12,16 +12,16 @@
  */
 package com.gs.dmn.signavio.runtime;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
-import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.context.DMNContextKind;
+import com.gs.dmn.context.environment.Declaration;
+import com.gs.dmn.context.environment.Environment;
+import com.gs.dmn.context.environment.EnvironmentFactory;
+import com.gs.dmn.context.environment.RuntimeEnvironment;
 import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.BuiltinFunctionType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
-import com.gs.dmn.runtime.DMNContext;
-import com.gs.dmn.runtime.DMNContextKind;
 import com.gs.dmn.runtime.function.BuiltinFunction;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 
 import java.util.List;
 import java.util.Map;

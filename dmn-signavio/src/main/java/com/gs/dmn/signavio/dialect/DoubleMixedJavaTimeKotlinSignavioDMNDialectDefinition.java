@@ -13,7 +13,7 @@
 package com.gs.dmn.signavio.dialect;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
+import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.synthesis.type.DoubleMixedJavaTimeKotlinNativeTypeFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
