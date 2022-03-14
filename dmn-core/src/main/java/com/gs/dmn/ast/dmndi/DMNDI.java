@@ -15,7 +15,6 @@ package com.gs.dmn.ast.dmndi;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.ast.Visitable;
 import com.gs.dmn.ast.Visitor;
-import com.gs.dmn.context.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,18 +23,18 @@ import java.util.List;
         "dmnDiagram",
         "dmnStyle"
 })
-public class DMNDI implements Visitable {
-    private List<DMNDiagram> dmnDiagram;
-    private List<DMNStyle> dmnStyle;
+public class DMNDI<C> implements Visitable<C> {
+    private List<DMNDiagram<C>> dmnDiagram;
+    private List<DMNStyle<C>> dmnStyle;
 
-    public List<DMNDiagram> getDMNDiagram() {
+    public List<DMNDiagram<C>> getDMNDiagram() {
         if (dmnDiagram == null) {
             dmnDiagram = new ArrayList<>();
         }
         return this.dmnDiagram;
     }
 
-    public List<DMNStyle> getDMNStyle() {
+    public List<DMNStyle<C>> getDMNStyle() {
         if (dmnStyle == null) {
             dmnStyle = new ArrayList<>();
         }
@@ -43,7 +42,7 @@ public class DMNDI implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

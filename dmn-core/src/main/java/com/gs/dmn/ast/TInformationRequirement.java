@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.context.DMNContext;
 
 @JsonPropertyOrder({
         "id",
@@ -24,28 +23,28 @@ import com.gs.dmn.context.DMNContext;
         "requiredInput",
         "extensionElements"
 })
-public class TInformationRequirement extends TDMNElement implements Visitable {
-    private TDMNElementReference requiredDecision;
-    private TDMNElementReference requiredInput;
+public class TInformationRequirement<C> extends TDMNElement<C> implements Visitable<C> {
+    private TDMNElementReference<C> requiredDecision;
+    private TDMNElementReference<C> requiredInput;
 
-    public TDMNElementReference getRequiredDecision() {
+    public TDMNElementReference<C> getRequiredDecision() {
         return requiredDecision;
     }
 
-    public void setRequiredDecision(TDMNElementReference value) {
+    public void setRequiredDecision(TDMNElementReference<C> value) {
         this.requiredDecision = value;
     }
 
-    public TDMNElementReference getRequiredInput() {
+    public TDMNElementReference<C> getRequiredInput() {
         return requiredInput;
     }
 
-    public void setRequiredInput(TDMNElementReference value) {
+    public void setRequiredInput(TDMNElementReference<C> value) {
         this.requiredInput = value;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

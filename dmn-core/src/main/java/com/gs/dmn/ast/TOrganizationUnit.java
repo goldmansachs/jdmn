@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.context.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,18 +28,18 @@ import java.util.List;
         "decisionOwned",
         "extensionElements"
 })
-public class TOrganizationUnit extends TBusinessContextElement implements Visitable {
-    private List<TDMNElementReference> decisionMade;
-    private List<TDMNElementReference> decisionOwned;
+public class TOrganizationUnit<C> extends TBusinessContextElement<C> implements Visitable<C> {
+    private List<TDMNElementReference<C>> decisionMade;
+    private List<TDMNElementReference<C>> decisionOwned;
 
-    public List<TDMNElementReference> getDecisionMade() {
+    public List<TDMNElementReference<C>> getDecisionMade() {
         if (decisionMade == null) {
             decisionMade = new ArrayList<>();
         }
         return this.decisionMade;
     }
 
-    public List<TDMNElementReference> getDecisionOwned() {
+    public List<TDMNElementReference<C>> getDecisionOwned() {
         if (decisionOwned == null) {
             decisionOwned = new ArrayList<>();
         }
@@ -48,7 +47,7 @@ public class TOrganizationUnit extends TBusinessContextElement implements Visita
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

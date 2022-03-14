@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -23,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 public class QualifiedNameTest {
     @Test
     public void testPropertiesWhenNull() {
-        QualifiedName qualifiedName = new QualifiedName(null);
+        QualifiedName<Type, DMNContext> qualifiedName = new QualifiedName<>(null);
         assertEquals("", qualifiedName.getName());
         assertEquals(Collections.emptyList(), qualifiedName.getNames());
         assertEquals("", qualifiedName.getQualifiedName());
@@ -34,7 +36,7 @@ public class QualifiedNameTest {
     @Test
     public void testProperties() {
         List<String> names = Arrays.asList("a", "b", "c");
-        QualifiedName qualifiedName = new QualifiedName(names);
+        QualifiedName<Type, DMNContext> qualifiedName = new QualifiedName<>(names);
         assertEquals("a.b.c", qualifiedName.getName());
         assertEquals(names, qualifiedName.getNames());
         assertEquals("a.b.c", qualifiedName.getQualifiedName());

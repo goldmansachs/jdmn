@@ -13,34 +13,33 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.context.DMNContext;
 
 @JsonPropertyOrder({
         "parameter",
         "expression"
 })
-public class TBinding implements Visitable {
-    private TInformationItem parameter;
-    private TExpression expression;
+public class TBinding<C> implements Visitable<C> {
+    private TInformationItem<C> parameter;
+    private TExpression<C> expression;
 
-    public TInformationItem getParameter() {
+    public TInformationItem<C> getParameter() {
         return parameter;
     }
 
-    public void setParameter(TInformationItem value) {
+    public void setParameter(TInformationItem<C> value) {
         this.parameter = value;
     }
 
-    public TExpression getExpression() {
+    public TExpression<C> getExpression() {
         return expression;
     }
 
-    public void setExpression(TExpression value) {
+    public void setExpression(TExpression<C> value) {
         this.expression = value;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

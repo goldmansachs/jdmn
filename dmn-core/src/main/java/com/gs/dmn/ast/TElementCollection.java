@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.context.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +26,10 @@ import java.util.List;
         "drgElement",
         "extensionElements"
 })
-public class TElementCollection extends TNamedElement implements Visitable {
-    private List<TDMNElementReference> drgElement;
+public class TElementCollection<C> extends TNamedElement<C> implements Visitable<C> {
+    private List<TDMNElementReference<C>> drgElement;
 
-    public List<TDMNElementReference> getDrgElement() {
+    public List<TDMNElementReference<C>> getDrgElement() {
         if (drgElement == null) {
             drgElement = new ArrayList<>();
         }
@@ -38,7 +37,7 @@ public class TElementCollection extends TNamedElement implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

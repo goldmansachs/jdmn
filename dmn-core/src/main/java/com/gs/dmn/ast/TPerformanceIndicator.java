@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.context.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +27,10 @@ import java.util.List;
         "impactingDecision",
         "extensionElements"
 })
-public class TPerformanceIndicator extends TBusinessContextElement implements Visitable {
-    private List<TDMNElementReference> impactingDecision;
+public class TPerformanceIndicator<C> extends TBusinessContextElement<C> implements Visitable<C> {
+    private List<TDMNElementReference<C>> impactingDecision;
 
-    public List<TDMNElementReference> getImpactingDecision() {
+    public List<TDMNElementReference<C>> getImpactingDecision() {
         if (impactingDecision == null) {
             impactingDecision = new ArrayList<>();
         }
@@ -39,7 +38,7 @@ public class TPerformanceIndicator extends TBusinessContextElement implements Vi
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

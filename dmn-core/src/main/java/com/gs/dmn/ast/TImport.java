@@ -15,7 +15,6 @@ package com.gs.dmn.ast;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.gs.dmn.context.DMNContext;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind")
 @JsonSubTypes({
@@ -32,7 +31,7 @@ import com.gs.dmn.context.DMNContext;
         "importType",
         "extensionElements"
 })
-public class TImport extends TNamedElement implements Visitable {
+public class TImport<C> extends TNamedElement<C> implements Visitable<C> {
     private String namespace;
     private String locationURI;
     private String importType;
@@ -62,7 +61,7 @@ public class TImport extends TNamedElement implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

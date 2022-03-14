@@ -13,12 +13,11 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.context.DMNContext;
 
 @JsonPropertyOrder({
         "name"
 })
-public class TRuleAnnotationClause implements Visitable {
+public class TRuleAnnotationClause<C> implements Visitable<C> {
     private String name;
 
     public String getName() {
@@ -30,7 +29,7 @@ public class TRuleAnnotationClause implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

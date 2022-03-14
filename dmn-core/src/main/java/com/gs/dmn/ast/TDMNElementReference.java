@@ -12,9 +12,7 @@
  */
 package com.gs.dmn.ast;
 
-import com.gs.dmn.context.DMNContext;
-
-public class TDMNElementReference implements Visitable {
+public class TDMNElementReference<C> implements Visitable<C> {
     private String href;
 
     public String getHref() {
@@ -26,7 +24,7 @@ public class TDMNElementReference implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.context.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,27 +29,27 @@ import java.util.List;
         "authorityRequirement",
         "extensionElements"
 })
-public class TBusinessKnowledgeModel extends TInvocable implements Visitable {
-    private TFunctionDefinition encapsulatedLogic;
-    private List<TKnowledgeRequirement> knowledgeRequirement;
-    private List<TAuthorityRequirement> authorityRequirement;
+public class TBusinessKnowledgeModel<C> extends TInvocable<C> implements Visitable<C> {
+    private TFunctionDefinition<C> encapsulatedLogic;
+    private List<TKnowledgeRequirement<C>> knowledgeRequirement;
+    private List<TAuthorityRequirement<C>> authorityRequirement;
 
-    public TFunctionDefinition getEncapsulatedLogic() {
+    public TFunctionDefinition<C> getEncapsulatedLogic() {
         return encapsulatedLogic;
     }
 
-    public void setEncapsulatedLogic(TFunctionDefinition value) {
+    public void setEncapsulatedLogic(TFunctionDefinition<C> value) {
         this.encapsulatedLogic = value;
     }
 
-    public List<TKnowledgeRequirement> getKnowledgeRequirement() {
+    public List<TKnowledgeRequirement<C>> getKnowledgeRequirement() {
         if (knowledgeRequirement == null) {
             knowledgeRequirement = new ArrayList<>();
         }
         return this.knowledgeRequirement;
     }
 
-    public List<TAuthorityRequirement> getAuthorityRequirement() {
+    public List<TAuthorityRequirement<C>> getAuthorityRequirement() {
         if (authorityRequirement == null) {
             authorityRequirement = new ArrayList<>();
         }
@@ -58,7 +57,7 @@ public class TBusinessKnowledgeModel extends TInvocable implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

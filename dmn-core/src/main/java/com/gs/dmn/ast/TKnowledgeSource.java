@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.context.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +29,13 @@ import java.util.List;
         "locationURI",
         "extensionElements"
 })
-public class TKnowledgeSource extends TDRGElement implements Visitable{
-    private List<TAuthorityRequirement> authorityRequirement;
+public class TKnowledgeSource<C> extends TDRGElement<C> implements Visitable<C>{
+    private List<TAuthorityRequirement<C>> authorityRequirement;
     private String type;
-    private TDMNElementReference owner;
+    private TDMNElementReference<C> owner;
     private String locationURI;
 
-    public List<TAuthorityRequirement> getAuthorityRequirement() {
+    public List<TAuthorityRequirement<C>> getAuthorityRequirement() {
         if (authorityRequirement == null) {
             authorityRequirement = new ArrayList<>();
         }
@@ -51,11 +50,11 @@ public class TKnowledgeSource extends TDRGElement implements Visitable{
         this.type = value;
     }
 
-    public TDMNElementReference getOwner() {
+    public TDMNElementReference<C> getOwner() {
         return owner;
     }
 
-    public void setOwner(TDMNElementReference value) {
+    public void setOwner(TDMNElementReference<C> value) {
         this.owner = value;
     }
 
@@ -68,7 +67,7 @@ public class TKnowledgeSource extends TDRGElement implements Visitable{
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

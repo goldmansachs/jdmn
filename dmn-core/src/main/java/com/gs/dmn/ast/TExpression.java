@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(name = "list", value = TList.class),
         @JsonSubTypes.Type(name = "unaryTests", value = TUnaryTests.class)
 })
-public abstract class TExpression extends TDMNElement {
+public abstract class TExpression<C> extends TDMNElement<C> {
     private String typeRef;
 
     public String getTypeRef() {

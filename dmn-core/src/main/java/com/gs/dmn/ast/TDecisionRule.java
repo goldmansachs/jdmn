@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.context.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,26 +27,26 @@ import java.util.List;
         "annotationEntry",
         "extensionElements"
 })
-public class TDecisionRule extends TDMNElement implements Visitable {
-    private List<TUnaryTests> inputEntry;
-    private List<TLiteralExpression> outputEntry;
-    private List<TRuleAnnotation> annotationEntry;
+public class TDecisionRule<C> extends TDMNElement<C> implements Visitable<C> {
+    private List<TUnaryTests<C>> inputEntry;
+    private List<TLiteralExpression<C>> outputEntry;
+    private List<TRuleAnnotation<C>> annotationEntry;
 
-    public List<TUnaryTests> getInputEntry() {
+    public List<TUnaryTests<C>> getInputEntry() {
         if (inputEntry == null) {
             inputEntry = new ArrayList<>();
         }
         return this.inputEntry;
     }
 
-    public List<TLiteralExpression> getOutputEntry() {
+    public List<TLiteralExpression<C>> getOutputEntry() {
         if (outputEntry == null) {
             outputEntry = new ArrayList<>();
         }
         return this.outputEntry;
     }
 
-    public List<TRuleAnnotation> getAnnotationEntry() {
+    public List<TRuleAnnotation<C>> getAnnotationEntry() {
         if (annotationEntry == null) {
             annotationEntry = new ArrayList<>();
         }
@@ -55,7 +54,7 @@ public class TDecisionRule extends TDMNElement implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

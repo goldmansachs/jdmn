@@ -491,7 +491,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String elementName(Object obj) {
         if (obj instanceof DRGElementReference) {
-            DRGElementReference reference = (DRGElementReference) obj;
+            DRGElementReference<? extends TDRGElement> reference = (DRGElementReference<? extends TDRGElement>) obj;
             String elementName = this.dmnModelRepository.name(reference.getElement());
             return drgReferenceQualifiedDisplayName(reference.getImportPath(), reference.getModelName(), elementName);
         } else if (obj instanceof TNamedElement) {
@@ -503,7 +503,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String displayName(Object obj) {
         if (obj instanceof DRGElementReference) {
-            DRGElementReference reference = (DRGElementReference) obj;
+            DRGElementReference<? extends TDRGElement> reference = (DRGElementReference<? extends TDRGElement>) obj;
             String elementName = this.dmnModelRepository.displayName(reference.getElement());
             return drgReferenceQualifiedDisplayName(reference.getImportPath(), reference.getModelName(), elementName);
         } else if (obj instanceof TNamedElement) {
@@ -515,7 +515,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String nativeName(Object obj) {
         if (obj instanceof DRGElementReference) {
-            return drgElementReferenceVariableName((DRGElementReference) obj);
+            return drgElementReferenceVariableName((DRGElementReference<? extends TDRGElement>) obj);
         } else if (obj instanceof TNamedElement) {
             return namedElementVariableName((TNamedElement) obj);
         }

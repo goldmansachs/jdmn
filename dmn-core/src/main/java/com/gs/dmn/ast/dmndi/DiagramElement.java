@@ -27,9 +27,9 @@ import java.util.Map;
         @JsonSubTypes.Type(name = "shape", value = Shape.class),
         @JsonSubTypes.Type(name = "edge", value = Edge.class),
 })
-public abstract class DiagramElement {
+public abstract class DiagramElement<C> {
     private Extension extension;
-    private Style style;
+    private Style<C> style;
     private Object sharedStyle;
     private String id;
     private final Map<QName, String> otherAttributes = new HashMap<>();
@@ -42,11 +42,11 @@ public abstract class DiagramElement {
         this.extension = value;
     }
 
-    public Style getStyle() {
+    public Style<C> getStyle() {
         return style;
     }
 
-    public void setStyle(Style value) {
+    public void setStyle(Style<C> value) {
         this.style = value;
     }
 

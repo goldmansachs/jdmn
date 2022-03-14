@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.context.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +26,11 @@ import java.util.List;
         "parameters",
         "extensionElements"
 })
-public class TFunctionItem extends TDMNElement implements Visitable {
-    private List<TInformationItem> parameters;
+public class TFunctionItem<C> extends TDMNElement<C> implements Visitable<C> {
+    private List<TInformationItem<C>> parameters;
     private String outputTypeRef;
 
-    public List<TInformationItem> getParameters() {
+    public List<TInformationItem<C>> getParameters() {
         if (parameters == null) {
             parameters = new ArrayList<>();
         }
@@ -47,7 +46,7 @@ public class TFunctionItem extends TDMNElement implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

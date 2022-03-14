@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.context.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,34 +30,34 @@ import java.util.List;
         "inputData",
         "extensionElements"
 })
-public class TDecisionService extends TInvocable implements Visitable {
-    private List<TDMNElementReference> outputDecision;
-    private List<TDMNElementReference> encapsulatedDecision;
-    private List<TDMNElementReference> inputDecision;
-    private List<TDMNElementReference> inputData;
+public class TDecisionService<C> extends TInvocable<C> implements Visitable<C> {
+    private List<TDMNElementReference<C>> outputDecision;
+    private List<TDMNElementReference<C>> encapsulatedDecision;
+    private List<TDMNElementReference<C>> inputDecision;
+    private List<TDMNElementReference<C>> inputData;
 
-    public List<TDMNElementReference> getOutputDecision() {
+    public List<TDMNElementReference<C>> getOutputDecision() {
         if (outputDecision == null) {
             outputDecision = new ArrayList<>();
         }
         return this.outputDecision;
     }
 
-    public List<TDMNElementReference> getEncapsulatedDecision() {
+    public List<TDMNElementReference<C>> getEncapsulatedDecision() {
         if (encapsulatedDecision == null) {
             encapsulatedDecision = new ArrayList<>();
         }
         return this.encapsulatedDecision;
     }
 
-    public List<TDMNElementReference> getInputDecision() {
+    public List<TDMNElementReference<C>> getInputDecision() {
         if (inputDecision == null) {
             inputDecision = new ArrayList<>();
         }
         return this.inputDecision;
     }
 
-    public List<TDMNElementReference> getInputData() {
+    public List<TDMNElementReference<C>> getInputData() {
         if (inputData == null) {
             inputData = new ArrayList<>();
         }
@@ -66,7 +65,7 @@ public class TDecisionService extends TInvocable implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

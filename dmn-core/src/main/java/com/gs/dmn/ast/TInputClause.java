@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.context.DMNContext;
 
 @JsonPropertyOrder({
         "id",
@@ -24,28 +23,28 @@ import com.gs.dmn.context.DMNContext;
         "inputValues",
         "extensionElements"
 })
-public class TInputClause extends TDMNElement implements Visitable {
-    private TLiteralExpression inputExpression;
-    private TUnaryTests inputValues;
+public class TInputClause<C> extends TDMNElement<C> implements Visitable<C> {
+    private TLiteralExpression<C> inputExpression;
+    private TUnaryTests<C> inputValues;
 
-    public TLiteralExpression getInputExpression() {
+    public TLiteralExpression<C> getInputExpression() {
         return inputExpression;
     }
 
-    public void setInputExpression(TLiteralExpression value) {
+    public void setInputExpression(TLiteralExpression<C> value) {
         this.inputExpression = value;
     }
 
-    public TUnaryTests getInputValues() {
+    public TUnaryTests<C> getInputValues() {
         return inputValues;
     }
 
-    public void setInputValues(TUnaryTests value) {
+    public void setInputValues(TUnaryTests<C> value) {
         this.inputValues = value;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }
