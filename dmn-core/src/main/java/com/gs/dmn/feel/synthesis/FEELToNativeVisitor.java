@@ -14,6 +14,7 @@ package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.ReplaceItemFilterVisitor;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
@@ -151,15 +152,15 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         ListLiteral<Type, DMNContext> listLiteral = element.getListLiteral();
         Type listType = listLiteral.getType();
         Type listElementType = ((ListType) listType).getElementType();
-        Type inputExpressionType = (Type) context.getInputExpressionType();
+        Type inputExpressionType = context.getInputExpressionType();
 
         String condition;
-        if (Type.conformsTo(inputExpressionType, listType)) {
+        if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, listType)) {
             condition = makeListTestCondition("=", inputExpressionToJava(context), listLiteral, context);
-        } else if (Type.conformsTo(inputExpressionType, listElementType)) {
+        } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, listElementType)) {
             String javaList = (String) listLiteral.accept(this, context);
             condition = String.format("listContains(%s, %s)", javaList, inputExpressionToJava(context));
-        } else if (listElementType instanceof RangeType && Type.conformsTo(inputExpressionType, ((RangeType) listElementType).getRangeType())) {
+        } else if (listElementType instanceof RangeType && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, ((RangeType) listElementType).getRangeType())) {
             String javaList = (String) listLiteral.accept(this, context);
             condition = String.format("listContains(%s, %s)", javaList, "true");
         } else {
@@ -634,7 +635,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
             // Return lambda when DMN Invocable
             Declaration declaration = context.lookupVariableDeclaration(name);
             if (declaration != null) {
-                Type type = (Type) declaration.getType();
+                Type type = declaration.getType();
                 if (type instanceof DMNFunctionType) {
                     // DRG Element names
                     TDRGElement drgElement = ((DMNFunctionType) type).getDRGElement();

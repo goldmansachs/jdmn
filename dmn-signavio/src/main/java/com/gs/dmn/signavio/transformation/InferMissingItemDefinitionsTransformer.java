@@ -14,9 +14,9 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.DataType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -74,7 +74,7 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
             for (Pair<TDRGElement, Type> pair: errorReport) {
                 TDRGElement element = pair.getLeft();
                 Type type = pair.getRight();
-                if (Type.isNull(type)) {
+                if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
                 } else if (isPrimitive(type) || isListOfPrimitive(type)) {
                     if (!resolvedElements.contains(element)) {
                         // Create ItemDefinition and add it

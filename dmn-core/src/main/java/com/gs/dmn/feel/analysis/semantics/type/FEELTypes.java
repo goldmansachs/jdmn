@@ -12,6 +12,9 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.el.analysis.semantics.type.AnyType;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;

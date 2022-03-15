@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.transformation.basic;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import org.omg.spec.dmn._20191111.model.TDecision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

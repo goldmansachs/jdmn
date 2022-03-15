@@ -13,7 +13,7 @@
 package com.gs.dmn.feel.analysis;
 
 import com.gs.dmn.context.DMNContext;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ErrorListener;
 import com.gs.dmn.feel.analysis.syntax.antlrv4.FEELLexer;
 import com.gs.dmn.feel.analysis.syntax.antlrv4.FEELParser;

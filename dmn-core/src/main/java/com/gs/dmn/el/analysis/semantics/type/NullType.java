@@ -10,23 +10,25 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.semantics.type;
+package com.gs.dmn.el.analysis.semantics.type;
 
-public class AnyType extends NamedType {
-    public static final AnyType ANY = new AnyType();
+import com.gs.dmn.feel.analysis.semantics.type.NamedType;
 
-    public AnyType() {
-        super("Any");
+public class NullType extends NamedType {
+    public static final NullType NULL = new NullType("Null");
+
+    protected NullType(String name) {
+        super(name);
     }
 
     @Override
-    protected boolean equivalentTo(Type other) {
-        return other == ANY;
+    public boolean equivalentTo(Type other) {
+        return Type.isNullType(other);
     }
 
     @Override
-    protected boolean conformsTo(Type other) {
-        return other == ANY;
+    public boolean conformsTo(Type other) {
+        return true;
     }
 
     @Override

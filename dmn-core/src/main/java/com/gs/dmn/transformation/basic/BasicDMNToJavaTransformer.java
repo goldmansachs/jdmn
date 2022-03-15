@@ -17,6 +17,9 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Environment;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.dialect.DMNDialectDefinition;
+import com.gs.dmn.el.analysis.semantics.type.AnyType;
+import com.gs.dmn.el.analysis.semantics.type.NullType;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -61,7 +64,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 
 public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Type, DMNContext> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(BasicDMNToJavaTransformer.class);
@@ -864,7 +867,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             Type expectedElementType = ((ListType) expectedType).getElementType();
             Type expressionElementType = ((ListType) expressionType).getElementType();
             if (expectedElementType instanceof ItemDefinitionType) {
-                if (Type.conformsTo(expressionElementType, expectedElementType) || expressionElementType == ANY) {
+                if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(expressionElementType, expectedElementType) || expressionElementType == ANY) {
                     String conversionText = this.nativeFactory.makeListConversion(javaExpression, (ItemDefinitionType) expectedElementType);
                     return this.nativeFactory.makeExpressionStatement(conversionText, expectedType);
                 }
@@ -874,7 +877,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         } else if (expressionType instanceof ListType) {
             return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertListToElement(javaExpression, expectedType), expectedType);
         } else if (expectedType instanceof ItemDefinitionType) {
-            if (Type.conformsTo(expressionType, expectedType) || expressionType == ANY) {
+            if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(expressionType, expectedType) || expressionType == ANY) {
                 return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertToItemDefinitionType(javaExpression, (ItemDefinitionType) expectedType), expectedType);
             }
         }
@@ -1677,7 +1680,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     private String toNativeTypeNoCache(Type type) {
-        if (Type.isNull(type)) {
+        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             if (isStrongTyping()) {
                 throw new DMNRuntimeException(String.format("Cannot infer native type for '%s' type", type));
             } else {

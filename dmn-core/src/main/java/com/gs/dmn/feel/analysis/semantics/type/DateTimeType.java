@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.el.analysis.semantics.type.Type;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -44,14 +46,14 @@ public class DateTimeType extends ComparableDataType {
     }
 
     @Override
-    protected boolean equivalentTo(Type other) {
+    public boolean equivalentTo(Type other) {
         return other == DATE_AND_TIME
                 || other == DATE_TIME
                 || other == DATE_TIME_CAMEL;
     }
 
     @Override
-    protected boolean conformsTo(Type other) {
+    public boolean conformsTo(Type other) {
         return equivalentTo(other) || other == COMPARABLE;
     }
 

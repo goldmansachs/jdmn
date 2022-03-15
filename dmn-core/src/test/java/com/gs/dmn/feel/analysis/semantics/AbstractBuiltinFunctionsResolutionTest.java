@@ -2,7 +2,7 @@ package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.ELAnalyzer;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionInvocation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.SimpleLiteral;

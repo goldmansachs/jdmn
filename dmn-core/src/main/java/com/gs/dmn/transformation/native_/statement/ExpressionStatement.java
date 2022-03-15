@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.transformation.native_.statement;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 
 public class ExpressionStatement extends Statement {
     private final String text;

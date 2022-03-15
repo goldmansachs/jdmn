@@ -18,8 +18,8 @@ import com.gs.dmn.QualifiedName;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
@@ -83,7 +83,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
         TInformationItem variable = repository.variable(element);
         QualifiedName typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
 
-        String hint = Type.isNull(type) ? "" : String.format(". The inferred type is '%s'", type.toString());
+        String hint = com.gs.dmn.el.analysis.semantics.type.Type.isNull(type) ? "" : String.format(". The inferred type is '%s'", type.toString());
         return makeError(repository, model, element, String.format("Cannot find typeRef '%s'", typeRef.toString()) + hint);
     }
 

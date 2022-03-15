@@ -29,10 +29,10 @@ import java.util.stream.Collectors;
 import static com.gs.dmn.serialization.DMNVersion.DMN_11;
 
 public class DMNToManifestTransformer {
-    private final BasicDMNToNativeTransformer<com.gs.dmn.feel.analysis.semantics.type.Type, DMNContext> dmnTransformer;
+    private final BasicDMNToNativeTransformer<com.gs.dmn.el.analysis.semantics.type.Type, DMNContext> dmnTransformer;
     private final DMNModelRepository dmnModelRepository;
 
-    public DMNToManifestTransformer(BasicDMNToNativeTransformer<com.gs.dmn.feel.analysis.semantics.type.Type, DMNContext> dmnTransformer) {
+    public DMNToManifestTransformer(BasicDMNToNativeTransformer<com.gs.dmn.el.analysis.semantics.type.Type, DMNContext> dmnTransformer) {
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
     }

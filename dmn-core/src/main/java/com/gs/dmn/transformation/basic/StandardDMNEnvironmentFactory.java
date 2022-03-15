@@ -21,6 +21,8 @@ import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.context.environment.Environment;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.context.environment.VariableDeclaration;
+import com.gs.dmn.el.analysis.semantics.type.AnyType;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -320,7 +322,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (outputTypeRef == null) {
             if (index < outputEntries.size()) {
                 type = expressionType(element, outputEntries.get(index), context);
-                if (Type.isNull(type)) {
+                if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
                     throw new DMNRuntimeException(String.format("Cannot infer type for '%s' from OutputEntries", element.getName()));
                 }
             } else {
@@ -334,7 +336,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     private Type applyPolicies(TDRGElement element, TDecisionTable decisionTable, Type type) {
         TBuiltinAggregator aggregation = decisionTable.getAggregation();
-        if (decisionTable.getHitPolicy() == THitPolicy.COLLECT && !Type.isNull(type)) {
+        if (decisionTable.getHitPolicy() == THitPolicy.COLLECT && !com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             type = new ListType(type);
         }
         if (aggregation == TBuiltinAggregator.COUNT || aggregation == TBuiltinAggregator.SUM) {
@@ -381,7 +383,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
         // Lookup type
         Type type = this.feelTypeMemoizer.get(model, typeRef);
-        if (Type.isNull(type)) {
+        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             type = toFEELTypeNoCache(model, typeRef);
             this.feelTypeMemoizer.put(model, typeRef, type);
         }
@@ -405,7 +407,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     @Override
     public Type toFEELType(TItemDefinition itemDefinition) {
         Type type = this.feelTypeMemoizer.get(itemDefinition);
-        if (Type.isNull(type)) {
+        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             type = toFEELTypeNoCache(itemDefinition);
             this.feelTypeMemoizer.put(itemDefinition, type);
         }
@@ -473,14 +475,14 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             TDecision decision = this.dmnModelRepository.findDecisionByRef(decisionService, outputDecisions.get(0).getHref());
             String decisionName = decision.getName();
             VariableDeclaration declaration = (VariableDeclaration) context.lookupVariableDeclaration(decisionName);
-            return (Type) declaration.getType();
+            return declaration.getType();
         } else {
             ContextType type = new ContextType();
             for (TDMNElementReference er: outputDecisions) {
                 TDecision decision = this.dmnModelRepository.findDecisionByRef(decisionService, er.getHref());
                 String decisionName = decision.getName();
                 VariableDeclaration declaration = (VariableDeclaration) context.lookupVariableDeclaration(decisionName);
-                type.addMember(decisionName, Collections.emptyList(), (Type) declaration.getType());
+                type.addMember(decisionName, Collections.emptyList(), declaration.getType());
             }
             return type;
         }
@@ -651,7 +653,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     protected void addDeclaration(Environment environment, Declaration declaration, TDRGElement parent, TDRGElement child) {
-        Type type = (Type) declaration.getType();
+        Type type = declaration.getType();
         String importName = this.dmnModelRepository.findChildImportName(parent, child);
         if (ImportPath.isEmpty(importName)) {
             environment.addDeclaration(declaration);
@@ -664,7 +666,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 importDeclaration = this.environmentFactory.makeVariableDeclaration(importName, contextType);
                 environment.addDeclaration(importDeclaration);
             } else if (importDeclaration instanceof VariableDeclaration) {
-                Type importType = (Type) importDeclaration.getType();
+                Type importType = importDeclaration.getType();
                 if (importType instanceof ImportContextType) {
                     ((ImportContextType) importType).addMember(declaration.getName(), new ArrayList<>(), type);
                     ((ImportContextType) importType).addMemberReference(declaration.getName(), this.dmnModelRepository.makeDRGElementReference(importName, child));
@@ -811,12 +813,12 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     public Type entryType(TDRGElement element, TContextEntry entry, DMNContext localContext) {
         TInformationItem variable = entry.getVariable();
         Type type = variableType(element, variable);
-        if (!Type.isNull(type)) {
+        if (!com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             return type;
         }
         // Infer type from expression
         type = this.dmnTransformer.expressionType(element, entry.getExpression(), localContext);
-        return Type.isNull(type) ? AnyType.ANY : type;
+        return com.gs.dmn.el.analysis.semantics.type.Type.isNull(type) ? AnyType.ANY : type;
     }
 
     private Type variableType(TNamedElement element, TInformationItem variable) {

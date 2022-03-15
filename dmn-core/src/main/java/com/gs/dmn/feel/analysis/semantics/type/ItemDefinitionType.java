@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.el.analysis.semantics.type.Type;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -65,12 +67,12 @@ public class ItemDefinitionType extends NamedType implements CompositeDataType, 
     }
 
     @Override
-    protected boolean equivalentTo(Type other) {
+    public boolean equivalentTo(Type other) {
         return CompositeDataType.equivalentTo(this, other);
     }
 
     @Override
-    protected boolean conformsTo(Type other) {
+    public boolean conformsTo(Type other) {
         return CompositeDataType.conformsTo(this, other);
     }
 
@@ -79,7 +81,7 @@ public class ItemDefinitionType extends NamedType implements CompositeDataType, 
         if (members.isEmpty()) {
             return false;
         }
-        return members.values().stream().noneMatch(Type::isNullOrAny);
+        return members.values().stream().noneMatch(com.gs.dmn.el.analysis.semantics.type.Type::isNullOrAny);
     }
 
     @Override

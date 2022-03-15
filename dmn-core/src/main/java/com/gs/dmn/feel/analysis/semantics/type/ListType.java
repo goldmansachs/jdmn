@@ -12,9 +12,11 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 
-public class ListType extends Type implements com.gs.dmn.el.analysis.semantics.type.ListType {
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
+
+public class ListType implements com.gs.dmn.el.analysis.semantics.type.ListType {
     public static final Type ANY_LIST = new ListType(ANY);
     public static final Type NUMBER_LIST = new ListType(NumberType.NUMBER);
     public static final Type STRING_LIST = new ListType(StringType.STRING);
@@ -34,7 +36,7 @@ public class ListType extends Type implements com.gs.dmn.el.analysis.semantics.t
     }
 
     public ListType(Type elementType) {
-        if (elementType == null) {
+        if (Type.isNull(elementType)) {
             elementType = ANY;
         }
         this.elementType = elementType;
@@ -46,20 +48,20 @@ public class ListType extends Type implements com.gs.dmn.el.analysis.semantics.t
     }
 
     @Override
-    protected boolean equivalentTo(Type other) {
+    public boolean equivalentTo(Type other) {
         return other instanceof ListType
-                && Type.equivalentTo(this.elementType, ((ListType) other).elementType);
+                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.elementType, ((ListType) other).elementType);
     }
 
     @Override
-    protected boolean conformsTo(Type other) {
+    public boolean conformsTo(Type other) {
         return other instanceof ListType
-                && Type.conformsTo(this.elementType, ((ListType) other).elementType);
+                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.elementType, ((ListType) other).elementType);
     }
 
     @Override
     public boolean isFullySpecified() {
-        return !Type.isNullOrAny(elementType);
+        return !com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAny(elementType);
     }
 
     @Override
@@ -69,7 +71,7 @@ public class ListType extends Type implements com.gs.dmn.el.analysis.semantics.t
 
         ListType listType = (ListType) o;
 
-        return elementType != null ? elementType.equals(listType.elementType) : listType.elementType == null;
+        return elementType != null ? elementType.equals(listType.elementType) : Type.isNull(listType.elementType);
     }
 
     @Override

@@ -18,6 +18,8 @@ import com.gs.dmn.ImportPath;
 import com.gs.dmn.QualifiedName;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
+import com.gs.dmn.el.analysis.semantics.type.NullType;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.interpreter.ELInterpreter;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.LogErrorHandler;
@@ -45,7 +47,7 @@ import javax.xml.bind.JAXBElement;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 
 public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private static final Logger LOGGER = LoggerFactory.getLogger(StandardDMNInterpreter.class);
@@ -127,7 +129,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                     TInputData inputData = (TInputData) drgElementByName;
                     TInformationItem variable = inputData.getVariable();
                     String originalTypeRef = variable.getTypeRef();
-                    if (Type.isNullOrAny(originalTypeRef)) {
+                    if (com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAny(originalTypeRef)) {
                         String inferredType = null;
                         if (feelLib.isNumber(value)) {
                             inferredType = NumberType.NUMBER.getName();

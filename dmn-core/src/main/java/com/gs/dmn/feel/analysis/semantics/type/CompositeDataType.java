@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.el.analysis.semantics.type.Type;
+
 import java.util.List;
 import java.util.Set;
 
@@ -26,7 +28,7 @@ public interface CompositeDataType {
             for (String name : selfNames) {
                 Type selfType = self.getMemberType(name);
                 Type otherType = ((ContextType) other).getMemberType(name);
-                if (!Type.equivalentTo(selfType, otherType)) {
+                if (!com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(selfType, otherType)) {
                     return false;
                 }
             }
@@ -40,7 +42,7 @@ public interface CompositeDataType {
             for (String name : selfNames) {
                 Type selfType = self.getMemberType(name);
                 Type otherType = ((ItemDefinitionType) other).getMemberType(name);
-                if (!Type.equivalentTo(selfType, otherType)) {
+                if (!com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(selfType, otherType)) {
                     return false;
                 }
             }
@@ -60,7 +62,7 @@ public interface CompositeDataType {
             for (String name : otherNames) {
                 Type selfType = self.getMemberType(name);
                 Type otherType = ((ContextType) other).getMemberType(name);
-                if (!Type.conformsTo(selfType, otherType)) {
+                if (!com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(selfType, otherType)) {
                     return false;
                 }
             }
@@ -74,7 +76,7 @@ public interface CompositeDataType {
             for (String name : otherNames) {
                 Type selfType = self.getMemberType(name);
                 Type otherType = ((ItemDefinitionType) other).getMemberType(name);
-                if (!Type.conformsTo(selfType, otherType)) {
+                if (!com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(selfType, otherType)) {
                     return false;
                 }
             }

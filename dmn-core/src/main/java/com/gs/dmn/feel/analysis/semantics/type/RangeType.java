@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.ComparableDataType.COMPARABLE;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
@@ -23,7 +25,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
-public class RangeType extends Type {
+public class RangeType implements Type {
     public static final Type NUMBER_RANGE = new RangeType(NUMBER);
     public static final Type STRING_RANGE = new RangeType(STRING);
     public static final Type DATE_RANGE = new RangeType(DATE);
@@ -41,7 +43,7 @@ public class RangeType extends Type {
     }
 
     public RangeType(Type type) {
-        if (Type.isNull(type)) {
+        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             type = NUMBER;
         }
         this.type = type;
@@ -62,20 +64,20 @@ public class RangeType extends Type {
     }
 
     @Override
-    protected boolean equivalentTo(Type other) {
+    public boolean equivalentTo(Type other) {
         return other instanceof RangeType
-                && Type.equivalentTo(this.type, ((RangeType) other).type);
+                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.type, ((RangeType) other).type);
     }
 
     @Override
-    protected boolean conformsTo(Type other) {
+    public boolean conformsTo(Type other) {
         return other instanceof RangeType
-                && Type.conformsTo(this.type, ((RangeType) other).type);
+                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.type, ((RangeType) other).type);
     }
 
     @Override
     public boolean isFullySpecified() {
-        return !Type.isNullOrAny(type);
+        return !com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAny(type);
     }
 
     @Override

@@ -14,11 +14,11 @@ package com.gs.dmn.feel.interpreter;
 
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.ELAnalyzer;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.el.interpreter.ELInterpreter;
 import com.gs.dmn.feel.AbstractFEELProcessor;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
 

@@ -14,10 +14,10 @@ package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.ListLiteral;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 
 public class FunctionInvocationUtils {
     static void deriveType(FunctionInvocation<Type, DMNContext> element, DMNContext context, String functionName) {
@@ -107,7 +107,7 @@ public class FunctionInvocationUtils {
             Type list1Type = parameters.getParameterType(0, "list1");
             return StandardEnvironmentFactory.makeSignavioRemoveAllBuiltinFunctionType(list1Type);
         } else {
-            return (Type) functionDeclaration.getType();
+            return functionDeclaration.getType();
         }
     }
 
@@ -119,8 +119,8 @@ public class FunctionInvocationUtils {
             if (upperBound == null) {
                 upperBound = type;
             } else {
-                if (!Type.conformsTo(type, upperBound)) {
-                    if (Type.conformsTo(upperBound, type)) {
+                if (!com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(type, upperBound)) {
+                    if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(upperBound, type)) {
                         upperBound = type;
                     } else {
                         upperBound = ANY;

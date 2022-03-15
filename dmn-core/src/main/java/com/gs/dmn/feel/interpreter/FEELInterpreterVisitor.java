@@ -16,6 +16,8 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.DMNContextKind;
 import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.context.environment.RuntimeEnvironment;
+import com.gs.dmn.el.analysis.semantics.type.AnyType;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
@@ -138,7 +140,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         LOGGER.debug("Visiting element '{}'", element);
 
         String operator = element.getOperator();
-        Type inputExpressionType = (Type) context.getInputExpressionType();
+        Type inputExpressionType = context.getInputExpressionType();
         Expression<Type, DMNContext> endpoint = element.getEndpoint();
         Type endpointType = endpoint.getType();
 
@@ -148,9 +150,9 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             } else {
                 Object self = context.lookupBinding(INPUT_ENTRY_PLACE_HOLDER);
                 if (operator == null) {
-                    if (Type.equivalentTo(inputExpressionType, endpointType)) {
+                    if (com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(inputExpressionType, endpointType)) {
                         return evaluateOperatorRange(element, "=", self, endpoint, context);
-                    } else if (endpointType instanceof ListType && Type.equivalentTo(inputExpressionType, ((ListType) endpointType).getElementType())) {
+                    } else if (endpointType instanceof ListType && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(inputExpressionType, ((ListType) endpointType).getElementType())) {
                         List endpointValueList = (List)endpoint.accept(this, context);
                         List results = new ArrayList();
                         for(Object endpointValue: endpointValueList) {
@@ -186,7 +188,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 throw new DMNRuntimeException(String.format("Unknown operator '%s'", operator));
             }
         } else {
-            return evaluateOperatorRange(element, operator, self, (Type) context.getInputExpressionType(), endpointExpression.getType(), endpointValue);
+            return evaluateOperatorRange(element, operator, self, context.getInputExpressionType(), endpointExpression.getType(), endpointValue);
         }
     }
 
@@ -302,17 +304,17 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             ListLiteral<Type, DMNContext> listLiteral = element.getListLiteral();
             Type listType = listLiteral.getType();
             Type listElementType = ((ListType) listType).getElementType();
-            Type inputExpressionType = (Type) context.getInputExpressionType();
+            Type inputExpressionType = context.getInputExpressionType();
             Object self = context.lookupBinding(INPUT_ENTRY_PLACE_HOLDER);
 
             Object result;
-            if (Type.conformsTo(inputExpressionType, listType)) {
+            if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, listType)) {
                 String operator = "=";
                 return evaluateOperatorRange(element, operator, self, listLiteral, context);
-            } else if (Type.conformsTo(inputExpressionType, listElementType)) {
+            } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, listElementType)) {
                 List list = (List) listLiteral.accept(this, context);
                 result = this.lib.listContains(list, self);
-            } else if (listElementType instanceof RangeType && Type.conformsTo(inputExpressionType, ((RangeType) listElementType).getRangeType())) {
+            } else if (listElementType instanceof RangeType && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, ((RangeType) listElementType).getRangeType())) {
                 List list = (List) listLiteral.accept(this, context);
                 result = this.lib.listContains(list, true);
             } else {
@@ -436,7 +438,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             domain = (List) context.lookupBinding(name);
         } else if (expressionDomain instanceof EndpointsRange) {
             EndpointsRange<Type, DMNContext> test = (EndpointsRange<Type, DMNContext>) expressionDomain;
-            if (test.getType() instanceof RangeType && Type.conformsTo(((RangeType) test.getType()).getRangeType(), NumberType.NUMBER)) {
+            if (test.getType() instanceof RangeType && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(((RangeType) test.getType()).getRangeType(), NumberType.NUMBER)) {
                 Object start = test.getStart().accept(this, context);
                 Object end = test.getEnd().accept(this, context);
                 domain = this.lib.rangeToList(test.isOpenStart(), (NUMBER) start, test.isOpenEnd(), (NUMBER) end);
@@ -535,9 +537,9 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             Object e1 = element.getLeftOperand().accept(this, context);
             Type e2 = element.getRightOperand().getType();
             if (e1 == null) {
-                return Type.isNullType(e2);
+                return com.gs.dmn.el.analysis.semantics.type.Type.isNullType(e2);
             } else {
-                return Type.conformsTo(element.getLeftOperand().getType(), e2);
+                return com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(element.getLeftOperand().getType(), e2);
             }
         } catch (Exception e) {
             this.errorHandler.reportError("Cannot evaluate instanceof", e);

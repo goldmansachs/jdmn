@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.FEELConstants;
 
 import java.util.LinkedHashMap;
@@ -39,12 +40,12 @@ public class DateType extends ComparableDataType {
     }
 
     @Override
-    protected boolean equivalentTo(Type other) {
+    public boolean equivalentTo(Type other) {
         return other == DATE;
     }
 
     @Override
-    protected boolean conformsTo(Type other) {
+    public boolean conformsTo(Type other) {
         return other == DATE || other == COMPARABLE;
     }
 

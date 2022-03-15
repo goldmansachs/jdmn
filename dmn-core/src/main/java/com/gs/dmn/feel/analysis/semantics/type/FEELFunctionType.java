@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterConversions;
@@ -46,18 +47,18 @@ public class FEELFunctionType extends FunctionType {
     }
 
     @Override
-    protected boolean equivalentTo(Type other) {
+    public boolean equivalentTo(Type other) {
         return other instanceof FEELFunctionType
-                && Type.equivalentTo(this.returnType, ((FunctionType) other).returnType)
-                && Type.equivalentTo(this.parameterTypes, ((FunctionType) other).parameterTypes);
+                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.returnType, ((FunctionType) other).returnType)
+                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.parameterTypes, ((FunctionType) other).parameterTypes);
     }
 
     @Override
-    protected boolean conformsTo(Type other) {
+    public boolean conformsTo(Type other) {
         // “contravariant function argument type” and “covariant function return type”
         return other instanceof FunctionType
-                && Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
-                && Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
+                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
+                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
     }
 
     @Override
@@ -88,7 +89,7 @@ public class FEELFunctionType extends FunctionType {
 
         if (this.parameters != null ? !this.parameters.equals(that.parameters) : that.parameters != null)
             return false;
-        return this.returnType != null ? this.returnType.equals(that.returnType) : that.returnType == null;
+        return this.returnType != null ? this.returnType.equals(that.returnType) : Type.isNull(that.returnType);
     }
 
     @Override

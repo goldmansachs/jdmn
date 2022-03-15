@@ -15,6 +15,9 @@ package com.gs.dmn.feel.analysis.semantics;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.context.environment.VariableDeclaration;
+import com.gs.dmn.el.analysis.semantics.type.AnyType;
+import com.gs.dmn.el.analysis.semantics.type.NullType;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.LogAndThrowErrorHandler;
 import com.gs.dmn.feel.FEELConstants;
 import com.gs.dmn.feel.OperatorDecisionTable;
@@ -138,7 +141,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         if (context.isExpressionContext()) {
             element.setType(new RangeType(endpoint.getType()));
         } else {
-            Type inputExpressionType = (Type) context.getInputExpressionType();
+            Type inputExpressionType = context.getInputExpressionType();
             element.setType(new RangeType(endpoint.getType()));
             if (endpoint instanceof FunctionInvocation) {
             } else if (endpoint instanceof NamedExpression) {
@@ -192,10 +195,10 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         if (!expressionList.isEmpty()) {
             Type listType = listLiteral.getType();
             Type listElementType = ((ListType) listType).getElementType();
-            Type inputExpressionType = (Type) context.getInputExpressionType();
-            if (Type.conformsTo(inputExpressionType, listType)) {
-            } else if (Type.conformsTo(inputExpressionType, listElementType)) {
-            } else if (listElementType instanceof RangeType &&Type.conformsTo(inputExpressionType, ((RangeType) listElementType).getRangeType())) {
+            Type inputExpressionType = context.getInputExpressionType();
+            if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, listType)) {
+            } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, listElementType)) {
+            } else if (listElementType instanceof RangeType && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, ((RangeType) listElementType).getRangeType())) {
             } else {
                 throw new SemanticError(element, String.format("Cannot compare '%s', '%s'", inputExpressionType, listType));
             }
@@ -357,16 +360,16 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         if (conditionType != BOOLEAN) {
             throw new SemanticError(element, String.format("Condition type must be boolean. Found '%s' instead.", conditionType));
         }
-        if (Type.isNullType(thenType) && Type.isNullType(elseType)) {
+        if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType) && com.gs.dmn.el.analysis.semantics.type.Type.isNullType(elseType)) {
             throw new SemanticError(element, String.format("Types of then and else branches are incompatible. Found '%s' and '%s'.", thenType, elseType));
-        } else if (Type.isNullType(thenType)) {
+        } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType)) {
             element.setType(elseType);
-        } else if (Type.isNullType(elseType)) {
+        } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(elseType)) {
             element.setType(thenType);
         } else {
-            if (Type.conformsTo(thenType, elseType)) {
+            if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(thenType, elseType)) {
                 element.setType(elseType);
-            } else if (Type.conformsTo(elseType, thenType)) {
+            } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(elseType, thenType)) {
                 element.setType(thenType);
             } else {
                 throw new SemanticError(element, String.format("Types of then and else branches are incompatible. Found '%s' and '%s'.", thenType, elseType));
@@ -698,7 +701,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
                     success = true;
                 } else if (lambdaExpression instanceof Name) {
                     Declaration declaration = context.lookupVariableDeclaration(((Name<Type, DMNContext>) lambdaExpression).getName());
-                    Type type = (Type) declaration.getType();
+                    Type type = declaration.getType();
                     if (type instanceof FunctionType && !(type instanceof BuiltinFunctionType)) {
                         List<FormalParameter<Type, DMNContext>> formalParameters = ((FunctionType) type).getParameters();
                         formalParameters.forEach(p -> p.setType(elementType));
@@ -730,7 +733,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
                     // Set return type
                     functionDefinition.accept(this, context);
                     Type returnType = feelFunctionType.getReturnType();
-                    if (Type.isNullOrAny(returnType)) {
+                    if (com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAny(returnType)) {
                         Type newReturnType = functionDefinition.getReturnType();
                         feelFunctionType.setReturnType(newReturnType);
                     }
@@ -743,7 +746,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         if (arguments instanceof NamedParameters) {
             for(FormalParameter<Type, DMNContext> p: parameters) {
                 Type type = p.getType();
-                if (Type.isNullOrAny(type)) {
+                if (com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAny(type)) {
                     Type newType = ((NamedParameters<Type, DMNContext>) arguments).getParameters().get(p.getName()).getType();
                     p.setType(newType);
                 }
@@ -752,7 +755,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             for(int i=0; i < parameters.size(); i++) {
                 FormalParameter<Type, DMNContext> p = parameters.get(i);
                 Type type = p.getType();
-                if (Type.isNullOrAny(type)) {
+                if (com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAny(type)) {
                     Type newType = ((PositionalParameters<Type, DMNContext>) arguments).getParameters().get(i).getType();
                     p.setType(newType);
                 }
@@ -848,7 +851,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
                 // conforms to any other list
                 element.setType(new ListType(NullType.NULL));
             } else {
-                element.setType((Type) context.getInputExpressionType());
+                element.setType(context.getInputExpressionType());
             }
         } else {
             checkListElementTypes(element);
@@ -864,7 +867,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             Type type1 = types.get(i);
             for (int j = i + 1; j < types.size(); j++) {
                 Type type2 = types.get(j);
-                if (!Type.conformsTo(type1, type2)) {
+                if (!com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(type1, type2)) {
                     sameType = false;
                     break;
                 }
@@ -891,7 +894,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             return element;
         } else {
             VariableDeclaration source = (VariableDeclaration) context.lookupVariableDeclaration(names.get(0));
-            Type sourceType = (Type) source.getType();
+            Type sourceType = source.getType();
             for (int i = 1; i < names.size(); i++) {
                 String member = names.get(i);
                 sourceType = navigationType(sourceType, member);
@@ -908,7 +911,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         // Lookup for variables
         Declaration declaration = context.lookupVariableDeclaration(name);
         if (declaration instanceof VariableDeclaration) {
-            type = (Type) declaration.getType();
+            type = declaration.getType();
             element.setType(type);
             return;
         }
@@ -916,7 +919,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         List<Declaration> declarations = context.lookupFunctionDeclaration(name);
         if (declarations != null && declarations.size() == 1) {
             declaration = declarations.get(0);
-            type = (Type) declaration.getType();
+            type = declaration.getType();
         } else {
             type = new BuiltinOverloadedFunctionType(declarations);
         }
@@ -931,13 +934,13 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         // Lookup for variables
         Declaration declaration = context.lookupVariableDeclaration(name);
         if (declaration instanceof VariableDeclaration) {
-            type = (Type) declaration.getType();
+            type = declaration.getType();
             element.setType(type);
         } else {// Lookup for functions
             List<Declaration> declarations = context.lookupFunctionDeclaration(name);
             if (declarations != null && declarations.size() == 1) {
                 declaration = declarations.get(0);
-                type = (Type) declaration.getType();
+                type = declaration.getType();
             } else {
                 type = new BuiltinOverloadedFunctionType(declarations);
             }

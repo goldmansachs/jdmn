@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.el.analysis.semantics.type.Type;
+
 public class ComparableDataType extends DataType {
     public static final ComparableDataType COMPARABLE = new ComparableDataType("comparable", null);
 
@@ -20,12 +22,12 @@ public class ComparableDataType extends DataType {
     }
 
     @Override
-    protected boolean equivalentTo(Type other) {
+    public boolean equivalentTo(Type other) {
         return this == other;
     }
 
     @Override
-    protected boolean conformsTo(Type other) {
+    public boolean conformsTo(Type other) {
         return this == other;
     }
 

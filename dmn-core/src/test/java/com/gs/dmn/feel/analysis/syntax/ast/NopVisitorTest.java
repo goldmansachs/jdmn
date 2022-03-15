@@ -13,7 +13,7 @@
 package com.gs.dmn.feel.analysis.syntax.ast;
 
 import com.gs.dmn.context.DMNContext;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 
 public class NopVisitorTest extends BaseVisitorTest {
     @Override

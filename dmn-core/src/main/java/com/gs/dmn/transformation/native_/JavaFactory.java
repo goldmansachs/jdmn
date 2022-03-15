@@ -15,6 +15,7 @@ package com.gs.dmn.transformation.native_;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
@@ -352,7 +353,7 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String convertDecisionArgumentFromString(String paramName, Type type) {
-        if (Type.isNull(type)) {
+        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             if (transformer.isStrongTyping()) {
                 throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));
             } else {
@@ -368,7 +369,7 @@ public class JavaFactory implements NativeFactory {
                 return paramName;
             } else if (type == BooleanType.BOOLEAN) {
                 return String.format("(%s != null ? Boolean.valueOf(%s) : null)", paramName, paramName);
-            } else if (Type.isAny(type)) {
+            } else if (com.gs.dmn.el.analysis.semantics.type.Type.isAny(type)) {
                 return paramName;
             } else {
                 throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));

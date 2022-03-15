@@ -12,13 +12,15 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.el.analysis.semantics.type.Type;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 
-public class TupleType extends Type {
+public class TupleType implements Type {
     private final List<Type> types = new ArrayList<>();
 
     public TupleType() {
@@ -35,14 +37,14 @@ public class TupleType extends Type {
     }
 
     @Override
-    protected boolean equivalentTo(Type other) {
+    public boolean equivalentTo(Type other) {
         return other instanceof TupleType
-                && Type.equivalentTo(this.types, ((TupleType) other).types);
+                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.types, ((TupleType) other).types);
     }
 
     @Override
-    protected boolean conformsTo(Type other) {
-        return other instanceof TupleType && Type.conformsTo(this.types, ((TupleType) other).types)
+    public boolean conformsTo(Type other) {
+        return other instanceof TupleType && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.types, ((TupleType) other).types)
                 || other == ANY;
     }
 
@@ -51,7 +53,7 @@ public class TupleType extends Type {
         if (types.isEmpty()) {
             return false;
         }
-        return types.stream().noneMatch(Type::isNullOrAny);
+        return types.stream().noneMatch(com.gs.dmn.el.analysis.semantics.type.Type::isNullOrAny);
     }
 
     @Override

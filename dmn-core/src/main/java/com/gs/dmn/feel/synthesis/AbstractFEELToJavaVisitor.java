@@ -15,6 +15,8 @@ package com.gs.dmn.feel.synthesis;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.NameUtils;
 import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.AnyType;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.LogAndThrowErrorHandler;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.AbstractAnalysisVisitor;

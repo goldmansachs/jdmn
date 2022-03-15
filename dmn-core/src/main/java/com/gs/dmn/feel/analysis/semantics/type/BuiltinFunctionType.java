@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -94,7 +95,7 @@ public class BuiltinFunctionType extends FunctionType {
                 return false;
             }
             for (int i = this.mandatoryParamsCount; i < argumentTypes.size(); i++) {
-                if (!Type.conformsTo(argumentTypes.get(i), this.parameterTypes.get(i))) {
+                if (!com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(argumentTypes.get(i), this.parameterTypes.get(i))) {
                     return false;
                 }
             }
@@ -110,7 +111,7 @@ public class BuiltinFunctionType extends FunctionType {
             // Check varArgs
             Type varArgType = this.parameters.get(this.mandatoryParamsCount).getType();
             for (int i = this.mandatoryParamsCount; i < argumentTypes.size(); i++) {
-                if (!Type.conformsTo(argumentTypes.get(i), varArgType)) {
+                if (!com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(argumentTypes.get(i), varArgType)) {
                     return false;
                 }
             }
@@ -126,7 +127,7 @@ public class BuiltinFunctionType extends FunctionType {
 
     private boolean compatibleMandatoryParameters(List<Type> argumentTypes) {
         for (int i = 0; i < this.mandatoryParamsCount; i++) {
-            if (!Type.conformsTo(argumentTypes.get(i), this.parameterTypes.get(i))) {
+            if (!com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(argumentTypes.get(i), this.parameterTypes.get(i))) {
                 return false;
             }
         }
@@ -144,7 +145,7 @@ public class BuiltinFunctionType extends FunctionType {
                     if (parameter.isVarArg()) {
                         throw new DMNRuntimeException("Vararg parameters are not supported yet in named calls");
                     }
-                    if (!Type.conformsTo(argType, parType)) {
+                    if (!com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(argType, parType)) {
                         return false;
                     }
                 }
@@ -157,16 +158,16 @@ public class BuiltinFunctionType extends FunctionType {
     }
 
     @Override
-    protected boolean equivalentTo(Type other) {
+    public boolean equivalentTo(Type other) {
         return this == other;
     }
 
     @Override
-    protected boolean conformsTo(Type other) {
+    public boolean conformsTo(Type other) {
         // “contravariant function argument type” and “covariant function return type”
         return other instanceof FunctionType
-                && Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
-                && Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
+                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
+                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
     }
 
     @Override
@@ -181,7 +182,7 @@ public class BuiltinFunctionType extends FunctionType {
         if (this.hasOptionalParams != that.hasOptionalParams) return false;
         if (this.hasVarArgs != that.hasVarArgs) return false;
         if (this.parameters != null ? !this.parameters.equals(that.parameters) : that.parameters != null) return false;
-        return this.returnType != null ? this.returnType.equals(that.returnType) : that.returnType == null;
+        return this.returnType != null ? this.returnType.equals(that.returnType) : Type.isNull(that.returnType);
     }
 
     @Override

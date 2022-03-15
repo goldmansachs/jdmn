@@ -14,6 +14,7 @@ package com.gs.dmn.feel.interpreter;
 
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
@@ -34,7 +35,7 @@ import java.time.*;
 import java.time.temporal.TemporalAmount;
 import java.util.List;
 
-import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.ComparableDataType.COMPARABLE;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
@@ -86,18 +87,18 @@ public class TypeConverter {
             return true;
         } else if (value instanceof FEELFunction && type instanceof FunctionType) {
             FunctionDefinition<Type, DMNContext> functionDefinition = ((FEELFunction) value).getFunctionDefinition();
-            return Type.conformsTo(functionDefinition.getType(), type);
+            return com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(functionDefinition.getType(), type);
         } else if (value instanceof DMNInvocable && type instanceof FunctionType) {
             Type valueType = ((DMNInvocable) value).getType();
-            return Type.conformsTo(valueType, type);
+            return com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(valueType, type);
         } else if (value instanceof DMNFunction && type instanceof FunctionType) {
             Type valueType = ((DMNFunction) value).getType();
-            return Type.conformsTo(valueType, type);
+            return com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(valueType, type);
         } else if (value instanceof BuiltinFunction && type instanceof FunctionType) {
             // At least one conforms
             List<Declaration> declarations = ((BuiltinFunction) value).getDeclarations();
             for (Declaration d: declarations) {
-                if (Type.conformsTo((Type) d.getType(), type)) {
+                if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(d.getType(), type)) {
                     return true;
                 }
             }
@@ -143,7 +144,7 @@ public class TypeConverter {
             expectedType = ANY;
         }
 
-        if (Type.conformsTo(actualType, expectedType)) {
+        if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(actualType, expectedType)) {
             return Result.of(value, expectedType);
         } else {
             // Dynamic conversion

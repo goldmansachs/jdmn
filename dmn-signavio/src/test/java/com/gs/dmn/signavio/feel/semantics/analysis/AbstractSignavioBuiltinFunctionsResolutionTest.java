@@ -2,9 +2,9 @@ package com.gs.dmn.signavio.feel.semantics.analysis;
 
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.ELAnalyzer;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.FEELAnalyzerImpl;
 import com.gs.dmn.feel.analysis.semantics.AbstractBuiltinFunctionsResolutionTest;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.transformation.InputParameters;

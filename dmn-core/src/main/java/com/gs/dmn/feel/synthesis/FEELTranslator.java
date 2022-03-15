@@ -14,8 +14,8 @@ package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.ELAnalyzer;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.FEELAnalyzerImpl;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 public class FEELTranslator extends AbstractFEELTranslator {
