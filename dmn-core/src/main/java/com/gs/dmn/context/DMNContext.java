@@ -16,8 +16,8 @@ import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.context.environment.Environment;
 import com.gs.dmn.context.environment.RuntimeEnvironment;
 import com.gs.dmn.context.environment.VariableDeclaration;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import org.omg.spec.dmn._20191111.model.TNamedElement;
 
@@ -58,7 +58,7 @@ public class DMNContext {
         return this.environment;
     }
 
-    public Expression<Type, DMNContext> getInputExpression() {
+    public Expression getInputExpression() {
         return this.environment.getInputExpression();
     }
 

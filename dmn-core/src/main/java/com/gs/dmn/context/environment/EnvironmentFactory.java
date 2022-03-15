@@ -13,15 +13,15 @@
 package com.gs.dmn.context.environment;
 
 import com.gs.dmn.context.DMNContext;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 
 public interface  EnvironmentFactory {
     default Environment emptyEnvironment() {
         return new Environment();
     }
 
-    default Environment makeEnvironment(Expression<Type, DMNContext> inputExpression) {
+    default Environment makeEnvironment(Expression inputExpression) {
         return new Environment(inputExpression);
     }
 

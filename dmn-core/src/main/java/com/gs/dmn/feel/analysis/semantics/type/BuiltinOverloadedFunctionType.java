@@ -33,7 +33,7 @@ public class BuiltinOverloadedFunctionType extends FunctionType {
     @Override
     protected boolean equivalentTo(Type other) {
         for (Declaration d: this.declarations) {
-            Type type = d.getType();
+            Type type = (Type) d.getType();
             if (type.equivalentTo(other)) {
                 return true;
             }
@@ -44,7 +44,7 @@ public class BuiltinOverloadedFunctionType extends FunctionType {
     @Override
     protected boolean conformsTo(Type other) {
         for (Declaration d: this.declarations) {
-            Type type = d.getType();
+            Type type = (Type) d.getType();
             if (type.conformsTo(other)) {
                 return true;
             }

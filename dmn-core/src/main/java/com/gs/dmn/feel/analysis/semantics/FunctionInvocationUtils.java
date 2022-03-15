@@ -107,7 +107,7 @@ public class FunctionInvocationUtils {
             Type list1Type = parameters.getParameterType(0, "list1");
             return StandardEnvironmentFactory.makeSignavioRemoveAllBuiltinFunctionType(list1Type);
         } else {
-            return functionDeclaration.getType();
+            return (Type) functionDeclaration.getType();
         }
     }
 

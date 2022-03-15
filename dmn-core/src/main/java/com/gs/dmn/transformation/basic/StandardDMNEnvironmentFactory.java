@@ -473,14 +473,14 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             TDecision decision = this.dmnModelRepository.findDecisionByRef(decisionService, outputDecisions.get(0).getHref());
             String decisionName = decision.getName();
             VariableDeclaration declaration = (VariableDeclaration) context.lookupVariableDeclaration(decisionName);
-            return declaration.getType();
+            return (Type) declaration.getType();
         } else {
             ContextType type = new ContextType();
             for (TDMNElementReference er: outputDecisions) {
                 TDecision decision = this.dmnModelRepository.findDecisionByRef(decisionService, er.getHref());
                 String decisionName = decision.getName();
                 VariableDeclaration declaration = (VariableDeclaration) context.lookupVariableDeclaration(decisionName);
-                type.addMember(decisionName, Collections.emptyList(), declaration.getType());
+                type.addMember(decisionName, Collections.emptyList(), (Type) declaration.getType());
             }
             return type;
         }
@@ -651,7 +651,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     protected void addDeclaration(Environment environment, Declaration declaration, TDRGElement parent, TDRGElement child) {
-        Type type = declaration.getType();
+        Type type = (Type) declaration.getType();
         String importName = this.dmnModelRepository.findChildImportName(parent, child);
         if (ImportPath.isEmpty(importName)) {
             environment.addDeclaration(declaration);
@@ -664,7 +664,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 importDeclaration = this.environmentFactory.makeVariableDeclaration(importName, contextType);
                 environment.addDeclaration(importDeclaration);
             } else if (importDeclaration instanceof VariableDeclaration) {
-                Type importType = importDeclaration.getType();
+                Type importType = (Type) importDeclaration.getType();
                 if (importType instanceof ImportContextType) {
                     ((ImportContextType) importType).addMember(declaration.getName(), new ArrayList<>(), type);
                     ((ImportContextType) importType).addMemberReference(declaration.getName(), this.dmnModelRepository.makeDRGElementReference(importName, child));

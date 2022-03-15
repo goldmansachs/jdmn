@@ -151,7 +151,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         ListLiteral<Type, DMNContext> listLiteral = element.getListLiteral();
         Type listType = listLiteral.getType();
         Type listElementType = ((ListType) listType).getElementType();
-        Type inputExpressionType = context.getInputExpressionType();
+        Type inputExpressionType = (Type) context.getInputExpressionType();
 
         String condition;
         if (Type.conformsTo(inputExpressionType, listType)) {
@@ -634,7 +634,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
             // Return lambda when DMN Invocable
             Declaration declaration = context.lookupVariableDeclaration(name);
             if (declaration != null) {
-                Type type = declaration.getType();
+                Type type = (Type) declaration.getType();
                 if (type instanceof DMNFunctionType) {
                     // DRG Element names
                     TDRGElement drgElement = ((DMNFunctionType) type).getDRGElement();
@@ -658,7 +658,8 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
             throw new DMNRuntimeException(String.format("Missing inputExpression in context of element '%s'", context.getElementName()));
         } else {
             // Evaluate as test
-            return (String) context.getInputExpression().accept(this, context);
+            Expression<Type, DMNContext> inputExpression = (Expression) context.getInputExpression();
+            return (String) inputExpression.accept(this, context);
         }
     }
 
@@ -670,14 +671,15 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         }
     }
 
-    private String makeListTestCondition(String feelOperator, String inputExpression, Expression<Type, DMNContext> rightOperand, DMNContext context) {
+    private String makeListTestCondition(String feelOperator, String inputExpressionText, Expression<Type, DMNContext> rightOperand, DMNContext context) {
         String rightOpd = (String) rightOperand.accept(this, context);
         String condition;
-        String javaOperator = listTestOperator(feelOperator, context.getInputExpression(), rightOperand);
+        Expression<Type, DMNContext> inputExpression = (Expression) context.getInputExpression();
+        String javaOperator = listTestOperator(feelOperator, inputExpression, rightOperand);
         if (StringUtils.isEmpty(javaOperator)) {
-            condition = infixExpression(javaOperator, inputExpression, rightOpd);
+            condition = infixExpression(javaOperator, inputExpressionText, rightOpd);
         } else {
-            condition = functionalExpression(javaOperator, inputExpression, rightOpd);
+            condition = functionalExpression(javaOperator, inputExpressionText, rightOpd);
         }
         return condition;
     }

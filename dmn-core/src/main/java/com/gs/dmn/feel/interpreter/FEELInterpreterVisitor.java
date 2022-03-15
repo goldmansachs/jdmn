@@ -138,7 +138,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         LOGGER.debug("Visiting element '{}'", element);
 
         String operator = element.getOperator();
-        Type inputExpressionType = context.getInputExpressionType();
+        Type inputExpressionType = (Type) context.getInputExpressionType();
         Expression<Type, DMNContext> endpoint = element.getEndpoint();
         Type endpointType = endpoint.getType();
 
@@ -186,7 +186,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 throw new DMNRuntimeException(String.format("Unknown operator '%s'", operator));
             }
         } else {
-            return evaluateOperatorRange(element, operator, self, context.getInputExpressionType(), endpointExpression.getType(), endpointValue);
+            return evaluateOperatorRange(element, operator, self, (Type) context.getInputExpressionType(), endpointExpression.getType(), endpointValue);
         }
     }
 
@@ -302,7 +302,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             ListLiteral<Type, DMNContext> listLiteral = element.getListLiteral();
             Type listType = listLiteral.getType();
             Type listElementType = ((ListType) listType).getElementType();
-            Type inputExpressionType = context.getInputExpressionType();
+            Type inputExpressionType = (Type) context.getInputExpressionType();
             Object self = context.lookupBinding(INPUT_ENTRY_PLACE_HOLDER);
 
             Object result;
@@ -1154,7 +1154,8 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         if (element.getNames().size() == 1) {
             String name = element.getNames().get(0);
             if (name.equals(INPUT_ENTRY_PLACE_HOLDER)) {
-                return context.getInputExpression().accept(this, context);
+                Expression<Type, DMNContext> inputExpression = (Expression) context.getInputExpression();
+                return inputExpression.accept(this, context);
             } else {
                 return context.lookupBinding(name);
             }

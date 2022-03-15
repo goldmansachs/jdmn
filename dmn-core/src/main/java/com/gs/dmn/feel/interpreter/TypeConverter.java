@@ -97,7 +97,7 @@ public class TypeConverter {
             // At least one conforms
             List<Declaration> declarations = ((BuiltinFunction) value).getDeclarations();
             for (Declaration d: declarations) {
-                if (Type.conformsTo(d.getType(), type)) {
+                if (Type.conformsTo((Type) d.getType(), type)) {
                     return true;
                 }
             }
