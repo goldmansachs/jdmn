@@ -23,7 +23,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
-import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
+import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
@@ -129,7 +129,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     private void setFEELTranslator(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
-        this.feelTranslator = new FEELTranslatorImpl(transformer);
+        this.feelTranslator = new FEELTranslator(transformer);
     }
 
     @Override

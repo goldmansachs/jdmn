@@ -10,13 +10,20 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.interpreter;
+package com.gs.dmn.feel.synthesis;
 
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.ELAnalyzer;
 import com.gs.dmn.feel.analysis.FEELAnalyzerImpl;
-import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
-public class FEELInterpreterImpl<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
-    public FEELInterpreterImpl(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter) {
-        super(dmnInterpreter, new FEELAnalyzerImpl(dmnInterpreter.getBasicDMNTransformer()));
+public class FEELTranslator extends AbstractFEELTranslator {
+    public FEELTranslator(ELAnalyzer<Type, DMNContext> feelAnalyzer, FEELToNativeVisitor expressionVisitor) {
+        super(feelAnalyzer, expressionVisitor);
+    }
+
+    public FEELTranslator(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
+        this(new FEELAnalyzerImpl(dmnTransformer), new FEELToNativeVisitor(dmnTransformer));
     }
 }

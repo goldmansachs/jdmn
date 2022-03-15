@@ -25,7 +25,7 @@ import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
-import com.gs.dmn.feel.interpreter.FEELInterpreterImpl;
+import com.gs.dmn.feel.interpreter.FEELInterpreter;
 import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.*;
@@ -71,7 +71,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         this.repository = dmnTransformer.getDMNModelRepository();
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
         this.feelLib = feelLib;
-        this.feelInterpreter = new FEELInterpreterImpl<>(this);
+        this.feelInterpreter = new FEELInterpreter<>(this);
     }
 
     @Override
