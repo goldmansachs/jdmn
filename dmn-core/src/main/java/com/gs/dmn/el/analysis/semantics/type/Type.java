@@ -10,7 +10,10 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.interpreter;
+package com.gs.dmn.el.analysis.semantics.type;
 
-public interface FEELInterpreter<T, C> extends FEELTestsInterpreter<T, C>, FEELExpressionsInterpreter<T, C> {
+public interface Type {
+    void validate();
+
+    boolean isFullySpecified();
 }

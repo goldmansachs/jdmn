@@ -22,6 +22,7 @@ import com.gs.dmn.context.environment.Environment;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.context.environment.RuntimeEnvironment;
 import com.gs.dmn.dialect.DMNDialectDefinition;
+import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.analysis.semantics.type.AnyType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
@@ -30,7 +31,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.FilterExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.ForExpression;
-import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.annotation.DRGElementKind;
@@ -57,7 +57,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     DMNEnvironmentFactory getDMNEnvironmentFactory();
 
-    FEELTranslator<T, C> getFEELTranslator();
+    ELTranslator<T, C> getFEELTranslator();
 
     NativeTypeFactory getNativeTypeFactory();
 

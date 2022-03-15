@@ -13,13 +13,13 @@
 package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.context.DMNContext;
-import com.gs.dmn.feel.analysis.FEELAnalyzer;
+import com.gs.dmn.el.analysis.ELAnalyzer;
 import com.gs.dmn.feel.analysis.FEELAnalyzerImpl;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 public class FEELTranslatorImpl extends AbstractFEELTranslator {
-    public FEELTranslatorImpl(FEELAnalyzer<Type, DMNContext> feelAnalyzer, FEELToNativeVisitor expressionVisitor) {
+    public FEELTranslatorImpl(ELAnalyzer<Type, DMNContext> feelAnalyzer, FEELToNativeVisitor expressionVisitor) {
         super(feelAnalyzer, expressionVisitor);
     }
 

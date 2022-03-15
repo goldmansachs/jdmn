@@ -305,7 +305,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
     public String freeTextLiteralExpressionToNative(TDRGElement element) {
         TLiteralExpression expression = (TLiteralExpression) this.dmnModelRepository.expression(element);
         DMNContext globalContext = this.makeGlobalContext(element);
-        Expression<Type, DMNContext> literalExpression = this.feelTranslator.analyzeExpression(expression.getText(), globalContext);
+        Expression<Type, DMNContext> literalExpression = (Expression<Type, DMNContext>) this.feelTranslator.analyzeExpression(expression.getText(), globalContext);
         if (literalExpression instanceof FunctionDefinition) {
             Expression<Type, DMNContext> body = ((FunctionDefinition<Type, DMNContext>) literalExpression).getBody();
             String javaCode;

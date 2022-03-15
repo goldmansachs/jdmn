@@ -16,11 +16,11 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
+import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
-import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.HitPolicy;
@@ -48,7 +48,7 @@ public class DMNExpressionToNativeTransformer {
 
     private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
     private final DMNModelRepository dmnModelRepository;
-    private final FEELTranslator<Type, DMNContext> feelTranslator;
+    private final ELTranslator<Type, DMNContext> feelTranslator;
     private final EnvironmentFactory environmentFactory;
     private final DMNEnvironmentFactory dmnEnvironmentFactory;
     private final NativeTypeFactory nativeTypeFactory;
@@ -332,7 +332,7 @@ public class DMNExpressionToNativeTransformer {
     private String inputEntryToNative(TDRGElement element, String inputExpressionText, String inputEntryText) {
         // Analyze input expression
         DMNContext globalContext = this.dmnTransformer.makeGlobalContext(element);
-        Expression<Type, DMNContext> inputExpression = this.feelTranslator.analyzeExpression(inputExpressionText, globalContext);
+        Expression<Type, DMNContext> inputExpression = (Expression<Type, DMNContext>) this.feelTranslator.analyzeExpression(inputExpressionText, globalContext);
 
         // Generate code for input entry
         DMNContext inputEntryContext = this.dmnTransformer.makeUnaryTestContext(inputExpression, globalContext);
@@ -348,7 +348,7 @@ public class DMNExpressionToNativeTransformer {
                 outputEntryText = "null";
             }
             DMNContext outputEntryContext = this.dmnTransformer.makeGlobalContext(element);
-            Expression<Type, DMNContext> feelOutputEntryExpression = this.feelTranslator.analyzeExpression(outputEntryText, outputEntryContext);
+            Expression<Type, DMNContext> feelOutputEntryExpression = (Expression<Type, DMNContext>) this.feelTranslator.analyzeExpression(outputEntryText, outputEntryContext);
 
             // Generate code
             return this.feelTranslator.expressionToNative(feelOutputEntryExpression, outputEntryContext);
@@ -608,7 +608,7 @@ public class DMNExpressionToNativeTransformer {
     }
 
     Statement literalExpressionToNative(TDRGElement element, String expressionText, DMNContext context) {
-        Expression<Type, DMNContext> expression = this.feelTranslator.analyzeExpression(expressionText, context);
+        Expression<Type, DMNContext> expression = (Expression<Type, DMNContext>) this.feelTranslator.analyzeExpression(expressionText, context);
         Type expressionType = expression.getType();
 
         String javaExpression = this.feelTranslator.expressionToNative(expression, context);

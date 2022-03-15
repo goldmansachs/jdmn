@@ -10,13 +10,13 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.interpreter;
+package com.gs.dmn.el.interpreter;
 
-import com.gs.dmn.feel.analysis.FEELTestsAnalyzer;
-import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
+import com.gs.dmn.el.analysis.ELTestsAnalyzer;
+import com.gs.dmn.el.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.runtime.interpreter.Result;
 
-interface FEELTestsInterpreter<T, C> extends FEELTestsAnalyzer<T, C> {
+interface ELTestsInterpreter<T, C> extends ELTestsAnalyzer<T, C> {
     Result evaluateUnaryTests(String text, C context);
 
     Result evaluateUnaryTests(UnaryTests<T, C> expression, C context);

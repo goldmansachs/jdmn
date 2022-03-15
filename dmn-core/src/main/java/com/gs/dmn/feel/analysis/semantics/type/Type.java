@@ -18,7 +18,7 @@ import java.util.List;
 
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 
-public abstract class Type {
+public abstract class Type implements com.gs.dmn.el.analysis.semantics.type.Type {
     //
     // Undefined types
     //
@@ -101,13 +101,12 @@ public abstract class Type {
     // Check only types that share the same class
     protected abstract boolean conformsTo(Type other);
 
+    @Override
     public void validate() {
         if (!isFullySpecified()) {
             throw new DMNRuntimeException(String.format("Type '%s' is partially specified", this));
         }
     }
-
-    public abstract boolean isFullySpecified();
 
     @Override
     public String toString() {

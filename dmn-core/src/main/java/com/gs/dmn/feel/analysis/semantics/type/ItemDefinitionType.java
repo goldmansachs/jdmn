@@ -15,7 +15,7 @@ package com.gs.dmn.feel.analysis.semantics.type;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ItemDefinitionType extends NamedType implements CompositeDataType {
+public class ItemDefinitionType extends NamedType implements CompositeDataType, com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType {
     public static final Type ANY_ITEM_DEFINITION = new ItemDefinitionType("");
 
     private final String modelName;

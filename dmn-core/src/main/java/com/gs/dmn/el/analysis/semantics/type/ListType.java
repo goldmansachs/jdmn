@@ -10,13 +10,8 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.synthesis;
+package com.gs.dmn.el.analysis.semantics.type;
 
-import com.gs.dmn.feel.analysis.FEELExpressionsAnalyzer;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-
-interface FEELExpressionsTranslator<T, C> extends FEELExpressionsAnalyzer<T, C> {
-    String expressionToNative(String text, C context);
-
-    String expressionToNative(Expression<T, C> expression, C context);
+public interface ListType extends Type {
+    Type getElementType();
 }

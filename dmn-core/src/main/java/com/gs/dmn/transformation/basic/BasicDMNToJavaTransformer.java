@@ -17,12 +17,12 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Environment;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.dialect.DMNDialectDefinition;
+import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
-import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.*;
@@ -81,7 +81,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     protected DMNEnvironmentFactory dmnEnvironmentFactory;
     protected NativeFactory nativeFactory;
-    protected FEELTranslator<Type, DMNContext> feelTranslator;
+    protected ELTranslator<Type, DMNContext> feelTranslator;
     protected DMNExpressionToNativeTransformer expressionToNativeTransformer;
     protected final DRGElementFilter drgElementFilter;
     protected final JavaTypeMemoizer nativeTypeMemoizer;
@@ -153,7 +153,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public FEELTranslator<Type, DMNContext> getFEELTranslator() {
+    public ELTranslator<Type, DMNContext> getFEELTranslator() {
         return this.feelTranslator;
     }
 

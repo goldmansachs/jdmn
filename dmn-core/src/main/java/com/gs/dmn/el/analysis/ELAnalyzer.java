@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis;
+package com.gs.dmn.el.analysis;
 
-public interface FEELAnalyzer<T, C> extends FEELTestsAnalyzer<T, C>, FEELExpressionsAnalyzer<T, C> {
+public interface ELAnalyzer<T, C> extends ELTestsAnalyzer<T, C>, ELExpressionsAnalyzer<T, C> {
 }

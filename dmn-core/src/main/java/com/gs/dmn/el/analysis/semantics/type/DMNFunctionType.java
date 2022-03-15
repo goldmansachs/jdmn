@@ -10,27 +10,13 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.semantics.type;
+package com.gs.dmn.el.analysis.semantics.type;
 
-public abstract class NamedType extends Type implements com.gs.dmn.el.analysis.semantics.type.NamedType {
-    protected final String name;
+import org.omg.spec.dmn._20191111.model.TDRGElement;
+import org.omg.spec.dmn._20191111.model.TFunctionKind;
 
-    protected NamedType(String name) {
-        this.name = name;
-    }
+public interface DMNFunctionType extends FunctionType {
+    TDRGElement getDRGElement();
 
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public boolean isFullySpecified() {
-        return name != null && !name.isEmpty();
-    }
-
-    @Override
-    public String toString() {
-        return this.getName();
-    }
+    TFunctionKind getKind();
 }

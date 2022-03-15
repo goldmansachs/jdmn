@@ -10,13 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.synthesis;
+package com.gs.dmn.el.interpreter;
 
-import com.gs.dmn.feel.analysis.FEELTestsAnalyzer;
-import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
-
-interface FEELTestsTranslator<T, C> extends FEELTestsAnalyzer<T, C> {
-    String unaryTestsToJava(String text, C context);
-
-    String unaryTestsToJava(UnaryTests<T, C> expression, C context);
+public interface ELInterpreter<T, C> extends ELTestsInterpreter<T, C>, ELExpressionsInterpreter<T, C> {
 }

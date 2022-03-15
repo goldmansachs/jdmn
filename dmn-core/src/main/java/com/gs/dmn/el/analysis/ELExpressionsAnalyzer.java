@@ -10,27 +10,20 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.semantics.type;
+package com.gs.dmn.el.analysis;
 
-public abstract class NamedType extends Type implements com.gs.dmn.el.analysis.semantics.type.NamedType {
-    protected final String name;
+import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 
-    protected NamedType(String name) {
-        this.name = name;
-    }
+public interface ELExpressionsAnalyzer<T, C> {
+    Expression<T, C> parseExpression(String text);
 
-    @Override
-    public String getName() {
-        return name;
-    }
+    Expression<T, C> parseTextualExpressions(String text);
 
-    @Override
-    public boolean isFullySpecified() {
-        return name != null && !name.isEmpty();
-    }
+    Expression<T, C> parseBoxedExpression(String text);
 
-    @Override
-    public String toString() {
-        return this.getName();
-    }
+    Expression<T, C> analyzeExpression(String text, C context);
+
+    Expression<T, C> analyzeTextualExpressions(String text, C context);
+
+    Expression<T, C> analyzeBoxedExpression(String text, C context);
 }

@@ -18,13 +18,13 @@ import com.gs.dmn.ImportPath;
 import com.gs.dmn.QualifiedName;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
+import com.gs.dmn.el.interpreter.ELInterpreter;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.LogErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
-import com.gs.dmn.feel.interpreter.FEELInterpreter;
 import com.gs.dmn.feel.interpreter.FEELInterpreterImpl;
 import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
@@ -61,7 +61,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
     private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
     protected final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib;
-    private final FEELInterpreter<Type, DMNContext> feelInterpreter;
+    private final ELInterpreter<Type, DMNContext> feelInterpreter;
     private final TypeConverter typeConverter;
 
     public StandardDMNInterpreter(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib, TypeConverter typeConverter) {
@@ -745,7 +745,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         for (TInputClause inputClause : decisionTable.getInput()) {
             TLiteralExpression inputExpression = inputClause.getInputExpression();
             String inputExpressionText = inputExpression.getText();
-            Expression<Type, DMNContext> expression = this.feelInterpreter.analyzeExpression(inputExpressionText, context);
+            Expression<Type, DMNContext> expression = (Expression<Type, DMNContext>) this.feelInterpreter.analyzeExpression(inputExpressionText, context);
             Result inputExpressionResult = this.feelInterpreter.evaluateExpression(expression, context);
             Object inputExpressionValue = Result.value(inputExpressionResult);
             inputClauseList.add(new InputClausePair(expression, inputExpressionValue));
@@ -783,7 +783,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             Expression<Type, DMNContext> inputExpression = inputClauseList.get(index).getExpression();
             DMNContext testContext = this.dmnTransformer.makeUnaryTestContext(inputExpression, context);
             testContext.bind(DMNContext.INPUT_ENTRY_PLACE_HOLDER, inputClauseList.get(index).getValue());
-            Expression<Type, DMNContext> ast = this.feelInterpreter.analyzeUnaryTests(text, testContext);
+            Expression<Type, DMNContext> ast = (Expression<Type, DMNContext>) this.feelInterpreter.analyzeUnaryTests(text, testContext);
             Result result = this.feelInterpreter.evaluateUnaryTests((UnaryTests<Type, DMNContext>) ast, testContext);
             Object testMatched = Result.value(result);
             if (isFalse(testMatched)) {

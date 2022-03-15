@@ -25,7 +25,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind.*;
 
-public abstract class FunctionType extends Type {
+public abstract class FunctionType extends Type implements com.gs.dmn.el.analysis.semantics.type.FunctionType {
     public static final FunctionType ANY_FUNCTION = new FunctionType(Arrays.asList(), ANY) {
         @Override
         protected boolean equivalentTo(Type other) {
@@ -68,6 +68,7 @@ public abstract class FunctionType extends Type {
         return this.parameterTypes;
     }
 
+    @Override
     public Type getReturnType() {
         return this.returnType;
     }

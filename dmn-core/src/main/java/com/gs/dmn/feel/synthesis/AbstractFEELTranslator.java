@@ -13,16 +13,17 @@
 package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.ELAnalyzer;
+import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.el.analysis.syntax.ast.test.UnaryTests;
+import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.AbstractFEELProcessor;
-import com.gs.dmn.feel.analysis.FEELAnalyzer;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 
-public abstract class AbstractFEELTranslator extends AbstractFEELProcessor<Type, DMNContext> implements FEELTranslator<Type, DMNContext> {
+public abstract class AbstractFEELTranslator extends AbstractFEELProcessor<Type, DMNContext> implements ELTranslator<Type, DMNContext> {
     private final FEELToNativeVisitor expressionVisitor;
 
-    public AbstractFEELTranslator(FEELAnalyzer<Type, DMNContext> feelAnalyzer, FEELToNativeVisitor expressionVisitor) {
+    public AbstractFEELTranslator(ELAnalyzer<Type, DMNContext> feelAnalyzer, FEELToNativeVisitor expressionVisitor) {
         super(feelAnalyzer);
         this.expressionVisitor = expressionVisitor;
     }
@@ -36,7 +37,7 @@ public abstract class AbstractFEELTranslator extends AbstractFEELProcessor<Type,
     @Override
     public String unaryTestsToJava(UnaryTests<Type, DMNContext> expression, DMNContext context) {
         this.expressionVisitor.init();
-        return (String) expression.accept(this.expressionVisitor, context);
+        return (String) ((com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests<Type, DMNContext>) expression).accept(this.expressionVisitor, context);
     }
 
     @Override
@@ -48,6 +49,6 @@ public abstract class AbstractFEELTranslator extends AbstractFEELProcessor<Type,
     @Override
     public String expressionToNative(Expression<Type, DMNContext> expression, DMNContext context) {
         this.expressionVisitor.init();
-        return (String) expression.accept(this.expressionVisitor, context);
+        return (String) ((com.gs.dmn.feel.analysis.syntax.ast.expression.Expression<Type, DMNContext>) expression).accept(this.expressionVisitor, context);
     }
 }

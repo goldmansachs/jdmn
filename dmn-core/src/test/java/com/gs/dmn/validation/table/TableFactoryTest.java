@@ -15,7 +15,7 @@ package com.gs.dmn.validation.table;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
-import com.gs.dmn.feel.synthesis.FEELTranslator;
+import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.validation.AbstractValidatorTest;
 import org.junit.Test;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class TableFactoryTest extends AbstractValidatorTest {
     private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition = new StandardDMNDialectDefinition();
@@ -183,7 +183,7 @@ public class TableFactoryTest extends AbstractValidatorTest {
         TDecisionTable decisionTable = (TDecisionTable) element.getExpression().getValue();
         int totalNumberOfRules = decisionTable.getRule().size();
         int totalNumberOfColumns = decisionTable.getInput().size();
-        FEELTranslator feelTranslator = this.dmnDialectDefinition.createFEELTranslator(repository, this.inputParameters);
+        ELTranslator feelTranslator = this.dmnDialectDefinition.createFEELTranslator(repository, this.inputParameters);
         Table table = factory.makeTable(totalNumberOfRules, totalNumberOfColumns, repository, element, decisionTable, feelTranslator);
         
         assertEquals(expectedInput.toString(), table.getInputs().toString());

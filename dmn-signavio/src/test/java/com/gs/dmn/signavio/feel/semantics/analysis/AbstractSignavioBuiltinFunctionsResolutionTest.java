@@ -1,7 +1,7 @@
 package com.gs.dmn.signavio.feel.semantics.analysis;
 
 import com.gs.dmn.context.DMNContext;
-import com.gs.dmn.feel.analysis.FEELAnalyzer;
+import com.gs.dmn.el.analysis.ELAnalyzer;
 import com.gs.dmn.feel.analysis.FEELAnalyzerImpl;
 import com.gs.dmn.feel.analysis.semantics.AbstractBuiltinFunctionsResolutionTest;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
@@ -19,7 +19,7 @@ public abstract class AbstractSignavioBuiltinFunctionsResolutionTest extends Abs
     private final DMNContext dmnContext = basicTransformer.makeBuiltInContext();
 
     @Override
-    protected FEELAnalyzer<Type, DMNContext> getFEELAnalyzer() {
+    protected ELAnalyzer<Type, DMNContext> getFEELAnalyzer() {
         return feelAnalyzer;
     }
 

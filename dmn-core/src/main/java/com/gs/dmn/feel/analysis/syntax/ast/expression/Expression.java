@@ -14,13 +14,15 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 
-public abstract class Expression<T, C> extends Element<T, C> {
+public abstract class Expression<T, C> extends Element<T, C> implements com.gs.dmn.el.analysis.syntax.ast.expression.Expression<T, C> {
     private T type;
 
+    @Override
     public T getType() {
         return type;
     }
 
+    @Override
     public void setType(T type) {
         if (type != null) {
             this.type = type;

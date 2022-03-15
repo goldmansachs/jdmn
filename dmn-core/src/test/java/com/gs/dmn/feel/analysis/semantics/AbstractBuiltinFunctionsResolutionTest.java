@@ -1,7 +1,7 @@
 package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.context.DMNContext;
-import com.gs.dmn.feel.analysis.FEELAnalyzer;
+import com.gs.dmn.el.analysis.ELAnalyzer;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionInvocation;
@@ -37,7 +37,7 @@ public abstract class AbstractBuiltinFunctionsResolutionTest {
 
     protected void testFunctionInvocation(String text, String expectedType, boolean error) {
         try {
-            Expression<Type, DMNContext> expression = getFEELAnalyzer().analyzeExpression(text, getDMNContext());
+            Expression<Type, DMNContext> expression = (Expression<Type, DMNContext>) getFEELAnalyzer().analyzeExpression(text, getDMNContext());
             if (expression instanceof SimpleLiteral) {
                 assertEquals(expectedType, expression.getClass().getSimpleName());
                 assertFalse(error);
@@ -56,7 +56,7 @@ public abstract class AbstractBuiltinFunctionsResolutionTest {
         }
     }
 
-    protected abstract FEELAnalyzer<Type, DMNContext> getFEELAnalyzer();
+    protected abstract ELAnalyzer<Type, DMNContext> getFEELAnalyzer();
 
     protected abstract DMNContext getDMNContext();
 }

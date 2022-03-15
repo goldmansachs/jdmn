@@ -16,6 +16,7 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.DMNContextKind;
 import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.context.environment.RuntimeEnvironment;
+import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
@@ -46,7 +47,6 @@ import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.AbstractFEELToJavaVisitor;
-import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.FEELTranslatorForInterpreter;
 import com.gs.dmn.feel.synthesis.NativeOperator;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -78,7 +78,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
 
     private final DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter;
     private final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib;
-    private final FEELTranslator<Type, DMNContext> feelTranslator;
+    private final ELTranslator<Type, DMNContext> feelTranslator;
     private final DefaultExternalFunctionExecutor externalFunctionExecutor;
     private final TypeConverter typeConverter;
 

@@ -10,20 +10,9 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis;
+package com.gs.dmn.el.analysis.syntax.ast.test;
 
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 
-public interface FEELExpressionsAnalyzer<T, C> {
-    Expression<T, C> parseExpression(String text);
-
-    Expression<T, C> parseTextualExpressions(String text);
-
-    Expression<T, C> parseBoxedExpression(String text);
-
-    Expression<T, C> analyzeExpression(String text, C context);
-
-    Expression<T, C> analyzeTextualExpressions(String text, C context);
-
-    Expression<T, C> analyzeBoxedExpression(String text, C context);
+public interface UnaryTests<T, C> extends Expression<T, C> {
 }

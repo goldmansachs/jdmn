@@ -10,27 +10,13 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.semantics.type;
+package com.gs.dmn.el.synthesis;
 
-public abstract class NamedType extends Type implements com.gs.dmn.el.analysis.semantics.type.NamedType {
-    protected final String name;
+import com.gs.dmn.el.analysis.ELExpressionsAnalyzer;
+import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 
-    protected NamedType(String name) {
-        this.name = name;
-    }
+interface ELExpressionsTranslator<T, C> extends ELExpressionsAnalyzer<T, C> {
+    String expressionToNative(String text, C context);
 
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public boolean isFullySpecified() {
-        return name != null && !name.isEmpty();
-    }
-
-    @Override
-    public String toString() {
-        return this.getName();
-    }
+    String expressionToNative(Expression<T, C> expression, C context);
 }

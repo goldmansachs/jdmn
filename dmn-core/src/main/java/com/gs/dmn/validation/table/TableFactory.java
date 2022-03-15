@@ -15,6 +15,7 @@ package com.gs.dmn.validation.table;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.QualifiedName;
 import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.BooleanLiteral;
@@ -22,7 +23,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.NumericLiteral;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.SimpleLiteral;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.StringLiteral;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
-import com.gs.dmn.feel.synthesis.FEELTranslator;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20191111.model.*;
 
@@ -33,7 +33,7 @@ import static com.gs.dmn.validation.table.Bound.MINUS_INFINITY;
 import static com.gs.dmn.validation.table.Bound.PLUS_INFINITY;
 
 public class TableFactory {
-    public Table makeTable(int totalNumberOfRules, int totalNumberOfColumns, DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, FEELTranslator<Type, DMNContext> feelTranslator) {
+    public Table makeTable(int totalNumberOfRules, int totalNumberOfColumns, DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, ELTranslator<Type, DMNContext> feelTranslator) {
         List<Input> inputs = makeInputs(repository, element, decisionTable);
         List<Rule> rules = makeRules(totalNumberOfRules, totalNumberOfColumns, inputs, repository, element, decisionTable, feelTranslator);
         return new Table(inputs, rules);
@@ -113,7 +113,7 @@ public class TableFactory {
         return inputs;
     }
 
-    private List<Rule> makeRules(int totalNumberOfRules, int totalNumberOfColumns, List<Input> inputs, DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, FEELTranslator<Type, DMNContext> feelTranslator) {
+    private List<Rule> makeRules(int totalNumberOfRules, int totalNumberOfColumns, List<Input> inputs, DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, ELTranslator<Type, DMNContext> feelTranslator) {
         List<Rule> rules = new ArrayList<>();
         if (inputs.isEmpty()) {
             return rules;
@@ -140,14 +140,14 @@ public class TableFactory {
         return rules;
     }
 
-    private Interval makeInterval(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int ruleIndex, int columnIndex, TUnaryTests cell, Input input, FEELTranslator<Type, DMNContext> feelTranslator) {
+    private Interval makeInterval(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int ruleIndex, int columnIndex, TUnaryTests cell, Input input, ELTranslator<Type, DMNContext> feelTranslator) {
         if (cell == null) {
             return null;
         }
 
         // Parse unary tests
         String text = cell.getText();
-        UnaryTests<Type, DMNContext> unaryTests = feelTranslator.parseUnaryTests(text);
+        UnaryTests<Type, DMNContext> unaryTests = (UnaryTests<Type, DMNContext>) feelTranslator.parseUnaryTests(text);
         if (unaryTests instanceof Any) {
             return makeAnyInterval(ruleIndex, columnIndex, input);
         } else if (unaryTests instanceof PositiveUnaryTests) {

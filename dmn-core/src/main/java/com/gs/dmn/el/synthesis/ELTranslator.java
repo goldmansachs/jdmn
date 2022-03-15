@@ -10,14 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.interpreter;
+package com.gs.dmn.el.synthesis;
 
-import com.gs.dmn.feel.analysis.FEELExpressionsAnalyzer;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.interpreter.Result;
-
-interface FEELExpressionsInterpreter<T, C> extends FEELExpressionsAnalyzer<T, C> {
-    Result evaluateExpression(String text, C context);
-
-    Result evaluateExpression(Expression<T, C> expression, C context);
+public interface ELTranslator<T, C> extends ELTestsTranslator<T, C>, ELExpressionsTranslator<T, C> {
 }

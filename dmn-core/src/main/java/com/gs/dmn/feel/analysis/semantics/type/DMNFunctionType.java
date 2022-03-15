@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class DMNFunctionType extends FunctionType {
+public class DMNFunctionType extends FunctionType implements com.gs.dmn.el.analysis.semantics.type.DMNFunctionType {
     private final TDRGElement drgElement;
     private final TFunctionDefinition functionDefinition;
 
@@ -45,6 +45,7 @@ public class DMNFunctionType extends FunctionType {
         this.functionDefinition = functionDefinition;
     }
 
+    @Override
     public TDRGElement getDRGElement() {
         return this.drgElement;
     }
@@ -53,6 +54,7 @@ public class DMNFunctionType extends FunctionType {
         return new DMNFunctionType(this.getParameters(), this.getReturnType(), element);
     }
 
+    @Override
     public TFunctionKind getKind() {
         return this.functionDefinition == null ? null : this.functionDefinition.getKind();
     }

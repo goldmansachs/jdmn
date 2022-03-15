@@ -14,7 +14,7 @@ package com.gs.dmn.feel.analysis.semantics.type;
 
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 
-public class ListType extends Type {
+public class ListType extends Type implements com.gs.dmn.el.analysis.semantics.type.ListType {
     public static final Type ANY_LIST = new ListType(ANY);
     public static final Type NUMBER_LIST = new ListType(NumberType.NUMBER);
     public static final Type STRING_LIST = new ListType(StringType.STRING);
@@ -40,6 +40,7 @@ public class ListType extends Type {
         this.elementType = elementType;
     }
 
+    @Override
     public Type getElementType() {
         return elementType;
     }

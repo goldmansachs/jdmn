@@ -82,7 +82,7 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
     private Expression<Type, DMNContext> analyzeExpression(TDRGElement element) {
         TLiteralExpression expression = (TLiteralExpression) this.dmnModelRepository.expression(element);
         DMNContext globalContext = this.dmnTransformer.makeGlobalContext(element);
-        return this.feelTranslator.analyzeExpression(expression.getText(), globalContext);
+        return (Expression<Type, DMNContext>) this.feelTranslator.analyzeExpression(expression.getText(), globalContext);
     }
 
     @Override
