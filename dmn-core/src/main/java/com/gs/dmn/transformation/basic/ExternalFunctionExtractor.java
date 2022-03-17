@@ -14,7 +14,7 @@ package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.Context;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.ContextEntry;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;

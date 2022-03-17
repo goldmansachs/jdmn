@@ -17,8 +17,8 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.context.environment.Environment;
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.semantics.type.FEELFunctionType;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
@@ -82,7 +82,7 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
     private Expression<Type, DMNContext> analyzeExpression(TDRGElement element) {
         TLiteralExpression expression = (TLiteralExpression) this.dmnModelRepository.expression(element);
         DMNContext globalContext = this.dmnTransformer.makeGlobalContext(element);
-        return (Expression<Type, DMNContext>) this.feelTranslator.analyzeExpression(expression.getText(), globalContext);
+        return this.feelTranslator.analyzeExpression(expression.getText(), globalContext);
     }
 
     @Override

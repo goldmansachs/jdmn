@@ -19,8 +19,8 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.semantics.type.FEELFunctionType;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.Context;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
@@ -305,7 +305,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
     public String freeTextLiteralExpressionToNative(TDRGElement element) {
         TLiteralExpression expression = (TLiteralExpression) this.dmnModelRepository.expression(element);
         DMNContext globalContext = this.makeGlobalContext(element);
-        Expression<Type, DMNContext> literalExpression = (Expression<Type, DMNContext>) this.feelTranslator.analyzeExpression(expression.getText(), globalContext);
+        Expression<Type, DMNContext> literalExpression = this.feelTranslator.analyzeExpression(expression.getText(), globalContext);
         if (literalExpression instanceof FunctionDefinition) {
             Expression<Type, DMNContext> body = ((FunctionDefinition<Type, DMNContext>) literalExpression).getBody();
             String javaCode;

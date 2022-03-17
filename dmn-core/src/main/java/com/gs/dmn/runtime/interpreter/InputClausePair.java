@@ -14,7 +14,7 @@ package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 
 public class InputClausePair {
     private final Expression<Type, DMNContext> expression;

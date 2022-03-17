@@ -23,9 +23,9 @@ import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.context.environment.VariableDeclaration;
 import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.analysis.semantics.type.*;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.Context;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.ContextEntry;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
@@ -550,7 +550,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     private Type literalExpressionType(TNamedElement element, TLiteralExpression body, DMNContext context) {
-        Expression<Type, DMNContext> expression = (Expression<Type, DMNContext>) this.feelTranslator.analyzeExpression(body.getText(), context);
+        Expression<Type, DMNContext> expression = this.feelTranslator.analyzeExpression(body.getText(), context);
         return expression.getType();
     }
 
@@ -774,7 +774,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             TExpression expression = jElement == null ? null : jElement.getValue();
             Expression<Type, DMNContext> feelExpression = null;
             if (expression instanceof TLiteralExpression) {
-                feelExpression = (Expression<Type, DMNContext>) this.feelTranslator.analyzeExpression(((TLiteralExpression) expression).getText(), localContext);
+                feelExpression = this.feelTranslator.analyzeExpression(((TLiteralExpression) expression).getText(), localContext);
                 literalExpressionMap.put(entry, feelExpression);
             }
             if (variable != null) {
