@@ -33,6 +33,7 @@ public class ItemDefinitionType extends NamedType implements CompositeDataType, 
         this.modelName = modelName;
     }
 
+    @Override
     public String getModelName() {
         return this.modelName;
     }

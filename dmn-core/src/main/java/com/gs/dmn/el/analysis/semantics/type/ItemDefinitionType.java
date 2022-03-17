@@ -15,6 +15,8 @@ package com.gs.dmn.el.analysis.semantics.type;
 import java.util.Set;
 
 public interface ItemDefinitionType extends NamedType {
+    String getModelName();
+
     Set<String> getMembers();
 
     Type getMemberType(String member);
