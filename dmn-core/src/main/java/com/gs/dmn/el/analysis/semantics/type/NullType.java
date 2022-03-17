@@ -12,13 +12,18 @@
  */
 package com.gs.dmn.el.analysis.semantics.type;
 
-import com.gs.dmn.feel.analysis.semantics.type.NamedType;
+public class NullType implements NamedType {
+    public static final NullType NULL = new NullType();
 
-public class NullType extends NamedType {
-    public static final NullType NULL = new NullType("Null");
+    private final String name;
 
-    protected NullType(String name) {
-        super(name);
+    protected NullType() {
+        this.name = "Null";
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override
@@ -34,5 +39,10 @@ public class NullType extends NamedType {
     @Override
     public boolean isFullySpecified() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return this.getName();
     }
 }

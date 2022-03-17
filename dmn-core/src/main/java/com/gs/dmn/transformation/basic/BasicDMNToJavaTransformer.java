@@ -1688,8 +1688,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             }
         }
 
-        if (type instanceof NamedType) {
-            String typeName = ((NamedType) type).getName();
+        if (type instanceof com.gs.dmn.el.analysis.semantics.type.NamedType) {
+            String typeName = ((com.gs.dmn.el.analysis.semantics.type.NamedType) type).getName();
             if (StringUtils.isBlank(typeName)) {
                 throw new DMNRuntimeException(String.format("Missing type name in '%s'", type));
             }

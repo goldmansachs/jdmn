@@ -12,13 +12,18 @@
  */
 package com.gs.dmn.el.analysis.semantics.type;
 
-import com.gs.dmn.feel.analysis.semantics.type.NamedType;
-
-public class AnyType extends NamedType {
+public class AnyType implements NamedType {
     public static final AnyType ANY = new AnyType();
 
-    public AnyType() {
-        super("Any");
+    private final String name;
+
+    protected AnyType() {
+        this.name = "Any";
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override
@@ -34,5 +39,10 @@ public class AnyType extends NamedType {
     @Override
     public boolean isFullySpecified() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return this.getName();
     }
 }
