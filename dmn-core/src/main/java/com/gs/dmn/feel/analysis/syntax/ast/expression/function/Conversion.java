@@ -14,7 +14,7 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import java.util.Objects;
 
-public class Conversion<T> {
+public class Conversion<T> implements com.gs.dmn.el.analysis.syntax.ast.expression.function.Conversion<T, ConversionKind> {
     private final ConversionKind kind;
     private final T targetType;
 
@@ -27,6 +27,7 @@ public class Conversion<T> {
         return this.kind;
     }
 
+    @Override
     public T getTargetType() {
         return this.targetType;
     }

@@ -15,9 +15,12 @@ package com.gs.dmn.transformation.native_;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.FunctionType;
+import com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType;
+import com.gs.dmn.el.analysis.semantics.type.ListType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.feel.analysis.semantics.type.*;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
@@ -227,7 +230,7 @@ public class JavaFactory implements NativeFactory {
     @Override
     public String applyMethod(FunctionType functionType, String signature, boolean convertTypeToContext, String body) {
         String returnType = transformer.toNativeType(transformer.convertType(functionType.getReturnType(), convertTypeToContext));
-        String parametersAssignment = parametersAssignment(functionType.getParameters(), convertTypeToContext);
+        String parametersAssignment = parametersAssignment(((com.gs.dmn.feel.analysis.semantics.type.FunctionType) functionType).getParameters(), convertTypeToContext);
         return applyMethod(returnType, signature, parametersAssignment, body);
     }
 
@@ -242,12 +245,10 @@ public class JavaFactory implements NativeFactory {
 
     protected String parametersAssignment(List<FormalParameter<Type, DMNContext>> formalParameters, boolean convertTypeToContext) {
         List<String> parameters = new ArrayList<>();
-        Set<String> names = new LinkedHashSet<>();
         for(int i=0; i<formalParameters.size(); i++) {
             FormalParameter<Type, DMNContext> p = formalParameters.get(i);
             String type = transformer.toNativeType(transformer.convertType(p.getType(), convertTypeToContext));
             String name = transformer.nativeFriendlyVariableName(p.getName());
-            names.add(name);
             parameters.add(makeLambdaParameterAssignment(type, name, i));
         }
         return String.join(" ", parameters);
@@ -385,7 +386,7 @@ public class JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String conversionFunction(Conversion<Type> conversion, String javaType) {
+    public String conversionFunction(Conversion<Type, ConversionKind> conversion, String javaType) {
         if (conversion.getKind() == ConversionKind.NONE) {
             return null;
         } else if (conversion.getKind() == ConversionKind.ELEMENT_TO_SINGLETON_LIST) {

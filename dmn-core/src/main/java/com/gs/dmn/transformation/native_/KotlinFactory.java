@@ -14,8 +14,12 @@ package com.gs.dmn.transformation.native_;
 
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType;
+import com.gs.dmn.el.analysis.semantics.type.ListType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.semantics.type.*;
+import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
+import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
+import com.gs.dmn.feel.analysis.semantics.type.StringType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
