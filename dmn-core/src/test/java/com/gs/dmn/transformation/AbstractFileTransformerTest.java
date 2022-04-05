@@ -22,7 +22,10 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.slf4j.LoggerFactory;
 import org.xmlunit.builder.DiffBuilder;
 import org.xmlunit.builder.Input;
+import org.xmlunit.diff.DefaultNodeMatcher;
 import org.xmlunit.diff.Diff;
+import org.xmlunit.diff.Difference;
+import org.xmlunit.diff.ElementSelectors;
 
 import java.io.File;
 import java.util.Arrays;
@@ -65,8 +68,16 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
     private void compareXmlFile(File expectedOutputFile, File actualOutputFile) {
         Diff diff = DiffBuilder
                 .compare(Input.fromFile(expectedOutputFile)).withTest(Input.fromFile(actualOutputFile))
+                .checkForSimilar()
+                .ignoreWhitespace()
+                .withNodeMatcher(new DefaultNodeMatcher(ElementSelectors.byNameAndAllAttributes))
                 .build();
-        assertFalse(diff.toString(), diff.hasDifferences());
+        if (diff.hasDifferences()) {
+            for (Difference d: diff.getDifferences()) {
+                LOGGER.error(d.toString());
+            }
+        }
+        assertFalse(String.format("%s vs %s", expectedOutputFile.getPath(), actualOutputFile.getPath()), diff.hasDifferences());
     }
 
     private boolean isJsonFile(File file) {
