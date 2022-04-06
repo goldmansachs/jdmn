@@ -71,7 +71,6 @@ public abstract class AbstractTest {
         inputParams.put("dmnVersion", "1.1");
         inputParams.put("modelVersion", "1.0");
         inputParams.put("platformVersion", "1.0");
-        inputParams.put("signavioSchemaNamespace", "http://www.provider.com/schema/dmn/1.1/");
         return inputParams;
     }
 }

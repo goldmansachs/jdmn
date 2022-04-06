@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.runtime.DMNContext;
 
 @JsonPropertyOrder({
         "id",
@@ -23,7 +22,7 @@ import com.gs.dmn.runtime.DMNContext;
         "text",
         "extensionElements"
 })
-public class TUnaryTests extends TExpression implements Visitable {
+public class TUnaryTests<C> extends TExpression<C> implements Visitable<C> {
     private String text;
     private String expressionLanguage;
 
@@ -44,7 +43,7 @@ public class TUnaryTests extends TExpression implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

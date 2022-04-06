@@ -14,15 +14,17 @@ package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.NameUtils;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.AnyType;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.LogAndThrowErrorHandler;
 import com.gs.dmn.feel.OperatorDecisionTable;
+import com.gs.dmn.feel.analysis.AbstractAnalysisVisitor;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
-import com.gs.dmn.feel.analysis.syntax.ast.AbstractAnalysisVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.ImportContextType;
@@ -39,7 +41,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
-public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor {
+public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor<Type, DMNContext> {
     private static final Map<String, String> FEEL_2_JAVA_FUNCTION = new LinkedHashMap<>();
     static {
         FEEL_2_JAVA_FUNCTION.put("get value", "getValue");
@@ -78,7 +80,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         FEEL_2_JAVA_FUNCTION.put("round half down", "roundHalfDown");
     }
 
-    public AbstractFEELToJavaVisitor(BasicDMNToNativeTransformer dmnTransformer) {
+    public AbstractFEELToJavaVisitor(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         super(dmnTransformer, new LogAndThrowErrorHandler(LOGGER));
     }
 
@@ -91,7 +93,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         }
     }
 
-    protected String makeNavigation(Expression element, Type sourceType, String source, String memberName, String memberVariableName) {
+    protected String makeNavigation(Expression<Type, DMNContext> element, Type sourceType, String source, String memberName, String memberVariableName) {
         if (sourceType instanceof ImportContextType) {
             ImportContextType importContextType = (ImportContextType) sourceType;
             DRGElementReference<? extends TDRGElement> memberReference = importContextType.getMemberReference(memberName);
@@ -155,7 +157,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         return this.dmnTransformer.lowerCaseFirst(name);
     }
 
-    protected Object makeCondition(String feelOperator, Expression leftOperand, Expression rightOperand, DMNContext context) {
+    protected Object makeCondition(String feelOperator, Expression<Type, DMNContext> leftOperand, Expression<Type, DMNContext> rightOperand, DMNContext context) {
         String leftOpd = (String) leftOperand.accept(this, context);
         String rightOpd = (String) rightOperand.accept(this, context);
         NativeOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperator, leftOperand.getType(), rightOperand.getType());
@@ -186,7 +188,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         }
     }
 
-    protected String listTestOperator(String feelOperatorName, Expression leftOperand, Expression rightOperand) {
+    protected String listTestOperator(String feelOperatorName, Expression<Type, DMNContext> leftOperand, Expression<Type, DMNContext> rightOperand) {
         NativeOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperatorName, rightOperand.getType(), rightOperand.getType());
         if (javaOperator != null) {
             return javaOperator.getName();
@@ -203,7 +205,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         return String.format("(%s) %s (%s)", leftOpd, javaOperator, rightOpd);
     }
 
-    protected Object dateTimeLiteralToJava(DateTimeLiteral element) {
+    protected Object dateTimeLiteralToJava(DateTimeLiteral<Type, DMNContext> element) {
         Type type = element.getType();
         String value = element.getLexeme();
         if (type == DATE) {
@@ -219,7 +221,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         }
     }
 
-    protected String functionName(Expression function) {
-        return ((Name) function).getName();
+    protected String functionName(Expression<Type, DMNContext> function) {
+        return ((Name<Type, DMNContext>) function).getName();
     }
 }

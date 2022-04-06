@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterConversions;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
@@ -26,24 +28,25 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class DMNFunctionType extends FunctionType {
+public class DMNFunctionType extends FunctionType implements com.gs.dmn.el.analysis.semantics.type.DMNFunctionType {
     private final TDRGElement drgElement;
     private final TFunctionDefinition functionDefinition;
 
-    public DMNFunctionType(List<FormalParameter> formalParameters, Type outputType) {
+    public DMNFunctionType(List<FormalParameter<Type, DMNContext>> formalParameters, Type outputType) {
         this(formalParameters, outputType, null);
     }
 
-    public DMNFunctionType(List<FormalParameter> parameters, Type returnType, TDRGElement drgElement) {
+    public DMNFunctionType(List<FormalParameter<Type, DMNContext>> parameters, Type returnType, TDRGElement drgElement) {
         this(parameters, returnType, drgElement, drgElement instanceof TBusinessKnowledgeModel ? ((TBusinessKnowledgeModel) drgElement).getEncapsulatedLogic() : null);
     }
 
-    public DMNFunctionType(List<FormalParameter> parameters, Type returnType, TDRGElement drgElement, TFunctionDefinition functionDefinition) {
+    public DMNFunctionType(List<FormalParameter<Type, DMNContext>> parameters, Type returnType, TDRGElement drgElement, TFunctionDefinition functionDefinition) {
         super(parameters, returnType);
         this.drgElement = drgElement;
         this.functionDefinition = functionDefinition;
     }
 
+    @Override
     public TDRGElement getDRGElement() {
         return this.drgElement;
     }
@@ -52,37 +55,37 @@ public class DMNFunctionType extends FunctionType {
         return new DMNFunctionType(this.getParameters(), this.getReturnType(), element);
     }
 
+    @Override
     public TFunctionKind getKind() {
         return this.functionDefinition == null ? null : this.functionDefinition.getKind();
     }
 
     @Override
-    protected boolean equivalentTo(Type other) {
+    public boolean equivalentTo(Type other) {
         return other instanceof DMNFunctionType
-                && Type.equivalentTo(this.returnType, ((FunctionType) other).returnType)
-                && Type.equivalentTo(this.parameterTypes, ((FunctionType) other).parameterTypes);
+                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.returnType, ((FunctionType) other).returnType)
+                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.parameterTypes, ((FunctionType) other).parameterTypes);
     }
 
     @Override
-    protected boolean conformsTo(Type other) {
+    public boolean conformsTo(Type other) {
         // “contravariant function argument type” and “covariant function return type”
         return other instanceof FunctionType
-                && Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
-                && Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
+                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
+                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
     }
 
     @Override
-    public boolean match(ParameterTypes parameterTypes) {
-        List<FormalParameter> parameters = getParameters();
+    public boolean match(ParameterTypes<Type, DMNContext> parameterTypes) {
+        List<FormalParameter<Type, DMNContext>> parameters = getParameters();
         if (parameters.size() != parameterTypes.size()) {
             return false;
         }
-        return parameterTypes.compatible(parameters);
+        return compatible(parameterTypes, parameters);
     }
 
-
     @Override
-    protected List<Pair<ParameterTypes, ParameterConversions>> matchCandidates(List<Type> argumentTypes) {
+    protected List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> matchCandidates(List<Type> argumentTypes) {
         // check size constraint
         if (argumentTypes.size() != this.parameterTypes.size()) {
             return new ArrayList<>();

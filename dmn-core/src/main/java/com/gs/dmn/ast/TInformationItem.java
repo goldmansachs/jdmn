@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.runtime.DMNContext;
 
 @JsonPropertyOrder({
         "name",
@@ -24,7 +23,7 @@ import com.gs.dmn.runtime.DMNContext;
         "typeRef",
         "extensionElements"
 })
-public class TInformationItem extends TNamedElement implements Visitable {
+public class TInformationItem<C> extends TNamedElement<C> implements Visitable<C> {
     private String typeRef;
 
     public String getTypeRef() {
@@ -36,7 +35,7 @@ public class TInformationItem extends TNamedElement implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

@@ -15,7 +15,6 @@ package com.gs.dmn.ast;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.ast.dmndi.DMNDI;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.serialization.DMNVersion;
 
 import java.util.ArrayList;
@@ -41,68 +40,68 @@ import java.util.List;
         "dmndi",
         "extensionElements"
 })
-public class TDefinitions extends TNamedElement implements Visitable {
+public class TDefinitions<C> extends TNamedElement<C> implements Visitable<C> {
     @JsonProperty("import")
-    private List<TImport> _import;
-    private List<TItemDefinition> itemDefinition;
-    private List<? extends TDRGElement> drgElement;
-    private List<? extends TArtifact> artifact;
-    private List<TElementCollection> elementCollection;
-    private List<? extends TBusinessContextElement> businessContextElement;
-    private DMNDI dmndi;
+    private List<TImport<C>> _import;
+    private List<TItemDefinition<C>> itemDefinition;
+    private List<? extends TDRGElement<C>> drgElement;
+    private List<? extends TArtifact<C>> artifact;
+    private List<TElementCollection<C>> elementCollection;
+    private List<? extends TBusinessContextElement<C>> businessContextElement;
+    private DMNDI<C> dmndi;
     private String expressionLanguage;
     private String typeLanguage;
     private String namespace;
     private String exporter;
     private String exporterVersion;
 
-    public List<TImport> getImport() {
+    public List<TImport<C>> getImport() {
         if (_import == null) {
             _import = new ArrayList<>();
         }
         return this._import;
     }
 
-    public List<TItemDefinition> getItemDefinition() {
+    public List<TItemDefinition<C>> getItemDefinition() {
         if (itemDefinition == null) {
             itemDefinition = new ArrayList<>();
         }
         return this.itemDefinition;
     }
 
-    public List<? extends TDRGElement> getDrgElement() {
+    public List<? extends TDRGElement<C>> getDrgElement() {
         if (drgElement == null) {
             drgElement = new ArrayList<>();
         }
         return this.drgElement;
     }
 
-    public List<? extends TArtifact> getArtifact() {
+    public List<? extends TArtifact<C>> getArtifact() {
         if (artifact == null) {
             artifact = new ArrayList<>();
         }
         return this.artifact;
     }
 
-    public List<TElementCollection> getElementCollection() {
+    public List<TElementCollection<C>> getElementCollection() {
         if (elementCollection == null) {
             elementCollection = new ArrayList<>();
         }
         return this.elementCollection;
     }
 
-    public List<? extends TBusinessContextElement> getBusinessContextElement() {
+    public List<? extends TBusinessContextElement<C>> getBusinessContextElement() {
         if (businessContextElement == null) {
             businessContextElement = new ArrayList<>();
         }
         return this.businessContextElement;
     }
 
-    public DMNDI getDMNDI() {
+    public DMNDI<C> getDMNDI() {
         return dmndi;
     }
 
-    public void setDMNDI(DMNDI value) {
+    public void setDMNDI(DMNDI<C> value) {
         this.dmndi = value;
     }
 
@@ -155,7 +154,7 @@ public class TDefinitions extends TNamedElement implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

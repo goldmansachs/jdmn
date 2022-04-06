@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,19 +26,19 @@ import java.util.List;
         "binding",
         "extensionElements"
 })
-public class TInvocation extends TExpression implements Visitable {
-    private TExpression expression;
-    private List<TBinding> binding;
+public class TInvocation<C> extends TExpression<C> implements Visitable<C> {
+    private TExpression<C> expression;
+    private List<TBinding<C>> binding;
 
-    public TExpression getExpression() {
+    public TExpression<C> getExpression() {
         return expression;
     }
 
-    public void setExpression(TExpression value) {
+    public void setExpression(TExpression<C> value) {
         this.expression = value;
     }
 
-    public List<TBinding> getBinding() {
+    public List<TBinding<C>> getBinding() {
         if (binding == null) {
             binding = new ArrayList<>();
         }
@@ -47,7 +46,7 @@ public class TInvocation extends TExpression implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

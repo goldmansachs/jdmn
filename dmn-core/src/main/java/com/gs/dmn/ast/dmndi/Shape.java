@@ -20,14 +20,14 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(name = "dmnShape", value = DMNShape.class),
         @JsonSubTypes.Type(name = "dmnLabel", value = DMNLabel.class)
 })
-public abstract class Shape extends DiagramElement {
-    private Bounds bounds;
+public abstract class Shape<C> extends DiagramElement<C> {
+    private Bounds<C> bounds;
 
-    public Bounds getBounds() {
+    public Bounds<C> getBounds() {
         return bounds;
     }
 
-    public void setBounds(Bounds value) {
+    public void setBounds(Bounds<C> value) {
         this.bounds = value;
     }
 }

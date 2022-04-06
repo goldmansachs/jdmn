@@ -12,6 +12,9 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.el.analysis.semantics.type.AnyType;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -53,13 +56,6 @@ public class FEELTypes {
             DurationType.DAYS_AND_TIME_DURATION,
             DurationType.YEARS_AND_MONTHS_DURATION
     });
-
-    public static final List<String> FEEL_LITERAL_DATE_TIME_NAMES = Arrays.asList(
-            DateType.DATE.getConversionFunction(),
-            TimeType.TIME.getConversionFunction(),
-            DateTimeType.DATE_AND_TIME.getConversionFunction(),
-            DurationType.DAYS_AND_TIME_DURATION.getConversionFunction(),
-            DurationType.YEARS_AND_MONTHS_DURATION.getConversionFunction());
 
     public static final Map<Type, String> FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION = new LinkedHashMap<>();
     static {

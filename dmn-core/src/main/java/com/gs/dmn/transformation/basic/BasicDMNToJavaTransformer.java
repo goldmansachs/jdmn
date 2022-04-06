@@ -12,20 +12,21 @@
  */
 package com.gs.dmn.transformation.basic;
 
-import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.DRGElementFilter;
-import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.NameUtils;
+import com.gs.dmn.*;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.context.environment.Environment;
+import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
-import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
+import com.gs.dmn.el.analysis.semantics.type.AnyType;
+import com.gs.dmn.el.analysis.semantics.type.NullType;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.analysis.semantics.type.*;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
-import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
@@ -37,7 +38,6 @@ import com.gs.dmn.runtime.cache.DefaultCache;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.JavaExternalFunction;
-import com.gs.dmn.runtime.interpreter.ImportPath;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.*;
 import com.gs.dmn.serialization.DMNConstants;
@@ -64,9 +64,9 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 
-public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
+public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Type, DMNContext> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(BasicDMNToJavaTransformer.class);
 
     private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect;
@@ -84,7 +84,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     protected DMNEnvironmentFactory dmnEnvironmentFactory;
     protected NativeFactory nativeFactory;
-    protected FEELTranslator feelTranslator;
+    protected ELTranslator<Type, DMNContext> feelTranslator;
     protected DMNExpressionToNativeTransformer expressionToNativeTransformer;
     protected final DRGElementFilter drgElementFilter;
     protected final JavaTypeMemoizer nativeTypeMemoizer;
@@ -119,20 +119,20 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         this.protoFactory = new ProtoBufferJavaFactory(this);
     }
 
-    protected void setDMNEnvironmentFactory(BasicDMNToNativeTransformer transformer) {
+    protected void setDMNEnvironmentFactory(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
         this.dmnEnvironmentFactory = new StandardDMNEnvironmentFactory(transformer);
     }
 
-    protected void setNativeFactory(BasicDMNToNativeTransformer transformer) {
+    protected void setNativeFactory(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
         this.nativeFactory = new JavaFactory(transformer);
     }
 
-    private void setExpressionToNativeTransformer(BasicDMNToNativeTransformer transformer) {
+    private void setExpressionToNativeTransformer(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
         this.expressionToNativeTransformer = new DMNExpressionToNativeTransformer(transformer);
     }
 
-    private void setFEELTranslator(BasicDMNToNativeTransformer transformer) {
-        this.feelTranslator = new FEELTranslatorImpl(transformer);
+    private void setFEELTranslator(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
+        this.feelTranslator = new FEELTranslator(transformer);
     }
 
     @Override
@@ -156,7 +156,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public FEELTranslator getFEELTranslator() {
+    public ELTranslator<Type, DMNContext> getFEELTranslator() {
         return this.feelTranslator;
     }
 
@@ -168,11 +168,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public NativeFactory getNativeFactory() {
         return this.nativeFactory;
-    }
-
-    @Override
-    public DMNExpressionToNativeTransformer getExpressionToNativeTransformer() {
-        return this.expressionToNativeTransformer;
     }
 
     @Override
@@ -499,7 +494,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public String elementName(Object obj) {
         if (obj instanceof DRGElementReference) {
-            DRGElementReference reference = (DRGElementReference) obj;
+            DRGElementReference<? extends TDRGElement> reference = (DRGElementReference<? extends TDRGElement>) obj;
             String elementName = this.dmnModelRepository.name(reference.getElement());
             return drgReferenceQualifiedDisplayName(reference.getImportPath(), reference.getModelName(), elementName);
         } else if (obj instanceof TNamedElement) {
@@ -511,7 +506,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public String displayName(Object obj) {
         if (obj instanceof DRGElementReference) {
-            DRGElementReference reference = (DRGElementReference) obj;
+            DRGElementReference<? extends TDRGElement> reference = (DRGElementReference<? extends TDRGElement>) obj;
             String elementName = this.dmnModelRepository.displayName(reference.getElement());
             return drgReferenceQualifiedDisplayName(reference.getImportPath(), reference.getModelName(), elementName);
         } else if (obj instanceof TNamedElement) {
@@ -523,7 +518,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public String nativeName(Object obj) {
         if (obj instanceof DRGElementReference) {
-            return drgElementReferenceVariableName((DRGElementReference) obj);
+            return drgElementReferenceVariableName((DRGElementReference<? extends TDRGElement>) obj);
         } else if (obj instanceof TNamedElement) {
             return namedElementVariableName((TNamedElement) obj);
         }
@@ -760,7 +755,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public List<FormalParameter> invocableFEELParameters(TDRGElement invocable) {
+    public List<FormalParameter<Type, DMNContext>> invocableFEELParameters(TDRGElement invocable) {
         if (invocable instanceof TBusinessKnowledgeModel) {
             return bkmFEELParameters((TBusinessKnowledgeModel) invocable);
         } else if (invocable instanceof TDecisionService) {
@@ -774,16 +769,16 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     // BKM related functions
     //
     @Override
-    public List<FormalParameter> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
+    public List<FormalParameter<Type, DMNContext>> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
         TDefinitions model = this.dmnModelRepository.getModel(bkm);
-        List<FormalParameter> parameters = new ArrayList<>();
+        List<FormalParameter<Type, DMNContext>> parameters = new ArrayList<>();
         for (TInformationItem p: bkm.getEncapsulatedLogic().getFormalParameter()) {
             String typeRef = p.getTypeRef();
             Type type = null;
             if (!StringUtils.isEmpty(typeRef)) {
                 type = toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
             }
-            parameters.add(new FormalParameter(p.getName(), type));
+            parameters.add(new FormalParameter<>(p.getName(), type));
         }
         return parameters;
     }
@@ -810,15 +805,15 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     // Decision Service related functions
     //
     @Override
-    public List<FormalParameter> dsFEELParameters(TDecisionService service) {
-        List<FormalParameter> parameters = new ArrayList<>();
+    public List<FormalParameter<Type, DMNContext>> dsFEELParameters(TDecisionService service) {
+        List<FormalParameter<Type, DMNContext>> parameters = new ArrayList<>();
         for (TDMNElementReference er : service.getInputData()) {
             TInputData inputData = getDMNModelRepository().findInputDataByRef(service, er.getHref());
-            parameters.add(new FormalParameter(inputData.getName(), toFEELType(inputData)));
+            parameters.add(new FormalParameter<>(inputData.getName(), toFEELType(inputData)));
         }
         for (TDMNElementReference er : service.getInputDecision()) {
             TDecision decision = getDMNModelRepository().findDecisionByRef(service, er.getHref());
-            parameters.add(new FormalParameter(decision.getName(), drgElementOutputFEELType(decision)));
+            parameters.add(new FormalParameter<>(decision.getName(), drgElementOutputFEELType(decision)));
         }
         return parameters;
     }
@@ -872,7 +867,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
             Type expectedElementType = ((ListType) expectedType).getElementType();
             Type expressionElementType = ((ListType) expressionType).getElementType();
             if (expectedElementType instanceof ItemDefinitionType) {
-                if (Type.conformsTo(expressionElementType, expectedElementType) || expressionElementType == ANY) {
+                if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(expressionElementType, expectedElementType) || expressionElementType == ANY) {
                     String conversionText = this.nativeFactory.makeListConversion(javaExpression, (ItemDefinitionType) expectedElementType);
                     return this.nativeFactory.makeExpressionStatement(conversionText, expectedType);
                 }
@@ -882,7 +877,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         } else if (expressionType instanceof ListType) {
             return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertListToElement(javaExpression, expectedType), expectedType);
         } else if (expectedType instanceof ItemDefinitionType) {
-            if (Type.conformsTo(expressionType, expectedType) || expressionType == ANY) {
+            if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(expressionType, expectedType) || expressionType == ANY) {
                 return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertToItemDefinitionType(javaExpression, (ItemDefinitionType) expectedType), expectedType);
             }
         }
@@ -1593,7 +1588,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public String functionDefinitionToNative(TDRGElement element, FunctionDefinition functionDefinition, boolean convertTypeToContext, String body) {
+    public String functionDefinitionToNative(TDRGElement element, FunctionDefinition<Type, DMNContext> functionDefinition, boolean convertTypeToContext, String body) {
         return this.expressionToNativeTransformer.functionDefinitionToNative(element, functionDefinition, body, convertTypeToContext);
     }
 
@@ -1685,7 +1680,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     private String toNativeTypeNoCache(Type type) {
-        if (Type.isNull(type)) {
+        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             if (isStrongTyping()) {
                 throw new DMNRuntimeException(String.format("Cannot infer native type for '%s' type", type));
             } else {
@@ -1693,8 +1688,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
             }
         }
 
-        if (type instanceof NamedType) {
-            String typeName = ((NamedType) type).getName();
+        if (type instanceof com.gs.dmn.el.analysis.semantics.type.NamedType) {
+            String typeName = ((com.gs.dmn.el.analysis.semantics.type.NamedType) type).getName();
             if (StringUtils.isBlank(typeName)) {
                 throw new DMNRuntimeException(String.format("Missing type name in '%s'", type));
             }
@@ -1969,7 +1964,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public Pair<DMNContext, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext) {
+    public Pair<DMNContext, Map<TContextEntry, Expression<Type, DMNContext>>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext) {
         return this.dmnEnvironmentFactory.makeContextEnvironment(element, context, parentContext);
     }
 

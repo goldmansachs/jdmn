@@ -14,19 +14,19 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.QualifiedName;
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.DMNEnvironmentFactory;
-import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20191111.model.*;
@@ -83,7 +83,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
         TInformationItem variable = repository.variable(element);
         QualifiedName typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
 
-        String hint = Type.isNull(type) ? "" : String.format(". The inferred type is '%s'", type.toString());
+        String hint = com.gs.dmn.el.analysis.semantics.type.Type.isNull(type) ? "" : String.format(". The inferred type is '%s'", type.toString());
         return makeError(repository, model, element, String.format("Cannot find typeRef '%s'", typeRef.toString()) + hint);
     }
 

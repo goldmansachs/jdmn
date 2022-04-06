@@ -1,12 +1,12 @@
 package com.gs.dmn.feel.analysis.semantics;
 
-import com.gs.dmn.feel.analysis.FEELAnalyzer;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.ELAnalyzer;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionInvocation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.SimpleLiteral;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
-import com.gs.dmn.runtime.DMNContext;
 
 import static org.junit.Assert.*;
 
@@ -37,7 +37,7 @@ public abstract class AbstractBuiltinFunctionsResolutionTest {
 
     protected void testFunctionInvocation(String text, String expectedType, boolean error) {
         try {
-            Expression expression = getFEELAnalyzer().analyzeExpression(text, getDMNContext());
+            Expression<Type, DMNContext> expression = (Expression<Type, DMNContext>) getFEELAnalyzer().analyzeExpression(text, getDMNContext());
             if (expression instanceof SimpleLiteral) {
                 assertEquals(expectedType, expression.getClass().getSimpleName());
                 assertFalse(error);
@@ -45,7 +45,7 @@ public abstract class AbstractBuiltinFunctionsResolutionTest {
                 assertEquals(expectedType, expression.getClass().getSimpleName());
                 assertFalse(error);
             } else {
-                FunctionInvocation functionInvocation = (FunctionInvocation) expression;
+                FunctionInvocation<Type, DMNContext> functionInvocation = (FunctionInvocation<Type, DMNContext>) expression;
                 Type actualType = functionInvocation.getFunction().getType();
                 assertEquals(expectedType, actualType.toString());
             }
@@ -56,7 +56,7 @@ public abstract class AbstractBuiltinFunctionsResolutionTest {
         }
     }
 
-    protected abstract FEELAnalyzer getFEELAnalyzer();
+    protected abstract ELAnalyzer<Type, DMNContext> getFEELAnalyzer();
 
     protected abstract DMNContext getDMNContext();
 }

@@ -22,5 +22,5 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(name = "knowledgeSource", value = TKnowledgeSource.class),
         @JsonSubTypes.Type(name = "invocable", value = TInvocable.class)
 })
-public abstract class TDRGElement extends TNamedElement {
+public abstract class TDRGElement<C> extends TNamedElement<C> {
 }

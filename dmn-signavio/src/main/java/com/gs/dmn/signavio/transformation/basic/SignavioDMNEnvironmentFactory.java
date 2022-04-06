@@ -12,24 +12,24 @@
  */
 package com.gs.dmn.signavio.transformation.basic;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
+import com.gs.dmn.QualifiedName;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.context.environment.Declaration;
+import com.gs.dmn.context.environment.Environment;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.semantics.type.FEELFunctionType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.basic.StandardDMNEnvironmentFactory;
 import org.omg.spec.dmn._20191111.model.*;
 
 public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory {
     private final SignavioDMNModelRepository dmnModelRepository;
 
-    public SignavioDMNEnvironmentFactory(BasicDMNToNativeTransformer basicDMNToNativeTransformer) {
+    public SignavioDMNEnvironmentFactory(BasicDMNToNativeTransformer<Type, DMNContext> basicDMNToNativeTransformer) {
         super(basicDMNToNativeTransformer);
         this.dmnModelRepository = (SignavioDMNModelRepository) super.dmnModelRepository;
     }
@@ -40,7 +40,7 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             return super.drgElementOutputFEELType(outputDecision);
         } else if (element instanceof TDecision && this.dmnModelRepository.isFreeTextLiteralExpression(element)) {
-            Expression feelExpression = analyzeExpression(element);
+            Expression<Type, DMNContext> feelExpression = analyzeExpression(element);
             if (feelExpression instanceof FunctionDefinition) {
                 Type type = feelExpression.getType();
                 if (type instanceof FEELFunctionType) {
@@ -60,10 +60,10 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             return super.drgElementOutputFEELType(outputDecision);
         } else if (element instanceof TDecision && this.dmnModelRepository.isFreeTextLiteralExpression(element)) {
-            Expression feelExpression = analyzeExpression(element);
+            Expression<Type, DMNContext> feelExpression = analyzeExpression(element);
             if (feelExpression instanceof FunctionDefinition) {
-                if (((FunctionDefinition) feelExpression).isExternal()) {
-                    Expression body = ((FunctionDefinition) feelExpression).getBody();
+                if (((FunctionDefinition<Type, DMNContext>) feelExpression).isExternal()) {
+                    Expression<Type, DMNContext> body = ((FunctionDefinition<Type, DMNContext>) feelExpression).getBody();
                     return externalFunctionReturnFEELType(element, body);
                 } else {
                     Type type = feelExpression.getType();
@@ -79,7 +79,7 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
         }
     }
 
-    private Expression analyzeExpression(TDRGElement element) {
+    private Expression<Type, DMNContext> analyzeExpression(TDRGElement element) {
         TLiteralExpression expression = (TLiteralExpression) this.dmnModelRepository.expression(element);
         DMNContext globalContext = this.dmnTransformer.makeGlobalContext(element);
         return this.feelTranslator.analyzeExpression(expression.getText(), globalContext);

@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.runtime.DMNContext;
 
 @JsonPropertyOrder({
         "name",
@@ -24,19 +23,19 @@ import com.gs.dmn.runtime.DMNContext;
         "variable",
         "extensionElements"
 })
-public class TInputData extends TDRGElement implements Visitable {
-    private TInformationItem variable;
+public class TInputData<C> extends TDRGElement<C> implements Visitable<C> {
+    private TInformationItem<C> variable;
 
-    public TInformationItem getVariable() {
+    public TInformationItem<C> getVariable() {
         return variable;
     }
 
-    public void setVariable(TInformationItem value) {
+    public void setVariable(TInformationItem<C> value) {
         this.variable = value;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

@@ -14,24 +14,26 @@ package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
-import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
-import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
+import com.gs.dmn.ImportPath;
+import com.gs.dmn.QualifiedName;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.context.environment.Declaration;
+import com.gs.dmn.context.environment.Environment;
+import com.gs.dmn.context.environment.EnvironmentFactory;
+import com.gs.dmn.context.environment.VariableDeclaration;
+import com.gs.dmn.el.analysis.semantics.type.AnyType;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.analysis.semantics.type.*;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Context;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ContextEntry;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.context.Context;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.context.ContextEntry;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.StringLiteral;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
-import com.gs.dmn.feel.synthesis.FEELTranslator;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.runtime.interpreter.ImportPath;
 import com.gs.dmn.serialization.DMNVersion;
-import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20191111.model.*;
 
@@ -39,17 +41,17 @@ import javax.xml.bind.JAXBElement;
 import java.util.*;
 
 public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
-    protected final BasicDMNToNativeTransformer dmnTransformer;
+    protected final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
 
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
 
-    protected final FEELTranslator feelTranslator;
+    protected final ELTranslator<Type, DMNContext> feelTranslator;
 
     private final FEELTypeMemoizer feelTypeMemoizer;
     private final EnvironmentMemoizer environmentMemoizer;
 
-    public StandardDMNEnvironmentFactory(BasicDMNToNativeTransformer dmnTransformer) {
+    public StandardDMNEnvironmentFactory(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         this.dmnTransformer = dmnTransformer;
 
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
@@ -320,7 +322,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (outputTypeRef == null) {
             if (index < outputEntries.size()) {
                 type = expressionType(element, outputEntries.get(index), context);
-                if (Type.isNull(type)) {
+                if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
                     throw new DMNRuntimeException(String.format("Cannot infer type for '%s' from OutputEntries", element.getName()));
                 }
             } else {
@@ -334,7 +336,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     private Type applyPolicies(TDRGElement element, TDecisionTable decisionTable, Type type) {
         TBuiltinAggregator aggregation = decisionTable.getAggregation();
-        if (decisionTable.getHitPolicy() == THitPolicy.COLLECT && !Type.isNull(type)) {
+        if (decisionTable.getHitPolicy() == THitPolicy.COLLECT && !com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             type = new ListType(type);
         }
         if (aggregation == TBuiltinAggregator.COUNT || aggregation == TBuiltinAggregator.SUM) {
@@ -381,7 +383,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
         // Lookup type
         Type type = this.feelTypeMemoizer.get(model, typeRef);
-        if (Type.isNull(type)) {
+        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             type = toFEELTypeNoCache(model, typeRef);
             this.feelTypeMemoizer.put(model, typeRef, type);
         }
@@ -405,7 +407,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     @Override
     public Type toFEELType(TItemDefinition itemDefinition) {
         Type type = this.feelTypeMemoizer.get(itemDefinition);
-        if (Type.isNull(type)) {
+        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             type = toFEELTypeNoCache(itemDefinition);
             this.feelTypeMemoizer.put(itemDefinition, type);
         }
@@ -425,7 +427,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (!this.dmnModelRepository.isNull(typeRef)) {
             type = toFEELType(model, typeRef);
         } else if (functionItem != null) {
-            List<FormalParameter> formalParameters = makeFormalParameters(model, functionItem.getParameters());
+            List<FormalParameter<Type, DMNContext>> formalParameters = makeFormalParameters(model, functionItem.getParameters());
             Type outputType = toFEELType(model, functionItem.getOutputTypeRef());
             type = new DMNFunctionType(formalParameters, outputType);
         } else {
@@ -487,7 +489,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     private FunctionType makeDSVariableType(TDecisionService decisionService) {
-        List<FormalParameter> parameters = this.dmnTransformer.dsFEELParameters(decisionService);
+        List<FormalParameter<Type, DMNContext>> parameters = this.dmnTransformer.dsFEELParameters(decisionService);
         return new DMNFunctionType(parameters, makeDSOutputType(decisionService), decisionService);
     }
 
@@ -513,7 +515,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 }
             }
             // Make function type
-            List<FormalParameter> parameters = makeFormalParameters(model, functionDefinition.getFormalParameter());
+            List<FormalParameter<Type, DMNContext>> parameters = makeFormalParameters(model, functionDefinition.getFormalParameter());
             if (bodyType != null) {
                 return new DMNFunctionType(parameters, bodyType, element, functionDefinition);
             }
@@ -521,15 +523,15 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         return null;
     }
 
-    private List<FormalParameter> makeFormalParameters(TDefinitions model, List<TInformationItem> informationItems) {
-        List<FormalParameter> parameters = new ArrayList<>();
+    private List<FormalParameter<Type, DMNContext>> makeFormalParameters(TDefinitions model, List<TInformationItem> informationItems) {
+        List<FormalParameter<Type, DMNContext>> parameters = new ArrayList<>();
         for(TInformationItem param: informationItems) {
             String paramTypeRef = param.getTypeRef();
             Type paramType = null;
             if (!StringUtils.isEmpty(paramTypeRef)) {
                 paramType = toFEELType(model, QualifiedName.toQualifiedName(model, paramTypeRef));
             }
-            parameters.add(new FormalParameter(param.getName(), paramType));
+            parameters.add(new FormalParameter<>(param.getName(), paramType));
         }
         return parameters;
     }
@@ -548,23 +550,23 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     private Type literalExpressionType(TNamedElement element, TLiteralExpression body, DMNContext context) {
-        Expression expression = this.feelTranslator.analyzeExpression(body.getText(), context);
+        Expression<Type, DMNContext> expression = this.feelTranslator.analyzeExpression(body.getText(), context);
         return expression.getType();
     }
 
     @Override
-    public Type externalFunctionReturnFEELType(TNamedElement element, Expression body) {
+    public Type externalFunctionReturnFEELType(TNamedElement element, Expression<Type, DMNContext> body) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         if (body instanceof Context) {
-            ContextEntry javaEntry = ((Context) body).entry("java");
+            ContextEntry<Type, DMNContext> javaEntry = ((Context<Type, DMNContext>) body).entry("java");
             if (javaEntry != null) {
-                Expression javaExpression = javaEntry.getExpression();
+                Expression<Type, DMNContext> javaExpression = javaEntry.getExpression();
                 if (javaExpression instanceof Context) {
-                    ContextEntry returnTypeEntry = ((Context) javaExpression).entry("returnType");
+                    ContextEntry<Type, DMNContext> returnTypeEntry = ((Context<Type, DMNContext>) javaExpression).entry("returnType");
                     if (returnTypeEntry != null) {
-                        Expression returnTypeExp = returnTypeEntry.getExpression();
+                        Expression<Type, DMNContext> returnTypeExp = returnTypeEntry.getExpression();
                         if (returnTypeExp instanceof StringLiteral) {
-                            String lexeme = ((StringLiteral) returnTypeExp).getLexeme();
+                            String lexeme = ((StringLiteral<Type, DMNContext>) returnTypeExp).getLexeme();
                             String typeName = StringEscapeUtil.stripQuotes(lexeme);
                             return toFEELType(model, QualifiedName.toQualifiedName(model, typeName));
                         }
@@ -681,10 +683,10 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     // Decision Table
     //
     @Override
-    public Environment makeUnaryTestEnvironment(TDRGElement element, Expression inputExpression) {
+    public Environment makeUnaryTestEnvironment(TDRGElement element, Expression<Type, DMNContext> inputExpression) {
         Environment environment = this.environmentFactory.makeEnvironment(inputExpression);
         if (inputExpression != null) {
-            environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
+            environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(DMNContext.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
         }
         return environment;
     }
@@ -754,7 +756,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (StringUtils.isBlank(name)) {
             throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
         }
-        List<FormalParameter> parameters = this.dmnTransformer.bkmFEELParameters(bkm);
+        List<FormalParameter<Type, DMNContext>> parameters = this.dmnTransformer.bkmFEELParameters(bkm);
         Type returnType = this.dmnTransformer.drgElementOutputFEELType(bkm);
         return this.environmentFactory.makeVariableDeclaration(name, new DMNFunctionType(parameters, returnType, bkm));
     }
@@ -763,14 +765,14 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     // Context
     //
     @Override
-    public Pair<DMNContext, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext) {
+    public Pair<DMNContext, Map<TContextEntry, Expression<Type, DMNContext>>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext) {
         DMNContext localContext = this.dmnTransformer.makeLocalContext(element, parentContext);
-        Map<TContextEntry, Expression> literalExpressionMap = new LinkedHashMap<>();
+        Map<TContextEntry, Expression<Type, DMNContext>> literalExpressionMap = new LinkedHashMap<>();
         for(TContextEntry entry: context.getContextEntry()) {
             TInformationItem variable = entry.getVariable();
             JAXBElement<? extends TExpression> jElement = entry.getExpression();
             TExpression expression = jElement == null ? null : jElement.getValue();
-            Expression feelExpression = null;
+            Expression<Type, DMNContext> feelExpression = null;
             if (expression instanceof TLiteralExpression) {
                 feelExpression = this.feelTranslator.analyzeExpression(((TLiteralExpression) expression).getText(), localContext);
                 literalExpressionMap.put(entry, feelExpression);
@@ -790,7 +792,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     @Override
-    public Type entryType(TDRGElement element, TContextEntry entry, TExpression expression, Expression feelExpression) {
+    public Type entryType(TDRGElement element, TContextEntry entry, TExpression expression, Expression<Type, DMNContext> feelExpression) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         TInformationItem variable = entry.getVariable();
         Type entryType = variableType(element, variable);
@@ -811,12 +813,12 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     public Type entryType(TDRGElement element, TContextEntry entry, DMNContext localContext) {
         TInformationItem variable = entry.getVariable();
         Type type = variableType(element, variable);
-        if (!Type.isNull(type)) {
+        if (!com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             return type;
         }
         // Infer type from expression
         type = this.dmnTransformer.expressionType(element, entry.getExpression(), localContext);
-        return Type.isNull(type) ? AnyType.ANY : type;
+        return com.gs.dmn.el.analysis.semantics.type.Type.isNull(type) ? AnyType.ANY : type;
     }
 
     private Type variableType(TNamedElement element, TInformationItem variable) {

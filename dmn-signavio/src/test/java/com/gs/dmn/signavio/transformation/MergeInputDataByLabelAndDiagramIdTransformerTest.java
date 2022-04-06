@@ -12,19 +12,16 @@
  */
 package com.gs.dmn.signavio.transformation;
 
+import org.junit.Test;
+
 public class MergeInputDataByLabelAndDiagramIdTransformerTest extends AbstractMergeInputDataTransformerTest {
     @Override
     protected AbstractMergeInputDataTransformer getTransformer() {
         return new MergeInputDataByLabelAndDiagramIdTransformer(LOGGER);
     }
 
-    @Override
-    protected String getDMNFileName() {
-        return "simple-decision-with-bkm-clone-multiple-diagrams.dmn";
-    }
-
-    @Override
-    protected String getTestLabFileName() {
-        return "simple-decision-with-bkm-clone-multiple-diagrams.json";
+    @Test
+    public void testTransform() throws Exception {
+        doTransform("simple-decision-with-bkm-clone-multiple-diagrams.dmn", "simple-decision-with-bkm-clone-multiple-diagrams.json");
     }
 }

@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,38 +32,38 @@ import java.util.List;
         "rule",
         "extensionElements"
 })
-public class TDecisionTable extends TExpression implements Visitable {
-    private List<TInputClause> input;
-    private List<TOutputClause> output;
-    private List<TRuleAnnotationClause> annotation;
-    private List<TDecisionRule> rule;
+public class TDecisionTable<C> extends TExpression<C> implements Visitable<C> {
+    private List<TInputClause<C>> input;
+    private List<TOutputClause<C>> output;
+    private List<TRuleAnnotationClause<C>> annotation;
+    private List<TDecisionRule<C>> rule;
     private THitPolicy hitPolicy;
     private TBuiltinAggregator aggregation;
     private TDecisionTableOrientation preferredOrientation;
     private String outputLabel;
 
-    public List<TInputClause> getInput() {
+    public List<TInputClause<C>> getInput() {
         if (input == null) {
             input = new ArrayList<>();
         }
         return this.input;
     }
 
-    public List<TOutputClause> getOutput() {
+    public List<TOutputClause<C>> getOutput() {
         if (output == null) {
             output = new ArrayList<>();
         }
         return this.output;
     }
 
-    public List<TRuleAnnotationClause> getAnnotation() {
+    public List<TRuleAnnotationClause<C>> getAnnotation() {
         if (annotation == null) {
             annotation = new ArrayList<>();
         }
         return this.annotation;
     }
 
-    public List<TDecisionRule> getRule() {
+    public List<TDecisionRule<C>> getRule() {
         if (rule == null) {
             rule = new ArrayList<>();
         }
@@ -112,7 +111,7 @@ public class TDecisionTable extends TExpression implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

@@ -14,14 +14,13 @@ package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.gs.dmn.runtime.DMNContext;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind")
 @JsonSubTypes({
         @JsonSubTypes.Type(name = "performanceIndicator", value = TPerformanceIndicator.class),
         @JsonSubTypes.Type(name = "organizationUnit", value = TOrganizationUnit.class)
 })
-public class TBusinessContextElement extends TNamedElement implements Visitable {
+public class TBusinessContextElement<C> extends TNamedElement<C> implements Visitable<C> {
     private String uri;
 
     public String getURI() {
@@ -33,7 +32,7 @@ public class TBusinessContextElement extends TNamedElement implements Visitable 
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

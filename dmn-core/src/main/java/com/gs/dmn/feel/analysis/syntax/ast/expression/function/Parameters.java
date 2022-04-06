@@ -12,28 +12,26 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.interpreter.Arguments;
 
 import java.util.function.BiFunction;
 
-public abstract class Parameters extends Element {
+public abstract class Parameters<T, C> extends Element<T, C> {
     // API for initial status
     public abstract boolean isEmpty();
-    public abstract ParameterTypes getSignature();
-    public abstract Arguments getOriginalArguments();
-    abstract void setOriginalArguments(Arguments originalArguments);
+    public abstract ParameterTypes<T, C> getSignature();
+    public abstract Arguments<T, C> getOriginalArguments();
+    public abstract void setOriginalArguments(Arguments<T, C> originalArguments);
 
     // API during and after conversion
-    public abstract ParameterConversions getParameterConversions();
-    abstract void setParameterConversions(ParameterConversions parameterConversions);
-    public abstract ParameterTypes getConvertedParameterTypes();
-    abstract void setConvertedParameterTypes(ParameterTypes parameterTypes);
-    public abstract Arguments getConvertedArguments();
-    public abstract Arguments convertArguments(BiFunction<Object, Conversion, Object> convertArgument);
+    public abstract ParameterConversions<T, C> getParameterConversions();
+    public abstract void setParameterConversions(ParameterConversions<T, C> parameterConversions);
+    public abstract ParameterTypes<T, C> getConvertedParameterTypes();
+    public abstract void setConvertedParameterTypes(ParameterTypes<T, C> parameterTypes);
+    public abstract Arguments<T, C> getConvertedArguments();
+    public abstract Arguments<T, C> convertArguments(BiFunction<Object, Conversion<T>, Object> convertArgument);
 
-    public abstract Type getParameterType(int position, String name);
-    public abstract Expression getParameter(int position, String name);
+    public abstract T getParameterType(int position, String name);
+    public abstract Expression<T, C> getParameter(int position, String name);
 }

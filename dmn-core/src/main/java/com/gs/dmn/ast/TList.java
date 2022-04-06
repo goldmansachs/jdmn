@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +25,10 @@ import java.util.List;
         "expression",
         "extensionElements"
 })
-public class TList extends TExpression implements Visitable {
-    private List<? extends TExpression> expression;
+public class TList<C> extends TExpression<C> implements Visitable<C> {
+    private List<? extends TExpression<C>> expression;
 
-    public List<? extends TExpression> getExpression() {
+    public List<? extends TExpression<C>> getExpression() {
         if (expression == null) {
             expression = new ArrayList<>();
         }
@@ -37,7 +36,7 @@ public class TList extends TExpression implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

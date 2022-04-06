@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.el.analysis.semantics.type.NullType;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
@@ -20,7 +22,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.*;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
@@ -93,9 +95,9 @@ public class TypeEqualsTest {
 
     @Test
     public void testFunctionType() {
-        FEELFunctionType type1 = new FEELFunctionType(Arrays.asList(new FormalParameter("p", STRING)), STRING, false);
-        FEELFunctionType type2 = new FEELFunctionType(Arrays.asList(new FormalParameter("p1", NUMBER)), STRING, false);
-        FEELFunctionType tyep3 = new FEELFunctionType(Arrays.asList(new FormalParameter("p1", STRING), new FormalParameter("p2", NUMBER)), STRING, false);
+        FEELFunctionType type1 = new FEELFunctionType(Arrays.asList(new FormalParameter<>("p", STRING)), STRING, false);
+        FEELFunctionType type2 = new FEELFunctionType(Arrays.asList(new FormalParameter<>("p1", NUMBER)), STRING, false);
+        FEELFunctionType tyep3 = new FEELFunctionType(Arrays.asList(new FormalParameter<>("p1", STRING), new FormalParameter<>("p2", NUMBER)), STRING, false);
 
         checkEquals(true, type1, type1);
 

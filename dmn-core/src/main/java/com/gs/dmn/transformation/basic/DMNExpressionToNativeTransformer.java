@@ -14,15 +14,14 @@ package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.context.environment.EnvironmentFactory;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.analysis.semantics.type.*;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Context;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ContextEntry;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.StringLiteral;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
-import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.HitPolicy;
@@ -48,15 +47,16 @@ public class DMNExpressionToNativeTransformer {
     private static final String TAB = "    ";
     private static final String RELATION_INDENT = TAB + TAB + TAB + TAB;
 
-    private final BasicDMNToNativeTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
     private final DMNModelRepository dmnModelRepository;
-    private final FEELTranslator feelTranslator;
+    private final ELTranslator<Type, DMNContext> feelTranslator;
     private final EnvironmentFactory environmentFactory;
     private final DMNEnvironmentFactory dmnEnvironmentFactory;
     private final NativeTypeFactory nativeTypeFactory;
     private final NativeFactory nativeFactory;
+    private final ExternalFunctionExtractor externalFunctionExtractor;
 
-    DMNExpressionToNativeTransformer(BasicDMNToNativeTransformer dmnTransformer) {
+    DMNExpressionToNativeTransformer(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         this.dmnTransformer = dmnTransformer;
 
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
@@ -66,6 +66,7 @@ public class DMNExpressionToNativeTransformer {
         this.nativeFactory = dmnTransformer.getNativeFactory();
         this.dmnEnvironmentFactory = dmnTransformer.getDMNEnvironmentFactory();
         this.nativeTypeFactory = dmnTransformer.getNativeTypeFactory();
+        this.externalFunctionExtractor = new ExternalFunctionExtractor();
     }
 
     //
@@ -332,7 +333,7 @@ public class DMNExpressionToNativeTransformer {
     private String inputEntryToNative(TDRGElement element, String inputExpressionText, String inputEntryText) {
         // Analyze input expression
         DMNContext globalContext = this.dmnTransformer.makeGlobalContext(element);
-        Expression inputExpression = this.feelTranslator.analyzeExpression(inputExpressionText, globalContext);
+        Expression<Type, DMNContext> inputExpression = this.feelTranslator.analyzeExpression(inputExpressionText, globalContext);
 
         // Generate code for input entry
         DMNContext inputEntryContext = this.dmnTransformer.makeUnaryTestContext(inputExpression, globalContext);
@@ -348,7 +349,7 @@ public class DMNExpressionToNativeTransformer {
                 outputEntryText = "null";
             }
             DMNContext outputEntryContext = this.dmnTransformer.makeGlobalContext(element);
-            Expression feelOutputEntryExpression = this.feelTranslator.analyzeExpression(outputEntryText, outputEntryContext);
+            Expression<Type, DMNContext> feelOutputEntryExpression = this.feelTranslator.analyzeExpression(outputEntryText, outputEntryContext);
 
             // Generate code
             return this.feelTranslator.expressionToNative(feelOutputEntryExpression, outputEntryContext);
@@ -390,11 +391,11 @@ public class DMNExpressionToNativeTransformer {
 
     Statement contextExpressionToNative(TDRGElement element, TContext context, DMNContext parentContext) {
         // Make entry context
-        Pair<DMNContext, Map<TContextEntry, Expression>> pair = this.dmnTransformer.makeContextEnvironment(element, context, parentContext);
+        Pair<DMNContext, Map<TContextEntry, Expression<Type, DMNContext>>> pair = this.dmnTransformer.makeContextEnvironment(element, context, parentContext);
         DMNContext localContext = pair.getLeft();
 
         // Translate to Java
-        Map<TContextEntry, Expression> literalExpressionMap = pair.getRight();
+        Map<TContextEntry, Expression<Type, DMNContext>> literalExpressionMap = pair.getRight();
         CompoundStatement statement = this.nativeFactory.makeCompoundStatement();
         ExpressionStatement returnValue = null;
         for(TContextEntry entry: context.getContextEntry()) {
@@ -405,7 +406,7 @@ public class DMNExpressionToNativeTransformer {
             if (jaxbElement != null) {
                 TExpression expression = jaxbElement.getValue();
                 if (expression instanceof TLiteralExpression) {
-                    Expression feelExpression = literalExpressionMap.get(entry);
+                    Expression<Type, DMNContext> feelExpression = literalExpressionMap.get(entry);
                     entryType = this.dmnEnvironmentFactory.entryType(element, entry, expression, feelExpression);
                     String stm = this.feelTranslator.expressionToNative(feelExpression, localContext);
                     value = this.nativeFactory.makeExpressionStatement(stm, entryType);
@@ -460,7 +461,7 @@ public class DMNExpressionToNativeTransformer {
                 JAXBElement<? extends TExpression> jaxbElement = entry.getExpression();
                 TExpression expression = jaxbElement == null ? null : jaxbElement.getValue();
                 if (expression instanceof TLiteralExpression) {
-                    Expression feelExpression = literalExpressionMap.get(entry);
+                    Expression<Type, DMNContext> feelExpression = literalExpressionMap.get(entry);
                     entryType = this.dmnEnvironmentFactory.entryType(element, entry, expression, feelExpression);
                 } else {
                     entryType = this.dmnEnvironmentFactory.entryType(element, entry, localContext);
@@ -507,7 +508,7 @@ public class DMNExpressionToNativeTransformer {
             String expressionText = functionDefinitionToNative(element, functionType, body, false);
             return this.nativeFactory.makeExpressionStatement(expressionText, functionType);
         } else if (this.dmnTransformer.isJavaFunction(kind)) {
-            JavaFunctionInfo javaInfo = extractJavaFunctionInfo(element, expression);
+            JavaFunctionInfo javaInfo = this.externalFunctionExtractor.extractJavaFunctionInfo(element, expression);
             String text = javaFunctionToNative(javaInfo, functionType);
             return this.nativeFactory.makeExpressionStatement(text, functionType);
         }
@@ -524,7 +525,7 @@ public class DMNExpressionToNativeTransformer {
         return this.dmnTransformer.constructor(className, String.format("%s, %s, %s", javaInfoArg, this.dmnTransformer.externalExecutorVariableName(), javaClassOfReturnType));
     }
 
-    String functionDefinitionToNative(TDRGElement element, FunctionDefinition functionDefinition, String body, boolean convertToContext) {
+    String functionDefinitionToNative(TDRGElement element, FunctionDefinition<Type, DMNContext> functionDefinition, String body, boolean convertToContext) {
         FunctionType functionType = (FunctionType) functionDefinition.getType();
         return functionDefinitionToNative(element, functionType, body, convertToContext);
     }
@@ -532,7 +533,7 @@ public class DMNExpressionToNativeTransformer {
     private String functionDefinitionToNative(TDRGElement element, FunctionType functionType, String body, boolean convertToContext) {
         if (functionType instanceof FEELFunctionType) {
             if (((FEELFunctionType) functionType).isExternal()) {
-                JavaFunctionInfo javaInfo = extractJavaFunctionInfo(element, ((FEELFunctionType) functionType).getFunctionDefinition());
+                JavaFunctionInfo javaInfo = this.externalFunctionExtractor.extractJavaFunctionInfo(element, ((FEELFunctionType) functionType).getFunctionDefinition());
                 return javaFunctionToNative(javaInfo, functionType);
             } else {
                 String returnType = this.dmnTransformer.toNativeType(this.dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
@@ -547,87 +548,6 @@ public class DMNExpressionToNativeTransformer {
             return functionDefinitionToNative(returnType, applyMethod);
         }
         throw new DMNRuntimeException(String.format("%s is not supported yet", functionType));
-    }
-
-    public JavaFunctionInfo extractJavaFunctionInfo(TDRGElement element, TFunctionDefinition functionDefinition) {
-        // Extract class, method and param types names
-        String className = null;
-        String methodName = null;
-        List<String> paramTypes = new ArrayList<>();
-        TExpression body = functionDefinition.getExpression().getValue();
-        if (body instanceof TContext) {
-            for (TContextEntry entry: ((TContext) body).getContextEntry()) {
-                String name = entry.getVariable().getName();
-                if ("class".equals(name)) {
-                    TExpression value = entry.getExpression().getValue();
-                    if (value instanceof TLiteralExpression) {
-                        className = ((TLiteralExpression) value).getText().replaceAll("\"", "");
-                    }
-                } else if (isMethodSignature(name)) {
-                    TExpression value = entry.getExpression().getValue();
-                    if (value instanceof TLiteralExpression) {
-                        String signature = ((TLiteralExpression) value).getText().replaceAll("\"", "");
-                        int lpIndex = signature.indexOf('(');
-                        int rpIndex = signature.indexOf(')');
-                        methodName = signature.substring(0, lpIndex);
-                        String[] types = signature.substring(lpIndex + 1, rpIndex).split(",");
-                        for (String t: types) {
-                            paramTypes.add(t.trim());
-                        }
-                    }
-                }
-            }
-        }
-        if (className != null && methodName != null) {
-            return new JavaFunctionInfo(className, methodName, paramTypes);
-        } else {
-            throw new DMNRuntimeException(String.format("Cannot extract Java function info for element '%s'", element.getName()));
-        }
-    }
-
-    public JavaFunctionInfo extractJavaFunctionInfo(TDRGElement element, FunctionDefinition functionDefinition) {
-        // Extract class, method and param types names
-        String className = null;
-        String methodName = null;
-        List<String> paramTypes = new ArrayList<>();
-        Expression body = functionDefinition.getBody();
-        if (body instanceof Context) {
-            body = ((Context) body).getEntries().get(0).getExpression();
-        }
-        if (body instanceof Context) {
-            for (ContextEntry entry: ((Context) body).getEntries()) {
-                String name = entry.getKey().getKey();
-                if ("class".equals(name)) {
-                    Expression value = entry.getExpression();
-                    if (value instanceof StringLiteral) {
-                        String lexeme = ((StringLiteral) value).getLexeme();
-                        className = StringEscapeUtil.stripQuotes(lexeme);
-                    }
-                } else if (isMethodSignature(name)) {
-                    Expression value = entry.getExpression();
-                    if (value instanceof StringLiteral) {
-                        String lexeme = ((StringLiteral) value).getLexeme();
-                        String signature = StringEscapeUtil.stripQuotes(lexeme);
-                        int lpIndex = signature.indexOf('(');
-                        int rpIndex = signature.indexOf(')');
-                        methodName = signature.substring(0, lpIndex);
-                        String[] types = signature.substring(lpIndex + 1, rpIndex).split(",");
-                        for (String t: types) {
-                            paramTypes.add(t.trim());
-                        }
-                    }
-                }
-            }
-        }
-        if (className != null && methodName != null) {
-            return new JavaFunctionInfo(className, methodName, paramTypes);
-        } else {
-            throw new DMNRuntimeException(String.format("Cannot extract Java function info for element '%s'", element.getName()));
-        }
-    }
-
-    private boolean isMethodSignature(String name) {
-        return "method signature".equals(name) || "methodSignature".equals(name) || "'method signature'".equals(name);
     }
 
     private String functionDefinitionToNative(String returnType, String applyMethod) {
@@ -689,7 +609,7 @@ public class DMNExpressionToNativeTransformer {
     }
 
     Statement literalExpressionToNative(TDRGElement element, String expressionText, DMNContext context) {
-        Expression expression = this.feelTranslator.analyzeExpression(expressionText, context);
+        Expression<Type, DMNContext> expression = this.feelTranslator.analyzeExpression(expressionText, context);
         Type expressionType = expression.getType();
 
         String javaExpression = this.feelTranslator.expressionToNative(expression, context);

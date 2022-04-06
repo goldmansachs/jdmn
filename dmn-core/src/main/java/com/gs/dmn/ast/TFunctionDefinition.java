@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,23 +27,23 @@ import java.util.List;
         "expression",
         "extensionElements"
 })
-public class TFunctionDefinition extends TExpression implements Visitable {
-    private List<TInformationItem> formalParameter;
-    private TExpression expression;
+public class TFunctionDefinition<C> extends TExpression<C> implements Visitable<C> {
+    private List<TInformationItem<C>> formalParameter;
+    private TExpression<C> expression;
     private TFunctionKind kind;
 
-    public List<TInformationItem> getFormalParameter() {
+    public List<TInformationItem<C>> getFormalParameter() {
         if (formalParameter == null) {
             formalParameter = new ArrayList<>();
         }
         return this.formalParameter;
     }
 
-    public TExpression getExpression() {
+    public TExpression<C> getExpression() {
         return expression;
     }
 
-    public void setExpression(TExpression value) {
+    public void setExpression(TExpression<C> value) {
         this.expression = value;
     }
 
@@ -61,7 +60,7 @@ public class TFunctionDefinition extends TExpression implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

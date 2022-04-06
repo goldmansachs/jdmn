@@ -12,8 +12,10 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.context.environment.Declaration;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterConversions;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
@@ -30,7 +32,7 @@ public class BuiltinOverloadedFunctionType extends FunctionType {
     }
 
     @Override
-    protected boolean equivalentTo(Type other) {
+    public boolean equivalentTo(Type other) {
         for (Declaration d: this.declarations) {
             Type type = d.getType();
             if (type.equivalentTo(other)) {
@@ -41,7 +43,7 @@ public class BuiltinOverloadedFunctionType extends FunctionType {
     }
 
     @Override
-    protected boolean conformsTo(Type other) {
+    public boolean conformsTo(Type other) {
         for (Declaration d: this.declarations) {
             Type type = d.getType();
             if (type.conformsTo(other)) {
@@ -51,7 +53,7 @@ public class BuiltinOverloadedFunctionType extends FunctionType {
         return false;
     }
 
-    public List<FormalParameter> getParameters() {
+    public List<FormalParameter<Type, DMNContext>> getParameters() {
         throw new SemanticError("Not supported yet");
     }
 
@@ -73,12 +75,12 @@ public class BuiltinOverloadedFunctionType extends FunctionType {
     }
 
     @Override
-    public boolean match(ParameterTypes parameterTypes) {
+    public boolean match(ParameterTypes<Type, DMNContext> parameterTypes) {
         throw new SemanticError("Not supported yet");
     }
 
     @Override
-    protected List<Pair<ParameterTypes, ParameterConversions>> matchCandidates(List<Type> argumentTypes) {
+    protected List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> matchCandidates(List<Type> argumentTypes) {
         throw new SemanticError("Not supported yet");
     }
 }

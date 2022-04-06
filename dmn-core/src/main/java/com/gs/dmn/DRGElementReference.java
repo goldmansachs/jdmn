@@ -12,7 +12,6 @@
  */
 package com.gs.dmn;
 
-import com.gs.dmn.runtime.interpreter.ImportPath;
 import org.omg.spec.dmn._20191111.model.TDRGElement;
 
 public class DRGElementReference<T extends TDRGElement> {

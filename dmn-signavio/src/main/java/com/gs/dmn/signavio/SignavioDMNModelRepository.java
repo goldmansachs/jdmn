@@ -14,9 +14,9 @@ package com.gs.dmn.signavio;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.ImportPath;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.runtime.interpreter.ImportPath;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.signavio.extension.SignavioExtension;
@@ -42,6 +42,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     public final SignavioExtension extension = new SignavioExtension(this);
 
     private final Map<String, TDRGElement> cache = new LinkedHashMap<>();
+    private final Set<TInputData> iterators = new LinkedHashSet<>();
 
     public SignavioDMNModelRepository() {
         this(OBJECT_FACTORY.createTDefinitions(), new PrefixNamespaceMappings());
@@ -55,22 +56,41 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         this(Collections.singletonList(pair));
     }
 
+    public SignavioDMNModelRepository(List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs) {
+        super(pairs);
+        populateSignavioCaches(pairs);
+    }
+
+    // Testing only
     public SignavioDMNModelRepository(Pair<TDefinitions, PrefixNamespaceMappings> pair, String schemaNamespace) {
-        this(pair);
+        this(Collections.singletonList(pair), schemaNamespace);
+    }
+
+    // Testing only
+    public SignavioDMNModelRepository(List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs, String schemaNamespace) {
+        super(pairs);
         this.schemaNamespace = schemaNamespace;
         this.diagramIdQName = new QName(schemaNamespace, "diagramId");
         this.shapeIdQName = new QName(schemaNamespace, "shapeId");
+        populateSignavioCaches(pairs);
     }
 
-    public SignavioDMNModelRepository(List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs) {
-        super(pairs);
+    private void populateSignavioCaches(List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs) {
         for (Pair<TDefinitions, PrefixNamespaceMappings> pair: pairs) {
             TDefinitions definitions = pair.getLeft();
+            // Add DSs
             List<Object> elementList = this.extension.findExtensions(definitions.getExtensionElements(), LATEST.getNamespace(), "decisionService");
             for(Object element: elementList) {
                 Object value = ((JAXBElement<?>) element).getValue();
                 if (value instanceof TDecisionService) {
                     this.addElementMap((TDecisionService)value, definitions);
+                }
+            }
+            // Populate MID iterators
+            for (TDecision element: findDecisions(definitions)) {
+                if (isMultiInstanceDecision(element)) {
+                    MultiInstanceDecisionLogic midLogic = this.extension.multiInstanceDecisionLogic(element);
+                    this.iterators.add((TInputData) midLogic.getIterator());
                 }
             }
         }
@@ -91,7 +111,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
 
     @Override
     public SignavioDMNModelRepository copy() {
-        return new SignavioDMNModelRepository(this.pairList);
+        return new SignavioDMNModelRepository(this.pairList, this.schemaNamespace);
     }
 
     public String getSchemaNamespace() {
@@ -144,6 +164,10 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
 
     public boolean isMultiInstanceDecision(TDRGElement decision) {
         return this.extension.isMultiInstanceDecision(decision);
+    }
+
+    public boolean isIterator(TInputData inputData) {
+        return this.iterators.contains(inputData);
     }
 
     @Override

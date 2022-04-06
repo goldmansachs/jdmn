@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 
 public class EnvironmentEntry {
     private final String name;

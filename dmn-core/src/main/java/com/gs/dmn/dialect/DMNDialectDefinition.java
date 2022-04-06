@@ -13,10 +13,10 @@
 package com.gs.dmn.dialect;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
-import com.gs.dmn.feel.interpreter.FEELInterpreter;
+import com.gs.dmn.context.environment.EnvironmentFactory;
+import com.gs.dmn.el.interpreter.ELInterpreter;
+import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
@@ -41,19 +41,19 @@ public interface DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
      * @deprecated  Replaced by {@link #createFEELInterpreter(DMNModelRepository, InputParameters)}
      */
     @Deprecated
-    default FEELInterpreter createFEELInterpreter(DMNModelRepository repository, Map<String, String> inputParameters) {
+    default ELInterpreter createFEELInterpreter(DMNModelRepository repository, Map<String, String> inputParameters) {
         return createFEELInterpreter(repository, new InputParameters(inputParameters));
     }
-    FEELInterpreter createFEELInterpreter(DMNModelRepository repository, InputParameters inputParameters);
+    ELInterpreter createFEELInterpreter(DMNModelRepository repository, InputParameters inputParameters);
 
     /**
      * @deprecated  Replaced by {@link #createFEELTranslator(DMNModelRepository, InputParameters)}
      */
     @Deprecated
-    default FEELTranslator createFEELTranslator(DMNModelRepository repository, Map<String, String> inputParameters) {
+    default ELTranslator createFEELTranslator(DMNModelRepository repository, Map<String, String> inputParameters) {
         return createFEELTranslator(repository, new InputParameters(inputParameters));
     }
-    FEELTranslator createFEELTranslator(DMNModelRepository repository, InputParameters inputParameters);
+    ELTranslator createFEELTranslator(DMNModelRepository repository, InputParameters inputParameters);
 
     //
     // DMN Processors

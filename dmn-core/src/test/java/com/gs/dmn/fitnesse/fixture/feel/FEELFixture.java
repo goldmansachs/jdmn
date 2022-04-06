@@ -13,7 +13,9 @@
 package com.gs.dmn.fitnesse.fixture.feel;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.feel.interpreter.FEELInterpreter;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.interpreter.ELInterpreter;
 import com.gs.dmn.fitnesse.fixture.AbstractFixture;
 import com.gs.dmn.transformation.InputParameters;
 
@@ -21,7 +23,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public abstract class FEELFixture extends AbstractFixture {
-    protected final FEELInterpreter feelInterpreter;
+    protected final ELInterpreter<Type, DMNContext> feelInterpreter;
     protected final DMNModelRepository repository;
 
     public FEELFixture() {

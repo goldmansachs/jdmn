@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.el.analysis.semantics.type.Type;
+
 public class EnumerationType extends NamedType {
     public static final EnumerationType ENUMERATION = new EnumerationType();
 
@@ -20,12 +22,12 @@ public class EnumerationType extends NamedType {
     }
 
     @Override
-    protected boolean equivalentTo(Type other) {
+    public boolean equivalentTo(Type other) {
         return other == ENUMERATION;
     }
 
     @Override
-    protected boolean conformsTo(Type other) {
+    public boolean conformsTo(Type other) {
         return other == ENUMERATION;
     }
 }

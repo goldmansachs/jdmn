@@ -12,35 +12,24 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
-import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
-import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.Objects;
 
-public class ExpressionTest extends PositiveUnaryTest {
-    private final Expression expression;
+public class ExpressionTest<T, C> extends PositiveUnaryTest<T, C> {
+    private final Expression<T, C> expression;
 
-    public ExpressionTest(Expression expression) {
+    public ExpressionTest(Expression<T, C> expression) {
         this.expression = expression;
     }
 
-    public Expression getExpression() {
+    public Expression<T, C> getExpression() {
         return this.expression;
     }
 
     @Override
-    public void deriveType(DMNContext context) {
-        setType(BooleanType.BOOLEAN);
-        if (this.expression.getType() != BooleanType.BOOLEAN) {
-            throw new DMNRuntimeException(String.format("Illegal type of positive unary test '%s'. Expected boolean found '%s'", this.expression, this.expression.getType()));
-        }
-    }
-
-    @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -48,7 +37,7 @@ public class ExpressionTest extends PositiveUnaryTest {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ExpressionTest that = (ExpressionTest) o;
+        ExpressionTest<?, ?> that = (ExpressionTest<?, ?>) o;
         return Objects.equals(expression, that.expression);
     }
 

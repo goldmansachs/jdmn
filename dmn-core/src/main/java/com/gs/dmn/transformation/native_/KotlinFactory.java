@@ -13,7 +13,13 @@
 package com.gs.dmn.transformation.native_;
 
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.feel.analysis.semantics.type.*;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType;
+import com.gs.dmn.el.analysis.semantics.type.ListType;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
+import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
+import com.gs.dmn.feel.analysis.semantics.type.StringType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
@@ -24,7 +30,7 @@ import org.omg.spec.dmn._20191111.model.TItemDefinition;
 import java.util.List;
 
 public class KotlinFactory extends JavaFactory implements NativeFactory {
-    public KotlinFactory(BasicDMNToNativeTransformer transformer) {
+    public KotlinFactory(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
         super(transformer);
     }
 
@@ -280,7 +286,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
 
     @Override
     public String convertDecisionArgumentFromString(String paramName, Type type) {
-        if (Type.isNull(type)) {
+        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             if (transformer.isStrongTyping()) {
                 throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));
             } else {

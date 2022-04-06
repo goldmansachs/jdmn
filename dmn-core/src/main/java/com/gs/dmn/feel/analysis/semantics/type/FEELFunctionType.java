@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterConversions;
@@ -23,20 +25,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FEELFunctionType extends FunctionType {
-    private final FunctionDefinition functionDefinition;
+    private final FunctionDefinition<Type, DMNContext> functionDefinition;
     private final boolean external;
 
-    public FEELFunctionType(List<FormalParameter> parameters, Type returnType, boolean external) {
+    public FEELFunctionType(List<FormalParameter<Type, DMNContext>> parameters, Type returnType, boolean external) {
         this(parameters, returnType, external, null);
     }
 
-    public FEELFunctionType(List<FormalParameter> parameters, Type returnType, boolean external, FunctionDefinition functionDefinition) {
+    public FEELFunctionType(List<FormalParameter<Type, DMNContext>> parameters, Type returnType, boolean external, FunctionDefinition<Type, DMNContext> functionDefinition) {
         super(parameters, returnType);
         this.functionDefinition = functionDefinition;
         this.external = external;
     }
 
-    public FunctionDefinition getFunctionDefinition() {
+    public FunctionDefinition<Type, DMNContext> getFunctionDefinition() {
         return this.functionDefinition;
     }
 
@@ -45,31 +47,31 @@ public class FEELFunctionType extends FunctionType {
     }
 
     @Override
-    protected boolean equivalentTo(Type other) {
+    public boolean equivalentTo(Type other) {
         return other instanceof FEELFunctionType
-                && Type.equivalentTo(this.returnType, ((FunctionType) other).returnType)
-                && Type.equivalentTo(this.parameterTypes, ((FunctionType) other).parameterTypes);
+                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.returnType, ((FunctionType) other).returnType)
+                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.parameterTypes, ((FunctionType) other).parameterTypes);
     }
 
     @Override
-    protected boolean conformsTo(Type other) {
+    public boolean conformsTo(Type other) {
         // “contravariant function argument type” and “covariant function return type”
         return other instanceof FunctionType
-                && Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
-                && Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
+                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
+                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
     }
 
     @Override
-    public boolean match(ParameterTypes parameterTypes) {
-        List<FormalParameter> parameters = getParameters();
+    public boolean match(ParameterTypes<Type, DMNContext> parameterTypes) {
+        List<FormalParameter<Type, DMNContext>> parameters = getParameters();
         if (parameters.size() != parameterTypes.size()) {
             return false;
         }
-        return parameterTypes.compatible(parameters);
+        return compatible(parameterTypes, parameters);
     }
 
     @Override
-    protected List<Pair<ParameterTypes, ParameterConversions>> matchCandidates(List<Type> argumentTypes) {
+    protected List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> matchCandidates(List<Type> argumentTypes) {
         // check size constraint
         if (argumentTypes.size() != this.parameterTypes.size()) {
             return new ArrayList<>();
@@ -87,7 +89,7 @@ public class FEELFunctionType extends FunctionType {
 
         if (this.parameters != null ? !this.parameters.equals(that.parameters) : that.parameters != null)
             return false;
-        return this.returnType != null ? this.returnType.equals(that.returnType) : that.returnType == null;
+        return this.returnType != null ? this.returnType.equals(that.returnType) : Type.isNull(that.returnType);
     }
 
     @Override

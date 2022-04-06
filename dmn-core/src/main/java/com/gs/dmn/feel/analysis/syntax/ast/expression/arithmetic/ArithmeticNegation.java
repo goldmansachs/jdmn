@@ -12,30 +12,16 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic;
 
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
-import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
-
-public class ArithmeticNegation extends ArithmeticExpression {
-    public ArithmeticNegation(Expression leftOperand) {
+public class ArithmeticNegation<T, C> extends ArithmeticExpression<T, C> {
+    public ArithmeticNegation(Expression<T, C> leftOperand) {
         super("-", leftOperand, null);
     }
 
     @Override
-    public void deriveType(DMNContext context) {
-        Type type = getLeftOperand().getType();
-        setType(NUMBER);
-        if (type != NUMBER) {
-            throw new SemanticError(this, String.format("Operator '%s' cannot be applied to '%s'", getOperator(), type));
-        }
-    }
-
-    @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

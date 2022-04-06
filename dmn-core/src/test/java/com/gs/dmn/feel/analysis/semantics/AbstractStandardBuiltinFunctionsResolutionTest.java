@@ -1,10 +1,11 @@
 package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
-import com.gs.dmn.feel.analysis.FEELAnalyzer;
+import com.gs.dmn.el.analysis.ELAnalyzer;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.FEELAnalyzerImpl;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
@@ -17,7 +18,7 @@ public abstract class AbstractStandardBuiltinFunctionsResolutionTest extends Abs
     private final DMNContext dmnContext = basicTransformer.makeBuiltInContext();
 
     @Override
-    protected FEELAnalyzer getFEELAnalyzer() {
+    protected ELAnalyzer<Type, DMNContext> getFEELAnalyzer() {
         return feelAnalyzer;
     }
 

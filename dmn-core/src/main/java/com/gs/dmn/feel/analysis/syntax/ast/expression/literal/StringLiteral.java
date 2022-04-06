@@ -12,22 +12,15 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.literal;
 
-import com.gs.dmn.feel.analysis.semantics.type.StringType;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
-public class StringLiteral extends SimpleLiteral {
+public class StringLiteral<T, C> extends SimpleLiteral<T, C> {
     public StringLiteral(String value) {
         super(value);
     }
 
     @Override
-    public void deriveType(DMNContext context) {
-        this.setType(StringType.STRING);
-    }
-
-    @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

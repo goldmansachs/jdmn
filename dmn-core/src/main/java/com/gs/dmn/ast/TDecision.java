@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,20 +38,20 @@ import java.util.List;
         "expression",
         "extensionElements"
 })
-public class TDecision extends TDRGElement implements Visitable {
+public class TDecision<C> extends TDRGElement<C> implements Visitable<C> {
     private String question;
     private String allowedAnswers;
-    private TInformationItem variable;
-    private List<TInformationRequirement> informationRequirement;
-    private List<TKnowledgeRequirement> knowledgeRequirement;
-    private List<TAuthorityRequirement> authorityRequirement;
-    private List<TDMNElementReference> supportedObjective;
-    private List<TDMNElementReference> impactedPerformanceIndicator;
-    private List<TDMNElementReference> decisionMaker;
-    private List<TDMNElementReference> decisionOwner;
-    private List<TDMNElementReference> usingProcess;
-    private List<TDMNElementReference> usingTask;
-    private TExpression expression;
+    private TInformationItem<C> variable;
+    private List<TInformationRequirement<C>> informationRequirement;
+    private List<TKnowledgeRequirement<C>> knowledgeRequirement;
+    private List<TAuthorityRequirement<C>> authorityRequirement;
+    private List<TDMNElementReference<C>> supportedObjective;
+    private List<TDMNElementReference<C>> impactedPerformanceIndicator;
+    private List<TDMNElementReference<C>> decisionMaker;
+    private List<TDMNElementReference<C>> decisionOwner;
+    private List<TDMNElementReference<C>> usingProcess;
+    private List<TDMNElementReference<C>> usingTask;
+    private TExpression<C> expression;
 
     public String getQuestion() {
         return question;
@@ -70,87 +69,87 @@ public class TDecision extends TDRGElement implements Visitable {
         this.allowedAnswers = value;
     }
 
-    public TInformationItem getVariable() {
+    public TInformationItem<C> getVariable() {
         return variable;
     }
 
-    public void setVariable(TInformationItem value) {
+    public void setVariable(TInformationItem<C> value) {
         this.variable = value;
     }
 
-    public List<TInformationRequirement> getInformationRequirement() {
+    public List<TInformationRequirement<C>> getInformationRequirement() {
         if (informationRequirement == null) {
             informationRequirement = new ArrayList<>();
         }
         return this.informationRequirement;
     }
 
-    public List<TKnowledgeRequirement> getKnowledgeRequirement() {
+    public List<TKnowledgeRequirement<C>> getKnowledgeRequirement() {
         if (knowledgeRequirement == null) {
             knowledgeRequirement = new ArrayList<>();
         }
         return this.knowledgeRequirement;
     }
 
-    public List<TAuthorityRequirement> getAuthorityRequirement() {
+    public List<TAuthorityRequirement<C>> getAuthorityRequirement() {
         if (authorityRequirement == null) {
             authorityRequirement = new ArrayList<>();
         }
         return this.authorityRequirement;
     }
 
-    public List<TDMNElementReference> getSupportedObjective() {
+    public List<TDMNElementReference<C>> getSupportedObjective() {
         if (supportedObjective == null) {
             supportedObjective = new ArrayList<>();
         }
         return this.supportedObjective;
     }
 
-    public List<TDMNElementReference> getImpactedPerformanceIndicator() {
+    public List<TDMNElementReference<C>> getImpactedPerformanceIndicator() {
         if (impactedPerformanceIndicator == null) {
             impactedPerformanceIndicator = new ArrayList<>();
         }
         return this.impactedPerformanceIndicator;
     }
 
-    public List<TDMNElementReference> getDecisionMaker() {
+    public List<TDMNElementReference<C>> getDecisionMaker() {
         if (decisionMaker == null) {
             decisionMaker = new ArrayList<>();
         }
         return this.decisionMaker;
     }
 
-    public List<TDMNElementReference> getDecisionOwner() {
+    public List<TDMNElementReference<C>> getDecisionOwner() {
         if (decisionOwner == null) {
             decisionOwner = new ArrayList<>();
         }
         return this.decisionOwner;
     }
 
-    public List<TDMNElementReference> getUsingProcess() {
+    public List<TDMNElementReference<C>> getUsingProcess() {
         if (usingProcess == null) {
             usingProcess = new ArrayList<>();
         }
         return this.usingProcess;
     }
 
-    public List<TDMNElementReference> getUsingTask() {
+    public List<TDMNElementReference<C>> getUsingTask() {
         if (usingTask == null) {
             usingTask = new ArrayList<>();
         }
         return this.usingTask;
     }
 
-    public TExpression getExpression() {
+    public TExpression<C> getExpression() {
         return expression;
     }
 
-    public void setExpression(TExpression value) {
+    public void setExpression(TExpression<C> value) {
         this.expression = value;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

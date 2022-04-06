@@ -14,5 +14,5 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.comparison;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-public abstract class Comparison extends Expression {
+public abstract class Comparison<T, C> extends Expression<T, C> {
 }

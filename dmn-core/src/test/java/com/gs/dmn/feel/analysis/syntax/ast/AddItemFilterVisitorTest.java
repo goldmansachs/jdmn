@@ -12,13 +12,14 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.AddItemFilterVisitor;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.semantics.type.StringType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.PathExpression;
 import org.junit.Test;
@@ -34,12 +35,12 @@ public class AddItemFilterVisitorTest extends BaseVisitorTest {
     private final ItemDefinitionType itemDefinitionType = new ItemDefinitionType("personType").addMember(this.parameterName, Arrays.asList(), this.stringType);
 
     private final ErrorHandler errorHandler = NopErrorHandler.INSTANCE;
-    private final AddItemFilterVisitor contextTypeVisitor = new AddItemFilterVisitor(this.parameterName, this.contextType, this.errorHandler);
-    private final AddItemFilterVisitor itemDefinitionTypeVisitor = new AddItemFilterVisitor(this.parameterName, this.itemDefinitionType, this.errorHandler);
+    private final AddItemFilterVisitor<Type, DMNContext> contextTypeVisitor = new AddItemFilterVisitor<>(this.parameterName, this.contextType, this.errorHandler);
+    private final AddItemFilterVisitor<Type, DMNContext> itemDefinitionTypeVisitor = new AddItemFilterVisitor<>(this.parameterName, this.itemDefinitionType, this.errorHandler);
 
     @Override
-    protected Visitor getVisitor() {
-        return new AddItemFilterVisitor(this.parameterName, this.stringType, this.errorHandler);
+    protected Visitor<Type, DMNContext> getVisitor() {
+        return new AddItemFilterVisitor<>(this.parameterName, this.stringType, this.errorHandler);
     }
 
     @Override
@@ -47,12 +48,12 @@ public class AddItemFilterVisitorTest extends BaseVisitorTest {
     public void testVisitName() {
         super.testVisitName();
 
-        Name matchingElement = new Name(this.parameterName);
+        Name<Type, DMNContext> matchingElement = new Name<>(this.parameterName);
         assertEquals("Name(parameterName)", getVisitor().visit(matchingElement, null).toString());
         assertEquals("PathExpression(Name(parameterName), parameterName)", this.contextTypeVisitor.visit(matchingElement, null).toString());
         assertEquals("PathExpression(Name(parameterName), parameterName)", this.itemDefinitionTypeVisitor.visit(matchingElement, null).toString());
 
-        Name notMatchingElement = new Name("otherName");
+        Name<Type, DMNContext> notMatchingElement = new Name<>("otherName");
         assertEquals("Name(otherName)", getVisitor().visit(notMatchingElement, null).toString());
         assertEquals("Name(otherName)", this.contextTypeVisitor.visit(notMatchingElement, null).toString());
         assertEquals("Name(otherName)", this.itemDefinitionTypeVisitor.visit(notMatchingElement, null).toString());
@@ -63,12 +64,12 @@ public class AddItemFilterVisitorTest extends BaseVisitorTest {
     public void testVisitPathExpression() {
         super.testVisitName();
 
-        PathExpression matchingElement = new PathExpression(new Name("parameterName"), "member");
+        PathExpression<Type, DMNContext> matchingElement = new PathExpression<>(new Name<>("parameterName"), "member");
         assertEquals("PathExpression(Name(parameterName), member)", getVisitor().visit(matchingElement, null).toString());
         assertEquals("PathExpression(PathExpression(Name(parameterName), parameterName), member)", this.contextTypeVisitor.visit(matchingElement, null).toString());
         assertEquals("PathExpression(PathExpression(Name(parameterName), parameterName), member)", this.itemDefinitionTypeVisitor.visit(matchingElement, null).toString());
 
-        PathExpression notMatchingElement = new PathExpression(new Name("otherName"), "member");
+        PathExpression<Type, DMNContext> notMatchingElement = new PathExpression<>(new Name<>("otherName"), "member");
         assertEquals("PathExpression(Name(otherName), member)", getVisitor().visit(notMatchingElement, null).toString());
         assertEquals("PathExpression(Name(otherName), member)", this.contextTypeVisitor.visit(notMatchingElement, null).toString());
         assertEquals("PathExpression(Name(otherName), member)", this.itemDefinitionTypeVisitor.visit(notMatchingElement, null).toString());

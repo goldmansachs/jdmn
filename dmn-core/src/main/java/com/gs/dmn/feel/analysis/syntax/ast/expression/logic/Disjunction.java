@@ -14,15 +14,14 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.logic;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
-public class Disjunction extends LogicExpression {
-    public Disjunction(Expression leftOperand, Expression rightOperand) {
+public class Disjunction<T, C> extends LogicExpression<T, C> {
+    public Disjunction(Expression<T, C> leftOperand, Expression<T, C> rightOperand) {
         super("or", leftOperand, rightOperand);
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

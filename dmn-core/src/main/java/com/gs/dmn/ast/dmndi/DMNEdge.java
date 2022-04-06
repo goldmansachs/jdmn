@@ -15,7 +15,6 @@ package com.gs.dmn.ast.dmndi;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.ast.Visitable;
 import com.gs.dmn.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
 import javax.xml.namespace.QName;
 
@@ -28,17 +27,17 @@ import javax.xml.namespace.QName;
         "waypoint",
         "dmnLabel"
 })
-public class DMNEdge extends Edge implements Visitable {
-    private DMNLabel dmnLabel;
+public class DMNEdge<C> extends Edge<C> implements Visitable<C> {
+    private DMNLabel<C> dmnLabel;
     private QName dmnElementRef;
     private QName sourceElement;
     private QName targetElement;
 
-    public DMNLabel getDMNLabel() {
+    public DMNLabel<C> getDMNLabel() {
         return dmnLabel;
     }
 
-    public void setDMNLabel(DMNLabel value) {
+    public void setDMNLabel(DMNLabel<C> value) {
         this.dmnLabel = value;
     }
 
@@ -67,7 +66,7 @@ public class DMNEdge extends Edge implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

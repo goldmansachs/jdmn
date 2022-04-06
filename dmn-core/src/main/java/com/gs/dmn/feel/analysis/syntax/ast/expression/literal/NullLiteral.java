@@ -12,21 +12,14 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.literal;
 
-import com.gs.dmn.feel.analysis.semantics.type.NullType;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
-public class NullLiteral extends Literal {
+public class NullLiteral<T, C> extends Literal<T, C> {
     public NullLiteral() {
     }
 
     @Override
-    public void deriveType(DMNContext context) {
-        setType(NullType.NULL);
-    }
-
-    @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

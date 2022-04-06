@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.runtime.DMNContext;
 
 @JsonPropertyOrder({
         "name",
@@ -23,7 +22,7 @@ import com.gs.dmn.runtime.DMNContext;
         "description",
         "extensionElements"
 })
-public class TGroup extends TArtifact implements Visitable {
+public class TGroup<C> extends TArtifact<C> implements Visitable<C> {
     private String name;
 
     public String getName() {
@@ -35,7 +34,7 @@ public class TGroup extends TArtifact implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

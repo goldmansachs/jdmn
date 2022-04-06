@@ -12,11 +12,12 @@
  */
 package com.gs.dmn.transformation.basic;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
+import com.gs.dmn.QualifiedName;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.context.environment.Declaration;
+import com.gs.dmn.context.environment.Environment;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.Pair;
 import org.omg.spec.dmn._20191111.model.*;
 
@@ -57,7 +58,7 @@ public interface DMNEnvironmentFactory {
 
     Type toFEELType(TItemDefinition itemDefinition);
 
-    Type externalFunctionReturnFEELType(TNamedElement element, Expression body);
+    Type externalFunctionReturnFEELType(TNamedElement element, Expression<Type, DMNContext> body);
 
     //
     // Environments
@@ -69,7 +70,7 @@ public interface DMNEnvironmentFactory {
     //
     // Decision Table
     //
-    Environment makeUnaryTestEnvironment(TDRGElement element, Expression inputExpression);
+    Environment makeUnaryTestEnvironment(TDRGElement element, Expression<Type, DMNContext> inputExpression);
 
     //
     // Function Definition
@@ -81,11 +82,11 @@ public interface DMNEnvironmentFactory {
     //
     // Context
     //
-    Pair<DMNContext, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext);
+    Pair<DMNContext, Map<TContextEntry, Expression<Type, DMNContext>>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext);
 
     Type entryType(TDRGElement element, TContextEntry entry, DMNContext localContext);
 
-    Type entryType(TDRGElement element, TContextEntry entry, TExpression expression, Expression feelExpression);
+    Type entryType(TDRGElement element, TContextEntry entry, TExpression expression, Expression<Type, DMNContext> feelExpression);
 
     //
     // Relation

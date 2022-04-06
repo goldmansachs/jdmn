@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(name = "drgElement", value = TDRGElement.class),
         @JsonSubTypes.Type(name = "import", value = TImport.class)
 })
-public abstract class TNamedElement extends TDMNElement {
+public abstract class TNamedElement<C> extends TDMNElement<C> {
     private String name;
 
     public String getName() {

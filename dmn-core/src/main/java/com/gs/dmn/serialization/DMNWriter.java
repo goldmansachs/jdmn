@@ -57,7 +57,7 @@ public class DMNWriter extends DMNSerializer {
         super(logger);
     }
 
-    public void writeASTAsJson(TDefinitions definitions, File output, DMNNamespacePrefixMapper namespacePrefixMapper) {
+    public void writeASTAsJson(TDefinitions<?> definitions, File output, DMNNamespacePrefixMapper namespacePrefixMapper) {
         try (FileOutputStream fos = new FileOutputStream(output)) {
             JSON_MAPPER.writeValue(fos, definitions);
         } catch (Exception e) {

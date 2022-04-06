@@ -14,10 +14,11 @@
 package com.gs.dmn.transformation.native_.expression;
 
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
-import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
+import com.gs.dmn.el.analysis.semantics.type.FunctionType;
+import com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.syntax.ast.expression.function.Conversion;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
 import com.gs.dmn.runtime.Pair;
 import org.omg.spec.dmn._20191111.model.TDecision;
 import org.omg.spec.dmn._20191111.model.TItemDefinition;
@@ -144,7 +145,7 @@ public interface NativeExpressionFactory {
 
     String convertDecisionArgumentFromString(String paramName, Type type);
 
-    String conversionFunction(Conversion conversion, String javaType);
+    String conversionFunction(Conversion<Type, ConversionKind> conversion, String javaType);
 
     //
     // Proto conversions

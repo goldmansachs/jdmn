@@ -12,23 +12,21 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class PositionalParameterTypes extends ParameterTypes {
-    private List<Type> types = new ArrayList<>();
+public class PositionalParameterTypes<T, C> extends ParameterTypes<T, C> {
+    private List<T> types = new ArrayList<>();
 
-    public PositionalParameterTypes(List<Type> types) {
+    public PositionalParameterTypes(List<T> types) {
         if (types != null) {
             this.types = types;
         }
     }
 
-    public List<Type> getTypes() {
+    public List<T> getTypes() {
         return this.types;
     }
 
@@ -38,25 +36,10 @@ public class PositionalParameterTypes extends ParameterTypes {
     }
 
     @Override
-    public boolean compatible(List<FormalParameter> parameters) {
-        if (size() != parameters.size()) {
-            return false;
-        }
-        for (int i = 0; i < parameters.size(); i++) {
-            Type formalParameterType = parameters.get(i).getType();
-            Type argumentType = this.types.get(i);
-            if (!Type.conformsTo(argumentType, formalParameterType)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PositionalParameterTypes that = (PositionalParameterTypes) o;
+        PositionalParameterTypes<?, ?> that = (PositionalParameterTypes<?, ?>) o;
         return Objects.equals(this.types, that.types);
     }
 
@@ -67,7 +50,7 @@ public class PositionalParameterTypes extends ParameterTypes {
 
     @Override
     public String toString() {
-        String opd = this.types.stream().map(Type::toString).collect(Collectors.joining(", "));
+        String opd = this.types.stream().map(Object::toString).collect(Collectors.joining(", "));
         return String.format("%s(%s)", getClass().getSimpleName(), opd);
     }
 }

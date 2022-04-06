@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel;
 
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.synthesis.NativeOperator;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -22,7 +23,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
+import static com.gs.dmn.el.analysis.semantics.type.NullType.NULL;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.ContextType.ANY_CONTEXT;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
@@ -32,7 +34,6 @@ import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MON
 import static com.gs.dmn.feel.analysis.semantics.type.FunctionType.ANY_FUNCTION;
 import static com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType.ANY_ITEM_DEFINITION;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
-import static com.gs.dmn.feel.analysis.semantics.type.NullType.NULL;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.RangeType.*;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
@@ -283,29 +284,29 @@ public class OperatorDecisionTable {
         }
 
         // Normalize data types
-        if (leftType instanceof DataType && (rightType == NULL || rightType == ANY)) {
+        if (leftType instanceof DataType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(rightType)) {
             rightType = leftType;
-        } else if (rightType instanceof DataType && (leftType == NULL || leftType == ANY)) {
+        } else if (rightType instanceof DataType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(leftType)) {
             leftType = rightType;
-        } else if (leftType instanceof ListType && (rightType == NULL || rightType == ANY)) {
+        } else if (leftType instanceof ListType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(rightType)) {
             rightType = leftType;
-        } else if (rightType instanceof ListType && (leftType == NULL || leftType == ANY)) {
+        } else if (rightType instanceof ListType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(leftType)) {
             leftType = rightType;
-        } else if (leftType instanceof ContextType && (rightType == NULL || rightType == ANY)) {
+        } else if (leftType instanceof ContextType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(rightType)) {
             rightType = leftType;
-        } else if (rightType instanceof ContextType && (leftType == NULL || leftType == ANY)) {
+        } else if (rightType instanceof ContextType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(leftType)) {
             leftType = rightType;
-        } else if (leftType instanceof ItemDefinitionType && (rightType == NULL || rightType == ANY)) {
+        } else if (leftType instanceof ItemDefinitionType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(rightType)) {
             rightType = leftType;
-        } else if (rightType instanceof ItemDefinitionType && (leftType == NULL || leftType == ANY)) {
+        } else if (rightType instanceof ItemDefinitionType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(leftType)) {
             leftType = rightType;
-        } else if (leftType instanceof RangeType && (rightType == NULL || rightType == ANY)) {
+        } else if (leftType instanceof RangeType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(rightType)) {
             rightType = leftType;
-        } else if (rightType instanceof RangeType && (leftType == NULL || leftType == ANY)) {
+        } else if (rightType instanceof RangeType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(leftType)) {
             leftType = rightType;
-        } else if (leftType instanceof FunctionType && (rightType == NULL || rightType == ANY)) {
+        } else if (leftType instanceof FunctionType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(rightType)) {
             rightType = leftType;
-        } else if (rightType instanceof FunctionType && (leftType == NULL || leftType == ANY)) {
+        } else if (rightType instanceof FunctionType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(leftType)) {
             leftType = rightType;
         }
         return new Pair<>(leftType, rightType);

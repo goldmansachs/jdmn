@@ -12,5 +12,11 @@
  */
 package com.gs.dmn.feel.interpreter;
 
-public interface FEELInterpreter extends FEELTestsInterpreter, FEELExpressionsInterpreter {
+import com.gs.dmn.feel.analysis.FEELAnalyzerImpl;
+import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+
+public class FEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+    public FEELInterpreter(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter) {
+        super(dmnInterpreter, new FEELAnalyzerImpl(dmnInterpreter.getBasicDMNTransformer()));
+    }
 }

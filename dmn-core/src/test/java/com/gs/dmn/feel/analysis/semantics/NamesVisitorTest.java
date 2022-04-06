@@ -1,8 +1,8 @@
 package com.gs.dmn.feel.analysis.semantics;
 
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.NopErrorHandler;
-import com.gs.dmn.feel.analysis.FEELAnalyzer;
-import com.gs.dmn.feel.analysis.FEELAnalyzerImpl;
 import com.gs.dmn.feel.analysis.syntax.ErrorListener;
 import com.gs.dmn.feel.analysis.syntax.antlrv4.FEELLexer;
 import com.gs.dmn.feel.analysis.syntax.antlrv4.FEELParser;
@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class NamesVisitorTest {
     @Test
@@ -55,8 +55,8 @@ public class NamesVisitorTest {
 
     private void testExpression(String text, List<String> expectedNames) {
         FEELParser parser = makeParser(text);
-        Expression ast = parser.expressionRoot().ast;
-        NamesVisitor visitor = new NamesVisitor(new NopErrorHandler());
+        Expression<Type, DMNContext> ast = parser.expressionRoot().ast;
+        NamesVisitor<Type, DMNContext> visitor = new NamesVisitor<>(new NopErrorHandler());
         ast.accept(visitor, null);
         Set<String> actualNames = visitor.getNames();
 
@@ -65,8 +65,8 @@ public class NamesVisitorTest {
 
     private void testUnaryTests(String text, List<String> expectedNames) {
         FEELParser parser = makeParser(text);
-        UnaryTests ast = parser.unaryTestsRoot().ast;
-        NamesVisitor visitor = new NamesVisitor(new NopErrorHandler());
+        UnaryTests<Type, DMNContext> ast = parser.unaryTestsRoot().ast;
+        NamesVisitor<Type, DMNContext> visitor = new NamesVisitor<>(new NopErrorHandler());
         ast.accept(visitor, null);
         Set<String> actualNames = visitor.getNames();
 
@@ -80,7 +80,7 @@ public class NamesVisitorTest {
         CharStream cs = CharStreams.fromString(text);
         FEELLexer lexer = new FEELLexer(cs);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        FEELParser feelParser = new FEELParser(tokens, new ASTFactory());
+        FEELParser feelParser = new FEELParser(tokens, new ASTFactory<Type, DMNContext>());
         feelParser.removeErrorListeners();
         feelParser.addErrorListener(new ErrorListener());
         return feelParser;

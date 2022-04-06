@@ -14,23 +14,14 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
-import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
-
-public class Exponentiation extends ArithmeticExpression {
-    public Exponentiation(Expression leftOperand, Expression rightOperand) {
+public class Exponentiation<T, C> extends ArithmeticExpression<T, C> {
+    public Exponentiation(Expression<T, C> leftOperand, Expression<T, C> rightOperand) {
         super("**", leftOperand, rightOperand);
     }
 
     @Override
-    public void deriveType(DMNContext context) {
-        setType(NUMBER);
-        checkType(getOperator(), getLeftOperand().getType(), getRightOperand().getType(), context);
-    }
-
-    @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

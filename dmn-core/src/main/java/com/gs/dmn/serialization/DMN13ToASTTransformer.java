@@ -26,23 +26,23 @@ import java.util.*;
 import static com.gs.dmn.serialization.DMNVersion.DMN_12;
 import static com.gs.dmn.serialization.DMNVersion.DMN_13;
 
-public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.spec.dmn._20191111.model.TDefinitions, TDefinitions> {
-    private static final ObjectFactory AST_OBJECT_FACTORY = new ObjectFactory();
+public class DMN13ToASTTransformer<C> extends SimpleDMNDialectTransformer<org.omg.spec.dmn._20191111.model.TDefinitions, TDefinitions<C>> {
+    private static final ObjectFactory AST_OBJECT_FACTORY = new ObjectFactory<>();
 
     public DMN13ToASTTransformer(BuildLogger logger) {
         super(logger, DMN_12, DMN_13);
     }
 
     @Override
-    public Pair<TDefinitions, PrefixNamespaceMappings> transformDefinitions(org.omg.spec.dmn._20191111.model.TDefinitions sourceDefinitions) {
-        TDefinitions definitions = transform(sourceDefinitions);
+    public Pair<TDefinitions<C>, PrefixNamespaceMappings> transformDefinitions(org.omg.spec.dmn._20191111.model.TDefinitions sourceDefinitions) {
+        TDefinitions<C> definitions = transform(sourceDefinitions);
         return new Pair<>(definitions, this.prefixNamespaceMappings);
     }
 
-    private TDefinitions transform(org.omg.spec.dmn._20191111.model.TDefinitions sourceDefinitions) {
+    private TDefinitions<C> transform(org.omg.spec.dmn._20191111.model.TDefinitions sourceDefinitions) {
         logger.info(String.format("Transforming '%s' from DMN 1.2 to DMN 1.3 ...", sourceDefinitions.getName()));
 
-        TDefinitions definitions = AST_OBJECT_FACTORY.createTDefinitions();
+        TDefinitions<C> definitions = AST_OBJECT_FACTORY.createTDefinitions();
 
         addNamedElementProperties(sourceDefinitions, definitions);
 
@@ -63,7 +63,7 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         return definitions;
     }
 
-    private TDMNElement transformElement(org.omg.spec.dmn._20191111.model.TDMNElement element) {
+    private TDMNElement<C> transformElement(org.omg.spec.dmn._20191111.model.TDMNElement element) {
         if (element == null) {
             return null;
         }
@@ -95,7 +95,7 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         }
     }
 
-    private TNamedElement transformNamedElement(org.omg.spec.dmn._20191111.model.TNamedElement element) {
+    private TNamedElement<C> transformNamedElement(org.omg.spec.dmn._20191111.model.TNamedElement element) {
         if (element == null) {
             return null;
         }
@@ -118,7 +118,7 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         }
     }
 
-    private void addElementProperties(org.omg.spec.dmn._20191111.model.TDMNElement source, TDMNElement target) {
+    private void addElementProperties(org.omg.spec.dmn._20191111.model.TDMNElement source, TDMNElement<C> target) {
         target.setDescription(source.getDescription());
         target.setExtensionElements(transform(source.getExtensionElements()));
         target.setId(source.getId());
@@ -126,30 +126,30 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         target.getOtherAttributes().putAll(transform(source.getOtherAttributes()));
     }
 
-    private void addArtifactProperties(org.omg.spec.dmn._20191111.model.TArtifact source, TArtifact target) {
+    private void addArtifactProperties(org.omg.spec.dmn._20191111.model.TArtifact source, TArtifact<C> target) {
         addElementProperties(source, target);
     }
 
-    private void addNamedElementProperties(org.omg.spec.dmn._20191111.model.TNamedElement source, TNamedElement target) {
+    private void addNamedElementProperties(org.omg.spec.dmn._20191111.model.TNamedElement source, TNamedElement<C> target) {
         addElementProperties(source, target);
         target.setName(source.getName());
     }
 
-    private void addDRGElementProperties(org.omg.spec.dmn._20191111.model.TDRGElement source, TDRGElement target) {
+    private void addDRGElementProperties(org.omg.spec.dmn._20191111.model.TDRGElement source, TDRGElement<C> target) {
         addNamedElementProperties(source, target);
     }
 
-    private void addInvocableProperties(org.omg.spec.dmn._20191111.model.TInvocable source, TInvocable target) {
+    private void addInvocableProperties(org.omg.spec.dmn._20191111.model.TInvocable source, TInvocable<C> target) {
         addDRGElementProperties(source, target);
         target.setVariable(transform(source.getVariable()));
     }
 
-    private void addExpressionProperties(org.omg.spec.dmn._20191111.model.TExpression source, TExpression target) {
+    private void addExpressionProperties(org.omg.spec.dmn._20191111.model.TExpression source, TExpression<C> target) {
         addElementProperties(source, target);
         target.setTypeRef(transformTypeRef(source.getTypeRef()));
     }
 
-    private void addImportProperties(org.omg.spec.dmn._20191111.model.TImport element, TImport result) {
+    private void addImportProperties(org.omg.spec.dmn._20191111.model.TImport element, TImport<C> result) {
         addNamedElementProperties(element, result);
         result.setNamespace(transformNamespace(element.getNamespace()));
         result.setLocationURI(element.getLocationURI());
@@ -301,22 +301,22 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         return extensions;
     }
 
-    private TImport transform(org.omg.spec.dmn._20191111.model.TImport element) {
+    private TImport<C> transform(org.omg.spec.dmn._20191111.model.TImport element) {
         if (element == null) {
             return null;
         }
 
-        TImport result = AST_OBJECT_FACTORY.createTImport();
+        TImport<C> result = AST_OBJECT_FACTORY.createTImport();
         addImportProperties(element, result);
         return result;
     }
 
-    private TItemDefinition transform(org.omg.spec.dmn._20191111.model.TItemDefinition element) {
+    private TItemDefinition<C> transform(org.omg.spec.dmn._20191111.model.TItemDefinition element) {
         if (element == null) {
             return null;
         }
 
-        TItemDefinition result = AST_OBJECT_FACTORY.createTItemDefinition();
+        TItemDefinition<C> result = AST_OBJECT_FACTORY.createTItemDefinition();
         addNamedElementProperties(element, result);
         result.setTypeRef(transformTypeRef(element.getTypeRef()));
         result.setAllowedValues(transform(element.getAllowedValues()));
@@ -326,12 +326,12 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         return result;
     }
 
-    private TUnaryTests transform(org.omg.spec.dmn._20191111.model.TUnaryTests element) {
+    private TUnaryTests<C> transform(org.omg.spec.dmn._20191111.model.TUnaryTests element) {
         if (element == null) {
             return null;
         }
 
-        TUnaryTests result = AST_OBJECT_FACTORY.createTUnaryTests();
+        TUnaryTests<C> result = AST_OBJECT_FACTORY.createTUnaryTests();
         addElementProperties(element, result);
         result.setText(element.getText());
         result.setExpressionLanguage(element.getExpressionLanguage());
@@ -358,12 +358,12 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         }
     }
 
-    private TBusinessKnowledgeModel transform(org.omg.spec.dmn._20191111.model.TBusinessKnowledgeModel element) {
+    private TBusinessKnowledgeModel<C> transform(org.omg.spec.dmn._20191111.model.TBusinessKnowledgeModel element) {
         if (element == null) {
             return null;
         }
 
-        TBusinessKnowledgeModel result = AST_OBJECT_FACTORY.createTBusinessKnowledgeModel();
+        TBusinessKnowledgeModel<C> result = AST_OBJECT_FACTORY.createTBusinessKnowledgeModel();
         addInvocableProperties(element, result);
         result.setEncapsulatedLogic(transform(element.getEncapsulatedLogic()));
         result.getKnowledgeRequirement().addAll(transformList(element.getKnowledgeRequirement()));
@@ -371,12 +371,12 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         return result;
     }
 
-    private TDecisionService transform(org.omg.spec.dmn._20191111.model.TDecisionService element) {
+    private TDecisionService<C> transform(org.omg.spec.dmn._20191111.model.TDecisionService element) {
         if (element == null) {
             return null;
         }
 
-        TDecisionService result = AST_OBJECT_FACTORY.createTDecisionService();
+        TDecisionService<C> result = AST_OBJECT_FACTORY.createTDecisionService();
         addInvocableProperties(element, result);
         result.getOutputDecision().addAll(transformList(element.getOutputDecision()));
         result.getEncapsulatedDecision().addAll(transformList(element.getEncapsulatedDecision()));
@@ -385,12 +385,12 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         return result;
     }
 
-    private TDecision transform(org.omg.spec.dmn._20191111.model.TDecision element) {
+    private TDecision<C> transform(org.omg.spec.dmn._20191111.model.TDecision element) {
         if (element == null) {
             return null;
         }
 
-        TDecision result = AST_OBJECT_FACTORY.createTDecision();
+        TDecision<C> result = AST_OBJECT_FACTORY.createTDecision();
         addDRGElementProperties(element, result);
         result.setQuestion(element.getQuestion());
         result.setAllowedAnswers(element.getAllowedAnswers());
@@ -404,27 +404,27 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         result.getDecisionOwner().addAll(transformList(element.getDecisionOwner()));
         result.getUsingProcess().addAll(transformList(element.getUsingProcess()));
         result.getUsingTask().addAll(transformList(element.getUsingTask()));
-        result.setExpression((TExpression) transformJAXBElement(element.getExpression()));
+        result.setExpression((TExpression<C>) transformJAXBElement(element.getExpression()));
         return result;
     }
 
-    private TInputData transform(org.omg.spec.dmn._20191111.model.TInputData element) {
+    private TInputData<C> transform(org.omg.spec.dmn._20191111.model.TInputData element) {
         if (element == null) {
             return null;
         }
 
-        TInputData result = AST_OBJECT_FACTORY.createTInputData();
+        TInputData<C> result = AST_OBJECT_FACTORY.createTInputData();
         addDRGElementProperties(element, result);
         result.setVariable(transform(element.getVariable()));
         return result;
     }
 
-    private TKnowledgeSource transform(org.omg.spec.dmn._20191111.model.TKnowledgeSource element) {
+    private TKnowledgeSource<C> transform(org.omg.spec.dmn._20191111.model.TKnowledgeSource element) {
         if (element == null) {
             return null;
         }
 
-        TKnowledgeSource result = AST_OBJECT_FACTORY.createTKnowledgeSource();
+        TKnowledgeSource<C> result = AST_OBJECT_FACTORY.createTKnowledgeSource();
         addDRGElementProperties(element, result);
         result.getAuthorityRequirement().addAll(transformList(element.getAuthorityRequirement()));
         result.setType(element.getType());
@@ -433,7 +433,7 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         return result;
     }
 
-    private TArtifact transformArtifact(org.omg.spec.dmn._20191111.model.TArtifact element) {
+    private TArtifact<C> transformArtifact(org.omg.spec.dmn._20191111.model.TArtifact element) {
         if (element == null) {
             return null;
         }
@@ -447,12 +447,12 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         }
     }
 
-    private TTextAnnotation transform(org.omg.spec.dmn._20191111.model.TTextAnnotation element) {
+    private TTextAnnotation<C> transform(org.omg.spec.dmn._20191111.model.TTextAnnotation element) {
         if (element == null) {
             return null;
         }
 
-        TTextAnnotation result = AST_OBJECT_FACTORY.createTTextAnnotation();
+        TTextAnnotation<C> result = AST_OBJECT_FACTORY.createTTextAnnotation();
         addArtifactProperties(element, result);
         result.setText(element.getText());
         result.setTextFormat(element.getTextFormat());
@@ -460,12 +460,12 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         return result;
     }
 
-    private TAssociation transform(org.omg.spec.dmn._20191111.model.TAssociation element) {
+    private TAssociation<C> transform(org.omg.spec.dmn._20191111.model.TAssociation element) {
         if (element == null) {
             return null;
         }
 
-        TAssociation result = AST_OBJECT_FACTORY.createTAssociation();
+        TAssociation<C> result = AST_OBJECT_FACTORY.createTAssociation();
         addArtifactProperties(element, result);
         result.setSourceRef(transform(element.getSourceRef()));
         result.setTargetRef(transform(element.getTargetRef()));
@@ -482,18 +482,18 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         }
     }
 
-    private TElementCollection transform(org.omg.spec.dmn._20191111.model.TElementCollection element) {
+    private TElementCollection<C> transform(org.omg.spec.dmn._20191111.model.TElementCollection element) {
         if (element == null) {
             return null;
         }
 
-        TElementCollection result = AST_OBJECT_FACTORY.createTElementCollection();
+        TElementCollection<C> result = AST_OBJECT_FACTORY.createTElementCollection();
         addNamedElementProperties(element, result);
         result.getDrgElement().addAll(transformList(element.getDrgElement()));
         return result;
     }
 
-    private TBusinessContextElement transformBusinessContextElement(org.omg.spec.dmn._20191111.model.TBusinessContextElement element) {
+    private TBusinessContextElement<C> transformBusinessContextElement(org.omg.spec.dmn._20191111.model.TBusinessContextElement element) {
         if (element == null) {
             return null;
         }
@@ -503,31 +503,31 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         } else if (element instanceof org.omg.spec.dmn._20191111.model.TOrganizationUnit) {
             return transform((org.omg.spec.dmn._20191111.model.TOrganizationUnit) element);
         } else {
-            TBusinessContextElement result = AST_OBJECT_FACTORY.createTBusinessContextElement();
+            TBusinessContextElement<C> result = AST_OBJECT_FACTORY.createTBusinessContextElement();
             addNamedElementProperties(element, result);
             result.setURI(element.getURI());
             return result;
         }
     }
 
-    private TPerformanceIndicator transform(org.omg.spec.dmn._20191111.model.TPerformanceIndicator element) {
+    private TPerformanceIndicator<C> transform(org.omg.spec.dmn._20191111.model.TPerformanceIndicator element) {
         if (element == null) {
             return null;
         }
 
-        TPerformanceIndicator result = AST_OBJECT_FACTORY.createTPerformanceIndicator();
+        TPerformanceIndicator<C> result = AST_OBJECT_FACTORY.createTPerformanceIndicator();
         addNamedElementProperties(element, result);
         result.setURI(element.getURI());
         result.getImpactingDecision().addAll(transformList(element.getImpactingDecision()));
         return result;
     }
 
-    private TOrganizationUnit transform(org.omg.spec.dmn._20191111.model.TOrganizationUnit element) {
+    private TOrganizationUnit<C> transform(org.omg.spec.dmn._20191111.model.TOrganizationUnit element) {
         if (element == null) {
             return null;
         }
 
-        TOrganizationUnit result = AST_OBJECT_FACTORY.createTOrganizationUnit();
+        TOrganizationUnit<C> result = AST_OBJECT_FACTORY.createTOrganizationUnit();
         addNamedElementProperties(element, result);
         result.setURI(element.getURI());
         result.getDecisionMade().addAll(transformList(element.getDecisionMade()));
@@ -535,34 +535,34 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         return result;
     }
 
-    private TInformationItem transform(org.omg.spec.dmn._20191111.model.TInformationItem element) {
+    private TInformationItem<C> transform(org.omg.spec.dmn._20191111.model.TInformationItem element) {
         if (element == null) {
             return null;
         }
 
-        TInformationItem result = AST_OBJECT_FACTORY.createTInformationItem();
+        TInformationItem<C> result = AST_OBJECT_FACTORY.createTInformationItem();
         addNamedElementProperties(element, result);
         result.setTypeRef(transformTypeRef(element.getTypeRef()));
         return result;
     }
 
-    private TKnowledgeRequirement transform(org.omg.spec.dmn._20191111.model.TKnowledgeRequirement element) {
+    private TKnowledgeRequirement<C> transform(org.omg.spec.dmn._20191111.model.TKnowledgeRequirement element) {
         if (element == null) {
             return null;
         }
 
-        TKnowledgeRequirement result = AST_OBJECT_FACTORY.createTKnowledgeRequirement();
+        TKnowledgeRequirement<C> result = AST_OBJECT_FACTORY.createTKnowledgeRequirement();
         addElementProperties(element, result);
         result.setRequiredKnowledge(transform(element.getRequiredKnowledge()));
         return result;
     }
 
-    private TAuthorityRequirement transform(org.omg.spec.dmn._20191111.model.TAuthorityRequirement element) {
+    private TAuthorityRequirement<C> transform(org.omg.spec.dmn._20191111.model.TAuthorityRequirement element) {
         if (element == null) {
             return null;
         }
 
-        TAuthorityRequirement result = AST_OBJECT_FACTORY.createTAuthorityRequirement();
+        TAuthorityRequirement<C> result = AST_OBJECT_FACTORY.createTAuthorityRequirement();
         addElementProperties(element, result);
         result.setRequiredDecision(transform(element.getRequiredDecision()));
         result.setRequiredInput(transform(element.getRequiredInput()));
@@ -570,29 +570,29 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         return result;
     }
 
-    private TInformationRequirement transform(org.omg.spec.dmn._20191111.model.TInformationRequirement element) {
+    private TInformationRequirement<C> transform(org.omg.spec.dmn._20191111.model.TInformationRequirement element) {
         if (element == null) {
             return null;
         }
 
-        TInformationRequirement result = AST_OBJECT_FACTORY.createTInformationRequirement();
+        TInformationRequirement<C> result = AST_OBJECT_FACTORY.createTInformationRequirement();
         addElementProperties(element, result);
         result.setRequiredDecision(transform(element.getRequiredDecision()));
         result.setRequiredInput(transform(element.getRequiredInput()));
         return result;
     }
 
-    private TDMNElementReference transform(org.omg.spec.dmn._20191111.model.TDMNElementReference element) {
+    private TDMNElementReference<C> transform(org.omg.spec.dmn._20191111.model.TDMNElementReference element) {
         if (element == null) {
             return null;
         }
 
-        TDMNElementReference result = AST_OBJECT_FACTORY.createTDMNElementReference();
+        TDMNElementReference<C> result = AST_OBJECT_FACTORY.createTDMNElementReference();
         result.setHref(element.getHref());
         return result;
     }
 
-    private TExpression transformExpression(org.omg.spec.dmn._20191111.model.TExpression element) {
+    private TExpression<C> transformExpression(org.omg.spec.dmn._20191111.model.TExpression element) {
         if (element == null) {
             return null;
         }
@@ -616,15 +616,15 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         }
     }
 
-    private TFunctionDefinition transform(org.omg.spec.dmn._20191111.model.TFunctionDefinition element) {
+    private TFunctionDefinition<C> transform(org.omg.spec.dmn._20191111.model.TFunctionDefinition element) {
         if (element == null) {
             return null;
         }
 
-        TFunctionDefinition result = AST_OBJECT_FACTORY.createTFunctionDefinition();
+        TFunctionDefinition<C> result = AST_OBJECT_FACTORY.createTFunctionDefinition();
         addExpressionProperties(element, result);
         result.getFormalParameter().addAll(transformList(element.getFormalParameter()));
-        result.setExpression((TExpression) transformJAXBElement(element.getExpression()));
+        result.setExpression((TExpression<C>) transformJAXBElement(element.getExpression()));
         result.setKind(transform(element.getKind()));
         return result;
     }
@@ -637,12 +637,12 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         return TFunctionKind.fromValue(element.value());
     }
 
-    private TDecisionTable transform(org.omg.spec.dmn._20191111.model.TDecisionTable element) {
+    private TDecisionTable<C> transform(org.omg.spec.dmn._20191111.model.TDecisionTable element) {
         if (element == null) {
             return null;
         }
 
-        TDecisionTable result = AST_OBJECT_FACTORY.createTDecisionTable();
+        TDecisionTable<C> result = AST_OBJECT_FACTORY.createTDecisionTable();
         addExpressionProperties(element, result);
         result.getInput().addAll(transformList(element.getInput()));
         result.getOutput().addAll(transformList(element.getOutput()));
@@ -654,81 +654,81 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         return result;
     }
 
-    private TRelation transform(org.omg.spec.dmn._20191111.model.TRelation element) {
+    private TRelation<C> transform(org.omg.spec.dmn._20191111.model.TRelation element) {
         if (element == null) {
             return null;
         }
 
-        TRelation result = AST_OBJECT_FACTORY.createTRelation();
+        TRelation<C> result = AST_OBJECT_FACTORY.createTRelation();
         addExpressionProperties(element, result);
         result.getColumn().addAll(transformList(element.getColumn()));
         result.getRow().addAll(transformList(element.getRow()));
         return result;
     }
 
-    private TList transform(org.omg.spec.dmn._20191111.model.TList element) {
+    private TList<C> transform(org.omg.spec.dmn._20191111.model.TList element) {
         if (element == null) {
             return null;
         }
 
-        TList result = AST_OBJECT_FACTORY.createTList();
+        TList<C> result = AST_OBJECT_FACTORY.createTList();
         addExpressionProperties(element, result);
         result.getExpression().addAll(transformList(element.getExpression()));
         return result;
     }
 
-    private TContext transform(org.omg.spec.dmn._20191111.model.TContext element) {
+    private TContext<C> transform(org.omg.spec.dmn._20191111.model.TContext element) {
         if (element == null) {
             return null;
         }
 
-        TContext result = AST_OBJECT_FACTORY.createTContext();
+        TContext<C> result = AST_OBJECT_FACTORY.createTContext();
         addExpressionProperties(element, result);
         result.getContextEntry().addAll(transformList(element.getContextEntry()));
         return result;
     }
 
-    private TContextEntry transform(org.omg.spec.dmn._20191111.model.TContextEntry element) {
+    private TContextEntry<C> transform(org.omg.spec.dmn._20191111.model.TContextEntry element) {
         if (element == null) {
             return null;
         }
 
-        TContextEntry result = AST_OBJECT_FACTORY.createTContextEntry();
+        TContextEntry<C> result = AST_OBJECT_FACTORY.createTContextEntry();
         addElementProperties(element, result);
         result.setVariable(transform(element.getVariable()));
-        result.setExpression((TExpression) transformJAXBElement(element.getExpression()));
+        result.setExpression((TExpression<C>) transformJAXBElement(element.getExpression()));
         return result;
     }
 
-    private TInvocation transform(org.omg.spec.dmn._20191111.model.TInvocation element) {
+    private TInvocation<C> transform(org.omg.spec.dmn._20191111.model.TInvocation element) {
         if (element == null) {
             return null;
         }
 
-        TInvocation result = AST_OBJECT_FACTORY.createTInvocation();
+        TInvocation<C> result = AST_OBJECT_FACTORY.createTInvocation();
         addExpressionProperties(element, result);
-        result.setExpression((TExpression) transformJAXBElement(element.getExpression()));
+        result.setExpression((TExpression<C>) transformJAXBElement(element.getExpression()));
         result.getBinding().addAll(transformList(element.getBinding()));
         return result;
     }
 
-    private TBinding transform(org.omg.spec.dmn._20191111.model.TBinding element) {
+    private TBinding<C> transform(org.omg.spec.dmn._20191111.model.TBinding element) {
         if (element == null) {
             return null;
         }
 
-        TBinding result = AST_OBJECT_FACTORY.createTBinding();
+        TBinding<C> result = AST_OBJECT_FACTORY.createTBinding();
         result.setParameter(transform(element.getParameter()));
-        result.setExpression((TExpression) transformJAXBElement(element.getExpression()));
+        result.setExpression((TExpression<C>) transformJAXBElement(element.getExpression()));
         return result;
     }
 
-    private TLiteralExpression transform(org.omg.spec.dmn._20191111.model.TLiteralExpression element) {
+    private TLiteralExpression<C> transform(org.omg.spec.dmn._20191111.model.TLiteralExpression element) {
         if (element == null) {
             return null;
         }
 
-        TLiteralExpression result = AST_OBJECT_FACTORY.createTLiteralExpression();
+        TLiteralExpression<C> result = AST_OBJECT_FACTORY.createTLiteralExpression();
         addExpressionProperties(element, result);
         result.setText(element.getText());
         result.setImportedValues(transformImportedValues(element.getImportedValues()));
@@ -736,12 +736,12 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         return result;
     }
 
-    private TImportedValues transformImportedValues(org.omg.spec.dmn._20191111.model.TImportedValues element) {
+    private TImportedValues<C> transformImportedValues(org.omg.spec.dmn._20191111.model.TImportedValues element) {
         if (element == null) {
             return null;
         }
 
-        TImportedValues result = AST_OBJECT_FACTORY.createTImportedValues();
+        TImportedValues<C> result = AST_OBJECT_FACTORY.createTImportedValues();
         addImportProperties(element, result);
         result.setImportedElement(element.getImportedElement());
         result.setExpressionLanguage(element.getExpressionLanguage());
@@ -772,24 +772,24 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         return THitPolicy.fromValue(element.value());
     }
 
-    private TInputClause transform(org.omg.spec.dmn._20191111.model.TInputClause element) {
+    private TInputClause<C> transform(org.omg.spec.dmn._20191111.model.TInputClause element) {
         if (element == null) {
             return null;
         }
 
-        TInputClause result = AST_OBJECT_FACTORY.createTInputClause();
+        TInputClause<C> result = AST_OBJECT_FACTORY.createTInputClause();
         addElementProperties(element, result);
         result.setInputExpression(transform(element.getInputExpression()));
         result.setInputValues(transform(element.getInputValues()));
         return result;
     }
 
-    private TOutputClause transform(org.omg.spec.dmn._20191111.model.TOutputClause element) {
+    private TOutputClause<C> transform(org.omg.spec.dmn._20191111.model.TOutputClause element) {
         if (element == null) {
             return null;
         }
 
-        TOutputClause result = AST_OBJECT_FACTORY.createTOutputClause();
+        TOutputClause<C> result = AST_OBJECT_FACTORY.createTOutputClause();
         addElementProperties(element, result);
         result.setOutputValues(transform(element.getOutputValues()));
         result.setDefaultOutputEntry(transform(element.getDefaultOutputEntry()));
@@ -798,12 +798,12 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         return result;
     }
 
-    private TDecisionRule transform(org.omg.spec.dmn._20191111.model.TDecisionRule element) {
+    private TDecisionRule<C> transform(org.omg.spec.dmn._20191111.model.TDecisionRule element) {
         if (element == null) {
             return null;
         }
 
-        TDecisionRule result = AST_OBJECT_FACTORY.createTDecisionRule();
+        TDecisionRule<C> result = AST_OBJECT_FACTORY.createTDecisionRule();
         addElementProperties(element, result);
         result.getInputEntry().addAll(transformList(element.getInputEntry()));
         result.getOutputEntry().addAll(transformList(element.getOutputEntry()));
@@ -828,34 +828,30 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
     //
     // DMNDI section
     //
-    private DMNDI transform(org.omg.spec.dmn._20191111.model.DMNDI element) {
+    private DMNDI<C> transform(org.omg.spec.dmn._20191111.model.DMNDI element) {
         if (element == null) {
             return null;
         }
 
-        DMNDI result = AST_OBJECT_FACTORY.createDMNDI();
-//        protected List<org.omg.spec.dmn._20191111.model.DMNDiagram> dmnDiagram;
-//        protected List<org.omg.spec.dmn._20191111.model.DMNStyle> dmnStyle;
+        DMNDI<C> result = AST_OBJECT_FACTORY.createDMNDI();
         result.getDMNDiagram().addAll(transformList(element.getDMNDiagram()));
         result.getDMNStyle().addAll(transformList(element.getDMNStyle()));
         return result;
     }
 
-    private DMNDiagram transform(org.omg.spec.dmn._20191111.model.DMNDiagram element) {
+    private DMNDiagram<C> transform(org.omg.spec.dmn._20191111.model.DMNDiagram element) {
         if (element == null) {
             return null;
         }
 
-        DMNDiagram result = AST_OBJECT_FACTORY.createDMNDiagram();
+        DMNDiagram<C> result = AST_OBJECT_FACTORY.createDMNDiagram();
         addDiagramProperties(element, result);
-//        protected org.omg.spec.dmn._20191111.model.Dimension size;
-//        protected List<JAXBElement<? extends org.omg.spec.dmn._20191111.model.DiagramElement>> dmnDiagramElement;
         result.setSize(transform(element.getSize()));
         result.getDMNDiagramElement().addAll(transformList(element.getDMNDiagramElement()));
         return result;
     }
 
-    private DiagramElement transform(org.omg.spec.dmn._20191111.model.DiagramElement element) {
+    private DiagramElement<C> transform(org.omg.spec.dmn._20191111.model.DiagramElement element) {
         if (element == null) {
             return null;
         }
@@ -875,30 +871,24 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         }
     }
 
-    private DMNLabel transform(org.omg.spec.dmn._20191111.model.DMNLabel element) {
+    private DMNLabel<C> transform(org.omg.spec.dmn._20191111.model.DMNLabel element) {
         if (element == null) {
             return null;
         }
 
-        DMNLabel result = AST_OBJECT_FACTORY.createDMNLabel();
+        DMNLabel<C> result = AST_OBJECT_FACTORY.createDMNLabel();
         addShapeProperties(element, result);
-//        protected String text;
         result.setText(element.getText());
         return result;
     }
 
-    private DMNShape transform(org.omg.spec.dmn._20191111.model.DMNShape element) {
+    private DMNShape<C> transform(org.omg.spec.dmn._20191111.model.DMNShape element) {
         if (element == null) {
             return null;
         }
 
-        DMNShape result = AST_OBJECT_FACTORY.createDMNShape();
+        DMNShape<C> result = AST_OBJECT_FACTORY.createDMNShape();
         addShapeProperties(element, result);
-//        protected org.omg.spec.dmn._20191111.model.DMNLabel dmnLabel;
-//        protected org.omg.spec.dmn._20191111.model.DMNDecisionServiceDividerLine dmnDecisionServiceDividerLine;
-//        protected QName dmnElementRef;
-//        protected Boolean isListedInputData;
-//        protected Boolean isCollapsed;
         result.setDMNLabel(transform(element.getDMNLabel()));
         result.setDMNDecisionServiceDividerLine(transform(element.getDMNDecisionServiceDividerLine()));
         result.setDmnElementRef(transformQName(element.getDmnElementRef()));
@@ -907,48 +897,35 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         return result;
     }
 
-    private DMNEdge transform(org.omg.spec.dmn._20191111.model.DMNEdge element) {
+    private DMNEdge<C>transform(org.omg.spec.dmn._20191111.model.DMNEdge element) {
         if (element == null) {
             return null;
         }
 
-        DMNEdge result = AST_OBJECT_FACTORY.createDMNEdge();
+        DMNEdge<C> result = AST_OBJECT_FACTORY.createDMNEdge();
         addEdgeProperties(element, result);
-//        protected org.omg.spec.dmn._20191111.model.DMNLabel dmnLabel;
-//        protected QName dmnElementRef;
         result.setDMNLabel(transform(element.getDMNLabel()));
         result.setDmnElementRef(transformQName(element.getDmnElementRef()));
         return result;
     }
 
-    private DMNDecisionServiceDividerLine transform(org.omg.spec.dmn._20191111.model.DMNDecisionServiceDividerLine element) {
+    private DMNDecisionServiceDividerLine<C> transform(org.omg.spec.dmn._20191111.model.DMNDecisionServiceDividerLine element) {
         if (element == null) {
             return null;
         }
 
-        DMNDecisionServiceDividerLine result = AST_OBJECT_FACTORY.createDMNDecisionServiceDividerLine();
+        DMNDecisionServiceDividerLine<C> result = AST_OBJECT_FACTORY.createDMNDecisionServiceDividerLine();
         addEdgeProperties(element, result);
         return result;
     }
 
-    private DMNStyle transform(org.omg.spec.dmn._20191111.model.DMNStyle element) {
+    private DMNStyle<C> transform(org.omg.spec.dmn._20191111.model.DMNStyle element) {
         if (element == null) {
             return null;
         }
 
-        DMNStyle result = AST_OBJECT_FACTORY.createDMNStyle();
+        DMNStyle<C> result = AST_OBJECT_FACTORY.createDMNStyle();
         addStyleProperties(element, result);
-//        protected org.omg.spec.dmn._20191111.model.Color fillColor;
-//        protected org.omg.spec.dmn._20191111.model.Color strokeColor;
-//        protected org.omg.spec.dmn._20191111.model.Color fontColor;
-//        protected String fontFamily;
-//        protected Double fontSize;
-//        protected Boolean fontItalic;
-//        protected Boolean fontBold;
-//        protected Boolean fontUnderline;
-//        protected Boolean fontStrikeThrough;
-//        protected org.omg.spec.dmn._20191111.model.AlignmentKind labelHorizontalAlignement;
-//        protected org.omg.spec.dmn._20191111.model.AlignmentKind labelVerticalAlignment;
         result.setFillColor(transform(element.getFillColor()));
         result.setStrokeColor(transform(element.getStrokeColor()));
         result.setFontColor(transform(element.getFontColor()));
@@ -963,15 +940,12 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         return result;
     }
 
-    private Color transform(org.omg.spec.dmn._20191111.model.Color element) {
+    private Color<C> transform(org.omg.spec.dmn._20191111.model.Color element) {
         if (element == null) {
             return null;
         }
 
-        Color result = AST_OBJECT_FACTORY.createColor();
-//        protected int red;
-//        protected int green;
-//        protected int blue;
+        Color<C> result = AST_OBJECT_FACTORY.createColor();
         result.setRed(element.getRed());
         result.setGreen(element.getGreen());
         result.setBlue(element.getBlue());
@@ -992,7 +966,6 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         }
 
         DiagramElement.Extension result = AST_OBJECT_FACTORY.createDiagramElementExtension();
-//        protected List<Object> any;
         result.getAny().addAll(transformAny(element.getAny()));
         return result;
     }
@@ -1003,7 +976,6 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         }
 
         Style.Extension result = AST_OBJECT_FACTORY.createStyleExtension();
-//        protected List<Object> any;
         result.getAny().addAll(transformAny(element.getAny()));
         return result;
     }
@@ -1019,29 +991,23 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         return new QName(namespaceURI, localPart, prefix);
     }
 
-    private Dimension transform(org.omg.spec.dmn._20191111.model.Dimension element) {
+    private Dimension<C> transform(org.omg.spec.dmn._20191111.model.Dimension element) {
         if (element == null) {
             return null;
         }
 
-        Dimension result = AST_OBJECT_FACTORY.createDimension();
-//        protected double width;
-//        protected double height;
+        Dimension<C> result = AST_OBJECT_FACTORY.createDimension();
         result.setWidth(element.getWidth());
         result.setHeight(element.getHeight());
         return result;
     }
 
-    private Bounds transform(org.omg.spec.dmn._20191111.model.Bounds element) {
+    private Bounds<C> transform(org.omg.spec.dmn._20191111.model.Bounds element) {
         if (element == null) {
             return null;
         }
 
-        Bounds result = AST_OBJECT_FACTORY.createBounds();
-//        protected double x;
-//        protected double y;
-//        protected double width;
-//        protected double height;
+        Bounds<C> result = AST_OBJECT_FACTORY.createBounds();
         result.setX(element.getX());
         result.setY(element.getY());
         result.setWidth(element.getWidth());
@@ -1049,27 +1015,20 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         return result;
     }
 
-    private Point transform(org.omg.spec.dmn._20191111.model.Point element) {
+    private Point<C> transform(org.omg.spec.dmn._20191111.model.Point element) {
         if (element == null) {
             return null;
         }
 
-        Point result = AST_OBJECT_FACTORY.createPoint();
-//        protected double x;
-//        protected double y;
+        Point<C> result = AST_OBJECT_FACTORY.createPoint();
         result.setX(element.getX());
         result.setY(element.getY());
         return result;
     }
 
-    private void addDiagramElementProperties(org.omg.spec.dmn._20191111.model.DiagramElement element, DiagramElement result) {
-//        protected DiagramElement.Extension extension;
-//        protected JAXBElement<? extends org.omg.spec.dmn._20191111.model.Style> style;
-//        protected Object sharedStyle;
-//        protected String id;
-//        private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+    private void addDiagramElementProperties(org.omg.spec.dmn._20191111.model.DiagramElement element, DiagramElement<C> result) {
         result.setExtension(transform(element.getExtension()));
-        result.setStyle((Style) transformJAXBElement(element.getStyle()));
+        result.setStyle((Style<C>) transformJAXBElement(element.getStyle()));
         result.setSharedStyle(transformSharedStyle(element.getSharedStyle()));
         result.setId(element.getId());
         result.getOtherAttributes().putAll(transform(element.getOtherAttributes()));
@@ -1087,32 +1046,24 @@ public class DMN13ToASTTransformer extends SimpleDMNDialectTransformer<org.omg.s
         }
     }
 
-    private void addDiagramProperties(org.omg.spec.dmn._20191111.model.Diagram element, Diagram result) {
+    private void addDiagramProperties(org.omg.spec.dmn._20191111.model.Diagram element, Diagram<C> result) {
         addDiagramElementProperties(element, result);
-//        protected String name;
-//        protected String documentation;
-//        protected Double resolution;
         result.setName(element.getName());
         result.setDocumentation(element.getDocumentation());
         result.setResolution(element.getResolution());
     }
 
-    private void addShapeProperties(org.omg.spec.dmn._20191111.model.Shape element, Shape result) {
+    private void addShapeProperties(org.omg.spec.dmn._20191111.model.Shape element, Shape<C> result) {
         addDiagramElementProperties(element, result);
-//        protected org.omg.spec.dmn._20191111.model.Bounds bounds;
         result.setBounds(transform(element.getBounds()));
     }
 
-    private void addEdgeProperties(org.omg.spec.dmn._20191111.model.Edge element, Edge result) {
+    private void addEdgeProperties(org.omg.spec.dmn._20191111.model.Edge element, Edge<C> result) {
         addDiagramElementProperties(element, result);
-//        protected List<org.omg.spec.dmn._20191111.model.Point> waypoint;
         result.getWaypoint().addAll(transformList(element.getWaypoint()));
     }
 
-    private void addStyleProperties(org.omg.spec.dmn._20191111.model.Style element, Style result) {
-//        protected org.omg.spec.dmn._20191111.model.Style.Extension extension;
-//        protected String id;
-//        private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+    private void addStyleProperties(org.omg.spec.dmn._20191111.model.Style element, Style<C> result) {
         result.setExtension(transform(element.getExtension()));
         result.setId(element.getId());
         result.getOtherAttributes().putAll(transform(element.getOtherAttributes()));

@@ -15,7 +15,6 @@ package com.gs.dmn.ast.dmndi;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.ast.Visitable;
 import com.gs.dmn.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
 import javax.xml.namespace.QName;
 
@@ -30,26 +29,26 @@ import javax.xml.namespace.QName;
         "dmnLabel",
         "dmnDecisionServiceDividerLine"
 })
-public class DMNShape extends Shape implements Visitable {
-    private DMNLabel dmnLabel;
-    private DMNDecisionServiceDividerLine dmnDecisionServiceDividerLine;
+public class DMNShape<C> extends Shape<C> implements Visitable<C> {
+    private DMNLabel<C> dmnLabel;
+    private DMNDecisionServiceDividerLine<C> dmnDecisionServiceDividerLine;
     private QName dmnElementRef;
     private Boolean isListedInputData;
     private Boolean isCollapsed;
 
-    public DMNLabel getDMNLabel() {
+    public DMNLabel<C> getDMNLabel() {
         return dmnLabel;
     }
 
-    public void setDMNLabel(DMNLabel value) {
+    public void setDMNLabel(DMNLabel<C> value) {
         this.dmnLabel = value;
     }
 
-    public DMNDecisionServiceDividerLine getDMNDecisionServiceDividerLine() {
+    public DMNDecisionServiceDividerLine<C> getDMNDecisionServiceDividerLine() {
         return dmnDecisionServiceDividerLine;
     }
 
-    public void setDMNDecisionServiceDividerLine(DMNDecisionServiceDividerLine value) {
+    public void setDMNDecisionServiceDividerLine(DMNDecisionServiceDividerLine<C> value) {
         this.dmnDecisionServiceDividerLine = value;
     }
 
@@ -82,7 +81,7 @@ public class DMNShape extends Shape implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

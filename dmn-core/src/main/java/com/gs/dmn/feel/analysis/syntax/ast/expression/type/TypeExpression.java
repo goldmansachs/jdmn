@@ -13,10 +13,6 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.type;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNContext;
 
-public abstract class TypeExpression extends Expression {
-    @Override
-    public void deriveType(DMNContext context) {
-    }
+public abstract class TypeExpression<T, C> extends Expression<T, C> {
 }

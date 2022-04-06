@@ -13,10 +13,12 @@
 package com.gs.dmn.dialect;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.interpreter.ELInterpreter;
+import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.interpreter.FEELInterpreter;
-import com.gs.dmn.feel.interpreter.FEELInterpreterImpl;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
-import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
@@ -26,13 +28,13 @@ public abstract class AbstractDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME
     // FEEL Processors
     //
     @Override
-    public FEELInterpreter createFEELInterpreter(DMNModelRepository repository, InputParameters inputParameters) {
+    public ELInterpreter<Type, DMNContext> createFEELInterpreter(DMNModelRepository repository, InputParameters inputParameters) {
         DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter = createDMNInterpreter(repository, inputParameters);
-        return new FEELInterpreterImpl<>(dmnInterpreter);
+        return new FEELInterpreter<>(dmnInterpreter);
     }
 
     @Override
-    public FEELTranslator createFEELTranslator(DMNModelRepository repository, InputParameters inputParameters) {
-        return new FEELTranslatorImpl(createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters));
+    public ELTranslator<Type, DMNContext> createFEELTranslator(DMNModelRepository repository, InputParameters inputParameters) {
+        return new FEELTranslator(createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters));
     }
 }

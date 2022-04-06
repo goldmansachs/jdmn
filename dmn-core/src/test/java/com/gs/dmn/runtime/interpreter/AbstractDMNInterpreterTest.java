@@ -14,7 +14,9 @@ package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.log.BuildLogger;
@@ -57,7 +59,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
 
     protected DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> interpreter;
     private DMNTransformer<TestCases> dmnTransformer;
-    private BasicDMNToNativeTransformer basicTransformer;
+    private BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer;
     private FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib;
 
     @SafeVarargs

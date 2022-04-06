@@ -12,13 +12,14 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-public abstract class NamedType extends Type {
+public abstract class NamedType implements com.gs.dmn.el.analysis.semantics.type.NamedType {
     protected final String name;
 
     protected NamedType(String name) {
         this.name = name;
     }
 
+    @Override
     public String getName() {
         return name;
     }

@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.runtime.DMNContext;
 
 @JsonPropertyOrder({
         "id",
@@ -25,37 +24,37 @@ import com.gs.dmn.runtime.DMNContext;
         "requiredAuthority",
         "extensionElements"
 })
-public class TAuthorityRequirement extends TDMNElement implements Visitable {
-    private TDMNElementReference requiredDecision;
-    private TDMNElementReference requiredInput;
-    private TDMNElementReference requiredAuthority;
+public class TAuthorityRequirement<C> extends TDMNElement<C> implements Visitable<C> {
+    private TDMNElementReference<C> requiredDecision;
+    private TDMNElementReference<C> requiredInput;
+    private TDMNElementReference<C> requiredAuthority;
 
-    public TDMNElementReference getRequiredDecision() {
+    public TDMNElementReference<C> getRequiredDecision() {
         return requiredDecision;
     }
 
-    public void setRequiredDecision(TDMNElementReference value) {
+    public void setRequiredDecision(TDMNElementReference<C> value) {
         this.requiredDecision = value;
     }
 
-    public TDMNElementReference getRequiredInput() {
+    public TDMNElementReference<C> getRequiredInput() {
         return requiredInput;
     }
 
-    public void setRequiredInput(TDMNElementReference value) {
+    public void setRequiredInput(TDMNElementReference<C> value) {
         this.requiredInput = value;
     }
 
-    public TDMNElementReference getRequiredAuthority() {
+    public TDMNElementReference<C> getRequiredAuthority() {
         return requiredAuthority;
     }
 
-    public void setRequiredAuthority(TDMNElementReference value) {
+    public void setRequiredAuthority(TDMNElementReference<C> value) {
         this.requiredAuthority = value;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

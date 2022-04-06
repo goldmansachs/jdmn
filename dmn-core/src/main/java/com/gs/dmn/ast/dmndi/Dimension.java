@@ -15,13 +15,12 @@ package com.gs.dmn.ast.dmndi;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.ast.Visitable;
 import com.gs.dmn.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
 @JsonPropertyOrder({
         "width",
         "height"
 })
-public class Dimension implements Visitable {
+public class Dimension<C> implements Visitable<C> {
     private double width;
     private double height;
 
@@ -42,7 +41,7 @@ public class Dimension implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

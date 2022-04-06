@@ -1,12 +1,13 @@
 package com.gs.dmn.serialization;
 
 import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
 import java.io.File;
 
-public class DMN13ToASTTransformerTest extends DMNDialectTransformerTest<org.omg.spec.dmn._20191111.model.TDefinitions, TDefinitions> {
+public class DMN13ToASTTransformerTest extends DMNDialectTransformerTest<org.omg.spec.dmn._20191111.model.TDefinitions, TDefinitions<DMNContext>> {
     @Test
     public void testTransform() throws Exception {
         doTest("0004-lending.dmn", new Pair<>("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b", "tns"));
@@ -15,8 +16,8 @@ public class DMN13ToASTTransformerTest extends DMNDialectTransformerTest<org.omg
     }
 
     @Override
-    protected SimpleDMNDialectTransformer<org.omg.spec.dmn._20191111.model.TDefinitions, TDefinitions> getTransformer() {
-        return new DMN13ToASTTransformer(LOGGER);
+    protected SimpleDMNDialectTransformer<org.omg.spec.dmn._20191111.model.TDefinitions, TDefinitions<DMNContext>> getTransformer() {
+        return new DMN13ToASTTransformer<>(LOGGER);
     }
 
     @Override
@@ -43,7 +44,7 @@ public class DMN13ToASTTransformerTest extends DMNDialectTransformerTest<org.omg
     }
 
     @Override
-    protected void writeModel(TDefinitions targetDefinitions, Pair<String, String> dmnNamespacePrefixMapping, File actualOutputFile) {
+    protected void writeModel(TDefinitions<DMNContext> targetDefinitions, Pair<String, String> dmnNamespacePrefixMapping, File actualOutputFile) {
         dmnWriter.writeASTAsJson(targetDefinitions, actualOutputFile, new DMNNamespacePrefixMapper(dmnNamespacePrefixMapping.getLeft(), dmnNamespacePrefixMapping.getRight(), getDMNTargetVersion()));
     }
 

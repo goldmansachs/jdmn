@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.runtime.DMNContext;
 
 @JsonPropertyOrder({
         "id",
@@ -23,19 +22,19 @@ import com.gs.dmn.runtime.DMNContext;
         "requiredKnowledge",
         "extensionElements"
 })
-public class TKnowledgeRequirement extends TDMNElement implements Visitable {
-    private TDMNElementReference requiredKnowledge;
+public class TKnowledgeRequirement<C> extends TDMNElement<C> implements Visitable<C> {
+    private TDMNElementReference<C> requiredKnowledge;
 
-    public TDMNElementReference getRequiredKnowledge() {
+    public TDMNElementReference<C> getRequiredKnowledge() {
         return requiredKnowledge;
     }
 
-    public void setRequiredKnowledge(TDMNElementReference value) {
+    public void setRequiredKnowledge(TDMNElementReference<C> value) {
         this.requiredKnowledge = value;
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

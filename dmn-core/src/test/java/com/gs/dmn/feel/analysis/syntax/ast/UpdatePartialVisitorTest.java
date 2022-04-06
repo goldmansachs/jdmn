@@ -12,10 +12,11 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.UpdatePartialVisitor;
 import com.gs.dmn.feel.analysis.semantics.type.StringType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import org.junit.Test;
 
@@ -25,8 +26,8 @@ public class UpdatePartialVisitorTest extends BaseVisitorTest {
     private final Type partialType = StringType.STRING;
 
     @Override
-    protected Visitor getVisitor() {
-        return new UpdatePartialVisitor(this.partialType, NopErrorHandler.INSTANCE);
+    protected Visitor<Type, DMNContext> getVisitor() {
+        return new UpdatePartialVisitor<>(this.partialType, NopErrorHandler.INSTANCE);
     }
 
     @Override
@@ -34,6 +35,6 @@ public class UpdatePartialVisitorTest extends BaseVisitorTest {
     public void testVisitName() {
         super.testVisitName();
 
-        assertEquals(this.partialType, ((Name) getVisitor().visit(new Name("partial"), null)).getType());
+        assertEquals(this.partialType, ((Name<Type, DMNContext>) getVisitor().visit(new Name<>("partial"), null)).getType());
     }
 }

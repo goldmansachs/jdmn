@@ -12,47 +12,46 @@
  */
 package com.gs.dmn.feel;
 
-import com.gs.dmn.feel.analysis.FEELAnalyzer;
+import com.gs.dmn.el.analysis.ELAnalyzer;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
-import com.gs.dmn.runtime.DMNContext;
 
-public class AbstractFEELProcessor {
-    private final FEELAnalyzer feelAnalyzer;
+public class AbstractFEELProcessor<T, C> {
+    private final ELAnalyzer<T, C> feelAnalyzer;
 
-    public AbstractFEELProcessor(FEELAnalyzer feelAnalyzer) {
+    public AbstractFEELProcessor(ELAnalyzer<T, C> feelAnalyzer) {
         this.feelAnalyzer = feelAnalyzer;
     }
 
-    public UnaryTests parseUnaryTests(String text) {
-        return this.feelAnalyzer.parseUnaryTests(text);
+    public UnaryTests<T, C> parseUnaryTests(String text) {
+        return (UnaryTests<T, C>) this.feelAnalyzer.parseUnaryTests(text);
     }
 
-    public UnaryTests analyzeUnaryTests(String text, DMNContext context) {
-        return this.feelAnalyzer.analyzeUnaryTests(text, context);
+    public UnaryTests<T, C> analyzeUnaryTests(String text, C context) {
+        return (UnaryTests<T, C>) this.feelAnalyzer.analyzeUnaryTests(text, context);
     }
 
-    public Expression parseExpression(String text) {
-        return this.feelAnalyzer.parseExpression(text);
+    public Expression<T, C> parseExpression(String text) {
+        return (Expression<T, C>) this.feelAnalyzer.parseExpression(text);
     }
 
-    public Expression parseTextualExpressions(String text) {
-        return this.feelAnalyzer.parseTextualExpressions(text);
+    public Expression<T, C> parseTextualExpressions(String text) {
+        return (Expression<T, C>) this.feelAnalyzer.parseTextualExpressions(text);
     }
 
-    public Expression parseBoxedExpression(String text) {
-        return this.feelAnalyzer.parseBoxedExpression(text);
+    public Expression<T, C> parseBoxedExpression(String text) {
+        return (Expression<T, C>) this.feelAnalyzer.parseBoxedExpression(text);
     }
 
-    public Expression analyzeExpression(String text, DMNContext context) {
-        return this.feelAnalyzer.analyzeExpression(text, context);
+    public Expression<T, C> analyzeExpression(String text, C context) {
+        return (Expression<T, C>) this.feelAnalyzer.analyzeExpression(text, context);
     }
 
-    public Expression analyzeTextualExpressions(String text, DMNContext context) {
-        return this.feelAnalyzer.analyzeTextualExpressions(text, context);
+    public Expression<T, C> analyzeTextualExpressions(String text, C context) {
+        return (Expression<T, C>) this.feelAnalyzer.analyzeTextualExpressions(text, context);
     }
 
-    public Expression analyzeBoxedExpression(String text, DMNContext context) {
-        return this.feelAnalyzer.analyzeBoxedExpression(text, context);
+    public Expression<T, C> analyzeBoxedExpression(String text, C context) {
+        return (Expression<T, C>) this.feelAnalyzer.analyzeBoxedExpression(text, context);
     }
 }

@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.feel.FEELConstants;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 
 import java.util.LinkedHashMap;
@@ -29,14 +31,12 @@ public class DurationType extends ComparableDataType {
     public static final DurationType DAY_TIME_DURATION = new DurationType("dayTimeDuration");
     public static final DurationType YEAR_MONTH_DURATION = new DurationType("yearMonthDuration");
 
-    public static final String CONVERSION_FUNCTION = "duration";
-
     public DurationType(String name) {
-        super(name, CONVERSION_FUNCTION);
+        super(name, FEELConstants.DURATION_LITERAL_FUNCTION_NAME);
     }
 
     @Override
-    protected boolean equivalentTo(Type other) {
+    public boolean equivalentTo(Type other) {
         return (this == DAYS_AND_TIME_DURATION || this == DAY_TIME_DURATION) && (other == DAYS_AND_TIME_DURATION || other == DAY_TIME_DURATION)
                 ||
                 (this == YEARS_AND_MONTHS_DURATION || this == YEAR_MONTH_DURATION) && (other == YEARS_AND_MONTHS_DURATION || other == YEAR_MONTH_DURATION)
@@ -46,7 +46,7 @@ public class DurationType extends ComparableDataType {
     }
 
     @Override
-    protected boolean conformsTo(Type other) {
+    public boolean conformsTo(Type other) {
         return equivalentTo(other) || other == ANY_DURATION || other == COMPARABLE;
     }
 
@@ -67,13 +67,13 @@ public class DurationType extends ComparableDataType {
     public static Type getMemberType(Type sourceType, String member) {
         if (YEAR_MONTH_DURATION.equivalentTo(sourceType)) {
             Type type = YEARS_AND_MONTHS_DURATION_MEMBERS.get(member);
-            if (Type.isNull(type)) {
+            if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
                 throw new SemanticError(String.format("Cannot find member '%s' of type '%s'", member, sourceType.toString()));
             }
             return type;
         } else if (DAYS_AND_TIME_DURATION.equivalentTo(sourceType)) {
             Type type = DAYS_AND_TIME_DURATION_MEMBERS.get(member);
-            if (Type.isNull(type)) {
+            if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
                 throw new SemanticError(String.format("Cannot find member '%s' of type '%s'", member, sourceType.toString()));
             }
             return type;

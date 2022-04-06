@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.runtime.DMNContext;
 
 @JsonPropertyOrder({
         "id",
@@ -25,24 +24,24 @@ import com.gs.dmn.runtime.DMNContext;
         "targetRef",
         "extensionElements"
 })
-public class TAssociation extends TArtifact implements Visitable {
-    private TDMNElementReference sourceRef;
-    private TDMNElementReference targetRef;
+public class TAssociation<C> extends TArtifact<C> implements Visitable<C> {
+    private TDMNElementReference<C> sourceRef;
+    private TDMNElementReference<C> targetRef;
     private TAssociationDirection associationDirection;
 
-    public TDMNElementReference getSourceRef() {
+    public TDMNElementReference<C> getSourceRef() {
         return sourceRef;
     }
 
-    public void setSourceRef(TDMNElementReference value) {
+    public void setSourceRef(TDMNElementReference<C> value) {
         this.sourceRef = value;
     }
 
-    public TDMNElementReference getTargetRef() {
+    public TDMNElementReference<C> getTargetRef() {
         return targetRef;
     }
 
-    public void setTargetRef(TDMNElementReference value) {
+    public void setTargetRef(TDMNElementReference<C> value) {
         this.targetRef = value;
     }
 
@@ -59,7 +58,7 @@ public class TAssociation extends TArtifact implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

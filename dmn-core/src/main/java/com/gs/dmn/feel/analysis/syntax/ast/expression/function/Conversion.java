@@ -12,15 +12,13 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
-
 import java.util.Objects;
 
-public class Conversion {
+public class Conversion<T> implements com.gs.dmn.el.analysis.syntax.ast.expression.function.Conversion<T, ConversionKind> {
     private final ConversionKind kind;
-    private final Type targetType;
+    private final T targetType;
 
-    public Conversion(ConversionKind kind, Type elementType) {
+    public Conversion(ConversionKind kind, T elementType) {
         this.kind = kind;
         this.targetType = elementType;
     }
@@ -29,7 +27,8 @@ public class Conversion {
         return this.kind;
     }
 
-    public Type getTargetType() {
+    @Override
+    public T getTargetType() {
         return this.targetType;
     }
 
@@ -37,7 +36,7 @@ public class Conversion {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Conversion that = (Conversion) o;
+        Conversion<?> that = (Conversion<?>) o;
         return this.kind == that.kind &&
                 Objects.equals(this.targetType, that.targetType);
     }

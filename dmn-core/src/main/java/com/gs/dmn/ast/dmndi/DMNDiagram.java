@@ -15,7 +15,6 @@ package com.gs.dmn.ast.dmndi;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.ast.Visitable;
 import com.gs.dmn.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,19 +31,19 @@ import java.util.List;
         "size",
         "dmnDiagramElement"
 })
-public class DMNDiagram extends Diagram implements Visitable {
-    private Dimension size;
-    private List<? extends DiagramElement> dmnDiagramElement;
+public class DMNDiagram<C> extends Diagram<C> implements Visitable<C> {
+    private Dimension<C> size;
+    private List<? extends DiagramElement<C>> dmnDiagramElement;
 
-    public Dimension getSize() {
+    public Dimension<C> getSize() {
         return size;
     }
 
-    public void setSize(Dimension value) {
+    public void setSize(Dimension<C> value) {
         this.size = value;
     }
 
-    public List<? extends DiagramElement> getDMNDiagramElement() {
+    public List<? extends DiagramElement<C>> getDMNDiagramElement() {
         if (dmnDiagramElement == null) {
             dmnDiagramElement = new ArrayList<>();
         }
@@ -52,7 +51,7 @@ public class DMNDiagram extends Diagram implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

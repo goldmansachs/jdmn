@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.ReplaceItemFilterVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
@@ -24,8 +26,8 @@ public class ReplaceItemFilterVisitorTest extends BaseVisitorTest {
     private final String newLambdaParameterName = "newName";
 
     @Override
-    protected Visitor getVisitor() {
-        return new ReplaceItemFilterVisitor(this.oldLambdaParameterName, this.newLambdaParameterName, NopErrorHandler.INSTANCE);
+    protected Visitor<Type, DMNContext> getVisitor() {
+        return new ReplaceItemFilterVisitor<>(this.oldLambdaParameterName, this.newLambdaParameterName, NopErrorHandler.INSTANCE);
     }
 
     @Override
@@ -33,8 +35,8 @@ public class ReplaceItemFilterVisitorTest extends BaseVisitorTest {
     public void testVisitName() {
         super.testVisitName();
 
-        assertEquals("Name(newName)", getVisitor().visit(new Name(this.oldLambdaParameterName), null).toString());
-        assertEquals("Name(otherName)", getVisitor().visit(new Name("otherName"), null).toString());
+        assertEquals("Name(newName)", getVisitor().visit(new Name<>(this.oldLambdaParameterName), null).toString());
+        assertEquals("Name(otherName)", getVisitor().visit(new Name<>("otherName"), null).toString());
     }
 
 }

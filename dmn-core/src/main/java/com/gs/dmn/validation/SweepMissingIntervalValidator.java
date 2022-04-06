@@ -13,8 +13,10 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.feel.synthesis.FEELTranslator;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
@@ -48,7 +50,7 @@ public class SweepMissingIntervalValidator extends SweepValidator {
     protected void validate(TDRGElement element, TDecisionTable decisionTable, BasicDMNToJavaTransformer transformer, DMNModelRepository repository, List<String> errorReport) {
         logger.debug(String.format("Validate element '%s'", element.getName()));
 
-        FEELTranslator feelTranslator = this.dmnDialectDefinition.createFEELTranslator(repository, this.inputParameters);
+        ELTranslator<Type, DMNContext> feelTranslator = this.dmnDialectDefinition.createFEELTranslator(repository, this.inputParameters);
         List<Integer> ruleIndex = new ArrayList<>();
         int totalNumberOfRules = decisionTable.getRule().size();
         for (int i = 0; i< totalNumberOfRules; i++) {

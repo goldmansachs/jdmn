@@ -12,40 +12,27 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
-import com.gs.dmn.feel.analysis.semantics.type.RangeType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
-public class RangeIteratorDomain extends IteratorDomain {
-    private final Expression start;
-    private final Expression end;
-    private Type type;
+public class RangeIteratorDomain<T, C> extends IteratorDomain<T, C> {
+    private final Expression<T, C> start;
+    private final Expression<T, C> end;
 
-    public RangeIteratorDomain(Expression start, Expression end) {
+    public RangeIteratorDomain(Expression<T, C> start, Expression<T, C> end) {
         this.start = start;
         this.end = end;
     }
 
-    public Expression getStart() {
+    public Expression<T, C> getStart() {
         return this.start;
     }
 
-    public Expression getEnd() {
+    public Expression<T, C> getEnd() {
         return this.end;
     }
 
-    public void deriveType(DMNContext context) {
-        this.type = new RangeType(this.start.getType());
-    }
-
     @Override
-    public Type getType() {
-        return this.type;
-    }
-
-    @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 

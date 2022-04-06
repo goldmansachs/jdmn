@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.el.analysis.semantics.type.Type;
+
 public class StringType extends ComparableDataType {
     public static final StringType STRING = new StringType();
 
@@ -20,12 +22,12 @@ public class StringType extends ComparableDataType {
     }
 
     @Override
-    protected boolean equivalentTo(Type other) {
+    public boolean equivalentTo(Type other) {
         return other == STRING;
     }
 
     @Override
-    protected boolean conformsTo(Type other) {
+    public boolean conformsTo(Type other) {
         return other == STRING || other == COMPARABLE;
     }
 }

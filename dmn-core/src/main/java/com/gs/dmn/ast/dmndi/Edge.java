@@ -23,10 +23,10 @@ import java.util.List;
         @JsonSubTypes.Type(name = "dmnEdge", value = DMNEdge.class),
         @JsonSubTypes.Type(name = "dmnDecisionServiceDividerLine", value = DMNDecisionServiceDividerLine.class)
 })
-public abstract class Edge extends DiagramElement {
-    private List<Point> waypoint;
+public abstract class Edge<C> extends DiagramElement<C> {
+    private List<Point<C>> waypoint;
 
-    public List<Point> getWaypoint() {
+    public List<Point<C>> getWaypoint() {
         if (waypoint == null) {
             waypoint = new ArrayList<>();
         }

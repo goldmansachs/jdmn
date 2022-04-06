@@ -15,7 +15,6 @@ package com.gs.dmn.ast.dmndi;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.ast.Visitable;
 import com.gs.dmn.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
 @JsonPropertyOrder({
         "id",
@@ -33,10 +32,10 @@ import com.gs.dmn.runtime.DMNContext;
         "strokeColor",
         "fontColor"
 })
-public class DMNStyle extends Style implements Visitable {
-    private Color fillColor;
-    private Color strokeColor;
-    private Color fontColor;
+public class DMNStyle<C> extends Style<C> implements Visitable<C> {
+    private Color<C> fillColor;
+    private Color<C> strokeColor;
+    private Color<C> fontColor;
     private String fontFamily;
     private Double fontSize;
     private Boolean fontItalic;
@@ -46,27 +45,27 @@ public class DMNStyle extends Style implements Visitable {
     private AlignmentKind labelHorizontalAlignment;
     private AlignmentKind labelVerticalAlignment;
 
-    public Color getFillColor() {
+    public Color<C> getFillColor() {
         return fillColor;
     }
 
-    public void setFillColor(Color value) {
+    public void setFillColor(Color<C> value) {
         this.fillColor = value;
     }
 
-    public Color getStrokeColor() {
+    public Color<C> getStrokeColor() {
         return strokeColor;
     }
 
-    public void setStrokeColor(Color value) {
+    public void setStrokeColor(Color<C> value) {
         this.strokeColor = value;
     }
 
-    public Color getFontColor() {
+    public Color<C> getFontColor() {
         return fontColor;
     }
 
-    public void setFontColor(Color value) {
+    public void setFontColor(Color<C> value) {
         this.fontColor = value;
     }
 
@@ -135,7 +134,7 @@ public class DMNStyle extends Style implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

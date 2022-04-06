@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +31,11 @@ import java.util.List;
         "functionItem",
         "extensionElements"
 })
-public class TItemDefinition extends TNamedElement implements Visitable {
+public class TItemDefinition<C> extends TNamedElement<C> implements Visitable<C> {
     private String typeRef;
-    private TUnaryTests allowedValues;
-    private List<TItemDefinition> itemComponent;
-    private TFunctionItem functionItem;
+    private TUnaryTests<C> allowedValues;
+    private List<TItemDefinition<C>> itemComponent;
+    private TFunctionItem<C> functionItem;
     private String typeLanguage;
     private Boolean isCollection;
 
@@ -48,26 +47,26 @@ public class TItemDefinition extends TNamedElement implements Visitable {
         this.typeRef = value;
     }
 
-    public TUnaryTests getAllowedValues() {
+    public TUnaryTests<C> getAllowedValues() {
         return allowedValues;
     }
 
-    public void setAllowedValues(TUnaryTests value) {
+    public void setAllowedValues(TUnaryTests<C> value) {
         this.allowedValues = value;
     }
 
-    public List<TItemDefinition> getItemComponent() {
+    public List<TItemDefinition<C>> getItemComponent() {
         if (itemComponent == null) {
             itemComponent = new ArrayList<>();
         }
         return this.itemComponent;
     }
 
-    public TFunctionItem getFunctionItem() {
+    public TFunctionItem<C> getFunctionItem() {
         return functionItem;
     }
 
-    public void setFunctionItem(TFunctionItem value) {
+    public void setFunctionItem(TFunctionItem<C> value) {
         this.functionItem = value;
     }
 
@@ -92,7 +91,7 @@ public class TItemDefinition extends TNamedElement implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

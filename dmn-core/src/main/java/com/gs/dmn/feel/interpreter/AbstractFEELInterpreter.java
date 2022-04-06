@@ -12,43 +12,45 @@
  */
 package com.gs.dmn.feel.interpreter;
 
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.ELAnalyzer;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.el.analysis.syntax.ast.test.UnaryTests;
+import com.gs.dmn.el.interpreter.ELInterpreter;
 import com.gs.dmn.feel.AbstractFEELProcessor;
-import com.gs.dmn.feel.analysis.FEELAnalyzer;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
-import com.gs.dmn.runtime.DMNContext;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
 
-abstract class AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELProcessor implements FEELInterpreter {
+abstract class AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELProcessor<Type, DMNContext> implements ELInterpreter<Type, DMNContext> {
     private final FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> visitor;
 
-    protected AbstractFEELInterpreter(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter, FEELAnalyzer feelAnalyzer) {
+    protected AbstractFEELInterpreter(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter, ELAnalyzer<Type, DMNContext> feelAnalyzer) {
         super(feelAnalyzer);
         this.visitor = new FEELInterpreterVisitor<>(dmnInterpreter);
     }
 
     @Override
     public Result evaluateUnaryTests(String text, DMNContext context) {
-        UnaryTests expression = analyzeUnaryTests(text, context);
+        UnaryTests<Type, DMNContext> expression = analyzeUnaryTests(text, context);
         return evaluateUnaryTests(expression, context);
     }
 
     @Override
-    public Result evaluateUnaryTests(UnaryTests expression, DMNContext context) {
-        Object value = expression.accept(visitor, context);
+    public Result evaluateUnaryTests(UnaryTests<Type, DMNContext> expression, DMNContext context) {
+        Object value = ((com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests<Type, DMNContext>) expression).accept(visitor, context);
         return Result.of(value, expression.getType());
     }
 
     @Override
     public Result evaluateExpression(String text, DMNContext context) {
-        Expression expression = analyzeExpression(text, context);
+        Expression<Type, DMNContext> expression = analyzeExpression(text, context);
         return evaluateExpression(expression, context);
     }
 
     @Override
-    public Result evaluateExpression(Expression expression, DMNContext context) {
-        Object object = expression.accept(visitor, context);
+    public Result evaluateExpression(Expression<Type, DMNContext> expression, DMNContext context) {
+        Object object = ((com.gs.dmn.feel.analysis.syntax.ast.expression.Expression<Type, DMNContext>) expression).accept(visitor, context);
         return Result.of(object, expression.getType());
     }
 }

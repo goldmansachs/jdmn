@@ -14,8 +14,10 @@ package com.gs.dmn.signavio.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
@@ -37,7 +39,7 @@ public class BasicSignavioDMNToKotlinTransformer extends BasicSignavioDMNToJavaT
     }
 
     @Override
-    protected void setNativeFactory(BasicDMNToNativeTransformer transformer) {
+    protected void setNativeFactory(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
         this.nativeFactory = new KotlinFactory(this);
     }
 

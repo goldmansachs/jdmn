@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,18 +26,18 @@ import java.util.List;
         "row",
         "extensionElements"
 })
-public class TRelation extends TExpression implements Visitable {
-    private List<TInformationItem> column;
-    private List<TList> row;
+public class TRelation<C> extends TExpression<C> implements Visitable<C> {
+    private List<TInformationItem<C>> column;
+    private List<TList<C>> row;
 
-    public List<TInformationItem> getColumn() {
+    public List<TInformationItem<C>> getColumn() {
         if (column == null) {
             column = new ArrayList<>();
         }
         return this.column;
     }
 
-    public List<TList> getRow() {
+    public List<TList<C>> getRow() {
         if (row == null) {
             row = new ArrayList<>();
         }
@@ -46,7 +45,7 @@ public class TRelation extends TExpression implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

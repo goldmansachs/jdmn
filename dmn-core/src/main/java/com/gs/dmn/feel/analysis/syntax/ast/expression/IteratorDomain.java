@@ -12,9 +12,16 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 
-public abstract class IteratorDomain extends Element {
-    public abstract Type getType();
+public abstract class IteratorDomain<T, C> extends Element<T, C> {
+    private T type;
+
+    public T getType() {
+        return type;
+    }
+
+    public void setType(T type) {
+        this.type = type;
+    }
 }

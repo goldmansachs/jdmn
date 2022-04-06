@@ -12,22 +12,15 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.literal;
 
-import com.gs.dmn.feel.analysis.semantics.type.NumberType;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.runtime.DMNContext;
 
-public class NumericLiteral extends SimpleLiteral {
+public class NumericLiteral<T, C> extends SimpleLiteral<T, C> {
     public NumericLiteral(String value) {
         super(value);
     }
 
     @Override
-    public void deriveType(DMNContext context) {
-        this.setType(NumberType.NUMBER);
-    }
-
-    @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

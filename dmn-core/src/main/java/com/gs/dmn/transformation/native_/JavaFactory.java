@@ -14,8 +14,13 @@ package com.gs.dmn.transformation.native_;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.FunctionType;
+import com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType;
+import com.gs.dmn.el.analysis.semantics.type.ListType;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.feel.analysis.semantics.type.*;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
@@ -32,19 +37,22 @@ import org.omg.spec.dmn._20191111.model.TDRGElement;
 import org.omg.spec.dmn._20191111.model.TDecision;
 import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 public class JavaFactory implements NativeFactory {
     protected static final Object DEFAULT_PROTO_NUMBER = "0.0";
     protected static final Object DEFAULT_PROTO_BOOLEAN = "false";
     protected static final Object DEFAULT_PROTO_STRING = "\"\"";
 
-    protected final BasicDMNToNativeTransformer transformer;
+    protected final BasicDMNToNativeTransformer<Type, DMNContext> transformer;
     protected final ProtoBufferFactory protoFactory;
     protected final NativeTypeFactory typeFactory;
     protected final DMNModelRepository repository;
 
-    public JavaFactory(BasicDMNToNativeTransformer transformer) {
+    public JavaFactory(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
         this.transformer = transformer;
         this.repository = transformer.getDMNModelRepository();
         this.protoFactory = transformer.getProtoFactory();
@@ -222,7 +230,7 @@ public class JavaFactory implements NativeFactory {
     @Override
     public String applyMethod(FunctionType functionType, String signature, boolean convertTypeToContext, String body) {
         String returnType = transformer.toNativeType(transformer.convertType(functionType.getReturnType(), convertTypeToContext));
-        String parametersAssignment = parametersAssignment(functionType.getParameters(), convertTypeToContext);
+        String parametersAssignment = parametersAssignment(((com.gs.dmn.feel.analysis.semantics.type.FunctionType) functionType).getParameters(), convertTypeToContext);
         return applyMethod(returnType, signature, parametersAssignment, body);
     }
 
@@ -235,14 +243,12 @@ public class JavaFactory implements NativeFactory {
                 returnType, signature, parametersAssignment, body);
     }
 
-    protected String parametersAssignment(List<FormalParameter> formalParameters, boolean convertTypeToContext) {
+    protected String parametersAssignment(List<FormalParameter<Type, DMNContext>> formalParameters, boolean convertTypeToContext) {
         List<String> parameters = new ArrayList<>();
-        Set<String> names = new LinkedHashSet<>();
         for(int i=0; i<formalParameters.size(); i++) {
-            FormalParameter p = formalParameters.get(i);
+            FormalParameter<Type, DMNContext> p = formalParameters.get(i);
             String type = transformer.toNativeType(transformer.convertType(p.getType(), convertTypeToContext));
             String name = transformer.nativeFriendlyVariableName(p.getName());
-            names.add(name);
             parameters.add(makeLambdaParameterAssignment(type, name, i));
         }
         return String.join(" ", parameters);
@@ -348,7 +354,7 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String convertDecisionArgumentFromString(String paramName, Type type) {
-        if (Type.isNull(type)) {
+        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             if (transformer.isStrongTyping()) {
                 throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));
             } else {
@@ -364,7 +370,7 @@ public class JavaFactory implements NativeFactory {
                 return paramName;
             } else if (type == BooleanType.BOOLEAN) {
                 return String.format("(%s != null ? Boolean.valueOf(%s) : null)", paramName, paramName);
-            } else if (Type.isAny(type)) {
+            } else if (com.gs.dmn.el.analysis.semantics.type.Type.isAny(type)) {
                 return paramName;
             } else {
                 throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));
@@ -380,7 +386,7 @@ public class JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String conversionFunction(Conversion conversion, String javaType) {
+    public String conversionFunction(Conversion<Type, ConversionKind> conversion, String javaType) {
         if (conversion.getKind() == ConversionKind.NONE) {
             return null;
         } else if (conversion.getKind() == ConversionKind.ELEMENT_TO_SINGLETON_LIST) {

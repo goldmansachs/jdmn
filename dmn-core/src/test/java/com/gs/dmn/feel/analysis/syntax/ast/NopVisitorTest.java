@@ -12,9 +12,12 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+
 public class NopVisitorTest extends BaseVisitorTest {
     @Override
-    protected Visitor getVisitor() {
-        return new NopVisitor();
+    protected Visitor<Type, DMNContext> getVisitor() {
+        return new NopVisitor<>();
     }
 }

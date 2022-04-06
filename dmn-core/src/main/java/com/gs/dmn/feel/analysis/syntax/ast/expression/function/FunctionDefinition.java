@@ -12,30 +12,28 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.TypeExpression;
-import com.gs.dmn.runtime.DMNContext;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class FunctionDefinition extends Expression {
-    private final List<FormalParameter> formalParameters;
-    private final TypeExpression returnTypeExpression;
-    private final Expression body;
+public class FunctionDefinition<T, C> extends Expression<T, C> {
+    private final List<FormalParameter<T, C>> formalParameters;
+    private final TypeExpression<T, C> returnTypeExpression;
+    private final Expression<T, C> body;
     private final boolean external;
 
-    public FunctionDefinition(List<FormalParameter> formalParameters, TypeExpression returnTypeExpression, Expression body, boolean external) {
+    public FunctionDefinition(List<FormalParameter<T, C>> formalParameters, TypeExpression<T, C> returnTypeExpression, Expression<T, C> body, boolean external) {
         this.formalParameters = formalParameters;
         this.returnTypeExpression = returnTypeExpression;
         this.body = body;
         this.external = external;
     }
 
-    public List<FormalParameter> getFormalParameters() {
+    public List<FormalParameter<T, C>> getFormalParameters() {
         return this.formalParameters;
     }
 
@@ -43,11 +41,11 @@ public class FunctionDefinition extends Expression {
         return this.formalParameters.stream().allMatch(p -> p.getType() != null);
     }
 
-    public TypeExpression getReturnTypeExpression() {
+    public TypeExpression<T, C> getReturnTypeExpression() {
         return this.returnTypeExpression;
     }
 
-    public Expression getBody() {
+    public Expression<T, C> getBody() {
         return this.body;
     }
 
@@ -55,11 +53,7 @@ public class FunctionDefinition extends Expression {
         return this.external;
     }
 
-    @Override
-    public void deriveType(DMNContext context) {
-    }
-
-    public Type getReturnType() {
+    public T getReturnType() {
         if (this.external) {
             return null;
         } else {
@@ -68,7 +62,7 @@ public class FunctionDefinition extends Expression {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -76,7 +70,7 @@ public class FunctionDefinition extends Expression {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FunctionDefinition that = (FunctionDefinition) o;
+        FunctionDefinition<?, ?> that = (FunctionDefinition<?, ?>) o;
         return external == that.external && Objects.equals(formalParameters, that.formalParameters) && Objects.equals(returnTypeExpression, that.returnTypeExpression) && Objects.equals(body, that.body);
     }
 

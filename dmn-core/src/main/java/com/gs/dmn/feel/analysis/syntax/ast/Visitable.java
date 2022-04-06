@@ -12,8 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
-import com.gs.dmn.runtime.DMNContext;
-
-public interface Visitable {
-    Object accept(Visitor visitor, DMNContext context);
+public interface Visitable<T, C> {
+    Object accept(Visitor<T, C> visitor, C context);
 }

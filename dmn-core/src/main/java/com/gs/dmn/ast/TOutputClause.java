@@ -13,7 +13,6 @@
 package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.runtime.DMNContext;
 
 @JsonPropertyOrder({
         "id",
@@ -24,25 +23,25 @@ import com.gs.dmn.runtime.DMNContext;
         "defaultOutputEntry",
         "extensionElements"
 })
-public class TOutputClause extends TDMNElement implements Visitable {
-    private TUnaryTests outputValues;
-    private TLiteralExpression defaultOutputEntry;
+public class TOutputClause<C> extends TDMNElement<C> implements Visitable<C> {
+    private TUnaryTests<C> outputValues;
+    private TLiteralExpression<C> defaultOutputEntry;
     private String name;
     private String typeRef;
 
-    public TUnaryTests getOutputValues() {
+    public TUnaryTests<C> getOutputValues() {
         return outputValues;
     }
 
-    public void setOutputValues(TUnaryTests value) {
+    public void setOutputValues(TUnaryTests<C> value) {
         this.outputValues = value;
     }
 
-    public TLiteralExpression getDefaultOutputEntry() {
+    public TLiteralExpression<C> getDefaultOutputEntry() {
         return defaultOutputEntry;
     }
 
-    public void setDefaultOutputEntry(TLiteralExpression value) {
+    public void setDefaultOutputEntry(TLiteralExpression<C> value) {
         this.defaultOutputEntry = value;
     }
 
@@ -63,7 +62,7 @@ public class TOutputClause extends TDMNElement implements Visitable {
     }
 
     @Override
-    public Object accept(Visitor visitor, DMNContext context) {
+    public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.transformation.native_;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.native_.expression.NativeExpressionFactory;
 import com.gs.dmn.transformation.native_.statement.NativeStatementFactory;

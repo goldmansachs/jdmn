@@ -12,11 +12,13 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.NopErrorHandler;
 
 public class CloneVisitorTest extends BaseVisitorTest {
     @Override
-    protected Visitor getVisitor() {
-        return new CloneVisitor(NopErrorHandler.INSTANCE);
+    protected Visitor<Type, DMNContext> getVisitor() {
+        return new CloneVisitor<>(NopErrorHandler.INSTANCE);
     }
 }
