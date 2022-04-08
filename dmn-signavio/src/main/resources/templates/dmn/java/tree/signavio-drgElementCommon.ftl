@@ -226,7 +226,7 @@
     <#list expression.rule>
         <#items as rule>
     @${transformer.ruleAnnotationClassName()}(index = ${rule_index}, annotation = "${transformer.annotationEscapedText(rule)}")
-    public ${transformer.abstractRuleOutputClassName()} rule${rule_index}(${transformer.drgElementSignatureExtra(transformer.ruleSignature(drgElement))}) {
+    public ${transformer.abstractRuleOutputClassName()} rule${rule_index}(${transformer.drgElementSignatureExtraCache(transformer.drgElementSignatureExtra(transformer.ruleSignature(drgElement)))}) {
         // Rule metadata
         ${transformer.drgRuleMetadataClassName()} ${transformer.drgRuleMetadataFieldName()} = new ${transformer.drgRuleMetadataClassName()}(${rule_index}, "${transformer.annotationEscapedText(rule)}");
 
@@ -266,18 +266,18 @@
         <#items as rule>
         <#if modelRepository.isFirstSingleHit(expression.hitPolicy) && modelRepository.atLeastTwoRules(expression)>
         <#if rule?is_first>
-        ${transformer.abstractRuleOutputClassName()} tempRuleOutput_ = rule${rule_index}(${transformer.drgElementArgumentListExtra(transformer.ruleArgumentList(drgElement))});
+        ${transformer.abstractRuleOutputClassName()} tempRuleOutput_ = rule${rule_index}(${transformer.drgElementArgumentListExtraCache(transformer.drgElementArgumentListExtra(transformer.ruleArgumentList(drgElement)))});
         ruleOutputList_.add(tempRuleOutput_);
         boolean matched_ = tempRuleOutput_.isMatched();
         <#else >
         if (!matched_) {
-            tempRuleOutput_ = rule${rule_index}(${transformer.drgElementArgumentListExtra(transformer.ruleArgumentList(drgElement))});
+            tempRuleOutput_ = rule${rule_index}(${transformer.drgElementArgumentListExtraCache(transformer.drgElementArgumentListExtra(transformer.ruleArgumentList(drgElement)))});
             ruleOutputList_.add(tempRuleOutput_);
             matched_ = tempRuleOutput_.isMatched();
         }
         </#if>
         <#else >
-        ruleOutputList_.add(rule${rule_index}(${transformer.drgElementArgumentListExtra(transformer.ruleArgumentList(drgElement))}));
+        ruleOutputList_.add(rule${rule_index}(${transformer.drgElementArgumentListExtraCache(transformer.drgElementArgumentListExtra(transformer.ruleArgumentList(drgElement)))}));
         </#if>
         </#items>
     </#list>

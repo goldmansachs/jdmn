@@ -72,8 +72,8 @@ public class DatetimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavio
     protected List<java.math.BigDecimal> evaluate(javax.xml.datatype.XMLGregorianCalendar datetime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        ruleOutputList_.add(rule0(datetime, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule1(datetime, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule0(datetime, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule1(datetime, annotationSet_, eventListener_, externalExecutor_, cache_));
 
         // Return results based on hit policy
         List<java.math.BigDecimal> output_;
@@ -92,7 +92,7 @@ public class DatetimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavio
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "string(\"D6R1\")")
-    public com.gs.dmn.runtime.RuleOutput rule0(javax.xml.datatype.XMLGregorianCalendar datetime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(javax.xml.datatype.XMLGregorianCalendar datetime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "string(\"D6R1\")");
 
@@ -122,7 +122,7 @@ public class DatetimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavio
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "string(\"D6R2\")")
-    public com.gs.dmn.runtime.RuleOutput rule1(javax.xml.datatype.XMLGregorianCalendar datetime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(javax.xml.datatype.XMLGregorianCalendar datetime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "string(\"D6R2\")");
 

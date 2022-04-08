@@ -72,16 +72,16 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
     protected List<String> evaluate(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        ruleOutputList_.add(rule0(inputValue, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule1(inputValue, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule2(inputValue, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule3(inputValue, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule4(inputValue, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule5(inputValue, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule6(inputValue, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule7(inputValue, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule8(inputValue, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule9(inputValue, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule0(inputValue, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule1(inputValue, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule2(inputValue, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule3(inputValue, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule4(inputValue, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule5(inputValue, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule6(inputValue, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule7(inputValue, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule8(inputValue, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule9(inputValue, annotationSet_, eventListener_, externalExecutor_, cache_));
 
         // Return results based on hit policy
         List<String> output_;
@@ -100,7 +100,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "string(\"Message1\")")
-    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "string(\"Message1\")");
 
@@ -130,7 +130,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "string(\"Message2\")")
-    public com.gs.dmn.runtime.RuleOutput rule1(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "string(\"Message2\")");
 
@@ -160,7 +160,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "string(\"Message3\")")
-    public com.gs.dmn.runtime.RuleOutput rule2(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule2(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "string(\"Message3\")");
 
@@ -190,7 +190,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "string(\"Message4\")")
-    public com.gs.dmn.runtime.RuleOutput rule3(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule3(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "string(\"Message4\")");
 
@@ -220,7 +220,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "string(\"Message5\")")
-    public com.gs.dmn.runtime.RuleOutput rule4(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule4(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "string(\"Message5\")");
 
@@ -250,7 +250,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 5, annotation = "string(\"Message6\")")
-    public com.gs.dmn.runtime.RuleOutput rule5(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule5(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(5, "string(\"Message6\")");
 
@@ -280,7 +280,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 6, annotation = "string(\"Message7\")")
-    public com.gs.dmn.runtime.RuleOutput rule6(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule6(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(6, "string(\"Message7\")");
 
@@ -310,7 +310,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 7, annotation = "string(\"Message8\")")
-    public com.gs.dmn.runtime.RuleOutput rule7(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule7(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(7, "string(\"Message8\")");
 
@@ -340,7 +340,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 8, annotation = "string(\"Message9\")")
-    public com.gs.dmn.runtime.RuleOutput rule8(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule8(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(8, "string(\"Message9\")");
 
@@ -370,7 +370,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 9, annotation = "string(\"Message10\")")
-    public com.gs.dmn.runtime.RuleOutput rule9(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule9(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(9, "string(\"Message10\")");
 

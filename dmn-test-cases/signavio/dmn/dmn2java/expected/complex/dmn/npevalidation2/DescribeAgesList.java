@@ -72,12 +72,12 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
     protected List<String> evaluate(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        ruleOutputList_.add(rule0(ages, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule1(ages, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule2(ages, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule3(ages, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule4(ages, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule5(ages, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule0(ages, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule1(ages, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule2(ages, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule3(ages, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule4(ages, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule5(ages, annotationSet_, eventListener_, externalExecutor_, cache_));
 
         // Return results based on hit policy
         List<String> output_;
@@ -96,7 +96,7 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule0(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
 
@@ -126,7 +126,7 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule1(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
 
@@ -156,7 +156,7 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule2(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule2(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "\"\"");
 
@@ -186,7 +186,7 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule3(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule3(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "\"\"");
 
@@ -216,7 +216,7 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule4(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule4(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "\"\"");
 
@@ -246,7 +246,7 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 5, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule5(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule5(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(5, "\"\"");
 
