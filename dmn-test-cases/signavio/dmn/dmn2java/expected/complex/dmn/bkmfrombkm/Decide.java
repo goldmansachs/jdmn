@@ -88,7 +88,7 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
 
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        ruleOutputList_.add(rule0(pick, sum, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule0(pick, sum, annotationSet_, eventListener_, externalExecutor_, cache_));
 
         // Return results based on hit policy
         String output_;
@@ -104,7 +104,7 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "string(\"D9R1\")")
-    public com.gs.dmn.runtime.RuleOutput rule0(String pick, java.math.BigDecimal sum, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(String pick, java.math.BigDecimal sum, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "string(\"D9R1\")");
 

@@ -72,16 +72,16 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
     protected List<String> evaluate(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        ruleOutputList_.add(rule0(date, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule1(date, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule2(date, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule3(date, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule4(date, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule5(date, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule6(date, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule7(date, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule8(date, annotationSet_, eventListener_, externalExecutor_));
-        ruleOutputList_.add(rule9(date, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule0(date, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule1(date, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule2(date, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule3(date, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule4(date, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule5(date, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule6(date, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule7(date, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule8(date, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule9(date, annotationSet_, eventListener_, externalExecutor_, cache_));
 
         // Return results based on hit policy
         List<String> output_;
@@ -100,7 +100,7 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "string(\"D1R1\")")
-    public com.gs.dmn.runtime.RuleOutput rule0(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "string(\"D1R1\")");
 
@@ -130,7 +130,7 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "string(\"D1R2\")")
-    public com.gs.dmn.runtime.RuleOutput rule1(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "string(\"D1R2\")");
 
@@ -160,7 +160,7 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "string(\"D1R3\")")
-    public com.gs.dmn.runtime.RuleOutput rule2(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule2(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "string(\"D1R3\")");
 
@@ -190,7 +190,7 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "string(\"D1R4\")")
-    public com.gs.dmn.runtime.RuleOutput rule3(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule3(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "string(\"D1R4\")");
 
@@ -220,7 +220,7 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "string(\"D1R5\")")
-    public com.gs.dmn.runtime.RuleOutput rule4(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule4(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "string(\"D1R5\")");
 
@@ -250,7 +250,7 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 5, annotation = "string(\"D1R6\")")
-    public com.gs.dmn.runtime.RuleOutput rule5(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule5(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(5, "string(\"D1R6\")");
 
@@ -280,7 +280,7 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 6, annotation = "string(\"D1R7\")")
-    public com.gs.dmn.runtime.RuleOutput rule6(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule6(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(6, "string(\"D1R7\")");
 
@@ -310,7 +310,7 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 7, annotation = "string(\"D1R8\")")
-    public com.gs.dmn.runtime.RuleOutput rule7(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule7(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(7, "string(\"D1R8\")");
 
@@ -340,7 +340,7 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 8, annotation = "string(\"D1R9\")")
-    public com.gs.dmn.runtime.RuleOutput rule8(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule8(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(8, "string(\"D1R9\")");
 
@@ -370,7 +370,7 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 9, annotation = "string(\"D1R10\")")
-    public com.gs.dmn.runtime.RuleOutput rule9(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public com.gs.dmn.runtime.RuleOutput rule9(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(9, "string(\"D1R10\")");
 
