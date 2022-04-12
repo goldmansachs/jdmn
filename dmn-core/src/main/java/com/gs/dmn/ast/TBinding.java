@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "parameter",
         "expression"
 })
-public class TBinding<C> implements Visitable<C> {
+public class TBinding<C> extends DMNBaseElement implements Visitable<C> {
     private TInformationItem<C> parameter;
     private TExpression<C> expression;
 

@@ -62,7 +62,8 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
     private void compareJsonFile(File expectedOutputFile, File actualOutputFile) throws Exception {
         String expectedContent = FileUtils.readFileToString(expectedOutputFile, "UTF-8");
         String actualContent = FileUtils.readFileToString(actualOutputFile, "UTF-8");
-        JSONAssert.assertEquals(expectedContent, actualContent, JSONCompareMode.STRICT);
+        String message = String.format("%s vs %s", expectedOutputFile.getPath(), actualOutputFile.getPath());
+        JSONAssert.assertEquals(message, expectedContent, actualContent, JSONCompareMode.STRICT);
     }
 
     private void compareXmlFile(File expectedOutputFile, File actualOutputFile) {
@@ -77,7 +78,8 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
                 LOGGER.error(d.toString());
             }
         }
-        assertFalse(String.format("%s vs %s", expectedOutputFile.getPath(), actualOutputFile.getPath()), diff.hasDifferences());
+        String message = String.format("%s vs %s", expectedOutputFile.getPath(), actualOutputFile.getPath());
+        assertFalse(message, diff.hasDifferences());
     }
 
     private boolean isJsonFile(File file) {

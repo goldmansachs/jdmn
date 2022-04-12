@@ -35,12 +35,12 @@ import java.util.Map;
         @JsonSubTypes.Type(name = "namedElement", value = TNamedElement.class),
         @JsonSubTypes.Type(name = "expression", value = TExpression.class),
 })
-public abstract class TDMNElement<C>  {
+public abstract class TDMNElement<C> extends DMNBaseElement {
+    private final Map<QName, String> otherAttributes = new HashMap<>();
     private String description;
     private ExtensionElements extensionElements;
     private String id;
     private String label;
-    private final Map<QName, String> otherAttributes = new HashMap<>();
 
     public String getDescription() {
         return description;
@@ -78,7 +78,7 @@ public abstract class TDMNElement<C>  {
         return otherAttributes;
     }
 
-    public static class ExtensionElements {
+    public static class ExtensionElements extends DMNBaseElement {
         private List<Object> any;
 
         public List<Object> getAny() {

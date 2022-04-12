@@ -14,6 +14,7 @@ package com.gs.dmn.ast.dmndi;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.gs.dmn.ast.DMNBaseElement;
 
 import javax.xml.namespace.QName;
 import java.util.ArrayList;
@@ -27,10 +28,10 @@ import java.util.Map;
         @JsonSubTypes.Type(name = "shape", value = Shape.class),
         @JsonSubTypes.Type(name = "edge", value = Edge.class),
 })
-public abstract class DiagramElement<C> {
+public abstract class DiagramElement<C> extends DMNBaseElement {
     private Extension extension;
     private Style<C> style;
-    private Object sharedStyle;
+    private Style sharedStyle;
     private String id;
     private final Map<QName, String> otherAttributes = new HashMap<>();
 
@@ -50,11 +51,11 @@ public abstract class DiagramElement<C> {
         this.style = value;
     }
 
-    public Object getSharedStyle() {
+    public Style getSharedStyle() {
         return sharedStyle;
     }
 
-    public void setSharedStyle(Object value) {
+    public void setSharedStyle(Style value) {
         this.sharedStyle = value;
     }
 
@@ -70,7 +71,7 @@ public abstract class DiagramElement<C> {
         return otherAttributes;
     }
 
-    public static class Extension {
+    public static class Extension extends DMNBaseElement {
         private List<Object> any;
 
         public List<Object> getAny() {

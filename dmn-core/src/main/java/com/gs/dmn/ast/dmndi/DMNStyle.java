@@ -121,7 +121,7 @@ public class DMNStyle<C> extends Style<C> implements Visitable<C> {
         return labelHorizontalAlignment;
     }
 
-    public void setLabelHorizontalAlignement(AlignmentKind value) {
+    public void setLabelHorizontalAlignment(AlignmentKind value) {
         this.labelHorizontalAlignment = value;
     }
 

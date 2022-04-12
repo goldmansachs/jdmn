@@ -13,17 +13,22 @@
 package com.gs.dmn.ast.dmndi;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.Visitable;
 import com.gs.dmn.ast.Visitor;
+import com.gs.dmn.context.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @JsonPropertyOrder({
         "dmnDiagram",
         "dmnStyle"
 })
-public class DMNDI<C> implements Visitable<C> {
+public class DMNDI<C> extends DMNBaseElement implements Visitable<C> {
     private List<DMNDiagram<C>> dmnDiagram;
     private List<DMNStyle<C>> dmnStyle;
 
@@ -44,5 +49,29 @@ public class DMNDI<C> implements Visitable<C> {
     @Override
     public Object accept(Visitor<C> visitor, C context) {
         return visitor.visit(this, context);
+    }
+
+    public void normalize() {
+        if (dmnStyle == null || dmnDiagram == null) {
+            return;
+        }
+        Map<String, DMNStyle> styleById = dmnStyle.stream().collect(Collectors.toMap(DMNStyle::getId, Function.identity()));
+        for (DMNDiagram diagram : dmnDiagram) {
+            List<? extends DiagramElement<DMNContext>> dmnDiagramElement = diagram.getDMNDiagramElement();
+            for (DiagramElement element : dmnDiagramElement) {
+                replaceSharedStyleIfStubbed(element, styleById);
+                if (element instanceof DMNShape) {
+                    DMNShape dmnShape = (DMNShape) element;
+                    replaceSharedStyleIfStubbed(dmnShape.getDMNLabel(), styleById);
+                }
+            }
+        }
+    }
+
+    private void replaceSharedStyleIfStubbed(DiagramElement element, Map<String, DMNStyle> styleById) {
+        if (element.getSharedStyle() instanceof Style.IDREFStubStyle) {
+            DMNStyle locatedStyle = styleById.get(element.getSharedStyle().getId());
+            element.setSharedStyle(locatedStyle);
+        }
     }
 }

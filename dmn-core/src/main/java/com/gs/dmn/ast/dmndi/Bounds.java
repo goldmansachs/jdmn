@@ -13,6 +13,7 @@
 package com.gs.dmn.ast.dmndi;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.Visitable;
 import com.gs.dmn.ast.Visitor;
 
@@ -22,7 +23,7 @@ import com.gs.dmn.ast.Visitor;
         "width",
         "height"
 })
-public class Bounds<C> implements Visitable<C> {
+public class Bounds<C> extends DMNBaseElement implements Visitable<C> {
     private double x;
     private double y;
     private double width;

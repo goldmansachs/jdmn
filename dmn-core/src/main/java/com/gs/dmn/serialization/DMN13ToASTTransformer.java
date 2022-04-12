@@ -236,7 +236,7 @@ public class DMN13ToASTTransformer<C> extends SimpleDMNDialectTransformer<org.om
 
     private Collection transformList(List elements) {
         List result = new ArrayList();
-        for(Object element: elements) {
+        for (Object element : elements) {
             if (element instanceof JAXBElement) {
                 result.add(transformJAXBElement((JAXBElement) element));
             } else if (element instanceof org.omg.spec.dmn._20191111.model.TDMNElement) {
@@ -267,7 +267,7 @@ public class DMN13ToASTTransformer<C> extends SimpleDMNDialectTransformer<org.om
 
     private Map<QName, String> transform(Map<QName, String> otherAttributes) {
         Map<QName, String> result = new LinkedHashMap<>();
-        for(Map.Entry<QName, String> entry: otherAttributes.entrySet()) {
+        for (Map.Entry<QName, String> entry : otherAttributes.entrySet()) {
             QName key = entry.getKey();
             result.put(transformQName(key), entry.getValue());
         }
@@ -287,7 +287,7 @@ public class DMN13ToASTTransformer<C> extends SimpleDMNDialectTransformer<org.om
 
     private List<Object> transformAny(List<Object> any) {
         List<Object> extensions = new ArrayList<>();
-        for(Object extension: any) {
+        for (Object extension : any) {
             if (extension instanceof JAXBElement) {
                 extensions.add(transformJAXBElement((JAXBElement) extension));
             } else if (extension instanceof Element) {
@@ -810,8 +810,8 @@ public class DMN13ToASTTransformer<C> extends SimpleDMNDialectTransformer<org.om
         return result;
     }
 
-    private String transformTypeRef(String element) {
-        return element;
+    private QName transformTypeRef(String element) {
+        return element == null ? null : QName.valueOf(element);
     }
 
     private String transformLanguage(String expressionLanguage) {
@@ -897,7 +897,7 @@ public class DMN13ToASTTransformer<C> extends SimpleDMNDialectTransformer<org.om
         return result;
     }
 
-    private DMNEdge<C>transform(org.omg.spec.dmn._20191111.model.DMNEdge element) {
+    private DMNEdge<C> transform(org.omg.spec.dmn._20191111.model.DMNEdge element) {
         if (element == null) {
             return null;
         }
@@ -935,7 +935,7 @@ public class DMN13ToASTTransformer<C> extends SimpleDMNDialectTransformer<org.om
         result.setFontBold(element.isFontBold());
         result.setFontUnderline(element.isFontUnderline());
         result.setFontStrikeThrough(element.isFontStrikeThrough());
-        result.setLabelHorizontalAlignement(transform(element.getLabelHorizontalAlignement()));
+        result.setLabelHorizontalAlignment(transform(element.getLabelHorizontalAlignement()));
         result.setLabelVerticalAlignment(transform(element.getLabelVerticalAlignment()));
         return result;
     }
@@ -1029,7 +1029,7 @@ public class DMN13ToASTTransformer<C> extends SimpleDMNDialectTransformer<org.om
     private void addDiagramElementProperties(org.omg.spec.dmn._20191111.model.DiagramElement element, DiagramElement<C> result) {
         result.setExtension(transform(element.getExtension()));
         result.setStyle((Style<C>) transformJAXBElement(element.getStyle()));
-        result.setSharedStyle(transformSharedStyle(element.getSharedStyle()));
+        result.setSharedStyle((Style) transformSharedStyle(element.getSharedStyle()));
         result.setId(element.getId());
         result.getOtherAttributes().putAll(transform(element.getOtherAttributes()));
     }

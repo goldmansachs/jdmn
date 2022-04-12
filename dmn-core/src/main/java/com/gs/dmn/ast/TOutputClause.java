@@ -14,6 +14,8 @@ package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import javax.xml.namespace.QName;
+
 @JsonPropertyOrder({
         "id",
         "label",
@@ -27,7 +29,7 @@ public class TOutputClause<C> extends TDMNElement<C> implements Visitable<C> {
     private TUnaryTests<C> outputValues;
     private TLiteralExpression<C> defaultOutputEntry;
     private String name;
-    private String typeRef;
+    private QName typeRef;
 
     public TUnaryTests<C> getOutputValues() {
         return outputValues;
@@ -53,11 +55,11 @@ public class TOutputClause<C> extends TDMNElement<C> implements Visitable<C> {
         this.name = value;
     }
 
-    public String getTypeRef() {
+    public QName getTypeRef() {
         return typeRef;
     }
 
-    public void setTypeRef(String value) {
+    public void setTypeRef(QName value) {
         this.typeRef = value;
     }
 

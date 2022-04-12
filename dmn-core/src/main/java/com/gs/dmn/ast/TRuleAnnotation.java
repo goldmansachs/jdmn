@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
         "text"
 })
-public class TRuleAnnotation<C> implements Visitable<C> {
+public class TRuleAnnotation<C> extends DMNBaseElement implements Visitable<C> {
     private String text;
 
     public String getText() {

@@ -14,6 +14,7 @@ package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,18 +33,18 @@ import java.util.List;
         "extensionElements"
 })
 public class TItemDefinition<C> extends TNamedElement<C> implements Visitable<C> {
-    private String typeRef;
+    private QName typeRef;
     private TUnaryTests<C> allowedValues;
     private List<TItemDefinition<C>> itemComponent;
     private TFunctionItem<C> functionItem;
     private String typeLanguage;
     private Boolean isCollection;
 
-    public String getTypeRef() {
+    public QName getTypeRef() {
         return typeRef;
     }
 
-    public void setTypeRef(String value) {
+    public void setTypeRef(QName value) {
         this.typeRef = value;
     }
 

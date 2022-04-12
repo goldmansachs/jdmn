@@ -15,7 +15,6 @@ package com.gs.dmn.ast;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.ast.dmndi.DMNDI;
-import com.gs.dmn.serialization.DMNVersion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,11 +105,7 @@ public class TDefinitions<C> extends TNamedElement<C> implements Visitable<C> {
     }
 
     public String getExpressionLanguage() {
-        if (expressionLanguage == null) {
-            return DMNVersion.LATEST.getFeelNamespace();
-        } else {
-            return expressionLanguage;
-        }
+        return expressionLanguage;
     }
 
     public void setExpressionLanguage(String value) {
@@ -118,11 +113,7 @@ public class TDefinitions<C> extends TNamedElement<C> implements Visitable<C> {
     }
 
     public String getTypeLanguage() {
-        if (typeLanguage == null) {
-            return DMNVersion.LATEST.getFeelNamespace();
-        } else {
-            return typeLanguage;
-        }
+        return typeLanguage;
     }
 
     public void setTypeLanguage(String value) {

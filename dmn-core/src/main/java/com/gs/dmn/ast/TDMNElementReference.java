@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.ast;
 
-public class TDMNElementReference<C> implements Visitable<C> {
+public class TDMNElementReference<C> extends DMNBaseElement implements Visitable<C> {
     private String href;
 
     public String getHref() {

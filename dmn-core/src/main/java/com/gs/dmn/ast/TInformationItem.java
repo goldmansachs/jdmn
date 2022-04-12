@@ -14,6 +14,8 @@ package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import javax.xml.namespace.QName;
+
 @JsonPropertyOrder({
         "name",
         "id",
@@ -24,13 +26,13 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "extensionElements"
 })
 public class TInformationItem<C> extends TNamedElement<C> implements Visitable<C> {
-    private String typeRef;
+    private QName typeRef;
 
-    public String getTypeRef() {
+    public QName getTypeRef() {
         return typeRef;
     }
 
-    public void setTypeRef(String value) {
+    public void setTypeRef(QName value) {
         this.typeRef = value;
     }
 
