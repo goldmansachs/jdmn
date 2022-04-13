@@ -38,6 +38,7 @@ public class XStreamMarshaller implements DMNMarshaller {
     private final List<DMNExtensionRegister> extensionRegisters = new ArrayList<>();
 
     private final com.gs.dmn.serialization.xstream.v1_1.XStreamMarshaller xStream11;
+    private final com.gs.dmn.serialization.xstream.v1_2.XStreamMarshaller xStream12;
 
     public XStreamMarshaller() {
         this(new ArrayList<>());
@@ -47,6 +48,7 @@ public class XStreamMarshaller implements DMNMarshaller {
         this.extensionRegisters.addAll(extensionRegisters);
 
         this.xStream11 = new com.gs.dmn.serialization.xstream.v1_1.XStreamMarshaller(extensionRegisters);
+        this.xStream12 = new com.gs.dmn.serialization.xstream.v1_2.XStreamMarshaller(extensionRegisters);
     }
 
     private static DMNVersion inferDMNVersion(Reader from) {
@@ -99,7 +101,9 @@ public class XStreamMarshaller implements DMNMarshaller {
             DMNVersion inferDMNVersion = inferDMNVersion(firstStringReader);
 
             TDefinitions<DMNContext> result = null;
-            if (DMNVersion.DMN_11.equals(inferDMNVersion)) {
+            if (DMNVersion.DMN_12.equals(inferDMNVersion)) {
+                result = xStream12.unmarshal(secondStringReader);
+            } else if (DMNVersion.DMN_11.equals(inferDMNVersion)) {
                 result = xStream11.unmarshal(secondStringReader);
             }
             return result;
@@ -124,7 +128,9 @@ public class XStreamMarshaller implements DMNMarshaller {
     public String marshal(Object o) {
         if (o instanceof DMNBaseElement) {
             DMNVersion dmnVersion = inferDMNVersion((DMNBaseElement) o);
-            if (dmnVersion == DMNVersion.DMN_11) {
+            if (dmnVersion == DMNVersion.DMN_12) {
+                return xStream12.marshal(o);
+            } else if (dmnVersion == DMNVersion.DMN_11) {
                 return xStream11.marshal(o);
             }
         } else {
@@ -137,7 +143,9 @@ public class XStreamMarshaller implements DMNMarshaller {
     public void marshal(Object o, Writer out) {
         if (o instanceof DMNBaseElement) {
             DMNVersion dmnVersion = inferDMNVersion((DMNBaseElement) o);
-            if (dmnVersion == DMNVersion.DMN_11) {
+            if (dmnVersion == DMNVersion.DMN_12) {
+                xStream12.marshal(o, out);
+            } else if (dmnVersion == DMNVersion.DMN_11) {
                 xStream11.marshal(o, out);
             }
         } else {
