@@ -17,6 +17,7 @@ import com.gs.dmn.ast.dmndi.*;
 import com.gs.dmn.serialization.*;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.serialization.xstream.DMNXStream;
+import com.gs.dmn.serialization.xstream.SimpleDMNMarshaller;
 import com.gs.dmn.serialization.xstream.XStreamUtils;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.AbstractPullReader;
@@ -39,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class XStreamMarshaller implements DMNMarshaller {
+public class XStreamMarshaller implements SimpleDMNMarshaller {
     private static final Logger LOGGER = LoggerFactory.getLogger(XStreamMarshaller.class);
 
     private static final StaxDriver STAX_DRIVER;
