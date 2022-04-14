@@ -17,6 +17,7 @@ import com.thoughtworks.xstream.io.naming.NameCoder;
 import com.thoughtworks.xstream.io.xml.QNameMap;
 import com.thoughtworks.xstream.io.xml.StaxWriter;
 
+import javax.xml.XMLConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
@@ -36,10 +37,18 @@ public class CustomStaxWriter extends StaxWriter implements AutoCloseable {
     }
 
     public void writeNamespace(String prefix, String uri) throws XMLStreamException {
-        // Avoid duplicates
-        if (!prefix.equals(out.getPrefix(uri))) {
-            out.writeNamespace(prefix, uri);
+        // Avoid default ns
+        if (prefix == null
+                || prefix.equals(XMLConstants.DEFAULT_NS_PREFIX)
+                || prefix.equals(XMLConstants.XMLNS_ATTRIBUTE)) {
+            return;
         }
+        // Avoid duplicates
+        if (prefix.equals(out.getPrefix(uri))) {
+            return;
+        }
+
+        out.writeNamespace(prefix, uri);
     }
 
     public void setDefaultNamespace(String uri) throws XMLStreamException {

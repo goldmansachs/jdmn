@@ -39,6 +39,8 @@ public class XStreamMarshaller implements DMNMarshaller {
 
     private final com.gs.dmn.serialization.xstream.v1_1.XStreamMarshaller xStream11;
     private final com.gs.dmn.serialization.xstream.v1_2.XStreamMarshaller xStream12;
+    private final com.gs.dmn.serialization.xstream.v1_3.XStreamMarshaller xStream13;
+    private final com.gs.dmn.serialization.xstream.v1_3.XStreamMarshaller xStreamLatest;
 
     public XStreamMarshaller() {
         this(new ArrayList<>());
@@ -49,6 +51,8 @@ public class XStreamMarshaller implements DMNMarshaller {
 
         this.xStream11 = new com.gs.dmn.serialization.xstream.v1_1.XStreamMarshaller(extensionRegisters);
         this.xStream12 = new com.gs.dmn.serialization.xstream.v1_2.XStreamMarshaller(extensionRegisters);
+        this.xStream13 = new com.gs.dmn.serialization.xstream.v1_3.XStreamMarshaller(extensionRegisters);
+        this.xStreamLatest = this.xStream13;
     }
 
     private static DMNVersion inferDMNVersion(Reader from) {
@@ -56,15 +60,10 @@ public class XStreamMarshaller implements DMNMarshaller {
         try {
             XMLStreamReader xmlReader = STAX_DRIVER.getInputFactory().createXMLStreamReader(from);
             CustomStaxReader customStaxReader = new CustomStaxReader(new QNameMap(), xmlReader);
-            Map<String, String> nsContext = customStaxReader.getNsContext();
-            if (nsContext.values().stream().anyMatch(s -> DMNVersion.DMN_12.getNamespace().equals(s))) {
-                result = DMNVersion.DMN_12;
-            } else if (nsContext.values().stream().anyMatch(s -> DMNVersion.DMN_11.getNamespace().equals(s))) {
-                result = DMNVersion.DMN_11;
-            }
-
+            result = inferDMNVersion(customStaxReader.getNsContext());
             xmlReader.close();
             customStaxReader.close();
+
             if (result == null) {
                 throw new DMNRuntimeException("Cannot infer version of DMN");
             }
@@ -79,7 +78,9 @@ public class XStreamMarshaller implements DMNMarshaller {
         DMNVersion result = null;
         try {
             Map<String, String> nsContext = from.getNsContext();
-            if (nsContext.values().stream().anyMatch(s -> DMNVersion.DMN_12.getNamespace().equals(s))) {
+            if (nsContext.values().stream().anyMatch(s -> DMNVersion.DMN_13.getNamespace().equals(s))) {
+                result = DMNVersion.DMN_13;
+            } else if (nsContext.values().stream().anyMatch(s -> DMNVersion.DMN_12.getNamespace().equals(s))) {
                 result = DMNVersion.DMN_12;
             } else if (nsContext.values().stream().anyMatch(s -> DMNVersion.DMN_11.getNamespace().equals(s))) {
                 result = DMNVersion.DMN_11;
@@ -95,13 +96,27 @@ public class XStreamMarshaller implements DMNMarshaller {
         return result;
     }
 
+    private static DMNVersion inferDMNVersion(Map<String, String> nsContext) {
+        DMNVersion result = null;
+        if (nsContext.values().stream().anyMatch(s -> DMNVersion.DMN_13.getNamespace().equals(s))) {
+            result = DMNVersion.DMN_13;
+        } else if (nsContext.values().stream().anyMatch(s -> DMNVersion.DMN_12.getNamespace().equals(s))) {
+            result = DMNVersion.DMN_12;
+        } else if (nsContext.values().stream().anyMatch(s -> DMNVersion.DMN_11.getNamespace().equals(s))) {
+            result = DMNVersion.DMN_11;
+        }
+        return result;
+    }
+
     @Override
     public TDefinitions<DMNContext> unmarshal(String xml) {
         try (Reader firstStringReader = new StringReader(xml); Reader secondStringReader = new StringReader(xml)) {
             DMNVersion inferDMNVersion = inferDMNVersion(firstStringReader);
 
             TDefinitions<DMNContext> result = null;
-            if (DMNVersion.DMN_12.equals(inferDMNVersion)) {
+            if (DMNVersion.DMN_13.equals(inferDMNVersion)) {
+                result = xStream13.unmarshal(secondStringReader);
+            } else if (DMNVersion.DMN_12.equals(inferDMNVersion)) {
                 result = xStream12.unmarshal(secondStringReader);
             } else if (DMNVersion.DMN_11.equals(inferDMNVersion)) {
                 result = xStream11.unmarshal(secondStringReader);
@@ -128,7 +143,9 @@ public class XStreamMarshaller implements DMNMarshaller {
     public String marshal(Object o) {
         if (o instanceof DMNBaseElement) {
             DMNVersion dmnVersion = inferDMNVersion((DMNBaseElement) o);
-            if (dmnVersion == DMNVersion.DMN_12) {
+            if (dmnVersion == DMNVersion.DMN_13) {
+                return xStream13.marshal(o);
+            } else if (dmnVersion == DMNVersion.DMN_12) {
                 return xStream12.marshal(o);
             } else if (dmnVersion == DMNVersion.DMN_11) {
                 return xStream11.marshal(o);
@@ -143,7 +160,9 @@ public class XStreamMarshaller implements DMNMarshaller {
     public void marshal(Object o, Writer out) {
         if (o instanceof DMNBaseElement) {
             DMNVersion dmnVersion = inferDMNVersion((DMNBaseElement) o);
-            if (dmnVersion == DMNVersion.DMN_12) {
+            if (dmnVersion == DMNVersion.DMN_13) {
+                xStream13.marshal(o, out);
+            } else if (dmnVersion == DMNVersion.DMN_12) {
                 xStream12.marshal(o, out);
             } else if (dmnVersion == DMNVersion.DMN_11) {
                 xStream11.marshal(o, out);

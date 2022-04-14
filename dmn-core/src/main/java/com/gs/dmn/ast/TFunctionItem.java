@@ -14,6 +14,7 @@ package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ import java.util.List;
 })
 public class TFunctionItem<C> extends TDMNElement<C> implements Visitable<C> {
     private List<TInformationItem<C>> parameters;
-    private String outputTypeRef;
+    private QName outputTypeRef;
 
     public List<TInformationItem<C>> getParameters() {
         if (parameters == null) {
@@ -37,11 +38,11 @@ public class TFunctionItem<C> extends TDMNElement<C> implements Visitable<C> {
         return this.parameters;
     }
 
-    public String getOutputTypeRef() {
+    public QName getOutputTypeRef() {
         return outputTypeRef;
     }
 
-    public void setOutputTypeRef(String value) {
+    public void setOutputTypeRef(QName value) {
         this.outputTypeRef = value;
     }
 
