@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.serialization.extensions;
 
-import com.gs.dmn.serialization.DMNExtensionRegister;
+import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.QNameMap;
 

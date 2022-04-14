@@ -10,15 +10,21 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.serialization;
+package com.gs.dmn.serialization.xstream;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.QNameMap;
+import com.gs.dmn.serialization.DMNMarshaller;
 
-public interface DMNExtensionRegister {
-    void registerExtensionConverters(XStream xstream);
+import java.util.List;
 
-    default void beforeMarshal(Object o, QNameMap qNameMap) {
-        // do nothing.
+public final class DMNMarshallerFactory {
+    public static DMNMarshaller newDefaultMarshaller() {
+        return new XStreamMarshaller();
+    }
+
+    public static DMNMarshaller newMarshallerWithExtensions(List<DMNExtensionRegister> extensionElementRegisters) {
+        return new XStreamMarshaller(extensionElementRegisters);
+    }
+
+    private DMNMarshallerFactory() {
     }
 }

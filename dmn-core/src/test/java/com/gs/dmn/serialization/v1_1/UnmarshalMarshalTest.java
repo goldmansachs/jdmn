@@ -14,7 +14,7 @@ package com.gs.dmn.serialization.v1_1;
 
 import com.gs.dmn.serialization.AbstractUnmarshalMarshalTest;
 import com.gs.dmn.serialization.DMNMarshaller;
-import com.gs.dmn.serialization.DMNMarshallerFactory;
+import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.extensions.MyTestRegister;
 import org.junit.Ignore;

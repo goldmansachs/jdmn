@@ -10,12 +10,15 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.serialization;
+package com.gs.dmn.serialization.xstream;
 
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.serialization.CustomStaxReader;
+import com.gs.dmn.serialization.DMNMarshaller;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.io.xml.QNameMap;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import org.slf4j.Logger;
@@ -40,7 +43,6 @@ public class XStreamMarshaller implements DMNMarshaller {
     private final com.gs.dmn.serialization.xstream.v1_1.XStreamMarshaller xStream11;
     private final com.gs.dmn.serialization.xstream.v1_2.XStreamMarshaller xStream12;
     private final com.gs.dmn.serialization.xstream.v1_3.XStreamMarshaller xStream13;
-    private final com.gs.dmn.serialization.xstream.v1_3.XStreamMarshaller xStreamLatest;
 
     public XStreamMarshaller() {
         this(new ArrayList<>());
@@ -52,7 +54,6 @@ public class XStreamMarshaller implements DMNMarshaller {
         this.xStream11 = new com.gs.dmn.serialization.xstream.v1_1.XStreamMarshaller(extensionRegisters);
         this.xStream12 = new com.gs.dmn.serialization.xstream.v1_2.XStreamMarshaller(extensionRegisters);
         this.xStream13 = new com.gs.dmn.serialization.xstream.v1_3.XStreamMarshaller(extensionRegisters);
-        this.xStreamLatest = this.xStream13;
     }
 
     private static DMNVersion inferDMNVersion(Reader from) {
@@ -143,13 +144,7 @@ public class XStreamMarshaller implements DMNMarshaller {
     public String marshal(Object o) {
         if (o instanceof DMNBaseElement) {
             DMNVersion dmnVersion = inferDMNVersion((DMNBaseElement) o);
-            if (dmnVersion == DMNVersion.DMN_13) {
-                return xStream13.marshal(o);
-            } else if (dmnVersion == DMNVersion.DMN_12) {
-                return xStream12.marshal(o);
-            } else if (dmnVersion == DMNVersion.DMN_11) {
-                return xStream11.marshal(o);
-            }
+            return marshall(o, dmnVersion);
         } else {
             LOGGER.error("Error marshalling object {}", o);
         }
@@ -160,15 +155,31 @@ public class XStreamMarshaller implements DMNMarshaller {
     public void marshal(Object o, Writer out) {
         if (o instanceof DMNBaseElement) {
             DMNVersion dmnVersion = inferDMNVersion((DMNBaseElement) o);
-            if (dmnVersion == DMNVersion.DMN_13) {
-                xStream13.marshal(o, out);
-            } else if (dmnVersion == DMNVersion.DMN_12) {
-                xStream12.marshal(o, out);
-            } else if (dmnVersion == DMNVersion.DMN_11) {
-                xStream11.marshal(o, out);
-            }
+            marshall(o, out, dmnVersion);
         } else {
             LOGGER.error("Error marshalling object {}", o);
+        }
+    }
+
+    private String marshall(Object o, DMNVersion dmnVersion) {
+        if (dmnVersion == DMNVersion.DMN_13) {
+            return xStream13.marshal(o);
+        } else if (dmnVersion == DMNVersion.DMN_12) {
+            return xStream12.marshal(o);
+        } else if (dmnVersion == DMNVersion.DMN_11) {
+            return xStream11.marshal(o);
+        } else {
+            return null;
+        }
+    }
+
+    private void marshall(Object o, Writer out, DMNVersion dmnVersion) {
+        if (dmnVersion == DMNVersion.DMN_13) {
+            xStream13.marshal(o, out);
+        } else if (dmnVersion == DMNVersion.DMN_12) {
+            xStream12.marshal(o, out);
+        } else if (dmnVersion == DMNVersion.DMN_11) {
+            xStream11.marshal(o, out);
         }
     }
 }
