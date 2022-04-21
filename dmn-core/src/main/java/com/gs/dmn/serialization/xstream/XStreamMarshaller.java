@@ -25,10 +25,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamReader;
-import java.io.BufferedReader;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.Writer;
+import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -110,19 +108,10 @@ public class XStreamMarshaller implements DMNMarshaller {
     }
 
     @Override
-    public TDefinitions<DMNContext> unmarshal(String xml) {
-        try (Reader firstStringReader = new StringReader(xml); Reader secondStringReader = new StringReader(xml)) {
-            DMNVersion inferDMNVersion = inferDMNVersion(firstStringReader);
-
-            TDefinitions<DMNContext> result = null;
-            if (DMNVersion.DMN_13.equals(inferDMNVersion)) {
-                result = xStream13.unmarshal(secondStringReader);
-            } else if (DMNVersion.DMN_12.equals(inferDMNVersion)) {
-                result = xStream12.unmarshal(secondStringReader);
-            } else if (DMNVersion.DMN_11.equals(inferDMNVersion)) {
-                result = xStream11.unmarshal(secondStringReader);
-            }
-            return result;
+    public TDefinitions<DMNContext> unmarshal(String input) {
+        try (Reader firstStringReader = new StringReader(input); Reader secondStringReader = new StringReader(input)) {
+            DMNVersion dmnVersion = inferDMNVersion(firstStringReader);
+            return unmarshal(dmnVersion, secondStringReader);
         } catch (Exception e) {
             LOGGER.error("Error unmarshalling DMN model from reader.", e);
         }
@@ -130,14 +119,59 @@ public class XStreamMarshaller implements DMNMarshaller {
     }
 
     @Override
-    public TDefinitions<DMNContext> unmarshal(Reader isr) {
-        try (BufferedReader buffer = new BufferedReader(isr)) {
+    public TDefinitions<DMNContext> unmarshal(File input) {
+        try (Reader firstStringReader = new FileReader(input); Reader secondStringReader = new FileReader(input)) {
+            DMNVersion dmnVersion = inferDMNVersion(firstStringReader);
+            return unmarshal(dmnVersion, secondStringReader);
+        } catch (Exception e) {
+            LOGGER.error("Error unmarshalling DMN model from reader.", e);
+        }
+        return null;
+    }
+
+    @Override
+    public TDefinitions<DMNContext> unmarshal(URL input) {
+        try (Reader firstStringReader = new InputStreamReader(input.openStream()); Reader secondStringReader = new InputStreamReader(input.openStream())) {
+            DMNVersion dmnVersion = inferDMNVersion(firstStringReader);
+            return unmarshal(dmnVersion, secondStringReader);
+        } catch (Exception e) {
+            LOGGER.error("Error unmarshalling DMN model from reader.", e);
+        }
+        return null;
+    }
+
+    @Override
+    public TDefinitions<DMNContext> unmarshal(InputStream input) {
+        try (Reader firstStringReader = new InputStreamReader(input); Reader secondStringReader = new InputStreamReader(input)) {
+            DMNVersion dmnVersion = inferDMNVersion(firstStringReader);
+            return unmarshal(dmnVersion, secondStringReader);
+        } catch (Exception e) {
+            LOGGER.error("Error unmarshalling DMN model from reader.", e);
+        }
+        return null;
+    }
+
+    @Override
+    public TDefinitions<DMNContext> unmarshal(Reader input) {
+        try (BufferedReader buffer = new BufferedReader(input)) {
             String xml = buffer.lines().collect(Collectors.joining("\n"));
             return unmarshal(xml);
         } catch (Exception e) {
             LOGGER.error("Error unmarshalling DMN model from reader.", e);
         }
         return null;
+    }
+
+    private TDefinitions<DMNContext> unmarshal(DMNVersion inferDMNVersion, Reader secondStringReader) {
+        TDefinitions<DMNContext> result = null;
+        if (DMNVersion.DMN_13.equals(inferDMNVersion)) {
+            result = xStream13.unmarshal(secondStringReader);
+        } else if (DMNVersion.DMN_12.equals(inferDMNVersion)) {
+            result = xStream12.unmarshal(secondStringReader);
+        } else if (DMNVersion.DMN_11.equals(inferDMNVersion)) {
+            result = xStream11.unmarshal(secondStringReader);
+        }
+        return result;
     }
 
     @Override
@@ -152,10 +186,28 @@ public class XStreamMarshaller implements DMNMarshaller {
     }
 
     @Override
-    public void marshal(Object o, Writer out) {
+    public void marshal(Object o, File output) {
+        try (FileWriter fileWriter = new FileWriter(output)) {
+            marshal(o, fileWriter);
+        } catch (Exception e) {
+            LOGGER.error("Error marshalling object {}", o);
+        }
+    }
+
+    @Override
+    public void marshal(Object o, OutputStream output) {
+        try (Writer fileWriter = new OutputStreamWriter(output)) {
+            marshal(o, fileWriter);
+        } catch (Exception e) {
+            LOGGER.error("Error marshalling object {}", o);
+        }
+    }
+
+    @Override
+    public void marshal(Object o, Writer output) {
         if (o instanceof DMNBaseElement) {
             DMNVersion dmnVersion = inferDMNVersion((DMNBaseElement) o);
-            marshall(o, out, dmnVersion);
+            marshall(o, output, dmnVersion);
         } else {
             LOGGER.error("Error marshalling object {}", o);
         }

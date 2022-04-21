@@ -14,7 +14,9 @@ package com.gs.dmn.serialization.xstream.v1_1;
 
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
-import com.gs.dmn.serialization.*;
+import com.gs.dmn.serialization.CustomStaxReader;
+import com.gs.dmn.serialization.CustomStaxWriter;
+import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.serialization.xstream.DMNXStream;
 import com.gs.dmn.serialization.xstream.SimpleDMNMarshaller;
@@ -32,10 +34,8 @@ import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
+import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -83,15 +83,48 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
     }
 
     @Override
-    public TDefinitions<DMNContext> unmarshal(String xml) {
-        return unmarshal(new StringReader(xml));
+    public TDefinitions<DMNContext> unmarshal(String input) {
+        return unmarshal(new StringReader(input));
     }
 
     @Override
-    public TDefinitions<DMNContext> unmarshal(Reader isr) {
+    public TDefinitions<DMNContext> unmarshal(File input) {
         try {
             XStream xStream = newXStream();
-            return (TDefinitions<DMNContext>) xStream.fromXML(isr);
+            return (TDefinitions<DMNContext>) xStream.fromXML(input);
+        } catch (Exception e) {
+            LOGGER.error(String.format("Error unmarshalling DMN model from file '%s'.", input.getAbsolutePath()), e);
+        }
+        return null;
+    }
+
+    @Override
+    public TDefinitions<DMNContext> unmarshal(URL input) {
+        try {
+            XStream xStream = newXStream();
+            return (TDefinitions<DMNContext>) xStream.fromXML(input);
+        } catch (Exception e) {
+            LOGGER.error(String.format("Error unmarshalling DMN model from url '%s'.", input), e);
+        }
+        return null;
+    }
+
+    @Override
+    public TDefinitions<DMNContext> unmarshal(InputStream input) {
+        try {
+            XStream xStream = newXStream();
+            return (TDefinitions<DMNContext>) xStream.fromXML(input);
+        } catch (Exception e) {
+            LOGGER.error("Error unmarshalling DMN model from input stream.", e);
+        }
+        return null;
+    }
+
+    @Override
+    public TDefinitions<DMNContext> unmarshal(Reader input) {
+        try {
+            XStream xStream = newXStream();
+            return (TDefinitions<DMNContext>) xStream.fromXML(input);
         } catch (Exception e) {
             LOGGER.error("Error unmarshalling DMN model from reader.", e);
         }
@@ -121,10 +154,28 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
     }
 
     @Override
-    public void marshal(Object o, Writer out) {
+    public void marshal(Object o, File output) {
+        try (FileWriter fileWriter = new FileWriter(output)) {
+            marshal(o, fileWriter);
+        } catch (IOException e) {
+            LOGGER.error("Error marshalling DMN model to XML.", e);
+        }
+    }
+
+    @Override
+    public void marshal(Object o, OutputStream output) {
+        try (OutputStreamWriter streamWriter = new OutputStreamWriter(output)) {
+            marshal(o, streamWriter);
+        } catch (Exception e) {
+            LOGGER.error("Error marshalling DMN model to XML.", e);
+        }
+    }
+
+    @Override
+    public void marshal(Object o, Writer output) {
         try {
-            out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-            out.write(marshal(o));
+            output.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+            output.write(marshal(o));
         } catch (Exception e) {
             LOGGER.error("Error marshalling DMN model to XML.", e);
         }

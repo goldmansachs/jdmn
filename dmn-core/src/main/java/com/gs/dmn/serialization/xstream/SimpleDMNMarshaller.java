@@ -15,15 +15,25 @@ package com.gs.dmn.serialization.xstream;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.context.DMNContext;
 
-import java.io.Reader;
-import java.io.Writer;
+import java.io.*;
+import java.net.URL;
 
 public interface SimpleDMNMarshaller {
-    TDefinitions<DMNContext> unmarshal(Reader isr);
+    TDefinitions<DMNContext> unmarshal(String input);
 
-    TDefinitions<DMNContext> unmarshal(String xml);
+    TDefinitions<DMNContext> unmarshal(File input);
+
+    TDefinitions<DMNContext> unmarshal(URL input);
+
+    TDefinitions<DMNContext> unmarshal(InputStream input);
+
+    TDefinitions<DMNContext> unmarshal(Reader input);
 
     String marshal(Object o);
 
-    void marshal(Object o, Writer out);
+    void marshal(Object o, File output);
+
+    void marshal(Object o, OutputStream output);
+
+    void marshal(Object o, Writer output);
 }
