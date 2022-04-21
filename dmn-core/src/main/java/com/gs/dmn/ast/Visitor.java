@@ -18,65 +18,36 @@ public interface Visitor<C> {
     //
     // DMN Elements
     //
+    // Definitions
     Object visit(TDefinitions<C> element, C context);
 
+    // Import
     Object visit(TImport<C> element, C context);
 
-    Object visit(TElementCollection<C> element, C context);
+    Object visit(TImportedValues<C> element, C context);
 
-    Object visit(TDecision<C> element, C context);
-
-    Object visit(TBusinessContextElement<C> element, C context);
-
-    Object visit(TPerformanceIndicator<C> element, C context);
-
-    Object visit(TOrganizationUnit<C> element, C context);
-
-    Object visit(TBusinessKnowledgeModel<C> element, C context);
-
-    Object visit(TInputData<C> element, C context);
-
-    Object visit(TKnowledgeSource<C> element, C context);
-
-    Object visit(TInformationRequirement<C> element, C context);
-
-    Object visit(TKnowledgeRequirement<C> element, C context);
-
-    Object visit(TAuthorityRequirement<C> element, C context);
-
+    // Data types
     Object visit(TItemDefinition<C> element, C context);
 
     Object visit(TFunctionItem<C> element, C context);
 
-    Object visit(TLiteralExpression<C> element, C context);
+    // DRG Elements
+    Object visit(TInputData<C> element, C context);
 
-    Object visit(TInvocation<C> element, C context);
+    Object visit(TDecision<C> element, C context);
 
-    Object visit(TInformationItem<C> element, C context);
+    Object visit(TBusinessKnowledgeModel<C> element, C context);
 
-    Object visit(TDecisionTable<C> element, C context);
+    Object visit(TDecisionService<C> element, C context);
 
-    Object visit(TGroup<C> element, C context);
+    Object visit(TKnowledgeSource<C> element, C context);
 
-    Object visit(TTextAnnotation<C> element, C context);
-
-    Object visit(TAssociation<C> element, C context);
-
+    // Expressions
     Object visit(TContext<C> element, C context);
 
     Object visit(TContextEntry<C> element, C context);
 
-    Object visit(TFunctionDefinition<C> element, C context);
-
-    Object visit(TRelation<C> element, C context);
-
-    Object visit(TList<C> element, C context);
-
-    Object visit(TDecisionService<C> element, C context);
-
-    Object visit(TDMNElementReference<C> element, C context);
-
-    Object visit(TBinding<C> element, C context);
+    Object visit(TDecisionTable<C> element, C context);
 
     Object visit(TInputClause<C> element, C context);
 
@@ -88,14 +59,52 @@ public interface Visitor<C> {
 
     Object visit(TRuleAnnotation<C> element, C context);
 
-    Object visit(TImportedValues<C> element, C context);
+    Object visit(TFunctionDefinition<C> element, C context);
+
+    Object visit(TInvocation<C> element, C context);
+
+    Object visit(TBinding<C> element, C context);
+
+    Object visit(TList<C> element, C context);
+
+    Object visit(TLiteralExpression<C> element, C context);
+
+    Object visit(TRelation<C> element, C context);
 
     Object visit(TUnaryTests<C> element, C context);
 
+    // Requirements
+    Object visit(TAuthorityRequirement<C> element, C context);
+
+    Object visit(TInformationRequirement<C> element, C context);
+
+    Object visit(TKnowledgeRequirement<C> element, C context);
+
+    Object visit(TInformationItem<C> element, C context);
+
+    Object visit(TDMNElementReference<C> element, C context);
+
+    // Artifacts
+    Object visit(TAssociation<C> element, C context);
+
+    Object visit(TGroup<C> element, C context);
+
+    Object visit(TTextAnnotation<C> element, C context);
+
+    // Other
+    Object visit(TBusinessContextElement<C> element, C context);
+
+    Object visit(TPerformanceIndicator<C> element, C context);
+
+    Object visit(TOrganizationUnit<C> element, C context);
+
+    Object visit(TElementCollection<C> element, C context);
+
+    // Extensions
     Object visit(TDMNElement.ExtensionElements element, C context);
 
     //
-    // DMNDI<C> elements
+    // DMNDI elements
     //
     Object visit(DMNDI<C> element, C context);
 

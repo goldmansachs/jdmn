@@ -44,11 +44,11 @@ public class XStreamMarshaller implements DMNMarshaller {
     private final com.gs.dmn.serialization.xstream.v1_2.XStreamMarshaller xStream12;
     private final com.gs.dmn.serialization.xstream.v1_3.XStreamMarshaller xStream13;
 
-    public XStreamMarshaller() {
+    XStreamMarshaller() {
         this(new ArrayList<>());
     }
 
-    public XStreamMarshaller(List<DMNExtensionRegister> extensionRegisters) {
+    XStreamMarshaller(List<DMNExtensionRegister> extensionRegisters) {
         this.extensionRegisters.addAll(extensionRegisters);
 
         this.xStream11 = new com.gs.dmn.serialization.xstream.v1_1.XStreamMarshaller(extensionRegisters);

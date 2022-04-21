@@ -14,6 +14,7 @@ package com.gs.dmn.serialization.xstream.v1_3;
 
 import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.dmndi.*;
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.serialization.*;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.serialization.xstream.DMNXStream;
@@ -84,18 +85,15 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
 
 
     @Override
-    public TDefinitions unmarshal(String xml) {
+    public TDefinitions<DMNContext> unmarshal(String xml) {
         return unmarshal(new StringReader(xml));
     }
 
     @Override
-    public TDefinitions unmarshal(Reader isr) {
+    public TDefinitions<DMNContext> unmarshal(Reader isr) {
         try {
             XStream xStream = newXStream();
-
-            TDefinitions def = (TDefinitions) xStream.fromXML(isr);
-
-            return def;
+            return (TDefinitions<DMNContext>) xStream.fromXML(isr);
         } catch (Exception e) {
             LOGGER.error("Error unmarshalling DMN model from reader.", e);
         }

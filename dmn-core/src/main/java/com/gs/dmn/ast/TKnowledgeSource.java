@@ -29,7 +29,7 @@ import java.util.List;
         "locationURI",
         "extensionElements"
 })
-public class TKnowledgeSource<C> extends TDRGElement<C> implements Visitable<C>{
+public class TKnowledgeSource<C> extends TDRGElement<C> implements Visitable<C> {
     private List<TAuthorityRequirement<C>> authorityRequirement;
     private String type;
     private TDMNElementReference<C> owner;
