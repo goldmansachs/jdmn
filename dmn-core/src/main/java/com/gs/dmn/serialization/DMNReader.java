@@ -12,9 +12,12 @@
  */
 package com.gs.dmn.serialization;
 
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
+import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import org.omg.spec.dmn._20191111.model.TDefinitions;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -44,11 +47,17 @@ public class DMNReader extends DMNSerializer {
     }
 
     private final boolean validateSchema;
+    private final DMNMarshaller dmnMarshaller;
     private final DMNDialectTransformer dmnTransformer = new DMNDialectTransformer(logger);
 
     public DMNReader(BuildLogger logger, boolean validateSchema) {
+        this(logger, validateSchema, new ArrayList<>());
+    }
+
+    public DMNReader(BuildLogger logger, boolean validateSchema, List<DMNExtensionRegister> registers) {
         super(logger);
         this.validateSchema = validateSchema;
+        this.dmnMarshaller = DMNMarshallerFactory.newMarshallerWithExtensions(registers);
     }
 
     public List<Pair<TDefinitions, PrefixNamespaceMappings>> readModels(List<File> files) {
@@ -86,6 +95,19 @@ public class DMNReader extends DMNSerializer {
             return pairs;
         } else {
             throw new DMNRuntimeException(String.format("Invalid DMN file %s", file.getAbsoluteFile()));
+        }
+    }
+
+    public com.gs.dmn.ast.TDefinitions<DMNContext> readAST(File input) {
+        try {
+            logger.info(String.format("Reading DMN '%s' ...", input.getAbsolutePath()));
+
+            com.gs.dmn.ast.TDefinitions<DMNContext> result = this.dmnMarshaller.unmarshal(input);
+
+            logger.info("DMN read.");
+            return result;
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.getAbsolutePath()), e);
         }
     }
 

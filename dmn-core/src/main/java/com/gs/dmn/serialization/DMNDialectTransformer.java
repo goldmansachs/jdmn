@@ -16,20 +16,12 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.Pair;
 
 public class DMNDialectTransformer {
-    private final BuildLogger logger;
-    private final DMN11To12DialectTransformer dmn11To12DialectTransformer;
     private final DMN11To13DialectTransformer dmn11To13DialectTransformer;
     private final DMN12To13DialectTransformer dmn12To13DialectTransformer;
 
     public DMNDialectTransformer(BuildLogger logger) {
-        this.logger = logger;
-        this.dmn11To12DialectTransformer = new DMN11To12DialectTransformer(logger);
         this.dmn11To13DialectTransformer = new DMN11To13DialectTransformer(logger);
         this.dmn12To13DialectTransformer = new DMN12To13DialectTransformer(logger);
-    }
-
-    public Pair<org.omg.spec.dmn._20180521.model.TDefinitions, PrefixNamespaceMappings> transform11To12Definitions(org.omg.spec.dmn._20151101.model.TDefinitions sourceDefinitions) {
-        return this.dmn11To12DialectTransformer.transformDefinitions(sourceDefinitions);
     }
 
     public Pair<org.omg.spec.dmn._20191111.model.TDefinitions, PrefixNamespaceMappings> transform11To13Definitions(org.omg.spec.dmn._20151101.model.TDefinitions sourceDefinitions) {

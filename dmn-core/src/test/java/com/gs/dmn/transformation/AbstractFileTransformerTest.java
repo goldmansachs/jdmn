@@ -71,6 +71,7 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
                 .compare(Input.fromFile(expectedOutputFile)).withTest(Input.fromFile(actualOutputFile))
                 .checkForSimilar()
                 .ignoreWhitespace()
+                .ignoreComments()
                 .withNodeMatcher(new DefaultNodeMatcher(ElementSelectors.byNameAndAllAttributes))
                 .build();
         if (diff.hasDifferences()) {

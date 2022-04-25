@@ -22,6 +22,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
+import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -31,11 +33,15 @@ import javax.xml.namespace.QName;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.gs.dmn.serialization.DMNVersion.*;
 
 public class DMNWriter extends DMNSerializer {
     public static final ObjectMapper JSON_MAPPER = makeJsonMapper();
+
+    private final DMNMarshaller dmnMarshaller;
 
     private static ObjectMapper makeJsonMapper() {
         ObjectMapper objectMapper = JsonMapper.builder()
@@ -54,7 +60,16 @@ public class DMNWriter extends DMNSerializer {
     }
 
     public DMNWriter(BuildLogger logger) {
+        this(logger, new ArrayList<>());
+    }
+
+    public DMNWriter(BuildLogger logger, List<DMNExtensionRegister> registers) {
         super(logger);
+        this.dmnMarshaller = DMNMarshallerFactory.newMarshallerWithExtensions(registers);
+    }
+
+    public void writeAST(TDefinitions<?> definitions, File output) {
+        this.dmnMarshaller.marshal(definitions, output);
     }
 
     public void writeASTAsJson(TDefinitions<?> definitions, File output, DMNNamespacePrefixMapper namespacePrefixMapper) {

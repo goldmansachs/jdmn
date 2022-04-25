@@ -6,13 +6,13 @@ import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import java.io.File;
 
 public abstract class DMNDialectTransformerTest<S, T> extends AbstractFileTransformerTest {
-    protected final DMNReader dmnReader = new DMNReader(LOGGER, false);
-    protected final DMNWriter dmnWriter = new DMNWriter(LOGGER);
+    protected final DMNReader dmnReader = getDMNReader();
+    protected final DMNWriter dmnWriter = getDMNWriter();
 
     protected void doTest(String inputFileName, Pair<String, String> dmnNamespacePrefixMapping) throws Exception {
         // Read
         File inputFile = new File(resource(getInputPath() + inputFileName));
-        Object object = dmnReader.readObject(inputFile);
+        Object object = readModel(inputFile);
         S sourceDefinitions = (S) object;
 
         // Transform
@@ -30,8 +30,19 @@ public abstract class DMNDialectTransformerTest<S, T> extends AbstractFileTransf
     protected File getActualOutputFile(String inputFileName) {
         File targetFolder = new File(getTargetPath());
         targetFolder.mkdirs();
-        File actualOutputFile = new File(targetFolder, inputFileName);
-        return actualOutputFile;
+        return new File(targetFolder, inputFileName);
+    }
+
+    protected DMNReader getDMNReader() {
+        return new DMNReader(LOGGER, false);
+    }
+
+    protected Object readModel(File inputFile) throws Exception {
+        return dmnReader.readObject(inputFile);
+    }
+
+    protected DMNWriter getDMNWriter() {
+        return new DMNWriter(LOGGER);
     }
 
     protected void writeModel(T targetDefinitions, Pair<String, String> dmnNamespacePrefixMapping, File actualOutputFile) {
