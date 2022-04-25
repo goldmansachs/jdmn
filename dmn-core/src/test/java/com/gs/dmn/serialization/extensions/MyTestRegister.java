@@ -15,14 +15,20 @@ package com.gs.dmn.serialization.extensions;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.QNameMap;
+import com.thoughtworks.xstream.security.WildcardTypePermission;
 
 import javax.xml.namespace.QName;
 
 public class MyTestRegister implements DMNExtensionRegister {
+    private static final String[] ALLOW_LISTED_PACKAGES = new String[] {
+        "com.gs.dmn.serialization.extensions.**"
+    };
+
     @Override
     public void registerExtensionConverters(XStream xStream) {
         xStream.processAnnotations(MyKieExt.class);
         xStream.processAnnotations(MyDroolsExt.class);
+        xStream.addPermission(new WildcardTypePermission(ALLOW_LISTED_PACKAGES));
     }
 
     @Override
