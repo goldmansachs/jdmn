@@ -20,6 +20,7 @@ import java.util.Map;
 public class DMNVersionTransformerVisitor extends DefaultDMNVisitor {
     private final DMNVersion sourceVersion;
     private final DMNVersion targetVersion;
+    private TDefinitions definitions;
 
     public DMNVersionTransformerVisitor(DMNVersion sourceVersion, DMNVersion targetVersion) {
         this.sourceVersion = sourceVersion;
@@ -28,6 +29,7 @@ public class DMNVersionTransformerVisitor extends DefaultDMNVisitor {
 
     @Override
     public <C> Object visit(TDefinitions element, C context) {
+        definitions = element;
         // Update expression language
         if (this.sourceVersion.getFeelNamespace().equals(element.getTypeLanguage())) {
             element.setTypeLanguage(this.targetVersion.getFeelNamespace());
@@ -63,7 +65,15 @@ public class DMNVersionTransformerVisitor extends DefaultDMNVisitor {
     protected <C> QName visitTypeRef(QName typeRef, C context) {
         if (this.sourceVersion == DMNVersion.DMN_11) {
             if (typeRef != null) {
-                return new QName(typeRef.getLocalPart());
+                String namespaceURI = typeRef.getNamespaceURI();
+                String prefix = typeRef.getPrefix();
+                String nsForPrefix = definitions.getNamespaceURI(prefix);
+                String localPart = typeRef.getLocalPart();
+                if (this.sourceVersion.getFeelNamespace().equals(namespaceURI) || this.targetVersion.getFeelNamespace().equals(nsForPrefix)) {
+                    return new QName(String.format("%s.%s", this.targetVersion.getFeelPrefix(), localPart));
+                } else {
+                    return new QName(typeRef.getLocalPart());
+                }
             }
         }
         return typeRef;

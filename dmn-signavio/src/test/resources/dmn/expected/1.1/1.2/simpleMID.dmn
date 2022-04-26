@@ -2,16 +2,16 @@
 <definitions xmlns="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/9e53b9fc18f94da39241c0319c532c9a.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" sigExt:revisionNumber="1" sigExt:revisionId="e74d842338ef4b88ae1cfae675e41333" id="id-65dd8924ec764d11b639aec28b9cac1f" name="simpleMID" namespace="http://www.provider.com/dmn/1.1/diagram/9e53b9fc18f94da39241c0319c532c9a.xml" exporterVersion="10.15.9">
   <extensionElements></extensionElements>
   <itemDefinition id="id-29a7c994311c4fc6014819ae16f74913" label="decide" name="decide" isCollection="false">
-    <typeRef>string</typeRef>
+    <typeRef>feel.string</typeRef>
   </itemDefinition>
   <itemDefinition id="id-351507aefb83f77624a4b9e484189950" label="mid" name="mid" isCollection="true">
-    <typeRef>string</typeRef>
+    <typeRef>feel.string</typeRef>
   </itemDefinition>
   <itemDefinition id="id-e1ecfffde7c1d821bbaa0f4f49a4c1fb" label="numz" name="numz" isCollection="true">
-    <typeRef>number</typeRef>
+    <typeRef>feel.number</typeRef>
   </itemDefinition>
   <itemDefinition id="id-428c79d86b143851037714d5ff533477" label="numz" name="numz2" isCollection="false">
-    <typeRef>number</typeRef>
+    <typeRef>feel.number</typeRef>
   </itemDefinition>
   <inputData sigExt:shapeId="sid-8D55DEE5-24FE-4C1D-932C-A0D7128516F3" sigExt:diagramId="9e53b9fc18f94da39241c0319c532c9a" id="id-16e27bd3dab9d90a677b69685f682a7b" label="numz" name="numz">
     <variable id="id-16e27bd3dab9d90a677b69685f682a7b_variable" name="numz" typeRef="numz"></variable>
@@ -44,7 +44,7 @@
           <text>numz2_iterator</text>
         </inputExpression>
       </input>
-      <output id="id-6cdee866db9afc0e89d6bff9dfabc2f9" label="decide" name="decide" typeRef="string"></output>
+      <output id="id-6cdee866db9afc0e89d6bff9dfabc2f9" label="decide" name="decide" typeRef="feel.string"></output>
       <rule id="id-0a68839eb7b70746684e7af1e7f6cf49">
         <description>string("grown up apparently -&gt; ") + string(numz2_iterator)</description>
         <inputEntry>

@@ -2,16 +2,16 @@
 <definitions xmlns="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:tns="http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" triso:logoChoice="Default" xsi:schemaLocation="http://www.omg.org/spec/DMN/20151101/dmn.xsd ../../DMN1.1%20final/dmn.xsd" id="_56c7d4a5-e6db-4bba-ac5f-dc082a16f719" name="loanComparison" namespace="http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719" exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.1.1; 1.1">
   <itemDefinition label="tLoanProduct" name="tLoanProduct" isCollection="false">
     <itemComponent id="_e4e050fd-9198-4b62-8f99-15cb2a0a2373" name="lenderName" isCollection="false">
-      <typeRef>string</typeRef>
+      <typeRef>feel.string</typeRef>
     </itemComponent>
     <itemComponent id="_dc34919e-c7d1-4aab-b6d1-4be1174f6fd2" name="rate" isCollection="false">
-      <typeRef>number</typeRef>
+      <typeRef>feel.number</typeRef>
     </itemComponent>
     <itemComponent id="_9ca2f88a-3845-4b8d-864f-b86718eaa54d" name="points" isCollection="false">
-      <typeRef>number</typeRef>
+      <typeRef>feel.number</typeRef>
     </itemComponent>
     <itemComponent id="_5b870440-9692-4e81-959f-f2347c1768c9" name="fee" isCollection="false">
-      <typeRef>number</typeRef>
+      <typeRef>feel.number</typeRef>
     </itemComponent>
   </itemDefinition>
   <itemDefinition label="tLoanTable" name="tLoanTable" isCollection="true">
@@ -19,28 +19,28 @@
   </itemDefinition>
   <itemDefinition label="tMetric" name="tMetric" isCollection="false">
     <itemComponent id="_59994d58-3220-4cc6-8d91-783a008ac472" name="lenderName" isCollection="false">
-      <typeRef>string</typeRef>
+      <typeRef>feel.string</typeRef>
     </itemComponent>
     <itemComponent id="_63d8c69d-2431-43f5-bfa3-a014a6d2363e" name="rate" isCollection="false">
-      <typeRef>number</typeRef>
+      <typeRef>feel.number</typeRef>
     </itemComponent>
     <itemComponent id="_be9eaeb3-8d52-4d99-9d0a-325c15fa6b74" name="points" isCollection="false">
-      <typeRef>number</typeRef>
+      <typeRef>feel.number</typeRef>
     </itemComponent>
     <itemComponent id="_2a9fe07c-d72b-4f8b-9995-e1b194dd5aa9" name="fee" isCollection="false">
-      <typeRef>number</typeRef>
+      <typeRef>feel.number</typeRef>
     </itemComponent>
     <itemComponent id="_333f9092-d8a7-4e75-973d-82f30569e432" name="loanAmt" isCollection="false">
-      <typeRef>number</typeRef>
+      <typeRef>feel.number</typeRef>
     </itemComponent>
     <itemComponent id="_790093df-4886-405a-8ad6-34de25812bdc" name="downPmtAmt" isCollection="false">
-      <typeRef>number</typeRef>
+      <typeRef>feel.number</typeRef>
     </itemComponent>
     <itemComponent id="_8f37cdc9-ff7a-4b8c-8849-c0b6a6cbb960" name="paymentAmt" isCollection="false">
-      <typeRef>number</typeRef>
+      <typeRef>feel.number</typeRef>
     </itemComponent>
     <itemComponent id="_3f4568e7-be52-4ce2-8704-be14aa6cd1d5" name="equity36moPct" isCollection="false">
-      <typeRef>number</typeRef>
+      <typeRef>feel.number</typeRef>
     </itemComponent>
   </itemDefinition>
   <itemDefinition label="tMetrics" name="tMetrics" isCollection="true">
@@ -213,7 +213,7 @@
     </relation>
   </decision>
   <inputData id="_67c50a4c-3002-4d0a-9acf-4c76cb0364fa" name="RequestedAmt">
-    <variable name="RequestedAmt" typeRef="number"></variable>
+    <variable name="RequestedAmt" typeRef="feel.number"></variable>
   </inputData>
   <decision id="_715940be-0f5d-4701-8155-fcba85874aa1" name="RankedProducts">
     <variable name="RankedProducts" typeRef="tRankedProducts"></variable>
@@ -263,52 +263,52 @@
     <variable name="FinancialMetrics"></variable>
     <encapsulatedLogic kind="FEEL">
       <formalParameter name="product" typeRef="tLoanProduct"></formalParameter>
-      <formalParameter name="requestedAmt" typeRef="number"></formalParameter>
+      <formalParameter name="requestedAmt" typeRef="feel.number"></formalParameter>
       <context typeRef="tMetric">
         <contextEntry>
-          <variable name="lenderName" typeRef="string"></variable>
+          <variable name="lenderName" typeRef="feel.string"></variable>
           <literalExpression>
             <text>product.lenderName</text>
           </literalExpression>
         </contextEntry>
         <contextEntry>
-          <variable name="rate" typeRef="number"></variable>
+          <variable name="rate" typeRef="feel.number"></variable>
           <literalExpression>
             <text>product.rate</text>
           </literalExpression>
         </contextEntry>
         <contextEntry>
-          <variable name="points" typeRef="number"></variable>
+          <variable name="points" typeRef="feel.number"></variable>
           <literalExpression>
             <text>product.points</text>
           </literalExpression>
         </contextEntry>
         <contextEntry>
-          <variable name="fee" typeRef="number"></variable>
+          <variable name="fee" typeRef="feel.number"></variable>
           <literalExpression>
             <text>product.fee</text>
           </literalExpression>
         </contextEntry>
         <contextEntry>
-          <variable name="loanAmt" typeRef="number"></variable>
+          <variable name="loanAmt" typeRef="feel.number"></variable>
           <literalExpression>
             <text>requestedAmt*(1+points/100)+fee</text>
           </literalExpression>
         </contextEntry>
         <contextEntry>
-          <variable name="downPmtAmt" typeRef="number"></variable>
+          <variable name="downPmtAmt" typeRef="feel.number"></variable>
           <literalExpression>
             <text>0.2*loanAmt</text>
           </literalExpression>
         </contextEntry>
         <contextEntry>
-          <variable name="paymentAmt" typeRef="number"></variable>
+          <variable name="paymentAmt" typeRef="feel.number"></variable>
           <literalExpression>
             <text>monthlyPayment(loanAmt,rate,360)</text>
           </literalExpression>
         </contextEntry>
         <contextEntry>
-          <variable name="equity36moPct" typeRef="number"></variable>
+          <variable name="equity36moPct" typeRef="feel.number"></variable>
           <literalExpression>
             <text>1 - equity36Mo(loanAmt,rate,36,paymentAmt)/requestedAmt*0.8</text>
           </literalExpression>
@@ -325,10 +325,10 @@
   <businessKnowledgeModel id="_8702e1b6-213b-4f75-bf56-99ac3835cde7" name="monthlyPayment">
     <variable name="monthlyPayment"></variable>
     <encapsulatedLogic kind="FEEL">
-      <formalParameter name="p" typeRef="number"></formalParameter>
-      <formalParameter name="r" typeRef="number"></formalParameter>
-      <formalParameter name="n" typeRef="number"></formalParameter>
-      <literalExpression typeRef="number">
+      <formalParameter name="p" typeRef="feel.number"></formalParameter>
+      <formalParameter name="r" typeRef="feel.number"></formalParameter>
+      <formalParameter name="n" typeRef="feel.number"></formalParameter>
+      <literalExpression typeRef="feel.number">
         <text>p*r/12/(1-(1+r/12)**-n)</text>
       </literalExpression>
     </encapsulatedLogic>
@@ -336,11 +336,11 @@
   <businessKnowledgeModel id="_daec318a-135b-4d54-9e7f-85af3aa662f7" name="equity36Mo">
     <variable name="equity36Mo"></variable>
     <encapsulatedLogic kind="FEEL">
-      <formalParameter name="p" typeRef="number"></formalParameter>
-      <formalParameter name="r" typeRef="number"></formalParameter>
-      <formalParameter name="n" typeRef="number"></formalParameter>
-      <formalParameter name="pmt" typeRef="number"></formalParameter>
-      <literalExpression typeRef="number">
+      <formalParameter name="p" typeRef="feel.number"></formalParameter>
+      <formalParameter name="r" typeRef="feel.number"></formalParameter>
+      <formalParameter name="n" typeRef="feel.number"></formalParameter>
+      <formalParameter name="pmt" typeRef="feel.number"></formalParameter>
+      <literalExpression typeRef="feel.number">
         <text>p*(1+r/12)**n - pmt*(-1+(1+r/12)**n)/r</text>
       </literalExpression>
     </encapsulatedLogic>

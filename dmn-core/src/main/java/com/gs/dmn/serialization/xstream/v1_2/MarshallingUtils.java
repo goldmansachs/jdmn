@@ -46,14 +46,15 @@ public final class MarshallingUtils {
     }
 
     public static String formatQName(QName qname, DMNBaseElement parent) {
+        // DMN v1.2 namespace typeRef is imported with dot.
         if (!XMLConstants.DEFAULT_NS_PREFIX.equals(qname.getPrefix())) {
             String nsForPrefix = parent.getNamespaceURI(qname.getPrefix());
             if (DMNVersion.DMN_12.getFeelNamespace().equals(nsForPrefix)) {
-                return qname.getLocalPart(); // DMN v1.2 feel comes without a prefix.
+                return qname.getPrefix() + "." + qname.getLocalPart();
             } else if (parent instanceof DMNShape || parent instanceof DMNEdge) {
                 return qname.getPrefix() + ":" + qname.getLocalPart();
             } else {
-                return qname.getPrefix() + "." + qname.getLocalPart(); // DMN v1.2 namespace typeRef lookup is done with dot.
+                return qname.getPrefix() + "." + qname.getLocalPart();
             }
         } else {
             return qname.toString();
