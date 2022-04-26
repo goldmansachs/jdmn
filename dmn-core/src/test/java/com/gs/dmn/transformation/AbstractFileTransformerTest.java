@@ -66,7 +66,7 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
         JSONAssert.assertEquals(message, expectedContent, actualContent, JSONCompareMode.STRICT);
     }
 
-    private void compareXmlFile(File expectedOutputFile, File actualOutputFile) {
+    protected void compareXmlFile(File expectedOutputFile, File actualOutputFile) {
         Diff diff = DiffBuilder
                 .compare(Input.fromFile(expectedOutputFile)).withTest(Input.fromFile(actualOutputFile))
                 .checkForSimilar()

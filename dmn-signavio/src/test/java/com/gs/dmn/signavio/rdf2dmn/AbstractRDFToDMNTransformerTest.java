@@ -17,6 +17,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNConstants;
+import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import org.apache.commons.io.FileUtils;
@@ -38,6 +39,7 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.Map;
@@ -47,8 +49,13 @@ import static com.gs.dmn.signavio.rdf2dmn.RDFToDMNTransformer.RDF_FILE_EXTENSION
 import static com.gs.dmn.signavio.rdf2dmn.RDFToDMNTransformer.isRDFFile;
 import static org.junit.Assert.*;
 
-public abstract class AbstractRDFToDMNTransformerTest extends AbstractTest {
+public abstract class AbstractRDFToDMNTransformerTest extends AbstractFileTransformerTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractRDFToDMNTransformerTest.class));
+
+    private static boolean isXmlFile(File file) {
+        return file != null && file.isFile() && file.getName().endsWith(RDF_FILE_EXTENSION);
+    }
+
     private final String schemaVersion = "1.1";
 
     protected void doTestFolder() throws Exception {
@@ -110,7 +117,8 @@ public abstract class AbstractRDFToDMNTransformerTest extends AbstractTest {
         FileUtils.writeStringToFile(file,
                 "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                 "<dmn:definitions xmlns:dmn=\"http://www.omg.org/spec/DMN/20151101/dmn.xsd\" xmlns:cip=\"http://www.gs.com/cip\" xmlns:feel=\"http://www.omg.org/spec/FEEL/20140401\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" namespace=\"http://www.omg.org/spec/DMN/20151101/dmn.xsd\" name=\"XXX\">\n" +
-                "</dmn:definitions>"
+                "</dmn:definitions>",
+                Charset.defaultCharset()
         )
         ;
     }
@@ -119,54 +127,6 @@ public abstract class AbstractRDFToDMNTransformerTest extends AbstractTest {
 
     private FileTransformer makeTransformer(InputParameters inputParameters, BuildLogger logger) {
         return new RDFToDMNTransformer(inputParameters, logger);
-    }
-
-    private void compareFile(File expectedOutputFile, File actualOutputFile) throws Exception {
-        if (expectedOutputFile.isFile() && actualOutputFile.isFile()) {
-            Document expectedDocument = builder.build(expectedOutputFile);
-            sort(expectedDocument);
-            String expectedContent = new XMLOutputter().outputString(expectedDocument);
-
-            Document actualDocument = builder.build(actualOutputFile);
-            sort(actualDocument);
-            String actualContent = new XMLOutputter().outputString(actualDocument);
-
-            assertEquals(expectedOutputFile.getName(), expectedContent, actualContent);
-        } else {
-            throw new DMNRuntimeException(String.format("Cannot compare folder with file %s %s ", expectedOutputFile.getName(), actualOutputFile.getName()));
-        }
-    }
-
-    private void sort(Document document) {
-        Comparator<Element> comparator = new DMNNodeComparator();
-
-        // Sort definitions
-        Element rootElement = document.getRootElement();
-        if (rootElement != null) {
-            rootElement.sortChildren(comparator);
-
-            // Sort decision
-            Element decision = rootElement.getChild("decision", Namespace.getNamespace("dmn", DMN_11.getNamespace()));
-            if (decision != null) {
-                decision.sortChildren(comparator);
-            }
-        }
-    }
-
-    protected void assertLiteralExpression(TLiteralExpression inputExpression, String stringType, String id, String text) {
-        assertEquals(id, inputExpression.getId());
-        assertEquals(stringType, inputExpression.getTypeRef());
-        assertEquals(text, inputExpression.getText());
-    }
-
-    protected void assertNamedElement(TNamedElement decision, String id, String name) {
-        assertEquals(id, decision.getId());
-        assertEquals(name, decision.getName());
-    }
-
-    protected void assertDMNElement(TDMNElement decision, String id, String label) {
-        assertEquals(id, decision.getId());
-        assertEquals(label, decision.getLabel());
     }
 
     protected Map<String, String> makeInputParametersMap() {
