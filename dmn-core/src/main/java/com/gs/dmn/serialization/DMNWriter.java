@@ -39,25 +39,7 @@ import java.util.List;
 import static com.gs.dmn.serialization.DMNVersion.*;
 
 public class DMNWriter extends DMNSerializer {
-    public static final ObjectMapper JSON_MAPPER = makeJsonMapper();
-
     private final DMNMarshaller dmnMarshaller;
-
-    private static ObjectMapper makeJsonMapper() {
-        ObjectMapper objectMapper = JsonMapper.builder()
-                .addModule(new JavaTimeModule())
-                .visibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
-                .visibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE)
-                .visibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NONE)
-                .visibility(PropertyAccessor.CREATOR, JsonAutoDetect.Visibility.NONE)
-                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-                .enable(SerializationFeature.INDENT_OUTPUT)
-                .build();
-
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-        return objectMapper;
-    }
 
     public DMNWriter(BuildLogger logger) {
         this(logger, new ArrayList<>());
@@ -70,14 +52,6 @@ public class DMNWriter extends DMNSerializer {
 
     public void writeAST(TDefinitions definitions, File output) {
         this.dmnMarshaller.marshal(definitions, output);
-    }
-
-    public void writeASTAsJson(TDefinitions definitions, File output, DMNNamespacePrefixMapper namespacePrefixMapper) {
-        try (FileOutputStream fos = new FileOutputStream(output)) {
-            JSON_MAPPER.writeValue(fos, definitions);
-        } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", output.getPath()), e);
-        }
     }
 
     public void write(Object definitions, File output, DMNNamespacePrefixMapper namespacePrefixMapper) {
