@@ -16,7 +16,6 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TLiteralExpression;
 import com.gs.dmn.ast.TOutputClause;
 import com.gs.dmn.ast.TUnaryTests;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -58,7 +57,7 @@ public class OutputClauseConverter extends DMNElementConverter {
     @Override
     protected void assignAttributes(HierarchicalStreamReader reader, Object parent) {
         super.assignAttributes(reader, parent);
-        TOutputClause<DMNContext> oc = (TOutputClause) parent;
+        TOutputClause oc = (TOutputClause) parent;
 
         String name = reader.getAttribute(NAME);
         String typeRefValue = reader.getAttribute(TYPE_REF);
@@ -82,7 +81,7 @@ public class OutputClauseConverter extends DMNElementConverter {
     @Override
     protected void writeAttributes(HierarchicalStreamWriter writer, Object parent) {
         super.writeAttributes(writer, parent);
-        TOutputClause<DMNContext> oc = (TOutputClause) parent;
+        TOutputClause oc = (TOutputClause) parent;
 
         if (oc.getName() != null) {
             writer.addAttribute(NAME, oc.getName());

@@ -15,7 +15,6 @@ package com.gs.dmn.serialization.xstream.v1_2;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDMNElementReference;
 import com.gs.dmn.ast.TPerformanceIndicator;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -43,7 +42,7 @@ public class PerformanceIndicatorConverter extends BusinessContextElementConvert
         TPerformanceIndicator pi = (TPerformanceIndicator) parent;
 
         if (IMPACTING_DECISION.equals(nodeName)) {
-            pi.getImpactingDecision().add(child);
+            pi.getImpactingDecision().add((TDMNElementReference) child);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }
@@ -59,7 +58,7 @@ public class PerformanceIndicatorConverter extends BusinessContextElementConvert
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        TPerformanceIndicator<DMNContext> pi = (TPerformanceIndicator) parent;
+        TPerformanceIndicator pi = (TPerformanceIndicator) parent;
 
         for (TDMNElementReference id : pi.getImpactingDecision()) {
             writeChildrenNode(writer, context, id, IMPACTING_DECISION);

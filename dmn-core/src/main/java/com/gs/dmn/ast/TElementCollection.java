@@ -26,10 +26,10 @@ import java.util.List;
         "drgElement",
         "extensionElements"
 })
-public class TElementCollection<C> extends TNamedElement<C> implements Visitable<C> {
-    private List<TDMNElementReference<C>> drgElement;
+public class TElementCollection extends TNamedElement implements Visitable {
+    private List<TDMNElementReference> drgElement;
 
-    public List<TDMNElementReference<C>> getDrgElement() {
+    public List<TDMNElementReference> getDrgElement() {
         if (drgElement == null) {
             drgElement = new ArrayList<>();
         }
@@ -37,7 +37,7 @@ public class TElementCollection<C> extends TNamedElement<C> implements Visitable
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

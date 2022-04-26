@@ -39,68 +39,68 @@ import java.util.List;
         "dmndi",
         "extensionElements"
 })
-public class TDefinitions<C> extends TNamedElement<C> implements Visitable<C> {
+public class TDefinitions extends TNamedElement implements Visitable {
     @JsonProperty("import")
-    private List<TImport<C>> _import;
-    private List<TItemDefinition<C>> itemDefinition;
-    private List<? extends TDRGElement<C>> drgElement;
-    private List<? extends TArtifact<C>> artifact;
-    private List<TElementCollection<C>> elementCollection;
-    private List<? extends TBusinessContextElement<C>> businessContextElement;
-    private DMNDI<C> dmndi;
+    private List<TImport> _import;
+    private List<TItemDefinition> itemDefinition;
+    private List<TDRGElement> drgElement;
+    private List<TArtifact> artifact;
+    private List<TElementCollection> elementCollection;
+    private List<TBusinessContextElement> businessContextElement;
+    private DMNDI dmndi;
     private String expressionLanguage;
     private String typeLanguage;
     private String namespace;
     private String exporter;
     private String exporterVersion;
 
-    public List<TImport<C>> getImport() {
+    public List<TImport> getImport() {
         if (_import == null) {
             _import = new ArrayList<>();
         }
         return this._import;
     }
 
-    public List<TItemDefinition<C>> getItemDefinition() {
+    public List<TItemDefinition> getItemDefinition() {
         if (itemDefinition == null) {
             itemDefinition = new ArrayList<>();
         }
         return this.itemDefinition;
     }
 
-    public List<? extends TDRGElement<C>> getDrgElement() {
+    public List<TDRGElement> getDrgElement() {
         if (drgElement == null) {
             drgElement = new ArrayList<>();
         }
         return this.drgElement;
     }
 
-    public List<? extends TArtifact<C>> getArtifact() {
+    public List<TArtifact> getArtifact() {
         if (artifact == null) {
             artifact = new ArrayList<>();
         }
         return this.artifact;
     }
 
-    public List<TElementCollection<C>> getElementCollection() {
+    public List<TElementCollection> getElementCollection() {
         if (elementCollection == null) {
             elementCollection = new ArrayList<>();
         }
         return this.elementCollection;
     }
 
-    public List<? extends TBusinessContextElement<C>> getBusinessContextElement() {
+    public List<TBusinessContextElement> getBusinessContextElement() {
         if (businessContextElement == null) {
             businessContextElement = new ArrayList<>();
         }
         return this.businessContextElement;
     }
 
-    public DMNDI<C> getDMNDI() {
+    public DMNDI getDMNDI() {
         return dmndi;
     }
 
-    public void setDMNDI(DMNDI<C> value) {
+    public void setDMNDI(DMNDI value) {
         this.dmndi = value;
     }
 
@@ -145,7 +145,7 @@ public class TDefinitions<C> extends TNamedElement<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

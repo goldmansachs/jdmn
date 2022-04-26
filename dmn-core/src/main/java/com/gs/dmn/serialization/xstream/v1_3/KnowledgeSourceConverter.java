@@ -16,7 +16,6 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TAuthorityRequirement;
 import com.gs.dmn.ast.TDMNElementReference;
 import com.gs.dmn.ast.TKnowledgeSource;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -47,7 +46,7 @@ public class KnowledgeSourceConverter extends DRGElementConverter {
         TKnowledgeSource ks = (TKnowledgeSource) parent;
 
         if (AUTHORITY_REQUIREMENT.equals(nodeName)) {
-            ks.getAuthorityRequirement().add(child);
+            ks.getAuthorityRequirement().add((TAuthorityRequirement) child);
         } else if (TYPE.equals(nodeName)) {
             ks.setType((String) child);
         } else if (OWNER.equals(nodeName)) {
@@ -70,7 +69,7 @@ public class KnowledgeSourceConverter extends DRGElementConverter {
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        TKnowledgeSource<DMNContext> ks = (TKnowledgeSource) parent;
+        TKnowledgeSource ks = (TKnowledgeSource) parent;
 
         for (TAuthorityRequirement ar : ks.getAuthorityRequirement()) {
             writeChildrenNode(writer, context, ar, AUTHORITY_REQUIREMENT);

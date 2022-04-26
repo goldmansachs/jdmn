@@ -13,7 +13,6 @@
 package com.gs.dmn.serialization.xstream.v1_2;
 
 import com.gs.dmn.ast.*;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -43,7 +42,7 @@ public class FunctionDefinitionConverter extends ExpressionConverter {
         TFunctionDefinition fd = (TFunctionDefinition) parent;
 
         if (FORMAL_PARAMETER.equals(nodeName)) {
-            fd.getFormalParameter().add(child);
+            fd.getFormalParameter().add((TInformationItem) child);
         } else if (child instanceof TExpression) {
             fd.setExpression((TExpression) child);
         } else {
@@ -67,7 +66,7 @@ public class FunctionDefinitionConverter extends ExpressionConverter {
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        TFunctionDefinition<DMNContext> fd = (TFunctionDefinition) parent;
+        TFunctionDefinition fd = (TFunctionDefinition) parent;
 
         for (TInformationItem fparam : fd.getFormalParameter()) {
             writeChildrenNode(writer, context, fparam, FORMAL_PARAMETER);

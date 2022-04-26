@@ -18,28 +18,28 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "parameter",
         "expression"
 })
-public class TBinding<C> extends DMNBaseElement implements Visitable<C> {
-    private TInformationItem<C> parameter;
-    private TExpression<C> expression;
+public class TBinding extends DMNBaseElement implements Visitable {
+    private TInformationItem parameter;
+    private TExpression expression;
 
-    public TInformationItem<C> getParameter() {
+    public TInformationItem getParameter() {
         return parameter;
     }
 
-    public void setParameter(TInformationItem<C> value) {
+    public void setParameter(TInformationItem value) {
         this.parameter = value;
     }
 
-    public TExpression<C> getExpression() {
+    public TExpression getExpression() {
         return expression;
     }
 
-    public void setExpression(TExpression<C> value) {
+    public void setExpression(TExpression value) {
         this.expression = value;
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

@@ -15,7 +15,6 @@ package com.gs.dmn.serialization.xstream.v1_1;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDMNElementReference;
 import com.gs.dmn.ast.TOrganizationUnit;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -44,9 +43,9 @@ public class OrganizationUnitConverter extends BusinessContextElementConverter {
         TOrganizationUnit ou = (TOrganizationUnit) parent;
 
         if (DECISION_MADE.equals(nodeName)) {
-            ou.getDecisionMade().add(child);
+            ou.getDecisionMade().add((TDMNElementReference) child);
         } else if (DECISION_OWNED.equals(nodeName)) {
-            ou.getDecisionOwned().add(child);
+            ou.getDecisionOwned().add((TDMNElementReference) child);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }
@@ -62,7 +61,7 @@ public class OrganizationUnitConverter extends BusinessContextElementConverter {
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        TOrganizationUnit<DMNContext> ou = (TOrganizationUnit) parent;
+        TOrganizationUnit ou = (TOrganizationUnit) parent;
 
         for (TDMNElementReference dm : ou.getDecisionMade()) {
             writeChildrenNode(writer, context, dm, DECISION_MADE);

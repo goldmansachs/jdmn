@@ -16,7 +16,6 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.dmndi.DMNDI;
 import com.gs.dmn.ast.dmndi.DMNDiagram;
 import com.gs.dmn.ast.dmndi.DMNStyle;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -45,9 +44,9 @@ public class DMNDIConverter extends DMNBaseElementConverter {
         DMNDI list = (DMNDI) parent;
 
         if (child instanceof DMNDiagram) {
-            list.getDMNDiagram().add(child);
+            list.getDMNDiagram().add((DMNDiagram) child);
         } else if (child instanceof DMNStyle) {
-            list.getDMNStyle().add(child);
+            list.getDMNStyle().add((DMNStyle) child);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }
@@ -63,7 +62,7 @@ public class DMNDIConverter extends DMNBaseElementConverter {
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        DMNDI<DMNContext> list = (DMNDI) parent;
+        DMNDI list = (DMNDI) parent;
 
         for (DMNDiagram e : list.getDMNDiagram()) {
             writeChildrenNode(writer, context, e, DMN_DIAGRAM);

@@ -13,21 +13,20 @@
 package com.gs.dmn.serialization.xstream;
 
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.context.DMNContext;
 
 import java.io.*;
 import java.net.URL;
 
 public interface SimpleDMNMarshaller {
-    TDefinitions<DMNContext> unmarshal(String input);
+    TDefinitions unmarshal(String input);
 
-    TDefinitions<DMNContext> unmarshal(File input);
+    TDefinitions unmarshal(File input);
 
-    TDefinitions<DMNContext> unmarshal(URL input);
+    TDefinitions unmarshal(URL input);
 
-    TDefinitions<DMNContext> unmarshal(InputStream input);
+    TDefinitions unmarshal(InputStream input);
 
-    TDefinitions<DMNContext> unmarshal(Reader input);
+    TDefinitions unmarshal(Reader input);
 
     String marshal(Object o);
 

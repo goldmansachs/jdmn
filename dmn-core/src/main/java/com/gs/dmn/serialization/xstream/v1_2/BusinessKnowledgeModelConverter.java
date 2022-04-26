@@ -13,7 +13,6 @@
 package com.gs.dmn.serialization.xstream.v1_2;
 
 import com.gs.dmn.ast.*;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -46,9 +45,9 @@ public class BusinessKnowledgeModelConverter extends InvocableConverter {
         if (ENCAPSULATED_LOGIC.equals(nodeName)) {
             bkm.setEncapsulatedLogic((TFunctionDefinition) child);
         } else if (KNOWLEDGE_REQUIREMENT.equals(nodeName)) {
-            bkm.getKnowledgeRequirement().add(child);
+            bkm.getKnowledgeRequirement().add((TKnowledgeRequirement) child);
         } else if (AUTHORITY_REQUIREMENT.equals(nodeName)) {
-            bkm.getAuthorityRequirement().add(child);
+            bkm.getAuthorityRequirement().add((TAuthorityRequirement) child);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }
@@ -64,7 +63,7 @@ public class BusinessKnowledgeModelConverter extends InvocableConverter {
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        TBusinessKnowledgeModel<DMNContext> bkm = (TBusinessKnowledgeModel) parent;
+        TBusinessKnowledgeModel bkm = (TBusinessKnowledgeModel) parent;
 
         if (bkm.getEncapsulatedLogic() != null) {
             writeChildrenNode(writer, context, bkm.getEncapsulatedLogic(), ENCAPSULATED_LOGIC);

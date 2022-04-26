@@ -13,7 +13,6 @@
 package com.gs.dmn.serialization.xstream.v1_1;
 
 import com.gs.dmn.ast.*;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -41,7 +40,7 @@ public class BusinessKnowledgeModelConverter extends DRGElementConverter {
 
     @Override
     protected void assignChildElement(Object parent, String nodeName, Object child) {
-        TBusinessKnowledgeModel<DMNContext> bkm = (TBusinessKnowledgeModel) parent;
+        TBusinessKnowledgeModel bkm = (TBusinessKnowledgeModel) parent;
 
         if (ENCAPSULATED_LOGIC.equals(nodeName)) {
             bkm.setEncapsulatedLogic((TFunctionDefinition) child);
@@ -66,7 +65,7 @@ public class BusinessKnowledgeModelConverter extends DRGElementConverter {
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        TBusinessKnowledgeModel<DMNContext> bkm = (TBusinessKnowledgeModel) parent;
+        TBusinessKnowledgeModel bkm = (TBusinessKnowledgeModel) parent;
 
         if (bkm.getEncapsulatedLogic() != null) {
             writeChildrenNode(writer, context, bkm.getEncapsulatedLogic(), ENCAPSULATED_LOGIC);

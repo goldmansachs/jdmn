@@ -24,9 +24,9 @@ import com.gs.dmn.ast.Visitor;
         "extension",
         "waypoint"
 })
-public class DMNDecisionServiceDividerLine<C> extends Edge<C> implements Visitable<C> {
+public class DMNDecisionServiceDividerLine extends Edge implements Visitable {
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

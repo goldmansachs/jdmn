@@ -14,7 +14,6 @@ package com.gs.dmn.serialization.xstream;
 
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.CustomStaxReader;
 import com.gs.dmn.serialization.DMNMarshaller;
@@ -73,7 +72,7 @@ public class XStreamMarshaller implements DMNMarshaller {
         return result;
     }
 
-    private static DMNVersion inferDMNVersion(DMNBaseElement from) {
+    public static DMNVersion inferDMNVersion(DMNBaseElement from) {
         DMNVersion result = null;
         try {
             Map<String, String> nsContext = from.getNsContext();
@@ -108,7 +107,7 @@ public class XStreamMarshaller implements DMNMarshaller {
     }
 
     @Override
-    public TDefinitions<DMNContext> unmarshal(String input) {
+    public TDefinitions unmarshal(String input) {
         try (Reader firstStringReader = new StringReader(input); Reader secondStringReader = new StringReader(input)) {
             DMNVersion dmnVersion = inferDMNVersion(firstStringReader);
             return unmarshal(dmnVersion, secondStringReader);
@@ -119,7 +118,7 @@ public class XStreamMarshaller implements DMNMarshaller {
     }
 
     @Override
-    public TDefinitions<DMNContext> unmarshal(File input) {
+    public TDefinitions unmarshal(File input) {
         try (Reader firstStringReader = new FileReader(input); Reader secondStringReader = new FileReader(input)) {
             DMNVersion dmnVersion = inferDMNVersion(firstStringReader);
             return unmarshal(dmnVersion, secondStringReader);
@@ -130,7 +129,7 @@ public class XStreamMarshaller implements DMNMarshaller {
     }
 
     @Override
-    public TDefinitions<DMNContext> unmarshal(URL input) {
+    public TDefinitions unmarshal(URL input) {
         try (Reader firstStringReader = new InputStreamReader(input.openStream()); Reader secondStringReader = new InputStreamReader(input.openStream())) {
             DMNVersion dmnVersion = inferDMNVersion(firstStringReader);
             return unmarshal(dmnVersion, secondStringReader);
@@ -141,7 +140,7 @@ public class XStreamMarshaller implements DMNMarshaller {
     }
 
     @Override
-    public TDefinitions<DMNContext> unmarshal(InputStream input) {
+    public TDefinitions unmarshal(InputStream input) {
         try (Reader firstStringReader = new InputStreamReader(input); Reader secondStringReader = new InputStreamReader(input)) {
             DMNVersion dmnVersion = inferDMNVersion(firstStringReader);
             return unmarshal(dmnVersion, secondStringReader);
@@ -152,7 +151,7 @@ public class XStreamMarshaller implements DMNMarshaller {
     }
 
     @Override
-    public TDefinitions<DMNContext> unmarshal(Reader input) {
+    public TDefinitions unmarshal(Reader input) {
         try (BufferedReader buffer = new BufferedReader(input)) {
             String xml = buffer.lines().collect(Collectors.joining("\n"));
             return unmarshal(xml);
@@ -162,8 +161,8 @@ public class XStreamMarshaller implements DMNMarshaller {
         return null;
     }
 
-    private TDefinitions<DMNContext> unmarshal(DMNVersion inferDMNVersion, Reader secondStringReader) {
-        TDefinitions<DMNContext> result = null;
+    private TDefinitions unmarshal(DMNVersion inferDMNVersion, Reader secondStringReader) {
+        TDefinitions result = null;
         if (DMNVersion.DMN_13.equals(inferDMNVersion)) {
             result = xStream13.unmarshal(secondStringReader);
         } else if (DMNVersion.DMN_12.equals(inferDMNVersion)) {

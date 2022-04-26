@@ -25,7 +25,7 @@ import javax.xml.namespace.QName;
         "typeRef",
         "extensionElements"
 })
-public class TInformationItem<C> extends TNamedElement<C> implements Visitable<C> {
+public class TInformationItem extends TNamedElement implements Visitable {
     private QName typeRef;
 
     public QName getTypeRef() {
@@ -37,7 +37,7 @@ public class TInformationItem<C> extends TNamedElement<C> implements Visitable<C
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

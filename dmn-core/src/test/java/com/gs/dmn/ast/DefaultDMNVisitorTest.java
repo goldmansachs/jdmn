@@ -24,7 +24,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class DefaultDMNVisitorTest {
     private final DMNMarshaller marshaller = DMNMarshallerFactory.newDefaultMarshaller();
-    private final Visitor<DMNContext> visitor = new DefaultDMNVisitor<>();
+    private final Visitor visitor = new DefaultDMNVisitor();
 
     @Test
     public void visit() throws Exception {
@@ -37,7 +37,7 @@ public class DefaultDMNVisitorTest {
         File baseInputDir = new File("target/test-classes/");
 
         File inputXMLFile = new File(baseInputDir, subDir + xmlFile);
-        TDefinitions<DMNContext> definitions = marshaller.unmarshal(new FileReader(inputXMLFile));
+        TDefinitions definitions = marshaller.unmarshal(new FileReader(inputXMLFile));
         definitions.accept(visitor, null);
         assertNotNull(definitions);
     }

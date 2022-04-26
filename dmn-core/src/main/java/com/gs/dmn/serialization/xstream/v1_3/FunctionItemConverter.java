@@ -15,7 +15,6 @@ package com.gs.dmn.serialization.xstream.v1_3;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TFunctionItem;
 import com.gs.dmn.ast.TInformationItem;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -44,7 +43,7 @@ public class FunctionItemConverter extends DMNElementConverter {
         TFunctionItem ii = (TFunctionItem) parent;
 
         if (PARAMETERS.equals(nodeName)) {
-            ii.getParameters().add(child);
+            ii.getParameters().add((TInformationItem) child);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }
@@ -63,7 +62,7 @@ public class FunctionItemConverter extends DMNElementConverter {
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
 
-        TFunctionItem<DMNContext> ii = (TFunctionItem) parent;
+        TFunctionItem ii = (TFunctionItem) parent;
 
         for (TInformationItem ic : ii.getParameters()) {
             writeChildrenNode(writer, context, ic, PARAMETERS);

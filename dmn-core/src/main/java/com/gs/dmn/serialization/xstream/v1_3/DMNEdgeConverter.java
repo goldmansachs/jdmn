@@ -15,7 +15,6 @@ package com.gs.dmn.serialization.xstream.v1_3;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.dmndi.DMNEdge;
 import com.gs.dmn.ast.dmndi.DMNLabel;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -86,7 +85,7 @@ public class DMNEdgeConverter extends EdgeConverter {
     protected void writeAttributes(HierarchicalStreamWriter writer, Object parent) {
         super.writeAttributes(writer, parent);
 
-        DMNEdge<DMNContext> concrete = (DMNEdge) parent;
+        DMNEdge concrete = (DMNEdge) parent;
 
         if (concrete.getDmnElementRef() != null) {
             writer.addAttribute(DMN_ELEMENT_REF, MarshallingUtils.formatQName(concrete.getDmnElementRef(), concrete));

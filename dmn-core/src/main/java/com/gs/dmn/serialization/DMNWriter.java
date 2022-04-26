@@ -68,11 +68,11 @@ public class DMNWriter extends DMNSerializer {
         this.dmnMarshaller = DMNMarshallerFactory.newMarshallerWithExtensions(registers);
     }
 
-    public void writeAST(TDefinitions<?> definitions, File output) {
+    public void writeAST(TDefinitions definitions, File output) {
         this.dmnMarshaller.marshal(definitions, output);
     }
 
-    public void writeASTAsJson(TDefinitions<?> definitions, File output, DMNNamespacePrefixMapper namespacePrefixMapper) {
+    public void writeASTAsJson(TDefinitions definitions, File output, DMNNamespacePrefixMapper namespacePrefixMapper) {
         try (FileOutputStream fos = new FileOutputStream(output)) {
             JSON_MAPPER.writeValue(fos, definitions);
         } catch (Exception e) {

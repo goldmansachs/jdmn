@@ -25,25 +25,25 @@ import javax.xml.namespace.QName;
         "defaultOutputEntry",
         "extensionElements"
 })
-public class TOutputClause<C> extends TDMNElement<C> implements Visitable<C> {
-    private TUnaryTests<C> outputValues;
-    private TLiteralExpression<C> defaultOutputEntry;
+public class TOutputClause extends TDMNElement implements Visitable {
+    private TUnaryTests outputValues;
+    private TLiteralExpression defaultOutputEntry;
     private String name;
     private QName typeRef;
 
-    public TUnaryTests<C> getOutputValues() {
+    public TUnaryTests getOutputValues() {
         return outputValues;
     }
 
-    public void setOutputValues(TUnaryTests<C> value) {
+    public void setOutputValues(TUnaryTests value) {
         this.outputValues = value;
     }
 
-    public TLiteralExpression<C> getDefaultOutputEntry() {
+    public TLiteralExpression getDefaultOutputEntry() {
         return defaultOutputEntry;
     }
 
-    public void setDefaultOutputEntry(TLiteralExpression<C> value) {
+    public void setDefaultOutputEntry(TLiteralExpression value) {
         this.defaultOutputEntry = value;
     }
 
@@ -64,7 +64,7 @@ public class TOutputClause<C> extends TDMNElement<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

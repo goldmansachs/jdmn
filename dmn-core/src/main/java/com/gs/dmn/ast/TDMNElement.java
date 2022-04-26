@@ -35,7 +35,7 @@ import java.util.Map;
         @JsonSubTypes.Type(name = "namedElement", value = TNamedElement.class),
         @JsonSubTypes.Type(name = "expression", value = TExpression.class),
 })
-public abstract class TDMNElement<C> extends DMNBaseElement {
+public abstract class TDMNElement extends DMNBaseElement {
     private final Map<QName, String> otherAttributes = new HashMap<>();
     private String description;
     private ExtensionElements extensionElements;

@@ -14,7 +14,6 @@ package com.gs.dmn.serialization.xstream.v1_2;
 
 import com.gs.dmn.ast.dmndi.Edge;
 import com.gs.dmn.ast.dmndi.Point;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -32,7 +31,7 @@ public abstract class EdgeConverter extends DiagramElementConverter {
         Edge abs = (Edge) parent;
 
         if (child instanceof Point) {
-            abs.getWaypoint().add(child);
+            abs.getWaypoint().add((Point) child);
         } else {
             super.assignChildElement(abs, nodeName, child);
         }
@@ -48,7 +47,7 @@ public abstract class EdgeConverter extends DiagramElementConverter {
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        Edge<DMNContext> abs = (Edge) parent;
+        Edge abs = (Edge) parent;
 
         for (Point pt : abs.getWaypoint()) {
             writeChildrenNode(writer, context, pt, WAYPOINT);

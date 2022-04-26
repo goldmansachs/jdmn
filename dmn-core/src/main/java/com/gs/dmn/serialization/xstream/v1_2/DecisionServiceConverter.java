@@ -15,7 +15,6 @@ package com.gs.dmn.serialization.xstream.v1_2;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDMNElementReference;
 import com.gs.dmn.ast.TDecisionService;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
@@ -46,7 +45,7 @@ public class DecisionServiceConverter extends InvocableConverter {
     protected void parseElements(HierarchicalStreamReader reader, UnmarshallingContext context, Object parent) {
         while (reader.hasMoreChildren()) {
             reader.moveDown();
-            Object object = null;
+            Object object;
             String nodeName = reader.getNodeName();
             if (nodeName.equals(INPUT_DATA)) {
                 // Patch because the tag name inputData is used in both decision services and as a DRG Element
@@ -71,16 +70,16 @@ public class DecisionServiceConverter extends InvocableConverter {
         TDecisionService decisionService = (TDecisionService) parent;
         switch (nodeName) {
             case OUTPUT_DECISION:
-                decisionService.getOutputDecision().add(child);
+                decisionService.getOutputDecision().add((TDMNElementReference) child);
                 break;
             case ENCAPSULATED_DECISION:
-                decisionService.getEncapsulatedDecision().add(child);
+                decisionService.getEncapsulatedDecision().add((TDMNElementReference) child);
                 break;
             case INPUT_DECISION:
-                decisionService.getInputDecision().add(child);
+                decisionService.getInputDecision().add((TDMNElementReference) child);
                 break;
             case INPUT_DATA:
-                decisionService.getInputData().add(child);
+                decisionService.getInputData().add((TDMNElementReference) child);
                 break;
             default:
                 super.assignChildElement(parent, nodeName, child);
@@ -90,7 +89,7 @@ public class DecisionServiceConverter extends InvocableConverter {
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        TDecisionService<DMNContext> decisionService = (TDecisionService) parent;
+        TDecisionService decisionService = (TDecisionService) parent;
 
         for (TDMNElementReference ref : decisionService.getOutputDecision()) {
             writeChildrenNode(writer, context, ref, OUTPUT_DECISION);

@@ -21,7 +21,7 @@ import com.gs.dmn.ast.Visitor;
         "width",
         "height"
 })
-public class Dimension<C> extends DMNBaseElement implements Visitable<C> {
+public class Dimension extends DMNBaseElement implements Visitable {
     private double width;
     private double height;
 
@@ -42,7 +42,7 @@ public class Dimension<C> extends DMNBaseElement implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

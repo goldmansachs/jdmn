@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.io.File;
 
-public class DMN11To12DialectTransformerTest extends DMNDialectTransformerTest<TDefinitions<DMNContext>, TDefinitions<DMNContext>> {
+public class DMN11To12DialectTransformerTest extends DMNDialectTransformerTest<TDefinitions, TDefinitions> {
     @Test
     public void testTransform() throws Exception {
         doTest("0004-lending.dmn", new Pair<>("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b", "tns"));
@@ -15,7 +15,7 @@ public class DMN11To12DialectTransformerTest extends DMNDialectTransformerTest<T
     }
 
     @Override
-    protected SimpleDMNDialectTransformer<TDefinitions<DMNContext>, TDefinitions<DMNContext>> getTransformer() {
+    protected SimpleDMNDialectTransformer<TDefinitions, TDefinitions> getTransformer() {
         return new DMN11To12DialectTransformer(LOGGER);
     }
 
@@ -25,7 +25,7 @@ public class DMN11To12DialectTransformerTest extends DMNDialectTransformerTest<T
     }
 
     @Override
-    protected void writeModel(TDefinitions<DMNContext> targetDefinitions, Pair<String, String> dmnNamespacePrefixMapping, File actualOutputFile) {
+    protected void writeModel(TDefinitions targetDefinitions, Pair<String, String> dmnNamespacePrefixMapping, File actualOutputFile) {
         this.dmnWriter.writeAST(targetDefinitions, actualOutputFile);
     }
 

@@ -17,7 +17,6 @@ import com.gs.dmn.ast.dmndi.DMNEdge;
 import com.gs.dmn.ast.dmndi.DMNShape;
 import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.converters.Converter;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
@@ -31,10 +30,13 @@ public final class MarshallingUtils {
         if (qns != null) {
             Matcher m = QNAME_PAT.matcher(qns);
             if (m.matches()) {
-                if (m.group(4) != null) {
-                    return new QName(m.group(2), m.group(5), m.group(4));
+                String namespaceURI = m.group(2);
+                String prefix = m.group(4);
+                String localPart = m.group(5);
+                if (prefix != null) {
+                    return new QName(namespaceURI, localPart, prefix);
                 } else {
-                    return new QName(m.group(2), m.group(5));
+                    return new QName(namespaceURI, localPart);
                 }
             } else {
                 return new QName(qns);
@@ -60,7 +62,7 @@ public final class MarshallingUtils {
     }
 
     public static String defineExpressionNodeName(XStream xstream, TExpression e) {
-        Converter converter = xstream.getConverterLookup().lookupConverterForType(e.getClass());
+//        Converter converter = xstream.getConverterLookup().lookupConverterForType(e.getClass());
         return defineExpressionNodeName(e);
     }
 
@@ -85,6 +87,5 @@ public final class MarshallingUtils {
     }
 
     private MarshallingUtils() {
-        // Constructing instances is not allowed for this class
     }
 }

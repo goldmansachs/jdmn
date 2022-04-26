@@ -23,19 +23,19 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "variable",
         "extensionElements"
 })
-public class TInputData<C> extends TDRGElement<C> implements Visitable<C> {
-    private TInformationItem<C> variable;
+public class TInputData extends TDRGElement implements Visitable {
+    private TInformationItem variable;
 
-    public TInformationItem<C> getVariable() {
+    public TInformationItem getVariable() {
         return variable;
     }
 
-    public void setVariable(TInformationItem<C> value) {
+    public void setVariable(TInformationItem value) {
         this.variable = value;
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

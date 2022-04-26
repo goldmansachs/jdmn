@@ -98,11 +98,11 @@ public class DMNReader extends DMNSerializer {
         }
     }
 
-    public com.gs.dmn.ast.TDefinitions<DMNContext> readAST(File input) {
+    public com.gs.dmn.ast.TDefinitions readAST(File input) {
         try {
             logger.info(String.format("Reading DMN '%s' ...", input.getAbsolutePath()));
 
-            com.gs.dmn.ast.TDefinitions<DMNContext> result = this.dmnMarshaller.unmarshal(input);
+            com.gs.dmn.ast.TDefinitions result = this.dmnMarshaller.unmarshal(input);
 
             logger.info("DMN read.");
             return result;

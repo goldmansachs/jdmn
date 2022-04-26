@@ -15,7 +15,6 @@ package com.gs.dmn.serialization.xstream.v1_2;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TExpression;
 import com.gs.dmn.ast.TList;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -41,7 +40,7 @@ public class DMNListConverter extends ExpressionConverter {
         TList list = (TList) parent;
 
         if (child instanceof TExpression) {
-            list.getExpression().add(child);
+            list.getExpression().add((TExpression) child);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }
@@ -57,7 +56,7 @@ public class DMNListConverter extends ExpressionConverter {
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        TList<DMNContext> list = (TList) parent;
+        TList list = (TList) parent;
 
         for (TExpression e : list.getExpression()) {
             writeChildrenNode(writer, context, e, MarshallingUtils.defineExpressionNodeName(e));

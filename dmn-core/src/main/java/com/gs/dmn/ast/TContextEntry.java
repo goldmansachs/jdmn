@@ -23,28 +23,28 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "expression",
         "extensionElements"
 })
-public class TContextEntry<C> extends TDMNElement<C> implements Visitable<C> {
-    private TInformationItem<C> variable;
-    private TExpression<C> expression;
+public class TContextEntry extends TDMNElement implements Visitable {
+    private TInformationItem variable;
+    private TExpression expression;
 
-    public TInformationItem<C> getVariable() {
+    public TInformationItem getVariable() {
         return variable;
     }
 
-    public void setVariable(TInformationItem<C> value) {
+    public void setVariable(TInformationItem value) {
         this.variable = value;
     }
 
-    public TExpression<C> getExpression() {
+    public TExpression getExpression() {
         return expression;
     }
 
-    public void setExpression(TExpression<C> value) {
+    public void setExpression(TExpression value) {
         this.expression = value;
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

@@ -15,7 +15,6 @@ package com.gs.dmn.serialization.xstream.v1_2;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TContext;
 import com.gs.dmn.ast.TContextEntry;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -43,7 +42,7 @@ public class ContextConverter extends ExpressionConverter {
         TContext c = (TContext) parent;
 
         if (CONTEXT_ENTRY.equals(nodeName)) {
-            c.getContextEntry().add(child);
+            c.getContextEntry().add((TContextEntry) child);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }
@@ -59,7 +58,7 @@ public class ContextConverter extends ExpressionConverter {
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        TContext<DMNContext> c = (TContext) parent;
+        TContext c = (TContext) parent;
 
         for (TContextEntry ce : c.getContextEntry()) {
             writeChildrenNode(writer, context, ce, CONTEXT_ENTRY);

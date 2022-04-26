@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "importedElement",
         "extensionElements"
 })
-public class TImportedValues<C> extends TImport<C> implements Visitable<C> {
+public class TImportedValues extends TImport implements Visitable {
     private String importedElement;
     private String expressionLanguage;
 
@@ -48,7 +48,7 @@ public class TImportedValues<C> extends TImport<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

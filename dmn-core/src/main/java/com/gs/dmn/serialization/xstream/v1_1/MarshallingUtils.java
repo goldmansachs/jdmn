@@ -22,18 +22,17 @@ import java.util.regex.Pattern;
 public final class MarshallingUtils {
     private final static Pattern QNAME_PAT = Pattern.compile("(\\{([^\\}]*)\\})?(([^:]*):)?(.*)");
 
-    private MarshallingUtils() {
-        // Constructing instances is not allowed for this class
-    }
-
     public static QName parseQNameString(String qns) {
         if (qns != null) {
             Matcher m = QNAME_PAT.matcher(qns);
             if (m.matches()) {
-                if (m.group(4) != null) {
-                    return new QName(m.group(2), m.group(5), m.group(4));
+                String namespaceURI = m.group(2);
+                String prefix = m.group(4);
+                String localPart = m.group(5);
+                if (prefix != null) {
+                    return new QName(namespaceURI, localPart, prefix);
                 } else {
-                    return new QName(m.group(2), m.group(5));
+                    return new QName(namespaceURI, localPart);
                 }
             } else {
                 return new QName(qns);
@@ -78,5 +77,8 @@ public final class MarshallingUtils {
             nodeName = "list";
         }
         return nodeName;
+    }
+
+    private MarshallingUtils() {
     }
 }

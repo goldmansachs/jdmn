@@ -27,11 +27,11 @@ import java.util.List;
         "parameters",
         "extensionElements"
 })
-public class TFunctionItem<C> extends TDMNElement<C> implements Visitable<C> {
-    private List<TInformationItem<C>> parameters;
+public class TFunctionItem extends TDMNElement implements Visitable {
+    private List<TInformationItem> parameters;
     private QName outputTypeRef;
 
-    public List<TInformationItem<C>> getParameters() {
+    public List<TInformationItem> getParameters() {
         if (parameters == null) {
             parameters = new ArrayList<>();
         }
@@ -47,7 +47,7 @@ public class TFunctionItem<C> extends TDMNElement<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

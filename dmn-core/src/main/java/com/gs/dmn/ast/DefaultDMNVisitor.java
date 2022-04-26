@@ -16,33 +16,33 @@ import com.gs.dmn.ast.dmndi.*;
 
 import javax.xml.namespace.QName;
 
-public class DefaultDMNVisitor<C> implements Visitor<C> {
+public class DefaultDMNVisitor implements Visitor {
     //
     // DMN Elements
     //
     // Definitions
     @Override
-    public Object visit(TDefinitions<C> element, C context) {
+    public <C> Object visit(TDefinitions  element, C context) {
         visitTNamedElementProperties(element, context);
-        for (TImport<C> import_ : element.getImport()){
+        for (TImport import_ : element.getImport()){
             import_.accept(this, context);
         }
-        for (TItemDefinition<C> itemDefinition : element.getItemDefinition()) {
+        for (TItemDefinition itemDefinition : element.getItemDefinition()) {
             itemDefinition.accept(this, context);
         }
-        for (TDRGElement<C> drgElement : element.getDrgElement()) {
+        for (TDRGElement drgElement : element.getDrgElement()) {
             visitTDRGElement(drgElement, context);
         }
-        for (TArtifact<C> artifact : element.getArtifact()) {
+        for (TArtifact artifact : element.getArtifact()) {
             visitTArtifact(artifact, context);
         }
-        for (TElementCollection<C> elementCollection : element.getElementCollection()) {
+        for (TElementCollection  elementCollection : element.getElementCollection()) {
             elementCollection.accept(this, context);
         }
-        for (TBusinessContextElement<C> businessContextElement : element.getBusinessContextElement()) {
+        for (TBusinessContextElement businessContextElement : element.getBusinessContextElement()) {
             businessContextElement.accept(this, context);
         }
-        DMNDI<C> dmndi = element.getDMNDI();
+        DMNDI dmndi = element.getDMNDI();
         if (dmndi != null) {
             dmndi.accept(this, context);
         }
@@ -51,30 +51,30 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
 
     // Import
     @Override
-    public Object visit(TImport<C> element, C context) {
+    public <C> Object visit(TImport element, C context) {
         visitTNamedElementProperties(element, context);
         return element;
     }
 
     @Override
-    public Object visit(TImportedValues<C> element, C context) {
+    public <C> Object visit(TImportedValues element, C context) {
         visitTNamedElementProperties(element, context);
         return element;
     }
 
     // Data types
     @Override
-    public Object visit(TItemDefinition<C> element, C context) {
+    public <C> Object visit(TItemDefinition  element, C context) {
         visitTNamedElementProperties(element, context);
         element.setTypeRef(visitTypeRef(element.getTypeRef(), context));
-        TUnaryTests<C> allowedValues = element.getAllowedValues();
+        TUnaryTests allowedValues = element.getAllowedValues();
         if (allowedValues != null) {
             allowedValues.accept(this, context);
         }
-        for (TItemDefinition<C> itemDefinition : element.getItemComponent()) {
+        for (TItemDefinition itemDefinition : element.getItemComponent()) {
             itemDefinition.accept(this, context);
         }
-        TFunctionItem<C> functionItem = element.getFunctionItem();
+        TFunctionItem functionItem = element.getFunctionItem();
         if (functionItem  != null) {
             functionItem.accept(this, context);
         }
@@ -82,9 +82,9 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
     }
 
     @Override
-    public Object visit(TFunctionItem<C> element, C context) {
+    public <C> Object visit(TFunctionItem  element, C context) {
         visitTDMNElementProperties(element, context);
-        for (TInformationItem<C> parameter : element.getParameters()) {
+        for (TInformationItem parameter : element.getParameters()) {
             parameter.accept(this, context);
         }
         element.setOutputTypeRef(visitTypeRef(element.getOutputTypeRef(), context));
@@ -93,9 +93,9 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
 
     // DRG Elements
     @Override
-    public Object visit(TInputData<C> element, C context) {
+    public <C> Object visit(TInputData  element, C context) {
         visitTNamedElementProperties(element, context);
-        TInformationItem<C> variable = element.getVariable();
+        TInformationItem variable = element.getVariable();
         if (variable  != null) {
             variable.accept(this, context);
         }
@@ -103,37 +103,37 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
     }
 
     @Override
-    public Object visit(TDecision<C> element, C context) {
+    public <C> Object visit(TDecision  element, C context) {
         visitTNamedElementProperties(element, context);
-        TInformationItem<C> variable = element.getVariable();
+        TInformationItem variable = element.getVariable();
         if (variable != null) {
             variable.accept(this,context);
         }
-        for (TInformationRequirement<C> informationRequirement : element.getInformationRequirement()) {
+        for (TInformationRequirement informationRequirement : element.getInformationRequirement()) {
             informationRequirement.accept(this, context);
         }
-        for (TKnowledgeRequirement<C> knowledgeRequirement: element.getKnowledgeRequirement()) {
+        for (TKnowledgeRequirement knowledgeRequirement: element.getKnowledgeRequirement()) {
             knowledgeRequirement.accept(this, context);
         }
-        for (TAuthorityRequirement<C> authorityRequirement : element.getAuthorityRequirement()) {
+        for (TAuthorityRequirement authorityRequirement : element.getAuthorityRequirement()) {
             authorityRequirement.accept(this, context);
         }
-        for (TDMNElementReference<C> elementReference : element.getSupportedObjective()) {
+        for (TDMNElementReference  elementReference : element.getSupportedObjective()) {
             elementReference.accept(this, context);
         }
-        for (TDMNElementReference<C> elementReference : element.getImpactedPerformanceIndicator()) {
+        for (TDMNElementReference  elementReference : element.getImpactedPerformanceIndicator()) {
             elementReference.accept(this, context);
         }
-        for (TDMNElementReference<C> elementReference : element.getDecisionMaker()) {
+        for (TDMNElementReference  elementReference : element.getDecisionMaker()) {
             elementReference.accept(this, context);
         }
-        for (TDMNElementReference<C> elementReference : element.getDecisionOwner()) {
+        for (TDMNElementReference  elementReference : element.getDecisionOwner()) {
             elementReference.accept(this, context);
         }
-        for (TDMNElementReference<C> elementReference : element.getUsingProcess()) {
+        for (TDMNElementReference  elementReference : element.getUsingProcess()) {
             elementReference.accept(this, context);
         }
-        for (TDMNElementReference<C> elementReference : element.getUsingTask()) {
+        for (TDMNElementReference  elementReference : element.getUsingTask()) {
             elementReference.accept(this, context);
         }
         visitTExpression(element.getExpression(), context);
@@ -141,54 +141,54 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
     }
 
     @Override
-    public Object visit(TBusinessKnowledgeModel<C> element, C context) {
+    public <C> Object visit(TBusinessKnowledgeModel  element, C context) {
         visitTNamedElementProperties(element, context);
-        TInformationItem<C> variable = element.getVariable();
+        TInformationItem variable = element.getVariable();
         if (variable != null) {
             variable.accept(this,context);
         }
-        TFunctionDefinition<C> encapsulatedLogic = element.getEncapsulatedLogic();
+        TFunctionDefinition encapsulatedLogic = element.getEncapsulatedLogic();
         if (encapsulatedLogic != null) {
             encapsulatedLogic.accept(this, context);
         }
-        for (TKnowledgeRequirement<C> knowledgeRequirement : element.getKnowledgeRequirement()) {
+        for (TKnowledgeRequirement knowledgeRequirement : element.getKnowledgeRequirement()) {
             knowledgeRequirement.accept(this, context);
         }
-        for (TAuthorityRequirement<C> authorityRequirement : element.getAuthorityRequirement()) {
+        for (TAuthorityRequirement authorityRequirement : element.getAuthorityRequirement()) {
             authorityRequirement.accept(this, context);
         }
         return element;
     }
 
     @Override
-    public Object visit(TDecisionService<C> element, C context) {
+    public <C> Object visit(TDecisionService  element, C context) {
         visitTNamedElementProperties(element, context);
-        TInformationItem<C> variable = element.getVariable();
+        TInformationItem variable = element.getVariable();
         if (variable != null) {
             variable.accept(this,context);
         }
-        for (TDMNElementReference<C> elementReference : element.getOutputDecision()) {
+        for (TDMNElementReference  elementReference : element.getOutputDecision()) {
             elementReference.accept(this, context);
         }
-        for (TDMNElementReference<C> elementReference : element.getEncapsulatedDecision()) {
+        for (TDMNElementReference  elementReference : element.getEncapsulatedDecision()) {
             elementReference.accept(this, context);
         }
-        for (TDMNElementReference<C> elementReference : element.getInputDecision()) {
+        for (TDMNElementReference  elementReference : element.getInputDecision()) {
             elementReference.accept(this, context);
         }
-        for (TDMNElementReference<C> elementReference : element.getInputData()) {
+        for (TDMNElementReference  elementReference : element.getInputData()) {
             elementReference.accept(this, context);
         }
         return element;
     }
 
     @Override
-    public Object visit(TKnowledgeSource<C> element, C context) {
+    public <C> Object visit(TKnowledgeSource  element, C context) {
         visitTNamedElementProperties(element, context);
-        for (TAuthorityRequirement<C> authorityRequirement : element.getAuthorityRequirement()) {
+        for (TAuthorityRequirement authorityRequirement : element.getAuthorityRequirement()) {
             authorityRequirement.accept(this, context);
         }
-        TDMNElementReference<C> owner = element.getOwner();
+        TDMNElementReference owner = element.getOwner();
         if (owner != null) {
             owner.accept(this, context);
         }
@@ -197,18 +197,18 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
 
     // Expressions
     @Override
-    public Object visit(TContext<C> element, C context) {
+    public <C> Object visit(TContext  element, C context) {
         visitTExpressionProperties(element, context);
-        for (TContextEntry<C> contextEntry : element.getContextEntry()) {
+        for (TContextEntry contextEntry : element.getContextEntry()) {
             contextEntry.accept(this, context);
         }
         return element;
     }
 
     @Override
-    public Object visit(TContextEntry<C> element, C context) {
+    public <C> Object visit(TContextEntry  element, C context) {
         visitTDMNElementProperties(element, context);
-        TInformationItem<C> variable = element.getVariable();
+        TInformationItem variable = element.getVariable();
         if (variable != null) {
             variable.accept(this, context);
         }
@@ -217,31 +217,31 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
     }
 
     @Override
-    public Object visit(TDecisionTable<C> element, C context) {
+    public <C> Object visit(TDecisionTable  element, C context) {
         visitTExpressionProperties(element, context);
-        for (TInputClause<C> inputClause : element.getInput()) {
+        for (TInputClause inputClause : element.getInput()) {
             inputClause.accept(this, context);
         }
-        for (TOutputClause<C> outputClause : element.getOutput()) {
+        for (TOutputClause outputClause : element.getOutput()) {
             outputClause.accept(this, context);
         }
-        for (TRuleAnnotationClause<C> clause : element.getAnnotation()) {
+        for (TRuleAnnotationClause clause : element.getAnnotation()) {
             clause.accept(this, context);
         }
-        for (TDecisionRule<C> rule : element.getRule()) {
+        for (TDecisionRule rule : element.getRule()) {
             rule.accept(this, context);
         }
         return element;
     }
 
     @Override
-    public Object visit(TInputClause<C> element, C context) {
+    public <C> Object visit(TInputClause  element, C context) {
         visitTDMNElementProperties(element, context);
-        TLiteralExpression<C> inputExpression = element.getInputExpression();
+        TLiteralExpression inputExpression = element.getInputExpression();
         if (inputExpression != null) {
             inputExpression.accept(this, context);
         }
-        TUnaryTests<C> inputValues = element.getInputValues();
+        TUnaryTests inputValues = element.getInputValues();
         if (inputValues != null) {
             inputValues.accept(this, context);
         }
@@ -249,13 +249,13 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
     }
 
     @Override
-    public Object visit(TOutputClause<C> element, C context) {
+    public <C> Object visit(TOutputClause  element, C context) {
         visitTDMNElementProperties(element, context);
-        TUnaryTests<C> outputValues = element.getOutputValues();
+        TUnaryTests outputValues = element.getOutputValues();
         if (outputValues != null) {
             outputValues.accept(this, context);
         }
-        TLiteralExpression<C> defaultOutputEntry = element.getDefaultOutputEntry();
+        TLiteralExpression defaultOutputEntry = element.getDefaultOutputEntry();
         if (defaultOutputEntry != null) {
             defaultOutputEntry.accept(this, context);
         }
@@ -264,34 +264,34 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
     }
 
     @Override
-    public Object visit(TRuleAnnotationClause<C> element, C context) {
+    public <C> Object visit(TRuleAnnotationClause  element, C context) {
         return element;
     }
 
     @Override
-    public Object visit(TDecisionRule<C> element, C context) {
+    public <C> Object visit(TDecisionRule  element, C context) {
         visitTDMNElementProperties(element, context);
-        for (TUnaryTests<C> unaryTests : element.getInputEntry()) {
+        for (TUnaryTests unaryTests : element.getInputEntry()) {
             unaryTests.accept(this, context);
         }
-        for (TLiteralExpression<C> expression : element.getOutputEntry()) {
+        for (TLiteralExpression expression : element.getOutputEntry()) {
             expression.accept(this, context);
         }
-        for (TRuleAnnotation<C> ruleAnnotation : element.getAnnotationEntry()) {
+        for (TRuleAnnotation ruleAnnotation : element.getAnnotationEntry()) {
             ruleAnnotation.accept(this, context);
         }
         return element;
     }
 
     @Override
-    public Object visit(TRuleAnnotation<C> element, C context) {
+    public <C> Object visit(TRuleAnnotation  element, C context) {
         return element;
     }
 
     @Override
-    public Object visit(TFunctionDefinition<C> element, C context) {
+    public <C> Object visit(TFunctionDefinition  element, C context) {
         visitTExpressionProperties(element, context);
-        for (TInformationItem<C> informationItem : element.getFormalParameter()) {
+        for (TInformationItem informationItem : element.getFormalParameter()) {
             informationItem.accept(this, context);
         }
         visitTExpression(element.getExpression(), context);
@@ -299,18 +299,18 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
     }
 
     @Override
-    public Object visit(TInvocation<C> element, C context) {
+    public <C> Object visit(TInvocation  element, C context) {
         visitTExpressionProperties(element, context);
         visitTExpression(element.getExpression(), context);
-        for (TBinding<C> binding : element.getBinding()) {
+        for (TBinding binding : element.getBinding()) {
             binding.accept(this, context);
         }
         return element;
     }
 
     @Override
-    public Object visit(TBinding<C> element, C context) {
-        TInformationItem<C> parameter = element.getParameter();
+    public <C> Object visit(TBinding  element, C context) {
+        TInformationItem parameter = element.getParameter();
         if (parameter != null) {
             parameter.accept(this, context);
         }
@@ -319,18 +319,18 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
     }
 
     @Override
-    public Object visit(TList<C> element, C context) {
+    public <C> Object visit(TList  element, C context) {
         visitTExpressionProperties(element, context);
-        for (TExpression<C> expression : element.getExpression()) {
+        for (TExpression expression : element.getExpression()) {
             visitTExpression(expression, context);
         }
         return element;
     }
 
     @Override
-    public Object visit(TLiteralExpression<C> element, C context) {
+    public <C> Object visit(TLiteralExpression  element, C context) {
         visitTExpressionProperties(element, context);
-        TImportedValues<C> importedValues = element.getImportedValues();
+        TImportedValues importedValues = element.getImportedValues();
         if (importedValues != null) {
             importedValues.accept(this, context);
         }
@@ -338,36 +338,36 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
     }
 
     @Override
-    public Object visit(TRelation<C> element, C context) {
+    public <C> Object visit(TRelation  element, C context) {
         visitTExpressionProperties(element, context);
-        for (TInformationItem<C> informationItem : element.getColumn()) {
+        for (TInformationItem informationItem : element.getColumn()) {
             informationItem.accept(this, context);
         }
-        for (TList<C> list : element.getRow()) {
+        for (TList list : element.getRow()) {
             list.accept(this, context);
         }
         return element;
     }
 
     @Override
-    public Object visit(TUnaryTests<C> element, C context) {
+    public <C> Object visit(TUnaryTests  element, C context) {
         visitTExpressionProperties(element, context);
         return element;
     }
 
     // Requirements
     @Override
-    public Object visit(TAuthorityRequirement<C> element, C context) {
+    public <C> Object visit(TAuthorityRequirement  element, C context) {
         visitTDMNElementProperties(element, context);
-        TDMNElementReference<C> requiredDecision = element.getRequiredDecision();
+        TDMNElementReference requiredDecision = element.getRequiredDecision();
         if (requiredDecision != null) {
             requiredDecision.accept(this, context);
         }
-        TDMNElementReference<C> requiredInput = element.getRequiredInput();
+        TDMNElementReference requiredInput = element.getRequiredInput();
         if (requiredInput != null) {
             requiredInput.accept(this, context);
         }
-        TDMNElementReference<C> requiredAuthority = element.getRequiredAuthority();
+        TDMNElementReference requiredAuthority = element.getRequiredAuthority();
         if (requiredAuthority != null) {
             requiredAuthority.accept(this, context);
         }
@@ -375,13 +375,13 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
     }
 
     @Override
-    public Object visit(TInformationRequirement<C> element, C context) {
+    public <C> Object visit(TInformationRequirement  element, C context) {
         visitTDMNElementProperties(element, context);
-        TDMNElementReference<C> requiredDecision = element.getRequiredDecision();
+        TDMNElementReference requiredDecision = element.getRequiredDecision();
         if (requiredDecision != null) {
             requiredDecision.accept(this, context);
         }
-        TDMNElementReference<C> requiredInput = element.getRequiredInput();
+        TDMNElementReference requiredInput = element.getRequiredInput();
         if (requiredInput != null) {
             requiredInput.accept(this, context);
         }
@@ -389,9 +389,9 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
     }
 
     @Override
-    public Object visit(TKnowledgeRequirement<C> element, C context) {
+    public <C> Object visit(TKnowledgeRequirement  element, C context) {
         visitTDMNElementProperties(element, context);
-        TDMNElementReference<C> requiredKnowledge = element.getRequiredKnowledge();
+        TDMNElementReference requiredKnowledge = element.getRequiredKnowledge();
         if (requiredKnowledge != null) {
             requiredKnowledge.accept(this, context);
         }
@@ -399,26 +399,26 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
     }
 
     @Override
-    public Object visit(TInformationItem<C> element, C context) {
+    public <C> Object visit(TInformationItem  element, C context) {
         visitTNamedElementProperties(element, context);
         element.setTypeRef(visitTypeRef(element.getTypeRef(), context));
         return element;
     }
 
     @Override
-    public Object visit(TDMNElementReference<C> element, C context) {
+    public <C> Object visit(TDMNElementReference  element, C context) {
         return element;
     }
 
     // Artifacts
     @Override
-    public Object visit(TAssociation<C> element, C context) {
+    public <C> Object visit(TAssociation  element, C context) {
         visitTDMNElementProperties(element, context);
-        TDMNElementReference<C> sourceRef = element.getSourceRef();
+        TDMNElementReference sourceRef = element.getSourceRef();
         if (sourceRef != null) {
             sourceRef.accept(this, context);
         }
-        TDMNElementReference<C> targetRef = element.getTargetRef();
+        TDMNElementReference targetRef = element.getTargetRef();
         if (targetRef != null) {
             targetRef.accept(this, context);
         }
@@ -426,49 +426,49 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
     }
 
     @Override
-    public Object visit(TGroup<C> element, C context) {
+    public <C> Object visit(TGroup  element, C context) {
         visitTDMNElementProperties(element, context);
         return element;
     }
 
     @Override
-    public Object visit(TTextAnnotation<C> element, C context) {
+    public <C> Object visit(TTextAnnotation  element, C context) {
         visitTDMNElementProperties(element, context);
         return element;
     }
 
     // Other
     @Override
-    public Object visit(TBusinessContextElement<C> element, C context) {
+    public <C> Object visit(TBusinessContextElement  element, C context) {
         visitTNamedElementProperties(element, context);
         return element;
     }
 
     @Override
-    public Object visit(TPerformanceIndicator<C> element, C context) {
+    public <C> Object visit(TPerformanceIndicator  element, C context) {
         visitTNamedElementProperties(element, context);
-        for (TDMNElementReference<C> elementReference : element.getImpactingDecision()) {
+        for (TDMNElementReference  elementReference : element.getImpactingDecision()) {
             elementReference.accept(this, context);
         }
         return element;
     }
 
     @Override
-    public Object visit(TOrganizationUnit<C> element, C context) {
+    public <C> Object visit(TOrganizationUnit  element, C context) {
         visitTNamedElementProperties(element, context);
-        for (TDMNElementReference<C> elementReference : element.getDecisionMade()) {
+        for (TDMNElementReference  elementReference : element.getDecisionMade()) {
             elementReference.accept(this, context);
         }
-        for (TDMNElementReference<C> elementReference : element.getDecisionOwned()) {
+        for (TDMNElementReference  elementReference : element.getDecisionOwned()) {
             elementReference.accept(this, context);
         }
         return element;
     }
 
     @Override
-    public Object visit(TElementCollection<C> element, C context) {
+    public <C> Object visit(TElementCollection  element, C context) {
         visitTNamedElementProperties(element, context);
-        for (TDMNElementReference<C> elementReference : element.getDrgElement()) {
+        for (TDMNElementReference  elementReference : element.getDrgElement()) {
             elementReference.accept(this, context);
         }
         return element;
@@ -476,7 +476,7 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
 
     // Extensions
     @Override
-    public Object visit(TDMNElement.ExtensionElements element, C context) {
+    public <C> Object visit(TDMNElement.ExtensionElements element, C context) {
         return visitExtensions(element, context);
     }
 
@@ -484,38 +484,38 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
     // DMNDI elements
     //
     @Override
-    public Object visit(DMNDI<C> element, C context) {
-        for (DMNDiagram<C> diagram : element.getDMNDiagram()) {
+    public <C> Object visit(DMNDI  element, C context) {
+        for (DMNDiagram diagram : element.getDMNDiagram()) {
             diagram.accept(this, context);
         }
-        for (DMNStyle<C> style : element.getDMNStyle()) {
+        for (DMNStyle style : element.getDMNStyle()) {
             style.accept(this, context);
         }
         return element;
     }
 
     @Override
-    public Object visit(DMNDiagram<C> element, C context) {
+    public <C> Object visit(DMNDiagram  element, C context) {
         visitDiagramElementProperties(element, context);
-        Dimension<C> size = element.getSize();
+        Dimension size = element.getSize();
         if (size != null) {
             size.accept(this, context);
         }
-        for (DiagramElement<C> diagramElement : element.getDMNDiagramElement()) {
+        for (DiagramElement diagramElement : element.getDMNDiagramElement()) {
             visitDiagramElement(diagramElement, context);
         }
         return element;
     }
 
     @Override
-    public Object visit(DMNShape<C> element, C context) {
+    public <C> Object visit(DMNShape  element, C context) {
         visitDiagramElementProperties(element, context);
         visitShapeProperties(element, context);
-        DMNLabel<C> dmnLabel = element.getDMNLabel();
+        DMNLabel dmnLabel = element.getDMNLabel();
         if (dmnLabel != null) {
             dmnLabel.accept(this, context);
         }
-        DMNDecisionServiceDividerLine<C> dmnDecisionServiceDividerLine = element.getDMNDecisionServiceDividerLine();
+        DMNDecisionServiceDividerLine dmnDecisionServiceDividerLine = element.getDMNDecisionServiceDividerLine();
         if (dmnDecisionServiceDividerLine != null) {
             dmnDecisionServiceDividerLine.accept(this, context);
         }
@@ -524,9 +524,9 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
     }
 
     @Override
-    public Object visit(DMNEdge<C> element, C context) {
+    public <C> Object visit(DMNEdge  element, C context) {
         visitEdgeProperties(element, context);
-        DMNLabel<C> dmnLabel = element.getDMNLabel();
+        DMNLabel dmnLabel = element.getDMNLabel();
         if (dmnLabel != null) {
             dmnLabel.accept(this, context);
         }
@@ -537,17 +537,17 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
     }
 
     @Override
-    public Object visit(DMNStyle<C> element, C context) {
+    public <C> Object visit(DMNStyle  element, C context) {
         visitExtension(element.getExtension(), context);
-        Color<C> fillColor = element.getFillColor();
+        Color fillColor = element.getFillColor();
         if (fillColor != null) {
             fillColor.accept(this, context);
         }
-        Color<C> strokeColor = element.getStrokeColor();
+        Color strokeColor = element.getStrokeColor();
         if (strokeColor != null) {
             strokeColor.accept(this, context);
         }
-        Color<C> fontColor = element.getFontColor();
+        Color fontColor = element.getFontColor();
         if (fontColor != null) {
             fontColor.accept(this, context);
         }
@@ -555,167 +555,167 @@ public class DefaultDMNVisitor<C> implements Visitor<C> {
     }
 
     @Override
-    public Object visit(DMNLabel<C> element, C context) {
+    public <C> Object visit(DMNLabel  element, C context) {
         visitShapeProperties(element, context);
         return element;
     }
 
     @Override
-    public Object visit(DMNDecisionServiceDividerLine<C> element, C context) {
+    public <C> Object visit(DMNDecisionServiceDividerLine  element, C context) {
         visitEdgeProperties(element, context);
         return element;
     }
 
     @Override
-    public Object visit(Color<C> element, C context) {
+    public <C> Object visit(Color  element, C context) {
         return element;
     }
 
     @Override
-    public Object visit(Point<C> element, C context) {
+    public <C> Object visit(Point  element, C context) {
         return element;
     }
 
     @Override
-    public Object visit(Bounds<C> element, C context) {
+    public <C> Object visit(Bounds  element, C context) {
         return element;
     }
 
     @Override
-    public Object visit(Dimension<C> element, C context) {
+    public <C> Object visit(Dimension  element, C context) {
         return element;
     }
 
     @Override
-    public Object visit(DiagramElement.Extension element, C context) {
+    public <C> Object visit(DiagramElement.Extension element, C context) {
         return visitExtension(element, context);
     }
 
     @Override
-    public Object visit(Style.Extension element, C context) {
+    public <C> Object visit(Style.Extension element, C context) {
         return visitExtension(element, context);
     }
 
-    private void visitTDMNElementProperties(TDMNElement<C> element, C context) {
+    private <C> void visitTDMNElementProperties(TDMNElement  element, C context) {
         visitExtensions(element.getExtensionElements(), context);
     }
 
-    private void visitTArtifact(TArtifact<C> element, C context) {
+    private <C> void visitTArtifact(TArtifact  element, C context) {
         visitTDMNElementProperties(element, context);
         if (element instanceof TAssociation) {
-            ((TAssociation<C>) element).accept(this, context);
+            ((TAssociation) element).accept(this, context);
         } else if (element instanceof TGroup) {
-            ((TGroup<C>) element).accept(this, context);
+            ((TGroup) element).accept(this, context);
         } else if (element instanceof TTextAnnotation) {
-            ((TTextAnnotation<C>) element).accept(this, context);
+            ((TTextAnnotation) element).accept(this, context);
         }
     }
 
-    private void visitTExpressionProperties(TExpression<C> element, C context) {
+    private <C> void visitTExpressionProperties(TExpression  element, C context) {
         visitTDMNElementProperties(element, context);
         element.setTypeRef(visitTypeRef(element.getTypeRef(), context));
     }
 
-    private void visitTExpression(TExpression<C> element, C context) {
+    private <C> void visitTExpression(TExpression  element, C context) {
         if (element == null) {
             return;
         }
 
         visitTExpressionProperties(element, context);
         if (element instanceof TContext) {
-            ((TContext<C>) element).accept(this, context);
+            ((TContext) element).accept(this, context);
         } else if (element instanceof TDecisionTable) {
-            ((TDecisionTable<C>) element).accept(this, context);
+            ((TDecisionTable) element).accept(this, context);
         } else if (element instanceof TFunctionDefinition) {
-            ((TFunctionDefinition<C>) element).accept(this, context);
+            ((TFunctionDefinition) element).accept(this, context);
         } else if (element instanceof TInvocation) {
-            ((TInvocation<C>) element).accept(this, context);
+            ((TInvocation) element).accept(this, context);
         } else if (element instanceof TList) {
-            ((TList<C>) element).accept(this, context);
+            ((TList) element).accept(this, context);
         } else if (element instanceof TLiteralExpression) {
-            ((TLiteralExpression<C>) element).accept(this, context);
+            ((TLiteralExpression) element).accept(this, context);
         } else if (element instanceof TRelation) {
-            ((TRelation<C>) element).accept(this, context);
+            ((TRelation) element).accept(this, context);
         } else if (element instanceof TUnaryTests) {
-            ((TUnaryTests<C>) element).accept(this, context);
+            ((TUnaryTests) element).accept(this, context);
         }
     }
 
-    private void visitTNamedElementProperties(TNamedElement<C> element, C context) {
+    private <C> void visitTNamedElementProperties(TNamedElement  element, C context) {
         visitTDMNElementProperties(element, context);
     }
 
-    private void visitTDRGElement(TDRGElement<C> element, C context) {
+    private <C> void visitTDRGElement(TDRGElement  element, C context) {
         if (element instanceof TInputData) {
-            ((TInputData<C>) element).accept(this, context);
+            ((TInputData) element).accept(this, context);
         } else if (element instanceof TDecision) {
-            ((TDecision<C>) element).accept(this, context);
+            ((TDecision) element).accept(this, context);
         } else if (element instanceof TInvocable) {
             visitInvocable(element, context);
         } else if (element instanceof TKnowledgeSource) {
-            ((TKnowledgeSource<C>) element).accept(this, context);
+            ((TKnowledgeSource) element).accept(this, context);
         }
     }
 
-    private void visitInvocable(TDRGElement<C> element, C context) {
+    private <C> void visitInvocable(TDRGElement  element, C context) {
         if (element instanceof TBusinessKnowledgeModel) {
-            ((TBusinessKnowledgeModel<C>) element).accept(this, context);
+            ((TBusinessKnowledgeModel) element).accept(this, context);
         } else if (element instanceof TDecisionService) {
-            ((TDecisionService<C>) element).accept(this, context);
+            ((TDecisionService) element).accept(this, context);
         }
     }
 
-    protected QName visitTypeRef(QName typeRef, C context) {
+    protected <C> QName visitTypeRef(QName typeRef, C context) {
         return typeRef;
     }
 
-    protected QName visitQName(QName qName, C context) {
+    protected <C> QName visitQName(QName qName, C context) {
         return qName;
     }
 
-    private Object visitExtensions(TDMNElement.ExtensionElements element, C context) {
+    private <C> Object visitExtensions(TDMNElement.ExtensionElements element, C context) {
         return element;
     }
 
-    private void visitDiagramElementProperties(DiagramElement<C> element, C context) {
+    private <C> void visitDiagramElementProperties(DiagramElement  element, C context) {
         visitExtension(element.getExtension(), context);
     }
 
-    private void visitDiagramElement(DiagramElement<C> element, C context) {
+    private <C> void visitDiagramElement(DiagramElement  element, C context) {
         visitDiagramElementProperties(element, context);
         if (element instanceof DMNDiagram) {
-            ((DMNDiagram<C>) element).accept(this, context);
+            ((DMNDiagram) element).accept(this, context);
         } else if (element instanceof DMNDecisionServiceDividerLine) {
-            ((DMNDecisionServiceDividerLine<C>) element).accept(this, context);
+            ((DMNDecisionServiceDividerLine) element).accept(this, context);
         } else if (element instanceof DMNEdge) {
-            ((DMNEdge<C>) element).accept(this, context);
+            ((DMNEdge) element).accept(this, context);
         } else if (element instanceof DMNLabel) {
-            ((DMNLabel<C>) element).accept(this, context);
+            ((DMNLabel) element).accept(this, context);
         } else if (element instanceof DMNShape) {
-            ((DMNShape<C>) element).accept(this, context);
+            ((DMNShape) element).accept(this, context);
         }
     }
 
-    private void visitShapeProperties(Shape<C> element, C context) {
+    private <C> void visitShapeProperties(Shape  element, C context) {
         visitDiagramElementProperties(element, context);
-        Bounds<C> bounds = element.getBounds();
+        Bounds bounds = element.getBounds();
         if (bounds != null) {
             bounds.accept(this, context);
         }
     }
 
-    private void visitEdgeProperties(Edge<C> element, C context) {
+    private <C> void visitEdgeProperties(Edge  element, C context) {
         visitDiagramElementProperties(element, context);
-        for (Point<C> point : element.getWaypoint()) {
+        for (Point point : element.getWaypoint()) {
             point.accept(this, context);
         }
     }
 
-    private Object visitExtension(DiagramElement.Extension element, C context) {
+    private <C> Object visitExtension(DiagramElement.Extension element, C context) {
         return element;
     }
 
-    private Object visitExtension(Style.Extension element, C context) {
+    private <C> Object visitExtension(Style.Extension element, C context) {
         return element;
     }
 }

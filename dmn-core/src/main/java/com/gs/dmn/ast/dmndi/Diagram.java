@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
         @JsonSubTypes.Type(name = "dmnDiagram", value = DMNDiagram.class)
 })
-public abstract class Diagram<C> extends DiagramElement<C> {
+public abstract class Diagram extends DiagramElement {
     private String name;
     private String documentation;
     private Double resolution;

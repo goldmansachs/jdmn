@@ -26,18 +26,18 @@ import java.util.List;
         "row",
         "extensionElements"
 })
-public class TRelation<C> extends TExpression<C> implements Visitable<C> {
-    private List<TInformationItem<C>> column;
-    private List<TList<C>> row;
+public class TRelation extends TExpression implements Visitable {
+    private List<TInformationItem> column;
+    private List<TList> row;
 
-    public List<TInformationItem<C>> getColumn() {
+    public List<TInformationItem> getColumn() {
         if (column == null) {
             column = new ArrayList<>();
         }
         return this.column;
     }
 
-    public List<TList<C>> getRow() {
+    public List<TList> getRow() {
         if (row == null) {
             row = new ArrayList<>();
         }
@@ -45,7 +45,7 @@ public class TRelation<C> extends TExpression<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

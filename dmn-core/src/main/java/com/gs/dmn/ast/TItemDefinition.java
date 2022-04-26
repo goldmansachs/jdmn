@@ -32,11 +32,11 @@ import java.util.List;
         "functionItem",
         "extensionElements"
 })
-public class TItemDefinition<C> extends TNamedElement<C> implements Visitable<C> {
+public class TItemDefinition extends TNamedElement implements Visitable {
     private QName typeRef;
-    private TUnaryTests<C> allowedValues;
-    private List<TItemDefinition<C>> itemComponent;
-    private TFunctionItem<C> functionItem;
+    private TUnaryTests allowedValues;
+    private List<TItemDefinition> itemComponent;
+    private TFunctionItem functionItem;
     private String typeLanguage;
     private Boolean isCollection;
 
@@ -48,26 +48,26 @@ public class TItemDefinition<C> extends TNamedElement<C> implements Visitable<C>
         this.typeRef = value;
     }
 
-    public TUnaryTests<C> getAllowedValues() {
+    public TUnaryTests getAllowedValues() {
         return allowedValues;
     }
 
-    public void setAllowedValues(TUnaryTests<C> value) {
+    public void setAllowedValues(TUnaryTests value) {
         this.allowedValues = value;
     }
 
-    public List<TItemDefinition<C>> getItemComponent() {
+    public List<TItemDefinition> getItemComponent() {
         if (itemComponent == null) {
             itemComponent = new ArrayList<>();
         }
         return this.itemComponent;
     }
 
-    public TFunctionItem<C> getFunctionItem() {
+    public TFunctionItem getFunctionItem() {
         return functionItem;
     }
 
-    public void setFunctionItem(TFunctionItem<C> value) {
+    public void setFunctionItem(TFunctionItem value) {
         this.functionItem = value;
     }
 
@@ -92,7 +92,7 @@ public class TItemDefinition<C> extends TNamedElement<C> implements Visitable<C>
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

@@ -23,7 +23,7 @@ import com.gs.dmn.ast.Visitor;
         "width",
         "height"
 })
-public class Bounds<C> extends DMNBaseElement implements Visitable<C> {
+public class Bounds extends DMNBaseElement implements Visitable {
     private double x;
     private double y;
     private double width;
@@ -62,7 +62,7 @@ public class Bounds<C> extends DMNBaseElement implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

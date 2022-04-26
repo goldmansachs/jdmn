@@ -15,7 +15,6 @@ package com.gs.dmn.serialization.xstream.v1_1;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.ast.TUnaryTests;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -46,7 +45,7 @@ public class ItemDefinitionConverter extends NamedElementConverter {
 
     @Override
     protected void assignChildElement(Object parent, String nodeName, Object child) {
-        TItemDefinition<DMNContext> id = (TItemDefinition) parent;
+        TItemDefinition id = (TItemDefinition) parent;
 
         if (TYPE_REF.equals(nodeName)) {
             id.setTypeRef((QName) child);
@@ -74,7 +73,7 @@ public class ItemDefinitionConverter extends NamedElementConverter {
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        TItemDefinition<DMNContext> id = (TItemDefinition) parent;
+        TItemDefinition id = (TItemDefinition) parent;
 
         if (id.getTypeRef() != null) writeChildrenNode(writer, context, id.getTypeRef(), TYPE_REF);
         if (id.getAllowedValues() != null) writeChildrenNode(writer, context, id.getAllowedValues(), ALLOWED_VALUES);

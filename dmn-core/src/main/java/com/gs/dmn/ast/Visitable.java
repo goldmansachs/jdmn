@@ -12,6 +12,6 @@
  */
 package com.gs.dmn.ast;
 
-public interface Visitable<C> {
-    Object accept(Visitor<C> visitor, C context);
+public interface Visitable {
+    <C> Object accept(Visitor visitor, C context);
 }

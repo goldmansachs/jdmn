@@ -13,7 +13,6 @@
 package com.gs.dmn.serialization.xstream.v1_2;
 
 import com.gs.dmn.ast.*;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -49,13 +48,13 @@ public class DecisionTableConverter extends ExpressionConverter {
         TDecisionTable dt = (TDecisionTable) parent;
 
         if (INPUT.equals(nodeName)) {
-            dt.getInput().add(child);
+            dt.getInput().add((TInputClause) child);
         } else if (OUTPUT.equals(nodeName)) {
-            dt.getOutput().add(child);
+            dt.getOutput().add((TOutputClause) child);
         } else if (ANNOTATION.equals(nodeName)) {
-            dt.getAnnotation().add(child);
+            dt.getAnnotation().add((TRuleAnnotationClause) child);
         } else if (RULE.equals(nodeName)) {
-            dt.getRule().add(child);
+            dt.getRule().add((TDecisionRule) child);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }
@@ -86,7 +85,7 @@ public class DecisionTableConverter extends ExpressionConverter {
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        TDecisionTable<DMNContext> dt = (TDecisionTable) parent;
+        TDecisionTable dt = (TDecisionTable) parent;
 
         for (TInputClause i : dt.getInput()) {
             writeChildrenNode(writer, context, i, INPUT);

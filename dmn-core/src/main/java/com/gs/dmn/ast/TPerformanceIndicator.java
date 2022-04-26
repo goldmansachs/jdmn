@@ -27,10 +27,10 @@ import java.util.List;
         "impactingDecision",
         "extensionElements"
 })
-public class TPerformanceIndicator<C> extends TBusinessContextElement<C> implements Visitable<C> {
-    private List<TDMNElementReference<C>> impactingDecision;
+public class TPerformanceIndicator extends TBusinessContextElement implements Visitable {
+    private List<TDMNElementReference> impactingDecision;
 
-    public List<TDMNElementReference<C>> getImpactingDecision() {
+    public List<TDMNElementReference> getImpactingDecision() {
         if (impactingDecision == null) {
             impactingDecision = new ArrayList<>();
         }
@@ -38,7 +38,7 @@ public class TPerformanceIndicator<C> extends TBusinessContextElement<C> impleme
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

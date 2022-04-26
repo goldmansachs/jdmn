@@ -16,7 +16,6 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.dmndi.DMNDiagram;
 import com.gs.dmn.ast.dmndi.DiagramElement;
 import com.gs.dmn.ast.dmndi.Dimension;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -46,7 +45,7 @@ public class DMNDiagramConverter extends DiagramConverter {
         if (child instanceof Dimension) {
             style.setSize((Dimension) child);
         } else if (child instanceof DiagramElement) {
-            style.getDMNDiagramElement().add(child);
+            style.getDMNDiagramElement().add((DiagramElement) child);
         } else {
             super.assignChildElement(style, nodeName, child);
         }
@@ -61,7 +60,7 @@ public class DMNDiagramConverter extends DiagramConverter {
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        DMNDiagram<DMNContext> style = (DMNDiagram) parent;
+        DMNDiagram style = (DMNDiagram) parent;
 
         if (style.getSize() != null) {
             writeChildrenNode(writer, context, style.getSize(), SIZE);

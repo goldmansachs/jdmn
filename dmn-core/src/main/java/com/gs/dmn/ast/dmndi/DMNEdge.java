@@ -27,17 +27,17 @@ import javax.xml.namespace.QName;
         "waypoint",
         "dmnLabel"
 })
-public class DMNEdge<C> extends Edge<C> implements Visitable<C> {
-    private DMNLabel<C> dmnLabel;
+public class DMNEdge extends Edge implements Visitable {
+    private DMNLabel dmnLabel;
     private QName dmnElementRef;
     private QName sourceElement;
     private QName targetElement;
 
-    public DMNLabel<C> getDMNLabel() {
+    public DMNLabel getDMNLabel() {
         return dmnLabel;
     }
 
-    public void setDMNLabel(DMNLabel<C> value) {
+    public void setDMNLabel(DMNLabel value) {
         this.dmnLabel = value;
     }
 
@@ -66,7 +66,7 @@ public class DMNEdge<C> extends Edge<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

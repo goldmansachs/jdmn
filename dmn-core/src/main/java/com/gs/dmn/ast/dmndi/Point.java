@@ -21,7 +21,7 @@ import com.gs.dmn.ast.Visitor;
         "x",
         "y"
 })
-public class Point<C> extends DMNBaseElement implements Visitable<C> {
+public class Point extends DMNBaseElement implements Visitable {
     private double x;
     private double y;
 
@@ -42,7 +42,7 @@ public class Point<C> extends DMNBaseElement implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

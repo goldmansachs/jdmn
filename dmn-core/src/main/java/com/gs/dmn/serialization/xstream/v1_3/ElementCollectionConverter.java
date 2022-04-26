@@ -15,7 +15,6 @@ package com.gs.dmn.serialization.xstream.v1_3;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDMNElementReference;
 import com.gs.dmn.ast.TElementCollection;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -43,7 +42,7 @@ public class ElementCollectionConverter extends NamedElementConverter {
         TElementCollection ec = (TElementCollection) parent;
 
         if (DRG_ELEMENT.equals(nodeName)) {
-            ec.getDrgElement().add(child);
+            ec.getDrgElement().add((TDMNElementReference) child);
         }
         super.assignChildElement(parent, nodeName, child);
     }
@@ -58,7 +57,7 @@ public class ElementCollectionConverter extends NamedElementConverter {
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        TElementCollection<DMNContext> ec = (TElementCollection) parent;
+        TElementCollection ec = (TElementCollection) parent;
 
         for (TDMNElementReference e : ec.getDrgElement()) {
             writeChildrenNode(writer, context, e, DRG_ELEMENT);

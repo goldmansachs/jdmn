@@ -26,7 +26,7 @@ import java.util.Map;
 @JsonSubTypes({
         @JsonSubTypes.Type(name = "dmnStyle", value = DMNStyle.class)
 })
-public abstract class Style<C> extends DMNBaseElement {
+public abstract class Style extends DMNBaseElement {
     private Extension extension;
     protected String id;
     private final Map<QName, String> otherAttributes = new HashMap<>();

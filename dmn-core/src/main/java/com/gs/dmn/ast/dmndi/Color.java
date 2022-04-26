@@ -22,7 +22,7 @@ import com.gs.dmn.ast.Visitor;
         "green",
         "blue"
 })
-public class Color<C> extends DMNBaseElement implements Visitable<C> {
+public class Color extends DMNBaseElement implements Visitable {
     private int red;
     private int green;
     private int blue;
@@ -52,7 +52,7 @@ public class Color<C> extends DMNBaseElement implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

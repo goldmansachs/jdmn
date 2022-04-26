@@ -16,7 +16,6 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDecisionRule;
 import com.gs.dmn.ast.TLiteralExpression;
 import com.gs.dmn.ast.TUnaryTests;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -45,9 +44,9 @@ public class DecisionRuleConverter extends DMNElementConverter {
         TDecisionRule dr = (TDecisionRule) parent;
 
         if (INPUT_ENTRY.equals(nodeName)) {
-            dr.getInputEntry().add(child);
+            dr.getInputEntry().add((TUnaryTests) child);
         } else if (OUTPUT_ENTRY.equals(nodeName)) {
-            dr.getOutputEntry().add(child);
+            dr.getOutputEntry().add((TLiteralExpression) child);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }
@@ -63,7 +62,7 @@ public class DecisionRuleConverter extends DMNElementConverter {
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        TDecisionRule<DMNContext> dr = (TDecisionRule) parent;
+        TDecisionRule dr = (TDecisionRule) parent;
 
         for (TUnaryTests ie : dr.getInputEntry()) {
             writeChildrenNode(writer, context, ie, INPUT_ENTRY);

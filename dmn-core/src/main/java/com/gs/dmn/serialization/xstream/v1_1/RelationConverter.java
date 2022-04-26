@@ -16,7 +16,6 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TInformationItem;
 import com.gs.dmn.ast.TList;
 import com.gs.dmn.ast.TRelation;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -46,9 +45,9 @@ public class RelationConverter extends ExpressionConverter {
         TRelation r = (TRelation) parent;
 
         if (COLUMN.equals(nodeName)) {
-            r.getColumn().add(child);
+            r.getColumn().add((TInformationItem) child);
         } else if (ROW.equals(nodeName)) {
-            r.getRow().add(child);
+            r.getRow().add((TList) child);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }
@@ -64,7 +63,7 @@ public class RelationConverter extends ExpressionConverter {
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        TRelation<DMNContext> r = (TRelation) parent;
+        TRelation r = (TRelation) parent;
 
         for (TInformationItem c : r.getColumn()) {
             writeChildrenNode(writer, context, c, COLUMN);

@@ -14,7 +14,6 @@ package com.gs.dmn.serialization.xstream.v1_3;
 
 import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.dmndi.DMNDI;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -59,17 +58,17 @@ public class DefinitionsConverter extends NamedElementConverter {
         TDefinitions def = (TDefinitions) parent;
 
         if (IMPORT.equals(nodeName)) {
-            def.getImport().add(child);
+            def.getImport().add((TImport) child);
         } else if (ITEM_DEFINITION.equals(nodeName)) {
-            def.getItemDefinition().add(child);
+            def.getItemDefinition().add((TItemDefinition) child);
         } else if (child instanceof TDRGElement) {
-            def.getDrgElement().add(child);
+            def.getDrgElement().add((TDRGElement) child);
         } else if (child instanceof TArtifact) {
-            def.getArtifact().add(child);
+            def.getArtifact().add((TArtifact) child);
         } else if (ELEMENT_COLLECTION.equals(nodeName)) {
-            def.getElementCollection().add(child);
+            def.getElementCollection().add((TElementCollection) child);
         } else if (child instanceof TBusinessContextElement) {
-            def.getBusinessContextElement().add(child);
+            def.getBusinessContextElement().add((TBusinessContextElement) child);
         } else if (child instanceof DMNDI) {
             DMNDI dmndi = (DMNDI) child;
             dmndi.normalize();
@@ -104,7 +103,7 @@ public class DefinitionsConverter extends NamedElementConverter {
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        TDefinitions<DMNContext> def = (TDefinitions) parent;
+        TDefinitions def = (TDefinitions) parent;
 
         for (TImport i : def.getImport()) {
             writeChildrenNode(writer, context, i, IMPORT);

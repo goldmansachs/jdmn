@@ -16,7 +16,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.Visitable;
 import com.gs.dmn.ast.Visitor;
-import com.gs.dmn.context.DMNContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,18 +27,18 @@ import java.util.stream.Collectors;
         "dmnDiagram",
         "dmnStyle"
 })
-public class DMNDI<C> extends DMNBaseElement implements Visitable<C> {
-    private List<DMNDiagram<C>> dmnDiagram;
-    private List<DMNStyle<C>> dmnStyle;
+public class DMNDI extends DMNBaseElement implements Visitable {
+    private List<DMNDiagram> dmnDiagram;
+    private List<DMNStyle> dmnStyle;
 
-    public List<DMNDiagram<C>> getDMNDiagram() {
+    public List<DMNDiagram> getDMNDiagram() {
         if (dmnDiagram == null) {
             dmnDiagram = new ArrayList<>();
         }
         return this.dmnDiagram;
     }
 
-    public List<DMNStyle<C>> getDMNStyle() {
+    public List<DMNStyle> getDMNStyle() {
         if (dmnStyle == null) {
             dmnStyle = new ArrayList<>();
         }
@@ -47,7 +46,7 @@ public class DMNDI<C> extends DMNBaseElement implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -57,7 +56,7 @@ public class DMNDI<C> extends DMNBaseElement implements Visitable<C> {
         }
         Map<String, DMNStyle> styleById = dmnStyle.stream().collect(Collectors.toMap(DMNStyle::getId, Function.identity()));
         for (DMNDiagram diagram : dmnDiagram) {
-            List<? extends DiagramElement<DMNContext>> dmnDiagramElement = diagram.getDMNDiagramElement();
+            List<? extends DiagramElement> dmnDiagramElement = diagram.getDMNDiagramElement();
             for (DiagramElement element : dmnDiagramElement) {
                 replaceSharedStyleIfStubbed(element, styleById);
                 if (element instanceof DMNShape) {

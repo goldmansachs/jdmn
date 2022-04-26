@@ -13,7 +13,6 @@
 package com.gs.dmn.serialization.xstream.v1_3;
 
 import com.gs.dmn.ast.*;
-import com.gs.dmn.context.DMNContext;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -59,23 +58,23 @@ public class DecisionConverter extends DRGElementConverter {
         } else if (VARIABLE.equals(nodeName)) {
             dec.setVariable((TInformationItem) child);
         } else if (INFORMATION_REQUIREMENT.equals(nodeName)) {
-            dec.getInformationRequirement().add(child);
+            dec.getInformationRequirement().add((TInformationRequirement) child);
         } else if (KNOWLEDGE_REQUIREMENT.equals(nodeName)) {
-            dec.getKnowledgeRequirement().add(child);
+            dec.getKnowledgeRequirement().add((TKnowledgeRequirement) child);
         } else if (AUTHORITY_REQUIREMENT.equals(nodeName)) {
-            dec.getAuthorityRequirement().add(child);
+            dec.getAuthorityRequirement().add((TAuthorityRequirement) child);
         } else if (SUPPORTED_OBJECTIVE.equals(nodeName)) {
-            dec.getSupportedObjective().add(child);
+            dec.getSupportedObjective().add((TDMNElementReference) child);
         } else if (IMPACTED_PERFORMANCE_INDICATOR.equals(nodeName)) {
-            dec.getImpactedPerformanceIndicator().add(child);
+            dec.getImpactedPerformanceIndicator().add((TDMNElementReference) child);
         } else if (DECISION_MAKER.equals(nodeName)) {
-            dec.getDecisionMaker().add(child);
+            dec.getDecisionMaker().add((TDMNElementReference) child);
         } else if (DECISION_OWNER.equals(nodeName)) {
-            dec.getDecisionOwner().add(child);
+            dec.getDecisionOwner().add((TDMNElementReference) child);
         } else if (USING_PROCESS.equals(nodeName)) {
-            dec.getUsingProcess().add(child);
+            dec.getUsingProcess().add((TDMNElementReference) child);
         } else if (USING_TASK.equals(nodeName)) {
-            dec.getUsingTask().add(child);
+            dec.getUsingTask().add((TDMNElementReference) child);
         } else if (child instanceof TExpression) {
             dec.setExpression((TExpression) child);
         } else {
@@ -93,7 +92,7 @@ public class DecisionConverter extends DRGElementConverter {
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        TDecision<DMNContext> dec = (TDecision) parent;
+        TDecision dec = (TDecision) parent;
 
         if (dec.getQuestion() != null) writeChildrenNodeAsValue(writer, context, dec.getQuestion(), QUESTION);
         if (dec.getAllowedAnswers() != null)

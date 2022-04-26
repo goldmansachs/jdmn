@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         "importType",
         "extensionElements"
 })
-public class TImport<C> extends TNamedElement<C> implements Visitable<C> {
+public class TImport extends TNamedElement implements Visitable {
     private String namespace;
     private String locationURI;
     private String importType;
@@ -61,7 +61,7 @@ public class TImport<C> extends TNamedElement<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

@@ -28,7 +28,7 @@ import javax.xml.namespace.QName;
         @JsonSubTypes.Type(name = "list", value = TList.class),
         @JsonSubTypes.Type(name = "unaryTests", value = TUnaryTests.class)
 })
-public abstract class TExpression<C> extends TDMNElement<C> {
+public abstract class TExpression extends TDMNElement {
     private QName typeRef;
 
     public QName getTypeRef() {

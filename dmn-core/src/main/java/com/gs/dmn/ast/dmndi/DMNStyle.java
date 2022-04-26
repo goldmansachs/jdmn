@@ -32,10 +32,10 @@ import com.gs.dmn.ast.Visitor;
         "strokeColor",
         "fontColor"
 })
-public class DMNStyle<C> extends Style<C> implements Visitable<C> {
-    private Color<C> fillColor;
-    private Color<C> strokeColor;
-    private Color<C> fontColor;
+public class DMNStyle extends Style implements Visitable {
+    private Color fillColor;
+    private Color strokeColor;
+    private Color fontColor;
     private String fontFamily;
     private Double fontSize;
     private Boolean fontItalic;
@@ -45,27 +45,27 @@ public class DMNStyle<C> extends Style<C> implements Visitable<C> {
     private AlignmentKind labelHorizontalAlignment;
     private AlignmentKind labelVerticalAlignment;
 
-    public Color<C> getFillColor() {
+    public Color getFillColor() {
         return fillColor;
     }
 
-    public void setFillColor(Color<C> value) {
+    public void setFillColor(Color value) {
         this.fillColor = value;
     }
 
-    public Color<C> getStrokeColor() {
+    public Color getStrokeColor() {
         return strokeColor;
     }
 
-    public void setStrokeColor(Color<C> value) {
+    public void setStrokeColor(Color value) {
         this.strokeColor = value;
     }
 
-    public Color<C> getFontColor() {
+    public Color getFontColor() {
         return fontColor;
     }
 
-    public void setFontColor(Color<C> value) {
+    public void setFontColor(Color value) {
         this.fontColor = value;
     }
 
@@ -134,7 +134,7 @@ public class DMNStyle<C> extends Style<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

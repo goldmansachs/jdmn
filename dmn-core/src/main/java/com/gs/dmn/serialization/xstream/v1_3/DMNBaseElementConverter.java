@@ -117,11 +117,11 @@ public abstract class DMNBaseElementConverter extends DMNBaseConverter {
 
     private Map<QName, String> getOtherAttributes(Object parent) {
         if (parent instanceof TDMNElement) {
-            return ((TDMNElement<?>) parent).getOtherAttributes();
+            return ((TDMNElement) parent).getOtherAttributes();
         } else if (parent instanceof DiagramElement) {
-            return ((DiagramElement<?>) parent).getOtherAttributes();
+            return ((DiagramElement) parent).getOtherAttributes();
         } else if (parent instanceof Style) {
-            return ((Style<?>) parent).getOtherAttributes();
+            return ((Style) parent).getOtherAttributes();
         } else {
             return new LinkedHashMap<>();
         }
@@ -129,11 +129,11 @@ public abstract class DMNBaseElementConverter extends DMNBaseConverter {
 
     private void setAdditionalAttributes(Object parent, Map<QName, String> additionalAttributes) {
         if (parent instanceof TDMNElement) {
-            ((TDMNElement<?>) parent).getOtherAttributes().putAll(additionalAttributes);
+            ((TDMNElement) parent).getOtherAttributes().putAll(additionalAttributes);
         } else if (parent instanceof DiagramElement) {
-            ((DiagramElement<?>) parent).getOtherAttributes().putAll(additionalAttributes);
+            ((DiagramElement) parent).getOtherAttributes().putAll(additionalAttributes);
         } else if (parent instanceof Style) {
-            ((Style<?>) parent).getOtherAttributes().putAll(additionalAttributes);
+            ((Style) parent).getOtherAttributes().putAll(additionalAttributes);
         }
     }
 }
