@@ -40,7 +40,7 @@ public class SimplifyTypesForMIDTransformerTest extends AbstractFileTransformerT
         // Transform DMN
         File dmnFile = new File(signavioResource(path + "IteratorExampleReturningMultiple.dmn"));
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(dmnFile);
-        DMNModelRepository repository = new SignavioDMNModelRepository(pair, SignavioTestConstants.TEST_SCHEMA_NAMESPACE);
+        DMNModelRepository repository = new SignavioDMNModelRepository(pair, SignavioTestConstants.SIG_EXT_NAMESPACE);
         DMNModelRepository actualRepository = transformer.transform(repository);
 
         // Check output

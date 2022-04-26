@@ -44,22 +44,25 @@ import java.util.List;
 import java.util.Map;
 
 import static com.gs.dmn.serialization.DMNReader.isDMNFile;
+import static com.gs.dmn.signavio.extension.SignavioExtension.SIG_EXT_NAMESPACE;
 import static com.gs.dmn.signavio.testlab.TestLabReader.isTestLabFile;
 
 public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesToJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
     private final TestLabReader testLabReader = new TestLabReader();
     private final TestLabValidator testLabValidator = new TestLabValidator();
 
-    private String schemaNamespace;
+    private final String schemaNamespace;
     private final BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer;
     private final TestLabUtil testLabUtil;
     private final TestLabEnhancer testLabEnhancer;
 
     public TestLabToJavaJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
-        this.schemaNamespace = inputParameters.getSchemaNamespace();
-        if (StringUtils.isEmpty(this.schemaNamespace)) {
-            this.schemaNamespace = "http://www.signavio.com/schema/dmn/1.1/";
+        String schemaNamespace = inputParameters.getSchemaNamespace();
+        if (StringUtils.isBlank(schemaNamespace)) {
+            this.schemaNamespace = SIG_EXT_NAMESPACE;
+        } else {
+            this.schemaNamespace = schemaNamespace;
         }
         DMNModelRepository repository = readModels(inputModelPath.toFile());
         this.basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);

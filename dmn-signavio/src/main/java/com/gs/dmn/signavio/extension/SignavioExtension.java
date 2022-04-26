@@ -28,6 +28,8 @@ import java.util.List;
 import static com.gs.dmn.serialization.DMNVersion.LATEST;
 
 public class SignavioExtension {
+    public static final String SIG_EXT_NAMESPACE = "http://www.signavio.com/schema/dmn/1.1/";
+
     private final SignavioDMNModelRepository dmnModelRepository;
 
     public SignavioExtension(SignavioDMNModelRepository dmnModelRepository) {

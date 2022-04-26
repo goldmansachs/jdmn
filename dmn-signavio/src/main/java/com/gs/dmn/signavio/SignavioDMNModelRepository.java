@@ -29,11 +29,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.serialization.DMNVersion.LATEST;
+import static com.gs.dmn.signavio.extension.SignavioExtension.SIG_EXT_NAMESPACE;
 
 public class SignavioDMNModelRepository extends DMNModelRepository {
-    private String schemaNamespace = "http://www.signavio.com/schema/dmn/1.1/";
+    private String schemaNamespace = SIG_EXT_NAMESPACE;
     private final String[] schemaPrefixes = new String[] {
-            "signavio", "sigExt"
+        "signavio", "sigExt"
     };
 
     private QName diagramIdQName = new QName(this.schemaNamespace, "diagramId");

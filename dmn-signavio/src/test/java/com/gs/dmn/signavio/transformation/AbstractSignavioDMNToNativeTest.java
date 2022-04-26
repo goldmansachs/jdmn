@@ -68,7 +68,7 @@ public abstract class AbstractSignavioDMNToNativeTest<NUMBER, DATE, TIME, DATE_T
     protected Map<String, String> makeInputParametersMap() {
         Map<String, String> inputParams = super.makeInputParametersMap();
         inputParams.put("semanticValidation", "false");
-        inputParams.put("signavioSchemaNamespace", SignavioTestConstants.TEST_SCHEMA_NAMESPACE);
+        inputParams.put("signavioSchemaNamespace", SignavioTestConstants.SIG_EXT_NAMESPACE);
         inputParams.put("environmentFactoryClass", SignavioEnvironmentFactory.class.getName());
         inputParams.put("decisionBaseClass", DefaultSignavioBaseDecision.class.getName());
         return inputParams;

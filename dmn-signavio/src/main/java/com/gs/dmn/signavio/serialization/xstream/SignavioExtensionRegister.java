@@ -16,8 +16,11 @@ import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.QNameMap;
 import com.thoughtworks.xstream.security.WildcardTypePermission;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.namespace.QName;
+
+import static com.gs.dmn.signavio.extension.SignavioExtension.SIG_EXT_NAMESPACE;
 
 public class SignavioExtensionRegister implements DMNExtensionRegister {
     private static final String[] ALLOW_LISTED_PACKAGES = new String[] {
@@ -26,12 +29,12 @@ public class SignavioExtensionRegister implements DMNExtensionRegister {
 
     private final String namespaceURI;
 
-    public SignavioExtensionRegister() {
-        this.namespaceURI = "http://www.signavio.com/schema/dmn/1.1/";
-    }
-
     public SignavioExtensionRegister(String namespaceURI) {
-        this.namespaceURI = namespaceURI;
+        if (StringUtils.isBlank(namespaceURI)) {
+            this.namespaceURI = SIG_EXT_NAMESPACE;
+        } else {
+            this.namespaceURI = namespaceURI;
+        }
     }
 
     @Override

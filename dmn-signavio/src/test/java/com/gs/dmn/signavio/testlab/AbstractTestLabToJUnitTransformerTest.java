@@ -58,7 +58,7 @@ public abstract class AbstractTestLabToJUnitTransformerTest<NUMBER, DATE, TIME, 
         Map<String, String> inputParams = super.makeInputParametersMap();
         inputParams.put("environmentFactoryClass", SignavioEnvironmentFactory.class.getName());
         inputParams.put("decisionBaseClass", DefaultSignavioBaseDecision.class.getName());
-        inputParams.put("signavioSchemaNamespace", SignavioTestConstants.TEST_SCHEMA_NAMESPACE);
+        inputParams.put("signavioSchemaNamespace", SignavioTestConstants.SIG_EXT_NAMESPACE);
         return inputParams;
    }
 

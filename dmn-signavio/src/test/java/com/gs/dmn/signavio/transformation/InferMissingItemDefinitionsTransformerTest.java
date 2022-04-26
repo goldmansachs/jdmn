@@ -146,7 +146,7 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractFileTran
         transformer.configure(configuration);
 
         File dmnFile = new File(dmnFileURI);
-        DMNModelRepository repository = new SignavioDMNModelRepository(dmnReader.read(dmnFile), SignavioTestConstants.TEST_SCHEMA_NAMESPACE);
+        DMNModelRepository repository = new SignavioDMNModelRepository(dmnReader.read(dmnFile), SignavioTestConstants.SIG_EXT_NAMESPACE);
         List<TItemDefinition> definitions = new ArrayList<>(repository.findItemDefinitions(repository.getRootDefinitions()));
         DMNModelRepository transformed = transformer.transform(repository);
 

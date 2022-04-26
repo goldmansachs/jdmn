@@ -54,7 +54,7 @@ public abstract class AbstractMergeInputDataTransformerTest extends AbstractFile
         // Transform DMN
         File dmnFile = new File(resource(path + dmnFileName));
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(dmnFile);
-        DMNModelRepository repository = new SignavioDMNModelRepository(pair, SignavioTestConstants.TEST_SCHEMA_NAMESPACE);
+        DMNModelRepository repository = new SignavioDMNModelRepository(pair, SignavioTestConstants.SIG_EXT_NAMESPACE);
         Map<String, Object> config = new LinkedHashMap<>();
         config.put("forceMerge", "false");
         transformer.configure(config);
@@ -85,7 +85,7 @@ public abstract class AbstractMergeInputDataTransformerTest extends AbstractFile
 
     private void check(String dmnFileName, String testLabFileName, TDefinitions actualDefinitions, List<TestLab> actualTestLabList) throws Exception {
         // Check definitions for InputData with same key
-        SignavioDMNModelRepository signavioDMNModelRepository = new SignavioDMNModelRepository(new Pair<>(actualDefinitions, new PrefixNamespaceMappings()), SignavioTestConstants.TEST_SCHEMA_NAMESPACE);
+        SignavioDMNModelRepository signavioDMNModelRepository = new SignavioDMNModelRepository(new Pair<>(actualDefinitions, new PrefixNamespaceMappings()), SignavioTestConstants.SIG_EXT_NAMESPACE);
         List<TInputData> inputDataList = signavioDMNModelRepository.findInputDatas(actualDefinitions);
         for(TInputData inputData1: inputDataList) {
             TInputData duplicate = null;

@@ -39,16 +39,19 @@ import java.io.File;
 import java.nio.file.Path;
 
 import static com.gs.dmn.serialization.DMNReader.isDMNFile;
+import static com.gs.dmn.signavio.extension.SignavioExtension.SIG_EXT_NAMESPACE;
 
 public class SignavioDMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
     private static final String DMN_METADATA_FILE_NAME = "DMNMetadata";
-    private String schemaNamespace;
+    private final String schemaNamespace;
 
     public SignavioDMNToJavaTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
-        this.schemaNamespace = inputParameters.getSchemaNamespace();
-        if (StringUtils.isEmpty(this.schemaNamespace)) {
-            this.schemaNamespace = "http://www.signavio.com/schema/dmn/1.1/";
+        String schemaNamespace = inputParameters.getSchemaNamespace();
+        if (StringUtils.isBlank(schemaNamespace)) {
+            this.schemaNamespace = SIG_EXT_NAMESPACE;
+        } else {
+            this.schemaNamespace = schemaNamespace;
         }
     }
 

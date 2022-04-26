@@ -60,7 +60,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
             String pathName = getInputPath() + "/" + diagramName + DMNConstants.DMN_FILE_EXTENSION;
             URI uri = signavioResource(pathName);
             Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(uri.toURL());
-            DMNModelRepository repository = new SignavioDMNModelRepository(pair, SignavioTestConstants.TEST_SCHEMA_NAMESPACE);
+            DMNModelRepository repository = new SignavioDMNModelRepository(pair, SignavioTestConstants.SIG_EXT_NAMESPACE);
             DMNInterpreter<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> interpreter = dialectDefinition.createDMNInterpreter(repository, makeInputParameters());
 
             TDecision decision = (TDecision) repository.findDRGElementByName(repository.getRootDefinitions(), decisionName);
