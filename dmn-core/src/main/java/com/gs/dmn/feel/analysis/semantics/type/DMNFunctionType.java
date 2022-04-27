@@ -12,16 +12,16 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.ast.TBusinessKnowledgeModel;
+import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.ast.TFunctionDefinition;
+import com.gs.dmn.ast.TFunctionKind;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterConversions;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
 import com.gs.dmn.runtime.Pair;
-import org.omg.spec.dmn._20191111.model.TBusinessKnowledgeModel;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
-import org.omg.spec.dmn._20191111.model.TFunctionDefinition;
-import org.omg.spec.dmn._20191111.model.TFunctionKind;
 
 import java.util.ArrayList;
 import java.util.List;

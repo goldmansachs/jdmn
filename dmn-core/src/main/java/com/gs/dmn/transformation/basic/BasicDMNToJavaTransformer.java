@@ -13,6 +13,7 @@
 package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.*;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Environment;
 import com.gs.dmn.context.environment.EnvironmentFactory;
@@ -55,11 +56,9 @@ import com.gs.dmn.transformation.proto.ProtoBufferFactory;
 import com.gs.dmn.transformation.proto.ProtoBufferJavaFactory;
 import com.gs.dmn.transformation.proto.Service;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.bind.JAXBElement;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -291,7 +290,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     //
     private Type informationItemType(TBusinessKnowledgeModel bkm, TInformationItem element) {
         TDefinitions model = this.dmnModelRepository.getModel(bkm);
-        String typeRef = element.getTypeRef();
+        String typeRef = QualifiedName.toName(element.getTypeRef());
         Type type = null;
         if (!StringUtils.isEmpty(typeRef)) {
             type = toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
@@ -773,7 +772,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         TDefinitions model = this.dmnModelRepository.getModel(bkm);
         List<FormalParameter<Type, DMNContext>> parameters = new ArrayList<>();
         for (TInformationItem p: bkm.getEncapsulatedLogic().getFormalParameter()) {
-            String typeRef = p.getTypeRef();
+            String typeRef = QualifiedName.toName(p.getTypeRef());
             Type type = null;
             if (!StringUtils.isEmpty(typeRef)) {
                 type = toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
@@ -1500,11 +1499,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     //
     // Expression related functions
     //
-    @Override
-    public Type expressionType(TDRGElement element, JAXBElement<? extends TExpression> jElement, DMNContext context) {
-        return this.dmnEnvironmentFactory.expressionType(element, jElement, context);
-    }
-
     @Override
     public Type expressionType(TDRGElement element, TExpression expression, DMNContext context) {
         return this.dmnEnvironmentFactory.expressionType(element, expression, context);

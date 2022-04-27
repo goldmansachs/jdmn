@@ -13,9 +13,9 @@
 package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
-import org.omg.spec.dmn._20191111.model.TItemDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

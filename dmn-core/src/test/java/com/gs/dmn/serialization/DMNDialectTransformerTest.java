@@ -1,22 +1,22 @@
 package com.gs.dmn.serialization;
 
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 
 import java.io.File;
 
-public abstract class DMNDialectTransformerTest<S, T> extends AbstractFileTransformerTest {
+public abstract class DMNDialectTransformerTest extends AbstractFileTransformerTest {
     protected final DMNReader dmnReader = getDMNReader();
     protected final DMNWriter dmnWriter = getDMNWriter();
 
     protected void doTest(String inputFileName, Pair<String, String> dmnNamespacePrefixMapping) throws Exception {
         // Read
         File inputFile = new File(resource(getInputPath() + inputFileName));
-        Object object = readModel(inputFile);
-        S sourceDefinitions = (S) object;
+        TDefinitions sourceDefinitions = readModel(inputFile);
 
         // Transform
-        T targetDefinitions = transform(sourceDefinitions);
+        TDefinitions targetDefinitions = transform(sourceDefinitions);
 
         // Write
         File actualOutputFile = getActualOutputFile(inputFileName);
@@ -37,26 +37,24 @@ public abstract class DMNDialectTransformerTest<S, T> extends AbstractFileTransf
         return new DMNReader(LOGGER, false);
     }
 
-    protected Object readModel(File inputFile) throws Exception {
-        return dmnReader.readObject(inputFile);
-    }
-
     protected DMNWriter getDMNWriter() {
         return new DMNWriter(LOGGER);
     }
 
-    protected void writeModel(T targetDefinitions, Pair<String, String> dmnNamespacePrefixMapping, File actualOutputFile) {
-        dmnWriter.write(targetDefinitions, actualOutputFile, new DMNNamespacePrefixMapper(dmnNamespacePrefixMapping.getLeft(), dmnNamespacePrefixMapping.getRight(), getDMNTargetVersion()));
+    protected TDefinitions readModel(File inputFile) {
+        return this.dmnReader.readAST(inputFile);
+    }
+
+    protected void writeModel(TDefinitions targetDefinitions, Pair<String, String> dmnNamespacePrefixMapping, File actualOutputFile) {
+        this.dmnWriter.writeAST(targetDefinitions, actualOutputFile);
     }
 
     protected File getExpectedOutputFile(String inputFileName) {
         return new File(resource(getExpectedPath() + inputFileName));
     }
 
-    protected abstract DMNVersion getDMNTargetVersion();
-
-    protected T transform(S sourceDefinitions) {
-        Pair<T, PrefixNamespaceMappings> pair = getTransformer().transformDefinitions(sourceDefinitions);
+    protected TDefinitions transform(TDefinitions sourceDefinitions) {
+        Pair<TDefinitions, PrefixNamespaceMappings> pair = getTransformer().transformDefinitions(sourceDefinitions);
         return pair.getLeft();
     }
 
@@ -72,7 +70,7 @@ public abstract class DMNDialectTransformerTest<S, T> extends AbstractFileTransf
         return String.format("dmn/expected/%s/%s/", getSourceVersion(), getTargetVersion());
     }
 
-    protected abstract SimpleDMNDialectTransformer<S, T> getTransformer();
+    protected abstract SimpleDMNDialectTransformer getTransformer();
 
     protected abstract String getSourceVersion();
 

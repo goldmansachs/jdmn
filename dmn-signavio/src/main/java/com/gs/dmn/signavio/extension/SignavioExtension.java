@@ -12,16 +12,16 @@
  */
 package com.gs.dmn.signavio.extension;
 
+import com.gs.dmn.ast.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.metadata.ExtensionElement;
 import com.gs.dmn.runtime.metadata.MultiInstanceDecisionLogicExtension;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
+import com.gs.dmn.signavio.serialization.xstream.ReferencedService;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.*;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +45,8 @@ public class SignavioExtension {
         if (extensions.isEmpty()) {
             return null;
         } else {
-            String serviceId = getAttributeByName((Element) extensions.get(0), "href");
+            ReferencedService referencedService = (ReferencedService) extensions.get(0);
+            String serviceId = referencedService.getHref();
             TDefinitions definitions = dmnModelRepository.getRootDefinitions();
             return decisionService(definitions, serviceId);
         }
@@ -53,10 +54,9 @@ public class SignavioExtension {
 
     private TDecisionService decisionService(TDefinitions definitions, String serviceId) {
         List<Object> elementList = findExtensions(definitions.getExtensionElements(), LATEST.getNamespace(), "decisionService");
-        for(Object element: elementList) {
-            Object value = ((JAXBElement<?>) element).getValue();
-            if (value instanceof TDecisionService && dmnModelRepository.sameId((TNamedElement) value, serviceId)) {
-                return (TDecisionService) value;
+        for (Object element: elementList) {
+            if (element instanceof TDecisionService && dmnModelRepository.sameId((TNamedElement) element, serviceId)) {
+                return (TDecisionService) element;
             }
         }
         throw new DMNRuntimeException(String.format("Cannot find Decision service '%s'", serviceId));
@@ -67,14 +67,13 @@ public class SignavioExtension {
             Element element = (Element) extension;
             String namespaceURI = element.getNamespaceURI();
             String name = element.getLocalName();
-            return tagName.equals(name) &&
-                    namespace.equals(namespaceURI);
-        } else if (extension instanceof JAXBElement) {
-            JAXBElement<?> element = (JAXBElement<?>)extension;
-            String namespaceURI = element.getName().getNamespaceURI();
-            String name = element.getName().getLocalPart();
-            return tagName.equals(name) &&
-                    namespace.equals(namespaceURI);
+            return tagName.equals(name) && namespace.equals(namespaceURI);
+        } else if (extension instanceof TDecisionService) {
+            return tagName.equals("decisionService");
+        } else if (extension instanceof ReferencedService) {
+            return tagName.equals("referencedService");
+        } else if (extension instanceof com.gs.dmn.signavio.serialization.xstream.MultiInstanceDecisionLogic) {
+            return tagName.equals("MultiInstanceDecisionLogic");
         }
         return false;
     }
@@ -93,11 +92,11 @@ public class SignavioExtension {
 
     public MultiInstanceDecisionLogic multiInstanceDecisionLogic(TDRGElement element) {
         List<Object> extensions = findExtensions(element.getExtensionElements(), dmnModelRepository.getSchemaNamespace(), "MultiInstanceDecisionLogic");
-        Element decisionElement = (Element) extensions.get(0);
-        String iterationExpression = getElementsByTagName(decisionElement, "iterationExpression").item(0).getTextContent();
-        String iteratorShapeId = getElementsByTagName(decisionElement, "iteratorShapeId").item(0).getTextContent();
-        String aggregationFunction = getElementsByTagName(decisionElement, "aggregationFunction").item(0).getTextContent();
-        String topLevelDecisionId = getElementsByTagName(decisionElement, "topLevelDecisionId").item(0).getTextContent();
+        com.gs.dmn.signavio.serialization.xstream.MultiInstanceDecisionLogic decisionElement = (com.gs.dmn.signavio.serialization.xstream.MultiInstanceDecisionLogic) extensions.get(0);
+        String iterationExpression = decisionElement.getIterationExpression();
+        String iteratorShapeId = decisionElement.getIteratorShapeId();
+        String aggregationFunction = decisionElement.getAggregationFunction();
+        String topLevelDecisionId = decisionElement.getTopLevelDecisionId();
 
         TDRGElement iterator = findDRGElementByPartialId(iteratorShapeId);
         Aggregator aggregator = Aggregator.valueOf(aggregationFunction);

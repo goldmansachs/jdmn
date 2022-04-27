@@ -12,6 +12,9 @@
  */
 package com.gs.dmn.signavio.runtime.interpreter;
 
+import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.ast.TDecision;
+import com.gs.dmn.ast.TExpression;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.interpreter.TypeConverter;
@@ -24,9 +27,6 @@ import com.gs.dmn.signavio.extension.Aggregator;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
-import org.omg.spec.dmn._20191111.model.TDecision;
-import org.omg.spec.dmn._20191111.model.TExpression;
 
 import java.util.ArrayList;
 import java.util.List;

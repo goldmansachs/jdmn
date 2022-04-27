@@ -14,6 +14,7 @@ package com.gs.dmn.jmh.example_credit_decision_mixed;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.jmh.ApplicantImpl;
 import com.gs.dmn.log.BuildLogger;
@@ -26,7 +27,6 @@ import com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.feel.lib.MixedJavaTimeSignavioLib;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.InputParameters;
-import org.omg.spec.dmn._20191111.model.TDecision;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;

@@ -1,29 +1,29 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:cip="http://www.gs.com/cip" namespace="http://www.omg.org/spec/DMN/20151101/dmn.xsd" name="simple-decision-free-text-complex-literal-expression">
-    <itemDefinition isCollection="false" name="monthly" id="item-definition-sid-60E9B6E8-6251-4E45-86C4-4E46A3D9F64E" label="Monthly">
-        <typeRef>feel:string</typeRef>
-    </itemDefinition>
-    <itemDefinition isCollection="false" name="loan" id="item-definition-sid-AD811598-1741-4206-A9FC-280EF77B0B23" label="Loan">
-        <itemComponent isCollection="false" name="principal" id="item-definition-principal-0" label="principal">
-            <typeRef>feel:number</typeRef>
-        </itemComponent>
-        <itemComponent isCollection="false" name="rate" id="item-definition-rate-1" label="rate">
-            <typeRef>feel:number</typeRef>
-        </itemComponent>
-        <itemComponent isCollection="false" name="term" id="item-definition-term-2" label="term">
-            <typeRef>feel:number</typeRef>
-        </itemComponent>
-    </itemDefinition>
-    <decision name="monthly" id="sid-60E9B6E8-6251-4E45-86C4-4E46A3D9F64E" label="Monthly">
-        <variable typeRef="cip:monthly" name="monthly" id="decision-variable-sid-60E9B6E8-6251-4E45-86C4-4E46A3D9F64E" label="monthly"/>
-        <informationRequirement>
-            <requiredInput href="sid-AD811598-1741-4206-A9FC-280EF77B0B23"/>
-        </informationRequirement>
-        <literalExpression expressionLanguage="free_text" id="decision-expression-sid-60E9B6E8-6251-4E45-86C4-4E46A3D9F64E">
-            <text>(loan.principal * loan.rate/12)  /  (1 - (1 + loan.rate / 12) ** - loan.term)</text>
-        </literalExpression>
-    </decision>
-    <inputData name="loan" id="sid-AD811598-1741-4206-A9FC-280EF77B0B23" label="Loan">
-        <variable typeRef="cip:loan" name="loan" id="input-data-variable-sid-AD811598-1741-4206-A9FC-280EF77B0B23" label="loan"/>
-    </inputData>
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:cip="http://www.gs.com/cip" name="simple-decision-free-text-complex-literal-expression" namespace="http://www.omg.org/spec/DMN/20151101/dmn.xsd">
+  <itemDefinition id="item-definition-sid-60E9B6E8-6251-4E45-86C4-4E46A3D9F64E" label="Monthly" name="monthly" isCollection="false">
+    <typeRef>feel:string</typeRef>
+  </itemDefinition>
+  <itemDefinition id="item-definition-sid-AD811598-1741-4206-A9FC-280EF77B0B23" label="Loan" name="loan" isCollection="false">
+    <itemComponent id="item-definition-principal-0" label="principal" name="principal" isCollection="false">
+      <typeRef>feel:number</typeRef>
+    </itemComponent>
+    <itemComponent id="item-definition-rate-1" label="rate" name="rate" isCollection="false">
+      <typeRef>feel:number</typeRef>
+    </itemComponent>
+    <itemComponent id="item-definition-term-2" label="term" name="term" isCollection="false">
+      <typeRef>feel:number</typeRef>
+    </itemComponent>
+  </itemDefinition>
+  <decision id="sid-60E9B6E8-6251-4E45-86C4-4E46A3D9F64E" label="Monthly" name="monthly">
+    <variable id="decision-variable-sid-60E9B6E8-6251-4E45-86C4-4E46A3D9F64E" label="monthly" name="monthly" typeRef="cip:monthly"></variable>
+    <informationRequirement>
+      <requiredInput href="sid-AD811598-1741-4206-A9FC-280EF77B0B23"></requiredInput>
+    </informationRequirement>
+    <literalExpression id="decision-expression-sid-60E9B6E8-6251-4E45-86C4-4E46A3D9F64E" expressionLanguage="free_text">
+      <text>(loan.principal * loan.rate/12)  /  (1 - (1 + loan.rate / 12) ** - loan.term)</text>
+    </literalExpression>
+  </decision>
+  <inputData id="sid-AD811598-1741-4206-A9FC-280EF77B0B23" label="Loan" name="loan">
+    <variable id="input-data-variable-sid-AD811598-1741-4206-A9FC-280EF77B0B23" label="loan" name="loan" typeRef="cip:loan"></variable>
+  </inputData>
 </definitions>

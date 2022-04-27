@@ -12,6 +12,9 @@
  */
 package com.gs.dmn.feel.interpreter;
 
+import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.ast.TFunctionDefinition;
+import com.gs.dmn.ast.TFunctionKind;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.DMNContextKind;
 import com.gs.dmn.context.environment.Declaration;
@@ -61,9 +64,6 @@ import com.gs.dmn.runtime.function.*;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.transformation.basic.ImportContextType;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
-import org.omg.spec.dmn._20191111.model.TFunctionDefinition;
-import org.omg.spec.dmn._20191111.model.TFunctionKind;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

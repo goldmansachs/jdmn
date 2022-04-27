@@ -14,6 +14,7 @@ package com.gs.dmn.feel;
 
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.TNamedElement;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.DMNContextKind;
 import com.gs.dmn.context.environment.EnvironmentFactory;
@@ -37,7 +38,6 @@ import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.omg.spec.dmn._20191111.model.TNamedElement;
 
 import java.util.Arrays;
 import java.util.List;

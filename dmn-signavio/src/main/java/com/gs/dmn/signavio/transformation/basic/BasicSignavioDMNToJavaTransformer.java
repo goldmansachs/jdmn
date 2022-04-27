@@ -15,6 +15,7 @@ package com.gs.dmn.signavio.transformation.basic;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.dialect.DMNDialectDefinition;
@@ -38,7 +39,6 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.native_.statement.Statement;
 import com.gs.dmn.transformation.proto.ProtoBufferJavaFactory;
-import org.omg.spec.dmn._20191111.model.*;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;

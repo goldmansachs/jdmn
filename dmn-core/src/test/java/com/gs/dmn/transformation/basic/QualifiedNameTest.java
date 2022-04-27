@@ -21,7 +21,7 @@ import static org.junit.Assert.assertNull;
 public class QualifiedNameTest {
     @Test
     public void testConstructorWithNullString() {
-        QualifiedName qualifiedName = QualifiedName.toQualifiedName(null, null);
+        QualifiedName qualifiedName = QualifiedName.toQualifiedName(null, (String) null);
         assertNull(qualifiedName);
     }
 

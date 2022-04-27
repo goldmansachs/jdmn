@@ -13,15 +13,14 @@
 package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.context.environment.Environment;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.Pair;
-import org.omg.spec.dmn._20191111.model.*;
 
-import javax.xml.bind.JAXBElement;
 import java.util.Map;
 
 public interface DMNEnvironmentFactory {
@@ -41,8 +40,6 @@ public interface DMNEnvironmentFactory {
     //
     // Expression related functions
     //
-    Type expressionType(TDRGElement element, JAXBElement<? extends TExpression> jElement, DMNContext context);
-
     Type expressionType(TDRGElement element, TExpression expression, DMNContext context);
 
     Type toFEELType(TDRGElement element, TOutputClause outputClause, int index);

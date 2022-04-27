@@ -13,7 +13,7 @@
 package com.gs.dmn.tck;
 
 import com.gs.dmn.DRGElementReference;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
+import com.gs.dmn.ast.TDRGElement;
 
 public class NodeInfo {
     protected static final String INPUT_TYPE = "inputData";

@@ -12,31 +12,13 @@
  */
 package com.gs.dmn.serialization;
 
-import com.gs.dmn.ast.DMNVersionTransformerVisitor;
-import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.Pair;
 
 import static com.gs.dmn.serialization.DMNVersion.DMN_11;
 import static com.gs.dmn.serialization.DMNVersion.DMN_12;
 
-public class DMN11To12DialectTransformer extends SimpleDMNDialectTransformer<TDefinitions, TDefinitions> {
-    private final DMNVersionTransformerVisitor visitor = new DMNVersionTransformerVisitor(DMN_11, DMN_12);
-
+public class DMN11To12DialectTransformer extends SimpleDMNDialectTransformer {
     public DMN11To12DialectTransformer(BuildLogger logger) {
         super(logger, DMN_11, DMN_12);
-    }
-
-    @Override
-    public Pair<TDefinitions, PrefixNamespaceMappings> transformDefinitions(TDefinitions sourceDefinitions) {
-        TDefinitions definitions = transform(sourceDefinitions);
-        return new Pair<>(definitions, this.prefixNamespaceMappings);
-    }
-
-    private TDefinitions transform(TDefinitions sourceDefinitions) {
-        logger.info(String.format("Transforming '%s' from DMN 1.1 to DMN 1.2 ...", sourceDefinitions.getName()));
-        sourceDefinitions.accept(visitor, null);
-        return sourceDefinitions;
     }
 }

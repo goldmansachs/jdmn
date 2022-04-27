@@ -13,15 +13,14 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.Test;
-import org.omg.spec.dmn._20191111.model.*;
 
-import javax.xml.bind.JAXBElement;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +45,7 @@ public class UniqueInformationRequirementTransformerTest extends AbstractSignavi
     }
 
     private void checkDefinitions(TDefinitions actualDefinitions, String fileName) {
-        for(JAXBElement<? extends TDRGElement> jaxbElement: actualDefinitions.getDrgElement()) {
-            TDRGElement drgElement = jaxbElement.getValue();
+        for (TDRGElement drgElement: actualDefinitions.getDrgElement()) {
             if (drgElement instanceof TDecision) {
                 List<String> hrefSet = new ArrayList<>();
                 for(TInformationRequirement ir: ((TDecision) drgElement).getInformationRequirement()) {

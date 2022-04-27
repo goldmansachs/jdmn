@@ -14,6 +14,7 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.NameUtils;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.NopBuildLogger;
 import com.gs.dmn.runtime.Pair;
@@ -21,7 +22,6 @@ import com.gs.dmn.serialization.*;
 import com.gs.dmn.tck.TestCasesReader;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
 
 import java.io.File;
 import java.util.*;

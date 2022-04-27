@@ -1,291 +1,291 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="https://www.omg.org/spec/DMN/20191111/FEEL/" xmlns:tns="http://www.trisotech.com/definitions/_69430b3e-17b8-430d-b760-c505bf6469f9" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" typeLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" namespace="http://www.trisotech.com/definitions/_69430b3e-17b8-430d-b760-c505bf6469f9" exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.33.1; 1.0" name="dateTime Table 58" id="_69430b3e-17b8-430d-b760-c505bf6469f9" triso:logoChoice="Default">
-    <itemDefinition isCollection="false" name="tDateTimeComponents" id="tDateTimeComponents">
-        <itemComponent isCollection="false" name="Year" id="_df05a420-dbc5-48cf-be85-4b41702c4f33">
-            <typeRef>feel.number</typeRef>
-        </itemComponent>
-        <itemComponent isCollection="false" name="Month" id="_3e119228-7599-47e5-aa96-182e5ff66034">
-            <typeRef>feel.number</typeRef>
-        </itemComponent>
-        <itemComponent isCollection="false" name="Day" id="_d5d22cac-3276-4dfd-9aee-353aa47bf2d4">
-            <typeRef>feel.number</typeRef>
-        </itemComponent>
-        <itemComponent isCollection="false" name="Hour" id="_63defe21-0369-438e-b879-27df2bcf475e">
-            <typeRef>feel.number</typeRef>
-        </itemComponent>
-        <itemComponent isCollection="false" name="Minute" id="_1ebad337-b2da-49ed-8ab2-b308d78e1b2f">
-            <typeRef>feel.number</typeRef>
-        </itemComponent>
-        <itemComponent isCollection="false" name="Second" id="_4666a2d0-63b2-4822-b5b4-e266f4cca3d1">
-            <typeRef>feel.number</typeRef>
-        </itemComponent>
-    </itemDefinition>
-    <itemDefinition isCollection="false" name="tDateVariants" id="tDateVariants">
-        <itemComponent isCollection="false" name="fromString" id="_02d44cc2-24ac-4f64-a61f-7044684dc438">
-            <typeRef>feel.date</typeRef>
-        </itemComponent>
-        <itemComponent isCollection="false" name="fromDateTime" id="_13da5f5e-8fdd-4a33-9500-ceeaaeaccc91">
-            <typeRef>feel.date</typeRef>
-        </itemComponent>
-        <itemComponent isCollection="false" name="fromYearMonthDay" id="_c4e03aa1-d8f3-4ffa-aab2-42a17a4fb707">
-            <typeRef>feel.date</typeRef>
-        </itemComponent>
-    </itemDefinition>
-    <decision name="Date" id="_bd547a08-c157-47ca-84d4-ac6f3d5bdeda">
-        <variable typeRef="tDateVariants" name="Date"/>
-        <informationRequirement>
-            <requiredInput href="#_74a9c3ad-a813-444e-88ee-8a91096ee233"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredInput href="#_178690e3-8936-4914-a735-6243a29b6068"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredInput href="#_e3143b2d-e150-422e-8163-d3e4461988f4"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredInput href="#_ec0d9542-257d-401b-ac6b-ce927014cf25"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredDecision href="#_dfbb843a-bd34-4099-b700-0d9ca5b38d6a"/>
-        </informationRequirement>
-        <context>
-            <contextEntry>
-                <variable typeRef="feel.date" name="fromString"/>
-                <literalExpression>
-                    <text>date(dateString)</text>
-                </literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable typeRef="feel.date" name="fromDateTime"/>
-                <literalExpression>
-                    <text>date(DateTime)</text>
-                </literalExpression>
-            </contextEntry>
-            <contextEntry>
-                <variable typeRef="feel.date" name="fromYearMonthDay"/>
-                <literalExpression>
-                    <text>date(Year,Month,Day)</text>
-                </literalExpression>
-            </contextEntry>
-        </context>
-    </decision>
-    <decision name="DateTime" id="_dfbb843a-bd34-4099-b700-0d9ca5b38d6a">
-        <variable typeRef="feel.dateTime" name="DateTime"/>
-        <informationRequirement>
-            <requiredInput href="#_c796f29d-d800-4239-b9f6-d4d72f77b183"/>
-        </informationRequirement>
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:tns="http://www.trisotech.com/definitions/_69430b3e-17b8-430d-b760-c505bf6469f9" xmlns:feel="https://www.omg.org/spec/DMN/20191111/FEEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" triso:logoChoice="Default" id="_69430b3e-17b8-430d-b760-c505bf6469f9" name="dateTime Table 58" namespace="http://www.trisotech.com/definitions/_69430b3e-17b8-430d-b760-c505bf6469f9" exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.33.1; 1.0">
+  <itemDefinition id="tDateTimeComponents" name="tDateTimeComponents" isCollection="false">
+    <itemComponent id="_df05a420-dbc5-48cf-be85-4b41702c4f33" name="Year" isCollection="false">
+      <typeRef>feel.number</typeRef>
+    </itemComponent>
+    <itemComponent id="_3e119228-7599-47e5-aa96-182e5ff66034" name="Month" isCollection="false">
+      <typeRef>feel.number</typeRef>
+    </itemComponent>
+    <itemComponent id="_d5d22cac-3276-4dfd-9aee-353aa47bf2d4" name="Day" isCollection="false">
+      <typeRef>feel.number</typeRef>
+    </itemComponent>
+    <itemComponent id="_63defe21-0369-438e-b879-27df2bcf475e" name="Hour" isCollection="false">
+      <typeRef>feel.number</typeRef>
+    </itemComponent>
+    <itemComponent id="_1ebad337-b2da-49ed-8ab2-b308d78e1b2f" name="Minute" isCollection="false">
+      <typeRef>feel.number</typeRef>
+    </itemComponent>
+    <itemComponent id="_4666a2d0-63b2-4822-b5b4-e266f4cca3d1" name="Second" isCollection="false">
+      <typeRef>feel.number</typeRef>
+    </itemComponent>
+  </itemDefinition>
+  <itemDefinition id="tDateVariants" name="tDateVariants" isCollection="false">
+    <itemComponent id="_02d44cc2-24ac-4f64-a61f-7044684dc438" name="fromString" isCollection="false">
+      <typeRef>feel.date</typeRef>
+    </itemComponent>
+    <itemComponent id="_13da5f5e-8fdd-4a33-9500-ceeaaeaccc91" name="fromDateTime" isCollection="false">
+      <typeRef>feel.date</typeRef>
+    </itemComponent>
+    <itemComponent id="_c4e03aa1-d8f3-4ffa-aab2-42a17a4fb707" name="fromYearMonthDay" isCollection="false">
+      <typeRef>feel.date</typeRef>
+    </itemComponent>
+  </itemDefinition>
+  <decision id="_bd547a08-c157-47ca-84d4-ac6f3d5bdeda" name="Date">
+    <variable name="Date" typeRef="tDateVariants"></variable>
+    <informationRequirement>
+      <requiredInput href="#_74a9c3ad-a813-444e-88ee-8a91096ee233"></requiredInput>
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#_178690e3-8936-4914-a735-6243a29b6068"></requiredInput>
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#_e3143b2d-e150-422e-8163-d3e4461988f4"></requiredInput>
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#_ec0d9542-257d-401b-ac6b-ce927014cf25"></requiredInput>
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#_dfbb843a-bd34-4099-b700-0d9ca5b38d6a"></requiredDecision>
+    </informationRequirement>
+    <context>
+      <contextEntry>
+        <variable name="fromString" typeRef="feel.date"></variable>
         <literalExpression>
-            <text>date and time(dateTimeString)</text>
+          <text>date(dateString)</text>
         </literalExpression>
-    </decision>
-    <decision name="DateTime2" id="_7df22028-4b5b-4594-89c7-a80b8aec526f">
-        <variable typeRef="feel.dateTime" name="DateTime2"/>
-        <informationRequirement>
-            <requiredDecision href="#_bd547a08-c157-47ca-84d4-ac6f3d5bdeda"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredDecision href="#_9e8acf47-790a-4741-8ebb-e8a22a30744c"/>
-        </informationRequirement>
+      </contextEntry>
+      <contextEntry>
+        <variable name="fromDateTime" typeRef="feel.date"></variable>
         <literalExpression>
-            <text>date and time(Date.fromString,Time)</text>
+          <text>date(DateTime)</text>
         </literalExpression>
-    </decision>
-    <inputData name="Day" id="_ec0d9542-257d-401b-ac6b-ce927014cf25">
-        <variable typeRef="feel.number" name="Day"/>
-    </inputData>
-    <inputData name="Hours" id="_0dffa0f8-4c84-401e-8403-94c201fbd976">
-        <variable typeRef="feel.number" name="Hours"/>
-    </inputData>
-    <inputData name="Minutes" id="_03d8f475-0a28-4c67-8fc5-51d9b1f54781">
-        <variable typeRef="feel.number" name="Minutes"/>
-    </inputData>
-    <inputData name="Month" id="_e3143b2d-e150-422e-8163-d3e4461988f4">
-        <variable typeRef="feel.number" name="Month"/>
-    </inputData>
-    <inputData name="Seconds" id="_9225dbc5-fe5c-4fa9-b97c-0a41265abf20">
-        <variable typeRef="feel.number" name="Seconds"/>
-    </inputData>
-    <decision name="Time" id="_9e8acf47-790a-4741-8ebb-e8a22a30744c">
-        <variable typeRef="feel.time" name="Time"/>
-        <informationRequirement>
-            <requiredInput href="#_e5705a69-0114-4f64-8aca-22500a533a51"/>
-        </informationRequirement>
+      </contextEntry>
+      <contextEntry>
+        <variable name="fromYearMonthDay" typeRef="feel.date"></variable>
         <literalExpression>
-            <text>time(timeString)</text>
+          <text>date(Year,Month,Day)</text>
         </literalExpression>
-    </decision>
-    <decision name="Time2" id="_1f2b08ce-3c6b-4e22-a747-8d9f378e9035">
-        <variable typeRef="feel.time" name="Time2"/>
-        <informationRequirement>
-            <requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"/>
-        </informationRequirement>
-        <literalExpression>
-            <text>time(DateTime2)</text>
-        </literalExpression>
-    </decision>
-    <decision name="Time3" id="_463b1a36-2505-413a-8056-f6a5efc2b52e">
-        <variable typeRef="feel.time" name="Time3"/>
-        <informationRequirement>
-            <requiredInput href="#_0dffa0f8-4c84-401e-8403-94c201fbd976"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredInput href="#_03d8f475-0a28-4c67-8fc5-51d9b1f54781"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredInput href="#_9225dbc5-fe5c-4fa9-b97c-0a41265abf20"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredInput href="#_b133cbd3-884d-4cf9-a750-81d949d17e31"/>
-        </informationRequirement>
-        <literalExpression>
-            <text>time(Hours,Minutes,Seconds,Timezone)</text>
-        </literalExpression>
-    </decision>
-    <inputData name="Timezone" id="_b133cbd3-884d-4cf9-a750-81d949d17e31">
-        <variable typeRef="feel.dayTimeDuration" name="Timezone"/>
-    </inputData>
-    <inputData name="Year" id="_178690e3-8936-4914-a735-6243a29b6068">
-        <variable typeRef="feel.number" name="Year"/>
-    </inputData>
-    <decision name="cDay" id="_04c6bedc-bc63-464f-8e61-c039d24a47bf">
-        <variable typeRef="feel.number" name="cDay"/>
-        <informationRequirement>
-            <requiredDecision href="#_bd547a08-c157-47ca-84d4-ac6f3d5bdeda"/>
-        </informationRequirement>
-        <literalExpression>
-            <text>Date.fromString.day</text>
-        </literalExpression>
-    </decision>
-    <decision name="cHour" id="_087e3f57-8ea6-4857-a080-fadc5a1dd9e8">
-        <variable typeRef="feel.number" name="cHour"/>
-        <informationRequirement>
-            <requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"/>
-        </informationRequirement>
-        <literalExpression>
-            <text>DateTime2.hour</text>
-        </literalExpression>
-    </decision>
-    <decision name="cMinute" id="_6836a944-7f7b-4c98-8a7a-a573494110fd">
-        <variable typeRef="feel.number" name="cMinute"/>
-        <informationRequirement>
-            <requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"/>
-        </informationRequirement>
-        <literalExpression>
-            <text>DateTime2.minute</text>
-        </literalExpression>
-    </decision>
-    <decision name="cMonth" id="_2cf37ed0-590d-4f97-b58b-46eaa424b965">
-        <variable typeRef="feel.number" name="cMonth"/>
-        <informationRequirement>
-            <requiredDecision href="#_bd547a08-c157-47ca-84d4-ac6f3d5bdeda"/>
-        </informationRequirement>
-        <literalExpression>
-            <text>Date.fromString.month</text>
-        </literalExpression>
-    </decision>
-    <decision name="cOffset" id="_81f97dd0-29ea-4bab-9540-b70a2fdf8ff3">
-        <variable typeRef="feel.dayTimeDuration" name="cOffset"/>
-        <informationRequirement>
-            <requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"/>
-        </informationRequirement>
-        <literalExpression>
-            <text>DateTime2.time offset</text>
-        </literalExpression>
-    </decision>
-    <decision name="cSecond" id="_4af88a8f-92e4-4f2d-bde1-e8a36b27e5bf">
-        <variable typeRef="feel.number" name="cSecond"/>
-        <informationRequirement>
-            <requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"/>
-        </informationRequirement>
-        <literalExpression>
-            <text>DateTime2.second</text>
-        </literalExpression>
-    </decision>
-    <decision name="cYear" id="_dc18ebe0-6762-4734-aeb3-ed4fb861865c">
-        <variable typeRef="feel.number" name="cYear"/>
-        <informationRequirement>
-            <requiredDecision href="#_bd547a08-c157-47ca-84d4-ac6f3d5bdeda"/>
-        </informationRequirement>
-        <literalExpression>
-            <text>Date.fromString.year</text>
-        </literalExpression>
-    </decision>
-    <inputData name="dateString" id="_74a9c3ad-a813-444e-88ee-8a91096ee233">
-        <variable typeRef="feel.string" name="dateString"/>
-    </inputData>
-    <inputData name="dateTimeString" id="_c796f29d-d800-4239-b9f6-d4d72f77b183">
-        <variable typeRef="feel.string" name="dateTimeString"/>
-    </inputData>
-    <decision name="dtDuration1" id="_972ecd98-1c70-4f0c-909c-786f23c61dbb">
-        <variable typeRef="feel.dayTimeDuration" name="dtDuration1"/>
-        <informationRequirement>
-            <requiredInput href="#_6f8bf858-eed1-4f41-93f2-73431540f91f"/>
-        </informationRequirement>
-        <literalExpression>
-            <text>duration(durationString)</text>
-        </literalExpression>
-    </decision>
-    <decision name="dtDuration2" id="_a2c48b03-6e72-4846-99cc-02f3747c6867">
-        <variable typeRef="feel.dayTimeDuration" name="dtDuration2"/>
-        <informationRequirement>
-            <requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredDecision href="#_dfbb843a-bd34-4099-b700-0d9ca5b38d6a"/>
-        </informationRequirement>
-        <literalExpression>
-            <text>DateTime - DateTime2</text>
-        </literalExpression>
-    </decision>
-    <inputData name="durationString" id="_6f8bf858-eed1-4f41-93f2-73431540f91f">
-        <variable typeRef="feel.string" name="durationString"/>
-    </inputData>
-    <inputData name="oneHour" id="_d96a8f03-5cee-42ca-8646-4383ad5ecee2">
-        <variable typeRef="feel.dayTimeDuration" name="oneHour"/>
-    </inputData>
-    <decision name="seconds" id="_c2f1a1ae-1403-43a2-b176-dedf3da51e6b">
-        <variable typeRef="feel.number" name="seconds"/>
-        <informationRequirement>
-            <requiredDecision href="#_972ecd98-1c70-4f0c-909c-786f23c61dbb"/>
-        </informationRequirement>
-        <literalExpression>
-            <text>dtDuration1.seconds</text>
-        </literalExpression>
-    </decision>
-    <decision name="sumDurations" id="_14f9f361-8c3c-455b-9c97-fe15201e3b5e">
-        <variable typeRef="feel.dayTimeDuration" name="sumDurations"/>
-        <informationRequirement>
-            <requiredDecision href="#_a2c48b03-6e72-4846-99cc-02f3747c6867"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredDecision href="#_972ecd98-1c70-4f0c-909c-786f23c61dbb"/>
-        </informationRequirement>
-        <literalExpression>
-            <text>dtDuration1 + dtDuration2</text>
-        </literalExpression>
-    </decision>
-    <inputData name="timeString" id="_e5705a69-0114-4f64-8aca-22500a533a51">
-        <variable typeRef="feel.string" name="timeString"/>
-    </inputData>
-    <decision name="years" id="_91fb395d-8173-4ed3-95f7-f790bd3967ab">
-        <variable typeRef="feel.number" name="years"/>
-        <informationRequirement>
-            <requiredDecision href="#_cbac111e-ca71-4fac-a921-175ffd767055"/>
-        </informationRequirement>
-        <literalExpression>
-            <text>ymDuration2.years</text>
-        </literalExpression>
-    </decision>
-    <decision name="ymDuration2" id="_cbac111e-ca71-4fac-a921-175ffd767055">
-        <variable typeRef="feel.yearMonthDuration" name="ymDuration2"/>
-        <informationRequirement>
-            <requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredDecision href="#_dfbb843a-bd34-4099-b700-0d9ca5b38d6a"/>
-        </informationRequirement>
-        <literalExpression>
-            <text>years and months duration(DateTime2,DateTime)</text>
-        </literalExpression>
-    </decision>
+      </contextEntry>
+    </context>
+  </decision>
+  <decision id="_dfbb843a-bd34-4099-b700-0d9ca5b38d6a" name="DateTime">
+    <variable name="DateTime" typeRef="feel.dateTime"></variable>
+    <informationRequirement>
+      <requiredInput href="#_c796f29d-d800-4239-b9f6-d4d72f77b183"></requiredInput>
+    </informationRequirement>
+    <literalExpression>
+      <text>date and time(dateTimeString)</text>
+    </literalExpression>
+  </decision>
+  <decision id="_7df22028-4b5b-4594-89c7-a80b8aec526f" name="DateTime2">
+    <variable name="DateTime2" typeRef="feel.dateTime"></variable>
+    <informationRequirement>
+      <requiredDecision href="#_bd547a08-c157-47ca-84d4-ac6f3d5bdeda"></requiredDecision>
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#_9e8acf47-790a-4741-8ebb-e8a22a30744c"></requiredDecision>
+    </informationRequirement>
+    <literalExpression>
+      <text>date and time(Date.fromString,Time)</text>
+    </literalExpression>
+  </decision>
+  <inputData id="_ec0d9542-257d-401b-ac6b-ce927014cf25" name="Day">
+    <variable name="Day" typeRef="feel.number"></variable>
+  </inputData>
+  <inputData id="_0dffa0f8-4c84-401e-8403-94c201fbd976" name="Hours">
+    <variable name="Hours" typeRef="feel.number"></variable>
+  </inputData>
+  <inputData id="_03d8f475-0a28-4c67-8fc5-51d9b1f54781" name="Minutes">
+    <variable name="Minutes" typeRef="feel.number"></variable>
+  </inputData>
+  <inputData id="_e3143b2d-e150-422e-8163-d3e4461988f4" name="Month">
+    <variable name="Month" typeRef="feel.number"></variable>
+  </inputData>
+  <inputData id="_9225dbc5-fe5c-4fa9-b97c-0a41265abf20" name="Seconds">
+    <variable name="Seconds" typeRef="feel.number"></variable>
+  </inputData>
+  <decision id="_9e8acf47-790a-4741-8ebb-e8a22a30744c" name="Time">
+    <variable name="Time" typeRef="feel.time"></variable>
+    <informationRequirement>
+      <requiredInput href="#_e5705a69-0114-4f64-8aca-22500a533a51"></requiredInput>
+    </informationRequirement>
+    <literalExpression>
+      <text>time(timeString)</text>
+    </literalExpression>
+  </decision>
+  <decision id="_1f2b08ce-3c6b-4e22-a747-8d9f378e9035" name="Time2">
+    <variable name="Time2" typeRef="feel.time"></variable>
+    <informationRequirement>
+      <requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"></requiredDecision>
+    </informationRequirement>
+    <literalExpression>
+      <text>time(DateTime2)</text>
+    </literalExpression>
+  </decision>
+  <decision id="_463b1a36-2505-413a-8056-f6a5efc2b52e" name="Time3">
+    <variable name="Time3" typeRef="feel.time"></variable>
+    <informationRequirement>
+      <requiredInput href="#_0dffa0f8-4c84-401e-8403-94c201fbd976"></requiredInput>
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#_03d8f475-0a28-4c67-8fc5-51d9b1f54781"></requiredInput>
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#_9225dbc5-fe5c-4fa9-b97c-0a41265abf20"></requiredInput>
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#_b133cbd3-884d-4cf9-a750-81d949d17e31"></requiredInput>
+    </informationRequirement>
+    <literalExpression>
+      <text>time(Hours,Minutes,Seconds,Timezone)</text>
+    </literalExpression>
+  </decision>
+  <inputData id="_b133cbd3-884d-4cf9-a750-81d949d17e31" name="Timezone">
+    <variable name="Timezone" typeRef="feel.dayTimeDuration"></variable>
+  </inputData>
+  <inputData id="_178690e3-8936-4914-a735-6243a29b6068" name="Year">
+    <variable name="Year" typeRef="feel.number"></variable>
+  </inputData>
+  <decision id="_04c6bedc-bc63-464f-8e61-c039d24a47bf" name="cDay">
+    <variable name="cDay" typeRef="feel.number"></variable>
+    <informationRequirement>
+      <requiredDecision href="#_bd547a08-c157-47ca-84d4-ac6f3d5bdeda"></requiredDecision>
+    </informationRequirement>
+    <literalExpression>
+      <text>Date.fromString.day</text>
+    </literalExpression>
+  </decision>
+  <decision id="_087e3f57-8ea6-4857-a080-fadc5a1dd9e8" name="cHour">
+    <variable name="cHour" typeRef="feel.number"></variable>
+    <informationRequirement>
+      <requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"></requiredDecision>
+    </informationRequirement>
+    <literalExpression>
+      <text>DateTime2.hour</text>
+    </literalExpression>
+  </decision>
+  <decision id="_6836a944-7f7b-4c98-8a7a-a573494110fd" name="cMinute">
+    <variable name="cMinute" typeRef="feel.number"></variable>
+    <informationRequirement>
+      <requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"></requiredDecision>
+    </informationRequirement>
+    <literalExpression>
+      <text>DateTime2.minute</text>
+    </literalExpression>
+  </decision>
+  <decision id="_2cf37ed0-590d-4f97-b58b-46eaa424b965" name="cMonth">
+    <variable name="cMonth" typeRef="feel.number"></variable>
+    <informationRequirement>
+      <requiredDecision href="#_bd547a08-c157-47ca-84d4-ac6f3d5bdeda"></requiredDecision>
+    </informationRequirement>
+    <literalExpression>
+      <text>Date.fromString.month</text>
+    </literalExpression>
+  </decision>
+  <decision id="_81f97dd0-29ea-4bab-9540-b70a2fdf8ff3" name="cOffset">
+    <variable name="cOffset" typeRef="feel.dayTimeDuration"></variable>
+    <informationRequirement>
+      <requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"></requiredDecision>
+    </informationRequirement>
+    <literalExpression>
+      <text>DateTime2.time offset</text>
+    </literalExpression>
+  </decision>
+  <decision id="_4af88a8f-92e4-4f2d-bde1-e8a36b27e5bf" name="cSecond">
+    <variable name="cSecond" typeRef="feel.number"></variable>
+    <informationRequirement>
+      <requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"></requiredDecision>
+    </informationRequirement>
+    <literalExpression>
+      <text>DateTime2.second</text>
+    </literalExpression>
+  </decision>
+  <decision id="_dc18ebe0-6762-4734-aeb3-ed4fb861865c" name="cYear">
+    <variable name="cYear" typeRef="feel.number"></variable>
+    <informationRequirement>
+      <requiredDecision href="#_bd547a08-c157-47ca-84d4-ac6f3d5bdeda"></requiredDecision>
+    </informationRequirement>
+    <literalExpression>
+      <text>Date.fromString.year</text>
+    </literalExpression>
+  </decision>
+  <inputData id="_74a9c3ad-a813-444e-88ee-8a91096ee233" name="dateString">
+    <variable name="dateString" typeRef="feel.string"></variable>
+  </inputData>
+  <inputData id="_c796f29d-d800-4239-b9f6-d4d72f77b183" name="dateTimeString">
+    <variable name="dateTimeString" typeRef="feel.string"></variable>
+  </inputData>
+  <decision id="_972ecd98-1c70-4f0c-909c-786f23c61dbb" name="dtDuration1">
+    <variable name="dtDuration1" typeRef="feel.dayTimeDuration"></variable>
+    <informationRequirement>
+      <requiredInput href="#_6f8bf858-eed1-4f41-93f2-73431540f91f"></requiredInput>
+    </informationRequirement>
+    <literalExpression>
+      <text>duration(durationString)</text>
+    </literalExpression>
+  </decision>
+  <decision id="_a2c48b03-6e72-4846-99cc-02f3747c6867" name="dtDuration2">
+    <variable name="dtDuration2" typeRef="feel.dayTimeDuration"></variable>
+    <informationRequirement>
+      <requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"></requiredDecision>
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#_dfbb843a-bd34-4099-b700-0d9ca5b38d6a"></requiredDecision>
+    </informationRequirement>
+    <literalExpression>
+      <text>DateTime - DateTime2</text>
+    </literalExpression>
+  </decision>
+  <inputData id="_6f8bf858-eed1-4f41-93f2-73431540f91f" name="durationString">
+    <variable name="durationString" typeRef="feel.string"></variable>
+  </inputData>
+  <inputData id="_d96a8f03-5cee-42ca-8646-4383ad5ecee2" name="oneHour">
+    <variable name="oneHour" typeRef="feel.dayTimeDuration"></variable>
+  </inputData>
+  <decision id="_c2f1a1ae-1403-43a2-b176-dedf3da51e6b" name="seconds">
+    <variable name="seconds" typeRef="feel.number"></variable>
+    <informationRequirement>
+      <requiredDecision href="#_972ecd98-1c70-4f0c-909c-786f23c61dbb"></requiredDecision>
+    </informationRequirement>
+    <literalExpression>
+      <text>dtDuration1.seconds</text>
+    </literalExpression>
+  </decision>
+  <decision id="_14f9f361-8c3c-455b-9c97-fe15201e3b5e" name="sumDurations">
+    <variable name="sumDurations" typeRef="feel.dayTimeDuration"></variable>
+    <informationRequirement>
+      <requiredDecision href="#_a2c48b03-6e72-4846-99cc-02f3747c6867"></requiredDecision>
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#_972ecd98-1c70-4f0c-909c-786f23c61dbb"></requiredDecision>
+    </informationRequirement>
+    <literalExpression>
+      <text>dtDuration1 + dtDuration2</text>
+    </literalExpression>
+  </decision>
+  <inputData id="_e5705a69-0114-4f64-8aca-22500a533a51" name="timeString">
+    <variable name="timeString" typeRef="feel.string"></variable>
+  </inputData>
+  <decision id="_91fb395d-8173-4ed3-95f7-f790bd3967ab" name="years">
+    <variable name="years" typeRef="feel.number"></variable>
+    <informationRequirement>
+      <requiredDecision href="#_cbac111e-ca71-4fac-a921-175ffd767055"></requiredDecision>
+    </informationRequirement>
+    <literalExpression>
+      <text>ymDuration2.years</text>
+    </literalExpression>
+  </decision>
+  <decision id="_cbac111e-ca71-4fac-a921-175ffd767055" name="ymDuration2">
+    <variable name="ymDuration2" typeRef="feel.yearMonthDuration"></variable>
+    <informationRequirement>
+      <requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"></requiredDecision>
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#_dfbb843a-bd34-4099-b700-0d9ca5b38d6a"></requiredDecision>
+    </informationRequirement>
+    <literalExpression>
+      <text>years and months duration(DateTime2,DateTime)</text>
+    </literalExpression>
+  </decision>
 </definitions>

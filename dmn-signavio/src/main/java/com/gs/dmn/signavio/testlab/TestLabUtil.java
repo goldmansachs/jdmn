@@ -14,6 +14,7 @@ package com.gs.dmn.signavio.testlab;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.CompositeDataType;
@@ -30,7 +31,6 @@ import com.gs.dmn.transformation.native_.expression.NativeExpressionFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -219,7 +219,7 @@ public class TestLabUtil {
     TItemDefinition elementType(TItemDefinition type) {
         TDefinitions model = this.dmnModelRepository.getModel(type);
         if (type.isIsCollection()) {
-            String typeRef = type.getTypeRef();
+            String typeRef = QualifiedName.toName(type.getTypeRef());
             if (!this.dmnModelRepository.isNull(typeRef)) {
                 return this.dmnModelRepository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
             }
@@ -351,9 +351,9 @@ public class TestLabUtil {
         TDRGElement element = findDRGElement(parameterDefinition);
         String typeRef;
         if (element instanceof TInputData) {
-            typeRef = ((TInputData) element).getVariable().getTypeRef();
+            typeRef = QualifiedName.toName(((TInputData) element).getVariable().getTypeRef());
         } else if (element instanceof TDecision) {
-            typeRef = ((TDecision) element).getVariable().getTypeRef();
+            typeRef = QualifiedName.toName(((TDecision) element).getVariable().getTypeRef());
         } else {
             throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for requirementId requirement '%s'. '%s' not supported", parameterDefinition.getId(), element.getClass().getSimpleName()));
         }

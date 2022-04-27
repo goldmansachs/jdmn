@@ -14,11 +14,11 @@
 package com.gs.dmn.signavio.validation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.validation.AbstractValidatorTest;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
 
 import java.io.File;
 import java.net.URI;

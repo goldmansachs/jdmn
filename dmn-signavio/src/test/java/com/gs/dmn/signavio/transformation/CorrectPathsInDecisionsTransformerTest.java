@@ -14,6 +14,10 @@ package com.gs.dmn.signavio.transformation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.ast.TDecision;
+import com.gs.dmn.ast.TDecisionTable;
+import com.gs.dmn.ast.TExpression;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
@@ -21,10 +25,6 @@ import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.config.Correction;
 import com.gs.dmn.signavio.transformation.config.DecisionTableCorrection;
 import org.junit.Test;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
-import org.omg.spec.dmn._20191111.model.TDecision;
-import org.omg.spec.dmn._20191111.model.TDecisionTable;
-import org.omg.spec.dmn._20191111.model.TExpression;
 
 import java.io.File;
 import java.io.IOException;

@@ -15,15 +15,14 @@ package com.gs.dmn.signavio;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.ImportPath;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.signavio.extension.SignavioExtension;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.*;
 
-import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -81,10 +80,9 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
             TDefinitions definitions = pair.getLeft();
             // Add DSs
             List<Object> elementList = this.extension.findExtensions(definitions.getExtensionElements(), LATEST.getNamespace(), "decisionService");
-            for(Object element: elementList) {
-                Object value = ((JAXBElement<?>) element).getValue();
-                if (value instanceof TDecisionService) {
-                    this.addElementMap((TDecisionService)value, definitions);
+            for (Object element: elementList) {
+                if (element instanceof TDecisionService) {
+                    this.addElementMap((TDecisionService) element, definitions);
                 }
             }
             // Populate MID iterators

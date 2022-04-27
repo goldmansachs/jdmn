@@ -12,31 +12,18 @@
  */
 package com.gs.dmn.serialization;
 
-import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.ast.DMNBaseElement;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.xml.sax.InputSource;
+import com.gs.dmn.serialization.xstream.XStreamMarshaller;
 
-import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
 import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -168,88 +155,31 @@ public class DMNReader extends DMNSerializer {
             return null;
         }
 
-        if (value instanceof org.omg.spec.dmn._20151101.model.TDefinitions) {
-            return this.dmnTransformer.transform11To13Definitions((org.omg.spec.dmn._20151101.model.TDefinitions) value);
-        } else if (value instanceof org.omg.spec.dmn._20180521.model.TDefinitions) {
-            return this.dmnTransformer.transform12To13Definitions((org.omg.spec.dmn._20180521.model.TDefinitions) value);
-        } else if (value instanceof TDefinitions) {
+        DMNVersion dmnVersion = XStreamMarshaller.inferDMNVersion((DMNBaseElement) value);
+        if (dmnVersion == DMNVersion.DMN_11) {
+            return this.dmnTransformer.transform11To13Definitions((TDefinitions) value);
+        } else if (dmnVersion == DMNVersion.DMN_12) {
+            return this.dmnTransformer.transform12To13Definitions((TDefinitions) value);
+        } else if (dmnVersion == DMNVersion.DMN_13) {
             return new Pair<>((TDefinitions) value, new PrefixNamespaceMappings());
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported", value.getClass()));
         }
     }
 
-    public Object readObject(File input) throws Exception {
-        DocumentBuilder builder = makeDocumentBuilder();
-        Document doc = builder.parse(input);
-        return readObject(doc);
+    private Object readObject(File input) {
+        return this.dmnMarshaller.unmarshal(input);
     }
 
-    public Object readObject(URL input) throws Exception {
-        DocumentBuilder builder = makeDocumentBuilder();
-        Document doc = builder.parse(input.openStream());
-        return readObject(doc);
+    private Object readObject(URL input) {
+        return this.dmnMarshaller.unmarshal(input);
     }
 
-    public Object readObject(InputStream input) throws Exception {
-        DocumentBuilder builder = makeDocumentBuilder();
-        Document doc = builder.parse(input);
-        return readObject(doc);
+    private Object readObject(InputStream input) {
+        return this.dmnMarshaller.unmarshal(input);
     }
 
-    public Object readObject(Reader input) throws Exception {
-        DocumentBuilder builder = makeDocumentBuilder();
-        Document doc = builder.parse(new InputSource(input));
-        return readObject(doc);
-    }
-
-    public Object readObject(Document doc) throws Exception {
-        DMNVersion dmnVersion = inferDMNVersion(doc);
-        Unmarshaller unmarshaller = makeUnmarshaller(dmnVersion);
-        JAXBElement<?> jaxbElement = (JAXBElement<?>) unmarshaller.unmarshal(doc);
-        return jaxbElement.getValue();
-    }
-
-    private DocumentBuilder makeDocumentBuilder() throws Exception {
-        DocumentBuilderFactory dbFactory = XMLUtil.makeDocumentBuilderFactory();
-        dbFactory.setNamespaceAware(true);
-        return dbFactory.newDocumentBuilder();
-    }
-
-    private DMNVersion inferDMNVersion(Document doc) {
-        DMNVersion dmnVersion = null;
-        Element definitions = doc.getDocumentElement();
-        NamedNodeMap attributes = definitions.getAttributes();
-        for (int i = 0; i < attributes.getLength(); i++) {
-            Node item = attributes.item(i);
-            String nodeValue = item.getNodeValue();
-            for(DMNVersion version: DMNVersion.VALUES) {
-                if (version.getNamespace().equals(nodeValue)) {
-                    dmnVersion = version;
-                    break;
-                }
-            }
-        }
-        if (dmnVersion == null) {
-            throw new IllegalArgumentException(String.format("Cannot infer DMN version for input '%s'", doc.getDocumentURI()));
-        }
-
-        return dmnVersion;
-    }
-
-    private Unmarshaller makeUnmarshaller(DMNVersion dmnVersion) throws Exception {
-        JAXBContext context = getJAXBContext(dmnVersion);
-        Unmarshaller u = context.createUnmarshaller();
-        if (validateSchema) {
-            setSchema(u, dmnVersion);
-        }
-        return u;
-    }
-
-    private void setSchema(Unmarshaller u, DMNVersion dmnVersion) throws Exception {
-        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        URI schemaURI = getClass().getClassLoader().getResource(dmnVersion.getSchemaLocation()).toURI();
-        Schema schema = sf.newSchema(schemaURI.toURL());
-        u.setSchema(schema);
+    private Object readObject(Reader input) {
+        return this.dmnMarshaller.unmarshal(input);
     }
 }

@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.transformation.basic;
 
+import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.context.environment.Environment;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

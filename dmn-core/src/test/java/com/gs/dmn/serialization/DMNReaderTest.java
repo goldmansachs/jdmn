@@ -13,11 +13,11 @@
 package com.gs.dmn.serialization;
 
 import com.gs.dmn.AbstractTest;
+import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
-import org.omg.spec.dmn._20191111.model.*;
 
-import javax.xml.bind.JAXBElement;
 import java.io.File;
 import java.util.List;
 
@@ -32,13 +32,13 @@ public class DMNReaderTest extends AbstractTest {
 
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(input);
         TDefinitions definitions = pair.getLeft();
-        List<JAXBElement<? extends TDRGElement>> drgElementList = definitions.getDrgElement();
+        List<TDRGElement> drgElementList = definitions.getDrgElement();
         assertEquals(1, drgElementList.size());
 
-        TDRGElement decision = drgElementList.get(0).getValue();
+        TDRGElement decision = drgElementList.get(0);
         assertNamedElement(decision, "cip-assessments", "CIP Assessments");
 
-        TExpression expression = ((TDecision) decision).getExpression().getValue();
+        TExpression expression = ((TDecision) decision).getExpression();
         assertTrue(expression instanceof TDecisionTable);
         TDecisionTable table = (TDecisionTable) expression;
         assertEquals("decisionTable", table.getId());
@@ -57,7 +57,7 @@ public class DMNReaderTest extends AbstractTest {
         List<TOutputClause> outputList = table.getOutput();
         assertEquals(1, outputList.size());
         TOutputClause output = outputList.get(0);
-        assertEquals(stringType, output.getTypeRef());
+        assertEquals(stringType, QualifiedName.toName(output.getTypeRef()));
         assertEquals("output1", output.getId());
         assertEquals("", output.getName());
 
@@ -75,7 +75,7 @@ public class DMNReaderTest extends AbstractTest {
 
     private void assertLiteralExpression(TLiteralExpression inputExpression, String stringType, String id, String text) {
         assertEquals(id, inputExpression.getId());
-        assertEquals(stringType, inputExpression.getTypeRef());
+        assertEquals(stringType, QualifiedName.toName(inputExpression.getTypeRef()));
         assertEquals(text, inputExpression.getText());
     }
 

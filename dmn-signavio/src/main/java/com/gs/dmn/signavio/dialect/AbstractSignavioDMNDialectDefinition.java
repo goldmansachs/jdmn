@@ -31,7 +31,7 @@ import java.util.Arrays;
 
 public abstract class AbstractSignavioDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
     //
-    // Searialization
+    // Serialization
     //
     @Override
     public DMNReader createDMNReader(BuildLogger logger, InputParameters inputParameters) {

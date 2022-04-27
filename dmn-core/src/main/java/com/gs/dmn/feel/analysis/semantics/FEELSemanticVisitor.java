@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics;
 
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.context.environment.VariableDeclaration;
@@ -45,7 +46,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.signavio.transformation;
 
+import com.gs.dmn.ast.TDecisionRule;
 import org.junit.Test;
-import org.omg.spec.dmn._20191111.model.TDecisionRule;
 
 import static org.junit.Assert.assertEquals;
 

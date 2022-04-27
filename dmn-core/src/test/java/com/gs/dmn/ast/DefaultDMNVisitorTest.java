@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.ast;
 
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import org.junit.Test;

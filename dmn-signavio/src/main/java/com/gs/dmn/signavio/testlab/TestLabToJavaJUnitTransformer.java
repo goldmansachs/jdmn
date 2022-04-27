@@ -13,6 +13,9 @@
 package com.gs.dmn.signavio.testlab;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.ast.TDecision;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
@@ -31,9 +34,6 @@ import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
-import org.omg.spec.dmn._20191111.model.TDecision;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
 
 import java.io.File;
 import java.io.IOException;

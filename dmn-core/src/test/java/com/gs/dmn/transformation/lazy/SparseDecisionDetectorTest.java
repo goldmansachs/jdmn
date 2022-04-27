@@ -14,16 +14,16 @@ package com.gs.dmn.transformation.lazy;
 
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.ast.TDecisionTable;
+import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.ast.TExpression;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.transformation.InputParameters;
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
-import org.omg.spec.dmn._20191111.model.TDecisionTable;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
-import org.omg.spec.dmn._20191111.model.TExpression;
 
 import java.io.File;
 import java.util.ArrayList;

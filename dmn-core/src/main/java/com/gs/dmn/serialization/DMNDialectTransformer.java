@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.serialization;
 
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.Pair;
 
@@ -24,11 +25,11 @@ public class DMNDialectTransformer {
         this.dmn12To13DialectTransformer = new DMN12To13DialectTransformer(logger);
     }
 
-    public Pair<org.omg.spec.dmn._20191111.model.TDefinitions, PrefixNamespaceMappings> transform11To13Definitions(org.omg.spec.dmn._20151101.model.TDefinitions sourceDefinitions) {
+    public Pair<TDefinitions, PrefixNamespaceMappings> transform11To13Definitions(TDefinitions sourceDefinitions) {
         return this.dmn11To13DialectTransformer.transformDefinitions(sourceDefinitions);
     }
 
-    public Pair<org.omg.spec.dmn._20191111.model.TDefinitions, PrefixNamespaceMappings> transform12To13Definitions(org.omg.spec.dmn._20180521.model.TDefinitions sourceDefinitions) {
+    public Pair<TDefinitions, PrefixNamespaceMappings> transform12To13Definitions(TDefinitions sourceDefinitions) {
         return this.dmn12To13DialectTransformer.transformDefinitions(sourceDefinitions);
     }
 }

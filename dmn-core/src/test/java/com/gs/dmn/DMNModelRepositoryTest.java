@@ -12,12 +12,12 @@
  */
 package com.gs.dmn;
 
+import com.gs.dmn.ast.*;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.spec.dmn._20191111.model.*;
 
 import java.io.File;
 import java.net.URI;

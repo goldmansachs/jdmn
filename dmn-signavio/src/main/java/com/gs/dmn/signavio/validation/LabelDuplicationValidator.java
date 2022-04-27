@@ -12,10 +12,10 @@
  */
 package com.gs.dmn.signavio.validation;
 
+import com.gs.dmn.ast.TDMNElement;
+import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.validation.SimpleDMNValidator;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.TDMNElement;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

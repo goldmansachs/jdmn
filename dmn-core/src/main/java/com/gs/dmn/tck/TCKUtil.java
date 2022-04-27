@@ -16,6 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.ImportPath;
 import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.*;
@@ -36,7 +37,6 @@ import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.InputNode;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.ResultNode;
 import org.omg.dmn.tck.marshaller._20160719.ValueType;
 import org.omg.dmn.tck.marshaller._20160719.ValueType.Component;
-import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -212,10 +212,10 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (element == null) {
             throw new DMNRuntimeException(String.format("Cannot find element '%s'.", node.getNodeName()));
         } else if (element instanceof TInputData) {
-            String varTypeRef = ((TInputData) element).getVariable().getTypeRef();
+            String varTypeRef = QualifiedName.toName(((TInputData) element).getVariable().getTypeRef());
             typeRef = QualifiedName.toQualifiedName(model, varTypeRef);
         } else if (element instanceof TDecision) {
-            String varTypeRef = ((TDecision) element).getVariable().getTypeRef();
+            String varTypeRef = QualifiedName.toName(((TDecision) element).getVariable().getTypeRef());
             typeRef = QualifiedName.toQualifiedName(model, varTypeRef);
         } else {
             throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for node '%s'. '%s' not supported", node.getNodeName(), element.getClass().getSimpleName()));

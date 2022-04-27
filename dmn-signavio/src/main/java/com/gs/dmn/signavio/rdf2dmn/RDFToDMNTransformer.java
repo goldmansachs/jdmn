@@ -14,6 +14,7 @@ package com.gs.dmn.signavio.rdf2dmn;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
@@ -25,6 +26,7 @@ import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.DMNWriter;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
+import com.gs.dmn.signavio.rdf2dmn.json.Visitor;
 import com.gs.dmn.signavio.rdf2dmn.json.*;
 import com.gs.dmn.signavio.rdf2dmn.json.decision.*;
 import com.gs.dmn.signavio.rdf2dmn.json.expression.Expression;
@@ -38,7 +40,6 @@ import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20151101.model.*;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -157,6 +158,9 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         TDefinitions root = OBJECT_FACTORY.createTDefinitions();
         root.setNamespace(DMN_11.getNamespace());
         root.setName(name);
+        root.getNsContext().put("", DMN_11.getNamespace());
+        root.getNsContext().put("feel", DMN_11.getFeelNamespace());
+        root.getNsContext().put(inputParameters.getPrefix(), inputParameters.getNamespace());
         addItemDefinitions(root);
         addDRGElements(root);
         return root;
@@ -434,11 +438,11 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     private void addDRGElements(TDefinitions root) {
         for (Element decision : rdfModel.findAllDecision()) {
             TDecision tDecision = makeDecision(root, decision);
-            root.getDrgElement().add(OBJECT_FACTORY.createDecision(tDecision));
+            root.getDrgElement().add(tDecision);
         }
         for (Element inputData : rdfModel.findAllInputData()) {
             TInputData tInputData = makeInputData(inputData);
-            root.getDrgElement().add(OBJECT_FACTORY.createInputData(tInputData));
+            root.getDrgElement().add(tInputData);
         }
     }
 
@@ -451,23 +455,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         decision.setVariable(makeDecisionVariable(resource, decision));
 
         TExpression expression = makeExpression(root, resource);
-        if (expression instanceof TDecisionTable) {
-            decision.setExpression(OBJECT_FACTORY.createDecisionTable((TDecisionTable) expression));
-        } else if (expression instanceof TFunctionDefinition) {
-            decision.setExpression(OBJECT_FACTORY.createFunctionDefinition((TFunctionDefinition) expression));
-        } else if (expression instanceof TRelation) {
-            decision.setExpression(OBJECT_FACTORY.createRelation((TRelation) expression));
-        } else if (expression instanceof TList) {
-            decision.setExpression(OBJECT_FACTORY.createList((TList) expression));
-        } else if (expression instanceof TContext) {
-            decision.setExpression(OBJECT_FACTORY.createContext((TContext) expression));
-        } else if (expression instanceof TInvocation) {
-            decision.setExpression(OBJECT_FACTORY.createInvocation((TInvocation) expression));
-        } else if (expression instanceof TLiteralExpression) {
-            decision.setExpression(OBJECT_FACTORY.createLiteralExpression((TLiteralExpression) expression));
-        } else {
-            throw new DMNRuntimeException("Incorrect expression type");
-        }
+        decision.setExpression(expression);
 
         return decision;
     }

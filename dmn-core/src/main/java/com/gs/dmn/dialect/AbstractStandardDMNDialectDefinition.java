@@ -27,7 +27,7 @@ import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 public abstract class AbstractStandardDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     //
-    // Searialization
+    // Serialization
     //
     @Override
     public DMNReader createDMNReader(BuildLogger logger, InputParameters inputParameters) {

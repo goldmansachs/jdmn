@@ -13,6 +13,7 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.feel.analysis.scanner.LexicalContext;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
@@ -21,7 +22,6 @@ import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.dmn.tck.marshaller._20160719.ValueType;
-import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -133,17 +133,17 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                     LexicalContext lexicalContext = makeLexicalContext(element, repository);
                     TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
                     if (encapsulatedLogic != null) {
-                        JAXBElement<? extends TExpression> expression = encapsulatedLogic.getExpression();
+                        TExpression expression = encapsulatedLogic.getExpression();
                         if (expression != null) {
-                            replace(expression.getValue(), lexicalContext);
+                            replace(expression, lexicalContext);
                         }
                     }
                 } else if (element instanceof TDecision) {
                     // Replace old names with new names in body
                     LexicalContext lexicalContext = makeLexicalContext(element, repository);
-                    JAXBElement<? extends TExpression> expression = ((TDecision) element).getExpression();
+                    TExpression expression = ((TDecision) element).getExpression();
                     if (expression != null) {
-                        replace(expression.getValue(), lexicalContext);
+                        replace(expression, lexicalContext);
                     }
                 }
             }
@@ -172,21 +172,20 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 }
             }
         } else if (expression instanceof TFunctionDefinition) {
-            JAXBElement<? extends TExpression> jaxbElement = ((TFunctionDefinition) expression).getExpression();
-            TExpression body = jaxbElement.getValue();
+            TExpression body = ((TFunctionDefinition) expression).getExpression();
             LexicalContext bodyContext = new LexicalContext(lexicalContext);
             for (TInformationItem parameter : ((TFunctionDefinition) expression).getFormalParameter()) {
                 bodyContext.addName(parameter.getName());
             }
             replace(body, lexicalContext);
         } else if (expression instanceof TInvocation) {
-            JAXBElement<? extends TExpression> jaxbElement = ((TInvocation) expression).getExpression();
-            if (jaxbElement != null && jaxbElement.getValue() != null) {
-                replace(jaxbElement.getValue(), lexicalContext);
+            TExpression exp = ((TInvocation) expression).getExpression();
+            if (exp != null) {
+                replace(exp, lexicalContext);
             }
             List<TBinding> bindingList = ((TInvocation) expression).getBinding();
             for (TBinding binding : bindingList) {
-                replace(binding.getExpression().getValue(), lexicalContext);
+                replace(binding.getExpression(), lexicalContext);
             }
         } else if (expression instanceof TContext) {
             List<TContextEntry> contextEntry = ((TContext) expression).getContextEntry();
@@ -196,9 +195,9 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 if (variable != null) {
                     entryContext.addName(variable.getName());
                 }
-                JAXBElement<? extends TExpression> jaxbElement = ce.getExpression();
-                if (jaxbElement != null && jaxbElement.getValue() != null) {
-                    replace(jaxbElement.getValue(), entryContext);
+                TExpression exp = ce.getExpression();
+                if (exp != null) {
+                    replace(exp, entryContext);
                 }
             }
         } else if (expression instanceof TRelation) {
@@ -211,9 +210,8 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 replace(list, relationContext);
             }
         } else if (expression instanceof TList) {
-            List<JAXBElement<? extends TExpression>> jaxbElements = ((TList) expression).getExpression();
-            for (JAXBElement<? extends TExpression> jaxbElement : jaxbElements) {
-                TExpression subExpression = jaxbElement.getValue();
+            List<? extends TExpression> expressionList = ((TList) expression).getExpression();
+            for (TExpression subExpression : expressionList) {
                 replace(subExpression, lexicalContext);
             }
         } else {
@@ -264,9 +262,9 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                     renameElement(((TDecision) element).getVariable());
 
                     // Rename in body
-                    JAXBElement<? extends TExpression> expression = ((TDecision) element).getExpression();
+                    TExpression expression = ((TDecision) element).getExpression();
                     if (expression != null) {
-                        rename(expression.getValue());
+                        rename(expression);
                     }
                 }
             }
@@ -283,9 +281,9 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             for (TInformationItem parameter : ((TFunctionDefinition) expression).getFormalParameter()) {
                 renameElement(parameter);
             }
-            JAXBElement<? extends TExpression> jaxbElement = ((TFunctionDefinition) expression).getExpression();
-            if (jaxbElement != null && jaxbElement.getValue() != null) {
-                rename(jaxbElement.getValue());
+            TExpression exp = ((TFunctionDefinition) expression).getExpression();
+            if (exp != null) {
+                rename(exp);
             }
         } else if (expression instanceof TInvocation) {
             List<TBinding> bindingList = ((TInvocation) expression).getBinding();
@@ -299,9 +297,9 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 if (variable != null) {
                     renameElement(variable);
                 }
-                JAXBElement<? extends TExpression> jaxbElement = ce.getExpression();
-                if (jaxbElement != null && jaxbElement.getValue() != null) {
-                    rename(jaxbElement.getValue());
+                TExpression exp = ce.getExpression();
+                if (exp != null) {
+                    rename(exp);
                 }
             }
         } else if (expression instanceof TRelation) {

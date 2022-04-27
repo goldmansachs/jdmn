@@ -14,6 +14,8 @@ package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.NameUtils;
+import com.gs.dmn.ast.TBusinessKnowledgeModel;
+import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
@@ -29,8 +31,6 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.ImportContextType;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.TBusinessKnowledgeModel;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
