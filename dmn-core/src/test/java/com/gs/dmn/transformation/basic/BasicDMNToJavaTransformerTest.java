@@ -19,6 +19,7 @@ import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
+import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +37,7 @@ import static org.junit.Assert.assertNull;
 
 public class BasicDMNToJavaTransformerTest extends AbstractTest {
     private final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> dialectDefinition = new StandardDMNDialectDefinition();
-    private final DMNReader dmnReader = new DMNReader(LOGGER, false);
+    private final DMNReader dmnReader = dialectDefinition.createDMNReader(LOGGER, new InputParameters(makeInputParametersMap()));
     private BasicDMNToJavaTransformer dmnTransformer;
     private String href;
 

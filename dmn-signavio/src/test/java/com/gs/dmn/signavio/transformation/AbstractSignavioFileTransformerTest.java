@@ -14,6 +14,7 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.DMNWriter;
+import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLabReader;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 
@@ -22,8 +23,9 @@ import java.util.Map;
 import static com.gs.dmn.signavio.SignavioTestConstants.SIG_EXT_NAMESPACE;
 
 public abstract class AbstractSignavioFileTransformerTest extends AbstractFileTransformerTest {
-    protected final DMNReader dmnReader = new DMNReader(LOGGER, false);
-    protected final DMNWriter dmnWriter = new DMNWriter(LOGGER);
+    protected final SignavioDMNDialectDefinition dialectDefinition = new SignavioDMNDialectDefinition();
+    protected final DMNReader dmnReader = dialectDefinition.createDMNReader(LOGGER, makeInputParameters());
+    protected final DMNWriter dmnWriter = dialectDefinition.createDMNWriter(LOGGER, makeInputParameters());
     protected final TestLabReader testReader = new TestLabReader();
 
     @Override

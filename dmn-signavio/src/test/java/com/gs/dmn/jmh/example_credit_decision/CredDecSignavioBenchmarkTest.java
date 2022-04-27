@@ -21,6 +21,7 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
+import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.feel.lib.DefaultSignavioLib;
 import com.gs.dmn.signavio.testlab.TestLab;
@@ -46,7 +47,16 @@ public class CredDecSignavioBenchmarkTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(CredDecSignavioBenchmarkTest.class));
 
     private static final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestLab> dialectDefinition = new SignavioDMNDialectDefinition();
-    private static final DMNReader dmnReader = new DMNReader(LOGGER, false);
+    private static final DMNReader dmnReader = dialectDefinition.createDMNReader(LOGGER, makeInputParameters());
+    private static InputParameters makeInputParameters() {
+        Map<String, String> inputParams = new LinkedHashMap<>();
+        inputParams.put("dmnVersion", "1.1");
+        inputParams.put("modelVersion", "1.0");
+        inputParams.put("platformVersion", "1.0");
+        inputParams.put("signavioSchemaNamespace", SignavioTestConstants.SIG_EXT_NAMESPACE);
+        return new InputParameters(inputParams);
+    }
+
     private static final DefaultSignavioLib lib = (DefaultSignavioLib) dialectDefinition.createFEELLib();
 
     @Benchmark

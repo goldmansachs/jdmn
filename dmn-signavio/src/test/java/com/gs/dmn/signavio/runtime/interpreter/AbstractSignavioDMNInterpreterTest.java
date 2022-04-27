@@ -28,7 +28,6 @@ import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
-import com.gs.dmn.transformation.InputParameters;
 import org.omg.spec.dmn._20191111.model.TDecision;
 import org.omg.spec.dmn._20191111.model.TDefinitions;
 import org.slf4j.LoggerFactory;
@@ -48,7 +47,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractSignavioDMNInterpreterTest.class));
 
     private final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestLab> dialectDefinition = new SignavioDMNDialectDefinition();
-    private final DMNReader reader = new DMNReader(LOGGER, false);
+    private final DMNReader reader = dialectDefinition.createDMNReader(LOGGER, makeInputParameters());
 
     protected void doTest(DecisionTestConfig config) throws Exception {
         doTest(config.getDecisionName(), config.getDiagramName(), config.getRuntimeContext(), config.getExpectedResult());
@@ -74,17 +73,22 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
         }
     }
 
-    @Override
-    protected InputParameters makeInputParameters() {
-        return new InputParameters(makeInputParametersMap());
-    }
-
     protected Map<String, Object> makeInformationRequirements(List<Pair<String, ?>> pairs) {
         Map<String, Object> environment = new LinkedHashMap<>();
         for (Pair<String, ?> pair : pairs) {
             environment.put(pair.getLeft(), pair.getRight());
         }
         return environment;
+    }
+
+    @Override
+    protected Map<String, String> makeInputParametersMap() {
+        Map<String, String> inputParams = new LinkedHashMap<>();
+        inputParams.put("dmnVersion", "1.1");
+        inputParams.put("modelVersion", "1.0");
+        inputParams.put("platformVersion", "1.0");
+        inputParams.put("signavioSchemaNamespace", SIG_EXT_NAMESPACE);
+        return inputParams;
     }
 
     protected abstract String getInputPath();

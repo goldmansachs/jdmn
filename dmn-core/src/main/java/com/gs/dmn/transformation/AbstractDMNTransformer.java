@@ -43,7 +43,7 @@ public abstract class AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURA
         this.dmnTransformer = dmnTransformer;
         this.lazyEvaluationDetector = lazyEvaluationDetector;
         this.typeDeserializationConfigurer = typeDeserializationConfigurer;
-        this.dmnReader = new DMNReader(logger, this.inputParameters.isXsdValidation());
+        this.dmnReader = dialectDefinition.createDMNReader(logger, inputParameters);
         this.dmnValidator = dmnValidator;
 
         this.decisionBaseClass = dialectDefinition.getDecisionBaseClass();

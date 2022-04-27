@@ -54,7 +54,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractDMNInterpreterTest.class));
     private static final boolean IGNORE_ERROR_FLAG = true;
 
-    private final DMNReader reader = new DMNReader(LOGGER, false);
+    private final DMNReader reader = this.getDialectDefinition().createDMNReader(LOGGER, makeInputParameters());
     private final TestCasesReader testCasesReader = new TestCasesReader(LOGGER);
 
     protected DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> interpreter;

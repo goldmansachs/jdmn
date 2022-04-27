@@ -20,6 +20,8 @@ import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.DMNWriter;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
@@ -32,6 +34,13 @@ import com.gs.dmn.validation.DMNValidator;
 import java.util.Map;
 
 public interface DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
+    //
+    // Serialization
+    //
+    DMNReader createDMNReader(BuildLogger logger, InputParameters inputParameters);
+
+    DMNWriter createDMNWriter(BuildLogger logger, InputParameters inputParameters);
+
     //
     // FEEL Processors
     //

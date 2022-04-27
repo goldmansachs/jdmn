@@ -16,13 +16,29 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.feel.interpreter.TypeConverter;
+import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
+import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.DMNWriter;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 public abstract class AbstractStandardDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
+    //
+    // Searialization
+    //
+    @Override
+    public DMNReader createDMNReader(BuildLogger logger, InputParameters inputParameters) {
+        return new DMNReader(logger, inputParameters.isXsdValidation());
+    }
+
+    @Override
+    public DMNWriter createDMNWriter(BuildLogger logger, InputParameters inputParameters) {
+        return new DMNWriter(logger);
+    }
+
     //
     // DMN Processors
     //

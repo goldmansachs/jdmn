@@ -165,8 +165,9 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFile
         TDecision decision = (TDecision) drgElement;
         TExpression expression = repository.expression(decision);
         assertTrue(expression instanceof TDecisionTable);
-        assertEquals("applicant.priorIssues", ((TDecisionTable) expression).getInput().get(0).getInputExpression().getText());
-        assertEquals("(count(applicant.priorIssues)*(-5))", ((TDecisionTable) expression).getRule().get(4).getOutputEntry().get(0).getText());
+        TDecisionTable decisionTable = (TDecisionTable) expression;
+        assertEquals("applicant.priorIssues", decisionTable.getInput().get(0).getInputExpression().getText());
+        assertEquals("(count(applicant.priorIssues)*(-5))", decisionTable.getRule().get(4).getOutputEntry().get(0).getText());
     }
 
     @Test

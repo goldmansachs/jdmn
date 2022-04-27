@@ -42,6 +42,7 @@ import org.omg.spec.dmn._20151101.model.*;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import java.io.File;
 import java.io.FileInputStream;
@@ -95,8 +96,8 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         super(inputParameters, logger);
         this.dialectDefinition = new SignavioDMNDialectDefinition();
         this.dmnTransformer = this.dialectDefinition.createBasicTransformer(new SignavioDMNModelRepository(), new NopLazyEvaluationDetector(), inputParameters);
-        this.dmnReader = new DMNReader(logger, false);
-        this.dmnWriter = new DMNWriter(logger);
+        this.dmnReader = this.dialectDefinition.createDMNReader(logger, inputParameters);
+        this.dmnWriter = this.dialectDefinition.createDMNWriter(logger, inputParameters);
         this.rdfReader = new RDFReader(logger);
     }
 
@@ -208,7 +209,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
                     TItemDefinition decisionItemDefinition = OBJECT_FACTORY.createTItemDefinition();
                     decisionItemDefinition.setId(makeItemDefinitionId(decision));
                     String decisionName = rdfModel.getName(decision);
-                    decisionItemDefinition.setLabel(decisionName);
+                    decisionItemDefinition.setLabel(makeLabel(decisionName));
                     decisionItemDefinition.setName(makeItemDefinitionName(decisionName));
 
                     decisionItemDefinition.setIsCollection(isMultipleHit(hitPolicy));
@@ -253,7 +254,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         if (isFEELType(type)) {
             TItemDefinition itemComponent = OBJECT_FACTORY.createTItemDefinition();
             itemComponent.setId(id);
-            itemComponent.setLabel(label);
+            itemComponent.setLabel(makeLabel(label));
             itemComponent.setName(name);
 
             itemComponent.setTypeRef(makeQName(DMN_11.getFeelNamespace(), convertType(type)));
@@ -270,7 +271,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
             // Make root ItemDefinition for decision
             TItemDefinition decisionItemDefinition = OBJECT_FACTORY.createTItemDefinition();
             decisionItemDefinition.setId(id);
-            decisionItemDefinition.setLabel(label);
+            decisionItemDefinition.setLabel(makeLabel(label));
             decisionItemDefinition.setName(name);
             decisionItemDefinition.setIsCollection(isList || itemDefinition.isList());
 
@@ -284,7 +285,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
 
                 TItemDefinition relComponent = OBJECT_FACTORY.createTItemDefinition();
                 relComponent.setId(relId);
-                relComponent.setLabel(relLabel);
+                relComponent.setLabel(makeLabel(relLabel));
                 relComponent.setName(relName);
 
                 relComponent.setTypeRef(makeQName(DMN_11.getFeelNamespace(), convertType(relType)));
@@ -321,7 +322,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
             if (hasRelations(resource)) {
                 TItemDefinition itemDefinition = OBJECT_FACTORY.createTItemDefinition();
                 itemDefinition.setId(makeItemDefinitionId(resource));
-                itemDefinition.setLabel(rdfModel.getLabel(resource));
+                itemDefinition.setLabel(makeLabel(rdfModel.getLabel(resource)));
                 itemDefinition.setName(makeItemDefinitionName(resource));
 
                 // isList flag
@@ -332,7 +333,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
                 for(Relation relation: relations) {
                     TItemDefinition itemComponent = OBJECT_FACTORY.createTItemDefinition();
                     itemComponent.setId(makeItemDefinitionId(relation));
-                    itemComponent.setLabel(relation.getTitle());
+                    itemComponent.setLabel(makeLabel(relation.getTitle()));
                     itemComponent.setName(makeItemDefinitionName(relation));
 
                     String type = relation.getValue().getType();
@@ -359,7 +360,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
             } else if (isFEELType(typeName)) {
                 TItemDefinition itemDefinition = OBJECT_FACTORY.createTItemDefinition();
                 itemDefinition.setId(makeItemDefinitionId(resource));
-                itemDefinition.setLabel(rdfModel.getLabel(resource));
+                itemDefinition.setLabel(makeLabel(rdfModel.getLabel(resource)));
                 itemDefinition.setName(makeItemDefinitionName(resource));
 
                 // Set type
@@ -499,7 +500,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         TInformationItem item = OBJECT_FACTORY.createTInformationItem();
         item.setId(makeDecisionVariableId(resource));
         item.setName(makeDecisionVariableName(decision.getName()));
-        item.setLabel(decision.getName());
+        item.setLabel(makeLabel(decision.getName()));
         QName typeRef = makeQName(resource);
         item.setTypeRef(typeRef);
         return item;
@@ -682,7 +683,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
             TOutputClause tOutputClause = OBJECT_FACTORY.createTOutputClause();
             tOutputClause.setId(makeOutputClauseId(outputClause, decision));
             tOutputClause.setName(makeOutputClauseName(outputClauseName));
-            tOutputClause.setLabel(rdfModel.getLabel(decision));
+            tOutputClause.setLabel(makeLabel(rdfModel.getLabel(decision)));
 
             String type = itemDefinition.getType();
             if (isFEELType(type)) {
@@ -706,7 +707,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
                     TOutputClause tOutputClause = OBJECT_FACTORY.createTOutputClause();
                     tOutputClause.setId(makeOutputClauseId(outputClause, decision));
                     tOutputClause.setName(makeOutputClauseName(outputClauseName));
-                    tOutputClause.setLabel(outputClauseName);
+                    tOutputClause.setLabel(makeLabel(outputClauseName));
 
                     String type = itemDefinition.getType();
                     if (isFEELType(type)) {
@@ -788,7 +789,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         TInformationItem item = OBJECT_FACTORY.createTInformationItem();
         item.setId(makeInputDataVariableId(resource));
         item.setName(inputData.getName());
-        item.setLabel(inputData.getName());
+        item.setLabel(makeLabel(inputData.getName()));
         item.setTypeRef(makeQName(this.inputParameters.getNamespace(), makeItemDefinitionName(resource)));
         return item;
     }
@@ -861,7 +862,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
 
     private void setNamedElementProperties(TNamedElement element, Element resource) {
         element.setId(rdfModel.getAboutAttribute(resource));
-        element.setLabel(rdfModel.getLabel(resource));
+        element.setLabel(makeLabel(rdfModel.getLabel(resource)));
         element.setName(makeDecisionName(rdfModel.getName(resource)));
     }
 
@@ -886,6 +887,16 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
 
     private QName makeQName(String namespace, String name) {
         String cleanName = dmnTransformer.nativeFriendlyName(name);
-        return new QName(namespace, cleanName);
+        String prefix = XMLConstants.DEFAULT_NS_PREFIX;
+        if (DMN_11.getFeelNamespace().equals(namespace)) {
+            prefix = "feel";
+        } else if (inputParameters.getNamespace().equals(namespace)) {
+            prefix = inputParameters.getPrefix();
+        }
+        return new QName(namespace, cleanName, prefix);
+    }
+
+    private String makeLabel(String label) {
+        return label == null ? null : label.trim();
     }
 }

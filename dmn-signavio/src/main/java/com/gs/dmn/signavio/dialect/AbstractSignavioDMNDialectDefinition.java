@@ -15,15 +15,34 @@ package com.gs.dmn.signavio.dialect;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.dialect.AbstractDMNDialectDefinition;
+import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.DMNWriter;
 import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
 import com.gs.dmn.signavio.runtime.interpreter.SignavioDMNInterpreter;
 import com.gs.dmn.signavio.runtime.interpreter.SignavioTypeConverter;
+import com.gs.dmn.signavio.serialization.xstream.SignavioExtensionRegister;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 
+import java.util.Arrays;
+
 public abstract class AbstractSignavioDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
+    //
+    // Searialization
+    //
+    @Override
+    public DMNReader createDMNReader(BuildLogger logger, InputParameters inputParameters) {
+        return new DMNReader(logger, inputParameters.isXsdValidation(), Arrays.asList(new SignavioExtensionRegister(inputParameters.getSchemaNamespace())));
+    }
+
+    @Override
+    public DMNWriter createDMNWriter(BuildLogger logger, InputParameters inputParameters) {
+        return new DMNWriter(logger, Arrays.asList(new SignavioExtensionRegister(inputParameters.getSchemaNamespace())));
+    }
+
     //
     // DMN processors
     //
