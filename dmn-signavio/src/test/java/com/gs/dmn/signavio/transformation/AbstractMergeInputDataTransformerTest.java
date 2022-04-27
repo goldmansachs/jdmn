@@ -15,15 +15,11 @@ package com.gs.dmn.signavio.transformation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
-import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.DMNWriter;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.testlab.InputParameterDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
-import com.gs.dmn.signavio.testlab.TestLabReader;
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import org.omg.spec.dmn._20191111.model.TDefinitions;
 import org.omg.spec.dmn._20191111.model.TInputData;
 
@@ -35,14 +31,10 @@ import java.util.Map;
 
 import static org.junit.Assert.fail;
 
-public abstract class AbstractMergeInputDataTransformerTest extends AbstractFileTransformerTest {
+public abstract class AbstractMergeInputDataTransformerTest extends AbstractSignavioFileTransformerTest {
     protected final AbstractMergeInputDataTransformer transformer = getTransformer();
 
     protected abstract AbstractMergeInputDataTransformer getTransformer();
-
-    protected final DMNReader dmnReader = new DMNReader(LOGGER, false);
-    protected final DMNWriter dmnWriter = new DMNWriter(LOGGER);
-    protected final TestLabReader testReader = new TestLabReader();
 
     protected void doTransform(String dmnFileName) throws Exception {
         doTransform(dmnFileName, null);

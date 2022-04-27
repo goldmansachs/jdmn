@@ -15,12 +15,10 @@ package com.gs.dmn.signavio.transformation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.Assert;
 import org.junit.Test;
@@ -36,10 +34,7 @@ import static com.gs.dmn.signavio.transformation.InferMissingItemDefinitionsTran
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class InferMissingItemDefinitionsTransformerTest extends AbstractFileTransformerTest {
-
-    private final DMNReader dmnReader = new DMNReader(LOGGER, false);
-
+public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavioFileTransformerTest {
     @Test
     public void testWhenSignavioDialect() throws Exception {
         Map<String, Object> config = makeConfiguration(SignavioDMNDialectDefinition.class.getName());

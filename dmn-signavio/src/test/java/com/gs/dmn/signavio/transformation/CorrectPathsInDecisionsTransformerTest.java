@@ -16,12 +16,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.config.Correction;
 import com.gs.dmn.signavio.transformation.config.DecisionTableCorrection;
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import org.junit.Test;
 import org.omg.spec.dmn._20191111.model.TDRGElement;
 import org.omg.spec.dmn._20191111.model.TDecision;
@@ -38,10 +36,8 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
-public class CorrectPathsInDecisionsTransformerTest extends AbstractFileTransformerTest {
+public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFileTransformerTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
-
-    private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
     @Test
     public void testConfigWhenNoConfig() {
@@ -186,8 +182,9 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractFileTransfor
         TDecision decision = (TDecision) drgElement;
         TExpression expression = repository.expression(decision);
         assertTrue(expression instanceof TDecisionTable);
-        assertEquals("applicant.priorIssues", ((TDecisionTable) expression).getInput().get(0).getInputExpression().getText());
-        assertEquals("(count(applicant.priorIssues)*(-5))", ((TDecisionTable) expression).getRule().get(4).getOutputEntry().get(0).getText());
+        TDecisionTable decisionTable = (TDecisionTable) expression;
+        assertEquals("applicant.priorIssues", decisionTable.getInput().get(0).getInputExpression().getText());
+        assertEquals("(count(applicant.priorIssues)*(-5))", decisionTable.getRule().get(4).getOutputEntry().get(0).getText());
     }
 
     @Test

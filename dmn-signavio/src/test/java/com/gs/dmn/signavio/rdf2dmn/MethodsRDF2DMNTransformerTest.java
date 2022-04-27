@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.rdf2dmn;
 
 import com.gs.dmn.AbstractTest;
+import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.transformation.InputParameters;
 import org.junit.Test;
 
@@ -41,6 +42,7 @@ public class MethodsRDF2DMNTransformerTest extends AbstractTest {
         Map<String, String> inputParams = super.makeInputParametersMap();
         inputParams.put("namespace", "http://www.gs.com/cip");
         inputParams.put("prefix", "cip");
+        inputParams.put("signavioSchemaNamespace", SignavioTestConstants.SIG_EXT_NAMESPACE);
         return inputParams;
     }
 }

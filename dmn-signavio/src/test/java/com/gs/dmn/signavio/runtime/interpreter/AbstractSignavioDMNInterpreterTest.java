@@ -26,7 +26,6 @@ import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
-import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.InputParameters;
@@ -42,13 +41,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.gs.dmn.signavio.SignavioTestConstants.SIG_EXT_NAMESPACE;
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractSignavioDMNInterpreterTest.class));
 
-    private final DMNReader reader = new DMNReader(LOGGER, false);
     private final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestLab> dialectDefinition = new SignavioDMNDialectDefinition();
+    private final DMNReader reader = new DMNReader(LOGGER, false);
 
     protected void doTest(DecisionTestConfig config) throws Exception {
         doTest(config.getDecisionName(), config.getDiagramName(), config.getRuntimeContext(), config.getExpectedResult());
@@ -60,7 +60,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
             String pathName = getInputPath() + "/" + diagramName + DMNConstants.DMN_FILE_EXTENSION;
             URI uri = signavioResource(pathName);
             Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(uri.toURL());
-            DMNModelRepository repository = new SignavioDMNModelRepository(pair, SignavioTestConstants.SIG_EXT_NAMESPACE);
+            DMNModelRepository repository = new SignavioDMNModelRepository(pair, SIG_EXT_NAMESPACE);
             DMNInterpreter<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> interpreter = dialectDefinition.createDMNInterpreter(repository, makeInputParameters());
 
             TDecision decision = (TDecision) repository.findDRGElementByName(repository.getRootDefinitions(), decisionName);

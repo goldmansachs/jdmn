@@ -15,10 +15,8 @@ package com.gs.dmn.signavio.transformation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,10 +27,8 @@ import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileTransformerTest {
+public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSignavioFileTransformerTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
-
-    private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
     @Test
     public void testMissingDefinitionsWithoutTransformation() throws Exception {

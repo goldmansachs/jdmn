@@ -13,9 +13,7 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.TypeRefValidator;
 import org.junit.Test;
@@ -27,10 +25,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class TypeRefValidatorTest extends AbstractFileTransformerTest {
-
-    private final DMNReader dmnReader = new DMNReader(LOGGER, false);
-
+public class TypeRefValidatorTest extends AbstractSignavioFileTransformerTest {
     @Test
     public void testValidation() {
         List<String> expectedErrors = Arrays.asList(

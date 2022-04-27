@@ -15,11 +15,8 @@ package com.gs.dmn.signavio.transformation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
-import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.DMNWriter;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import org.junit.Test;
 import org.omg.spec.dmn._20191111.model.TDefinitions;
 
@@ -28,10 +25,8 @@ import java.io.File;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class NormalizeDateTimeLiteralsTransformerTest extends AbstractFileTransformerTest {
+public class NormalizeDateTimeLiteralsTransformerTest extends AbstractSignavioFileTransformerTest {
     private final NormalizeDateTimeLiteralsTransformer transformer = new NormalizeDateTimeLiteralsTransformer(LOGGER);
-    private final DMNReader dmnReader = new DMNReader(LOGGER, false);
-    private final DMNWriter dmnWriter = new DMNWriter(LOGGER);
 
     @Test
     public void testNormalize() {

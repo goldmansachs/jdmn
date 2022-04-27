@@ -12,23 +12,15 @@
  */
 package com.gs.dmn.signavio.rdf2dmn;
 
-import com.gs.dmn.AbstractTest;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNConstants;
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
+import com.gs.dmn.signavio.SignavioTestConstants;
+import com.gs.dmn.signavio.transformation.AbstractSignavioFileTransformerTest;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import org.apache.commons.io.FileUtils;
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
-import org.jdom2.output.XMLOutputter;
-import org.omg.spec.dmn._20191111.model.TDMNElement;
-import org.omg.spec.dmn._20191111.model.TLiteralExpression;
-import org.omg.spec.dmn._20191111.model.TNamedElement;
 import org.slf4j.LoggerFactory;
 import org.xmlunit.validation.Languages;
 import org.xmlunit.validation.ValidationProblem;
@@ -41,15 +33,13 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.Map;
 
-import static com.gs.dmn.serialization.DMNVersion.DMN_11;
 import static com.gs.dmn.signavio.rdf2dmn.RDFToDMNTransformer.RDF_FILE_EXTENSION;
 import static com.gs.dmn.signavio.rdf2dmn.RDFToDMNTransformer.isRDFFile;
 import static org.junit.Assert.*;
 
-public abstract class AbstractRDFToDMNTransformerTest extends AbstractFileTransformerTest {
+public abstract class AbstractRDFToDMNTransformerTest extends AbstractSignavioFileTransformerTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractRDFToDMNTransformerTest.class));
 
     private static boolean isXmlFile(File file) {
@@ -133,6 +123,7 @@ public abstract class AbstractRDFToDMNTransformerTest extends AbstractFileTransf
         Map<String, String> map = super.makeInputParametersMap();
         map.put("namespace", "http://www.gs.com/cip");
         map.put("prefix", "cip");
+        map.put("signavioSchemaNamespace", SignavioTestConstants.SIG_EXT_NAMESPACE);
         return map;
     }
 

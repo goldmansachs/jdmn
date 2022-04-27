@@ -14,11 +14,9 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.Test;
 import org.omg.spec.dmn._20191111.model.*;
@@ -30,9 +28,8 @@ import java.util.List;
 
 import static org.junit.Assert.fail;
 
-public class UniqueInformationRequirementTransformerTest extends AbstractFileTransformerTest {
+public class UniqueInformationRequirementTransformerTest extends AbstractSignavioFileTransformerTest {
     private final DMNTransformer<TestLab> transformer = new UniqueInformationRequirementTransformer(LOGGER);
-    private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
     @Test
     public void testTransform() {
