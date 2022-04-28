@@ -18,21 +18,21 @@ import com.gs.dmn.ast.dmndi.DMNShape;
 import com.gs.dmn.ast.dmndi.DMNStyle;
 import com.gs.dmn.serialization.AbstractUnmarshalMarshalTest;
 import com.gs.dmn.serialization.DMNMarshaller;
-import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.extensions.MyTestRegister;
+import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import org.junit.Test;
 import org.w3c.dom.Node;
 
 import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamSource;
-import java.io.*;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class UnmarshalMarshalTest extends AbstractUnmarshalMarshalTest {
     @Test
@@ -79,7 +79,7 @@ public class UnmarshalMarshalTest extends AbstractUnmarshalMarshalTest {
     @Test
     public void test_FontSize_sharedStyle() throws Exception {
         testRoundTrip("xstream/v1_2/", "test-FontSize-sharedStyle.dmn");
-        TDefinitions definitions = getMarshaller().unmarshal(new InputStreamReader(this.getClass().getResourceAsStream("/xstream/v1_2/test-FontSize-sharedStyle.dmn")));
+        TDefinitions definitions = getMarshaller().unmarshal(new InputStreamReader(this.getClass().getResourceAsStream("/xstream/v1_2/test-FontSize-sharedStyle.dmn")), true);
         List<DMNDiagram> dmnDiagram = definitions.getDMNDI().getDMNDiagram();
         DMNShape shape0 = (DMNShape) dmnDiagram.get(0).getDMNDiagramElement().get(0);
         DMNStyle shape0sharedStyle = (DMNStyle) shape0.getDMNLabel().getSharedStyle();

@@ -96,7 +96,6 @@ public class DMNSerializer {
             this.logger.info(String.format("Reading DMN '%s' ...", input.getAbsolutePath()));
 
             TDefinitions definitions = transform(unmarshall(input));
-
             this.logger.info("DMN read.");
             return definitions;
         } catch (Exception e) {
@@ -169,18 +168,18 @@ public class DMNSerializer {
     }
 
     private TDefinitions unmarshall(File input) {
-        return this.dmnMarshaller.unmarshal(input);
+        return this.dmnMarshaller.unmarshal(input, this.validateSchema);
     }
 
     private TDefinitions unmarshall(URL input) {
-        return this.dmnMarshaller.unmarshal(input);
+        return this.dmnMarshaller.unmarshal(input, this.validateSchema);
     }
 
     private TDefinitions unmarshall(InputStream input) {
-        return this.dmnMarshaller.unmarshal(input);
+        return this.dmnMarshaller.unmarshal(input, this.validateSchema);
     }
 
     private TDefinitions unmarshall(Reader input) {
-        return this.dmnMarshaller.unmarshal(input);
+        return this.dmnMarshaller.unmarshal(input, this.validateSchema);
     }
 }

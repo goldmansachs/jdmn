@@ -31,8 +31,10 @@ import org.xmlunit.validation.Validator;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import java.io.*;
-import java.nio.file.Files;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.util.Set;
 
 import static org.junit.Assert.assertFalse;
@@ -64,7 +66,7 @@ public abstract class AbstractUnmarshalMarshalTest {
 
         // Read definitions
         FileInputStream fis = new FileInputStream(inputXMLFile);
-        TDefinitions unmarshal = marshaller.unmarshal(new InputStreamReader(fis));
+        TDefinitions unmarshal = marshaller.unmarshal(new InputStreamReader(fis), true);
 
         // Write definitions
         LOG.debug("{}", marshaller.marshal(unmarshal));

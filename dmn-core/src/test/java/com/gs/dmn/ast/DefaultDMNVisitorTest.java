@@ -36,7 +36,7 @@ public class DefaultDMNVisitorTest {
         File baseInputDir = new File("target/test-classes/");
 
         File inputXMLFile = new File(baseInputDir, subDir + xmlFile);
-        TDefinitions definitions = marshaller.unmarshal(new FileReader(inputXMLFile));
+        TDefinitions definitions = marshaller.unmarshal(new FileReader(inputXMLFile), true);
         definitions.accept(visitor, null);
         assertNotNull(definitions);
     }

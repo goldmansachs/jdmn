@@ -12,9 +12,27 @@
  */
 package com.gs.dmn.serialization;
 
-import com.gs.dmn.serialization.xstream.SimpleDMNMarshaller;
+import com.gs.dmn.ast.TDefinitions;
 
-import java.io.Writer;
+import java.io.*;
+import java.net.URL;
 
-public interface DMNMarshaller extends SimpleDMNMarshaller {
+public interface DMNMarshaller {
+    TDefinitions unmarshal(String input, boolean validateSchema);
+
+    TDefinitions unmarshal(File input, boolean validateSchema);
+
+    TDefinitions unmarshal(URL input, boolean validateSchema);
+
+    TDefinitions unmarshal(InputStream input, boolean validateSchema);
+
+    TDefinitions unmarshal(Reader input, boolean validateSchema);
+
+    String marshal(TDefinitions o);
+
+    void marshal(TDefinitions o, File output);
+
+    void marshal(TDefinitions o, OutputStream output);
+
+    void marshal(TDefinitions o, Writer output);
 }

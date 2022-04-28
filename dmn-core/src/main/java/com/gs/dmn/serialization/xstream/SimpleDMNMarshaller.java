@@ -28,11 +28,11 @@ public interface SimpleDMNMarshaller {
 
     TDefinitions unmarshal(Reader input);
 
-    String marshal(Object o);
+    String marshal(TDefinitions o);
 
-    void marshal(Object o, File output);
+    void marshal(TDefinitions o, File output);
 
-    void marshal(Object o, OutputStream output);
+    void marshal(TDefinitions o, OutputStream output);
 
-    void marshal(Object o, Writer output);
+    void marshal(TDefinitions o, Writer output);
 }

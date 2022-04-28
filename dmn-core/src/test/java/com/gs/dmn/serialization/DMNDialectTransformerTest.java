@@ -13,7 +13,7 @@ public abstract class DMNDialectTransformerTest extends AbstractFileTransformerT
     protected void doTest(String inputFileName, Pair<String, String> dmnNamespacePrefixMapping) throws Exception {
         // Read
         File inputFile = new File(resource(getInputPath() + inputFileName));
-        TDefinitions sourceDefinitions = dmnMarshaller.unmarshal(inputFile);
+        TDefinitions sourceDefinitions = dmnMarshaller.unmarshal(inputFile, true);
 
         // Transform
         TDefinitions targetDefinitions = transform(sourceDefinitions);

@@ -132,7 +132,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
     }
 
     @Override
-    public String marshal(Object o) {
+    public String marshal(TDefinitions o) {
         try (
                 Writer writer = new StringWriter();
                 CustomStaxWriter hsWriter = (CustomStaxWriter) STAX_DRIVER.createWriter(writer)) {
@@ -154,7 +154,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
     }
 
     @Override
-    public void marshal(Object o, File output) {
+    public void marshal(TDefinitions o, File output) {
         try (FileWriter fileWriter = new FileWriter(output)) {
             marshal(o, fileWriter);
         } catch (IOException e) {
@@ -163,7 +163,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
     }
 
     @Override
-    public void marshal(Object o, OutputStream output) {
+    public void marshal(TDefinitions o, OutputStream output) {
         try (OutputStreamWriter streamWriter = new OutputStreamWriter(output)) {
             marshal(o, streamWriter);
         } catch (Exception e) {
@@ -172,7 +172,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
     }
 
     @Override
-    public void marshal(Object o, Writer output) {
+    public void marshal(TDefinitions o, Writer output) {
         try {
             output.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             output.write(marshal(o));
