@@ -18,9 +18,7 @@ import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
-import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Before;
@@ -85,7 +83,7 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
 
     @Test
     public void testEmptyAnnotation() {
-        assertEquals("\"\"", dmnTransformer.annotation(null, (String)null));
+        assertEquals("\"\"", dmnTransformer.annotation(null, (String) null));
         assertEquals("\"\"", dmnTransformer.annotation(null, ""));
     }
 
@@ -141,8 +139,8 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
 
     private DMNModelRepository readDMN(String pathName) {
         File input = new File(resource(pathName));
-        Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(input);
-        return new DMNModelRepository(pair);
+        TDefinitions definitions = dmnReader.readModel(input);
+        return new DMNModelRepository(definitions);
     }
 
 }

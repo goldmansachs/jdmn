@@ -27,7 +27,6 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.tck.TCKUtil;
 import com.gs.dmn.tck.TestCasesReader;
 import com.gs.dmn.transformation.DMNTransformer;
@@ -72,8 +71,8 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         String errorMessage = String.format("Tested failed for DM '%s'", dmnFileNames);
         try {
             // Read DMN files
-            List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = readModels(dmnVersion, dmnFileNames);
-            DMNModelRepository repository = new DMNModelRepository(pairs);
+            List<TDefinitions> definitionsList = readModels(dmnVersion, dmnFileNames);
+            DMNModelRepository repository = new DMNModelRepository(definitionsList);
 
             // Read TestCases filers
             Pair<List<String>, List<TestCases>> pair = findTestCases(dmnVersion, dmnFileNames);
@@ -104,7 +103,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
             DMNModelRepository repository = new DMNModelRepository(this.reader.readModels(dmnInputFile));
 
             // Read TestCases filers
-            File testCasesInputFile = new File(tckResource(completePath(getTestCasesInputPath(), dmnVersion, testFolderName)  + "/"));
+            File testCasesInputFile = new File(tckResource(completePath(getTestCasesInputPath(), dmnVersion, testFolderName) + "/"));
             Pair<List<String>, List<TestCases>> pair = findTestCasesInFolder(testCasesInputFile);
 
             // Transform definitions and test cases
@@ -144,7 +143,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         for (String dmnFileName: dmnFileNames) {
             URL testInputPathURL = tckResource(completePath(getTestCasesInputPath(), dmnVersion, testName)).toURL();
             File testInputPathFolder = new File(testInputPathURL.getFile());
-            for (File child : testInputPathFolder.listFiles()) {
+            for (File child: testInputPathFolder.listFiles()) {
                 if (isTCKFile(child) && child.getName().startsWith(dmnFileName)) {
                     TestCases testCases = testCasesReader.read(child);
                     testFileNames.add(child.getName());
@@ -162,7 +161,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         for (int i = 0; i < actualTestCasesList.size(); i++) {
             String testCaseFileName = testCaseFileNameList.get(i);
             TestCases testCases = actualTestCasesList.get(i);
-            for (TestCase testCase : testCases.getTestCase()) {
+            for (TestCase testCase: testCases.getTestCase()) {
                 doTest(testCaseFileName, testCases, testCase, interpreter);
             }
         }
@@ -172,7 +171,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil = new TCKUtil<>(basicTransformer, (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) lib);
 
         List<ResultNode> resultNode = testCase.getResultNode();
-        for (ResultNode res : resultNode) {
+        for (ResultNode res: resultNode) {
             Object expectedValue = null;
             Result actualResult;
             Object actualValue = null;
@@ -185,7 +184,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
                 Assert.assertEquals(errorMessage, expectedValue, actualValue);
                 if (!IGNORE_ERROR_FLAG) {
                     String errorFlagMessage = String.format("%s ResultNode '%s' error flag mismatch", testLocation, res.getName());
-                    Assert.assertEquals(errorFlagMessage,  actualResult.hasErrors(), res.isErrorResult());
+                    Assert.assertEquals(errorFlagMessage, actualResult.hasErrors(), res.isErrorResult());
                 }
             } catch (Exception e) {
                 String stackTrace = ExceptionUtils.getStackTrace(e);
@@ -196,15 +195,15 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         }
     }
 
-    private List<Pair<TDefinitions, PrefixNamespaceMappings>> readModels(String dmnVersion, List<String> dmnFileNames) throws Exception {
-        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = new ArrayList<>();
+    private List<TDefinitions> readModels(String dmnVersion, List<String> dmnFileNames) throws Exception {
+        List<TDefinitions> definitionsList = new ArrayList<>();
         String testName = dmnFileNames.get(0);
         for (String dmnFileName: dmnFileNames) {
             URI dmnFileURI = tckResource(completePath(getDMNInputPath(), dmnVersion, testName) + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION);
-            Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(dmnFileURI.toURL());
-            pairs.add(pair);
+            TDefinitions definitions = reader.readModel(dmnFileURI.toURL());
+            definitionsList.add(definitions);
         }
-        return pairs;
+        return definitionsList;
     }
 
     private InputParameters makeInputParameters(Map<String, String> inputParameters) {
@@ -213,7 +212,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
 
     private Map<String, String> makeInputParametersMap(Pair<String, String>[] extraInputParameters) {
         Map<String, String> inputParameters = makeInputParametersMap();
-        for (Pair<String, String> params : extraInputParameters) {
+        for (Pair<String, String> params: extraInputParameters) {
             inputParameters.put(params.getLeft(), params.getRight());
         }
         return inputParameters;

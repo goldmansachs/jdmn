@@ -16,9 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
@@ -50,8 +48,8 @@ public abstract class AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURA
     }
 
     protected DMNModelRepository readModels(File file) {
-        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = dmnReader.readModels(file);
-        return new DMNModelRepository(pairs);
+        List<TDefinitions> definitionsList = dmnReader.readModels(file);
+        return new DMNModelRepository(definitionsList);
     }
 
     protected void handleValidationErrors(List<String> errors) {
@@ -59,7 +57,7 @@ public abstract class AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURA
             return;
         }
 
-        for(String error: errors) {
+        for (String error: errors) {
             logger.error(error);
         }
         throw new IllegalArgumentException("Validation errors " + errors);

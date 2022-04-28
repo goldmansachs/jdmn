@@ -17,7 +17,6 @@ import com.gs.dmn.NameUtils;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.NopBuildLogger;
-import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.*;
 import com.gs.dmn.tck.TestCasesReader;
 import org.apache.commons.lang3.StringUtils;
@@ -51,7 +50,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
                 if (!newName.equals(oldName)) {
                     // Check for duplicates
                     boolean isDuplicate = false;
-                    for(String key: namesMapping.keys()) {
+                    for (String key: namesMapping.keys()) {
                         if (!key.equals(oldName) && newName.equals(namesMapping.get(key))) {
                             isDuplicate = true;
                             break;
@@ -79,7 +78,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
                 if (skippedPrevious) {
                     ch = Character.toUpperCase(ch);
                 }
-                result.append((char)ch);
+                result.append((char) ch);
                 skippedPrevious = false;
             } else {
                 skippedPrevious = true;
@@ -95,7 +94,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
         File inputFolder = new File("H:/Projects/EP/dmn/dmn-core/src/test/resources/tck/cl2/input/");
         File outputFolder = new File("H:/Projects/EP/dmn/dmn-tck-integration-tests/src/main/resources/tck/cl2/");
 
-        for(File child: inputFolder.listFiles()) {
+        for (File child: inputFolder.listFiles()) {
             if (DMNReader.isDMNFile(child)) {
                 NameTransformer simpleNameTransformer = new ToSimpleNameTransformer(new NopBuildLogger());
 
@@ -119,7 +118,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
     private static DMNModelRepository transformDefinitions(NameTransformer transformer, File inputFile, File outputFile, BuildLogger logger) {
         // Read
         DMNReader reader = new DMNReader(logger, false);
-        Pair<TDefinitions, PrefixNamespaceMappings> result = reader.read(inputFile);
+        TDefinitions result = reader.readModel(inputFile);
         DMNModelRepository repository = new DMNModelRepository(result);
 
         // Transform

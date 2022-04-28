@@ -50,7 +50,7 @@ public class BatchValidationTest {
         File file = new File(String.valueOf(path));
         if (file.getName().endsWith(".dmn")) {
             LOGGER.info("Validating {}", file.getPath());
-            DMNModelRepository repository = new DMNModelRepository(reader.read(file));
+            DMNModelRepository repository = new DMNModelRepository(reader.readModel(file));
             List<String> errors = validator.validate(repository);
             if (!errors.isEmpty()) {
                 for (String error: errors) {

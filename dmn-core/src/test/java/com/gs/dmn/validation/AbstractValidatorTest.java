@@ -16,9 +16,7 @@ package com.gs.dmn.validation;
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
 
 import java.io.File;
 import java.net.URI;
@@ -38,7 +36,7 @@ public abstract class AbstractValidatorTest extends AbstractTest {
 
     protected DMNModelRepository makeRepository(URI fileURI) {
         File input = new File(fileURI);
-        Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(input);
-        return new DMNModelRepository(pair);
+        TDefinitions definitions = reader.readModel(input);
+        return new DMNModelRepository(definitions);
     }
 }

@@ -18,7 +18,6 @@ import com.gs.dmn.feel.analysis.scanner.LexicalContext;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.dmn.tck.marshaller._20160719.ValueType;
@@ -77,7 +76,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         // Transform test cases
         for (TestCases testCases: testCasesList) {
             if (testCases != null) {
-                for (TestCases.TestCase testCase : testCases.getTestCase()) {
+                for (TestCases.TestCase testCase: testCases.getTestCase()) {
                     transform(testCase);
                 }
             }
@@ -87,12 +86,12 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
     protected void transform(TestCases.TestCase testCase) {
         // Rename
-        for (TestCases.TestCase.InputNode n : testCase.getInputNode()) {
+        for (TestCases.TestCase.InputNode n: testCase.getInputNode()) {
             String newName = transformName(n.getName());
             n.setName(newName);
             rename(n);
         }
-        for (TestCases.TestCase.ResultNode n : testCase.getResultNode()) {
+        for (TestCases.TestCase.ResultNode n: testCase.getResultNode()) {
             String newName = transformName(n.getName());
             n.setName(newName);
             rename(n.getExpected());
@@ -107,13 +106,13 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         JAXBElement<ValueType.List> jaxbList = valueType.getList();
         if (jaxbList != null) {
             ValueType.List list = jaxbList.getValue();
-            for (ValueType vt : list.getItem()) {
+            for (ValueType vt: list.getItem()) {
                 rename(vt);
             }
         }
         List<ValueType.Component> componentList = valueType.getComponent();
         if (componentList != null) {
-            for (ValueType.Component component : componentList) {
+            for (ValueType.Component component: componentList) {
                 rename(component);
             }
         }
@@ -127,7 +126,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     // Replace old names with new names in expressions
     protected void replace(DMNModelRepository repository) {
         for (TDefinitions definitions: repository.getAllDefinitions()) {
-            for (TDRGElement element : repository.findDRGElements(definitions)) {
+            for (TDRGElement element: repository.findDRGElements(definitions)) {
                 if (element instanceof TBusinessKnowledgeModel) {
                     // Replace old names with new names in body
                     LexicalContext lexicalContext = makeLexicalContext(element, repository);
@@ -155,26 +154,26 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         if (expression instanceof TLiteralExpression) {
             replaceNamesInText((TLiteralExpression) expression, lexicalContext);
         } else if (expression instanceof TDecisionTable) {
-            for (TInputClause input : ((TDecisionTable) expression).getInput()) {
+            for (TInputClause input: ((TDecisionTable) expression).getInput()) {
                 TLiteralExpression inputExpression = input.getInputExpression();
                 replaceNamesInText(inputExpression, lexicalContext);
             }
-            for (TOutputClause output : ((TDecisionTable) expression).getOutput()) {
+            for (TOutputClause output: ((TDecisionTable) expression).getOutput()) {
                 TLiteralExpression defaultOutputEntry = output.getDefaultOutputEntry();
                 replaceNamesInText(defaultOutputEntry, lexicalContext);
             }
-            for (TDecisionRule rule : ((TDecisionTable) expression).getRule()) {
-                for (TUnaryTests inputEntry : rule.getInputEntry()) {
+            for (TDecisionRule rule: ((TDecisionTable) expression).getRule()) {
+                for (TUnaryTests inputEntry: rule.getInputEntry()) {
                     replaceNamesInText(inputEntry, lexicalContext);
                 }
-                for (TLiteralExpression outputEntry : rule.getOutputEntry()) {
+                for (TLiteralExpression outputEntry: rule.getOutputEntry()) {
                     replaceNamesInText(outputEntry, lexicalContext);
                 }
             }
         } else if (expression instanceof TFunctionDefinition) {
             TExpression body = ((TFunctionDefinition) expression).getExpression();
             LexicalContext bodyContext = new LexicalContext(lexicalContext);
-            for (TInformationItem parameter : ((TFunctionDefinition) expression).getFormalParameter()) {
+            for (TInformationItem parameter: ((TFunctionDefinition) expression).getFormalParameter()) {
                 bodyContext.addName(parameter.getName());
             }
             replace(body, lexicalContext);
@@ -184,13 +183,13 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 replace(exp, lexicalContext);
             }
             List<TBinding> bindingList = ((TInvocation) expression).getBinding();
-            for (TBinding binding : bindingList) {
+            for (TBinding binding: bindingList) {
                 replace(binding.getExpression(), lexicalContext);
             }
         } else if (expression instanceof TContext) {
             List<TContextEntry> contextEntry = ((TContext) expression).getContextEntry();
             LexicalContext entryContext = new LexicalContext(lexicalContext);
-            for (TContextEntry ce : contextEntry) {
+            for (TContextEntry ce: contextEntry) {
                 TInformationItem variable = ce.getVariable();
                 if (variable != null) {
                     entryContext.addName(variable.getName());
@@ -203,15 +202,15 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         } else if (expression instanceof TRelation) {
             List<TList> lists = ((TRelation) expression).getRow();
             LexicalContext relationContext = new LexicalContext(lexicalContext);
-            for (TInformationItem ii : ((TRelation) expression).getColumn()) {
+            for (TInformationItem ii: ((TRelation) expression).getColumn()) {
                 relationContext.addName(ii.getName());
             }
-            for (TList list : lists) {
+            for (TList list: lists) {
                 replace(list, relationContext);
             }
         } else if (expression instanceof TList) {
             List<? extends TExpression> expressionList = ((TList) expression).getExpression();
-            for (TExpression subExpression : expressionList) {
+            for (TExpression subExpression: expressionList) {
                 replace(subExpression, lexicalContext);
             }
         } else {
@@ -227,17 +226,15 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                     String newName = transformName(oldName);
                     if (!oldName.equals(newName)) {
                         imp.setName(newName);
-                        PrefixNamespaceMappings prefixNamespaceMappings = repository.getPrefixNamespaceMappings();
-                        prefixNamespaceMappings.renameKey(oldName, newName);
                     }
                 }
             }
         }
         for (TDefinitions definitions: repository.getAllDefinitions()) {
-            for (TItemDefinition itemDefinition : repository.findItemDefinitions(definitions)) {
+            for (TItemDefinition itemDefinition: repository.findItemDefinitions(definitions)) {
                 renameItemDefinitionMembers(itemDefinition);
             }
-            for (TDRGElement element : repository.findDRGElements(definitions)) {
+            for (TDRGElement element: repository.findDRGElements(definitions)) {
                 if (element instanceof TInputData) {
                     // Rename element and variable
                     renameElement(element);
@@ -251,7 +248,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                     TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
                     if (encapsulatedLogic != null) {
                         List<TInformationItem> formalParameterList = encapsulatedLogic.getFormalParameter();
-                        for (TInformationItem param : formalParameterList) {
+                        for (TInformationItem param: formalParameterList) {
                             renameElement(param);
                         }
                         rename(encapsulatedLogic);
@@ -274,11 +271,11 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     protected void rename(TExpression expression) {
         if (expression instanceof TLiteralExpression) {
         } else if (expression instanceof TDecisionTable) {
-            for (TOutputClause outputClause : ((TDecisionTable) expression).getOutput()) {
+            for (TOutputClause outputClause: ((TDecisionTable) expression).getOutput()) {
                 renameElement(outputClause);
             }
         } else if (expression instanceof TFunctionDefinition) {
-            for (TInformationItem parameter : ((TFunctionDefinition) expression).getFormalParameter()) {
+            for (TInformationItem parameter: ((TFunctionDefinition) expression).getFormalParameter()) {
                 renameElement(parameter);
             }
             TExpression exp = ((TFunctionDefinition) expression).getExpression();
@@ -287,12 +284,12 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             }
         } else if (expression instanceof TInvocation) {
             List<TBinding> bindingList = ((TInvocation) expression).getBinding();
-            for (TBinding binding : bindingList) {
+            for (TBinding binding: bindingList) {
                 renameElement(binding.getParameter());
             }
         } else if (expression instanceof TContext) {
             List<TContextEntry> contextEntry = ((TContext) expression).getContextEntry();
-            for (TContextEntry ce : contextEntry) {
+            for (TContextEntry ce: contextEntry) {
                 TInformationItem variable = ce.getVariable();
                 if (variable != null) {
                     renameElement(variable);
@@ -303,7 +300,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 }
             }
         } else if (expression instanceof TRelation) {
-            for (TInformationItem ii : ((TRelation) expression).getColumn()) {
+            for (TInformationItem ii: ((TRelation) expression).getColumn()) {
                 renameElement(ii);
             }
         } else if (expression instanceof TList) {
@@ -325,12 +322,12 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
             TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
             List<TInformationItem> formalParameterList = encapsulatedLogic.getFormalParameter();
-            for (TInformationItem param : formalParameterList) {
+            for (TInformationItem param: formalParameterList) {
                 names.add(param.getName());
             }
         }
         if (informationRequirement != null) {
-            for (TInformationRequirement tir : informationRequirement) {
+            for (TInformationRequirement tir: informationRequirement) {
                 TDMNElementReference requiredInput = tir.getRequiredInput();
                 TDMNElementReference requiredDecision = tir.getRequiredDecision();
                 if (requiredInput != null) {
@@ -344,7 +341,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             }
         }
         if (knowledgeRequirement != null) {
-            for (TKnowledgeRequirement tkr : knowledgeRequirement) {
+            for (TKnowledgeRequirement tkr: knowledgeRequirement) {
                 TDMNElementReference requiredKnowledge = tkr.getRequiredKnowledge();
                 addName(element, requiredKnowledge.getHref(), names, repository);
             }
@@ -518,7 +515,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     protected int replaceIdentifiers(String text, int index, LexicalContext lexicalContext, StringBuilder newText, int ch) {
         // Check keywords
         boolean foundKeyword = false;
-        for (String keyword : KEYWORDS.keySet()) {
+        for (String keyword: KEYWORDS.keySet()) {
             if (text.startsWith(keyword, index)) {
                 newText.append(keyword);
                 index += keyword.length();
@@ -529,7 +526,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         if (!foundKeyword) {
             // Check names
             boolean foundName = false;
-            for (String name : lexicalContext.orderedNames()) {
+            for (String name: lexicalContext.orderedNames()) {
                 if (text.startsWith(name, index)) {
                     newText.append(transformName(name));
                     index += name.length();
@@ -555,7 +552,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     protected void renameItemDefinitionMembers(TItemDefinition itemDefinition) {
         List<TItemDefinition> itemComponent = itemDefinition.getItemComponent();
         if (itemComponent != null) {
-            for (TItemDefinition member : itemComponent) {
+            for (TItemDefinition member: itemComponent) {
                 renameElement(member);
                 renameItemDefinitionMembers(member);
             }

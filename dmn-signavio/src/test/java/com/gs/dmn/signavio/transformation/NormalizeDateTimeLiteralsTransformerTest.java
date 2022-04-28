@@ -14,9 +14,7 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import org.junit.Test;
 
@@ -45,8 +43,8 @@ public class NormalizeDateTimeLiteralsTransformerTest extends AbstractSignavioFi
 
         // Transform DMN
         File dmnFile = new File(resource(path + "Null Safe Tests.dmn"));
-        Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(dmnFile);
-        DMNModelRepository repository = new SignavioDMNModelRepository(pair);
+        TDefinitions definitions = dmnReader.readModel(dmnFile);
+        DMNModelRepository repository = new SignavioDMNModelRepository(definitions);
         DMNModelRepository actualRepository = transformer.transform(repository);
 
         // Check output

@@ -14,8 +14,6 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
-import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.DMNTransformer;
@@ -36,8 +34,8 @@ public class UniqueInformationRequirementTransformerTest extends AbstractSignavi
 
         // Transform DMN
         File dmnFile = new File(resource(path + "simpleMID-with-ir-duplicates.dmn"));
-        Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(dmnFile);
-        DMNModelRepository repository = new SignavioDMNModelRepository(pair);
+        TDefinitions definitions = dmnReader.readModel(dmnFile);
+        DMNModelRepository repository = new SignavioDMNModelRepository(definitions);
         DMNModelRepository actualRepository = transformer.transform(repository);
 
         // Check output
@@ -48,7 +46,7 @@ public class UniqueInformationRequirementTransformerTest extends AbstractSignavi
         for (TDRGElement drgElement: actualDefinitions.getDrgElement()) {
             if (drgElement instanceof TDecision) {
                 List<String> hrefSet = new ArrayList<>();
-                for(TInformationRequirement ir: ((TDecision) drgElement).getInformationRequirement()) {
+                for (TInformationRequirement ir: ((TDecision) drgElement).getInformationRequirement()) {
                     TDMNElementReference requiredInput = ir.getRequiredInput();
                     TDMNElementReference requiredDecision = ir.getRequiredDecision();
                     if (requiredInput != null) {

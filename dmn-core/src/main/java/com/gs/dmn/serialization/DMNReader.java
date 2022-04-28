@@ -12,11 +12,9 @@
  */
 package com.gs.dmn.serialization;
 
-import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import com.gs.dmn.serialization.xstream.XStreamMarshaller;
@@ -47,75 +45,88 @@ public class DMNReader extends DMNSerializer {
         this.dmnMarshaller = DMNMarshallerFactory.newMarshallerWithExtensions(registers);
     }
 
-    public List<Pair<TDefinitions, PrefixNamespaceMappings>> readModels(List<File> files) {
-        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = new ArrayList<>();
+    public List<TDefinitions> readModels(List<File> files) {
+        List<TDefinitions> definitionsList = new ArrayList<>();
         if (files == null) {
             throw new DMNRuntimeException("Missing DMN files");
         } else {
             for (File file: files) {
                 if (isDMNFile(file)) {
-                    Pair<TDefinitions, PrefixNamespaceMappings> pair = read(file);
-                    pairs.add(pair);
+                    TDefinitions definitions = readModel(file);
+                    definitionsList.add(definitions);
                 } else {
-                    logger.warn(String.format("Skipping file '%s", file == null ? null : file.getAbsoluteFile()));
+                    logger.warn(String.format("Skipping file '%s", file == null ? null: file.getAbsoluteFile()));
                 }
             }
-            return pairs;
+            return definitionsList;
         }
     }
 
-    public List<Pair<TDefinitions, PrefixNamespaceMappings>> readModels(File file) {
-        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = new ArrayList<>();
+    public List<TDefinitions> readModels(File file) {
+        List<TDefinitions> definitionsList = new ArrayList<>();
         if (file == null) {
             throw new DMNRuntimeException("Missing DMN file");
         } else if (isDMNFile(file)) {
-            Pair<TDefinitions, PrefixNamespaceMappings> pair = read(file);
-            pairs.add(pair);
-            return pairs;
+            TDefinitions definitions = readModel(file);
+            definitionsList.add(definitions);
+            return definitionsList;
         } else if (file.isDirectory()) {
             for (File child: file.listFiles()) {
                 if (isDMNFile(child)) {
-                    Pair<TDefinitions, PrefixNamespaceMappings> pair = read(child);
-                    pairs.add(pair);
+                    TDefinitions definitions = readModel(child);
+                    definitionsList.add(definitions);
                 }
             }
-            return pairs;
+            return definitionsList;
         } else {
             throw new DMNRuntimeException(String.format("Invalid DMN file %s", file.getAbsoluteFile()));
         }
     }
 
-    public com.gs.dmn.ast.TDefinitions readAST(File input) {
+    public TDefinitions readModel(File input) {
         try {
             logger.info(String.format("Reading DMN '%s' ...", input.getAbsolutePath()));
 
-            com.gs.dmn.ast.TDefinitions result = this.dmnMarshaller.unmarshal(input);
+            TDefinitions definitions = transform(unmarshall(input));
 
             logger.info("DMN read.");
-            return result;
+            return definitions;
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.getAbsolutePath()), e);
         }
     }
 
-    public Pair<TDefinitions, PrefixNamespaceMappings> read(File input) {
-        try {
-            logger.info(String.format("Reading DMN '%s' ...", input.getAbsolutePath()));
-
-            Pair<TDefinitions, PrefixNamespaceMappings> result = transform(readObject(input));
-
-            logger.info("DMN read.");
-            return result;
-        } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.getAbsolutePath()), e);
-        }
-    }
-
-    public Pair<TDefinitions, PrefixNamespaceMappings> read(InputStream input) {
+    public TDefinitions readModel(InputStream input) {
         try {
             logger.info(String.format("Reading DMN '%s' ...", input.toString()));
 
-            Pair<TDefinitions, PrefixNamespaceMappings> result = transform(readObject(input));
+            TDefinitions definitions = transform(unmarshall(input));
+
+            logger.info("DMN read.");
+            return definitions;
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
+        }
+    }
+
+    public TDefinitions readModel(URL input) {
+        try {
+            logger.info(String.format("Reading DMN '%s' ...", input.toString()));
+
+            TDefinitions definitions = transform(unmarshall(input));
+
+            logger.info("DMN read.");
+            return definitions;
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
+        }
+    }
+
+    public TDefinitions readModel(Reader input) {
+        try {
+            logger.info(String.format("Reading DMN '%s' ...", input.toString()));
+
+            TDefinitions result = transform(unmarshall(input));
 
             logger.info("DMN read.");
             return result;
@@ -124,62 +135,36 @@ public class DMNReader extends DMNSerializer {
         }
     }
 
-    public Pair<TDefinitions, PrefixNamespaceMappings> read(URL input) {
-        try {
-            logger.info(String.format("Reading DMN '%s' ...", input.toString()));
-
-            Pair<TDefinitions, PrefixNamespaceMappings> result = transform(readObject(input));
-
-            logger.info("DMN read.");
-            return result;
-        } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
-        }
-    }
-
-    public Pair<TDefinitions, PrefixNamespaceMappings> read(Reader input) {
-        try {
-            logger.info(String.format("Reading DMN '%s' ...", input.toString()));
-
-            Pair<TDefinitions, PrefixNamespaceMappings> result = transform(readObject(input));
-
-            logger.info("DMN read.");
-            return result;
-        } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
-        }
-    }
-
-    private Pair<TDefinitions, PrefixNamespaceMappings> transform(Object value) {
-        if (value == null) {
+    private TDefinitions transform(TDefinitions definitions) {
+        if (definitions == null) {
             return null;
         }
 
-        DMNVersion dmnVersion = XStreamMarshaller.inferDMNVersion((DMNBaseElement) value);
+        DMNVersion dmnVersion = XStreamMarshaller.inferDMNVersion(definitions);
         if (dmnVersion == DMNVersion.DMN_11) {
-            return this.dmnTransformer.transform11To13Definitions((TDefinitions) value);
+            return this.dmnTransformer.transform11To13Definitions(definitions);
         } else if (dmnVersion == DMNVersion.DMN_12) {
-            return this.dmnTransformer.transform12To13Definitions((TDefinitions) value);
+            return this.dmnTransformer.transform12To13Definitions(definitions);
         } else if (dmnVersion == DMNVersion.DMN_13) {
-            return new Pair<>((TDefinitions) value, new PrefixNamespaceMappings());
+            return definitions;
         } else {
-            throw new DMNRuntimeException(String.format("'%s' is not supported", value.getClass()));
+            throw new DMNRuntimeException(String.format("'%s' is not supported", definitions.getClass()));
         }
     }
 
-    private Object readObject(File input) {
+    private TDefinitions unmarshall(File input) {
         return this.dmnMarshaller.unmarshal(input);
     }
 
-    private Object readObject(URL input) {
+    private TDefinitions unmarshall(URL input) {
         return this.dmnMarshaller.unmarshal(input);
     }
 
-    private Object readObject(InputStream input) {
+    private TDefinitions unmarshall(InputStream input) {
         return this.dmnMarshaller.unmarshal(input);
     }
 
-    private Object readObject(Reader input) {
+    private TDefinitions unmarshall(Reader input) {
         return this.dmnMarshaller.unmarshal(input);
     }
 }

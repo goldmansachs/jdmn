@@ -15,8 +15,6 @@ package com.gs.dmn.signavio.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.validation.AbstractValidatorTest;
 
@@ -27,7 +25,7 @@ public abstract class AbstractSignavioValidatorTest extends AbstractValidatorTes
     @Override
     protected DMNModelRepository makeRepository(URI fileURI) {
         File input = new File(fileURI);
-        Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(input);
-        return new SignavioDMNModelRepository(pair);
+        TDefinitions definitions = reader.readModel(input);
+        return new SignavioDMNModelRepository(definitions);
     }
 }

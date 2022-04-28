@@ -15,27 +15,23 @@ package com.gs.dmn.serialization;
 import com.gs.dmn.ast.DMNVersionTransformerVisitor;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.Pair;
 
 public abstract class SimpleDMNDialectTransformer {
     protected final BuildLogger logger;
-    protected final PrefixNamespaceMappings prefixNamespaceMappings;
     protected final DMNVersion sourceVersion;
     protected final DMNVersion targetVersion;
     protected final DMNVersionTransformerVisitor visitor;
 
     public SimpleDMNDialectTransformer(BuildLogger logger, DMNVersion sourceVersion, DMNVersion targetVersion) {
         this.logger = logger;
-        this.prefixNamespaceMappings = new PrefixNamespaceMappings();
         this.sourceVersion = sourceVersion;
         this.targetVersion = targetVersion;
         this.visitor = new DMNVersionTransformerVisitor(sourceVersion, targetVersion);
     }
 
-    public Pair<TDefinitions, PrefixNamespaceMappings> transformDefinitions(TDefinitions sourceDefinitions) {
+    public TDefinitions transformDefinitions(TDefinitions sourceDefinitions) {
         logger.info(String.format("Transforming '%s' from DMN %s to DMN %s ...", sourceDefinitions.getName(), sourceVersion.getVersion(), targetVersion.getVersion()));
         sourceDefinitions.accept(visitor, null);
-        return new Pair<>(sourceDefinitions, this.prefixNamespaceMappings);
+        return sourceDefinitions;
     }
-
 }

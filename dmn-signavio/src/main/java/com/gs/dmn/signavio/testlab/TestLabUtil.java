@@ -50,7 +50,7 @@ public class TestLabUtil {
         if (dmnModelRepository instanceof SignavioDMNModelRepository) {
             this.dmnModelRepository = (SignavioDMNModelRepository) dmnModelRepository;
         } else {
-            this.dmnModelRepository = new SignavioDMNModelRepository(dmnModelRepository.getRootDefinitions(), dmnModelRepository.getPrefixNamespaceMappings());
+            this.dmnModelRepository = new SignavioDMNModelRepository(dmnModelRepository.getRootDefinitions());
         }
         this.dmnTransformer = dmnTransformer;
         this.nativeFactory = dmnTransformer.getNativeFactory();
@@ -82,7 +82,7 @@ public class TestLabUtil {
 
     public String drgElementOutputFieldName(TestLab testLab, int outputIndex) {
         TDecision decision = (TDecision) findDRGElement(testLab.getRootOutputParameter());
-        return ((BasicSignavioDMNToJavaTransformer)dmnTransformer).drgElementOutputFieldName(decision, outputIndex);
+        return ((BasicSignavioDMNToJavaTransformer) dmnTransformer).drgElementOutputFieldName(decision, outputIndex);
     }
 
     public String inputDataVariableName(InputParameterDefinition inputParameterDefinition) {
@@ -201,7 +201,7 @@ public class TestLabUtil {
                 }
                 sortParameters(pairs);
                 List<String> args = new ArrayList<>();
-                for(Pair<String, Expression> p: pairs) {
+                for (Pair<String, Expression> p: pairs) {
                     Type memberType = memberType(inputType, p.getLeft());
                     String arg = toNativeExpression(memberType, p.getRight(), decision);
                     args.add(arg);
@@ -246,31 +246,31 @@ public class TestLabUtil {
                 itemComponent = itemDefinition.getItemComponent();
             }
             if (!StringUtils.isBlank(name)) {
-                for(TItemDefinition child: itemComponent) {
+                for (TItemDefinition child: itemComponent) {
                     if (this.dmnModelRepository.sameName(child, name)) {
                         return child;
                     }
                 }
             }
             if (!StringUtils.isBlank(label)) {
-                for(TItemDefinition child: itemComponent) {
+                for (TItemDefinition child: itemComponent) {
                     if (this.dmnModelRepository.sameLabel(child, label)) {
                         return child;
                     }
                 }
             }
             if (!StringUtils.isBlank(id)) {
-                for (TItemDefinition child : itemComponent) {
+                for (TItemDefinition child: itemComponent) {
                     if (this.dmnModelRepository.sameId(child, id)) {
                         return child;
                     }
                 }
-                for(TItemDefinition child: itemComponent) {
+                for (TItemDefinition child: itemComponent) {
                     if (this.dmnModelRepository.idEndsWith(child, id)) {
                         return child;
                     }
                 }
-                for(TItemDefinition child: itemComponent) {
+                for (TItemDefinition child: itemComponent) {
                     if (sameSlotId(child, id)) {
                         return child;
                     }

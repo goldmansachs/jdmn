@@ -26,7 +26,6 @@ import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
@@ -58,8 +57,8 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
         try {
             String pathName = getInputPath() + "/" + diagramName + DMNConstants.DMN_FILE_EXTENSION;
             URI uri = signavioResource(pathName);
-            Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(uri.toURL());
-            DMNModelRepository repository = new SignavioDMNModelRepository(pair, SIG_EXT_NAMESPACE);
+            TDefinitions definitions = reader.readModel(uri.toURL());
+            DMNModelRepository repository = new SignavioDMNModelRepository(definitions, SIG_EXT_NAMESPACE);
             DMNInterpreter<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> interpreter = dialectDefinition.createDMNInterpreter(repository, makeInputParameters());
 
             TDecision decision = (TDecision) repository.findDRGElementByName(repository.getRootDefinitions(), decisionName);
@@ -75,7 +74,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
 
     protected Map<String, Object> makeInformationRequirements(List<Pair<String, ?>> pairs) {
         Map<String, Object> environment = new LinkedHashMap<>();
-        for (Pair<String, ?> pair : pairs) {
+        for (Pair<String, ?> pair: pairs) {
             environment.put(pair.getLeft(), pair.getRight());
         }
         return environment;

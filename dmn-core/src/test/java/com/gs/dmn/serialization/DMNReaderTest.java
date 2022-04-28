@@ -15,7 +15,6 @@ package com.gs.dmn.serialization;
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
-import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
 import java.io.File;
@@ -30,8 +29,7 @@ public class DMNReaderTest extends AbstractTest {
     public void testRead() {
         File input = new File(resource("dmn/input/1.1/test-dmn.dmn"));
 
-        Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(input);
-        TDefinitions definitions = pair.getLeft();
+        TDefinitions definitions = dmnReader.readModel(input);
         List<TDRGElement> drgElementList = definitions.getDrgElement();
         assertEquals(1, drgElementList.size());
 

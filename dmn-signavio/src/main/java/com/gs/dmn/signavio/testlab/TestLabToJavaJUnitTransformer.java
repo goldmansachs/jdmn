@@ -21,8 +21,6 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.transformation.AbstractTestCasesToJUnitTransformer;
@@ -116,7 +114,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
             }
 
             watch.stop();
-            logger.info("TestLab processing time: " + watch.toString());
+            logger.info("TestLab processing time: " + watch);
         } catch (IOException e) {
             throw new DMNRuntimeException(String.format("Error during transforming %s.", file.getName()), e);
         }
@@ -125,7 +123,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
     @Override
     protected DMNModelRepository readModels(File file) {
         if (isDMNFile(file)) {
-            Pair<TDefinitions, PrefixNamespaceMappings> result = dmnReader.read(file);
+            TDefinitions result = dmnReader.readModel(file);
             return new SignavioDMNModelRepository(result, this.schemaNamespace);
         } else {
             throw new DMNRuntimeException(String.format("Invalid DMN file %s", file.getAbsoluteFile()));

@@ -90,10 +90,10 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
             signavioRepository = (SignavioDMNModelRepository) repository;
         } else {
             TDefinitions definitions = repository.getRootDefinitions();
-            signavioRepository = new SignavioDMNModelRepository(definitions, repository.getPrefixNamespaceMappings());
+            signavioRepository = new SignavioDMNModelRepository(definitions);
         }
         for (TDefinitions definitions: signavioRepository.getAllDefinitions()) {
-            for(TDecision decision: signavioRepository.findDecisions(definitions)) {
+            for (TDecision decision: signavioRepository.findDecisions(definitions)) {
                 TDefinitions decisionModel = repository.getModel(decision);
                 if (signavioRepository.isMultiInstanceDecision(decision)) {
                     MultiInstanceDecisionLogic midLogic = signavioRepository.getExtension().multiInstanceDecisionLogic(decision);

@@ -96,7 +96,7 @@ public class CredDecSignavioBenchmarkTest {
 
     private DMNModelRepository readDMN(String pathName) throws Exception {
         URL url = this.getClass().getClassLoader().getResource(pathName).toURI().toURL();
-        return new SignavioDMNModelRepository(dmnReader.read(url));
+        return new SignavioDMNModelRepository(dmnReader.readModel(url));
     }
 
     public static void main(String[] args) throws RunnerException {

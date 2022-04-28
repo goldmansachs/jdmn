@@ -37,8 +37,8 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
         String path = getInputPath() + dmmVersion + "/";
 
         // Read DMN files
-        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = readModels(path, dmnFileNames);
-        DMNModelRepository repository = new DMNModelRepository(pairs);
+        List<TDefinitions> definitionsList = readModels(path, dmnFileNames);
+        DMNModelRepository repository = new DMNModelRepository(definitionsList);
 
         // Transform Models and Tests
         File inputTestsFile = new File(CLASS_LOADER.getResource(path + testsFileName).getFile());
@@ -57,22 +57,22 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
             targetFolder.mkdirs();
             for (int i = 0; i < dmnFileNames.size(); i++) {
                 String dmnFileName = dmnFileNames.get(i);
-                Pair<TDefinitions, PrefixNamespaceMappings> pair = pairs.get(i);
-                check(pair.getLeft(), dmnFileName, namespacePrefixMapping.get(dmnFileName));
+                TDefinitions definitions = definitionsList.get(i);
+                check(definitions, dmnFileName, namespacePrefixMapping.get(dmnFileName));
             }
             Pair<String, String> testsNamespacePrefixMapping = namespacePrefixMapping.get(testsFileName);
             check(actualTestCases, testsFileName, testsNamespacePrefixMapping);
         }
     }
 
-    private List<Pair<TDefinitions, PrefixNamespaceMappings>> readModels(String path, List<String> fileNames) {
-        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = new ArrayList<>();
+    private List<TDefinitions> readModels(String path, List<String> fileNames) {
+        List<TDefinitions> definitionsList = new ArrayList<>();
         for (String fileName: fileNames) {
             File dmnFile = new File(resource(path + fileName));
-            Pair<TDefinitions, PrefixNamespaceMappings> pair = this.dmnReader.read(dmnFile);
-            pairs.add(pair);
+            TDefinitions definitions = this.dmnReader.readModel(dmnFile);
+            definitionsList.add(definitions);
         }
-        return pairs;
+        return definitionsList;
     }
 
     private void check(TDefinitions actualDefinitions, String fileName, Pair<String, String> namespacePrefixMapping) throws Exception {

@@ -13,9 +13,7 @@
 package com.gs.dmn;
 
 import com.gs.dmn.ast.*;
-import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,7 +42,7 @@ public class DMNModelRepositoryTest extends AbstractTest {
         String id = "d_BureauCallType";
         TDefinitions definitions = this.dmnModelRepository.getRootDefinitions();
         String namespace = definitions.getNamespace();
-        TDecision decision = this.dmnModelRepository.findDecisionByRef(null,namespace + "#" + id);
+        TDecision decision = this.dmnModelRepository.findDecisionByRef(null, namespace + "#" + id);
         assertEquals(id, decision.getId());
         assertEquals("BureauCallType", decision.getName());
     }
@@ -159,8 +157,8 @@ public class DMNModelRepositoryTest extends AbstractTest {
 
     private DMNModelRepository readDMN(String pathName) {
         File input = new File(resource(pathName));
-        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = this.dmnReader.readModels(input);
-        return new DMNModelRepository(pairs);
+        List<TDefinitions> definitionsList = this.dmnReader.readModels(input);
+        return new DMNModelRepository(definitionsList);
     }
 
     private DRGElementReference<? extends TDRGElement> makeRootReference(TDRGElement root) {

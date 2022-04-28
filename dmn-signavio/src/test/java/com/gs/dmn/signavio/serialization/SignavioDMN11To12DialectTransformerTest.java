@@ -15,8 +15,8 @@ package com.gs.dmn.signavio.serialization;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMN11To12DialectTransformerTest;
-import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.DMNWriter;
+import com.gs.dmn.serialization.DMNMarshaller;
+import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.serialization.xstream.SignavioExtensionRegister;
 import org.junit.Test;
@@ -24,7 +24,6 @@ import org.junit.Test;
 import java.util.Collections;
 
 public class SignavioDMN11To12DialectTransformerTest extends DMN11To12DialectTransformerTest {
-
     @Override
     @Test
     public void testTransform() throws Exception {
@@ -47,12 +46,7 @@ public class SignavioDMN11To12DialectTransformerTest extends DMN11To12DialectTra
     }
 
     @Override
-    protected DMNReader getDMNReader() {
-        return new DMNReader(LOGGER, false, Collections.singletonList(new SignavioExtensionRegister(SignavioTestConstants.SIG_EXT_NAMESPACE)));
-    }
-
-    @Override
-    protected DMNWriter getDMNWriter() {
-        return new DMNWriter(LOGGER, Collections.singletonList(new SignavioExtensionRegister(SignavioTestConstants.SIG_EXT_NAMESPACE)));
+    protected DMNMarshaller getDMNMarshaller() {
+        return DMNMarshallerFactory.newMarshallerWithExtensions(Collections.singletonList(new SignavioExtensionRegister(SignavioTestConstants.SIG_EXT_NAMESPACE)));
     }
 }

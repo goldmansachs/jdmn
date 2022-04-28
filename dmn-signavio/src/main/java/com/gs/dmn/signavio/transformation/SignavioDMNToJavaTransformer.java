@@ -19,10 +19,8 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.metadata.DMNMetadata;
 import com.gs.dmn.serialization.JsonSerializer;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
@@ -63,7 +61,7 @@ public class SignavioDMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Override
     protected DMNModelRepository readModels(File file) {
         if (isDMNFile(file)) {
-            Pair<TDefinitions, PrefixNamespaceMappings> result = dmnReader.read(file);
+            TDefinitions result = dmnReader.readModel(file);
             DMNModelRepository repository = new SignavioDMNModelRepository(result, this.schemaNamespace);
             return repository;
         } else {
@@ -88,7 +86,7 @@ public class SignavioDMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             DMNToManifestTransformer dmnToManifestTransformer = new DMNToManifestTransformer(dmnTransformer);
             String dmnNamespace = dmnTransformer.getDMNModelRepository().getRootDefinitions().getNamespace();
             String nativeNamespace = dmnTransformer.nativeRootPackageName();
-            String dmnVersion= this.inputParameters.getDmnVersion();
+            String dmnVersion = this.inputParameters.getDmnVersion();
             String modelVersion = this.inputParameters.getModelVersion();
             String platformVersion = this.inputParameters.getPlatformVersion();
             DMNMetadata manifest = dmnToManifestTransformer.toManifest(dmnNamespace, nativeNamespace, dmnVersion, modelVersion, platformVersion);
