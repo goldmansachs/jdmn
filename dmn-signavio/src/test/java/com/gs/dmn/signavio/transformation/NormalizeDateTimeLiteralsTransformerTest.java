@@ -27,13 +27,13 @@ public class NormalizeDateTimeLiteralsTransformerTest extends AbstractSignavioFi
 
     @Test
     public void testNormalize() {
-        assertNull(transformer.normalize(null));
-        assertEquals("", transformer.normalize(""));
+        assertNull(this.transformer.normalize(null));
+        assertEquals("", this.transformer.normalize(""));
 
-        assertEquals("date and time(\"1900-01-01T00:00:00Z\")", transformer.normalize("date and time(\"1899-12-31T19:00:00-0500\")"));
+        assertEquals("date and time(\"1900-01-01T00:00:00Z\")", this.transformer.normalize("date and time(\"1899-12-31T19:00:00-0500\")"));
 
-        assertEquals("time(\"00:00:00Z\")", transformer.normalize("time(\"T19:00:00-0500\")"));
-        assertEquals("time(\"00:00:00Z\")", transformer.normalize("time(\"19:00:00-0500\")"));
+        assertEquals("time(\"00:00:00Z\")", this.transformer.normalize("time(\"T19:00:00-0500\")"));
+        assertEquals("time(\"00:00:00Z\")", this.transformer.normalize("time(\"19:00:00-0500\")"));
     }
 
     @Test
@@ -42,9 +42,9 @@ public class NormalizeDateTimeLiteralsTransformerTest extends AbstractSignavioFi
 
         // Transform DMN
         File dmnFile = new File(resource(path + "Null Safe Tests.dmn"));
-        TDefinitions definitions = dmnReader.readModel(dmnFile);
+        TDefinitions definitions = this.dmnSerializer.readModel(dmnFile);
         DMNModelRepository repository = new SignavioDMNModelRepository(definitions);
-        DMNModelRepository actualRepository = transformer.transform(repository);
+        DMNModelRepository actualRepository = this.transformer.transform(repository);
 
         // Check output
         checkDefinitions(actualRepository, "Normalized Null Safe Tests.dmn");
@@ -53,7 +53,7 @@ public class NormalizeDateTimeLiteralsTransformerTest extends AbstractSignavioFi
     private void checkDefinitions(DMNModelRepository repository, String fileName) throws Exception {
         File actualDMNFile = new File("target/" + fileName);
         TDefinitions actualDefinitions = repository.getRootDefinitions();
-        dmnWriter.writeModel(actualDefinitions, actualDMNFile);
+        this.dmnSerializer.writeModel(actualDefinitions, actualDMNFile);
 
         String path = "dmn/expected/";
         File expectedDMNFile = new File(resource(path + fileName));

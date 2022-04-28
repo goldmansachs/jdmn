@@ -42,12 +42,12 @@ public abstract class AbstractMergeInputDataTransformerTest extends AbstractSign
 
         // Transform DMN
         File dmnFile = new File(resource(path + dmnFileName));
-        TDefinitions definitions = dmnReader.readModel(dmnFile);
+        TDefinitions definitions = this.dmnSerializer.readModel(dmnFile);
         DMNModelRepository repository = new SignavioDMNModelRepository(definitions, SignavioTestConstants.SIG_EXT_NAMESPACE);
         Map<String, Object> config = new LinkedHashMap<>();
         config.put("forceMerge", "false");
-        transformer.configure(config);
-        DMNModelRepository actualRepository = transformer.transform(repository);
+        this.transformer.configure(config);
+        DMNModelRepository actualRepository = this.transformer.transform(repository);
 
         // Transform TestLab
         List<TestLab> actualTestLabList = null;
@@ -55,16 +55,16 @@ public abstract class AbstractMergeInputDataTransformerTest extends AbstractSign
             File testLabFile = new File(resource(path + testLabFileName));
             List<TestLab> testLabList = new ArrayList<>();
             if (testLabFile.isFile()) {
-                TestLab testLab = testReader.read(testLabFile);
+                TestLab testLab = this.testReader.read(testLabFile);
                 testLabList.add(testLab);
             } else {
                 for (File child: testLabFile.listFiles()) {
-                    TestLab testLab = testReader.read(child);
+                    TestLab testLab = this.testReader.read(child);
                     testLabList.add(testLab);
                 }
 
             }
-            actualTestLabList = transformer.transform(actualRepository, testLabList).getRight();
+            actualTestLabList = this.transformer.transform(actualRepository, testLabList).getRight();
         }
 
         // Check output
@@ -114,7 +114,7 @@ public abstract class AbstractMergeInputDataTransformerTest extends AbstractSign
 
     protected void checkDefinitions(TDefinitions actualDefinitions, String fileName) throws Exception {
         File actualDMNFile = new File("target/" + fileName);
-        dmnWriter.writeModel(actualDefinitions, actualDMNFile);
+        this.dmnSerializer.writeModel(actualDefinitions, actualDMNFile);
 
         String path = "dmn/expected/";
         File expectedDMNFile = new File(resource(path + fileName));
@@ -124,7 +124,7 @@ public abstract class AbstractMergeInputDataTransformerTest extends AbstractSign
 
     private void checkTestLab(TestLab actualTestLab, String fileName) throws Exception {
         File actualTestLabFile = new File("target/" + fileName);
-        testReader.write(actualTestLab, actualTestLabFile);
+        this.testReader.write(actualTestLab, actualTestLabFile);
 
         String path = "dmn/expected/";
         File expectedTestLabFile = new File(resource(path + fileName));
@@ -133,8 +133,8 @@ public abstract class AbstractMergeInputDataTransformerTest extends AbstractSign
     }
 
     protected boolean isSameClass(TInputData inputData1, TInputData inputData2, SignavioDMNModelRepository signavioDMNModelRepository) {
-        String key1 = transformer.equivalenceKey(inputData1, signavioDMNModelRepository);
-        String key2 = transformer.equivalenceKey(inputData2, signavioDMNModelRepository);
+        String key1 = this.transformer.equivalenceKey(inputData1, signavioDMNModelRepository);
+        String key2 = this.transformer.equivalenceKey(inputData2, signavioDMNModelRepository);
         return key1.equals(key2) && inputData1 != inputData2;
     }
 }

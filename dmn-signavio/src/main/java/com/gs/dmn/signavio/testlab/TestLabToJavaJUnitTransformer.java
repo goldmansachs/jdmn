@@ -41,7 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.gs.dmn.serialization.DMNReader.isDMNFile;
+import static com.gs.dmn.serialization.DMNSerializer.isDMNFile;
 import static com.gs.dmn.signavio.extension.SignavioExtension.SIG_EXT_NAMESPACE;
 import static com.gs.dmn.signavio.testlab.TestLabReader.isTestLabFile;
 
@@ -67,8 +67,8 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
         DMNModelRepository dmnModelRepository = this.basicTransformer.getDMNModelRepository();
         this.dmnValidator.validate(dmnModelRepository);
 
-        this.testLabUtil = new TestLabUtil(basicTransformer);
-        this.testLabEnhancer = new TestLabEnhancer(testLabUtil);
+        this.testLabUtil = new TestLabUtil(this.basicTransformer);
+        this.testLabEnhancer = new TestLabEnhancer(this.testLabUtil);
     }
 
     @Override
@@ -85,36 +85,36 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
     @Override
     protected void transformFile(File file, File root, Path outputPath) {
         try {
-            logger.info(String.format("Processing TestLab file '%s'", file.getPath()));
+            this.logger.info(String.format("Processing TestLab file '%s'", file.getPath()));
             StopWatch watch = new StopWatch();
             watch.start();
 
             List<TestLab> testLabList = new ArrayList<>();
             if (file.isFile()) {
-                TestLab testLab = testLabReader.read(file);
-                testLabValidator.validate(testLab);
-                testLabEnhancer.enhance(testLab);
+                TestLab testLab = this.testLabReader.read(file);
+                this.testLabValidator.validate(testLab);
+                this.testLabEnhancer.enhance(testLab);
                 testLabList.add(testLab);
             } else {
                 for (File child: file.listFiles()) {
                     if (shouldTransformFile(child)) {
-                        TestLab testLab = testLabReader.read(child);
-                        testLabValidator.validate(testLab);
-                        testLabEnhancer.enhance(testLab);
+                        TestLab testLab = this.testLabReader.read(child);
+                        this.testLabValidator.validate(testLab);
+                        this.testLabEnhancer.enhance(testLab);
                         testLabList.add(testLab);
                     }
                 }
             }
 
-            testLabList = this.dmnTransformer.transform(basicTransformer.getDMNModelRepository(), testLabList).getRight();
+            testLabList = this.dmnTransformer.transform(this.basicTransformer.getDMNModelRepository(), testLabList).getRight();
 
             for (TestLab testLab: testLabList) {
-                String javaClassName = testClassName(testLab, basicTransformer);
-                processTemplate(testLab, templateProvider.testBaseTemplatePath(), templateProvider.testTemplateName(), basicTransformer, outputPath, javaClassName);
+                String javaClassName = testClassName(testLab, this.basicTransformer);
+                processTemplate(testLab, this.templateProvider.testBaseTemplatePath(), this.templateProvider.testTemplateName(), this.basicTransformer, outputPath, javaClassName);
             }
 
             watch.stop();
-            logger.info("TestLab processing time: " + watch);
+            this.logger.info("TestLab processing time: " + watch);
         } catch (IOException e) {
             throw new DMNRuntimeException(String.format("Error during transforming %s.", file.getName()), e);
         }
@@ -123,7 +123,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
     @Override
     protected DMNModelRepository readModels(File file) {
         if (isDMNFile(file)) {
-            TDefinitions result = dmnReader.readModel(file);
+            TDefinitions result = this.dmnSerializer.readModel(file);
             return new SignavioDMNModelRepository(result, this.schemaNamespace);
         } else {
             throw new DMNRuntimeException(String.format("Invalid DMN file %s", file.getAbsoluteFile()));
@@ -138,7 +138,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
             Map<String, Object> params = makeTemplateParams(testLab, dmnTransformer);
             params.put("packageName", javaPackageName);
             params.put("testClassName", testClassName);
-            params.put("decisionBaseClass", decisionBaseClass);
+            params.put("decisionBaseClass", this.decisionBaseClass);
 
             // Make output file
             String relativeFilePath = javaPackageName.replace('.', '/');
@@ -159,7 +159,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
     }
 
     private String testClassName(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, OutputParameterDefinition outputParameterDefinition) {
-        TDRGElement decision = testLabUtil.findDRGElement(outputParameterDefinition);
+        TDRGElement decision = this.testLabUtil.findDRGElement(outputParameterDefinition);
         if (decision instanceof TDecision) {
             String requirementName = decision.getName();
             return dmnTransformer.upperCaseFirst(requirementName + "Test");
@@ -171,7 +171,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
     private Map<String, Object> makeTemplateParams(TestLab testLab, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         Map<String, Object> params = new HashMap<>();
         params.put("testLab", testLab);
-        params.put("testLabUtil", testLabUtil);
+        params.put("testLabUtil", this.testLabUtil);
         return params;
     }
 

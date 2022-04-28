@@ -16,7 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
@@ -27,7 +27,7 @@ import java.util.List;
 
 public abstract class AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractTemplateBasedTransformer {
     protected final DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition;
-    protected final DMNReader dmnReader;
+    protected final DMNSerializer dmnSerializer;
     protected final DMNValidator dmnValidator;
     protected final DMNTransformer<TEST> dmnTransformer;
     protected final LazyEvaluationDetector lazyEvaluationDetector;
@@ -41,14 +41,14 @@ public abstract class AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURA
         this.dmnTransformer = dmnTransformer;
         this.lazyEvaluationDetector = lazyEvaluationDetector;
         this.typeDeserializationConfigurer = typeDeserializationConfigurer;
-        this.dmnReader = dialectDefinition.createDMNReader(logger, inputParameters);
+        this.dmnSerializer = dialectDefinition.createDMNSerializer(logger, inputParameters);
         this.dmnValidator = dmnValidator;
 
         this.decisionBaseClass = dialectDefinition.getDecisionBaseClass();
     }
 
     protected DMNModelRepository readModels(File file) {
-        List<TDefinitions> definitionsList = dmnReader.readModels(file);
+        List<TDefinitions> definitionsList = this.dmnSerializer.readModels(file);
         return new DMNModelRepository(definitionsList);
     }
 
@@ -58,7 +58,7 @@ public abstract class AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURA
         }
 
         for (String error: errors) {
-            logger.error(error);
+            this.logger.error(error);
         }
         throw new IllegalArgumentException("Validation errors " + errors);
     }

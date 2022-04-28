@@ -20,8 +20,7 @@ import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
-import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.DMNWriter;
+import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
@@ -37,9 +36,7 @@ public interface DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
     //
     // Serialization
     //
-    DMNReader createDMNReader(BuildLogger logger, InputParameters inputParameters);
-
-    DMNWriter createDMNWriter(BuildLogger logger, InputParameters inputParameters);
+    DMNSerializer createDMNSerializer(BuildLogger logger, InputParameters inputParameters);
 
     //
     // FEEL Processors

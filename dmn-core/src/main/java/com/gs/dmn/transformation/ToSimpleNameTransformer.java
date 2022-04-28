@@ -18,8 +18,7 @@ import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.NopBuildLogger;
 import com.gs.dmn.serialization.DMNConstants;
-import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.DMNWriter;
+import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.TCKNamespacePrefixMapper;
 import com.gs.dmn.tck.TestCasesReader;
 import org.apache.commons.lang3.StringUtils;
@@ -47,22 +46,22 @@ public class ToSimpleNameTransformer extends NameTransformer {
         } else if (NameUtils.isSimpleName(oldName)) {
             return oldName;
         } else {
-            String newName = namesMapping.get(oldName);
+            String newName = this.namesMapping.get(oldName);
             if (newName == null) {
                 newName = toSimpleName(oldName);
                 if (!newName.equals(oldName)) {
                     // Check for duplicates
                     boolean isDuplicate = false;
-                    for (String key: namesMapping.keys()) {
-                        if (!key.equals(oldName) && newName.equals(namesMapping.get(key))) {
+                    for (String key: this.namesMapping.keys()) {
+                        if (!key.equals(oldName) && newName.equals(this.namesMapping.get(key))) {
                             isDuplicate = true;
                             break;
                         }
                     }
                     if (isDuplicate) {
-                        newName = newName + "_" + ++counter;
+                        newName = newName + "_" + ++this.counter;
                     }
-                    namesMapping.put(oldName, newName);
+                    this.namesMapping.put(oldName, newName);
                 }
             }
 
@@ -98,7 +97,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
         File outputFolder = new File("H:/Projects/EP/dmn/dmn-tck-integration-tests/src/main/resources/tck/cl2/");
 
         for (File child: inputFolder.listFiles()) {
-            if (DMNReader.isDMNFile(child)) {
+            if (DMNSerializer.isDMNFile(child)) {
                 NameTransformer simpleNameTransformer = new ToSimpleNameTransformer(new NopBuildLogger());
 
                 // Clean DMN
@@ -120,16 +119,15 @@ public class ToSimpleNameTransformer extends NameTransformer {
 
     private static DMNModelRepository transformDefinitions(NameTransformer transformer, File inputFile, File outputFile, BuildLogger logger) {
         // Read
-        DMNReader reader = new DMNReader(logger, false);
-        TDefinitions result = reader.readModel(inputFile);
+        DMNSerializer serializer = new DMNSerializer(logger, false);
+        TDefinitions result = serializer.readModel(inputFile);
         DMNModelRepository repository = new DMNModelRepository(result);
 
         // Transform
         transformer.transform(repository);
 
         // Write
-        DMNWriter writer = new DMNWriter(logger);
-        writer.writeModel(repository, outputFile);
+        serializer.writeModel(repository.getRootDefinitions(), outputFile);
 
         return repository;
     }
@@ -154,7 +152,7 @@ class NameMappings {
     private List<String> orderedKeys;
 
     public String get(String name) {
-        return mappings.get(name);
+        return this.mappings.get(name);
     }
 
     public void put(String key, String value) {
@@ -162,10 +160,10 @@ class NameMappings {
     }
 
     public List<String> keys() {
-        return new ArrayList<>(mappings.keySet());
+        return new ArrayList<>(this.mappings.keySet());
     }
 
     public List<String> values() {
-        return new ArrayList<>(mappings.values());
+        return new ArrayList<>(this.mappings.values());
     }
 }

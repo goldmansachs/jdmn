@@ -44,7 +44,7 @@ public class TypeRefValidatorTest extends AbstractSignavioFileTransformerTest {
         DMNValidator validator = new TypeRefValidator(LOGGER);
 
         File dmnFile = new File(dmnFileURI);
-        DMNModelRepository repository = new SignavioDMNModelRepository(dmnReader.readModel(dmnFile));
+        DMNModelRepository repository = new SignavioDMNModelRepository(this.dmnSerializer.readModel(dmnFile));
         return validator.validate(repository);
     }
 }

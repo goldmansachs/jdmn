@@ -35,7 +35,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.*;
 
-import static com.gs.dmn.serialization.DMNReader.isDMNFile;
+import static com.gs.dmn.serialization.DMNSerializer.isDMNFile;
 
 public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> implements DMNToNativeTransformer {
     private static final String DMN_PROTO_FILE_NAME = "jdmn";
@@ -66,21 +66,21 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
 
     @Override
     protected void transformFile(File file, File root, Path outputPath) {
-        logger.info(String.format("Processing DMN file '%s'", file.getPath()));
+        this.logger.info(String.format("Processing DMN file '%s'", file.getPath()));
         StopWatch watch = new StopWatch();
         watch.start();
 
         // Read and validate DMN
         DMNModelRepository repository = readModels(file);
         handleValidationErrors(this.dmnValidator.validate(repository));
-        dmnTransformer.transform(repository);
-        BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer = dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
+        this.dmnTransformer.transform(repository);
+        BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer = this.dialectDefinition.createBasicTransformer(repository, this.lazyEvaluationDetector, this.inputParameters);
 
         // Transform
         transform(dmnTransformer, repository, outputPath);
 
         watch.stop();
-        logger.info("DMN processing time: " + watch);
+        this.logger.info("DMN processing time: " + watch);
     }
 
     protected void transform(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
@@ -100,7 +100,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
 
             // Generate decisions
             List<TDecision> decisions = dmnModelRepository.findDecisions(definitions);
-            transformDecisionList(definitions, decisions, dmnTransformer, generatedClasses, outputPath, decisionBaseClass);
+            transformDecisionList(definitions, decisions, dmnTransformer, generatedClasses, outputPath, this.decisionBaseClass);
 
             // Generate .proto file
             generateProtoFile(definitions, dmnTransformer, outputPath);
@@ -122,14 +122,14 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
 
         // Complex type
         if (dmnTransformer.getDMNModelRepository().hasComponents(itemDefinition)) {
-            logger.debug(String.format("Generating code for ItemDefinition '%s'", itemDefinition.getName()));
+            this.logger.debug(String.format("Generating code for ItemDefinition '%s'", itemDefinition.getName()));
 
             String typePackageName = dmnTransformer.nativeTypePackageName(definitions.getName());
 
             // Generate interface and class
             String javaInterfaceName = dmnTransformer.itemDefinitionNativeSimpleInterfaceName(itemDefinition);
-            transformItemDefinition(itemDefinition, dmnTransformer, templateProvider.baseTemplatePath(), templateProvider.itemDefinitionInterfaceTemplate(), generatedClasses, outputPath, typePackageName, javaInterfaceName);
-            transformItemDefinition(itemDefinition, dmnTransformer, templateProvider.baseTemplatePath(), templateProvider.itemDefinitionClassTemplate(), generatedClasses, outputPath, typePackageName, dmnTransformer.itemDefinitionNativeClassName(javaInterfaceName));
+            transformItemDefinition(itemDefinition, dmnTransformer, this.templateProvider.baseTemplatePath(), this.templateProvider.itemDefinitionInterfaceTemplate(), generatedClasses, outputPath, typePackageName, javaInterfaceName);
+            transformItemDefinition(itemDefinition, dmnTransformer, this.templateProvider.baseTemplatePath(), this.templateProvider.itemDefinitionClassTemplate(), generatedClasses, outputPath, typePackageName, dmnTransformer.itemDefinitionNativeClassName(javaInterfaceName));
 
             // Process children
             transformItemDefinitionList(definitions, itemDefinition.getItemComponent(), dmnTransformer, generatedClasses, outputPath);
@@ -139,7 +139,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     private void transformItemDefinition(TItemDefinition itemDefinition, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, String baseTemplatePath, String itemDefinitionTemplate, List<String> generatedClasses, Path outputPath, String typePackageName, String typeName) {
         String qualifiedName = dmnTransformer.qualifiedName(typePackageName, typeName);
         if (generatedClasses.contains(qualifiedName)) {
-            logger.warn(String.format("Class '%s' has already been generated", typeName));
+            this.logger.warn(String.format("Class '%s' has already been generated", typeName));
         } else {
             processTemplate(itemDefinition, baseTemplatePath, itemDefinitionTemplate, dmnTransformer, outputPath, typePackageName, typeName);
             generatedClasses.add(qualifiedName);
@@ -162,7 +162,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
 
             // Make parameters
             Map<String, Object> params = makeProtoTemplateParams(pair.getLeft(), pair.getRight(), modelPackageName, dmnTransformer);
-            processTemplate(templateProvider.baseTemplatePath(), "common/proto.ftl", params, outputFile, false);
+            processTemplate(this.templateProvider.baseTemplatePath(), "common/proto.ftl", params, outputFile, false);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Error generation .proto file for model '%s'", definitions.getName()), e);
         }
@@ -170,38 +170,38 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
 
     private void transformBKMList(TDefinitions definitions, List<TBusinessKnowledgeModel> bkmList, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath) {
         for (TBusinessKnowledgeModel bkm : bkmList) {
-            transformBKM(definitions, bkm, dmnTransformer, generatedClasses, outputPath, decisionBaseClass);
+            transformBKM(definitions, bkm, dmnTransformer, generatedClasses, outputPath, this.decisionBaseClass);
         }
     }
 
     private void transformBKM(TDefinitions definitions, TBusinessKnowledgeModel bkm, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
-        logger.debug(String.format("Generating code for BKM '%s'", bkm.getName()));
+        this.logger.debug(String.format("Generating code for BKM '%s'", bkm.getName()));
 
         String bkmPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
         String bkmClassName = dmnTransformer.drgElementClassName(bkm);
         checkDuplicate(generatedClasses, bkmPackageName, bkmClassName, dmnTransformer);
-        processTemplate(bkm, templateProvider.baseTemplatePath(), templateProvider.bkmTemplateName(), dmnTransformer, outputPath, bkmPackageName, bkmClassName, decisionBaseClass);
+        processTemplate(bkm, this.templateProvider.baseTemplatePath(), this.templateProvider.bkmTemplateName(), dmnTransformer, outputPath, bkmPackageName, bkmClassName, decisionBaseClass);
 
         if (dmnTransformer.getDMNModelRepository().isDecisionTableExpression(bkm)) {
             String decisionRuleOutputClassName = dmnTransformer.ruleOutputClassName(bkm);
             checkDuplicate(generatedClasses, bkmPackageName, decisionRuleOutputClassName, dmnTransformer);
-            processTemplate(bkm, templateProvider.baseTemplatePath(), templateProvider.decisionTableRuleOutputTemplate(), dmnTransformer, outputPath, bkmPackageName, decisionRuleOutputClassName, decisionBaseClass);
+            processTemplate(bkm, this.templateProvider.baseTemplatePath(), this.templateProvider.decisionTableRuleOutputTemplate(), dmnTransformer, outputPath, bkmPackageName, decisionRuleOutputClassName, decisionBaseClass);
         }
     }
 
     private void transformDSList(TDefinitions definitions, List<TDecisionService> dsList, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath) {
         for (TDecisionService ds : dsList) {
-            transformDS(definitions, ds, dmnTransformer, generatedClasses, outputPath, decisionBaseClass);
+            transformDS(definitions, ds, dmnTransformer, generatedClasses, outputPath, this.decisionBaseClass);
         }
     }
 
     private void transformDS(TDefinitions definitions, TDecisionService ds, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
-        logger.debug(String.format("Generating code for DS '%s'", ds.getName()));
+        this.logger.debug(String.format("Generating code for DS '%s'", ds.getName()));
 
         String dsPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
         String dsClassName = dmnTransformer.drgElementClassName(ds);
         checkDuplicate(generatedClasses, dsPackageName, dsClassName, dmnTransformer);
-        processTemplate(ds, templateProvider.baseTemplatePath(), templateProvider.dsTemplateName(), dmnTransformer, outputPath, dsPackageName, dsClassName, decisionBaseClass);
+        processTemplate(ds, this.templateProvider.baseTemplatePath(), this.templateProvider.dsTemplateName(), dmnTransformer, outputPath, dsPackageName, dsClassName, decisionBaseClass);
     }
 
     private void transformDecisionList(TDefinitions definitions, List<TDecision> decisions, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
@@ -211,17 +211,17 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     }
 
     private void transformDecision(TDefinitions definitions, TDecision decision, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
-        logger.debug(String.format("Generating code for Decision '%s'", decision.getName()));
+        this.logger.debug(String.format("Generating code for Decision '%s'", decision.getName()));
 
         String decisionPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
         String decisionClassName = dmnTransformer.drgElementClassName(decision);
         checkDuplicate(generatedClasses, decisionPackageName, decisionClassName, dmnTransformer);
-        processTemplate(decision, templateProvider.baseTemplatePath(), templateProvider.decisionTemplateName(), dmnTransformer, outputPath, decisionPackageName, decisionClassName, decisionBaseClass);
+        processTemplate(decision, this.templateProvider.baseTemplatePath(), this.templateProvider.decisionTemplateName(), dmnTransformer, outputPath, decisionPackageName, decisionClassName, decisionBaseClass);
 
         if (dmnTransformer.getDMNModelRepository().isDecisionTableExpression(decision)) {
             String decisionRuleOutputClassName = dmnTransformer.ruleOutputClassName(decision);
             checkDuplicate(generatedClasses, decisionPackageName, decisionRuleOutputClassName, dmnTransformer);
-            processTemplate(decision, templateProvider.baseTemplatePath(), templateProvider.decisionTableRuleOutputTemplate(), dmnTransformer, outputPath, decisionPackageName, decisionRuleOutputClassName, decisionBaseClass);
+            processTemplate(decision, this.templateProvider.baseTemplatePath(), this.templateProvider.decisionTableRuleOutputTemplate(), dmnTransformer, outputPath, decisionPackageName, decisionRuleOutputClassName, decisionBaseClass);
         }
     }
 
@@ -295,7 +295,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         params.put("itemDefinition", itemDefinition);
 
         String qualifiedName = dmnTransformer.qualifiedName(javaPackageName, dmnTransformer.itemDefinitionNativeSimpleInterfaceName(itemDefinition));
-        String serializationClass = typeDeserializationConfigurer.deserializeTypeAs(qualifiedName);
+        String serializationClass = this.typeDeserializationConfigurer.deserializeTypeAs(qualifiedName);
         params.put("serializationClass", serializationClass);
 
         addCommonParams(params, javaPackageName, javaClassName, dmnTransformer);

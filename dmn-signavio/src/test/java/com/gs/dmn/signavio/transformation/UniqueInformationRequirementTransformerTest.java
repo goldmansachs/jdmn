@@ -34,9 +34,9 @@ public class UniqueInformationRequirementTransformerTest extends AbstractSignavi
 
         // Transform DMN
         File dmnFile = new File(resource(path + "simpleMID-with-ir-duplicates.dmn"));
-        TDefinitions definitions = dmnReader.readModel(dmnFile);
+        TDefinitions definitions = this.dmnSerializer.readModel(dmnFile);
         DMNModelRepository repository = new SignavioDMNModelRepository(definitions);
-        DMNModelRepository actualRepository = transformer.transform(repository);
+        DMNModelRepository actualRepository = this.transformer.transform(repository);
 
         // Check output
         checkDefinitions(actualRepository.getRootDefinitions(), "simpleMID-with-ir-duplicates.dmn");

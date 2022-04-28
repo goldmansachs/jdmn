@@ -16,7 +16,7 @@ package com.gs.dmn.validation;
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.DMNSerializer;
 
 import java.io.File;
 import java.net.URI;
@@ -25,7 +25,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractValidatorTest extends AbstractTest {
-    protected final DMNReader reader = new DMNReader(LOGGER, false);
+    protected final DMNSerializer serializer = new DMNSerializer(LOGGER, false);
 
     protected void validate(DMNValidator validator, URI fileURI, List<String> expectedErrors) {
         DMNModelRepository repository = makeRepository(fileURI);
@@ -36,7 +36,7 @@ public abstract class AbstractValidatorTest extends AbstractTest {
 
     protected DMNModelRepository makeRepository(URI fileURI) {
         File input = new File(fileURI);
-        TDefinitions definitions = reader.readModel(input);
+        TDefinitions definitions = this.serializer.readModel(input);
         return new DMNModelRepository(definitions);
     }
 }

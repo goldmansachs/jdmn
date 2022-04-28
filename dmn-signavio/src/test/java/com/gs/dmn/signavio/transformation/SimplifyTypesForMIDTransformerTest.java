@@ -31,9 +31,9 @@ public class SimplifyTypesForMIDTransformerTest extends AbstractSignavioFileTran
 
         // Transform DMN
         File dmnFile = new File(signavioResource(path + "IteratorExampleReturningMultiple.dmn"));
-        TDefinitions definitions = dmnReader.readModel(dmnFile);
+        TDefinitions definitions = this.dmnSerializer.readModel(dmnFile);
         DMNModelRepository repository = new SignavioDMNModelRepository(definitions, SignavioTestConstants.SIG_EXT_NAMESPACE);
-        DMNModelRepository actualRepository = transformer.transform(repository);
+        DMNModelRepository actualRepository = this.transformer.transform(repository);
 
         // Check output
         checkDefinitions(actualRepository, "IteratorExampleReturningMultiple.dmn");
@@ -42,7 +42,7 @@ public class SimplifyTypesForMIDTransformerTest extends AbstractSignavioFileTran
     private void checkDefinitions(DMNModelRepository repository, String fileName) throws Exception {
         File actualDMNFile = new File("target/" + fileName);
         TDefinitions actualDefinitions = repository.getRootDefinitions();
-        dmnWriter.writeModel(actualDefinitions, actualDMNFile);
+        this.dmnSerializer.writeModel(actualDefinitions, actualDMNFile);
 
         String path = "dmn/dmn2java/expected/complex/";
         File expectedDMNFile = new File(signavioResource(path + fileName));

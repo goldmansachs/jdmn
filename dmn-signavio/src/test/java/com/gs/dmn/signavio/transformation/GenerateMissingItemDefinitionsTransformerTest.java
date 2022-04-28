@@ -130,7 +130,7 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSigna
         }
 
         File dmnFile = new File(dmnFileURI);
-        DMNModelRepository repository = new SignavioDMNModelRepository(dmnReader.readModel(dmnFile));
+        DMNModelRepository repository = new SignavioDMNModelRepository(this.dmnSerializer.readModel(dmnFile));
         List<TItemDefinition> definitions = new ArrayList<>(repository.findItemDefinitions(repository.getRootDefinitions()));
         DMNModelRepository transformed = transformer.transform(repository);
 
@@ -169,11 +169,11 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSigna
         }
 
         public List<TItemDefinition> getBeforeTransform() {
-            return beforeTransform;
+            return this.beforeTransform;
         }
 
         public List<TItemDefinition> getAfterTransform() {
-            return afterTransform;
+            return this.afterTransform;
         }
     }
 }

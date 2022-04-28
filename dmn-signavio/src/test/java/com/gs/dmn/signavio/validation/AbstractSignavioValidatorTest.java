@@ -25,7 +25,7 @@ public abstract class AbstractSignavioValidatorTest extends AbstractValidatorTes
     @Override
     protected DMNModelRepository makeRepository(URI fileURI) {
         File input = new File(fileURI);
-        TDefinitions definitions = reader.readModel(input);
+        TDefinitions definitions = this.serializer.readModel(input);
         return new SignavioDMNModelRepository(definitions);
     }
 }

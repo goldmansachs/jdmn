@@ -17,8 +17,7 @@ import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.dialect.AbstractDMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
-import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.DMNWriter;
+import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
 import com.gs.dmn.signavio.runtime.interpreter.SignavioDMNInterpreter;
 import com.gs.dmn.signavio.runtime.interpreter.SignavioTypeConverter;
@@ -34,13 +33,8 @@ public abstract class AbstractSignavioDMNDialectDefinition<NUMBER, DATE, TIME, D
     // Serialization
     //
     @Override
-    public DMNReader createDMNReader(BuildLogger logger, InputParameters inputParameters) {
-        return new DMNReader(logger, inputParameters.isXsdValidation(), Arrays.asList(new SignavioExtensionRegister(inputParameters.getSchemaNamespace())));
-    }
-
-    @Override
-    public DMNWriter createDMNWriter(BuildLogger logger, InputParameters inputParameters) {
-        return new DMNWriter(logger, Arrays.asList(new SignavioExtensionRegister(inputParameters.getSchemaNamespace())));
+    public DMNSerializer createDMNSerializer(BuildLogger logger, InputParameters inputParameters) {
+        return new DMNSerializer(logger, Arrays.asList(new SignavioExtensionRegister(inputParameters.getSchemaNamespace())), inputParameters.isXsdValidation());
     }
 
     //

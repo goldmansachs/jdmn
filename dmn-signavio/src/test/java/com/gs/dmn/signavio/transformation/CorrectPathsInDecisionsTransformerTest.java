@@ -209,7 +209,7 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFile
     private DMNModelRepository executeTransformation(URI dmnFileURI, URI transformerConfigURI) throws Exception {
         CorrectPathsInDecisionsTransformer transformer = configTransformer(transformerConfigURI);
         File dmnFile = new File(dmnFileURI);
-        DMNModelRepository repository = new SignavioDMNModelRepository(dmnReader.readModel(dmnFile));
+        DMNModelRepository repository = new SignavioDMNModelRepository(this.dmnSerializer.readModel(dmnFile));
 
         return transformer.transform(repository);
     }

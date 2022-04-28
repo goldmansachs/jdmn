@@ -13,7 +13,7 @@
 package com.gs.dmn;
 
 import com.gs.dmn.ast.*;
-import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.DMNSerializer;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +29,7 @@ import static org.junit.Assert.assertEquals;
 
 public class DMNModelRepositoryTest extends AbstractTest {
     private DMNModelRepository dmnModelRepository;
-    private final DMNReader dmnReader = new DMNReader(LOGGER, false);
+    private final DMNSerializer dmnSerializer = new DMNSerializer(LOGGER, false);
 
     @Before
     public void setUp() {
@@ -157,7 +157,7 @@ public class DMNModelRepositoryTest extends AbstractTest {
 
     private DMNModelRepository readDMN(String pathName) {
         File input = new File(resource(pathName));
-        List<TDefinitions> definitionsList = this.dmnReader.readModels(input);
+        List<TDefinitions> definitionsList = this.dmnSerializer.readModels(input);
         return new DMNModelRepository(definitionsList);
     }
 

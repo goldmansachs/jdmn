@@ -26,7 +26,7 @@ import com.gs.dmn.runtime.Assert;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNConstants;
-import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.tck.TCKUtil;
 import com.gs.dmn.tck.TestCasesReader;
 import com.gs.dmn.transformation.DMNTransformer;
@@ -53,7 +53,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractDMNInterpreterTest.class));
     private static final boolean IGNORE_ERROR_FLAG = true;
 
-    private final DMNReader reader = this.getDialectDefinition().createDMNReader(LOGGER, makeInputParameters());
+    private final DMNSerializer serializer = this.getDialectDefinition().createDMNSerializer(LOGGER, makeInputParameters());
     private final TestCasesReader testCasesReader = new TestCasesReader(LOGGER);
 
     protected DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> interpreter;
@@ -78,17 +78,17 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
             Pair<List<String>, List<TestCases>> pair = findTestCases(dmnVersion, dmnFileNames);
 
             // Transform definitions and test cases
-            dmnTransformer = new ToQuotedNameTransformer(LOGGER);
-            dmnTransformer.transform(repository, pair.getRight());
+            this.dmnTransformer = new ToQuotedNameTransformer(LOGGER);
+            this.dmnTransformer.transform(repository, pair.getRight());
 
             // Set-up execution
             Map<String, String> inputParameters = makeInputParametersMap(extraInputParameters);
             this.interpreter = getDialectDefinition().createDMNInterpreter(repository, makeInputParameters(inputParameters));
-            this.basicTransformer = interpreter.getBasicDMNTransformer();
-            this.lib = interpreter.getFeelLib();
+            this.basicTransformer = this.interpreter.getBasicDMNTransformer();
+            this.lib = this.interpreter.getFeelLib();
 
             // Execute tests
-            doTest(pair.getLeft(), pair.getRight(), interpreter, repository);
+            doTest(pair.getLeft(), pair.getRight(), this.interpreter, repository);
         } catch (Exception e) {
             throw new DMNRuntimeException(errorMessage, e);
         }
@@ -100,24 +100,24 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         try {
             // Read DMN files
             File dmnInputFile = new File(tckResource(completePath(getDMNInputPath(), dmnVersion, dmnFolderName) + "/"));
-            DMNModelRepository repository = new DMNModelRepository(this.reader.readModels(dmnInputFile));
+            DMNModelRepository repository = new DMNModelRepository(this.serializer.readModels(dmnInputFile));
 
             // Read TestCases filers
             File testCasesInputFile = new File(tckResource(completePath(getTestCasesInputPath(), dmnVersion, testFolderName) + "/"));
             Pair<List<String>, List<TestCases>> pair = findTestCasesInFolder(testCasesInputFile);
 
             // Transform definitions and test cases
-            dmnTransformer = new ToQuotedNameTransformer(LOGGER);
-            dmnTransformer.transform(repository, pair.getRight());
+            this.dmnTransformer = new ToQuotedNameTransformer(LOGGER);
+            this.dmnTransformer.transform(repository, pair.getRight());
 
             // Set-up execution
             Map<String, String> inputParameters = makeInputParametersMap(extraInputParameters);
             this.interpreter = getDialectDefinition().createDMNInterpreter(repository, makeInputParameters(inputParameters));
-            this.basicTransformer = interpreter.getBasicDMNTransformer();
-            this.lib = interpreter.getFeelLib();
+            this.basicTransformer = this.interpreter.getBasicDMNTransformer();
+            this.lib = this.interpreter.getFeelLib();
 
             // Execute tests
-            doTest(pair.getLeft(), pair.getRight(), interpreter, repository);
+            doTest(pair.getLeft(), pair.getRight(), this.interpreter, repository);
         } catch (Exception e) {
             throw new DMNRuntimeException(errorMessage, e);
         }
@@ -128,7 +128,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         List<TestCases> testCasesList = new ArrayList<>();
         for (File child: testCasesInputFile.listFiles()) {
             if (isTCKFile(child)) {
-                TestCases testCases = testCasesReader.read(child);
+                TestCases testCases = this.testCasesReader.read(child);
                 testFileNames.add(child.getName());
                 testCasesList.add(testCases);
             }
@@ -145,7 +145,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
             File testInputPathFolder = new File(testInputPathURL.getFile());
             for (File child: testInputPathFolder.listFiles()) {
                 if (isTCKFile(child) && child.getName().startsWith(dmnFileName)) {
-                    TestCases testCases = testCasesReader.read(child);
+                    TestCases testCases = this.testCasesReader.read(child);
                     testFileNames.add(child.getName());
                     testCasesList.add(testCases);
                 }
@@ -156,7 +156,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
 
     protected void doTest(List<String> testCaseFileNameList, List<TestCases> testCasesList, DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> interpreter, DMNModelRepository repository) {
         // Check all TestCases
-        Pair<DMNModelRepository, List<TestCases>> result = dmnTransformer.transform(repository, testCasesList);
+        Pair<DMNModelRepository, List<TestCases>> result = this.dmnTransformer.transform(repository, testCasesList);
         List<TestCases> actualTestCasesList = result.getRight();
         for (int i = 0; i < actualTestCasesList.size(); i++) {
             String testCaseFileName = testCaseFileNameList.get(i);
@@ -168,7 +168,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
     }
 
     private void doTest(String testCaseFileName, TestCases testCases, TestCase testCase, DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> interpreter) {
-        TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil = new TCKUtil<>(basicTransformer, (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) lib);
+        TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil = new TCKUtil<>(this.basicTransformer, (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) this.lib);
 
         List<ResultNode> resultNode = testCase.getResultNode();
         for (ResultNode res: resultNode) {
@@ -200,7 +200,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         String testName = dmnFileNames.get(0);
         for (String dmnFileName: dmnFileNames) {
             URI dmnFileURI = tckResource(completePath(getDMNInputPath(), dmnVersion, testName) + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION);
-            TDefinitions definitions = reader.readModel(dmnFileURI.toURL());
+            TDefinitions definitions = this.serializer.readModel(dmnFileURI.toURL());
             definitionsList.add(definitions);
         }
         return definitionsList;

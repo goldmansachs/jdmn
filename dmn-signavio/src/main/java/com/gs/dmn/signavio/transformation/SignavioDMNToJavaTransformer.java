@@ -36,7 +36,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 import java.nio.file.Path;
 
-import static com.gs.dmn.serialization.DMNReader.isDMNFile;
+import static com.gs.dmn.serialization.DMNSerializer.isDMNFile;
 import static com.gs.dmn.signavio.extension.SignavioExtension.SIG_EXT_NAMESPACE;
 
 public class SignavioDMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
@@ -61,7 +61,7 @@ public class SignavioDMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Override
     protected DMNModelRepository readModels(File file) {
         if (isDMNFile(file)) {
-            TDefinitions result = dmnReader.readModel(file);
+            TDefinitions result = this.dmnSerializer.readModel(file);
             DMNModelRepository repository = new SignavioDMNModelRepository(result, this.schemaNamespace);
             return repository;
         } else {

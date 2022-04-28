@@ -23,13 +23,13 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class DMNReaderTest extends AbstractTest {
-    private final DMNReader dmnReader = new DMNReader(LOGGER, false);
+    private final DMNSerializer dmnSerializer = new DMNSerializer(LOGGER, false);
 
     @Test
     public void testRead() {
         File input = new File(resource("dmn/input/1.1/test-dmn.dmn"));
 
-        TDefinitions definitions = dmnReader.readModel(input);
+        TDefinitions definitions = this.dmnSerializer.readModel(input);
         List<TDRGElement> drgElementList = definitions.getDrgElement();
         assertEquals(1, drgElementList.size());
 

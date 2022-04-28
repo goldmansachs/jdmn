@@ -18,7 +18,7 @@ import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TDecisionTable;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TExpression;
-import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.transformation.InputParameters;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,12 +34,12 @@ import static org.junit.Assert.assertEquals;
 public class SparseDecisionDetectorTest extends AbstractTest {
     private SparseDecisionDetector detector;
     private DMNModelRepository dmnModelRepository;
-    private final DMNReader dmnReader = new DMNReader(LOGGER, false);
+    private final DMNSerializer dmnReader = new DMNSerializer(LOGGER, false);
 
     @Before
     public void setUp() {
         String pathName = "dmn/input/1.1/0004-lending.dmn";
-        dmnModelRepository = readDMN(pathName);
+        this.dmnModelRepository = readDMN(pathName);
     }
 
     @Test
@@ -47,8 +47,8 @@ public class SparseDecisionDetectorTest extends AbstractTest {
         Map<String, String> inputParametersMap = new LinkedHashMap<String, String>() {{
             put("sparsityThreshold", "0.10");
         }};
-        detector = new SparseDecisionDetector(makeInputParameters(inputParametersMap), LOGGER);
-        LazyEvaluationOptimisation lazyEvaluationOptimisation = detector.detect(dmnModelRepository);
+        this.detector = new SparseDecisionDetector(makeInputParameters(inputParametersMap), LOGGER);
+        LazyEvaluationOptimisation lazyEvaluationOptimisation = this.detector.detect(this.dmnModelRepository);
 
         assertEquals(Arrays.asList("BureauCallType", "Eligibility"), new ArrayList<>(lazyEvaluationOptimisation.getLazyEvaluatedDecisions()));
     }
@@ -56,8 +56,8 @@ public class SparseDecisionDetectorTest extends AbstractTest {
     @Test
     public void testIsSparseDecisionTable() {
         TDefinitions definitions = this.dmnModelRepository.getRootDefinitions();
-        checkDecisionTable(dmnModelRepository.findDRGElementByName(definitions, "EligibilityRules"), 0.75, true);
-        checkDecisionTable(dmnModelRepository.findDRGElementByName(definitions, "Strategy"), 0.75, false);
+        checkDecisionTable(this.dmnModelRepository.findDRGElementByName(definitions, "EligibilityRules"), 0.75, true);
+        checkDecisionTable(this.dmnModelRepository.findDRGElementByName(definitions, "Strategy"), 0.75, false);
     }
 
     private void checkDecisionTable(TDRGElement element, Double sparsityThreshold, boolean expectedResult) {
@@ -71,7 +71,7 @@ public class SparseDecisionDetectorTest extends AbstractTest {
 
     private DMNModelRepository readDMN(String pathName) {
         File input = new File(resource(pathName));
-        TDefinitions definitions = dmnReader.readModel(input);
+        TDefinitions definitions = this.dmnReader.readModel(input);
         return new DMNModelRepository(definitions);
     }
 

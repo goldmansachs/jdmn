@@ -19,8 +19,7 @@ import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
-import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.DMNWriter;
+import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
@@ -30,13 +29,8 @@ public abstract class AbstractStandardDMNDialectDefinition<NUMBER, DATE, TIME, D
     // Serialization
     //
     @Override
-    public DMNReader createDMNReader(BuildLogger logger, InputParameters inputParameters) {
-        return new DMNReader(logger, inputParameters.isXsdValidation());
-    }
-
-    @Override
-    public DMNWriter createDMNWriter(BuildLogger logger, InputParameters inputParameters) {
-        return new DMNWriter(logger);
+    public DMNSerializer createDMNSerializer(BuildLogger logger, InputParameters inputParameters) {
+        return new DMNSerializer(logger, inputParameters.isXsdValidation());
     }
 
     //
