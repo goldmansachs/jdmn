@@ -21,7 +21,6 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNConstants;
-import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.DMNWriter;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
@@ -146,7 +145,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
             logger.info(String.format("Output file %s ...", outputFile.getCanonicalPath()));
 
             TDefinitions element = transform(diagramName(child), inputStream);
-            dmnWriter.write(element, outputFile, new DMNNamespacePrefixMapper(this.inputParameters.getNamespace(), this.inputParameters.getPrefix(), DMN_11));
+            dmnWriter.writeModel(element, outputFile);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Error during transforming '%s'.", child.getName()), e);
         }

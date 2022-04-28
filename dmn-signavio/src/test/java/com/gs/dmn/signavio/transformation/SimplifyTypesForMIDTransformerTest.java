@@ -14,7 +14,6 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.testlab.TestLab;
@@ -43,7 +42,7 @@ public class SimplifyTypesForMIDTransformerTest extends AbstractSignavioFileTran
     private void checkDefinitions(DMNModelRepository repository, String fileName) throws Exception {
         File actualDMNFile = new File("target/" + fileName);
         TDefinitions actualDefinitions = repository.getRootDefinitions();
-        dmnWriter.write(actualDefinitions, actualDMNFile, new DMNNamespacePrefixMapper(actualDefinitions.getNamespace(), "sig"));
+        dmnWriter.writeModel(actualDefinitions, actualDMNFile);
 
         String path = "dmn/dmn2java/expected/complex/";
         File expectedDMNFile = new File(signavioResource(path + fileName));

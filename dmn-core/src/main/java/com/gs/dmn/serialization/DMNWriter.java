@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.serialization;
 
-import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
@@ -20,7 +19,6 @@ import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,19 +34,11 @@ public class DMNWriter extends DMNSerializer {
         this.dmnMarshaller = DMNMarshallerFactory.newMarshallerWithExtensions(registers);
     }
 
-    public void writeAST(TDefinitions definitions, File output) {
-        this.dmnMarshaller.marshal(definitions, output);
-    }
-
-    public void write(Object definitions, File output, DMNNamespacePrefixMapper namespacePrefixMapper) {
+    public void writeModel(Object definitions, File output) {
         try (FileOutputStream fos = new FileOutputStream(output)) {
-            write(definitions, fos, namespacePrefixMapper);
+            this.dmnMarshaller.marshal(definitions, fos);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", output.getPath()), e);
         }
-    }
-
-    public void write(Object definitions, OutputStream output, DMNNamespacePrefixMapper namespacePrefixMapper) {
-        this.dmnMarshaller.marshal(definitions, output);
     }
 }

@@ -17,7 +17,10 @@ import com.gs.dmn.NameUtils;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.NopBuildLogger;
-import com.gs.dmn.serialization.*;
+import com.gs.dmn.serialization.DMNConstants;
+import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.DMNWriter;
+import com.gs.dmn.serialization.TCKNamespacePrefixMapper;
 import com.gs.dmn.tck.TestCasesReader;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
@@ -126,7 +129,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
 
         // Write
         DMNWriter writer = new DMNWriter(logger);
-        writer.write(repository, outputFile, new DMNNamespacePrefixMapper());
+        writer.writeModel(repository, outputFile);
 
         return repository;
     }

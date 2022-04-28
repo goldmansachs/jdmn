@@ -14,7 +14,6 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import org.junit.Test;
 
@@ -54,7 +53,7 @@ public class NormalizeDateTimeLiteralsTransformerTest extends AbstractSignavioFi
     private void checkDefinitions(DMNModelRepository repository, String fileName) throws Exception {
         File actualDMNFile = new File("target/" + fileName);
         TDefinitions actualDefinitions = repository.getRootDefinitions();
-        dmnWriter.write(actualDefinitions, actualDMNFile, new DMNNamespacePrefixMapper(actualDefinitions.getNamespace(), "sig"));
+        dmnWriter.writeModel(actualDefinitions, actualDMNFile);
 
         String path = "dmn/expected/";
         File expectedDMNFile = new File(resource(path + fileName));

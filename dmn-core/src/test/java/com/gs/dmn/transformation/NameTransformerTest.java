@@ -16,7 +16,10 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.*;
+import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.DMNWriter;
+import com.gs.dmn.serialization.TCKNamespacePrefixMapper;
+import com.gs.dmn.serialization.TCKVersion;
 import com.gs.dmn.tck.TestCasesReader;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
@@ -47,7 +50,7 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
             TestCases testCases = testReader.read(inputTestsFile);
             testCasesList.add(testCases);
         } else {
-            throw new DMNRuntimeException(String.format("Only single files are supported"));
+            throw new DMNRuntimeException("Only single files are supported");
         }
         List<TestCases> actualTestCasesList = transformer.transform(repository, testCasesList).getRight();
 
@@ -76,9 +79,8 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
     }
 
     private void check(TDefinitions actualDefinitions, String fileName, Pair<String, String> namespacePrefixMapping) throws Exception {
-        DMNNamespacePrefixMapper dmnNamespacePrefixMapper = new DMNNamespacePrefixMapper(namespacePrefixMapping.getLeft(), namespacePrefixMapping.getRight(), DMNVersion.LATEST);
         File actualDMNFile = new File(getTargetPath() + fileName);
-        dmnWriter.write(actualDefinitions, actualDMNFile, dmnNamespacePrefixMapper);
+        dmnWriter.writeModel(actualDefinitions, actualDMNFile);
         File expectedDMNFile = new File(CLASS_LOADER.getResource(getExpectedPath() + fileName).getFile());
 
         compareFile(expectedDMNFile, actualDMNFile);
