@@ -48,7 +48,7 @@ public abstract class AbstractUnmarshalMarshalTest {
 
     protected void testRoundTrip(String subDir, String xmlFile, DMNMarshaller marshaller) throws Exception {
         File baseInputDir = new File("target/test-classes/");
-        File baseOutputDir = new File("target/test-xmlunit/");
+        File baseOutputDir = new File("target/");
 
         // Validate input XML
         File inputXMLFile = new File(baseInputDir, subDir + xmlFile);
@@ -66,17 +66,10 @@ public abstract class AbstractUnmarshalMarshalTest {
         FileInputStream fis = new FileInputStream(inputXMLFile);
         TDefinitions unmarshal = marshaller.unmarshal(new InputStreamReader(fis));
 
-        // Copy input file
-        File subDirFile = new File(baseOutputDir, subDir);
-        subDirFile.mkdirs();
-        FileOutputStream sourceFos = new FileOutputStream(new File(baseOutputDir, subDir + "a." + xmlFile));
-        Files.copy(new File(baseInputDir, subDir + xmlFile).toPath(), sourceFos);
-        sourceFos.flush();
-        sourceFos.close();
-
         // Write definitions
         LOG.debug("{}", marshaller.marshal(unmarshal));
-        File outputXMLFile = new File(baseOutputDir, subDir + "b." + xmlFile);
+        File outputXMLFile = new File(baseOutputDir, subDir + xmlFile);
+        outputXMLFile.getParentFile().mkdirs();
         try (FileWriter targetFos = new FileWriter(outputXMLFile)) {
             marshaller.marshal(unmarshal, targetFos);
         }
