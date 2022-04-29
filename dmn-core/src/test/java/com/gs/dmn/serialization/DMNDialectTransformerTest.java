@@ -1,7 +1,6 @@
 package com.gs.dmn.serialization;
 
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 
@@ -10,7 +9,7 @@ import java.io.File;
 public abstract class DMNDialectTransformerTest extends AbstractFileTransformerTest {
     protected final DMNMarshaller dmnMarshaller = getDMNMarshaller();
 
-    protected void doTest(String inputFileName, Pair<String, String> dmnNamespacePrefixMapping) throws Exception {
+    protected void doTest(String inputFileName) throws Exception {
         // Read
         File inputFile = new File(resource(getInputPath() + inputFileName));
         TDefinitions sourceDefinitions = dmnMarshaller.unmarshal(inputFile, true);

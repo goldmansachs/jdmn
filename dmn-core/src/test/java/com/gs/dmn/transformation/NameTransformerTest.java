@@ -59,7 +59,7 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
             for (int i = 0; i < dmnFileNames.size(); i++) {
                 String dmnFileName = dmnFileNames.get(i);
                 TDefinitions definitions = definitionsList.get(i);
-                check(definitions, dmnFileName, namespacePrefixMapping.get(dmnFileName));
+                check(definitions, dmnFileName);
             }
             Pair<String, String> testsNamespacePrefixMapping = namespacePrefixMapping.get(testsFileName);
             check(actualTestCases, testsFileName, testsNamespacePrefixMapping);
@@ -76,7 +76,7 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
         return definitionsList;
     }
 
-    private void check(TDefinitions actualDefinitions, String fileName, Pair<String, String> namespacePrefixMapping) throws Exception {
+    private void check(TDefinitions actualDefinitions, String fileName) throws Exception {
         File actualDMNFile = new File(getTargetPath() + fileName);
         this.dmnSerializer.writeModel(actualDefinitions, actualDMNFile);
         File expectedDMNFile = new File(CLASS_LOADER.getResource(getExpectedPath() + fileName).getFile());

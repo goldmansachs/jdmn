@@ -13,7 +13,6 @@
 package com.gs.dmn.signavio.serialization;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMN12To13DialectTransformerTest;
 import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
@@ -23,23 +22,21 @@ import org.junit.Test;
 
 import java.util.Collections;
 
-import static com.gs.dmn.signavio.SignavioTestConstants.SIG_NAMESPACE;
-
 public class SignavioDMN12To13DialectTransformerTest extends DMN12To13DialectTransformerTest {
     @Override
     @Test
     public void testTransform() throws Exception {
-        doTest("Example credit decision.dmn", new Pair<>(SIG_NAMESPACE + "9acf44f2b05343d79fc35140c493c1e0.xml", "sig"));
+        doTest("Example credit decision.dmn");
     }
 
     @Test(expected = DMNRuntimeException.class)
     public void testTransformWithBKM() throws Exception {
-        doTest("simple-decision-with-bkm.dmn", new Pair<>(SIG_NAMESPACE + "2521256910f54d44b0a90fa88a1aa917.xml", "sig"));
+        doTest("simple-decision-with-bkm.dmn");
     }
 
     @Test
     public void testTransformWithMID() throws Exception {
-        doTest("simpleMID.dmn", new Pair<>(SIG_NAMESPACE + "9e53b9fc18f94da39241c0319c532c9a.xml", "sig"));
+        doTest("simpleMID.dmn");
     }
 
     @Override
