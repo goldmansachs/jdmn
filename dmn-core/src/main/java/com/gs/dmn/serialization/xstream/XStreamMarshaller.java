@@ -191,11 +191,11 @@ public class XStreamMarshaller implements DMNMarshaller {
     private TDefinitions unmarshal(DMNVersion inferDMNVersion, Reader secondStringReader) {
         TDefinitions result = null;
         if (DMN_13.equals(inferDMNVersion)) {
-            result = xStream13.unmarshal(secondStringReader);
+            result = (TDefinitions) xStream13.unmarshal(secondStringReader);
         } else if (DMN_12.equals(inferDMNVersion)) {
-            result = xStream12.unmarshal(secondStringReader);
+            result = (TDefinitions) xStream12.unmarshal(secondStringReader);
         } else if (DMN_11.equals(inferDMNVersion)) {
-            result = xStream11.unmarshal(secondStringReader);
+            result = (TDefinitions) xStream11.unmarshal(secondStringReader);
         }
         return result;
     }

@@ -12,27 +12,25 @@
  */
 package com.gs.dmn.serialization.xstream;
 
-import com.gs.dmn.ast.TDefinitions;
-
 import java.io.*;
 import java.net.URL;
 
 public interface SimpleDMNMarshaller {
-    TDefinitions unmarshal(String input);
+    Object unmarshal(String input);
 
-    TDefinitions unmarshal(File input);
+    Object unmarshal(File input);
 
-    TDefinitions unmarshal(URL input);
+    Object unmarshal(URL input);
 
-    TDefinitions unmarshal(InputStream input);
+    Object unmarshal(InputStream input);
 
-    TDefinitions unmarshal(Reader input);
+    Object unmarshal(Reader input);
 
-    String marshal(TDefinitions o);
+    String marshal(Object o);
 
-    void marshal(TDefinitions o, File output);
+    void marshal(Object o, File output);
 
-    void marshal(TDefinitions o, OutputStream output);
+    void marshal(Object o, OutputStream output);
 
-    void marshal(TDefinitions o, Writer output);
+    void marshal(Object o, Writer output);
 }

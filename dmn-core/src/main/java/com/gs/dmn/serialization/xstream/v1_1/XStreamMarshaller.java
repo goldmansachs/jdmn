@@ -77,15 +77,15 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
     }
 
     @Override
-    public TDefinitions unmarshal(String input) {
+    public Object unmarshal(String input) {
         return unmarshal(new StringReader(input));
     }
 
     @Override
-    public TDefinitions unmarshal(File input) {
+    public Object unmarshal(File input) {
         try {
             XStream xStream = newXStream();
-            return (TDefinitions) xStream.fromXML(input);
+            return xStream.fromXML(input);
         } catch (Exception e) {
             LOGGER.error(String.format("Error unmarshalling DMN model from file '%s'.", input.getAbsolutePath()), e);
         }
@@ -93,10 +93,10 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
     }
 
     @Override
-    public TDefinitions unmarshal(URL input) {
+    public Object unmarshal(URL input) {
         try {
             XStream xStream = newXStream();
-            return (TDefinitions) xStream.fromXML(input);
+            return xStream.fromXML(input);
         } catch (Exception e) {
             LOGGER.error(String.format("Error unmarshalling DMN model from url '%s'.", input), e);
         }
@@ -104,10 +104,10 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
     }
 
     @Override
-    public TDefinitions unmarshal(InputStream input) {
+    public Object unmarshal(InputStream input) {
         try {
             XStream xStream = newXStream();
-            return (TDefinitions) xStream.fromXML(input);
+            return xStream.fromXML(input);
         } catch (Exception e) {
             LOGGER.error("Error unmarshalling DMN model from input stream.", e);
         }
@@ -115,10 +115,10 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
     }
 
     @Override
-    public TDefinitions unmarshal(Reader input) {
+    public Object unmarshal(Reader input) {
         try {
             XStream xStream = newXStream();
-            return (TDefinitions) xStream.fromXML(input);
+            return xStream.fromXML(input);
         } catch (Exception e) {
             LOGGER.error("Error unmarshalling DMN model from reader.", e);
         }
@@ -126,7 +126,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
     }
 
     @Override
-    public String marshal(TDefinitions o) {
+    public String marshal(Object o) {
         try (
                 Writer writer = new StringWriter();
                 CustomStaxWriter hsWriter = (CustomStaxWriter) STAX_DRIVER.createWriter(writer)) {
@@ -148,7 +148,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
     }
 
     @Override
-    public void marshal(TDefinitions o, File output) {
+    public void marshal(Object o, File output) {
         try (FileWriter fileWriter = new FileWriter(output)) {
             marshal(o, fileWriter);
         } catch (IOException e) {
@@ -157,7 +157,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
     }
 
     @Override
-    public void marshal(TDefinitions o, OutputStream output) {
+    public void marshal(Object o, OutputStream output) {
         try (OutputStreamWriter streamWriter = new OutputStreamWriter(output)) {
             marshal(o, streamWriter);
         } catch (Exception e) {
@@ -166,7 +166,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
     }
 
     @Override
-    public void marshal(TDefinitions o, Writer output) {
+    public void marshal(Object o, Writer output) {
         try {
             output.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             output.write(marshal(o));
