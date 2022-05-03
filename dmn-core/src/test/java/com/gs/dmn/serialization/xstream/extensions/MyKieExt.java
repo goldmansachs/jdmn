@@ -10,15 +10,24 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.serialization;
+package com.gs.dmn.serialization.xstream.extensions;
 
-import com.gs.dmn.log.BuildLogger;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-import static com.gs.dmn.serialization.DMNVersion.DMN_11;
-import static com.gs.dmn.serialization.DMNVersion.DMN_13;
+@XStreamAlias("mykieext")
+public class MyKieExt {
+    @XStreamAsAttribute
+    private String a1;
 
-public class DMN11To13DialectTransformer extends SimpleDMNDialectTransformer {
-    public DMN11To13DialectTransformer(BuildLogger logger) {
-        super(logger, DMN_11, DMN_13);
+    @XStreamAlias("mydroolsext")
+    private MyDroolsExt content;
+
+    public MyDroolsExt getContent() {
+        return content;
+    }
+
+    public void setContent(MyDroolsExt content) {
+        this.content = content;
     }
 }

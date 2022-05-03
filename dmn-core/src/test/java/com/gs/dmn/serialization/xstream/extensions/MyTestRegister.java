@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.serialization.extensions;
+package com.gs.dmn.serialization.xstream.extensions;
 
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.thoughtworks.xstream.XStream;
@@ -21,7 +21,7 @@ import javax.xml.namespace.QName;
 
 public class MyTestRegister implements DMNExtensionRegister {
     private static final String[] ALLOW_LISTED_PACKAGES = new String[] {
-        "com.gs.dmn.serialization.extensions.**"
+        "com.gs.dmn.serialization.xstream.extensions.**"
     };
 
     @Override

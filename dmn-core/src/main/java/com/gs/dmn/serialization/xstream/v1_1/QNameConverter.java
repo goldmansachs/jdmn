@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.serialization.xstream.v1_1;
 
-import com.gs.dmn.serialization.CustomStaxReader;
-import com.gs.dmn.serialization.CustomStaxWriter;
+import com.gs.dmn.serialization.xstream.CustomStaxReader;
+import com.gs.dmn.serialization.xstream.CustomStaxWriter;
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;

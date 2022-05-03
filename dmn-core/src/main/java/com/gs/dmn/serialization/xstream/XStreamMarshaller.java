@@ -15,7 +15,6 @@ package com.gs.dmn.serialization.xstream;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.serialization.CustomStaxReader;
 import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.io.xml.QNameMap;
@@ -203,8 +202,8 @@ public class XStreamMarshaller implements DMNMarshaller {
 
     @Override
     public String marshal(TDefinitions o) {
-        if (o instanceof DMNBaseElement) {
-            DMNVersion dmnVersion = inferDMNVersion((DMNBaseElement) o);
+        if (o != null) {
+            DMNVersion dmnVersion = inferDMNVersion(o);
             return marshall(o, dmnVersion);
         } else {
             LOGGER.error("Error marshalling object {}", o);
@@ -232,8 +231,8 @@ public class XStreamMarshaller implements DMNMarshaller {
 
     @Override
     public void marshal(TDefinitions o, Writer output) {
-        if (o instanceof DMNBaseElement) {
-            DMNVersion dmnVersion = inferDMNVersion((DMNBaseElement) o);
+        if (o != null) {
+            DMNVersion dmnVersion = inferDMNVersion(o);
             marshall(o, output, dmnVersion);
         } else {
             LOGGER.error("Error marshalling object {}", o);

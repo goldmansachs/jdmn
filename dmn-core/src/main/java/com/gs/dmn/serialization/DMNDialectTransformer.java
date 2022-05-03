@@ -14,21 +14,30 @@ package com.gs.dmn.serialization;
 
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.serialization.xstream.DMN11ToLatestDialectTransformer;
+import com.gs.dmn.serialization.xstream.DMN12ToLatestDialectTransformer;
+import com.gs.dmn.serialization.xstream.DMN13ToLatestDialectTransformer;
 
 public class DMNDialectTransformer {
-    private final DMN11To13DialectTransformer dmn11To13DialectTransformer;
-    private final DMN12To13DialectTransformer dmn12To13DialectTransformer;
+    private final DMN11ToLatestDialectTransformer dmn11ToLatestDialectTransformer;
+    private final DMN12ToLatestDialectTransformer dmn12ToLatestDialectTransformer;
+    private final DMN13ToLatestDialectTransformer dmn13ToLatestDialectTransformer;
 
     public DMNDialectTransformer(BuildLogger logger) {
-        this.dmn11To13DialectTransformer = new DMN11To13DialectTransformer(logger);
-        this.dmn12To13DialectTransformer = new DMN12To13DialectTransformer(logger);
+        this.dmn11ToLatestDialectTransformer = new DMN11ToLatestDialectTransformer(logger);
+        this.dmn12ToLatestDialectTransformer = new DMN12ToLatestDialectTransformer(logger);
+        this.dmn13ToLatestDialectTransformer = new DMN13ToLatestDialectTransformer(logger);
     }
 
-    public TDefinitions transform11To13Definitions(TDefinitions sourceDefinitions) {
-        return this.dmn11To13DialectTransformer.transformDefinitions(sourceDefinitions);
+    public TDefinitions transform11ToLatestDefinitions(TDefinitions sourceDefinitions) {
+        return this.dmn11ToLatestDialectTransformer.transformDefinitions(sourceDefinitions);
     }
 
-    public TDefinitions transform12To13Definitions(TDefinitions sourceDefinitions) {
-        return this.dmn12To13DialectTransformer.transformDefinitions(sourceDefinitions);
+    public TDefinitions transform12ToLatestDefinitions(TDefinitions sourceDefinitions) {
+        return this.dmn12ToLatestDialectTransformer.transformDefinitions(sourceDefinitions);
+    }
+
+    public TDefinitions transform13ToLatestDefinitions(TDefinitions sourceDefinitions) {
+        return this.dmn13ToLatestDialectTransformer.transformDefinitions(sourceDefinitions);
     }
 }

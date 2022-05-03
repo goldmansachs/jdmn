@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.serialization.v1_3;
+package com.gs.dmn.serialization.xstream.v1_3;
 
 import com.gs.dmn.serialization.AbstractUnmarshalMarshalTest;
 import com.gs.dmn.serialization.DMNVersion;
@@ -75,13 +75,14 @@ public class UnmarshalMarshalTest extends AbstractUnmarshalMarshalTest {
 
     @Override
     protected StreamSource getSchemaSource() {
-        return new StreamSource(com.gs.dmn.serialization.v1_2.UnmarshalMarshalTest.class.getResource("/dmn/1.3/DMN13.xsd").getFile());
+        return new StreamSource(com.gs.dmn.serialization.xstream.v1_2.UnmarshalMarshalTest.class.getResource("/dmn/1.3/DMN13.xsd").getFile());
     }
 
     @Override
     protected Set<QName> getAttributesWithDefaultValues() {
         Set<QName> attrWhichCanDefault = new HashSet<QName>();
-        attrWhichCanDefault.addAll(Arrays.asList(new QName("expressionLanguage"),
+        attrWhichCanDefault.addAll(Arrays.asList(
+                new QName("expressionLanguage"),
                 new QName("typeLanguage"),
                 new QName("isCollection"),
                 new QName("hitPolicy"),

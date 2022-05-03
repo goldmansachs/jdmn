@@ -31,7 +31,9 @@ public abstract class SimpleDMNDialectTransformer {
 
     public TDefinitions transformDefinitions(TDefinitions sourceDefinitions) {
         logger.info(String.format("Transforming '%s' from DMN %s to DMN %s ...", sourceDefinitions.getName(), sourceVersion.getVersion(), targetVersion.getVersion()));
-        sourceDefinitions.accept(visitor, null);
+        if (this.sourceVersion != this.targetVersion) {
+            sourceDefinitions.accept(visitor, null);
+        }
         return sourceDefinitions;
     }
 }

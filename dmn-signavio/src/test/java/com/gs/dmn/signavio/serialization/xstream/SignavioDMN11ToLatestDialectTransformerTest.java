@@ -10,19 +10,18 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.signavio.serialization;
+package com.gs.dmn.signavio.serialization.xstream;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.serialization.DMN11To13DialectTransformerTest;
 import com.gs.dmn.serialization.DMNMarshaller;
+import com.gs.dmn.serialization.xstream.DMN11ToLatestDialectTransformerTest;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import com.gs.dmn.signavio.SignavioTestConstants;
-import com.gs.dmn.signavio.serialization.xstream.SignavioExtensionRegister;
 import org.junit.Test;
 
 import java.util.Collections;
 
-public class SignavioDMN11To13DialectTransformerTest extends DMN11To13DialectTransformerTest {
+public class SignavioDMN11ToLatestDialectTransformerTest extends DMN11ToLatestDialectTransformerTest {
     @Override
     @Test
     public void testTransform() throws Exception {

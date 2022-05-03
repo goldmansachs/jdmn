@@ -14,13 +14,8 @@ package com.gs.dmn.serialization.xstream.v1_3;
 
 import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.dmndi.*;
-import com.gs.dmn.serialization.CustomStaxReader;
-import com.gs.dmn.serialization.CustomStaxWriter;
 import com.gs.dmn.serialization.DMNVersion;
-import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
-import com.gs.dmn.serialization.xstream.DMNXStream;
-import com.gs.dmn.serialization.xstream.SimpleDMNMarshaller;
-import com.gs.dmn.serialization.xstream.XStreamUtils;
+import com.gs.dmn.serialization.xstream.*;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.AbstractPullReader;
 import com.thoughtworks.xstream.io.xml.QNameMap;

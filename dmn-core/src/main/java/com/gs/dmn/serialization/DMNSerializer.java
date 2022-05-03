@@ -157,11 +157,11 @@ public class DMNSerializer {
 
         DMNVersion dmnVersion = XStreamMarshaller.inferDMNVersion(definitions);
         if (dmnVersion == DMNVersion.DMN_11) {
-            return this.dmnTransformer.transform11To13Definitions(definitions);
+            return this.dmnTransformer.transform11ToLatestDefinitions(definitions);
         } else if (dmnVersion == DMNVersion.DMN_12) {
-            return this.dmnTransformer.transform12To13Definitions(definitions);
+            return this.dmnTransformer.transform12ToLatestDefinitions(definitions);
         } else if (dmnVersion == DMNVersion.DMN_13) {
-            return definitions;
+            return this.dmnTransformer.transform13ToLatestDefinitions(definitions);
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported", definitions.getClass()));
         }

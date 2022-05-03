@@ -10,13 +10,13 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.serialization.v1_1;
+package com.gs.dmn.serialization.xstream.v1_1;
 
 import com.gs.dmn.serialization.AbstractUnmarshalMarshalTest;
 import com.gs.dmn.serialization.DMNMarshaller;
-import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import com.gs.dmn.serialization.DMNVersion;
-import com.gs.dmn.serialization.extensions.MyTestRegister;
+import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
+import com.gs.dmn.serialization.xstream.extensions.MyTestRegister;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Node;

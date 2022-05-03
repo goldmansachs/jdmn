@@ -10,15 +10,16 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.serialization;
+package com.gs.dmn.serialization.xstream;
 
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.serialization.SimpleDMNDialectTransformer;
 
-import static com.gs.dmn.serialization.DMNVersion.DMN_11;
-import static com.gs.dmn.serialization.DMNVersion.DMN_12;
+import static com.gs.dmn.serialization.DMNVersion.DMN_13;
+import static com.gs.dmn.serialization.DMNVersion.LATEST;
 
-public class DMN11To12DialectTransformer extends SimpleDMNDialectTransformer {
-    public DMN11To12DialectTransformer(BuildLogger logger) {
-        super(logger, DMN_11, DMN_12);
+public class DMN13ToLatestDialectTransformer extends SimpleDMNDialectTransformer {
+    public DMN13ToLatestDialectTransformer(BuildLogger logger) {
+        super(logger, DMN_13, LATEST);
     }
 }
