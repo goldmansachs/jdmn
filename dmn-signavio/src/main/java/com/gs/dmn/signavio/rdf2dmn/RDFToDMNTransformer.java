@@ -154,9 +154,9 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         TDefinitions root = OBJECT_FACTORY.createTDefinitions();
         root.setNamespace(DMN_11.getNamespace());
         root.setName(name);
-        root.getNsContext().put("", DMN_11.getNamespace());
-        root.getNsContext().put("feel", DMN_11.getFeelNamespace());
-        root.getNsContext().put(this.inputParameters.getPrefix(), this.inputParameters.getNamespace());
+        root.getElementInfo().getNsContext().put("", DMN_11.getNamespace());
+        root.getElementInfo().getNsContext().put("feel", DMN_11.getFeelNamespace());
+        root.getElementInfo().getNsContext().put(this.inputParameters.getPrefix(), this.inputParameters.getNamespace());
         addItemDefinitions(root);
         addDRGElements(root);
         return root;

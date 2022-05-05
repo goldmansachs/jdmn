@@ -12,33 +12,32 @@
  */
 package com.gs.dmn.ast;
 
+import com.gs.dmn.serialization.xstream.dom.ElementInfo;
+
 import javax.xml.stream.Location;
 import java.util.*;
 
 public abstract class DMNBaseElement {
-    private Location location;
-    private Map<String, String> nsContext;
+    private ElementInfo elementInfo;
+
     private DMNBaseElement parent;
     private final List<DMNBaseElement> children = new ArrayList<>();
 
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public Map<String, String> getNsContext() {
-        if (nsContext == null) {
-            nsContext = new HashMap<>();
+    public ElementInfo getElementInfo() {
+        if (elementInfo == null) {
+            this.elementInfo = new ElementInfo();
         }
-        return nsContext;
+        return elementInfo;
+    }
+
+    public void setElementInfo(ElementInfo elementInfo) {
+        this.elementInfo = elementInfo;
     }
 
     public String getNamespaceURI(String prefix) {
-        if (this.nsContext != null && this.nsContext.containsKey(prefix)) {
-            return this.nsContext.get( prefix );
+        Map<String, String> nsContext = elementInfo.getNsContext();
+        if (nsContext != null && nsContext.containsKey(prefix)) {
+            return nsContext.get( prefix );
         }
         if (this.parent != null) {
             return parent.getNamespaceURI(prefix);
@@ -46,9 +45,10 @@ public abstract class DMNBaseElement {
         return null;
     }
 
-    public Optional<String> getPrefixForNamespaceURI(String namespaceURI ) {
-        if (this.nsContext != null && this.nsContext.containsValue(namespaceURI)) {
-            return this.nsContext.entrySet().stream().filter(kv -> kv.getValue().equals(namespaceURI)).findFirst().map(Map.Entry::getKey);
+    public Optional<String> getPrefixForNamespaceURI(String namespaceURI) {
+        Map<String, String> nsContext = elementInfo.getNsContext();
+        if (nsContext != null && nsContext.containsValue(namespaceURI)) {
+            return nsContext.entrySet().stream().filter(kv -> kv.getValue().equals(namespaceURI)).findFirst().map(Map.Entry::getKey);
         }
         if (this.parent != null) {
             return parent.getPrefixForNamespaceURI( namespaceURI );

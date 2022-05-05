@@ -95,7 +95,7 @@ public class DefinitionsConverter extends NamedElementConverter {
         def.setExporter(exporter);
         def.setExporterVersion(exporterVersion);
 
-        if (!def.getNsContext().containsKey(XMLConstants.DEFAULT_NS_PREFIX)) {
+        if (!def.getElementInfo().getNsContext().containsKey(XMLConstants.DEFAULT_NS_PREFIX)) {
             LOG.warn("This DMN file does not define a default namespace");
         }
     }

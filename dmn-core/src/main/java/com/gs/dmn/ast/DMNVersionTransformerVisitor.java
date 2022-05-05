@@ -38,7 +38,7 @@ public class DMNVersionTransformerVisitor extends DefaultDMNVisitor {
             element.setExpressionLanguage(this.targetVersion.getFeelNamespace());
         }
         // Update XML namespaces
-        Map<String, String> nsContext = element.getNsContext();
+        Map<String, String> nsContext = element.getElementInfo().getNsContext();
         for (Map.Entry<String, String> entry : nsContext.entrySet()) {
             // DMN namespace
             if (this.sourceVersion.getNamespace().equals(entry.getValue())) {

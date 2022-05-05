@@ -12,13 +12,13 @@
  */
 package com.gs.dmn.serialization.xstream;
 
+import com.gs.dmn.serialization.xstream.dom.ElementInfo;
 import com.thoughtworks.xstream.io.StreamException;
 import com.thoughtworks.xstream.io.xml.QNameMap;
 import com.thoughtworks.xstream.io.xml.StaxReader;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
-import javax.xml.stream.Location;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -37,22 +37,15 @@ public class CustomStaxReader extends StaxReader {
         moveDown();
     }
 
-    public XMLStreamReader getReader() {
-        return in;
-    }
-
-    public Map<String, String> getNsContext() {
-        Map<String, String> nsContext = new HashMap<>();
+    public ElementInfo getElementInfo() {
+        ElementInfo elementInfo = new ElementInfo(in.getLocation());
+        Map<String, String> nsContext = elementInfo.getNsContext();
         for (int nsIndex = 0; nsIndex < in.getNamespaceCount(); nsIndex++) {
             String nsPrefix = in.getNamespacePrefix(nsIndex);
             String nsId = in.getNamespaceURI(nsIndex);
             nsContext.put(nsPrefix != null ? nsPrefix : XMLConstants.DEFAULT_NS_PREFIX, nsId);
         }
-        return nsContext;
-    }
-
-    public Location getLocation() {
-        return in.getLocation();
+        return elementInfo;
     }
 
     @Override

@@ -52,10 +52,7 @@ public abstract class DMNBaseElementConverter extends DMNBaseConverter {
 
         CustomStaxReader customStaxReader = (CustomStaxReader) reader.underlyingReader();
 
-        Map<String, String> currentNSCtx = customStaxReader.getNsContext();
-        mib.getNsContext().putAll(currentNSCtx);
-
-        mib.setLocation(customStaxReader.getLocation());
+        mib.setElementInfo(customStaxReader.getElementInfo());
 
         setAdditionalAttributes(parent, customStaxReader.getAdditionalAttributes());
     }
@@ -70,7 +67,7 @@ public abstract class DMNBaseElementConverter extends DMNBaseConverter {
         DMNBaseElement mib = (DMNBaseElement) parent;
 
         CustomStaxWriter staxWriter = ((CustomStaxWriter) writer.underlyingWriter());
-        for (Entry<String, String> kv : mib.getNsContext().entrySet()) {
+        for (Entry<String, String> kv : mib.getElementInfo().getNsContext().entrySet()) {
             try {
                 staxWriter.writeNamespace(kv.getKey(), kv.getValue());
             } catch (Exception e) {

@@ -45,7 +45,7 @@ public class XStreamMarshaller implements DMNMarshaller {
     public static DMNVersion inferDMNVersion(DMNBaseElement from) {
         DMNVersion result = null;
         try {
-            Map<String, String> nsContext = from.getNsContext();
+            Map<String, String> nsContext = from.getElementInfo().getNsContext();
             if (nsContext.values().stream().anyMatch(s -> DMN_13.getNamespace().equals(s))) {
                 result = DMN_13;
             } else if (nsContext.values().stream().anyMatch(s -> DMN_12.getNamespace().equals(s))) {
@@ -81,7 +81,7 @@ public class XStreamMarshaller implements DMNMarshaller {
         try {
             XMLStreamReader xmlReader = STAX_DRIVER.getInputFactory().createXMLStreamReader(from);
             CustomStaxReader customStaxReader = new CustomStaxReader(new QNameMap(), xmlReader);
-            result = inferDMNVersion(customStaxReader.getNsContext());
+            result = inferDMNVersion(customStaxReader.getElementInfo().getNsContext());
             xmlReader.close();
             customStaxReader.close();
 

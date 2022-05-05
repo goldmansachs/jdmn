@@ -135,7 +135,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
             XStream xStream = newXStream();
             if (o instanceof DMNBaseElement) {
                 DMNBaseElement base = (DMNBaseElement) o;
-                String dmnPrefix = base.getNsContext().entrySet().stream().filter(kv -> DMNVersion.DMN_12.getNamespace().equals(kv.getValue())).findFirst().map(Map.Entry::getKey).orElse("");
+                String dmnPrefix = base.getElementInfo().getNsContext().entrySet().stream().filter(kv -> DMNVersion.DMN_12.getNamespace().equals(kv.getValue())).findFirst().map(Map.Entry::getKey).orElse("");
                 hsWriter.getQNameMap().setDefaultPrefix(dmnPrefix);
             }
             this.extensionRegisters.forEach(r -> r.beforeMarshal(o, hsWriter.getQNameMap()));
