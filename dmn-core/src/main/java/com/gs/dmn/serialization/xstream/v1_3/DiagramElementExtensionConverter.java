@@ -70,7 +70,7 @@ public class DiagramElementExtensionConverter extends DMNBaseElementConverter {
                 reader.moveDown();
                 String nodeName = reader.getNodeName();
                 try {
-                    Object object = readItem(reader, context, null);
+                    Object object = readBareItem(reader, context, null);
                     if (object instanceof DMNBaseElement) {
                         ((DMNBaseElement) object).setParent(obj);
                         obj.addChildren((DMNBaseElement) object);
@@ -115,7 +115,7 @@ public class DiagramElementExtensionConverter extends DMNBaseElementConverter {
         DiagramElement.Extension ee = (DiagramElement.Extension) parent;
         if (ee.getAny() != null) {
             for (Object a : ee.getAny()) {
-                writeItem(a, context, writer);
+                writeCompleteItem(a, context, writer);
             }
         }
     }

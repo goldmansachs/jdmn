@@ -23,10 +23,6 @@ import javax.xml.stream.XMLStreamWriter;
 
 
 public class CustomStaxWriter extends StaxWriter implements AutoCloseable {
-    /**
-     * ATTENTION this is intercepted during XStream StaxDriver creation as there is no proper API to inherit.
-     * Do not mutate reference - mutating this reference would not sort any effect on the actual underlying StaxWriter
-     */
     private final XMLStreamWriter out;
     private int tagDepth = 0;
     private Op lastOp = null;
@@ -74,7 +70,7 @@ public class CustomStaxWriter extends StaxWriter implements AutoCloseable {
 
         if (this.tagDepth == 0) {
             if (out.getClass().getPackage().getName().startsWith("com.ctc.wstx")) {
-                // DROOLS-1630: problem with Woodstox trying to insert trailing newline before EOF
+                // problem with Woodstox trying to insert trailing newline before EOF
                 // java.lang.NullPointerException
                 //   at java.lang.System.arraycopy(Native Method)
                 //   at java.lang.String.getChars(String.java:826)
@@ -126,5 +122,4 @@ public class CustomStaxWriter extends StaxWriter implements AutoCloseable {
     private enum Op {
         START_NODE, END_NODE, VALUE
     }
-
 }

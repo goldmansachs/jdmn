@@ -69,10 +69,6 @@ public class UnmarshalMarshalTest extends AbstractUnmarshalMarshalTest {
         testRoundTrip("xstream/v1_3/", "decision-list.dmn");
     }
 
-    public void testRoundTrip(String subdir, String xmlfile) throws Exception {
-        testRoundTrip(subdir, xmlfile, getMarshaller());
-    }
-
     @Override
     protected StreamSource getSchemaSource() {
         return new StreamSource(com.gs.dmn.serialization.xstream.v1_2.UnmarshalMarshalTest.class.getResource("/dmn/1.3/DMN13.xsd").getFile());

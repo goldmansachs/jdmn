@@ -37,7 +37,7 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
         while (reader.hasMoreChildren()) {
             reader.moveDown();
             String nodeName = reader.getNodeName();
-            Object object = readItem(reader, context,null);
+            Object object = readBareItem(reader, context,null);
             if (object instanceof DMNBaseElement) {
                 ((DMNBaseElement) object).setParent((DMNBaseElement) parent);
                 ((DMNBaseElement) parent).addChildren((DMNBaseElement) object);

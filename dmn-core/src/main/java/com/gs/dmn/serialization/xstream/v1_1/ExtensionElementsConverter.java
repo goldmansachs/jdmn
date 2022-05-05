@@ -76,10 +76,10 @@ public class ExtensionElementsConverter extends DMNBaseElementConverter {
                 reader.moveDown();
                 String nodeName = reader.getNodeName();
                 try {
-                    Object object = readItem(reader, context, null);
+                    Object object = readBareItem(reader, context, null);
                     if (object instanceof DMNBaseElement) {
-                        ((DMNBaseElement) object).setParent((DMNBaseElement) obj);
-                        ((DMNBaseElement) obj).addChildren((DMNBaseElement) object);
+                        ((DMNBaseElement) object).setParent(obj);
+                        obj.addChildren((DMNBaseElement) object);
                     }
                     assignChildElement(obj, nodeName, object);
                 } catch (CannotResolveClassException e) {
@@ -109,7 +109,7 @@ public class ExtensionElementsConverter extends DMNBaseElementConverter {
         TDMNElement.ExtensionElements ee = (TDMNElement.ExtensionElements) parent;
         if (ee.getAny() != null) {
             for (Object a : ee.getAny()) {
-                writeItem(a, context, writer);
+                writeCompleteItem(a, context, writer);
             }
         }
     }

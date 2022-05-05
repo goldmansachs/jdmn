@@ -70,13 +70,11 @@ public class DiagramElementExtensionConverter extends DMNBaseElementConverter {
                 reader.moveDown();
                 String nodeName = reader.getNodeName();
                 try {
-                    Object object = readItem(reader, context, null);
-/*
+                    Object object = readBareItem(reader, context, null);
                     if (object instanceof DMNBaseElement) {
-                        ((DMNBaseElement) object).setParent((DMNBaseElement) obj);
-                        ((DMNBaseElement) obj).addChildren((DMNBaseElement) object);
+                        ((DMNBaseElement) object).setParent(obj);
+                        obj.addChildren((DMNBaseElement) object);
                     }
-*/
                     assignChildElement(obj, nodeName, object);
                 } catch (CannotResolveClassException e) {
                     // do nothing; I tried to convert the extension element child with the converters, but no converter is registered for this child.
@@ -111,7 +109,7 @@ public class DiagramElementExtensionConverter extends DMNBaseElementConverter {
         DiagramElement.Extension ee = (DiagramElement.Extension) parent;
         if (ee.getAny() != null) {
             for (Object a : ee.getAny()) {
-                writeItem(a, context, writer);
+                writeCompleteItem(a, context, writer);
             }
         }
     }

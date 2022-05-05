@@ -70,7 +70,7 @@ public class ExtensionElementsConverter extends DMNBaseElementConverter {
                 reader.moveDown();
                 String nodeName = reader.getNodeName();
                 try {
-                    Object object = readItem(reader, context, null);
+                    Object object = readBareItem(reader, context, null);
                     if (object instanceof DMNBaseElement) {
                         ((DMNBaseElement) object).setParent(obj);
                         obj.addChildren((DMNBaseElement) object);

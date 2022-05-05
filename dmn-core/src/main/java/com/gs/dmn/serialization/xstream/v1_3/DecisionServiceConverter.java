@@ -54,7 +54,7 @@ public class DecisionServiceConverter extends InvocableConverter {
                 object = ref;
             } else {
                 // Default behaviour
-                object = readItem(reader, context, null);
+                object = readBareItem(reader, context, null);
             }
             if (object instanceof DMNBaseElement) {
                 ((DMNBaseElement) object).setParent((DMNBaseElement) parent);
