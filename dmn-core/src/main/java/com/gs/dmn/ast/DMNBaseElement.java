@@ -14,7 +14,6 @@ package com.gs.dmn.ast;
 
 import com.gs.dmn.serialization.xstream.dom.ElementInfo;
 
-import javax.xml.stream.Location;
 import java.util.*;
 
 public abstract class DMNBaseElement {
@@ -37,7 +36,7 @@ public abstract class DMNBaseElement {
     public String getNamespaceURI(String prefix) {
         Map<String, String> nsContext = elementInfo.getNsContext();
         if (nsContext != null && nsContext.containsKey(prefix)) {
-            return nsContext.get( prefix );
+            return nsContext.get(prefix);
         }
         if (this.parent != null) {
             return parent.getNamespaceURI(prefix);
@@ -51,7 +50,7 @@ public abstract class DMNBaseElement {
             return nsContext.entrySet().stream().filter(kv -> kv.getValue().equals(namespaceURI)).findFirst().map(Map.Entry::getKey);
         }
         if (this.parent != null) {
-            return parent.getPrefixForNamespaceURI( namespaceURI );
+            return parent.getPrefixForNamespaceURI(namespaceURI);
         }
         return Optional.empty();
     }

@@ -21,7 +21,6 @@ import javax.xml.XMLConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-
 public class CustomStaxWriter extends StaxWriter implements AutoCloseable {
     private final XMLStreamWriter out;
     private int tagDepth = 0;

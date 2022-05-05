@@ -23,6 +23,7 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -38,14 +39,13 @@ public class CustomStaxReader extends StaxReader {
     }
 
     public ElementInfo getElementInfo() {
-        ElementInfo elementInfo = new ElementInfo(in.getLocation());
-        Map<String, String> nsContext = elementInfo.getNsContext();
+        Map<String, String> nsContext = new LinkedHashMap<>();
         for (int nsIndex = 0; nsIndex < in.getNamespaceCount(); nsIndex++) {
             String nsPrefix = in.getNamespacePrefix(nsIndex);
             String nsId = in.getNamespaceURI(nsIndex);
             nsContext.put(nsPrefix != null ? nsPrefix : XMLConstants.DEFAULT_NS_PREFIX, nsId);
         }
-        return elementInfo;
+        return new ElementInfo(in.getLocation(), in.getPrefix(), in.getNamespaceURI(), nsContext);
     }
 
     @Override

@@ -18,18 +18,31 @@ import java.util.Map;
 
 public class ElementInfo {
     private final Location location;
-    private final Map<String, String> nsContext = new LinkedHashMap<>();
+    private final Map<String, String> nsContext;
+    private final String prefix;
+    private final String namespaceURI;
 
     public ElementInfo() {
-        this(null);
+        this(null, null, null, new LinkedHashMap<>());
     }
 
-    public ElementInfo(Location location) {
+    public ElementInfo(Location location, String prefix, String namespaceURI, Map<String, String> nsContext) {
         this.location = location;
+        this.prefix = prefix;
+        this.namespaceURI = namespaceURI;
+        this.nsContext = nsContext;
     }
 
     public Location getLocation() {
         return location;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public String getNamespaceURI() {
+        return namespaceURI;
     }
 
     public Map<String, String> getNsContext() {
