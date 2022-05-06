@@ -50,7 +50,7 @@ public class SignavioDMNValidator extends DefaultDMNValidator {
             if (any != null) {
                 for (Object obj : any) {
                     if (obj instanceof Element) {
-                        String localName = ((Element) obj).getLocalName();
+                        String localName = ((Element) obj).getNodeName();
                         if (!"MultiInstanceDecisionLogic".equals(localName)) {
                             String errorMessage = String.format("Extension '%s' not supported", obj);
                             errors.add(makeError(repository, definitions, decision, errorMessage));

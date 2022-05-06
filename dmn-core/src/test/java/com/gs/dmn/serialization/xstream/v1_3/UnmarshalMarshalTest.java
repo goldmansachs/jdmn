@@ -69,6 +69,11 @@ public class UnmarshalMarshalTest extends AbstractUnmarshalMarshalTest {
         testRoundTrip("xstream/v1_3/", "decision-list.dmn");
     }
 
+    @Test
+    public void testV13_extensions() throws Exception {
+        testRoundTrip("xstream/v1_3/", "0034-drg-scopes.dmn");
+    }
+
     @Override
     protected StreamSource getSchemaSource() {
         return new StreamSource(com.gs.dmn.serialization.xstream.v1_2.UnmarshalMarshalTest.class.getResource("/dmn/1.3/DMN13.xsd").getFile());
