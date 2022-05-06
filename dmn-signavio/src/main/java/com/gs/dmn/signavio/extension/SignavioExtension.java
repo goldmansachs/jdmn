@@ -22,6 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import javax.xml.XMLConstants;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,10 +46,17 @@ public class SignavioExtension {
         if (extensions.isEmpty()) {
             return null;
         } else {
-            ReferencedService referencedService = (ReferencedService) extensions.get(0);
-            String serviceId = referencedService.getHref();
-            TDefinitions definitions = dmnModelRepository.getRootDefinitions();
-            return decisionService(definitions, serviceId);
+            Object extension = extensions.get(0);
+            if (extension instanceof ReferencedService) {
+                ReferencedService referencedService = (ReferencedService) extension;
+                String serviceId = referencedService.getHref();
+                TDefinitions definitions = dmnModelRepository.getRootDefinitions();
+                return decisionService(definitions, serviceId);
+            } else {
+                String serviceId = getAttributeByName((Element) extension, "href");
+                TDefinitions definitions = dmnModelRepository.getRootDefinitions();
+                return decisionService(definitions, serviceId);
+            }
         }
     }
 
@@ -92,11 +100,24 @@ public class SignavioExtension {
 
     public MultiInstanceDecisionLogic multiInstanceDecisionLogic(TDRGElement element) {
         List<Object> extensions = findExtensions(element.getExtensionElements(), dmnModelRepository.getSchemaNamespace(), "MultiInstanceDecisionLogic");
-        com.gs.dmn.signavio.serialization.xstream.MultiInstanceDecisionLogic decisionElement = (com.gs.dmn.signavio.serialization.xstream.MultiInstanceDecisionLogic) extensions.get(0);
-        String iterationExpression = decisionElement.getIterationExpression();
-        String iteratorShapeId = decisionElement.getIteratorShapeId();
-        String aggregationFunction = decisionElement.getAggregationFunction();
-        String topLevelDecisionId = decisionElement.getTopLevelDecisionId();
+        Object extension = extensions.get(0);
+        String iterationExpression;
+        String iteratorShapeId;
+        String aggregationFunction;
+        String topLevelDecisionId;
+        if (extension instanceof com.gs.dmn.signavio.serialization.xstream.MultiInstanceDecisionLogic) {
+            com.gs.dmn.signavio.serialization.xstream.MultiInstanceDecisionLogic decisionElement = (com.gs.dmn.signavio.serialization.xstream.MultiInstanceDecisionLogic) extension;
+            iterationExpression = decisionElement.getIterationExpression();
+            iteratorShapeId = decisionElement.getIteratorShapeId();
+            aggregationFunction = decisionElement.getAggregationFunction();
+            topLevelDecisionId = decisionElement.getTopLevelDecisionId();
+        } else {
+            Element decisionElement = (Element) extension;
+            iterationExpression = getElementsByTagName(decisionElement, "iterationExpression").item(0).getTextContent();
+            iteratorShapeId = getElementsByTagName(decisionElement, "iteratorShapeId").item(0).getTextContent();
+            aggregationFunction = getElementsByTagName(decisionElement, "aggregationFunction").item(0).getTextContent();
+            topLevelDecisionId = getElementsByTagName(decisionElement, "topLevelDecisionId").item(0).getTextContent();
+        }
 
         TDRGElement iterator = findDRGElementByPartialId(iteratorShapeId);
         Aggregator aggregator = Aggregator.valueOf(aggregationFunction);
@@ -154,9 +175,10 @@ public class SignavioExtension {
     }
 
     private NodeList getElementsByTagName(Element element, String tagName) {
-        for(String prefix: dmnModelRepository.getSchemaPrefixes()) {
-            NodeList nodeList = element.getElementsByTagName(String.format("%s:%s", prefix, tagName));
-            if (nodeList != null && nodeList.getLength() == 1) {
+        for (String prefix: dmnModelRepository.getSchemaPrefixes()) {
+            String qTagName = XMLConstants.DEFAULT_NS_PREFIX.equals(prefix) ? tagName : String.format("%s:%s", prefix, tagName);
+            NodeList nodeList = element.getElementsByTagName(qTagName);
+            if (nodeList.getLength() == 1) {
                 return nodeList;
             }
         }

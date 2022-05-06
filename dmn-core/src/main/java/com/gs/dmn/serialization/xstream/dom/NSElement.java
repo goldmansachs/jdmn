@@ -242,7 +242,7 @@ public class NSElement implements Element {
 
     @Override
     public String getLocalName() {
-        return element.getLocalName();
+        return element.getNodeName();
     }
 
     @Override

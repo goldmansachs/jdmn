@@ -21,6 +21,7 @@ import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.signavio.extension.SignavioExtension;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -30,8 +31,8 @@ import static com.gs.dmn.signavio.extension.SignavioExtension.SIG_EXT_NAMESPACE;
 
 public class SignavioDMNModelRepository extends DMNModelRepository {
     private String schemaNamespace = SIG_EXT_NAMESPACE;
-    private final String[] schemaPrefixes = new String[]{
-        "signavio", "sigExt"
+    private final String[] schemaPrefixes = new String[] {
+        "signavio", "sigExt", XMLConstants.DEFAULT_NS_PREFIX
     };
 
     private QName diagramIdQName = new QName(this.schemaNamespace, "diagramId");
@@ -128,7 +129,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         }
         Map<QName, String> otherAttributes = element.getOtherAttributes();
         javax.xml.namespace.QName diagramIdQName = getDiagramIdQName();
-        return otherAttributes == null ? null: otherAttributes.get(diagramIdQName);
+        return otherAttributes == null ? null : otherAttributes.get(diagramIdQName);
     }
 
     public String getShapeId(TDRGElement element) {
@@ -137,7 +138,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         }
         Map<QName, String> otherAttributes = element.getOtherAttributes();
         javax.xml.namespace.QName shapeIdQName = getShapeIdQName();
-        return otherAttributes == null ? null: otherAttributes.get(shapeIdQName);
+        return otherAttributes == null ? null : otherAttributes.get(shapeIdQName);
     }
 
     public SignavioExtension getExtension() {
@@ -151,7 +152,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
 
     public TDecision getOutputDecision(TBusinessKnowledgeModel element) {
         TDecisionService decisionService = getExtension().referencedService(element);
-        return decisionService == null ? null: this.getOutputDecision(decisionService);
+        return decisionService == null ? null : this.getOutputDecision(decisionService);
     }
 
     public boolean isMultiInstanceDecision(TDRGElement decision) {
