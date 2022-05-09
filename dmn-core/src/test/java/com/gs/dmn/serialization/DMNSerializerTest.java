@@ -22,7 +22,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class DMNReaderTest extends AbstractTest {
+public class DMNSerializerTest extends AbstractTest {
     private final DMNSerializer dmnSerializer = new DMNSerializer(LOGGER, false);
 
     @Test
