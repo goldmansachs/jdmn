@@ -19,6 +19,7 @@ import com.gs.dmn.ast.TDecisionTable;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TExpression;
 import com.gs.dmn.serialization.DMNSerializer;
+import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import com.gs.dmn.transformation.InputParameters;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +35,7 @@ import static org.junit.Assert.assertEquals;
 public class SparseDecisionDetectorTest extends AbstractTest {
     private SparseDecisionDetector detector;
     private DMNModelRepository dmnModelRepository;
-    private final DMNSerializer dmnReader = new DMNSerializer(LOGGER, false);
+    private final DMNSerializer dmnReader = new XMLDMNSerializer(LOGGER, false);
 
     @Before
     public void setUp() {

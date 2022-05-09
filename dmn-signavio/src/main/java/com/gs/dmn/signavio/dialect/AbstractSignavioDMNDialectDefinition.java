@@ -18,6 +18,9 @@ import com.gs.dmn.dialect.AbstractDMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.serialization.DMNSerializer;
+import com.gs.dmn.serialization.SerializationFormat;
+import com.gs.dmn.serialization.jackson.JsonDMNSerializer;
+import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
 import com.gs.dmn.signavio.runtime.interpreter.SignavioDMNInterpreter;
 import com.gs.dmn.signavio.runtime.interpreter.SignavioTypeConverter;
@@ -26,7 +29,10 @@ import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 
-import java.util.Arrays;
+import java.util.Collections;
+
+import static com.gs.dmn.serialization.SerializationFormat.JSON;
+import static com.gs.dmn.serialization.SerializationFormat.XML;
 
 public abstract class AbstractSignavioDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
     //
@@ -34,7 +40,14 @@ public abstract class AbstractSignavioDMNDialectDefinition<NUMBER, DATE, TIME, D
     //
     @Override
     public DMNSerializer createDMNSerializer(BuildLogger logger, InputParameters inputParameters) {
-        return new DMNSerializer(logger, Arrays.asList(new SignavioExtensionRegister(inputParameters.getSchemaNamespace())), inputParameters.isXsdValidation());
+        SerializationFormat format = inputParameters.getFormat();
+        if (format == XML) {
+            return new XMLDMNSerializer(logger, Collections.singletonList(new SignavioExtensionRegister(inputParameters.getSchemaNamespace())), inputParameters.isXsdValidation());
+        } else if (format == JSON) {
+            return new JsonDMNSerializer(logger, inputParameters.isXsdValidation());
+        } else {
+            throw new IllegalArgumentException(String.format("Format '%s' is not supported yet", format));
+        }
     }
 
     //

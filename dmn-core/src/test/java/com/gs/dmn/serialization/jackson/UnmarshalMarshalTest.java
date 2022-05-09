@@ -1,0 +1,60 @@
+/*
+ * Copyright 2016 Goldman Sachs.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
+package com.gs.dmn.serialization.jackson;
+
+import com.gs.dmn.log.Slf4jBuildLogger;
+import com.gs.dmn.serialization.AbstractUnmarshalMarshalTest;
+import com.gs.dmn.serialization.DMNMarshaller;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+
+public class UnmarshalMarshalTest extends AbstractUnmarshalMarshalTest {
+    protected static final Logger LOG = LoggerFactory.getLogger(UnmarshalMarshalTest.class);
+
+    @Test
+    public void testV13_0004_lending() throws Exception {
+        testRoundTrip("jackson/v1_3/", "0004-lending.json");
+    }
+
+    @Test
+    public void testV13_0014_loan_comparison() throws Exception {
+        testRoundTrip("jackson/v1_3/", "0014-loan-comparison.json");
+    }
+
+    @Test
+    public void testV13_0087_chapter_11_example() throws Exception {
+        testRoundTrip("jackson/v1_3/", "0087-chapter-11-example.json");
+    }
+
+    @Test
+    public void testV11_0034_drg_scopes() throws Exception {
+        testRoundTrip("jackson/v1_1/", "0034-drg-scopes.json");
+    }
+
+    @Override
+    protected DMNMarshaller getMarshaller() {
+        return new JsonDMNMarshaller(new Slf4jBuildLogger(LOG));
+    }
+
+    @Override
+    protected void validateXSDSchema(File inputDMNFile) {
+    }
+
+    @Override
+    protected void compareDMNFile(File inputDMNFile, File outputDMNFile) throws Exception {
+        this.compareJsonFile(inputDMNFile, outputDMNFile);
+    }
+}

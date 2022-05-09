@@ -1,0 +1,1476 @@
+{
+  "@kind" : "definitions",
+  "name" : "0034-drg-scopes",
+  "id" : "_7X638PQIEeecaNY7kk20yA",
+  "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes",
+  "otherAttributes" : {
+    "{http://www.w3.org/2001/XMLSchema-instance}schemaLocation" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+  },
+  "itemDefinition" : [ {
+    "@kind" : "itemDefinition",
+    "name" : "TypeDecisionA1",
+    "id" : "_Vvl3APRQEeeUEfOdtC13fQ",
+    "isCollection" : false,
+    "itemComponent" : [ {
+      "@kind" : "itemDefinition",
+      "name" : "resolve A",
+      "id" : "_fMLGMPRQEeeUEfOdtC13fQ",
+      "isCollection" : false,
+      "typeRef" : "string",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "itemDefinition",
+    "name" : "TypeDecisionA2.x",
+    "id" : "_Zp-B4PRQEeeUEfOdtC13fQ",
+    "isCollection" : false,
+    "itemComponent" : [ {
+      "@kind" : "itemDefinition",
+      "name" : "resolve A 1",
+      "id" : "_HRrmgPRREeeUEfOdtC13fQ",
+      "isCollection" : false,
+      "typeRef" : "TypeDecisionA1",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "itemDefinition",
+    "name" : "TypeDecisionA3",
+    "id" : "_cErw0PRQEeeUEfOdtC13fQ",
+    "isCollection" : false,
+    "itemComponent" : [ {
+      "@kind" : "itemDefinition",
+      "name" : "resolve A 2.1",
+      "id" : "_X6vqgPRREeeUEfOdtC13fQ",
+      "isCollection" : false,
+      "typeRef" : "TypeDecisionA2.x",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    }, {
+      "@kind" : "itemDefinition",
+      "name" : "resolve A 2.2",
+      "id" : "_YDCq4PRREeeUEfOdtC13fQ",
+      "isCollection" : false,
+      "typeRef" : "TypeDecisionA2.x",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "itemDefinition",
+    "name" : "TypeDecisionB1",
+    "id" : "_dGucoPRQEeeUEfOdtC13fQ",
+    "isCollection" : false,
+    "itemComponent" : [ {
+      "@kind" : "itemDefinition",
+      "name" : "resolve B",
+      "id" : "_CJ7pkPRREeeUEfOdtC13fQ",
+      "isCollection" : false,
+      "typeRef" : "string",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    }, {
+      "@kind" : "itemDefinition",
+      "name" : "resolve A",
+      "id" : "_Rv7fUPRXEeeUEfOdtC13fQ",
+      "isCollection" : false,
+      "typeRef" : "string",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "itemDefinition",
+    "name" : "TypeDecisionB2.x",
+    "id" : "_xac0gPRQEeeUEfOdtC13fQ",
+    "isCollection" : false,
+    "itemComponent" : [ {
+      "@kind" : "itemDefinition",
+      "name" : "resolve B 1",
+      "id" : "_jeTNQPRREeeUEfOdtC13fQ",
+      "isCollection" : false,
+      "typeRef" : "TypeDecisionB1",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "itemDefinition",
+    "name" : "TypeDecisionB3",
+    "id" : "_0XWDcPRQEeeUEfOdtC13fQ",
+    "isCollection" : false,
+    "itemComponent" : [ {
+      "@kind" : "itemDefinition",
+      "name" : "resolve B 2.1",
+      "id" : "_slUcIPRREeeUEfOdtC13fQ",
+      "isCollection" : false,
+      "typeRef" : "TypeDecisionB2.x",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    }, {
+      "@kind" : "itemDefinition",
+      "name" : "resolve B 2.2",
+      "id" : "_ssyWEPRREeeUEfOdtC13fQ",
+      "isCollection" : false,
+      "typeRef" : "TypeDecisionB2.x",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    }, {
+      "@kind" : "itemDefinition",
+      "name" : "resolve A 3",
+      "id" : "_s0jK8PRREeeUEfOdtC13fQ",
+      "isCollection" : false,
+      "typeRef" : "TypeDecisionA3",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "itemDefinition",
+    "name" : "TypeDecisionC1",
+    "id" : "_11IQEPRQEeeUEfOdtC13fQ",
+    "isCollection" : false,
+    "itemComponent" : [ {
+      "@kind" : "itemDefinition",
+      "name" : "resolve C",
+      "id" : "_8-PyYPRREeeUEfOdtC13fQ",
+      "isCollection" : false,
+      "typeRef" : "string",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    }, {
+      "@kind" : "itemDefinition",
+      "name" : "resolve A 3",
+      "id" : "_9kn14PRREeeUEfOdtC13fQ",
+      "isCollection" : false,
+      "typeRef" : "TypeDecisionA3",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    }, {
+      "@kind" : "itemDefinition",
+      "name" : "resolve B 3",
+      "id" : "_9u4lIPRREeeUEfOdtC13fQ",
+      "isCollection" : false,
+      "typeRef" : "TypeDecisionB3",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "itemDefinition",
+    "name" : "TypeDecisionC4",
+    "id" : "_5G3GkPRQEeeUEfOdtC13fQ",
+    "isCollection" : false,
+    "itemComponent" : [ {
+      "@kind" : "itemDefinition",
+      "name" : "resolve C 3",
+      "id" : "_WmQuYPRSEeeUEfOdtC13fQ",
+      "isCollection" : false,
+      "typeRef" : "string",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  } ],
+  "drgElement" : [ {
+    "@kind" : "decision",
+    "name" : "decision A 1",
+    "id" : "_DMwGMPQJEeecaNY7kk20yA",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "decision A 1",
+      "id" : "_iX6XgfRSEeeUEfOdtC13fQ",
+      "typeRef" : "TypeDecisionA1",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "requiredInput" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_9z0SoPQIEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "context",
+      "id" : "_a-zwsPQKEeecaNY7kk20yA",
+      "contextEntry" : [ {
+        "@kind" : "contextEntry",
+        "variable" : {
+          "@kind" : "informationItem",
+          "name" : "resolve A",
+          "id" : "_bAS-d_QKEeecaNY7kk20yA",
+          "typeRef" : "string",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "id" : "_bAS-ePQKEeecaNY7kk20yA",
+          "text" : "A",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "extensionElements" : {
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      },
+      "any" : [ "<?xml version=\"1.0\" encoding=\"UTF-16\"?><container xmlns=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\" href=\"#_DMwGMPQJEeecaNY7kk20yA\" id=\"_ZsYfgPQKEeecaNY7kk20yA\" name=\"\" type=\"DMN_Expression\" xmlns:layout=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\"/>" ]
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "decision B 1",
+    "id" : "_EL7rQPQJEeecaNY7kk20yA",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "decision B 1",
+      "id" : "_Lnbz4fRTEeeUEfOdtC13fQ",
+      "typeRef" : "TypeDecisionB1",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "requiredInput" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_9z0SoPQIEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "requiredInput" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_AV-tYPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "context",
+      "id" : "_31avoPQKEeecaNY7kk20yA",
+      "contextEntry" : [ {
+        "@kind" : "contextEntry",
+        "variable" : {
+          "@kind" : "informationItem",
+          "name" : "resolve B",
+          "id" : "_3259Z_QKEeecaNY7kk20yA",
+          "typeRef" : "string",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "id" : "_3259aPQKEeecaNY7kk20yA",
+          "text" : "B",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      }, {
+        "@kind" : "contextEntry",
+        "variable" : {
+          "@kind" : "informationItem",
+          "name" : "resolve A",
+          "id" : "_OjGW8PRXEeeUEfOdtC13fQ",
+          "typeRef" : "string",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "id" : "_OjGW8fRXEeeUEfOdtC13fQ",
+          "text" : "A",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "extensionElements" : {
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      },
+      "any" : [ "<?xml version=\"1.0\" encoding=\"UTF-16\"?><container xmlns=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\" href=\"#_EL7rQPQJEeecaNY7kk20yA\" id=\"_3WFvUPQKEeecaNY7kk20yA\" name=\"\" type=\"DMN_Expression\" xmlns:layout=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\"/>" ]
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "decision A 2.1",
+    "id" : "_HQN7oPQJEeecaNY7kk20yA",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "decision A 2.1",
+      "id" : "_2VW6MfROEeeUEfOdtC13fQ",
+      "typeRef" : "TypeDecisionA2.x",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_DMwGMPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "context",
+      "id" : "_fHePMPQKEeecaNY7kk20yA",
+      "contextEntry" : [ {
+        "@kind" : "contextEntry",
+        "variable" : {
+          "@kind" : "informationItem",
+          "name" : "resolve A 1",
+          "id" : "_fgqLQPQKEeecaNY7kk20yA",
+          "typeRef" : "TypeDecisionA1",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "id" : "_fgqLQfQKEeecaNY7kk20yA",
+          "text" : "decision A 1",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "extensionElements" : {
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      },
+      "any" : [ "<?xml version=\"1.0\" encoding=\"UTF-16\"?><container xmlns=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\" href=\"#_HQN7oPQJEeecaNY7kk20yA\" id=\"_eyKtkPQKEeecaNY7kk20yA\" name=\"\" type=\"DMN_Expression\" xmlns:layout=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\"/>" ]
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "decision A 2.2",
+    "id" : "_HrMAYPQJEeecaNY7kk20yA",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "decision A 2.2",
+      "id" : "_r7oJcfRSEeeUEfOdtC13fQ",
+      "typeRef" : "TypeDecisionA2.x",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_DMwGMPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "context",
+      "id" : "_nk2rMPQKEeecaNY7kk20yA",
+      "contextEntry" : [ {
+        "@kind" : "contextEntry",
+        "variable" : {
+          "@kind" : "informationItem",
+          "name" : "resolve A 1",
+          "id" : "_pel0APQKEeecaNY7kk20yA",
+          "typeRef" : "TypeDecisionA1",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "id" : "_pel0AfQKEeecaNY7kk20yA",
+          "text" : "decision A 1",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "extensionElements" : {
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      },
+      "any" : [ "<?xml version=\"1.0\" encoding=\"UTF-16\"?><container xmlns=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\" href=\"#_HrMAYPQJEeecaNY7kk20yA\" id=\"_nOMesPQKEeecaNY7kk20yA\" name=\"\" type=\"DMN_Expression\" xmlns:layout=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\"/>" ]
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "decision B 2.1",
+    "id" : "_I_HtcPQJEeecaNY7kk20yA",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "decision B 2.1",
+      "id" : "_QZqMwfRTEeeUEfOdtC13fQ",
+      "typeRef" : "TypeDecisionB2.x",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_EL7rQPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "context",
+      "id" : "_6LkusPQKEeecaNY7kk20yA",
+      "contextEntry" : [ {
+        "@kind" : "contextEntry",
+        "variable" : {
+          "@kind" : "informationItem",
+          "name" : "resolve B 1",
+          "id" : "_6ijrUPQKEeecaNY7kk20yA",
+          "typeRef" : "TypeDecisionB1",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "id" : "_6ijrUfQKEeecaNY7kk20yA",
+          "text" : "decision B 1",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "extensionElements" : {
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      },
+      "any" : [ "<?xml version=\"1.0\" encoding=\"UTF-16\"?><container xmlns=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\" href=\"#_I_HtcPQJEeecaNY7kk20yA\" id=\"_51714PQKEeecaNY7kk20yA\" name=\"\" type=\"DMN_Expression\" xmlns:layout=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\"/>" ]
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "decision B 2.2",
+    "id" : "_JhYtAPQJEeecaNY7kk20yA",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "decision B 2.2",
+      "id" : "_XAogwfRTEeeUEfOdtC13fQ",
+      "typeRef" : "TypeDecisionB2.x",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_EL7rQPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "context",
+      "id" : "_-2Y4APQKEeecaNY7kk20yA",
+      "contextEntry" : [ {
+        "@kind" : "contextEntry",
+        "variable" : {
+          "@kind" : "informationItem",
+          "name" : "resolve B 1",
+          "id" : "__NOqsPQKEeecaNY7kk20yA",
+          "typeRef" : "TypeDecisionB1",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "id" : "__NOqsfQKEeecaNY7kk20yA",
+          "text" : "decision B 1",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "extensionElements" : {
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      },
+      "any" : [ "<?xml version=\"1.0\" encoding=\"UTF-16\"?><container xmlns=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\" href=\"#_JhYtAPQJEeecaNY7kk20yA\" id=\"_-iazIPQKEeecaNY7kk20yA\" name=\"\" type=\"DMN_Expression\" xmlns:layout=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\"/>" ]
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "decision A 3",
+    "id" : "_LGRAIPQJEeecaNY7kk20yA",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "decision A 3",
+      "id" : "_42grgfRSEeeUEfOdtC13fQ",
+      "typeRef" : "TypeDecisionA3",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_HQN7oPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_HrMAYPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "context",
+      "id" : "_t-lNYPQKEeecaNY7kk20yA",
+      "contextEntry" : [ {
+        "@kind" : "contextEntry",
+        "variable" : {
+          "@kind" : "informationItem",
+          "name" : "resolve A 2.1",
+          "id" : "_uV0ox_QKEeecaNY7kk20yA",
+          "typeRef" : "TypeDecisionA2.x",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "id" : "_uV0oyfQKEeecaNY7kk20yA",
+          "text" : "decision A 2.1",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      }, {
+        "@kind" : "contextEntry",
+        "variable" : {
+          "@kind" : "informationItem",
+          "name" : "resolve A 2.2",
+          "id" : "_uUCgAPQKEeecaNY7kk20yA",
+          "typeRef" : "TypeDecisionA2.x",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "id" : "_uUCgAfQKEeecaNY7kk20yA",
+          "text" : "decision A 2.2",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "extensionElements" : {
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      },
+      "any" : [ "<?xml version=\"1.0\" encoding=\"UTF-16\"?><container xmlns=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\" href=\"#_LGRAIPQJEeecaNY7kk20yA\" id=\"_tooykPQKEeecaNY7kk20yA\" name=\"\" type=\"DMN_Expression\" xmlns:layout=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\"/>" ]
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "decision B 3",
+    "id" : "_Mk9LsPQJEeecaNY7kk20yA",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "decision B 3",
+      "id" : "_cNLeIfRTEeeUEfOdtC13fQ",
+      "typeRef" : "TypeDecisionB3",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_I_HtcPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_JhYtAPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_LGRAIPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "context",
+      "id" : "_DaII8PQLEeecaNY7kk20yA",
+      "contextEntry" : [ {
+        "@kind" : "contextEntry",
+        "variable" : {
+          "@kind" : "informationItem",
+          "name" : "resolve B 2.1",
+          "id" : "_DuFmwPQLEeecaNY7kk20yA",
+          "typeRef" : "TypeDecisionB2.x",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "id" : "_DuFmwfQLEeecaNY7kk20yA",
+          "text" : "decision B 2.1",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      }, {
+        "@kind" : "contextEntry",
+        "variable" : {
+          "@kind" : "informationItem",
+          "name" : "resolve B 2.2",
+          "id" : "_DsTeEPQLEeecaNY7kk20yA",
+          "typeRef" : "TypeDecisionB2.x",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "id" : "_DsTeEfQLEeecaNY7kk20yA",
+          "text" : "decision B 2.2",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      }, {
+        "@kind" : "contextEntry",
+        "variable" : {
+          "@kind" : "informationItem",
+          "name" : "resolve A 3",
+          "id" : "_jrA5kPQPEeecaNY7kk20yA",
+          "typeRef" : "TypeDecisionA3",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "id" : "_jrA5kfQPEeecaNY7kk20yA",
+          "text" : "decision A 3",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "extensionElements" : {
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      },
+      "any" : [ "<?xml version=\"1.0\" encoding=\"UTF-16\"?><container xmlns=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\" href=\"#_Mk9LsPQJEeecaNY7kk20yA\" id=\"_DB-usPQLEeecaNY7kk20yA\" name=\"\" type=\"DMN_Expression\" xmlns:layout=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\"/>" ]
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "decision C 1",
+    "id" : "_OWzj0PQJEeecaNY7kk20yA",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "decision C 1",
+      "id" : "_tu_IAfRTEeeUEfOdtC13fQ",
+      "typeRef" : "TypeDecisionC1",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_LGRAIPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_Mk9LsPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "requiredInput" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_3kDvUPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "context",
+      "id" : "_L3HjYPQLEeecaNY7kk20yA",
+      "contextEntry" : [ {
+        "@kind" : "contextEntry",
+        "variable" : {
+          "@kind" : "informationItem",
+          "name" : "resolve C",
+          "id" : "_L4mxIfQLEeecaNY7kk20yA",
+          "typeRef" : "string",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "id" : "_L4mxIvQLEeecaNY7kk20yA",
+          "text" : "C",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      }, {
+        "@kind" : "contextEntry",
+        "variable" : {
+          "@kind" : "informationItem",
+          "name" : "resolve A 3",
+          "id" : "_N3kYMPQLEeecaNY7kk20yA",
+          "typeRef" : "TypeDecisionA3",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "id" : "_N3kYMfQLEeecaNY7kk20yA",
+          "text" : "decision A 3",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      }, {
+        "@kind" : "contextEntry",
+        "variable" : {
+          "@kind" : "informationItem",
+          "name" : "resolve B 3",
+          "id" : "_N1oegPQLEeecaNY7kk20yA",
+          "typeRef" : "TypeDecisionB3",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "id" : "_N1oegfQLEeecaNY7kk20yA",
+          "text" : "decision B 3",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "extensionElements" : {
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      },
+      "any" : [ "<?xml version=\"1.0\" encoding=\"UTF-16\"?><container xmlns=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\" href=\"#_OWzj0PQJEeecaNY7kk20yA\" id=\"_LZBSIPQLEeecaNY7kk20yA\" name=\"\" type=\"DMN_Expression\" xmlns:layout=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\"/>" ]
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "decision C 3",
+    "id" : "_XsZaMPQJEeecaNY7kk20yA",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "decision C 3",
+      "id" : "_9uAJcfRTEeeUEfOdtC13fQ",
+      "typeRef" : "string",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_Zf4KAPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "knowledgeRequirement" : [ {
+      "@kind" : "knowledgeRequirement",
+      "requiredKnowledge" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_UL_1kPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "invocation",
+      "id" : "_tjkP4PQLEeecaNY7kk20yA",
+      "expression" : {
+        "@kind" : "literalExpression",
+        "id" : "_tlgJpfQLEeecaNY7kk20yA",
+        "text" : "BKM II",
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      },
+      "binding" : [ {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "param",
+          "id" : "_tlgJpvQLEeecaNY7kk20yA",
+          "typeRef" : "string",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "id" : "_tlgJp_QLEeecaNY7kk20yA",
+          "text" : "\"decision C 3\"",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "extensionElements" : {
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      },
+      "any" : [ "<?xml version=\"1.0\" encoding=\"UTF-16\"?><container xmlns=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\" href=\"#_XsZaMPQJEeecaNY7kk20yA\" id=\"_s3udkPQLEeecaNY7kk20yA\" name=\"\" type=\"DMN_Expression\" xmlns:layout=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\"/>" ]
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "decision C 2",
+    "id" : "_Zf4KAPQJEeecaNY7kk20yA",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "decision C 2",
+      "id" : "_7jmHYfRTEeeUEfOdtC13fQ",
+      "typeRef" : "string",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_OWzj0PQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "knowledgeRequirement" : [ {
+      "@kind" : "knowledgeRequirement",
+      "requiredKnowledge" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_TCzY4PQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "invocation",
+      "id" : "_lUEe4PQLEeecaNY7kk20yA",
+      "expression" : {
+        "@kind" : "literalExpression",
+        "id" : "_lWdEifQLEeecaNY7kk20yA",
+        "text" : "BKM I",
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      },
+      "binding" : [ {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "param",
+          "id" : "_lWdEivQLEeecaNY7kk20yA",
+          "typeRef" : "string",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "id" : "_lWdEi_QLEeecaNY7kk20yA",
+          "text" : "\"decision C 2\"",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "extensionElements" : {
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      },
+      "any" : [ "<?xml version=\"1.0\" encoding=\"UTF-16\"?><container xmlns=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\" href=\"#_Zf4KAPQJEeecaNY7kk20yA\" id=\"_hzhwUPQLEeecaNY7kk20yA\" name=\"\" type=\"DMN_Expression\" xmlns:layout=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\"/>" ]
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "decision C 4",
+    "id" : "_tX2SoPQMEeecaNY7kk20yA",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "decision C 4",
+      "id" : "_B1nfEfRUEeeUEfOdtC13fQ",
+      "typeRef" : "TypeDecisionC4",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_XsZaMPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "context",
+      "id" : "_1pWOwPQMEeecaNY7kk20yA",
+      "contextEntry" : [ {
+        "@kind" : "contextEntry",
+        "variable" : {
+          "@kind" : "informationItem",
+          "name" : "resolve C 3",
+          "id" : "_4nGZbPQMEeecaNY7kk20yA",
+          "typeRef" : "string",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "id" : "_4nGZbvQMEeecaNY7kk20yA",
+          "text" : "decision C 3",
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "extensionElements" : {
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      },
+      "any" : [ "<?xml version=\"1.0\" encoding=\"UTF-16\"?><container xmlns=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\" href=\"#_tX2SoPQMEeecaNY7kk20yA\" id=\"_1LM6MPQMEeecaNY7kk20yA\" name=\"\" type=\"DMN_Expression\" xmlns:layout=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\"/>" ]
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "bkm",
+    "name" : "BKM I",
+    "id" : "_TCzY4PQJEeecaNY7kk20yA",
+    "encapsulatedLogic" : {
+      "@kind" : "functionDefinition",
+      "id" : "_3_-kYfQLEeecaNY7kk20yA",
+      "formalParameter" : [ {
+        "@kind" : "informationItem",
+        "name" : "param",
+        "id" : "_5F-jIPQLEeecaNY7kk20yA",
+        "typeRef" : "string",
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      } ],
+      "expression" : {
+        "@kind" : "literalExpression",
+        "id" : "_3_-kYvQLEeecaNY7kk20yA",
+        "text" : "\"BKM I\" + \" # \" + BKM II(param)",
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "typeRef" : "string"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "knowledgeRequirement" : [ {
+      "@kind" : "knowledgeRequirement",
+      "requiredKnowledge" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_UL_1kPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "extensionElements" : {
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      },
+      "any" : [ "<?xml version=\"1.0\" encoding=\"UTF-16\"?><container xmlns=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\" href=\"#_TCzY4PQJEeecaNY7kk20yA\" id=\"_3_-kYPQLEeecaNY7kk20yA\" name=\"\" type=\"DMN_Expression\" xmlns:layout=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\"/>" ]
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "bkm",
+    "name" : "BKM II",
+    "id" : "_UL_1kPQJEeecaNY7kk20yA",
+    "encapsulatedLogic" : {
+      "@kind" : "functionDefinition",
+      "id" : "_68UZsfQLEeecaNY7kk20yA",
+      "formalParameter" : [ {
+        "@kind" : "informationItem",
+        "name" : "param",
+        "id" : "_7lAxYPQLEeecaNY7kk20yA",
+        "typeRef" : "string",
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      } ],
+      "expression" : {
+        "@kind" : "literalExpression",
+        "id" : "_68UZsvQLEeecaNY7kk20yA",
+        "text" : "\"BKM II\" + \" # \" + BKM III(param) + \" # \" + BKM IV(param)",
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "typeRef" : "string"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "knowledgeRequirement" : [ {
+      "@kind" : "knowledgeRequirement",
+      "requiredKnowledge" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_U6fTQPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    }, {
+      "@kind" : "knowledgeRequirement",
+      "requiredKnowledge" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_UgthUPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "extensionElements" : {
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      },
+      "any" : [ "<?xml version=\"1.0\" encoding=\"UTF-16\"?><container xmlns=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\" href=\"#_UL_1kPQJEeecaNY7kk20yA\" id=\"_68UZsPQLEeecaNY7kk20yA\" name=\"\" type=\"DMN_Expression\" xmlns:layout=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\"/>" ]
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "bkm",
+    "name" : "BKM IV",
+    "id" : "_UgthUPQJEeecaNY7kk20yA",
+    "encapsulatedLogic" : {
+      "@kind" : "functionDefinition",
+      "id" : "_MvwmIfQMEeecaNY7kk20yA",
+      "formalParameter" : [ {
+        "@kind" : "informationItem",
+        "name" : "param",
+        "id" : "_N8gGEPQMEeecaNY7kk20yA",
+        "typeRef" : "string",
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      } ],
+      "expression" : {
+        "@kind" : "literalExpression",
+        "id" : "_MvwmIvQMEeecaNY7kk20yA",
+        "text" : "\"BKM IV\" + \" # \" + BKM III(param)",
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "typeRef" : "string"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "knowledgeRequirement" : [ {
+      "@kind" : "knowledgeRequirement",
+      "requiredKnowledge" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "href" : "#_U6fTQPQJEeecaNY7kk20yA"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
+    "extensionElements" : {
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      },
+      "any" : [ "<?xml version=\"1.0\" encoding=\"UTF-16\"?><container xmlns=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\" href=\"#_UgthUPQJEeecaNY7kk20yA\" id=\"_MvwmIPQMEeecaNY7kk20yA\" name=\"\" type=\"DMN_Expression\" xmlns:layout=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\"/>" ]
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "bkm",
+    "name" : "BKM III",
+    "id" : "_U6fTQPQJEeecaNY7kk20yA",
+    "encapsulatedLogic" : {
+      "@kind" : "functionDefinition",
+      "id" : "_HJ1fcfQMEeecaNY7kk20yA",
+      "formalParameter" : [ {
+        "@kind" : "informationItem",
+        "name" : "param",
+        "id" : "_H52AEPQMEeecaNY7kk20yA",
+        "typeRef" : "string",
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        }
+      } ],
+      "expression" : {
+        "@kind" : "literalExpression",
+        "id" : "_HJ1fcvQMEeecaNY7kk20yA",
+        "text" : "\"BKM III\" + \" # \" + param",
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        },
+        "typeRef" : "string"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "extensionElements" : {
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      },
+      "any" : [ "<?xml version=\"1.0\" encoding=\"UTF-16\"?><container xmlns=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\" href=\"#_U6fTQPQJEeecaNY7kk20yA\" id=\"_HJ1fcPQMEeecaNY7kk20yA\" name=\"\" type=\"DMN_Expression\" xmlns:layout=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\"/>" ]
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "inputData",
+    "name" : "A",
+    "id" : "_9z0SoPQIEeecaNY7kk20yA",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "A",
+      "id" : "_twf9MPROEeeUEfOdtC13fQ",
+      "typeRef" : "string",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "inputData",
+    "name" : "B",
+    "id" : "_AV-tYPQJEeecaNY7kk20yA",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "B",
+      "id" : "_vFQJofROEeeUEfOdtC13fQ",
+      "typeRef" : "string",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "inputData",
+    "name" : "C",
+    "id" : "_3kDvUPQJEeecaNY7kk20yA",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "C",
+      "id" : "_fPmDEfRPEeeUEfOdtC13fQ",
+      "typeRef" : "string",
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  } ],
+  "extensionElements" : {
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    },
+    "any" : [ "<?xml version=\"1.0\" encoding=\"UTF-16\"?><container xmlns=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\" href=\"#_7X638PQIEeecaNY7kk20yA\" id=\"_7ZtAoPQIEeecaNY7kk20yA\" name=\"0034-drg-scopes\" type=\"Dmn\" xmlns:layout=\"https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd\"><node href=\"#_9z0SoPQIEeecaNY7kk20yA\" id=\"_9020cPQIEeecaNY7kk20yA\" type=\"2003\"><location x=\"90\" y=\"20\"/></node><node href=\"#_AV-tYPQJEeecaNY7kk20yA\" id=\"_AV-tYfQJEeecaNY7kk20yA\" type=\"2003\"><location x=\"408\" y=\"18\"/></node><node href=\"#_DMwGMPQJEeecaNY7kk20yA\" id=\"_DMwGMfQJEeecaNY7kk20yA\" type=\"2009\"><location x=\"96\" y=\"90\"/></node><node href=\"#_EL7rQPQJEeecaNY7kk20yA\" id=\"_EL7rQfQJEeecaNY7kk20yA\" type=\"2009\"><location x=\"420\" y=\"90\"/></node><node href=\"#_HQN7oPQJEeecaNY7kk20yA\" id=\"_HQXsoPQJEeecaNY7kk20yA\" type=\"2009\"><location x=\"6\" y=\"192\"/></node><node href=\"#_HrMAYPQJEeecaNY7kk20yA\" id=\"_HrMAYfQJEeecaNY7kk20yA\" type=\"2009\"><location x=\"168\" y=\"192\"/></node><node href=\"#_I_HtcPQJEeecaNY7kk20yA\" id=\"_I_HtcfQJEeecaNY7kk20yA\" type=\"2009\"><location x=\"336\" y=\"192\"/></node><node href=\"#_JhYtAPQJEeecaNY7kk20yA\" id=\"_JhYtAfQJEeecaNY7kk20yA\" type=\"2009\"><location x=\"504\" y=\"192\"/></node><node href=\"#_LGRAIPQJEeecaNY7kk20yA\" id=\"_LGaxIPQJEeecaNY7kk20yA\" type=\"2009\"><location x=\"96\" y=\"300\"/></node><node href=\"#_Mk9LsPQJEeecaNY7kk20yA\" id=\"_Mk9LsfQJEeecaNY7kk20yA\" type=\"2009\"><location x=\"414\" y=\"300\"/></node><node href=\"#_OWzj0PQJEeecaNY7kk20yA\" id=\"_OWzj0fQJEeecaNY7kk20yA\" type=\"2009\"><location x=\"252\" y=\"395\"/></node><node href=\"#_TCzY4PQJEeecaNY7kk20yA\" id=\"_TCzY4fQJEeecaNY7kk20yA\" type=\"2010\"><location x=\"480\" y=\"480\"/></node><node href=\"#_UL_1kPQJEeecaNY7kk20yA\" id=\"_UL_1kfQJEeecaNY7kk20yA\" type=\"2010\"><location x=\"480\" y=\"564\"/></node><node href=\"#_UgthUPQJEeecaNY7kk20yA\" id=\"_UgthUfQJEeecaNY7kk20yA\" type=\"2010\"><location x=\"744\" y=\"576\"/></node><node href=\"#_U6fTQPQJEeecaNY7kk20yA\" id=\"_U6fTQfQJEeecaNY7kk20yA\" type=\"2010\"><location x=\"744\" y=\"480\"/></node><node href=\"#_XsZaMPQJEeecaNY7kk20yA\" id=\"_XsZaMfQJEeecaNY7kk20yA\" type=\"2009\"><location x=\"252\" y=\"564\"/></node><node href=\"#_Zf4KAPQJEeecaNY7kk20yA\" id=\"_ZgB7APQJEeecaNY7kk20yA\" type=\"2009\"><location x=\"252\" y=\"486\"/></node><node href=\"#_3kDvUPQJEeecaNY7kk20yA\" id=\"_3kDvUfQJEeecaNY7kk20yA\" type=\"2003\"><location x=\"474\" y=\"396\"/></node><node href=\"#_tX2SoPQMEeecaNY7kk20yA\" id=\"_tX_ckPQMEeecaNY7kk20yA\" type=\"2009\"><location x=\"252\" y=\"648\"/></node><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_DMwGMPQJEeecaNY7kk20yA$_9z0SoPQIEeecaNY7kk20yA\" id=\"_FTAoEPQJEeecaNY7kk20yA\" source=\"#_9020cPQIEeecaNY7kk20yA\" target=\"#_DMwGMfQJEeecaNY7kk20yA\" type=\"4001\"><bendpoints points=\"[-10, 13, 69, -94]$[-91, 96, -12, -11]\"/><targetAnchor id=\"(0.392,0.2222222222222222)\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_EL7rQPQJEeecaNY7kk20yA$_9z0SoPQIEeecaNY7kk20yA\" id=\"_FwjfsPQJEeecaNY7kk20yA\" source=\"#_9020cPQIEeecaNY7kk20yA\" target=\"#_EL7rQfQJEeecaNY7kk20yA\" type=\"4001\"><bendpoints points=\"[30, 13, -240, -100]$[273, 134, 3, 21]\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_EL7rQPQJEeecaNY7kk20yA$_AV-tYPQJEeecaNY7kk20yA\" id=\"_GLXzcPQJEeecaNY7kk20yA\" source=\"#_AV-tYfQJEeecaNY7kk20yA\" target=\"#_EL7rQfQJEeecaNY7kk20yA\" type=\"4001\"><bendpoints points=\"[0, 13, -12, -84]$[0, 69, -12, -28]$[2, 74, -10, -23]\"/><sourceAnchor id=\"(0.576,0.8666666666666667)\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_HQN7oPQJEeecaNY7kk20yA$_DMwGMPQJEeecaNY7kk20yA\" id=\"_IA8N8PQJEeecaNY7kk20yA\" source=\"#_DMwGMfQJEeecaNY7kk20yA\" target=\"#_HQXsoPQJEeecaNY7kk20yA\" type=\"4001\"><bendpoints points=\"[-16, 21, 64, -89]$[-85, 101, -5, -9]\"/><targetAnchor id=\"(0.44,0.17777777777777778)\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_HrMAYPQJEeecaNY7kk20yA$_DMwGMPQJEeecaNY7kk20yA\" id=\"_IXvkYPQJEeecaNY7kk20yA\" source=\"#_DMwGMfQJEeecaNY7kk20yA\" target=\"#_HrMAYfQJEeecaNY7kk20yA\" type=\"4001\"><bendpoints points=\"[19, 21, -96, -104]$[99, 122, -16, -3]\"/><targetAnchor id=\"(0.128,0.3111111111111111)\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_I_HtcPQJEeecaNY7kk20yA$_EL7rQPQJEeecaNY7kk20yA\" id=\"_KQxikPQJEeecaNY7kk20yA\" source=\"#_EL7rQfQJEeecaNY7kk20yA\" target=\"#_I_HtcfQJEeecaNY7kk20yA\" type=\"4001\"><bendpoints points=\"[6, 21, -30, -93]$[37, 135, 1, 21]\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_JhYtAPQJEeecaNY7kk20yA$_EL7rQPQJEeecaNY7kk20yA\" id=\"_Kn3z8PQJEeecaNY7kk20yA\" source=\"#_EL7rQfQJEeecaNY7kk20yA\" target=\"#_JhYtAfQJEeecaNY7kk20yA\" type=\"4001\"><bendpoints points=\"[31, 21, -179, -93]$[148, 120, -62, 6]\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_LGRAIPQJEeecaNY7kk20yA$_HQN7oPQJEeecaNY7kk20yA\" id=\"_LiIcwPQJEeecaNY7kk20yA\" source=\"#_HQXsoPQJEeecaNY7kk20yA\" target=\"#_LGaxIPQJEeecaNY7kk20yA\" type=\"4001\"><bendpoints points=\"[23, 21, -89, -76]$[103, 86, -9, -11]\"/><targetAnchor id=\"(0.424,0.2222222222222222)\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_LGRAIPQJEeecaNY7kk20yA$_HrMAYPQJEeecaNY7kk20yA\" id=\"_L9BpAPQJEeecaNY7kk20yA\" source=\"#_HrMAYfQJEeecaNY7kk20yA\" target=\"#_LGaxIPQJEeecaNY7kk20yA\" type=\"4001\"><bendpoints points=\"[-10, 21, 44, -92]$[-52, 90, 2, -23]\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_Mk9LsPQJEeecaNY7kk20yA$_I_HtcPQJEeecaNY7kk20yA\" id=\"_M_VakPQJEeecaNY7kk20yA\" source=\"#_I_HtcfQJEeecaNY7kk20yA\" target=\"#_Mk9LsfQJEeecaNY7kk20yA\" type=\"4001\"><bendpoints points=\"[19, 21, -82, -87]$[73, 97, -28, -11]\"/><targetAnchor id=\"(0.28,0.24444444444444444)\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_Mk9LsPQJEeecaNY7kk20yA$_JhYtAPQJEeecaNY7kk20yA\" id=\"_NUytMPQJEeecaNY7kk20yA\" source=\"#_JhYtAfQJEeecaNY7kk20yA\" target=\"#_Mk9LsfQJEeecaNY7kk20yA\" type=\"4001\"><bendpoints points=\"[-4, 14, 17, -87]$[-38, 89, -17, -12]\"/><sourceAnchor id=\"(0.176,0.6444444444444445)\"/><targetAnchor id=\"(0.376,0.24444444444444444)\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_OWzj0PQJEeecaNY7kk20yA$_LGRAIPQJEeecaNY7kk20yA\" id=\"_Oviz8PQJEeecaNY7kk20yA\" source=\"#_LGaxIPQJEeecaNY7kk20yA\" target=\"#_OWzj0fQJEeecaNY7kk20yA\" type=\"4001\"><bendpoints points=\"[38, 21, -180, -92]$[156, 104, -62, -9]\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_OWzj0PQJEeecaNY7kk20yA$_Mk9LsPQJEeecaNY7kk20yA\" id=\"_PHFxQPQJEeecaNY7kk20yA\" source=\"#_Mk9LsfQJEeecaNY7kk20yA\" target=\"#_OWzj0fQJEeecaNY7kk20yA\" type=\"4001\"><bendpoints points=\"[-23, 21, 85, -79]$[-119, 90, -11, -10]\"/><targetAnchor id=\"(0.384,0.2)\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:KnowledgeRequirement$_UL_1kPQJEeecaNY7kk20yA$_U6fTQPQJEeecaNY7kk20yA\" id=\"_VZVycPQJEeecaNY7kk20yA\" source=\"#_U6fTQfQJEeecaNY7kk20yA\" target=\"#_UL_1kfQJEeecaNY7kk20yA\" type=\"4002\"><bendpoints points=\"[-61, 19, 189, -56]$[-188, 70, 62, -5]\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:KnowledgeRequirement$_UL_1kPQJEeecaNY7kk20yA$_UgthUPQJEeecaNY7kk20yA\" id=\"_V6uBMPQJEeecaNY7kk20yA\" source=\"#_UgthUfQJEeecaNY7kk20yA\" target=\"#_UL_1kfQJEeecaNY7kk20yA\" type=\"4002\"><bendpoints points=\"[-23, -4, 181, 27]$[-196, -54, 8, -23]\"/><sourceAnchor id=\"(0.184,0.7333333333333333)\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:KnowledgeRequirement$_UgthUPQJEeecaNY7kk20yA$_U6fTQPQJEeecaNY7kk20yA\" id=\"_WXHpUPQJEeecaNY7kk20yA\" source=\"#_U6fTQfQJEeecaNY7kk20yA\" target=\"#_UgthUfQJEeecaNY7kk20yA\" type=\"4002\"><bendpoints points=\"[-3, 21, 4, -74]$[-11, 72, -4, -23]\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:KnowledgeRequirement$_XsZaMPQJEeecaNY7kk20yA$_UL_1kPQJEeecaNY7kk20yA\" id=\"_YmDmEPQJEeecaNY7kk20yA\" source=\"#_UL_1kfQJEeecaNY7kk20yA\" target=\"#_XsZaMfQJEeecaNY7kk20yA\" type=\"4002\"><bendpoints points=\"[-54, -21, 107, 42]$[-131, -73, 30, -10]\"/><targetAnchor id=\"(0.752,0.28888888888888886)\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:KnowledgeRequirement$_Zf4KAPQJEeecaNY7kk20yA$_TCzY4PQJEeecaNY7kk20yA\" id=\"_Z4KuMPQJEeecaNY7kk20yA\" source=\"#_TCzY4fQJEeecaNY7kk20yA\" target=\"#_ZgB7APQJEeecaNY7kk20yA\" type=\"4002\"><bendpoints points=\"[-47, -12, 69, 13]$[-54, -25, 62, 0]\"/><sourceAnchor id=\"(0.376,0.8222222222222222)\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_Zf4KAPQJEeecaNY7kk20yA$_OWzj0PQJEeecaNY7kk20yA\" id=\"_1rN-YPQJEeecaNY7kk20yA\" source=\"#_OWzj0fQJEeecaNY7kk20yA\" target=\"#_ZgB7APQJEeecaNY7kk20yA\" type=\"4001\"><bendpoints points=\"[-4, 21, -4, -75]$[-4, 117, -4, 21]\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_XsZaMPQJEeecaNY7kk20yA$_Zf4KAPQJEeecaNY7kk20yA\" id=\"_188nkPQJEeecaNY7kk20yA\" source=\"#_ZgB7APQJEeecaNY7kk20yA\" target=\"#_XsZaMfQJEeecaNY7kk20yA\" type=\"4001\"><bendpoints points=\"[0, 21, 0, -71]$[-1, 99, -1, 7]\"/><targetAnchor id=\"(0.496,0.8)\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_OWzj0PQJEeecaNY7kk20yA$_3kDvUPQJEeecaNY7kk20yA\" id=\"_5XD-APQJEeecaNY7kk20yA\" source=\"#_3kDvUfQJEeecaNY7kk20yA\" target=\"#_OWzj0fQJEeecaNY7kk20yA\" type=\"4001\"><bendpoints points=\"[-21, 5, 335, -78]$[-360, 60, -4, -23]\"/><sourceAnchor id=\"(0.416,0.7666666666666667)\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_tX2SoPQMEeecaNY7kk20yA$_XsZaMPQJEeecaNY7kk20yA\" id=\"_wqUwAPQMEeecaNY7kk20yA\" source=\"#_XsZaMfQJEeecaNY7kk20yA\" target=\"#_tX_ckPQMEeecaNY7kk20yA\" type=\"4001\"><bendpoints points=\"[5, 23, 5, -61]$[5, 107, 5, 23]\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:KnowledgeRequirement$_TCzY4PQJEeecaNY7kk20yA$_UL_1kPQJEeecaNY7kk20yA\" id=\"_VbTSkPQPEeecaNY7kk20yA\" source=\"#_UL_1kfQJEeecaNY7kk20yA\" target=\"#_TCzY4fQJEeecaNY7kk20yA\" type=\"4002\"><bendpoints points=\"[8, -6, 4, 58]$[8, -90, 4, -26]\"/><sourceAnchor id=\"(0.464,0.1)\"/></edge><edge href=\"#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_Mk9LsPQJEeecaNY7kk20yA$_LGRAIPQJEeecaNY7kk20yA\" id=\"_iZgOYPQPEeecaNY7kk20yA\" source=\"#_LGaxIPQJEeecaNY7kk20yA\" target=\"#_Mk9LsfQJEeecaNY7kk20yA\" type=\"4001\"><bendpoints points=\"[62, -3, -256, -3]$[309, -26, -9, -26]\"/></edge></container>" ]
+  },
+  "elementInfo" : {
+    "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
+    "nsContext" : {
+      "xsi" : "http://www.w3.org/2001/XMLSchema-instance",
+      "" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
+      "feel" : "http://www.omg.org/spec/FEEL/20140401",
+      "layout" : "https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd",
+      "ns1" : "http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes"
+    }
+  }
+}

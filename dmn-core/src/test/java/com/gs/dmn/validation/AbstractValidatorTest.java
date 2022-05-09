@@ -17,6 +17,7 @@ import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.serialization.DMNSerializer;
+import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 
 import java.io.File;
 import java.net.URI;
@@ -25,7 +26,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractValidatorTest extends AbstractTest {
-    protected final DMNSerializer serializer = new DMNSerializer(LOGGER, false);
+    protected final DMNSerializer serializer = new XMLDMNSerializer(LOGGER, false);
 
     protected void validate(DMNValidator validator, URI fileURI, List<String> expectedErrors) {
         DMNModelRepository repository = makeRepository(fileURI);

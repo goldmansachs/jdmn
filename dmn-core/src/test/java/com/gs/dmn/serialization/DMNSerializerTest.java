@@ -15,6 +15,7 @@ package com.gs.dmn.serialization;
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
+import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import org.junit.Test;
 
 import java.io.File;
@@ -23,7 +24,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class DMNSerializerTest extends AbstractTest {
-    private final DMNSerializer dmnSerializer = new DMNSerializer(LOGGER, false);
+    private final DMNSerializer dmnSerializer = new XMLDMNSerializer(LOGGER, false);
 
     @Test
     public void testRead() {

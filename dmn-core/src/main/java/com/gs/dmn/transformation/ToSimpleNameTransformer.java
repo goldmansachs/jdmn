@@ -20,6 +20,7 @@ import com.gs.dmn.log.NopBuildLogger;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.TCKNamespacePrefixMapper;
+import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import com.gs.dmn.tck.TestCasesReader;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
@@ -119,7 +120,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
 
     private static DMNModelRepository transformDefinitions(NameTransformer transformer, File inputFile, File outputFile, BuildLogger logger) {
         // Read
-        DMNSerializer serializer = new DMNSerializer(logger, false);
+        DMNSerializer serializer = new XMLDMNSerializer(logger, false);
         TDefinitions result = serializer.readModel(inputFile);
         DMNModelRepository repository = new DMNModelRepository(result);
 

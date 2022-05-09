@@ -59,7 +59,7 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
         }
     }
 
-    private void compareJsonFile(File expectedOutputFile, File actualOutputFile) throws Exception {
+    protected void compareJsonFile(File expectedOutputFile, File actualOutputFile) throws Exception {
         String expectedContent = FileUtils.readFileToString(expectedOutputFile, "UTF-8");
         String actualContent = FileUtils.readFileToString(actualOutputFile, "UTF-8");
         String message = String.format("%s vs %s", expectedOutputFile.getPath(), actualOutputFile.getPath());

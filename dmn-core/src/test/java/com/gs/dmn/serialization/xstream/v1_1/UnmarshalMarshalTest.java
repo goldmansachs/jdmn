@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.serialization.xstream.v1_1;
 
-import com.gs.dmn.serialization.AbstractUnmarshalMarshalTest;
+import com.gs.dmn.serialization.AbstractXStreamUnmarshalMarshalTest;
 import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UnmarshalMarshalTest extends AbstractUnmarshalMarshalTest {
+public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     @Test
     public void test0001() throws Exception {
         testRoundTrip("xstream/v1_1/", "0001-input-data-string.dmn");

@@ -15,8 +15,6 @@ package com.gs.dmn.serialization;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
-import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import com.gs.dmn.serialization.xstream.XStreamMarshaller;
 
 import java.io.File;
@@ -27,28 +25,20 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DMNSerializer {
+public abstract class DMNSerializer {
     public static boolean isDMNFile(File file) {
         return file != null && file.isFile() && file.getName().endsWith(DMNConstants.DMN_FILE_EXTENSION);
     }
 
-    protected final BuildLogger logger;
-    protected final DMNMarshaller dmnMarshaller;
+    private final BuildLogger logger;
+    private final DMNMarshaller dmnMarshaller;
 
     private final boolean validateSchema;
     private final DMNDialectTransformer dmnTransformer;
 
-    public DMNSerializer(BuildLogger logger) {
-        this(logger, new ArrayList<>(), false);
-    }
-
-    public DMNSerializer(BuildLogger logger, boolean validateSchema) {
-        this(logger, new ArrayList<>(), validateSchema);
-    }
-
-    public DMNSerializer(BuildLogger logger, List<DMNExtensionRegister> registers, boolean validateSchema) {
+    public DMNSerializer(BuildLogger logger, DMNMarshaller dmnMarshaller, boolean validateSchema) {
         this.logger = logger;
-        this.dmnMarshaller = DMNMarshallerFactory.newMarshallerWithExtensions(registers);
+        this.dmnMarshaller = dmnMarshaller;
         this.validateSchema = validateSchema;
         this.dmnTransformer = new DMNDialectTransformer(logger);
     }
@@ -167,19 +157,19 @@ public class DMNSerializer {
         }
     }
 
-    private TDefinitions unmarshall(File input) {
+    protected TDefinitions unmarshall(File input) {
         return this.dmnMarshaller.unmarshal(input, this.validateSchema);
     }
 
-    private TDefinitions unmarshall(URL input) {
+    protected TDefinitions unmarshall(URL input) {
         return this.dmnMarshaller.unmarshal(input, this.validateSchema);
     }
 
-    private TDefinitions unmarshall(InputStream input) {
+    protected TDefinitions unmarshall(InputStream input) {
         return this.dmnMarshaller.unmarshal(input, this.validateSchema);
     }
 
-    private TDefinitions unmarshall(Reader input) {
+    protected TDefinitions unmarshall(Reader input) {
         return this.dmnMarshaller.unmarshal(input, this.validateSchema);
     }
 }

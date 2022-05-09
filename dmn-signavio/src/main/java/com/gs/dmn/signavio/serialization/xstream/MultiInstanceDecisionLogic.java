@@ -12,8 +12,15 @@
  */
 package com.gs.dmn.signavio.serialization.xstream;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
+@JsonPropertyOrder({
+        "iterationExpression",
+        "iteratorShapeId",
+        "aggregationFunction",
+        "topLevelDecisionId"
+})
 @XStreamAlias("MultiInstanceDecisionLogic")
 public class MultiInstanceDecisionLogic {
     @XStreamAlias("iterationExpression")

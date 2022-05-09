@@ -24,7 +24,8 @@ import java.util.Map;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind")
 @JsonSubTypes({
-        @JsonSubTypes.Type(name = "dmnStyle", value = DMNStyle.class)
+        @JsonSubTypes.Type(name = "dmnStyle", value = DMNStyle.class),
+        @JsonSubTypes.Type(name = "Style$IDREFStubStyle", value = Style.IDREFStubStyle.class)
 })
 public abstract class Style extends DMNBaseElement {
     private Extension extension;
@@ -63,6 +64,9 @@ public abstract class Style extends DMNBaseElement {
     }
 
     public static class IDREFStubStyle extends Style {
+        public IDREFStubStyle() {
+        }
+
         public IDREFStubStyle(String id) {
             this.id = id;
         }

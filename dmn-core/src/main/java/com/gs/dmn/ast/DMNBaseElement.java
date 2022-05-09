@@ -12,14 +12,21 @@
  */
 package com.gs.dmn.ast;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.serialization.xstream.dom.ElementInfo;
 
 import java.util.*;
 
+@JsonPropertyOrder({
+        "elementInfo"
+})
 public abstract class DMNBaseElement {
     private ElementInfo elementInfo;
 
+    @JsonIgnore
     private DMNBaseElement parent;
+    @JsonIgnore
     private final List<DMNBaseElement> children = new ArrayList<>();
 
     public ElementInfo getElementInfo() {

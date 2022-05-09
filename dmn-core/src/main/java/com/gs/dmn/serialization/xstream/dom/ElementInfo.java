@@ -12,11 +12,20 @@
  */
 package com.gs.dmn.serialization.xstream.dom;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import javax.xml.stream.Location;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@JsonPropertyOrder({
+        "prefix",
+        "namespaceURI",
+        "nsContext"
+})
 public class ElementInfo {
+    @JsonIgnore
     private final Location location;
     private final Map<String, String> nsContext;
     private final String prefix;

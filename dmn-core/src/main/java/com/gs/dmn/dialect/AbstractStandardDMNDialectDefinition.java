@@ -20,9 +20,15 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.serialization.DMNSerializer;
+import com.gs.dmn.serialization.SerializationFormat;
+import com.gs.dmn.serialization.jackson.JsonDMNSerializer;
+import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
+
+import static com.gs.dmn.serialization.SerializationFormat.JSON;
+import static com.gs.dmn.serialization.SerializationFormat.XML;
 
 public abstract class AbstractStandardDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     //
@@ -30,7 +36,14 @@ public abstract class AbstractStandardDMNDialectDefinition<NUMBER, DATE, TIME, D
     //
     @Override
     public DMNSerializer createDMNSerializer(BuildLogger logger, InputParameters inputParameters) {
-        return new DMNSerializer(logger, inputParameters.isXsdValidation());
+        SerializationFormat format = inputParameters.getFormat();
+        if (XML == format) {
+            return new XMLDMNSerializer(logger, inputParameters.isXsdValidation());
+        } else if (format == JSON) {
+            return new JsonDMNSerializer(logger, inputParameters.isXsdValidation());
+        } else {
+            throw new IllegalArgumentException(String.format("Format '%s' is not supported yet", format));
+        }
     }
 
     //

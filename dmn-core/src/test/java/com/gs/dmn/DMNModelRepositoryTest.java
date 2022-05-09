@@ -14,6 +14,7 @@ package com.gs.dmn;
 
 import com.gs.dmn.ast.*;
 import com.gs.dmn.serialization.DMNSerializer;
+import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +30,7 @@ import static org.junit.Assert.assertEquals;
 
 public class DMNModelRepositoryTest extends AbstractTest {
     private DMNModelRepository dmnModelRepository;
-    private final DMNSerializer dmnSerializer = new DMNSerializer(LOGGER, false);
+    private final DMNSerializer dmnSerializer = new XMLDMNSerializer(LOGGER, false);
 
     @Before
     public void setUp() {

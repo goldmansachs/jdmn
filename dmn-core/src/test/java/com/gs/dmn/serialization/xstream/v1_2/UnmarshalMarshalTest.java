@@ -16,7 +16,7 @@ import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.dmndi.DMNDiagram;
 import com.gs.dmn.ast.dmndi.DMNShape;
 import com.gs.dmn.ast.dmndi.DMNStyle;
-import com.gs.dmn.serialization.AbstractUnmarshalMarshalTest;
+import com.gs.dmn.serialization.AbstractXStreamUnmarshalMarshalTest;
 import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
@@ -34,7 +34,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
-public class UnmarshalMarshalTest extends AbstractUnmarshalMarshalTest {
+public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     @Test
     public void testV12_simple() throws Exception {
         testRoundTrip("xstream/v1_2/", "simple.dmn");
