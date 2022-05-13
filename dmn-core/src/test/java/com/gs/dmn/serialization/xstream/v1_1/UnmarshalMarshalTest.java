@@ -14,18 +14,16 @@ package com.gs.dmn.serialization.xstream.v1_1;
 
 import com.gs.dmn.serialization.AbstractXStreamUnmarshalMarshalTest;
 import com.gs.dmn.serialization.DMNMarshaller;
-import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.diff.XMLDifferenceEvaluator;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import com.gs.dmn.serialization.xstream.extensions.MyTestRegister;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.w3c.dom.Node;
+import org.xmlunit.diff.DifferenceEvaluator;
+import org.xmlunit.diff.DifferenceEvaluators;
 
-import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamSource;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     @Test
@@ -112,37 +110,7 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     }
 
     @Override
-    protected Set<QName> getAttributesWithDefaultValues() {
-        Set<QName> attributesWithDefaultValue = new HashSet<>();
-        attributesWithDefaultValue.addAll(Arrays.asList(
-                new QName("expressionLanguage"),
-                new QName("typeLanguage"),
-                new QName("isCollection"),
-                new QName("hitPolicy"),
-                new QName("preferredOrientation"),
-                new QName("textFormat"),
-                new QName("associationDirection")));
-        return attributesWithDefaultValue;
-    }
-
-    @Override
-    protected Set<String> getNodesHavingAttributesWithDefaultValues() {
-        Set<String> nodesHavingAttributesWithDefaultValues = new HashSet<>();
-        nodesHavingAttributesWithDefaultValues.addAll(Arrays.asList(
-                "definitions",
-                "itemDefinition",
-                "itemComponent",
-                "decisionTable",
-                "textAnnotation",
-                "association"));
-        return nodesHavingAttributesWithDefaultValues;
-    }
-
-    @Override
-    protected String safeStripDMNPrefix(Node target) {
-        if (DMNVersion.DMN_11.getNamespace().equals(target.getNamespaceURI())) {
-            return target.getLocalName();
-        }
-        return null;
+    protected DifferenceEvaluator makeDifferenceEvaluator() {
+        return DifferenceEvaluators.chain(DifferenceEvaluators.Default, XMLDifferenceEvaluator.dmn11DiffEvaluator());
     }
 }

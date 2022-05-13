@@ -12,18 +12,10 @@
  */
 package com.gs.dmn.serialization.jackson;
 
-import com.gs.dmn.log.Slf4jBuildLogger;
-import com.gs.dmn.serialization.AbstractUnmarshalMarshalTest;
-import com.gs.dmn.serialization.DMNMarshaller;
+import com.gs.dmn.serialization.AbstractJacksonUnmarshalMarshalTest;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.io.File;
-
-public class UnmarshalMarshalTest extends AbstractUnmarshalMarshalTest {
-    protected static final Logger LOG = LoggerFactory.getLogger(UnmarshalMarshalTest.class);
-
+public class UnmarshalMarshalTest extends AbstractJacksonUnmarshalMarshalTest {
     @Test
     public void testV13_0004_lending() throws Exception {
         testRoundTrip("jackson/v1_3/", "0004-lending.json");
@@ -42,19 +34,5 @@ public class UnmarshalMarshalTest extends AbstractUnmarshalMarshalTest {
     @Test
     public void testV11_0034_drg_scopes() throws Exception {
         testRoundTrip("jackson/v1_1/", "0034-drg-scopes.json");
-    }
-
-    @Override
-    protected DMNMarshaller getMarshaller() {
-        return new JsonDMNMarshaller(new Slf4jBuildLogger(LOG));
-    }
-
-    @Override
-    protected void validateXSDSchema(File inputDMNFile) {
-    }
-
-    @Override
-    protected void compareDMNFile(File inputDMNFile, File outputDMNFile) throws Exception {
-        this.compareJsonFile(inputDMNFile, outputDMNFile);
     }
 }

@@ -13,18 +13,15 @@
 package com.gs.dmn.serialization;
 
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
-import org.xmlunit.builder.DiffBuilder;
-import org.xmlunit.builder.Input;
-import org.xmlunit.diff.Diff;
+import com.gs.dmn.serialization.jackson.JsonDMNMarshaller;
 
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 
-public abstract class AbstractXStreamUnmarshalMarshalTest extends AbstractUnmarshalMarshalTest<TDefinitions, DMNMarshaller> {
+public abstract class AbstractJacksonUnmarshalMarshalTest extends AbstractUnmarshalMarshalTest<TDefinitions, DMNMarshaller> {
     @Override
     protected DMNMarshaller getMarshaller() {
-        return DMNMarshallerFactory.newDefaultMarshaller();
+        return new JsonDMNMarshaller(LOGGER);
     }
 
     @Override
@@ -42,14 +39,11 @@ public abstract class AbstractXStreamUnmarshalMarshalTest extends AbstractUnmars
     }
 
     @Override
-    protected Diff makeXmlDiff(File expectedOutputFile, File actualOutputFile) {
-        return DiffBuilder
-                .compare(Input.fromFile(expectedOutputFile))
-                .withTest(Input.fromFile(actualOutputFile))
-                .withDifferenceEvaluator(makeDifferenceEvaluator())
-                .checkForSimilar()
-                .ignoreWhitespace()
-                .ignoreComments()
-                .build();
+    protected StreamSource getSchemaSource() {
+        return null;
+    }
+
+    @Override
+    protected void validateXSDSchema(File inputDMNFile) {
     }
 }

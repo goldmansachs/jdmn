@@ -12,22 +12,25 @@
  */
 package com.gs.dmn.serialization;
 
-import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.xmlunit.validation.Languages;
+import org.xmlunit.validation.ValidationProblem;
+import org.xmlunit.validation.ValidationResult;
+import org.xmlunit.validation.Validator;
 
-import java.io.*;
+import javax.xml.transform.stream.StreamSource;
+import java.io.File;
+import java.io.FileInputStream;
 
-public abstract class AbstractUnmarshalMarshalTest extends AbstractFileTransformerTest {
-    protected static final Logger LOG = LoggerFactory.getLogger(AbstractUnmarshalMarshalTest.class);
+import static org.junit.Assert.assertTrue;
 
+public abstract class AbstractUnmarshalMarshalTest<D, M> extends AbstractFileTransformerTest {
     protected void testRoundTrip(String subDir, String dmnFile) throws Exception {
-        DMNMarshaller marshaller = getMarshaller();
+        M marshaller = getMarshaller();
         testRoundTrip(subDir, dmnFile, marshaller);
     }
 
-    protected void testRoundTrip(String subDir, String dmnFile, DMNMarshaller marshaller) throws Exception {
+    protected void testRoundTrip(String subDir, String dmnFile, M marshaller) throws Exception {
         File baseInputDir = new File("target/test-classes/");
         File baseOutputDir = new File("target/");
 
@@ -37,10 +40,9 @@ public abstract class AbstractUnmarshalMarshalTest extends AbstractFileTransform
 
         // Read definitions
         FileInputStream fis = new FileInputStream(inputDMNFile);
-        TDefinitions definitions = readModel(marshaller, fis);
+        D definitions = readModel(marshaller, fis);
 
         // Write definitions
-        LOG.debug("{}", marshaller.marshal(definitions));
         File outputDMNFile = new File(baseOutputDir, subDir + dmnFile);
         outputDMNFile.getParentFile().mkdirs();
         writeModel(marshaller, definitions, outputDMNFile);
@@ -49,23 +51,28 @@ public abstract class AbstractUnmarshalMarshalTest extends AbstractFileTransform
         validateXSDSchema(outputDMNFile);
 
         // Compare input and output
-        compareDMNFile(inputDMNFile, outputDMNFile);
+        compareFile(inputDMNFile, outputDMNFile);
     }
 
-    protected TDefinitions readModel(DMNMarshaller marshaller, FileInputStream fis) {
-        TDefinitions definitions = marshaller.unmarshal(new InputStreamReader(fis), true);
-        return definitions;
-    }
+    protected void validateXSDSchema(File outputDMNFile) {
+        StreamSource schemaSource = getSchemaSource();
+        Validator v = Validator.forLanguage(Languages.W3C_XML_SCHEMA_NS_URI);
+        v.setSchemaSource(schemaSource);
 
-    protected void writeModel(DMNMarshaller marshaller, TDefinitions definitions, File outputDMNFile) throws IOException {
-        try (FileWriter targetFos = new FileWriter(outputDMNFile)) {
-            marshaller.marshal(definitions, targetFos);
+        ValidationResult validateOutputResult = v.validateInstance(new StreamSource(outputDMNFile));
+        if (!validateOutputResult.isValid()) {
+            for (ValidationProblem p : validateOutputResult.getProblems()) {
+                LOGGER.error("" + p);
+            }
         }
+        assertTrue(outputDMNFile.getAbsolutePath(), validateOutputResult.isValid());
     }
 
-    protected abstract DMNMarshaller getMarshaller();
+    protected abstract M getMarshaller();
 
-    protected abstract void validateXSDSchema(File inputDMNFile);
+    protected abstract D readModel(M marshaller, FileInputStream fis);
 
-    protected abstract void compareDMNFile(File inputDMNFile, File outputDMNFile) throws Exception;
+    protected abstract void writeModel(M marshaller, D definitions, File outputDMNFile) throws Exception;
+
+    protected abstract StreamSource getSchemaSource();
 }

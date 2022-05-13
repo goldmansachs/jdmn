@@ -18,19 +18,17 @@ import com.gs.dmn.ast.dmndi.DMNShape;
 import com.gs.dmn.ast.dmndi.DMNStyle;
 import com.gs.dmn.serialization.AbstractXStreamUnmarshalMarshalTest;
 import com.gs.dmn.serialization.DMNMarshaller;
-import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.diff.XMLDifferenceEvaluator;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import com.gs.dmn.serialization.xstream.extensions.MyTestRegister;
 import org.junit.Test;
-import org.w3c.dom.Node;
+import org.xmlunit.diff.DifferenceEvaluator;
+import org.xmlunit.diff.DifferenceEvaluators;
 
-import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamSource;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
@@ -102,43 +100,9 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
         return new StreamSource(UnmarshalMarshalTest.class.getResource("/dmn/1.2/DMN12.xsd").getFile());
     }
 
-    @Override
-    protected Set<QName> getAttributesWithDefaultValues() {
-        Set<QName> attrWhichCanDefault = new HashSet<>();
-        attrWhichCanDefault.addAll(Arrays.asList(
-                new QName("expressionLanguage"),
-                new QName("typeLanguage"),
-                new QName("isCollection"),
-                new QName("hitPolicy"),
-                new QName("preferredOrientation"),
-                new QName("kind"),
-                new QName("textFormat"),
-                new QName("associationDirection"),
-                new QName("isCollapsed")));
-        return attrWhichCanDefault;
-    }
 
     @Override
-    protected Set<String> getNodesHavingAttributesWithDefaultValues() {
-        Set<String> nodeHavingDefaultableAttr = new HashSet<>();
-        nodeHavingDefaultableAttr.addAll(Arrays.asList(
-                "definitions",
-                "decisionTable",
-                "itemDefinition",
-                "itemComponent",
-                "encapsulatedLogic",
-                "textAnnotation",
-                "association",
-                "DMNShape"));
-        return nodeHavingDefaultableAttr;
-    }
-
-    @Override
-    protected String safeStripDMNPrefix(Node target) {
-        if (DMNVersion.DMN_12.getNamespace().equals(target.getNamespaceURI()) ||
-                DMNVersion.DMN_12.getPrefixToNamespaceMap().get("dmndi").equals(target.getNamespaceURI())) {
-            return target.getLocalName();
-        }
-        return null;
+    protected DifferenceEvaluator makeDifferenceEvaluator() {
+        return DifferenceEvaluators.chain(DifferenceEvaluators.Default, XMLDifferenceEvaluator.dmn12DiffEvaluator());
     }
 }

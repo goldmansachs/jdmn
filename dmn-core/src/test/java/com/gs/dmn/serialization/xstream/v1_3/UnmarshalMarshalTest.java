@@ -13,15 +13,12 @@
 package com.gs.dmn.serialization.xstream.v1_3;
 
 import com.gs.dmn.serialization.AbstractXStreamUnmarshalMarshalTest;
-import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.diff.XMLDifferenceEvaluator;
 import org.junit.Test;
-import org.w3c.dom.Node;
+import org.xmlunit.diff.DifferenceEvaluator;
+import org.xmlunit.diff.DifferenceEvaluators;
 
-import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamSource;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     @Test
@@ -80,41 +77,7 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     }
 
     @Override
-    protected Set<QName> getAttributesWithDefaultValues() {
-        Set<QName> attrWhichCanDefault = new HashSet<QName>();
-        attrWhichCanDefault.addAll(Arrays.asList(
-                new QName("expressionLanguage"),
-                new QName("typeLanguage"),
-                new QName("isCollection"),
-                new QName("hitPolicy"),
-                new QName("preferredOrientation"),
-                new QName("kind"),
-                new QName("textFormat"),
-                new QName("associationDirection"),
-                new QName("isCollapsed")));
-        return attrWhichCanDefault;
-    }
-
-    @Override
-    protected Set<String> getNodesHavingAttributesWithDefaultValues() {
-        Set<String> nodeHavingDefaultableAttr = new HashSet<>();
-        nodeHavingDefaultableAttr.addAll(Arrays.asList("definitions",
-                "decisionTable",
-                "itemDefinition",
-                "itemComponent",
-                "encapsulatedLogic",
-                "textAnnotation",
-                "association",
-                "DMNShape"));
-        return nodeHavingDefaultableAttr;
-    }
-
-    @Override
-    protected String safeStripDMNPrefix(Node target) {
-        if (DMNVersion.DMN_13.getNamespace().equals(target.getNamespaceURI()) ||
-                DMNVersion.DMN_13.getPrefixToNamespaceMap().get("dmndi").equals(target.getNamespaceURI())) {
-            return target.getLocalName();
-        }
-        return null;
+    protected DifferenceEvaluator makeDifferenceEvaluator() {
+        return DifferenceEvaluators.chain(DifferenceEvaluators.Default, XMLDifferenceEvaluator.dmn13DiffEvaluator());
     }
 }
