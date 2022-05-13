@@ -37,4 +37,6 @@ public interface Visitor {
 
     // Extensions
     <C> Object visit(ExtensionElements element, C context);
+
+    <C> Object visit(AnySimpleType anySimpleType, C context);
 }

@@ -34,6 +34,10 @@ public abstract class XMLDifferenceEvaluator implements DifferenceEvaluator {
         return new DMN13DifferenceEvaluator();
     }
 
+    public static DifferenceEvaluator tck1DiffEvaluator() {
+        return new TCK1DifferenceEvaluator();
+    }
+
     @Override
     public ComparisonResult evaluate(Comparison comparison, ComparisonResult outcome) {
         // see XSD schemas
@@ -77,9 +81,6 @@ public abstract class XMLDifferenceEvaluator implements DifferenceEvaluator {
                     return ComparisonResult.SIMILAR;
                 }
             }
-        }
-        if (outcome != ComparisonResult.EQUAL && outcome != ComparisonResult.SIMILAR) {
-            int j = 4;
         }
         return outcome;
     }

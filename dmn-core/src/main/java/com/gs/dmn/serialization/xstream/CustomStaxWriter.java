@@ -50,6 +50,13 @@ public class CustomStaxWriter extends StaxWriter implements AutoCloseable {
         out.setDefaultNamespace(uri);
     }
 
+    public void writeCharacters(String text) {
+        try {
+            out.writeCharacters(text);
+        } catch (XMLStreamException e) {
+        }
+    }
+
     @Override
     public void endNode() {
         if (this.lastOp == Op.END_NODE) {

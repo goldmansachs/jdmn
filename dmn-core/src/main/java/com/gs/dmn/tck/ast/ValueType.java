@@ -35,17 +35,17 @@ import java.util.Map;
         "extensionElements"
 })
 public class ValueType extends DMNBaseElement {
-    protected Object value;
+    protected AnySimpleType value;
     protected java.util.List<Component> component;
     protected List list;
     protected ExtensionElements extensionElements;
     private final Map<QName, String> otherAttributes = new HashMap<>();
 
-    public Object getValue() {
+    public AnySimpleType getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
+    public void setValue(AnySimpleType value) {
         this.value = value;
     }
 

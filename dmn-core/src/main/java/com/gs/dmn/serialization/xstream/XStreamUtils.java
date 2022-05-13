@@ -32,6 +32,7 @@ public class XStreamUtils {
     }
 
     private static final String[] ALLOW_LISTED_PACKAGES = new String[] {
-        "com.gs.dmn.ast.**"
+            "com.gs.dmn.ast.**",
+            "com.gs.dmn.serialization.xstream.dom.**"
     };
 }
