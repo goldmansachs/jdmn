@@ -17,11 +17,13 @@ import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNSerializer;
-import com.gs.dmn.serialization.TCKNamespacePrefixMapper;
-import com.gs.dmn.serialization.TCKVersion;
+import com.gs.dmn.serialization.diff.XMLDifferenceEvaluator;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import com.gs.dmn.tck.TCKSerializer;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
+import com.gs.dmn.tck.ast.TestCases;
+import com.gs.dmn.tck.serialization.xstream.XMLTCKSerializer;
+import org.xmlunit.diff.DifferenceEvaluator;
+import org.xmlunit.diff.DifferenceEvaluators;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,8 +33,8 @@ import java.util.Map;
 public abstract class NameTransformerTest extends AbstractFileTransformerTest {
     protected static final ClassLoader CLASS_LOADER = NameTransformerTest.class.getClassLoader();
 
-    protected final DMNSerializer dmnSerializer = new XMLDMNSerializer(LOGGER, false);
-    protected final TCKSerializer testReader = new TCKSerializer(LOGGER);
+    protected final DMNSerializer dmnSerializer = new XMLDMNSerializer(LOGGER, true);
+    protected final TCKSerializer tckSerializer = new XMLTCKSerializer(LOGGER, true);
 
     protected void doTest(String dmmVersion, List<String> dmnFileNames, String testsFileName, Map<String, Pair<String, String>> namespacePrefixMapping) throws Exception {
         DMNTransformer<TestCases> transformer = getTransformer();
@@ -46,7 +48,7 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
         File inputTestsFile = new File(CLASS_LOADER.getResource(path + testsFileName).getFile());
         List<TestCases> testCasesList = new ArrayList<>();
         if (inputTestsFile.isFile()) {
-            TestCases testCases = this.testReader.read(inputTestsFile);
+            TestCases testCases = this.tckSerializer.read(inputTestsFile);
             testCasesList.add(testCases);
         } else {
             throw new DMNRuntimeException("Only single files are supported");
@@ -87,11 +89,15 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
 
     private void check(TestCases actualTestCases, String fileName, Pair<String, String> namespacePrefixMapping) throws Exception {
         File actualTestsFile = new File(getTargetPath() + fileName);
-        TCKNamespacePrefixMapper testsNamespacePrefixMapper = new TCKNamespacePrefixMapper(namespacePrefixMapping.getLeft(), namespacePrefixMapping.getRight(), TCKVersion.LATEST);
-        this.testReader.write(actualTestCases, actualTestsFile, testsNamespacePrefixMapper);
+        this.tckSerializer.write(actualTestCases, actualTestsFile);
         File expectedTestLabFile = new File(CLASS_LOADER.getResource(getExpectedPath() + fileName).getFile());
 
         compareFile(expectedTestLabFile, actualTestsFile);
+    }
+
+    @Override
+    protected DifferenceEvaluator makeTCKDifferenceEvaluator() {
+        return DifferenceEvaluators.chain(DifferenceEvaluators.Default, XMLDifferenceEvaluator.tck1DiffEvaluator());
     }
 
     protected abstract DMNTransformer<TestCases> getTransformer();

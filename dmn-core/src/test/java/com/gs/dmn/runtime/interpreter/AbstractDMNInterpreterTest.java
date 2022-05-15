@@ -27,16 +27,17 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNSerializer;
-import com.gs.dmn.tck.TCKUtil;
 import com.gs.dmn.tck.TCKSerializer;
+import com.gs.dmn.tck.TCKUtil;
+import com.gs.dmn.tck.ast.ResultNode;
+import com.gs.dmn.tck.ast.TestCase;
+import com.gs.dmn.tck.ast.TestCases;
+import com.gs.dmn.tck.serialization.xstream.XMLTCKSerializer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.ToQuotedNameTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
-import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase;
-import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.ResultNode;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -54,7 +55,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
     private static final boolean IGNORE_ERROR_FLAG = true;
 
     private final DMNSerializer dmnSerializer = this.getDialectDefinition().createDMNSerializer(LOGGER, makeInputParameters());
-    private final TCKSerializer tckSerializer = new TCKSerializer(LOGGER);
+    private final TCKSerializer tckSerializer = new XMLTCKSerializer(LOGGER, true);
 
     protected DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> interpreter;
     private DMNTransformer<TestCases> dmnTransformer;

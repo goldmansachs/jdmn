@@ -16,9 +16,9 @@ import com.gs.dmn.feel.lib.PureJavaTimeFEELLib;
 import com.gs.dmn.feel.synthesis.type.PureJavaTimeKotlinNativeTypeFactory;
 import com.gs.dmn.runtime.PureJavaTimeDMNBaseDecision;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
+import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.DMNToKotlinTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToKotlinTransformer;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

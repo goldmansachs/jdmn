@@ -14,18 +14,13 @@ package com.gs.dmn.tck;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.serialization.TCKNamespacePrefixMapper;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
+import com.gs.dmn.tck.ast.TestCases;
+import com.gs.dmn.tck.serialization.TCKMarshaller;
 
-import javax.xml.bind.*;
-import javax.xml.namespace.QName;
 import java.io.File;
 import java.net.URL;
 
-import static com.gs.dmn.serialization.DMNConstants.TCK_NS;
-import static com.gs.dmn.serialization.DMNConstants.TCK_PACKAGE;
-
-public class TCKSerializer {
+public abstract class TCKSerializer {
     public static final String DEFAULT_TEST_CASE_FILE_EXTENSION = ".xml";
     private static final String TEST_CASE_FILE_EXTENSION = ".tck";
 
@@ -36,63 +31,40 @@ public class TCKSerializer {
                 );
     }
 
-    private static final JAXBContext JAXB_CONTEXT;
-
-    static {
-        try {
-            JAXB_CONTEXT = JAXBContext.newInstance(TCK_PACKAGE);
-        } catch (JAXBException e) {
-            throw new DMNRuntimeException("Cannot create JAXB Context", e);
-        }
-    }
-
     private final BuildLogger logger;
+    private final TCKMarshaller marshaller;
+    private final boolean validateSchema;
 
-    public TCKSerializer(BuildLogger logger) {
+    public TCKSerializer(BuildLogger logger, TCKMarshaller marshaller, boolean validateSchema) {
         this.logger = logger;
+        this.marshaller = marshaller;
+        this.validateSchema = validateSchema;
     }
 
-    public TestCases read(File file) {
+    public TestCases read(File input) {
         try {
-            return read(file.toURI().toURL());
+            return read(input.toURI().toURL());
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", file.getPath()), e);
+            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.getPath()), e);
         }
     }
 
-    public TestCases read(URL url) {
+    public TestCases read(URL input) {
         try {
-            logger.info(String.format("Reading TCK '%s' ...", url.toString()));
+            logger.info(String.format("Reading TCK '%s' ...", input.toString()));
 
-            Unmarshaller u = JAXB_CONTEXT.createUnmarshaller();
-
-            TestCases testCases;
-            Object obj = u.unmarshal(url);
-            if (obj instanceof JAXBElement<?> ) {
-                testCases = ((JAXBElement<TestCases>) obj).getValue();
-            } else {
-                testCases = (TestCases) obj;
-            }
+            TestCases testCases = this.marshaller.unmarshal(input, this.validateSchema);
 
             logger.info("TCK read.");
             return testCases;
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read TCK from '%s'", url.toString()), e);
+            throw new DMNRuntimeException(String.format("Cannot read TCK from '%s'", input.toString()), e);
         }
     }
 
-    public void write(TestCases testCases, File file, TCKNamespacePrefixMapper namespacePrefixMapper) {
+    public void write(TestCases testCases, File file) {
         try {
-            Marshaller marshaller = JAXB_CONTEXT.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            if (namespacePrefixMapper != null) {
-                marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", namespacePrefixMapper);
-            }
-
-            QName qName = new QName(TCK_NS, "testCases");
-            JAXBElement<TestCases> root = new JAXBElement<>(qName, TestCases.class, testCases);
-
-            marshaller.marshal(root, file);
+            this.marshaller.marshal(testCases, file);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", file.getPath()), e);
         }

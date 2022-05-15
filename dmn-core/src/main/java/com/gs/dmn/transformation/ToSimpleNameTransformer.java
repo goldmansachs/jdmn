@@ -19,11 +19,11 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.NopBuildLogger;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNSerializer;
-import com.gs.dmn.serialization.TCKNamespacePrefixMapper;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import com.gs.dmn.tck.TCKSerializer;
+import com.gs.dmn.tck.ast.TestCases;
+import com.gs.dmn.tck.serialization.xstream.XMLTCKSerializer;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.io.File;
 import java.util.*;
@@ -135,15 +135,14 @@ public class ToSimpleNameTransformer extends NameTransformer {
 
     private static void transformTestCases(NameTransformer transformer, DMNModelRepository repository, File inputFile, File outputFile, BuildLogger logger) {
         // Read
-        TCKSerializer reader = new TCKSerializer(logger);
-
-        TestCases testCases = reader.read(inputFile);
+        TCKSerializer tckSerializer = new XMLTCKSerializer(logger, true);
+        TestCases testCases = tckSerializer.read(inputFile);
 
         // Clean
         transformer.transform(repository, Arrays.asList(testCases));
 
         // Write
-        reader.write(testCases, outputFile, new TCKNamespacePrefixMapper());
+        tckSerializer.write(testCases, outputFile);
     }
 
 }

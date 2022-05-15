@@ -25,13 +25,6 @@
     <properties>
         <xmlunit.version>2.9.0</xmlunit.version>
 
-        <dmn11.schema>${project.basedir}/src/main/resources/dmn/1.1/dmn.xsd</dmn11.schema>
-        <dmn12.schema>${project.basedir}/src/main/resources/dmn/1.2/DMN12.xsd</dmn12.schema>
-        <dmn13.schema>${project.basedir}/src/main/resources/dmn/1.3/DMN13.xsd</dmn13.schema>
-        <tck.schema>${project.basedir}/src/main/resources/tck/testCases.xsd</tck.schema>
-
-        <jaxb.generated.tck>${project.basedir}/target/generated-sources/jaxb</jaxb.generated.tck>
-
         <antlr.source.directory>${project.basedir}/src/main/resources/dmn/${dmn.version}</antlr.source.directory>
         <antlr.generated>${project.basedir}/target/generated-sources/antlrv4</antlr.generated>
         <antlr.target.directory>${antlr.generated}/com/gs/dmn/feel/analysis/syntax/antlrv4</antlr.target.directory>
@@ -71,24 +64,6 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.3.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>2.3.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.activation</groupId>
-            <artifactId>activation</artifactId>
-            <version>1.1.1</version>
         </dependency>
 
         <dependency>
@@ -179,33 +154,10 @@
                 <configuration>
                     <filesets>
                         <fileset>
-                            <directory>${jaxb.generated.tck}</directory>
                             <directory>${antlr.generated}</directory>
                         </fileset>
                     </filesets>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jaxb2-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>tck</id>
-                        <configuration>
-                            <sources>
-                                <source>${tck.schema}</source>
-                            </sources>
-                            <outputDirectory>${jaxb.generated.tck}</outputDirectory>
-                            <clearOutputDir>false</clearOutputDir>
-                            <noPackageLevelAnnotations>false</noPackageLevelAnnotations>
-                            <packageName>org.omg.dmn.tck.marshaller._20160719</packageName>
-                        </configuration>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <plugin>
@@ -238,7 +190,6 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>${jaxb.generated.tck}</source>
                                 <source>${antlr.generated}</source>
                             </sources>
                         </configuration>

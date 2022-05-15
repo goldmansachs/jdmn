@@ -16,6 +16,7 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.tck.TCKTestCasesToKotlinJUnitTransformer;
+import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.InputParameters;
@@ -26,7 +27,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.io.File;
 
@@ -68,7 +68,7 @@ public class TCKToKotlinJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> exten
 
     @Override
     protected FileTransformer makeTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dmnDialect, DMNValidator dmnValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger) {
-        FileTransformer transformer = new TCKTestCasesToKotlinJUnitTransformer<>(
+        return new TCKTestCasesToKotlinJUnitTransformer<>(
                 dmnDialect,
                 dmnValidator,
                 dmnTransformer,
@@ -79,6 +79,5 @@ public class TCKToKotlinJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> exten
                 makeInputParameters(),
                 logger
         );
-        return transformer;
     }
 }

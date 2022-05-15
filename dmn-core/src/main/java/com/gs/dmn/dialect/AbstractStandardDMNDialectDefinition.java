@@ -23,9 +23,9 @@ import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.SerializationFormat;
 import com.gs.dmn.serialization.jackson.JsonDMNSerializer;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
+import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import static com.gs.dmn.serialization.SerializationFormat.JSON;
 import static com.gs.dmn.serialization.SerializationFormat.XML;

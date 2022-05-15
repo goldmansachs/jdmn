@@ -18,13 +18,11 @@ import com.gs.dmn.feel.analysis.scanner.LexicalContext;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.tck.ast.*;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
-import org.omg.dmn.tck.marshaller._20160719.ValueType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -76,7 +74,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         // Transform test cases
         for (TestCases testCases: testCasesList) {
             if (testCases != null) {
-                for (TestCases.TestCase testCase: testCases.getTestCase()) {
+                for (TestCase testCase: testCases.getTestCase()) {
                     transform(testCase);
                 }
             }
@@ -84,14 +82,14 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         return new Pair<>(repository, testCasesList);
     }
 
-    protected void transform(TestCases.TestCase testCase) {
+    protected void transform(TestCase testCase) {
         // Rename
-        for (TestCases.TestCase.InputNode n: testCase.getInputNode()) {
+        for (InputNode n: testCase.getInputNode()) {
             String newName = transformName(n.getName());
             n.setName(newName);
             rename(n);
         }
-        for (TestCases.TestCase.ResultNode n: testCase.getResultNode()) {
+        for (ResultNode n: testCase.getResultNode()) {
             String newName = transformName(n.getName());
             n.setName(newName);
             rename(n.getExpected());
@@ -99,20 +97,19 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     }
 
     protected void rename(ValueType valueType) {
-        if (valueType instanceof ValueType.Component) {
-            String newName = transformName(((ValueType.Component) valueType).getName());
-            ((ValueType.Component) valueType).setName(newName);
+        if (valueType instanceof Component) {
+            String newName = transformName(((Component) valueType).getName());
+            ((Component) valueType).setName(newName);
         }
-        JAXBElement<ValueType.List> jaxbList = valueType.getList();
-        if (jaxbList != null) {
-            ValueType.List list = jaxbList.getValue();
+        com.gs.dmn.tck.ast.List list = valueType.getList();
+        if (list != null) {
             for (ValueType vt: list.getItem()) {
                 rename(vt);
             }
         }
-        List<ValueType.Component> componentList = valueType.getComponent();
+        List<Component> componentList = valueType.getComponent();
         if (componentList != null) {
-            for (ValueType.Component component: componentList) {
+            for (Component component: componentList) {
                 rename(component);
             }
         }
