@@ -23,7 +23,7 @@ import java.io.File;
 import java.net.URI;
 
 import static com.gs.dmn.serialization.DMNConstants.TCK_PACKAGE;
-import static com.gs.dmn.tck.TestCasesReader.DEFAULT_TEST_CASE_FILE_EXTENSION;
+import static com.gs.dmn.tck.TCKSerializer.DEFAULT_TEST_CASE_FILE_EXTENSION;
 
 public class SchemaValidator {
     private final File schemaLocation;

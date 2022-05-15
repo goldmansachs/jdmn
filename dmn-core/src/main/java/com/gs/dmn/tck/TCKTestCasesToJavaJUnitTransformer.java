@@ -38,12 +38,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
+import static com.gs.dmn.tck.TCKSerializer.isTCKFile;
 
 public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesToJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     protected final BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer;
 
-    protected final TestCasesReader testCasesReader;
+    protected final TCKSerializer testCasesReader;
     private final TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil;
 
     public TCKTestCasesToJavaJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
@@ -51,7 +51,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         DMNModelRepository repository = readModels(inputModelPath.toFile());
         this.basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
         handleValidationErrors(this.dmnValidator.validate(repository));
-        this.testCasesReader = new TestCasesReader(logger);
+        this.testCasesReader = new TCKSerializer(logger);
         this.tckUtil = new TCKUtil<>(basicTransformer, (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) dialectDefinition.createFEELLib());
     }
 

@@ -20,7 +20,7 @@ import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.TCKNamespacePrefixMapper;
 import com.gs.dmn.serialization.TCKVersion;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
-import com.gs.dmn.tck.TestCasesReader;
+import com.gs.dmn.tck.TCKSerializer;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.io.File;
@@ -32,7 +32,7 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
     protected static final ClassLoader CLASS_LOADER = NameTransformerTest.class.getClassLoader();
 
     protected final DMNSerializer dmnSerializer = new XMLDMNSerializer(LOGGER, false);
-    protected final TestCasesReader testReader = new TestCasesReader(LOGGER);
+    protected final TCKSerializer testReader = new TCKSerializer(LOGGER);
 
     protected void doTest(String dmmVersion, List<String> dmnFileNames, String testsFileName, Map<String, Pair<String, String>> namespacePrefixMapping) throws Exception {
         DMNTransformer<TestCases> transformer = getTransformer();

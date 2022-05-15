@@ -21,7 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 
-public class TestLabReader {
+public class TestLabSerializer {
     public static final String TEST_LAB_FILE_EXTENSION = ".json";
 
     public static boolean isTestLabFile(File file) {

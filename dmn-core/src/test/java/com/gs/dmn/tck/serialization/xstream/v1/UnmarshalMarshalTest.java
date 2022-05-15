@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.tck.serialization.xstream.v1;
 
-import com.gs.dmn.tck.TestCasesReader;
+import com.gs.dmn.tck.TCKSerializer;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.AbstractTCKUnmarshalMarshalTest;
 import com.gs.dmn.tck.serialization.TCKMarshaller;
@@ -30,7 +30,7 @@ public class UnmarshalMarshalTest extends AbstractTCKUnmarshalMarshalTest {
     }
 
     private void testRoundTrip(File file) throws Exception {
-        if (TestCasesReader.isTCKFile(file)) {
+        if (TCKSerializer.isTCKFile(file)) {
             LOGGER.warn(String.format("Testing '%s'", file.getPath()));
             TCKMarshaller marshaller = TCKMarshallerFactory.newDefaultMarshaller();
             testRoundTrip(file, marshaller);

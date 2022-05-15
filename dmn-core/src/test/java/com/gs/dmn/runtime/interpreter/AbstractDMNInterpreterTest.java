@@ -28,7 +28,7 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.tck.TCKUtil;
-import com.gs.dmn.tck.TestCasesReader;
+import com.gs.dmn.tck.TCKSerializer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.ToQuotedNameTransformer;
@@ -47,14 +47,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
+import static com.gs.dmn.tck.TCKSerializer.isTCKFile;
 
 public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractDMNInterpreterTest.class));
     private static final boolean IGNORE_ERROR_FLAG = true;
 
-    private final DMNSerializer serializer = this.getDialectDefinition().createDMNSerializer(LOGGER, makeInputParameters());
-    private final TestCasesReader testCasesReader = new TestCasesReader(LOGGER);
+    private final DMNSerializer dmnSerializer = this.getDialectDefinition().createDMNSerializer(LOGGER, makeInputParameters());
+    private final TCKSerializer tckSerializer = new TCKSerializer(LOGGER);
 
     protected DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> interpreter;
     private DMNTransformer<TestCases> dmnTransformer;
@@ -100,7 +100,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         try {
             // Read DMN files
             File dmnInputFile = new File(tckResource(completePath(getDMNInputPath(), dmnVersion, dmnFolderName) + "/"));
-            DMNModelRepository repository = new DMNModelRepository(this.serializer.readModels(dmnInputFile));
+            DMNModelRepository repository = new DMNModelRepository(this.dmnSerializer.readModels(dmnInputFile));
 
             // Read TestCases filers
             File testCasesInputFile = new File(tckResource(completePath(getTestCasesInputPath(), dmnVersion, testFolderName) + "/"));
@@ -128,7 +128,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         List<TestCases> testCasesList = new ArrayList<>();
         for (File child: testCasesInputFile.listFiles()) {
             if (isTCKFile(child)) {
-                TestCases testCases = this.testCasesReader.read(child);
+                TestCases testCases = this.tckSerializer.read(child);
                 testFileNames.add(child.getName());
                 testCasesList.add(testCases);
             }
@@ -145,7 +145,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
             File testInputPathFolder = new File(testInputPathURL.getFile());
             for (File child: testInputPathFolder.listFiles()) {
                 if (isTCKFile(child) && child.getName().startsWith(dmnFileName)) {
-                    TestCases testCases = this.testCasesReader.read(child);
+                    TestCases testCases = this.tckSerializer.read(child);
                     testFileNames.add(child.getName());
                     testCasesList.add(testCases);
                 }
@@ -200,7 +200,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         String testName = dmnFileNames.get(0);
         for (String dmnFileName: dmnFileNames) {
             URI dmnFileURI = tckResource(completePath(getDMNInputPath(), dmnVersion, testName) + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION);
-            TDefinitions definitions = this.serializer.readModel(dmnFileURI.toURL());
+            TDefinitions definitions = this.dmnSerializer.readModel(dmnFileURI.toURL());
             definitionsList.add(definitions);
         }
         return definitionsList;

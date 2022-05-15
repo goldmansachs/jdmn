@@ -42,7 +42,7 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, T
         String dmnPath = completePath(getDMNInputPath(), dmnVersion, dmnFileName) + "/";
         String testCasesPath = completePath(getTestCasesInputPath(), dmnVersion, dmnFileName) + "/";
         String expectedPath = completePath(getExpectedPath(), dmnVersion, dmnFileName);
-        String inputTestFilePath = testCasesPath + testFileName + TestCasesReader.DEFAULT_TEST_CASE_FILE_EXTENSION;
+        String inputTestFilePath = testCasesPath + testFileName + TCKSerializer.DEFAULT_TEST_CASE_FILE_EXTENSION;
         String inputModelFilePath = dmnPath + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
         String decodedInputTestFilePath = URLDecoder.decode(resource(inputTestFilePath).getPath(), "UTF-8");
         String decodedInputModelFilePath = URLDecoder.decode(resource(inputModelFilePath).getPath(), "UTF-8");

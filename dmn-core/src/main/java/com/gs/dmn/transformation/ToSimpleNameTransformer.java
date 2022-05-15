@@ -21,7 +21,7 @@ import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.TCKNamespacePrefixMapper;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
-import com.gs.dmn.tck.TestCasesReader;
+import com.gs.dmn.tck.TCKSerializer;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
@@ -108,7 +108,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
                 DMNModelRepository repository = transformDefinitions(simpleNameTransformer, inputFile, outputFile, logger);
 
                 // Clean Test
-                String testFileName = dmnFileName.replace(DMNConstants.DMN_FILE_EXTENSION, "-test-01" + TestCasesReader.DEFAULT_TEST_CASE_FILE_EXTENSION);
+                String testFileName = dmnFileName.replace(DMNConstants.DMN_FILE_EXTENSION, "-test-01" + TCKSerializer.DEFAULT_TEST_CASE_FILE_EXTENSION);
                 File inputTestFile = new File(inputFolder, testFileName);
                 if (inputTestFile.exists()) {
                     File outputTestFile = new File(outputFolder, testFileName);
@@ -135,7 +135,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
 
     private static void transformTestCases(NameTransformer transformer, DMNModelRepository repository, File inputFile, File outputFile, BuildLogger logger) {
         // Read
-        TestCasesReader reader = new TestCasesReader(logger);
+        TCKSerializer reader = new TCKSerializer(logger);
 
         TestCases testCases = reader.read(inputFile);
 

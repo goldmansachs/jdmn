@@ -13,7 +13,7 @@
 package com.gs.dmn.serialization;
 
 import com.gs.dmn.AbstractTest;
-import com.gs.dmn.tck.TestCasesReader;
+import com.gs.dmn.tck.TCKSerializer;
 import org.junit.Test;
 
 import java.io.File;
@@ -25,7 +25,7 @@ public class SchemaValidatorTest extends AbstractTest {
 
         SchemaValidator validator = new SchemaValidator(schemaLocation, "org.omg.dmn.tck.marshaller._20160719");
         File dmnFileFolder = new File(resource("tck"));
-        validate(dmnFileFolder, validator, TestCasesReader.DEFAULT_TEST_CASE_FILE_EXTENSION);
+        validate(dmnFileFolder, validator, TCKSerializer.DEFAULT_TEST_CASE_FILE_EXTENSION);
     }
 
     private void validate(File file, SchemaValidator validator, String extension) {

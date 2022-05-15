@@ -25,7 +25,7 @@ import java.net.URL;
 import static com.gs.dmn.serialization.DMNConstants.TCK_NS;
 import static com.gs.dmn.serialization.DMNConstants.TCK_PACKAGE;
 
-public class TestCasesReader {
+public class TCKSerializer {
     public static final String DEFAULT_TEST_CASE_FILE_EXTENSION = ".xml";
     private static final String TEST_CASE_FILE_EXTENSION = ".tck";
 
@@ -48,7 +48,7 @@ public class TestCasesReader {
 
     private final BuildLogger logger;
 
-    public TestCasesReader(BuildLogger logger) {
+    public TCKSerializer(BuildLogger logger) {
         this.logger = logger;
     }
 

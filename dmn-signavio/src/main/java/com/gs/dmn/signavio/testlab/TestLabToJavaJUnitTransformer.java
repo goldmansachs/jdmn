@@ -43,10 +43,10 @@ import java.util.Map;
 
 import static com.gs.dmn.serialization.DMNSerializer.isDMNFile;
 import static com.gs.dmn.signavio.extension.SignavioExtension.SIG_EXT_NAMESPACE;
-import static com.gs.dmn.signavio.testlab.TestLabReader.isTestLabFile;
+import static com.gs.dmn.signavio.testlab.TestLabSerializer.isTestLabFile;
 
 public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesToJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
-    private final TestLabReader testLabReader = new TestLabReader();
+    private final TestLabSerializer testLabReader = new TestLabSerializer();
     private final TestLabValidator testLabValidator = new TestLabValidator();
 
     private final String schemaNamespace;

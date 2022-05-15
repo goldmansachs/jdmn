@@ -13,12 +13,10 @@
 package com.gs.dmn.signavio.testlab;
 
 import com.gs.dmn.AbstractTest;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import org.junit.Test;
 
 import java.io.File;
 import java.net.URI;
-import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,15 +24,15 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class TestLabReaderTest extends AbstractTest {
-    private final TestLabReader reader = new TestLabReader();
+public class TestLabSerializerTest extends AbstractTest {
+    private final TestLabSerializer serializer = new TestLabSerializer();
 
     @Test
     public void testRead() throws Exception {
         String path = "rdf/rdf2java/expected/dmn/decision-table/" + "simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy.json";
         URI resource = signavioResource(path);
         File inputFile = new File(resource);
-        TestLab testLab = reader.read(inputFile);
+        TestLab testLab = serializer.read(inputFile);
 
         List<InputParameterDefinition> inputParameterDefinitions = testLab.getInputParameterDefinitions();
         List<OutputParameterDefinition> outputParameterDefinitions = testLab.getOutputParameterDefinitions();
