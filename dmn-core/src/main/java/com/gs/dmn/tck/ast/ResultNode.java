@@ -15,7 +15,7 @@ package com.gs.dmn.tck.ast;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import javax.xml.namespace.QName;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @JsonPropertyOrder({
@@ -36,7 +36,7 @@ public class ResultNode extends DMNBaseElement {
     protected String namespace;
     protected String type;
     protected String cast;
-    private final Map<QName, String> otherAttributes = new HashMap<>();
+    protected Map<QName, String> otherAttributes;
 
     public ValueType getComputed() {
         return computed;
@@ -99,7 +99,10 @@ public class ResultNode extends DMNBaseElement {
     }
 
     public Map<QName, String> getOtherAttributes() {
-        return otherAttributes;
+        if (otherAttributes == null) {
+            this.otherAttributes = new LinkedHashMap<>();
+        }
+        return this.otherAttributes;
     }
 
     @Override

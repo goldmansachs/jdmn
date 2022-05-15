@@ -15,15 +15,15 @@ package com.gs.dmn.tck.ast;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import javax.xml.namespace.QName;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @JsonPropertyOrder({
-        "value"
+        "test"
 })
 public class AnySimpleType extends DMNBaseElement {
-    private final Map<QName, String> otherAttributes = new HashMap<>();
-    private String text;
+    protected Map<QName, String> otherAttributes;
+    protected String text;
 
     public String getText() {
         return text;
@@ -34,7 +34,10 @@ public class AnySimpleType extends DMNBaseElement {
     }
 
     public Map<QName, String> getOtherAttributes() {
-        return otherAttributes;
+        if (otherAttributes == null) {
+            this.otherAttributes = new LinkedHashMap<>();
+        }
+        return this.otherAttributes;
     }
 
     @Override

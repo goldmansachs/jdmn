@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.xml.namespace.QName;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind")
@@ -39,7 +39,7 @@ public class ValueType extends DMNBaseElement {
     protected java.util.List<Component> component;
     protected List list;
     protected ExtensionElements extensionElements;
-    private final Map<QName, String> otherAttributes = new HashMap<>();
+    protected Map<QName, String> otherAttributes;
 
     public AnySimpleType getValue() {
         return value;
@@ -87,7 +87,10 @@ public class ValueType extends DMNBaseElement {
      *     always non-null
      */
     public Map<QName, String> getOtherAttributes() {
-        return otherAttributes;
+        if (otherAttributes == null) {
+            this.otherAttributes = new LinkedHashMap<>();
+        }
+        return this.otherAttributes;
     }
 
     @Override
