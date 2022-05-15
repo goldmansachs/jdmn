@@ -53,22 +53,22 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
 
     @Test
     public void testDish() throws Exception {
-        testRoundTrip("xstream/v1_1/", "dish-decision.xml");
+        testRoundTrip("xstream/v1_1/", "dish-decision.dmn");
     }
 
     @Test
     public void testDummyDefinitions() throws Exception {
-        testRoundTrip("xstream/v1_1/", "dummy-definitions.xml");
+        testRoundTrip("xstream/v1_1/", "dummy-definitions.dmn");
     }
 
     @Test
     public void testDummyRelation() throws Exception {
-        testRoundTrip("xstream/v1_1/", "dummy-relation.xml");
+        testRoundTrip("xstream/v1_1/", "dummy-relation.dmn");
     }
 
     @Test
     public void testCh11() throws Exception {
-        testRoundTrip("xstream/v1_1/", "ch11example.xml");
+        testRoundTrip("xstream/v1_1/", "ch11example.dmn");
     }
 
     @Test
@@ -90,13 +90,13 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
 
     @Test
     public void testSemanticNamespace() throws Exception {
-        testRoundTrip("xstream/v1_1/", "semantic-namespace.xml");
+        testRoundTrip("xstream/v1_1/", "semantic-namespace.dmn");
     }
 
     @Ignore("The current file cannot marshal back extension elements because they don't provide converters.")
     @Test
     public void test20161014() throws Exception {
-        testRoundTrip("xstream/v1_1/", "test20161014.xml");
+        testRoundTrip("xstream/v1_1/", "test20161014.dmn");
     }
 
     @Test
