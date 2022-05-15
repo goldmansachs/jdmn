@@ -18,7 +18,6 @@ import org.xmlunit.builder.DiffBuilder;
 import org.xmlunit.builder.Input;
 import org.xmlunit.diff.Diff;
 
-import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 
 public abstract class AbstractXStreamUnmarshalMarshalTest extends AbstractUnmarshalMarshalTest<TDefinitions, DMNMarshaller> {
@@ -42,11 +41,11 @@ public abstract class AbstractXStreamUnmarshalMarshalTest extends AbstractUnmars
     }
 
     @Override
-    protected Diff makeXmlDiff(File expectedOutputFile, File actualOutputFile) {
+    protected Diff makeDMNDiff(File expectedOutputFile, File actualOutputFile) {
         return DiffBuilder
                 .compare(Input.fromFile(expectedOutputFile))
                 .withTest(Input.fromFile(actualOutputFile))
-                .withDifferenceEvaluator(makeDifferenceEvaluator())
+                .withDifferenceEvaluator(makeDMNDifferenceEvaluator())
                 .checkForSimilar()
                 .ignoreWhitespace()
                 .ignoreComments()

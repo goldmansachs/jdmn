@@ -29,6 +29,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.gs.dmn.serialization.DMNSerializer.isDMNFile;
+import static com.gs.dmn.tck.TCKSerializer.isTCKFile;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -43,10 +45,10 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
         } else if (expectedOutputFile.isFile() && actualOutputFile.isFile()) {
             if (isJsonFile(expectedOutputFile) && isJsonFile(actualOutputFile)) {
                 compareJsonFile(expectedOutputFile, actualOutputFile);
-            } else if (isDmnFile(expectedOutputFile) && isDmnFile(actualOutputFile)) {
-                compareXmlFile(expectedOutputFile, actualOutputFile);
-            } else if (isXmlFile(expectedOutputFile) && isXmlFile(actualOutputFile)) {
-                compareXmlFile(expectedOutputFile, actualOutputFile);
+            } else if (isDMNFile(expectedOutputFile) && isDMNFile(actualOutputFile)) {
+                compareDMNFile(expectedOutputFile, actualOutputFile);
+            } else if (isTCKFile(expectedOutputFile) && isTCKFile(actualOutputFile)) {
+                compareTCKFile(expectedOutputFile, actualOutputFile);
             } else if (expectedOutputFile.getName().equals(actualOutputFile.getName())) {
                 compareTextFile(expectedOutputFile, actualOutputFile);
             } else {
@@ -57,21 +59,20 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
         }
     }
 
-    private boolean isDmnFile(File file) {
-        return file.getName().endsWith(".dmn");
-    }
-
-    private boolean isXmlFile(File file) {
-        return file.getName().endsWith(".xml");
-    }
-
     private boolean isJsonFile(File file) {
         return file.getName().endsWith(".json");
     }
 
-    protected void compareXmlFile(File expectedOutputFile, File actualOutputFile) {
+    protected void compareDMNFile(File expectedOutputFile, File actualOutputFile) {
+        compareXmlFile(expectedOutputFile, actualOutputFile, makeDMNDiff(expectedOutputFile, actualOutputFile));
+    }
+
+    protected void compareTCKFile(File expectedOutputFile, File actualOutputFile) {
+        compareXmlFile(expectedOutputFile, actualOutputFile, makeTCKDiff(expectedOutputFile, actualOutputFile));
+    }
+
+    protected void compareXmlFile(File expectedOutputFile, File actualOutputFile, Diff diff) {
         LOGGER.info("XMLUnit comparison with customized similarity for defaults:");
-        Diff diff = makeXmlDiff(expectedOutputFile, actualOutputFile);
         if (diff.hasDifferences()) {
             for (Difference d: diff.getDifferences()) {
                 LOGGER.error(d.toString());
@@ -83,19 +84,34 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
         assertFalse(message, diff.hasDifferences());
     }
 
-    protected Diff makeXmlDiff(File expectedOutputFile, File actualOutputFile) {
+    protected Diff makeDMNDiff(File expectedOutputFile, File actualOutputFile) {
         return DiffBuilder
                 .compare(Input.fromFile(expectedOutputFile))
                 .withTest(Input.fromFile(actualOutputFile))
                 .checkForSimilar()
+                .withNodeMatcher(new DefaultNodeMatcher(ElementSelectors.byNameAndAllAttributes))
+                .withDifferenceEvaluator(makeDMNDifferenceEvaluator())
                 .ignoreWhitespace()
                 .ignoreComments()
-                .withNodeMatcher(new DefaultNodeMatcher(ElementSelectors.byNameAndAllAttributes))
-                .withDifferenceEvaluator(makeDifferenceEvaluator())
                 .build();
     }
 
-    protected DifferenceEvaluator makeDifferenceEvaluator() {
+    protected Diff makeTCKDiff(File expectedOutputFile, File actualOutputFile) {
+        return DiffBuilder
+                .compare(Input.fromFile(expectedOutputFile))
+                .withTest(Input.fromFile(actualOutputFile))
+                .withDifferenceEvaluator(makeTCKDifferenceEvaluator())
+                .checkForSimilar()
+                .ignoreWhitespace()
+                .ignoreComments()
+                .build();
+    }
+
+    protected DifferenceEvaluator makeDMNDifferenceEvaluator() {
+        return DifferenceEvaluators.Default;
+    }
+
+    protected DifferenceEvaluator makeTCKDifferenceEvaluator() {
         return DifferenceEvaluators.Default;
     }
 

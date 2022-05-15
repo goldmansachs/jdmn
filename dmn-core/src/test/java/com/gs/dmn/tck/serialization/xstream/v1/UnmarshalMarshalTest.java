@@ -42,7 +42,7 @@ public class UnmarshalMarshalTest extends AbstractTCKUnmarshalMarshalTest {
     }
 
     private void testRoundTrip(File inputTCKFile, TCKMarshaller marshaller) throws Exception {
-        LOGGER.info(String.format("Testing '%s'", inputTCKFile.getPath()));
+        LOGGER.debug(String.format("Testing '%s'", inputTCKFile.getPath()));
 
         File baseOutputDir = new File("target/tck/xstream/");
         baseOutputDir.mkdirs();

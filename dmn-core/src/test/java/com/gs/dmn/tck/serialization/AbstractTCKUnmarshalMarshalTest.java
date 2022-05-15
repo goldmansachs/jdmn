@@ -16,9 +16,6 @@ import com.gs.dmn.serialization.AbstractUnmarshalMarshalTest;
 import com.gs.dmn.serialization.diff.XMLDifferenceEvaluator;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.xstream.TCKMarshallerFactory;
-import org.xmlunit.builder.DiffBuilder;
-import org.xmlunit.builder.Input;
-import org.xmlunit.diff.Diff;
 import org.xmlunit.diff.DifferenceEvaluator;
 import org.xmlunit.diff.DifferenceEvaluators;
 
@@ -50,19 +47,7 @@ public abstract class AbstractTCKUnmarshalMarshalTest extends AbstractUnmarshalM
     }
 
     @Override
-    protected Diff makeXmlDiff(File expectedOutputFile, File actualOutputFile) {
-        return DiffBuilder
-                .compare(Input.fromFile(expectedOutputFile))
-                .withTest(Input.fromFile(actualOutputFile))
-                .withDifferenceEvaluator(makeDifferenceEvaluator())
-                .checkForSimilar()
-                .ignoreWhitespace()
-                .ignoreComments()
-                .build();
-    }
-
-    @Override
-    protected DifferenceEvaluator makeDifferenceEvaluator() {
+    protected DifferenceEvaluator makeTCKDifferenceEvaluator() {
         return DifferenceEvaluators.chain(DifferenceEvaluators.Default, XMLDifferenceEvaluator.tck1DiffEvaluator());
     }
 }

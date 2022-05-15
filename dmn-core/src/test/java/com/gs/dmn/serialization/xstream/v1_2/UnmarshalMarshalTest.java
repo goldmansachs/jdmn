@@ -102,7 +102,7 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
 
 
     @Override
-    protected DifferenceEvaluator makeDifferenceEvaluator() {
+    protected DifferenceEvaluator makeDMNDifferenceEvaluator() {
         return DifferenceEvaluators.chain(DifferenceEvaluators.Default, XMLDifferenceEvaluator.dmn12DiffEvaluator());
     }
 }
