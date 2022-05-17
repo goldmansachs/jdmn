@@ -18,21 +18,21 @@ import org.junit.Test;
 public class UnmarshalMarshalTest extends AbstractJacksonUnmarshalMarshalTest {
     @Test
     public void testV13_0004_lending() throws Exception {
-        testRoundTrip("jackson/v1_3/", "0004-lending.json");
+        testRoundTrip("jackson/v1_3/0004-lending.json");
     }
 
     @Test
     public void testV13_0014_loan_comparison() throws Exception {
-        testRoundTrip("jackson/v1_3/", "0014-loan-comparison.json");
+        testRoundTrip("jackson/v1_3/0014-loan-comparison.json");
     }
 
     @Test
     public void testV13_0087_chapter_11_example() throws Exception {
-        testRoundTrip("jackson/v1_3/", "0087-chapter-11-example.json");
+        testRoundTrip("jackson/v1_3/0087-chapter-11-example.json");
     }
 
     @Test
     public void testV11_0034_drg_scopes() throws Exception {
-        testRoundTrip("jackson/v1_1/", "0034-drg-scopes.json");
+        testRoundTrip("jackson/v1_1/0034-drg-scopes.json");
     }
 }

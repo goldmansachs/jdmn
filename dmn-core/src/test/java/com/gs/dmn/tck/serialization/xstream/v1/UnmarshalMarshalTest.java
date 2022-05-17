@@ -13,27 +13,27 @@
 package com.gs.dmn.tck.serialization.xstream.v1;
 
 import com.gs.dmn.tck.TCKSerializer;
-import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.AbstractTCKUnmarshalMarshalTest;
 import com.gs.dmn.tck.serialization.TCKMarshaller;
 import com.gs.dmn.tck.serialization.xstream.TCKMarshallerFactory;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.util.Objects;
 
 public class UnmarshalMarshalTest extends AbstractTCKUnmarshalMarshalTest {
-    @Test
+    private final TCKMarshaller marshaller = TCKMarshallerFactory.newDefaultMarshaller();
+    private final String rootOutputPath = "target/";
+
+    @Ignore("Integration all TCK files")
     public void testTCKTests() throws Exception {
         testRoundTrip(STANDARD_FOLDER);
     }
 
     private void testRoundTrip(File file) throws Exception {
         if (TCKSerializer.isTCKFile(file)) {
-            LOGGER.warn(String.format("Testing '%s'", file.getPath()));
-            TCKMarshaller marshaller = TCKMarshallerFactory.newDefaultMarshaller();
-            testRoundTrip(file, marshaller);
+            LOGGER.debug(String.format("Testing '%s'", file.getPath()));
+            testRoundTrip(file, marshaller, rootOutputPath);
         } else if (file.isDirectory() && !file.getName().equals("expected")) {
             for (File child: file.listFiles()) {
                 testRoundTrip(child);
@@ -41,30 +41,34 @@ public class UnmarshalMarshalTest extends AbstractTCKUnmarshalMarshalTest {
         }
     }
 
-    private void testRoundTrip(File inputTCKFile, TCKMarshaller marshaller) throws Exception {
-        LOGGER.debug(String.format("Testing '%s'", inputTCKFile.getPath()));
-
-        File baseOutputDir = new File("target/tck/xstream/");
-        baseOutputDir.mkdirs();
-
-        // Validate input XML
-        validateXSDSchema(inputTCKFile);
-
-        // Read definitions
-        FileInputStream fis = new FileInputStream(inputTCKFile);
-        TestCases testCases = readModel(marshaller, fis);
-        Objects.requireNonNull(testCases, "Missing testCases");
-
-        // Write definitions
-        LOGGER.debug(marshaller.marshal(testCases));
-        File outputTCKFile = new File(baseOutputDir, inputTCKFile.getName());
-        outputTCKFile.getParentFile().mkdirs();
-        writeModel(marshaller, testCases, outputTCKFile);
-
-        // Validate output XML:
-        validateXSDSchema(outputTCKFile);
-
-        // Compare input and output
-        compareFile(inputTCKFile, outputTCKFile);
+    @Test
+    public void testVersion11() throws Exception {
+        String version = "1.1";
+        testRoundTrip(makeFile(version, "0001-input-data-string"), marshaller, makeOutputPath(version));
+        testRoundTrip(makeFile(version, "0002-input-data-number"), marshaller, makeOutputPath(version));
     }
+
+    @Test
+    public void testVersion12() throws Exception {
+        String version = "1.2";
+        testRoundTrip(makeFile(version, "0001-input-data-string"), marshaller, makeOutputPath(version));
+        testRoundTrip(makeFile(version, "0002-input-data-number"), marshaller, makeOutputPath(version));
+    }
+
+    @Test
+    public void testVersion13() throws Exception {
+        String version = "1.3";
+        testRoundTrip(makeFile(version, "0001-input-data-string"), marshaller, makeOutputPath(version));
+        testRoundTrip(makeFile(version, "0002-input-data-number"), marshaller, makeOutputPath(version));
+    }
+
+    private String makeOutputPath(String version) {
+        return String.format("%s/xstream/tck/%s", rootOutputPath, version);
+    }
+
+    private File makeFile(String version, String name) {
+        String path = String.format("tck/%s/cl2/%s/%s-test-01.xml", version, name, name);
+        return new File(STANDARD_FOLDER, path);
+    }
+
 }

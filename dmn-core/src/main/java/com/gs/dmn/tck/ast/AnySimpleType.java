@@ -39,7 +39,7 @@ public class AnySimpleType extends DMNBaseElement {
     protected String text;
 
     public String getText() {
-        return text;
+        return this.text;
     }
 
     public void setText(String text) {
@@ -47,7 +47,7 @@ public class AnySimpleType extends DMNBaseElement {
     }
 
     public Map<QName, String> getOtherAttributes() {
-        if (otherAttributes == null) {
+        if (this.otherAttributes == null) {
             this.otherAttributes = new LinkedHashMap<>();
         }
         return this.otherAttributes;
@@ -55,27 +55,26 @@ public class AnySimpleType extends DMNBaseElement {
 
     public Object getValue() {
         String type = getType();
-        String text = getText();
         if (type == null) {
             return this;
         } else if (type.endsWith("nil")) {
             return null;
         } else if (type.endsWith(":string")) {
-            return text;
+            return this.text;
         } else if (type.endsWith(":boolean")) {
-            return Boolean.valueOf(text);
+            return Boolean.valueOf(this.text);
         } else if (type.endsWith(":decimal")) {
-            return new BigDecimal(text);
+            return new BigDecimal(this.text);
         } else if (type.endsWith(":double")) {
-            return Double.valueOf(text);
+            return Double.valueOf(this.text);
         } else if (type.endsWith(":date")) {
-            return DATATYPE_FACTORY.newXMLGregorianCalendar(text);
+            return DATATYPE_FACTORY.newXMLGregorianCalendar(this.text);
         } else if (type.endsWith(":time")) {
-            return DATATYPE_FACTORY.newXMLGregorianCalendar(text);
+            return DATATYPE_FACTORY.newXMLGregorianCalendar(this.text);
         } else if (type.endsWith(":dateTime")) {
-            return DATATYPE_FACTORY.newXMLGregorianCalendar(text);
+            return DATATYPE_FACTORY.newXMLGregorianCalendar(this.text);
         } else if (type.endsWith(":duration")) {
-            return DATATYPE_FACTORY.newDuration(text);
+            return DATATYPE_FACTORY.newDuration(this.text);
         } else {
             throw new IllegalArgumentException(String.format("XML type '%s' is not supported yet", type));
         }

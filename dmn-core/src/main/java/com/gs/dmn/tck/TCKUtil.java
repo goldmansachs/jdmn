@@ -529,7 +529,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
     private String toNativeExpression(ValueType valueType, Type type) {
         if (valueType.getValue() != null) {
-            Object value = jaxbElementValue(valueType.getValue());
+            Object value = anySimpleTypeValue(valueType.getValue());
             String text = getTextContent(value);
             if (text == null || "null".equals(text)) {
                 return "null";
@@ -616,7 +616,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     public Object makeValue(ValueType valueType) {
         if (valueType.getValue() != null) {
-            Object value = jaxbElementValue(valueType.getValue());
+            Object value = anySimpleTypeValue(valueType.getValue());
             String text = getTextContent(value);
             if (text == null) {
                 return null;
@@ -639,7 +639,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             } else if (isDurationTime(value)) {
                 return this.feelLib.duration(text);
             } else {
-                Object obj = jaxbElementValue(valueType.getValue());
+                Object obj = anySimpleTypeValue(valueType.getValue());
                 if (obj instanceof Number) {
                     obj = this.feelLib.number(obj.toString());
                 }
@@ -721,7 +721,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     private Object makeValue(ValueType valueType, Type type) {
         if (valueType.getValue() != null) {
-            Object value = jaxbElementValue(valueType.getValue());
+            Object value = anySimpleTypeValue(valueType.getValue());
             String text = getTextContent(value);
             if (text == null) {
                 return null;
@@ -878,7 +878,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         }
     }
 
-    private Object jaxbElementValue(Object value) {
+    private Object anySimpleTypeValue(Object value) {
         if (value instanceof AnySimpleType) {
             return ((AnySimpleType) value).getValue();
         }

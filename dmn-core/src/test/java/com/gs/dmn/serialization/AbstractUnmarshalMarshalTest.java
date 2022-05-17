@@ -25,33 +25,35 @@ import java.io.FileInputStream;
 import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractUnmarshalMarshalTest<D, M> extends AbstractFileTransformerTest {
-    protected void testRoundTrip(String subDir, String dmnFile) throws Exception {
+    protected void testRoundTrip(String inputFilePath) throws Exception {
         M marshaller = getMarshaller();
-        testRoundTrip(subDir, dmnFile, marshaller);
+        testRoundTrip(inputFilePath, marshaller);
     }
 
-    protected void testRoundTrip(String subDir, String dmnFile, M marshaller) throws Exception {
-        File baseInputDir = new File("target/test-classes/");
-        File baseOutputDir = new File("target/");
+    protected void testRoundTrip(String inputFilePath, M marshaller) throws Exception {
+        File inputFile = new File(resource(inputFilePath));
+        testRoundTrip(inputFile, marshaller, inputFilePath);
+    }
 
+    protected void testRoundTrip(File inputFile, M marshaller, String outputFilePath) throws Exception {
         // Validate input XML
-        File inputDMNFile = new File(baseInputDir, subDir + dmnFile);
-        validateXSDSchema(inputDMNFile);
+        validateXSDSchema(inputFile);
 
         // Read definitions
-        FileInputStream fis = new FileInputStream(inputDMNFile);
+        FileInputStream fis = new FileInputStream(inputFile);
         D definitions = readModel(marshaller, fis);
 
         // Write definitions
-        File outputDMNFile = new File(baseOutputDir, subDir + dmnFile);
-        outputDMNFile.getParentFile().mkdirs();
-        writeModel(marshaller, definitions, outputDMNFile);
+        File baseOutputDir = new File(outputFilePath);
+        File outputFile = new File(baseOutputDir, inputFile.getName());
+        outputFile.getParentFile().mkdirs();
+        writeModel(marshaller, definitions, outputFile);
 
         // Validate output XML:
-        validateXSDSchema(outputDMNFile);
+        validateXSDSchema(outputFile);
 
         // Compare input and output
-        compareFile(inputDMNFile, outputDMNFile);
+        compareFile(inputFile, outputFile);
     }
 
     protected void validateXSDSchema(File outputDMNFile) {

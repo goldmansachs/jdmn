@@ -23,52 +23,52 @@ import javax.xml.transform.stream.StreamSource;
 public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     @Test
     public void testV13_simple() throws Exception {
-        testRoundTrip("xstream/v1_3/", "simple.dmn");
+        testRoundTrip("xstream/v1_3/simple.dmn");
     }
 
     @Test
     public void testV13_ch11example_asFromOMG() throws Exception {
-        testRoundTrip("xstream/v1_3/", "Chapter 11 Example.dmn", getMarshaller());
+        testRoundTrip("xstream/v1_3/Chapter 11 Example.dmn", getMarshaller());
     }
 
     @Test
     public void testV13_financial() throws Exception {
-        testRoundTrip("xstream/v1_3/", "Financial.dmn");
+        testRoundTrip("xstream/v1_3/Financial.dmn");
     }
 
     @Test
     public void testV13_loan_info() throws Exception {
-        testRoundTrip("xstream/v1_3/", "Loan info.dmn");
+        testRoundTrip("xstream/v1_3/Loan info.dmn");
     }
 
     @Test
     public void testV13_recommended_loan_product() throws Exception {
-        testRoundTrip("xstream/v1_3/", "Recommended Loan Products.dmn");
+        testRoundTrip("xstream/v1_3/Recommended Loan Products.dmn");
     }
 
     @Test
     public void testV13_group() throws Exception {
-        testRoundTrip("xstream/v1_3/", "group.dmn");
+        testRoundTrip("xstream/v1_3/group.dmn");
     }
 
     @Test
     public void testV13_dmnedge() throws Exception {
-        testRoundTrip("xstream/v1_3/", "dmnedge.dmn");
+        testRoundTrip("xstream/v1_3/dmnedge.dmn");
     }
 
     @Test
     public void testV13_functionItem() throws Exception {
-        testRoundTrip("xstream/v1_3/", "functionItem.dmn");
+        testRoundTrip("xstream/v1_3/functionItem.dmn");
     }
 
     @Test
     public void testV13_decision_list() throws Exception {
-        testRoundTrip("xstream/v1_3/", "decision-list.dmn");
+        testRoundTrip("xstream/v1_3/decision-list.dmn");
     }
 
     @Test
     public void testV13_extensions() throws Exception {
-        testRoundTrip("xstream/v1_3/", "0034-drg-scopes.dmn");
+        testRoundTrip("xstream/v1_3/0034-drg-scopes.dmn");
     }
 
     @Override
