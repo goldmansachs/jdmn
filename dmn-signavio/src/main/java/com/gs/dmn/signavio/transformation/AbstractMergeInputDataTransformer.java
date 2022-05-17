@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -23,11 +24,9 @@ import com.gs.dmn.signavio.testlab.TestCase;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.testlab.expression.Expression;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
-import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.bind.JAXBElement;
 import java.util.*;
 
 public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransformer<TestLab> {
@@ -182,7 +181,7 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
                                 ir.getRequiredInput().setHref("#" + representative.getId());
 
                                 // Replace in body
-                                TExpression expression = decision.getExpression().getValue();
+                                TExpression expression = decision.getExpression();
                                 if (expression instanceof TDecisionTable) {
                                     // For each InputClause
                                     TDecisionTable decisionTable = (TDecisionTable) expression;
@@ -263,9 +262,9 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
     }
 
     private void removeDRGElement(TDefinitions definitions, TDRGElement drgElement) {
-        JAXBElement<?> elementToRemove = null;
-        for(JAXBElement<?> element: definitions.getDrgElement()) {
-            if (element.getValue() == drgElement) {
+        TDRGElement elementToRemove = null;
+        for(TDRGElement element: definitions.getDrgElement()) {
+            if (element == drgElement) {
                 elementToRemove = element;
             }
         }

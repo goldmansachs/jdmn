@@ -12,6 +12,9 @@
  */
 package com.gs.dmn.feel.synthesis;
 
+import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.ast.TInvocable;
+import com.gs.dmn.ast.TNamedElement;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.el.analysis.semantics.type.Type;
@@ -49,9 +52,6 @@ import com.gs.dmn.runtime.Range;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
-import org.omg.spec.dmn._20191111.model.TInvocable;
-import org.omg.spec.dmn._20191111.model.TNamedElement;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

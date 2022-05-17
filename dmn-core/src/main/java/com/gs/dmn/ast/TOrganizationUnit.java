@@ -28,18 +28,18 @@ import java.util.List;
         "decisionOwned",
         "extensionElements"
 })
-public class TOrganizationUnit<C> extends TBusinessContextElement<C> implements Visitable<C> {
-    private List<TDMNElementReference<C>> decisionMade;
-    private List<TDMNElementReference<C>> decisionOwned;
+public class TOrganizationUnit extends TBusinessContextElement implements Visitable {
+    private List<TDMNElementReference> decisionMade;
+    private List<TDMNElementReference> decisionOwned;
 
-    public List<TDMNElementReference<C>> getDecisionMade() {
+    public List<TDMNElementReference> getDecisionMade() {
         if (decisionMade == null) {
             decisionMade = new ArrayList<>();
         }
         return this.decisionMade;
     }
 
-    public List<TDMNElementReference<C>> getDecisionOwned() {
+    public List<TDMNElementReference> getDecisionOwned() {
         if (decisionOwned == null) {
             decisionOwned = new ArrayList<>();
         }
@@ -47,7 +47,7 @@ public class TOrganizationUnit<C> extends TBusinessContextElement<C> implements 
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

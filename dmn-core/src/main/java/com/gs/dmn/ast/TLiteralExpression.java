@@ -24,9 +24,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "importedValues",
         "extensionElements"
 })
-public class TLiteralExpression<C> extends TExpression<C> implements Visitable<C> {
+public class TLiteralExpression extends TExpression implements Visitable {
     private String text;
-    private TImportedValues<C> importedValues;
+    private TImportedValues importedValues;
     private String expressionLanguage;
 
     public String getText() {
@@ -37,11 +37,11 @@ public class TLiteralExpression<C> extends TExpression<C> implements Visitable<C
         this.text = value;
     }
 
-    public TImportedValues<C> getImportedValues() {
+    public TImportedValues getImportedValues() {
         return importedValues;
     }
 
-    public void setImportedValues(TImportedValues<C> value) {
+    public void setImportedValues(TImportedValues value) {
         this.importedValues = value;
     }
 
@@ -54,7 +54,7 @@ public class TLiteralExpression<C> extends TExpression<C> implements Visitable<C
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

@@ -14,6 +14,7 @@ package com.gs.dmn.signavio.testlab;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.CompositeDataType;
@@ -30,7 +31,6 @@ import com.gs.dmn.transformation.native_.expression.NativeExpressionFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,7 +50,7 @@ public class TestLabUtil {
         if (dmnModelRepository instanceof SignavioDMNModelRepository) {
             this.dmnModelRepository = (SignavioDMNModelRepository) dmnModelRepository;
         } else {
-            this.dmnModelRepository = new SignavioDMNModelRepository(dmnModelRepository.getRootDefinitions(), dmnModelRepository.getPrefixNamespaceMappings());
+            this.dmnModelRepository = new SignavioDMNModelRepository(dmnModelRepository.getRootDefinitions());
         }
         this.dmnTransformer = dmnTransformer;
         this.nativeFactory = dmnTransformer.getNativeFactory();
@@ -82,7 +82,7 @@ public class TestLabUtil {
 
     public String drgElementOutputFieldName(TestLab testLab, int outputIndex) {
         TDecision decision = (TDecision) findDRGElement(testLab.getRootOutputParameter());
-        return ((BasicSignavioDMNToJavaTransformer)dmnTransformer).drgElementOutputFieldName(decision, outputIndex);
+        return ((BasicSignavioDMNToJavaTransformer) dmnTransformer).drgElementOutputFieldName(decision, outputIndex);
     }
 
     public String inputDataVariableName(InputParameterDefinition inputParameterDefinition) {
@@ -201,7 +201,7 @@ public class TestLabUtil {
                 }
                 sortParameters(pairs);
                 List<String> args = new ArrayList<>();
-                for(Pair<String, Expression> p: pairs) {
+                for (Pair<String, Expression> p: pairs) {
                     Type memberType = memberType(inputType, p.getLeft());
                     String arg = toNativeExpression(memberType, p.getRight(), decision);
                     args.add(arg);
@@ -219,7 +219,7 @@ public class TestLabUtil {
     TItemDefinition elementType(TItemDefinition type) {
         TDefinitions model = this.dmnModelRepository.getModel(type);
         if (type.isIsCollection()) {
-            String typeRef = type.getTypeRef();
+            String typeRef = QualifiedName.toName(type.getTypeRef());
             if (!this.dmnModelRepository.isNull(typeRef)) {
                 return this.dmnModelRepository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
             }
@@ -246,31 +246,31 @@ public class TestLabUtil {
                 itemComponent = itemDefinition.getItemComponent();
             }
             if (!StringUtils.isBlank(name)) {
-                for(TItemDefinition child: itemComponent) {
+                for (TItemDefinition child: itemComponent) {
                     if (this.dmnModelRepository.sameName(child, name)) {
                         return child;
                     }
                 }
             }
             if (!StringUtils.isBlank(label)) {
-                for(TItemDefinition child: itemComponent) {
+                for (TItemDefinition child: itemComponent) {
                     if (this.dmnModelRepository.sameLabel(child, label)) {
                         return child;
                     }
                 }
             }
             if (!StringUtils.isBlank(id)) {
-                for (TItemDefinition child : itemComponent) {
+                for (TItemDefinition child: itemComponent) {
                     if (this.dmnModelRepository.sameId(child, id)) {
                         return child;
                     }
                 }
-                for(TItemDefinition child: itemComponent) {
+                for (TItemDefinition child: itemComponent) {
                     if (this.dmnModelRepository.idEndsWith(child, id)) {
                         return child;
                     }
                 }
-                for(TItemDefinition child: itemComponent) {
+                for (TItemDefinition child: itemComponent) {
                     if (sameSlotId(child, id)) {
                         return child;
                     }
@@ -351,9 +351,9 @@ public class TestLabUtil {
         TDRGElement element = findDRGElement(parameterDefinition);
         String typeRef;
         if (element instanceof TInputData) {
-            typeRef = ((TInputData) element).getVariable().getTypeRef();
+            typeRef = QualifiedName.toName(((TInputData) element).getVariable().getTypeRef());
         } else if (element instanceof TDecision) {
-            typeRef = ((TDecision) element).getVariable().getTypeRef();
+            typeRef = QualifiedName.toName(((TDecision) element).getVariable().getTypeRef());
         } else {
             throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for requirementId requirement '%s'. '%s' not supported", parameterDefinition.getId(), element.getClass().getSimpleName()));
         }

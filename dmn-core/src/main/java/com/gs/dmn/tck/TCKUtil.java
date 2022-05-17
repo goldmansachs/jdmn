@@ -16,6 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.ImportPath;
 import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.*;
@@ -27,23 +28,16 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
+import com.gs.dmn.tck.ast.*;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.dmn.tck.marshaller._20160719.TestCaseType;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
-import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase;
-import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.InputNode;
-import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.ResultNode;
-import org.omg.dmn.tck.marshaller._20160719.ValueType;
-import org.omg.dmn.tck.marshaller._20160719.ValueType.Component;
-import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -212,10 +206,10 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (element == null) {
             throw new DMNRuntimeException(String.format("Cannot find element '%s'.", node.getNodeName()));
         } else if (element instanceof TInputData) {
-            String varTypeRef = ((TInputData) element).getVariable().getTypeRef();
+            String varTypeRef = QualifiedName.toName(((TInputData) element).getVariable().getTypeRef());
             typeRef = QualifiedName.toQualifiedName(model, varTypeRef);
         } else if (element instanceof TDecision) {
-            String varTypeRef = ((TDecision) element).getVariable().getTypeRef();
+            String varTypeRef = QualifiedName.toName(((TDecision) element).getVariable().getTypeRef());
             typeRef = QualifiedName.toQualifiedName(model, varTypeRef);
         } else {
             throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for node '%s'. '%s' not supported", node.getNodeName(), element.getClass().getSimpleName()));
@@ -427,7 +421,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             Map<String, Object> map = new LinkedHashMap<>();
             List<InputNode> inputNode = testCase.getInputNode();
             for (int i = 0; i < inputNode.size(); i++) {
-                TestCase.InputNode input = inputNode.get(i);
+                InputNode input = inputNode.get(i);
                 try {
                     Object value = makeValue(input);
                     map.put(input.getName(), value);
@@ -535,7 +529,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
     private String toNativeExpression(ValueType valueType, Type type) {
         if (valueType.getValue() != null) {
-            Object value = jaxbElementValue(valueType.getValue());
+            Object value = anySimpleTypeValue(valueType.getValue());
             String text = getTextContent(value);
             if (text == null || "null".equals(text)) {
                 return "null";
@@ -557,7 +551,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
                 throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
             }
         } else if (valueType.getList() != null) {
-            return toNativeExpression(valueType.getList().getValue(), (ListType) type);
+            return toNativeExpression(valueType.getList(), (ListType) type);
         } else if (valueType.getComponent() != null) {
             if (type instanceof ItemDefinitionType) {
                 return toNativeExpression(valueType.getComponent(), (ItemDefinitionType) type);
@@ -570,7 +564,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
     }
 
-    private String toNativeExpression(ValueType.List list, ListType listType) {
+    private String toNativeExpression(com.gs.dmn.tck.ast.List list, ListType listType) {
         List<String> javaList = new ArrayList<>();
         for (ValueType listValueType : list.getItem()) {
             Type elementType = listType.getElementType();
@@ -622,7 +616,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     public Object makeValue(ValueType valueType) {
         if (valueType.getValue() != null) {
-            Object value = jaxbElementValue(valueType.getValue());
+            Object value = anySimpleTypeValue(valueType.getValue());
             String text = getTextContent(value);
             if (text == null) {
                 return null;
@@ -645,7 +639,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             } else if (isDurationTime(value)) {
                 return this.feelLib.duration(text);
             } else {
-                Object obj = valueType.getValue().getValue();
+                Object obj = anySimpleTypeValue(valueType.getValue());
                 if (obj instanceof Number) {
                     obj = this.feelLib.number(obj.toString());
                 }
@@ -661,7 +655,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     private List<?> makeList(ValueType valueType) {
         List<Object> javaList = new ArrayList<>();
-        ValueType.List list = valueType.getList().getValue();
+        com.gs.dmn.tck.ast.List list = valueType.getList();
         for (ValueType listValueType : list.getItem()) {
             Object value = makeValue(listValueType);
             javaList.add(value);
@@ -727,7 +721,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     private Object makeValue(ValueType valueType, Type type) {
         if (valueType.getValue() != null) {
-            Object value = jaxbElementValue(valueType.getValue());
+            Object value = anySimpleTypeValue(valueType.getValue());
             String text = getTextContent(value);
             if (text == null) {
                 return null;
@@ -750,7 +744,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             } else if (isDurationTime(value, type)) {
                 return this.feelLib.duration(text);
             } else {
-                Object obj = valueType.getValue().getValue();
+                Object obj = valueType.getValue();
                 if (obj instanceof Number) {
                     obj = this.feelLib.number(obj.toString());
                 }
@@ -771,7 +765,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     private List<?> makeList(ValueType valueType, ListType listType) {
         List<Object> javaList = new ArrayList<>();
-        ValueType.List list = valueType.getList().getValue();
+        com.gs.dmn.tck.ast.List list = valueType.getList();
         for (ValueType listValueType : list.getItem()) {
             Type elementType = listType.getElementType();
             Object value = makeValue(listValueType, elementType);
@@ -877,18 +871,16 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             return this.feelLib.string(value);
         } else if (value instanceof org.w3c.dom.Element) {
             return ((org.w3c.dom.Element) value).getTextContent();
+        } else if (value instanceof AnySimpleType) {
+            return ((AnySimpleType) value).getText();
         } else {
             return null;
         }
     }
 
-    private Object jaxbElementValue(Object value) {
-        if (value instanceof JAXBElement) {
-            if (((JAXBElement<?>) value).isNil()) {
-                return null;
-            } else {
-                value = ((JAXBElement<?>) value).getValue();
-            }
+    private Object anySimpleTypeValue(Object value) {
+        if (value instanceof AnySimpleType) {
+            return ((AnySimpleType) value).getValue();
         }
         return value;
     }

@@ -29,26 +29,26 @@ import javax.xml.namespace.QName;
         "dmnLabel",
         "dmnDecisionServiceDividerLine"
 })
-public class DMNShape<C> extends Shape<C> implements Visitable<C> {
-    private DMNLabel<C> dmnLabel;
-    private DMNDecisionServiceDividerLine<C> dmnDecisionServiceDividerLine;
+public class DMNShape extends Shape implements Visitable {
+    private DMNLabel dmnLabel;
+    private DMNDecisionServiceDividerLine dmnDecisionServiceDividerLine;
     private QName dmnElementRef;
     private Boolean isListedInputData;
     private Boolean isCollapsed;
 
-    public DMNLabel<C> getDMNLabel() {
+    public DMNLabel getDMNLabel() {
         return dmnLabel;
     }
 
-    public void setDMNLabel(DMNLabel<C> value) {
+    public void setDMNLabel(DMNLabel value) {
         this.dmnLabel = value;
     }
 
-    public DMNDecisionServiceDividerLine<C> getDMNDecisionServiceDividerLine() {
+    public DMNDecisionServiceDividerLine getDMNDecisionServiceDividerLine() {
         return dmnDecisionServiceDividerLine;
     }
 
-    public void setDMNDecisionServiceDividerLine(DMNDecisionServiceDividerLine<C> value) {
+    public void setDMNDecisionServiceDividerLine(DMNDecisionServiceDividerLine value) {
         this.dmnDecisionServiceDividerLine = value;
     }
 
@@ -81,7 +81,7 @@ public class DMNShape<C> extends Shape<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

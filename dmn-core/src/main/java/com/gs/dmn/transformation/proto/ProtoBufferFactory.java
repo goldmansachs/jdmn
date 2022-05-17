@@ -13,19 +13,15 @@
 package com.gs.dmn.transformation.proto;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
-import com.gs.dmn.el.analysis.semantics.type.AnyType;
-import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType;
-import com.gs.dmn.el.analysis.semantics.type.ListType;
-import com.gs.dmn.el.analysis.semantics.type.NamedType;
+import com.gs.dmn.el.analysis.semantics.type.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.*;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

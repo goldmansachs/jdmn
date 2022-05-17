@@ -13,6 +13,7 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.serialization.SerializationFormat;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -60,6 +61,7 @@ public class InputParameters {
     private final String schemaNamespace;
     private final String namespace;
     private final String prefix;
+    private final SerializationFormat format;
 
     private final String javaRootPackage;
     private final boolean onePackage;
@@ -89,6 +91,7 @@ public class InputParameters {
         this.namespace = InputParameters.getOptionalParam(inputParameters, "namespace");
         this.schemaNamespace = InputParameters.getOptionalParam(inputParameters, "signavioSchemaNamespace");
         this.prefix = InputParameters.getOptionalParam(inputParameters, "prefix");
+        this.format = SerializationFormat.valueOf(InputParameters.getOptionalParam(inputParameters, "format", "XML"));
 
         this.javaRootPackage = InputParameters.getOptionalParam(inputParameters, "javaRootPackage");
         this.onePackage = InputParameters.getOptionalBooleanParam(inputParameters, "onePackage", "false");
@@ -133,6 +136,10 @@ public class InputParameters {
 
     public boolean isXsdValidation() {
         return xsdValidation;
+    }
+
+    public SerializationFormat getFormat() {
+        return format;
     }
 
     public String getJavaRootPackage() {

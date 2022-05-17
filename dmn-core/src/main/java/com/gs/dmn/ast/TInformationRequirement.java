@@ -23,28 +23,28 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "requiredInput",
         "extensionElements"
 })
-public class TInformationRequirement<C> extends TDMNElement<C> implements Visitable<C> {
-    private TDMNElementReference<C> requiredDecision;
-    private TDMNElementReference<C> requiredInput;
+public class TInformationRequirement extends TDMNElement implements Visitable {
+    private TDMNElementReference requiredDecision;
+    private TDMNElementReference requiredInput;
 
-    public TDMNElementReference<C> getRequiredDecision() {
+    public TDMNElementReference getRequiredDecision() {
         return requiredDecision;
     }
 
-    public void setRequiredDecision(TDMNElementReference<C> value) {
+    public void setRequiredDecision(TDMNElementReference value) {
         this.requiredDecision = value;
     }
 
-    public TDMNElementReference<C> getRequiredInput() {
+    public TDMNElementReference getRequiredInput() {
         return requiredInput;
     }
 
-    public void setRequiredInput(TDMNElementReference<C> value) {
+    public void setRequiredInput(TDMNElementReference value) {
         this.requiredInput = value;
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

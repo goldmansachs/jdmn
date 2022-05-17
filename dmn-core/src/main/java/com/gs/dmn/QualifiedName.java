@@ -12,11 +12,24 @@
  */
 package com.gs.dmn;
 
+import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.ast.TImport;
 import com.gs.dmn.serialization.DMNVersion;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
-import org.omg.spec.dmn._20191111.model.TImport;
+
+import javax.xml.namespace.QName;
 
 public class QualifiedName {
+    public static String toName(QName qName) {
+        return qName == null ? null : qName.getLocalPart();
+    }
+    public static QualifiedName toQualifiedName(TDefinitions model, QName qName) {
+        if (qName == null) {
+            return null;
+        } else {
+            return toQualifiedName(model, qName.getLocalPart());
+        }
+    }
+
     public static QualifiedName toQualifiedName(TDefinitions model, String qName) {
         if (qName == null || qName.isEmpty()) {
             return null;

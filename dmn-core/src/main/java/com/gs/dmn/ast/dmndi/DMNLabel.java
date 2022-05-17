@@ -26,7 +26,7 @@ import com.gs.dmn.ast.Visitor;
         "bounds",
         "text"
 })
-public class DMNLabel<C> extends Shape<C> implements Visitable<C> {
+public class DMNLabel extends Shape implements Visitable {
     private String text;
 
     public String getText() {
@@ -38,7 +38,7 @@ public class DMNLabel<C> extends Shape<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

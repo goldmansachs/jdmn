@@ -14,6 +14,10 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.TDecision;
+import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.ast.TInputData;
+import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
@@ -30,13 +34,10 @@ import com.gs.dmn.transformation.SimpleDMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.TDecision;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
-import org.omg.spec.dmn._20191111.model.TInputData;
-import org.omg.spec.dmn._20191111.model.TItemDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.namespace.QName;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,10 +90,10 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
             signavioRepository = (SignavioDMNModelRepository) repository;
         } else {
             TDefinitions definitions = repository.getRootDefinitions();
-            signavioRepository = new SignavioDMNModelRepository(definitions, repository.getPrefixNamespaceMappings());
+            signavioRepository = new SignavioDMNModelRepository(definitions);
         }
         for (TDefinitions definitions: signavioRepository.getAllDefinitions()) {
-            for(TDecision decision: signavioRepository.findDecisions(definitions)) {
+            for (TDecision decision: signavioRepository.findDecisions(definitions)) {
                 TDefinitions decisionModel = repository.getModel(decision);
                 if (signavioRepository.isMultiInstanceDecision(decision)) {
                     MultiInstanceDecisionLogic midLogic = signavioRepository.getExtension().multiInstanceDecisionLogic(decision);
@@ -108,9 +109,9 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
                             TItemDefinition midItemDefinitionType = signavioRepository.lookupItemDefinition(decisionModel, midDecisionTypeRef);
                             String importName = bodyDecisionTypeRef.getNamespace();
                             if (StringUtils.isEmpty(importName)) {
-                                midItemDefinitionType.setTypeRef(String.format("%s", bodyDecisionTypeRef.getLocalPart()));
+                                midItemDefinitionType.setTypeRef(new QName(String.format("%s", bodyDecisionTypeRef.getLocalPart())));
                             } else {
-                                midItemDefinitionType.setTypeRef(String.format("%s.%s", importName, bodyDecisionTypeRef.getLocalPart()));
+                                midItemDefinitionType.setTypeRef(new QName(String.format("%s.%s", importName, bodyDecisionTypeRef.getLocalPart())));
                             }
                             midItemDefinitionType.getItemComponent().clear();
                         }

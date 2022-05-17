@@ -1,444 +1,444 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <modelName>0087-chapter-11-example.dmn</modelName>
-    <labels>
-        <label>Compliance Level 3</label>
-    </labels>
-    <testCase id="001">
-        <inputNode name="ApplicantData">
-            <component name="Age">
-                <value xsi:type="xsd:double">51.0</value>
-            </component>
-            <component name="MartitalStatus">
-                <value xsi:type="xsd:string">M</value>
-            </component>
-            <component name="EmploymentStatus">
-                <value xsi:type="xsd:string">EMPLOYED</value>
-            </component>
-            <component name="ExistingCustomer">
-                <value xsi:type="xsd:boolean">false</value>
-            </component>
-            <component name="Monthly">
-                <component name="Income">
-                    <value xsi:type="xsd:double">100000.0</value>
-                </component>
-                <component name="Repayments">
-                    <value xsi:type="xsd:double">2500.0</value>
-                </component>
-                <component name="Expenses">
-                    <value xsi:type="xsd:double">10000.0</value>
-                </component>
-            </component>
-        </inputNode>
-        <inputNode name="RequestedProduct">
-            <component name="ProductType">
-                <value xsi:type="xsd:string">STANDARD LOAN</value>
-            </component>
-            <component name="Rate">
-                <value xsi:type="xsd:double">0.08</value>
-            </component>
-            <component name="Term">
-                <value xsi:type="xsd:double">36.0</value>
-            </component>
-            <component name="Amount">
-                <value xsi:type="xsd:double">100000.0</value>
-            </component>
-        </inputNode>
-        <inputNode name="BureauData">
-            <component name="Bankrupt">
-                <value xsi:type="xsd:boolean">false</value>
-            </component>
-            <component name="CreditScore">
-                <value xsi:type="xsd:double">600.0</value>
-            </component>
-        </inputNode>
-        <resultNode name="Strategy" type="decision">
-            <expected>
-                <value xsi:type="xsd:string">THROUGH</value>
-            </expected>
-        </resultNode>
-    </testCase>
-    <testCase id="002">
-        <inputNode name="ApplicantData">
-            <component name="Age">
-                <value xsi:type="xsd:double">51.0</value>
-            </component>
-            <component name="MartitalStatus">
-                <value xsi:type="xsd:string">M</value>
-            </component>
-            <component name="EmploymentStatus">
-                <value xsi:type="xsd:string">EMPLOYED</value>
-            </component>
-            <component name="ExistingCustomer">
-                <value xsi:type="xsd:boolean">false</value>
-            </component>
-            <component name="Monthly">
-                <component name="Income">
-                    <value xsi:type="xsd:double">100000.0</value>
-                </component>
-                <component name="Repayments">
-                    <value xsi:type="xsd:double">2500.0</value>
-                </component>
-                <component name="Expenses">
-                    <value xsi:type="xsd:double">10000.0</value>
-                </component>
-            </component>
-        </inputNode>
-        <inputNode name="RequestedProduct">
-            <component name="ProductType">
-                <value xsi:type="xsd:string">STANDARD LOAN</value>
-            </component>
-            <component name="Rate">
-                <value xsi:type="xsd:double">0.08</value>
-            </component>
-            <component name="Term">
-                <value xsi:type="xsd:double">36.0</value>
-            </component>
-            <component name="Amount">
-                <value xsi:type="xsd:double">100000.0</value>
-            </component>
-        </inputNode>
-        <inputNode name="BureauData">
-            <component name="Bankrupt">
-                <value xsi:type="xsd:boolean">false</value>
-            </component>
-            <component name="CreditScore">
-                <value xsi:type="xsd:double">600.0</value>
-            </component>
-        </inputNode>
-        <resultNode name="Routing" type="decision">
-            <expected>
-                <value xsi:type="xsd:string">ACCEPT</value>
-            </expected>
-        </resultNode>
-    </testCase>
-    <testCase id="003a">
-        <inputNode name="ApplicantData">
-            <component name="Age">
-                <value xsi:type="xsd:double">51.0</value>
-            </component>
-            <component name="MartitalStatus">
-                <value xsi:type="xsd:string">M</value>
-            </component>
-            <component name="EmploymentStatus">
-                <value xsi:type="xsd:string">EMPLOYED</value>
-            </component>
-            <component name="ExistingCustomer">
-                <value xsi:type="xsd:boolean">false</value>
-            </component>
-            <component name="Monthly">
-                <component name="Income">
-                    <value xsi:type="xsd:double">100000.0</value>
-                </component>
-                <component name="Repayments">
-                    <value xsi:type="xsd:double">2500.0</value>
-                </component>
-                <component name="Expenses">
-                    <value xsi:type="xsd:double">10000.0</value>
-                </component>
-            </component>
-        </inputNode>
-        <inputNode name="RequestedProduct">
-            <component name="ProductType">
-                <value xsi:type="xsd:string">STANDARD LOAN</value>
-            </component>
-            <component name="Rate">
-                <value xsi:type="xsd:double">0.08</value>
-            </component>
-            <component name="Term">
-                <value xsi:type="xsd:double">36.0</value>
-            </component>
-            <component name="Amount">
-                <value xsi:type="xsd:double">100000.0</value>
-            </component>
-        </inputNode>
-        <inputNode name="BureauData">
-            <component name="Bankrupt">
-                <value xsi:type="xsd:boolean">false</value>
-            </component>
-            <component name="CreditScore">
-                <value xsi:type="xsd:double">600.0</value>
-            </component>
-        </inputNode>
-        <resultNode name="ApplicationRiskScore" type="decision">
-            <expected>
-                <value xsi:type="xsd:double">138.0</value>
-            </expected>
-        </resultNode>
-    </testCase>
-    <testCase id="003b">
-        <inputNode name="ApplicantData">
-            <component name="Age">
-                <value xsi:type="xsd:double">51.0</value>
-            </component>
-            <component name="MartitalStatus">
-                <value xsi:type="xsd:string">M</value>
-            </component>
-            <component name="EmploymentStatus">
-                <value xsi:type="xsd:string">EMPLOYED</value>
-            </component>
-            <component name="ExistingCustomer">
-                <value xsi:type="xsd:boolean">false</value>
-            </component>
-            <component name="Monthly">
-                <component name="Income">
-                    <value xsi:type="xsd:double">100000.0</value>
-                </component>
-                <component name="Repayments">
-                    <value xsi:type="xsd:double">2500.0</value>
-                </component>
-                <component name="Expenses">
-                    <value xsi:type="xsd:double">10000.0</value>
-                </component>
-            </component>
-        </inputNode>
-        <inputNode name="RequestedProduct">
-            <component name="ProductType">
-                <value xsi:type="xsd:string">STANDARD LOAN</value>
-            </component>
-            <component name="Rate">
-                <value xsi:type="xsd:double">0.08</value>
-            </component>
-            <component name="Term">
-                <value xsi:type="xsd:double">36.0</value>
-            </component>
-            <component name="Amount">
-                <value xsi:type="xsd:double">100000.0</value>
-            </component>
-        </inputNode>
-        <inputNode name="BureauData">
-            <component name="Bankrupt">
-                <value xsi:type="xsd:boolean">false</value>
-            </component>
-            <component name="CreditScore">
-                <value xsi:type="xsd:double">600.0</value>
-            </component>
-        </inputNode>
-        <resultNode name="PreBureauRiskCategory" type="decision">
-            <expected>
-                <value xsi:type="xsd:string">VERY LOW</value>
-            </expected>
-        </resultNode>
-    </testCase>
-    <testCase id="003c">
-        <inputNode name="ApplicantData">
-            <component name="Age">
-                <value xsi:type="xsd:double">51.0</value>
-            </component>
-            <component name="MartitalStatus">
-                <value xsi:type="xsd:string">M</value>
-            </component>
-            <component name="EmploymentStatus">
-                <value xsi:type="xsd:string">EMPLOYED</value>
-            </component>
-            <component name="ExistingCustomer">
-                <value xsi:type="xsd:boolean">false</value>
-            </component>
-            <component name="Monthly">
-                <component name="Income">
-                    <value xsi:type="xsd:double">100000.0</value>
-                </component>
-                <component name="Repayments">
-                    <value xsi:type="xsd:double">2500.0</value>
-                </component>
-                <component name="Expenses">
-                    <value xsi:type="xsd:double">10000.0</value>
-                </component>
-            </component>
-        </inputNode>
-        <inputNode name="RequestedProduct">
-            <component name="ProductType">
-                <value xsi:type="xsd:string">STANDARD LOAN</value>
-            </component>
-            <component name="Rate">
-                <value xsi:type="xsd:double">0.08</value>
-            </component>
-            <component name="Term">
-                <value xsi:type="xsd:double">36.0</value>
-            </component>
-            <component name="Amount">
-                <value xsi:type="xsd:double">100000.0</value>
-            </component>
-        </inputNode>
-        <inputNode name="BureauData">
-            <component name="Bankrupt">
-                <value xsi:type="xsd:boolean">false</value>
-            </component>
-            <component name="CreditScore">
-                <value xsi:type="xsd:double">600.0</value>
-            </component>
-        </inputNode>
-        <resultNode name="BureauCallType" type="decision">
-            <expected>
-                <value xsi:type="xsd:string">NONE</value>
-            </expected>
-        </resultNode>
-    </testCase>
-    <testCase id="003d">
-        <inputNode name="ApplicantData">
-            <component name="Age">
-                <value xsi:type="xsd:double">51.0</value>
-            </component>
-            <component name="MartitalStatus">
-                <value xsi:type="xsd:string">M</value>
-            </component>
-            <component name="EmploymentStatus">
-                <value xsi:type="xsd:string">EMPLOYED</value>
-            </component>
-            <component name="ExistingCustomer">
-                <value xsi:type="xsd:boolean">false</value>
-            </component>
-            <component name="Monthly">
-                <component name="Income">
-                    <value xsi:type="xsd:double">100000.0</value>
-                </component>
-                <component name="Repayments">
-                    <value xsi:type="xsd:double">2500.0</value>
-                </component>
-                <component name="Expenses">
-                    <value xsi:type="xsd:double">10000.0</value>
-                </component>
-            </component>
-        </inputNode>
-        <inputNode name="RequestedProduct">
-            <component name="ProductType">
-                <value xsi:type="xsd:string">STANDARD LOAN</value>
-            </component>
-            <component name="Rate">
-                <value xsi:type="xsd:double">0.08</value>
-            </component>
-            <component name="Term">
-                <value xsi:type="xsd:double">36.0</value>
-            </component>
-            <component name="Amount">
-                <value xsi:type="xsd:double">100000.0</value>
-            </component>
-        </inputNode>
-        <inputNode name="BureauData">
-            <component name="Bankrupt">
-                <value xsi:type="xsd:boolean">false</value>
-            </component>
-            <component name="CreditScore">
-                <value xsi:type="xsd:double">600.0</value>
-            </component>
-        </inputNode>
-        <resultNode name="Eligibility" type="decision">
-            <expected>
-                <value xsi:type="xsd:string">ELIGIBLE</value>
-            </expected>
-        </resultNode>
-    </testCase>
-    <testCase id="003e">
-        <inputNode name="ApplicantData">
-            <component name="Age">
-                <value xsi:type="xsd:double">51.0</value>
-            </component>
-            <component name="MartitalStatus">
-                <value xsi:type="xsd:string">M</value>
-            </component>
-            <component name="EmploymentStatus">
-                <value xsi:type="xsd:string">EMPLOYED</value>
-            </component>
-            <component name="ExistingCustomer">
-                <value xsi:type="xsd:boolean">false</value>
-            </component>
-            <component name="Monthly">
-                <component name="Income">
-                    <value xsi:type="xsd:double">100000.0</value>
-                </component>
-                <component name="Repayments">
-                    <value xsi:type="xsd:double">2500.0</value>
-                </component>
-                <component name="Expenses">
-                    <value xsi:type="xsd:double">10000.0</value>
-                </component>
-            </component>
-        </inputNode>
-        <inputNode name="RequestedProduct">
-            <component name="ProductType">
-                <value xsi:type="xsd:string">STANDARD LOAN</value>
-            </component>
-            <component name="Rate">
-                <value xsi:type="xsd:double">0.08</value>
-            </component>
-            <component name="Term">
-                <value xsi:type="xsd:double">36.0</value>
-            </component>
-            <component name="Amount">
-                <value xsi:type="xsd:double">100000.0</value>
-            </component>
-        </inputNode>
-        <inputNode name="BureauData">
-            <component name="Bankrupt">
-                <value xsi:type="xsd:boolean">false</value>
-            </component>
-            <component name="CreditScore">
-                <value xsi:type="xsd:double">600.0</value>
-            </component>
-        </inputNode>
-        <resultNode name="PostBureauAffordability" type="decision">
-            <expected>
-                <value xsi:type="xsd:boolean">true</value>
-            </expected>
-        </resultNode>
-    </testCase>
-    <testCase id="004">
-        <inputNode name="ApplicantData">
-            <component name="Age">
-                <value xsi:type="xsd:double">51.0</value>
-            </component>
-            <component name="MartitalStatus">
-                <value xsi:type="xsd:string">M</value>
-            </component>
-            <component name="EmploymentStatus">
-                <value xsi:type="xsd:string">EMPLOYED</value>
-            </component>
-            <component name="ExistingCustomer">
-                <value xsi:type="xsd:boolean">false</value>
-            </component>
-            <component name="Monthly">
-                <component name="Income">
-                    <value xsi:type="xsd:double">10000.0</value>
-                </component>
-                <component name="Repayments">
-                    <value xsi:type="xsd:double">2500.0</value>
-                </component>
-                <component name="Expenses">
-                    <value xsi:type="xsd:double">3000.0</value>
-                </component>
-            </component>
-        </inputNode>
-        <inputNode name="RequestedProduct">
-            <component name="ProductType">
-                <value xsi:type="xsd:string">STANDARD LOAN</value>
-            </component>
-            <component name="Rate">
-                <value xsi:type="xsd:double">0.08</value>
-            </component>
-            <component name="Term">
-                <value xsi:type="xsd:double">36.0</value>
-            </component>
-            <component name="Amount">
-                <value xsi:type="xsd:double">100000.0</value>
-            </component>
-        </inputNode>
-        <inputNode name="BureauData">
-            <component name="Bankrupt">
-                <value xsi:type="xsd:boolean">false</value>
-            </component>
-            <component name="CreditScore">
-                <value xsi:type="xsd:double">600.0</value>
-            </component>
-        </inputNode>
-        <resultNode name="Strategy" type="decision">
-            <expected>
-                <value xsi:type="xsd:string">THROUGH</value>
-            </expected>
-        </resultNode>
-        <resultNode name="Routing" type="decision">
-            <expected>
-                <value xsi:type="xsd:string">ACCEPT</value>
-            </expected>
-        </resultNode>
-    </testCase>
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="">
+  <modelName>0087-chapter-11-example.dmn</modelName>
+  <labels>
+    <label>Compliance Level 3</label>
+  </labels>
+  <testCase id="001" type="decision">
+    <inputNode name="ApplicantData">
+      <component name="Age">
+        <value xsi:type="xsd:double">51</value>
+      </component>
+      <component name="MartitalStatus">
+        <value xsi:type="xsd:string">M</value>
+      </component>
+      <component name="EmploymentStatus">
+        <value xsi:type="xsd:string">EMPLOYED</value>
+      </component>
+      <component name="ExistingCustomer">
+        <value xsi:type="xsd:boolean">false</value>
+      </component>
+      <component name="Monthly">
+        <component name="Income">
+          <value xsi:type="xsd:double">100000</value>
+        </component>
+        <component name="Repayments">
+          <value xsi:type="xsd:double">2500</value>
+        </component>
+        <component name="Expenses">
+          <value xsi:type="xsd:double">10000</value>
+        </component>
+      </component>
+    </inputNode>
+    <inputNode name="RequestedProduct">
+      <component name="ProductType">
+        <value xsi:type="xsd:string">STANDARD LOAN</value>
+      </component>
+      <component name="Rate">
+        <value xsi:type="xsd:double">0.08</value>
+      </component>
+      <component name="Term">
+        <value xsi:type="xsd:double">36</value>
+      </component>
+      <component name="Amount">
+        <value xsi:type="xsd:double">100000</value>
+      </component>
+    </inputNode>
+    <inputNode name="BureauData">
+      <component name="Bankrupt">
+        <value xsi:type="xsd:boolean">false</value>
+      </component>
+      <component name="CreditScore">
+        <value xsi:type="xsd:double">600</value>
+      </component>
+    </inputNode>
+    <resultNode type="decision" name="Strategy" errorResult="false">
+      <expected>
+        <value xsi:type="xsd:string">THROUGH</value>
+      </expected>
+    </resultNode>
+  </testCase>
+  <testCase id="002" type="decision">
+    <inputNode name="ApplicantData">
+      <component name="Age">
+        <value xsi:type="xsd:double">51</value>
+      </component>
+      <component name="MartitalStatus">
+        <value xsi:type="xsd:string">M</value>
+      </component>
+      <component name="EmploymentStatus">
+        <value xsi:type="xsd:string">EMPLOYED</value>
+      </component>
+      <component name="ExistingCustomer">
+        <value xsi:type="xsd:boolean">false</value>
+      </component>
+      <component name="Monthly">
+        <component name="Income">
+          <value xsi:type="xsd:double">100000</value>
+        </component>
+        <component name="Repayments">
+          <value xsi:type="xsd:double">2500</value>
+        </component>
+        <component name="Expenses">
+          <value xsi:type="xsd:double">10000</value>
+        </component>
+      </component>
+    </inputNode>
+    <inputNode name="RequestedProduct">
+      <component name="ProductType">
+        <value xsi:type="xsd:string">STANDARD LOAN</value>
+      </component>
+      <component name="Rate">
+        <value xsi:type="xsd:double">0.08</value>
+      </component>
+      <component name="Term">
+        <value xsi:type="xsd:double">36</value>
+      </component>
+      <component name="Amount">
+        <value xsi:type="xsd:double">100000</value>
+      </component>
+    </inputNode>
+    <inputNode name="BureauData">
+      <component name="Bankrupt">
+        <value xsi:type="xsd:boolean">false</value>
+      </component>
+      <component name="CreditScore">
+        <value xsi:type="xsd:double">600</value>
+      </component>
+    </inputNode>
+    <resultNode type="decision" name="Routing" errorResult="false">
+      <expected>
+        <value xsi:type="xsd:string">ACCEPT</value>
+      </expected>
+    </resultNode>
+  </testCase>
+  <testCase id="003a" type="decision">
+    <inputNode name="ApplicantData">
+      <component name="Age">
+        <value xsi:type="xsd:double">51</value>
+      </component>
+      <component name="MartitalStatus">
+        <value xsi:type="xsd:string">M</value>
+      </component>
+      <component name="EmploymentStatus">
+        <value xsi:type="xsd:string">EMPLOYED</value>
+      </component>
+      <component name="ExistingCustomer">
+        <value xsi:type="xsd:boolean">false</value>
+      </component>
+      <component name="Monthly">
+        <component name="Income">
+          <value xsi:type="xsd:double">100000</value>
+        </component>
+        <component name="Repayments">
+          <value xsi:type="xsd:double">2500</value>
+        </component>
+        <component name="Expenses">
+          <value xsi:type="xsd:double">10000</value>
+        </component>
+      </component>
+    </inputNode>
+    <inputNode name="RequestedProduct">
+      <component name="ProductType">
+        <value xsi:type="xsd:string">STANDARD LOAN</value>
+      </component>
+      <component name="Rate">
+        <value xsi:type="xsd:double">0.08</value>
+      </component>
+      <component name="Term">
+        <value xsi:type="xsd:double">36</value>
+      </component>
+      <component name="Amount">
+        <value xsi:type="xsd:double">100000</value>
+      </component>
+    </inputNode>
+    <inputNode name="BureauData">
+      <component name="Bankrupt">
+        <value xsi:type="xsd:boolean">false</value>
+      </component>
+      <component name="CreditScore">
+        <value xsi:type="xsd:double">600</value>
+      </component>
+    </inputNode>
+    <resultNode type="decision" name="ApplicationRiskScore" errorResult="false">
+      <expected>
+        <value xsi:type="xsd:double">138</value>
+      </expected>
+    </resultNode>
+  </testCase>
+  <testCase id="003b" type="decision">
+    <inputNode name="ApplicantData">
+      <component name="Age">
+        <value xsi:type="xsd:double">51</value>
+      </component>
+      <component name="MartitalStatus">
+        <value xsi:type="xsd:string">M</value>
+      </component>
+      <component name="EmploymentStatus">
+        <value xsi:type="xsd:string">EMPLOYED</value>
+      </component>
+      <component name="ExistingCustomer">
+        <value xsi:type="xsd:boolean">false</value>
+      </component>
+      <component name="Monthly">
+        <component name="Income">
+          <value xsi:type="xsd:double">100000</value>
+        </component>
+        <component name="Repayments">
+          <value xsi:type="xsd:double">2500</value>
+        </component>
+        <component name="Expenses">
+          <value xsi:type="xsd:double">10000</value>
+        </component>
+      </component>
+    </inputNode>
+    <inputNode name="RequestedProduct">
+      <component name="ProductType">
+        <value xsi:type="xsd:string">STANDARD LOAN</value>
+      </component>
+      <component name="Rate">
+        <value xsi:type="xsd:double">0.08</value>
+      </component>
+      <component name="Term">
+        <value xsi:type="xsd:double">36</value>
+      </component>
+      <component name="Amount">
+        <value xsi:type="xsd:double">100000</value>
+      </component>
+    </inputNode>
+    <inputNode name="BureauData">
+      <component name="Bankrupt">
+        <value xsi:type="xsd:boolean">false</value>
+      </component>
+      <component name="CreditScore">
+        <value xsi:type="xsd:double">600</value>
+      </component>
+    </inputNode>
+    <resultNode type="decision" name="PreBureauRiskCategory" errorResult="false">
+      <expected>
+        <value xsi:type="xsd:string">VERY LOW</value>
+      </expected>
+    </resultNode>
+  </testCase>
+  <testCase id="003c" type="decision">
+    <inputNode name="ApplicantData">
+      <component name="Age">
+        <value xsi:type="xsd:double">51</value>
+      </component>
+      <component name="MartitalStatus">
+        <value xsi:type="xsd:string">M</value>
+      </component>
+      <component name="EmploymentStatus">
+        <value xsi:type="xsd:string">EMPLOYED</value>
+      </component>
+      <component name="ExistingCustomer">
+        <value xsi:type="xsd:boolean">false</value>
+      </component>
+      <component name="Monthly">
+        <component name="Income">
+          <value xsi:type="xsd:double">100000</value>
+        </component>
+        <component name="Repayments">
+          <value xsi:type="xsd:double">2500</value>
+        </component>
+        <component name="Expenses">
+          <value xsi:type="xsd:double">10000</value>
+        </component>
+      </component>
+    </inputNode>
+    <inputNode name="RequestedProduct">
+      <component name="ProductType">
+        <value xsi:type="xsd:string">STANDARD LOAN</value>
+      </component>
+      <component name="Rate">
+        <value xsi:type="xsd:double">0.08</value>
+      </component>
+      <component name="Term">
+        <value xsi:type="xsd:double">36</value>
+      </component>
+      <component name="Amount">
+        <value xsi:type="xsd:double">100000</value>
+      </component>
+    </inputNode>
+    <inputNode name="BureauData">
+      <component name="Bankrupt">
+        <value xsi:type="xsd:boolean">false</value>
+      </component>
+      <component name="CreditScore">
+        <value xsi:type="xsd:double">600</value>
+      </component>
+    </inputNode>
+    <resultNode type="decision" name="BureauCallType" errorResult="false">
+      <expected>
+        <value xsi:type="xsd:string">NONE</value>
+      </expected>
+    </resultNode>
+  </testCase>
+  <testCase id="003d" type="decision">
+    <inputNode name="ApplicantData">
+      <component name="Age">
+        <value xsi:type="xsd:double">51</value>
+      </component>
+      <component name="MartitalStatus">
+        <value xsi:type="xsd:string">M</value>
+      </component>
+      <component name="EmploymentStatus">
+        <value xsi:type="xsd:string">EMPLOYED</value>
+      </component>
+      <component name="ExistingCustomer">
+        <value xsi:type="xsd:boolean">false</value>
+      </component>
+      <component name="Monthly">
+        <component name="Income">
+          <value xsi:type="xsd:double">100000</value>
+        </component>
+        <component name="Repayments">
+          <value xsi:type="xsd:double">2500</value>
+        </component>
+        <component name="Expenses">
+          <value xsi:type="xsd:double">10000</value>
+        </component>
+      </component>
+    </inputNode>
+    <inputNode name="RequestedProduct">
+      <component name="ProductType">
+        <value xsi:type="xsd:string">STANDARD LOAN</value>
+      </component>
+      <component name="Rate">
+        <value xsi:type="xsd:double">0.08</value>
+      </component>
+      <component name="Term">
+        <value xsi:type="xsd:double">36</value>
+      </component>
+      <component name="Amount">
+        <value xsi:type="xsd:double">100000</value>
+      </component>
+    </inputNode>
+    <inputNode name="BureauData">
+      <component name="Bankrupt">
+        <value xsi:type="xsd:boolean">false</value>
+      </component>
+      <component name="CreditScore">
+        <value xsi:type="xsd:double">600</value>
+      </component>
+    </inputNode>
+    <resultNode type="decision" name="Eligibility" errorResult="false">
+      <expected>
+        <value xsi:type="xsd:string">ELIGIBLE</value>
+      </expected>
+    </resultNode>
+  </testCase>
+  <testCase id="003e" type="decision">
+    <inputNode name="ApplicantData">
+      <component name="Age">
+        <value xsi:type="xsd:double">51</value>
+      </component>
+      <component name="MartitalStatus">
+        <value xsi:type="xsd:string">M</value>
+      </component>
+      <component name="EmploymentStatus">
+        <value xsi:type="xsd:string">EMPLOYED</value>
+      </component>
+      <component name="ExistingCustomer">
+        <value xsi:type="xsd:boolean">false</value>
+      </component>
+      <component name="Monthly">
+        <component name="Income">
+          <value xsi:type="xsd:double">100000</value>
+        </component>
+        <component name="Repayments">
+          <value xsi:type="xsd:double">2500</value>
+        </component>
+        <component name="Expenses">
+          <value xsi:type="xsd:double">10000</value>
+        </component>
+      </component>
+    </inputNode>
+    <inputNode name="RequestedProduct">
+      <component name="ProductType">
+        <value xsi:type="xsd:string">STANDARD LOAN</value>
+      </component>
+      <component name="Rate">
+        <value xsi:type="xsd:double">0.08</value>
+      </component>
+      <component name="Term">
+        <value xsi:type="xsd:double">36</value>
+      </component>
+      <component name="Amount">
+        <value xsi:type="xsd:double">100000</value>
+      </component>
+    </inputNode>
+    <inputNode name="BureauData">
+      <component name="Bankrupt">
+        <value xsi:type="xsd:boolean">false</value>
+      </component>
+      <component name="CreditScore">
+        <value xsi:type="xsd:double">600</value>
+      </component>
+    </inputNode>
+    <resultNode type="decision" name="PostBureauAffordability" errorResult="false">
+      <expected>
+        <value xsi:type="xsd:boolean">true</value>
+      </expected>
+    </resultNode>
+  </testCase>
+  <testCase id="004" type="decision">
+    <inputNode name="ApplicantData">
+      <component name="Age">
+        <value xsi:type="xsd:double">51</value>
+      </component>
+      <component name="MartitalStatus">
+        <value xsi:type="xsd:string">M</value>
+      </component>
+      <component name="EmploymentStatus">
+        <value xsi:type="xsd:string">EMPLOYED</value>
+      </component>
+      <component name="ExistingCustomer">
+        <value xsi:type="xsd:boolean">false</value>
+      </component>
+      <component name="Monthly">
+        <component name="Income">
+          <value xsi:type="xsd:double">10000</value>
+        </component>
+        <component name="Repayments">
+          <value xsi:type="xsd:double">2500</value>
+        </component>
+        <component name="Expenses">
+          <value xsi:type="xsd:double">3000</value>
+        </component>
+      </component>
+    </inputNode>
+    <inputNode name="RequestedProduct">
+      <component name="ProductType">
+        <value xsi:type="xsd:string">STANDARD LOAN</value>
+      </component>
+      <component name="Rate">
+        <value xsi:type="xsd:double">0.08</value>
+      </component>
+      <component name="Term">
+        <value xsi:type="xsd:double">36</value>
+      </component>
+      <component name="Amount">
+        <value xsi:type="xsd:double">100000</value>
+      </component>
+    </inputNode>
+    <inputNode name="BureauData">
+      <component name="Bankrupt">
+        <value xsi:type="xsd:boolean">false</value>
+      </component>
+      <component name="CreditScore">
+        <value xsi:type="xsd:double">600</value>
+      </component>
+    </inputNode>
+    <resultNode type="decision" name="Strategy" errorResult="false">
+      <expected>
+        <value xsi:type="xsd:string">THROUGH</value>
+      </expected>
+    </resultNode>
+    <resultNode type="decision" name="Routing" errorResult="false">
+      <expected>
+        <value xsi:type="xsd:string">ACCEPT</value>
+      </expected>
+    </resultNode>
+  </testCase>
 </testCases>

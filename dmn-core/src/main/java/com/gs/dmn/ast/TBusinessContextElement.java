@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(name = "performanceIndicator", value = TPerformanceIndicator.class),
         @JsonSubTypes.Type(name = "organizationUnit", value = TOrganizationUnit.class)
 })
-public class TBusinessContextElement<C> extends TNamedElement<C> implements Visitable<C> {
+public class TBusinessContextElement extends TNamedElement implements Visitable {
     private String uri;
 
     public String getURI() {
@@ -32,7 +32,7 @@ public class TBusinessContextElement<C> extends TNamedElement<C> implements Visi
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

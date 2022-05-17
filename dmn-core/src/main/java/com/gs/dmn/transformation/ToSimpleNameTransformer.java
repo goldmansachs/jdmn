@@ -14,14 +14,16 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.NameUtils;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.NopBuildLogger;
-import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.*;
-import com.gs.dmn.tck.TestCasesReader;
+import com.gs.dmn.serialization.DMNConstants;
+import com.gs.dmn.serialization.DMNSerializer;
+import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
+import com.gs.dmn.tck.TCKSerializer;
+import com.gs.dmn.tck.ast.TestCases;
+import com.gs.dmn.tck.serialization.xstream.XMLTCKSerializer;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
 
 import java.io.File;
 import java.util.*;
@@ -45,22 +47,22 @@ public class ToSimpleNameTransformer extends NameTransformer {
         } else if (NameUtils.isSimpleName(oldName)) {
             return oldName;
         } else {
-            String newName = namesMapping.get(oldName);
+            String newName = this.namesMapping.get(oldName);
             if (newName == null) {
                 newName = toSimpleName(oldName);
                 if (!newName.equals(oldName)) {
                     // Check for duplicates
                     boolean isDuplicate = false;
-                    for(String key: namesMapping.keys()) {
-                        if (!key.equals(oldName) && newName.equals(namesMapping.get(key))) {
+                    for (String key: this.namesMapping.keys()) {
+                        if (!key.equals(oldName) && newName.equals(this.namesMapping.get(key))) {
                             isDuplicate = true;
                             break;
                         }
                     }
                     if (isDuplicate) {
-                        newName = newName + "_" + ++counter;
+                        newName = newName + "_" + ++this.counter;
                     }
-                    namesMapping.put(oldName, newName);
+                    this.namesMapping.put(oldName, newName);
                 }
             }
 
@@ -79,7 +81,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
                 if (skippedPrevious) {
                     ch = Character.toUpperCase(ch);
                 }
-                result.append((char)ch);
+                result.append((char) ch);
                 skippedPrevious = false;
             } else {
                 skippedPrevious = true;
@@ -95,8 +97,8 @@ public class ToSimpleNameTransformer extends NameTransformer {
         File inputFolder = new File("H:/Projects/EP/dmn/dmn-core/src/test/resources/tck/cl2/input/");
         File outputFolder = new File("H:/Projects/EP/dmn/dmn-tck-integration-tests/src/main/resources/tck/cl2/");
 
-        for(File child: inputFolder.listFiles()) {
-            if (DMNReader.isDMNFile(child)) {
+        for (File child: inputFolder.listFiles()) {
+            if (DMNSerializer.isDMNFile(child)) {
                 NameTransformer simpleNameTransformer = new ToSimpleNameTransformer(new NopBuildLogger());
 
                 // Clean DMN
@@ -106,7 +108,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
                 DMNModelRepository repository = transformDefinitions(simpleNameTransformer, inputFile, outputFile, logger);
 
                 // Clean Test
-                String testFileName = dmnFileName.replace(DMNConstants.DMN_FILE_EXTENSION, "-test-01" + TestCasesReader.DEFAULT_TEST_CASE_FILE_EXTENSION);
+                String testFileName = dmnFileName.replace(DMNConstants.DMN_FILE_EXTENSION, "-test-01" + TCKSerializer.DEFAULT_TEST_CASE_FILE_EXTENSION);
                 File inputTestFile = new File(inputFolder, testFileName);
                 if (inputTestFile.exists()) {
                     File outputTestFile = new File(outputFolder, testFileName);
@@ -118,31 +120,29 @@ public class ToSimpleNameTransformer extends NameTransformer {
 
     private static DMNModelRepository transformDefinitions(NameTransformer transformer, File inputFile, File outputFile, BuildLogger logger) {
         // Read
-        DMNReader reader = new DMNReader(logger, false);
-        Pair<TDefinitions, PrefixNamespaceMappings> result = reader.read(inputFile);
+        DMNSerializer serializer = new XMLDMNSerializer(logger, false);
+        TDefinitions result = serializer.readModel(inputFile);
         DMNModelRepository repository = new DMNModelRepository(result);
 
         // Transform
         transformer.transform(repository);
 
         // Write
-        DMNWriter writer = new DMNWriter(logger);
-        writer.write(repository, outputFile, new DMNNamespacePrefixMapper());
+        serializer.writeModel(repository.getRootDefinitions(), outputFile);
 
         return repository;
     }
 
     private static void transformTestCases(NameTransformer transformer, DMNModelRepository repository, File inputFile, File outputFile, BuildLogger logger) {
         // Read
-        TestCasesReader reader = new TestCasesReader(logger);
-
-        TestCases testCases = reader.read(inputFile);
+        TCKSerializer tckSerializer = new XMLTCKSerializer(logger, true);
+        TestCases testCases = tckSerializer.read(inputFile);
 
         // Clean
         transformer.transform(repository, Arrays.asList(testCases));
 
         // Write
-        reader.write(testCases, outputFile, new TCKNamespacePrefixMapper());
+        tckSerializer.write(testCases, outputFile);
     }
 
 }
@@ -152,7 +152,7 @@ class NameMappings {
     private List<String> orderedKeys;
 
     public String get(String name) {
-        return mappings.get(name);
+        return this.mappings.get(name);
     }
 
     public void put(String key, String value) {
@@ -160,10 +160,10 @@ class NameMappings {
     }
 
     public List<String> keys() {
-        return new ArrayList<>(mappings.keySet());
+        return new ArrayList<>(this.mappings.keySet());
     }
 
     public List<String> values() {
-        return new ArrayList<>(mappings.values());
+        return new ArrayList<>(this.mappings.values());
     }
 }

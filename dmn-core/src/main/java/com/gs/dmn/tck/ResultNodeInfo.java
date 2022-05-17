@@ -13,8 +13,8 @@
 package com.gs.dmn.tck;
 
 import com.gs.dmn.DRGElementReference;
-import org.omg.dmn.tck.marshaller._20160719.ValueType;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
+import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.tck.ast.ValueType;
 
 public class ResultNodeInfo extends NodeInfo {
     private final ValueType expectedValue;

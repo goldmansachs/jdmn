@@ -14,11 +14,11 @@ package com.gs.dmn.maven;
 
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.maven.configuration.components.DMNTransformerComponent;
+import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.ToQuotedNameTransformer;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
 import com.gs.dmn.validation.NopDMNValidator;
 import org.junit.Test;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.io.File;
 

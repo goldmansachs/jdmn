@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
         "text"
 })
-public class TRuleAnnotation<C> implements Visitable<C> {
+public class TRuleAnnotation extends DMNBaseElement implements Visitable {
     private String text;
 
     public String getText() {
@@ -29,7 +29,7 @@ public class TRuleAnnotation<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

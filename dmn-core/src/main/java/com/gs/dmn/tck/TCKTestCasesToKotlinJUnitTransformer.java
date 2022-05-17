@@ -15,12 +15,12 @@ package com.gs.dmn.tck;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
+import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.nio.file.Path;
 

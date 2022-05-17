@@ -12,7 +12,7 @@
  */
 package com.gs.dmn;
 
-import org.omg.spec.dmn._20191111.model.TDRGElement;
+import com.gs.dmn.ast.TDRGElement;
 
 public class DRGElementReference<T extends TDRGElement> {
     // Import path from the root model

@@ -13,14 +13,14 @@
 package com.gs.dmn.validation.table;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.TDecision;
+import com.gs.dmn.ast.TDecisionTable;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.validation.AbstractValidatorTest;
 import org.junit.Test;
-import org.omg.spec.dmn._20191111.model.TDecision;
-import org.omg.spec.dmn._20191111.model.TDecisionTable;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -180,7 +180,7 @@ public class TableFactoryTest extends AbstractValidatorTest {
     private void checkTable(URI fileURI, List<String> expectedInput, List<String> expectedRules, List<String> expectedMinList, List<String> expectedMaxList) {
         DMNModelRepository repository = makeRepository(fileURI);
         TDecision element = (TDecision) repository.findDRGElementByName("Loan Grade");
-        TDecisionTable decisionTable = (TDecisionTable) element.getExpression().getValue();
+        TDecisionTable decisionTable = (TDecisionTable) element.getExpression();
         int totalNumberOfRules = decisionTable.getRule().size();
         int totalNumberOfColumns = decisionTable.getInput().size();
         ELTranslator feelTranslator = this.dmnDialectDefinition.createFEELTranslator(repository, this.inputParameters);

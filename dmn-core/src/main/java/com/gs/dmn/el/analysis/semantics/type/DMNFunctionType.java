@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.el.analysis.semantics.type;
 
-import org.omg.spec.dmn._20191111.model.TDRGElement;
-import org.omg.spec.dmn._20191111.model.TFunctionKind;
+import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.ast.TFunctionKind;
 
 public interface DMNFunctionType extends FunctionType {
     TDRGElement getDRGElement();

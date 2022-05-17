@@ -32,38 +32,38 @@ import java.util.List;
         "rule",
         "extensionElements"
 })
-public class TDecisionTable<C> extends TExpression<C> implements Visitable<C> {
-    private List<TInputClause<C>> input;
-    private List<TOutputClause<C>> output;
-    private List<TRuleAnnotationClause<C>> annotation;
-    private List<TDecisionRule<C>> rule;
+public class TDecisionTable extends TExpression implements Visitable {
+    private List<TInputClause> input;
+    private List<TOutputClause> output;
+    private List<TRuleAnnotationClause> annotation;
+    private List<TDecisionRule> rule;
     private THitPolicy hitPolicy;
     private TBuiltinAggregator aggregation;
     private TDecisionTableOrientation preferredOrientation;
     private String outputLabel;
 
-    public List<TInputClause<C>> getInput() {
+    public List<TInputClause> getInput() {
         if (input == null) {
             input = new ArrayList<>();
         }
         return this.input;
     }
 
-    public List<TOutputClause<C>> getOutput() {
+    public List<TOutputClause> getOutput() {
         if (output == null) {
             output = new ArrayList<>();
         }
         return this.output;
     }
 
-    public List<TRuleAnnotationClause<C>> getAnnotation() {
+    public List<TRuleAnnotationClause> getAnnotation() {
         if (annotation == null) {
             annotation = new ArrayList<>();
         }
         return this.annotation;
     }
 
-    public List<TDecisionRule<C>> getRule() {
+    public List<TDecisionRule> getRule() {
         if (rule == null) {
             rule = new ArrayList<>();
         }
@@ -111,7 +111,7 @@ public class TDecisionTable<C> extends TExpression<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

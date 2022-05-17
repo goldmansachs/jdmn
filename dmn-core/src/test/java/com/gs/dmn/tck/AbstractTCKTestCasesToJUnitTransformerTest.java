@@ -19,12 +19,12 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
+import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.*;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.NopDMNValidator;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.net.URI;
 import java.net.URLDecoder;
@@ -42,7 +42,7 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, T
         String dmnPath = completePath(getDMNInputPath(), dmnVersion, dmnFileName) + "/";
         String testCasesPath = completePath(getTestCasesInputPath(), dmnVersion, dmnFileName) + "/";
         String expectedPath = completePath(getExpectedPath(), dmnVersion, dmnFileName);
-        String inputTestFilePath = testCasesPath + testFileName + TestCasesReader.DEFAULT_TEST_CASE_FILE_EXTENSION;
+        String inputTestFilePath = testCasesPath + testFileName + TCKSerializer.DEFAULT_TEST_CASE_FILE_EXTENSION;
         String inputModelFilePath = dmnPath + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
         String decodedInputTestFilePath = URLDecoder.decode(resource(inputTestFilePath).getPath(), "UTF-8");
         String decodedInputModelFilePath = URLDecoder.decode(resource(inputModelFilePath).getPath(), "UTF-8");

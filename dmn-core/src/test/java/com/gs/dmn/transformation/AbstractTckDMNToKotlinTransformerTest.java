@@ -14,9 +14,9 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.KotlinStandardDMNDialectDefinition;
+import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.template.KotlinTreeTemplateProvider;
 import com.gs.dmn.transformation.template.TemplateProvider;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;

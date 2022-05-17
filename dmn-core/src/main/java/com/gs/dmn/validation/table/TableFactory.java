@@ -14,6 +14,7 @@ package com.gs.dmn.validation.table;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
@@ -24,7 +25,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.SimpleLiteral;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.StringLiteral;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +97,7 @@ public class TableFactory {
                 TDefinitions model = repository.getModel(element);
                 TItemDefinition itemDefinition = repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, inputTypeRef));
                 if (itemDefinition != null) {
-                    String typeRef = itemDefinition.getTypeRef();
+                    String typeRef = QualifiedName.toName(itemDefinition.getTypeRef());
                     if ("string".equals(typeRef)) {
                         List<String> allowedValues = findAllowedValues(repository, element, decisionTable, columnIndex);
                         if (!allowedValues.isEmpty()) {
@@ -272,7 +272,7 @@ public class TableFactory {
             TInputClause inputClause = input.get(columnIndex);
             TLiteralExpression inputExpression = inputClause.getInputExpression();
             if (inputExpression != null) {
-                String typeRef = inputExpression.getTypeRef();
+                String typeRef = QualifiedName.toName(inputExpression.getTypeRef());
                 if (!StringUtils.isBlank(typeRef)) {
                     TDefinitions model = repository.getModel(element);
                     TItemDefinition tItemDefinition = repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
@@ -306,7 +306,7 @@ public class TableFactory {
             if (inputClause != null) {
                 TLiteralExpression inputExpression = inputClause.getInputExpression();
                 if (inputExpression != null) {
-                    typeRef = inputExpression.getTypeRef();
+                    typeRef = QualifiedName.toName(inputExpression.getTypeRef());
                 }
             }
         }

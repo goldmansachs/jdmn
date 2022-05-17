@@ -22,19 +22,19 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "requiredKnowledge",
         "extensionElements"
 })
-public class TKnowledgeRequirement<C> extends TDMNElement<C> implements Visitable<C> {
-    private TDMNElementReference<C> requiredKnowledge;
+public class TKnowledgeRequirement extends TDMNElement implements Visitable {
+    private TDMNElementReference requiredKnowledge;
 
-    public TDMNElementReference<C> getRequiredKnowledge() {
+    public TDMNElementReference getRequiredKnowledge() {
         return requiredKnowledge;
     }
 
-    public void setRequiredKnowledge(TDMNElementReference<C> value) {
+    public void setRequiredKnowledge(TDMNElementReference value) {
         this.requiredKnowledge = value;
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

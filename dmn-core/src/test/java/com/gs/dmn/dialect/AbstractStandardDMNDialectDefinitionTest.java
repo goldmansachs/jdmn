@@ -13,9 +13,9 @@
 package com.gs.dmn.dialect;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 public abstract class AbstractStandardDMNDialectDefinitionTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNDialectDefinitionTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     @Override

@@ -14,6 +14,7 @@ package com.gs.dmn.ast.dmndi;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.gs.dmn.ast.DMNBaseElement;
 
 import javax.xml.namespace.QName;
 import java.util.ArrayList;
@@ -23,11 +24,12 @@ import java.util.Map;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind")
 @JsonSubTypes({
-        @JsonSubTypes.Type(name = "dmnStyle", value = DMNStyle.class)
+        @JsonSubTypes.Type(name = "dmnStyle", value = DMNStyle.class),
+        @JsonSubTypes.Type(name = "Style$IDREFStubStyle", value = Style.IDREFStubStyle.class)
 })
-public abstract class Style<C> {
+public abstract class Style extends DMNBaseElement {
     private Extension extension;
-    private String id;
+    protected String id;
     private final Map<QName, String> otherAttributes = new HashMap<>();
 
     public Extension getExtension() {
@@ -58,6 +60,15 @@ public abstract class Style<C> {
                 any = new ArrayList<>();
             }
             return this.any;
+        }
+    }
+
+    public static class IDREFStubStyle extends Style {
+        public IDREFStubStyle() {
+        }
+
+        public IDREFStubStyle(String id) {
+            this.id = id;
         }
     }
 }

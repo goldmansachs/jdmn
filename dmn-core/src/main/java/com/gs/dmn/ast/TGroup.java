@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "description",
         "extensionElements"
 })
-public class TGroup<C> extends TArtifact<C> implements Visitable<C> {
+public class TGroup extends TArtifact implements Visitable {
     private String name;
 
     public String getName() {
@@ -34,7 +34,7 @@ public class TGroup<C> extends TArtifact<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

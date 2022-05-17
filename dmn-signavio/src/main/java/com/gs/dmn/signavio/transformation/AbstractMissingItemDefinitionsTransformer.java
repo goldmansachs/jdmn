@@ -13,6 +13,8 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -20,11 +22,10 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
-import org.omg.spec.dmn._20191111.model.TItemDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.namespace.QName;
 import java.util.List;
 
 public abstract class AbstractMissingItemDefinitionsTransformer extends SimpleDMNTransformer<TestLab> {
@@ -81,7 +82,7 @@ public abstract class AbstractMissingItemDefinitionsTransformer extends SimpleDM
         itemDefinition.setId(String.format("generated-definition-%d", definitionsCount));
         itemDefinition.setName(name);
         itemDefinition.setLabel(name);
-        itemDefinition.setTypeRef(typeRef);
+        itemDefinition.setTypeRef(new QName(typeRef));
         itemDefinition.setIsCollection(isCollection);
         return itemDefinition;
     }

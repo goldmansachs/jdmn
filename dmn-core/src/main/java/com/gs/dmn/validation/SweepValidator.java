@@ -13,6 +13,7 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
@@ -24,9 +25,7 @@ import com.gs.dmn.validation.table.Bound;
 import com.gs.dmn.validation.table.BoundList;
 import com.gs.dmn.validation.table.Table;
 import com.gs.dmn.validation.table.TableFactory;
-import org.omg.spec.dmn._20191111.model.*;
 
-import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -78,12 +77,9 @@ public abstract class SweepValidator extends SimpleDMNValidator {
             List<TDRGElement> drgElements = dmnModelRepository.findDRGElements(definitions);
             for (TDRGElement element: drgElements) {
                 if (element instanceof TDecision) {
-                    JAXBElement<? extends TExpression> jaxbExpression = ((TDecision) element).getExpression();
-                    if (jaxbExpression != null) {
-                        TExpression expression = jaxbExpression.getValue();
-                        if (expression instanceof TDecisionTable && ((TDecisionTable) expression).getHitPolicy() == THitPolicy.UNIQUE) {
-                            validate(element, (TDecisionTable) expression, dmnTransformer, dmnModelRepository, errorReport);
-                        }
+                    TExpression expression = ((TDecision) element).getExpression();
+                    if (expression instanceof TDecisionTable && ((TDecisionTable) expression).getHitPolicy() == THitPolicy.UNIQUE) {
+                        validate(element, (TDecisionTable) expression, dmnTransformer, dmnModelRepository, errorReport);
                     }
                 }
             }

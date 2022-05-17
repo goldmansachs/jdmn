@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "text",
         "extensionElements"
 })
-public class TTextAnnotation<C> extends TArtifact<C> implements Visitable<C> {
+public class TTextAnnotation extends TArtifact implements Visitable {
     private String text;
     private String textFormat;
 
@@ -48,7 +48,7 @@ public class TTextAnnotation<C> extends TArtifact<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

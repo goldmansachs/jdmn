@@ -14,25 +14,22 @@ package com.gs.dmn.signavio.transformation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.Assert;
 import org.junit.Test;
-import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
 import java.io.File;
 import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileTransformerTest {
+public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSignavioFileTransformerTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
-
-    private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
     @Test
     public void testMissingDefinitionsWithoutTransformation() throws Exception {
@@ -117,7 +114,7 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
                     .stream().filter(x -> x.getName().equals(definitionName)).findFirst()
                     .orElseThrow(() -> new DMNRuntimeException("Cannot locate new definition"));
 
-            Assert.assertEquals("Definition type reference is not correct", "feel.number", definition.getTypeRef());
+            Assert.assertEquals("Definition type reference is not correct", "feel.number", QualifiedName.toName(definition.getTypeRef()));
         }
     }
 
@@ -133,7 +130,7 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
         }
 
         File dmnFile = new File(dmnFileURI);
-        DMNModelRepository repository = new SignavioDMNModelRepository(dmnReader.read(dmnFile));
+        DMNModelRepository repository = new SignavioDMNModelRepository(this.dmnSerializer.readModel(dmnFile));
         List<TItemDefinition> definitions = new ArrayList<>(repository.findItemDefinitions(repository.getRootDefinitions()));
         DMNModelRepository transformed = transformer.transform(repository);
 
@@ -172,11 +169,11 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
         }
 
         public List<TItemDefinition> getBeforeTransform() {
-            return beforeTransform;
+            return this.beforeTransform;
         }
 
         public List<TItemDefinition> getAfterTransform() {
-            return afterTransform;
+            return this.afterTransform;
         }
     }
 }

@@ -14,5 +14,6 @@
 package com.gs.dmn.signavio;
 
 public class SignavioTestConstants {
-    public static final String TEST_SCHEMA_NAMESPACE = "http://www.provider.com/schema/dmn/1.1/";
+    public static final String SIG_NAMESPACE = "http://www.provider.com/dmn/1.1/diagram/";
+    public static final String SIG_EXT_NAMESPACE = "http://www.provider.com/schema/dmn/1.1/";
 }

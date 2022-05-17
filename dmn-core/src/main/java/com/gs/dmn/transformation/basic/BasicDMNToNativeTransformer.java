@@ -16,6 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementFilter;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.DMNContextKind;
 import com.gs.dmn.context.environment.Environment;
@@ -41,9 +42,7 @@ import com.gs.dmn.transformation.native_.statement.Statement;
 import com.gs.dmn.transformation.proto.MessageType;
 import com.gs.dmn.transformation.proto.ProtoBufferFactory;
 import com.gs.dmn.transformation.proto.Service;
-import org.omg.spec.dmn._20191111.model.*;
 
-import javax.xml.bind.JAXBElement;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -446,8 +445,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
     //
     // Expression related functions
     //
-    Type expressionType(TDRGElement element, JAXBElement<? extends TExpression> jElement, DMNContext context);
-
     Type expressionType(TDRGElement element, TExpression expression, DMNContext context);
 
     Type convertType(Type type, boolean convertToContext);

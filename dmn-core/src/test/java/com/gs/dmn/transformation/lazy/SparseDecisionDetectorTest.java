@@ -14,16 +14,15 @@ package com.gs.dmn.transformation.lazy;
 
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
+import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.ast.TDecisionTable;
+import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.ast.TExpression;
+import com.gs.dmn.serialization.DMNSerializer;
+import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import com.gs.dmn.transformation.InputParameters;
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
-import org.omg.spec.dmn._20191111.model.TDecisionTable;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
-import org.omg.spec.dmn._20191111.model.TExpression;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -36,19 +35,21 @@ import static org.junit.Assert.assertEquals;
 public class SparseDecisionDetectorTest extends AbstractTest {
     private SparseDecisionDetector detector;
     private DMNModelRepository dmnModelRepository;
-    private final DMNReader dmnReader = new DMNReader(LOGGER, false);
+    private final DMNSerializer dmnReader = new XMLDMNSerializer(LOGGER, false);
 
     @Before
     public void setUp() {
         String pathName = "dmn/input/1.1/0004-lending.dmn";
-        dmnModelRepository = readDMN(pathName);
+        this.dmnModelRepository = readDMN(pathName);
     }
 
     @Test
     public void testLazyEvaluationOptimisation() {
-        Map<String, String> inputParametersMap = new LinkedHashMap<String, String>() {{ put("sparsityThreshold", "0.10");}};
-        detector = new SparseDecisionDetector(makeInputParameters(inputParametersMap), LOGGER);
-        LazyEvaluationOptimisation lazyEvaluationOptimisation = detector.detect(dmnModelRepository);
+        Map<String, String> inputParametersMap = new LinkedHashMap<String, String>() {{
+            put("sparsityThreshold", "0.10");
+        }};
+        this.detector = new SparseDecisionDetector(makeInputParameters(inputParametersMap), LOGGER);
+        LazyEvaluationOptimisation lazyEvaluationOptimisation = this.detector.detect(this.dmnModelRepository);
 
         assertEquals(Arrays.asList("BureauCallType", "Eligibility"), new ArrayList<>(lazyEvaluationOptimisation.getLazyEvaluatedDecisions()));
     }
@@ -56,12 +57,14 @@ public class SparseDecisionDetectorTest extends AbstractTest {
     @Test
     public void testIsSparseDecisionTable() {
         TDefinitions definitions = this.dmnModelRepository.getRootDefinitions();
-        checkDecisionTable(dmnModelRepository.findDRGElementByName(definitions, "EligibilityRules"), 0.75, true);
-        checkDecisionTable(dmnModelRepository.findDRGElementByName(definitions, "Strategy"), 0.75, false);
+        checkDecisionTable(this.dmnModelRepository.findDRGElementByName(definitions, "EligibilityRules"), 0.75, true);
+        checkDecisionTable(this.dmnModelRepository.findDRGElementByName(definitions, "Strategy"), 0.75, false);
     }
 
     private void checkDecisionTable(TDRGElement element, Double sparsityThreshold, boolean expectedResult) {
-        Map<String, String> inputParametersMap = new LinkedHashMap<String, String>() {{ put("sparsityThreshold", sparsityThreshold.toString());}};
+        Map<String, String> inputParametersMap = new LinkedHashMap<String, String>() {{
+            put("sparsityThreshold", sparsityThreshold.toString());
+        }};
         this.detector = new SparseDecisionDetector(makeInputParameters(inputParametersMap), LOGGER);
         TExpression expression = this.dmnModelRepository.expression(element);
         assertEquals(expectedResult, this.detector.isSparseDecisionTable((TDecisionTable) expression, sparsityThreshold));
@@ -69,8 +72,8 @@ public class SparseDecisionDetectorTest extends AbstractTest {
 
     private DMNModelRepository readDMN(String pathName) {
         File input = new File(resource(pathName));
-        Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(input);
-        return new DMNModelRepository(pair);
+        TDefinitions definitions = this.dmnReader.readModel(input);
+        return new DMNModelRepository(definitions);
     }
 
     protected InputParameters makeInputParameters(Map<String, String> inputParameters) {

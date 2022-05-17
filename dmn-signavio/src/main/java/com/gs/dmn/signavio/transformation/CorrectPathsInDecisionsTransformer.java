@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -21,7 +22,6 @@ import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.config.Correction;
 import com.gs.dmn.signavio.transformation.config.DecisionTableCorrection;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
-import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

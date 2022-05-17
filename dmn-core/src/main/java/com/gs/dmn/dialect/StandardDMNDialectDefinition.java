@@ -21,6 +21,7 @@ import com.gs.dmn.feel.synthesis.type.StandardNativeTypeFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DefaultDMNBaseDecision;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
+import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
@@ -29,7 +30,6 @@ import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;

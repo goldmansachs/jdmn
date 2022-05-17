@@ -15,9 +15,9 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
+import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.net.URI;
 

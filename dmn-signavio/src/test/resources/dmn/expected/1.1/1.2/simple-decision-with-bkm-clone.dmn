@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" sigExt:revisionNumber="1" sigExt:revisionId="61aca407c00f4bcb8ee0d854ebb0ecac" id="id-09de67af469244c9a7bcb6a99c34b5a1" name="simple-decision-with-bkm" namespace="http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml" exporterVersion="10.15.9">
+  <extensionElements>
+    <decisionService id="service-id-806148ab1843f34bf4e461a8ed442b97" name="service-sUM">
+      <outputDecision href="#id-806148ab1843f34bf4e461a8ed442b97"></outputDecision>
+      <inputData href="#id-3448371157c12df721ef54d01a2a01e0"></inputData>
+      <inputData href="#id-6941daac7dedcf760459bef259f2b83c"></inputData>
+    </decisionService>
+  </extensionElements>
+  <itemDefinition id="id-d8d2409326ca95ebc06b54a4f32d82b9" label="A" name="a" isCollection="false">
+    <typeRef>feel.number</typeRef>
+  </itemDefinition>
+  <itemDefinition id="id-7529a16fb8fb3ac44ab132893d08aabc" label="A" name="a2" isCollection="false">
+    <typeRef>feel.number</typeRef>
+  </itemDefinition>
+  <itemDefinition id="id-5c3a857c933c219de1462d611ecf644b" label="B" name="b" isCollection="false">
+    <typeRef>feel.number</typeRef>
+  </itemDefinition>
+  <itemDefinition id="id-bbd21642e140be5214da01c35869ad84" label="B" name="b2" isCollection="false">
+    <typeRef>feel.number</typeRef>
+  </itemDefinition>
+  <itemDefinition id="id-b8bf75fc98d4d6a0e0e8cb2ce9fcfee8" label="SUM" name="sUM" isCollection="false">
+    <typeRef>feel.number</typeRef>
+  </itemDefinition>
+  <inputData sigExt:shapeId="sid-F2486B26-F187-43CA-8687-DF0893AD1D27" sigExt:diagramId="0cad6eb96bfc4b638250c73ff90f439b" id="id-6941daac7dedcf760459bef259f2b83c" label="A" name="a">
+    <variable id="id-6941daac7dedcf760459bef259f2b83c_variable" name="a" typeRef="a"></variable>
+  </inputData>
+  <inputData sigExt:shapeId="sid-F50F4E8B-4C8A-4CA6-81FD-A5B3AEE8DD05" sigExt:diagramId="0cad6eb96bfc4b638250c73ff90f439b" id="id-3448371157c12df721ef54d01a2a01e0" label="B" name="b">
+    <variable id="id-3448371157c12df721ef54d01a2a01e0_variable" name="b" typeRef="b"></variable>
+  </inputData>
+  <decision sigExt:shapeId="sid-5B841B13-C828-4A7C-8E59-AABED865A8FA" sigExt:diagramId="0cad6eb96bfc4b638250c73ff90f439b" id="id-806148ab1843f34bf4e461a8ed442b97" label="SUM" name="sUM">
+    <variable id="id-806148ab1843f34bf4e461a8ed442b97_variable" name="SUM" typeRef="sUM"></variable>
+    <informationRequirement>
+      <requiredInput href="#id-6941daac7dedcf760459bef259f2b83c"></requiredInput>
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#id-3448371157c12df721ef54d01a2a01e0"></requiredInput>
+    </informationRequirement>
+    <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+      <text>(a+b)</text>
+    </literalExpression>
+  </decision>
+  <inputData sigExt:shapeId="sid-8D4FB4D7-6503-4FC2-B91A-A12B8C72FA3B" sigExt:diagramId="2521256910f54d44b0a90fa88a1aa917" id="id-dd388ae24612b67597f5220a2c6a1985" label="B" name="b3">
+    <variable id="id-dd388ae24612b67597f5220a2c6a1985_variable" name="b3" typeRef="b2"></variable>
+  </inputData>
+  <inputData sigExt:shapeId="sid-51423E05-DA13-44BF-9227-7AA7B88C67AC" sigExt:diagramId="2521256910f54d44b0a90fa88a1aa917" id="id-f1336e666ce4588d576ac630e3a0935c" label="A" name="a2">
+    <variable id="id-f1336e666ce4588d576ac630e3a0935c_variable" name="a2" typeRef="a2"></variable>
+  </inputData>
+  <businessKnowledgeModel id="id-74659018eb94601d9ccd8bcb2443688e" name="bKM">
+    <extensionElements>
+      <sigExt:referencedService href="#service-id-806148ab1843f34bf4e461a8ed442b97"></sigExt:referencedService>
+    </extensionElements>
+    <variable id="id-74659018eb94601d9ccd8bcb2443688e_variable" name="bKM"></variable>
+  </businessKnowledgeModel>
+  <decision sigExt:shapeId="sid-D8E2188A-C75B-406C-85C9-3C1B2E1B149D" sigExt:diagramId="2521256910f54d44b0a90fa88a1aa917" id="id-c9af84da6920472f7e8311c719099aac" label="Sign" name="sign">
+    <variable id="id-c9af84da6920472f7e8311c719099aac_variable" name="Sign" typeRef="sUM"></variable>
+    <informationRequirement>
+      <requiredInput href="#id-f1336e666ce4588d576ac630e3a0935c"></requiredInput>
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#id-dd388ae24612b67597f5220a2c6a1985"></requiredInput>
+    </informationRequirement>
+    <knowledgeRequirement>
+      <requiredKnowledge href="#id-74659018eb94601d9ccd8bcb2443688e"></requiredKnowledge>
+    </knowledgeRequirement>
+    <invocation>
+      <literalExpression>
+        <text>bKM</text>
+      </literalExpression>
+      <binding>
+        <parameter name="b"></parameter>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+          <text>a2</text>
+        </literalExpression>
+      </binding>
+      <binding>
+        <parameter name="a"></parameter>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+          <text>b3</text>
+        </literalExpression>
+      </binding>
+    </invocation>
+  </decision>
+  <decision sigExt:shapeId="sid-D8E2188A-C75B-406C-85C9-3C1B2E1B149D-1" sigExt:diagramId="2521256910f54d44b0a90fa88a1aa917" id="id-c9af84da6920472f7e8311c719099aac-1" label="Sign" name="sign1">
+    <variable id="id-c9af84da6920472f7e8311c719099aac_variable-1" name="Sign" typeRef="sUM"></variable>
+    <informationRequirement>
+      <requiredInput href="#id-f1336e666ce4588d576ac630e3a0935c-1"></requiredInput>
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#id-dd388ae24612b67597f5220a2c6a1985-1"></requiredInput>
+    </informationRequirement>
+    <knowledgeRequirement>
+      <requiredKnowledge href="#id-74659018eb94601d9ccd8bcb2443688e"></requiredKnowledge>
+    </knowledgeRequirement>
+    <invocation>
+      <literalExpression>
+        <text>bKM</text>
+      </literalExpression>
+      <binding>
+        <parameter name="b"></parameter>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+          <text>a2</text>
+        </literalExpression>
+      </binding>
+      <binding>
+        <parameter name="a"></parameter>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+          <text>b3</text>
+        </literalExpression>
+      </binding>
+    </invocation>
+  </decision>
+  <inputData sigExt:shapeId="sid-8D4FB4D7-6503-4FC2-B91A-A12B8C72FA3B-1" sigExt:diagramId="2521256910f54d44b0a90fa88a1aa917" id="id-dd388ae24612b67597f5220a2c6a1985-1" label="B" name="b31">
+    <variable id="id-dd388ae24612b67597f5220a2c6a1985_variable-1" name="b3" typeRef="b2"></variable>
+  </inputData>
+  <inputData sigExt:shapeId="sid-51423E05-DA13-44BF-9227-7AA7B88C67AC-1" sigExt:diagramId="2521256910f54d44b0a90fa88a1aa917" id="id-f1336e666ce4588d576ac630e3a0935c-1" label="A" name="a21">
+    <variable id="id-f1336e666ce4588d576ac630e3a0935c_variable-1" name="a2" typeRef="a2"></variable>
+  </inputData>
+</definitions>

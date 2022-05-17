@@ -13,7 +13,7 @@
 package com.gs.dmn.signavio.validation;
 
 import com.gs.dmn.DMNModelRepository;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
+import com.gs.dmn.ast.TDefinitions;
 
 import java.util.ArrayList;
 import java.util.List;

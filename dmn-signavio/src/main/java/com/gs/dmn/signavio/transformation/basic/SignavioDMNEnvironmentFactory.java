@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.transformation.basic;
 
 import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.context.environment.Environment;
@@ -24,7 +25,6 @@ import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.StandardDMNEnvironmentFactory;
-import org.omg.spec.dmn._20191111.model.*;
 
 public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory {
     private final SignavioDMNModelRepository dmnModelRepository;

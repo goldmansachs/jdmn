@@ -13,6 +13,9 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.DataType;
@@ -23,8 +26,6 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.validation.TypeRefValidator;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
-import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +79,7 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
                 } else if (isPrimitive(type) || isListOfPrimitive(type)) {
                     if (!resolvedElements.contains(element)) {
                         // Create ItemDefinition and add it
-                        String name = repository.variable(element).getTypeRef();
+                        String name = QualifiedName.toName(repository.variable(element).getTypeRef());
                         boolean isCollection = type instanceof ListType;
                         String typeRef = getTypeRef(type);
                         TItemDefinition itemDefinition = makeItemDefinition(idSequence, name, isCollection, typeRef);

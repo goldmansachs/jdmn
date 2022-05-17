@@ -14,7 +14,7 @@ package com.gs.dmn.feel;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
+import com.gs.dmn.tck.ast.TestCases;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;

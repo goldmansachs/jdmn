@@ -14,14 +14,14 @@
 package com.gs.dmn.transformation.native_.expression;
 
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.ast.TDecision;
+import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.el.analysis.semantics.type.FunctionType;
 import com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
 import com.gs.dmn.runtime.Pair;
-import org.omg.spec.dmn._20191111.model.TDecision;
-import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
 import java.util.List;
 

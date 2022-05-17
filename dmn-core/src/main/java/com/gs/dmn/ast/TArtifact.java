@@ -21,5 +21,5 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(name = "textAnnotation", value = TTextAnnotation.class),
         @JsonSubTypes.Type(name = "association", value = TAssociation.class)
 })
-public abstract class TArtifact<C> extends TDMNElement<C> {
+public abstract class TArtifact extends TDMNElement {
 }

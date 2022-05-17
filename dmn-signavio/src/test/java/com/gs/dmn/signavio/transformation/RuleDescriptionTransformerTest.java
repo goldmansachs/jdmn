@@ -12,13 +12,12 @@
  */
 package com.gs.dmn.signavio.transformation;
 
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
+import com.gs.dmn.ast.TDecisionRule;
 import org.junit.Test;
-import org.omg.spec.dmn._20191111.model.TDecisionRule;
 
 import static org.junit.Assert.assertEquals;
 
-public class RuleDescriptionTransformerTest extends AbstractFileTransformerTest {
+public class RuleDescriptionTransformerTest extends AbstractSignavioFileTransformerTest {
     private final RuleDescriptionTransformer transformer = new RuleDescriptionTransformer(LOGGER);
 
     @Test

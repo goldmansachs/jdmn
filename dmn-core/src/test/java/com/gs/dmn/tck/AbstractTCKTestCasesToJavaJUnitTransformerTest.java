@@ -15,11 +15,11 @@ package com.gs.dmn.tck;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;

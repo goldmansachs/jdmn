@@ -26,19 +26,19 @@ import java.util.List;
         "binding",
         "extensionElements"
 })
-public class TInvocation<C> extends TExpression<C> implements Visitable<C> {
-    private TExpression<C> expression;
-    private List<TBinding<C>> binding;
+public class TInvocation extends TExpression implements Visitable {
+    private TExpression expression;
+    private List<TBinding> binding;
 
-    public TExpression<C> getExpression() {
+    public TExpression getExpression() {
         return expression;
     }
 
-    public void setExpression(TExpression<C> value) {
+    public void setExpression(TExpression value) {
         this.expression = value;
     }
 
-    public List<TBinding<C>> getBinding() {
+    public List<TBinding> getBinding() {
         if (binding == null) {
             binding = new ArrayList<>();
         }
@@ -46,7 +46,7 @@ public class TInvocation<C> extends TExpression<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

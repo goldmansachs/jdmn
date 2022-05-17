@@ -13,6 +13,7 @@
 package com.gs.dmn.ast.dmndi;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.Visitable;
 import com.gs.dmn.ast.Visitor;
 
@@ -20,7 +21,7 @@ import com.gs.dmn.ast.Visitor;
         "x",
         "y"
 })
-public class Point<C> implements Visitable<C> {
+public class Point extends DMNBaseElement implements Visitable {
     private double x;
     private double y;
 
@@ -41,7 +42,7 @@ public class Point<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

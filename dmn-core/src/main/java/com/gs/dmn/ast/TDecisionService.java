@@ -30,34 +30,34 @@ import java.util.List;
         "inputData",
         "extensionElements"
 })
-public class TDecisionService<C> extends TInvocable<C> implements Visitable<C> {
-    private List<TDMNElementReference<C>> outputDecision;
-    private List<TDMNElementReference<C>> encapsulatedDecision;
-    private List<TDMNElementReference<C>> inputDecision;
-    private List<TDMNElementReference<C>> inputData;
+public class TDecisionService extends TInvocable implements Visitable {
+    private List<TDMNElementReference> outputDecision;
+    private List<TDMNElementReference> encapsulatedDecision;
+    private List<TDMNElementReference> inputDecision;
+    private List<TDMNElementReference> inputData;
 
-    public List<TDMNElementReference<C>> getOutputDecision() {
+    public List<TDMNElementReference> getOutputDecision() {
         if (outputDecision == null) {
             outputDecision = new ArrayList<>();
         }
         return this.outputDecision;
     }
 
-    public List<TDMNElementReference<C>> getEncapsulatedDecision() {
+    public List<TDMNElementReference> getEncapsulatedDecision() {
         if (encapsulatedDecision == null) {
             encapsulatedDecision = new ArrayList<>();
         }
         return this.encapsulatedDecision;
     }
 
-    public List<TDMNElementReference<C>> getInputDecision() {
+    public List<TDMNElementReference> getInputDecision() {
         if (inputDecision == null) {
             inputDecision = new ArrayList<>();
         }
         return this.inputDecision;
     }
 
-    public List<TDMNElementReference<C>> getInputData() {
+    public List<TDMNElementReference> getInputData() {
         if (inputData == null) {
             inputData = new ArrayList<>();
         }
@@ -65,7 +65,7 @@ public class TDecisionService<C> extends TInvocable<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

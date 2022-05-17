@@ -24,37 +24,37 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "requiredAuthority",
         "extensionElements"
 })
-public class TAuthorityRequirement<C> extends TDMNElement<C> implements Visitable<C> {
-    private TDMNElementReference<C> requiredDecision;
-    private TDMNElementReference<C> requiredInput;
-    private TDMNElementReference<C> requiredAuthority;
+public class TAuthorityRequirement extends TDMNElement implements Visitable {
+    private TDMNElementReference requiredDecision;
+    private TDMNElementReference requiredInput;
+    private TDMNElementReference requiredAuthority;
 
-    public TDMNElementReference<C> getRequiredDecision() {
+    public TDMNElementReference getRequiredDecision() {
         return requiredDecision;
     }
 
-    public void setRequiredDecision(TDMNElementReference<C> value) {
+    public void setRequiredDecision(TDMNElementReference value) {
         this.requiredDecision = value;
     }
 
-    public TDMNElementReference<C> getRequiredInput() {
+    public TDMNElementReference getRequiredInput() {
         return requiredInput;
     }
 
-    public void setRequiredInput(TDMNElementReference<C> value) {
+    public void setRequiredInput(TDMNElementReference value) {
         this.requiredInput = value;
     }
 
-    public TDMNElementReference<C> getRequiredAuthority() {
+    public TDMNElementReference getRequiredAuthority() {
         return requiredAuthority;
     }
 
-    public void setRequiredAuthority(TDMNElementReference<C> value) {
+    public void setRequiredAuthority(TDMNElementReference value) {
         this.requiredAuthority = value;
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

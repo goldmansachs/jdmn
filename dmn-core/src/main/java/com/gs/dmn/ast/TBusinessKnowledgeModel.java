@@ -29,27 +29,27 @@ import java.util.List;
         "authorityRequirement",
         "extensionElements"
 })
-public class TBusinessKnowledgeModel<C> extends TInvocable<C> implements Visitable<C> {
-    private TFunctionDefinition<C> encapsulatedLogic;
-    private List<TKnowledgeRequirement<C>> knowledgeRequirement;
-    private List<TAuthorityRequirement<C>> authorityRequirement;
+public class TBusinessKnowledgeModel extends TInvocable implements Visitable {
+    private TFunctionDefinition encapsulatedLogic;
+    private List<TKnowledgeRequirement> knowledgeRequirement;
+    private List<TAuthorityRequirement> authorityRequirement;
 
-    public TFunctionDefinition<C> getEncapsulatedLogic() {
+    public TFunctionDefinition getEncapsulatedLogic() {
         return encapsulatedLogic;
     }
 
-    public void setEncapsulatedLogic(TFunctionDefinition<C> value) {
+    public void setEncapsulatedLogic(TFunctionDefinition value) {
         this.encapsulatedLogic = value;
     }
 
-    public List<TKnowledgeRequirement<C>> getKnowledgeRequirement() {
+    public List<TKnowledgeRequirement> getKnowledgeRequirement() {
         if (knowledgeRequirement == null) {
             knowledgeRequirement = new ArrayList<>();
         }
         return this.knowledgeRequirement;
     }
 
-    public List<TAuthorityRequirement<C>> getAuthorityRequirement() {
+    public List<TAuthorityRequirement> getAuthorityRequirement() {
         if (authorityRequirement == null) {
             authorityRequirement = new ArrayList<>();
         }
@@ -57,7 +57,7 @@ public class TBusinessKnowledgeModel<C> extends TInvocable<C> implements Visitab
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

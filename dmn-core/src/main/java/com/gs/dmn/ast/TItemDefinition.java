@@ -14,6 +14,7 @@ package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,42 +32,42 @@ import java.util.List;
         "functionItem",
         "extensionElements"
 })
-public class TItemDefinition<C> extends TNamedElement<C> implements Visitable<C> {
-    private String typeRef;
-    private TUnaryTests<C> allowedValues;
-    private List<TItemDefinition<C>> itemComponent;
-    private TFunctionItem<C> functionItem;
+public class TItemDefinition extends TNamedElement implements Visitable {
+    private QName typeRef;
+    private TUnaryTests allowedValues;
+    private List<TItemDefinition> itemComponent;
+    private TFunctionItem functionItem;
     private String typeLanguage;
     private Boolean isCollection;
 
-    public String getTypeRef() {
+    public QName getTypeRef() {
         return typeRef;
     }
 
-    public void setTypeRef(String value) {
+    public void setTypeRef(QName value) {
         this.typeRef = value;
     }
 
-    public TUnaryTests<C> getAllowedValues() {
+    public TUnaryTests getAllowedValues() {
         return allowedValues;
     }
 
-    public void setAllowedValues(TUnaryTests<C> value) {
+    public void setAllowedValues(TUnaryTests value) {
         this.allowedValues = value;
     }
 
-    public List<TItemDefinition<C>> getItemComponent() {
+    public List<TItemDefinition> getItemComponent() {
         if (itemComponent == null) {
             itemComponent = new ArrayList<>();
         }
         return this.itemComponent;
     }
 
-    public TFunctionItem<C> getFunctionItem() {
+    public TFunctionItem getFunctionItem() {
         return functionItem;
     }
 
-    public void setFunctionItem(TFunctionItem<C> value) {
+    public void setFunctionItem(TFunctionItem value) {
         this.functionItem = value;
     }
 
@@ -91,7 +92,7 @@ public class TItemDefinition<C> extends TNamedElement<C> implements Visitable<C>
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

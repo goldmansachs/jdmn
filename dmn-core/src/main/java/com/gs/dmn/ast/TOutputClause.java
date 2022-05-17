@@ -14,6 +14,8 @@ package com.gs.dmn.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import javax.xml.namespace.QName;
+
 @JsonPropertyOrder({
         "id",
         "label",
@@ -23,25 +25,25 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "defaultOutputEntry",
         "extensionElements"
 })
-public class TOutputClause<C> extends TDMNElement<C> implements Visitable<C> {
-    private TUnaryTests<C> outputValues;
-    private TLiteralExpression<C> defaultOutputEntry;
+public class TOutputClause extends TDMNElement implements Visitable {
+    private TUnaryTests outputValues;
+    private TLiteralExpression defaultOutputEntry;
     private String name;
-    private String typeRef;
+    private QName typeRef;
 
-    public TUnaryTests<C> getOutputValues() {
+    public TUnaryTests getOutputValues() {
         return outputValues;
     }
 
-    public void setOutputValues(TUnaryTests<C> value) {
+    public void setOutputValues(TUnaryTests value) {
         this.outputValues = value;
     }
 
-    public TLiteralExpression<C> getDefaultOutputEntry() {
+    public TLiteralExpression getDefaultOutputEntry() {
         return defaultOutputEntry;
     }
 
-    public void setDefaultOutputEntry(TLiteralExpression<C> value) {
+    public void setDefaultOutputEntry(TLiteralExpression value) {
         this.defaultOutputEntry = value;
     }
 
@@ -53,16 +55,16 @@ public class TOutputClause<C> extends TDMNElement<C> implements Visitable<C> {
         this.name = value;
     }
 
-    public String getTypeRef() {
+    public QName getTypeRef() {
         return typeRef;
     }
 
-    public void setTypeRef(String value) {
+    public void setTypeRef(QName value) {
         this.typeRef = value;
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

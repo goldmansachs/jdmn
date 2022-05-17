@@ -22,15 +22,15 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.slf4j.LoggerFactory;
 import org.xmlunit.builder.DiffBuilder;
 import org.xmlunit.builder.Input;
-import org.xmlunit.diff.DefaultNodeMatcher;
-import org.xmlunit.diff.Diff;
-import org.xmlunit.diff.Difference;
-import org.xmlunit.diff.ElementSelectors;
+import org.xmlunit.diff.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.gs.dmn.serialization.DMNSerializer.isDMNFile;
+import static com.gs.dmn.tck.TCKSerializer.isTCKFile;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -45,12 +45,12 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
         } else if (expectedOutputFile.isFile() && actualOutputFile.isFile()) {
             if (isJsonFile(expectedOutputFile) && isJsonFile(actualOutputFile)) {
                 compareJsonFile(expectedOutputFile, actualOutputFile);
-            } else if (isDmnFile(expectedOutputFile) && isDmnFile(actualOutputFile)) {
-                compareXmlFile(expectedOutputFile, actualOutputFile);
+            } else if (isDMNFile(expectedOutputFile) && isDMNFile(actualOutputFile)) {
+                compareDMNFile(expectedOutputFile, actualOutputFile);
+            } else if (isTCKFile(expectedOutputFile) && isTCKFile(actualOutputFile)) {
+                compareTCKFile(expectedOutputFile, actualOutputFile);
             } else if (expectedOutputFile.getName().equals(actualOutputFile.getName())) {
-                String expectedTypeContent = FileUtils.readFileToString(expectedOutputFile, "UTF-8").replace("    \r", "\r").replace("\r", "");
-                String actualTypeContent = FileUtils.readFileToString(actualOutputFile, "UTF-8").replace("    \r", "\r").replace("\r", "");
-                assertEquals(expectedOutputFile.getCanonicalPath(), expectedTypeContent, actualTypeContent);
+                compareTextFile(expectedOutputFile, actualOutputFile);
             } else {
                 throw new DMNRuntimeException(String.format("Files with different names '%s' '%s' ", expectedOutputFile.getCanonicalPath(), actualOutputFile.getCanonicalPath()));
             }
@@ -59,36 +59,76 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
         }
     }
 
-    private void compareJsonFile(File expectedOutputFile, File actualOutputFile) throws Exception {
-        String expectedContent = FileUtils.readFileToString(expectedOutputFile, "UTF-8");
-        String actualContent = FileUtils.readFileToString(actualOutputFile, "UTF-8");
-        JSONAssert.assertEquals(expectedContent, actualContent, JSONCompareMode.STRICT);
-    }
-
-    private void compareXmlFile(File expectedOutputFile, File actualOutputFile) {
-        Diff diff = DiffBuilder
-                .compare(Input.fromFile(expectedOutputFile)).withTest(Input.fromFile(actualOutputFile))
-                .checkForSimilar()
-                .ignoreWhitespace()
-                .withNodeMatcher(new DefaultNodeMatcher(ElementSelectors.byNameAndAllAttributes))
-                .build();
-        if (diff.hasDifferences()) {
-            for (Difference d: diff.getDifferences()) {
-                LOGGER.error(d.toString());
-            }
-        }
-        assertFalse(String.format("%s vs %s", expectedOutputFile.getPath(), actualOutputFile.getPath()), diff.hasDifferences());
-    }
-
     private boolean isJsonFile(File file) {
         return file.getName().endsWith(".json");
     }
 
-    private boolean isDmnFile(File file) {
-        return file.getName().endsWith(".dmn");
+    protected void compareDMNFile(File expectedOutputFile, File actualOutputFile) {
+        compareXmlFile(expectedOutputFile, actualOutputFile, makeDMNDiff(expectedOutputFile, actualOutputFile));
     }
 
-    private void compareFileList(File expectedParent, List<File> expectedChildren, File actualParent, List<File> actualChildren) throws Exception {
+    protected void compareTCKFile(File expectedOutputFile, File actualOutputFile) {
+        compareXmlFile(expectedOutputFile, actualOutputFile, makeTCKDiff(expectedOutputFile, actualOutputFile));
+    }
+
+    protected void compareXmlFile(File expectedOutputFile, File actualOutputFile, Diff diff) {
+        LOGGER.info("XMLUnit comparison with customized similarity for defaults:");
+        if (diff.hasDifferences()) {
+            for (Difference d: diff.getDifferences()) {
+                LOGGER.error(d.toString());
+            }
+        } else {
+            LOGGER.info("No diffs");
+        }
+        String message = String.format("XMLs %s and %s are not similar", expectedOutputFile.getPath(), actualOutputFile.getPath());
+        assertFalse(message, diff.hasDifferences());
+    }
+
+    protected Diff makeDMNDiff(File expectedOutputFile, File actualOutputFile) {
+        return DiffBuilder
+                .compare(Input.fromFile(expectedOutputFile))
+                .withTest(Input.fromFile(actualOutputFile))
+                .checkForSimilar()
+                .withNodeMatcher(new DefaultNodeMatcher(ElementSelectors.byNameAndAllAttributes))
+                .withDifferenceEvaluator(makeDMNDifferenceEvaluator())
+                .ignoreWhitespace()
+                .ignoreComments()
+                .build();
+    }
+
+    protected Diff makeTCKDiff(File expectedOutputFile, File actualOutputFile) {
+        return DiffBuilder
+                .compare(Input.fromFile(expectedOutputFile))
+                .withTest(Input.fromFile(actualOutputFile))
+                .withDifferenceEvaluator(makeTCKDifferenceEvaluator())
+                .checkForSimilar()
+                .ignoreWhitespace()
+                .ignoreComments()
+                .build();
+    }
+
+    protected DifferenceEvaluator makeDMNDifferenceEvaluator() {
+        return DifferenceEvaluators.Default;
+    }
+
+    protected DifferenceEvaluator makeTCKDifferenceEvaluator() {
+        return DifferenceEvaluators.Default;
+    }
+
+    protected void compareJsonFile(File expectedOutputFile, File actualOutputFile) throws Exception {
+        String expectedContent = FileUtils.readFileToString(expectedOutputFile, "UTF-8");
+        String actualContent = FileUtils.readFileToString(actualOutputFile, "UTF-8");
+        String message = String.format("%s vs %s", expectedOutputFile.getPath(), actualOutputFile.getPath());
+        JSONAssert.assertEquals(message, expectedContent, actualContent, JSONCompareMode.STRICT);
+    }
+
+    protected void compareTextFile(File expectedOutputFile, File actualOutputFile) throws IOException {
+        String expectedTypeContent = FileUtils.readFileToString(expectedOutputFile, "UTF-8").replace("    \r", "\r").replace("\r", "");
+        String actualTypeContent = FileUtils.readFileToString(actualOutputFile, "UTF-8").replace("    \r", "\r").replace("\r", "");
+        assertEquals(expectedOutputFile.getCanonicalPath(), expectedTypeContent, actualTypeContent);
+    }
+
+    protected void compareFileList(File expectedParent, List<File> expectedChildren, File actualParent, List<File> actualChildren) throws Exception {
         String message = String.format("Different number of children when comparing '%s' with '%s'", expectedParent.getCanonicalPath(), actualParent.getCanonicalPath());
         assertEquals(message, expectedChildren.size(), actualChildren.size());
         expectedChildren.sort(new FileComparator());

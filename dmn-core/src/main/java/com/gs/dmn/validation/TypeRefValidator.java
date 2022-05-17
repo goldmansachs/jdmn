@@ -15,6 +15,7 @@ package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
@@ -29,7 +30,6 @@ import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.DMNEnvironmentFactory;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.*;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -111,7 +111,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
         TDefinitions model = dmnModelRepository.getModel(element);
         DMNEnvironmentFactory dmnEnvironmentFactory = dmnTransformer.getDMNEnvironmentFactory();
         if (variable != null) {
-            String varTypeRef = variable.getTypeRef();
+            String varTypeRef = QualifiedName.toName(variable.getTypeRef());
             if (!isPrimitiveType(varTypeRef) && StringUtils.isNotEmpty(varTypeRef)) {
                 QualifiedName typeRef = QualifiedName.toQualifiedName(model, varTypeRef);
                 TItemDefinition itemDefinition = dmnModelRepository.lookupItemDefinition(model, typeRef);

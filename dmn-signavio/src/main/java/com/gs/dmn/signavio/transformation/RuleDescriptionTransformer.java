@@ -13,13 +13,13 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

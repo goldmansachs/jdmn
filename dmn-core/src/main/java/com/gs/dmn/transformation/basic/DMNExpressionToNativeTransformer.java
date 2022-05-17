@@ -14,6 +14,7 @@ package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.el.analysis.semantics.type.Type;
@@ -35,9 +36,7 @@ import com.gs.dmn.transformation.native_.statement.CompoundStatement;
 import com.gs.dmn.transformation.native_.statement.ExpressionStatement;
 import com.gs.dmn.transformation.native_.statement.Statement;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.*;
 
-import javax.xml.bind.JAXBElement;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -402,21 +401,18 @@ public class DMNExpressionToNativeTransformer {
             // Translate value
             ExpressionStatement value;
             Type entryType;
-            JAXBElement<? extends TExpression> jaxbElement = entry.getExpression();
-            if (jaxbElement != null) {
-                TExpression expression = jaxbElement.getValue();
-                if (expression instanceof TLiteralExpression) {
-                    Expression<Type, DMNContext> feelExpression = literalExpressionMap.get(entry);
-                    entryType = this.dmnEnvironmentFactory.entryType(element, entry, expression, feelExpression);
-                    String stm = this.feelTranslator.expressionToNative(feelExpression, localContext);
-                    value = this.nativeFactory.makeExpressionStatement(stm, entryType);
-                } else {
-                    entryType = this.dmnEnvironmentFactory.entryType(element, entry, localContext);
-                    value = (ExpressionStatement) this.dmnTransformer.expressionToNative(element, expression, localContext);
-                }
-            } else {
+            TExpression expression = entry.getExpression();
+            if (expression == null) {
                 entryType = this.dmnEnvironmentFactory.entryType(element, entry, localContext);
                 value = this.nativeFactory.makeExpressionStatement("null", entryType);
+            } else if (expression instanceof TLiteralExpression) {
+                Expression<Type, DMNContext> feelExpression = literalExpressionMap.get(entry);
+                entryType = this.dmnEnvironmentFactory.entryType(element, entry, expression, feelExpression);
+                String stm = this.feelTranslator.expressionToNative(feelExpression, localContext);
+                value = this.nativeFactory.makeExpressionStatement(stm, entryType);
+            } else {
+                entryType = this.dmnEnvironmentFactory.entryType(element, entry, localContext);
+                value = (ExpressionStatement) this.dmnTransformer.expressionToNative(element, expression, localContext);
             }
 
             // Add statement
@@ -458,8 +454,7 @@ public class DMNExpressionToNativeTransformer {
             // Add entries
             for(TContextEntry entry: context.getContextEntry()) {
                 Type entryType;
-                JAXBElement<? extends TExpression> jaxbElement = entry.getExpression();
-                TExpression expression = jaxbElement == null ? null : jaxbElement.getValue();
+                TExpression expression = entry.getExpression();
                 if (expression instanceof TLiteralExpression) {
                     Expression<Type, DMNContext> feelExpression = literalExpressionMap.get(entry);
                     entryType = this.dmnEnvironmentFactory.entryType(element, entry, expression, feelExpression);
@@ -500,7 +495,7 @@ public class DMNExpressionToNativeTransformer {
         FunctionType functionType = (FunctionType) this.dmnTransformer.expressionType(element, expression, context);
         TFunctionKind kind = expression.getKind();
         if (this.dmnTransformer.isFEELFunction(kind)) {
-            TExpression bodyExpression = expression.getExpression().getValue();
+            TExpression bodyExpression = expression.getExpression();
             DMNContext functionContext = this.dmnTransformer.makeFunctionContext(element, expression, context);
             ExpressionStatement statement = (ExpressionStatement) this.dmnTransformer.expressionToNative(element, bodyExpression, functionContext);
             String body = statement.getText();
@@ -568,12 +563,12 @@ public class DMNExpressionToNativeTransformer {
         Map<String, Statement> argBinding = new LinkedHashMap<>();
         for(TBinding binding: invocation.getBinding()) {
             String argName= binding.getParameter().getName();
-            TExpression argExpression = binding.getExpression().getValue();
+            TExpression argExpression = binding.getExpression();
             Statement argJava = this.dmnTransformer.expressionToNative(element, argExpression, parentContext);
             argBinding.put(argName, argJava);
         }
         // Build call
-        TExpression body = invocation.getExpression().getValue();
+        TExpression body = invocation.getExpression();
         if (body instanceof TLiteralExpression) {
             String bkmName = ((TLiteralExpression) body).getText();
             TBusinessKnowledgeModel bkm = this.dmnModelRepository.findKnowledgeModelByName(bkmName);
@@ -643,14 +638,13 @@ public class DMNExpressionToNativeTransformer {
         List<String> rowValues = new ArrayList<>();
         for(TList row: relation.getRow()) {
             // Translate value
-            List<JAXBElement<? extends TExpression>> jaxbElementList = row.getExpression();
-            if (jaxbElementList == null) {
+            List<TExpression> expList = row.getExpression();
+            if (expList == null) {
                 rowValues.add("null");
             } else {
                 List<Pair<String, String>> argPairList = new ArrayList<>();
-                for(int i = 0; i < jaxbElementList.size(); i++) {
-                    JAXBElement<? extends TExpression> jaxbElement = jaxbElementList.get(i);
-                    TExpression expression = jaxbElement.getValue();
+                for(int i = 0; i < expList.size(); i++) {
+                    TExpression expression = expList.get(i);
                     String argValue;
                     if (expression == null) {
                         argValue = "null";

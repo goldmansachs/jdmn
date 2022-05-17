@@ -25,10 +25,10 @@ import java.util.List;
         "contextEntry",
         "extensionElements"
 })
-public class TContext<C> extends TExpression<C> implements Visitable<C> {
-    private List<TContextEntry<C>> contextEntry;
+public class TContext extends TExpression implements Visitable {
+    private List<TContextEntry> contextEntry;
 
-    public List<TContextEntry<C>> getContextEntry() {
+    public List<TContextEntry> getContextEntry() {
         if (contextEntry == null) {
             contextEntry = new ArrayList<>();
         }
@@ -36,7 +36,7 @@ public class TContext<C> extends TExpression<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

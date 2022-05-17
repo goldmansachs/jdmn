@@ -16,6 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.ImportPath;
 import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.el.analysis.semantics.type.NullType;
@@ -39,11 +40,10 @@ import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.*;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -128,7 +128,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                 if (drgElementByName instanceof TInputData) {
                     TInputData inputData = (TInputData) drgElementByName;
                     TInformationItem variable = inputData.getVariable();
-                    String originalTypeRef = variable.getTypeRef();
+                    String originalTypeRef = QualifiedName.toName(variable.getTypeRef());
                     if (com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAny(originalTypeRef)) {
                         String inferredType = null;
                         if (feelLib.isNumber(value)) {
@@ -149,7 +149,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                             inferredType = DurationType.DAYS_AND_TIME_DURATION.getName();
                         }
                         if (inferredType != null) {
-                            variable.setTypeRef(inferredType);
+                            variable.setTypeRef(new QName(inferredType));
                             result.put(inputData, new Pair<>(originalTypeRef, inferredType));
                         }
                     }
@@ -164,7 +164,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             for(Map.Entry<TInputData, Pair<String, String>> entry: inferredTypes.entrySet()) {
                 TInputData inputData = entry.getKey();
                 String originalTypeRef = entry.getValue().getLeft();
-                inputData.getVariable().setTypeRef(originalTypeRef);
+                inputData.getVariable().setTypeRef(originalTypeRef == null ? null : new QName(originalTypeRef));
             }
         }
     }
@@ -226,12 +226,11 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             }
 
             // Execute function body
-            JAXBElement<? extends TExpression> expressionElement = functionDefinition.getExpression();
+            TExpression expression = functionDefinition.getExpression();
             Result output;
-            if (expressionElement == null) {
+            if (expression == null) {
                 output = null;
             } else {
-                TExpression expression = expressionElement.getValue();
                 output = evaluateExpression(null, expression, functionContext, null);
             }
 
@@ -494,7 +493,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         for (int i = 0; i < formalParameterList.size(); i++) {
             TInformationItem param = formalParameterList.get(i);
             String name = param.getName();
-            String paramTypeRef = param.getTypeRef();
+            String paramTypeRef = QualifiedName.toName(param.getTypeRef());
             Type paramType = null;
             if (!StringUtils.isEmpty(paramTypeRef)) {
                 paramType = this.dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, paramTypeRef));
@@ -570,14 +569,14 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         Map<String, Object> argBinding = new LinkedHashMap<>();
         for(TBinding binding: invocation.getBinding()) {
             String argName = binding.getParameter().getName();
-            TExpression argExpression = binding.getExpression().getValue();
+            TExpression argExpression = binding.getExpression();
             Result argResult = evaluateExpression(element, argExpression, parentContext, elementAnnotation);
             Object argJava = Result.value(argResult);
             argBinding.put(argName, argJava);
         }
 
         // Evaluate body
-        TExpression body = invocation.getExpression().getValue();
+        TExpression body = invocation.getExpression();
         if (body instanceof TLiteralExpression) {
             // Find BKM
             String bkmName = ((TLiteralExpression) body).getText();
@@ -619,9 +618,8 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         for(TContextEntry entry: context.getContextEntry()) {
             // Evaluate entry value
             Result entryResult;
-            JAXBElement<? extends TExpression> jaxbElement = entry.getExpression();
-            if (jaxbElement != null) {
-                TExpression expression = jaxbElement.getValue();
+            TExpression expression = entry.getExpression();
+            if (expression != null) {
                 if (expression instanceof TLiteralExpression) {
                     Expression<Type, DMNContext> feelExpression = literalExpressionMap.get(entry);
                     entryResult = this.feelInterpreter.evaluateExpression(feelExpression, localContext);
@@ -657,7 +655,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                 if (variable != null) {
                     String entryName = variable.getName();
                     output.add(entryName, localContext.lookupBinding(entryName));
-                    String typeRef = variable.getTypeRef();
+                    String typeRef = QualifiedName.toName(variable.getTypeRef());
                     Type entryType;
                     if (StringUtils.isEmpty(typeRef)) {
                         Result entryResult = entryResultMap.get(entry);
@@ -680,19 +678,14 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         }
         List<Object> resultValue = new ArrayList<>();
         Type elementType = ANY;
-        for(JAXBElement<? extends TExpression> expElement: list.getExpression()) {
+        for(TExpression exp: list.getExpression()) {
             Result expResult;
-            if (expElement == null) {
-                expResult = null;
+            expResult = evaluateExpression(element, exp, context, elementAnnotation);
+            String typeRef = QualifiedName.toName(exp.getTypeRef());
+            if (!this.repository.isNull(typeRef)) {
+                elementType = this.dmnTransformer.toFEELType(model, typeRef);
             } else {
-                TExpression exp = expElement.getValue();
-                expResult = evaluateExpression(element, exp, context, elementAnnotation);
-                String typeRef = exp.getTypeRef();
-                if (!this.repository.isNull(typeRef)) {
-                    elementType = this.dmnTransformer.toFEELType(model, typeRef);
-                } else {
-                    elementType = this.dmnTransformer.expressionType(element, exp, context);
-                }
+                elementType = this.dmnTransformer.expressionType(element, exp, context);
             }
             resultValue.add(Result.value(expResult));
         }
@@ -712,15 +705,14 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         // Scan relation and evaluate each row
         List<Object> relationValue = new ArrayList<>();
         ContextType relationType = new ContextType();
-        for(TList row: relation.getRow()) {
+        for (TList row: relation.getRow()) {
             Object rowValue = null;
-            List<JAXBElement<? extends TExpression>> jaxbElementList = row.getExpression();
-            if (jaxbElementList != null) {
+            List<? extends TExpression> expList = row.getExpression();
+            if (expList != null) {
                 Context contextValue = new Context();
                 ContextType contextType = new ContextType();
-                for(int i = 0; i < jaxbElementList.size(); i++) {
-                    JAXBElement<? extends TExpression> jaxbElement = jaxbElementList.get(i);
-                    TExpression expression = jaxbElement == null ? null : jaxbElement.getValue();
+                for(int i = 0; i < expList.size(); i++) {
+                    TExpression expression = expList.get(i);
                     Result columnResult = expression == null ? null : evaluateExpression(element, expression, relationContext, elementAnnotation);
                     Object columnValue = Result.value(columnResult);
                     contextValue.add(columnNameList.get(i), columnValue);

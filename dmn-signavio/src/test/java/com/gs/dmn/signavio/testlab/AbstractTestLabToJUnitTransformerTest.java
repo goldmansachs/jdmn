@@ -58,14 +58,14 @@ public abstract class AbstractTestLabToJUnitTransformerTest<NUMBER, DATE, TIME, 
         Map<String, String> inputParams = super.makeInputParametersMap();
         inputParams.put("environmentFactoryClass", SignavioEnvironmentFactory.class.getName());
         inputParams.put("decisionBaseClass", DefaultSignavioBaseDecision.class.getName());
-        inputParams.put("signavioSchemaNamespace", SignavioTestConstants.TEST_SCHEMA_NAMESPACE);
+        inputParams.put("signavioSchemaNamespace", SignavioTestConstants.SIG_EXT_NAMESPACE);
         return inputParams;
    }
 
     public void doTest(String name) throws Exception {
         String path = getInputPath() + "/";
         String expectedPath = getExpectedPath() + "/" + friendlyFolderName(name);
-        String inputTestFilePath = path + name + TestLabReader.TEST_LAB_FILE_EXTENSION;
+        String inputTestFilePath = path + name + TestLabSerializer.TEST_LAB_FILE_EXTENSION;
         String inputModelFilePath = path + name + DMNConstants.DMN_FILE_EXTENSION;
         String decodedInputTestFilePath = URLDecoder.decode(signavioResource(inputTestFilePath).getPath(), "UTF-8");
         String decodedInputModelFilePath = URLDecoder.decode(signavioResource(inputModelFilePath).getPath(), "UTF-8");

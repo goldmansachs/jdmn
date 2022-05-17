@@ -27,23 +27,23 @@ import java.util.List;
         "expression",
         "extensionElements"
 })
-public class TFunctionDefinition<C> extends TExpression<C> implements Visitable<C> {
-    private List<TInformationItem<C>> formalParameter;
-    private TExpression<C> expression;
+public class TFunctionDefinition extends TExpression implements Visitable {
+    private List<TInformationItem> formalParameter;
+    private TExpression expression;
     private TFunctionKind kind;
 
-    public List<TInformationItem<C>> getFormalParameter() {
+    public List<TInformationItem> getFormalParameter() {
         if (formalParameter == null) {
             formalParameter = new ArrayList<>();
         }
         return this.formalParameter;
     }
 
-    public TExpression<C> getExpression() {
+    public TExpression getExpression() {
         return expression;
     }
 
-    public void setExpression(TExpression<C> value) {
+    public void setExpression(TExpression value) {
         this.expression = value;
     }
 
@@ -60,7 +60,7 @@ public class TFunctionDefinition<C> extends TExpression<C> implements Visitable<
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

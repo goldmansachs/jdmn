@@ -13,23 +13,21 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
+import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
 
 import java.io.File;
 import java.util.List;
 
 public abstract class AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractTemplateBasedTransformer {
     protected final DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition;
-    protected final DMNReader dmnReader;
+    protected final DMNSerializer dmnSerializer;
     protected final DMNValidator dmnValidator;
     protected final DMNTransformer<TEST> dmnTransformer;
     protected final LazyEvaluationDetector lazyEvaluationDetector;
@@ -43,15 +41,15 @@ public abstract class AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURA
         this.dmnTransformer = dmnTransformer;
         this.lazyEvaluationDetector = lazyEvaluationDetector;
         this.typeDeserializationConfigurer = typeDeserializationConfigurer;
-        this.dmnReader = new DMNReader(logger, this.inputParameters.isXsdValidation());
+        this.dmnSerializer = dialectDefinition.createDMNSerializer(logger, inputParameters);
         this.dmnValidator = dmnValidator;
 
         this.decisionBaseClass = dialectDefinition.getDecisionBaseClass();
     }
 
     protected DMNModelRepository readModels(File file) {
-        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = dmnReader.readModels(file);
-        return new DMNModelRepository(pairs);
+        List<TDefinitions> definitionsList = this.dmnSerializer.readModels(file);
+        return new DMNModelRepository(definitionsList);
     }
 
     protected void handleValidationErrors(List<String> errors) {
@@ -59,8 +57,8 @@ public abstract class AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURA
             return;
         }
 
-        for(String error: errors) {
-            logger.error(error);
+        for (String error: errors) {
+            this.logger.error(error);
         }
         throw new IllegalArgumentException("Validation errors " + errors);
     }

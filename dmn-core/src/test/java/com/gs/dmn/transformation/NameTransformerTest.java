@@ -13,12 +13,17 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.*;
-import com.gs.dmn.tck.TestCasesReader;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
+import com.gs.dmn.serialization.DMNSerializer;
+import com.gs.dmn.serialization.diff.XMLDifferenceEvaluator;
+import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
+import com.gs.dmn.tck.TCKSerializer;
+import com.gs.dmn.tck.ast.TestCases;
+import com.gs.dmn.tck.serialization.xstream.XMLTCKSerializer;
+import org.xmlunit.diff.DifferenceEvaluator;
+import org.xmlunit.diff.DifferenceEvaluators;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,26 +33,25 @@ import java.util.Map;
 public abstract class NameTransformerTest extends AbstractFileTransformerTest {
     protected static final ClassLoader CLASS_LOADER = NameTransformerTest.class.getClassLoader();
 
-    protected final DMNReader dmnReader = new DMNReader(LOGGER, false);
-    protected final DMNWriter dmnWriter = new DMNWriter(LOGGER);
-    protected final TestCasesReader testReader = new TestCasesReader(LOGGER);
+    protected final DMNSerializer dmnSerializer = new XMLDMNSerializer(LOGGER, true);
+    protected final TCKSerializer tckSerializer = new XMLTCKSerializer(LOGGER, true);
 
     protected void doTest(String dmmVersion, List<String> dmnFileNames, String testsFileName, Map<String, Pair<String, String>> namespacePrefixMapping) throws Exception {
         DMNTransformer<TestCases> transformer = getTransformer();
         String path = getInputPath() + dmmVersion + "/";
 
         // Read DMN files
-        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = readModels(path, dmnFileNames);
-        DMNModelRepository repository = new DMNModelRepository(pairs);
+        List<TDefinitions> definitionsList = readModels(path, dmnFileNames);
+        DMNModelRepository repository = new DMNModelRepository(definitionsList);
 
         // Transform Models and Tests
         File inputTestsFile = new File(CLASS_LOADER.getResource(path + testsFileName).getFile());
         List<TestCases> testCasesList = new ArrayList<>();
         if (inputTestsFile.isFile()) {
-            TestCases testCases = testReader.read(inputTestsFile);
+            TestCases testCases = this.tckSerializer.read(inputTestsFile);
             testCasesList.add(testCases);
         } else {
-            throw new DMNRuntimeException(String.format("Only single files are supported"));
+            throw new DMNRuntimeException("Only single files are supported");
         }
         List<TestCases> actualTestCasesList = transformer.transform(repository, testCasesList).getRight();
 
@@ -57,28 +61,27 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
             targetFolder.mkdirs();
             for (int i = 0; i < dmnFileNames.size(); i++) {
                 String dmnFileName = dmnFileNames.get(i);
-                Pair<TDefinitions, PrefixNamespaceMappings> pair = pairs.get(i);
-                check(pair.getLeft(), dmnFileName, namespacePrefixMapping.get(dmnFileName));
+                TDefinitions definitions = definitionsList.get(i);
+                check(definitions, dmnFileName);
             }
             Pair<String, String> testsNamespacePrefixMapping = namespacePrefixMapping.get(testsFileName);
             check(actualTestCases, testsFileName, testsNamespacePrefixMapping);
         }
     }
 
-    private List<Pair<TDefinitions, PrefixNamespaceMappings>> readModels(String path, List<String> fileNames) {
-        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = new ArrayList<>();
+    private List<TDefinitions> readModels(String path, List<String> fileNames) {
+        List<TDefinitions> definitionsList = new ArrayList<>();
         for (String fileName: fileNames) {
             File dmnFile = new File(resource(path + fileName));
-            Pair<TDefinitions, PrefixNamespaceMappings> pair = this.dmnReader.read(dmnFile);
-            pairs.add(pair);
+            TDefinitions definitions = this.dmnSerializer.readModel(dmnFile);
+            definitionsList.add(definitions);
         }
-        return pairs;
+        return definitionsList;
     }
 
-    private void check(TDefinitions actualDefinitions, String fileName, Pair<String, String> namespacePrefixMapping) throws Exception {
-        DMNNamespacePrefixMapper dmnNamespacePrefixMapper = new DMNNamespacePrefixMapper(namespacePrefixMapping.getLeft(), namespacePrefixMapping.getRight(), DMNVersion.LATEST);
+    private void check(TDefinitions actualDefinitions, String fileName) throws Exception {
         File actualDMNFile = new File(getTargetPath() + fileName);
-        dmnWriter.write(actualDefinitions, actualDMNFile, dmnNamespacePrefixMapper);
+        this.dmnSerializer.writeModel(actualDefinitions, actualDMNFile);
         File expectedDMNFile = new File(CLASS_LOADER.getResource(getExpectedPath() + fileName).getFile());
 
         compareFile(expectedDMNFile, actualDMNFile);
@@ -86,11 +89,15 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
 
     private void check(TestCases actualTestCases, String fileName, Pair<String, String> namespacePrefixMapping) throws Exception {
         File actualTestsFile = new File(getTargetPath() + fileName);
-        TCKNamespacePrefixMapper testsNamespacePrefixMapper = new TCKNamespacePrefixMapper(namespacePrefixMapping.getLeft(), namespacePrefixMapping.getRight(), TCKVersion.LATEST);
-        testReader.write(actualTestCases, actualTestsFile, testsNamespacePrefixMapper);
+        this.tckSerializer.write(actualTestCases, actualTestsFile);
         File expectedTestLabFile = new File(CLASS_LOADER.getResource(getExpectedPath() + fileName).getFile());
 
         compareFile(expectedTestLabFile, actualTestsFile);
+    }
+
+    @Override
+    protected DifferenceEvaluator makeTCKDifferenceEvaluator() {
+        return DifferenceEvaluators.chain(DifferenceEvaluators.Default, XMLDifferenceEvaluator.tck1DiffEvaluator());
     }
 
     protected abstract DMNTransformer<TestCases> getTransformer();

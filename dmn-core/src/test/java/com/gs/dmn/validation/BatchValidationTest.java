@@ -15,7 +15,8 @@ package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.Slf4jBuildLogger;
-import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.DMNSerializer;
+import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +31,7 @@ import java.util.List;
 public class BatchValidationTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(BatchValidationTest.class);
 
-    private final DMNReader reader = new DMNReader(new Slf4jBuildLogger(LOGGER), false);
+    private final DMNSerializer serializer = new XMLDMNSerializer(new Slf4jBuildLogger(LOGGER), false);
     private final DMNValidator validator = new CompositeDMNValidator(Arrays.asList(
             new SweepRuleOverlapValidator(),
             new SweepMissingIntervalValidator(),
@@ -50,8 +51,8 @@ public class BatchValidationTest {
         File file = new File(String.valueOf(path));
         if (file.getName().endsWith(".dmn")) {
             LOGGER.info("Validating {}", file.getPath());
-            DMNModelRepository repository = new DMNModelRepository(reader.read(file));
-            List<String> errors = validator.validate(repository);
+            DMNModelRepository repository = new DMNModelRepository(this.serializer.readModel(file));
+            List<String> errors = this.validator.validate(repository);
             if (!errors.isEmpty()) {
                 for (String error: errors) {
                     LOGGER.error(error);

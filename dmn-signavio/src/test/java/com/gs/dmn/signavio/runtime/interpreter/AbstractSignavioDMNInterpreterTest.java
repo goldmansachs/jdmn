@@ -15,6 +15,8 @@ package com.gs.dmn.signavio.runtime.interpreter;
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.ast.TDecision;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.log.BuildLogger;
@@ -23,15 +25,10 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.serialization.DMNConstants;
-import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
+import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
-import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
-import com.gs.dmn.transformation.InputParameters;
-import org.omg.spec.dmn._20191111.model.TDecision;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.datatype.Duration;
@@ -42,13 +39,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.gs.dmn.signavio.SignavioTestConstants.SIG_EXT_NAMESPACE;
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractSignavioDMNInterpreterTest.class));
 
-    private final DMNReader reader = new DMNReader(LOGGER, false);
     private final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestLab> dialectDefinition = new SignavioDMNDialectDefinition();
+    private final DMNSerializer serializer = this.dialectDefinition.createDMNSerializer(LOGGER, makeInputParameters());
 
     protected void doTest(DecisionTestConfig config) throws Exception {
         doTest(config.getDecisionName(), config.getDiagramName(), config.getRuntimeContext(), config.getExpectedResult());
@@ -59,9 +57,9 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
         try {
             String pathName = getInputPath() + "/" + diagramName + DMNConstants.DMN_FILE_EXTENSION;
             URI uri = signavioResource(pathName);
-            Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(uri.toURL());
-            DMNModelRepository repository = new SignavioDMNModelRepository(pair, SignavioTestConstants.TEST_SCHEMA_NAMESPACE);
-            DMNInterpreter<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> interpreter = dialectDefinition.createDMNInterpreter(repository, makeInputParameters());
+            TDefinitions definitions = this.serializer.readModel(uri.toURL());
+            DMNModelRepository repository = new SignavioDMNModelRepository(definitions, SIG_EXT_NAMESPACE);
+            DMNInterpreter<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> interpreter = this.dialectDefinition.createDMNInterpreter(repository, makeInputParameters());
 
             TDecision decision = (TDecision) repository.findDRGElementByName(repository.getRootDefinitions(), decisionName);
             DRGElementReference<TDecision> reference = repository.makeDRGElementReference(decision);
@@ -74,17 +72,22 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
         }
     }
 
-    @Override
-    protected InputParameters makeInputParameters() {
-        return new InputParameters(makeInputParametersMap());
-    }
-
     protected Map<String, Object> makeInformationRequirements(List<Pair<String, ?>> pairs) {
         Map<String, Object> environment = new LinkedHashMap<>();
-        for (Pair<String, ?> pair : pairs) {
+        for (Pair<String, ?> pair: pairs) {
             environment.put(pair.getLeft(), pair.getRight());
         }
         return environment;
+    }
+
+    @Override
+    protected Map<String, String> makeInputParametersMap() {
+        Map<String, String> inputParams = new LinkedHashMap<>();
+        inputParams.put("dmnVersion", "1.1");
+        inputParams.put("modelVersion", "1.0");
+        inputParams.put("platformVersion", "1.0");
+        inputParams.put("signavioSchemaNamespace", SIG_EXT_NAMESPACE);
+        return inputParams;
     }
 
     protected abstract String getInputPath();

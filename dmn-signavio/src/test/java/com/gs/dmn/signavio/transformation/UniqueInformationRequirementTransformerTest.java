@@ -13,26 +13,20 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.Test;
-import org.omg.spec.dmn._20191111.model.*;
 
-import javax.xml.bind.JAXBElement;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.fail;
 
-public class UniqueInformationRequirementTransformerTest extends AbstractFileTransformerTest {
+public class UniqueInformationRequirementTransformerTest extends AbstractSignavioFileTransformerTest {
     private final DMNTransformer<TestLab> transformer = new UniqueInformationRequirementTransformer(LOGGER);
-    private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
     @Test
     public void testTransform() {
@@ -40,20 +34,19 @@ public class UniqueInformationRequirementTransformerTest extends AbstractFileTra
 
         // Transform DMN
         File dmnFile = new File(resource(path + "simpleMID-with-ir-duplicates.dmn"));
-        Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(dmnFile);
-        DMNModelRepository repository = new SignavioDMNModelRepository(pair);
-        DMNModelRepository actualRepository = transformer.transform(repository);
+        TDefinitions definitions = this.dmnSerializer.readModel(dmnFile);
+        DMNModelRepository repository = new SignavioDMNModelRepository(definitions);
+        DMNModelRepository actualRepository = this.transformer.transform(repository);
 
         // Check output
         checkDefinitions(actualRepository.getRootDefinitions(), "simpleMID-with-ir-duplicates.dmn");
     }
 
     private void checkDefinitions(TDefinitions actualDefinitions, String fileName) {
-        for(JAXBElement<? extends TDRGElement> jaxbElement: actualDefinitions.getDrgElement()) {
-            TDRGElement drgElement = jaxbElement.getValue();
+        for (TDRGElement drgElement: actualDefinitions.getDrgElement()) {
             if (drgElement instanceof TDecision) {
                 List<String> hrefSet = new ArrayList<>();
-                for(TInformationRequirement ir: ((TDecision) drgElement).getInformationRequirement()) {
+                for (TInformationRequirement ir: ((TDecision) drgElement).getInformationRequirement()) {
                     TDMNElementReference requiredInput = ir.getRequiredInput();
                     TDMNElementReference requiredDecision = ir.getRequiredDecision();
                     if (requiredInput != null) {

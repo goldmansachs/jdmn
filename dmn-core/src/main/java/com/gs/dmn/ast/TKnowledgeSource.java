@@ -29,13 +29,13 @@ import java.util.List;
         "locationURI",
         "extensionElements"
 })
-public class TKnowledgeSource<C> extends TDRGElement<C> implements Visitable<C>{
-    private List<TAuthorityRequirement<C>> authorityRequirement;
+public class TKnowledgeSource extends TDRGElement implements Visitable {
+    private List<TAuthorityRequirement> authorityRequirement;
     private String type;
-    private TDMNElementReference<C> owner;
+    private TDMNElementReference owner;
     private String locationURI;
 
-    public List<TAuthorityRequirement<C>> getAuthorityRequirement() {
+    public List<TAuthorityRequirement> getAuthorityRequirement() {
         if (authorityRequirement == null) {
             authorityRequirement = new ArrayList<>();
         }
@@ -50,11 +50,11 @@ public class TKnowledgeSource<C> extends TDRGElement<C> implements Visitable<C>{
         this.type = value;
     }
 
-    public TDMNElementReference<C> getOwner() {
+    public TDMNElementReference getOwner() {
         return owner;
     }
 
-    public void setOwner(TDMNElementReference<C> value) {
+    public void setOwner(TDMNElementReference value) {
         this.owner = value;
     }
 
@@ -67,7 +67,7 @@ public class TKnowledgeSource<C> extends TDRGElement<C> implements Visitable<C>{
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

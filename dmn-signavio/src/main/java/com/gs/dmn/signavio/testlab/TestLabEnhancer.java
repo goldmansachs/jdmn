@@ -12,12 +12,12 @@
  */
 package com.gs.dmn.signavio.testlab;
 
+import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.testlab.expression.ComplexExpression;
 import com.gs.dmn.signavio.testlab.expression.Expression;
 import com.gs.dmn.signavio.testlab.expression.ListExpression;
 import com.gs.dmn.signavio.testlab.expression.Slot;
-import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
 import java.util.LinkedHashMap;
 import java.util.List;

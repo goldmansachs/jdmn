@@ -13,6 +13,9 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.ast.TDecisionTable;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
@@ -22,9 +25,6 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.validation.table.*;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
-import org.omg.spec.dmn._20191111.model.TDecisionTable;
-import org.omg.spec.dmn._20191111.model.TDefinitions;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -13,12 +13,10 @@
 package com.gs.dmn.transformation.lazy;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.InputParameters;
-import org.omg.spec.dmn._20191111.model.*;
-
-import javax.xml.bind.JAXBElement;
 
 public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
     private final double sparsityThreshold;
@@ -39,8 +37,7 @@ public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
 
         for (TDefinitions definitions: modelRepository.getAllDefinitions()) {
             for (TDecision decision : modelRepository.findDecisions(definitions)) {
-                JAXBElement<? extends TExpression> element = decision.getExpression();
-                TExpression expression = element == null ? null : element.getValue();
+                TExpression expression = decision.getExpression();
                 if (expression instanceof TDecisionTable && isSparseDecisionTable((TDecisionTable) expression, sparsityThreshold)) {
                     logger.info(String.format("Found sparse decision '%s'", decision.getName()));
 

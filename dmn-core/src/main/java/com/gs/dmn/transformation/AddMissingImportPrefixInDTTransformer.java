@@ -13,17 +13,17 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.feel.analysis.syntax.antlrv4.FEELLexer;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.tck.ast.TestCases;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.dmn.tck.marshaller._20160719.TestCases;
-import org.omg.spec.dmn._20191111.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

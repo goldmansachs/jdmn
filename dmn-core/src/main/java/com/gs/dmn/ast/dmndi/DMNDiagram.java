@@ -31,19 +31,19 @@ import java.util.List;
         "size",
         "dmnDiagramElement"
 })
-public class DMNDiagram<C> extends Diagram<C> implements Visitable<C> {
-    private Dimension<C> size;
-    private List<? extends DiagramElement<C>> dmnDiagramElement;
+public class DMNDiagram extends Diagram implements Visitable {
+    private Dimension size;
+    private List<DiagramElement> dmnDiagramElement;
 
-    public Dimension<C> getSize() {
+    public Dimension getSize() {
         return size;
     }
 
-    public void setSize(Dimension<C> value) {
+    public void setSize(Dimension value) {
         this.size = value;
     }
 
-    public List<? extends DiagramElement<C>> getDMNDiagramElement() {
+    public List<DiagramElement> getDMNDiagramElement() {
         if (dmnDiagramElement == null) {
             dmnDiagramElement = new ArrayList<>();
         }
@@ -51,7 +51,7 @@ public class DMNDiagram<C> extends Diagram<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

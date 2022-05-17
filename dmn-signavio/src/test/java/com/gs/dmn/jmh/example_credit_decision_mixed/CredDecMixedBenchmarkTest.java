@@ -14,18 +14,19 @@ package com.gs.dmn.jmh.example_credit_decision_mixed;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.jmh.ApplicantImpl;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
-import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
+import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.feel.lib.MixedJavaTimeSignavioLib;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.InputParameters;
-import org.omg.spec.dmn._20191111.model.TDecision;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -47,9 +48,18 @@ import java.util.concurrent.TimeUnit;
 public class CredDecMixedBenchmarkTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(CredDecMixedBenchmarkTest.class));
 
-    private static final DMNDialectDefinition<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration, TestLab> dialectDefinition = new MixedJavaTimeSignavioDMNDialectDefinition();
-    private static final DMNReader dmnReader = new DMNReader(LOGGER, false);
-    private static final MixedJavaTimeSignavioLib decision = (MixedJavaTimeSignavioLib) dialectDefinition.createFEELLib();
+    private static final DMNDialectDefinition<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration, TestLab> DIALECT_DEFINITION = new MixedJavaTimeSignavioDMNDialectDefinition();
+    private static final DMNSerializer DMN_SERIALIZER = DIALECT_DEFINITION.createDMNSerializer(LOGGER, makeInputParameters());
+    private static InputParameters makeInputParameters() {
+        Map<String, String> inputParams = new LinkedHashMap<>();
+        inputParams.put("dmnVersion", "1.1");
+        inputParams.put("modelVersion", "1.0");
+        inputParams.put("platformVersion", "1.0");
+        inputParams.put("signavioSchemaNamespace", SignavioTestConstants.SIG_EXT_NAMESPACE);
+        return new InputParameters(inputParams);
+    }
+
+    private static final MixedJavaTimeSignavioLib decision = (MixedJavaTimeSignavioLib) DIALECT_DEFINITION.createFEELLib();
 
     @Benchmark
     @BenchmarkMode(Mode.All)
@@ -70,7 +80,7 @@ public class CredDecMixedBenchmarkTest {
 
         String pathName = "exported/dmn/complex/Example credit decision.dmn";
         DMNModelRepository repository = readDMN(pathName);
-        DMNInterpreter<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> interpreter = dialectDefinition.createDMNInterpreter(repository, new InputParameters());
+        DMNInterpreter<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> interpreter = DIALECT_DEFINITION.createDMNInterpreter(repository, new InputParameters());
 
         Map<String, Object> inputRequirements = new LinkedHashMap<>();
         inputRequirements.put("applicant", applicant);
@@ -88,7 +98,7 @@ public class CredDecMixedBenchmarkTest {
 
     private DMNModelRepository readDMN(String pathName) throws Exception {
         URL url = this.getClass().getClassLoader().getResource(pathName).toURI().toURL();
-        return new SignavioDMNModelRepository(dmnReader.read(url));
+        return new SignavioDMNModelRepository(DMN_SERIALIZER.readModel(url));
     }
 
     public static void main(String[] args) throws RunnerException {

@@ -15,6 +15,8 @@ package com.gs.dmn.ast;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import javax.xml.namespace.QName;
+
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "@kind")
 @JsonSubTypes({
         @JsonSubTypes.Type(name = "literalExpression", value = TLiteralExpression.class),
@@ -26,14 +28,14 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(name = "list", value = TList.class),
         @JsonSubTypes.Type(name = "unaryTests", value = TUnaryTests.class)
 })
-public abstract class TExpression<C> extends TDMNElement<C> {
-    private String typeRef;
+public abstract class TExpression extends TDMNElement {
+    private QName typeRef;
 
-    public String getTypeRef() {
+    public QName getTypeRef() {
         return typeRef;
     }
 
-    public void setTypeRef(String value) {
+    public void setTypeRef(QName value) {
         this.typeRef = value;
     }
 }

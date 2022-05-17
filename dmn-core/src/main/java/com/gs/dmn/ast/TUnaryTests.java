@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "text",
         "extensionElements"
 })
-public class TUnaryTests<C> extends TExpression<C> implements Visitable<C> {
+public class TUnaryTests extends TExpression implements Visitable {
     private String text;
     private String expressionLanguage;
 
@@ -43,7 +43,7 @@ public class TUnaryTests<C> extends TExpression<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

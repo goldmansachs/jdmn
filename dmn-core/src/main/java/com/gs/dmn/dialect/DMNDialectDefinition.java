@@ -20,6 +20,7 @@ import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
@@ -29,60 +30,28 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 
-import java.util.Map;
-
 public interface DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
+    //
+    // Serialization
+    //
+    DMNSerializer createDMNSerializer(BuildLogger logger, InputParameters inputParameters);
+
     //
     // FEEL Processors
     //
     EnvironmentFactory createEnvironmentFactory();
 
-    /**
-     * @deprecated  Replaced by {@link #createFEELInterpreter(DMNModelRepository, InputParameters)}
-     */
-    @Deprecated
-    default ELInterpreter createFEELInterpreter(DMNModelRepository repository, Map<String, String> inputParameters) {
-        return createFEELInterpreter(repository, new InputParameters(inputParameters));
-    }
     ELInterpreter createFEELInterpreter(DMNModelRepository repository, InputParameters inputParameters);
 
-    /**
-     * @deprecated  Replaced by {@link #createFEELTranslator(DMNModelRepository, InputParameters)}
-     */
-    @Deprecated
-    default ELTranslator createFEELTranslator(DMNModelRepository repository, Map<String, String> inputParameters) {
-        return createFEELTranslator(repository, new InputParameters(inputParameters));
-    }
     ELTranslator createFEELTranslator(DMNModelRepository repository, InputParameters inputParameters);
 
     //
     // DMN Processors
     //
-    /**
-     * @deprecated  Replaced by {@link #createDMNInterpreter(DMNModelRepository, InputParameters)}
-     */
-    @Deprecated
-    default DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> createDMNInterpreter(DMNModelRepository repository, Map<String, String> inputParameters) {
-        return createDMNInterpreter(repository, new InputParameters(inputParameters));
-    }
     DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> createDMNInterpreter(DMNModelRepository repository, InputParameters inputParameters);
 
-    /**
-     * @deprecated  Replaced by {@link #createDMNToNativeTransformer(DMNValidator, DMNTransformer, TemplateProvider, LazyEvaluationDetector, TypeDeserializationConfigurer, InputParameters, BuildLogger)}
-     */
-    @Deprecated
-    default DMNToNativeTransformer createDMNToNativeTransformer(DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
-        return createDMNToNativeTransformer(dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, new InputParameters(inputParameters), logger);
-    }
     DMNToNativeTransformer createDMNToNativeTransformer(DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger);
 
-    /**
-     * @deprecated  Replaced by {@link #createBasicTransformer(DMNModelRepository, LazyEvaluationDetector, InputParameters)}
-     */
-    @Deprecated
-    default BasicDMNToJavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
-        return createBasicTransformer(repository, lazyEvaluationDetector, new InputParameters(inputParameters));
-    }
     BasicDMNToJavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters);
 
     //

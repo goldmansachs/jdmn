@@ -14,19 +14,17 @@ package com.gs.dmn.signavio.transformation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.ast.TDecision;
+import com.gs.dmn.ast.TDecisionTable;
+import com.gs.dmn.ast.TExpression;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.config.Correction;
 import com.gs.dmn.signavio.transformation.config.DecisionTableCorrection;
-import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import org.junit.Test;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
-import org.omg.spec.dmn._20191111.model.TDecision;
-import org.omg.spec.dmn._20191111.model.TDecisionTable;
-import org.omg.spec.dmn._20191111.model.TExpression;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,10 +36,8 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
-public class CorrectPathsInDecisionsTransformerTest extends AbstractFileTransformerTest {
+public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFileTransformerTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
-
-    private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
     @Test
     public void testConfigWhenNoConfig() {
@@ -169,8 +165,9 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractFileTransfor
         TDecision decision = (TDecision) drgElement;
         TExpression expression = repository.expression(decision);
         assertTrue(expression instanceof TDecisionTable);
-        assertEquals("applicant.priorIssues", ((TDecisionTable) expression).getInput().get(0).getInputExpression().getText());
-        assertEquals("(count(applicant.priorIssues)*(-5))", ((TDecisionTable) expression).getRule().get(4).getOutputEntry().get(0).getText());
+        TDecisionTable decisionTable = (TDecisionTable) expression;
+        assertEquals("applicant.priorIssues", decisionTable.getInput().get(0).getInputExpression().getText());
+        assertEquals("(count(applicant.priorIssues)*(-5))", decisionTable.getRule().get(4).getOutputEntry().get(0).getText());
     }
 
     @Test
@@ -186,8 +183,9 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractFileTransfor
         TDecision decision = (TDecision) drgElement;
         TExpression expression = repository.expression(decision);
         assertTrue(expression instanceof TDecisionTable);
-        assertEquals("applicant.priorIssues", ((TDecisionTable) expression).getInput().get(0).getInputExpression().getText());
-        assertEquals("(count(applicant.priorIssues)*(-5))", ((TDecisionTable) expression).getRule().get(4).getOutputEntry().get(0).getText());
+        TDecisionTable decisionTable = (TDecisionTable) expression;
+        assertEquals("applicant.priorIssues", decisionTable.getInput().get(0).getInputExpression().getText());
+        assertEquals("(count(applicant.priorIssues)*(-5))", decisionTable.getRule().get(4).getOutputEntry().get(0).getText());
     }
 
     @Test
@@ -211,7 +209,7 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractFileTransfor
     private DMNModelRepository executeTransformation(URI dmnFileURI, URI transformerConfigURI) throws Exception {
         CorrectPathsInDecisionsTransformer transformer = configTransformer(transformerConfigURI);
         File dmnFile = new File(dmnFileURI);
-        DMNModelRepository repository = new SignavioDMNModelRepository(dmnReader.read(dmnFile));
+        DMNModelRepository repository = new SignavioDMNModelRepository(this.dmnSerializer.readModel(dmnFile));
 
         return transformer.transform(repository);
     }

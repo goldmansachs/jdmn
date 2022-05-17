@@ -12,9 +12,9 @@
  */
 package com.gs.dmn.runtime.function;
 
+import com.gs.dmn.ast.TFunctionDefinition;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import org.omg.spec.dmn._20191111.model.TFunctionDefinition;
 
 public class DMNFunction extends Function {
     public static Function of(TFunctionDefinition functionDefinition, Type type, DMNContext definitionContext) {

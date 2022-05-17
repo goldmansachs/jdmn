@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.transformation.basic;
 
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
@@ -22,7 +23,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.StringLiteral;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.external.JavaFunctionInfo;
-import org.omg.spec.dmn._20191111.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,17 +33,17 @@ public class ExternalFunctionExtractor {
         String className = null;
         String methodName = null;
         List<String> paramTypes = new ArrayList<>();
-        TExpression body = functionDefinition.getExpression().getValue();
+        TExpression body = functionDefinition.getExpression();
         if (body instanceof TContext) {
             for (TContextEntry entry: ((TContext) body).getContextEntry()) {
                 String name = entry.getVariable().getName();
                 if ("class".equals(name)) {
-                    TExpression value = entry.getExpression().getValue();
+                    TExpression value = entry.getExpression();
                     if (value instanceof TLiteralExpression) {
                         className = ((TLiteralExpression) value).getText().replaceAll("\"", "");
                     }
                 } else if (isMethodSignature(name)) {
-                    TExpression value = entry.getExpression().getValue();
+                    TExpression value = entry.getExpression();
                     if (value instanceof TLiteralExpression) {
                         String signature = ((TLiteralExpression) value).getText().replaceAll("\"", "");
                         int lpIndex = signature.indexOf('(');

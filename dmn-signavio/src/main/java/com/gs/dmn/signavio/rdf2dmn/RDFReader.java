@@ -13,7 +13,6 @@
 package com.gs.dmn.signavio.rdf2dmn;
 
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.serialization.DMNSerializer;
 import org.apache.commons.lang3.time.StopWatch;
 import org.w3c.dom.Document;
 
@@ -22,13 +21,15 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
 
-public class RDFReader extends DMNSerializer {
+public class RDFReader {
+    protected final BuildLogger logger;
+
     public RDFReader(BuildLogger logger) {
-        super(logger);
+        this.logger = logger;
     }
 
     public RDFModel readModel(String modelName, InputStream inputStream) throws Exception {
-        logger.info(String.format("Reading model '%s'", modelName));
+        this.logger.info(String.format("Reading model '%s'", modelName));
         StopWatch watch = new StopWatch();
         watch.start();
 
@@ -41,7 +42,7 @@ public class RDFReader extends DMNSerializer {
         RDFModel rdfModel = new RDFModel(document);
 
         watch.stop();
-        logger.info("RDF reading time: " + watch.toString());
+        this.logger.info("RDF reading time: " + watch.toString());
 
         return rdfModel;
     }

@@ -25,10 +25,10 @@ import java.util.List;
         "expression",
         "extensionElements"
 })
-public class TList<C> extends TExpression<C> implements Visitable<C> {
-    private List<? extends TExpression<C>> expression;
+public class TList extends TExpression implements Visitable {
+    private List<TExpression> expression;
 
-    public List<? extends TExpression<C>> getExpression() {
+    public List<TExpression> getExpression() {
         if (expression == null) {
             expression = new ArrayList<>();
         }
@@ -36,7 +36,7 @@ public class TList<C> extends TExpression<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

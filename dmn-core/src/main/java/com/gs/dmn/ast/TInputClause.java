@@ -23,28 +23,28 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "inputValues",
         "extensionElements"
 })
-public class TInputClause<C> extends TDMNElement<C> implements Visitable<C> {
-    private TLiteralExpression<C> inputExpression;
-    private TUnaryTests<C> inputValues;
+public class TInputClause extends TDMNElement implements Visitable {
+    private TLiteralExpression inputExpression;
+    private TUnaryTests inputValues;
 
-    public TLiteralExpression<C> getInputExpression() {
+    public TLiteralExpression getInputExpression() {
         return inputExpression;
     }
 
-    public void setInputExpression(TLiteralExpression<C> value) {
+    public void setInputExpression(TLiteralExpression value) {
         this.inputExpression = value;
     }
 
-    public TUnaryTests<C> getInputValues() {
+    public TUnaryTests getInputValues() {
         return inputValues;
     }
 
-    public void setInputValues(TUnaryTests<C> value) {
+    public void setInputValues(TUnaryTests value) {
         this.inputValues = value;
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }

@@ -12,9 +12,9 @@
  */
 package com.gs.dmn.signavio.extension;
 
+import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
-import org.omg.spec.dmn._20191111.model.TDecision;
 
 public class MultiInstanceDecisionLogic {
     private final String iterationExpression;

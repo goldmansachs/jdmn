@@ -12,53 +12,28 @@
  */
 package com.gs.dmn.serialization;
 
+import com.gs.dmn.ast.DMNVersionTransformerVisitor;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.Pair;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 
-import java.util.Map;
-
-public abstract class SimpleDMNDialectTransformer<S, T> {
+public abstract class SimpleDMNDialectTransformer {
     protected final BuildLogger logger;
-    protected final PrefixNamespaceMappings prefixNamespaceMappings;
     protected final DMNVersion sourceVersion;
     protected final DMNVersion targetVersion;
+    protected final DMNVersionTransformerVisitor visitor;
 
     public SimpleDMNDialectTransformer(BuildLogger logger, DMNVersion sourceVersion, DMNVersion targetVersion) {
         this.logger = logger;
-        this.prefixNamespaceMappings = new PrefixNamespaceMappings();
         this.sourceVersion = sourceVersion;
         this.targetVersion = targetVersion;
+        this.visitor = new DMNVersionTransformerVisitor(sourceVersion, targetVersion);
     }
 
-    public abstract Pair<T, PrefixNamespaceMappings> transformDefinitions(S sourceDefinitions);
-
-    protected String transformImportType(String importType) {
-        if (this.sourceVersion.getNamespace().equals(importType)) {
-            importType = targetVersion.getNamespace();
+    public TDefinitions transformDefinitions(TDefinitions sourceDefinitions) {
+        logger.info(String.format("Transforming '%s' from DMN %s to DMN %s ...", sourceDefinitions.getName(), sourceVersion.getVersion(), targetVersion.getVersion()));
+        if (this.sourceVersion != this.targetVersion) {
+            sourceDefinitions.accept(visitor, null);
         }
-        return importType;
-    }
-
-    protected Object transform(Element extension) {
-        Map<String, String> sourceMap = this.sourceVersion.getPrefixToNamespaceMap();
-        Map<String, String> targetMap = this.targetVersion.getPrefixToNamespaceMap();
-
-        Node clone = extension.cloneNode(true);
-        NamedNodeMap attributes = clone.getAttributes();
-        for (int i=0; i<attributes.getLength(); i++) {
-            Node item = attributes.item(i);
-            for (Map.Entry<String, String> sourceEntry: sourceMap.entrySet()) {
-                String prefix = sourceEntry.getKey();
-                String sourceNamespace = sourceEntry.getValue();
-                if (sourceNamespace.equals(item.getNodeValue())) {
-                    item.setNodeValue(targetMap.get(prefix));
-                    break;
-                }
-            }
-        }
-        return clone;
+        return sourceDefinitions;
     }
 }

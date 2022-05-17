@@ -15,25 +15,24 @@ package com.gs.dmn.signavio;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.ImportPath;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.signavio.extension.SignavioExtension;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.*;
 
-import javax.xml.bind.JAXBElement;
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.serialization.DMNVersion.LATEST;
+import static com.gs.dmn.signavio.extension.SignavioExtension.SIG_EXT_NAMESPACE;
 
 public class SignavioDMNModelRepository extends DMNModelRepository {
-    private String schemaNamespace = "http://www.signavio.com/schema/dmn/1.1/";
+    private String schemaNamespace = SIG_EXT_NAMESPACE;
     private final String[] schemaPrefixes = new String[] {
-            "signavio", "sigExt"
+        "signavio", "sigExt", XMLConstants.DEFAULT_NS_PREFIX
     };
 
     private QName diagramIdQName = new QName(this.schemaNamespace, "diagramId");
@@ -45,45 +44,39 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     private final Set<TInputData> iterators = new LinkedHashSet<>();
 
     public SignavioDMNModelRepository() {
-        this(OBJECT_FACTORY.createTDefinitions(), new PrefixNamespaceMappings());
+        this(OBJECT_FACTORY.createTDefinitions());
     }
 
-    public SignavioDMNModelRepository(TDefinitions definitions, PrefixNamespaceMappings prefixNamespaceMappings) {
-        this(new Pair<>(definitions, prefixNamespaceMappings));
+    public SignavioDMNModelRepository(TDefinitions definitions) {
+        this(Collections.singletonList(definitions));
     }
 
-    public SignavioDMNModelRepository(Pair<TDefinitions, PrefixNamespaceMappings> pair) {
-        this(Collections.singletonList(pair));
-    }
-
-    public SignavioDMNModelRepository(List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs) {
-        super(pairs);
-        populateSignavioCaches(pairs);
+    public SignavioDMNModelRepository(List<TDefinitions> definitionsList) {
+        super(definitionsList);
+        populateSignavioCaches(definitionsList);
     }
 
     // Testing only
-    public SignavioDMNModelRepository(Pair<TDefinitions, PrefixNamespaceMappings> pair, String schemaNamespace) {
-        this(Collections.singletonList(pair), schemaNamespace);
+    public SignavioDMNModelRepository(TDefinitions definitions, String schemaNamespace) {
+        this(Collections.singletonList(definitions), schemaNamespace);
     }
 
     // Testing only
-    public SignavioDMNModelRepository(List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs, String schemaNamespace) {
-        super(pairs);
+    public SignavioDMNModelRepository(List<TDefinitions> definitionsList, String schemaNamespace) {
+        super(definitionsList);
         this.schemaNamespace = schemaNamespace;
         this.diagramIdQName = new QName(schemaNamespace, "diagramId");
         this.shapeIdQName = new QName(schemaNamespace, "shapeId");
-        populateSignavioCaches(pairs);
+        populateSignavioCaches(definitionsList);
     }
 
-    private void populateSignavioCaches(List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs) {
-        for (Pair<TDefinitions, PrefixNamespaceMappings> pair: pairs) {
-            TDefinitions definitions = pair.getLeft();
+    private void populateSignavioCaches(List<TDefinitions> definitionsList) {
+        for (TDefinitions definitions: definitionsList) {
             // Add DSs
             List<Object> elementList = this.extension.findExtensions(definitions.getExtensionElements(), LATEST.getNamespace(), "decisionService");
-            for(Object element: elementList) {
-                Object value = ((JAXBElement<?>) element).getValue();
-                if (value instanceof TDecisionService) {
-                    this.addElementMap((TDecisionService)value, definitions);
+            for (Object element: elementList) {
+                if (element instanceof TDecisionService) {
+                    this.addElementMap((TDecisionService) element, definitions);
                 }
             }
             // Populate MID iterators
@@ -111,7 +104,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
 
     @Override
     public SignavioDMNModelRepository copy() {
-        return new SignavioDMNModelRepository(this.pairList, this.schemaNamespace);
+        return new SignavioDMNModelRepository(this.definitionsList, this.schemaNamespace);
     }
 
     public String getSchemaNamespace() {
@@ -214,7 +207,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         if (result == null) {
             TDefinitions definitions = getRootDefinitions();
             List<TDRGElement> drgElements = findDRGElements(definitions);
-            for (TDRGElement element : drgElements) {
+            for (TDRGElement element: drgElements) {
                 if (sameId(element, id)) {
                     result = element;
                     cache.put(key, result);
@@ -231,7 +224,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         if (result == null) {
             TDefinitions definitions = getRootDefinitions();
             List<TDRGElement> drgElements = findDRGElements(definitions);
-            for (TDRGElement element : drgElements) {
+            for (TDRGElement element: drgElements) {
                 if (idEndsWith(element, shapeId) || (sameDiagramId(element, diagramId) && sameShapeId(element, shapeId))) {
                     result = element;
                     cache.put(key, result);

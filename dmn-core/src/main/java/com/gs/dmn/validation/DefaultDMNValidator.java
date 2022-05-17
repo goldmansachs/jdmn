@@ -14,13 +14,12 @@ package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20191111.model.*;
 
-import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -160,9 +159,9 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                 accessor, decision.getName(), errors);
 
         // Validate expression
-        JAXBElement<? extends TExpression> element = decision.getExpression();
-        if (element != null && element.getValue() != null) {
-            validateExpression(repository, definitions, decision, element, errors);
+        TExpression expression = decision.getExpression();
+        if (expression != null) {
+            validateExpression(repository, definitions, decision, expression, errors);
         }
     }
 
@@ -219,12 +218,11 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         }
     }
 
-    private void validateExpression(DMNModelRepository repository, TDefinitions definitions, TDRGElement element, JAXBElement<? extends TExpression> expressionElement, List<String> errors) {
-        if (expressionElement == null || expressionElement.getValue() == null) {
+    private void validateExpression(DMNModelRepository repository, TDefinitions definitions, TDRGElement element, TExpression expression, List<String> errors) {
+        if (expression == null) {
             String errorMessage = "Missing expression";
             errors.add(makeError(repository, definitions, element, errorMessage));
         } else {
-            TExpression expression = expressionElement.getValue();
             if (expression instanceof TDecisionTable) {
                 TDecisionTable decisionTable = (TDecisionTable) expression;
                 validateDecisionTable(repository, definitions, element, decisionTable, errors);

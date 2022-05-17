@@ -13,8 +13,8 @@
 package com.gs.dmn.signavio.validation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.validation.DefaultDMNValidator;
-import org.omg.spec.dmn._20191111.model.*;
 import org.w3c.dom.Element;
 
 import java.util.List;
@@ -50,8 +50,8 @@ public class SignavioDMNValidator extends DefaultDMNValidator {
             if (any != null) {
                 for (Object obj : any) {
                     if (obj instanceof Element) {
-                        String localName = ((Element) obj).getLocalName();
-                        if (!"MultiInstanceDecisionLogic".equals(localName)) {
+                        String nodeName = ((Element) obj).getNodeName();
+                        if (!"MultiInstanceDecisionLogic".equals(nodeName)) {
                             String errorMessage = String.format("Extension '%s' not supported", obj);
                             errors.add(makeError(repository, definitions, decision, errorMessage));
                         }

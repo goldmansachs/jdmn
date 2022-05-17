@@ -13,8 +13,8 @@
 package com.gs.dmn.signavio.validation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.TDecision;
 import org.junit.Test;
-import org.omg.spec.dmn._20191111.model.TDecision;
 
 import java.util.ArrayList;
 import java.util.Arrays;

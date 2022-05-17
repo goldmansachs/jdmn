@@ -14,12 +14,12 @@ package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.TDecisionRule;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Test;
-import org.omg.spec.dmn._20191111.model.TDecisionRule;
 
 import static org.junit.Assert.assertEquals;
 

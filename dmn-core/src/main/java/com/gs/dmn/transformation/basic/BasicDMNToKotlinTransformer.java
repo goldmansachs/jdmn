@@ -14,6 +14,8 @@ package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.dialect.DMNDialectDefinition;
@@ -23,8 +25,6 @@ import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.native_.KotlinFactory;
 import com.gs.dmn.transformation.proto.ProtoBufferKotlinFactory;
-import org.omg.spec.dmn._20191111.model.TDRGElement;
-import org.omg.spec.dmn._20191111.model.TItemDefinition;
 
 public class BasicDMNToKotlinTransformer extends BasicDMNToJavaTransformer {
     public BasicDMNToKotlinTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {

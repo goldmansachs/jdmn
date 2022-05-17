@@ -24,24 +24,24 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "targetRef",
         "extensionElements"
 })
-public class TAssociation<C> extends TArtifact<C> implements Visitable<C> {
-    private TDMNElementReference<C> sourceRef;
-    private TDMNElementReference<C> targetRef;
+public class TAssociation extends TArtifact implements Visitable {
+    private TDMNElementReference sourceRef;
+    private TDMNElementReference targetRef;
     private TAssociationDirection associationDirection;
 
-    public TDMNElementReference<C> getSourceRef() {
+    public TDMNElementReference getSourceRef() {
         return sourceRef;
     }
 
-    public void setSourceRef(TDMNElementReference<C> value) {
+    public void setSourceRef(TDMNElementReference value) {
         this.sourceRef = value;
     }
 
-    public TDMNElementReference<C> getTargetRef() {
+    public TDMNElementReference getTargetRef() {
         return targetRef;
     }
 
-    public void setTargetRef(TDMNElementReference<C> value) {
+    public void setTargetRef(TDMNElementReference value) {
         this.targetRef = value;
     }
 
@@ -58,7 +58,7 @@ public class TAssociation<C> extends TArtifact<C> implements Visitable<C> {
     }
 
     @Override
-    public Object accept(Visitor<C> visitor, C context) {
+    public <C> Object accept(Visitor visitor, C context) {
         return visitor.visit(this, context);
     }
 }
