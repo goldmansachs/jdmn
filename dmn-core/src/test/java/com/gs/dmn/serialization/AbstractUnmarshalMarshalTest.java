@@ -32,7 +32,7 @@ public abstract class AbstractUnmarshalMarshalTest<D, M> extends AbstractFileTra
 
     protected void testRoundTrip(String inputFilePath, M marshaller) throws Exception {
         File inputFile = new File(resource(inputFilePath));
-        testRoundTrip(inputFile, marshaller, inputFilePath);
+        testRoundTrip(inputFile, marshaller, "target/" + inputFilePath);
     }
 
     protected void testRoundTrip(File inputFile, M marshaller, String outputFilePath) throws Exception {
