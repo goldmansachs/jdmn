@@ -126,7 +126,7 @@ public class DMNExpressionToNativeTransformer {
         return outputClauseVariableName(element, outputClause) + DMNToJavaTransformer.PRIORITY_SUFFIX;
     }
 
-    Integer priority(TDRGElement element, TLiteralExpression literalExpression, int outputIndex) {
+    Integer outputClausePriority(TDRGElement element, TLiteralExpression literalExpression, int outputIndex) {
         String outputEntryText = literalExpression.getText();
         TExpression tExpression = this.dmnModelRepository.expression(element);
         if (tExpression instanceof TDecisionTable) {
@@ -152,7 +152,7 @@ public class DMNExpressionToNativeTransformer {
         }
     }
 
-    String getter(TDRGElement element, TOutputClause output) {
+    String outputClauseGetter(TDRGElement element, TOutputClause output) {
         return this.dmnTransformer.getter(this.dmnTransformer.outputClauseVariableName(element, output));
     }
 
@@ -166,11 +166,11 @@ public class DMNExpressionToNativeTransformer {
         }
     }
 
-    String priorityGetter(TDRGElement element, TOutputClause output) {
+    String outputClausePriorityGetter(TDRGElement element, TOutputClause output) {
         return this.dmnTransformer.getter(this.outputClausePriorityVariableName(element, output));
     }
 
-    String setter(TDRGElement element, TOutputClause output) {
+    String outputClauseSetter(TDRGElement element, TOutputClause output) {
         return this.dmnTransformer.setter(this.dmnTransformer.outputClauseVariableName(element, output));
     }
 

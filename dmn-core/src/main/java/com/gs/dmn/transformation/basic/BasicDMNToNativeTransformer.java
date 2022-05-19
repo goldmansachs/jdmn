@@ -399,19 +399,19 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String outputClausePriorityVariableName(TDRGElement element, TOutputClause outputClause);
 
-    String getter(TDRGElement element, TOutputClause output);
+    String outputClauseGetter(TDRGElement element, TOutputClause output);
 
     String drgElementOutputGetter(TDRGElement element, TOutputClause output);
 
-    String setter(TDRGElement element, TOutputClause output);
+    String outputClauseSetter(TDRGElement element, TOutputClause output);
 
     String drgElementOutputSetter(TDRGElement element, TOutputClause output, String value);
 
-    Integer priority(TDRGElement element, TLiteralExpression literalExpression, int outputIndex);
+    Integer outputClausePriority(TDRGElement element, TLiteralExpression literalExpression, int outputIndex);
 
-    String priorityGetter(TDRGElement element, TOutputClause output);
+    String outputClausePriorityGetter(TDRGElement element, TOutputClause output);
 
-    String prioritySetter(TDRGElement element, TOutputClause output);
+    String outputClausePrioritySetter(TDRGElement element, TOutputClause output);
 
     HitPolicy hitPolicy(TDRGElement element);
 

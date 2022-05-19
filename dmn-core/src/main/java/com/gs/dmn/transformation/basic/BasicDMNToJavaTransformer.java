@@ -1399,8 +1399,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String getter(TDRGElement element, TOutputClause output) {
-        return this.expressionToNativeTransformer.getter(element, output);
+    public String outputClauseGetter(TDRGElement element, TOutputClause output) {
+        return this.expressionToNativeTransformer.outputClauseGetter(element, output);
     }
 
     @Override
@@ -1409,8 +1409,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String setter(TDRGElement element, TOutputClause output) {
-        return this.expressionToNativeTransformer.setter(element, output);
+    public String outputClauseSetter(TDRGElement element, TOutputClause output) {
+        return this.expressionToNativeTransformer.outputClauseSetter(element, output);
     }
 
     @Override
@@ -1419,17 +1419,17 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public Integer priority(TDRGElement element, TLiteralExpression literalExpression, int outputIndex) {
-        return this.expressionToNativeTransformer.priority(element, literalExpression, outputIndex);
+    public Integer outputClausePriority(TDRGElement element, TLiteralExpression literalExpression, int outputIndex) {
+        return this.expressionToNativeTransformer.outputClausePriority(element, literalExpression, outputIndex);
     }
 
     @Override
-    public String priorityGetter(TDRGElement element, TOutputClause output) {
-        return this.expressionToNativeTransformer.priorityGetter(element, output);
+    public String outputClausePriorityGetter(TDRGElement element, TOutputClause output) {
+        return this.expressionToNativeTransformer.outputClausePriorityGetter(element, output);
     }
 
     @Override
-    public String prioritySetter(TDRGElement element, TOutputClause output) {
+    public String outputClausePrioritySetter(TDRGElement element, TOutputClause output) {
         return this.expressionToNativeTransformer.prioritySetter(element, output);
     }
 

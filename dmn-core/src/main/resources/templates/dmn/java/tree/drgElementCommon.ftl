@@ -126,7 +126,7 @@
                     <#if modelRepository.isCompoundDecisionTable(drgElement)>
                     output_ = toDecisionOutput((${transformer.ruleOutputClassName(drgElement)})ruleOutput_);
                     <#else>
-                    output_ = ruleOutput_ == null ? null : ((${transformer.ruleOutputClassName(drgElement)})ruleOutput_).${transformer.getter(drgElement, expression.output[0])};
+                    output_ = ruleOutput_ == null ? null : ((${transformer.ruleOutputClassName(drgElement)})ruleOutput_).${transformer.outputClauseGetter(drgElement, expression.output[0])};
                     </#if>
                 }
 
@@ -147,7 +147,7 @@
                     <#if modelRepository.hasAggregator(expression)>
                     output_ = ${transformer.aggregator(drgElement, expression, expression.output[0], "ruleOutputs_")};
                     <#else>
-                    output_ = ruleOutputs_.stream().map(o -> ((${transformer.ruleOutputClassName(drgElement)})o).${transformer.getter(drgElement, expression.output[0])}).collect(Collectors.toList());
+                    output_ = ruleOutputs_.stream().map(o -> ((${transformer.ruleOutputClassName(drgElement)})o).${transformer.outputClauseGetter(drgElement, expression.output[0])}).collect(Collectors.toList());
                     </#if>
                 </#if>
                 }
@@ -181,9 +181,9 @@
             // Compute output
             output_.setMatched(true);
             <#list expression.output as output>
-            output_.${transformer.setter(drgElement, output)}(${transformer.outputEntryToNative(drgElement, rule.outputEntry[output_index], output_index)});
-                <#if modelRepository.isOutputOrderHit(expression.hitPolicy) && transformer.priority(drgElement, rule.outputEntry[output_index], output_index)?exists>
-            output_.${transformer.prioritySetter(drgElement, output)}(${transformer.priority(drgElement, rule.outputEntry[output_index], output_index)});
+            output_.${transformer.outputClauseSetter(drgElement, output)}(${transformer.outputEntryToNative(drgElement, rule.outputEntry[output_index], output_index)});
+                <#if modelRepository.isOutputOrderHit(expression.hitPolicy) && transformer.outputClausePriority(drgElement, rule.outputEntry[output_index], output_index)?exists>
+            output_.${transformer.outputClausePrioritySetter(drgElement, output)}(${transformer.outputClausePriority(drgElement, rule.outputEntry[output_index], output_index)});
                 </#if>
             </#list>
 
@@ -231,7 +231,7 @@
         ${className} result_ = ${transformer.defaultConstructor(className)};
         <#assign expression = modelRepository.expression(drgElement)>
         <#list expression.output as output>
-        result_.${transformer.drgElementOutputSetter(drgElement, output, "ruleOutput_ == null ? null : ruleOutput_.${transformer.getter(drgElement, output)}")};
+        result_.${transformer.drgElementOutputSetter(drgElement, output, "ruleOutput_ == null ? null : ruleOutput_.${transformer.outputClauseGetter(drgElement, output)}")};
         </#list>
         return result_;
     }

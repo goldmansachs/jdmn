@@ -49,20 +49,20 @@ public class ${javaClassName} extends ${transformer.abstractRuleOutputClassName(
     <#assign expression = modelRepository.expression(drgElement)>
     <#list expression.output as output>
     @com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(transformer.outputClauseName(drgElement, output))}")
-    public ${transformer.outputClauseClassName(drgElement, output, output?index)} ${transformer.getter(drgElement, output)} {
+    public ${transformer.outputClauseClassName(drgElement, output, output?index)} ${transformer.outputClauseGetter(drgElement, output)} {
         return this.${transformer.outputClauseVariableName(drgElement, output)};
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("${transformer.escapeInString(transformer.outputClauseName(drgElement, output))}")
-    public void ${transformer.setter(drgElement, output)}(${transformer.outputClauseClassName(drgElement, output, output?index)} ${transformer.outputClauseVariableName(drgElement, output)}) {
+    public void ${transformer.outputClauseSetter(drgElement, output)}(${transformer.outputClauseClassName(drgElement, output, output?index)} ${transformer.outputClauseVariableName(drgElement, output)}) {
         this.${transformer.outputClauseVariableName(drgElement, output)} = ${transformer.outputClauseVariableName(drgElement, output)};
     }
     <#if modelRepository.isOutputOrderHit(expression.hitPolicy)>
 
-    public Integer ${transformer.priorityGetter(drgElement, output)} {
+    public Integer ${transformer.outputClausePriorityGetter(drgElement, output)} {
         return this.${transformer.outputClausePriorityVariableName(drgElement, output)};
     }
-    public void ${transformer.prioritySetter(drgElement, output)}(Integer ${transformer.outputClausePriorityVariableName(drgElement, output)}) {
+    public void ${transformer.outputClausePrioritySetter(drgElement, output)}(Integer ${transformer.outputClausePriorityVariableName(drgElement, output)}) {
         this.${transformer.outputClausePriorityVariableName(drgElement, output)} = ${transformer.outputClausePriorityVariableName(drgElement, output)};
     }
     </#if>
@@ -78,10 +78,10 @@ public class ${javaClassName} extends ${transformer.abstractRuleOutputClassName(
         ${javaClassName} other = (${javaClassName}) o;
         <#assign expression = modelRepository.expression(drgElement)>
         <#list expression.output as output>
-            <#assign member = transformer.getter(drgElement, output)/>
+            <#assign member = transformer.outputClauseGetter(drgElement, output)/>
         if (this.${member} != null ? !this.${member}.equals(other.${member}) : other.${member} != null) return false;
             <#if modelRepository.isOutputOrderHit(expression.hitPolicy)>
-                <#assign member = transformer.priorityGetter(drgElement, output)/>
+                <#assign member = transformer.outputClausePriorityGetter(drgElement, output)/>
         if (this.${member} != null ? !this.${member}.equals(other.${member}) : other.${member} != null) return false;
             </#if>
         </#list>
@@ -94,10 +94,10 @@ public class ${javaClassName} extends ${transformer.abstractRuleOutputClassName(
         int result = 0;
         <#assign expression = modelRepository.expression(drgElement)>
         <#list expression.output as output>
-            <#assign member = transformer.getter(drgElement, output)/>
+            <#assign member = transformer.outputClauseGetter(drgElement, output)/>
         result = 31 * result + (this.${member} != null ? this.${member}.hashCode() : 0);
             <#if modelRepository.isOutputOrderHit(expression.hitPolicy)>
-                <#assign member = transformer.priorityGetter(drgElement, output)/>
+                <#assign member = transformer.outputClausePriorityGetter(drgElement, output)/>
         result = 31 * result + (this.${member} != null ? this.${member}.hashCode() : 0);
             </#if>
         </#list>
@@ -115,7 +115,7 @@ public class ${javaClassName} extends ${transformer.abstractRuleOutputClassName(
     <#list expression.output as output>
         List<${transformer.pairClassName()}<${transformer.outputClauseClassName(drgElement, output, output?index)}, Integer>> ${transformer.outputClauseVariableName(drgElement, output)}Pairs = new ArrayList<>();
         matchedResults_.forEach(matchedResult_ -> {
-            ${transformer.outputClauseVariableName(drgElement, output)}Pairs.add(new ${transformer.pairClassName()}(((${javaClassName})matchedResult_).${transformer.getter(drgElement, output)}, ((${javaClassName})matchedResult_).${transformer.priorityGetter(drgElement, output)}));
+            ${transformer.outputClauseVariableName(drgElement, output)}Pairs.add(new ${transformer.pairClassName()}(((${javaClassName})matchedResult_).${transformer.outputClauseGetter(drgElement, output)}, ((${javaClassName})matchedResult_).${transformer.outputClausePriorityGetter(drgElement, output)}));
         });
         ${transformer.outputClauseVariableName(drgElement, output)}Pairs.sort(new ${transformer.pairComparatorClassName()}());
     </#list>
@@ -124,8 +124,8 @@ public class ${javaClassName} extends ${transformer.abstractRuleOutputClassName(
         for(int i=0; i<matchedResults_.size(); i++) {
             ${javaClassName} output_ = new ${javaClassName}(true);
             <#list expression.output as output>
-            output_.${transformer.setter(drgElement, output)}(${transformer.outputClauseVariableName(drgElement, output)}Pairs.get(i).getLeft());
-            output_.${transformer.prioritySetter(drgElement, output)}(${transformer.outputClauseVariableName(drgElement, output)}Pairs.get(i).getRight());
+            output_.${transformer.outputClauseSetter(drgElement, output)}(${transformer.outputClauseVariableName(drgElement, output)}Pairs.get(i).getLeft());
+            output_.${transformer.outputClausePrioritySetter(drgElement, output)}(${transformer.outputClauseVariableName(drgElement, output)}Pairs.get(i).getRight());
             </#list>
             result_.add(output_);
         }

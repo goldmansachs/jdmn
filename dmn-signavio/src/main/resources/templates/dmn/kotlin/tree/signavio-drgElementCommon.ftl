@@ -221,8 +221,8 @@
             output_.setMatched(true)
             <#list expression.output as output>
             output_.${transformer.outputClauseVariableName(drgElement, output)} = ${transformer.outputEntryToNative(drgElement, rule.outputEntry[output_index], output_index)}
-                <#if modelRepository.isOutputOrderHit(expression.hitPolicy) && transformer.priority(drgElement, rule.outputEntry[output_index], output_index)?exists>
-            output_.${transformer.outputClausePriorityVariableName(drgElement, output)} = ${transformer.priority(drgElement, rule.outputEntry[output_index], output_index)}
+                <#if modelRepository.isOutputOrderHit(expression.hitPolicy) && transformer.outputClausePriority(drgElement, rule.outputEntry[output_index], output_index)?exists>
+            output_.${transformer.outputClausePriorityVariableName(drgElement, output)} = ${transformer.outputClausePriority(drgElement, rule.outputEntry[output_index], output_index)}
                 </#if>
             </#list>
 
