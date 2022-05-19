@@ -194,22 +194,21 @@ public class ASTFactory<T, C> {
             return (PositiveUnaryTest<T, C>) expression;
         } else if (expression instanceof NullLiteral) {
             return toNullPositiveUnaryTest();
-        } else if (expression instanceof SimpleLiteral) {
-            return toOperatorRange(null, expression);
-        } else if (expression instanceof ArithmeticNegation && ((ArithmeticNegation<T, C>) expression).getLeftOperand() instanceof NumericLiteral) {
-            return toOperatorRange(null, expression);
-        } else if (expression instanceof NamedExpression || expression instanceof PathExpression) {
-            return toOperatorRange(null, expression);
-        } else if (expression instanceof Context) {
-            return toOperatorRange(null, expression);
-        } else if (expression instanceof FunctionInvocation) {
-            // TODO refactor to use ExpressionTest
-            return toOperatorRange(null, expression);
         } else if (expression instanceof ListLiteral) {
             return toListTest((ListLiteral<T, C>) expression);
         } else {
-            return toExpressionTest(expression);
+            if (containsQuestionMark(expression)) {
+                return toExpressionTest(expression);
+            } else {
+                return toOperatorRange(null, expression);
+            }
         }
+    }
+
+    private boolean containsQuestionMark(Expression<T, C> expression) {
+        ContainsNameVisitor<T, C> visitor = new ContainsNameVisitor<>();
+        expression.accept(visitor, null);
+        return visitor.isFound();
     }
 
     public NullTest<T, C> toNullPositiveUnaryTest() {

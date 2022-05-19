@@ -625,8 +625,8 @@ dateTimeLiteral returns [Expression ast] :
     |
     (
         ( kind = identifier )
-        PAREN_OPEN stringLiteral PAREN_CLOSE
-        {$ast = astFactory.toDateTimeLiteral($kind.text, $stringLiteral.ast);}
+        PAREN_OPEN expression PAREN_CLOSE
+        {$ast = astFactory.toDateTimeLiteral($kind.text, $expression.ast);}
     )
 
 ;

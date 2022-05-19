@@ -50,7 +50,7 @@
 |(1..2)                                  |PositiveUnaryTests(EndpointsRange(true,NumericLiteral(1),true,NumericLiteral(2)))                                         |
 |]1..2[                                  |PositiveUnaryTests(EndpointsRange(true,NumericLiteral(1),true,NumericLiteral(2)))                                         |
 |[1..2]                                  |PositiveUnaryTests(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))                                       |
-|-a.b.c                                  |PositiveUnaryTests(ExpressionTest(ArithmeticNegation(PathExpression(PathExpression(Name(a), b), c))))                     |
+|-a.b.c                                  |PositiveUnaryTests(OperatorRange(null,ArithmeticNegation(PathExpression(PathExpression(Name(a), b), c))))                 |
 |null                                    |PositiveUnaryTests(NullTest())                                                                                            |
 |-                                       |Any()                                                                                                                     |
 |not (1, 2)                              |NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2))))|
@@ -58,4 +58,4 @@
 !1 Function Call Test
 !|FEEL Unary Tests Fixture                                                                                                                           |
 |inputEntry        |output?                                                                                                                          |
-|contains(?, "abc")|PositiveUnaryTests(OperatorRange(null,FunctionInvocation(Name(contains) -> PositionalParameters(Name(?), StringLiteral("abc")))))|
+|contains(?, "abc")|PositiveUnaryTests(ExpressionTest(FunctionInvocation(Name(contains) -> PositionalParameters(Name(?), StringLiteral("abc")))))    |

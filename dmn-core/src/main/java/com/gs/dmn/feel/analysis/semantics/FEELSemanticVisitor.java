@@ -122,9 +122,6 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
 
         // Derive type
         element.setType(BooleanType.BOOLEAN);
-        if (expression.getType() != BooleanType.BOOLEAN) {
-            throw new DMNRuntimeException(String.format("Illegal type of positive unary test '%s'. Expected boolean found '%s'", expression, expression.getType()));
-        }
 
         return element;
     }
@@ -143,14 +140,10 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         } else {
             Type inputExpressionType = context.getInputExpressionType();
             element.setType(new RangeType(endpoint.getType()));
-            if (endpoint instanceof FunctionInvocation) {
-            } else if (endpoint instanceof NamedExpression) {
+            if (operator == null) {
+                checkType(element, "=", inputExpressionType, endpoint.getType(), context);
             } else {
-                if (operator == null) {
-                    checkType(element, "=", inputExpressionType, endpoint.getType(), context);
-                } else {
-                    checkType(element, operator, inputExpressionType, endpoint.getType(), context);
-                }
+                checkType(element, operator, inputExpressionType, endpoint.getType(), context);
             }
         }
 

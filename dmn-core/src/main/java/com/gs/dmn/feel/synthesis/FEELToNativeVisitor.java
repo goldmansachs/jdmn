@@ -115,14 +115,10 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
             String operator = element.getOperator();
             Expression<Type, DMNContext> endpoint = element.getEndpoint();
             String condition;
-            if (endpoint instanceof FunctionInvocation) {
-                condition = (String) endpoint.accept(this, context);
+            if (operator == null) {
+                condition = makeListTestCondition("=", inputExpressionToJava(context), endpoint, context);
             } else {
-                if (operator == null) {
-                    condition = makeListTestCondition("=", inputExpressionToJava(context), endpoint, context);
-                } else {
-                    condition = makeListTestCondition(operator, inputExpressionToJava(context), endpoint, context);
-                }
+                condition = makeListTestCondition(operator, inputExpressionToJava(context), endpoint, context);
             }
             return condition;
         }
