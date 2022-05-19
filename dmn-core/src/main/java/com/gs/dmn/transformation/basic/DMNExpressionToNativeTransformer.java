@@ -170,22 +170,22 @@ public class DMNExpressionToNativeTransformer {
         return this.dmnTransformer.getter(this.outputClausePriorityVariableName(element, output));
     }
 
-    String outputClauseSetter(TDRGElement element, TOutputClause output) {
-        return this.dmnTransformer.setter(this.dmnTransformer.outputClauseVariableName(element, output));
+    String outputClauseSetter(TDRGElement element, TOutputClause output, String args) {
+        return this.dmnTransformer.setter(this.dmnTransformer.outputClauseVariableName(element, output), args);
     }
 
-    String drgElementOutputSetter(TDRGElement element, TOutputClause output, String value) {
+    String drgElementOutputSetter(TDRGElement element, TOutputClause output, String args) {
         String name = this.dmnTransformer.outputClauseVariableName(element, output);
         Type type = dmnTransformer.drgElementOutputFEELType(element);
         if (type instanceof ContextType) {
-            return String.format("%s%s)", this.dmnTransformer.contextSetter(name), value);
+            return String.format("%s%s)", this.dmnTransformer.contextSetter(name), args);
         } else {
-            return String.format("%s(%s)", this.dmnTransformer.setter(name), value);
+            return this.dmnTransformer.setter(name, args);
         }
     }
 
-    String prioritySetter(TDRGElement element, TOutputClause output) {
-        return this.dmnTransformer.setter(this.outputClausePriorityVariableName(element, output));
+    String prioritySetter(TDRGElement element, TOutputClause output, String args) {
+        return this.dmnTransformer.setter(this.outputClausePriorityVariableName(element, output), args);
     }
 
     private List<TOutputClause> sortOutputClauses(TDRGElement element, List<TOutputClause> parameters) {

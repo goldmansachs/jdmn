@@ -92,15 +92,15 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String getter(TItemDefinition itemDefinition);
 
-    String setter(TItemDefinition itemDefinition);
+    String setter(TItemDefinition itemDefinition, String args);
 
     String protoGetter(TItemDefinition itemDefinition);
 
     String protoGetter(TDRGElement drgElement);
 
-    String protoSetter(TItemDefinition itemDefinition);
+    String protoSetter(TItemDefinition itemDefinition, String args);
 
-    String protoSetter(TDRGElement drgElement);
+    String protoSetter(TDRGElement drgElement, String args);
 
     //
     // Native factory methods
@@ -403,15 +403,15 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String drgElementOutputGetter(TDRGElement element, TOutputClause output);
 
-    String outputClauseSetter(TDRGElement element, TOutputClause output);
+    String outputClauseSetter(TDRGElement element, TOutputClause output, String args);
 
-    String drgElementOutputSetter(TDRGElement element, TOutputClause output, String value);
+    String drgElementOutputSetter(TDRGElement element, TOutputClause output, String args);
 
     Integer outputClausePriority(TDRGElement element, TLiteralExpression literalExpression, int outputIndex);
 
     String outputClausePriorityGetter(TDRGElement element, TOutputClause output);
 
-    String outputClausePrioritySetter(TDRGElement element, TOutputClause output);
+    String outputClausePrioritySetter(TDRGElement element, TOutputClause output, String args);
 
     HitPolicy hitPolicy(TDRGElement element);
 
@@ -501,7 +501,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String getter(String name);
 
-    String setter(String name);
+    String setter(String name, String args);
 
     String contextGetter(String name);
 
@@ -683,8 +683,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
                 RuntimeEnvironment.of());
         List<TInformationItem> formalParameterList = functionDefinition.getFormalParameter();
         TDefinitions model = getDMNModelRepository().getModel(parentContext.getElement());
-        for (int i = 0; i < formalParameterList.size(); i++) {
-            TInformationItem param = formalParameterList.get(i);
+        for (TInformationItem param : formalParameterList) {
             String name = param.getName();
             Type type = toFEELType(null, QualifiedName.toQualifiedName(model, param.getTypeRef()));
             functionContext.addDeclaration(getEnvironmentFactory().makeVariableDeclaration(name, type));
@@ -700,8 +699,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
                 getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of());
         List<FormalParameter<Type, DMNContext>> formalParameterList = functionDefinition.getFormalParameters();
-        for (int i = 0; i < formalParameterList.size(); i++) {
-            FormalParameter<Type, DMNContext> param = formalParameterList.get(i);
+        for (FormalParameter<Type, DMNContext> param : formalParameterList) {
             String name = param.getName();
             Type type = param.getType();
             functionContext.addDeclaration(getEnvironmentFactory().makeVariableDeclaration(name, type));

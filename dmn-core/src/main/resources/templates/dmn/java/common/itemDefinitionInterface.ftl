@@ -36,10 +36,14 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
         } else if (other instanceof ${transformer.contextClassName()}) {
             ${transformer.itemDefinitionNativeClassName(javaClassName)} result_ = new ${transformer.itemDefinitionNativeClassName(javaClassName)}();
         <#list itemDefinition.itemComponent as child>
+            <#assign castToItemDefinitionInterface = "(${transformer.itemDefinitionNativeQualifiedInterfaceName(child)})" />
+            <#assign castToContext = "(${transformer.contextClassName()})" />
+            <#assign name = "\"${modelRepository.name(child)}\"" />
+            <#assign label = "\"${modelRepository.label(child)}\"" />
             <#if modelRepository.label(child)?has_content>
-            result_.${transformer.setter(child)}((${transformer.itemDefinitionNativeQualifiedInterfaceName(child)})((${transformer.contextClassName()})other).get("${modelRepository.name(child)}", "${modelRepository.label(child)}"));
+            result_.${transformer.setter(child, "${castToItemDefinitionInterface}(${castToContext}other).get(${name}, ${label})")};
             <#else>
-            result_.${transformer.setter(child)}((${transformer.itemDefinitionNativeQualifiedInterfaceName(child)})((${transformer.contextClassName()})other).get("${modelRepository.name(child)}"));
+            result_.${transformer.setter(child, "${castToItemDefinitionInterface}(${castToContext}other).get(${name})")};
             </#if>
         </#list>
             return result_;
@@ -49,7 +53,8 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
         } else if (other instanceof ${transformer.qualifiedProtoMessageName(itemDefinition)}) {
             ${transformer.itemDefinitionNativeClassName(javaClassName)} result_ = ${transformer.defaultConstructor(transformer.itemDefinitionNativeClassName(javaClassName))};
         <#list itemDefinition.itemComponent as child>
-            result_.${transformer.setter(child)}(${transformer.convertProtoMember("other", itemDefinition, child, true)});
+            <#assign otherString = "other" />
+            result_.${transformer.setter(child, "${transformer.convertProtoMember(otherString, itemDefinition, child, true)}")};
         </#list>
             return result_;
     </#if>
@@ -67,10 +72,10 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
             ${transformer.qualifiedNativeProtoType(child)} ${memberVariable} = ${transformer.convertMemberToProto("other", javaClassName, child, true)};
             <#if transformer.isProtoReference(child)>
             if (${memberVariable} != null) {
-                result_.${transformer.protoSetter(child)}(${memberVariable});
+                result_.${transformer.protoSetter(child, "${memberVariable}")};
             }
             <#else>
-            result_.${transformer.protoSetter(child)}(${memberVariable});
+            result_.${transformer.protoSetter(child, "${memberVariable}")};
             </#if>
         </#list>
         }

@@ -237,12 +237,12 @@ public abstract class ProtoBufferFactory {
         }
     }
 
-    public String protoSetter(String name, Type type) {
+    public String protoSetter(String name, Type type, String args) {
         String protoName = protoName(name);
         if (type instanceof ListType) {
-            return String.format("addAll%s", StringUtils.capitalize(protoName));
+            return String.format("addAll%s(%s)", StringUtils.capitalize(protoName), args);
         } else {
-            return this.transformer.setter(protoName);
+            return this.transformer.setter(protoName, args);
         }
     }
 

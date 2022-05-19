@@ -923,8 +923,8 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return this.transformer.drgElementTypeSignature(element, this.transformer::nativeName);
     }
 
-    public String protoSetter(Pair<String, Type> parameter) {
-        return this.transformer.getProtoFactory().protoSetter(parameter.getLeft(), parameter.getRight());
+    public String protoSetter(Pair<String, Type> parameter, String args) {
+        return this.transformer.getProtoFactory().protoSetter(parameter.getLeft(), parameter.getRight(), args);
     }
 
     public String drgElementArgumentListExtraCacheProto(ResultNodeInfo info) {

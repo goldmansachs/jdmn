@@ -89,10 +89,10 @@ public class ${testClassName} extends ${decisionBaseClass} {
         ${tckUtil.toNativeTypeProto(parameter.right)} ${variableNameProto} = ${tckUtil.toNativeExpressionProto(parameter)};
         <#if tckUtil.isProtoReference(parameter.right)>
         if (${variableNameProto} != null) {
-            ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter)}(${variableNameProto});
+            ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter, "${variableNameProto}")};
         }
         <#else>
-        ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter)}(${variableNameProto});
+        ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter, "${variableNameProto}")};
         </#if>
         </#list>
         ${tckUtil.qualifiedRequestMessageName(resultInfo)} ${tckUtil.requestVariableName(resultInfo)} = ${tckUtil.builderVariableName(resultInfo)}.build();

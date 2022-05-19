@@ -201,7 +201,7 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String makeMemberAssignment(String complexTypeVariable, String memberName, String value) {
-        return String.format("%s.%s(%s);", complexTypeVariable, this.transformer.setter(memberName), value);
+        return String.format("%s.%s;", complexTypeVariable, this.transformer.setter(memberName, value));
     }
 
     @Override

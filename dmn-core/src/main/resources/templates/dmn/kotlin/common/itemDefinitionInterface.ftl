@@ -138,10 +138,10 @@ interface ${javaClassName} : ${transformer.dmnTypeClassName()} {
                 var ${memberVariable}: ${transformer.qualifiedNativeProtoType(child)} = ${transformer.convertMemberToProto("other", javaClassName, child, true)}
             <#if transformer.isProtoReference(child)>
                 if (${memberVariable} != null) {
-                    result_.${transformer.protoSetter(child)}(${memberVariable})
+                    result_.${transformer.protoSetter(child, "${memberVariable}")}
                 }
             <#else>
-                result_.${transformer.protoSetter(child)}(${memberVariable})
+                result_.${transformer.protoSetter(child, "${memberVariable}")}
             </#if>
         </#list>
             }

@@ -253,8 +253,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String setter(TItemDefinition itemDefinition) {
-        return setter(namedElementVariableName(itemDefinition));
+    public String setter(TItemDefinition itemDefinition, String args) {
+        return setter(namedElementVariableName(itemDefinition), args);
     }
 
     @Override
@@ -272,17 +272,17 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String protoSetter(TItemDefinition itemDefinition) {
-        return this.protoSetter(itemDefinition, toFEELType(itemDefinition));
+    public String protoSetter(TItemDefinition itemDefinition, String args) {
+        return this.protoSetter(itemDefinition, toFEELType(itemDefinition), args);
     }
 
     @Override
-    public String protoSetter(TDRGElement drgElement) {
-        return this.protoSetter(drgElement, drgElementOutputFEELType(drgElement));
+    public String protoSetter(TDRGElement drgElement, String args) {
+        return this.protoSetter(drgElement, drgElementOutputFEELType(drgElement), args);
     }
 
-    private String protoSetter(TNamedElement namedElement, Type type) {
-        return this.protoFactory.protoSetter(namedElementVariableName(namedElement), type);
+    private String protoSetter(TNamedElement namedElement, Type type, String args) {
+        return this.protoFactory.protoSetter(namedElementVariableName(namedElement), type, args);
     }
 
     //
@@ -1409,13 +1409,13 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String outputClauseSetter(TDRGElement element, TOutputClause output) {
-        return this.expressionToNativeTransformer.outputClauseSetter(element, output);
+    public String outputClauseSetter(TDRGElement element, TOutputClause output, String args) {
+        return this.expressionToNativeTransformer.outputClauseSetter(element, output, args);
     }
 
     @Override
-    public String drgElementOutputSetter(TDRGElement element, TOutputClause output, String value) {
-        return this.expressionToNativeTransformer.drgElementOutputSetter(element, output, value);
+    public String drgElementOutputSetter(TDRGElement element, TOutputClause output, String args) {
+        return this.expressionToNativeTransformer.drgElementOutputSetter(element, output, args);
     }
 
     @Override
@@ -1429,8 +1429,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String outputClausePrioritySetter(TDRGElement element, TOutputClause output) {
-        return this.expressionToNativeTransformer.prioritySetter(element, output);
+    public String outputClausePrioritySetter(TDRGElement element, TOutputClause output, String args) {
+        return this.expressionToNativeTransformer.prioritySetter(element, output, args);
     }
 
     @Override
@@ -1802,8 +1802,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String setter(String name) {
-        return String.format("set%s", this.upperCaseFirst(name));
+    public String setter(String name, String args) {
+        return String.format("set%s(%s)", this.upperCaseFirst(name), args);
     }
 
     @Override

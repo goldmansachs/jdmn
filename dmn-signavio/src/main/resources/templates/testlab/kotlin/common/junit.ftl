@@ -89,10 +89,10 @@ class ${testClassName} : ${decisionBaseClass}() {
         val ${variableNameProto}: ${testLabUtil.toNativeTypeProto(inputParameterDefinition)} = ${testLabUtil.toNativeExpressionProto(inputParameterDefinition)};
         <#if testLabUtil.isProtoReference(inputParameterDefinition)>
         if (${variableNameProto} != null) {
-            builder_.${testLabUtil.protoSetter(inputParameterDefinition)}(${variableNameProto});
+            builder_.${testLabUtil.protoSetter(inputParameterDefinition, "${variableNameProto}")};
         }
         <#else>
-        builder_.${testLabUtil.protoSetter(inputParameterDefinition)}(${variableNameProto});
+        builder_.${testLabUtil.protoSetter(inputParameterDefinition, "${variableNameProto}")};
         </#if>
     </#list>
         val ${testLabUtil.requestVariableName(rootOutputParameter)}: ${testLabUtil.qualifiedRequestMessageName(rootOutputParameter)} = builder_.build()

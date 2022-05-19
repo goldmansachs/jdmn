@@ -181,9 +181,9 @@
             // Compute output
             output_.setMatched(true);
             <#list expression.output as output>
-            output_.${transformer.outputClauseSetter(drgElement, output)}(${transformer.outputEntryToNative(drgElement, rule.outputEntry[output_index], output_index)});
+            output_.${transformer.outputClauseSetter(drgElement, output, "${transformer.outputEntryToNative(drgElement, rule.outputEntry[output_index], output_index)}")};
                 <#if modelRepository.isOutputOrderHit(expression.hitPolicy) && transformer.outputClausePriority(drgElement, rule.outputEntry[output_index], output_index)?exists>
-            output_.${transformer.outputClausePrioritySetter(drgElement, output)}(${transformer.outputClausePriority(drgElement, rule.outputEntry[output_index], output_index)});
+            output_.${transformer.outputClausePrioritySetter(drgElement, output, "${transformer.outputClausePriority(drgElement, rule.outputEntry[output_index], output_index)}")};
                 </#if>
             </#list>
 

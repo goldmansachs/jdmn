@@ -54,7 +54,8 @@ public class ${javaClassName} extends ${transformer.abstractRuleOutputClassName(
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("${transformer.escapeInString(transformer.outputClauseName(drgElement, output))}")
-    public void ${transformer.outputClauseSetter(drgElement, output)}(${transformer.outputClauseClassName(drgElement, output, output?index)} ${transformer.outputClauseVariableName(drgElement, output)}) {
+    <#assign outputClassName = transformer.outputClauseClassName(drgElement, output, output?index) />
+    public void ${transformer.outputClauseSetter(drgElement, output, "${outputClassName} ${transformer.outputClauseVariableName(drgElement, output)}")} {
         this.${transformer.outputClauseVariableName(drgElement, output)} = ${transformer.outputClauseVariableName(drgElement, output)};
     }
     <#if modelRepository.isOutputOrderHit(expression.hitPolicy)>
@@ -62,7 +63,7 @@ public class ${javaClassName} extends ${transformer.abstractRuleOutputClassName(
     public Integer ${transformer.outputClausePriorityGetter(drgElement, output)} {
         return this.${transformer.outputClausePriorityVariableName(drgElement, output)};
     }
-    public void ${transformer.outputClausePrioritySetter(drgElement, output)}(Integer ${transformer.outputClausePriorityVariableName(drgElement, output)}) {
+    public void ${transformer.outputClausePrioritySetter(drgElement, output, "Integer ${transformer.outputClausePriorityVariableName(drgElement, output)}")} {
         this.${transformer.outputClausePriorityVariableName(drgElement, output)} = ${transformer.outputClausePriorityVariableName(drgElement, output)};
     }
     </#if>
@@ -124,8 +125,8 @@ public class ${javaClassName} extends ${transformer.abstractRuleOutputClassName(
         for(int i=0; i<matchedResults_.size(); i++) {
             ${javaClassName} output_ = new ${javaClassName}(true);
             <#list expression.output as output>
-            output_.${transformer.outputClauseSetter(drgElement, output)}(${transformer.outputClauseVariableName(drgElement, output)}Pairs.get(i).getLeft());
-            output_.${transformer.outputClausePrioritySetter(drgElement, output)}(${transformer.outputClauseVariableName(drgElement, output)}Pairs.get(i).getRight());
+            output_.${transformer.outputClauseSetter(drgElement, output, "${transformer.outputClauseVariableName(drgElement, output)}Pairs.get(i).getLeft()")};
+            output_.${transformer.outputClausePrioritySetter(drgElement, output, "${transformer.outputClauseVariableName(drgElement, output)}Pairs.get(i).getRight()")};
             </#list>
             result_.add(output_);
         }

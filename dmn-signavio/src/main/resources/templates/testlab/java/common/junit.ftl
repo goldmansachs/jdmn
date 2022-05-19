@@ -93,10 +93,10 @@ public class ${testClassName} extends ${decisionBaseClass} {
         ${testLabUtil.toNativeTypeProto(inputParameterDefinition)} ${variableNameProto} = ${testLabUtil.toNativeExpressionProto(inputParameterDefinition)};
         <#if testLabUtil.isProtoReference(inputParameterDefinition)>
         if (${variableNameProto} != null) {
-            builder_.${testLabUtil.protoSetter(inputParameterDefinition)}(${variableNameProto});
+            builder_.${testLabUtil.protoSetter(inputParameterDefinition, "${variableNameProto}")};
         }
         <#else>
-        builder_.${testLabUtil.protoSetter(inputParameterDefinition)}(${variableNameProto});
+        builder_.${testLabUtil.protoSetter(inputParameterDefinition, "${variableNameProto}")};
         </#if>
     </#list>
         ${testLabUtil.qualifiedRequestMessageName(rootOutputParameter)} ${testLabUtil.requestVariableName(rootOutputParameter)} = builder_.build();

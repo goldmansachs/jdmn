@@ -80,10 +80,10 @@ class ${testClassName} : ${decisionBaseClass}() {
         val ${variableNameProto}: ${tckUtil.toNativeTypeProto(parameter.right)} = ${tckUtil.toNativeExpressionProto(parameter)}
         <#if tckUtil.isProtoReference(parameter.right)>
         if (${variableNameProto} != null) {
-            ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter)}(${variableNameProto})
+            ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter, "${variableNameProto}")}
         }
         <#else>
-        ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter)}(${variableNameProto})
+        ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter, "${variableNameProto}")}
         </#if>
         </#list>
         val ${tckUtil.requestVariableName(resultInfo)}: ${tckUtil.qualifiedRequestMessageName(resultInfo)} = ${tckUtil.builderVariableName(resultInfo)}.build()

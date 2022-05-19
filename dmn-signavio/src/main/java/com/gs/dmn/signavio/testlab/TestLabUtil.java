@@ -473,9 +473,9 @@ public class TestLabUtil {
         }
     }
 
-    public String protoSetter(InputParameterDefinition inputParameterDefinition) {
+    public String protoSetter(InputParameterDefinition inputParameterDefinition, String args) {
         String inputName = inputDataVariableName(inputParameterDefinition);
         Type type = toFEELType(inputParameterDefinition);
-        return this.dmnTransformer.getProtoFactory().protoSetter(inputName, type);
+        return this.dmnTransformer.getProtoFactory().protoSetter(inputName, type, args);
     }
 }

@@ -134,10 +134,10 @@ public class ${javaClassName} extends ${decisionBaseClass} {
         ${transformer.drgElementOutputTypeProto(drgElement)} ${outputVariableProto} = ${transformer.convertValueToProtoNativeType(outputVariable, outputType, false)};
     <#if transformer.isProtoReference(outputType)>
         if (${outputVariableProto} != null) {
-            builder_.${transformer.protoSetter(drgElement)}(${outputVariableProto});
+            builder_.${transformer.protoSetter(drgElement, "${outputVariableProto}")};
         }
     <#else>
-        builder_.${transformer.protoSetter(drgElement)}(${outputVariableProto});
+        builder_.${transformer.protoSetter(drgElement, "${outputVariableProto}")};
     </#if>
         return builder_.build();
 </#macro>
