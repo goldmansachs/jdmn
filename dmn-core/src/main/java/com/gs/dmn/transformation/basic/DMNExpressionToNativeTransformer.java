@@ -82,7 +82,7 @@ public class DMNExpressionToNativeTransformer {
                     for(TOutputClause outputClause: output) {
                         values.add(defaultValue(element, outputClause));
                     }
-                    String defaultValue = this.dmnTransformer.constructor(this.dmnTransformer.itemDefinitionNativeClassName(this.dmnTransformer.drgElementOutputClassName(element)), String.join(", ", values));
+                    String defaultValue = this.dmnTransformer.constructor(this.dmnTransformer.drgElementOutputClassName(element), String.join(", ", values));
                     if (this.dmnTransformer.hasListType(element)) {
                         return this.nativeFactory.asList(((ListType) feelType).getElementType(), defaultValue);
                     } else {
@@ -156,12 +156,32 @@ public class DMNExpressionToNativeTransformer {
         return this.dmnTransformer.getter(this.dmnTransformer.outputClauseVariableName(element, output));
     }
 
+    String drgElementOutputGetter(TDRGElement element, TOutputClause output) {
+        String name = this.dmnTransformer.outputClauseVariableName(element, output);
+        Type type = dmnTransformer.drgElementOutputFEELType(element);
+        if (type instanceof ContextType) {
+            return this.dmnTransformer.contextGetter(name);
+        } else {
+            return this.dmnTransformer.getter(name);
+        }
+    }
+
     String priorityGetter(TDRGElement element, TOutputClause output) {
         return this.dmnTransformer.getter(this.outputClausePriorityVariableName(element, output));
     }
 
     String setter(TDRGElement element, TOutputClause output) {
         return this.dmnTransformer.setter(this.dmnTransformer.outputClauseVariableName(element, output));
+    }
+
+    String drgElementOutputSetter(TDRGElement element, TOutputClause output, String value) {
+        String name = this.dmnTransformer.outputClauseVariableName(element, output);
+        Type type = dmnTransformer.drgElementOutputFEELType(element);
+        if (type instanceof ContextType) {
+            return String.format("%s%s)", this.dmnTransformer.contextSetter(name), value);
+        } else {
+            return String.format("%s(%s)", this.dmnTransformer.setter(name), value);
+        }
     }
 
     String prioritySetter(TDRGElement element, TOutputClause output) {
@@ -629,7 +649,7 @@ public class DMNExpressionToNativeTransformer {
         }
 
         // Type name
-        String javaType = this.dmnTransformer.drgElementOutputClassName(element);
+        String javaType = this.dmnTransformer.drgElementOutputInterfaceName(element);
 
         // Constructor argument names
         List<String> argNameList = relation.getColumn().stream().map(c -> this.dmnTransformer.nativeFriendlyVariableName(c.getName())).collect(Collectors.toList());

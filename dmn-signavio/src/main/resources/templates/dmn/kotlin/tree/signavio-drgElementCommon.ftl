@@ -265,8 +265,9 @@
 
 <#macro addConversionMethod drgElement>
     <#if modelRepository.isCompoundDecisionTable(drgElement)>
-    fun toDecisionOutput(ruleOutput_: ${transformer.ruleOutputClassName(drgElement)}): ${transformer.drgElementOutputClassName(drgElement)} {
-        val result_: ${transformer.itemDefinitionNativeClassName(transformer.drgElementOutputClassName(drgElement))} = ${transformer.defaultConstructor(transformer.itemDefinitionNativeClassName(transformer.drgElementOutputClassName(drgElement)))}
+    fun toDecisionOutput(ruleOutput_: ${transformer.ruleOutputClassName(drgElement)}): ${transformer.drgElementOutputInterfaceName(drgElement)} {
+        <#assign className = transformer.drgElementOutputClassName(drgElement)>
+        val result_: ${className} = ${transformer.defaultConstructor(className)}
         <#assign expression = modelRepository.expression(drgElement)>
         <#list expression.output as output>
         result_.${transformer.outputClauseVariableName(drgElement, output)} = ruleOutput_.let({ it.${transformer.outputClauseVariableName(drgElement, output)} })

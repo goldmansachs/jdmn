@@ -122,6 +122,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String drgElementOutputType(TDRGElement element);
 
+    String drgElementOutputInterfaceName(TDRGElement element);
+
     String drgElementOutputClassName(TDRGElement element);
 
     Type drgElementOutputFEELType(TDRGElement element);
@@ -399,7 +401,11 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String getter(TDRGElement element, TOutputClause output);
 
+    String drgElementOutputGetter(TDRGElement element, TOutputClause output);
+
     String setter(TDRGElement element, TOutputClause output);
+
+    String drgElementOutputSetter(TDRGElement element, TOutputClause output, String value);
 
     Integer priority(TDRGElement element, TLiteralExpression literalExpression, int outputIndex);
 

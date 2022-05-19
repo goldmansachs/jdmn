@@ -343,12 +343,22 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String drgElementOutputClassName(TDRGElement element) {
+    public String drgElementOutputInterfaceName(TDRGElement element) {
         Type type = drgElementOutputFEELType(element);
         if (type instanceof ListType) {
             type = ((ListType) type).getElementType();
         }
         return toNativeType(type);
+    }
+
+    @Override
+    public String drgElementOutputClassName(TDRGElement element) {
+        Type type = drgElementOutputFEELType(element);
+        if (type instanceof ListType) {
+            type = ((ListType) type).getElementType();
+        }
+        String interfaceName = toNativeType(type);
+        return type instanceof ItemDefinitionType ? itemDefinitionNativeClassName(interfaceName) : interfaceName;
     }
 
     @Override
@@ -1394,8 +1404,18 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
+    public String drgElementOutputGetter(TDRGElement element, TOutputClause output) {
+        return this.expressionToNativeTransformer.drgElementOutputGetter(element, output);
+    }
+
+    @Override
     public String setter(TDRGElement element, TOutputClause output) {
         return this.expressionToNativeTransformer.setter(element, output);
+    }
+
+    @Override
+    public String drgElementOutputSetter(TDRGElement element, TOutputClause output, String value) {
+        return this.expressionToNativeTransformer.drgElementOutputSetter(element, output, value);
     }
 
     @Override

@@ -285,12 +285,12 @@
 
 <#macro addConversionMethod drgElement>
     <#if modelRepository.isCompoundDecisionTable(drgElement)>
-    public ${transformer.drgElementOutputClassName(drgElement)} toDecisionOutput(${transformer.ruleOutputClassName(drgElement)} ruleOutput_) {
-        <#assign simpleClassName = transformer.itemDefinitionNativeClassName(transformer.drgElementOutputClassName(drgElement))>
-        ${simpleClassName} result_ = ${transformer.defaultConstructor(simpleClassName)};
+    public ${transformer.drgElementOutputInterfaceName(drgElement)} toDecisionOutput(${transformer.ruleOutputClassName(drgElement)} ruleOutput_) {
+        <#assign className = transformer.drgElementOutputClassName(drgElement)>
+        ${className} result_ = ${transformer.defaultConstructor(className)};
         <#assign expression = modelRepository.expression(drgElement)>
         <#list expression.output as output>
-        result_.${transformer.setter(drgElement, output)}(ruleOutput_ == null ? null : ruleOutput_.${transformer.getter(drgElement, output)});
+        result_.${transformer.drgElementOutputSetter(drgElement, output, "ruleOutput_ == null ? null : ruleOutput_.${transformer.getter(drgElement, output)}")};
         </#list>
         return result_;
     }
