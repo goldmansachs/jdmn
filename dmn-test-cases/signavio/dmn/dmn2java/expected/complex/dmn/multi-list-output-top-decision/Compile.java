@@ -26,6 +26,15 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     public Compile() {
     }
 
+    public List<type.Compile> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("name"), input_.get("numbers"), input_.get("Traffic Light"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'Compile'", e);
+            return null;
+        }
+    }
+
     public List<type.Compile> apply(String name, String numbers, String trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply(name, (numbers != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numbers, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (trafficLight != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(trafficLight, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);

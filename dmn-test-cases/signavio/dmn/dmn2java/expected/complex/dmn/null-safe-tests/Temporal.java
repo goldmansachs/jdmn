@@ -26,6 +26,15 @@ public class Temporal extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     public Temporal() {
     }
 
+    public Boolean apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("dateTime"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'Temporal'", e);
+            return null;
+        }
+    }
+
     public Boolean apply(String dateTime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((dateTime != null ? dateAndTime(dateTime) : null), annotationSet_, eventListener_, externalExecutor_, cache_);

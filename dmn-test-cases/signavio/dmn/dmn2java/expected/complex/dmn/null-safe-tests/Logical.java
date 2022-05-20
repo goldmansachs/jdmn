@@ -26,6 +26,15 @@ public class Logical extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     public Logical() {
     }
 
+    public Boolean apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("booleanA"), input_.get("booleanB"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'Logical'", e);
+            return null;
+        }
+    }
+
     public Boolean apply(String booleanA, String booleanB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((booleanA != null ? Boolean.valueOf(booleanA) : null), (booleanB != null ? Boolean.valueOf(booleanB) : null), annotationSet_, eventListener_, externalExecutor_, cache_);

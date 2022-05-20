@@ -26,6 +26,15 @@ public class SUM extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
     public SUM() {
     }
 
+    public java.math.BigDecimal apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("A"), input_.get("B"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'SUM'", e);
+            return null;
+        }
+    }
+
     public java.math.BigDecimal apply(String a, String b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((a != null ? number(a) : null), (b != null ? number(b) : null), annotationSet_, eventListener_, externalExecutor_, cache_);

@@ -26,6 +26,15 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     public Decision() {
     }
 
+    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("BooleanInput"), input_.get("DateAndTimeInput"), input_.get("DateInput"), input_.get("EnumerationInput"), input_.get("NumberInput"), input_.get("TextInput"), input_.get("TimeInput"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'Decision'", e);
+            return null;
+        }
+    }
+
     public String apply(String booleanInput, String dateAndTimeInput, String dateInput, String enumerationInput, String numberInput, String textInput, String timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((booleanInput != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(booleanInput, new com.fasterxml.jackson.core.type.TypeReference<List<Boolean>>() {}) : null), (dateAndTimeInput != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(dateAndTimeInput, new com.fasterxml.jackson.core.type.TypeReference<List<javax.xml.datatype.XMLGregorianCalendar>>() {}) : null), (dateInput != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(dateInput, new com.fasterxml.jackson.core.type.TypeReference<List<javax.xml.datatype.XMLGregorianCalendar>>() {}) : null), (enumerationInput != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(enumerationInput, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (numberInput != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numberInput, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (textInput != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(textInput, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (timeInput != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(timeInput, new com.fasterxml.jackson.core.type.TypeReference<List<javax.xml.datatype.XMLGregorianCalendar>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);

@@ -26,6 +26,15 @@ public class StringHandling extends com.gs.dmn.signavio.runtime.DefaultSignavioB
     public StringHandling() {
     }
 
+    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("numberA"), input_.get("numberB"), input_.get("stringList"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'StringHandling'", e);
+            return null;
+        }
+    }
+
     public String apply(String numberA, String numberB, String stringList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((numberA != null ? number(numberA) : null), (numberB != null ? number(numberB) : null), (stringList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(stringList, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);

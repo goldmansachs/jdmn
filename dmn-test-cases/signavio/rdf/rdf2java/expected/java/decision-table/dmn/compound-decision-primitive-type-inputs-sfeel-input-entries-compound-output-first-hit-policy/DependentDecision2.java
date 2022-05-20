@@ -26,6 +26,15 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSigna
     public DependentDecision2() {
     }
 
+    public type.DependentDecision2 apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("DD2 Number Input"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'DependentDecision2'", e);
+            return null;
+        }
+    }
+
     public type.DependentDecision2 apply(String dD2NumberInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((dD2NumberInput != null ? number(dD2NumberInput) : null), annotationSet_, eventListener_, externalExecutor_, cache_);

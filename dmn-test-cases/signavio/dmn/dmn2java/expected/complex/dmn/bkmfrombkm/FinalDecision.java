@@ -35,6 +35,15 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         this.decisionTime = decisionTime;
     }
 
+    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("date input"), input_.get("time input"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'FinalDecision'", e);
+            return null;
+        }
+    }
+
     public String apply(String dateInput, String timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((dateInput != null ? date(dateInput) : null), (timeInput != null ? time(timeInput) : null), annotationSet_, eventListener_, externalExecutor_, cache_);

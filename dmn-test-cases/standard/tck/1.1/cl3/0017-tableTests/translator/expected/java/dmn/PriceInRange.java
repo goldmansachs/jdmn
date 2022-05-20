@@ -26,6 +26,15 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public PriceInRange() {
     }
 
+    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("numB"), input_.get("numC"), input_.get("structA"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'PriceInRange'", e);
+            return null;
+        }
+    }
+
     public String apply(String numB, String numC, String structA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((numB != null ? number(numB) : null), (numC != null ? number(numC) : null), (structA != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(structA, new com.fasterxml.jackson.core.type.TypeReference<type.TAImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);

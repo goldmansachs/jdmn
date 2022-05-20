@@ -26,6 +26,15 @@ public class Zip extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
     public Zip() {
     }
 
+    public List<type.Zip> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("inputA"), input_.get("inputB"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'Zip'", e);
+            return null;
+        }
+    }
+
     public List<type.Zip> apply(String inputA, String inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((inputA != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(inputA, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (inputB != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(inputB, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);

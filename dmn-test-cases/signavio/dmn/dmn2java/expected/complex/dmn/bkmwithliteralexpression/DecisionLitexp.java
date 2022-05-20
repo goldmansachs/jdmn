@@ -26,6 +26,15 @@ public class DecisionLitexp extends com.gs.dmn.signavio.runtime.DefaultSignavioB
     public DecisionLitexp() {
     }
 
+    public List<type.Zip> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("censored"), input_.get("labels"), input_.get("numz"), input_.get("redgreenblue1"), input_.get("redgreenblue2"), input_.get("redgreenbluelist1"), input_.get("redgreenbluelist2"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'DecisionLitexp'", e);
+            return null;
+        }
+    }
+
     public List<type.Zip> apply(String censored, String labels, String numz, String redgreenblue1, String redgreenblue2, String redgreenbluelist1, String redgreenbluelist2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((censored != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(censored, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (labels != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(labels, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (numz != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numz, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), redgreenblue1, redgreenblue2, (redgreenbluelist1 != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(redgreenbluelist1, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (redgreenbluelist2 != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(redgreenbluelist2, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);

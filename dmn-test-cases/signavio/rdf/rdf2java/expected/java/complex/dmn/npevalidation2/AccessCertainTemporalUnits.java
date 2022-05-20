@@ -33,6 +33,15 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
         this.generateTemporalObjects = generateTemporalObjects;
     }
 
+    public List<java.math.BigDecimal> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("day"), input_.get("hour"), input_.get("minute"), input_.get("month"), input_.get("second"), input_.get("year"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'AccessCertainTemporalUnits'", e);
+            return null;
+        }
+    }
+
     public List<java.math.BigDecimal> apply(String day, String hour, String minute, String month, String second, String year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((day != null ? number(day) : null), (hour != null ? number(hour) : null), (minute != null ? number(minute) : null), (month != null ? number(month) : null), (second != null ? number(second) : null), (year != null ? number(year) : null), annotationSet_, eventListener_, externalExecutor_, cache_);

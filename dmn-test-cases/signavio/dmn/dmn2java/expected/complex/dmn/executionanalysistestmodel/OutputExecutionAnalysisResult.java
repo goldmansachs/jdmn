@@ -26,6 +26,15 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
     public OutputExecutionAnalysisResult() {
     }
 
+    public List<String> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("InputValue"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'OutputExecutionAnalysisResult'", e);
+            return null;
+        }
+    }
+
     public List<String> apply(String inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((inputValue != null ? number(inputValue) : null), annotationSet_, eventListener_, externalExecutor_, cache_);

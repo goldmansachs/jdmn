@@ -142,6 +142,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     List<Pair<String, Type>> drgElementTypeSignature(TDRGElement element);
 
+    String drgElementSignatureWithMap(TDRGElement element);
+
     String drgElementSignature(TDRGElement element);
 
     String drgElementSignature(DRGElementReference<? extends TDRGElement> reference);
@@ -149,6 +151,10 @@ public interface BasicDMNToNativeTransformer<T, C> {
     List<Pair<String, String>> drgElementSignatureParameters(TDRGElement element);
 
     List<Pair<String, String>> drgElementSignatureParameters(DRGElementReference<? extends TDRGElement> reference);
+
+    String drgElementArgumentListWithMap(TDRGElement element);
+
+    String drgElementArgumentListWithMap(DRGElementReference<? extends TDRGElement> reference);
 
     String drgElementArgumentList(TDRGElement element);
 

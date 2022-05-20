@@ -26,6 +26,15 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     public Decision() {
     }
 
+    public List<String> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("NumberInput"), input_.get("TextInput"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'Decision'", e);
+            return null;
+        }
+    }
+
     public List<String> apply(String numberInput, String textInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((numberInput != null ? number(numberInput) : null), textInput, annotationSet_, eventListener_, externalExecutor_, cache_);

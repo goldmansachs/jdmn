@@ -397,6 +397,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
+    public String drgElementSignatureWithMap(TDRGElement element) {
+        return String.format("%s %s, %s %s", inputClassName(), inputVariableName(), executionContextClassName(), executionContextVariableName());
+    }
+
+    @Override
     public String drgElementSignature(TDRGElement element) {
         DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
         return drgElementSignature(reference);
@@ -444,6 +449,25 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public List<Pair<String, Type>> drgElementTypeSignature(TDRGElement element) {
         return drgElementTypeSignature(element, this::nativeName);
+    }
+
+    @Override
+    public String drgElementArgumentListWithMap(DRGElementReference<? extends TDRGElement> reference) {
+        TDRGElement element = reference.getElement();
+        if (element instanceof TDecision) {
+            List<DRGElementReference<TInputData>> drgElementReferences = this.inputDataClosure((DRGElementReference<TDecision>) reference);
+            List<String> nameList = drgElementReferences.stream().map(e -> dmnModelRepository.displayName(e.getElement())).collect(Collectors.toList());
+            String arguments = nameList.stream().map(name -> String.format("%s.%s", inputVariableName(), contextGetter(name))).collect(Collectors.joining(", "));
+            return augmentArgumentListFromContext(arguments);
+        } else {
+            throw new DMNRuntimeException(String.format("Not supported yet for '%s'", element.getClass().getSimpleName()));
+        }
+    }
+
+    @Override
+    public String drgElementArgumentListWithMap(TDRGElement element) {
+        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
+        return drgElementArgumentListWithMap(reference);
     }
 
     @Override
@@ -879,6 +903,18 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         }
     }
 
+    private String augmentArgumentListFromContext(String arguments) {
+        String annotations = String.format("%s.%s", executionContextVariableName(), getter("annotations"));
+        String listener = String.format("%s.%s", executionContextVariableName(), getter("eventListener"));
+        String executor = String.format("%s.%s", executionContextVariableName(), getter("externalFunctionExecutor"));
+        String cache = String.format("%s.%s", executionContextVariableName(), getter("cache"));
+        if (StringUtils.isBlank(arguments)) {
+            return String.format("%s, %s, %s, %s", annotations, listener, executor, cache);
+        } else {
+            return String.format("%s, %s, %s, %s, %s", arguments, annotations, listener, executor, cache);
+        }
+    }
+
     @Override
     public List<Pair<String, Type>> inputDataParametersClosure(DRGElementReference<TDecision> reference) {
         return inputDataParametersClosure(reference, this::nativeName);
@@ -1055,6 +1091,22 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String contextClassName() {
         return Context.class.getName();
+    }
+
+    private String inputClassName() {
+        return Map.class.getName() + "<String, String>";
+    }
+
+    private String inputVariableName() {
+        return "input_";
+    }
+
+    private String executionContextClassName() {
+        return ExecutionContext.class.getName();
+    }
+
+    private String executionContextVariableName() {
+        return "context_";
     }
 
     @Override
