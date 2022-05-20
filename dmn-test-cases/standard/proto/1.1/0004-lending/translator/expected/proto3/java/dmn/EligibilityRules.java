@@ -33,6 +33,16 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
     private EligibilityRules() {
     }
 
+
+    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("'Pre-bureauRiskCategory'"), (input_.get("'Pre-bureauAffordability'") != null ? Boolean.valueOf(input_.get("'Pre-bureauAffordability'")) : null), (input_.get("Age") != null ? number(input_.get("Age")) : null), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'EligibilityRules'", e);
+            return null;
+        }
+    }
+
     public String apply(String preBureauRiskCategory, Boolean preBureauAffordability, java.math.BigDecimal age, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'EligibilityRules'

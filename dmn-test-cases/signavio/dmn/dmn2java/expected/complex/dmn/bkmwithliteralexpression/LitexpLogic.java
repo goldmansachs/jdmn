@@ -33,6 +33,15 @@ public class LitexpLogic extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
     private LitexpLogic() {
     }
 
+    public List<type.Zip> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply((input_.get("blacklist") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("blacklist"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (input_.get("listOfNumbers") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("listOfNumbers"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (input_.get("names") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("names"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), input_.get("rgb1"), (input_.get("rgb1List") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("rgb1List"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), input_.get("rgb2"), (input_.get("rgb2List") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("rgb2List"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'LitexpLogic'", e);
+            return null;
+        }
+    }
+
     public List<type.Zip> apply(List<String> blacklist, List<java.math.BigDecimal> listOfNumbers, List<String> names, String rgb1, List<String> rgb1List, String rgb2, List<String> rgb2List, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'litexpLogic'

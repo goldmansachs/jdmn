@@ -33,6 +33,16 @@ public class CreditContingencyFactorTable extends com.gs.dmn.runtime.DefaultDMNB
     private CreditContingencyFactorTable() {
     }
 
+
+    public java.math.BigDecimal apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("RiskCategory"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'CreditContingencyFactorTable'", e);
+            return null;
+        }
+    }
+
     public java.math.BigDecimal apply(String riskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'CreditContingencyFactorTable'

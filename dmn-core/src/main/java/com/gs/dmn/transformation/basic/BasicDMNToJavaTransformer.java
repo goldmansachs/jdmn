@@ -397,6 +397,19 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
+    public boolean shouldGenerateApplyWithMap(TDRGElement element) {
+        if (element instanceof TDecision) {
+            List<Pair<String, Type>> parameters = drgElementTypeSignature(element);
+            return parameters.stream().allMatch(p -> this.nativeFactory.isSerializable(p.getRight()));
+        } else if (element instanceof TInvocable) {
+            List<Pair<String, Type>> parameters = drgElementTypeSignature(element);
+            return parameters.stream().allMatch(p -> this.nativeFactory.isSerializable(p.getRight()));
+        } else {
+            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+        }
+    }
+
+    @Override
     public String drgElementSignatureWithMap(TDRGElement element) {
         return String.format("%s %s, %s %s", inputClassName(), inputVariableName(), executionContextClassName(), executionContextVariableName());
     }
@@ -459,9 +472,22 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             List<String> nameList = drgElementReferences.stream().map(e -> dmnModelRepository.displayName(e.getElement())).collect(Collectors.toList());
             String arguments = nameList.stream().map(name -> String.format("%s.%s", inputVariableName(), contextGetter(name))).collect(Collectors.joining(", "));
             return augmentArgumentListFromContext(arguments);
+        } else if (element instanceof TInvocable) {
+            List<Pair<String, Type>> parameters = drgElementTypeSignature(reference, this::displayName);
+            String arguments = parameters.stream().map(p -> extractAndConvertInputMember(p)).collect(Collectors.joining(", "));
+            return augmentArgumentListFromContext(arguments);
         } else {
             throw new DMNRuntimeException(String.format("Not supported yet for '%s'", element.getClass().getSimpleName()));
         }
+    }
+
+    private String extractInputMember(String name) {
+        return String.format("%s.%s", inputVariableName(), contextGetter(name));
+    }
+
+    private String extractAndConvertInputMember(Pair<String, Type> pair) {
+        String member = extractInputMember(pair.getLeft());
+        return String.format("%s", this.nativeFactory.convertDecisionArgumentFromString(member, pair.getRight()));
     }
 
     @Override
@@ -571,8 +597,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public boolean shouldGenerateApplyWithConversionFromString(TDRGElement element) {
         if (element instanceof TDecision) {
             List<Pair<String, Type>> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
-            return parameters.stream().anyMatch(p -> p.getRight() != StringType.STRING);
-        } else if (element instanceof TBusinessKnowledgeModel) {
+            return parameters.stream().anyMatch(p -> p.getRight() != StringType.STRING) && parameters.stream().allMatch(p -> this.nativeFactory.isSerializable(p.getRight()));
+        } else if (element instanceof TInvocable) {
             return false;
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));

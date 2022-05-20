@@ -33,6 +33,16 @@ public class Bkm_009_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private Bkm_009_1() {
     }
 
+
+    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply((input_.get("a") != null ? number(input_.get("a")) : null), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'Bkm_009_1'", e);
+            return null;
+        }
+    }
+
     public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> apply(java.math.BigDecimal a, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'bkm_009_1'

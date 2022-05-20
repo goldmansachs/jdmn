@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer {
@@ -141,6 +142,21 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             return augmentSignature(decisionSignature);
         } else {
             return super.drgElementSignature(reference);
+        }
+    }
+
+    @Override
+    protected List<Pair<String, Type>> bkmParameters(DRGElementReference<TBusinessKnowledgeModel> reference, Function<Object, String> nameProducer) {
+        TBusinessKnowledgeModel bkm = reference.getElement();
+        TFunctionDefinition encapsulatedLogic = bkm.getEncapsulatedLogic();
+        if (encapsulatedLogic == null) {
+            List<FormalParameter<Type, DMNContext>> parameters = new ArrayList<>();
+            TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
+            DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
+            List<Pair<String, Type>> paramaters = this.drgElementTypeSignature(outputDecision);
+            return paramaters;
+        } else {
+            return super.bkmParameters(reference, nameProducer);
         }
     }
 

@@ -49,6 +49,18 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     private ${javaClassName}() {
     }
 
+
+    <#if transformer.shouldGenerateApplyWithMap(drgElement)>
+    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureWithMap(drgElement)}) {
+        try {
+            return apply(${transformer.drgElementArgumentListWithMap(drgElement)});
+        } catch (Exception e) {
+            logError("Cannot apply decision '${javaClassName}'", e);
+            return null;
+        }
+    }
+
+    </#if>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignature(drgElement)}) {
         <@applyMethodBody drgElement />
     }

@@ -143,6 +143,8 @@ public interface NativeExpressionFactory {
 
     String convertMethodName(ItemDefinitionType type);
 
+    boolean isSerializable(Type type);
+
     String convertDecisionArgumentFromString(String paramName, Type type);
 
     String conversionFunction(Conversion<Type, ConversionKind> conversion, String javaType);

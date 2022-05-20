@@ -33,6 +33,15 @@ public class ImportedLogicTime extends com.gs.dmn.signavio.runtime.DefaultSignav
     private ImportedLogicTime() {
     }
 
+    public List<String> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply((input_.get("time") != null ? time(input_.get("time")) : null), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'ImportedLogicTime'", e);
+            return null;
+        }
+    }
+
     public List<String> apply(javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'importedLogicTime'

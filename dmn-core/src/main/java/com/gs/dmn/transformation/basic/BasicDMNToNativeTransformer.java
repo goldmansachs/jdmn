@@ -142,6 +142,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     List<Pair<String, Type>> drgElementTypeSignature(TDRGElement element);
 
+    boolean shouldGenerateApplyWithMap(TDRGElement element);
+
     String drgElementSignatureWithMap(TDRGElement element);
 
     String drgElementSignature(TDRGElement element);

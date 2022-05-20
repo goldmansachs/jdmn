@@ -72,6 +72,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     }
     </#if>
 
+    <#if transformer.shouldGenerateApplyWithMap(drgElement)>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureWithMap(drgElement)}) {
         try {
             return apply(${transformer.drgElementArgumentListWithMap(drgElement)});
@@ -81,6 +82,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
         }
     }
 
+    </#if>
     <#if transformer.shouldGenerateApplyWithConversionFromString(drgElement)>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureWithConversionFromString(drgElement)}) {
         try {

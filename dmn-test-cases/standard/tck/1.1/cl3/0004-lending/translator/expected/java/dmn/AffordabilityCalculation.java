@@ -33,6 +33,16 @@ public class AffordabilityCalculation extends com.gs.dmn.runtime.DefaultDMNBaseD
     private AffordabilityCalculation() {
     }
 
+
+    public Boolean apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply((input_.get("MonthlyIncome") != null ? number(input_.get("MonthlyIncome")) : null), (input_.get("MonthlyRepayments") != null ? number(input_.get("MonthlyRepayments")) : null), (input_.get("MonthlyExpenses") != null ? number(input_.get("MonthlyExpenses")) : null), input_.get("RiskCategory"), (input_.get("RequiredMonthlyInstallment") != null ? number(input_.get("RequiredMonthlyInstallment")) : null), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'AffordabilityCalculation'", e);
+            return null;
+        }
+    }
+
     public Boolean apply(java.math.BigDecimal monthlyIncome, java.math.BigDecimal monthlyRepayments, java.math.BigDecimal monthlyExpenses, String riskCategory, java.math.BigDecimal requiredMonthlyInstallment, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'AffordabilityCalculation'

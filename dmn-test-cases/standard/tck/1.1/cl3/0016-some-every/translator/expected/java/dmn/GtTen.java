@@ -33,6 +33,16 @@ public class GtTen extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private GtTen() {
     }
 
+
+    public Boolean apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply((input_.get("theNumber") != null ? number(input_.get("theNumber")) : null), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'GtTen'", e);
+            return null;
+        }
+    }
+
     public Boolean apply(java.math.BigDecimal theNumber, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'gtTen'

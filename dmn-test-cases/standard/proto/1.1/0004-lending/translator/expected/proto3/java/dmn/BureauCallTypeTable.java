@@ -33,6 +33,16 @@ public class BureauCallTypeTable extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
     private BureauCallTypeTable() {
     }
 
+
+    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("'Pre-bureauRiskCategory'"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'BureauCallTypeTable'", e);
+            return null;
+        }
+    }
+
     public String apply(String preBureauRiskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'BureauCallTypeTable'
