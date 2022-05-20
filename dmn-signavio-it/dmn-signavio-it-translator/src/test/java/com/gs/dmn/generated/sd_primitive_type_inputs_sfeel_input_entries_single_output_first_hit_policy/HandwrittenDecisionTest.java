@@ -23,7 +23,6 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void testApply() {
-        AnnotationSet annotationSet = new AnnotationSet();
         String booleanInput = "true";
         String dateAndTimeInput = "2016-08-01T12:00:00+01:00";
         String dateInput = "2016-08-01";
@@ -32,12 +31,11 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         String textInput = "abc";
         String timeInput = "12:00:00+00:00";
 
-        assertEquals("r1", decision.apply(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet));
+        assertEquals("r1", decision.apply(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet, eventListener, externalFunctionExecutor, cache));
     }
 
     @Override
     protected void applyDecision() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        decision.apply(null, (String)null, null, null, null, null, null, annotationSet);
+        decision.apply(null, (String)null, null, null, null, null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 }

@@ -48,15 +48,6 @@ public class BureauCallType extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         this.preBureauRiskCategory = preBureauRiskCategory;
     }
 
-    public String apply(String applicantData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply((applicantData != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(applicantData, new com.fasterxml.jackson.core.type.TypeReference<type.TApplicantDataImpl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'BureauCallType'", e);
-            return null;
-        }
-    }
-
     public String apply(String applicantData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((applicantData != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(applicantData, new com.fasterxml.jackson.core.type.TypeReference<type.TApplicantDataImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -64,10 +55,6 @@ public class BureauCallType extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             logError("Cannot apply decision 'BureauCallType'", e);
             return null;
         }
-    }
-
-    public String apply(type.TApplicantData applicantData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(applicantData, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public String apply(type.TApplicantData applicantData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
@@ -89,10 +76,6 @@ public class BureauCallType extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             logError("Exception caught in 'BureauCallType' evaluation", e);
             return null;
         }
-    }
-
-    public proto.BureauCallTypeResponse apply(proto.BureauCallTypeRequest bureauCallTypeRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(bureauCallTypeRequest_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public proto.BureauCallTypeResponse apply(proto.BureauCallTypeRequest bureauCallTypeRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

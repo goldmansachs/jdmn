@@ -26,15 +26,6 @@ public class SUM extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
     public SUM() {
     }
 
-    public java.math.BigDecimal apply(String a, String b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply((a != null ? number(a) : null), (b != null ? number(b) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'SUM'", e);
-            return null;
-        }
-    }
-
     public java.math.BigDecimal apply(String a, String b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((a != null ? number(a) : null), (b != null ? number(b) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -42,10 +33,6 @@ public class SUM extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
             logError("Cannot apply decision 'SUM'", e);
             return null;
         }
-    }
-
-    public java.math.BigDecimal apply(java.math.BigDecimal a, java.math.BigDecimal b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(a, b, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public java.math.BigDecimal apply(java.math.BigDecimal a, java.math.BigDecimal b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

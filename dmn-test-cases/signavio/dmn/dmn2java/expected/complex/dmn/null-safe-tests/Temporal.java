@@ -26,15 +26,6 @@ public class Temporal extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     public Temporal() {
     }
 
-    public Boolean apply(String dateTime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply((dateTime != null ? dateAndTime(dateTime) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'Temporal'", e);
-            return null;
-        }
-    }
-
     public Boolean apply(String dateTime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((dateTime != null ? dateAndTime(dateTime) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -42,10 +33,6 @@ public class Temporal extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             logError("Cannot apply decision 'Temporal'", e);
             return null;
         }
-    }
-
-    public Boolean apply(javax.xml.datatype.XMLGregorianCalendar dateTime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(dateTime, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public Boolean apply(javax.xml.datatype.XMLGregorianCalendar dateTime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

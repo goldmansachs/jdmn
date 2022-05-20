@@ -26,15 +26,6 @@ public class AgeClassification extends com.gs.dmn.runtime.DefaultDMNBaseDecision
     public AgeClassification() {
     }
 
-    public com.gs.dmn.runtime.Context apply(String student, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply((student != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(student, new com.fasterxml.jackson.core.type.TypeReference<type.StudentImpl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'AgeClassification'", e);
-            return null;
-        }
-    }
-
     public com.gs.dmn.runtime.Context apply(String student, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((student != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(student, new com.fasterxml.jackson.core.type.TypeReference<type.StudentImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -42,10 +33,6 @@ public class AgeClassification extends com.gs.dmn.runtime.DefaultDMNBaseDecision
             logError("Cannot apply decision 'AgeClassification'", e);
             return null;
         }
-    }
-
-    public com.gs.dmn.runtime.Context apply(type.Student student, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(student, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public com.gs.dmn.runtime.Context apply(type.Student student, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

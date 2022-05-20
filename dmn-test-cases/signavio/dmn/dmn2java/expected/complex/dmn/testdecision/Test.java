@@ -26,10 +26,6 @@ public class Test extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
     public Test() {
     }
 
-    public List<String> apply(String stringInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(stringInput, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-    }
-
     public List<String> apply(String stringInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'test'

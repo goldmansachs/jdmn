@@ -13,10 +13,6 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class Bankrates() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    fun apply(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): List<type.TLoanProduct?>? {
-        return apply(annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
-    }
-
     fun apply(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): List<type.TLoanProduct?>? {
         try {
             // Start decision 'Bankrates'

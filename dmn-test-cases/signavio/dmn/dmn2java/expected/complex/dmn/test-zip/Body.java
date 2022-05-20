@@ -26,15 +26,6 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
     public Body() {
     }
 
-    public java.math.BigDecimal apply(String it_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply((it_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.ItImpl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'Body'", e);
-            return null;
-        }
-    }
-
     public java.math.BigDecimal apply(String it_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((it_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.ItImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -42,10 +33,6 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             logError("Cannot apply decision 'Body'", e);
             return null;
         }
-    }
-
-    public java.math.BigDecimal apply(type.It it_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(it_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public java.math.BigDecimal apply(type.It it_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

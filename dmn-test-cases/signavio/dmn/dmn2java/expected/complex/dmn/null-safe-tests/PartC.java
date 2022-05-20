@@ -39,15 +39,6 @@ public class PartC extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         this.temporalDiff = temporalDiff;
     }
 
-    public String apply(String booleanA, String booleanB, String date, String dateTime, String time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply((booleanA != null ? Boolean.valueOf(booleanA) : null), (booleanB != null ? Boolean.valueOf(booleanB) : null), (date != null ? date(date) : null), (dateTime != null ? dateAndTime(dateTime) : null), (time != null ? time(time) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'PartC'", e);
-            return null;
-        }
-    }
-
     public String apply(String booleanA, String booleanB, String date, String dateTime, String time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((booleanA != null ? Boolean.valueOf(booleanA) : null), (booleanB != null ? Boolean.valueOf(booleanB) : null), (date != null ? date(date) : null), (dateTime != null ? dateAndTime(dateTime) : null), (time != null ? time(time) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -55,10 +46,6 @@ public class PartC extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
             logError("Cannot apply decision 'PartC'", e);
             return null;
         }
-    }
-
-    public String apply(Boolean booleanA, Boolean booleanB, javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(booleanA, booleanB, date, dateTime, time, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public String apply(Boolean booleanA, Boolean booleanB, javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

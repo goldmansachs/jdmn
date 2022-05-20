@@ -15,26 +15,35 @@ package com.gs.dmn.generated.example_credit_decision_mixed_proto;
 import com.gs.dmn.generated.example_credit_decision_mixed_proto.proto.GenerateOutputDataResponse;
 import com.gs.dmn.runtime.Assert;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
+import com.gs.dmn.runtime.cache.Cache;
+import com.gs.dmn.runtime.cache.DefaultCache;
+import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
+import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
+import com.gs.dmn.runtime.listener.EventListener;
+import com.gs.dmn.runtime.listener.NopEventListener;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class HandwrittenGenerateOutputDataTest {
+public class HandwrittenGenerateOutputDataTest  {
     protected static final Logger LOGGER = LoggerFactory.getLogger(HandwrittenGenerateOutputDataTest.class);
 
     private final com.gs.dmn.generated.example_credit_decision_mixed_proto.GenerateOutputData decision = new GenerateOutputData();
 
     @Test
     public void testCase1() {
-        AnnotationSet annotationSet_ = new AnnotationSet();
+        AnnotationSet annotationSet = new AnnotationSet();
+        EventListener eventListener = new NopEventListener();
+        ExternalFunctionExecutor externalFunctionExecutor = new DefaultExternalFunctionExecutor();
+        Cache cache = new DefaultCache();
 
         // Create GenerateOutputDataRequest
         com.gs.dmn.generated.example_credit_decision_mixed_proto.proto.GenerateOutputDataRequest request = makeRequest();
 
         // Invoke decision
-        GenerateOutputDataResponse response = decision.apply(request, annotationSet_);
+        GenerateOutputDataResponse response = decision.apply(request, annotationSet, eventListener, externalFunctionExecutor, cache);
 
         // Check result
         List<com.gs.dmn.generated.example_credit_decision_mixed_proto.type.GenerateOutputData> expected = decision.asList(new com.gs.dmn.generated.example_credit_decision_mixed_proto.type.GenerateOutputDataImpl(decision.number("27.5"), "Accept", decision.numericUnaryMinus(decision.number("7.5"))));

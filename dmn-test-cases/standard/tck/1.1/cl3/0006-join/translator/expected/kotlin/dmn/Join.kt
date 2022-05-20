@@ -13,15 +13,6 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class Join() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    fun apply(deptTable: String?, employeeTable: String?, lastName: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): String? {
-        return try {
-            apply(deptTable?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TDeptTable?>?>() {}) }), employeeTable?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TEmployeeTable?>?>() {}) }), lastName, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
-        } catch (e: Exception) {
-            logError("Cannot apply decision 'Join'", e)
-            null
-        }
-    }
-
     fun apply(deptTable: String?, employeeTable: String?, lastName: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         return try {
             apply(deptTable?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TDeptTable?>?>() {}) }), employeeTable?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TEmployeeTable?>?>() {}) }), lastName, annotationSet_, eventListener_, externalExecutor_, cache_)
@@ -29,10 +20,6 @@ class Join() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             logError("Cannot apply decision 'Join'", e)
             null
         }
-    }
-
-    fun apply(deptTable: List<type.TDeptTable?>?, employeeTable: List<type.TEmployeeTable?>?, lastName: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): String? {
-        return apply(deptTable, employeeTable, lastName, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
     fun apply(deptTable: List<type.TDeptTable?>?, employeeTable: List<type.TEmployeeTable?>?, lastName: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {

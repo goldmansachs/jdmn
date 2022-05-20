@@ -9,10 +9,13 @@ public class CompileTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
     @org.junit.Test
     public void testCase1() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         List<java.math.BigDecimal> numbers = asList(number("1"), number("2"));
         String name = "e";
         List<String> trafficLight = asList("Yellow", "Green");
-        List<type.Compile> compile = this.compile.apply(name, numbers, trafficLight, annotationSet_);
+        List<type.Compile> compile = this.compile.apply(name, numbers, trafficLight, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList(new type.CompileImpl(number("1"), "e", "Red")), compile);
     }

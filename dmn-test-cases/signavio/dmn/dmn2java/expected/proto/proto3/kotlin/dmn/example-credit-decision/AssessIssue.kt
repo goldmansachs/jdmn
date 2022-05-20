@@ -13,15 +13,6 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class AssessIssue() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
-    fun apply(currentRiskAppetite: String?, priorIssue_iterator: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): java.math.BigDecimal? {
-        return try {
-            apply(currentRiskAppetite?.let({ number(it) }), priorIssue_iterator?.let({ number(it) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
-        } catch (e: Exception) {
-            logError("Cannot apply decision 'AssessIssue'", e)
-            null
-        }
-    }
-
     fun apply(currentRiskAppetite: String?, priorIssue_iterator: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         return try {
             apply(currentRiskAppetite?.let({ number(it) }), priorIssue_iterator?.let({ number(it) }), annotationSet_, eventListener_, externalExecutor_, cache_)
@@ -29,10 +20,6 @@ class AssessIssue() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() 
             logError("Cannot apply decision 'AssessIssue'", e)
             null
         }
-    }
-
-    fun apply(currentRiskAppetite: java.math.BigDecimal?, priorIssue_iterator: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): java.math.BigDecimal? {
-        return apply(currentRiskAppetite, priorIssue_iterator, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
     fun apply(currentRiskAppetite: java.math.BigDecimal?, priorIssue_iterator: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
@@ -55,10 +42,6 @@ class AssessIssue() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() 
             logError("Exception caught in 'assessIssue' evaluation", e)
             return null
         }
-    }
-
-    fun apply(assessIssueRequest_: proto.AssessIssueRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): proto.AssessIssueResponse {
-        return apply(assessIssueRequest_, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
     fun apply(assessIssueRequest_: proto.AssessIssueRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.AssessIssueResponse {

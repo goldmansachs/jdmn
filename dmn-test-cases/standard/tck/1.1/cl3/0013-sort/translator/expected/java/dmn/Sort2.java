@@ -26,15 +26,6 @@ public class Sort2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public Sort2() {
     }
 
-    public List<type.TRow> apply(String tableB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply((tableB != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(tableB, new com.fasterxml.jackson.core.type.TypeReference<List<type.TRow>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'Sort2'", e);
-            return null;
-        }
-    }
-
     public List<type.TRow> apply(String tableB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((tableB != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(tableB, new com.fasterxml.jackson.core.type.TypeReference<List<type.TRow>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -42,10 +33,6 @@ public class Sort2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             logError("Cannot apply decision 'Sort2'", e);
             return null;
         }
-    }
-
-    public List<type.TRow> apply(List<type.TRow> tableB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(tableB, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public List<type.TRow> apply(List<type.TRow> tableB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

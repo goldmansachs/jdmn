@@ -27,15 +27,6 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public PriceInRange() {
     }
 
-    public String apply(String decisioninputs1_numB, String decisioninputs1_numC, String decisioninputs1_structA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply((decisioninputs1_numB != null ? number(decisioninputs1_numB) : null), (decisioninputs1_numC != null ? number(decisioninputs1_numC) : null), (decisioninputs1_structA != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(decisioninputs1_structA, new com.fasterxml.jackson.core.type.TypeReference<decisioninputs1.type.TAImpl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'PriceInRange'", e);
-            return null;
-        }
-    }
-
     public String apply(String decisioninputs1_numB, String decisioninputs1_numC, String decisioninputs1_structA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((decisioninputs1_numB != null ? number(decisioninputs1_numB) : null), (decisioninputs1_numC != null ? number(decisioninputs1_numC) : null), (decisioninputs1_structA != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(decisioninputs1_structA, new com.fasterxml.jackson.core.type.TypeReference<decisioninputs1.type.TAImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -43,10 +34,6 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             logError("Cannot apply decision 'PriceInRange'", e);
             return null;
         }
-    }
-
-    public String apply(java.math.BigDecimal decisioninputs1_numB, java.math.BigDecimal decisioninputs1_numC, decisioninputs1.type.TA decisioninputs1_structA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(decisioninputs1_numB, decisioninputs1_numC, decisioninputs1_structA, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public String apply(java.math.BigDecimal decisioninputs1_numB, java.math.BigDecimal decisioninputs1_numC, decisioninputs1.type.TA decisioninputs1_structA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

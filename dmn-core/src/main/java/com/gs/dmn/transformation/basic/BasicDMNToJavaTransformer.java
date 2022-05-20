@@ -409,17 +409,16 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         return augmentSignature(decisionSignature);
     }
 
+    public List<Pair<String, String>> drgElementSignatureParameters(TDRGElement element) {
+        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
+        return drgElementSignatureParameters(reference);
+    }
+
     @Override
     public List<Pair<String, String>> drgElementSignatureParameters(DRGElementReference<? extends TDRGElement> reference) {
         List<Pair<String, Type>> parameters = drgElementTypeSignature(reference, this::nativeName);
         List<Pair<String, String>> decisionSignature = parameters.stream().map(p -> new Pair<>(this.nativeFactory.nullableParameterType(toNativeType(p.getRight())), p.getLeft())).collect(Collectors.toList());
         return augmentSignatureParameters(decisionSignature);
-    }
-
-    @Override
-    public List<Pair<String, String>> drgElementSignatureExtraCacheParameters(TDRGElement element) {
-        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
-        return drgElementSignatureExtraCacheParameters(drgElementSignatureExtraParameters(drgElementSignatureParameters(reference)));
     }
 
     @Override
@@ -557,16 +556,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String drgElementSignatureExtraCacheWithConversionFromString(TDRGElement element) {
-        return drgElementSignatureExtraCache(drgElementSignatureExtraWithConversionFromString(element));
-    }
-
-    @Override
-    public String drgElementSignatureExtraWithConversionFromString(TDRGElement element) {
-        return drgElementSignatureExtra(drgElementSignatureWithConversionFromString(element));
-    }
-
-    @Override
     public String drgElementSignatureWithConversionFromString(TDRGElement element) {
         if (element instanceof TDecision) {
             List<Pair<String, Type>> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
@@ -575,50 +564,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
-    }
-
-    @Override
-    public String drgElementArgumentListExtraCacheWithConversionFromString(TDRGElement element) {
-        String arguments = drgElementArgumentListExtraWithConversionFromString(element);
-        return drgElementArgumentListExtraCache(arguments);
-    }
-
-    private String drgElementArgumentListExtraWithConversionFromString(TDRGElement element) {
-        String arguments = drgElementArgumentListWithConversionFromString(element);
-        return drgElementArgumentListExtra(arguments);
-    }
-
-    @Override
-    public String drgElementArgumentListExtraCacheWithConvertedArgumentList(TDRGElement element) {
-        String arguments = drgElementArgumentListExtraWithConvertedArgumentList(element);
-        return drgElementArgumentListExtraCache(arguments);
-    }
-
-    private String drgElementArgumentListExtraWithConvertedArgumentList(TDRGElement element) {
-        String arguments = drgElementConvertedArgumentList(element);
-        return drgElementArgumentListExtra(arguments);
-    }
-
-    @Override
-    public String drgElementDefaultArgumentListExtraCacheWithConversionFromString(TDRGElement element) {
-        String arguments = drgElementDefaultArgumentListExtraWithConversionFromString(element);
-        return drgElementDefaultArgumentListExtraCache(arguments);
-    }
-
-    private String drgElementDefaultArgumentListExtraWithConversionFromString(TDRGElement element) {
-        String arguments = drgElementArgumentListWithConversionFromString(element);
-        return drgElementDefaultArgumentListExtra(arguments);
-    }
-
-    @Override
-    public String drgElementDefaultArgumentListExtraCache(TDRGElement element) {
-        String arguments = drgElementDefaultArgumentListExtra(element);
-        return drgElementDefaultArgumentListExtraCache(arguments);
-    }
-
-    private String drgElementDefaultArgumentListExtra(TDRGElement element) {
-        String arguments = drgElementArgumentList(element);
-        return drgElementDefaultArgumentListExtra(arguments);
     }
 
     @Override
@@ -901,28 +846,36 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String augmentSignature(String signature) {
         String annotationParameter = this.nativeFactory.parameter(annotationSetClassName(), annotationSetVariableName());
+        String listenerParameter = this.nativeFactory.parameter(eventListenerClassName(), eventListenerVariableName());
+        String executorParameter = this.nativeFactory.parameter(externalExecutorClassName(), externalExecutorVariableName());
+        String cacheParameter = this.nativeFactory.parameter(cacheInterfaceName(), cacheVariableName());
         if (StringUtils.isBlank(signature)) {
-            return annotationParameter;
+            return String.format("%s, %s, %s, %s", annotationParameter, listenerParameter, executorParameter, cacheParameter);
         } else {
-            return String.format("%s, %s", signature, annotationParameter);
+            return String.format("%s, %s, %s, %s, %s", signature, annotationParameter, listenerParameter, executorParameter, cacheParameter);
         }
     }
 
     @Override
     public List<Pair<String, String>> augmentSignatureParameters(List<Pair<String, String>> signature) {
         List<Pair<String, String>> result = new ArrayList<>(signature);
-        Pair<String, String> annotationParameter = new Pair<>(annotationSetClassName(), annotationSetVariableName());
-        result.add(annotationParameter);
+        result.add(new Pair<>(annotationSetClassName(), annotationSetVariableName()));
+        result.add(new Pair<>(eventListenerClassName(), eventListenerVariableName()));
+        result.add(new Pair<>(externalExecutorClassName(), externalExecutorVariableName()));
+        result.add(new Pair<>(cacheInterfaceName(), cacheVariableName()));
         return result;
     }
 
     @Override
     public String augmentArgumentList(String arguments) {
-        String extra = annotationSetVariableName();
+        String annotationsVar = annotationSetVariableName();
+        String listenerVar = eventListenerVariableName();
+        String executorVar = externalExecutorVariableName();
+        String cacheVar = cacheVariableName();
         if (StringUtils.isBlank(arguments)) {
-            return extra;
+            return String.format("%s, %s, %s, %s", annotationsVar, listenerVar, executorVar, cacheVar);
         } else {
-            return String.format("%s, %s", arguments, extra);
+            return String.format("%s, %s, %s, %s, %s", arguments, annotationsVar, listenerVar, executorVar, cacheVar);
         }
     }
 
@@ -1170,69 +1123,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String drgElementSignatureExtra(DRGElementReference<? extends TDRGElement> reference) {
-        String signature = drgElementSignature(reference);
-        return drgElementSignatureExtra(signature);
-    }
-
-    @Override
-    public String drgElementSignatureExtra(TDRGElement element) {
-        String signature = drgElementSignature(element);
-        return drgElementSignatureExtra(signature);
-    }
-
-    @Override
-    public String drgElementSignatureExtra(String signature) {
-        String listenerParameter = this.nativeFactory.parameter(eventListenerClassName(), eventListenerVariableName());
-        String executorParameter = this.nativeFactory.parameter(externalExecutorClassName(), externalExecutorVariableName());
-        if (StringUtils.isBlank(signature)) {
-            return String.format("%s, %s", listenerParameter, executorParameter);
-        } else {
-            return String.format("%s, %s, %s", signature, listenerParameter, executorParameter);
-        }
-    }
-
-    @Override
-    public List<Pair<String, String>> drgElementSignatureExtraParameters(List<Pair<String, String>> signature) {
-        List<Pair<String, String>> result = new ArrayList<>(signature);
-        result.add(new Pair<>(this.nativeFactory.parameterType(eventListenerClassName()), eventListenerVariableName()));
-        result.add(new Pair<>(this.nativeFactory.parameterType(externalExecutorClassName()), externalExecutorVariableName()));
-        return result;
-    }
-
-    @Override
-    public String drgElementArgumentListExtra(DRGElementReference<? extends TDRGElement> reference) {
-        String arguments = drgElementArgumentList(reference);
-        return drgElementArgumentListExtra(arguments);
-    }
-
-    @Override
-    public String drgElementArgumentListExtra(TDRGElement element) {
-        String arguments = drgElementArgumentList(element);
-        return drgElementArgumentListExtra(arguments);
-    }
-
-    @Override
-    public String drgElementArgumentListExtra(String arguments) {
-        if (StringUtils.isBlank(arguments)) {
-            return String.format("%s, %s", eventListenerVariableName(), externalExecutorVariableName());
-        } else {
-            return String.format("%s, %s, %s", arguments, eventListenerVariableName(), externalExecutorVariableName());
-        }
-    }
-
-    @Override
-    public String drgElementDefaultArgumentListExtra(String arguments) {
-        String loggerArgument = constructor(loggingEventListenerClassName(), "LOGGER");
-        String executorArgument = defaultConstructor(defaultExternalExecutorClassName());
-        if (StringUtils.isBlank(arguments)) {
-            return String.format("%s, %s", loggerArgument, executorArgument);
-        } else {
-            return String.format("%s, %s, %s", arguments, loggerArgument, executorArgument);
-        }
-    }
-
-    @Override
     public boolean isCaching() {
         return this.inputParameters.isCaching();
     }
@@ -1253,66 +1143,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String getStream() {
         return this.isParallelStream() ? "parallelStream()" : "stream()";
-    }
-
-    @Override
-    public String drgElementSignatureExtraCache(DRGElementReference<? extends TDRGElement> reference) {
-        String signature = drgElementSignatureExtra(reference);
-        return drgElementSignatureExtraCache(signature);
-    }
-
-    @Override
-    public String drgElementSignatureExtraCache(TDRGElement element) {
-        String signature = drgElementSignatureExtra(element);
-        return drgElementSignatureExtraCache(signature);
-    }
-
-    @Override
-    public String drgElementSignatureExtraCache(String signature) {
-        String cacheParameter = this.nativeFactory.parameter(cacheInterfaceName(), cacheVariableName());
-        if (StringUtils.isBlank(signature)) {
-            return cacheParameter;
-        } else {
-            return String.format("%s, %s", signature, cacheParameter);
-        }
-    }
-
-    @Override
-    public List<Pair<String, String>> drgElementSignatureExtraCacheParameters(List<Pair<String, String>> signature) {
-        List<Pair<String, String>> result = new ArrayList<>(signature);
-        result.add(new Pair<>(this.nativeFactory.parameterType(cacheInterfaceName()), cacheVariableName()));
-        return result;
-    }
-
-    @Override
-    public String drgElementArgumentListExtraCache(DRGElementReference<? extends TDRGElement> reference) {
-        String arguments = drgElementArgumentListExtra(reference);
-        return drgElementArgumentListExtraCache(arguments);
-    }
-
-    @Override
-    public String drgElementArgumentListExtraCache(TDRGElement element) {
-        String arguments = drgElementArgumentListExtra(element);
-        return drgElementArgumentListExtraCache(arguments);
-    }
-
-    @Override
-    public String drgElementArgumentListExtraCache(String arguments) {
-        if (StringUtils.isBlank(arguments)) {
-            return String.format("%s", cacheVariableName());
-        } else {
-            return String.format("%s, %s", arguments, cacheVariableName());
-        }
-    }
-
-    @Override
-    public String drgElementDefaultArgumentListExtraCache(String arguments) {
-        String defaultCacheArgument = defaultConstructor(defaultCacheClassName());
-        if (StringUtils.isBlank(arguments)) {
-            return defaultCacheArgument;
-        } else {
-            return String.format("%s, %s", arguments, defaultCacheArgument);
-        }
     }
 
     @Override
@@ -2050,41 +1880,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String drgElementSignatureExtraCacheProto(TDRGElement element) {
-        String decisionSignature = drgElementSignatureExtraProto(element);
-        return drgElementSignatureExtraCache(decisionSignature);
-    }
-
-    private String drgElementSignatureExtraProto(TDRGElement element) {
-        String signature = drgElementSignatureProto(element);
-        return drgElementSignatureExtra(signature);
-    }
-
-    @Override
     public String drgElementArgumentListProto(TDRGElement element) {
         return augmentArgumentList(this.protoFactory.drgElementArgumentListProto(element));
-    }
-
-    @Override
-    public String drgElementArgumentListExtraCacheProto(TDRGElement element) {
-        String arguments = drgElementArgumentListExtraProto(element);
-        return drgElementArgumentListExtraCache(arguments);
-    }
-
-    private String drgElementArgumentListExtraProto(TDRGElement element) {
-        String arguments = drgElementArgumentListProto(element);
-        return drgElementArgumentListExtra(arguments);
-    }
-
-    @Override
-    public String drgElementDefaultArgumentListExtraCacheProto(TDRGElement element) {
-        String arguments = drgElementDefaultArgumentListExtraProto(element);
-        return drgElementDefaultArgumentListExtraCache(arguments);
-    }
-
-    private String drgElementDefaultArgumentListExtraProto(TDRGElement element) {
-        String arguments = drgElementArgumentListProto(element);
-        return drgElementDefaultArgumentListExtra(arguments);
     }
 
     @Override

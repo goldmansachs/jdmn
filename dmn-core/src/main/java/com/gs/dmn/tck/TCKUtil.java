@@ -254,14 +254,6 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         }
     }
 
-    public String drgElementArgumentListExtraCache(String arguments) {
-        return this.transformer.drgElementArgumentListExtraCache(arguments);
-    }
-
-    public String drgElementArgumentListExtra(String arguments) {
-        return this.transformer.drgElementArgumentListExtra(arguments);
-    }
-
     public String drgElementArgumentList(ResultNodeInfo info) {
         if (info.isDecision()) {
             TDecision decision = (TDecision) info.getReference().getElement();
@@ -927,9 +919,9 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return this.transformer.getProtoFactory().protoSetter(parameter.getLeft(), parameter.getRight(), args);
     }
 
-    public String drgElementArgumentListExtraCacheProto(ResultNodeInfo info) {
+    public String drgElementArgumentListProto(ResultNodeInfo info) {
         TDRGElement element = info.getReference().getElement();
-        return this.transformer.drgElementArgumentListExtraCacheProto(element);
+        return this.transformer.drgElementArgumentListProto(element);
     }
 
     public String toNativeExpressionProto(Pair<String, Type> pair) {

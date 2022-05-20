@@ -31,7 +31,6 @@ public class HandwrittenZipTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void testCase1() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
         java.math.BigDecimal month = decision.number("12");
         java.math.BigDecimal day = decision.number("25");
         List<String> names = decision.asList("Fred", "Jim", "Tom", "Sarah", "Kate");
@@ -42,7 +41,7 @@ public class HandwrittenZipTest extends AbstractHandwrittenDecisionTest {
                 decision.number("25"), decision.number("40"), decision.number("65"), decision.number("80"), decision.number("105")
         );
         java.math.BigDecimal minute = decision.number("5");
-        List<?> zipOutput = zip.apply(ages, day, hour, minute, month, names, second, year, annotationSet_);
+        List<?> zipOutput = zip.apply(ages, day, hour, minute, month, names, second, year, annotationSet, eventListener, externalFunctionExecutor, cache);
 
         List<com.gs.dmn.generated.npe_validation_2.type.Zip> expectedOutput = decision.asList(new com.gs.dmn.generated.npe_validation_2.type.ZipImpl(decision.number("25"), "not exactly 1 to 5", decision.number("0"), decision.number("0"), "Fred", decision.number("12")), new com.gs.dmn.generated.npe_validation_2.type.ZipImpl(decision.number("40"), "non of the numbers 1 to 5", decision.number("0"), decision.number("0"), "Jim", decision.number("2016")), new com.gs.dmn.generated.npe_validation_2.type.ZipImpl(decision.number("65"), null, decision.number("0"), decision.number("0"), "Tom", decision.number("7")), new com.gs.dmn.generated.npe_validation_2.type.ZipImpl(decision.number("80"), null, decision.numericUnaryMinus(decision.number("359")), decision.numericUnaryMinus(decision.number("8612")), "Sarah", decision.number("25")), new com.gs.dmn.generated.npe_validation_2.type.ZipImpl(decision.number("105"), null, null, null, "Kate", decision.number("5")));
         checkValues(expectedOutput, zipOutput);
@@ -50,7 +49,6 @@ public class HandwrittenZipTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void testCase2() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
         java.math.BigDecimal month = decision.number("2");
         java.math.BigDecimal day = decision.number("1");
         List<String> names = decision.asList("John", "Amy", "Tim", "James", "Ewa");
@@ -61,7 +59,7 @@ public class HandwrittenZipTest extends AbstractHandwrittenDecisionTest {
                 decision.number("3"), decision.number("4"), decision.number("5"), decision.number("2"), decision.number("1")
         );
         java.math.BigDecimal minute = decision.number("2");
-        List<?> zipOutput = zip.apply(ages, day, hour, minute, month, names, second, year, annotationSet_);
+        List<?> zipOutput = zip.apply(ages, day, hour, minute, month, names, second, year, annotationSet, eventListener, externalFunctionExecutor, cache);
 
         List<com.gs.dmn.generated.npe_validation_2.type.Zip> expectedOutput = decision.asList(new com.gs.dmn.generated.npe_validation_2.type.ZipImpl(decision.number("3"), "not exactly 1 to 5", decision.number("0"), decision.number("0"), "John", decision.number("2")), new com.gs.dmn.generated.npe_validation_2.type.ZipImpl(decision.number("4"), "only numbers between 1 and 5", decision.number("0"), decision.number("0"), "Amy", decision.number("3")), new com.gs.dmn.generated.npe_validation_2.type.ZipImpl(decision.number("5"), "at least one number betwen 1 and 5", decision.number("0"), decision.number("0"), "Tim", decision.number("6")), new com.gs.dmn.generated.npe_validation_2.type.ZipImpl(decision.number("2"), "only numbers between 1 and 5", decision.number("735202"), decision.number("17644858"), "James", decision.number("1")), new com.gs.dmn.generated.npe_validation_2.type.ZipImpl(decision.number("1"), null, null, null, "Ewa", decision.number("2")));
         checkValues(expectedOutput, zipOutput);
@@ -73,7 +71,6 @@ public class HandwrittenZipTest extends AbstractHandwrittenDecisionTest {
 
     @Override
     protected void applyDecision() {
-        AnnotationSet annotationSet = new AnnotationSet();
         List<BigDecimal> ages = decision.asList(
                 decision.number("3"),
                 decision.number("4"),
@@ -88,7 +85,7 @@ public class HandwrittenZipTest extends AbstractHandwrittenDecisionTest {
         List<String> names = decision.asList("John", "Amy", "Tim", "James", "Eva");
         BigDecimal second = decision.number("3");
         BigDecimal year = decision.number("3");
-        decision.apply(ages, day, hour, minute, month, names, second, year, annotationSet);
+        decision.apply(ages, day, hour, minute, month, names, second, year, annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 
     private void checkContext(Context context, String names, BigDecimal ages, BigDecimal dateDiffs, BigDecimal dateTimeDiffs, BigDecimal temporalUnits, String agesListDescription) {

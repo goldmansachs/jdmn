@@ -33,16 +33,7 @@ class ${javaClassName}(${transformer.drgElementConstructorSignature(drgElement)}
     <#if transformer.shouldGenerateApplyWithConversionFromString(drgElement)>
     fun apply(${transformer.drgElementSignatureWithConversionFromString(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         return try {
-            apply(${transformer.drgElementDefaultArgumentListExtraCacheWithConversionFromString(drgElement)})
-        } catch (e: Exception) {
-            logError("Cannot apply decision '${javaClassName}'", e)
-            null
-        }
-    }
-
-    fun apply(${transformer.drgElementSignatureExtraCacheWithConversionFromString(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
-        return try {
-            apply(${transformer.drgElementArgumentListExtraCacheWithConversionFromString(drgElement)})
+            apply(${transformer.drgElementArgumentListWithConversionFromString(drgElement)})
         } catch (e: Exception) {
             logError("Cannot apply decision '${javaClassName}'", e)
             null
@@ -51,19 +42,11 @@ class ${javaClassName}(${transformer.drgElementConstructorSignature(drgElement)}
 
     </#if>
     fun apply(${transformer.drgElementSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
-        return apply(${transformer.drgElementDefaultArgumentListExtraCache(drgElement)})
-    }
-
-    fun apply(${transformer.drgElementSignatureExtraCache(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         <@applyMethodBody drgElement />
     }
     <#if transformer.isGenerateProto()>
 
     fun apply(${transformer.drgElementSignatureProto(drgElement)}): ${transformer.qualifiedResponseMessageName(drgElement)} {
-        return apply(${transformer.drgElementDefaultArgumentListExtraCacheProto(drgElement)})
-    }
-
-    fun apply(${transformer.drgElementSignatureExtraCacheProto(drgElement)}): ${transformer.qualifiedResponseMessageName(drgElement)} {
     <@applyRequest drgElement />
     }
     </#if>
@@ -110,7 +93,7 @@ class ${javaClassName}(${transformer.drgElementConstructorSignature(drgElement)}
     <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
         // Invoke apply method
         <#assign outputVariable = "output_" />
-        val ${outputVariable}: ${transformer.drgElementOutputType(drgElement)} = apply(${transformer.drgElementArgumentListExtraCache(drgElement)})
+        val ${outputVariable}: ${transformer.drgElementOutputType(drgElement)} = apply(${transformer.drgElementArgumentList(drgElement)})
 
         // Convert output to Response Message
         <#assign responseMessageName = transformer.qualifiedResponseMessageName(drgElement) />

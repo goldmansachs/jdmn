@@ -13,15 +13,6 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class Main() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    fun apply(n: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): java.math.BigDecimal? {
-        return try {
-            apply(n?.let({ number(it) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
-        } catch (e: Exception) {
-            logError("Cannot apply decision 'Main'", e)
-            null
-        }
-    }
-
     fun apply(n: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         return try {
             apply(n?.let({ number(it) }), annotationSet_, eventListener_, externalExecutor_, cache_)
@@ -29,10 +20,6 @@ class Main() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             logError("Cannot apply decision 'Main'", e)
             null
         }
-    }
-
-    fun apply(n: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): java.math.BigDecimal? {
-        return apply(n, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
     fun apply(n: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {

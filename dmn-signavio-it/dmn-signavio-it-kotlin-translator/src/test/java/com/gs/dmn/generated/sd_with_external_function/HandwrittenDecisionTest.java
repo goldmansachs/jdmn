@@ -23,14 +23,12 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void testApply() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        assertEquals(decision.number("3"), decision.apply(decision.number("1"), decision.number("2"), annotationSet));
-        assertEquals(null, decision.apply(null, decision.number("2"), annotationSet));
+        assertEquals(decision.number("3"), decision.apply(decision.number("1"), decision.number("2"), annotationSet, eventListener, externalFunctionExecutor, cache));
+        assertEquals(null, decision.apply(null, decision.number("2"), annotationSet, eventListener, externalFunctionExecutor, cache));
     }
 
     @Override
     protected void applyDecision() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        decision.apply((String)null, null, annotationSet);
+        decision.apply((String)null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 }

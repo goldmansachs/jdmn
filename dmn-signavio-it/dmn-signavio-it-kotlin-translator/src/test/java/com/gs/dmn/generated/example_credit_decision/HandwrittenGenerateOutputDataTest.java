@@ -30,17 +30,16 @@ public class HandwrittenGenerateOutputDataTest extends AbstractHandwrittenDecisi
 
     @Test
     public void testCase1() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
         java.math.BigDecimal currentRiskAppetite = decision.number("50");
         java.math.BigDecimal lendingThreshold = decision.number("25");
         Applicant applicant = new ApplicantImpl(decision.number("38"), decision.number("100"), "Amy", decision.asList("Late payment"));
-        List<?> generateOutputDataOutput = decision.apply(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, annotationSet_);
+        List<?> generateOutputDataOutput = decision.apply(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, annotationSet, eventListener, externalFunctionExecutor, cache);
 
         List<com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData> expected = decision.asList(new com.gs.dmn.generated.example_credit_decision.type.GenerateOutputDataImpl(decision.number("27.5"), "Accept", decision.numericUnaryMinus(decision.number("7.5"))));
         checkValues(expected, generateOutputDataOutput);
 
-        assertEquals(2, annotationSet_.size());
-        Annotation annotation = annotationSet_.get(0);
+        assertEquals(2, annotationSet.size());
+        Annotation annotation = annotationSet.get(0);
         assertEquals("compareAgainstLendingThreshold", annotation.getDecisionName());
         assertEquals(1, annotation.getRuleIndex());
         assertEquals("Raw issue score is -7.50, Age-weighted score is 60, Acceptance threshold is 25", annotation.getAnnotation());
@@ -48,11 +47,10 @@ public class HandwrittenGenerateOutputDataTest extends AbstractHandwrittenDecisi
 
     @Test
     public void testCase2() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
         java.math.BigDecimal currentRiskAppetite = decision.number("50");
         java.math.BigDecimal lendingThreshold = decision.number("25");
         Applicant applicant = new ApplicantImpl(decision.number("18"), decision.number("65"), "Bill", decision.asList("Card rejection", "Default on obligations"));
-        List<?> output = decision.apply(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, annotationSet_);
+        List<?> output = decision.apply(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, annotationSet, eventListener, externalFunctionExecutor, cache);
 
         List<com.gs.dmn.generated.example_credit_decision_mixed.type.GenerateOutputData> expected = decision.asList(new com.gs.dmn.generated.example_credit_decision_mixed.type.GenerateOutputDataImpl(decision.numericUnaryMinus(decision.number("10")), "Reject", decision.numericUnaryMinus(decision.number("25"))));
         checkValues(expected, output);
@@ -60,11 +58,10 @@ public class HandwrittenGenerateOutputDataTest extends AbstractHandwrittenDecisi
 
     @Test
     public void testCase3() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
         java.math.BigDecimal currentRiskAppetite = decision.number("50");
         java.math.BigDecimal lendingThreshold = decision.number("25");
         Applicant applicant = new ApplicantImpl(decision.number("65"), decision.number("80"), "Charlie", decision.asList("Late payment", "Default on obligations", "Bankruptcy"));
-        List<?> generateOutputDataOutput = decision.apply(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, annotationSet_);
+        List<?> generateOutputDataOutput = decision.apply(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, annotationSet, eventListener, externalFunctionExecutor, cache);
 
         List<com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData> expected = decision.asList(new com.gs.dmn.generated.example_credit_decision.type.GenerateOutputDataImpl(decision.numericUnaryMinus(decision.number("42.5")), "Reject", decision.numericUnaryMinus(decision.number("77.5"))));
         checkValues(expected, generateOutputDataOutput);
@@ -86,6 +83,6 @@ public class HandwrittenGenerateOutputDataTest extends AbstractHandwrittenDecisi
         BigDecimal currentRiskAppetite = decision.number("50");
         BigDecimal lendingThreshold = decision.number("25");
 
-        decision.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_);
+        decision.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 }

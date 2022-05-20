@@ -9,8 +9,11 @@ public class FruitColourTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
     @org.junit.Test
     public void testCase1() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         String fruits = "Apples";
-        String fruitColour = this.fruitColour.apply(fruits, annotationSet_);
+        String fruitColour = this.fruitColour.apply(fruits, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues("Red", fruitColour);
     }
@@ -18,8 +21,11 @@ public class FruitColourTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
     @org.junit.Test
     public void testCase2() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         String fruits = "Bananas";
-        String fruitColour = this.fruitColour.apply(fruits, annotationSet_);
+        String fruitColour = this.fruitColour.apply(fruits, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues("Yellow", fruitColour);
     }
@@ -27,8 +33,11 @@ public class FruitColourTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
     @org.junit.Test
     public void testCase3() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         String fruits = "Grapes";
-        String fruitColour = this.fruitColour.apply(fruits, annotationSet_);
+        String fruitColour = this.fruitColour.apply(fruits, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues("Green", fruitColour);
     }

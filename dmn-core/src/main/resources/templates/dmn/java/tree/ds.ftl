@@ -59,7 +59,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     }
     </#if>
 
-    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(drgElement)}) {
+    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignature(drgElement)}) {
         <@applyServiceMethodBody drgElement />
     }
 

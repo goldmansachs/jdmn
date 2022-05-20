@@ -14,6 +14,12 @@ package com.gs.dmn.generated.sd_primitive_type_inputs_single_output_priority_hit
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
+import com.gs.dmn.runtime.cache.Cache;
+import com.gs.dmn.runtime.cache.DefaultCache;
+import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
+import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
+import com.gs.dmn.runtime.listener.EventListener;
+import com.gs.dmn.runtime.listener.NopEventListener;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -23,16 +29,14 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void apply() throws Exception {
-        AnnotationSet annotationSet = new AnnotationSet();
-        assertEquals("r2", decision.apply("1", "1", annotationSet));
-        assertEquals("r2", decision.apply("1", null, annotationSet));
-        assertEquals("r2", decision.apply((String)null, "1", annotationSet));
-        assertEquals("r2", decision.apply((String)null, null, annotationSet));
+        assertEquals("r2", decision.apply("1", "1", annotationSet, eventListener, externalFunctionExecutor, cache));
+        assertEquals("r2", decision.apply("1", null, annotationSet, eventListener, externalFunctionExecutor, cache));
+        assertEquals("r2", decision.apply((String)null, "1", annotationSet, eventListener, externalFunctionExecutor, cache));
+        assertEquals("r2", decision.apply((String)null, null, annotationSet, eventListener, externalFunctionExecutor, cache));
     }
 
     @Override
     protected void applyDecision() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        decision.apply((String)null, null, annotationSet);
+        decision.apply((String)null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 }

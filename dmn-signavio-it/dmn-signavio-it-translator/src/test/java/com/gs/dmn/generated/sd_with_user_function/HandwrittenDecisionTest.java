@@ -23,18 +23,16 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void testApply() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        assertEquals(true, decision.apply(decision.number("-1"), annotationSet));
-        assertEquals(true, decision.apply(decision.number("0"), annotationSet));
-        assertEquals(true, decision.apply(decision.number("1"), annotationSet));
-        assertEquals(true, decision.apply(decision.number("20"), annotationSet));
-        assertEquals(false, decision.apply(decision.number("21"), annotationSet));
-        assertEquals(false, decision.apply(decision.number("22"), annotationSet));
+        assertEquals(true, decision.apply(decision.number("-1"), annotationSet, eventListener, externalFunctionExecutor, cache));
+        assertEquals(true, decision.apply(decision.number("0"), annotationSet, eventListener, externalFunctionExecutor, cache));
+        assertEquals(true, decision.apply(decision.number("1"), annotationSet, eventListener, externalFunctionExecutor, cache));
+        assertEquals(true, decision.apply(decision.number("20"), annotationSet, eventListener, externalFunctionExecutor, cache));
+        assertEquals(false, decision.apply(decision.number("21"), annotationSet, eventListener, externalFunctionExecutor, cache));
+        assertEquals(false, decision.apply(decision.number("22"), annotationSet, eventListener, externalFunctionExecutor, cache));
     }
 
     @Override
     protected void applyDecision() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        decision.apply((String)null, annotationSet);
+        decision.apply((String)null, annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 }

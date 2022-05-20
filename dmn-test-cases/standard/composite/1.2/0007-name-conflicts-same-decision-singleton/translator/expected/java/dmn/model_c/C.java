@@ -27,10 +27,6 @@ public class C extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public C() {
     }
 
-    public String apply(String model_a_a, String model_b_a, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(model_a_a, model_b_a, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-    }
-
     public String apply(String model_a_a, String model_b_a, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'c'

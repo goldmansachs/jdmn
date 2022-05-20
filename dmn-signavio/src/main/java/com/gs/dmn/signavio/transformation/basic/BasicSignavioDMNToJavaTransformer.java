@@ -199,7 +199,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
         String decisionClassName = drgElementClassName(outputDecision);
         List<String> argNameList = drgElementArgumentNameList(outputDecision);
         String decisionArgList = String.join(", ", argNameList);
-        decisionArgList = drgElementArgumentListExtraCache(drgElementArgumentListExtra(augmentArgumentList(decisionArgList)));
+        decisionArgList = augmentArgumentList(decisionArgList);
         return String.format("%s.apply(%s)", defaultConstructor(decisionClassName), decisionArgList);
     }
 

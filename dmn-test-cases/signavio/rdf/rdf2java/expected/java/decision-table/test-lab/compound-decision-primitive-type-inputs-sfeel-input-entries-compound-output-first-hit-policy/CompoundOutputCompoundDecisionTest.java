@@ -9,11 +9,14 @@ public class CompoundOutputCompoundDecisionTest extends com.gs.dmn.signavio.runt
     @org.junit.Test
     public void testCase1() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         java.math.BigDecimal dD2NumberInput = number("1");
         String enumerationInput = "e1";
         Boolean booleanInput = Boolean.TRUE;
         String dD1TextInput = "a";
-        type.CompoundOutputCompoundDecision compoundOutputCompoundDecision = this.compoundOutputCompoundDecision.apply(booleanInput, dD1TextInput, dD2NumberInput, enumerationInput, annotationSet_);
+        type.CompoundOutputCompoundDecision compoundOutputCompoundDecision = this.compoundOutputCompoundDecision.apply(booleanInput, dD1TextInput, dD2NumberInput, enumerationInput, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues("r11", compoundOutputCompoundDecision == null ? null : compoundOutputCompoundDecision.getFirstOutput());
         checkValues("r12", compoundOutputCompoundDecision == null ? null : compoundOutputCompoundDecision.getSecondOutput());

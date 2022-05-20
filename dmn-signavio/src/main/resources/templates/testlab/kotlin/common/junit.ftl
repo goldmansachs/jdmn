@@ -34,6 +34,9 @@ class ${testClassName} : ${decisionBaseClass}() {
     @org.junit.Test
     fun testCase${(testCase?index + 1)?c}() {
         val ${testLabUtil.annotationSetVariableName()} = ${testLabUtil.annotationSetClassName()}()
+        val ${testLabUtil.eventListenerVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.defaultEventListenerClassName())}
+        val ${testLabUtil.externalExecutorVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.defaultExternalExecutorClassName())}
+        val ${testLabUtil.cacheVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.defaultCacheClassName())}
         <@addApplyPart testCase/>
 
         <@addAssertPart testCase/>

@@ -40,21 +40,21 @@ import java.util.stream.Collectors;
 public class TestLabUtil {
     protected static final Logger LOGGER = LoggerFactory.getLogger(TestLabUtil.class);
 
-    private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
-    private final SignavioDMNModelRepository dmnModelRepository;
+    private final BasicDMNToNativeTransformer<Type, DMNContext> transformer;
+    private final SignavioDMNModelRepository repository;
     private final NativeExpressionFactory nativeFactory;
     private final NativeTypeFactory typeFactory;
 
-    public TestLabUtil(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
-        DMNModelRepository dmnModelRepository = dmnTransformer.getDMNModelRepository();
+    public TestLabUtil(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
+        DMNModelRepository dmnModelRepository = transformer.getDMNModelRepository();
         if (dmnModelRepository instanceof SignavioDMNModelRepository) {
-            this.dmnModelRepository = (SignavioDMNModelRepository) dmnModelRepository;
+            this.repository = (SignavioDMNModelRepository) dmnModelRepository;
         } else {
-            this.dmnModelRepository = new SignavioDMNModelRepository(dmnModelRepository.getRootDefinitions());
+            this.repository = new SignavioDMNModelRepository(dmnModelRepository.getRootDefinitions());
         }
-        this.dmnTransformer = dmnTransformer;
-        this.nativeFactory = dmnTransformer.getNativeFactory();
-        this.typeFactory = dmnTransformer.getNativeTypeFactory();
+        this.transformer = transformer;
+        this.nativeFactory = transformer.getNativeFactory();
+        this.typeFactory = transformer.getNativeTypeFactory();
     }
 
     //
@@ -62,49 +62,85 @@ public class TestLabUtil {
     //
     public String drgElementClassName(OutputParameterDefinition outputParameterDefinition) {
         TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return dmnTransformer.drgElementClassName(decision);
+        return transformer.drgElementClassName(decision);
     }
 
     public String drgElementVariableName(OutputParameterDefinition outputParameterDefinition) {
         TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return dmnTransformer.namedElementVariableName(decision);
+        return transformer.namedElementVariableName(decision);
     }
 
     public String drgElementOutputType(OutputParameterDefinition outputParameterDefinition) {
         TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return dmnTransformer.drgElementOutputType(decision);
+        return transformer.drgElementOutputType(decision);
     }
 
     public String drgElementArgumentList(OutputParameterDefinition outputParameterDefinition) {
         TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return dmnTransformer.drgElementArgumentList(decision);
+        return transformer.drgElementArgumentList(decision);
     }
 
     public String drgElementOutputFieldName(TestLab testLab, int outputIndex) {
         TDecision decision = (TDecision) findDRGElement(testLab.getRootOutputParameter());
-        return ((BasicSignavioDMNToJavaTransformer) dmnTransformer).drgElementOutputFieldName(decision, outputIndex);
+        return ((BasicSignavioDMNToJavaTransformer) transformer).drgElementOutputFieldName(decision, outputIndex);
     }
 
     public String inputDataVariableName(InputParameterDefinition inputParameterDefinition) {
         TDRGElement element = findDRGElement(inputParameterDefinition);
-        return dmnTransformer.namedElementVariableName(element);
+        return transformer.namedElementVariableName(element);
     }
 
     public String assertClassName() {
-        return dmnTransformer.assertClassName();
+        return transformer.assertClassName();
     }
 
     public String annotationSetClassName() {
-        return dmnTransformer.annotationSetClassName();
+        return transformer.annotationSetClassName();
     }
 
     public String annotationSetVariableName() {
-        return dmnTransformer.annotationSetVariableName();
+        return transformer.annotationSetVariableName();
+    }
+
+    public String eventListenerClassName() {
+        return this.transformer.eventListenerClassName();
+    }
+
+    public String defaultEventListenerClassName() {
+        return this.transformer.defaultEventListenerClassName();
+    }
+
+    public String eventListenerVariableName() {
+        return this.transformer.eventListenerVariableName();
+    }
+
+    public String externalExecutorClassName() {
+        return this.transformer.externalExecutorClassName();
+    }
+
+    public String externalExecutorVariableName() {
+        return this.transformer.externalExecutorVariableName();
+    }
+
+    public String defaultExternalExecutorClassName() {
+        return this.transformer.defaultExternalExecutorClassName();
+    }
+
+    public String cacheInterfaceName() {
+        return this.transformer.cacheInterfaceName();
+    }
+
+    public String cacheVariableName() {
+        return this.transformer.cacheVariableName();
+    }
+
+    public String defaultCacheClassName() {
+        return this.transformer.defaultCacheClassName();
     }
 
     public boolean hasListType(ParameterDefinition parameterDefinition) {
         TDRGElement element = findDRGElement(parameterDefinition);
-        return this.dmnTransformer.hasListType(element);
+        return this.transformer.hasListType(element);
     }
 
     public boolean isSimple(Expression expression) {
@@ -120,23 +156,23 @@ public class TestLabUtil {
     }
 
     public String getter(String outputName) {
-        return dmnTransformer.getter(outputName);
+        return transformer.getter(outputName);
     }
 
     public String qualifiedName(TestLab testLab, OutputParameterDefinition rootOutputParameter) {
-        String pkg = dmnTransformer.nativeModelPackageName(rootOutputParameter.getModelName());
+        String pkg = transformer.nativeModelPackageName(rootOutputParameter.getModelName());
         String cls = drgElementClassName(rootOutputParameter);
-        return dmnTransformer.qualifiedName(pkg, cls);
+        return transformer.qualifiedName(pkg, cls);
     }
 
     public TDRGElement findDRGElement(ParameterDefinition parameterDefinition) {
         String id = parameterDefinition.getId();
-        TDRGElement element = this.dmnModelRepository.findDRGElementById(id);
+        TDRGElement element = this.repository.findDRGElementById(id);
         if (element == null) {
-            element = this.dmnModelRepository.findDRGElementByDiagramAndShapeIds(parameterDefinition.getDiagramId(), parameterDefinition.getShapeId());
+            element = this.repository.findDRGElementByDiagramAndShapeIds(parameterDefinition.getDiagramId(), parameterDefinition.getShapeId());
         }
         if (element == null) {
-            element = this.dmnModelRepository.findDRGElementByLabel(parameterDefinition.getRequirementName(), parameterDefinition.getDiagramId(), parameterDefinition.getShapeId());
+            element = this.repository.findDRGElementByLabel(parameterDefinition.getRequirementName(), parameterDefinition.getDiagramId(), parameterDefinition.getShapeId());
         }
         return element;
     }
@@ -144,7 +180,7 @@ public class TestLabUtil {
     // For input parameters
     public String toNativeType(InputParameterDefinition inputParameterDefinition) {
         Type feelType = toFEELType(inputParameterDefinition);
-        String type = dmnTransformer.toNativeType(feelType);
+        String type = transformer.toNativeType(feelType);
         return this.typeFactory.nullableType(type);
     }
 
@@ -169,7 +205,7 @@ public class TestLabUtil {
             return "null";
         } else if (isSimple(inputExpression)) {
             String feelExpression = inputExpression.toFEELExpression();
-            return dmnTransformer.literalExpressionToNative(decision, feelExpression);
+            return transformer.literalExpressionToNative(decision, feelExpression);
         } else if (isList(inputExpression)) {
             List<Expression> expressionList = ((ListExpression) inputExpression).getElements();
             if (expressionList != null) {
@@ -207,7 +243,7 @@ public class TestLabUtil {
                     args.add(arg);
                 }
                 String arguments = String.join(", ", args);
-                return dmnTransformer.constructor(dmnTransformer.itemDefinitionNativeClassName(dmnTransformer.toNativeType(inputType)), arguments);
+                return transformer.constructor(transformer.itemDefinitionNativeClassName(transformer.toNativeType(inputType)), arguments);
             } else {
                 return "null";
             }
@@ -217,11 +253,11 @@ public class TestLabUtil {
     }
 
     TItemDefinition elementType(TItemDefinition type) {
-        TDefinitions model = this.dmnModelRepository.getModel(type);
+        TDefinitions model = this.repository.getModel(type);
         if (type.isIsCollection()) {
             String typeRef = QualifiedName.toName(type.getTypeRef());
-            if (!this.dmnModelRepository.isNull(typeRef)) {
-                return this.dmnModelRepository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
+            if (!this.repository.isNull(typeRef)) {
+                return this.repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
             }
             List<TItemDefinition> itemComponent = type.getItemComponent();
             if (itemComponent.size() == 1) {
@@ -242,31 +278,31 @@ public class TestLabUtil {
             // Locate element by name, label or id
             List<TItemDefinition> itemComponent = itemDefinition.getItemComponent();
             if (itemComponent == null || itemComponent.isEmpty()) {
-                itemDefinition = this.dmnTransformer.getDMNModelRepository().normalize(itemDefinition);
+                itemDefinition = this.transformer.getDMNModelRepository().normalize(itemDefinition);
                 itemComponent = itemDefinition.getItemComponent();
             }
             if (!StringUtils.isBlank(name)) {
                 for (TItemDefinition child: itemComponent) {
-                    if (this.dmnModelRepository.sameName(child, name)) {
+                    if (this.repository.sameName(child, name)) {
                         return child;
                     }
                 }
             }
             if (!StringUtils.isBlank(label)) {
                 for (TItemDefinition child: itemComponent) {
-                    if (this.dmnModelRepository.sameLabel(child, label)) {
+                    if (this.repository.sameLabel(child, label)) {
                         return child;
                     }
                 }
             }
             if (!StringUtils.isBlank(id)) {
                 for (TItemDefinition child: itemComponent) {
-                    if (this.dmnModelRepository.sameId(child, id)) {
+                    if (this.repository.sameId(child, id)) {
                         return child;
                     }
                 }
                 for (TItemDefinition child: itemComponent) {
-                    if (this.dmnModelRepository.idEndsWith(child, id)) {
+                    if (this.repository.idEndsWith(child, id)) {
                         return child;
                     }
                 }
@@ -332,9 +368,9 @@ public class TestLabUtil {
     private Type toFEELType(ParameterDefinition parameterDefinition) {
         try {
             TDRGElement element = findDRGElement(parameterDefinition);
-            TDefinitions model = this.dmnModelRepository.getModel(element);
+            TDefinitions model = this.repository.getModel(element);
             String typeRef = getTypeRef(parameterDefinition);
-            return dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
+            return transformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for requirementId requirement '%s' in DM '%s'", parameterDefinition.getId(), parameterDefinition.getModelName()));
         }
@@ -343,8 +379,8 @@ public class TestLabUtil {
     TItemDefinition lookupItemDefinition(ParameterDefinition parameterDefinition) {
         String typeRef = getTypeRef(parameterDefinition);
         TDRGElement element = findDRGElement(parameterDefinition);
-        TDefinitions model = this.dmnModelRepository.getModel(element);
-        return dmnTransformer.getDMNModelRepository().lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
+        TDefinitions model = this.repository.getModel(element);
+        return transformer.getDMNModelRepository().lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
     }
 
     private String getTypeRef(ParameterDefinition parameterDefinition) {
@@ -364,43 +400,43 @@ public class TestLabUtil {
     // Singleton section
     //
     public boolean isSingletonDecision() {
-        return this.dmnTransformer.isSingletonDecision();
+        return this.transformer.isSingletonDecision();
     }
 
     public String singletonDecisionInstance(String decisionQName) {
-        return this.dmnTransformer.singletonDecisionInstance(decisionQName);
+        return this.transformer.singletonDecisionInstance(decisionQName);
     }
 
     //
     // Native factory methods
     //
     public String defaultConstructor(String className) {
-        return this.dmnTransformer.defaultConstructor(className);
+        return this.transformer.defaultConstructor(className);
     }
 
     public String constructor(String className, String arguments) {
-        return this.dmnTransformer.constructor(className, arguments);
+        return this.transformer.constructor(className, arguments);
     }
 
     //
     // Proto section
     //
     public boolean isGenerateProto() {
-        return this.dmnTransformer.isGenerateProto();
+        return this.transformer.isGenerateProto();
     }
 
     public String toNativeExpressionProto(InputParameterDefinition inputParameterDefinition) {
         String inputName = inputDataVariableName(inputParameterDefinition);
         Type type = toFEELType(inputParameterDefinition);
-        return this.dmnTransformer.getNativeFactory().convertValueToProtoNativeType(inputName, type, false);
+        return this.transformer.getNativeFactory().convertValueToProtoNativeType(inputName, type, false);
     }
 
     public String toNativeExpressionProto(TestLab testLab, Expression expression) {
         Type outputType = toFEELType(testLab.getRootOutputParameter());
         TDecision decision = (TDecision) findDRGElement(testLab.getRootOutputParameter());
         String value = toNativeExpression(outputType, expression, decision);
-        if (this.dmnTransformer.isDateTimeType(outputType) || this.dmnTransformer.isComplexType(outputType)) {
-            return this.dmnTransformer.getNativeFactory().convertValueToProtoNativeType(value, outputType, false);
+        if (this.transformer.isDateTimeType(outputType) || this.transformer.isComplexType(outputType)) {
+            return this.transformer.getNativeFactory().convertValueToProtoNativeType(value, outputType, false);
         } else {
             return value;
         }
@@ -408,74 +444,74 @@ public class TestLabUtil {
 
     public String toNativeTypeProto(InputParameterDefinition inputParameterDefinition) {
         Type type = toFEELType(inputParameterDefinition);
-        return this.dmnTransformer.getProtoFactory().toNativeProtoType(type);
+        return this.transformer.getProtoFactory().toNativeProtoType(type);
     }
 
     public boolean isProtoReference(InputParameterDefinition inputParameterDefinition) {
         Type type = toFEELType(inputParameterDefinition);
-        return this.dmnTransformer.isProtoReference(type);
+        return this.transformer.isProtoReference(type);
     }
 
     public String drgElementVariableNameProto(OutputParameterDefinition outputParameterDefinition) {
         TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return dmnTransformer.getProtoFactory().namedElementVariableNameProto(decision);
+        return transformer.getProtoFactory().namedElementVariableNameProto(decision);
     }
 
     public String drgElementArgumentListProto(OutputParameterDefinition outputParameterDefinition) {
         TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return dmnTransformer.drgElementArgumentListProto(decision);
+        return transformer.drgElementArgumentListProto(decision);
     }
 
     public String qualifiedRequestMessageName(OutputParameterDefinition outputParameterDefinition) {
         TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return dmnTransformer.getProtoFactory().qualifiedRequestMessageName(decision);
+        return transformer.getProtoFactory().qualifiedRequestMessageName(decision);
     }
 
     public String qualifiedResponseMessageName(OutputParameterDefinition outputParameterDefinition) {
         TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return dmnTransformer.getProtoFactory().qualifiedResponseMessageName(decision);
+        return transformer.getProtoFactory().qualifiedResponseMessageName(decision);
     }
 
     public String drgElementOutputTypeProto(OutputParameterDefinition outputParameterDefinition) {
         TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return dmnTransformer.drgElementOutputTypeProto(decision);
+        return transformer.drgElementOutputTypeProto(decision);
     }
 
     public String requestVariableName(OutputParameterDefinition outputParameterDefinition) {
         TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return this.dmnTransformer.getProtoFactory().requestVariableName(decision);
+        return this.transformer.getProtoFactory().requestVariableName(decision);
     }
 
     public String responseVariableName(OutputParameterDefinition outputParameterDefinition) {
         TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return this.dmnTransformer.getProtoFactory().responseVariableName(decision);
+        return this.transformer.getProtoFactory().responseVariableName(decision);
     }
 
     public String protoGetter(OutputParameterDefinition outputParameterDefinition) {
         TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        Type type = this.dmnTransformer.drgElementOutputFEELType(decision);
+        Type type = this.transformer.drgElementOutputFEELType(decision);
         String name = drgElementVariableName(outputParameterDefinition);
-        return this.dmnTransformer.getProtoFactory().protoGetter(name, type);
+        return this.transformer.getProtoFactory().protoGetter(name, type);
     }
 
     public String protoGetter(OutputParameterDefinition outputParameterDefinition, String memberName) {
         TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        Type type = this.dmnTransformer.drgElementOutputFEELType(decision);
+        Type type = this.transformer.drgElementOutputFEELType(decision);
         if (type instanceof ListType) {
             type = ((ListType) type).getElementType();
         }
         if (type instanceof CompositeDataType) {
             Type memberType = ((CompositeDataType) type).getMemberType(memberName);
-            return this.dmnTransformer.getProtoFactory().protoGetter(memberName, memberType);
+            return this.transformer.getProtoFactory().protoGetter(memberName, memberType);
         } else {
-            String protoName = this.dmnTransformer.getProtoFactory().protoName(memberName);
-            return this.dmnTransformer.getter(protoName);
+            String protoName = this.transformer.getProtoFactory().protoName(memberName);
+            return this.transformer.getter(protoName);
         }
     }
 
     public String protoSetter(InputParameterDefinition inputParameterDefinition, String args) {
         String inputName = inputDataVariableName(inputParameterDefinition);
         Type type = toFEELType(inputParameterDefinition);
-        return this.dmnTransformer.getProtoFactory().protoSetter(inputName, type, args);
+        return this.transformer.getProtoFactory().protoSetter(inputName, type, args);
     }
 }

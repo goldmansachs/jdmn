@@ -9,6 +9,9 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
     @org.junit.Test
     public void testCase1() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         Boolean booleanA = Boolean.TRUE;
         java.math.BigDecimal numberB = number("34");
         javax.xml.datatype.XMLGregorianCalendar dateTime = dateAndTime("2015-01-01T12:00:00+00:00");
@@ -20,7 +23,7 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
         javax.xml.datatype.XMLGregorianCalendar time = time("13:00:00+00:00");
         List<String> stringList = asList("Foo", "Bar");
         javax.xml.datatype.XMLGregorianCalendar date = date("2015-01-01");
-        String allTogether = this.allTogether.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet_);
+        String allTogether = this.allTogether.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues("NotNull", allTogether);
     }
@@ -28,6 +31,9 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
     @org.junit.Test
     public void testCase2() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         Boolean booleanA = Boolean.TRUE;
         java.math.BigDecimal numberB = number("43");
         javax.xml.datatype.XMLGregorianCalendar dateTime = dateAndTime("2016-11-16T12:00:00+00:00");
@@ -39,7 +45,7 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
         javax.xml.datatype.XMLGregorianCalendar time = time("12:00:00+00:00");
         List<String> stringList = asList("Some", "Thing");
         javax.xml.datatype.XMLGregorianCalendar date = date("2016-11-16");
-        String allTogether = this.allTogether.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet_);
+        String allTogether = this.allTogether.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(null, allTogether);
     }
@@ -47,6 +53,9 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
     @org.junit.Test
     public void testCase3() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         Boolean booleanA = Boolean.FALSE;
         java.math.BigDecimal numberB = number("1");
         javax.xml.datatype.XMLGregorianCalendar dateTime = dateAndTime("2105-11-11T00:00:00+00:00");
@@ -58,7 +67,7 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
         javax.xml.datatype.XMLGregorianCalendar time = time("11:11:11+00:00");
         List<String> stringList = asList("1", "2", "3");
         javax.xml.datatype.XMLGregorianCalendar date = date("2016-11-09");
-        String allTogether = this.allTogether.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet_);
+        String allTogether = this.allTogether.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(null, allTogether);
     }
@@ -66,6 +75,9 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
     @org.junit.Test
     public void testCase4() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         Boolean booleanA = Boolean.FALSE;
         java.math.BigDecimal numberB = number("22");
         javax.xml.datatype.XMLGregorianCalendar dateTime = dateAndTime("2016-11-01T01:01:01+00:00");
@@ -77,7 +89,7 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
         javax.xml.datatype.XMLGregorianCalendar time = time("12:12:12+00:00");
         List<String> stringList = asList("a", "d", "s");
         javax.xml.datatype.XMLGregorianCalendar date = date("2016-11-01");
-        String allTogether = this.allTogether.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet_);
+        String allTogether = this.allTogether.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues("NotNull", allTogether);
     }
@@ -85,6 +97,9 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
     @org.junit.Test
     public void testCase5() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         Boolean booleanA = Boolean.FALSE;
         java.math.BigDecimal numberB = number("90");
         javax.xml.datatype.XMLGregorianCalendar dateTime = dateAndTime("2017-01-01T10:00:00+00:00");
@@ -96,7 +111,7 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
         javax.xml.datatype.XMLGregorianCalendar time = time("12:12:12+00:00");
         List<String> stringList = asList("A", "B", "C");
         javax.xml.datatype.XMLGregorianCalendar date = date("2016-11-18");
-        String allTogether = this.allTogether.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet_);
+        String allTogether = this.allTogether.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues("NotNull", allTogether);
     }
@@ -104,6 +119,9 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
     @org.junit.Test
     public void testCase6() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         Boolean booleanA = Boolean.TRUE;
         java.math.BigDecimal numberB = number("42");
         javax.xml.datatype.XMLGregorianCalendar dateTime = dateAndTime("2016-11-03T04:00:00+00:00");
@@ -115,7 +133,7 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
         javax.xml.datatype.XMLGregorianCalendar time = time("11:11:11+00:00");
         List<String> stringList = asList("123", "234", "345");
         javax.xml.datatype.XMLGregorianCalendar date = date("2016-11-03");
-        String allTogether = this.allTogether.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet_);
+        String allTogether = this.allTogether.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues("NotNull", allTogether);
     }

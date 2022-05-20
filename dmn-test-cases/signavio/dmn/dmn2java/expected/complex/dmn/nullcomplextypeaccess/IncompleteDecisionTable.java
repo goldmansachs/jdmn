@@ -26,10 +26,6 @@ public class IncompleteDecisionTable extends com.gs.dmn.signavio.runtime.Default
     public IncompleteDecisionTable() {
     }
 
-    public type.IncompleteDecisionTable apply(String inputString, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(inputString, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-    }
-
     public type.IncompleteDecisionTable apply(String inputString, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'incompleteDecisionTable'

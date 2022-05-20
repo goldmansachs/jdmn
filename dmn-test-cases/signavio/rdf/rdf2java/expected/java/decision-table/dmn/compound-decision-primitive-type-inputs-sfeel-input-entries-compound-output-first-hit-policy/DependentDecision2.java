@@ -26,15 +26,6 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSigna
     public DependentDecision2() {
     }
 
-    public type.DependentDecision2 apply(String dD2NumberInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply((dD2NumberInput != null ? number(dD2NumberInput) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'DependentDecision2'", e);
-            return null;
-        }
-    }
-
     public type.DependentDecision2 apply(String dD2NumberInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((dD2NumberInput != null ? number(dD2NumberInput) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -42,10 +33,6 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSigna
             logError("Cannot apply decision 'DependentDecision2'", e);
             return null;
         }
-    }
-
-    public type.DependentDecision2 apply(java.math.BigDecimal dD2NumberInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(dD2NumberInput, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public type.DependentDecision2 apply(java.math.BigDecimal dD2NumberInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

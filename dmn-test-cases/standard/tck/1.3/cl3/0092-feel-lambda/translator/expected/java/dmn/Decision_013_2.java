@@ -26,15 +26,6 @@ public class Decision_013_2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public Decision_013_2() {
     }
 
-    public java.math.BigDecimal apply(String input_013_1, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply((input_013_1 != null ? number(input_013_1) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'Decision_013_2'", e);
-            return null;
-        }
-    }
-
     public java.math.BigDecimal apply(String input_013_1, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((input_013_1 != null ? number(input_013_1) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -42,10 +33,6 @@ public class Decision_013_2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             logError("Cannot apply decision 'Decision_013_2'", e);
             return null;
         }
-    }
-
-    public java.math.BigDecimal apply(java.math.BigDecimal input_013_1, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(input_013_1, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public java.math.BigDecimal apply(java.math.BigDecimal input_013_1, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

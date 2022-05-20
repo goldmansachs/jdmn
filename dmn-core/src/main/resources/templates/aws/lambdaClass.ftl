@@ -44,7 +44,7 @@ public class ${javaClassName} implements com.amazonaws.services.lambda.runtime.R
         ${transformer.eventListenerClassName()} ${transformer.eventListenerVariableName()} = ${traceVariable} ? ${transformer.defaultConstructor(transformer.treeTraceEventListenerClassName())} : ${transformer.defaultConstructor(transformer.defaultEventListenerClassName())};
         ${transformer.externalExecutorClassName()} ${transformer.externalExecutorVariableName()} = ${transformer.defaultConstructor(transformer.defaultExternalExecutorClassName())};
         ${transformer.cacheInterfaceName()} ${transformer.cacheVariableName()} = ${transformer.defaultConstructor(transformer.defaultCacheClassName())};
-        ${transformer.drgElementOutputType(element)} ${outputVariable} = ${transformer.namedElementVariableName(element)}.apply(${transformer.drgElementArgumentListExtraCache(element)});
+        ${transformer.drgElementOutputType(element)} ${outputVariable} = ${transformer.namedElementVariableName(element)}.apply(${transformer.drgElementArgumentList(element)});
 
         java.util.Map<String, Object> ${resultVariable} = new java.util.LinkedHashMap<>();
         ${resultVariable}.put("${repository.name(element)}", ${outputVariable});

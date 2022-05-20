@@ -26,15 +26,6 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     public Comparator() {
     }
 
-    public List<String> apply(String numberA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply((numberA != null ? number(numberA) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'Comparator'", e);
-            return null;
-        }
-    }
-
     public List<String> apply(String numberA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((numberA != null ? number(numberA) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -42,10 +33,6 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
             logError("Cannot apply decision 'Comparator'", e);
             return null;
         }
-    }
-
-    public List<String> apply(java.math.BigDecimal numberA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(numberA, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public List<String> apply(java.math.BigDecimal numberA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

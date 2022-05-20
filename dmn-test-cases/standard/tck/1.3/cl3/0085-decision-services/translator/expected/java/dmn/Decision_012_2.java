@@ -35,10 +35,6 @@ public class Decision_012_2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         this.decision_012_4 = decision_012_4;
     }
 
-    public String apply(String inputData_012_1, String inputData_012_2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(inputData_012_1, inputData_012_2, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-    }
-
     public String apply(String inputData_012_1, String inputData_012_2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'decision_012_2'

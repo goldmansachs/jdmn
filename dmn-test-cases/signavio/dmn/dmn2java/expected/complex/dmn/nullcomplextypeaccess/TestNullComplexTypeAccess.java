@@ -33,10 +33,6 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
         this.incompleteDecisionTable = incompleteDecisionTable;
     }
 
-    public String apply(String inputString, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(inputString, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-    }
-
     public String apply(String inputString, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'testNullComplexTypeAccess'

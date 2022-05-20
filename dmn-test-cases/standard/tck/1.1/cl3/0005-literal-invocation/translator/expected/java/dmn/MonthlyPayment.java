@@ -26,15 +26,6 @@ public class MonthlyPayment extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public MonthlyPayment() {
     }
 
-    public java.math.BigDecimal apply(String loan, String fee, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply((loan != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(loan, new com.fasterxml.jackson.core.type.TypeReference<type.TLoanImpl>() {}) : null), (fee != null ? number(fee) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'MonthlyPayment'", e);
-            return null;
-        }
-    }
-
     public java.math.BigDecimal apply(String loan, String fee, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((loan != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(loan, new com.fasterxml.jackson.core.type.TypeReference<type.TLoanImpl>() {}) : null), (fee != null ? number(fee) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -42,10 +33,6 @@ public class MonthlyPayment extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             logError("Cannot apply decision 'MonthlyPayment'", e);
             return null;
         }
-    }
-
-    public java.math.BigDecimal apply(type.TLoan loan, java.math.BigDecimal fee, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(loan, fee, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public java.math.BigDecimal apply(type.TLoan loan, java.math.BigDecimal fee, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

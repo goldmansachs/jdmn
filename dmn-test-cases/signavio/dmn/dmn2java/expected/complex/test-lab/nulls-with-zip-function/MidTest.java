@@ -9,9 +9,12 @@ public class MidTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     @org.junit.Test
     public void testCase1() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         List<java.math.BigDecimal> inputB = asList(number("34"), number("3"));
         List<String> inputA = asList("a", null);
-        List<String> mid = this.mid.apply(inputA, inputB, annotationSet_);
+        List<String> mid = this.mid.apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList("both defined", "number defined"), mid);
     }
@@ -19,9 +22,12 @@ public class MidTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     @org.junit.Test
     public void testCase2() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         List<java.math.BigDecimal> inputB = asList(number("12"));
         List<String> inputA = asList("b", "c");
-        List<String> mid = this.mid.apply(inputA, inputB, annotationSet_);
+        List<String> mid = this.mid.apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList("both defined", "text defined"), mid);
     }
@@ -29,9 +35,12 @@ public class MidTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     @org.junit.Test
     public void testCase3() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         List<java.math.BigDecimal> inputB = asList(number("213"), null, number("43"));
         List<String> inputA = asList("d", "e", "f");
-        List<String> mid = this.mid.apply(inputA, inputB, annotationSet_);
+        List<String> mid = this.mid.apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList("both defined", "text defined", "both defined"), mid);
     }
@@ -39,9 +48,12 @@ public class MidTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     @org.junit.Test
     public void testCase4() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         List<java.math.BigDecimal> inputB = asList(null);
         List<String> inputA = asList(null);
-        List<String> mid = this.mid.apply(inputA, inputB, annotationSet_);
+        List<String> mid = this.mid.apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList("neither defined"), mid);
     }

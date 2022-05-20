@@ -33,15 +33,6 @@ public class FetchForexRate extends com.gs.dmn.signavio.runtime.DefaultSignavioB
         this.isForexRateRequired = isForexRateRequired;
     }
 
-    public String apply(String derivativeType, String taxChargeType, String transaction, String transactionTaxMetaData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply(derivativeType, taxChargeType, (transaction != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(transaction, new com.fasterxml.jackson.core.type.TypeReference<type.TransactionImpl>() {}) : null), (transactionTaxMetaData != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(transactionTaxMetaData, new com.fasterxml.jackson.core.type.TypeReference<type.TransactionTaxMetaDataImpl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'FetchForexRate'", e);
-            return null;
-        }
-    }
-
     public String apply(String derivativeType, String taxChargeType, String transaction, String transactionTaxMetaData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply(derivativeType, taxChargeType, (transaction != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(transaction, new com.fasterxml.jackson.core.type.TypeReference<type.TransactionImpl>() {}) : null), (transactionTaxMetaData != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(transactionTaxMetaData, new com.fasterxml.jackson.core.type.TypeReference<type.TransactionTaxMetaDataImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -49,10 +40,6 @@ public class FetchForexRate extends com.gs.dmn.signavio.runtime.DefaultSignavioB
             logError("Cannot apply decision 'FetchForexRate'", e);
             return null;
         }
-    }
-
-    public String apply(String derivativeType, String taxChargeType, type.Transaction transaction, type.TransactionTaxMetaData transactionTaxMetaData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(derivativeType, taxChargeType, transaction, transactionTaxMetaData, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public String apply(String derivativeType, String taxChargeType, type.Transaction transaction, type.TransactionTaxMetaData transactionTaxMetaData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

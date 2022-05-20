@@ -65,7 +65,7 @@
     Decision table
 -->
 <#macro addEvaluateDecisionTableMethod drgElement>
-    private inline fun evaluate(${transformer.drgElementSignatureExtraCache(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    private inline fun evaluate(${transformer.drgElementSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
     <@applySubDecisions drgElement/>
     <#assign expression = modelRepository.expression(drgElement)>
         <@collectRuleResults drgElement expression />
@@ -121,7 +121,7 @@
     <#list expression.rule>
         <#items as rule>
     @${transformer.ruleAnnotationClassName()}(index = ${rule_index}, annotation = "${transformer.annotationEscapedText(rule)}")
-    private fun rule${rule_index}(${transformer.drgElementSignatureExtra(transformer.ruleSignature(drgElement))}): ${transformer.abstractRuleOutputClassName()} {
+    private fun rule${rule_index}(${transformer.ruleSignature(drgElement)}): ${transformer.abstractRuleOutputClassName()} {
         // Rule metadata
         val ${transformer.drgRuleMetadataFieldName()}: ${transformer.drgRuleMetadataClassName()} = ${transformer.drgRuleMetadataClassName()}(${rule_index}, "${transformer.annotationEscapedText(rule)}")
 
@@ -161,18 +161,18 @@
         <#items as rule>
         <#if modelRepository.isFirstSingleHit(expression.hitPolicy) && modelRepository.atLeastTwoRules(expression)>
         <#if rule?is_first>
-        var tempRuleOutput_: ${transformer.abstractRuleOutputClassName()} = rule${rule_index}(${transformer.drgElementArgumentListExtra(transformer.ruleArgumentList(drgElement))})
+        var tempRuleOutput_: ${transformer.abstractRuleOutputClassName()} = rule${rule_index}(${transformer.ruleArgumentList(drgElement)})
         ruleOutputList_.add(tempRuleOutput_)
         var matched_: Boolean = tempRuleOutput_.isMatched()
         <#else >
         if (!matched_) {
-            tempRuleOutput_ = rule${rule_index}(${transformer.drgElementArgumentListExtra(transformer.ruleArgumentList(drgElement))})
+            tempRuleOutput_ = rule${rule_index}(${transformer.ruleArgumentList(drgElement)})
             ruleOutputList_.add(tempRuleOutput_)
             matched_ = tempRuleOutput_.isMatched()
         }
         </#if>
         <#else >
-        ruleOutputList_.add(rule${rule_index}(${transformer.drgElementArgumentListExtra(transformer.ruleArgumentList(drgElement))}))
+        ruleOutputList_.add(rule${rule_index}(${transformer.ruleArgumentList(drgElement)}))
         </#if>
         </#items>
     </#list>
@@ -204,21 +204,21 @@
                 <@endDRGElementAndReturnIndent "    " drgElement "output_" />
             } else {
                 // ${transformer.evaluateElementCommentText(drgElement)}
-                val output_: ${transformer.drgElementOutputType(drgElement)} = evaluate(${transformer.drgElementArgumentListExtraCache(drgElement)})
+                val output_: ${transformer.drgElementOutputType(drgElement)} = evaluate(${transformer.drgElementArgumentList(drgElement)})
                 cache_.bind("${modelRepository.name(drgElement)}", output_)
 
                 <@endDRGElementAndReturnIndent "    " drgElement "output_" />
             }
         <#else>
             // ${transformer.evaluateElementCommentText(drgElement)}
-            val output_: ${transformer.drgElementOutputType(drgElement)} = evaluate(${transformer.drgElementArgumentListExtraCache(drgElement)})
+            val output_: ${transformer.drgElementOutputType(drgElement)} = evaluate(${transformer.drgElementArgumentList(drgElement)})
 
             <@endDRGElementAndReturn drgElement "output_" />
         </#if>
 </#macro>
 
 <#macro addEvaluateExpressionMethod drgElement>
-    private inline fun evaluate(${transformer.drgElementSignatureExtraCache(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    private inline fun evaluate(${transformer.drgElementSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
     <@applySubDecisions drgElement/>
     <#assign stm = transformer.expressionToNative(drgElement)>
     <#if transformer.isCompoundStatement(stm)>
@@ -243,9 +243,9 @@
         ${extraIndent}// Apply child decisions
         <#items as subDecision>
             <#if transformer.isLazyEvaluated(subDecision)>
-        ${extraIndent}val ${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> = ${transformer.lazyEvalClassName()}({ this@${javaClassName}.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentListExtraCache(subDecision)}) })
+        ${extraIndent}val ${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> = ${transformer.lazyEvalClassName()}({ this@${javaClassName}.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)}) })
             <#else>
-        ${extraIndent}val ${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.drgElementOutputType(subDecision)} = this@${javaClassName}.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentListExtraCache(subDecision)})
+        ${extraIndent}val ${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.drgElementOutputType(subDecision)} = this@${javaClassName}.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)})
             </#if>
         </#items>
 

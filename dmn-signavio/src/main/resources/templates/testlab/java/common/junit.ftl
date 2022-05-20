@@ -40,6 +40,9 @@ public class ${testClassName} extends ${decisionBaseClass} {
     @org.junit.Test
     public void testCase${(testCase?index + 1)?c}() {
         ${testLabUtil.annotationSetClassName()} ${testLabUtil.annotationSetVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.annotationSetClassName())};
+        ${testLabUtil.eventListenerClassName()} ${testLabUtil.eventListenerVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.defaultEventListenerClassName())};
+        ${testLabUtil.externalExecutorClassName()} ${testLabUtil.externalExecutorVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.defaultExternalExecutorClassName())};
+        ${testLabUtil.cacheInterfaceName()} ${testLabUtil.cacheVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.defaultCacheClassName())};
         <@addApplyPart testCase/>
 
         <@addAssertPart testCase/>

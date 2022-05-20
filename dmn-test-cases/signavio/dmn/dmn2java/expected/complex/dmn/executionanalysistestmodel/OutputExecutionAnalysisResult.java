@@ -26,15 +26,6 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
     public OutputExecutionAnalysisResult() {
     }
 
-    public List<String> apply(String inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply((inputValue != null ? number(inputValue) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'OutputExecutionAnalysisResult'", e);
-            return null;
-        }
-    }
-
     public List<String> apply(String inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((inputValue != null ? number(inputValue) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -42,10 +33,6 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
             logError("Cannot apply decision 'OutputExecutionAnalysisResult'", e);
             return null;
         }
-    }
-
-    public List<String> apply(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(inputValue, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public List<String> apply(java.math.BigDecimal inputValue, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

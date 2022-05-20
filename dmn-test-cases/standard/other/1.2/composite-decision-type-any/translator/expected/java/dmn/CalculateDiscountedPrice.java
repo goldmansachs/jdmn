@@ -33,15 +33,6 @@ public class CalculateDiscountedPrice extends com.gs.dmn.runtime.DefaultDMNBaseD
         this.ageClassification = ageClassification;
     }
 
-    public java.math.BigDecimal apply(String price, String student, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply((price != null ? number(price) : null), (student != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(student, new com.fasterxml.jackson.core.type.TypeReference<type.StudentImpl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'CalculateDiscountedPrice'", e);
-            return null;
-        }
-    }
-
     public java.math.BigDecimal apply(String price, String student, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((price != null ? number(price) : null), (student != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(student, new com.fasterxml.jackson.core.type.TypeReference<type.StudentImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -49,10 +40,6 @@ public class CalculateDiscountedPrice extends com.gs.dmn.runtime.DefaultDMNBaseD
             logError("Cannot apply decision 'CalculateDiscountedPrice'", e);
             return null;
         }
-    }
-
-    public java.math.BigDecimal apply(java.math.BigDecimal price, type.Student student, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(price, student, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public java.math.BigDecimal apply(java.math.BigDecimal price, type.Student student, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

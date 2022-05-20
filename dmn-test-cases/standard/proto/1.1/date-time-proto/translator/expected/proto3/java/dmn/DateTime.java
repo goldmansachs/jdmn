@@ -41,15 +41,6 @@ public class DateTime extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public DateTime() {
     }
 
-    public javax.xml.datatype.XMLGregorianCalendar apply(String inputDateTime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply((inputDateTime != null ? dateAndTime(inputDateTime) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'DateTime'", e);
-            return null;
-        }
-    }
-
     public javax.xml.datatype.XMLGregorianCalendar apply(String inputDateTime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((inputDateTime != null ? dateAndTime(inputDateTime) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -57,10 +48,6 @@ public class DateTime extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             logError("Cannot apply decision 'DateTime'", e);
             return null;
         }
-    }
-
-    public javax.xml.datatype.XMLGregorianCalendar apply(javax.xml.datatype.XMLGregorianCalendar inputDateTime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(inputDateTime, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public javax.xml.datatype.XMLGregorianCalendar apply(javax.xml.datatype.XMLGregorianCalendar inputDateTime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
@@ -82,10 +69,6 @@ public class DateTime extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             logError("Exception caught in 'DateTime' evaluation", e);
             return null;
         }
-    }
-
-    public proto.DateTimeResponse apply(proto.DateTimeRequest dateTimeRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(dateTimeRequest_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public proto.DateTimeResponse apply(proto.DateTimeRequest dateTimeRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

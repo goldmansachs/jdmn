@@ -9,9 +9,12 @@ public class ProcessL1Test extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
     @org.junit.Test
     public void testCase1() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         List<java.math.BigDecimal> l1 = asList(number("1"), number("2"), number("3"), number("4"));
         List<java.math.BigDecimal> l23 = asList(number("1"), number("1"), number("2"), number("3"), number("5"), number("8"));
-        List<java.math.BigDecimal> processL1 = this.processL1.apply(l1, l23, annotationSet_);
+        List<java.math.BigDecimal> processL1 = this.processL1.apply(l1, l23, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList(number("2"), number("1"), number("1"), number("0")), processL1);
     }
@@ -19,9 +22,12 @@ public class ProcessL1Test extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
     @org.junit.Test
     public void testCase2() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         List<java.math.BigDecimal> l1 = asList(number("10"), number("20"), number("30"));
         List<java.math.BigDecimal> l23 = asList(number("5"), number("10"), number("15"), number("20"));
-        List<java.math.BigDecimal> processL1 = this.processL1.apply(l1, l23, annotationSet_);
+        List<java.math.BigDecimal> processL1 = this.processL1.apply(l1, l23, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList(number("1"), number("1"), number("0")), processL1);
     }
@@ -29,9 +35,12 @@ public class ProcessL1Test extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
     @org.junit.Test
     public void testCase3() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         List<java.math.BigDecimal> l1 = asList(numericUnaryMinus(number("1")), number("0"), number("1"));
         List<java.math.BigDecimal> l23 = asList(number("2"), number("3"), number("4"));
-        List<java.math.BigDecimal> processL1 = this.processL1.apply(l1, l23, annotationSet_);
+        List<java.math.BigDecimal> processL1 = this.processL1.apply(l1, l23, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList(number("0"), number("0"), number("0")), processL1);
     }

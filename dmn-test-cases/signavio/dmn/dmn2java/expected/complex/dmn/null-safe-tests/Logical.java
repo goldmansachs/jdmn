@@ -26,15 +26,6 @@ public class Logical extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     public Logical() {
     }
 
-    public Boolean apply(String booleanA, String booleanB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply((booleanA != null ? Boolean.valueOf(booleanA) : null), (booleanB != null ? Boolean.valueOf(booleanB) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'Logical'", e);
-            return null;
-        }
-    }
-
     public Boolean apply(String booleanA, String booleanB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((booleanA != null ? Boolean.valueOf(booleanA) : null), (booleanB != null ? Boolean.valueOf(booleanB) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -42,10 +33,6 @@ public class Logical extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             logError("Cannot apply decision 'Logical'", e);
             return null;
         }
-    }
-
-    public Boolean apply(Boolean booleanA, Boolean booleanB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(booleanA, booleanB, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public Boolean apply(Boolean booleanA, Boolean booleanB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

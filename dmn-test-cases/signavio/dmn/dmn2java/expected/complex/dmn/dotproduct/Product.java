@@ -26,15 +26,6 @@ public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     public Product() {
     }
 
-    public java.math.BigDecimal apply(String componentwise4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply((componentwise4_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(componentwise4_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.Componentwise3Impl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'Product'", e);
-            return null;
-        }
-    }
-
     public java.math.BigDecimal apply(String componentwise4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((componentwise4_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(componentwise4_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.Componentwise3Impl>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -42,10 +33,6 @@ public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             logError("Cannot apply decision 'Product'", e);
             return null;
         }
-    }
-
-    public java.math.BigDecimal apply(type.Componentwise3 componentwise4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(componentwise4_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public java.math.BigDecimal apply(type.Componentwise3 componentwise4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

@@ -33,15 +33,6 @@ public class Mid extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         this.zip = zip;
     }
 
-    public List<String> apply(String inputA, String inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        try {
-            return apply((inputA != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(inputA, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (inputB != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(inputB, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-        } catch (Exception e) {
-            logError("Cannot apply decision 'Mid'", e);
-            return null;
-        }
-    }
-
     public List<String> apply(String inputA, String inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             return apply((inputA != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(inputA, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (inputB != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(inputB, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
@@ -49,10 +40,6 @@ public class Mid extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
             logError("Cannot apply decision 'Mid'", e);
             return null;
         }
-    }
-
-    public List<String> apply(List<String> inputA, List<java.math.BigDecimal> inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(inputA, inputB, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public List<String> apply(List<String> inputA, List<java.math.BigDecimal> inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

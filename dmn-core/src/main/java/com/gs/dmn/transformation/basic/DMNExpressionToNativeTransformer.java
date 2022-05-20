@@ -607,7 +607,7 @@ public class DMNExpressionToNativeTransformer {
             }
             String invocableInstance = this.dmnTransformer.singletonInvocableInstance(bkm);
             String argListString = argList.stream().map(Statement::getText).collect(Collectors.joining(", "));
-            String expressionText = String.format("%s.apply(%s)", invocableInstance, this.dmnTransformer.drgElementArgumentListExtraCache(this.dmnTransformer.drgElementArgumentListExtra(this.dmnTransformer.augmentArgumentList(argListString))));
+            String expressionText = String.format("%s.apply(%s)", invocableInstance, this.dmnTransformer.augmentArgumentList(argListString));
             Type expressionType = this.dmnTransformer.drgElementOutputFEELType(bkm);
             return this.nativeFactory.makeExpressionStatement(expressionText, expressionType);
         } else {

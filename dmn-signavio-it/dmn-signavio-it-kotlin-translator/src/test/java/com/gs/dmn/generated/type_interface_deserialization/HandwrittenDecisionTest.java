@@ -9,22 +9,19 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @org.junit.Test
     public void testDeserializedDecisionInput() throws Exception {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
         com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfiles marginEquityOptionTradableProfiles = new com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfilesImpl(decision.asList(new com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfileImpl(Boolean.TRUE, "abc")));
 
-        String esmaEquityOptionIndicator = decision.apply(marginEquityOptionTradableProfiles, annotationSet_);
+        String esmaEquityOptionIndicator = decision.apply(marginEquityOptionTradableProfiles, annotationSet, eventListener, externalFunctionExecutor, cache);
 
         checkValues("Yes", esmaEquityOptionIndicator);
     }
 
     @org.junit.Test
     public void testSerializedDecisionInput() throws Exception {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-
         com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfiles marginEquityOptionTradableProfiles = new com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfilesImpl(decision.asList(new com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfileImpl(Boolean.TRUE, "abc")));
         String serializedInput = com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.writeValueAsString(marginEquityOptionTradableProfiles);
 
-        String esmaEquityOptionIndicator = decision.apply(serializedInput, annotationSet_);
+        String esmaEquityOptionIndicator = decision.apply(serializedInput, annotationSet, eventListener, externalFunctionExecutor, cache);
 
         checkValues("Yes", esmaEquityOptionIndicator);
     }
@@ -32,10 +29,9 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Override
     protected void applyDecision() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
         com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfiles marginEquityOptionTradableProfiles = new com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfilesImpl(decision.asList(new com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfileImpl(Boolean.TRUE, "abc")));
 
-        decision.apply(marginEquityOptionTradableProfiles, annotationSet_);
+        decision.apply(marginEquityOptionTradableProfiles, annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 
     private void checkValues(Object expected, Object actual) {

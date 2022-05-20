@@ -75,16 +75,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     <#if transformer.shouldGenerateApplyWithConversionFromString(drgElement)>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureWithConversionFromString(drgElement)}) {
         try {
-            return apply(${transformer.drgElementDefaultArgumentListExtraCacheWithConversionFromString(drgElement)});
-        } catch (Exception e) {
-            logError("Cannot apply decision '${javaClassName}'", e);
-            return null;
-        }
-    }
-
-    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCacheWithConversionFromString(drgElement)}) {
-        try {
-            return apply(${transformer.drgElementArgumentListExtraCacheWithConversionFromString(drgElement)});
+            return apply(${transformer.drgElementArgumentListWithConversionFromString(drgElement)});
         } catch (Exception e) {
             logError("Cannot apply decision '${javaClassName}'", e);
             return null;
@@ -93,19 +84,11 @@ public class ${javaClassName} extends ${decisionBaseClass} {
 
     </#if>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignature(drgElement)}) {
-        return apply(${transformer.drgElementDefaultArgumentListExtraCache(drgElement)});
-    }
-
-    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(drgElement)}) {
         <@applyMethodBody drgElement />
     }
     <#if transformer.isGenerateProto()>
 
     public ${transformer.qualifiedResponseMessageName(drgElement)} apply(${transformer.drgElementSignatureProto(drgElement)}) {
-        return apply(${transformer.drgElementDefaultArgumentListExtraCacheProto(drgElement)});
-    }
-
-    public ${transformer.qualifiedResponseMessageName(drgElement)} apply(${transformer.drgElementSignatureExtraCacheProto(drgElement)}) {
     <@applyRequest drgElement />
     }
     </#if>
@@ -127,7 +110,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     <#assign responseMessageName = transformer.qualifiedResponseMessageName(drgElement) />
     <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
         // Invoke apply method
-        ${transformer.drgElementOutputType(drgElement)} ${outputVariable} = apply(${transformer.drgElementArgumentListExtraCache(drgElement)});
+        ${transformer.drgElementOutputType(drgElement)} ${outputVariable} = apply(${transformer.drgElementArgumentList(drgElement)});
 
         // Convert output to Response Message
         ${responseMessageName}.Builder builder_ = ${responseMessageName}.newBuilder();

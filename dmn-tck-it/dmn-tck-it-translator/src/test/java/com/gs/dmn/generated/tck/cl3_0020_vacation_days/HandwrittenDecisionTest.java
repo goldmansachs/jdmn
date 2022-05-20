@@ -14,6 +14,12 @@ package com.gs.dmn.generated.tck.cl3_0020_vacation_days;
 
 import com.gs.dmn.AbstractHandwrittenDecisionTest;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
+import com.gs.dmn.runtime.cache.Cache;
+import com.gs.dmn.runtime.cache.DefaultCache;
+import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
+import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
+import com.gs.dmn.runtime.listener.EventListener;
+import com.gs.dmn.runtime.listener.NopEventListener;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -24,18 +30,26 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     @Test
     public void applyCompiler() {
         AnnotationSet annotationSet = new AnnotationSet();
-        assertEquals("27", decision.apply("16", "1", annotationSet).toPlainString());
-        assertEquals("22", decision.apply("25", "5", annotationSet).toPlainString());
-        assertEquals("24", decision.apply("25", "20", annotationSet).toPlainString());
-        assertEquals("30", decision.apply("44", "30", annotationSet).toPlainString());
-        assertEquals("24", decision.apply("50", "20", annotationSet).toPlainString());
-        assertEquals("30", decision.apply("50", "30", annotationSet).toPlainString());
-        assertEquals("30", decision.apply("60", "20", annotationSet).toPlainString());
+        EventListener eventListener = new NopEventListener();
+        ExternalFunctionExecutor externalFunctionExecutor = new DefaultExternalFunctionExecutor();
+        Cache cache = new DefaultCache();
+
+        assertEquals("27", decision.apply("16", "1", annotationSet, eventListener, externalFunctionExecutor, cache).toPlainString());
+        assertEquals("22", decision.apply("25", "5", annotationSet, eventListener, externalFunctionExecutor, cache).toPlainString());
+        assertEquals("24", decision.apply("25", "20", annotationSet, eventListener, externalFunctionExecutor, cache).toPlainString());
+        assertEquals("30", decision.apply("44", "30", annotationSet, eventListener, externalFunctionExecutor, cache).toPlainString());
+        assertEquals("24", decision.apply("50", "20", annotationSet, eventListener, externalFunctionExecutor, cache).toPlainString());
+        assertEquals("30", decision.apply("50", "30", annotationSet, eventListener, externalFunctionExecutor, cache).toPlainString());
+        assertEquals("30", decision.apply("60", "20", annotationSet, eventListener, externalFunctionExecutor, cache).toPlainString());
     }
 
     @Override
     protected void applyDecision() {
         AnnotationSet annotationSet = new AnnotationSet();
-        decision.apply((String) null, null, annotationSet);
+        EventListener eventListener = new NopEventListener();
+        ExternalFunctionExecutor externalFunctionExecutor = new DefaultExternalFunctionExecutor();
+        Cache cache = new DefaultCache();
+
+        decision.apply((String) null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 }

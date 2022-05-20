@@ -23,24 +23,21 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void testApply() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        Boolean output = decision.apply("true", null, null, null, null, annotationSet);
+        Boolean output = decision.apply("true", null, null, null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
         assertEquals(true, output);
 
-        output = decision.apply("false", null, null, null, null, annotationSet);
+        output = decision.apply("false", null, null, null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
         assertEquals(false, output);
     }
 
     @Test
     public void testApplyWhenNull() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        Boolean output = decision.apply((String)null, null, null, null, null, annotationSet);
+        Boolean output = decision.apply((String)null, null, null, null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
         assertEquals(null, output);
     }
 
     @Override
     protected void applyDecision() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        decision.apply("false", null, null, null, null, annotationSet);
+        decision.apply("false", null, null, null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 }

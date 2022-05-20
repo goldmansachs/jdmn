@@ -23,21 +23,18 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void apply() throws Exception {
-        AnnotationSet annotationSet = new AnnotationSet();
-        String output = decision.apply(null, (String)null, null, null, "123", annotationSet);
+        String output = decision.apply(null, (String)null, null, null, "123", annotationSet, eventListener, externalFunctionExecutor, cache);
         assertEquals("123abc", output);
     }
 
     @Test
     public void applyWhenNull() throws Exception {
-        AnnotationSet annotationSet = new AnnotationSet();
-        String output = decision.apply(null, (String)null, null, null, null, annotationSet);
+        String output = decision.apply(null, (String)null, null, null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
         assertEquals(null, output);
     }
 
     @Override
     protected void applyDecision() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        decision.apply(null, (String)null, null, null, "123", annotationSet);
+        decision.apply(null, (String)null, null, null, "123", annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 }

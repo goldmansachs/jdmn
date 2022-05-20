@@ -28,32 +28,29 @@ public class HandwrittenMonthlyTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void testApply() {
-        AnnotationSet annotationSet = new AnnotationSet();
         LoanImpl loan = new LoanImpl();
         loan.setPrincipal(new BigDecimal("100.00", MathContext.DECIMAL128));
         loan.setRate(new BigDecimal("5", MathContext.DECIMAL128));
         loan.setTerm(new BigDecimal("10", MathContext.DECIMAL128));
 
-        BigDecimal output = decision.apply(toJson(loan), annotationSet);
+        BigDecimal output = decision.apply(toJson(loan), annotationSet, eventListener, externalFunctionExecutor, cache);
 
         assertEquals("100.00", output.toString());
     }
 
     @Test
     public void testApplyWhenNull() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        BigDecimal output = decision.apply((String)null, annotationSet);
+        BigDecimal output = decision.apply((String)null, annotationSet, eventListener, externalFunctionExecutor, cache);
         assertNull(output);
     }
 
     @Override
     protected void applyDecision() {
-        AnnotationSet annotationSet = new AnnotationSet();
         LoanImpl loan = new LoanImpl();
         loan.setPrincipal(new BigDecimal("100.00", MathContext.DECIMAL128));
         loan.setRate(new BigDecimal("5", MathContext.DECIMAL128));
         loan.setTerm(new BigDecimal("10", MathContext.DECIMAL128));
 
-        decision.apply(loan, annotationSet);
+        decision.apply(loan, annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 }

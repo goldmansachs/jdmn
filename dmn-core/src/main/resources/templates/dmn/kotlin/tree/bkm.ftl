@@ -31,7 +31,7 @@ import java.util.stream.Collectors
 class ${javaClassName} : ${decisionBaseClass} {
     private constructor() {}
 
-    public fun apply(${transformer.drgElementSignatureExtraCache(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    public fun apply(${transformer.drgElementSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         <@applyMethodBody drgElement />
     }
     <@evaluateExpressionMethod drgElement />

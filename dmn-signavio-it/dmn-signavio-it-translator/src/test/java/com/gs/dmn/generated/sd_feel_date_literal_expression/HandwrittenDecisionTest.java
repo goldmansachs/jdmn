@@ -25,21 +25,18 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void testApply() throws Exception {
-        AnnotationSet annotationSet = new AnnotationSet();
-        BigDecimal output = decision.apply(null, "1965-03-29", null, null, null, annotationSet);
+        BigDecimal output = decision.apply(null, "1965-03-29", null, null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
         assertEquals("29", output.toString());
     }
 
     @Test(expected = NullPointerException.class)
     public void testApplyWhenNull() throws Exception {
-        AnnotationSet annotationSet = new AnnotationSet();
-        BigDecimal output = decision.apply(null, (String)null, null, null, null, annotationSet);
+        BigDecimal output = decision.apply(null, (String)null, null, null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
         assertEquals(29, output.intValue());
     }
 
     @Override
     protected void applyDecision() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        decision.apply(null, "1965-03-29", null, null, null, annotationSet);
+        decision.apply(null, "1965-03-29", null, null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 }
