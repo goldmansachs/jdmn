@@ -36,6 +36,7 @@ import com.gs.dmn.runtime.annotation.ExpressionKind;
 import com.gs.dmn.runtime.annotation.HitPolicy;
 import com.gs.dmn.runtime.cache.Cache;
 import com.gs.dmn.runtime.cache.DefaultCache;
+import com.gs.dmn.runtime.discovery.ModelElementRegistry;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.JavaExternalFunction;
@@ -1117,6 +1118,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String contextClassName() {
         return Context.class.getName();
+    }
+
+    @Override
+    public String registryClassName() {
+        return ModelElementRegistry.class.getName();
     }
 
     protected String inputClassName() {
