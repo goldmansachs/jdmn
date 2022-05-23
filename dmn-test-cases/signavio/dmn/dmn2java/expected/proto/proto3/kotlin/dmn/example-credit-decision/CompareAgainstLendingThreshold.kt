@@ -13,6 +13,15 @@ import java.util.stream.Collectors
     rulesCount = 2
 )
 class CompareAgainstLendingThreshold(val assessApplicantAge : AssessApplicantAge = AssessApplicantAge(), val assessIssueRisk : AssessIssueRisk = AssessIssueRisk()) : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
+    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+        try {
+            return apply(input_.get("Applicant"), input_.get("Current risk appetite"), input_.get("Lending threshold"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+        } catch (e: Exception) {
+            logError("Cannot apply decision 'CompareAgainstLendingThreshold'", e)
+            return null
+        }
+    }
+
     fun apply(applicant: String?, currentRiskAppetite: String?, lendingThreshold: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         return try {
             apply(applicant?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) }), currentRiskAppetite?.let({ number(it) }), lendingThreshold?.let({ number(it) }), annotationSet_, eventListener_, externalExecutor_, cache_)

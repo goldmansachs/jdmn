@@ -15,7 +15,16 @@ import java.util.stream.Collectors
 class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    public fun apply(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+        try {
+            return apply(input_.get("Age")?.let({ number(it) }), input_.get("MaritalStatus"), input_.get("EmploymentStatus"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+        } catch (e: Exception) {
+            logError("Cannot apply decision 'ApplicationRiskScoreModel'", e)
+            return null
+        }
+    }
+
+    fun apply(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         try {
             // Start BKM 'ApplicationRiskScoreModel'
             val applicationRiskScoreModelStartTime_ = System.currentTimeMillis()

@@ -15,7 +15,16 @@ import java.util.stream.Collectors
 class EligibilityRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    public fun apply(preBureauRiskCategory: String?, preBureauAffordability: Boolean?, age: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
+    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
+        try {
+            return apply(input_.get("'Pre-bureauRiskCategory'"), input_.get("'Pre-bureauAffordability'")?.let({ it.toBoolean() }), input_.get("Age")?.let({ number(it) }), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+        } catch (e: Exception) {
+            logError("Cannot apply decision 'EligibilityRules'", e)
+            return null
+        }
+    }
+
+    fun apply(preBureauRiskCategory: String?, preBureauAffordability: Boolean?, age: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         try {
             // Start BKM 'EligibilityRules'
             val eligibilityRulesStartTime_ = System.currentTimeMillis()

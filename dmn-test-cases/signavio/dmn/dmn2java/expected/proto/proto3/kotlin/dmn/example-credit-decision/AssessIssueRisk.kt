@@ -13,6 +13,15 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class AssessIssueRisk(val processPriorIssues : ProcessPriorIssues = ProcessPriorIssues()) : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
+    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+        try {
+            return apply(input_.get("Applicant"), input_.get("Current risk appetite"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+        } catch (e: Exception) {
+            logError("Cannot apply decision 'AssessIssueRisk'", e)
+            return null
+        }
+    }
+
     fun apply(applicant: String?, currentRiskAppetite: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         return try {
             apply(applicant?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) }), currentRiskAppetite?.let({ number(it) }), annotationSet_, eventListener_, externalExecutor_, cache_)

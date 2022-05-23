@@ -13,6 +13,15 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class Bankrates() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
+    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): List<type.TLoanProduct?>? {
+        try {
+            return apply(context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+        } catch (e: Exception) {
+            logError("Cannot apply decision 'Bankrates'", e)
+            return null
+        }
+    }
+
     fun apply(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): List<type.TLoanProduct?>? {
         try {
             // Start decision 'Bankrates'

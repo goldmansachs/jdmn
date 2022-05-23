@@ -26,6 +26,7 @@ public class Logical extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     public Logical() {
     }
 
+    @java.lang.Override()
     public Boolean apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("booleanA"), input_.get("booleanB"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

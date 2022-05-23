@@ -26,6 +26,7 @@ public class Sort1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public Sort1() {
     }
 
+    @java.lang.Override()
     public List<java.math.BigDecimal> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("listA"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

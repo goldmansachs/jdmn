@@ -15,7 +15,16 @@ import java.util.stream.Collectors
 class CreditContingencyFactorTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    public fun apply(riskCategory: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+        try {
+            return apply(input_.get("RiskCategory"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+        } catch (e: Exception) {
+            logError("Cannot apply decision 'CreditContingencyFactorTable'", e)
+            return null
+        }
+    }
+
+    fun apply(riskCategory: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         try {
             // Start BKM 'CreditContingencyFactorTable'
             val creditContingencyFactorTableStartTime_ = System.currentTimeMillis()

@@ -37,6 +37,7 @@ public class Appendall extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
         this.removeall2 = removeall2;
     }
 
+    @java.lang.Override()
     public List<String> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("rgb1"), input_.get("rgb1 list"), input_.get("rgb2"), input_.get("rgb2 list"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

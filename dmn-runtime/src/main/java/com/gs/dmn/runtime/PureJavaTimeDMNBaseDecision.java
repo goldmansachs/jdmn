@@ -22,8 +22,14 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.temporal.Temporal;
+import java.util.Map;
 
 public class PureJavaTimeDMNBaseDecision extends PureJavaTimeFEELLib implements DMNDecision<BigDecimal, LocalDate, Temporal, Temporal, Duration>, AnnotationTarget {
+    @Override
+    public Object apply(Map<String, String> input_, ExecutionContext context_) {
+        return null;
+    }
+
     @Override
     public DRGElement getDRGElementAnnotation() {
         return this.getClass().getAnnotation(DRGElement.class);

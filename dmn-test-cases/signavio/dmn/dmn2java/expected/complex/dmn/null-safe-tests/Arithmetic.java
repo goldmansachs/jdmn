@@ -26,6 +26,7 @@ public class Arithmetic extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     public Arithmetic() {
     }
 
+    @java.lang.Override()
     public java.math.BigDecimal apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("numberA"), input_.get("numberB"), input_.get("numberList"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

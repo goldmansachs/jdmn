@@ -31,7 +31,20 @@ import java.util.stream.Collectors
 class ${javaClassName} : ${decisionBaseClass} {
     private constructor() {}
 
-    public fun apply(${transformer.drgElementSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    override fun apply(${transformer.drgElementSignatureWithMap(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    <#if transformer.canGenerateApplyWithMap(drgElement)>
+        try {
+            return apply(${transformer.drgElementArgumentListWithMap(drgElement)})
+        } catch (e: Exception) {
+            logError("Cannot apply decision '${javaClassName}'", e)
+            return null
+        }
+    <#else>
+        throw ${transformer.constructor(transformer.dmnRuntimeExceptionClassName(), "Not all arguments can be serialized")}
+    </#if>
+    }
+
+    fun apply(${transformer.drgElementSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         <@applyMethodBody drgElement />
     }
     <@evaluateExpressionMethod drgElement />

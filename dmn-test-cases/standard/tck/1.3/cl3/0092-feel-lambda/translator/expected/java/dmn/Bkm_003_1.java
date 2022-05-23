@@ -33,7 +33,7 @@ public class Bkm_003_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private Bkm_003_1() {
     }
 
-
+    @java.lang.Override()
     public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

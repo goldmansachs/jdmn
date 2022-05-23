@@ -26,6 +26,7 @@ public class C extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public C() {
     }
 
+    @java.lang.Override()
     public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("AA"), input_.get("BA"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

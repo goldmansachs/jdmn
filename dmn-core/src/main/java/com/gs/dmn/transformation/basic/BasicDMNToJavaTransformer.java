@@ -397,7 +397,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public boolean shouldGenerateApplyWithMap(TDRGElement element) {
+    public boolean canGenerateApplyWithMap(TDRGElement element) {
         if (element instanceof TDecision) {
             List<Pair<String, Type>> parameters = drgElementTypeSignature(element);
             return parameters.stream().allMatch(p -> this.nativeFactory.isSerializable(p.getRight()));
@@ -1119,19 +1119,19 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         return Context.class.getName();
     }
 
-    private String inputClassName() {
+    protected String inputClassName() {
         return Map.class.getName() + "<String, String>";
     }
 
-    private String inputVariableName() {
+    protected String inputVariableName() {
         return "input_";
     }
 
-    private String executionContextClassName() {
+    protected String executionContextClassName() {
         return ExecutionContext.class.getName();
     }
 
-    private String executionContextVariableName() {
+    protected String executionContextVariableName() {
         return "context_";
     }
 

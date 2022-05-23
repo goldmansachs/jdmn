@@ -35,6 +35,7 @@ public class PostBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDe
         this.requiredMonthlyInstallment = requiredMonthlyInstallment;
     }
 
+    @java.lang.Override()
     public Boolean apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("ApplicantData"), input_.get("BureauData"), input_.get("RequestedProduct"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

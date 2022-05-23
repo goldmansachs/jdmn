@@ -26,6 +26,7 @@ public class Applicant_repository extends com.gs.dmn.runtime.DefaultDMNBaseDecis
     public Applicant_repository() {
     }
 
+    @java.lang.Override()
     public type.Applicant apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

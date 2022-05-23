@@ -13,6 +13,15 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class GenerateOutputData(val assessIssueRisk : AssessIssueRisk = AssessIssueRisk(), val compareAgainstLendingThreshold : CompareAgainstLendingThreshold = CompareAgainstLendingThreshold(), val makeCreditDecision : MakeCreditDecision = MakeCreditDecision()) : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
+    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): List<type.GenerateOutputData?>? {
+        try {
+            return apply(input_.get("Applicant"), input_.get("Current risk appetite"), input_.get("Lending threshold"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+        } catch (e: Exception) {
+            logError("Cannot apply decision 'GenerateOutputData'", e)
+            return null
+        }
+    }
+
     fun apply(applicant: String?, currentRiskAppetite: String?, lendingThreshold: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): List<type.GenerateOutputData?>? {
         return try {
             apply(applicant?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) }), currentRiskAppetite?.let({ number(it) }), lendingThreshold?.let({ number(it) }), annotationSet_, eventListener_, externalExecutor_, cache_)

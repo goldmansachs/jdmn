@@ -13,6 +13,15 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class CompositeDateTime() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
+    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): type.CompositeDateTime? {
+        try {
+            return apply(input_.get("CompositeInputDateTime"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+        } catch (e: Exception) {
+            logError("Cannot apply decision 'CompositeDateTime'", e)
+            return null
+        }
+    }
+
     fun apply(compositeInputDateTime: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.CompositeDateTime? {
         return try {
             apply(compositeInputDateTime?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.CompositeDateTimeImpl>() {}) }), annotationSet_, eventListener_, externalExecutor_, cache_)

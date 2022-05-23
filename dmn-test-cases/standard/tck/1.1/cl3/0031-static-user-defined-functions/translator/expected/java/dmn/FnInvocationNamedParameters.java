@@ -33,6 +33,7 @@ public class FnInvocationNamedParameters extends com.gs.dmn.runtime.DefaultDMNBa
         this.fnLibrary = fnLibrary;
     }
 
+    @java.lang.Override()
     public type.TFnInvocationNamedResult apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("inputA"), input_.get("inputB"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

@@ -33,6 +33,7 @@ public class RankedProducts extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         this.bankrates = bankrates;
     }
 
+    @java.lang.Override()
     public type.TRankedProducts apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("RequestedAmt"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

@@ -33,6 +33,10 @@ public class Bkm_017_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private Bkm_017_1() {
     }
 
+    @java.lang.Override()
+    public List<String> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        throw new com.gs.dmn.runtime.DMNRuntimeException("Not all arguments can be serialized");
+    }
 
     public List<String> apply(com.gs.dmn.runtime.LambdaExpression<Boolean> fn1, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {

@@ -33,7 +33,7 @@ public class FACT extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private FACT() {
     }
 
-
+    @java.lang.Override()
     public java.math.BigDecimal apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("n") != null ? number(input_.get("n")) : null), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

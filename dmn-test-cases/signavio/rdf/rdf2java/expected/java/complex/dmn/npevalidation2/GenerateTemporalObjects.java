@@ -26,6 +26,7 @@ public class GenerateTemporalObjects extends com.gs.dmn.signavio.runtime.Default
     public GenerateTemporalObjects() {
     }
 
+    @java.lang.Override()
     public type.GenerateTemporalObjects apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("day"), input_.get("hour"), input_.get("minute"), input_.get("month"), input_.get("second"), input_.get("year"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

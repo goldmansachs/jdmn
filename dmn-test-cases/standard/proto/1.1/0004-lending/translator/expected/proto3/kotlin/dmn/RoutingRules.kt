@@ -15,7 +15,16 @@ import java.util.stream.Collectors
 class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    public fun apply(postBureauRiskCategory: String?, postBureauAffordability: Boolean?, bankrupt: Boolean?, creditScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
+    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
+        try {
+            return apply(input_.get("'Post-bureauRiskCategory'"), input_.get("'Post-bureauAffordability'")?.let({ it.toBoolean() }), input_.get("Bankrupt")?.let({ it.toBoolean() }), input_.get("CreditScore")?.let({ number(it) }), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+        } catch (e: Exception) {
+            logError("Cannot apply decision 'RoutingRules'", e)
+            return null
+        }
+    }
+
+    fun apply(postBureauRiskCategory: String?, postBureauAffordability: Boolean?, bankrupt: Boolean?, creditScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         try {
             // Start BKM 'RoutingRules'
             val routingRulesStartTime_ = System.currentTimeMillis()

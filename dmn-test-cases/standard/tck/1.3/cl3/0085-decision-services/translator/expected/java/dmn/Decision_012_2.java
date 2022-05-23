@@ -35,6 +35,7 @@ public class Decision_012_2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         this.decision_012_4 = decision_012_4;
     }
 
+    @java.lang.Override()
     public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("inputData_012_1"), input_.get("inputData_012_2"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

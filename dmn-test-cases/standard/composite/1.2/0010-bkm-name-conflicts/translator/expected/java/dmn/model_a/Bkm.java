@@ -34,7 +34,7 @@ public class Bkm extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private Bkm() {
     }
 
-
+    @java.lang.Override()
     public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("x") != null ? number(input_.get("x")) : null), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

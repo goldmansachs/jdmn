@@ -26,6 +26,7 @@ public class Append extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
     public Append() {
     }
 
+    @java.lang.Override()
     public List<String> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("rgb1"), input_.get("rgb2"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

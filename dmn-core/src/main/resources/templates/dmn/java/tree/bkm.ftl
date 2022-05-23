@@ -49,18 +49,20 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     private ${javaClassName}() {
     }
 
-
-    <#if transformer.shouldGenerateApplyWithMap(drgElement)>
+    @java.lang.Override()
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureWithMap(drgElement)}) {
+    <#if transformer.canGenerateApplyWithMap(drgElement)>
         try {
             return apply(${transformer.drgElementArgumentListWithMap(drgElement)});
         } catch (Exception e) {
             logError("Cannot apply decision '${javaClassName}'", e);
             return null;
         }
+    <#else>
+        throw ${transformer.constructor(transformer.dmnRuntimeExceptionClassName(), "\"Not all arguments can be serialized\"")};
+    </#if>
     }
 
-    </#if>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignature(drgElement)}) {
         <@applyMethodBody drgElement />
     }

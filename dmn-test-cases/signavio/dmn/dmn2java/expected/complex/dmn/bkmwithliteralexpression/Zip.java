@@ -37,6 +37,7 @@ public class Zip extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         this.removeall = removeall;
     }
 
+    @java.lang.Override()
     public List<type.Zip> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("blacklist"), input_.get("ListOfNumbers"), input_.get("names"), input_.get("rgb1"), input_.get("rgb1 list"), input_.get("rgb2"), input_.get("rgb2 list"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

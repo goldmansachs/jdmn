@@ -79,7 +79,16 @@ public class BasicSignavioDMNToKotlinTransformer extends BasicSignavioDMNToJavaT
     }
 
     @Override
+    public String drgElementSignatureWithMap(TDRGElement element) {
+        return String.format("%s: %s, %s: %s", inputVariableName(), inputClassName(), executionContextVariableName(), executionContextClassName());
+    }
+
+    @Override
     public String lazyEvaluation(String elementName, String nativeName) {
         return isLazyEvaluated(elementName) ? String.format("%s?.getOrCompute()", nativeName) : nativeName;
+    }
+
+    protected String inputClassName() {
+        return "MutableMap<String, String>";
     }
 }

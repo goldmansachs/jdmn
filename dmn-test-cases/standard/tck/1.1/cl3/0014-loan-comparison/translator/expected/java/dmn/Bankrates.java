@@ -26,6 +26,7 @@ public class Bankrates extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public Bankrates() {
     }
 
+    @java.lang.Override()
     public List<type.TLoanProduct> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

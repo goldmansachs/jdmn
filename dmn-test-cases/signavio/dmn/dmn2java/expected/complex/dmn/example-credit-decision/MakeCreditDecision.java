@@ -33,6 +33,7 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
         this.compareAgainstLendingThreshold = compareAgainstLendingThreshold;
     }
 
+    @java.lang.Override()
     public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("Applicant"), input_.get("Current risk appetite"), input_.get("Lending threshold"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

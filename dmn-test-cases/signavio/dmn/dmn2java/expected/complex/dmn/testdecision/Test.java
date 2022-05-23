@@ -26,6 +26,7 @@ public class Test extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
     public Test() {
     }
 
+    @java.lang.Override()
     public List<String> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("StringInput"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

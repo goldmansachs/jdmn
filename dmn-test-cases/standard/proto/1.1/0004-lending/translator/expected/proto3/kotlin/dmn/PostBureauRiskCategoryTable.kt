@@ -15,7 +15,16 @@ import java.util.stream.Collectors
 class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    public fun apply(existingCustomer: Boolean?, applicationRiskScore: java.math.BigDecimal?, creditScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
+    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
+        try {
+            return apply(input_.get("ExistingCustomer")?.let({ it.toBoolean() }), input_.get("ApplicationRiskScore")?.let({ number(it) }), input_.get("CreditScore")?.let({ number(it) }), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+        } catch (e: Exception) {
+            logError("Cannot apply decision 'PostBureauRiskCategoryTable'", e)
+            return null
+        }
+    }
+
+    fun apply(existingCustomer: Boolean?, applicationRiskScore: java.math.BigDecimal?, creditScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         try {
             // Start BKM ''Post-bureauRiskCategoryTable''
             val postBureauRiskCategoryTableStartTime_ = System.currentTimeMillis()

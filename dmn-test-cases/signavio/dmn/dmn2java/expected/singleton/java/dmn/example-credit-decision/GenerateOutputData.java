@@ -44,6 +44,7 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
         this.makeCreditDecision = makeCreditDecision;
     }
 
+    @java.lang.Override()
     public List<type.GenerateOutputData> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("Applicant"), input_.get("Current risk appetite"), input_.get("Lending threshold"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

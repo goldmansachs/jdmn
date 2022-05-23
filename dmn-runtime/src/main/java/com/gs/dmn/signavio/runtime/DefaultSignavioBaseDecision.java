@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.signavio.runtime;
 
+import com.gs.dmn.runtime.ExecutionContext;
 import com.gs.dmn.runtime.annotation.AnnotationTarget;
 import com.gs.dmn.runtime.annotation.DRGElement;
 import com.gs.dmn.runtime.annotation.Rule;
@@ -21,11 +22,17 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.util.Map;
 
 public class DefaultSignavioBaseDecision extends DefaultSignavioLib
         implements SignavioDecision<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration>,
         AnnotationTarget
 {
+    @Override
+    public Object apply(Map<String, String> input_, ExecutionContext context_) {
+        return null;
+    }
+
     @Override
     public DRGElement getDRGElementAnnotation() {
         return this.getClass().getAnnotation(DRGElement.class);

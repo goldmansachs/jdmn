@@ -33,6 +33,7 @@ public class ImportedLogicTime extends com.gs.dmn.signavio.runtime.DefaultSignav
     private ImportedLogicTime() {
     }
 
+    @java.lang.Override()
     public List<String> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("time") != null ? time(input_.get("time")) : null), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

@@ -26,6 +26,7 @@ public class ProcessL2 extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
     public ProcessL2() {
     }
 
+    @java.lang.Override()
     public java.math.BigDecimal apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("L1"), input_.get("L2"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

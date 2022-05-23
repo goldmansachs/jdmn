@@ -26,6 +26,7 @@ public class DependentDecision1 extends com.gs.dmn.signavio.runtime.DefaultSigna
     public DependentDecision1() {
     }
 
+    @java.lang.Override()
     public type.DependentDecision1 apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("DD1 Text Input"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

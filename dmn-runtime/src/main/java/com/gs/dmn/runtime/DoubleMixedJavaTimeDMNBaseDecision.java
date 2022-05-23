@@ -22,8 +22,14 @@ import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
+import java.util.Map;
 
 public class DoubleMixedJavaTimeDMNBaseDecision extends DoubleMixedJavaTimeFEELLib implements DMNDecision<Double, LocalDate, OffsetTime, ZonedDateTime, Duration>, AnnotationTarget {
+    @Override
+    public Object apply(Map<String, String> input_, ExecutionContext context_) {
+        return null;
+    }
+
     @Override
     public DRGElement getDRGElementAnnotation() {
         return this.getClass().getAnnotation(DRGElement.class);

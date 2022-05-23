@@ -12,5 +12,8 @@
  */
 package com.gs.dmn.runtime;
 
+import java.util.Map;
+
 public interface DMNDecision<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+    Object apply(Map<String, String> input_, ExecutionContext context_);
 }

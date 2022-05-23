@@ -26,6 +26,7 @@ public class MonthlyPayment extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public MonthlyPayment() {
     }
 
+    @java.lang.Override()
     public java.math.BigDecimal apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("Loan"), input_.get("fee"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

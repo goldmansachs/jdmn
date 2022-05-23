@@ -26,6 +26,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     public Compile() {
     }
 
+    @java.lang.Override()
     public List<type.Compile> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("name"), input_.get("numbers"), input_.get("Traffic Light"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

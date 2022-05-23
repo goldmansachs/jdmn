@@ -26,6 +26,7 @@ public class Removeall2 extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     public Removeall2() {
     }
 
+    @java.lang.Override()
     public List<String> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("rgb1"), input_.get("rgb1 list"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());

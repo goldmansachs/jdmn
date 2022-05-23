@@ -33,6 +33,7 @@ public class FetchForexRate extends com.gs.dmn.signavio.runtime.DefaultSignavioB
         this.isForexRateRequired = isForexRateRequired;
     }
 
+    @java.lang.Override()
     public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("DerivativeType"), input_.get("TaxChargeType"), input_.get("Transaction"), input_.get("TransactionTaxMetaData"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
