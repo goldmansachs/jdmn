@@ -11,15 +11,12 @@ package ${javaPackageName};
 import java.util.Map;
 
 /**
- * Handler for requests to Lambda function for element '${repository.name(element)}' in model '${modelName}'.
+ * Handler for requests to Lambda function for DRG elements in model '${modelName}'.
  */
 public class ${javaClassName} implements com.amazonaws.services.lambda.runtime.RequestHandler<Map<String, String>, Object> {
-    <#assign elementQName = transformer.qualifiedName(element) >
-    <#if transformer.isSingletonDecision()>
-    private final ${elementQName} ${transformer.namedElementVariableName(element)} = ${transformer.singletonDecisionInstance(elementQName)};
-    <#else>
-    private final ${elementQName} ${transformer.namedElementVariableName(element)} = ${transformer.defaultConstructor(elementQName)};
-    </#if>
+    <#assign executorClassName = transformer.executorClassName() />
+    <#assign registryClassName = "ModelElementRegistry" />
+    private static final ${executorClassName} EXECUTOR = ${transformer.constructor(executorClassName, transformer.defaultConstructor(registryClassName))};
 
     public Object handleRequest(Map<String, String> ${eventVariable}, com.amazonaws.services.lambda.runtime.Context ${contextVariable}) {
         // Parameters
@@ -34,24 +31,31 @@ public class ${javaClassName} implements com.amazonaws.services.lambda.runtime.R
         // ------
         //     Map<String, String>: Object containing details of the event
 
-        <#assign inputDataReferenceList = transformer.inputDataClosure(repository.makeDRGElementReference(element)) />
-        <#list inputDataReferenceList as reference>
-        String ${transformer.namedElementVariableName(reference.element)} = ${eventVariable}.get("${repository.name(reference.element)}");
-        </#list>
+        com.amazonaws.services.lambda.runtime.LambdaLogger logger = ${contextVariable}.getLogger();
+
+        String elementName = ${eventVariable}.get("_element");
         boolean ${traceVariable} = Boolean.parseBoolean(${eventVariable}.get("_trace"));
+        logger.log(String.format("Executing element '%s'", elementName));
+        try {
+            // Prepare execution context
+            ${transformer.annotationSetClassName()} annotations_ = ${transformer.defaultConstructor(transformer.annotationSetClassName())};
+            ${transformer.eventListenerClassName()} listener_ = ${traceVariable} ? ${transformer.defaultConstructor(transformer.treeTraceEventListenerClassName())} : ${transformer.defaultConstructor(transformer.defaultEventListenerClassName())};
+            ${transformer.externalExecutorClassName()} executor_ = ${transformer.defaultConstructor(transformer.defaultExternalExecutorClassName())};
+            ${transformer.cacheInterfaceName()} cache_ = ${transformer.defaultConstructor(transformer.defaultCacheClassName())};
+            ${transformer.executionContextClassName()} executionContext_ = ${transformer.constructor(transformer.executionContextClassName(), "annotations_, listener_, executor_, cache_")};
 
-        ${transformer.annotationSetClassName()} ${transformer.annotationSetVariableName()} = ${transformer.defaultConstructor(transformer.annotationSetClassName())};
-        ${transformer.eventListenerClassName()} ${transformer.eventListenerVariableName()} = ${traceVariable} ? ${transformer.defaultConstructor(transformer.treeTraceEventListenerClassName())} : ${transformer.defaultConstructor(transformer.defaultEventListenerClassName())};
-        ${transformer.externalExecutorClassName()} ${transformer.externalExecutorVariableName()} = ${transformer.defaultConstructor(transformer.defaultExternalExecutorClassName())};
-        ${transformer.cacheInterfaceName()} ${transformer.cacheVariableName()} = ${transformer.defaultConstructor(transformer.defaultCacheClassName())};
-        ${transformer.drgElementOutputType(element)} ${outputVariable} = ${transformer.namedElementVariableName(element)}.apply(${transformer.drgElementArgumentList(element)});
+            // Execute element
+            Object output_ = EXECUTOR.execute(elementName, event_, executionContext_);
 
-        java.util.Map<String, Object> ${resultVariable} = new java.util.LinkedHashMap<>();
-        ${resultVariable}.put("${repository.name(element)}", ${outputVariable});
-        if (${traceVariable}) {
-            ${resultVariable}.put("_explain", ((${transformer.treeTraceEventListenerClassName()}) eventListener_).getRoot());
+            // Return response
+            Map<String, Object> response_ = new java.util.LinkedHashMap<>();
+            response_.put(elementName, output_);
+            if (trace_) {
+                response_.put("_explain", ((${transformer.treeTraceEventListenerClassName()}) listener_).getRoot());
+            }
+            return response_;
+        } catch (Exception e) {
+            throw new IllegalArgumentException(String.format("Error executing DRG Element '%s'", elementName));
         }
-
-        return ${resultVariable};
     }
 }

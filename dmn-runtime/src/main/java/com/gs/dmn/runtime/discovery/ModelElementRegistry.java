@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class ModelElementRegistry {
     private static final Logger LOGGER = LoggerFactory.getLogger(ModelElementRegistry.class);
@@ -40,6 +41,10 @@ public class ModelElementRegistry {
 
     public String discover(String qName) {
         return this.map.get(qName);
+    }
+
+    public Set<String> keys() {
+        return this.map.keySet();
     }
 }
 

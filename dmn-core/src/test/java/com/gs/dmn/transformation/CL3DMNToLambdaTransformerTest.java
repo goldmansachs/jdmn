@@ -77,7 +77,7 @@ public class CL3DMNToLambdaTransformerTest extends AbstractTckDMNToJavaTransform
         );
 
         // Transform
-        File inputFileDirectory = new File(STANDARD_FOLDER, "tck/1.3/cl3/0020-vacation-days/0020-vacation-days.dmn");
+        File inputFileDirectory = new File( "C:\\Work\\Projects\\jdmn-opatrascoiu\\dmn-test-cases\\standard\\tck\\1.3\\cl3\\0020-vacation-days\\0020-vacation-days.dmn");
         File outputFileDirectory = new File("C:/Work/Projects/aws/bpmn-to-aws-examples/dmn-lambda/");
         transformer.transformFile(inputFileDirectory, null, outputFileDirectory.toPath());
     }

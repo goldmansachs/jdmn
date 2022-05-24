@@ -9,6 +9,17 @@ Description: >
 Globals:
   Function:
     Timeout: 50
+    Runtime: java11
+    MemorySize: 512
+    # Integration with AWS X-Ray https://docs.aws.amazon.com/lambda/latest/dg/java-tracing.html
+    Tracing: Active
+    AutoPublishAlias: live
+    DeploymentPreference:
+      Type: AllAtOnce
+    # https://docs.aws.amazon.com/lambda/latest/dg/configuration-concurrency.html
+    # https://aws.amazon.com/blogs/aws/new-provisioned-concurrency-for-lambda-functions/
+    ProvisionedConcurrencyConfig:
+      ProvisionedConcurrentExecutions: 5
 
 Resources:
 <#list functionResources as r>

@@ -34,6 +34,9 @@ public class Executor {
         DMNDecision dmnDecision = map.get(qName);
         if (dmnDecision == null) {
             String clsName = registry.discover(qName);
+            if (clsName == null) {
+                throw new DMNRuntimeException(String.format("Element %s is not registered in %s", qName, registry.keys()));
+            }
             try {
                 dmnDecision = (DMNDecision) Class.forName(clsName).getConstructor().newInstance();
             } catch (Exception e) {

@@ -1121,6 +1121,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
+    public String executorClassName() {
+        return Executor.class.getName();
+    }
+
+    @Override
     public String registryClassName() {
         return ModelElementRegistry.class.getName();
     }
@@ -1133,7 +1138,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         return "input_";
     }
 
-    protected String executionContextClassName() {
+    @Override
+    public String executionContextClassName() {
         return ExecutionContext.class.getName();
     }
 

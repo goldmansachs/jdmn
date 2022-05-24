@@ -9,14 +9,25 @@ Description: >
 Globals:
   Function:
     Timeout: 50
+    Runtime: java11
+    MemorySize: 512
+    # Integration with AWS X-Ray https://docs.aws.amazon.com/lambda/latest/dg/java-tracing.html
+    Tracing: Active
+    AutoPublishAlias: live
+    DeploymentPreference:
+      Type: AllAtOnce
+    # https://docs.aws.amazon.com/lambda/latest/dg/configuration-concurrency.html
+    # https://aws.amazon.com/blogs/aws/new-provisioned-concurrency-for-lambda-functions/
+    ProvisionedConcurrencyConfig:
+      ProvisionedConcurrentExecutions: 5
 
 Resources:
-  BaseVacationDaysLambda:
+  F0020VacationDaysLambda:
     Type: AWS::Serverless::Function # More info about Function Resource: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
     Properties:
-      FunctionName: BaseVacationDaysLambda
+      FunctionName: F0020VacationDaysLambda
       CodeUri: f0020vacationdays
-      Handler: .BaseVacationDaysLambda::handleRequest
+      Handler: .F0020VacationDaysLambda::handleRequest
       Runtime: java11
       MemorySize: 512
       Tracing: Active # Tracing https://docs.aws.amazon.com/lambda/latest/dg/java-tracing.html
@@ -24,139 +35,23 @@ Resources:
         Variables:
           PARAM1: VALUE
       Events:
-        BaseVacationDaysLambda:
+        F0020VacationDaysLambda:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /apply/f-base-vacation-days
-            Method: get
-
-  ExtraDaysCase1Lambda:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
-    Properties:
-      FunctionName: ExtraDaysCase1Lambda
-      CodeUri: f0020vacationdays
-      Handler: .ExtraDaysCase1Lambda::handleRequest
-      Runtime: java11
-      MemorySize: 512
-      Tracing: Active # Tracing https://docs.aws.amazon.com/lambda/latest/dg/java-tracing.html
-      Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
-        Variables:
-          PARAM1: VALUE
-      Events:
-        ExtraDaysCase1Lambda:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-          Properties:
-            Path: /apply/f-extra-days-case-1
-            Method: get
-
-  ExtraDaysCase2Lambda:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
-    Properties:
-      FunctionName: ExtraDaysCase2Lambda
-      CodeUri: f0020vacationdays
-      Handler: .ExtraDaysCase2Lambda::handleRequest
-      Runtime: java11
-      MemorySize: 512
-      Tracing: Active # Tracing https://docs.aws.amazon.com/lambda/latest/dg/java-tracing.html
-      Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
-        Variables:
-          PARAM1: VALUE
-      Events:
-        ExtraDaysCase2Lambda:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-          Properties:
-            Path: /apply/f-extra-days-case-2
-            Method: get
-
-  ExtraDaysCase3Lambda:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
-    Properties:
-      FunctionName: ExtraDaysCase3Lambda
-      CodeUri: f0020vacationdays
-      Handler: .ExtraDaysCase3Lambda::handleRequest
-      Runtime: java11
-      MemorySize: 512
-      Tracing: Active # Tracing https://docs.aws.amazon.com/lambda/latest/dg/java-tracing.html
-      Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
-        Variables:
-          PARAM1: VALUE
-      Events:
-        ExtraDaysCase3Lambda:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-          Properties:
-            Path: /apply/f-extra-days-case-3
-            Method: get
-
-  TotalVacationDaysLambda:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
-    Properties:
-      FunctionName: TotalVacationDaysLambda
-      CodeUri: f0020vacationdays
-      Handler: .TotalVacationDaysLambda::handleRequest
-      Runtime: java11
-      MemorySize: 512
-      Tracing: Active # Tracing https://docs.aws.amazon.com/lambda/latest/dg/java-tracing.html
-      Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
-        Variables:
-          PARAM1: VALUE
-      Events:
-        TotalVacationDaysLambda:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-          Properties:
-            Path: /apply/f-total-vacation-days
+            Path: /apply/f0020-vacation-days
             Method: get
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  BaseVacationDaysLambdaApi:
-    Description: "API Gateway endpoint URL for Prod stage for BaseVacationDaysLambda"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/apply/f-base-vacation-days"
-  BaseVacationDaysLambda:
-    Description: "ARN of BaseVacationDaysLambda"
-    Value: !GetAtt BaseVacationDaysLambda.Arn
-  BaseVacationDaysLambdaIamRole:
-    Description: "Implicit IAM Role created for BaseVacationDaysLambda"
-    Value: !GetAtt BaseVacationDaysLambdaRole.Arn
-
-  ExtraDaysCase1LambdaApi:
-    Description: "API Gateway endpoint URL for Prod stage for ExtraDaysCase1Lambda"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/apply/f-extra-days-case-1"
-  ExtraDaysCase1Lambda:
-    Description: "ARN of ExtraDaysCase1Lambda"
-    Value: !GetAtt ExtraDaysCase1Lambda.Arn
-  ExtraDaysCase1LambdaIamRole:
-    Description: "Implicit IAM Role created for ExtraDaysCase1Lambda"
-    Value: !GetAtt ExtraDaysCase1LambdaRole.Arn
-
-  ExtraDaysCase2LambdaApi:
-    Description: "API Gateway endpoint URL for Prod stage for ExtraDaysCase2Lambda"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/apply/f-extra-days-case-2"
-  ExtraDaysCase2Lambda:
-    Description: "ARN of ExtraDaysCase2Lambda"
-    Value: !GetAtt ExtraDaysCase2Lambda.Arn
-  ExtraDaysCase2LambdaIamRole:
-    Description: "Implicit IAM Role created for ExtraDaysCase2Lambda"
-    Value: !GetAtt ExtraDaysCase2LambdaRole.Arn
-
-  ExtraDaysCase3LambdaApi:
-    Description: "API Gateway endpoint URL for Prod stage for ExtraDaysCase3Lambda"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/apply/f-extra-days-case-3"
-  ExtraDaysCase3Lambda:
-    Description: "ARN of ExtraDaysCase3Lambda"
-    Value: !GetAtt ExtraDaysCase3Lambda.Arn
-  ExtraDaysCase3LambdaIamRole:
-    Description: "Implicit IAM Role created for ExtraDaysCase3Lambda"
-    Value: !GetAtt ExtraDaysCase3LambdaRole.Arn
-
-  TotalVacationDaysLambdaApi:
-    Description: "API Gateway endpoint URL for Prod stage for TotalVacationDaysLambda"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/apply/f-total-vacation-days"
-  TotalVacationDaysLambda:
-    Description: "ARN of TotalVacationDaysLambda"
-    Value: !GetAtt TotalVacationDaysLambda.Arn
-  TotalVacationDaysLambdaIamRole:
-    Description: "Implicit IAM Role created for TotalVacationDaysLambda"
-    Value: !GetAtt TotalVacationDaysLambdaRole.Arn
+  F0020VacationDaysLambdaApi:
+    Description: "API Gateway endpoint URL for Prod stage for F0020VacationDaysLambda"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/apply/f0020-vacation-days"
+  F0020VacationDaysLambda:
+    Description: "ARN of F0020VacationDaysLambda"
+    Value: !GetAtt F0020VacationDaysLambda.Arn
+  F0020VacationDaysLambdaIamRole:
+    Description: "Implicit IAM Role created for F0020VacationDaysLambda"
+    Value: !GetAtt F0020VacationDaysLambdaRole.Arn
 

@@ -294,7 +294,11 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String contextClassName();
 
+    String executorClassName();
+
     String registryClassName();
+
+    String executionContextClassName();
 
     String annotationSetClassName();
 
