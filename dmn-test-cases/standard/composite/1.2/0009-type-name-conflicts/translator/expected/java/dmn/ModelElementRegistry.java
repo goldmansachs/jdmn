@@ -1,9 +1,8 @@
 
-
 public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElementRegistry {
     public ModelElementRegistry() {
-        register("AA", "Aa");
-        register("BA", "Ba");
-        register("C", "C");
+        register("http://www.provider.com/definitions/model-c#AA", "Aa");
+        register("http://www.provider.com/definitions/model-c#BA", "Ba");
+        register("http://www.provider.com/definitions/model-c#C", "C");
     }
 }

@@ -1,5 +1,4 @@
 
-
 public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElementRegistry {
     public ModelElementRegistry() {
         register("decisionService_001", "DecisionService_001");

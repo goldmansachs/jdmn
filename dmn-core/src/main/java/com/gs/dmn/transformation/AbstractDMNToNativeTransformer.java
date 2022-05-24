@@ -106,10 +106,10 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
 
             // Generate .proto file
             generateProtoFile(definitions, dmnTransformer, outputPath);
-
-            // Generate registry
-            generateRegistry(definitions, dmnModelRepository.findDRGElements(definitions), dmnTransformer, outputPath);
         }
+
+        // Generate registry
+        generateRegistry(dmnModelRepository.getAllDefinitions(), dmnTransformer, outputPath);
     }
 
     private void transformItemDefinitionList(TDefinitions definitions, List<TItemDefinition> itemDefinitionList, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath) {
@@ -169,24 +169,24 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
             Map<String, Object> params = makeProtoTemplateParams(pair.getLeft(), pair.getRight(), modelPackageName, dmnTransformer);
             processTemplate(this.templateProvider.baseTemplatePath(), "common/proto.ftl", params, outputFile, false);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error generation .proto file for model '%s'", definitions.getName()), e);
+            throw new DMNRuntimeException(String.format("Error when generating .proto file for model '%s'", definitions.getName()), e);
         }
     }
 
-    private void generateRegistry(TDefinitions definitions, List<TDRGElement> drgElements, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath) {
+    private void generateRegistry(List<TDefinitions> definitionsList, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath) {
         try {
             // Make output file
             String registryClassName = REGISTRY_CLASS_NAME;
-            String modelPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
+            String modelPackageName = dmnTransformer.nativeRootPackageName();
             String relativeFilePath = modelPackageName.replace('.', '/');
             String fileExtension = getFileExtension();
             File outputFile = makeOutputFile(outputPath, relativeFilePath, registryClassName, fileExtension);
 
             // Make parameters
-            Map<String, Object> params = makeModelRegistryTemplateParams(drgElements, modelPackageName, registryClassName, dmnTransformer);
+            Map<String, Object> params = makeModelRegistryTemplateParams(definitionsList, modelPackageName, registryClassName, dmnTransformer);
             processTemplate(this.templateProvider.baseTemplatePath(), "common/registry.ftl", params, outputFile, false);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error generation registry file for model '%s'", definitions.getName()), e);
+            throw new DMNRuntimeException("Error when generating registry file for model(s)", e);
         }
 
     }
@@ -351,9 +351,9 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         return params;
     }
 
-    private Map<String, Object> makeModelRegistryTemplateParams(List<TDRGElement> drgElements, String javaPackageName, String javaClassName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
+    private Map<String, Object> makeModelRegistryTemplateParams(List<TDefinitions> definitionsList, String javaPackageName, String javaClassName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         Map<String, Object> params = new HashMap<>();
-        params.put("drgElements", drgElements);
+        params.put("definitionsList", definitionsList);
         addCommonParams(params, javaPackageName, javaClassName, dmnTransformer);
         return params;
     }

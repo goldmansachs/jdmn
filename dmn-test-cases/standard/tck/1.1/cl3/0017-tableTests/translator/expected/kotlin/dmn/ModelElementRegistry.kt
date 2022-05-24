@@ -1,5 +1,4 @@
 
-
 class ModelElementRegistry : com.gs.dmn.runtime.discovery.ModelElementRegistry {
     constructor() {
         register("dateCompare1", "DateCompare1")

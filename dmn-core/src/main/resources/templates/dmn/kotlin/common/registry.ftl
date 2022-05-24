@@ -10,18 +10,22 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations under the License.
 -->
-<#macro addRegistryEntries drgElements>
-<#list drgElements as element>
-        register("${modelRepository.displayName(element)}", "${transformer.qualifiedName(element)}")
-</#list>
-</#macro>
-
 <#if javaPackageName?has_content>
 package ${javaPackageName}
 </#if>
 
 class ${javaClassName} : ${transformer.registryClassName()} {
     constructor() {
-        <@addRegistryEntries drgElements />
+        <@addRegistryEntries definitionsList />
     }
 }
+<#--
+    Add registry entries
+-->
+<#macro addRegistryEntries definitionsList>
+<#list definitionsList as definitions>
+    <#list modelRepository.findDRGElements(definitions) as element>
+        register("${modelRepository.displayName(element)}", "${transformer.qualifiedName(element)}")
+    </#list>
+</#list>
+</#macro>

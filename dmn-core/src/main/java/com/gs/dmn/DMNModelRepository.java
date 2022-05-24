@@ -1106,6 +1106,16 @@ public class DMNModelRepository {
         return name.trim();
     }
 
+    public String registryId(TDRGElement element) {
+        if (this.allDefinitions.size() == 1) {
+            return displayName(element);
+        } else {
+            TDefinitions model = this.getModel(element);
+            String modelId = model.getNamespace();
+            return String.format("%s#%s", modelId, displayName(element));
+        }
+    }
+
     public String findChildImportName(TDRGElement parent, TDRGElement child) {
         // Collect references
         List<TDMNElementReference> references = new ArrayList<>();
