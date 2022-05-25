@@ -13,12 +13,12 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class Date() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    fun apply(inputDate: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): javax.xml.datatype.XMLGregorianCalendar? {
-        return try {
-            apply(inputDate?.let({ date(it) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
+    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): javax.xml.datatype.XMLGregorianCalendar? {
+        try {
+            return apply(input_.get("InputDate"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
         } catch (e: Exception) {
             logError("Cannot apply decision 'Date'", e)
-            null
+            return null
         }
     }
 
@@ -29,10 +29,6 @@ class Date() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             logError("Cannot apply decision 'Date'", e)
             null
         }
-    }
-
-    fun apply(inputDate: javax.xml.datatype.XMLGregorianCalendar?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): javax.xml.datatype.XMLGregorianCalendar? {
-        return apply(inputDate, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
     fun apply(inputDate: javax.xml.datatype.XMLGregorianCalendar?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): javax.xml.datatype.XMLGregorianCalendar? {
@@ -54,10 +50,6 @@ class Date() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             logError("Exception caught in 'Date' evaluation", e)
             return null
         }
-    }
-
-    fun apply(dateRequest_: proto.DateRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): proto.DateResponse {
-        return apply(dateRequest_, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
     fun apply(dateRequest_: proto.DateRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.DateResponse {

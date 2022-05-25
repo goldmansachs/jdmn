@@ -92,15 +92,15 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String getter(TItemDefinition itemDefinition);
 
-    String setter(TItemDefinition itemDefinition);
+    String setter(TItemDefinition itemDefinition, String args);
 
     String protoGetter(TItemDefinition itemDefinition);
 
     String protoGetter(TDRGElement drgElement);
 
-    String protoSetter(TItemDefinition itemDefinition);
+    String protoSetter(TItemDefinition itemDefinition, String args);
 
-    String protoSetter(TDRGElement drgElement);
+    String protoSetter(TDRGElement drgElement, String args);
 
     //
     // Native factory methods
@@ -122,6 +122,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String drgElementOutputType(TDRGElement element);
 
+    String drgElementOutputInterfaceName(TDRGElement element);
+
     String drgElementOutputClassName(TDRGElement element);
 
     Type drgElementOutputFEELType(TDRGElement element);
@@ -140,13 +142,21 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     List<Pair<String, Type>> drgElementTypeSignature(TDRGElement element);
 
+    boolean canGenerateApplyWithMap(TDRGElement element);
+
+    String drgElementSignatureWithMap(TDRGElement element);
+
     String drgElementSignature(TDRGElement element);
 
     String drgElementSignature(DRGElementReference<? extends TDRGElement> reference);
 
+    List<Pair<String, String>> drgElementSignatureParameters(TDRGElement element);
+
     List<Pair<String, String>> drgElementSignatureParameters(DRGElementReference<? extends TDRGElement> reference);
 
-    List<Pair<String, String>> drgElementSignatureExtraCacheParameters(TDRGElement element);
+    String drgElementArgumentListWithMap(TDRGElement element);
+
+    String drgElementArgumentListWithMap(DRGElementReference<? extends TDRGElement> reference);
 
     String drgElementArgumentList(TDRGElement element);
 
@@ -166,19 +176,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     boolean shouldGenerateApplyWithConversionFromString(TDRGElement element);
 
-    String drgElementSignatureExtraCacheWithConversionFromString(TDRGElement element);
-
-    String drgElementSignatureExtraWithConversionFromString(TDRGElement element);
-
     String drgElementSignatureWithConversionFromString(TDRGElement element);
-
-    String drgElementArgumentListExtraCacheWithConversionFromString(TDRGElement element);
-
-    String drgElementArgumentListExtraCacheWithConvertedArgumentList(TDRGElement element);
-
-    String drgElementDefaultArgumentListExtraCacheWithConversionFromString(TDRGElement element);
-
-    String drgElementDefaultArgumentListExtraCache(TDRGElement element);
 
     String drgElementArgumentListWithConversionFromString(TDRGElement element);
 
@@ -296,6 +294,12 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String contextClassName();
 
+    String executorClassName();
+
+    String registryClassName();
+
+    String executionContextClassName();
+
     String annotationSetClassName();
 
     String annotationSetVariableName();
@@ -322,22 +326,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String defaultCacheClassName();
 
-    String drgElementSignatureExtra(DRGElementReference<? extends TDRGElement> reference);
-
-    String drgElementSignatureExtra(TDRGElement element);
-
-    String drgElementSignatureExtra(String signature);
-
-    List<Pair<String, String>> drgElementSignatureExtraParameters(List<Pair<String, String>> signature);
-
-    String drgElementArgumentListExtra(DRGElementReference<? extends TDRGElement> reference);
-
-    String drgElementArgumentListExtra(TDRGElement element);
-
-    String drgElementArgumentListExtra(String arguments);
-
-    String drgElementDefaultArgumentListExtra(String arguments);
-
     boolean isCaching();
 
     boolean isCached(String elementName);
@@ -345,22 +333,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
     boolean isParallelStream();
 
     String getStream();
-
-    String drgElementSignatureExtraCache(DRGElementReference<? extends TDRGElement> reference);
-
-    String drgElementSignatureExtraCache(TDRGElement element);
-
-    String drgElementSignatureExtraCache(String signature);
-
-    List<Pair<String, String>> drgElementSignatureExtraCacheParameters(List<Pair<String, String>> signature);
-
-    String drgElementArgumentListExtraCache(DRGElementReference<? extends TDRGElement> reference);
-
-    String drgElementArgumentListExtraCache(TDRGElement element);
-
-    String drgElementArgumentListExtraCache(String arguments);
-
-    String drgElementDefaultArgumentListExtraCache(String arguments);
 
     String drgElementAnnotationClassName();
 
@@ -397,15 +369,19 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String outputClausePriorityVariableName(TDRGElement element, TOutputClause outputClause);
 
-    String getter(TDRGElement element, TOutputClause output);
+    String outputClauseGetter(TDRGElement element, TOutputClause output);
 
-    String setter(TDRGElement element, TOutputClause output);
+    String drgElementOutputGetter(TDRGElement element, TOutputClause output);
 
-    Integer priority(TDRGElement element, TLiteralExpression literalExpression, int outputIndex);
+    String outputClauseSetter(TDRGElement element, TOutputClause output, String args);
 
-    String priorityGetter(TDRGElement element, TOutputClause output);
+    String drgElementOutputSetter(TDRGElement element, TOutputClause output, String args);
 
-    String prioritySetter(TDRGElement element, TOutputClause output);
+    Integer outputClausePriority(TDRGElement element, TLiteralExpression literalExpression, int outputIndex);
+
+    String outputClausePriorityGetter(TDRGElement element, TOutputClause output);
+
+    String outputClausePrioritySetter(TDRGElement element, TOutputClause output, String args);
 
     HitPolicy hitPolicy(TDRGElement element);
 
@@ -495,7 +471,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String getter(String name);
 
-    String setter(String name);
+    String setter(String name, String args);
 
     String contextGetter(String name);
 
@@ -555,13 +531,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String drgElementSignatureProto(TDRGElement element);
 
-    String drgElementSignatureExtraCacheProto(TDRGElement element);
-
-    String drgElementArgumentListExtraCacheProto(TDRGElement element);
-
     String drgElementArgumentListProto(TDRGElement element);
-
-    String drgElementDefaultArgumentListExtraCacheProto(TDRGElement element);
 
     String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child, boolean staticContext);
 
@@ -677,8 +647,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
                 RuntimeEnvironment.of());
         List<TInformationItem> formalParameterList = functionDefinition.getFormalParameter();
         TDefinitions model = getDMNModelRepository().getModel(parentContext.getElement());
-        for (int i = 0; i < formalParameterList.size(); i++) {
-            TInformationItem param = formalParameterList.get(i);
+        for (TInformationItem param : formalParameterList) {
             String name = param.getName();
             Type type = toFEELType(null, QualifiedName.toQualifiedName(model, param.getTypeRef()));
             functionContext.addDeclaration(getEnvironmentFactory().makeVariableDeclaration(name, type));
@@ -694,8 +663,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
                 getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of());
         List<FormalParameter<Type, DMNContext>> formalParameterList = functionDefinition.getFormalParameters();
-        for (int i = 0; i < formalParameterList.size(); i++) {
-            FormalParameter<Type, DMNContext> param = formalParameterList.get(i);
+        for (FormalParameter<Type, DMNContext> param : formalParameterList) {
             String name = param.getName();
             Type type = param.getType();
             functionContext.addDeclaration(getEnvironmentFactory().makeVariableDeclaration(name, type));

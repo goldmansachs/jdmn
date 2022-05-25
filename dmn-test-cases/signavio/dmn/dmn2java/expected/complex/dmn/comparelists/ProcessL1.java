@@ -26,9 +26,10 @@ public class ProcessL1 extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
     public ProcessL1() {
     }
 
-    public List<java.math.BigDecimal> apply(String l1, String l23, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+    @java.lang.Override()
+    public List<java.math.BigDecimal> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((l1 != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(l1, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (l23 != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(l23, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+            return apply(input_.get("L1"), input_.get("L2"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'ProcessL1'", e);
             return null;
@@ -42,10 +43,6 @@ public class ProcessL1 extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
             logError("Cannot apply decision 'ProcessL1'", e);
             return null;
         }
-    }
-
-    public List<java.math.BigDecimal> apply(List<java.math.BigDecimal> l1, List<java.math.BigDecimal> l23, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(l1, l23, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public List<java.math.BigDecimal> apply(List<java.math.BigDecimal> l1, List<java.math.BigDecimal> l23, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

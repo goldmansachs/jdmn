@@ -33,9 +33,10 @@ public class RankedProducts extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         this.bankrates = bankrates;
     }
 
-    public type.TRankedProducts apply(String requestedAmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+    @java.lang.Override()
+    public type.TRankedProducts apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((requestedAmt != null ? number(requestedAmt) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+            return apply(input_.get("RequestedAmt"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'RankedProducts'", e);
             return null;
@@ -49,10 +50,6 @@ public class RankedProducts extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             logError("Cannot apply decision 'RankedProducts'", e);
             return null;
         }
-    }
-
-    public type.TRankedProducts apply(java.math.BigDecimal requestedAmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(requestedAmt, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public type.TRankedProducts apply(java.math.BigDecimal requestedAmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

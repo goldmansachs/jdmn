@@ -109,7 +109,7 @@
     public com.gs.dmn.runtime.LambdaExpression<${transformer.drgElementOutputType(drgElement)}> lambda =
         new com.gs.dmn.runtime.LambdaExpression<${transformer.drgElementOutputType(drgElement)}>() {
             public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.lambdaApplySignature()}) {
-            <@extractParametersFromArgs transformer.drgElementSignatureExtraCacheParameters(drgElement)/>
+            <@extractParametersFromArgs transformer.drgElementSignatureParameters(drgElement)/>
 
             <@applySubDecisionsIndent "        " drgElement/>
             <#assign expression = modelRepository.expression(drgElement)>
@@ -126,7 +126,7 @@
                     <#if modelRepository.isCompoundDecisionTable(drgElement)>
                     output_ = toDecisionOutput((${transformer.ruleOutputClassName(drgElement)})ruleOutput_);
                     <#else>
-                    output_ = ruleOutput_ == null ? null : ((${transformer.ruleOutputClassName(drgElement)})ruleOutput_).${transformer.getter(drgElement, expression.output[0])};
+                    output_ = ruleOutput_ == null ? null : ((${transformer.ruleOutputClassName(drgElement)})ruleOutput_).${transformer.outputClauseGetter(drgElement, expression.output[0])};
                     </#if>
                 }
 
@@ -147,7 +147,7 @@
                     <#if modelRepository.hasAggregator(expression)>
                     output_ = ${transformer.aggregator(drgElement, expression, expression.output[0], "ruleOutputs_")};
                     <#else>
-                    output_ = ruleOutputs_.stream().map(o -> ((${transformer.ruleOutputClassName(drgElement)})o).${transformer.getter(drgElement, expression.output[0])}).collect(Collectors.toList());
+                    output_ = ruleOutputs_.stream().map(o -> ((${transformer.ruleOutputClassName(drgElement)})o).${transformer.outputClauseGetter(drgElement, expression.output[0])}).collect(Collectors.toList());
                     </#if>
                 </#if>
                 }
@@ -167,7 +167,7 @@
     <#list expression.rule>
         <#items as rule>
     @${transformer.ruleAnnotationClassName()}(index = ${rule_index}, annotation = "${transformer.annotationEscapedText(rule)}")
-    public ${transformer.abstractRuleOutputClassName()} rule${rule_index}(${transformer.drgElementSignatureExtraCache(transformer.drgElementSignatureExtra(transformer.ruleSignature(drgElement)))}) {
+    public ${transformer.abstractRuleOutputClassName()} rule${rule_index}(${transformer.ruleSignature(drgElement)}) {
         // Rule metadata
         ${transformer.drgRuleMetadataClassName()} ${transformer.drgRuleMetadataFieldName()} = new ${transformer.drgRuleMetadataClassName()}(${rule_index}, "${transformer.annotationEscapedText(rule)}");
 
@@ -181,9 +181,9 @@
             // Compute output
             output_.setMatched(true);
             <#list expression.output as output>
-            output_.${transformer.setter(drgElement, output)}(${transformer.outputEntryToNative(drgElement, rule.outputEntry[output_index], output_index)});
-                <#if modelRepository.isOutputOrderHit(expression.hitPolicy) && transformer.priority(drgElement, rule.outputEntry[output_index], output_index)?exists>
-            output_.${transformer.prioritySetter(drgElement, output)}(${transformer.priority(drgElement, rule.outputEntry[output_index], output_index)});
+            output_.${transformer.outputClauseSetter(drgElement, output, "${transformer.outputEntryToNative(drgElement, rule.outputEntry[output_index], output_index)}")};
+                <#if modelRepository.isOutputOrderHit(expression.hitPolicy) && transformer.outputClausePriority(drgElement, rule.outputEntry[output_index], output_index)?exists>
+            output_.${transformer.outputClausePrioritySetter(drgElement, output, "${transformer.outputClausePriority(drgElement, rule.outputEntry[output_index], output_index)}")};
                 </#if>
             </#list>
 
@@ -207,18 +207,18 @@
                 <#items as rule>
                 <#if modelRepository.isFirstSingleHit(expression.hitPolicy) && modelRepository.atLeastTwoRules(expression)>
                 <#if rule?is_first>
-                ${transformer.abstractRuleOutputClassName()} tempRuleOutput_ = rule${rule_index}(${transformer.drgElementArgumentListExtraCache(transformer.drgElementArgumentListExtra(transformer.ruleArgumentList(drgElement)))});
+                ${transformer.abstractRuleOutputClassName()} tempRuleOutput_ = rule${rule_index}(${transformer.ruleArgumentList(drgElement)});
                 ruleOutputList_.add(tempRuleOutput_);
                 boolean matched_ = tempRuleOutput_.isMatched();
                 <#else >
                 if (!matched_) {
-                    tempRuleOutput_ = rule${rule_index}(${transformer.drgElementArgumentListExtraCache(transformer.drgElementArgumentListExtra(transformer.ruleArgumentList(drgElement)))});
+                    tempRuleOutput_ = rule${rule_index}(${transformer.ruleArgumentList(drgElement)});
                     ruleOutputList_.add(tempRuleOutput_);
                     matched_ = tempRuleOutput_.isMatched();
                 }
                 </#if>
                 <#else >
-                ruleOutputList_.add(rule${rule_index}(${transformer.drgElementArgumentListExtraCache(transformer.drgElementArgumentListExtra(transformer.ruleArgumentList(drgElement)))}));
+                ruleOutputList_.add(rule${rule_index}(${transformer.ruleArgumentList(drgElement)}));
                 </#if>
                 </#items>
             </#list>
@@ -226,12 +226,12 @@
 
 <#macro addConversionMethod drgElement>
     <#if modelRepository.isCompoundDecisionTable(drgElement)>
-    public ${transformer.drgElementOutputClassName(drgElement)} toDecisionOutput(${transformer.ruleOutputClassName(drgElement)} ruleOutput_) {
-        <#assign simpleClassName = transformer.itemDefinitionNativeClassName(transformer.drgElementOutputClassName(drgElement))>
-        ${simpleClassName} result_ = ${transformer.defaultConstructor(simpleClassName)};
+    public ${transformer.drgElementOutputInterfaceName(drgElement)} toDecisionOutput(${transformer.ruleOutputClassName(drgElement)} ruleOutput_) {
+        <#assign className = transformer.drgElementOutputClassName(drgElement)>
+        ${className} result_ = ${transformer.defaultConstructor(className)};
         <#assign expression = modelRepository.expression(drgElement)>
         <#list expression.output as output>
-        result_.${transformer.setter(drgElement, output)}(ruleOutput_ == null ? null : ruleOutput_.${transformer.getter(drgElement, output)});
+        result_.${transformer.drgElementOutputSetter(drgElement, output, "ruleOutput_ == null ? null : ruleOutput_.${transformer.outputClauseGetter(drgElement, output)}")};
         </#list>
         return result_;
     }
@@ -250,14 +250,14 @@
                 <@endDRGElementAndReturnIndent "    " drgElement "output_" />
             } else {
                 // ${transformer.evaluateElementCommentText(drgElement)}
-                ${transformer.drgElementOutputType(drgElement)} output_ = lambda.apply(${transformer.drgElementArgumentListExtraCache(drgElement)});
+                ${transformer.drgElementOutputType(drgElement)} output_ = lambda.apply(${transformer.drgElementArgumentList(drgElement)});
                 cache_.bind("${modelRepository.name(drgElement)}", output_);
 
                 <@endDRGElementAndReturnIndent "    " drgElement "output_" />
             }
         <#else>
             // ${transformer.evaluateElementCommentText(drgElement)}
-            ${transformer.drgElementOutputType(drgElement)} output_ = lambda.apply(${transformer.drgElementArgumentListExtraCache(drgElement)});
+            ${transformer.drgElementOutputType(drgElement)} output_ = lambda.apply(${transformer.drgElementArgumentList(drgElement)});
 
             <@endDRGElementAndReturn drgElement "output_" />
         </#if>
@@ -267,7 +267,7 @@
     public com.gs.dmn.runtime.LambdaExpression<${transformer.drgElementOutputType(drgElement)}> lambda =
         new com.gs.dmn.runtime.LambdaExpression<${transformer.drgElementOutputType(drgElement)}>() {
             public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.lambdaApplySignature()}) {
-            <@extractParametersFromArgs transformer.drgElementSignatureExtraCacheParameters(drgElement)/>
+            <@extractParametersFromArgs transformer.drgElementSignatureParameters(drgElement)/>
 
             <@applySubDecisionsIndent "        " drgElement/>
             <#assign stm = transformer.expressionToNative(drgElement)>
@@ -286,7 +286,7 @@
     public com.gs.dmn.runtime.LambdaExpression<${transformer.drgElementOutputType(drgElement)}> lambda =
         new com.gs.dmn.runtime.LambdaExpression<${transformer.drgElementOutputType(drgElement)}>() {
             public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.lambdaApplySignature()}) {
-            <@extractParametersFromArgs transformer.drgElementSignatureExtraCacheParameters(drgElement)/>
+            <@extractParametersFromArgs transformer.drgElementSignatureParameters(drgElement)/>
 
             <@applySubDecisionsIndent "        " drgElement/>
             <#assign stm = transformer.serviceToNative(drgElement)>
@@ -302,7 +302,7 @@
 </#macro>
 
 <#macro extractParametersFromArgs arguments>
-            <#list transformer.drgElementSignatureExtraCacheParameters(drgElement) as argument>
+            <#list transformer.drgElementSignatureParameters(drgElement) as argument>
                 ${transformer.extractParameterFromArgs(argument, argument?index)}
             </#list>
 </#macro>
@@ -319,9 +319,9 @@
         ${extraIndent}// Apply child decisions
         <#items as subDecision>
             <#if transformer.isLazyEvaluated(subDecision)>
-        ${extraIndent}${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.drgElementReferenceVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> ${javaClassName}.this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentListExtraCache(subDecision)}));
+        ${extraIndent}${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.drgElementReferenceVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> ${javaClassName}.this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)}));
             <#else>
-        ${extraIndent}${transformer.drgElementOutputType(subDecision)} ${transformer.drgElementReferenceVariableName(subDecision)} = ${javaClassName}.this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentListExtraCache(subDecision)});
+        ${extraIndent}${transformer.drgElementOutputType(subDecision)} ${transformer.drgElementReferenceVariableName(subDecision)} = ${javaClassName}.this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)});
             </#if>
         </#items>
 

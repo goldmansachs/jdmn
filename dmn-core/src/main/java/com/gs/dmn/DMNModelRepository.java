@@ -62,6 +62,8 @@ public class DMNModelRepository {
 
     public DMNModelRepository(List<TDefinitions> definitionsList) {
         this.definitionsList = definitionsList;
+        // Normalize definitions
+        this.definitionsList.sort(Comparator.comparing((TDefinitions o) -> NameUtils.removeSingleQuotes(o.getName())));
         if (definitionsList != null) {
             for (TDefinitions definitions: definitionsList) {
                 this.allDefinitions.add(definitions);
@@ -1104,6 +1106,16 @@ public class DMNModelRepository {
             throw new DMNRuntimeException(String.format("Display name cannot be null for element '%s'", element.getId()));
         }
         return name.trim();
+    }
+
+    public String registryId(TDRGElement element) {
+        if (this.allDefinitions.size() == 1) {
+            return displayName(element);
+        } else {
+            TDefinitions model = this.getModel(element);
+            String modelId = model.getNamespace();
+            return String.format("%s#%s", modelId, displayName(element));
+        }
     }
 
     public String findChildImportName(TDRGElement parent, TDRGElement child) {

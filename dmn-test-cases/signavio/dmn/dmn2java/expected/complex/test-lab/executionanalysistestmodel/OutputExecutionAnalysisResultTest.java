@@ -9,8 +9,11 @@ public class OutputExecutionAnalysisResultTest extends com.gs.dmn.signavio.runti
     @org.junit.Test
     public void testCase1() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         java.math.BigDecimal inputValue = number("0");
-        List<String> outputExecutionAnalysisResult = this.outputExecutionAnalysisResult.apply(inputValue, annotationSet_);
+        List<String> outputExecutionAnalysisResult = this.outputExecutionAnalysisResult.apply(inputValue, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList(), outputExecutionAnalysisResult);
     }
@@ -18,8 +21,11 @@ public class OutputExecutionAnalysisResultTest extends com.gs.dmn.signavio.runti
     @org.junit.Test
     public void testCase2() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         java.math.BigDecimal inputValue = number("2");
-        List<String> outputExecutionAnalysisResult = this.outputExecutionAnalysisResult.apply(inputValue, annotationSet_);
+        List<String> outputExecutionAnalysisResult = this.outputExecutionAnalysisResult.apply(inputValue, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList("Output1", "Output2"), outputExecutionAnalysisResult);
     }
@@ -27,8 +33,11 @@ public class OutputExecutionAnalysisResultTest extends com.gs.dmn.signavio.runti
     @org.junit.Test
     public void testCase3() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         java.math.BigDecimal inputValue = number("5");
-        List<String> outputExecutionAnalysisResult = this.outputExecutionAnalysisResult.apply(inputValue, annotationSet_);
+        List<String> outputExecutionAnalysisResult = this.outputExecutionAnalysisResult.apply(inputValue, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList("Output1", "Output2", "Output3", "Output4", "Output5"), outputExecutionAnalysisResult);
     }
@@ -36,8 +45,11 @@ public class OutputExecutionAnalysisResultTest extends com.gs.dmn.signavio.runti
     @org.junit.Test
     public void testCase4() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         java.math.BigDecimal inputValue = number("8");
-        List<String> outputExecutionAnalysisResult = this.outputExecutionAnalysisResult.apply(inputValue, annotationSet_);
+        List<String> outputExecutionAnalysisResult = this.outputExecutionAnalysisResult.apply(inputValue, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList("Output1", "Output2", "Output3", "Output4", "Output5", "Output6", "Output7", "Output8"), outputExecutionAnalysisResult);
     }
@@ -45,8 +57,11 @@ public class OutputExecutionAnalysisResultTest extends com.gs.dmn.signavio.runti
     @org.junit.Test
     public void testCase5() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         java.math.BigDecimal inputValue = number("10");
-        List<String> outputExecutionAnalysisResult = this.outputExecutionAnalysisResult.apply(inputValue, annotationSet_);
+        List<String> outputExecutionAnalysisResult = this.outputExecutionAnalysisResult.apply(inputValue, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList("Output1", "Output2", "Output3", "Output4", "Output5", "Output6", "Output7", "Output8", "Output9", "Output10"), outputExecutionAnalysisResult);
     }

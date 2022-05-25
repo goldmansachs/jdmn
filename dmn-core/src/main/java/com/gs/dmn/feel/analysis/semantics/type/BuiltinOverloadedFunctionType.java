@@ -83,4 +83,9 @@ public class BuiltinOverloadedFunctionType extends FunctionType {
     protected List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> matchCandidates(List<Type> argumentTypes) {
         throw new SemanticError("Not supported yet");
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s%s", this.getClass().getSimpleName(), declarations);
+    }
 }

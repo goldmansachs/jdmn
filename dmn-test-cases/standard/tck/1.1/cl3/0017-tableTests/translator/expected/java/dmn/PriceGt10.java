@@ -26,9 +26,10 @@ public class PriceGt10 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public PriceGt10() {
     }
 
-    public Boolean apply(String structA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+    @java.lang.Override()
+    public Boolean apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((structA != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(structA, new com.fasterxml.jackson.core.type.TypeReference<type.TAImpl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+            return apply(input_.get("structA"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'PriceGt10'", e);
             return null;
@@ -42,10 +43,6 @@ public class PriceGt10 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             logError("Cannot apply decision 'PriceGt10'", e);
             return null;
         }
-    }
-
-    public Boolean apply(type.TA structA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(structA, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public Boolean apply(type.TA structA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

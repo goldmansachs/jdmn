@@ -26,7 +26,6 @@ public class HandwrittenAllTogetherTest extends AbstractHandwrittenDecisionTest 
 
     @Test
     public void testCase1() {
-        AnnotationSet annotationSet = new AnnotationSet();
         String dateTime = "2015-01-01T12:00:00.000+00:00";
         String time = "13:00:00";
         String booleanList = toJson(Arrays.asList(true, false, true));
@@ -39,12 +38,11 @@ public class HandwrittenAllTogetherTest extends AbstractHandwrittenDecisionTest 
         String stringList = toJson(Arrays.asList("Foo", "Bar"));
         String booleanA = "true";
 
-        assertEquals("NotNull", decision.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet));
+        assertEquals("NotNull", decision.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet, eventListener, externalFunctionExecutor, cache));
     }
 
     @Test
     public void testCase2() {
-        AnnotationSet annotationSet = new AnnotationSet();
         String dateTime = "2016-11-16T12:10:00.000+00:00";
         String time = "12:00:00";
         String booleanList = toJson(Arrays.asList());
@@ -57,12 +55,11 @@ public class HandwrittenAllTogetherTest extends AbstractHandwrittenDecisionTest 
         String stringList = toJson(Arrays.asList("Some", "Thing"));
         String booleanA = "true";
 
-        assertNull(decision.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet));
+        assertNull(decision.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet, eventListener, externalFunctionExecutor, cache));
     }
 
     @Test
     public void testCase3() {
-        AnnotationSet annotationSet = new AnnotationSet();
         String dateTime = "2105-11-16T00:00:00.000+00:00";
         String time = "11:11:11";
         String booleanList = toJson(Arrays.asList(true, true, false, true, false));
@@ -75,7 +72,7 @@ public class HandwrittenAllTogetherTest extends AbstractHandwrittenDecisionTest 
         String stringList = toJson(Arrays.asList("1", "2", "3"));
         String booleanA = "false";
 
-        assertNull(decision.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet));
+        assertNull(decision.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet, eventListener, externalFunctionExecutor, cache));
     }
 
     @Test
@@ -93,12 +90,11 @@ public class HandwrittenAllTogetherTest extends AbstractHandwrittenDecisionTest 
         String stringList = toJson(Arrays.asList("a", "d", "s"));
         String booleanA = "false";
 
-        assertEquals("NotNull", decision.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet));
+        assertEquals("NotNull", decision.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet, eventListener, externalFunctionExecutor, cache));
     }
 
     @Test
     public void testCase5() {
-        AnnotationSet annotationSet = new AnnotationSet();
         String dateTime = "2017-01-01T10:00:00.000+00:00";
         String time = "12:12:12";
         String booleanList = toJson(Arrays.asList(true, false, true, false));
@@ -111,12 +107,11 @@ public class HandwrittenAllTogetherTest extends AbstractHandwrittenDecisionTest 
         String stringList = toJson(Arrays.asList("A", "B", "C"));
         String booleanA = "false";
 
-        assertEquals("NotNull", decision.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet));
+        assertEquals("NotNull", decision.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet, eventListener, externalFunctionExecutor, cache));
     }
 
     @Test
     public void testCase6() {
-        AnnotationSet annotationSet = new AnnotationSet();
         String dateTime = "2016-11-03T04:00:00.000+00:00";
         String time = "11:11:11";
         String booleanList = toJson(Arrays.asList(false));
@@ -129,7 +124,7 @@ public class HandwrittenAllTogetherTest extends AbstractHandwrittenDecisionTest 
         String stringList = toJson(Arrays.asList("123", "234", "345"));
         String booleanA = "true";
 
-        assertEquals("NotNull", decision.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet));
+        assertEquals("NotNull", decision.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet, eventListener, externalFunctionExecutor, cache));
     }
 
     @Override
@@ -147,6 +142,6 @@ public class HandwrittenAllTogetherTest extends AbstractHandwrittenDecisionTest 
         String stringList = toJson(Arrays.asList("123", "234", "345"));
         String booleanA = "true";
 
-        decision.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet);
+        decision.apply(booleanA, booleanB, booleanList, date, dateTime, numberA, numberB, numberList, string, stringList, time, annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 }

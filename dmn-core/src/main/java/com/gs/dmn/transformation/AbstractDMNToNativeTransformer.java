@@ -47,6 +47,8 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     public static final String LIST_TYPE = "List";
     public static final String CONTEXT_CLASS_NAME = Context.class.getName();
 
+    private static final String REGISTRY_CLASS_NAME = "ModelElementRegistry";
+
     public static final List<String> SUPPORTED_LANGUAGES = Arrays.asList(DMNVersion.LATEST.getFeelPrefix(), DMNModelRepository.FREE_TEXT_LANGUAGE);
 
     protected AbstractDMNToNativeTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger) {
@@ -105,6 +107,9 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
             // Generate .proto file
             generateProtoFile(definitions, dmnTransformer, outputPath);
         }
+
+        // Generate registry
+        generateRegistry(dmnModelRepository.getAllDefinitions(), dmnTransformer, outputPath);
     }
 
     private void transformItemDefinitionList(TDefinitions definitions, List<TItemDefinition> itemDefinitionList, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath) {
@@ -164,8 +169,26 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
             Map<String, Object> params = makeProtoTemplateParams(pair.getLeft(), pair.getRight(), modelPackageName, dmnTransformer);
             processTemplate(this.templateProvider.baseTemplatePath(), "common/proto.ftl", params, outputFile, false);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error generation .proto file for model '%s'", definitions.getName()), e);
+            throw new DMNRuntimeException(String.format("Error when generating .proto file for model '%s'", definitions.getName()), e);
         }
+    }
+
+    private void generateRegistry(List<TDefinitions> definitionsList, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath) {
+        try {
+            // Make output file
+            String registryClassName = REGISTRY_CLASS_NAME;
+            String modelPackageName = dmnTransformer.nativeRootPackageName();
+            String relativeFilePath = modelPackageName.replace('.', '/');
+            String fileExtension = getFileExtension();
+            File outputFile = makeOutputFile(outputPath, relativeFilePath, registryClassName, fileExtension);
+
+            // Make parameters
+            Map<String, Object> params = makeModelRegistryTemplateParams(definitionsList, modelPackageName, registryClassName, dmnTransformer);
+            processTemplate(this.templateProvider.baseTemplatePath(), "common/registry.ftl", params, outputFile, false);
+        } catch (Exception e) {
+            throw new DMNRuntimeException("Error when generating registry file for model(s)", e);
+        }
+
     }
 
     private void transformBKMList(TDefinitions definitions, List<TBusinessKnowledgeModel> bkmList, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath) {
@@ -327,6 +350,14 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         params.put("transformer", dmnTransformer);
         return params;
     }
+
+    private Map<String, Object> makeModelRegistryTemplateParams(List<TDefinitions> definitionsList, String javaPackageName, String javaClassName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("definitionsList", definitionsList);
+        addCommonParams(params, javaPackageName, javaClassName, dmnTransformer);
+        return params;
+    }
+
 
     private void addCommonParams(Map<String, Object> params, String javaPackageName, String javaClassName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         params.put("javaPackageName", javaPackageName);

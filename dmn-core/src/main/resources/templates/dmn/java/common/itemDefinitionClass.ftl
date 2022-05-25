@@ -42,7 +42,7 @@ public class ${javaClassName} implements ${transformer.itemDefinitionNativeSimpl
 
 <#macro addAssigmentForFields itemDefinition>
     <#list itemDefinition.itemComponent as child>
-        this.${transformer.setter(child)}(${transformer.namedElementVariableName(child)});
+        this.${transformer.setter(child, "${transformer.namedElementVariableName(child)}")};
     </#list>
 </#macro>
 
@@ -56,7 +56,7 @@ public class ${javaClassName} implements ${transformer.itemDefinitionNativeSimpl
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("${transformer.escapeInString(modelRepository.displayName(child))}")
-    public void ${transformer.setter(child)}(${memberType} ${memberName}) {
+    public void ${transformer.setter(child, "${memberType} ${memberName}")} {
         this.${memberName} = ${memberName};
     }
 

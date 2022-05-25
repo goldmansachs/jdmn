@@ -26,9 +26,10 @@ public class Join extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public Join() {
     }
 
-    public String apply(String deptTable, String employeeTable, String lastName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+    @java.lang.Override()
+    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((deptTable != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(deptTable, new com.fasterxml.jackson.core.type.TypeReference<List<type.TDeptTable>>() {}) : null), (employeeTable != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(employeeTable, new com.fasterxml.jackson.core.type.TypeReference<List<type.TEmployeeTable>>() {}) : null), lastName, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+            return apply(input_.get("DeptTable"), input_.get("EmployeeTable"), input_.get("LastName"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'Join'", e);
             return null;
@@ -42,10 +43,6 @@ public class Join extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             logError("Cannot apply decision 'Join'", e);
             return null;
         }
-    }
-
-    public String apply(List<type.TDeptTable> deptTable, List<type.TEmployeeTable> employeeTable, String lastName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(deptTable, employeeTable, lastName, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public String apply(List<type.TDeptTable> deptTable, List<type.TEmployeeTable> employeeTable, String lastName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

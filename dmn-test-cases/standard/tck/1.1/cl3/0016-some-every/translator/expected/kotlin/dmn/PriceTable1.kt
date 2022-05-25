@@ -13,8 +13,13 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class PriceTable1() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    fun apply(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): List<type.TItemPrice?>? {
-        return apply(annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
+    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): List<type.TItemPrice?>? {
+        try {
+            return apply(context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+        } catch (e: Exception) {
+            logError("Cannot apply decision 'PriceTable1'", e)
+            return null
+        }
     }
 
     fun apply(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): List<type.TItemPrice?>? {

@@ -33,6 +33,16 @@ public class BKM extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
     private BKM() {
     }
 
+    @java.lang.Override()
+    public java.math.BigDecimal apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply((input_.get("a") != null ? number(input_.get("a")) : null), (input_.get("b") != null ? number(input_.get("b")) : null), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'BKM'", e);
+            return null;
+        }
+    }
+
     public java.math.BigDecimal apply(java.math.BigDecimal a, java.math.BigDecimal b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'bKM'

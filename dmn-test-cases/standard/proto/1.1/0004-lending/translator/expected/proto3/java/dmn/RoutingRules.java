@@ -33,6 +33,16 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private RoutingRules() {
     }
 
+    @java.lang.Override()
+    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("'Post-bureauRiskCategory'"), (input_.get("'Post-bureauAffordability'") != null ? Boolean.valueOf(input_.get("'Post-bureauAffordability'")) : null), (input_.get("Bankrupt") != null ? Boolean.valueOf(input_.get("Bankrupt")) : null), (input_.get("CreditScore") != null ? number(input_.get("CreditScore")) : null), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'RoutingRules'", e);
+            return null;
+        }
+    }
+
     public String apply(String postBureauRiskCategory, Boolean postBureauAffordability, Boolean bankrupt, java.math.BigDecimal creditScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'RoutingRules'

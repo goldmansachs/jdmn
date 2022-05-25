@@ -145,9 +145,11 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         Type endpointType = endpoint.getType();
 
         try {
-            if (endpoint instanceof FunctionInvocation) {
-                return endpoint.accept(this, context);
+            if (context.isExpressionContext()) {
+                // Evaluate as range
+                return evaluateOperatorRange(element, operator, null, endpoint, context);
             } else {
+                // Evaluate as test
                 Object self = context.lookupBinding(INPUT_ENTRY_PLACE_HOLDER);
                 if (operator == null) {
                     if (com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(inputExpressionType, endpointType)) {

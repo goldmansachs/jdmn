@@ -201,7 +201,7 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String makeMemberAssignment(String complexTypeVariable, String memberName, String value) {
-        return String.format("%s.%s(%s);", complexTypeVariable, this.transformer.setter(memberName), value);
+        return String.format("%s.%s;", complexTypeVariable, this.transformer.setter(memberName, value));
     }
 
     @Override
@@ -351,6 +351,14 @@ public class JavaFactory implements NativeFactory {
     }
 
     @Override
+    public boolean isSerializable(Type type) {
+        return FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type) ||
+                (type instanceof ListType && isSerializable(((ListType) type).getElementType())) ||
+                type instanceof ItemDefinitionType ||
+                type instanceof ContextType;
+    }
+
+    @Override
     public String convertDecisionArgumentFromString(String paramName, Type type) {
         if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             if (transformer.isStrongTyping()) {
@@ -376,10 +384,11 @@ public class JavaFactory implements NativeFactory {
         } else if (type instanceof ListType) {
             String javaType = this.transformer.toNativeType(type);
             return String.format("(%s != null ? %s.readValue(%s, new com.fasterxml.jackson.core.type.TypeReference<%s>() {}) : null)", paramName, objectMapper(), paramName, javaType);
-        } else {
-            // Complex types
+        } else if (type instanceof ItemDefinitionType || type instanceof ContextType) {
             String javaType = transformer.itemDefinitionNativeClassName(transformer.toNativeType(type));
             return String.format("(%s != null ? %s.readValue(%s, new com.fasterxml.jackson.core.type.TypeReference<%s>() {}) : null)", paramName, objectMapper(), paramName, javaType);
+        } else {
+            throw new DMNRuntimeException(String.format("Conversion not supported for '%s' yet", type.getClass().getSimpleName()));
         }
     }
 

@@ -33,6 +33,16 @@ public class Bkm_018 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private Bkm_018() {
     }
 
+    @java.lang.Override()
+    public Boolean apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("p1"), input_.get("p2"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'Bkm_018'", e);
+            return null;
+        }
+    }
+
     public Boolean apply(String p1, String p2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'bkm_018'

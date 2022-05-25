@@ -13,12 +13,12 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class DateTime() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    fun apply(inputDateTime: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): javax.xml.datatype.XMLGregorianCalendar? {
-        return try {
-            apply(inputDateTime?.let({ dateAndTime(it) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
+    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): javax.xml.datatype.XMLGregorianCalendar? {
+        try {
+            return apply(input_.get("InputDateTime"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
         } catch (e: Exception) {
             logError("Cannot apply decision 'DateTime'", e)
-            null
+            return null
         }
     }
 
@@ -29,10 +29,6 @@ class DateTime() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             logError("Cannot apply decision 'DateTime'", e)
             null
         }
-    }
-
-    fun apply(inputDateTime: javax.xml.datatype.XMLGregorianCalendar?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): javax.xml.datatype.XMLGregorianCalendar? {
-        return apply(inputDateTime, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
     fun apply(inputDateTime: javax.xml.datatype.XMLGregorianCalendar?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): javax.xml.datatype.XMLGregorianCalendar? {
@@ -54,10 +50,6 @@ class DateTime() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             logError("Exception caught in 'DateTime' evaluation", e)
             return null
         }
-    }
-
-    fun apply(dateTimeRequest_: proto.DateTimeRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): proto.DateTimeResponse {
-        return apply(dateTimeRequest_, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
     fun apply(dateTimeRequest_: proto.DateTimeRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.DateTimeResponse {

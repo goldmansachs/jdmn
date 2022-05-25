@@ -13,12 +13,12 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class CompositeDateTime() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    fun apply(compositeInputDateTime: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): type.CompositeDateTime? {
-        return try {
-            apply(compositeInputDateTime?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.CompositeDateTimeImpl>() {}) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
+    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): type.CompositeDateTime? {
+        try {
+            return apply(input_.get("CompositeInputDateTime"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
         } catch (e: Exception) {
             logError("Cannot apply decision 'CompositeDateTime'", e)
-            null
+            return null
         }
     }
 
@@ -29,10 +29,6 @@ class CompositeDateTime() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             logError("Cannot apply decision 'CompositeDateTime'", e)
             null
         }
-    }
-
-    fun apply(compositeInputDateTime: type.CompositeDateTime?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): type.CompositeDateTime? {
-        return apply(compositeInputDateTime, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
     fun apply(compositeInputDateTime: type.CompositeDateTime?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.CompositeDateTime? {
@@ -54,10 +50,6 @@ class CompositeDateTime() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             logError("Exception caught in 'CompositeDateTime' evaluation", e)
             return null
         }
-    }
-
-    fun apply(compositeDateTimeRequest_: proto.CompositeDateTimeRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): proto.CompositeDateTimeResponse {
-        return apply(compositeDateTimeRequest_, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
     fun apply(compositeDateTimeRequest_: proto.CompositeDateTimeRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.CompositeDateTimeResponse {

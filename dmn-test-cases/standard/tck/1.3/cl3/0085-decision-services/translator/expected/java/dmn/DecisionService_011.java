@@ -40,6 +40,16 @@ public class DecisionService_011 extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         this.decision_011_2 = decision_011_2;
     }
 
+    @java.lang.Override()
+    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("inputData_011_1"), input_.get("inputData_011_2"), input_.get("decision_011_3"), input_.get("decision_011_4"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'DecisionService_011'", e);
+            return null;
+        }
+    }
+
     public String apply(String inputData_011_1, String inputData_011_2, String decision_011_3, String decision_011_4, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start DS 'decisionService_011'

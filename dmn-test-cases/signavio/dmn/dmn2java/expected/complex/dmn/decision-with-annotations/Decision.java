@@ -26,9 +26,10 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     public Decision() {
     }
 
-    public String apply(String booleanInput, String dateInput, String enumerationInput, String numberInput, String person, String stringInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+    @java.lang.Override()
+    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((booleanInput != null ? Boolean.valueOf(booleanInput) : null), (dateInput != null ? date(dateInput) : null), enumerationInput, (numberInput != null ? number(numberInput) : null), (person != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(person, new com.fasterxml.jackson.core.type.TypeReference<type.PersonImpl>() {}) : null), stringInput, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+            return apply(input_.get("BooleanInput"), input_.get("DateInput"), input_.get("EnumerationInput"), input_.get("NumberInput"), input_.get("Person"), input_.get("StringInput"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'Decision'", e);
             return null;
@@ -42,10 +43,6 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             logError("Cannot apply decision 'Decision'", e);
             return null;
         }
-    }
-
-    public String apply(Boolean booleanInput, javax.xml.datatype.XMLGregorianCalendar dateInput, String enumerationInput, java.math.BigDecimal numberInput, type.Person person, String stringInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(booleanInput, dateInput, enumerationInput, numberInput, person, stringInput, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public String apply(Boolean booleanInput, javax.xml.datatype.XMLGregorianCalendar dateInput, String enumerationInput, java.math.BigDecimal numberInput, type.Person person, String stringInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

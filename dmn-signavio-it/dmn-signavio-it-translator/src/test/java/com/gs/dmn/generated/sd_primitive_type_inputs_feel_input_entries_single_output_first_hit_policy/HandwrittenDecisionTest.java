@@ -30,14 +30,12 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     private String applyDecision(
             String booleanString, String dateAndTimeString, String dateString, String enumerationString,
             String numberString, String text, String timeString) {
-        AnnotationSet annotationSet = new AnnotationSet();
 
-        return decision.apply(booleanString, dateAndTimeString, dateString, enumerationString, numberString, text, timeString, annotationSet);
+        return decision.apply(booleanString, dateAndTimeString, dateString, enumerationString, numberString, text, timeString, annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 
     @Override
     protected void applyDecision() {
-        AnnotationSet annotationSet = new AnnotationSet();
         String dateInput = "2016-08-01";
         String timeInput = "12:00:00Z";
         String dateAndTimeInput = "2016-08-01T11:00:00Z";
@@ -46,6 +44,6 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         String booleanInput = "true";
         String enumerationInput = "e1";
 
-        decision.apply(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet);
+        decision.apply(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 }

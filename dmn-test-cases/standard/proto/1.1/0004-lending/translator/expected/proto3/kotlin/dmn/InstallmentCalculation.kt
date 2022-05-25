@@ -15,7 +15,16 @@ import java.util.stream.Collectors
 class InstallmentCalculation : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    public fun apply(productType: String?, rate: java.math.BigDecimal?, term: java.math.BigDecimal?, amount: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+        try {
+            return apply(input_.get("ProductType"), input_.get("Rate")?.let({ number(it) }), input_.get("Term")?.let({ number(it) }), input_.get("Amount")?.let({ number(it) }), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+        } catch (e: Exception) {
+            logError("Cannot apply decision 'InstallmentCalculation'", e)
+            return null
+        }
+    }
+
+    fun apply(productType: String?, rate: java.math.BigDecimal?, term: java.math.BigDecimal?, amount: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         try {
             // Start BKM 'InstallmentCalculation'
             val installmentCalculationStartTime_ = System.currentTimeMillis()

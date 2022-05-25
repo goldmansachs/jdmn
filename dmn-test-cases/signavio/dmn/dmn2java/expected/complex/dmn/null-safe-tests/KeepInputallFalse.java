@@ -26,9 +26,10 @@ public class KeepInputallFalse extends com.gs.dmn.signavio.runtime.DefaultSignav
     public KeepInputallFalse() {
     }
 
-    public Boolean apply(String booleanAllFalse_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+    @java.lang.Override()
+    public Boolean apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((booleanAllFalse_iterator != null ? Boolean.valueOf(booleanAllFalse_iterator) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+            return apply(input_.get("booleanAllFalse"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'KeepInputallFalse'", e);
             return null;
@@ -42,10 +43,6 @@ public class KeepInputallFalse extends com.gs.dmn.signavio.runtime.DefaultSignav
             logError("Cannot apply decision 'KeepInputallFalse'", e);
             return null;
         }
-    }
-
-    public Boolean apply(Boolean booleanAllFalse_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(booleanAllFalse_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public Boolean apply(Boolean booleanAllFalse_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

@@ -9,10 +9,13 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
     @org.junit.Test
     public void testCase1() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         java.math.BigDecimal currentRiskAppetite = number("50");
         java.math.BigDecimal lendingThreshold = number("25");
         type.Applicant applicant = new type.ApplicantImpl(number("38"), number("100"), "Amy", asList("Late payment"));
-        List<type.GenerateOutputData> generateOutputData = this.generateOutputData.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_);
+        List<type.GenerateOutputData> generateOutputData = this.generateOutputData.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList(new type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))), generateOutputData);
 
@@ -29,7 +32,7 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
         proto.GenerateOutputDataRequest generateOutputDataRequest_ = builder_.build();
 
         // Invoke apply method
-        proto.GenerateOutputDataResponse generateOutputDataResponse_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_);
+        proto.GenerateOutputDataResponse generateOutputDataResponse_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_, eventListener_, externalExecutor_, cache_);
         List<proto.GenerateOutputData> generateOutputDataProto_ = generateOutputDataResponse_.getGenerateOutputDataList();
 
         // Check results
@@ -39,10 +42,13 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
     @org.junit.Test
     public void testCase2() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         java.math.BigDecimal currentRiskAppetite = number("50");
         java.math.BigDecimal lendingThreshold = number("25");
         type.Applicant applicant = new type.ApplicantImpl(number("18"), number("65"), "Bill", asList("Card rejection", "Default on obligations"));
-        List<type.GenerateOutputData> generateOutputData = this.generateOutputData.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_);
+        List<type.GenerateOutputData> generateOutputData = this.generateOutputData.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))), generateOutputData);
 
@@ -59,7 +65,7 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
         proto.GenerateOutputDataRequest generateOutputDataRequest_ = builder_.build();
 
         // Invoke apply method
-        proto.GenerateOutputDataResponse generateOutputDataResponse_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_);
+        proto.GenerateOutputDataResponse generateOutputDataResponse_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_, eventListener_, externalExecutor_, cache_);
         List<proto.GenerateOutputData> generateOutputDataProto_ = generateOutputDataResponse_.getGenerateOutputDataList();
 
         // Check results
@@ -69,10 +75,13 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
     @org.junit.Test
     public void testCase3() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         java.math.BigDecimal currentRiskAppetite = number("50");
         java.math.BigDecimal lendingThreshold = number("25");
         type.Applicant applicant = new type.ApplicantImpl(number("65"), number("80"), "Charlie", asList("Late payment", "Default on obligations", "Bankruptcy"));
-        List<type.GenerateOutputData> generateOutputData = this.generateOutputData.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_);
+        List<type.GenerateOutputData> generateOutputData = this.generateOutputData.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5")))), generateOutputData);
 
@@ -89,7 +98,7 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
         proto.GenerateOutputDataRequest generateOutputDataRequest_ = builder_.build();
 
         // Invoke apply method
-        proto.GenerateOutputDataResponse generateOutputDataResponse_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_);
+        proto.GenerateOutputDataResponse generateOutputDataResponse_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_, eventListener_, externalExecutor_, cache_);
         List<proto.GenerateOutputData> generateOutputDataProto_ = generateOutputDataResponse_.getGenerateOutputDataList();
 
         // Check results

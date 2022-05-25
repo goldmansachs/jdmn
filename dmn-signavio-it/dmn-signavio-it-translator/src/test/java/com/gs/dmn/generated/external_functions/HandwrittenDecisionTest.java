@@ -27,17 +27,15 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void testApply() {
-        AnnotationSet annotationSet = new AnnotationSet();
         String derivativeType = "RIGHTS_WARRANTS";
         String taxChargeType = "2";
         Transaction transaction = new TransactionImpl();
         TransactionTaxMetaData transactionTaxMetaData = new TransactionTaxMetaDataImpl();
-        assertEquals("forexRate", decision.apply(derivativeType, taxChargeType, transaction, transactionTaxMetaData, annotationSet));
+        assertEquals("forexRate", decision.apply(derivativeType, taxChargeType, transaction, transactionTaxMetaData, annotationSet, eventListener, externalFunctionExecutor, cache));
     }
 
     @Override
     protected void applyDecision() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        decision.apply(null, null, (Transaction) null, null, annotationSet);
+        decision.apply(null, null, (Transaction) null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 }

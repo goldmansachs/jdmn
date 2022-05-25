@@ -9,11 +9,14 @@ class DateTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
     @org.junit.Test
     fun testCase1() {
         val annotationSet_ = com.gs.dmn.runtime.annotation.AnnotationSet()
+        val eventListener_ = com.gs.dmn.runtime.listener.NopEventListener()
+        val externalExecutor_ = com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor()
+        val cache_ = com.gs.dmn.runtime.cache.DefaultCache()
         val inputDate: javax.xml.datatype.XMLGregorianCalendar? = date("2020-09-21")
         val inputTime: javax.xml.datatype.XMLGregorianCalendar? = time("13:00:00+00:00")
         val inputDateTime: javax.xml.datatype.XMLGregorianCalendar? = dateAndTime("2015-01-01T12:00:00+00:00")
         val compositeInputDateTime: type.TCompositeDateTime? = type.TCompositeDateTimeImpl(date("2020-09-21"), dateAndTime("2015-01-01T12:00:00+00:00"), time("13:00:00+00:00"))
-        val date: javax.xml.datatype.XMLGregorianCalendar? = this.date.apply(compositeInputDateTime, inputDate, inputDateTime, inputTime, annotationSet_)
+        val date: javax.xml.datatype.XMLGregorianCalendar? = this.date.apply(compositeInputDateTime, inputDate, inputDateTime, inputTime, annotationSet_, eventListener_, externalExecutor_, cache_)
 
         checkValues(date("2020-09-21"), date)
 
@@ -32,7 +35,7 @@ class DateTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
         val dateRequest_: proto.DateRequest = builder_.build()
 
         // Invoke apply method
-        val dateResponse_: proto.DateResponse = this.date.apply(dateRequest_, annotationSet_)
+        val dateResponse_: proto.DateResponse = this.date.apply(dateRequest_, annotationSet_, eventListener_, externalExecutor_, cache_)
         val dateProto_: String = dateResponse_.getDate()
 
         // Check results

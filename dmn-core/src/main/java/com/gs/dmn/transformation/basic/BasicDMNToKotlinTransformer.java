@@ -26,6 +26,8 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.native_.KotlinFactory;
 import com.gs.dmn.transformation.proto.ProtoBufferKotlinFactory;
 
+import java.util.Map;
+
 public class BasicDMNToKotlinTransformer extends BasicDMNToJavaTransformer {
     public BasicDMNToKotlinTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
         super(dialect, dmnModelRepository, environmentFactory, feelTypeTranslator, lazyEvaluationDetector, inputParameters);
@@ -82,7 +84,16 @@ public class BasicDMNToKotlinTransformer extends BasicDMNToJavaTransformer {
     }
 
     @Override
+    public String drgElementSignatureWithMap(TDRGElement element) {
+        return String.format("%s: %s, %s: %s", inputVariableName(), inputClassName(), executionContextVariableName(), executionContextClassName());
+    }
+
+    @Override
     public String lazyEvaluation(String elementName, String nativeName) {
         return isLazyEvaluated(elementName) ? String.format("%s?.getOrCompute()", nativeName) : nativeName;
+    }
+
+    protected String inputClassName() {
+        return "MutableMap<String, String>";
     }
 }

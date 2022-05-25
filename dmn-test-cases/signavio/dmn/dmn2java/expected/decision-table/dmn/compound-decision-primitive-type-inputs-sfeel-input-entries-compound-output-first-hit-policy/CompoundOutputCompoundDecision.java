@@ -35,9 +35,10 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
         this.dependentDecision2 = dependentDecision2;
     }
 
-    public type.CompoundOutputCompoundDecision apply(String booleanInput, String dd1TextInput, String dd2NumberInput, String enumerationInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+    @java.lang.Override()
+    public type.CompoundOutputCompoundDecision apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((booleanInput != null ? Boolean.valueOf(booleanInput) : null), dd1TextInput, (dd2NumberInput != null ? number(dd2NumberInput) : null), enumerationInput, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+            return apply(input_.get("BooleanInput"), input_.get("DD1 Text Input"), input_.get("DD2 Number Input"), input_.get("EnumerationInput"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'CompoundOutputCompoundDecision'", e);
             return null;
@@ -51,10 +52,6 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
             logError("Cannot apply decision 'CompoundOutputCompoundDecision'", e);
             return null;
         }
-    }
-
-    public type.CompoundOutputCompoundDecision apply(Boolean booleanInput, String dd1TextInput, java.math.BigDecimal dd2NumberInput, String enumerationInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(booleanInput, dd1TextInput, dd2NumberInput, enumerationInput, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public type.CompoundOutputCompoundDecision apply(Boolean booleanInput, String dd1TextInput, java.math.BigDecimal dd2NumberInput, String enumerationInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

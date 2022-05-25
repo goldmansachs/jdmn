@@ -33,8 +33,14 @@ public class Decision_013_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         this.decision_013_3 = decision_013_3;
     }
 
-    public com.gs.dmn.runtime.Context apply(String inputData_013_1, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(inputData_013_1, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+    @java.lang.Override()
+    public com.gs.dmn.runtime.Context apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(input_.get("inputData_013_1"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'Decision_013_1'", e);
+            return null;
+        }
     }
 
     public com.gs.dmn.runtime.Context apply(String inputData_013_1, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

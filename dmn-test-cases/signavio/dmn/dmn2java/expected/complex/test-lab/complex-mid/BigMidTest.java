@@ -9,8 +9,11 @@ public class BigMidTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     @org.junit.Test
     public void testCase1() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         type.TestPeopleType testPeopleType = new type.TestPeopleTypeImpl(asList(new type.TestPersonTypeImpl(number("23"), "a", asList("Sad", "Quiet"))));
-        List<Boolean> bigMid = this.bigMid.apply(testPeopleType, annotationSet_);
+        List<Boolean> bigMid = this.bigMid.apply(testPeopleType, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList(Boolean.TRUE), bigMid);
     }
@@ -18,8 +21,11 @@ public class BigMidTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     @org.junit.Test
     public void testCase2() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         type.TestPeopleType testPeopleType = new type.TestPeopleTypeImpl(asList(new type.TestPersonTypeImpl(number("43"), "g", asList("Happy", "Tall")), new type.TestPersonTypeImpl(number("5"), "l", asList("Short", "Loud", "Happy"))));
-        List<Boolean> bigMid = this.bigMid.apply(testPeopleType, annotationSet_);
+        List<Boolean> bigMid = this.bigMid.apply(testPeopleType, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList(Boolean.TRUE, Boolean.FALSE), bigMid);
     }

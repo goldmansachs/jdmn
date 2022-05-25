@@ -30,15 +30,13 @@ public class HandwrittenCompoundOutputCompoundDecisionTest extends AbstractHandw
     }
 
     private void check(String booleanInput, String enumerationInput, String numberInput, String textInput, String expectedFirstOutput, String expectedSecondOutput) {
-        AnnotationSet annotationSet = new AnnotationSet();
-        com.gs.dmn.generated.cd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy.type.CompoundOutputCompoundDecision output = decision.apply(booleanInput, textInput, numberInput, enumerationInput, annotationSet);
+        com.gs.dmn.generated.cd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy.type.CompoundOutputCompoundDecision output = decision.apply(booleanInput, textInput, numberInput, enumerationInput, annotationSet, eventListener, externalFunctionExecutor, cache);
         assertEquals(expectedFirstOutput, output.getFirstOutput());
         assertEquals(expectedSecondOutput, output.getSecondOutput());
     }
 
     @Override
     protected void applyDecision() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        decision.apply(Boolean.TRUE, "e1", BigDecimal.ONE, "a", annotationSet);
+        decision.apply(Boolean.TRUE, "e1", BigDecimal.ONE, "a", annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 }

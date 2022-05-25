@@ -15,6 +15,12 @@ package com.gs.dmn.jmh.example_credit_decision;
 import com.gs.dmn.generated.example_credit_decision.GenerateOutputData;
 import com.gs.dmn.generated.example_credit_decision.type.ApplicantImpl;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
+import com.gs.dmn.runtime.cache.Cache;
+import com.gs.dmn.runtime.cache.DefaultCache;
+import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
+import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
+import com.gs.dmn.runtime.listener.EventListener;
+import com.gs.dmn.runtime.listener.NopEventListener;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -38,6 +44,10 @@ public class CredDecSignavioBenchmarkTest {
 
     private void executeCompiled(long startTime) {
         AnnotationSet annotationSet = new AnnotationSet();
+        EventListener eventListener = new NopEventListener();
+        ExternalFunctionExecutor externalFunctionExecutor = new DefaultExternalFunctionExecutor();
+        Cache cache = new DefaultCache();
+
         ApplicantImpl applicant = new ApplicantImpl();
         applicant.setName("Amy");
         applicant.setAge(decision.number("38"));
@@ -47,7 +57,7 @@ public class CredDecSignavioBenchmarkTest {
         BigDecimal currentRiskAppetite = decision.number("50");
         BigDecimal lendingThreshold = decision.number("25");
 
-        List<?> result = decision.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet);
+        List<?> result = decision.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet, eventListener, externalFunctionExecutor, cache);
         System.out.println(result);
 
         long endTime = System.currentTimeMillis();

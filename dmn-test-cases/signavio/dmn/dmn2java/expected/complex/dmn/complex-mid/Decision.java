@@ -26,9 +26,10 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     public Decision() {
     }
 
-    public String apply(String testPersonType6_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+    @java.lang.Override()
+    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((testPersonType6_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(testPersonType6_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.TestPersonTypeImpl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+            return apply(input_.get("TestPersonType"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'Decision'", e);
             return null;
@@ -42,10 +43,6 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             logError("Cannot apply decision 'Decision'", e);
             return null;
         }
-    }
-
-    public String apply(type.TestPersonType testPersonType6_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(testPersonType6_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public String apply(type.TestPersonType testPersonType6_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

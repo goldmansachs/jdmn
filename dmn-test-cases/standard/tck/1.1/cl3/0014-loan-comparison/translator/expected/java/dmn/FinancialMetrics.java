@@ -33,6 +33,16 @@ public class FinancialMetrics extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
     private FinancialMetrics() {
     }
 
+    @java.lang.Override()
+    public type.TMetric apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply((input_.get("product") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("product"), new com.fasterxml.jackson.core.type.TypeReference<type.TLoanProductImpl>() {}) : null), (input_.get("requestedAmt") != null ? number(input_.get("requestedAmt")) : null), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        } catch (Exception e) {
+            logError("Cannot apply decision 'FinancialMetrics'", e);
+            return null;
+        }
+    }
+
     public type.TMetric apply(type.TLoanProduct product, java.math.BigDecimal requestedAmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'FinancialMetrics'

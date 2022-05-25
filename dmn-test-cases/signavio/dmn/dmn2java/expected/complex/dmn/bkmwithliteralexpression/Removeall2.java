@@ -26,9 +26,10 @@ public class Removeall2 extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     public Removeall2() {
     }
 
-    public List<String> apply(String rgb1, String rgb1List, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+    @java.lang.Override()
+    public List<String> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(rgb1, (rgb1List != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(rgb1List, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+            return apply(input_.get("rgb1"), input_.get("rgb1 list"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'Removeall2'", e);
             return null;
@@ -42,10 +43,6 @@ public class Removeall2 extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
             logError("Cannot apply decision 'Removeall2'", e);
             return null;
         }
-    }
-
-    public List<String> apply(String rgb1, List<String> rgb1List, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(rgb1, rgb1List, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public List<String> apply(String rgb1, List<String> rgb1List, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

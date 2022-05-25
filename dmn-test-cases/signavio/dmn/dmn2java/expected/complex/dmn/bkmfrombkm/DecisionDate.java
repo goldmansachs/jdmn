@@ -26,9 +26,10 @@ public class DecisionDate extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
     public DecisionDate() {
     }
 
-    public List<String> apply(String dateInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+    @java.lang.Override()
+    public List<String> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((dateInput != null ? date(dateInput) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+            return apply(input_.get("date input"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'DecisionDate'", e);
             return null;
@@ -42,10 +43,6 @@ public class DecisionDate extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
             logError("Cannot apply decision 'DecisionDate'", e);
             return null;
         }
-    }
-
-    public List<String> apply(javax.xml.datatype.XMLGregorianCalendar dateInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(dateInput, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public List<String> apply(javax.xml.datatype.XMLGregorianCalendar dateInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

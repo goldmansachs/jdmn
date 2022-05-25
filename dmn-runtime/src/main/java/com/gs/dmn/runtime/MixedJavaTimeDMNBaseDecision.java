@@ -23,8 +23,14 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
+import java.util.Map;
 
 public class MixedJavaTimeDMNBaseDecision extends MixedJavaTimeFEELLib implements DMNDecision<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration>, AnnotationTarget {
+    @Override
+    public Object apply(Map<String, String> input_, ExecutionContext context_) {
+        return null;
+    }
+
     @Override
     public DRGElement getDRGElementAnnotation() {
         return this.getClass().getAnnotation(DRGElement.class);

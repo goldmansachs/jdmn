@@ -33,9 +33,10 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
     public AssessIssue() {
     }
 
-    public java.math.BigDecimal apply(String currentRiskAppetite, String priorIssue_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+    @java.lang.Override()
+    public java.math.BigDecimal apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((currentRiskAppetite != null ? number(currentRiskAppetite) : null), (priorIssue_iterator != null ? number(priorIssue_iterator) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+            return apply(input_.get("Current risk appetite"), input_.get("Prior issue"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'AssessIssue'", e);
             return null;
@@ -49,10 +50,6 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             logError("Cannot apply decision 'AssessIssue'", e);
             return null;
         }
-    }
-
-    public java.math.BigDecimal apply(java.math.BigDecimal currentRiskAppetite, java.math.BigDecimal priorIssue_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(currentRiskAppetite, priorIssue_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public java.math.BigDecimal apply(java.math.BigDecimal currentRiskAppetite, java.math.BigDecimal priorIssue_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

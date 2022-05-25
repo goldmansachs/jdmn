@@ -41,9 +41,10 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.DefaultDMNBas
     public RequiredMonthlyInstallment() {
     }
 
-    public java.math.BigDecimal apply(String requestedProduct, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+    @java.lang.Override()
+    public java.math.BigDecimal apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((requestedProduct != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(requestedProduct, new com.fasterxml.jackson.core.type.TypeReference<type.TRequestedProductImpl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+            return apply(input_.get("RequestedProduct"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'RequiredMonthlyInstallment'", e);
             return null;
@@ -57,10 +58,6 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.DefaultDMNBas
             logError("Cannot apply decision 'RequiredMonthlyInstallment'", e);
             return null;
         }
-    }
-
-    public java.math.BigDecimal apply(type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(requestedProduct, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public java.math.BigDecimal apply(type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
@@ -93,10 +90,6 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.DefaultDMNBas
             logError("Exception caught in 'RequiredMonthlyInstallment' evaluation", e);
             return null;
         }
-    }
-
-    public proto.RequiredMonthlyInstallmentResponse apply(proto.RequiredMonthlyInstallmentRequest requiredMonthlyInstallmentRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(requiredMonthlyInstallmentRequest_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
     public proto.RequiredMonthlyInstallmentResponse apply(proto.RequiredMonthlyInstallmentRequest requiredMonthlyInstallmentRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {

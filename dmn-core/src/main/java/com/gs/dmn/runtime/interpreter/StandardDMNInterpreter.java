@@ -801,7 +801,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                     Result result = evaluateLiteralExpression(element, literalExpression, context, elementAnnotation);
                     Object value = Result.value(result);
                     if (this.repository.isOutputOrderHit(hitPolicy)) {
-                        Object priority = this.dmnTransformer.priority(element, rule.getOutputEntry().get(i), i);
+                        Object priority = this.dmnTransformer.outputClausePriority(element, rule.getOutputEntry().get(i), i);
                         output.put(key, new Pair<>(value, priority));
                     } else {
                         output.put(key, new Pair<>(value, null));
@@ -815,7 +815,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                 Result result = evaluateLiteralExpression(element, literalExpression, context, elementAnnotation);
                 Object value = Result.value(result);
                 if (this.repository.isOutputOrderHit(hitPolicy)) {
-                    Object priority = this.dmnTransformer.priority(element, rule.getOutputEntry().get(0), 0);
+                    Object priority = this.dmnTransformer.outputClausePriority(element, rule.getOutputEntry().get(0), 0);
                     output = new Pair<>(value, priority);
                 } else {
                     output = new Pair<>(value, null);

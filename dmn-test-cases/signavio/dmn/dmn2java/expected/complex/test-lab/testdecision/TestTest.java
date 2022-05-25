@@ -9,8 +9,11 @@ public class TestTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     @org.junit.Test
     public void testCase1() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         String stringInput = "a";
-        List<String> test = this.test.apply(stringInput, annotationSet_);
+        List<String> test = this.test.apply(stringInput, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList("a", "b"), test);
     }
@@ -18,8 +21,11 @@ public class TestTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     @org.junit.Test
     public void testCase2() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         String stringInput = "c";
-        List<String> test = this.test.apply(stringInput, annotationSet_);
+        List<String> test = this.test.apply(stringInput, annotationSet_, eventListener_, externalExecutor_, cache_);
 
         checkValues(asList("a", "b"), test);
     }

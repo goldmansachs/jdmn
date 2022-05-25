@@ -34,6 +34,9 @@ class ${testClassName} : ${decisionBaseClass}() {
     @org.junit.Test
     fun testCase${(testCase?index + 1)?c}() {
         val ${testLabUtil.annotationSetVariableName()} = ${testLabUtil.annotationSetClassName()}()
+        val ${testLabUtil.eventListenerVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.defaultEventListenerClassName())}
+        val ${testLabUtil.externalExecutorVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.defaultExternalExecutorClassName())}
+        val ${testLabUtil.cacheVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.defaultCacheClassName())}
         <@addApplyPart testCase/>
 
         <@addAssertPart testCase/>
@@ -89,10 +92,10 @@ class ${testClassName} : ${decisionBaseClass}() {
         val ${variableNameProto}: ${testLabUtil.toNativeTypeProto(inputParameterDefinition)} = ${testLabUtil.toNativeExpressionProto(inputParameterDefinition)};
         <#if testLabUtil.isProtoReference(inputParameterDefinition)>
         if (${variableNameProto} != null) {
-            builder_.${testLabUtil.protoSetter(inputParameterDefinition)}(${variableNameProto});
+            builder_.${testLabUtil.protoSetter(inputParameterDefinition, "${variableNameProto}")};
         }
         <#else>
-        builder_.${testLabUtil.protoSetter(inputParameterDefinition)}(${variableNameProto});
+        builder_.${testLabUtil.protoSetter(inputParameterDefinition, "${variableNameProto}")};
         </#if>
     </#list>
         val ${testLabUtil.requestVariableName(rootOutputParameter)}: ${testLabUtil.qualifiedRequestMessageName(rootOutputParameter)} = builder_.build()

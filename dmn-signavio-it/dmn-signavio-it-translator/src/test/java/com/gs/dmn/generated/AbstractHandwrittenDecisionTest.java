@@ -13,9 +13,22 @@
 package com.gs.dmn.generated;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.gs.dmn.runtime.annotation.AnnotationSet;
+import com.gs.dmn.runtime.cache.Cache;
+import com.gs.dmn.runtime.cache.DefaultCache;
+import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
+import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
+import com.gs.dmn.runtime.listener.EventListener;
+import com.gs.dmn.runtime.listener.NopEventListener;
 import com.gs.dmn.serialization.JsonSerializer;
+import org.junit.Before;
 
 public abstract class AbstractHandwrittenDecisionTest {
+    protected AnnotationSet annotationSet;
+    protected EventListener eventListener;
+    protected ExternalFunctionExecutor externalFunctionExecutor;
+    protected Cache cache;
+
     protected String toJson(Object object) {
         try {
             return JsonSerializer.OBJECT_MAPPER.writeValueAsString(object);
@@ -25,4 +38,12 @@ public abstract class AbstractHandwrittenDecisionTest {
     }
 
     protected abstract void applyDecision();
+
+    @Before
+    public void setUp() {
+        this.annotationSet = new AnnotationSet();
+        this.eventListener = new NopEventListener();
+        this.externalFunctionExecutor = new DefaultExternalFunctionExecutor();
+        this.cache = new DefaultCache();
+    }
 }

@@ -44,18 +44,25 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("date", DATE, date));
 
-//        doUnaryTestsTest(entries, "date", "<= date(date(\"2020-01-01\") - duration(\"P5Y\"))",
-//                "PositiveUnaryTests(ExpressionTest(Relational(<=,Name(?),FunctionInvocation(Name(date) -> PositionalParameters(Addition(-,DateTimeLiteral(date, \"2020-01-01\"),DateTimeLiteral(duration, \"P5Y\")))))))",
-//                "TupleType(boolean)",
-//                "(dateLessEqualThan(date, date(dateSubtractDuration(date(\"2020-01-01\"), duration(\"P5Y\")))))",
-//                (lib.dateLessEqualThan(date, lib.date((DATE_TIME) lib.dateSubtractDuration(lib.date("2020-01-01"), lib.duration("P5Y"))))),
-//                true);
-//        doUnaryTestsTest(entries, "date", "<= date(\"2020-01-01\") - duration(\"P5Y\")",
-//                "PositiveUnaryTests(ExpressionTest(Relational(<=,Name(?),FunctionInvocation(Name(date) -> PositionalParameters(Addition(-,DateTimeLiteral(date, \"2020-01-01\"),DateTimeLiteral(duration, \"P5Y\")))))))",
-//                "TupleType(boolean)",
-//                "(dateLessEqualThan(date, date(dateSubtractDuration(date(\"2020-01-01\"), duration(\"P5Y\")))))",
-//                (lib.dateLessEqualThan(date, lib.date((DATE_TIME) lib.dateSubtractDuration(lib.date("2020-01-01"), lib.duration("P5Y"))))),
-//                true);
+        doUnaryTestsTest(entries, "date", "<= date(\"2020-01-01\")",
+                "PositiveUnaryTests(OperatorRange(<=,DateTimeLiteral(date, \"2020-01-01\")))",
+                "TupleType(boolean)",
+                "(dateLessEqualThan(date, date(\"2020-01-01\")))",
+                (this.lib.dateLessEqualThan(date, this.lib.date("2020-01-01"))),
+                true);
+        // Extension for simple positive unary test / endpoint / simple value
+        doUnaryTestsTest(entries, "date", "<= date(date(\"2020-01-01\") - duration(\"P5Y\"))",
+                "PositiveUnaryTests(OperatorRange(<=,FunctionInvocation(Name(date) -> PositionalParameters(Addition(-,DateTimeLiteral(date, \"2020-01-01\"),DateTimeLiteral(duration, \"P5Y\"))))))",
+                "TupleType(boolean)",
+                "(dateLessEqualThan(date, date(dateSubtractDuration(date(\"2020-01-01\"), duration(\"P5Y\")))))",
+                (lib.dateLessEqualThan(date, lib.date(lib.dateSubtractDuration(lib.date("2020-01-01"), lib.duration("P5Y"))))),
+                true);
+        doUnaryTestsTest(entries, "date", "date(\"2020-01-01\") - duration(\"P5Y\")",
+                "PositiveUnaryTests(OperatorRange(null,Addition(-,DateTimeLiteral(date, \"2020-01-01\"),DateTimeLiteral(duration, \"P5Y\"))))",
+                "TupleType(boolean)",
+                "(dateEqual(date, dateSubtractDuration(date(\"2020-01-01\"), duration(\"P5Y\"))))",
+                (lib.dateEqual(date, lib.dateSubtractDuration(lib.date("2020-01-01"), lib.duration("P5Y")))),
+                true);
         doUnaryTestsTest(entries, "date", "? <= date(date(\"2020-01-01\") - duration(\"P5Y\"))",
                 "PositiveUnaryTests(ExpressionTest(Relational(<=,Name(?),FunctionInvocation(Name(date) -> PositionalParameters(Addition(-,DateTimeLiteral(date, \"2020-01-01\"),DateTimeLiteral(duration, \"P5Y\")))))))",
                 "TupleType(boolean)",
@@ -67,12 +74,6 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "TupleType(boolean)",
                 "(dateLessEqualThan(date, dateSubtractDuration(date(\"2020-01-01\"), duration(\"P5Y\"))))",
                 (this.lib.dateLessEqualThan(date, this.lib.dateSubtractDuration(this.lib.date("2020-01-01"), this.lib.duration("P5Y")))),
-                true);
-        doUnaryTestsTest(entries, "date", "<= date(\"2020-01-01\")",
-                "PositiveUnaryTests(OperatorRange(<=,DateTimeLiteral(date, \"2020-01-01\")))",
-                "TupleType(boolean)",
-                "(dateLessEqualThan(date, date(\"2020-01-01\")))",
-                (this.lib.dateLessEqualThan(date, this.lib.date("2020-01-01"))),
                 true);
     }
 

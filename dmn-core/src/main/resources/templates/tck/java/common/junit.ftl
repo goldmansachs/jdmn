@@ -67,12 +67,12 @@ public class ${testClassName} extends ${decisionBaseClass} {
         <#assign elementQName = tckUtil.qualifiedName(resultInfo) >
         <#if resultInfo.isDecision()>
            <#if tckUtil.isSingletonDecision()>
-        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.singletonDecisionInstance(elementQName)}.apply(${tckUtil.drgElementArgumentListExtraCache(tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
+        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.singletonDecisionInstance(elementQName)}.apply(${tckUtil.drgElementArgumentList(resultInfo)}));
            <#else>
-        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.defaultConstructor(elementQName)}.apply(${tckUtil.drgElementArgumentListExtraCache(tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
+        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.defaultConstructor(elementQName)}.apply(${tckUtil.drgElementArgumentList(resultInfo)}));
            </#if>
         <#elseif resultInfo.isDS() || resultInfo.isBKM()>
-        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${elementQName}.apply(${tckUtil.drgElementArgumentListExtraCache(tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
+        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${elementQName}.apply(${tckUtil.drgElementArgumentList(resultInfo)}));
         </#if>
         </#items>
     </#list>
@@ -89,14 +89,14 @@ public class ${testClassName} extends ${decisionBaseClass} {
         ${tckUtil.toNativeTypeProto(parameter.right)} ${variableNameProto} = ${tckUtil.toNativeExpressionProto(parameter)};
         <#if tckUtil.isProtoReference(parameter.right)>
         if (${variableNameProto} != null) {
-            ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter)}(${variableNameProto});
+            ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter, "${variableNameProto}")};
         }
         <#else>
-        ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter)}(${variableNameProto});
+        ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter, "${variableNameProto}")};
         </#if>
         </#list>
         ${tckUtil.qualifiedRequestMessageName(resultInfo)} ${tckUtil.requestVariableName(resultInfo)} = ${tckUtil.builderVariableName(resultInfo)}.build();
-        checkValues(${tckUtil.toNativeExpressionProto(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.apply(${tckUtil.drgElementArgumentListExtraCacheProto(resultInfo)}).${tckUtil.protoGetter(resultInfo)});
+        checkValues(${tckUtil.toNativeExpressionProto(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.apply(${tckUtil.drgElementArgumentListProto(resultInfo)}).${tckUtil.protoGetter(resultInfo)});
         </#items>
     </#list>
 </#macro>

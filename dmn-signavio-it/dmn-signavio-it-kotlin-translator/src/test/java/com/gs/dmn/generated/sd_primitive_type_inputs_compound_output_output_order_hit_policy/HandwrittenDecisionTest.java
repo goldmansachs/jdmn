@@ -26,26 +26,25 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void testApply() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        List<com.gs.dmn.generated.sd_primitive_type_inputs_compound_output_output_order_hit_policy.type.Decision> output = decision.apply("1", "1", annotationSet);
+        List<com.gs.dmn.generated.sd_primitive_type_inputs_compound_output_output_order_hit_policy.type.Decision> output = decision.apply("1", "1", annotationSet, eventListener, externalFunctionExecutor, cache);
         assertEquals("r2, r3, r4, r5",
                 output.stream().map(com.gs.dmn.generated.sd_primitive_type_inputs_compound_output_output_order_hit_policy.type.Decision::getOutput1).collect(Collectors.joining(", ")));
         assertEquals("r6, r7, r8, r9",
                 output.stream().map(com.gs.dmn.generated.sd_primitive_type_inputs_compound_output_output_order_hit_policy.type.Decision::getOutput2).collect(Collectors.joining(", ")));
 
-        output = decision.apply("1", null, annotationSet);
+        output = decision.apply("1", null, annotationSet, eventListener, externalFunctionExecutor, cache);
         assertEquals("r2, r4",
                 output.stream().map(com.gs.dmn.generated.sd_primitive_type_inputs_compound_output_output_order_hit_policy.type.Decision::getOutput1).collect(Collectors.joining(", ")));
         assertEquals("r7, r9",
                 output.stream().map(com.gs.dmn.generated.sd_primitive_type_inputs_compound_output_output_order_hit_policy.type.Decision::getOutput2).collect(Collectors.joining(", ")));
 
-        output = decision.apply((String) null, "1", annotationSet);
+        output = decision.apply((String) null, "1", annotationSet, eventListener, externalFunctionExecutor, cache);
         assertEquals("r2, r3",
                 output.stream().map(com.gs.dmn.generated.sd_primitive_type_inputs_compound_output_output_order_hit_policy.type.Decision::getOutput1).collect(Collectors.joining(", ")));
         assertEquals("r8, r9",
                 output.stream().map(com.gs.dmn.generated.sd_primitive_type_inputs_compound_output_output_order_hit_policy.type.Decision::getOutput2).collect(Collectors.joining(", ")));
 
-        output = decision.apply((String) null, null, annotationSet);
+        output = decision.apply((String) null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
         assertEquals("r2",
                 output.stream().map(com.gs.dmn.generated.sd_primitive_type_inputs_compound_output_output_order_hit_policy.type.Decision::getOutput1).collect(Collectors.joining(", ")));
         assertEquals("r9",
@@ -54,7 +53,6 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Override
     protected void applyDecision() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        decision.apply(decision.number("1"), "1", annotationSet);
+        decision.apply(decision.number("1"), "1", annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 }

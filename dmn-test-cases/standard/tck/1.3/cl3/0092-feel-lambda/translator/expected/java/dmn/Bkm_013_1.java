@@ -33,6 +33,11 @@ public class Bkm_013_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private Bkm_013_1() {
     }
 
+    @java.lang.Override()
+    public java.math.BigDecimal apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        throw new com.gs.dmn.runtime.DMNRuntimeException("Not all arguments can be serialized");
+    }
+
     public java.math.BigDecimal apply(com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> fn1, com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> fn2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'bkm_013_1'

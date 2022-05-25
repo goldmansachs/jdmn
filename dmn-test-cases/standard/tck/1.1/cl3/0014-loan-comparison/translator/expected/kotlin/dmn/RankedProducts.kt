@@ -13,12 +13,12 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class RankedProducts(val bankrates : Bankrates = Bankrates()) : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    fun apply(requestedAmt: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): type.TRankedProducts? {
-        return try {
-            apply(requestedAmt?.let({ number(it) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
+    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): type.TRankedProducts? {
+        try {
+            return apply(input_.get("RequestedAmt"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
         } catch (e: Exception) {
             logError("Cannot apply decision 'RankedProducts'", e)
-            null
+            return null
         }
     }
 
@@ -29,10 +29,6 @@ class RankedProducts(val bankrates : Bankrates = Bankrates()) : com.gs.dmn.runti
             logError("Cannot apply decision 'RankedProducts'", e)
             null
         }
-    }
-
-    fun apply(requestedAmt: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): type.TRankedProducts? {
-        return apply(requestedAmt, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
     fun apply(requestedAmt: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TRankedProducts? {
