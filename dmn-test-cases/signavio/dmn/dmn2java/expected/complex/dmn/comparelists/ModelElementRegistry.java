@@ -1,6 +1,7 @@
 
 public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElementRegistry {
     public ModelElementRegistry() {
+        // Register elements from model 'CompareLists'
         register("CompareLists", "CompareLists");
         register("L1", "L1");
         register("L1", "L12_iterator");

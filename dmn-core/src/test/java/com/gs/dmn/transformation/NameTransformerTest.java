@@ -27,6 +27,7 @@ import org.xmlunit.diff.DifferenceEvaluators;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +43,11 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
 
         // Read DMN files
         List<TDefinitions> definitionsList = readModels(path, dmnFileNames);
+        // Defintions are normalized in Repository
+        Map<String, TDefinitions> definitionsMap = new LinkedHashMap<>();
+        for (int i = 0; i < dmnFileNames.size(); i++) {
+            definitionsMap.put(dmnFileNames.get(i), definitionsList.get(i));
+        }
         DMNModelRepository repository = new DMNModelRepository(definitionsList);
 
         // Transform Models and Tests
@@ -59,9 +65,8 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
         for (TestCases actualTestCases: actualTestCasesList) {
             File targetFolder = new File(getTargetPath());
             targetFolder.mkdirs();
-            for (int i = 0; i < dmnFileNames.size(); i++) {
-                String dmnFileName = dmnFileNames.get(i);
-                TDefinitions definitions = definitionsList.get(i);
+            for (String dmnFileName: dmnFileNames) {
+                TDefinitions definitions =  definitionsMap.get(dmnFileName);
                 check(definitions, dmnFileName);
             }
             Pair<String, String> testsNamespacePrefixMapping = namespacePrefixMapping.get(testsFileName);

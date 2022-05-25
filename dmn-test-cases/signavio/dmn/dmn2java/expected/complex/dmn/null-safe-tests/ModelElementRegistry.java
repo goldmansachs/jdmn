@@ -1,6 +1,7 @@
 
 public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElementRegistry {
     public ModelElementRegistry() {
+        // Register elements from model 'Null Safe Tests'
         register("allFalseAggregation", "AllFalseAggregation");
         register("allTogether", "AllTogether");
         register("allTrueAggregation", "AllTrueAggregation");

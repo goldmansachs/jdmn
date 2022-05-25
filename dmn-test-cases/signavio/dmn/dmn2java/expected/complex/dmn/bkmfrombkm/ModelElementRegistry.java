@@ -1,6 +1,7 @@
 
 public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElementRegistry {
     public ModelElementRegistry() {
+        // Register elements from model 'BKMfromBKM'
         register("d", "D");
         register("date", "Date");
         register("date formula", "DateFormula");

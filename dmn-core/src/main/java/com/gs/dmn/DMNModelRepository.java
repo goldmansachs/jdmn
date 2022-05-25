@@ -62,6 +62,8 @@ public class DMNModelRepository {
 
     public DMNModelRepository(List<TDefinitions> definitionsList) {
         this.definitionsList = definitionsList;
+        // Normalize definitions
+        this.definitionsList.sort(Comparator.comparing((TDefinitions o) -> NameUtils.removeSingleQuotes(o.getName())));
         if (definitionsList != null) {
             for (TDefinitions definitions: definitionsList) {
                 this.allDefinitions.add(definitions);

@@ -1,6 +1,7 @@
 
 public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElementRegistry {
     public ModelElementRegistry() {
+        // Register elements from model 'Example credit decision'
         register("Applicant", "Applicant");
         register("Assess applicant age", "AssessApplicantAge");
         register("Assess issue", "AssessIssue");

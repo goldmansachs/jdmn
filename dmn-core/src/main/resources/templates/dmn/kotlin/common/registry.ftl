@@ -24,6 +24,7 @@ class ${javaClassName} : ${transformer.registryClassName()} {
 -->
 <#macro addRegistryEntries definitionsList>
 <#list definitionsList as definitions>
+        // Register elements from model '${definitions.name}'
     <#list modelRepository.findDRGElements(definitions) as element>
         register("${modelRepository.displayName(element)}", "${transformer.qualifiedName(element)}")
     </#list>

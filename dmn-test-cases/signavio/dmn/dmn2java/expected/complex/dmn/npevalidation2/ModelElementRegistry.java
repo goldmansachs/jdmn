@@ -1,6 +1,7 @@
 
 public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElementRegistry {
     public ModelElementRegistry() {
+        // Register elements from model 'NPEValidation2'
         register("accessCertainTemporalUnits", "AccessCertainTemporalUnits");
         register("ages", "Ages");
         register("buildDateStringInAnnotation", "BuildDateStringInAnnotation");

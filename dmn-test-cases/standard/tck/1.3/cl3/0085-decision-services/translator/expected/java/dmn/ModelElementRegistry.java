@@ -1,6 +1,7 @@
 
 public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElementRegistry {
     public ModelElementRegistry() {
+        // Register elements from model '0085-decision-services'
         register("decisionService_001", "DecisionService_001");
         register("decisionService_002", "DecisionService_002");
         register("decisionService_003", "DecisionService_003");

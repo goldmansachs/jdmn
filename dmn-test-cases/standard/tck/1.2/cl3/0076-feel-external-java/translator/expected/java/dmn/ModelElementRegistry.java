@@ -1,6 +1,7 @@
 
 public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElementRegistry {
     public ModelElementRegistry() {
+        // Register elements from model '0076-feel-external-java'
         register("applicant_repository", "Applicant_repository");
         register("boxed_001", "Boxed_001");
         register("incorrect_001", "Incorrect_001");

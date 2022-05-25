@@ -1,6 +1,7 @@
 
 public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElementRegistry {
     public ModelElementRegistry() {
+        // Register elements from model '0092-feel-lambda'
         register("bkm_003_1", "Bkm_003_1");
         register("bkm_004_1", "Bkm_004_1");
         register("bkm_005_1", "Bkm_005_1");

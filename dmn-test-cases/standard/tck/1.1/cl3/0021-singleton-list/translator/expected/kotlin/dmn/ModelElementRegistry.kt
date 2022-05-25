@@ -1,6 +1,7 @@
 
 class ModelElementRegistry : com.gs.dmn.runtime.discovery.ModelElementRegistry {
     constructor() {
+        // Register elements from model 'filter01'
         register("Employees", "Employees")
         register("decision1", "Decision1")
         register("decision2", "Decision2")
