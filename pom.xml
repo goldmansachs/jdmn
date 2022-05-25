@@ -86,7 +86,7 @@
         <jaxb.plugin.version>2.5.0</jaxb.plugin.version>
         <antlr4.version>4.9.3</antlr4.version>
 
-        <jackson.version>2.11.0</jackson.version>
+        <jackson.version>2.13.3</jackson.version>
         <jackson.core.version>${jackson.version}</jackson.core.version>
         <jackson.databind.version>${jackson.version}</jackson.databind.version>
         <jackson.annotations.version>${jackson.version}</jackson.annotations.version>
@@ -378,12 +378,6 @@ specific language governing permissions and limitations under the License.]]></i
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.freemarker</groupId>
-                <artifactId>freemarker</artifactId>
-                <version>2.3.23</version>
             </dependency>
 
             <dependency>
