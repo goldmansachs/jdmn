@@ -105,10 +105,6 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C> {
         return element;
     }
 
-    private String par(boolean isOpen) {
-        return isOpen ? "(" : "]";
-    }
-
     @Override
     public Object visit(ListTest<T, C> element, C context) {
         if (element == null) {

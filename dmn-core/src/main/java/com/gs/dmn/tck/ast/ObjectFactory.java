@@ -45,6 +45,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ValueType }
+     *
+     */
+    public ValueType createValueType() {
+        return new ValueType();
+    }
+
+    /**
      * Create an instance of {@link Component }
      * 
      */

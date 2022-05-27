@@ -14,7 +14,10 @@ package com.gs.dmn.tck.ast;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
@@ -26,7 +29,59 @@ import static com.gs.dmn.serialization.DMNConstants.XSI_NS;
         "test"
 })
 public class AnySimpleType extends DMNBaseElement {
-    private static final DatatypeFactory DATATYPE_FACTORY;
+    public static AnySimpleType of(Object value) {
+        if (value == null) {
+            AnySimpleType result = new AnySimpleType();
+            result.setText("");
+            result.getOtherAttributes().put(new QName(XSI_NS, "nil"), "true");
+            return result;
+        } else if (value instanceof String) {
+            AnySimpleType result = new AnySimpleType();
+            result.setText((String) value);
+            result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:string");
+            return result;
+        } else if (value instanceof Boolean) {
+            AnySimpleType result = new AnySimpleType();
+            result.setText("" + value);
+            result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:boolean");
+            return result;
+        } else if (value instanceof Float) {
+            AnySimpleType result = new AnySimpleType();
+            result.setText("" + value);
+            result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:float");
+            return result;
+        } else if (value instanceof Double) {
+            AnySimpleType result = new AnySimpleType();
+            result.setText("" + value);
+            result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:double");
+            return result;
+        } else if (value instanceof BigDecimal) {
+            AnySimpleType result = new AnySimpleType();
+            result.setText("" + value);
+            result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:decimal");
+            return result;
+        } else if (value instanceof XMLGregorianCalendar) {
+            AnySimpleType result = new AnySimpleType();
+            result.setText(value.toString());
+            QName type = ((XMLGregorianCalendar) value).getXMLSchemaType();
+            if (type == DatatypeConstants.DATE) {
+                result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:date");
+            } else if (type == DatatypeConstants.TIME) {
+                result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:time");
+            } else if (type == DatatypeConstants.DATETIME) {
+                result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:dateTime");
+            }
+            return result;
+        } else if (value instanceof Duration) {
+            AnySimpleType result = new AnySimpleType();
+            result.setText(value.toString());
+            result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:duration");
+            return result;
+        }
+        throw new IllegalArgumentException(String.format("Not supported value '%s' yet", value.getClass().getSimpleName()));
+    }
+
+    static final DatatypeFactory DATATYPE_FACTORY;
     static {
         try {
             DATATYPE_FACTORY = DatatypeFactory.newInstance();
@@ -63,10 +118,12 @@ public class AnySimpleType extends DMNBaseElement {
             return this.text;
         } else if (type.endsWith(":boolean")) {
             return Boolean.valueOf(this.text);
-        } else if (type.endsWith(":decimal")) {
-            return new BigDecimal(this.text);
+        } else if (type.endsWith(":float")) {
+            return Float.valueOf(this.text);
         } else if (type.endsWith(":double")) {
             return Double.valueOf(this.text);
+        } else if (type.endsWith(":decimal")) {
+            return new BigDecimal(this.text);
         } else if (type.endsWith(":date")) {
             return DATATYPE_FACTORY.newXMLGregorianCalendar(this.text);
         } else if (type.endsWith(":time")) {
