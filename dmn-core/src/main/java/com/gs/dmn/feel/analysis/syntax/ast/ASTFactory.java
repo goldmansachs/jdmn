@@ -201,11 +201,11 @@ public class ASTFactory<T, C> {
         } else if (expression instanceof ListLiteral) {
             // Shallow conversion of list elements to Positive Unary Test
             List<Expression<T, C>> puts = new ArrayList<>();
-            for (Expression listElement: ((ListLiteral<T, C>) expression).getExpressionList()) {
+            for (Expression<T, C> listElement: ((ListLiteral<T, C>) expression).getExpressionList()) {
                 if (listElement instanceof ListLiteral) {
                     puts.add(listElement);
                 } else {
-                    PositiveUnaryTest put = toPositiveUnaryTest(listElement);
+                    PositiveUnaryTest<T, C> put = toPositiveUnaryTest(listElement);
                     puts.add(put);
                 }
             }

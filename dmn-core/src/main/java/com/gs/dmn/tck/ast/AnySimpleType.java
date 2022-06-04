@@ -29,6 +29,17 @@ import static com.gs.dmn.serialization.DMNConstants.XSI_NS;
         "test"
 })
 public class AnySimpleType extends DMNBaseElement {
+    public static AnySimpleType from(String localPart, String value, String prefix, String text) {
+        AnySimpleType anySimpleType = new AnySimpleType();
+        anySimpleType.getOtherAttributes().put(new QName(XSI_NS, localPart, prefix), value);
+        anySimpleType.setText(text);
+        return anySimpleType;
+    }
+
+    public static AnySimpleType from(String localPart, String value, String text) {
+        return from(localPart, value, "xsd", text);
+    }
+
     public static AnySimpleType of(Object value) {
         if (value == null) {
             AnySimpleType result = new AnySimpleType();
@@ -114,23 +125,23 @@ public class AnySimpleType extends DMNBaseElement {
             return this;
         } else if (type.endsWith("nil")) {
             return null;
-        } else if (type.endsWith(":string")) {
+        } else if (type.equals("string") || type.endsWith(":string")) {
             return this.text;
-        } else if (type.endsWith(":boolean")) {
+        } else if (type.equals("boolean") || type.endsWith(":boolean")) {
             return Boolean.valueOf(this.text);
-        } else if (type.endsWith(":float")) {
+        } else if (type.equals("float") || type.endsWith(":float")) {
             return Float.valueOf(this.text);
-        } else if (type.endsWith(":double")) {
+        } else if (type.equals("double") || type.endsWith(":double")) {
             return Double.valueOf(this.text);
-        } else if (type.endsWith(":decimal")) {
+        } else if (type.equals("decimal") || type.endsWith(":decimal")) {
             return new BigDecimal(this.text);
-        } else if (type.endsWith(":date")) {
+        } else if (type.equals("date") || type.endsWith(":date")) {
             return DATATYPE_FACTORY.newXMLGregorianCalendar(this.text);
-        } else if (type.endsWith(":time")) {
+        } else if (type.equals("time") || type.endsWith(":time")) {
             return DATATYPE_FACTORY.newXMLGregorianCalendar(this.text);
-        } else if (type.endsWith(":dateTime")) {
+        } else if (type.equals("dateTime") || type.endsWith(":dateTime")) {
             return DATATYPE_FACTORY.newXMLGregorianCalendar(this.text);
-        } else if (type.endsWith(":duration")) {
+        } else if (type.equals("duration") || type.endsWith(":duration")) {
             return DATATYPE_FACTORY.newDuration(this.text);
         } else {
             throw new IllegalArgumentException(String.format("XML type '%s' is not supported yet", type));

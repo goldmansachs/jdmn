@@ -167,11 +167,10 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         // Calculate provided inputs
         List<String> inputNames = testCase.getInputNode().stream()
                 .map(in -> this.extractInputNodeInfo(testCases, testCase, in))
-                .map(ini -> this.inputDataVariableName(ini))
+                .map(this::inputDataVariableName)
                 .collect(Collectors.toList());
         // Calculate missing inputs
         ResultNodeInfo resultNodeInfo = extractResultNodeInfo(testCases, testCase, resultNode);
-        List<Pair<String, String>> result = new ArrayList<>();
         List<Pair<String, Type>> parameters = this.transformer.drgElementTypeSignature(resultNodeInfo.getReference(), transformer::nativeName);
         List<Pair<String, String>> applySignature = parameters.stream()
                 .map(p -> new Pair<>(transformer.getNativeFactory().nullableParameterType(transformer.toNativeType(p.getRight())), p.getLeft()))
@@ -537,16 +536,17 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
     // Make java expressions from ValueType
     //
-    private String toNativeExpression(ValueType valueType, Type type) {
+    String toNativeExpression(ValueType valueType, Type type) {
         if (valueType.getValue() != null) {
             Object value = anySimpleTypeValue(valueType.getValue());
             String text = getTextContent(value);
+            if (text != null) {
+                text = text.trim();
+            }
             if (text == null || "null".equals(text)) {
                 return "null";
             } else if (isNumber(value, type)) {
                 return String.format("number(\"%s\")", text);
-            } else if (isString(value, type)) {
-                return String.format("\"%s\"", text);
             } else if (isBoolean(value, type)) {
                 return text;
             } else if (isDate(value, type)) {
@@ -557,6 +557,9 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
                 return String.format("dateAndTime(\"%s\")", text);
             } else if (isDurationTime(value, type)) {
                 return String.format("duration(\"%s\")", text);
+            } else if (isString(value, type)) {
+                // Last one to deal with xsd:string but different value
+                return String.format("\"%s\"", text);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
             }
@@ -870,7 +873,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     private String getTextContent(Object value) {
         if (value instanceof String) {
-            return (String) value;
+            return ((String) value);
         } else if (value instanceof Number) {
             return this.feelLib.string(value);
         } else if (value instanceof Boolean) {
