@@ -540,26 +540,23 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (valueType.getValue() != null) {
             Object value = anySimpleTypeValue(valueType.getValue());
             String text = getTextContent(value);
-            if (text != null) {
-                text = text.trim();
-            }
             if (text == null || "null".equals(text)) {
                 return "null";
             } else if (isNumber(value, type)) {
-                return String.format("number(\"%s\")", text);
+                return String.format("number(\"%s\")", text.trim());
             } else if (isBoolean(value, type)) {
-                return text;
+                return text.trim();
             } else if (isDate(value, type)) {
-                return String.format("date(\"%s\")", text);
+                return String.format("date(\"%s\")", text.trim());
             } else if (isTime(value, type)) {
-                return String.format("time(\"%s\")", text);
+                return String.format("time(\"%s\")", text.trim());
             } else if (isDateTime(value, type)) {
-                return String.format("dateAndTime(\"%s\")", text);
+                return String.format("dateAndTime(\"%s\")", text.trim());
             } else if (isDurationTime(value, type)) {
-                return String.format("duration(\"%s\")", text);
+                return String.format("duration(\"%s\")", text.trim());
             } else if (isString(value, type)) {
                 // Last one to deal with xsd:string but different value
-                return String.format("\"%s\"", text);
+                return String.format("\"%s\"", text.replace("\n", "\\n"));
             } else {
                 throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
             }
