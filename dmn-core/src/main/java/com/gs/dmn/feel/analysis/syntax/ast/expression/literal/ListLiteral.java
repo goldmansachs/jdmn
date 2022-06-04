@@ -14,6 +14,8 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.literal;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.feel.analysis.syntax.ast.test.OperatorRange;
+import com.gs.dmn.feel.analysis.syntax.ast.test.SimplePositiveUnaryTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,4 +62,17 @@ public class ListLiteral<T, C> extends Expression<T, C> {
         String expressions = this.expressionList.stream().map(Object::toString).collect(Collectors.joining(","));
         return String.format("%s(%s)", getClass().getSimpleName(), expressions);
     }
+
+    public boolean allTestsAreEqualityTest() {
+        return this.expressionList.stream().allMatch(this::isEqualityTest);
+    }
+
+    private boolean isEqualityTest(Expression<T, C> expression) {
+        if (expression instanceof SimplePositiveUnaryTest) {
+            return expression instanceof OperatorRange && ((OperatorRange<T, C>) expression).getOperator() == null;
+        } else {
+            return true;
+        }
+    }
+
 }

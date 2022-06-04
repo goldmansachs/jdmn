@@ -132,7 +132,6 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         Expression<Type, DMNContext> endpoint = element.getEndpoint();
         String operator = element.getOperator();
         endpoint.accept(this, context);
-        element.getEndpointsRange().accept(this, context);
 
         // Derive type
         if (context.isExpressionContext()) {
@@ -152,25 +151,32 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
 
     @Override
     public Object visit(EndpointsRange<Type, DMNContext> element, DMNContext context) {
-        // Visit children
         Expression<Type, DMNContext> start = element.getStart();
+        Expression<Type, DMNContext> end = element.getEnd();
+        if (start == null && end == null) {
+            throw new DMNRuntimeException(String.format("Illegal range, both endpoints are null in context of element '%s'", context.getElementName()));
+        }
+
+        // Visit children
         if (start != null) {
             start.accept(this, context);
         }
-        Expression<Type, DMNContext> end = element.getEnd();
         if (end != null) {
             end.accept(this, context);
         }
 
         // Derive type
-        if (start == null && end == null) {
-            throw new DMNRuntimeException(String.format("Illegal range, both endpoints are null in context of element '%s'", context.getElementName()));
-        } else if (start != null) {
-            Type startType = start.getType();
-            element.setType(new RangeType(startType));
+        if (context.isExpressionContext()) {
+            // Evaluate as expression
+            Type endpointType = element.getEndpointType();
+            element.setType(new RangeType(endpointType));
         } else {
-            Type endType = end.getType();
-            element.setType(new RangeType(endType));
+            // Evaluate as test
+            Type inputExpressionType = context.getInputExpressionType();
+            Type endpointType = element.getEndpointType();
+            element.setType(new RangeType(endpointType));
+            // Involves relational operations
+            checkType(element, "<", inputExpressionType, endpointType, context);
         }
 
         return element;
@@ -180,21 +186,36 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     public Object visit(ListTest<Type, DMNContext> element, DMNContext context) {
         // Visit children
         ListLiteral<Type, DMNContext> listLiteral = element.getListLiteral();
-        listLiteral.accept(this, context);
+
+        // Calculate optimization
+        if (listLiteral.allTestsAreEqualityTest()) {
+            List<Expression<Type, DMNContext>> expressionList = listLiteral.getExpressionList();
+            List<Expression<Type, DMNContext>> newListElements = expressionList.stream().map(e -> e instanceof OperatorRange ? ((OperatorRange<Type, DMNContext>) e).getEndpoint() : e).collect(Collectors.toList());
+            ListLiteral<Type, DMNContext> newListLiteral = new ListLiteral<>(newListElements);
+            newListLiteral.accept(this, context);
+
+            element.setOptimizedListLiteral(newListLiteral);
+        } else {
+            listLiteral.accept(this, context);
+        }
 
         // Derive type
         element.setType(BOOLEAN);
-        List<Expression<Type, DMNContext>> expressionList = listLiteral.getExpressionList();
-        if (!expressionList.isEmpty()) {
-            Type listType = listLiteral.getType();
-            Type listElementType = ((ListType) listType).getElementType();
-            Type inputExpressionType = context.getInputExpressionType();
-            if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, listType)) {
-            } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, listElementType)) {
-            } else if (listElementType instanceof RangeType && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, ((RangeType) listElementType).getRangeType())) {
+        Type inputExpressionType = context.getInputExpressionType();
+        ListLiteral<Type, DMNContext> optimizedListLiteral = element.getOptimizedListLiteral();
+        if (optimizedListLiteral != null) {
+            // Optimisation
+            Type optimizedListType = optimizedListLiteral.getType();
+            Type optimizedListElementType = ((ListType) optimizedListType).getElementType();
+            if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, optimizedListType)) {
+                // both are compatible lists
+            } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, optimizedListElementType)) {
+                // input conforms to element in the list
             } else {
-                throw new SemanticError(element, String.format("Cannot compare '%s', '%s'", inputExpressionType, listType));
+                throw new SemanticError(element, String.format("Cannot compare '%s', '%s'", inputExpressionType, optimizedListType));
             }
+        } else {
+            // test is list of ranges compatible with input
         }
 
         return element;
@@ -840,11 +861,11 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
 
         // Derive type
         if (expressionList.isEmpty()) {
-            if (context.getInputExpressionType() == null) {
+            if (context.isExpressionContext()) {
                 // conforms to any other list
                 element.setType(new ListType(NullType.NULL));
             } else {
-                element.setType(context.getInputExpressionType());
+                element.setType(ListType.ANY_LIST);
             }
         } else {
             checkListElementTypes(element);

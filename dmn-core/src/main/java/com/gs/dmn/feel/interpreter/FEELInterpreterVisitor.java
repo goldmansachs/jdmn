@@ -303,24 +303,31 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         LOGGER.debug("Visiting element '{}'", element);
 
         try {
-            ListLiteral<Type, DMNContext> listLiteral = element.getListLiteral();
-            Type listType = listLiteral.getType();
-            Type listElementType = ((ListType) listType).getElementType();
+            ListLiteral<Type, DMNContext> optimizedListLiteral = element.getOptimizedListLiteral();
             Type inputExpressionType = context.getInputExpressionType();
             Object self = context.lookupBinding(INPUT_ENTRY_PLACE_HOLDER);
 
             Object result;
-            if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, listType)) {
-                String operator = "=";
-                return evaluateOperatorRange(element, operator, self, listLiteral, context);
-            } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, listElementType)) {
-                List list = (List) listLiteral.accept(this, context);
-                result = this.lib.listContains(list, self);
-            } else if (listElementType instanceof RangeType && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, ((RangeType) listElementType).getRangeType())) {
+            if (optimizedListLiteral != null) {
+                // Optimisation
+                Type optimizedListType = optimizedListLiteral.getType();
+                Type optimizedListElementType = ((ListType) optimizedListType).getElementType();
+                if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, optimizedListType)) {
+                    // both are compatible lists
+                    String operator = "=";
+                    return evaluateOperatorRange(element, operator, self, optimizedListLiteral, context);
+                } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, optimizedListElementType)) {
+                    // input conforms to element in the list
+                    List list = (List) optimizedListLiteral.accept(this, context);
+                    result = this.lib.listContains(list, self);
+                } else {
+                    throw new SemanticError(element, String.format("Cannot compare '%s', '%s'", inputExpressionType, optimizedListType));
+                }
+            } else {
+                // test is list of ranges compatible with input
+                ListLiteral<Type, DMNContext> listLiteral = element.getListLiteral();
                 List list = (List) listLiteral.accept(this, context);
                 result = this.lib.listContains(list, true);
-            } else {
-                throw new SemanticError(element, String.format("Cannot compare '%s', '%s'", inputExpressionType, listType));
             }
 
             return result;

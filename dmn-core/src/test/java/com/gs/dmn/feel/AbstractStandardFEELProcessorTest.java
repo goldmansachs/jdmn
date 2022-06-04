@@ -40,10 +40,25 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
     public void testUnaryTests() {
         super.testUnaryTests();
 
+        NUMBER number = this.lib.number("15");
         DATE date = this.lib.date("2015-01-01");
         List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("date", DATE, date));
+                new EnvironmentEntry("number", NUMBER, number),
+                new EnvironmentEntry("date", DATE, date)
+        );
 
+        doUnaryTestsTest(entries, "number", "and(> 10, < 20)",
+                "PositiveUnaryTests(ExpressionTest(FunctionInvocation(Name(and) -> PositionalParameters(OperatorRange(>,NumericLiteral(10)), OperatorRange(<,NumericLiteral(20))))))",
+                "TupleType(boolean)",
+                "(and(numericGreaterThan(number, number(\"10\")), numericLessThan(number, number(\"20\"))))",
+                (this.lib.and(this.lib.numericGreaterThan(number, this.lib.number("10")), this.lib.numericLessThan(number, this.lib.number("20")))),
+                true);
+        doUnaryTestsTest(entries, "number", "or((1..2), [3..4])",
+                "PositiveUnaryTests(ExpressionTest(FunctionInvocation(Name(or) -> PositionalParameters(EndpointsRange(true,NumericLiteral(1),true,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(3),false,NumericLiteral(4))))))",
+                "TupleType(boolean)",
+                "(or(booleanAnd(numericGreaterThan(number, number(\"1\")), numericLessThan(number, number(\"2\"))), booleanAnd(numericGreaterEqualThan(number, number(\"3\")), numericLessEqualThan(number, number(\"4\")))))",
+                (this.lib.or(this.lib.booleanAnd(this.lib.numericGreaterThan(number, this.lib.number("1")), this.lib.numericLessThan(number, this.lib.number("2"))), this.lib.booleanAnd(this.lib.numericGreaterEqualThan(number, this.lib.number("3")), this.lib.numericLessEqualThan(number, this.lib.number("4"))))),
+                false);
         doUnaryTestsTest(entries, "date", "<= date(\"2020-01-01\")",
                 "PositiveUnaryTests(OperatorRange(<=,DateTimeLiteral(date, \"2020-01-01\")))",
                 "TupleType(boolean)",

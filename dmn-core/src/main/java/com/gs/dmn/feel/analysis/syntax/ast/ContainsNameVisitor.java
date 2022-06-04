@@ -15,6 +15,8 @@ package com.gs.dmn.feel.analysis.syntax.ast;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
+import com.gs.dmn.feel.analysis.syntax.ast.test.EndpointsRange;
+import com.gs.dmn.feel.analysis.syntax.ast.test.OperatorRange;
 
 public class ContainsNameVisitor<T, C> extends TraversalVisitor<T, C> {
     private boolean found;
@@ -25,6 +27,24 @@ public class ContainsNameVisitor<T, C> extends TraversalVisitor<T, C> {
 
     public boolean isFound() {
         return found;
+    }
+
+    @Override
+    public Object visit(OperatorRange<T, C> element, C context) {
+        super.visit(element, context);
+
+        this.found = true;
+
+        return element;
+    }
+
+    @Override
+    public Object visit(EndpointsRange<T, C> element, C context) {
+        super.visit(element, context);
+
+        this.found = true;
+
+        return element;
     }
 
     @Override
