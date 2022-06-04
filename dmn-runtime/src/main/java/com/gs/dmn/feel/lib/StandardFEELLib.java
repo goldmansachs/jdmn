@@ -75,7 +75,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     NUMBER ceiling(NUMBER n);
     NUMBER ceiling(NUMBER n, NUMBER scale);
 
-    Object abs(Object n);
+    <T> T abs(T n);
 
     NUMBER modulo(NUMBER dividend, NUMBER divisor);
 
