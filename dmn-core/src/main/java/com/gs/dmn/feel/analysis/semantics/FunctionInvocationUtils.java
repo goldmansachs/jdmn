@@ -155,11 +155,11 @@ public class FunctionInvocationUtils {
         ParameterTypes<Type, DMNContext> parameterTypes = element.getParameters().getSignature();
         List<DeclarationMatch> functionMatches = findFunctionMatches(element, context, name, parameterTypes);
         if (functionMatches.isEmpty()) {
-            throw new DMNRuntimeException(String.format("Cannot resolve function '%s(%s)'", name, parameterTypes));
+            throw new DMNRuntimeException(String.format("Cannot resolve function '%s(%s)'. No match found.", name, parameterTypes));
         } else if (functionMatches.size() == 1) {
             return functionMatches.get(0);
         } else {
-            throw new DMNRuntimeException(String.format("Found %d matches for function '%s(%s)' %s", functionMatches.size(), name, parameterTypes, functionMatches));
+            throw new DMNRuntimeException(String.format("Cannot resolve function '%s(%s)'. Found %d matches %s", name, parameterTypes, functionMatches.size(), functionMatches));
         }
     }
 

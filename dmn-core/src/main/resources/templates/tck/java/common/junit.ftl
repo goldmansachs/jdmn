@@ -65,6 +65,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
         // Check ${result.name}
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
         <#assign elementQName = tckUtil.qualifiedName(resultInfo) >
+        <@addMissingInputs testCase result />
         <#if resultInfo.isDecision()>
            <#if tckUtil.isSingletonDecision()>
         checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.singletonDecisionInstance(elementQName)}.apply(${tckUtil.drgElementArgumentList(resultInfo)}));
@@ -97,6 +98,22 @@ public class ${testClassName} extends ${decisionBaseClass} {
         </#list>
         ${tckUtil.qualifiedRequestMessageName(resultInfo)} ${tckUtil.requestVariableName(resultInfo)} = ${tckUtil.builderVariableName(resultInfo)}.build();
         checkValues(${tckUtil.toNativeExpressionProto(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.apply(${tckUtil.drgElementArgumentListProto(resultInfo)}).${tckUtil.protoGetter(resultInfo)});
+        </#items>
+    </#list>
+</#macro>
+
+<#macro addMissingInputs testCase resultNode>
+    <#list tckUtil.missingArguments(testCases, testCase, resultNode) >
+        <#items as arg>
+        ${arg.left} ${arg.right} = null;
+        </#items>
+    </#list>
+</#macro>
+
+<#macro addMissingInputs testCase resultNode>
+    <#list tckUtil.missingArguments(testCases, testCase, resultNode) >
+        <#items as arg>
+        ${arg.left} ${arg.right} = null;
         </#items>
     </#list>
 </#macro>

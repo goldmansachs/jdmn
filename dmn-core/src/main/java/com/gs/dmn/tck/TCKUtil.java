@@ -76,6 +76,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             }
             return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), pair.getLeft(), pair.getRight());
         }
+
     }
 
     private DRGElementReference<? extends TDRGElement> extractInfoFromModel(TDefinitions rootDefinitions, String elementNamespace, String elementName) {
@@ -160,6 +161,23 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
         // Make result
         return new Pair<>(this.dmnModelRepository.makeDRGElementReference(path, element), value);
+    }
+
+    public List<Pair<String, String>> missingArguments(TestCases testCases, TestCase testCase, ResultNode resultNode) {
+        // Calculate provided inputs
+        List<String> inputNames = testCase.getInputNode().stream()
+                .map(in -> this.extractInputNodeInfo(testCases, testCase, in))
+                .map(ini -> this.inputDataVariableName(ini))
+                .collect(Collectors.toList());
+        // Calculate missing inputs
+        ResultNodeInfo resultNodeInfo = extractResultNodeInfo(testCases, testCase, resultNode);
+        List<Pair<String, String>> result = new ArrayList<>();
+        List<Pair<String, Type>> parameters = this.transformer.drgElementTypeSignature(resultNodeInfo.getReference(), transformer::nativeName);
+        List<Pair<String, String>> applySignature = parameters.stream()
+                .map(p -> new Pair<>(transformer.getNativeFactory().nullableParameterType(transformer.toNativeType(p.getRight())), p.getLeft()))
+                .filter(pair -> !inputNames.contains(pair.getRight()))
+                .collect(Collectors.toList());
+        return applySignature;
     }
 
     private TImport getImport(TDefinitions definitions, String name) {
