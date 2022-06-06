@@ -50,7 +50,7 @@
     <informationRequirement>
       <requiredInput href="sid-D16E1277-6037-4066-A21B-42F761A4B427"></requiredInput>
     </informationRequirement>
-    <decisionTable id="decision-expression-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D" hitPolicy="FIRST" preferredOrientation="Rule-as-Row">
+    <decisionTable id="decision-expression-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D" hitPolicy="FIRST">
       <input id="input-clause-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-2F0DFEA1-3BBF-4C18-826A-16C5D779C8C9">
         <inputExpression id="input-clause-exp-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-2F0DFEA1-3BBF-4C18-826A-16C5D779C8C9" typeRef="cip:dateInput">
           <text>dateInput</text>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:feel="https://www.omg.org/spec/DMN/20191111/FEEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" sigExt:revisionNumber="1" sigExt:revisionId="c3a5e1d77f1643c98bbafc32e4987b91" id="id-08c752c5790e4e898c0a3a928edded22" name="Example credit decision" namespace="http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" exporterVersion="10.15.9">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:feel="https://www.omg.org/spec/DMN/20191111/FEEL/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" sigExt:revisionNumber="1" sigExt:revisionId="c3a5e1d77f1643c98bbafc32e4987b91" id="id-08c752c5790e4e898c0a3a928edded22" name="Example credit decision" namespace="http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" exporterVersion="10.15.9">
   <extensionElements></extensionElements>
   <itemDefinition id="id-5bf135bcd0f2d1d6dabfb49f463ee763" label="Applicant" name="applicant" isCollection="false">
     <itemComponent sigExt:slotId="0" id="id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-0" label="Name" name="name" isCollection="false">
@@ -82,7 +82,7 @@
     <informationRequirement>
       <requiredInput href="#id-d2376567fde3c9400ee327ecec21e36d"></requiredInput>
     </informationRequirement>
-    <decisionTable hitPolicy="COLLECT" preferredOrientation="Rule-as-Row">
+    <decisionTable hitPolicy="COLLECT">
       <input id="id-5487c4a92acd1de6a80aff5f69a573df" label="Credit issue type">
         <inputExpression>
           <text>applicant.priorIssues</text>
@@ -141,7 +141,7 @@
     <informationRequirement>
       <requiredDecision href="#id-8369770df890b566296308a9deebec47"></requiredDecision>
     </informationRequirement>
-    <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+    <decisionTable hitPolicy="UNIQUE">
       <input id="id-d51c59f1e255a0e15800e3049e4ed904" label="Compare against lending threshold">
         <inputExpression>
           <text>compareAgainstLendingThreshold</text>
@@ -209,7 +209,7 @@
     <informationRequirement>
       <requiredInput href="#id-d2376567fde3c9400ee327ecec21e36d"></requiredInput>
     </informationRequirement>
-    <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+    <decisionTable hitPolicy="UNIQUE">
       <input id="id-5ba0d6b67c89c27abd0820b02f61d666" label="Age">
         <inputExpression>
           <text>applicant.age</text>
@@ -256,7 +256,7 @@
     <informationRequirement>
       <requiredDecision href="#id-90d13f677a4e3f0f8230a12f15301f00"></requiredDecision>
     </informationRequirement>
-    <decisionTable hitPolicy="ANY" preferredOrientation="Rule-as-Row">
+    <decisionTable hitPolicy="ANY">
       <input id="id-23debfef8b601093b4b3f16c14f478d6" label="Lending threshold">
         <inputExpression>
           <text>lendingThreshold</text>

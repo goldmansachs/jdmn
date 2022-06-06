@@ -47,6 +47,10 @@ public class TFunctionDefinition extends TExpression implements Visitable {
         this.expression = value;
     }
 
+    public TFunctionKind getKindField() {
+        return kind;
+    }
+
     public TFunctionKind getKind() {
         if (kind == null) {
             return TFunctionKind.FEEL;

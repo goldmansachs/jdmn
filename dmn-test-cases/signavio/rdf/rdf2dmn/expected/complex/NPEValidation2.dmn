@@ -98,7 +98,7 @@
     <informationRequirement>
       <requiredInput href="sid-63B08562-861C-40D7-BE83-710748DD1C0F"></requiredInput>
     </informationRequirement>
-    <decisionTable id="decision-expression-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+    <decisionTable id="decision-expression-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767" hitPolicy="UNIQUE">
       <input id="input-clause-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-672A57C7-2000-4469-B748-D6F32C9E8367">
         <inputExpression id="input-clause-exp-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-672A57C7-2000-4469-B748-D6F32C9E8367" typeRef="cip:second">
           <text>second</text>
@@ -164,7 +164,7 @@
     <informationRequirement>
       <requiredDecision href="sid-6BEA84C5-B6D6-4823-B145-CC9039E79767"></requiredDecision>
     </informationRequirement>
-    <decisionTable id="decision-expression-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12" hitPolicy="COLLECT" preferredOrientation="Rule-as-Row">
+    <decisionTable id="decision-expression-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12" hitPolicy="COLLECT">
       <input id="input-clause-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12-A69978A8-980F-4EB6-ACBB-54CC270812A3">
         <inputExpression id="input-clause-exp-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12-A69978A8-980F-4EB6-ACBB-54CC270812A3" typeRef="cip:generateTemporalObjects">
           <text>generateTemporalObjects.date</text>
@@ -240,7 +240,7 @@
     <informationRequirement>
       <requiredDecision href="sid-6BEA84C5-B6D6-4823-B145-CC9039E79767"></requiredDecision>
     </informationRequirement>
-    <decisionTable id="decision-expression-sid-613407DB-766F-458F-8430-6F31DDFD82B1" hitPolicy="COLLECT" preferredOrientation="Rule-as-Row">
+    <decisionTable id="decision-expression-sid-613407DB-766F-458F-8430-6F31DDFD82B1" hitPolicy="COLLECT">
       <input id="input-clause-sid-613407DB-766F-458F-8430-6F31DDFD82B1-722A2E5C-248E-4CE4-B787-62663762B10F">
         <inputExpression id="input-clause-exp-sid-613407DB-766F-458F-8430-6F31DDFD82B1-722A2E5C-248E-4CE4-B787-62663762B10F" typeRef="cip:generateTemporalObjects">
           <text>generateTemporalObjects.date</text>
@@ -347,7 +347,7 @@
     <informationRequirement>
       <requiredInput href="sid-3C16E501-7619-4B2F-9770-7E1A7F66A33D"></requiredInput>
     </informationRequirement>
-    <decisionTable id="decision-expression-sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B" hitPolicy="COLLECT" preferredOrientation="Rule-as-Row">
+    <decisionTable id="decision-expression-sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B" hitPolicy="COLLECT">
       <input id="input-clause-sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B-5806F078-02FC-4BE1-A2FF-73CDEAC90FCC">
         <inputExpression id="input-clause-exp-sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B-5806F078-02FC-4BE1-A2FF-73CDEAC90FCC" typeRef="cip:ages">
           <text>ages</text>
@@ -418,7 +418,7 @@
     <informationRequirement>
       <requiredInput href="sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9"></requiredInput>
     </informationRequirement>
-    <decisionTable id="decision-expression-sid-DEE756F7-83CB-4493-9004-F943DB18EF5D" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+    <decisionTable id="decision-expression-sid-DEE756F7-83CB-4493-9004-F943DB18EF5D" hitPolicy="UNIQUE">
       <input id="input-clause-sid-DEE756F7-83CB-4493-9004-F943DB18EF5D-BED2EBC4-A420-406A-AC52-985F52CD0EF0">
         <inputExpression id="input-clause-exp-sid-DEE756F7-83CB-4493-9004-F943DB18EF5D-BED2EBC4-A420-406A-AC52-985F52CD0EF0" typeRef="cip:second">
           <text>second</text>
@@ -462,7 +462,7 @@
     <informationRequirement>
       <requiredInput href="sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA"></requiredInput>
     </informationRequirement>
-    <decisionTable id="decision-expression-sid-FE7B81A7-CACD-434C-BE9D-81FF98769536" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+    <decisionTable id="decision-expression-sid-FE7B81A7-CACD-434C-BE9D-81FF98769536" hitPolicy="UNIQUE">
       <input id="input-clause-sid-FE7B81A7-CACD-434C-BE9D-81FF98769536-67FBAD9A-6E19-494D-864C-3C1DD90E2A3D">
         <inputExpression id="input-clause-exp-sid-FE7B81A7-CACD-434C-BE9D-81FF98769536-67FBAD9A-6E19-494D-864C-3C1DD90E2A3D" typeRef="cip:year">
           <text>year</text>
@@ -500,7 +500,7 @@
     <informationRequirement>
       <requiredInput href="sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9"></requiredInput>
     </informationRequirement>
-    <decisionTable id="decision-expression-sid-AEACF1C7-512D-4230-96A8-AC49528D080C" hitPolicy="RULE ORDER" preferredOrientation="Rule-as-Row">
+    <decisionTable id="decision-expression-sid-AEACF1C7-512D-4230-96A8-AC49528D080C" hitPolicy="RULE ORDER">
       <input id="input-clause-sid-AEACF1C7-512D-4230-96A8-AC49528D080C-9BAA6617-0874-4A7B-ACDE-9CE0FC7816D8">
         <inputExpression id="input-clause-exp-sid-AEACF1C7-512D-4230-96A8-AC49528D080C-9BAA6617-0874-4A7B-ACDE-9CE0FC7816D8" typeRef="cip:second">
           <text>second</text>

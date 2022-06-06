@@ -67,7 +67,9 @@ public class ItemDefinitionConverter extends NamedElementConverter {
         String isCollectionValue = reader.getAttribute(IS_COLLECTION);
 
         id.setTypeLanguage(typeLanguage);
-        id.setIsCollection(Boolean.valueOf(isCollectionValue));
+        if (isCollectionValue != null) {
+            id.setIsCollection(Boolean.valueOf(isCollectionValue));
+        }
     }
 
     @Override
@@ -90,6 +92,8 @@ public class ItemDefinitionConverter extends NamedElementConverter {
         if (id.getTypeLanguage() != null) {
             writer.addAttribute(TYPE_LANGUAGE, id.getTypeLanguage());
         }
-        writer.addAttribute(IS_COLLECTION, Boolean.valueOf(id.isIsCollection()).toString());
+        if (id.getIsCollectionField() != null) {
+            writer.addAttribute(IS_COLLECTION, Boolean.valueOf(id.getIsCollectionField()).toString());
+        }
     }
 }

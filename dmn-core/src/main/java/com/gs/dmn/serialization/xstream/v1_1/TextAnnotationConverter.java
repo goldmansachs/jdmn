@@ -63,7 +63,9 @@ public class TextAnnotationConverter extends ArtifactConverter {
         super.writeChildren(writer, context, parent);
         TTextAnnotation ta = (TTextAnnotation) parent;
 
-        if (ta.getText() != null) writeChildrenNode(writer, context, ta.getText(), TEXT);
+        if (ta.getText() != null) {
+            writeChildrenNode(writer, context, ta.getText(), TEXT);
+        }
     }
 
     @Override
@@ -71,6 +73,8 @@ public class TextAnnotationConverter extends ArtifactConverter {
         super.writeAttributes(writer, parent);
         TTextAnnotation ta = (TTextAnnotation) parent;
 
-        if (ta.getTextFormat() != null) writer.addAttribute(TEXT_FORMAT, ta.getTextFormat());
+        if (ta.getTextFormatField() != null) {
+            writer.addAttribute(TEXT_FORMAT, ta.getTextFormatField());
+        }
     }
 }

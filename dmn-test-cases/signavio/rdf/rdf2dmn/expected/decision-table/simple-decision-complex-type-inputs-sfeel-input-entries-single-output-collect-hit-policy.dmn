@@ -46,7 +46,7 @@
     <informationRequirement>
       <requiredInput href="sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264"></requiredInput>
     </informationRequirement>
-    <decisionTable id="decision-expression-sid-C52224F3-4EC1-4AAC-88AE-F5F51F285ED0" hitPolicy="COLLECT" preferredOrientation="Rule-as-Row">
+    <decisionTable id="decision-expression-sid-C52224F3-4EC1-4AAC-88AE-F5F51F285ED0" hitPolicy="COLLECT">
       <input id="input-clause-sid-C52224F3-4EC1-4AAC-88AE-F5F51F285ED0-5C446E9D-FF0A-4AA6-BA87-ABB6B6952F35">
         <inputExpression id="input-clause-exp-sid-C52224F3-4EC1-4AAC-88AE-F5F51F285ED0-5C446E9D-FF0A-4AA6-BA87-ABB6B6952F35" typeRef="cip:person">
           <text>person.id</text>

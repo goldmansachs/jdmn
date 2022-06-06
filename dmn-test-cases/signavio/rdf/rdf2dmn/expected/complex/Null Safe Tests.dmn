@@ -101,7 +101,7 @@
     <informationRequirement>
       <requiredInput href="sid-AA1757F1-99A9-416C-B74A-F53791DADB66"></requiredInput>
     </informationRequirement>
-    <decisionTable id="decision-expression-sid-9A7FCA4C-1E83-4971-8CB7-58AB96AB6BDA" hitPolicy="COLLECT" preferredOrientation="Rule-as-Row">
+    <decisionTable id="decision-expression-sid-9A7FCA4C-1E83-4971-8CB7-58AB96AB6BDA" hitPolicy="COLLECT">
       <input id="input-clause-sid-9A7FCA4C-1E83-4971-8CB7-58AB96AB6BDA-D8730CE6-4F9D-457A-9332-3A81268FB6D0">
         <inputExpression id="input-clause-exp-sid-9A7FCA4C-1E83-4971-8CB7-58AB96AB6BDA-D8730CE6-4F9D-457A-9332-3A81268FB6D0" typeRef="cip:numberA">
           <text>numberA</text>
@@ -199,7 +199,7 @@
     <informationRequirement>
       <requiredInput href="sid-C64815EC-ABA5-4B82-9B9B-3BF6FB925209"></requiredInput>
     </informationRequirement>
-    <decisionTable id="decision-expression-sid-394B1A70-6206-4407-9FE4-64635EFB5260" hitPolicy="COLLECT" preferredOrientation="Rule-as-Row">
+    <decisionTable id="decision-expression-sid-394B1A70-6206-4407-9FE4-64635EFB5260" hitPolicy="COLLECT">
       <input id="input-clause-sid-394B1A70-6206-4407-9FE4-64635EFB5260-3598B266-BD62-417B-8558-306B38A8FC31">
         <inputExpression id="input-clause-exp-sid-394B1A70-6206-4407-9FE4-64635EFB5260-3598B266-BD62-417B-8558-306B38A8FC31" typeRef="cip:dateTime">
           <text>dateTime</text>
@@ -375,7 +375,7 @@
     <informationRequirement>
       <requiredDecision href="sid-09794EF5-BBC7-4B29-BCA1-12225A55818C"></requiredDecision>
     </informationRequirement>
-    <decisionTable id="decision-expression-sid-A6EB0DC9-88FB-4B3E-8ED0-1763D6096157" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+    <decisionTable id="decision-expression-sid-A6EB0DC9-88FB-4B3E-8ED0-1763D6096157" hitPolicy="UNIQUE">
       <input id="input-clause-sid-A6EB0DC9-88FB-4B3E-8ED0-1763D6096157-FAF94422-AA0D-4527-802D-2572EF146EF0">
         <inputExpression id="input-clause-exp-sid-A6EB0DC9-88FB-4B3E-8ED0-1763D6096157-FAF94422-AA0D-4527-802D-2572EF146EF0" typeRef="cip:stringHandlingComparator">
           <text>stringHandlingComparator</text>
@@ -443,7 +443,7 @@
     <informationRequirement>
       <requiredDecision href="sid-A22D087F-827E-4AB8-A589-856C29D1CA30"></requiredDecision>
     </informationRequirement>
-    <decisionTable id="decision-expression-sid-2ABA9455-1BAD-4552-BE44-9FE612EA1D10" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+    <decisionTable id="decision-expression-sid-2ABA9455-1BAD-4552-BE44-9FE612EA1D10" hitPolicy="UNIQUE">
       <input id="input-clause-sid-2ABA9455-1BAD-4552-BE44-9FE612EA1D10-BEC31BC3-8ECD-4EA7-B489-855DE33F5DAB">
         <inputExpression id="input-clause-exp-sid-2ABA9455-1BAD-4552-BE44-9FE612EA1D10-BEC31BC3-8ECD-4EA7-B489-855DE33F5DAB" typeRef="cip:partB">
           <text>partB</text>
@@ -490,7 +490,7 @@
     <informationRequirement>
       <requiredDecision href="sid-5511B0A1-6D8F-4084-897D-51B89D5B653C"></requiredDecision>
     </informationRequirement>
-    <decisionTable id="decision-expression-sid-A22D087F-827E-4AB8-A589-856C29D1CA30" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+    <decisionTable id="decision-expression-sid-A22D087F-827E-4AB8-A589-856C29D1CA30" hitPolicy="UNIQUE">
       <input id="input-clause-sid-A22D087F-827E-4AB8-A589-856C29D1CA30-086F507C-0650-4F17-BC05-CD1ED1F366CD">
         <inputExpression id="input-clause-exp-sid-A22D087F-827E-4AB8-A589-856C29D1CA30-086F507C-0650-4F17-BC05-CD1ED1F366CD" typeRef="cip:logical">
           <text>logical</text>
@@ -542,7 +542,7 @@
     <informationRequirement>
       <requiredInput href="sid-EAD18ED8-8B73-4685-943A-2279DFAAF795"></requiredInput>
     </informationRequirement>
-    <decisionTable id="decision-expression-sid-13F089D7-88FB-48B7-A9B1-6595017CC2AD" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+    <decisionTable id="decision-expression-sid-13F089D7-88FB-48B7-A9B1-6595017CC2AD" hitPolicy="UNIQUE">
       <input id="input-clause-sid-13F089D7-88FB-48B7-A9B1-6595017CC2AD-B1BE3878-FAC0-4A15-8AE0-1555E3FA1D9D">
         <inputExpression id="input-clause-exp-sid-13F089D7-88FB-48B7-A9B1-6595017CC2AD-B1BE3878-FAC0-4A15-8AE0-1555E3FA1D9D" typeRef="cip:anyTrueAggregation">
           <text>anyTrueAggregation</text>

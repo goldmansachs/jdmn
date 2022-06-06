@@ -148,61 +148,61 @@
       </layout:edge>
     </layout:container>
   </extensionElements>
-  <itemDefinition id="_Vvl3APRQEeeUEfOdtC13fQ" name="TypeDecisionA1" isCollection="false">
-    <itemComponent id="_fMLGMPRQEeeUEfOdtC13fQ" name="'resolve A'" isCollection="false">
+  <itemDefinition id="_Vvl3APRQEeeUEfOdtC13fQ" name="TypeDecisionA1">
+    <itemComponent id="_fMLGMPRQEeeUEfOdtC13fQ" name="'resolve A'">
       <typeRef>feel.string</typeRef>
     </itemComponent>
   </itemDefinition>
-  <itemDefinition id="_Zp-B4PRQEeeUEfOdtC13fQ" name="TypeDecisionA2.x" isCollection="false">
-    <itemComponent id="_HRrmgPRREeeUEfOdtC13fQ" name="'resolve A 1'" isCollection="false">
+  <itemDefinition id="_Zp-B4PRQEeeUEfOdtC13fQ" name="TypeDecisionA2.x">
+    <itemComponent id="_HRrmgPRREeeUEfOdtC13fQ" name="'resolve A 1'">
       <typeRef>TypeDecisionA1</typeRef>
     </itemComponent>
   </itemDefinition>
-  <itemDefinition id="_cErw0PRQEeeUEfOdtC13fQ" name="TypeDecisionA3" isCollection="false">
-    <itemComponent id="_X6vqgPRREeeUEfOdtC13fQ" name="'resolve A 2.1'" isCollection="false">
+  <itemDefinition id="_cErw0PRQEeeUEfOdtC13fQ" name="TypeDecisionA3">
+    <itemComponent id="_X6vqgPRREeeUEfOdtC13fQ" name="'resolve A 2.1'">
       <typeRef>TypeDecisionA2.x</typeRef>
     </itemComponent>
-    <itemComponent id="_YDCq4PRREeeUEfOdtC13fQ" name="'resolve A 2.2'" isCollection="false">
+    <itemComponent id="_YDCq4PRREeeUEfOdtC13fQ" name="'resolve A 2.2'">
       <typeRef>TypeDecisionA2.x</typeRef>
     </itemComponent>
   </itemDefinition>
-  <itemDefinition id="_dGucoPRQEeeUEfOdtC13fQ" name="TypeDecisionB1" isCollection="false">
-    <itemComponent id="_CJ7pkPRREeeUEfOdtC13fQ" name="'resolve B'" isCollection="false">
+  <itemDefinition id="_dGucoPRQEeeUEfOdtC13fQ" name="TypeDecisionB1">
+    <itemComponent id="_CJ7pkPRREeeUEfOdtC13fQ" name="'resolve B'">
       <typeRef>feel.string</typeRef>
     </itemComponent>
-    <itemComponent id="_Rv7fUPRXEeeUEfOdtC13fQ" name="'resolve A'" isCollection="false">
+    <itemComponent id="_Rv7fUPRXEeeUEfOdtC13fQ" name="'resolve A'">
       <typeRef>feel.string</typeRef>
     </itemComponent>
   </itemDefinition>
-  <itemDefinition id="_xac0gPRQEeeUEfOdtC13fQ" name="TypeDecisionB2.x" isCollection="false">
-    <itemComponent id="_jeTNQPRREeeUEfOdtC13fQ" name="'resolve B 1'" isCollection="false">
+  <itemDefinition id="_xac0gPRQEeeUEfOdtC13fQ" name="TypeDecisionB2.x">
+    <itemComponent id="_jeTNQPRREeeUEfOdtC13fQ" name="'resolve B 1'">
       <typeRef>TypeDecisionB1</typeRef>
     </itemComponent>
   </itemDefinition>
-  <itemDefinition id="_0XWDcPRQEeeUEfOdtC13fQ" name="TypeDecisionB3" isCollection="false">
-    <itemComponent id="_slUcIPRREeeUEfOdtC13fQ" name="'resolve B 2.1'" isCollection="false">
+  <itemDefinition id="_0XWDcPRQEeeUEfOdtC13fQ" name="TypeDecisionB3">
+    <itemComponent id="_slUcIPRREeeUEfOdtC13fQ" name="'resolve B 2.1'">
       <typeRef>TypeDecisionB2.x</typeRef>
     </itemComponent>
-    <itemComponent id="_ssyWEPRREeeUEfOdtC13fQ" name="'resolve B 2.2'" isCollection="false">
+    <itemComponent id="_ssyWEPRREeeUEfOdtC13fQ" name="'resolve B 2.2'">
       <typeRef>TypeDecisionB2.x</typeRef>
     </itemComponent>
-    <itemComponent id="_s0jK8PRREeeUEfOdtC13fQ" name="'resolve A 3'" isCollection="false">
+    <itemComponent id="_s0jK8PRREeeUEfOdtC13fQ" name="'resolve A 3'">
       <typeRef>TypeDecisionA3</typeRef>
     </itemComponent>
   </itemDefinition>
-  <itemDefinition id="_11IQEPRQEeeUEfOdtC13fQ" name="TypeDecisionC1" isCollection="false">
-    <itemComponent id="_8-PyYPRREeeUEfOdtC13fQ" name="'resolve C'" isCollection="false">
+  <itemDefinition id="_11IQEPRQEeeUEfOdtC13fQ" name="TypeDecisionC1">
+    <itemComponent id="_8-PyYPRREeeUEfOdtC13fQ" name="'resolve C'">
       <typeRef>feel.string</typeRef>
     </itemComponent>
-    <itemComponent id="_9kn14PRREeeUEfOdtC13fQ" name="'resolve A 3'" isCollection="false">
+    <itemComponent id="_9kn14PRREeeUEfOdtC13fQ" name="'resolve A 3'">
       <typeRef>TypeDecisionA3</typeRef>
     </itemComponent>
-    <itemComponent id="_9u4lIPRREeeUEfOdtC13fQ" name="'resolve B 3'" isCollection="false">
+    <itemComponent id="_9u4lIPRREeeUEfOdtC13fQ" name="'resolve B 3'">
       <typeRef>TypeDecisionB3</typeRef>
     </itemComponent>
   </itemDefinition>
-  <itemDefinition id="_5G3GkPRQEeeUEfOdtC13fQ" name="TypeDecisionC4" isCollection="false">
-    <itemComponent id="_WmQuYPRSEeeUEfOdtC13fQ" name="'resolve C 3'" isCollection="false">
+  <itemDefinition id="_5G3GkPRQEeeUEfOdtC13fQ" name="TypeDecisionC4">
+    <itemComponent id="_WmQuYPRSEeeUEfOdtC13fQ" name="'resolve C 3'">
       <typeRef>feel.string</typeRef>
     </itemComponent>
   </itemDefinition>
@@ -216,7 +216,7 @@
     <extensionElements>
       <layout:container href="#_TCzY4PQJEeecaNY7kk20yA" id="_3_-kYPQLEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
-    <encapsulatedLogic id="_3_-kYfQLEeecaNY7kk20yA" kind="FEEL">
+    <encapsulatedLogic id="_3_-kYfQLEeecaNY7kk20yA">
       <formalParameter id="_5F-jIPQLEeecaNY7kk20yA" name="param" typeRef="feel.string"></formalParameter>
       <literalExpression id="_3_-kYvQLEeecaNY7kk20yA" typeRef="feel.string">
         <text>"BKM I" + " # " + 'BKM II'(param)</text>
@@ -230,7 +230,7 @@
     <extensionElements>
       <layout:container href="#_UL_1kPQJEeecaNY7kk20yA" id="_68UZsPQLEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
-    <encapsulatedLogic id="_68UZsfQLEeecaNY7kk20yA" kind="FEEL">
+    <encapsulatedLogic id="_68UZsfQLEeecaNY7kk20yA">
       <formalParameter id="_7lAxYPQLEeecaNY7kk20yA" name="param" typeRef="feel.string"></formalParameter>
       <literalExpression id="_68UZsvQLEeecaNY7kk20yA" typeRef="feel.string">
         <text>"BKM II" + " # " + 'BKM III'(param) + " # " + 'BKM IV'(param)</text>
@@ -247,7 +247,7 @@
     <extensionElements>
       <layout:container href="#_U6fTQPQJEeecaNY7kk20yA" id="_HJ1fcPQMEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
-    <encapsulatedLogic id="_HJ1fcfQMEeecaNY7kk20yA" kind="FEEL">
+    <encapsulatedLogic id="_HJ1fcfQMEeecaNY7kk20yA">
       <formalParameter id="_H52AEPQMEeecaNY7kk20yA" name="param" typeRef="feel.string"></formalParameter>
       <literalExpression id="_HJ1fcvQMEeecaNY7kk20yA" typeRef="feel.string">
         <text>"BKM III" + " # " + param</text>
@@ -258,7 +258,7 @@
     <extensionElements>
       <layout:container href="#_UgthUPQJEeecaNY7kk20yA" id="_MvwmIPQMEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
-    <encapsulatedLogic id="_MvwmIfQMEeecaNY7kk20yA" kind="FEEL">
+    <encapsulatedLogic id="_MvwmIfQMEeecaNY7kk20yA">
       <formalParameter id="_N8gGEPQMEeecaNY7kk20yA" name="param" typeRef="feel.string"></formalParameter>
       <literalExpression id="_MvwmIvQMEeecaNY7kk20yA" typeRef="feel.string">
         <text>"BKM IV" + " # " + 'BKM III'(param)</text>

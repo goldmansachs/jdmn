@@ -70,6 +70,10 @@ public class TDecisionTable extends TExpression implements Visitable {
         return this.rule;
     }
 
+    public THitPolicy getHitPolicyField() {
+        return hitPolicy;
+    }
+
     public THitPolicy getHitPolicy() {
         if (hitPolicy == null) {
             return THitPolicy.UNIQUE;
@@ -88,6 +92,10 @@ public class TDecisionTable extends TExpression implements Visitable {
 
     public void setAggregation(TBuiltinAggregator value) {
         this.aggregation = value;
+    }
+
+    public TDecisionTableOrientation getPreferredOrientationField() {
+        return preferredOrientation;
     }
 
     public TDecisionTableOrientation getPreferredOrientation() {
