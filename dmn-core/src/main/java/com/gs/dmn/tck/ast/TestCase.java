@@ -82,6 +82,10 @@ public class TestCase extends DMNBaseElement {
         this.id = value;
     }
 
+    public TestCaseType getTypeField() {
+        return TestCaseType.DECISION;
+    }
+
     public TestCaseType getType() {
         if (type == null) {
             return TestCaseType.DECISION;

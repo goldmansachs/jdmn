@@ -52,7 +52,7 @@
         <value xsi:type="xsd:double">600</value>
       </component>
     </inputNode>
-    <resultNode type="decision" name="Strategy" errorResult="false">
+    <resultNode type="decision" name="Strategy">
       <expected>
         <value xsi:type="xsd:string">THROUGH</value>
       </expected>
@@ -106,7 +106,7 @@
         <value xsi:type="xsd:double">600</value>
       </component>
     </inputNode>
-    <resultNode type="decision" name="Routing" errorResult="false">
+    <resultNode type="decision" name="Routing">
       <expected>
         <value xsi:type="xsd:string">ACCEPT</value>
       </expected>
@@ -160,7 +160,7 @@
         <value xsi:type="xsd:double">600</value>
       </component>
     </inputNode>
-    <resultNode type="decision" name="ApplicationRiskScore" errorResult="false">
+    <resultNode type="decision" name="ApplicationRiskScore">
       <expected>
         <value xsi:type="xsd:double">138</value>
       </expected>
@@ -214,7 +214,7 @@
         <value xsi:type="xsd:double">600</value>
       </component>
     </inputNode>
-    <resultNode type="decision" name="PreBureauRiskCategory" errorResult="false">
+    <resultNode type="decision" name="PreBureauRiskCategory">
       <expected>
         <value xsi:type="xsd:string">VERY LOW</value>
       </expected>
@@ -268,7 +268,7 @@
         <value xsi:type="xsd:double">600</value>
       </component>
     </inputNode>
-    <resultNode type="decision" name="BureauCallType" errorResult="false">
+    <resultNode type="decision" name="BureauCallType">
       <expected>
         <value xsi:type="xsd:string">NONE</value>
       </expected>
@@ -322,7 +322,7 @@
         <value xsi:type="xsd:double">600</value>
       </component>
     </inputNode>
-    <resultNode type="decision" name="Eligibility" errorResult="false">
+    <resultNode type="decision" name="Eligibility">
       <expected>
         <value xsi:type="xsd:string">ELIGIBLE</value>
       </expected>
@@ -376,7 +376,7 @@
         <value xsi:type="xsd:double">600</value>
       </component>
     </inputNode>
-    <resultNode type="decision" name="PostBureauAffordability" errorResult="false">
+    <resultNode type="decision" name="PostBureauAffordability">
       <expected>
         <value xsi:type="xsd:boolean">true</value>
       </expected>
@@ -430,12 +430,12 @@
         <value xsi:type="xsd:double">600</value>
       </component>
     </inputNode>
-    <resultNode type="decision" name="Strategy" errorResult="false">
+    <resultNode type="decision" name="Strategy">
       <expected>
         <value xsi:type="xsd:string">THROUGH</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="Routing" errorResult="false">
+    <resultNode type="decision" name="Routing">
       <expected>
         <value xsi:type="xsd:string">ACCEPT</value>
       </expected>

@@ -52,12 +52,12 @@
     <inputNode name="durationString">
       <value>P13DT2H14S</value>
     </inputNode>
-    <resultNode type="decision" name="'Date-Time'" errorResult="false">
+    <resultNode type="decision" name="'Date-Time'">
       <expected>
         <value xsi:type="xsd:dateTime">2016-12-24T23:59:00-08:00</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="Date" errorResult="false">
+    <resultNode type="decision" name="Date">
       <expected>
         <component name="fromString">
           <value xsi:type="xsd:date">2015-12-24</value>
@@ -70,87 +70,87 @@
         </component>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="Time" errorResult="false">
+    <resultNode type="decision" name="Time">
       <expected>
         <value xsi:type="xsd:time">00:00:01-01:00</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="'Date-Time2'" errorResult="false">
+    <resultNode type="decision" name="'Date-Time2'">
       <expected>
         <value xsi:type="xsd:dateTime">2015-12-24T00:00:01-01:00</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="Time2" errorResult="false">
+    <resultNode type="decision" name="Time2">
       <expected>
         <value xsi:type="xsd:time">00:00:01-01:00</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="Time3" errorResult="false">
+    <resultNode type="decision" name="Time3">
       <expected>
         <value xsi:type="xsd:time">12:59:01.3-01:00</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="dtDuration1" errorResult="false">
+    <resultNode type="decision" name="dtDuration1">
       <expected>
         <value xsi:type="xsd:duration">P13DT2H14S</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="dtDuration2" errorResult="false">
+    <resultNode type="decision" name="dtDuration2">
       <expected>
         <value xsi:type="xsd:duration">P367DT6H58M59S</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="sumDurations" errorResult="false">
+    <resultNode type="decision" name="sumDurations">
       <expected>
         <value xsi:type="xsd:duration">P380DT8H59M13S</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="ymDuration2" errorResult="false">
+    <resultNode type="decision" name="ymDuration2">
       <expected>
         <value xsi:type="xsd:duration">P1Y0M</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="cDay" errorResult="false">
+    <resultNode type="decision" name="cDay">
       <expected>
         <value>24</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="cYear" errorResult="false">
+    <resultNode type="decision" name="cYear">
       <expected>
         <value>2015</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="cMonth" errorResult="false">
+    <resultNode type="decision" name="cMonth">
       <expected>
         <value>12</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="cHour" errorResult="false">
+    <resultNode type="decision" name="cHour">
       <expected>
         <value>0</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="cMinute" errorResult="false">
+    <resultNode type="decision" name="cMinute">
       <expected>
         <value>0</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="cSecond" errorResult="false">
+    <resultNode type="decision" name="cSecond">
       <expected>
         <value>1</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="cOffset" errorResult="false">
+    <resultNode type="decision" name="cOffset">
       <expected>
         <value xsi:type="xsd:duration">-PT1H</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="years" errorResult="false">
+    <resultNode type="decision" name="years">
       <expected>
         <value>1</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="seconds" errorResult="false">
+    <resultNode type="decision" name="seconds">
       <expected>
         <value>14</value>
       </expected>

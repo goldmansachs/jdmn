@@ -106,7 +106,7 @@ public class TestCaseConverter extends DMNBaseElementConverter {
         if (id != null) {
             writer.addAttribute(ID, id);
         }
-        TestCaseType type = element.getType();
+        TestCaseType type = element.getTypeField();
         if (type != null) {
             writer.addAttribute(TYPE, type.value());
         }

@@ -20,7 +20,7 @@
         </component>
       </component>
     </inputNode>
-    <resultNode name="ModelCDecisionBasedOnBs" errorResult="false">
+    <resultNode name="ModelCDecisionBasedOnBs">
       <expected>
         <value xsi:type="xsd:string">B: Evaluating Say Hello to: Hello, B.A.John; B2: Evaluating Say Hello to: Hello, B2.A.John2</value>
       </expected>

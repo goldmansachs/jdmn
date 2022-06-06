@@ -54,6 +54,10 @@ public class ResultNode extends DMNBaseElement {
         this.expected = value;
     }
 
+    public Boolean getErrorResultField() {
+        return errorResult;
+    }
+
     public boolean isErrorResult() {
         if (errorResult == null) {
             return false;

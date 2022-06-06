@@ -24,14 +24,14 @@
     <inputNode name="C">
       <value>C</value>
     </inputNode>
-    <resultNode type="decision" name="decisionA1" errorResult="false">
+    <resultNode type="decision" name="decisionA1">
       <expected>
         <component name="resolveA">
           <value>A</value>
         </component>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="decisionA21" errorResult="false">
+    <resultNode type="decision" name="decisionA21">
       <expected>
         <component name="resolveA1">
           <component name="resolveA">
@@ -40,7 +40,7 @@
         </component>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="decisionA22" errorResult="false">
+    <resultNode type="decision" name="decisionA22">
       <expected>
         <component name="resolveA1">
           <component name="resolveA">
@@ -49,7 +49,7 @@
         </component>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="decisionA3" errorResult="false">
+    <resultNode type="decision" name="decisionA3">
       <expected>
         <component name="resolveA21">
           <component name="resolveA1">
@@ -67,7 +67,7 @@
         </component>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="decisionB1" errorResult="false">
+    <resultNode type="decision" name="decisionB1">
       <expected>
         <component name="resolveB">
           <value>B</value>
@@ -77,7 +77,7 @@
         </component>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="decisionB21" errorResult="false">
+    <resultNode type="decision" name="decisionB21">
       <expected>
         <component name="resolveB1">
           <component name="resolveB">
@@ -89,7 +89,7 @@
         </component>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="decisionB22" errorResult="false">
+    <resultNode type="decision" name="decisionB22">
       <expected>
         <component name="resolveB1">
           <component name="resolveB">
@@ -101,7 +101,7 @@
         </component>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="decisionB3" errorResult="false">
+    <resultNode type="decision" name="decisionB3">
       <expected>
         <component name="resolveB21">
           <component name="resolveB1">
@@ -141,7 +141,7 @@
         </component>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="decisionC1" errorResult="false">
+    <resultNode type="decision" name="decisionC1">
       <expected>
         <component name="resolveC">
           <value>C</value>
@@ -202,17 +202,17 @@
         </component>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="decisionC2" errorResult="false">
+    <resultNode type="decision" name="decisionC2">
       <expected>
         <value>BKM I # BKM II # BKM III # decision C 2 # BKM IV # BKM III # decision C 2</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="decisionC3" errorResult="false">
+    <resultNode type="decision" name="decisionC3">
       <expected>
         <value>BKM II # BKM III # decision C 3 # BKM IV # BKM III # decision C 3</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="decisionC4" errorResult="false">
+    <resultNode type="decision" name="decisionC4">
       <expected>
         <component name="resolveC3">
           <value>BKM II # BKM III # decision C 3 # BKM IV # BKM III # decision C 3</value>
