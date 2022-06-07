@@ -1289,8 +1289,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String condition(TDRGElement element, TDecisionRule rule) {
-        return this.expressionToNativeTransformer.condition(element, rule);
+    public String condition(TDRGElement element, TDecisionRule rule, int ruleIndex) {
+        return this.expressionToNativeTransformer.condition(element, rule, ruleIndex);
     }
 
     @Override

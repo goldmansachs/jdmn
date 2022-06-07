@@ -175,7 +175,7 @@
 
         // Apply rule
         ${transformer.ruleOutputClassName(drgElement)} output_ = new ${transformer.ruleOutputClassName(drgElement)}(false);
-        if (${transformer.condition(drgElement, rule)}) {
+        if (${transformer.condition(drgElement, rule, rule_index)}) {
             <@matchRule drgElement rule_index />
 
             // Compute output
