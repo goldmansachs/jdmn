@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.ast;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +44,48 @@ public class SpecialVariableTransformerVisitor extends DefaultDMNVisitor {
 
     void updateUnaryTests(TUnaryTests unaryTests, String inputExp) {
         String text = unaryTests.getText();
-        String newText = text.replace(inputExp, "?");
-        unaryTests.setText(newText);
+        if (StringUtils.isBlank(text) || StringUtils.isBlank(inputExp)) {
+            return;
+        }
+
+        int textLen = text.length();
+        int inputLen = inputExp.length();
+        StringBuilder newText = new StringBuilder();
+        int i = 0;
+        while (true) {
+            if (i == textLen) {
+                break;
+            }
+            int index = text.indexOf(inputExp, i);
+            if (index == -1) {
+                break;
+            } else {
+                // Found it
+                appendFrom(text, newText, i, index);
+                if (okChar(index - 1, text, textLen) && okChar(index + inputLen, text, textLen)) {
+                    newText.append("?");
+                } else {
+                    newText.append(inputExp);
+                }
+                i = index + inputLen;
+            }
+        }
+        appendFrom(text, newText, i, textLen);
+        unaryTests.setText(newText.toString());
+    }
+
+    private void appendFrom(String text, StringBuilder newText, int start, int end) {
+        for (int j=start; j<end; j++) {
+            newText.append(text.charAt(j));
+        }
+    }
+
+    private boolean okChar(int i, String text, int len) {
+        if (0 <= i && i < len) {
+            char ch = text.charAt(i);
+            return !Character.isJavaIdentifierPart(ch);
+        } else {
+            return true;
+        }
     }
 }

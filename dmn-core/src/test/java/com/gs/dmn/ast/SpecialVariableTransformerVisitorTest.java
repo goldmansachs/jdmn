@@ -9,7 +9,9 @@ public class SpecialVariableTransformerVisitorTest {
 
     @Test
     public void testUpdateUnaryTests() {
+        // TODO Add more tests
         doTest("contains(x.y.z, \"123\")", "x.y.z", "contains(?, \"123\")");
+        doTest("review.nextActionNew", "review.nextAction", "review.nextActionNew");
     }
 
     private void doTest(String unaryTestsText, String inputExpression, String expectedValue) {
