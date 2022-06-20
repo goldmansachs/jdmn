@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Assert {
-    private static final int ASSERT_SCALE = 8;
     public static final BigDecimal NUMBER_COMPARISON_PRECISION = new BigDecimal("0.00000001");
 
     public static void assertEquals(Object expected, Object actual) {
@@ -56,7 +55,7 @@ public class Assert {
             if (actual == null) {
                 org.junit.Assert.assertEquals(message, expected, actual);
             } else {
-                org.junit.Assert.assertEquals((message == null ? "" : message)  + expected.toString() + " vs " + actual.toString(), ((List) expected).size(), ((List) actual).size());
+                org.junit.Assert.assertEquals((message == null ? "" : message)  + expected + " vs " + actual, ((List) expected).size(), ((List) actual).size());
                 for (int i = 0; i < ((List) expected).size(); i++) {
                     assertEquals(message, ((List) expected).get(i), ((List) actual).get(i));
                 }
@@ -100,9 +99,7 @@ public class Assert {
     }
 
     private static boolean isNumber(Object object) {
-        return object instanceof BigDecimal
-                || object instanceof Double
-                ;
+        return object instanceof Number;
     }
 
     private static boolean isString(Object object) {
