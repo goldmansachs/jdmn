@@ -26,7 +26,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <kotlin.version>1.4.10</kotlin.version>
+        <kotlin.version>1.6.0</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.languageVersion>1.4</kotlin.compiler.languageVersion>
         <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
