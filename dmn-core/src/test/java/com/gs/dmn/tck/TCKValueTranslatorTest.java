@@ -16,13 +16,17 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Test;
 
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
+
 import static org.junit.Assert.assertEquals;
 
-public class TCKUtilTest {
+public class TCKValueTranslatorTest {
     private final StandardDMNDialectDefinition dialect = new StandardDMNDialectDefinition();
     private final BasicDMNToNativeTransformer<Type, DMNContext> transformer = dialect.createBasicTransformer(new DMNModelRepository(), new NopLazyEvaluationDetector(), new InputParameters());
     private final DefaultFEELLib feelLib = new DefaultFEELLib();
-    private final TCKUtil tckUtil = new TCKUtil<>(transformer, feelLib);
+    private final TCKValueTranslator<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> translator = new TCKValueTranslator<>(transformer, feelLib);
 
     @Test
     public void testToNativeExpression() {
@@ -39,6 +43,6 @@ public class TCKUtilTest {
     private void doTest(AnySimpleType value, Type type, String expected) {
         ValueType valueType = new ValueType();
         valueType.setValue(value);
-        assertEquals(expected, tckUtil.toNativeExpression(valueType, type));
+        assertEquals(expected, translator.toNativeExpression(valueType, type));
     }
 }
