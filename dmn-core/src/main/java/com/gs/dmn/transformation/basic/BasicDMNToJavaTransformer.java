@@ -2056,4 +2056,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext) {
         return this.nativeFactory.extractMemberFromProtoValue(protoValue, type, staticContext);
     }
+
+    //
+    // Mock testing related methods
+    //
+    @Override
+    public boolean isMockTesting() {
+        return this.inputParameters.isMockTesting();
+    }
 }

@@ -19,6 +19,7 @@ import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
@@ -32,11 +33,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private static final Logger LOGGER = LoggerFactory.getLogger(TCKUtil.class);
@@ -55,7 +59,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         this.dmnModelRepository = transformer.getDMNModelRepository();
         this.typeFactory = transformer.getNativeTypeFactory();
         this.tckValueInterpreter = new TCKValueInterpreter<>(transformer, feelLib);
-        this.tckValueTranslator = new TCKValueTranslator<>(transformer, feelLib);
+        this.tckValueTranslator = transformer.isMockTesting() ? new MockTCKValueTranslator<>(transformer, feelLib) : new TCKValueTranslator<>(transformer, feelLib);
     }
 
     //
@@ -69,13 +73,13 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             if (reference == null) {
                 throw new DMNRuntimeException(String.format("Cannot find DRG element for InputNode '%s' for TestCase '%s' in TestCases '%s'", inputNode.getName(), testCase.getId(), testCases.getModelName()));
             }
-            return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), reference, inputNode);
+            return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), NodeInfo.nodeTypeFrom(reference), reference, inputNode);
         } else {
             Pair<DRGElementReference<? extends TDRGElement>, ValueType> pair = extractInfoFromValue(definitions, inputNode);
             if (pair == null || pair.getLeft() == null) {
                 throw new DMNRuntimeException(String.format("Cannot find DRG element for InputNode '%s' for TestCase '%s' in TestCases '%s'", inputNode.getName(), testCase.getId(), testCases.getModelName()));
             }
-            return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), pair.getLeft(), pair.getRight());
+            return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), NodeInfo.nodeTypeFrom(pair.getLeft()), pair.getLeft(), pair.getRight());
         }
 
     }
@@ -164,7 +168,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return new Pair<>(this.dmnModelRepository.makeDRGElementReference(path, element), value);
     }
 
-    public List<Pair<String, String>> missingArguments(TestCases testCases, TestCase testCase, ResultNode resultNode) {
+    public List<List<String>> missingArguments(TestCases testCases, TestCase testCase, ResultNode resultNode) {
         // Calculate provided inputs
         List<String> inputNames = testCase.getInputNode().stream()
                 .map(in -> this.extractInputNodeInfo(testCases, testCase, in))
@@ -173,11 +177,22 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         // Calculate missing inputs
         ResultNodeInfo resultNodeInfo = extractResultNodeInfo(testCases, testCase, resultNode);
         List<Pair<String, Type>> parameters = this.transformer.drgElementTypeSignature(resultNodeInfo.getReference(), transformer::nativeName);
-        List<Pair<String, String>> applySignature = parameters.stream()
+        List<Pair<String, Type>> missingParameters = parameters.stream().filter(pair -> !inputNames.contains(pair.getLeft())).collect(Collectors.toList());
+        List<Pair<String, String>> missingArgs = missingParameters.stream()
                 .map(p -> new Pair<>(transformer.getNativeFactory().nullableParameterType(transformer.toNativeType(p.getRight())), p.getLeft()))
-                .filter(pair -> !inputNames.contains(pair.getRight()))
                 .collect(Collectors.toList());
-        return applySignature;
+
+        List<List<String>> result = new ArrayList<>();
+        for (int i=0; i<missingParameters.size(); i++) {
+            Type type = parameters.get(i).getRight();
+            String defaultValue = isMockTesting() ? "null" : getDefaultValue(type, null);
+            List<String> triplet = new ArrayList<>();
+            triplet.add(missingArgs.get(i).getLeft());
+            triplet.add(missingArgs.get(i).getRight());
+            triplet.add(defaultValue);
+            result.add(triplet);
+        }
+        return result;
     }
 
     private TImport getImport(TDefinitions definitions, String name) {
@@ -205,7 +220,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     public String toNativeExpression(InputNodeInfo info) {
         Type inputType = toFEELType(info);
-        return this.tckValueTranslator.toNativeExpression(info.getValue(), inputType);
+        return this.tckValueTranslator.toNativeExpression(info.getValue(), inputType, info.getReference().getElement());
     }
 
     private Type toFEELType(InputNodeInfo info) {
@@ -246,13 +261,13 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     public String toNativeExpression(ResultNodeInfo info) {
         Type outputType = toFEELType(info);
-        return this.tckValueTranslator.toNativeExpression(info.getExpectedValue(), outputType);
+        return this.tckValueTranslator.toNativeExpression(info.getExpectedValue(), outputType, info.getReference().getElement());
     }
 
     public String toNativeExpressionProto(ResultNodeInfo info) {
         Type resultType = toFEELType(info);
         ValueType expectedValue = info.getExpectedValue();
-        String value = this.tckValueTranslator.toNativeExpression(expectedValue, resultType);
+        String value = this.tckValueTranslator.toNativeExpression(expectedValue, resultType, info.getReference().getElement());
         if (this.transformer.isDateTimeType(resultType) || this.transformer.isComplexType(resultType)) {
             return transformer.getNativeFactory().convertValueToProtoNativeType(value, resultType, false);
         } else {
@@ -600,5 +615,110 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         Type type = this.transformer.drgElementOutputFEELType(element);
         String name = this.transformer.namedElementVariableName(element);
         return this.transformer.getProtoFactory().protoGetter(name, type);
+    }
+
+    //
+    // Test Mocking section
+    //
+    public boolean isMockTesting() {
+        return this.transformer.isMockTesting();
+    }
+
+    public static String mockContextVariable() {
+        return "mockContext_";
+    }
+
+    public String defaultMockNumberType() {
+        return BigDecimal.class.getName();
+    }
+
+    public String defaultMockDateType() {
+        return XMLGregorianCalendar.class.getName();
+    }
+
+    public String defaultMockIntegerValue() {
+        return "new java.math.BigDecimal(\"0\")";
+    }
+
+    public String defaultMockDecimalValue() {
+        return "new java.math.BigDecimal(\"0.0\")";
+    }
+
+    public String defaultMockStringValue() {
+        return "null";
+    }
+
+    public String defaultMockBooleanValue() {
+        return "false";
+    }
+
+    public String defaultMockDateValue() {
+        return "null";
+    }
+
+    public String defaultMockTimeValue() {
+        return "null";
+    }
+
+    public String defaultMockDateAndTimeValue() {
+        return "null";
+    }
+
+    public String defaultMockDurationValue() {
+        return "null";
+    }
+
+    public static String makeIntegerForInput(String text) {
+        return String.format("new java.math.BigDecimal(java.lang.Integer.toString(%s))", text);
+    }
+
+    public static String makeDecimalForInput(String text) {
+        return String.format("new java.math.BigDecimal(java.lang.Double.toString(%s))", text);
+    }
+
+    public static String makeDecimalForDecision(String text) {
+        if (StringUtils.isBlank(text)) {
+            return "null";
+        } else {
+            return String.format("new java.math.BigDecimal(%s)", text);
+        }
+    }
+
+    static boolean isInteger(TItemDefinition element) {
+        if (element != null) {
+            TDMNElement.ExtensionElements extensionElements = element.getExtensionElements();
+            if (extensionElements != null) {
+                for (Object any : extensionElements.getAny()) {
+                    if ("non_decimal_number".equals(any)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    static String getDefaultValue(Type memberType, TItemDefinition memberItemDefinition) {
+        String value = "null";
+        if (memberType == NumberType.NUMBER) {
+            if (isInteger(memberItemDefinition)) {
+                value =  "DEFAULT_INTEGER_NUMBER";
+            } else {
+                value = "DEFAULT_DECIMAL_NUMBER";
+            }
+        } else if (memberType == StringType.STRING) {
+            value = "DEFAULT_STRING";
+        } else if (memberType == BooleanType.BOOLEAN) {
+            value = "DEFAULT_BOOLEAN";
+        } else if (memberType == DateType.DATE) {
+            value = "DEFAULT_DATE";
+        } else if (memberType == TimeType.TIME) {
+            value = "DEFAULT_TIME";
+        } else if (memberType == DateTimeType.DATE_AND_TIME) {
+            value = "DEFAULT_DATE_TIME";
+        } else if (memberType instanceof DurationType) {
+            value = "DEFAULT_DURATION";
+        }
+        return value;
     }
 }

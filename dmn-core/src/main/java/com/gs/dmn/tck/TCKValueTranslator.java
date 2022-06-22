@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.tck;
 
+import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.*;
@@ -36,7 +37,7 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     //
     // Make java expressions from ValueType
     //
-    public String toNativeExpression(ValueType valueType, Type type) {
+    public String toNativeExpression(ValueType valueType, Type type, TDRGElement element) {
         if (valueType.getValue() != null) {
             Object value = anySimpleTypeValue(valueType.getValue());
             String text = getTextContent(value);
@@ -61,12 +62,12 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
                 throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
             }
         } else if (valueType.getList() != null) {
-            return toNativeExpression(valueType.getList(), (ListType) type);
+            return toNativeExpression(valueType.getList(), (ListType) type, element);
         } else if (valueType.getComponent() != null) {
             if (type instanceof ItemDefinitionType) {
-                return toNativeExpression(valueType.getComponent(), (ItemDefinitionType) type);
+                return toNativeExpression(valueType.getComponent(), (ItemDefinitionType) type, element);
             } else if (type instanceof ContextType) {
-                return toNativeExpression(valueType.getComponent(), (ContextType) type);
+                return toNativeExpression(valueType.getComponent(), (ContextType) type, element);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
             }
@@ -74,24 +75,24 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
         throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
     }
 
-    private String toNativeExpression(com.gs.dmn.tck.ast.List list, ListType listType) {
+    private String toNativeExpression(com.gs.dmn.tck.ast.List list, ListType listType, TDRGElement element) {
         List<String> javaList = new ArrayList<>();
         for (ValueType listValueType : list.getItem()) {
             Type elementType = listType.getElementType();
-            String value = toNativeExpression(listValueType, elementType);
+            String value = toNativeExpression(listValueType, elementType, element);
             javaList.add(value);
         }
         return String.format("asList(%s)", String.join(", ", javaList));
     }
 
-    private String toNativeExpression(List<Component> components, ItemDefinitionType type) {
+    private String toNativeExpression(List<Component> components, ItemDefinitionType type, TDRGElement element) {
         List<Pair<String, String>> argumentList = new ArrayList<>();
         Set<String> members = type.getMembers();
         Set<String> present = new LinkedHashSet<>();
         for (Component c : components) {
             String name = c.getName();
             Type memberType = type.getMemberType(name);
-            String value = toNativeExpression(c, memberType);
+            String value = toNativeExpression(c, memberType, element);
             argumentList.add(new Pair<>(name, value));
             present.add(name);
         }
@@ -108,13 +109,13 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
         return this.transformer.constructor(this.transformer.itemDefinitionNativeClassName(interfaceName), arguments);
     }
 
-    private String toNativeExpression(List<Component> components, ContextType type) {
+    private String toNativeExpression(List<Component> components, ContextType type, TDRGElement element) {
         // Initialized members
         List<Pair<String, String>> membersList = new ArrayList<>();
         for (Component c : components) {
             String name = c.getName();
             Type memberType = type.getMemberType(name);
-            String value = toNativeExpression(c, memberType);
+            String value = toNativeExpression(c, memberType, element);
             membersList.add(new Pair<>(name, value));
         }
         // Use builder pattern in Context
@@ -124,7 +125,7 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
         return String.format("%s.%s", builder, parts);
     }
 
-    private void sortParameters(List<Pair<String, String>> parameters) {
+    protected void sortParameters(List<Pair<String, String>> parameters) {
         parameters.sort(Comparator.comparing(Pair::getLeft));
     }
 

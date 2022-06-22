@@ -727,4 +727,9 @@ public interface BasicDMNToNativeTransformer<T, C> {
                 RuntimeEnvironment.of()
         );
     }
+
+    //
+    // Mock testing related methods
+    //
+    boolean isMockTesting();
 }

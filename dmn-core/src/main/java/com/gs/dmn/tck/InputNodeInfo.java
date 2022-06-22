@@ -19,8 +19,8 @@ import com.gs.dmn.tck.ast.ValueType;
 public class InputNodeInfo extends NodeInfo {
     private final ValueType value;
 
-    public InputNodeInfo(String rootModelName, String nodeName, DRGElementReference<? extends TDRGElement> reference, ValueType value) {
-        super(rootModelName, INPUT_TYPE, nodeName, reference);
+    public InputNodeInfo(String rootModelName, String nodeName, String nodeType, DRGElementReference<? extends TDRGElement> reference, ValueType value) {
+        super(rootModelName, nodeType, nodeName, reference);
         this.value = value;
     }
 

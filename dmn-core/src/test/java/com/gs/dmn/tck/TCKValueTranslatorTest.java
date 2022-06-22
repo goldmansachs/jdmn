@@ -43,6 +43,6 @@ public class TCKValueTranslatorTest {
     private void doTest(AnySimpleType value, Type type, String expected) {
         ValueType valueType = new ValueType();
         valueType.setValue(value);
-        assertEquals(expected, translator.toNativeExpression(valueType, type));
+        assertEquals(expected, translator.toNativeExpression(valueType, type, null));
     }
 }

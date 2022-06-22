@@ -78,6 +78,8 @@ public class InputParameters {
     private final boolean generateProtoServices;
     private final String protoVersion;
 
+    private final boolean mockTesting;
+
     public InputParameters() {
         this(new LinkedHashMap<>());
     }
@@ -108,6 +110,8 @@ public class InputParameters {
 
         String sparsityThresholdParam = InputParameters.getOptionalParam(inputParameters, "sparsityThreshold", "0.0");
         this.sparsityThreshold = Double.parseDouble(sparsityThresholdParam);
+
+        this.mockTesting = InputParameters.getOptionalBooleanParam(inputParameters, "mockTesting");
     }
 
     public String getDmnVersion() {
@@ -188,5 +192,9 @@ public class InputParameters {
 
     public String getProtoVersion() {
         return protoVersion;
+    }
+
+    public boolean isMockTesting() {
+        return mockTesting;
     }
 }

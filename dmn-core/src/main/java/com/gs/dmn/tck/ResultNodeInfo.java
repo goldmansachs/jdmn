@@ -27,16 +27,4 @@ public class ResultNodeInfo extends NodeInfo {
     public ValueType getExpectedValue() {
         return expectedValue;
     }
-
-    public boolean isDecision() {
-        return DECISION_TYPE.equals(nodeType);
-    }
-
-    public boolean isBKM() {
-        return BKM_TYPE.equals(nodeType);
-    }
-
-    public boolean isDS() {
-        return DS_TYPE.equals(nodeType);
-    }
 }
