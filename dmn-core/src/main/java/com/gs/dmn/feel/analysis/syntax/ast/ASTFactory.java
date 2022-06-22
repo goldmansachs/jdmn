@@ -191,12 +191,38 @@ public class ASTFactory<T, C> {
 
     public PositiveUnaryTest<T, C> toPositiveUnaryTest(Expression<T, C> expression) {
         if (expression instanceof SimplePositiveUnaryTest) {
+            // since DMN 1.1
+            return (PositiveUnaryTest<T, C>) expression;
+        } else if (expression instanceof NullTest) {
+            // since DMN 1.1
             return (PositiveUnaryTest<T, C>) expression;
         } else if (expression instanceof NullLiteral) {
+            // since DMN 1.1
             return toNullPositiveUnaryTest();
+        } else if (expression instanceof NamedExpression || expression instanceof PathExpression) {
+            // since DMN 1.1
+            return toOperatorRange(null, expression);
+        } else if (expression instanceof SimpleLiteral) {
+            // since DMN 1.1
+            return toOperatorRange(null, expression);
         } else if (expression instanceof ListLiteral) {
-            return toListTest((ListLiteral<T, C>) expression);
+            // Since DMN 1.1, semantics in DMN 1.2
+            // Shallow conversion of list elements to Positive Unary Test
+            List<Expression<T, C>> puts = new ArrayList<>();
+            for (Expression<T, C> listElement: ((ListLiteral<T, C>) expression).getExpressionList()) {
+                if (listElement instanceof ListLiteral) {
+                    puts.add(listElement);
+                } else {
+                    PositiveUnaryTest<T, C> put = toPositiveUnaryTest(listElement);
+                    puts.add(put);
+                }
+            }
+            return toListTest((ListLiteral<T, C>) toListLiteral(puts));
+        } else if (expression instanceof ExpressionTest) {
+            // since DMN 1.2
+            return (PositiveUnaryTest<T, C>) expression;
         } else {
+            // Since DMN 1.2
             if (containsQuestionMark(expression)) {
                 return toExpressionTest(expression);
             } else {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b" xmlns:feel="https://www.omg.org/spec/DMN/20191111/FEEL/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" triso:logoChoice="Default" id="_4e0f0b70-d31c-471c-bd52-5ca709ed362b" name="Lending1" expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" typeLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" namespace="http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b" exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.32.2; 1.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="https://www.omg.org/spec/DMN/20191111/FEEL/" xmlns:tns="http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" triso:logoChoice="Default" id="_4e0f0b70-d31c-471c-bd52-5ca709ed362b" name="Lending1" expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" typeLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" namespace="http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b" exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.32.2; 1.0">
   <itemDefinition name="tEligibility" isCollection="false">
     <typeRef>feel.string</typeRef>
     <allowedValues>
@@ -518,7 +518,7 @@
   </decision>
   <businessKnowledgeModel id="b_AffordabilityCalculation" name="AffordabilityCalculation">
     <variable name="AffordabilityCalculation"></variable>
-    <encapsulatedLogic kind="FEEL">
+    <encapsulatedLogic>
       <formalParameter name="MonthlyIncome" typeRef="feel.number"></formalParameter>
       <formalParameter name="MonthlyRepayments" typeRef="feel.number"></formalParameter>
       <formalParameter name="MonthlyExpenses" typeRef="feel.number"></formalParameter>
@@ -564,7 +564,7 @@
   </businessKnowledgeModel>
   <businessKnowledgeModel id="b_CreditContingencyFactorTable" name="CreditContingencyFactorTable">
     <variable name="CreditContingencyFactorTable"></variable>
-    <encapsulatedLogic kind="FEEL">
+    <encapsulatedLogic>
       <formalParameter name="RiskCategory" typeRef="tRiskCategory"></formalParameter>
       <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="CreditContingencyFactorTable">
         <input id="_7cdd3950-9a45-41f0-bef0-dc54240fe4c2" label="RiskCategory">
@@ -605,7 +605,7 @@
   </businessKnowledgeModel>
   <businessKnowledgeModel id="b_EligibilityRules" name="EligibilityRules">
     <variable name="EligibilityRules"></variable>
-    <encapsulatedLogic kind="FEEL">
+    <encapsulatedLogic>
       <formalParameter name="Pre-bureauRiskCategory" typeRef="tRiskCategory"></formalParameter>
       <formalParameter name="Pre-bureauAffordability" typeRef="feel.boolean"></formalParameter>
       <formalParameter name="Age" typeRef="feel.number"></formalParameter>
@@ -691,7 +691,7 @@
   </businessKnowledgeModel>
   <businessKnowledgeModel id="b_BureauCallTypeTable" name="BureauCallTypeTable">
     <variable name="BureauCallTypeTable"></variable>
-    <encapsulatedLogic kind="FEEL">
+    <encapsulatedLogic>
       <formalParameter name="Pre-bureauRiskCategory" typeRef="tRiskCategory"></formalParameter>
       <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="BureauCallTypeTable">
         <input id="_fcd1287d-7572-4523-ab27-33eff68d965b" label="Pre-bureauRiskCategory">
@@ -729,7 +729,7 @@
   </businessKnowledgeModel>
   <businessKnowledgeModel id="b_Pre-bureauRiskCategoryTable" name="Pre-bureauRiskCategoryTable">
     <variable name="Pre-bureauRiskCategoryTable"></variable>
-    <encapsulatedLogic kind="FEEL">
+    <encapsulatedLogic>
       <formalParameter name="ExistingCustomer" typeRef="feel.boolean"></formalParameter>
       <formalParameter name="ApplicationRiskScore" typeRef="feel.number"></formalParameter>
       <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="Pre-bureauRiskCategoryTable">
@@ -837,7 +837,7 @@
   </businessKnowledgeModel>
   <businessKnowledgeModel id="b_Post-bureauRiskCategoryTable" name="Post-bureauRiskCategoryTable">
     <variable name="Post-bureauRiskCategoryTable"></variable>
-    <encapsulatedLogic kind="FEEL">
+    <encapsulatedLogic>
       <formalParameter name="ExistingCustomer" typeRef="feel.boolean"></formalParameter>
       <formalParameter name="ApplicationRiskScore" typeRef="feel.number"></formalParameter>
       <formalParameter name="CreditScore" typeRef="feel.number"></formalParameter>
@@ -1045,7 +1045,7 @@
   </businessKnowledgeModel>
   <businessKnowledgeModel id="b_ApplicationRiskScoreModel" name="ApplicationRiskScoreModel">
     <variable name="ApplicationRiskScoreModel"></variable>
-    <encapsulatedLogic kind="FEEL">
+    <encapsulatedLogic>
       <formalParameter name="Age" typeRef="feel.number"></formalParameter>
       <formalParameter name="MaritalStatus" typeRef="feel.string"></formalParameter>
       <formalParameter name="EmploymentStatus" typeRef="feel.string"></formalParameter>
@@ -1234,7 +1234,7 @@
   </businessKnowledgeModel>
   <businessKnowledgeModel id="b_InstallmentCalculation" name="InstallmentCalculation">
     <variable name="InstallmentCalculation"></variable>
-    <encapsulatedLogic kind="FEEL">
+    <encapsulatedLogic>
       <formalParameter name="ProductType" typeRef="feel.string"></formalParameter>
       <formalParameter name="Rate" typeRef="feel.number"></formalParameter>
       <formalParameter name="Term" typeRef="feel.number"></formalParameter>
@@ -1262,7 +1262,7 @@
   </businessKnowledgeModel>
   <businessKnowledgeModel id="b_RoutingRules" name="RoutingRules">
     <variable name="RoutingRules"></variable>
-    <encapsulatedLogic kind="FEEL">
+    <encapsulatedLogic>
       <formalParameter name="Post-bureauRiskCategory" typeRef="tRiskCategory"></formalParameter>
       <formalParameter name="Post-bureauAffordability" typeRef="feel.boolean"></formalParameter>
       <formalParameter name="Bankrupt" typeRef="feel.boolean"></formalParameter>

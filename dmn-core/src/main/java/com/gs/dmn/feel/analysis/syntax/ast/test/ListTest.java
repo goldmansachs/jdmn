@@ -19,6 +19,7 @@ import java.util.Objects;
 
 public class ListTest<T, C> extends SimplePositiveUnaryTest<T, C> {
     private final ListLiteral<T, C> listLiteral;
+    private ListLiteral<T, C> optimizedListLiteral;
 
     public ListTest(ListLiteral<T, C> listLiteral) {
         this.listLiteral = listLiteral;
@@ -26,6 +27,14 @@ public class ListTest<T, C> extends SimplePositiveUnaryTest<T, C> {
 
     public ListLiteral<T, C> getListLiteral() {
         return this.listLiteral;
+    }
+
+    public void setOptimizedListLiteral(ListLiteral<T, C> optimizedListLiteral) {
+        this.optimizedListLiteral = optimizedListLiteral;
+    }
+
+    public ListLiteral<T, C> getOptimizedListLiteral() {
+        return optimizedListLiteral;
     }
 
     @Override
@@ -50,4 +59,6 @@ public class ListTest<T, C> extends SimplePositiveUnaryTest<T, C> {
     public String toString() {
         return String.format("%s(%s)", getClass().getSimpleName(), this.listLiteral);
     }
+
+
 }

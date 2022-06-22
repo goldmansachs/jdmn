@@ -28,13 +28,13 @@ public class TextAnnotationConverter extends ArtifactConverter {
     }
 
     @Override
-    protected DMNBaseElement createModelObject() {
-        return new TTextAnnotation();
+    public boolean canConvert(Class clazz) {
+        return clazz.equals(TTextAnnotation.class);
     }
 
     @Override
-    public boolean canConvert(Class clazz) {
-        return clazz.equals(TTextAnnotation.class);
+    protected DMNBaseElement createModelObject() {
+        return new TTextAnnotation();
     }
 
     @Override
@@ -73,8 +73,8 @@ public class TextAnnotationConverter extends ArtifactConverter {
         super.writeAttributes(writer, parent);
         TTextAnnotation ta = (TTextAnnotation) parent;
 
-        if (ta.getTextFormat() != null) {
-            writer.addAttribute(TEXT_FORMAT, ta.getTextFormat());
+        if (ta.getTextFormatField() != null) {
+            writer.addAttribute(TEXT_FORMAT, ta.getTextFormatField());
         }
     }
 }

@@ -45,6 +45,10 @@ public class TAssociation extends TArtifact implements Visitable {
         this.targetRef = value;
     }
 
+    public TAssociationDirection getAssociationDirectionField() {
+        return associationDirection;
+    }
+
     public TAssociationDirection getAssociationDirection() {
         if (associationDirection == null) {
             return TAssociationDirection.NONE;

@@ -47,6 +47,17 @@ public class EndpointsRange<T, C> extends Range<T, C> {
     }
 
     @Override
+    public T getEndpointType() {
+        T endpointType;
+        if (start != null) {
+            endpointType = start.getType();
+        } else {
+            endpointType = end.getType();
+        }
+        return endpointType;
+    }
+
+    @Override
     public Object accept(Visitor<T, C> visitor, C context) {
         return visitor.visit(this, context);
     }

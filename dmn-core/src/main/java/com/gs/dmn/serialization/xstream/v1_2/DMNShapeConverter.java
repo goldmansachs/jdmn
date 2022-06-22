@@ -51,58 +51,60 @@ public class DMNShapeConverter extends ShapeConverter {
 
     @Override
     protected void assignChildElement(Object parent, String nodeName, Object child) {
-        DMNShape style = (DMNShape) parent;
+        DMNShape shape = (DMNShape) parent;
 
         if (child instanceof DMNLabel) {
-            style.setDMNLabel((DMNLabel) child);
+            shape.setDMNLabel((DMNLabel) child);
         } else if (child instanceof DMNDecisionServiceDividerLine) {
-            style.setDMNDecisionServiceDividerLine((DMNDecisionServiceDividerLine) child);
+            shape.setDMNDecisionServiceDividerLine((DMNDecisionServiceDividerLine) child);
         } else {
-            super.assignChildElement(style, nodeName, child);
+            super.assignChildElement(shape, nodeName, child);
         }
     }
 
     @Override
     protected void assignAttributes(HierarchicalStreamReader reader, Object parent) {
         super.assignAttributes(reader, parent);
-        DMNShape style = (DMNShape) parent;
+        DMNShape shape = (DMNShape) parent;
 
-        style.setDmnElementRef(MarshallingUtils.parseQNameString(reader.getAttribute("dmnElementRef")));
+        shape.setDmnElementRef(MarshallingUtils.parseQNameString(reader.getAttribute("dmnElementRef")));
 
         String isListedInputData = reader.getAttribute("isListedInputData");
         String isCollapsed = reader.getAttribute("isCollapsed");
 
         if (isListedInputData != null) {
-            style.setIsListedInputData(Boolean.valueOf(isListedInputData));
+            shape.setIsListedInputData(Boolean.valueOf(isListedInputData));
         }
         if (isCollapsed != null) {
-            style.setIsCollapsed(Boolean.valueOf(isCollapsed));
+            shape.setIsCollapsed(Boolean.valueOf(isCollapsed));
         }
     }
 
     @Override
     protected void writeChildren(HierarchicalStreamWriter writer, MarshallingContext context, Object parent) {
         super.writeChildren(writer, context, parent);
-        DMNShape style = (DMNShape) parent;
+        DMNShape shape = (DMNShape) parent;
 
-        if (style.getDMNLabel() != null) {
-            writeChildrenNode(writer, context, style.getDMNLabel(), "DMNLabel");
+        if (shape.getDMNLabel() != null) {
+            writeChildrenNode(writer, context, shape.getDMNLabel(), "DMNLabel");
         }
-        if (style.getDMNDecisionServiceDividerLine() != null) {
-            writeChildrenNode(writer, context, style.getDMNDecisionServiceDividerLine(), "DMNDecisionServiceDividerLine");
+        if (shape.getDMNDecisionServiceDividerLine() != null) {
+            writeChildrenNode(writer, context, shape.getDMNDecisionServiceDividerLine(), "DMNDecisionServiceDividerLine");
         }
     }
 
     @Override
     protected void writeAttributes(HierarchicalStreamWriter writer, Object parent) {
         super.writeAttributes(writer, parent);
-        DMNShape style = (DMNShape) parent;
+        DMNShape shape = (DMNShape) parent;
 
-        writer.addAttribute("dmnElementRef", MarshallingUtils.formatQName(style.getDmnElementRef(), style));
+        writer.addAttribute("dmnElementRef", MarshallingUtils.formatQName(shape.getDmnElementRef(), shape));
 
-        if (style.isIsListedInputData() != null) {
-            writer.addAttribute("isListedInputData", style.isIsListedInputData().toString());
+        if (shape.isIsListedInputData() != null) {
+            writer.addAttribute("isListedInputData", shape.isIsListedInputData().toString());
         }
-        writer.addAttribute("isCollapsed", Boolean.valueOf(style.isIsCollapsed()).toString());
+        if (shape.getIsCollapsedField() != null) {
+            writer.addAttribute("isCollapsed", Boolean.valueOf(shape.getIsCollapsedField()).toString());
+        }
     }
 }

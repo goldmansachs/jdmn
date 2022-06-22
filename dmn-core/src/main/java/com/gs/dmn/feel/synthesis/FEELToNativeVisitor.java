@@ -145,25 +145,31 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(ListTest<Type, DMNContext> element, DMNContext context) {
-        ListLiteral<Type, DMNContext> listLiteral = element.getListLiteral();
-        Type listType = listLiteral.getType();
-        Type listElementType = ((ListType) listType).getElementType();
         Type inputExpressionType = context.getInputExpressionType();
 
         String condition;
-        if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, listType)) {
-            condition = makeListTestCondition("=", inputExpressionToJava(context), listLiteral, context);
-        } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, listElementType)) {
-            String javaList = (String) listLiteral.accept(this, context);
-            condition = String.format("listContains(%s, %s)", javaList, inputExpressionToJava(context));
-        } else if (listElementType instanceof RangeType && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, ((RangeType) listElementType).getRangeType())) {
-            String javaList = (String) listLiteral.accept(this, context);
-            condition = String.format("listContains(%s, %s)", javaList, "true");
+        ListLiteral<Type, DMNContext> optimizedListLiteral = element.getOptimizedListLiteral();
+        if (optimizedListLiteral != null) {
+            // Optimisation
+            Type optimizedListType = optimizedListLiteral.getType();
+            Type optimizedListElementType = ((ListType) optimizedListType).getElementType();
+            if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, optimizedListType)) {
+                // both are compatible lists
+                String javaList = (String) optimizedListLiteral.accept(this, context);
+                return String.format("listEqual(%s, %s)", inputExpressionToJava(context), javaList);
+            } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, optimizedListElementType)) {
+                // input conforms to element in the list
+                String javaList = (String) optimizedListLiteral.accept(this, context);
+                return String.format("listContains(%s, %s)", javaList, inputExpressionToJava(context));
+            } else {
+                throw new SemanticError(element, String.format("Cannot compare '%s', '%s'", inputExpressionType, optimizedListType));
+            }
         } else {
-            throw new SemanticError(element, String.format("Cannot compare '%s', '%s'", inputExpressionType, listType));
+            // test is list of ranges compatible with input
+            ListLiteral<Type, DMNContext> listLiteral = element.getListLiteral();
+            String javaList = (String) listLiteral.accept(this, context);
+            return String.format("listContains(%s, %s)", javaList, "true");
         }
-
-        return condition;
     }
 
     //

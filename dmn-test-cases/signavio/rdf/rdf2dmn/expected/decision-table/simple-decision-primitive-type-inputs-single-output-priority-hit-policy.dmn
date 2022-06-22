@@ -20,7 +20,7 @@
     <informationRequirement>
       <requiredInput href="sid-404A0FC2-6787-4210-BB30-2E7964835E99"></requiredInput>
     </informationRequirement>
-    <decisionTable id="decision-expression-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D" hitPolicy="PRIORITY" preferredOrientation="Rule-as-Row">
+    <decisionTable id="decision-expression-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D" hitPolicy="PRIORITY">
       <input id="input-clause-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-9A964D45-663B-4B27-9ACD-259D07D8F156">
         <inputExpression id="input-clause-exp-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-9A964D45-663B-4B27-9ACD-259D07D8F156" typeRef="cip:numberInput">
           <text>numberInput</text>

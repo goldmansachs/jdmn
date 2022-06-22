@@ -313,14 +313,14 @@ public class DMNExpressionToNativeTransformer {
     //
     // Rule condition
     //
-    String condition(TDRGElement element, TDecisionRule rule) {
+    String condition(TDRGElement element, TDecisionRule rule, int ruleIndex) {
         TExpression decisionTable = this.dmnModelRepository.expression(element);
         if (decisionTable instanceof TDecisionTable) {
             // Build condition parts
             List<String> conditionParts = new ArrayList<>();
             for (int i = 0; i < rule.getInputEntry().size(); i++) {
                 TUnaryTests inputEntry = rule.getInputEntry().get(i);
-                String condition = condition(element, decisionTable, inputEntry, i);
+                String condition = condition(element, decisionTable, inputEntry, i, ruleIndex);
                 conditionParts.add(condition);
             }
             // Build rule matches call
@@ -338,14 +338,14 @@ public class DMNExpressionToNativeTransformer {
         return "ruleMatches";
     }
 
-    private String condition(TDRGElement element, TExpression decisionTable, TUnaryTests inputEntry, int inputEntryIndex) {
+    private String condition(TDRGElement element, TExpression decisionTable, TUnaryTests inputEntry, int inputEntryIndex, int ruleIndex) {
         TInputClause tInputClause = ((TDecisionTable) decisionTable).getInput().get(inputEntryIndex);
         String inputExpressionText = tInputClause.getInputExpression().getText();
         String inputEntryText = inputEntry.getText();
         try {
             return inputEntryToNative(element, inputExpressionText, inputEntryText);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot build condition for input clause '%s' for entry '%s' in element '%s'", inputExpressionText, inputEntryText, element.getName()), e);
+            throw new DMNRuntimeException(String.format("Cannot build condition for input clause '%s' for entry '%s' in element '%s' in rule %d", inputExpressionText, inputEntryText, element.getName(), ruleIndex + 1), e);
         }
     }
 

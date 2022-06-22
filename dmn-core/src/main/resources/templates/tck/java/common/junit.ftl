@@ -19,6 +19,15 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "${testCases.modelName}"})
 public class ${testClassName} extends ${decisionBaseClass} {
+    <#if tckUtil.isMockTesting()>
+    // Default values for mock tests
+    private static final ${tckUtil.defaultMockNumberType()} DEFAULT_INTEGER_NUMBER = ${tckUtil.defaultMockIntegerValue()};
+    private static final ${tckUtil.defaultMockNumberType()} DEFAULT_DECIMAL_NUMBER = ${tckUtil.defaultMockDecimalValue()};
+    private static final java.lang.String DEFAULT_STRING = ${tckUtil.defaultMockStringValue()};
+    private static final Boolean DEFAULT_BOOLEAN = ${tckUtil.defaultMockBooleanValue()};
+    private static final ${tckUtil.defaultMockDateType()} DEFAULT_DATE = ${tckUtil.defaultMockDateValue()};
+
+    </#if>
     <@addTestCases />
 }
 <#macro addTestCases>
@@ -38,6 +47,13 @@ public class ${testClassName} extends ${decisionBaseClass} {
         </#items>
     </#list>
     private void checkValues(Object expected, Object actual) {
+        <#if tckUtil.isMockTesting()>
+        if (expected instanceof Boolean && actual == null) {
+            actual = DEFAULT_BOOLEAN;
+        } else if (expected instanceof java.lang.Number && actual == null) {
+            actual = DEFAULT_DECIMAL_NUMBER;
+        }
+        </#if>
         ${tckUtil.assertClassName()}.assertEquals(expected, actual);
     }
 </#macro>
@@ -47,13 +63,21 @@ public class ${testClassName} extends ${decisionBaseClass} {
         ${tckUtil.eventListenerClassName()} ${tckUtil.eventListenerVariableName()} = ${tckUtil.defaultConstructor(tckUtil.defaultEventListenerClassName())};
         ${tckUtil.externalExecutorClassName()} ${tckUtil.externalExecutorVariableName()} = ${tckUtil.defaultConstructor(tckUtil.defaultExternalExecutorClassName())};
         ${tckUtil.cacheInterfaceName()} ${tckUtil.cacheVariableName()} = ${tckUtil.defaultConstructor(tckUtil.defaultCacheClassName())};
+    <#if tckUtil.isMockTesting()>
+        java.util.Map<String, Object> ${tckUtil.mockContextVariable()} = new java.util.LinkedHashMap<>();
+    </#if>
     <#list testCase.inputNode>
         // Initialize input data
         <#items as input>
         <#assign inputInfo = tckUtil.extractInputNodeInfo(testCases, testCase, input) >
-        ${tckUtil.toNativeType(inputInfo)} ${tckUtil.inputDataVariableName(inputInfo)} = ${tckUtil.toNativeExpression(inputInfo)};
+        <#assign inputVariableName = tckUtil.inputDataVariableName(inputInfo) >
+        <#assign inputValue = tckUtil.toNativeExpression(inputInfo) >
+        ${tckUtil.toNativeType(inputInfo)} ${inputVariableName} = ${inputValue};
         <#if tckUtil.isCached(inputInfo)>
-        ${tckUtil.cacheVariableName()}.bind("${tckUtil.inputDataVariableName(inputInfo)}", ${tckUtil.inputDataVariableName(inputInfo)});
+        ${tckUtil.cacheVariableName()}.bind("${inputVariableName}", ${inputVariableName});
+        </#if>
+        <#if tckUtil.isMockTesting()>
+        ${tckUtil.mockContextVariable()}.put("${inputVariableName}", ${inputVariableName});
         </#if>
         </#items>
     </#list>
@@ -65,14 +89,17 @@ public class ${testClassName} extends ${decisionBaseClass} {
         // Check ${result.name}
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
         <#assign elementQName = tckUtil.qualifiedName(resultInfo) >
+        <#assign expectedValue = tckUtil.toNativeExpression(resultInfo) >
+        <#assign argList = tckUtil.drgElementArgumentList(resultInfo) >
+        <@addMissingInputs testCase result />
         <#if resultInfo.isDecision()>
            <#if tckUtil.isSingletonDecision()>
-        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.singletonDecisionInstance(elementQName)}.apply(${tckUtil.drgElementArgumentList(resultInfo)}));
+        checkValues(${expectedValue}, ${tckUtil.singletonDecisionInstance(elementQName)}.apply(${argList}));
            <#else>
-        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.defaultConstructor(elementQName)}.apply(${tckUtil.drgElementArgumentList(resultInfo)}));
+        checkValues(${expectedValue}, ${tckUtil.defaultConstructor(elementQName)}.apply(${argList}));
            </#if>
         <#elseif resultInfo.isDS() || resultInfo.isBKM()>
-        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${elementQName}.apply(${tckUtil.drgElementArgumentList(resultInfo)}));
+        checkValues(${expectedValue}, ${elementQName}.apply(${argList}));
         </#if>
         </#items>
     </#list>
@@ -97,6 +124,14 @@ public class ${testClassName} extends ${decisionBaseClass} {
         </#list>
         ${tckUtil.qualifiedRequestMessageName(resultInfo)} ${tckUtil.requestVariableName(resultInfo)} = ${tckUtil.builderVariableName(resultInfo)}.build();
         checkValues(${tckUtil.toNativeExpressionProto(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.apply(${tckUtil.drgElementArgumentListProto(resultInfo)}).${tckUtil.protoGetter(resultInfo)});
+        </#items>
+    </#list>
+</#macro>
+
+<#macro addMissingInputs testCase resultNode>
+    <#list tckUtil.missingArguments(testCases, testCase, resultNode) >
+        <#items as triplet>
+        ${triplet[0]} ${triplet[1]} = ${triplet[2]};
         </#items>
     </#list>
 </#macro>

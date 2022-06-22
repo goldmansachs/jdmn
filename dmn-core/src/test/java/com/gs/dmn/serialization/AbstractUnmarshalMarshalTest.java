@@ -32,8 +32,13 @@ public abstract class AbstractUnmarshalMarshalTest<D, M> extends AbstractFileTra
 
     protected void testRoundTrip(String inputFilePath, M marshaller) throws Exception {
         File inputFile = new File(resource(inputFilePath));
-        testRoundTrip(inputFile, marshaller, "target/" + inputFilePath);
+        String outputPath = String.format("target/%s/", new File(inputFilePath).getParent());
+        testRoundTrip(inputFile, marshaller,  outputPath);
     }
+
+//    private String makeOutputPath(String version) {
+//        return String.format("%s/xstream/tck/%s", rootOutputPath, version);
+//    }
 
     protected void testRoundTrip(File inputFile, M marshaller, String outputFilePath) throws Exception {
         // Validate input XML
@@ -45,8 +50,8 @@ public abstract class AbstractUnmarshalMarshalTest<D, M> extends AbstractFileTra
 
         // Write definitions
         File baseOutputDir = new File(outputFilePath);
+        baseOutputDir.mkdirs();
         File outputFile = new File(baseOutputDir, inputFile.getName());
-        outputFile.getParentFile().mkdirs();
         writeModel(marshaller, definitions, outputFile);
 
         // Validate output XML:

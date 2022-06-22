@@ -68,6 +68,10 @@ public class DMNShape extends Shape implements Visitable {
         this.isListedInputData = value;
     }
 
+    public Boolean getIsCollapsedField() {
+        return isCollapsed;
+    }
+
     public boolean isIsCollapsed() {
         if (isCollapsed == null) {
             return false;

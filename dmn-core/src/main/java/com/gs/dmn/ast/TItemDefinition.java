@@ -87,6 +87,10 @@ public class TItemDefinition extends TNamedElement implements Visitable {
         }
     }
 
+    public Boolean getIsCollectionField() {
+        return this.isCollection;
+    }
+
     public void setIsCollection(Boolean value) {
         this.isCollection = value;
     }

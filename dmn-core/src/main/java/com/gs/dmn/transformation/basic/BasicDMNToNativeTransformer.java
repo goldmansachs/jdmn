@@ -357,7 +357,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String defaultValue(TDRGElement element, TOutputClause output);
 
-    String condition(TDRGElement element, TDecisionRule rule);
+    String condition(TDRGElement element, TDecisionRule rule, int ruleIndex);
 
     String outputEntryToNative(TDRGElement element, TLiteralExpression outputEntryExpression, int outputIndex);
 
@@ -727,4 +727,9 @@ public interface BasicDMNToNativeTransformer<T, C> {
                 RuntimeEnvironment.of()
         );
     }
+
+    //
+    // Mock testing related methods
+    //
+    boolean isMockTesting();
 }

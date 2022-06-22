@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:feel="https://www.omg.org/spec/DMN/20191111/FEEL/" xmlns:tns="http://www.trisotech.com/definitions/_69430b3e-17b8-430d-b760-c505bf6469f9" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" triso:logoChoice="Default" id="_69430b3e-17b8-430d-b760-c505bf6469f9" name="dateTime Table 58" namespace="http://www.trisotech.com/definitions/_69430b3e-17b8-430d-b760-c505bf6469f9" exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.33.1; 1.0">
-  <itemDefinition id="tDateTimeComponents" name="tDateTimeComponents" isCollection="false">
-    <itemComponent id="_df05a420-dbc5-48cf-be85-4b41702c4f33" name="Year" isCollection="false">
+  <itemDefinition id="tDateTimeComponents" name="tDateTimeComponents">
+    <itemComponent id="_df05a420-dbc5-48cf-be85-4b41702c4f33" name="Year">
       <typeRef>feel.number</typeRef>
     </itemComponent>
-    <itemComponent id="_3e119228-7599-47e5-aa96-182e5ff66034" name="Month" isCollection="false">
+    <itemComponent id="_3e119228-7599-47e5-aa96-182e5ff66034" name="Month">
       <typeRef>feel.number</typeRef>
     </itemComponent>
-    <itemComponent id="_d5d22cac-3276-4dfd-9aee-353aa47bf2d4" name="Day" isCollection="false">
+    <itemComponent id="_d5d22cac-3276-4dfd-9aee-353aa47bf2d4" name="Day">
       <typeRef>feel.number</typeRef>
     </itemComponent>
-    <itemComponent id="_63defe21-0369-438e-b879-27df2bcf475e" name="Hour" isCollection="false">
+    <itemComponent id="_63defe21-0369-438e-b879-27df2bcf475e" name="Hour">
       <typeRef>feel.number</typeRef>
     </itemComponent>
-    <itemComponent id="_1ebad337-b2da-49ed-8ab2-b308d78e1b2f" name="Minute" isCollection="false">
+    <itemComponent id="_1ebad337-b2da-49ed-8ab2-b308d78e1b2f" name="Minute">
       <typeRef>feel.number</typeRef>
     </itemComponent>
-    <itemComponent id="_4666a2d0-63b2-4822-b5b4-e266f4cca3d1" name="Second" isCollection="false">
+    <itemComponent id="_4666a2d0-63b2-4822-b5b4-e266f4cca3d1" name="Second">
       <typeRef>feel.number</typeRef>
     </itemComponent>
   </itemDefinition>
-  <itemDefinition id="tDateVariants" name="tDateVariants" isCollection="false">
-    <itemComponent id="_02d44cc2-24ac-4f64-a61f-7044684dc438" name="fromString" isCollection="false">
+  <itemDefinition id="tDateVariants" name="tDateVariants">
+    <itemComponent id="_02d44cc2-24ac-4f64-a61f-7044684dc438" name="fromString">
       <typeRef>feel.date</typeRef>
     </itemComponent>
-    <itemComponent id="_13da5f5e-8fdd-4a33-9500-ceeaaeaccc91" name="fromDateTime" isCollection="false">
+    <itemComponent id="_13da5f5e-8fdd-4a33-9500-ceeaaeaccc91" name="fromDateTime">
       <typeRef>feel.date</typeRef>
     </itemComponent>
-    <itemComponent id="_c4e03aa1-d8f3-4ffa-aab2-42a17a4fb707" name="fromYearMonthDay" isCollection="false">
+    <itemComponent id="_c4e03aa1-d8f3-4ffa-aab2-42a17a4fb707" name="fromYearMonthDay">
       <typeRef>feel.date</typeRef>
     </itemComponent>
   </itemDefinition>

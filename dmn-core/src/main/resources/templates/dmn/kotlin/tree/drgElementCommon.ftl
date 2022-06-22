@@ -129,7 +129,7 @@
 
         // Apply rule
         var output_: ${transformer.ruleOutputClassName(drgElement)} = ${transformer.ruleOutputClassName(drgElement)}(false)
-        if (${transformer.condition(drgElement, rule)}) {
+        if (${transformer.condition(drgElement, rule, rule_index)}) {
             <@matchRule drgElement rule_index />
 
             // Compute output

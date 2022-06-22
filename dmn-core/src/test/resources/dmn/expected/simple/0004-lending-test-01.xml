@@ -70,57 +70,57 @@
     <inputNode name="SupportingDocuments">
       <value>YES</value>
     </inputNode>
-    <resultNode type="decision" name="Adjudication" errorResult="false">
+    <resultNode type="decision" name="Adjudication">
       <expected>
         <value>ACCEPT</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="ApplicationRiskScore" errorResult="false">
+    <resultNode type="decision" name="ApplicationRiskScore">
       <expected>
         <value>130</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="PreBureauRiskCategory" errorResult="false">
+    <resultNode type="decision" name="PreBureauRiskCategory">
       <expected>
         <value>LOW</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="BureauCallType" errorResult="false">
+    <resultNode type="decision" name="BureauCallType">
       <expected>
         <value>MINI</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="PostBureauRiskCategory" errorResult="false">
+    <resultNode type="decision" name="PostBureauRiskCategory">
       <expected>
         <value>LOW</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="RequiredMonthlyInstallment" errorResult="false">
+    <resultNode type="decision" name="RequiredMonthlyInstallment">
       <expected>
         <value>1680.880325608555</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="PreBureauAffordability" errorResult="false">
+    <resultNode type="decision" name="PreBureauAffordability">
       <expected>
         <value>true</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="Eligibility" errorResult="false">
+    <resultNode type="decision" name="Eligibility">
       <expected>
         <value>ELIGIBLE</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="Strategy" errorResult="false">
+    <resultNode type="decision" name="Strategy">
       <expected>
         <value>BUREAU</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="PostBureauAffordability" errorResult="false">
+    <resultNode type="decision" name="PostBureauAffordability">
       <expected>
         <value>true</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="Routing" errorResult="false">
+    <resultNode type="decision" name="Routing">
       <expected>
         <value>ACCEPT</value>
       </expected>

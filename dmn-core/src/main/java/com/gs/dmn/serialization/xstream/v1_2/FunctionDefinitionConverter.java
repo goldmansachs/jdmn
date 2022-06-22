@@ -60,7 +60,6 @@ public class FunctionDefinitionConverter extends ExpressionConverter {
         if (kind != null) {
             i.setKind(TFunctionKind.fromValue(kind));
         }
-
     }
 
     @Override
@@ -80,6 +79,9 @@ public class FunctionDefinitionConverter extends ExpressionConverter {
         super.writeAttributes(writer, parent);
 
         TFunctionDefinition fd = (TFunctionDefinition) parent;
-        writer.addAttribute(KIND, fd.getKind().value());
+
+        if (fd.getKindField() != null) {
+            writer.addAttribute(KIND, fd.getKindField().value());
+        }
     }
 }

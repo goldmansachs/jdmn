@@ -368,12 +368,12 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Object abs(Object n) {
+    public <T> T abs(T n) {
         try {
             if (n instanceof Number) {
-                return this.numberLib.abs((NUMBER) n);
+                return (T) this.numberLib.abs((NUMBER) n);
             } else {
-                return this.durationLib.abs((DURATION) n);
+                return (T) this.durationLib.abs((DURATION) n);
             }
         } catch (Exception e) {
             String message = String.format("abs(%s)", n);

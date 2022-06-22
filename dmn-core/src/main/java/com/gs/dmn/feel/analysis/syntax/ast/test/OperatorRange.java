@@ -45,6 +45,10 @@ public class OperatorRange<T, C> extends Range<T, C> {
         return this.endpoint;
     }
 
+    public T getEndpointType() {
+        return this.endpoint.getType();
+    }
+
     public String getOperator() {
         return this.operator;
     }

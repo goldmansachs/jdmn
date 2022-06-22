@@ -79,8 +79,8 @@ public class AssociationConverter extends ArtifactConverter {
         super.writeAttributes(writer, parent);
         TAssociation a = (TAssociation) parent;
 
-        if (a.getAssociationDirection() != null) {
-            writer.addAttribute(ASSOCIATION_DIRECTION, a.getAssociationDirection().value());
+        if (a.getAssociationDirectionField() != null) {
+            writer.addAttribute(ASSOCIATION_DIRECTION, a.getAssociationDirectionField().value());
         }
     }
 }

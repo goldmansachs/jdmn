@@ -23,7 +23,6 @@ import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
-import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
@@ -34,12 +33,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.*;
+import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private static final Logger LOGGER = LoggerFactory.getLogger(TCKUtil.class);
@@ -49,12 +50,16 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private final BasicDMNToNativeTransformer<Type, DMNContext> transformer;
     private final StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib;
     private final NativeTypeFactory typeFactory;
+    private final TCKValueInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckValueInterpreter;
+    private final TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckValueTranslator;
 
     public TCKUtil(BasicDMNToNativeTransformer<Type, DMNContext> transformer, StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
         this.transformer = transformer;
         this.feelLib = feelLib;
         this.dmnModelRepository = transformer.getDMNModelRepository();
         this.typeFactory = transformer.getNativeTypeFactory();
+        this.tckValueInterpreter = new TCKValueInterpreter<>(transformer, feelLib);
+        this.tckValueTranslator = transformer.isMockTesting() ? new MockTCKValueTranslator<>(transformer, feelLib) : new TCKValueTranslator<>(transformer, feelLib);
     }
 
     //
@@ -68,14 +73,15 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             if (reference == null) {
                 throw new DMNRuntimeException(String.format("Cannot find DRG element for InputNode '%s' for TestCase '%s' in TestCases '%s'", inputNode.getName(), testCase.getId(), testCases.getModelName()));
             }
-            return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), reference, inputNode);
+            return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), NodeInfo.nodeTypeFrom(reference), reference, inputNode);
         } else {
             Pair<DRGElementReference<? extends TDRGElement>, ValueType> pair = extractInfoFromValue(definitions, inputNode);
             if (pair == null || pair.getLeft() == null) {
                 throw new DMNRuntimeException(String.format("Cannot find DRG element for InputNode '%s' for TestCase '%s' in TestCases '%s'", inputNode.getName(), testCase.getId(), testCases.getModelName()));
             }
-            return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), pair.getLeft(), pair.getRight());
+            return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), NodeInfo.nodeTypeFrom(pair.getLeft()), pair.getLeft(), pair.getRight());
         }
+
     }
 
     private DRGElementReference<? extends TDRGElement> extractInfoFromModel(TDefinitions rootDefinitions, String elementNamespace, String elementName) {
@@ -162,6 +168,33 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return new Pair<>(this.dmnModelRepository.makeDRGElementReference(path, element), value);
     }
 
+    public List<List<String>> missingArguments(TestCases testCases, TestCase testCase, ResultNode resultNode) {
+        // Calculate provided inputs
+        List<String> inputNames = testCase.getInputNode().stream()
+                .map(in -> this.extractInputNodeInfo(testCases, testCase, in))
+                .map(this::inputDataVariableName)
+                .collect(Collectors.toList());
+        // Calculate missing inputs
+        ResultNodeInfo resultNodeInfo = extractResultNodeInfo(testCases, testCase, resultNode);
+        List<Pair<String, Type>> parameters = this.transformer.drgElementTypeSignature(resultNodeInfo.getReference(), transformer::nativeName);
+        List<Pair<String, Type>> missingParameters = parameters.stream().filter(pair -> !inputNames.contains(pair.getLeft())).collect(Collectors.toList());
+        List<Pair<String, String>> missingArgs = missingParameters.stream()
+                .map(p -> new Pair<>(transformer.getNativeFactory().nullableParameterType(transformer.toNativeType(p.getRight())), p.getLeft()))
+                .collect(Collectors.toList());
+
+        List<List<String>> result = new ArrayList<>();
+        for (int i=0; i<missingParameters.size(); i++) {
+            Type type = parameters.get(i).getRight();
+            String defaultValue = isMockTesting() ? "null" : getDefaultValue(type, null);
+            List<String> triplet = new ArrayList<>();
+            triplet.add(missingArgs.get(i).getLeft());
+            triplet.add(missingArgs.get(i).getRight());
+            triplet.add(defaultValue);
+            result.add(triplet);
+        }
+        return result;
+    }
+
     private TImport getImport(TDefinitions definitions, String name) {
         for (TImport imp: definitions.getImport()) {
             if (imp.getName().equals(name)) {
@@ -187,7 +220,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     public String toNativeExpression(InputNodeInfo info) {
         Type inputType = toFEELType(info);
-        return toNativeExpression(info.getValue(), inputType);
+        return this.tckValueTranslator.toNativeExpression(info.getValue(), inputType, info.getReference().getElement());
     }
 
     private Type toFEELType(InputNodeInfo info) {
@@ -228,13 +261,13 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     public String toNativeExpression(ResultNodeInfo info) {
         Type outputType = toFEELType(info);
-        return toNativeExpression(info.getExpectedValue(), outputType);
+        return this.tckValueTranslator.toNativeExpression(info.getExpectedValue(), outputType, info.getReference().getElement());
     }
 
     public String toNativeExpressionProto(ResultNodeInfo info) {
         Type resultType = toFEELType(info);
         ValueType expectedValue = info.getExpectedValue();
-        String value = toNativeExpression(expectedValue, resultType);
+        String value = this.tckValueTranslator.toNativeExpression(expectedValue, resultType, info.getReference().getElement());
         if (this.transformer.isDateTimeType(resultType) || this.transformer.isComplexType(resultType)) {
             return transformer.getNativeFactory().convertValueToProtoNativeType(value, resultType, false);
         } else {
@@ -378,7 +411,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     public Object expectedValue(TestCases testCases, TestCase testCase, ResultNode resultNode) {
         ResultNodeInfo info = extractResultNodeInfo(testCases, testCase, resultNode);
-        return makeValue(info.getExpectedValue());
+        return this.tckValueInterpreter.makeValue(info.getExpectedValue());
     }
 
     private Map<String, Object> makeInputs(TestCases testCases, TestCase testCase) {
@@ -390,11 +423,11 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
                 if (this.transformer.isSingletonInputData()) {
                     InputNodeInfo info = extractInputNodeInfo(testCases, testCase, input);
                     String name = this.transformer.bindingName(info.getReference());
-                    Object value = makeValue(info.getValue());
+                    Object value = this.tckValueInterpreter.makeValue(info.getValue());
                     inputs.put(name, value);
                 } else {
                     String name = input.getName();
-                    Object value = makeValue(input);
+                    Object value = this.tckValueInterpreter.makeValue(input);
                     inputs.put(name, value);
                 }
             } catch (Exception e) {
@@ -415,7 +448,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             for (int i = 0; i < inputNode.size(); i++) {
                 InputNode input = inputNode.get(i);
                 try {
-                    Object value = makeValue(input);
+                    Object value = this.tckValueInterpreter.makeValue(input);
                     map.put(input.getName(), value);
                 } catch (Exception e) {
                     LOGGER.error("Cannot make arguments", e);
@@ -517,367 +550,6 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     //
-    // Make java expressions from ValueType
-    //
-    private String toNativeExpression(ValueType valueType, Type type) {
-        if (valueType.getValue() != null) {
-            Object value = anySimpleTypeValue(valueType.getValue());
-            String text = getTextContent(value);
-            if (text == null || "null".equals(text)) {
-                return "null";
-            } else if (isNumber(value, type)) {
-                return String.format("number(\"%s\")", text);
-            } else if (isString(value, type)) {
-                return String.format("\"%s\"", text);
-            } else if (isBoolean(value, type)) {
-                return text;
-            } else if (isDate(value, type)) {
-                return String.format("date(\"%s\")", text);
-            } else if (isTime(value, type)) {
-                return String.format("time(\"%s\")", text);
-            } else if (isDateTime(value, type)) {
-                return String.format("dateAndTime(\"%s\")", text);
-            } else if (isDurationTime(value, type)) {
-                return String.format("duration(\"%s\")", text);
-            } else {
-                throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
-            }
-        } else if (valueType.getList() != null) {
-            return toNativeExpression(valueType.getList(), (ListType) type);
-        } else if (valueType.getComponent() != null) {
-            if (type instanceof ItemDefinitionType) {
-                return toNativeExpression(valueType.getComponent(), (ItemDefinitionType) type);
-            } else if (type instanceof ContextType) {
-                return toNativeExpression(valueType.getComponent(), (ContextType) type);
-            } else {
-                throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
-            }
-        }
-        throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
-    }
-
-    private String toNativeExpression(com.gs.dmn.tck.ast.List list, ListType listType) {
-        List<String> javaList = new ArrayList<>();
-        for (ValueType listValueType : list.getItem()) {
-            Type elementType = listType.getElementType();
-            String value = toNativeExpression(listValueType, elementType);
-            javaList.add(value);
-        }
-        return String.format("asList(%s)", String.join(", ", javaList));
-    }
-
-    private String toNativeExpression(List<Component> components, ItemDefinitionType type) {
-        List<Pair<String, String>> argumentList = new ArrayList<>();
-        Set<String> members = type.getMembers();
-        Set<String> present = new LinkedHashSet<>();
-        for (Component c : components) {
-            String name = c.getName();
-            Type memberType = type.getMemberType(name);
-            String value = toNativeExpression(c, memberType);
-            argumentList.add(new Pair<>(name, value));
-            present.add(name);
-        }
-        // Add the missing members
-        for (String member: members) {
-            if (!present.contains(member)) {
-                Pair<String, String> pair = new Pair<>(member, "null");
-                argumentList.add(pair);
-            }
-        }
-        sortParameters(argumentList);
-        String interfaceName = this.transformer.toNativeType(type);
-        String arguments = argumentList.stream().map(Pair::getRight).collect(Collectors.joining(", "));
-        return this.transformer.constructor(this.transformer.itemDefinitionNativeClassName(interfaceName), arguments);
-    }
-
-    private String toNativeExpression(List<Component> components, ContextType type) {
-        // Initialized members
-        List<Pair<String, String>> membersList = new ArrayList<>();
-        for (Component c : components) {
-            String name = c.getName();
-            Type memberType = type.getMemberType(name);
-            String value = toNativeExpression(c, memberType);
-            membersList.add(new Pair<>(name, value));
-        }
-        // Use builder pattern in Context
-        sortParameters(membersList);
-        String builder = this.transformer.defaultConstructor(this.transformer.contextClassName());
-        String parts = membersList.stream().map(a -> String.format("add(\"%s\", %s)", a.getLeft(), a.getRight())).collect(Collectors.joining("."));
-        return String.format("%s.%s", builder, parts);
-    }
-
-    public Object makeValue(ValueType valueType) {
-        if (valueType.getValue() != null) {
-            Object value = anySimpleTypeValue(valueType.getValue());
-            String text = getTextContent(value);
-            if (text == null) {
-                return null;
-            } else if (isNumber(value)) {
-                return this.feelLib.number(text);
-            } else if (isString(value)) {
-                return text;
-            } else if (isBoolean(value)) {
-                if (StringUtils.isBlank(text)) {
-                    return null;
-                } else {
-                    return Boolean.parseBoolean(text);
-                }
-            } else if (isDate(value)) {
-                return this.feelLib.date(text);
-            } else if (isTime(value)) {
-                return this.feelLib.time(text);
-            } else if (isDateTime(value)) {
-                return this.feelLib.dateAndTime(text);
-            } else if (isDurationTime(value)) {
-                return this.feelLib.duration(text);
-            } else {
-                Object obj = anySimpleTypeValue(valueType.getValue());
-                if (obj instanceof Number) {
-                    obj = this.feelLib.number(obj.toString());
-                }
-                return obj;
-            }
-        } else if (valueType.getList() != null) {
-            return makeList(valueType);
-        } else if (valueType.getComponent() != null) {
-            return makeContext(valueType);
-        }
-        throw new DMNRuntimeException(String.format("Cannot make value for input '%s'", valueType));
-    }
-
-    private List<?> makeList(ValueType valueType) {
-        List<Object> javaList = new ArrayList<>();
-        com.gs.dmn.tck.ast.List list = valueType.getList();
-        for (ValueType listValueType : list.getItem()) {
-            Object value = makeValue(listValueType);
-            javaList.add(value);
-        }
-        return javaList;
-    }
-
-    private Context makeContext(ValueType valueType) {
-        Context context = new Context();
-        List<Component> components = valueType.getComponent();
-        for (Component c : components) {
-            String name = c.getName();
-            Object value = makeValue(c);
-            context.add(name, value);
-        }
-        return context;
-    }
-
-    private boolean isNumber(Object value) {
-        return value instanceof Number;
-    }
-
-    private boolean isString(Object value) {
-        return value instanceof String;
-    }
-
-    private boolean isBoolean(Object value) {
-        return value instanceof Boolean;
-    }
-
-    private boolean isDate(Object value) {
-        if (value instanceof XMLGregorianCalendar) {
-            return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATE;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean isTime(Object value) {
-        if (value instanceof XMLGregorianCalendar) {
-            return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.TIME;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean isDateTime(Object value) {
-        if (value instanceof XMLGregorianCalendar) {
-            return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATETIME;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean isDurationTime(Object value) {
-        return value instanceof Duration;
-    }
-
-    private List<Pair<String, String>> sortParameters(List<Pair<String, String>> parameters) {
-        parameters.sort(Comparator.comparing(Pair::getLeft));
-        return parameters;
-    }
-
-    private Object makeValue(ValueType valueType, Type type) {
-        if (valueType.getValue() != null) {
-            Object value = anySimpleTypeValue(valueType.getValue());
-            String text = getTextContent(value);
-            if (text == null) {
-                return null;
-            } else if (isNumber(value, type)) {
-                return this.feelLib.number(text);
-            } else if (isString(value, type)) {
-                return text;
-            } else if (isBoolean(value, type)) {
-                if (StringUtils.isBlank(text)) {
-                    return null;
-                } else {
-                    return Boolean.parseBoolean(text);
-                }
-            } else if (isDate(value, type)) {
-                return this.feelLib.date(text);
-            } else if (isTime(value, type)) {
-                return this.feelLib.time(text);
-            } else if (isDateTime(value, type)) {
-                return this.feelLib.dateAndTime(text);
-            } else if (isDurationTime(value, type)) {
-                return this.feelLib.duration(text);
-            } else {
-                Object obj = valueType.getValue();
-                if (obj instanceof Number) {
-                    obj = this.feelLib.number(obj.toString());
-                }
-                return obj;
-            }
-        } else if (valueType.getList() != null) {
-            if (type instanceof ListType) {
-                return makeList(valueType, (ListType) type);
-            } else {
-                // Try singleton
-                return makeList(valueType, new ListType(type));
-            }
-        } else if (valueType.getComponent() != null) {
-            return makeContext(valueType, (CompositeDataType) type);
-        }
-        throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
-    }
-
-    private List<?> makeList(ValueType valueType, ListType listType) {
-        List<Object> javaList = new ArrayList<>();
-        com.gs.dmn.tck.ast.List list = valueType.getList();
-        for (ValueType listValueType : list.getItem()) {
-            Type elementType = listType.getElementType();
-            Object value = makeValue(listValueType, elementType);
-            javaList.add(value);
-        }
-        return javaList;
-    }
-
-    private Context makeContext(ValueType valueType, CompositeDataType type) {
-        Context context = new Context();
-        List<Component> components = valueType.getComponent();
-        for (Component c : components) {
-            String name = c.getName();
-            Type memberType = com.gs.dmn.el.analysis.semantics.type.Type.isNull((Type) type) ? null : type.getMemberType(name);
-            Object value = makeValue(c, memberType);
-            context.add(name, value);
-        }
-        return context;
-    }
-
-    private boolean isNumber(Object value, Type type) {
-        if (value instanceof Number) {
-            return true;
-        }
-        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
-            return false;
-        }
-        return type == NumberType.NUMBER || com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(type, ListType.NUMBER_LIST);
-    }
-
-    private boolean isString(Object value, Type type) {
-        if (value instanceof String) {
-            return true;
-        }
-        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
-            return false;
-        }
-        return type == StringType.STRING || com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(type, ListType.STRING_LIST);
-    }
-
-    private boolean isBoolean(Object value, Type type) {
-        if (value instanceof Boolean) {
-            return true;
-        }
-        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
-            return false;
-        }
-        return type == BooleanType.BOOLEAN || com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(type, ListType.BOOLEAN_LIST);
-    }
-
-    private boolean isDate(Object value, Type type) {
-        if (value instanceof XMLGregorianCalendar) {
-            return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATE;
-        }
-        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
-            return false;
-        }
-        return type == DateType.DATE || com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(type, ListType.DATE_LIST);
-    }
-
-    private boolean isTime(Object value, Type type) {
-        if (value instanceof XMLGregorianCalendar) {
-            return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.TIME;
-        }
-        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
-            return false;
-        }
-        return type == TimeType.TIME || com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(type, ListType.TIME_LIST);
-    }
-
-    private boolean isDateTime(Object value, Type type) {
-        if (value instanceof XMLGregorianCalendar) {
-            return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATETIME;
-        }
-        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
-            return false;
-        }
-        return type == DateTimeType.DATE_AND_TIME || com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(type, ListType.DATE_AND_TIME_LIST);
-    }
-
-    private boolean isDurationTime(Object value, Type type) {
-        if (value instanceof Duration) {
-            return true;
-        }
-        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
-            return false;
-        }
-        return type instanceof DurationType
-                || com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(type, ListType.DAYS_AND_TIME_DURATION_LIST)
-                || com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(type, ListType.YEARS_AND_MONTHS_DURATION_LIST);
-    }
-
-    private String getTextContent(Object value) {
-        if (value instanceof String) {
-            return (String) value;
-        } else if (value instanceof Number) {
-            return this.feelLib.string(value);
-        } else if (value instanceof Boolean) {
-            return value.toString();
-        } else if (value instanceof XMLGregorianCalendar) {
-            return this.feelLib.string(value);
-        } else if (value instanceof Duration) {
-            return this.feelLib.string(value);
-        } else if (value instanceof org.w3c.dom.Element) {
-            return ((org.w3c.dom.Element) value).getTextContent();
-        } else if (value instanceof AnySimpleType) {
-            return ((AnySimpleType) value).getText();
-        } else {
-            return null;
-        }
-    }
-
-    private Object anySimpleTypeValue(Object value) {
-        if (value instanceof AnySimpleType) {
-            return ((AnySimpleType) value).getValue();
-        }
-        return value;
-    }
-
-    //
     // Singleton section
     //
     public boolean isSingletonDecision() {
@@ -943,5 +615,110 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         Type type = this.transformer.drgElementOutputFEELType(element);
         String name = this.transformer.namedElementVariableName(element);
         return this.transformer.getProtoFactory().protoGetter(name, type);
+    }
+
+    //
+    // Test Mocking section
+    //
+    public boolean isMockTesting() {
+        return this.transformer.isMockTesting();
+    }
+
+    public static String mockContextVariable() {
+        return "mockContext_";
+    }
+
+    public String defaultMockNumberType() {
+        return BigDecimal.class.getName();
+    }
+
+    public String defaultMockDateType() {
+        return XMLGregorianCalendar.class.getName();
+    }
+
+    public String defaultMockIntegerValue() {
+        return "new java.math.BigDecimal(\"0\")";
+    }
+
+    public String defaultMockDecimalValue() {
+        return "new java.math.BigDecimal(\"0.0\")";
+    }
+
+    public String defaultMockStringValue() {
+        return "null";
+    }
+
+    public String defaultMockBooleanValue() {
+        return "false";
+    }
+
+    public String defaultMockDateValue() {
+        return "null";
+    }
+
+    public String defaultMockTimeValue() {
+        return "null";
+    }
+
+    public String defaultMockDateAndTimeValue() {
+        return "null";
+    }
+
+    public String defaultMockDurationValue() {
+        return "null";
+    }
+
+    public static String makeIntegerForInput(String text) {
+        return String.format("new java.math.BigDecimal(java.lang.Integer.toString(%s))", text);
+    }
+
+    public static String makeDecimalForInput(String text) {
+        return String.format("new java.math.BigDecimal(java.lang.Double.toString(%s))", text);
+    }
+
+    public static String makeDecimalForDecision(String text) {
+        if (StringUtils.isBlank(text)) {
+            return "null";
+        } else {
+            return String.format("new java.math.BigDecimal(%s)", text);
+        }
+    }
+
+    static boolean isInteger(TItemDefinition element) {
+        if (element != null) {
+            TDMNElement.ExtensionElements extensionElements = element.getExtensionElements();
+            if (extensionElements != null) {
+                for (Object any : extensionElements.getAny()) {
+                    if ("non_decimal_number".equals(any)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    static String getDefaultValue(Type memberType, TItemDefinition memberItemDefinition) {
+        String value = "null";
+        if (memberType == NumberType.NUMBER) {
+            if (isInteger(memberItemDefinition)) {
+                value =  "DEFAULT_INTEGER_NUMBER";
+            } else {
+                value = "DEFAULT_DECIMAL_NUMBER";
+            }
+        } else if (memberType == StringType.STRING) {
+            value = "DEFAULT_STRING";
+        } else if (memberType == BooleanType.BOOLEAN) {
+            value = "DEFAULT_BOOLEAN";
+        } else if (memberType == DateType.DATE) {
+            value = "DEFAULT_DATE";
+        } else if (memberType == TimeType.TIME) {
+            value = "DEFAULT_TIME";
+        } else if (memberType == DateTimeType.DATE_AND_TIME) {
+            value = "DEFAULT_DATE_TIME";
+        } else if (memberType instanceof DurationType) {
+            value = "DEFAULT_DURATION";
+        }
+        return value;
     }
 }

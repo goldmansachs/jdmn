@@ -35,6 +35,10 @@ public class TTextAnnotation extends TArtifact implements Visitable {
         this.text = value;
     }
 
+    public String getTextFormatField() {
+        return textFormat;
+    }
+
     public String getTextFormat() {
         if (textFormat == null) {
             return "text/plain";

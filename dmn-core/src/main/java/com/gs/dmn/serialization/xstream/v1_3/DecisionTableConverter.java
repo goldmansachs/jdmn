@@ -69,10 +69,15 @@ public class DecisionTableConverter extends ExpressionConverter {
         String preferredOrientationValue = reader.getAttribute(PREFERRED_ORIENTATION);
         String outputLabel = reader.getAttribute(OUTPUT_LABEL);
 
-        if (hitPolicyValue != null) dt.setHitPolicy(THitPolicy.fromValue(hitPolicyValue));
-        if (aggregationValue != null) dt.setAggregation(TBuiltinAggregator.fromValue(aggregationValue));
-        if (preferredOrientationValue != null)
+        if (hitPolicyValue != null) {
+            dt.setHitPolicy(THitPolicy.fromValue(hitPolicyValue));
+        }
+        if (aggregationValue != null) {
+            dt.setAggregation(TBuiltinAggregator.fromValue(aggregationValue));
+        }
+        if (preferredOrientationValue != null) {
             dt.setPreferredOrientation(TDecisionTableOrientation.fromValue(preferredOrientationValue));
+        }
         dt.setOutputLabel(outputLabel);
     }
 
@@ -100,14 +105,14 @@ public class DecisionTableConverter extends ExpressionConverter {
         super.writeAttributes(writer, parent);
         TDecisionTable dt = (TDecisionTable) parent;
 
-        if (dt.getHitPolicy() != null) {
-            writer.addAttribute(HIT_POLICY, dt.getHitPolicy().value());
+        if (dt.getHitPolicyField() != null) {
+            writer.addAttribute(HIT_POLICY, dt.getHitPolicyField().value());
         }
         if (dt.getAggregation() != null) {
             writer.addAttribute(AGGREGATION, dt.getAggregation().value());
         }
-        if (dt.getPreferredOrientation() != null) {
-            writer.addAttribute(PREFERRED_ORIENTATION, dt.getPreferredOrientation().value());
+        if (dt.getPreferredOrientationField() != null) {
+            writer.addAttribute(PREFERRED_ORIENTATION, dt.getPreferredOrientationField().value());
         }
         if (dt.getOutputLabel() != null) {
             writer.addAttribute(OUTPUT_LABEL, dt.getOutputLabel());

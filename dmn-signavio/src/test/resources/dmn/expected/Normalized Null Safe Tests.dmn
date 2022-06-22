@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:feel="https://www.omg.org/spec/DMN/20191111/FEEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" sigExt:revisionNumber="1" sigExt:revisionId="ca105398f65d4c3ead49bfa305c5db43" id="id-39104958614e42a8aac1c2c02557d321" name="Null Safe Tests" namespace="http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml" exporterVersion="10.15.9">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:feel="https://www.omg.org/spec/DMN/20191111/FEEL/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" sigExt:revisionNumber="1" sigExt:revisionId="ca105398f65d4c3ead49bfa305c5db43" id="id-39104958614e42a8aac1c2c02557d321" name="Null Safe Tests" namespace="http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml" exporterVersion="10.15.9">
   <extensionElements></extensionElements>
   <itemDefinition id="id-2cc3214320632e21fa06a8e4df51a01f" label="allFalseAggregation" name="allFalseAggregation" isCollection="false">
     <typeRef>feel.boolean</typeRef>
@@ -131,7 +131,7 @@
     <informationRequirement>
       <requiredDecision href="#id-c766b420761d4a1c594e4caabdd5d4be"></requiredDecision>
     </informationRequirement>
-    <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+    <decisionTable hitPolicy="UNIQUE">
       <input id="id-43afb79d6a20dc159664dbdf24a123e4" label="partB">
         <inputExpression>
           <text>partB</text>
@@ -231,7 +231,7 @@
     <informationRequirement>
       <requiredInput href="#id-c736af77b66969d175933720059dec48"></requiredInput>
     </informationRequirement>
-    <decisionTable hitPolicy="COLLECT" preferredOrientation="Rule-as-Row">
+    <decisionTable hitPolicy="COLLECT">
       <input id="id-6da1297350c26d3da7f1f7518cced1e9" label="numberA">
         <inputExpression>
           <text>numberA</text>
@@ -383,7 +383,7 @@
     <informationRequirement>
       <requiredDecision href="#id-990fc1682febe5e206a9e367470fa4b5"></requiredDecision>
     </informationRequirement>
-    <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+    <decisionTable hitPolicy="UNIQUE">
       <input id="id-154294e665a6f88c6ebef506ab7c5de4" label="anyTrueAggregation">
         <inputExpression>
           <text>anyTrueAggregation</text>
@@ -437,7 +437,7 @@
     <informationRequirement>
       <requiredDecision href="#id-68e1bf98ec7c27a9dd0b29b04c5479bb"></requiredDecision>
     </informationRequirement>
-    <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+    <decisionTable hitPolicy="UNIQUE">
       <input id="id-2d15d6977b44a087b8e5dc593eb842b5" label="stringHandlingComparator">
         <inputExpression>
           <text>stringHandlingComparator</text>
@@ -509,7 +509,7 @@
     <informationRequirement>
       <requiredDecision href="#id-d844337c47e4efb641f61e447347b1a9"></requiredDecision>
     </informationRequirement>
-    <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+    <decisionTable hitPolicy="UNIQUE">
       <input id="id-58e942411c22ad9d9f3e09e740018acf" label="logical ">
         <inputExpression>
           <text>logical</text>
@@ -610,7 +610,7 @@
     <informationRequirement>
       <requiredInput href="#id-de95e2868799a862ed04920c276bffa1"></requiredInput>
     </informationRequirement>
-    <decisionTable hitPolicy="COLLECT" preferredOrientation="Rule-as-Row">
+    <decisionTable hitPolicy="COLLECT">
       <input id="id-0c48a23979f3d50c140f71aef97db8f0" label="dateTime">
         <inputExpression>
           <text>dateTime</text>
