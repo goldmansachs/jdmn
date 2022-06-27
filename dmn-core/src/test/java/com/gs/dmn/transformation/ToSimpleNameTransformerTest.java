@@ -24,7 +24,7 @@ import static com.gs.dmn.runtime.Assert.assertEquals;
 import static com.gs.dmn.serialization.DMNConstants.XSI_NS;
 import static com.gs.dmn.serialization.DMNConstants.XSI_PREFIX;
 
-public class ToSimpleNameTransformerTest extends NameTransformerTest {
+public class ToSimpleNameTransformerTest extends SimpleDMNTransformerTest {
     @Test
     public void testTransform() throws Exception {
         doTest("1.1", Arrays.asList("0004-lending.dmn"),
@@ -126,7 +126,7 @@ public class ToSimpleNameTransformerTest extends NameTransformerTest {
 
     @Override
     protected DMNTransformer<TestCases> getTransformer() {
-        return new ToSimpleNameTransformer(LOGGER);
+        return new ToSimpleNameTransformer();
     }
 
     @Override

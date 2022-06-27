@@ -177,6 +177,17 @@ public class DMNModelRepository {
         return this.allDefinitions;
     }
 
+    // Model name might not be unique
+    public List<TDefinitions> findDefinitionByName(String modelName) {
+        List<TDefinitions> result = new ArrayList<>();
+        for (TDefinitions definitions : this.allDefinitions) {
+            if (modelName.equals(definitions.getName())) {
+                result.add(definitions);
+            }
+        }
+        return result;
+    }
+
     public void addElementMap(TDRGElement element, TDefinitions definitions) {
         this.elementToDefinitions.put(element, definitions);
     }
@@ -1225,4 +1236,5 @@ public class DMNModelRepository {
             }
         }
     }
+
 }

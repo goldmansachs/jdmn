@@ -31,8 +31,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class NameTransformerTest extends AbstractFileTransformerTest {
-    protected static final ClassLoader CLASS_LOADER = NameTransformerTest.class.getClassLoader();
+public abstract class SimpleDMNTransformerTest extends AbstractFileTransformerTest {
+    protected static final ClassLoader CLASS_LOADER = SimpleDMNTransformerTest.class.getClassLoader();
 
     protected final DMNSerializer dmnSerializer = new XMLDMNSerializer(LOGGER, true);
     protected final TCKSerializer tckSerializer = new XMLTCKSerializer(LOGGER, true);
@@ -43,9 +43,9 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
 
         // Read DMN files
         List<TDefinitions> definitionsList = readModels(path, dmnFileNames);
-        // Defintions are normalized in Repository
+        // Definitions are normalized in Repository
         Map<String, TDefinitions> definitionsMap = new LinkedHashMap<>();
-        for (int i = 0; i < dmnFileNames.size(); i++) {
+        for (int i=0; i < dmnFileNames.size(); i++) {
             definitionsMap.put(dmnFileNames.get(i), definitionsList.get(i));
         }
         DMNModelRepository repository = new DMNModelRepository(definitionsList);
