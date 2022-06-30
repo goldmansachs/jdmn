@@ -84,7 +84,7 @@
         <java.version>1.8</java.version>
 
         <jaxb.plugin.version>2.5.0</jaxb.plugin.version>
-        <antlr4.version>4.7.2</antlr4.version>
+        <antlr4.version>4.9.3</antlr4.version>
 
         <jackson.version>2.11.0</jackson.version>
         <jackson.core.version>${jackson.version}</jackson.core.version>
