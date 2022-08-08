@@ -156,6 +156,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     List<Pair<String, String>> drgElementSignatureParameters(DRGElementReference<? extends TDRGElement> reference);
 
+    List<String> drgElementComplexInputClassNames(TDRGElement element);
+
     String drgElementArgumentListWithMap(TDRGElement element);
 
     String drgElementArgumentListWithMap(DRGElementReference<? extends TDRGElement> reference);
@@ -182,7 +184,11 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String drgElementArgumentListWithConversionFromString(TDRGElement element);
 
+    boolean hasComplexInputDatas(TDRGElement element);
+
     boolean hasDirectSubDecisions(TDRGElement element);
+
+    boolean hasDirectSubInvocables(TDRGElement element);
 
     String drgElementConstructorSignature(TDRGElement element);
 
@@ -467,6 +473,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String nullableType(String type);
 
+    String jdmnRootPackage();
+
     String qualifiedName(String pkg, String name);
 
     String qualifiedName(DRGElementReference<? extends TDRGElement> reference);
@@ -474,6 +482,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
     String qualifiedName(TDRGElement element);
 
     String qualifiedName(Class<?> cls);
+
+    String qualifiedModuleName(String pkg, String moduleName);
 
     String getterName(String name);
 

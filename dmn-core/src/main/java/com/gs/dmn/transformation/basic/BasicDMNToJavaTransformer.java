@@ -497,6 +497,30 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
+    public List<String> drgElementComplexInputClassNames(TDRGElement element) {
+        List<String> result = new ArrayList<>();
+        // Input
+        List<Pair<String, Type>> parameters = drgElementTypeSignature(element);
+        for (Pair<String, Type> parameter : parameters) {
+            Type type = parameter.getRight();
+            addClassName(type, result);
+        }
+        // Output
+        Type type = drgElementOutputFEELType(element);
+        addClassName(type, result);
+        return result;
+    }
+
+    private void addClassName(Type type, List<String> result) {
+        while (type instanceof ListType) {
+            type = ((ListType) type).getElementType();
+        }
+        if (type instanceof ItemDefinitionType) {
+            result.add(upperCaseFirst(((ItemDefinitionType) type).getName()));
+        }
+    }
+
+    @Override
     public String drgElementArgumentListWithMap(TDRGElement element) {
         DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
         return drgElementArgumentListWithMap(reference);
@@ -634,8 +658,18 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
+    public boolean hasComplexInputDatas(TDRGElement element) {
+        return !this.drgElementComplexInputClassNames(element).isEmpty();
+    }
+
+    @Override
     public boolean hasDirectSubDecisions(TDRGElement element) {
         return !this.dmnModelRepository.directSubDecisions(element).isEmpty();
+    }
+
+    @Override
+    public boolean hasDirectSubInvocables(TDRGElement element) {
+        return !this.dmnModelRepository.directSubInvocables(element).isEmpty();
     }
 
     @Override
@@ -1463,7 +1497,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public Statement serviceToNative(TDecisionService element) {
         List<DRGElementReference<TDecision>> outputDecisions = this.dmnModelRepository.directSubDecisions(element);
         if (outputDecisions.size() == 0) {
-            return this.nativeFactory.makeExpressionStatement("null", NullType.NULL);
+            return this.nativeFactory.makeExpressionStatement(this.nativeFactory.nullLiteral(), NullType.NULL);
         } else if (outputDecisions.size() == 1) {
             TDecision decision = outputDecisions.get(0).getElement();
             String decisionVarName = namedElementVariableName(decision);
@@ -1473,16 +1507,16 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             CompoundStatement statement = new CompoundStatement();
             // Create an empty context
             String outputVar = "output_";
-            String init = String.format("%s %s = %s;", contextClassName(), outputVar, defaultConstructor(contextClassName()));
+            String init = this.nativeFactory.makeVariableAssignment(contextClassName(), outputVar, defaultConstructor(contextClassName()));
             statement.add(this.nativeFactory.makeExpressionStatement(init, null));
             // Add members
             for (DRGElementReference<TDecision> ref: outputDecisions) {
                 TDecision od = ref.getElement();
-                String add = String.format("%s.put(\"%s\", %s);", outputVar, elementName(od), namedElementVariableName(od));
+                String add = this.nativeFactory.makeContextMemberAssignment(outputVar, elementName(od), namedElementVariableName(od));
                 statement.add(this.nativeFactory.makeExpressionStatement(add, null));
             }
             // Return output
-            String return_ = String.format("return %s;", outputVar);
+            String return_ = this.nativeFactory.makeReturn(outputVar);
             statement.add(this.nativeFactory.makeExpressionStatement(return_, null));
             return statement;
         }
@@ -1688,7 +1722,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String makeListType(String listType) {
-        return String.format("%s<? extends Object>", listType);
+        return makeListType(listType, "? extends Object");
     }
 
     @Override
@@ -1698,6 +1732,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     protected String makeFunctionType(String name, String returnType) {
         return String.format("%s<%s>", name, returnType);
+    }
+
+    @Override
+    public String jdmnRootPackage() {
+        return "com.gs.dmn";
     }
 
     @Override
@@ -1725,6 +1764,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String qualifiedName(Class<?> cls) {
         return cls.getName();
+    }
+
+    @Override
+    public String qualifiedModuleName(String pkg, String moduleName) {
+        throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override

@@ -63,7 +63,7 @@ public class BasicDMNToKotlinTransformer extends BasicDMNToJavaTransformer {
 
     @Override
     public String makeListType(String listType) {
-        return this.nativeTypeFactory.nullableType(String.format("%s<Any?>", listType));
+        return makeListType(listType, "Any?");
     }
 
     @Override

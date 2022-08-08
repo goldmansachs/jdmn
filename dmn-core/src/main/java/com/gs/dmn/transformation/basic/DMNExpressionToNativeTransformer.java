@@ -93,7 +93,7 @@ public class DMNExpressionToNativeTransformer {
                     return defaultValue(element, outputClause);
                 }
             } else {
-                return "null";
+                return this.nativeFactory.nullLiteral();
             }
         } else {
             throw new DMNRuntimeException(String.format("Cannot compute default value for '%s' '%s'", element.getClass().getSimpleName(), element.getName()));
@@ -237,7 +237,9 @@ public class DMNExpressionToNativeTransformer {
 
     String qualifiedRuleOutputClassName(TDRGElement element) {
         String clsName = this.dmnTransformer.upperCaseFirst(element.getName() + DECISION_RULE_OUTPUT_CLASS_SUFFIX);
-        return this.dmnTransformer.qualifiedName(null, clsName);
+        String modelName = this.dmnModelRepository.getModelName(element);
+        String nativePackage = this.dmnTransformer.nativeModelPackageName(modelName);;
+        return this.dmnTransformer.qualifiedName(nativePackage, clsName);
     }
 
     String abstractRuleOutputClassName() {
