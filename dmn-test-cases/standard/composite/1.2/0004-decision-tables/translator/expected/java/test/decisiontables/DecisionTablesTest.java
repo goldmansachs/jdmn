@@ -15,7 +15,7 @@ public class DecisionTablesTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisio
         decisioninputs.type.TA decisioninputs_structA = new decisioninputs.type.TAImpl("widget", number("20"));
 
         // Check priceGt10
-        checkValues(true, new decisiontables.PriceGt10().apply(decisioninputs_structA, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(Boolean.TRUE, new decisiontables.PriceGt10().apply(decisioninputs_structA, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
     @org.junit.Test
@@ -43,7 +43,7 @@ public class DecisionTablesTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisio
         javax.xml.datatype.XMLGregorianCalendar decisioninputs_dateD = date("2016-11-01");
 
         // Check dateCompare1
-        checkValues(true, new decisiontables.DateCompare1().apply(decisioninputs_dateD, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(Boolean.TRUE, new decisiontables.DateCompare1().apply(decisioninputs_dateD, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
     @org.junit.Test
@@ -57,7 +57,7 @@ public class DecisionTablesTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisio
         javax.xml.datatype.XMLGregorianCalendar decisioninputs_dateE = date("2016-11-02");
 
         // Check dateCompare2
-        checkValues(false, new decisiontables.DateCompare2().apply(decisioninputs_dateD, decisioninputs_dateE, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(Boolean.FALSE, new decisiontables.DateCompare2().apply(decisioninputs_dateD, decisioninputs_dateE, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
     private void checkValues(Object expected, Object actual) {

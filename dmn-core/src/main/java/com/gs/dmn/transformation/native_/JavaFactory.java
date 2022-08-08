@@ -26,6 +26,7 @@ import com.gs.dmn.el.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -39,6 +40,12 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
+import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
+import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME_DURATION;
+import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MONTHS_DURATION;
+import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public class JavaFactory implements NativeFactory {
     protected static final Object DEFAULT_PROTO_NUMBER = "0.0";
@@ -114,12 +121,16 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String makeCollectionNumericFilter(String javaElementType, String source, String filter) {
-        return String.format("(%s)(elementAt(%s, %s))", javaElementType, source, filter);
+        String args = String.format("%s, %s", source, filter);
+        String call = this.makeBuiltinFunctionInvocation("elementAt", args);
+        return String.format("(%s)(%s)", javaElementType, call);
     }
 
     @Override
     public String makeIfExpression(String condition, String thenExp, String elseExp) {
-        return String.format("(booleanEqual(%s, %s)) ? %s : %s", condition, trueConstant(), thenExp, elseExp);
+        String args = String.format("%s, %s", condition, trueConstant());
+        String call = this.makeBuiltinFunctionInvocation("booleanEqual", args);
+        return String.format("(%s) ? %s : %s", call, thenExp, elseExp);
     }
 
     @Override
@@ -146,12 +157,19 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String makeSomeExpression(String list) {
-        return String.format("booleanOr((List)%s)", list);
+        String args = String.format("(List)%s", list);
+        return makeBuiltinFunctionInvocation("booleanOr", args);
     }
 
     @Override
     public String makeEveryExpression(String list) {
-        return String.format("booleanAnd((List)%s)", list);
+        String args = String.format("(List)%s", list);
+        return makeBuiltinFunctionInvocation("booleanAnd", args);
+    }
+
+    @Override
+    public String makeInstanceOf(String value, String type) {
+        return String.format("%s instanceof %s", value, type);
     }
 
     //
@@ -213,6 +231,11 @@ public class JavaFactory implements NativeFactory {
     // Equality
     //
     @Override
+    public String isNull(String exp) {
+        return String.format("%s == %s", exp, this.nullLiteral());
+    }
+
+    @Override
     public String makeEquality(String left, String right) {
         return String.format("%s == %s", left, right);
     }
@@ -220,6 +243,11 @@ public class JavaFactory implements NativeFactory {
     //
     // Functions
     //
+    @Override
+    public String makeBuiltinFunctionInvocation(String javaFunctionCode, String argumentsText) {
+        return String.format("%s(%s)", javaFunctionCode, argumentsText);
+    }
+
     @Override
     public String makeApplyInvocation(String javaFunctionCode, String argumentsText) {
         return String.format("%s.apply(%s)", javaFunctionCode, argumentsText);
@@ -293,6 +321,17 @@ public class JavaFactory implements NativeFactory {
     // Literal
     //
     @Override
+    public String numericLiteral(String lexeme) {
+        return String.format("number(\"%s\")", lexeme);
+    }
+
+    @Override
+    public String booleanLiteral(String lexeme) {
+        lexeme = lexeme.trim();
+        return "true".equals(lexeme) ? trueConstant() : falseConstant();
+    }
+
+    @Override
     public String trueConstant() {
         return "Boolean.TRUE";
     }
@@ -302,17 +341,41 @@ public class JavaFactory implements NativeFactory {
         return "Boolean.FALSE";
     }
 
+    @Override
+    public String nullLiteral() {
+        return "null";
+    }
+
+    @Override
+    public String dateTimeLiteral(DateTimeLiteral<Type, DMNContext> element) {
+        Type type = element.getType();
+        String value = element.getLexeme();
+        String functionName;
+        if (type == DATE) {
+            functionName = "date";
+        } else if (type == TIME) {
+            functionName = "time";
+        } else if (type == DATE_AND_TIME) {
+            functionName = "dateAndTime";
+        } else if (type == DAYS_AND_TIME_DURATION || type == YEARS_AND_MONTHS_DURATION) {
+            functionName = "duration";
+        } else {
+            throw new DMNRuntimeException("Illegal date literal kind '" + type + "'. Expected 'date', 'time', 'date and time' or 'duration'.");
+        }
+        return this.makeBuiltinFunctionInvocation(functionName, value);
+    }
+
     //
     // Conversions
     //
     @Override
     public String asList(Type elementType, String exp) {
-        return String.format("asList(%s)", exp);
+        return this.makeBuiltinFunctionInvocation("asList", exp);
     }
 
     @Override
     public String asElement(String exp) {
-        return String.format("asElement(%s)", exp);
+        return this.makeBuiltinFunctionInvocation("asElement", exp);
     }
 
     @Override
@@ -322,7 +385,7 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String convertElementToList(String expression, Type type) {
-        return String.format("%s", asList(type, expression));
+        return asList(type, expression);
     }
 
     @Override

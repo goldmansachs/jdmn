@@ -37,7 +37,7 @@ public class DefaultBooleanType extends BaseType implements BooleanType {
 
     @Override
     public Boolean booleanOr(List<Object> operands) {
-        if (operands.size() < 2) {
+        if (operands == null || operands.size() < 2) {
             return null;
         } else {
             Object result = operands.get(0);
@@ -50,7 +50,7 @@ public class DefaultBooleanType extends BaseType implements BooleanType {
 
     @Override
     public Boolean booleanOr(Object... operands) {
-        if (operands.length < 2) {
+        if (operands == null || operands.length < 2) {
             return null;
         } else {
             Object result = operands[0];
@@ -68,7 +68,7 @@ public class DefaultBooleanType extends BaseType implements BooleanType {
 
     @Override
     public Boolean booleanAnd(List<Object> operands) {
-        if (operands.size() < 2) {
+        if (operands == null || operands.size() < 2) {
             return null;
         } else {
             Object result = operands.get(0);
@@ -81,7 +81,7 @@ public class DefaultBooleanType extends BaseType implements BooleanType {
 
     @Override
     public Boolean booleanAnd(Object... operands) {
-        if (operands.length < 2) {
+        if (operands == null || operands.length < 2) {
             return null;
         } else {
             Object result = operands[0];

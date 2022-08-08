@@ -42,19 +42,19 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
             Object value = anySimpleTypeValue(valueType.getValue());
             String text = getTextContent(value);
             if (text == null || "null".equals(text)) {
-                return "null";
+                return this.nativeFactory.nullLiteral();
             } else if (isNumber(value, type)) {
-                return String.format("number(\"%s\")", text.trim());
+                return makeLiteral("number", text);
             } else if (isBoolean(value, type)) {
-                return text.trim();
+                return this.nativeFactory.booleanLiteral(text);
             } else if (isDate(value, type)) {
-                return String.format("date(\"%s\")", text.trim());
+                return makeLiteral("date", text);
             } else if (isTime(value, type)) {
-                return String.format("time(\"%s\")", text.trim());
+                return makeLiteral("time", text);
             } else if (isDateTime(value, type)) {
-                return String.format("dateAndTime(\"%s\")", text.trim());
+                return makeLiteral("dateAndTime", text);
             } else if (isDurationTime(value, type)) {
-                return String.format("duration(\"%s\")", text.trim());
+                return makeLiteral("duration", text);
             } else if (isString(value, type)) {
                 // Last one to deal with xsd:string but different value
                 return String.format("\"%s\"", text.replace("\n", "\\n"));
@@ -75,6 +75,10 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
         throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
     }
 
+    private String makeLiteral(String function, String text) {
+        return this.nativeFactory.makeBuiltinFunctionInvocation(function, String.format("\"%s\"", text.trim()));
+    }
+
     private String toNativeExpression(com.gs.dmn.tck.ast.List list, ListType listType, TDRGElement element) {
         List<String> javaList = new ArrayList<>();
         for (ValueType listValueType : list.getItem()) {
@@ -82,7 +86,7 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
             String value = toNativeExpression(listValueType, elementType, element);
             javaList.add(value);
         }
-        return String.format("asList(%s)", String.join(", ", javaList));
+        return this.nativeFactory.makeBuiltinFunctionInvocation("asList", String.join(", ", javaList));
     }
 
     private String toNativeExpression(List<Component> components, ItemDefinitionType type, TDRGElement element) {
@@ -99,7 +103,7 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
         // Add the missing members
         for (String member: members) {
             if (!present.contains(member)) {
-                Pair<String, String> pair = new Pair<>(member, "null");
+                Pair<String, String> pair = new Pair<>(member, this.nativeFactory.nullLiteral());
                 argumentList.add(pair);
             }
         }

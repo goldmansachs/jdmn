@@ -46,7 +46,7 @@ class EveryGtTen3(val priceTable1 : PriceTable1 = PriceTable1()) : com.gs.dmn.ru
         // Apply child decisions
         val priceTable1: List<type.TItemPrice?>? = this@EveryGtTen3.priceTable1.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
 
-        return booleanAnd(priceTable1?.stream()?.map({ i -> booleanEqual(GtTen.instance().apply(i?.let({ it.price as java.math.BigDecimal? }), annotationSet_, eventListener_, externalExecutor_, cache_), true) })?.collect(Collectors.toList())?.toList()) as Boolean?
+        return booleanAnd(priceTable1?.stream()?.map({ i -> booleanEqual(GtTen.instance()?.apply(i?.let({ it.price as java.math.BigDecimal? }), annotationSet_, eventListener_, externalExecutor_, cache_), true) })?.collect(Collectors.toList())?.toList()) as Boolean?
     }
 
     companion object {

@@ -11,9 +11,9 @@ public class _0004LendingTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
         com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         // Initialize input data
-        type.TApplicantData applicantData = new type.TApplicantDataImpl(number("35"), "EMPLOYED", true, "M", new type.MonthlyImpl(number("2000"), number("6000"), number("0")));
+        type.TApplicantData applicantData = new type.TApplicantDataImpl(number("35"), "EMPLOYED", Boolean.TRUE, "M", new type.MonthlyImpl(number("2000"), number("6000"), number("0")));
         type.TRequestedProduct requestedProduct = new type.TRequestedProductImpl(number("350000"), "STANDARD LOAN", number("0.0395"), number("360"));
-        type.TBureauData bureauData = new type.TBureauDataImpl(false, number("649"));
+        type.TBureauData bureauData = new type.TBureauDataImpl(Boolean.FALSE, number("649"));
         String supportingDocuments = "YES";
 
         // Check Adjudication
@@ -29,13 +29,13 @@ public class _0004LendingTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
         // Check RequiredMonthlyInstallment
         checkValues(number("1680.880325608555"), new RequiredMonthlyInstallment().apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check 'Pre-bureauAffordability'
-        checkValues(true, new PreBureauAffordability().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(Boolean.TRUE, new PreBureauAffordability().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check Eligibility
         checkValues("ELIGIBLE", new Eligibility().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check Strategy
         checkValues("BUREAU", new Strategy().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check 'Post-bureauAffordability'
-        checkValues(true, new PostBureauAffordability().apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(Boolean.TRUE, new PostBureauAffordability().apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check Routing
         checkValues("ACCEPT", new Routing().apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
 
@@ -108,7 +108,7 @@ public class _0004LendingTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
             preBureauAffordabilityBuilder_.setRequestedProduct(requestedProductProto6);
         }
         proto.PreBureauAffordabilityRequest preBureauAffordabilityRequest_ = preBureauAffordabilityBuilder_.build();
-        checkValues(true, new PreBureauAffordability().apply(preBureauAffordabilityRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getPreBureauAffordability());
+        checkValues(Boolean.TRUE, new PreBureauAffordability().apply(preBureauAffordabilityRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getPreBureauAffordability());
         // Check Eligibility with proto request
         proto.EligibilityRequest.Builder eligibilityBuilder_ = proto.EligibilityRequest.newBuilder();
         proto.TApplicantData applicantDataProto7 = type.TApplicantData.toProto(applicantData);
@@ -148,7 +148,7 @@ public class _0004LendingTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
             postBureauAffordabilityBuilder_.setRequestedProduct(requestedProductProto9);
         }
         proto.PostBureauAffordabilityRequest postBureauAffordabilityRequest_ = postBureauAffordabilityBuilder_.build();
-        checkValues(true, new PostBureauAffordability().apply(postBureauAffordabilityRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getPostBureauAffordability());
+        checkValues(Boolean.TRUE, new PostBureauAffordability().apply(postBureauAffordabilityRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getPostBureauAffordability());
         // Check Routing with proto request
         proto.RoutingRequest.Builder routingBuilder_ = proto.RoutingRequest.newBuilder();
         proto.TApplicantData applicantDataProto10 = type.TApplicantData.toProto(applicantData);

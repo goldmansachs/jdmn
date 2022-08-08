@@ -53,8 +53,8 @@ class FinancialMetrics : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         val fee: java.math.BigDecimal? = product?.let({ it.fee as java.math.BigDecimal? }) as java.math.BigDecimal?
         val loanAmt: java.math.BigDecimal? = numericAdd(numericMultiply(requestedAmt, numericAdd(number("1"), numericDivide(points, number("100")))), fee) as java.math.BigDecimal?
         val downPmtAmt: java.math.BigDecimal? = numericMultiply(number("0.2"), loanAmt) as java.math.BigDecimal?
-        val paymentAmt: java.math.BigDecimal? = MonthlyPayment.instance().apply(loanAmt, rate, number("360"), annotationSet_, eventListener_, externalExecutor_, cache_) as java.math.BigDecimal?
-        val equity36moPct: java.math.BigDecimal? = numericSubtract(number("1"), numericMultiply(numericDivide(Equity36Mo.instance().apply(loanAmt, rate, number("36"), paymentAmt, annotationSet_, eventListener_, externalExecutor_, cache_), requestedAmt), number("0.8"))) as java.math.BigDecimal?
+        val paymentAmt: java.math.BigDecimal? = MonthlyPayment.instance()?.apply(loanAmt, rate, number("360"), annotationSet_, eventListener_, externalExecutor_, cache_) as java.math.BigDecimal?
+        val equity36moPct: java.math.BigDecimal? = numericSubtract(number("1"), numericMultiply(numericDivide(Equity36Mo.instance()?.apply(loanAmt, rate, number("36"), paymentAmt, annotationSet_, eventListener_, externalExecutor_, cache_), requestedAmt), number("0.8"))) as java.math.BigDecimal?
         val financialMetrics: type.TMetricImpl? = type.TMetricImpl() as type.TMetricImpl?
         financialMetrics?.lenderName = lenderName
         financialMetrics?.rate = rate

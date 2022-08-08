@@ -35,12 +35,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private static final Logger LOGGER = LoggerFactory.getLogger(TCKUtil.class);
@@ -60,6 +57,10 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         this.typeFactory = transformer.getNativeTypeFactory();
         this.tckValueInterpreter = new TCKValueInterpreter<>(transformer, feelLib);
         this.tckValueTranslator = transformer.isMockTesting() ? new MockTCKValueTranslator<>(transformer, feelLib) : new TCKValueTranslator<>(transformer, feelLib);
+    }
+
+    public BasicDMNToNativeTransformer<Type, DMNContext> getTransformer() {
+        return this.transformer;
     }
 
     //
@@ -253,6 +254,19 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
     // Translator - Result nodes
     //
+    public List<TDRGElement> findDRGElementsUnderTest(TestCases testCases) {
+        Set<TDRGElement> elements = new LinkedHashSet<>();
+        for (TestCase testCase : testCases.getTestCase()) {
+            for (ResultNode resultNode : testCase.getResultNode()) {
+                TDRGElement element = findDRGElement(testCases, testCase, resultNode);
+                if (element != null) {
+                    elements.add(element);
+                }
+            }
+        }
+        return new ArrayList<>(elements);
+    }
+
     public ResultNodeInfo extractResultNodeInfo(TestCases testCases, TestCase testCase, ResultNode resultNode) {
         TDRGElement element = findDRGElement(testCases, testCase, resultNode);
         DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);

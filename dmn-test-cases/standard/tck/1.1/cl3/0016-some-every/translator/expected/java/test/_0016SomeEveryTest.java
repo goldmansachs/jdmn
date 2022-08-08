@@ -16,15 +16,15 @@ public class _0016SomeEveryTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisio
         // Check priceTable1
         checkValues(asList(new type.TItemPriceImpl("widget", number("25")), new type.TItemPriceImpl("sprocket", number("15")), new type.TItemPriceImpl("trinket", number("1.5"))), new PriceTable1().apply(annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check everyGtTen1
-        checkValues(false, new EveryGtTen1().apply(annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(Boolean.FALSE, new EveryGtTen1().apply(annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check everyGtTen2
-        checkValues(false, new EveryGtTen2().apply(priceTable2, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(Boolean.FALSE, new EveryGtTen2().apply(priceTable2, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check someGtTen1
-        checkValues(true, new SomeGtTen1().apply(annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(Boolean.TRUE, new SomeGtTen1().apply(annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check someGtTen2
-        checkValues(true, new SomeGtTen2().apply(priceTable2, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(Boolean.TRUE, new SomeGtTen2().apply(priceTable2, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check everyGtTen3
-        checkValues(false, new EveryGtTen3().apply(annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(Boolean.FALSE, new EveryGtTen3().apply(annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
     private void checkValues(Object expected, Object actual) {

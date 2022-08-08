@@ -114,6 +114,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
     //
     boolean hasListType(TDRGElement element);
 
+    String drgElementClassName(DRGElementReference<? extends TDRGElement> reference);
+
     String drgElementClassName(TDRGElement element);
 
     String drgElementReferenceVariableName(DRGElementReference<? extends TDRGElement> reference);
@@ -400,6 +402,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
     //
     String ruleOutputClassName(TDRGElement element);
 
+    String qualifiedRuleOutputClassName(TDRGElement element);
+
     String ruleId(List<TDecisionRule> rules, TDecisionRule rule);
 
     String abstractRuleOutputClassName();
@@ -461,11 +465,15 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String makeListType(String listType);
 
+    String nullableType(String type);
+
     String qualifiedName(String pkg, String name);
 
     String qualifiedName(DRGElementReference<? extends TDRGElement> reference);
 
     String qualifiedName(TDRGElement element);
+
+    String qualifiedName(Class<?> cls);
 
     String getterName(String name);
 

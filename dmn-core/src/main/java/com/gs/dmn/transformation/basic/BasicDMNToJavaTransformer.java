@@ -319,6 +319,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
+    public String drgElementClassName(DRGElementReference<? extends TDRGElement> reference) {
+        return drgElementClassName(reference.getElement());
+    }
+
+    @Override
     public String drgElementClassName(TDRGElement element) {
         return upperCaseFirst(element.getName());
     }
@@ -1082,17 +1087,17 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String pairClassName() {
-        return Pair.class.getName();
+        return qualifiedName(Pair.class);
     }
 
     @Override
     public String pairComparatorClassName() {
-        return PairComparator.class.getName();
+        return qualifiedName(PairComparator.class);
     }
 
     @Override
     public String argumentsClassName() {
-        return Arguments.class.getName();
+        return qualifiedName(Arguments.class);
     }
 
     @Override
@@ -1102,36 +1107,36 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String dmnTypeClassName() {
-        return DMNType.class.getName();
+        return qualifiedName(DMNType.class);
     }
 
     @Override
     public String dmnRuntimeExceptionClassName() {
-        return DMNRuntimeException.class.getName();
+        return qualifiedName(DMNRuntimeException.class);
     }
 
     @Override
     public String lazyEvalClassName() {
-        return LazyEval.class.getName();
+        return qualifiedName(LazyEval.class);
     }
 
     @Override
     public String contextClassName() {
-        return Context.class.getName();
+        return qualifiedName(Context.class);
     }
 
     @Override
     public String executorClassName() {
-        return Executor.class.getName();
+        return qualifiedName(Executor.class);
     }
 
     @Override
     public String registryClassName() {
-        return ModelElementRegistry.class.getName();
+        return qualifiedName(ModelElementRegistry.class);
     }
 
     protected String inputClassName() {
-        return Map.class.getName() + "<String, String>";
+        return qualifiedName(Map.class) + "<String, String>";
     }
 
     protected String inputVariableName() {
@@ -1140,7 +1145,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String executionContextClassName() {
-        return ExecutionContext.class.getName();
+        return qualifiedName(ExecutionContext.class);
     }
 
     protected String executionContextVariableName() {
@@ -1149,7 +1154,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String annotationSetClassName() {
-        return AnnotationSet.class.getName();
+        return qualifiedName(AnnotationSet.class);
     }
 
     @Override
@@ -1159,7 +1164,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String eventListenerClassName() {
-        return EventListener.class.getName();
+        return qualifiedName(EventListener.class);
     }
 
     @Override
@@ -1169,22 +1174,22 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String defaultEventListenerClassName() {
-        return NopEventListener.class.getName();
+        return qualifiedName(NopEventListener.class);
     }
 
     @Override
     public String loggingEventListenerClassName() {
-        return LoggingEventListener.class.getName();
+        return qualifiedName(LoggingEventListener.class);
     }
 
     @Override
     public String treeTraceEventListenerClassName() {
-        return TreeTraceEventListener.class.getName();
+        return qualifiedName(TreeTraceEventListener.class);
     }
 
     @Override
     public String externalExecutorClassName() {
-        return ExternalFunctionExecutor.class.getName();
+        return qualifiedName(ExternalFunctionExecutor.class);
     }
 
     @Override
@@ -1194,12 +1199,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String defaultExternalExecutorClassName() {
-        return DefaultExternalFunctionExecutor.class.getName();
+        return qualifiedName(DefaultExternalFunctionExecutor.class);
     }
 
     @Override
     public String cacheInterfaceName() {
-        return Cache.class.getName();
+        return qualifiedName(Cache.class);
     }
 
     @Override
@@ -1209,7 +1214,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String defaultCacheClassName() {
-        return DefaultCache.class.getName();
+        return qualifiedName(DefaultCache.class);
     }
 
     @Override
@@ -1237,22 +1242,22 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String drgElementAnnotationClassName() {
-        return com.gs.dmn.runtime.annotation.DRGElement.class.getName();
+        return qualifiedName(com.gs.dmn.runtime.annotation.DRGElement.class);
     }
 
     @Override
     public String elementKindAnnotationClassName() {
-        return DRGElementKind.class.getName();
+        return qualifiedName(DRGElementKind.class);
     }
 
     @Override
     public String expressionKindAnnotationClassName() {
-        return ExpressionKind.class.getName();
+        return qualifiedName(ExpressionKind.class);
     }
 
     @Override
     public String drgElementMetadataClassName() {
-        return com.gs.dmn.runtime.listener.DRGElement.class.getName();
+        return qualifiedName(com.gs.dmn.runtime.listener.DRGElement.class);
     }
 
     @Override
@@ -1262,7 +1267,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String drgRuleMetadataClassName() {
-        return com.gs.dmn.runtime.listener.Rule.class.getName();
+        return qualifiedName(com.gs.dmn.runtime.listener.Rule.class);
     }
 
     @Override
@@ -1272,7 +1277,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String assertClassName() {
-        return Assert.class.getName();
+        return qualifiedName(Assert.class);
     }
 
     //
@@ -1389,6 +1394,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String ruleOutputClassName(TDRGElement element) {
         return this.expressionToNativeTransformer.ruleOutputClassName(element);
+    }
+
+    @Override
+    public String qualifiedRuleOutputClassName(TDRGElement element) {
+        return this.expressionToNativeTransformer.qualifiedRuleOutputClassName(element);
     }
 
     @Override
@@ -1651,18 +1661,18 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             if (type instanceof FEELFunctionType) {
                 String returnType = toNativeType(((FunctionType) type).getReturnType());
                 if (((FEELFunctionType) type).isExternal()) {
-                    return makeFunctionType(JavaExternalFunction.class.getName(), returnType);
+                    return makeFunctionType(qualifiedName(JavaExternalFunction.class), returnType);
                 } else {
-                    return makeFunctionType(LambdaExpression.class.getName(), returnType);
+                    return makeFunctionType(qualifiedName(LambdaExpression.class), returnType);
                 }
             } else if (type instanceof DMNFunctionType) {
                 TFunctionKind kind = ((DMNFunctionType) type).getKind();
                 if (isFEELFunction(kind)) {
                     String returnType = toNativeType(((FunctionType) type).getReturnType());
-                    return makeFunctionType(LambdaExpression.class.getName(), returnType);
+                    return makeFunctionType(qualifiedName(LambdaExpression.class), returnType);
                 } else if (isJavaFunction(kind)) {
                     String returnType = toNativeType(((FunctionType) type).getReturnType());
-                    return makeFunctionType(JavaExternalFunction.class.getName(), returnType);
+                    return makeFunctionType(qualifiedName(JavaExternalFunction.class), returnType);
                 }
                 throw new DMNRuntimeException(String.format("Type %s is not supported yet", type));
             }
@@ -1681,16 +1691,21 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         return String.format("%s<? extends Object>", listType);
     }
 
+    @Override
+    public String nullableType(String type) {
+        return this.nativeTypeFactory.nullableType(type);
+    }
+
     protected String makeFunctionType(String name, String returnType) {
         return String.format("%s<%s>", name, returnType);
     }
 
     @Override
-    public String qualifiedName(String pkg, String name) {
+    public String qualifiedName(String pkg, String clsName) {
         if (StringUtils.isBlank(pkg)) {
-            return name;
+            return clsName;
         } else {
-            return pkg + "." + name;
+            return String.format("%s.%s", pkg, clsName);
         }
     }
 
@@ -1704,11 +1719,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         TDefinitions definitions = this.dmnModelRepository.getModel(element);
         String pkg = this.nativeModelPackageName(definitions.getName());
         String name = drgElementClassName(element);
-        if (StringUtils.isBlank(pkg)) {
-            return name;
-        } else {
-            return pkg + "." + name;
-        }
+        return qualifiedName(pkg, name);
+    }
+
+    @Override
+    public String qualifiedName(Class<?> cls) {
+        return cls.getName();
     }
 
     @Override

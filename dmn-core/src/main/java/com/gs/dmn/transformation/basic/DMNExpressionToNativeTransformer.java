@@ -235,12 +235,17 @@ public class DMNExpressionToNativeTransformer {
         return this.dmnTransformer.upperCaseFirst(element.getName() + DECISION_RULE_OUTPUT_CLASS_SUFFIX);
     }
 
+    String qualifiedRuleOutputClassName(TDRGElement element) {
+        String clsName = this.dmnTransformer.upperCaseFirst(element.getName() + DECISION_RULE_OUTPUT_CLASS_SUFFIX);
+        return this.dmnTransformer.qualifiedName(null, clsName);
+    }
+
     String abstractRuleOutputClassName() {
-        return RuleOutput.class.getName();
+        return this.dmnTransformer.qualifiedName(RuleOutput.class);
     }
 
     String ruleOutputListClassName() {
-        return RuleOutputList.class.getName();
+        return this.dmnTransformer.qualifiedName(RuleOutputList.class);
     }
 
     String ruleId(List<TDecisionRule> rules, TDecisionRule rule) {
@@ -329,7 +334,8 @@ public class DMNExpressionToNativeTransformer {
             String operands = conditionParts.stream().collect(Collectors.joining(",\n" + indent3tabs));
             String eventListenerVariable = this.dmnTransformer.eventListenerVariableName();
             String ruleMetadataVariable = this.dmnTransformer.drgRuleMetadataFieldName();
-            return String.format("%s(%s, %s,\n%s%s\n%s)", ruleMatchesMethodName(), eventListenerVariable, ruleMetadataVariable, indent3tabs, operands, indent2tabs);
+            String args = String.format("%s, %s,\n%s%s\n%s", eventListenerVariable, ruleMetadataVariable, indent3tabs, operands, indent2tabs);
+            return this.nativeFactory.makeBuiltinFunctionInvocation(ruleMatchesMethodName(), args);
         }
         throw new DMNRuntimeException("Cannot build condition for " + decisionTable.getClass().getSimpleName());
     }
@@ -391,11 +397,11 @@ public class DMNExpressionToNativeTransformer {
     }
 
     String ruleAnnotationClassName() {
-        return Rule.class.getName();
+        return this.dmnTransformer.qualifiedName(Rule.class);
     }
 
     String hitPolicyAnnotationClassName() {
-        return HitPolicy.class.getName();
+        return this.dmnTransformer.qualifiedName(HitPolicy.class);
     }
 
     //
