@@ -21,9 +21,26 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PythonFactory extends JavaFactory implements NativeFactory {
+    private static final Set<String> PYTHON_KEYWORDS = new LinkedHashSet<>(
+            Arrays.asList(
+                "False","class","from", "or",
+                        "None","continue            global              pass\n" +
+                        "True","def                 if                  raise\n" +
+                        "and","del                 import              return\n" +
+                        "as","elif                in                  try\n" +
+                        "assert","else                is                  while\n" +
+                        "async", "except              lambda              with\n" +
+                        "await","finally             nonlocal            yield\n" +
+                        "break","for                 not\n"
+            )
+    );
+
     public PythonFactory(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
         super(transformer);
     }
@@ -76,6 +93,11 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
         return String.format("(%s).get(\"%s\", self.asList())", source, memberName);
     }
 
+    @Override
+    public String prefixWithSelf(String text) {
+        return String.format("self.%s", text);
+    }
+
     //
     // Expressions
     //
@@ -96,6 +118,11 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
         String args = String.format("%s, %s", condition, trueConstant());
         String call = this.makeBuiltinFunctionInvocation("booleanEqual", args);
         return String.format("(%s if %s else %s)", thenExp, call, elseExp);
+    }
+
+    @Override
+    public String makeNullCheck(String exp, String type) {
+        return String.format("None if %s is None else %s", exp, exp);
     }
 
     @Override
@@ -210,6 +237,10 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     //
     @Override
     public String makeBuiltinFunctionInvocation(String javaFunctionCode, String argumentsText) {
+        // Python keywords
+        if (PYTHON_KEYWORDS.contains(javaFunctionCode)) {
+            javaFunctionCode += "_";
+        }
         return String.format("self.%s(%s)", javaFunctionCode, argumentsText);
     }
 

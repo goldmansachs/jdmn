@@ -186,7 +186,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         List<List<String>> result = new ArrayList<>();
         for (int i=0; i<missingParameters.size(); i++) {
             Type type = parameters.get(i).getRight();
-            String defaultValue = isMockTesting() ? "null" : getDefaultValue(type, null);
+            String defaultValue = isMockTesting() ? this.transformer.getNativeFactory().nullLiteral(): this.transformer.getDefaultValue(type, null);
             List<String> triplet = new ArrayList<>();
             triplet.add(missingArgs.get(i).getLeft());
             triplet.add(missingArgs.get(i).getRight());
@@ -254,6 +254,18 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
     // Translator - Result nodes
     //
+    public List<String> findComplexInputDatas(TestCases testCases) {
+        Set<String> set = new LinkedHashSet<>();
+        List<TItemDefinition> itemDefinitions = this.dmnModelRepository.compositeItemDefinitions(getRootModel(testCases));
+        for (TItemDefinition itemDefinition: itemDefinitions) {
+            String interfaceName = this.transformer.itemDefinitionNativeSimpleInterfaceName(itemDefinition);
+            set.add(interfaceName);
+        }
+        ArrayList<String> list = new ArrayList<>(set);
+        Collections.sort(list);
+        return list;
+    }
+
     public List<TDRGElement> findDRGElementsUnderTest(TestCases testCases) {
         Set<TDRGElement> elements = new LinkedHashSet<>();
         for (TestCase testCase : testCases.getTestCase()) {

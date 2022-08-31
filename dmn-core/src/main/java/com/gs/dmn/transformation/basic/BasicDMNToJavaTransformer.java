@@ -2124,4 +2124,155 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public boolean isMockTesting() {
         return this.inputParameters.isMockTesting();
     }
+
+    @Override
+    public String getNativeNumberType() {
+        return this.getDialect().getNativeNumberType();
+    }
+
+    @Override
+    public String getNativeDateType() {
+        return this.getDialect().getNativeDateType();
+    }
+
+    @Override
+    public String getNativeTimeType() {
+        return this.getDialect().getNativeTimeType();
+    }
+
+    @Override
+    public String getNativeDateAndTimeType() {
+        return this.getDialect().getNativeDateAndTimeType();
+    }
+
+    @Override
+    public String getNativeDurationType() {
+        return this.getDialect().getNativeDurationType();
+    }
+
+    @Override
+    public String getDefaultIntegerValue() {
+        return this.nativeFactory.constructor(getNativeNumberType(), "\"0\"");
+    }
+
+    @Override
+    public String getDefaultDecimalValue() {
+        return this.nativeFactory.constructor(getNativeNumberType(), "\"0.0\"");
+    }
+
+    @Override
+    public String getDefaultStringValue() {
+        return this.nativeFactory.nullLiteral();
+    }
+
+    @Override
+    public String getDefaultBooleanValue() {
+        return this.nativeFactory.falseConstant();
+    }
+
+    @Override
+    public String getDefaultDateValue() {
+        return this.nativeFactory.nullLiteral();
+    }
+
+    @Override
+    public String getDefaultTimeValue() {
+        return this.nativeFactory.nullLiteral();
+    }
+
+    @Override
+    public String getDefaultDateAndTimeValue() {
+        return this.nativeFactory.nullLiteral();
+    }
+
+    @Override
+    public String getDefaultDurationValue() {
+        return this.nativeFactory.nullLiteral();
+    }
+
+    @Override
+    public boolean isInteger(TItemDefinition element) {
+        if (element != null) {
+            TDMNElement.ExtensionElements extensionElements = element.getExtensionElements();
+            if (extensionElements != null) {
+                for (Object any : extensionElements.getAny()) {
+                    if ("non_decimal_number".equals(any)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String makeIntegerForInput(String text) {
+        return this.nativeFactory.constructor(getNativeNumberType(), String.format("java.lang.Integer.toString(%s)", text));
+    }
+
+    @Override
+    public String makeDecimalForInput(String text) {
+        return this.nativeFactory.constructor(getNativeNumberType(), String.format("java.lang.Double.toString(%s)", text));
+    }
+
+    @Override
+    public String makeDecimalForDecision(String text) {
+        if (StringUtils.isBlank(text)) {
+            return this.nativeFactory.nullLiteral();
+        } else {
+            return this.nativeFactory.constructor(getNativeNumberType(), text);
+        }
+    }
+
+    @Override
+    public String makeDate(String text) {
+        return makeDateTimeLiteral("date", text.trim());
+    }
+
+    @Override
+    public String makeTime(String text) {
+        return makeDateTimeLiteral("time", text.trim());
+    }
+
+    @Override
+    public String makeDateTime(String text) {
+        return makeDateTimeLiteral("dateAndTime", text.trim());
+    }
+
+    @Override
+    public String makeDuration(String text) {
+        return makeDateTimeLiteral("duration", text.trim());
+    }
+
+    @Override
+    public String getDefaultValue(Type memberType, TItemDefinition memberItemDefinition) {
+        String value = this.nativeFactory.nullLiteral();
+        if (memberType == NumberType.NUMBER) {
+            if (isInteger(memberItemDefinition)) {
+                value = this.nativeFactory.prefixWithSelf("DEFAULT_INTEGER_NUMBER");
+            } else {
+                value = this.nativeFactory.prefixWithSelf("DEFAULT_DECIMAL_NUMBER");
+            }
+        } else if (memberType == StringType.STRING) {
+            value = this.nativeFactory.prefixWithSelf("DEFAULT_STRING");
+        } else if (memberType == BooleanType.BOOLEAN) {
+            value = this.nativeFactory.prefixWithSelf("DEFAULT_BOOLEAN");
+        } else if (memberType == DateType.DATE) {
+            value = this.nativeFactory.prefixWithSelf("DEFAULT_DATE");
+        } else if (memberType == TimeType.TIME) {
+            value = this.nativeFactory.prefixWithSelf("DEFAULT_TIME");
+        } else if (memberType == DateTimeType.DATE_AND_TIME) {
+            value = this.nativeFactory.prefixWithSelf("DEFAULT_DATE_TIME");
+        } else if (memberType instanceof DurationType) {
+            value = this.nativeFactory.prefixWithSelf("DEFAULT_DURATION");
+        }
+        return value;
+    }
+
+    private String makeDateTimeLiteral(String constructor, String text) {
+        if (!text.startsWith(constructor)) {
+            text = String.format("%s(\"%s\")", constructor, text);
+        }
+        return this.nativeFactory.prefixWithSelf(text);
+    }
 }

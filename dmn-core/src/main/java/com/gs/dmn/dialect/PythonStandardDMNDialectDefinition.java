@@ -32,8 +32,11 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 
+import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
@@ -73,5 +76,30 @@ public class PythonStandardDMNDialectDefinition extends AbstractStandardDMNDiale
     protected String qualifiedName(Class<?> cls) {
         String qName = String.format("%s.%s", cls.getName(), cls.getSimpleName());
         return qName.replace("com.gs.dmn", "jdmn");
+    }
+
+    @Override
+    public String getNativeNumberType() {
+        return "decimal.Decimal";
+    }
+
+    @Override
+    public String getNativeDateType() {
+        return "datetime.date";
+    }
+
+    @Override
+    public String getNativeTimeType() {
+        return "datetime.time";
+    }
+
+    @Override
+    public String getNativeDateAndTimeType() {
+        return "datetime.datetime";
+    }
+
+    @Override
+    public String getNativeDurationType() {
+        return "isodate.Duration";
     }
 }

@@ -54,6 +54,8 @@ public interface NativeExpressionFactory {
 
     String makeContextSelectExpression(String contextClassName, String source, String memberName);
 
+    String prefixWithSelf(String text);
+
     //
     // Expressions
     //
@@ -62,6 +64,8 @@ public interface NativeExpressionFactory {
     String makeCollectionNumericFilter(String javaElementType, String source, String filter);
 
     String makeIfExpression(String condition, String thenExp, String elseExp);
+
+    String makeNullCheck(String exp, String type);
 
     String makeForExpression(List<Pair<String, String>> domainIterators, String body);
 

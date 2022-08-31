@@ -68,4 +68,29 @@ public class KotlinStandardDMNDialectDefinition extends AbstractStandardDMNDiale
     public String getDecisionBaseClass() {
         return DefaultDMNBaseDecision.class.getName();
     }
+
+    @Override
+    public String getNativeNumberType() {
+        return BigDecimal.class.getName();
+    }
+
+    @Override
+    public String getNativeDateType() {
+        return XMLGregorianCalendar.class.getName();
+    }
+
+    @Override
+    public String getNativeTimeType() {
+        return XMLGregorianCalendar.class.getName();
+    }
+
+    @Override
+    public String getNativeDateAndTimeType() {
+        return XMLGregorianCalendar.class.getName();
+    }
+
+    @Override
+    public String getNativeDurationType() {
+        return Duration.class.getName();
+    }
 }

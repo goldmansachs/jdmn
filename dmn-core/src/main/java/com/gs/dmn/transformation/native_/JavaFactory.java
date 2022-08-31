@@ -111,6 +111,11 @@ public class JavaFactory implements NativeFactory {
         return String.format("((%s)(%s)).get(\"%s\", asList())", contextClassName, source, memberName);
     }
 
+    @Override
+    public String prefixWithSelf(String text) {
+        return text;
+    }
+
     //
     // Expressions
     //
@@ -131,6 +136,11 @@ public class JavaFactory implements NativeFactory {
         String args = String.format("%s, %s", condition, trueConstant());
         String call = this.makeBuiltinFunctionInvocation("booleanEqual", args);
         return String.format("(%s) ? %s : %s", call, thenExp, elseExp);
+    }
+
+    @Override
+    public String makeNullCheck(String exp, String type) {
+        return String.format("%s == null ? null : ((%s) %s)", exp, type, exp);
     }
 
     @Override

@@ -750,4 +750,48 @@ public interface BasicDMNToNativeTransformer<T, C> {
     // Mock testing related methods
     //
     boolean isMockTesting();
+
+    String getNativeNumberType();
+
+    String getNativeDateType();
+
+    String getNativeTimeType();
+
+    String getNativeDateAndTimeType();
+
+    String getNativeDurationType();
+
+    String getDefaultIntegerValue();
+
+    String getDefaultDecimalValue();
+
+    String getDefaultStringValue();
+
+    String getDefaultBooleanValue();
+
+    String getDefaultDateValue();
+
+    String getDefaultTimeValue();
+
+    String getDefaultDateAndTimeValue();
+
+    String getDefaultDurationValue();
+
+    boolean isInteger(TItemDefinition element);
+
+    String makeIntegerForInput(String text);
+
+    String makeDecimalForInput(String text);
+
+    String makeDecimalForDecision(String text);
+
+    String makeDate(String text);
+
+    String makeTime(String text);
+
+    String makeDateTime(String text);
+
+    String makeDuration(String text);
+
+    String getDefaultValue(Type memberType, TItemDefinition memberItemDefinition);
 }

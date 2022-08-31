@@ -93,10 +93,7 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
 
     @Override
     public String drgElementConstructorSignature(TDRGElement element) {
-        List<DRGElementReference<TDecision>> subDecisionReferences = this.dmnModelRepository.directSubDecisions(element);
-        this.dmnModelRepository.sortNamedElementReferences(subDecisionReferences);
-        String sig = subDecisionReferences.stream().map(d -> this.nativeFactory.decisionConstructorParameter(d)).collect(Collectors.joining(", "));
-        return augmentWithSelf(sig);
+        return augmentWithSelf(super.drgElementConstructorSignature(element));
     }
 
     //
@@ -194,5 +191,18 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
         } else {
             return String.format("self, %s", result);
         }
+    }
+
+    //
+    // Mock testing related methods
+    //
+    @Override
+    public String makeIntegerForInput(String text) {
+        return this.nativeFactory.constructor(getNativeNumberType(), String.format("str(int(%s))", text));
+    }
+
+    @Override
+    public String makeDecimalForInput(String text) {
+        return this.nativeFactory.constructor(getNativeNumberType(), String.format("str(float(%s))", text));
     }
 }
