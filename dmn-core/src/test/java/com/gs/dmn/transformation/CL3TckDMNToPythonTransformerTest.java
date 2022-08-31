@@ -28,6 +28,7 @@ public class CL3TckDMNToPythonTransformerTest extends AbstractTckDMNToPythonTran
     @Test
     public void testCL3() throws Exception {
         // DMN 1.1
+        doSingleModelTest("1.1", "0004-lending");
         doSingleModelTest("1.1","0020-vacation-days");
     }
 }
