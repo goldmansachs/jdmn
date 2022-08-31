@@ -29,6 +29,7 @@
     <modules>
         <module>dmn-tck-it-translator</module>
         <module>dmn-tck-it-kotlin-translator</module>
+        <module>dmn-tck-it-python-translator</module>
     </modules>
 
     <properties>
