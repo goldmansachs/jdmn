@@ -110,6 +110,9 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
 
         // Generate registry
         generateRegistry(dmnModelRepository.getAllDefinitions(), dmnTransformer, outputPath);
+
+        // Generate extra
+        generateExtra(dmnTransformer, dmnModelRepository, outputPath);
     }
 
     private void transformItemDefinitionList(TDefinitions definitions, List<TItemDefinition> itemDefinitionList, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath) {
@@ -246,6 +249,9 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
             throw new DMNRuntimeException("Error when generating registry file for model(s)", e);
         }
 
+    }
+
+    protected void generateExtra(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
     }
 
     private void checkDuplicate(List<String> generatedClasses, String pkg, String className, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {

@@ -79,6 +79,7 @@ public class InputParameters {
     private final String protoVersion;
 
     private final boolean mockTesting;
+    private final boolean generateExtra;
 
     public InputParameters() {
         this(new LinkedHashMap<>());
@@ -112,6 +113,7 @@ public class InputParameters {
         this.sparsityThreshold = Double.parseDouble(sparsityThresholdParam);
 
         this.mockTesting = InputParameters.getOptionalBooleanParam(inputParameters, "mockTesting");
+        this.generateExtra = InputParameters.getOptionalBooleanParam(inputParameters, "generateExtra", "false");
     }
 
     public String getDmnVersion() {
@@ -196,5 +198,9 @@ public class InputParameters {
 
     public boolean isMockTesting() {
         return mockTesting;
+    }
+
+    public boolean isGenerateExtra() {
+        return generateExtra;
     }
 }

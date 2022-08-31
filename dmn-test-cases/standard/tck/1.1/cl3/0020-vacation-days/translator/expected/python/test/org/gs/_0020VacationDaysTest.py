@@ -12,7 +12,7 @@ import jdmn.runtime.external.DefaultExternalFunctionExecutor
 import jdmn.runtime.listener.NopEventListener
 
 # DRG Elements to test
-import TotalVacationDays
+import org.gs.TotalVacationDays
 
 
 # Generated(value = ["junit.ftl", "0020-vacation-days.dmn"])
@@ -31,7 +31,7 @@ class _0020VacationDaysTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecisi
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("1")
 
         # Check 'Total Vacation Days'
-        self.checkValues(self.number("27"), TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_))
+        self.checkValues(self.number("27"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_))
 
     def testCase002(self):
         annotationSet_ = jdmn.runtime.annotation.AnnotationSet.AnnotationSet()
@@ -43,7 +43,7 @@ class _0020VacationDaysTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecisi
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("5")
 
         # Check 'Total Vacation Days'
-        self.checkValues(self.number("22"), TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_))
+        self.checkValues(self.number("22"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_))
 
     def testCase003(self):
         annotationSet_ = jdmn.runtime.annotation.AnnotationSet.AnnotationSet()
@@ -55,7 +55,7 @@ class _0020VacationDaysTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecisi
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("20")
 
         # Check 'Total Vacation Days'
-        self.checkValues(self.number("24"), TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_))
+        self.checkValues(self.number("24"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_))
 
     def testCase004(self):
         annotationSet_ = jdmn.runtime.annotation.AnnotationSet.AnnotationSet()
@@ -67,7 +67,7 @@ class _0020VacationDaysTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecisi
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("30")
 
         # Check 'Total Vacation Days'
-        self.checkValues(self.number("30"), TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_))
+        self.checkValues(self.number("30"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_))
 
     def testCase005(self):
         annotationSet_ = jdmn.runtime.annotation.AnnotationSet.AnnotationSet()
@@ -79,7 +79,7 @@ class _0020VacationDaysTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecisi
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("20")
 
         # Check 'Total Vacation Days'
-        self.checkValues(self.number("24"), TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_))
+        self.checkValues(self.number("24"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_))
 
     def testCase006(self):
         annotationSet_ = jdmn.runtime.annotation.AnnotationSet.AnnotationSet()
@@ -91,7 +91,7 @@ class _0020VacationDaysTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecisi
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("30")
 
         # Check 'Total Vacation Days'
-        self.checkValues(self.number("30"), TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_))
+        self.checkValues(self.number("30"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_))
 
     def testCase007(self):
         annotationSet_ = jdmn.runtime.annotation.AnnotationSet.AnnotationSet()
@@ -103,7 +103,7 @@ class _0020VacationDaysTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecisi
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("20")
 
         # Check 'Total Vacation Days'
-        self.checkValues(self.number("30"), TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_))
+        self.checkValues(self.number("30"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_))
 
     def checkValues(self, expected: typing.Any, actual: typing.Any):
         jdmn.runtime.Assert.Assert().assertEquals(expected, actual)

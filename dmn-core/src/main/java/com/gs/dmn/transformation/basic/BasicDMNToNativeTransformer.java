@@ -753,6 +753,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
     //
     boolean isMockTesting();
 
+    boolean isGenerateExtra();
+
     String getNativeNumberType();
 
     String getNativeDateType();

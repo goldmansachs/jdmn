@@ -35,7 +35,7 @@ public class CL3TestCasesToPythonJUnitTransformerTest extends AbstractTestCasesT
     public void testCL3() throws Exception {
         // DMN 1.1
         doSingleModelTest("1.1", "0004-lending", "0004-lending-test-01");
-        doSingleModelTest("1.1","0020-vacation-days", "0020-vacation-days-test-01");
+        doSingleModelTest("1.1","0020-vacation-days", "0020-vacation-days-test-01", new Pair<>("generateExtra", "true"), new Pair<>("javaRootPackage", "org.gs"));
 
         // DMN 1.3
         doSingleModelTest("1.3","0085-decision-services", "0085-decision-services-test-01", new Pair<>("caching", "true"));

@@ -23,14 +23,14 @@ import jdmn.runtime.listener.DRGElement
 import jdmn.runtime.listener.EventListener
 import jdmn.runtime.listener.Rule
 
-import ExtraDaysCase2RuleOutput
+import org.gs.ExtraDaysCase1RuleOutput
 
 
-# Generated(value = ["decision.ftl", "'Extra days case 2'"])
-class ExtraDaysCase2(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
+# Generated(value = ["decision.ftl", "'Extra days case 1'"])
+class ExtraDaysCase1(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
-        "",
-        "'Extra days case 2'",
+        "org.gs",
+        "'Extra days case 1'",
         "",
         jdmn.runtime.annotation.DRGElementKind.DRGElementKind.DECISION,
         jdmn.runtime.annotation.ExpressionKind.ExpressionKind.DECISION_TABLE,
@@ -43,22 +43,22 @@ class ExtraDaysCase2(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
 
     def apply(self, age: typing.Optional[decimal.Decimal], yearsOfService: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[decimal.Decimal]:
         try:
-            # Start decision ''Extra days case 2''
-            extraDaysCase2StartTime_ = int(time.time_ns()/1000)
-            extraDaysCase2Arguments_ = jdmn.runtime.listener.Arguments.Arguments()
-            extraDaysCase2Arguments_.put("Age", age)
-            extraDaysCase2Arguments_.put("'Years of Service'", yearsOfService)
-            eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, extraDaysCase2Arguments_)
+            # Start decision ''Extra days case 1''
+            extraDaysCase1StartTime_ = int(time.time_ns()/1000)
+            extraDaysCase1Arguments_ = jdmn.runtime.listener.Arguments.Arguments()
+            extraDaysCase1Arguments_.put("Age", age)
+            extraDaysCase1Arguments_.put("'Years of Service'", yearsOfService)
+            eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, extraDaysCase1Arguments_)
 
-            # Evaluate decision ''Extra days case 2''
+            # Evaluate decision ''Extra days case 1''
             output_: typing.Optional[decimal.Decimal] = self.evaluate(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-            # End decision ''Extra days case 2''
-            eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, extraDaysCase2Arguments_, output_, (int(time.time_ns()/1000) - extraDaysCase2StartTime_))
+            # End decision ''Extra days case 1''
+            eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, extraDaysCase1Arguments_, output_, (int(time.time_ns()/1000) - extraDaysCase1StartTime_))
 
             return output_
         except Exception as e:
-            self.logError("Exception caught in ''Extra days case 2'' evaluation", e)
+            self.logError("Exception caught in ''Extra days case 1'' evaluation", e)
             return None
 
     def evaluate(self, age: typing.Optional[decimal.Decimal], yearsOfService: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[decimal.Decimal]:
@@ -74,7 +74,7 @@ class ExtraDaysCase2(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
             output_ = self.number("0")
         else:
             ruleOutputs_: typing.List[jdmn.runtime.RuleOutput.RuleOutput] = ruleOutputList_.applyMultiple(jdmn.runtime.annotation.HitPolicy.HitPolicy.COLLECT)
-            output_ = self.max(list(map(lambda o: o.extraDaysCase2, ruleOutputs_)))
+            output_ = self.max(list(map(lambda o: o.extraDaysCase1, ruleOutputs_)))
 
         return output_
 
@@ -86,20 +86,20 @@ class ExtraDaysCase2(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
-        output_: ExtraDaysCase2RuleOutput.ExtraDaysCase2RuleOutput = ExtraDaysCase2RuleOutput.ExtraDaysCase2RuleOutput(False)
+        output_: org.gs.ExtraDaysCase1RuleOutput.ExtraDaysCase1RuleOutput = org.gs.ExtraDaysCase1RuleOutput.ExtraDaysCase1RuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            True,
-            (self.numericGreaterEqualThan(yearsOfService, self.number("30")))
+            self.booleanOr((self.numericLessThan(age, self.number("18"))), (self.numericGreaterEqualThan(age, self.number("60")))),
+            True
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
             # Compute output
             output_.setMatched(True)
-            output_.extraDaysCase2 = self.number("3")
+            output_.extraDaysCase1 = self.number("5")
 
             # Add annotation
-            annotationSet_.addAnnotation("'Extra days case 2'", 0, "")
+            annotationSet_.addAnnotation("'Extra days case 1'", 0, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -114,20 +114,20 @@ class ExtraDaysCase2(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
-        output_: ExtraDaysCase2RuleOutput.ExtraDaysCase2RuleOutput = ExtraDaysCase2RuleOutput.ExtraDaysCase2RuleOutput(False)
+        output_: org.gs.ExtraDaysCase1RuleOutput.ExtraDaysCase1RuleOutput = org.gs.ExtraDaysCase1RuleOutput.ExtraDaysCase1RuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.numericGreaterEqualThan(age, self.number("60"))),
-            True
+            True,
+            (self.numericGreaterEqualThan(yearsOfService, self.number("30")))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
             # Compute output
             output_.setMatched(True)
-            output_.extraDaysCase2 = self.number("3")
+            output_.extraDaysCase1 = self.number("5")
 
             # Add annotation
-            annotationSet_.addAnnotation("'Extra days case 2'", 1, "")
+            annotationSet_.addAnnotation("'Extra days case 1'", 1, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)

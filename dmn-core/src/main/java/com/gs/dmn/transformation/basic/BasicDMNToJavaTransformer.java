@@ -2141,6 +2141,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
+    public boolean isGenerateExtra() {
+        return this.inputParameters.isGenerateExtra();
+    }
+
+    @Override
     public String getNativeNumberType() {
         return this.getDialect().getNativeNumberType();
     }

@@ -19,7 +19,6 @@ import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
@@ -33,8 +32,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigDecimal;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -654,97 +651,55 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return "mockContext_";
     }
 
-    public String defaultMockNumberType() {
-        return BigDecimal.class.getName();
+    public String getNativeNumberType() {
+        return this.transformer.getNativeNumberType();
     }
 
-    public String defaultMockDateType() {
-        return XMLGregorianCalendar.class.getName();
+    public String getNativeDateType() {
+        return this.transformer.getNativeDateType();
     }
 
-    public String defaultMockIntegerValue() {
-        return "new java.math.BigDecimal(\"0\")";
+    public String getNativeTimeType() {
+        return this.transformer.getNativeTimeType();
     }
 
-    public String defaultMockDecimalValue() {
-        return "new java.math.BigDecimal(\"0.0\")";
+    public String getNativeDateAndTimeType() {
+        return this.transformer.getNativeDateAndTimeType();
     }
 
-    public String defaultMockStringValue() {
-        return "null";
+    public String getNativeDurationType() {
+        return this.transformer.getNativeDurationType();
     }
 
-    public String defaultMockBooleanValue() {
-        return "false";
+    public String getDefaultIntegerValue() {
+        return this.transformer.getDefaultIntegerValue();
     }
 
-    public String defaultMockDateValue() {
-        return "null";
+    public String getDefaultDecimalValue() {
+        return this.transformer.getDefaultDecimalValue();
     }
 
-    public String defaultMockTimeValue() {
-        return "null";
+    public String getDefaultStringValue() {
+        return this.transformer.getDefaultStringValue();
     }
 
-    public String defaultMockDateAndTimeValue() {
-        return "null";
+    public String getDefaultBooleanValue() {
+        return this.transformer.getDefaultBooleanValue();
     }
 
-    public String defaultMockDurationValue() {
-        return "null";
+    public String getDefaultDateValue() {
+        return this.transformer.getDefaultDateValue();
     }
 
-    public static String makeIntegerForInput(String text) {
-        return String.format("new java.math.BigDecimal(java.lang.Integer.toString(%s))", text);
+    public String getDefaultTimeValue() {
+        return this.transformer.getDefaultTimeValue();
     }
 
-    public static String makeDecimalForInput(String text) {
-        return String.format("new java.math.BigDecimal(java.lang.Double.toString(%s))", text);
+    public String getDefaultDateAndTimeValue() {
+        return this.transformer.getDefaultDateAndTimeValue();
     }
 
-    public static String makeDecimalForDecision(String text) {
-        if (StringUtils.isBlank(text)) {
-            return "null";
-        } else {
-            return String.format("new java.math.BigDecimal(%s)", text);
-        }
-    }
-
-    static boolean isInteger(TItemDefinition element) {
-        if (element != null) {
-            TDMNElement.ExtensionElements extensionElements = element.getExtensionElements();
-            if (extensionElements != null) {
-                for (Object any : extensionElements.getAny()) {
-                    if ("non_decimal_number".equals(any)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    static String getDefaultValue(Type memberType, TItemDefinition memberItemDefinition) {
-        String value = "null";
-        if (memberType == NumberType.NUMBER) {
-            if (isInteger(memberItemDefinition)) {
-                value =  "DEFAULT_INTEGER_NUMBER";
-            } else {
-                value = "DEFAULT_DECIMAL_NUMBER";
-            }
-        } else if (memberType == StringType.STRING) {
-            value = "DEFAULT_STRING";
-        } else if (memberType == BooleanType.BOOLEAN) {
-            value = "DEFAULT_BOOLEAN";
-        } else if (memberType == DateType.DATE) {
-            value = "DEFAULT_DATE";
-        } else if (memberType == TimeType.TIME) {
-            value = "DEFAULT_TIME";
-        } else if (memberType == DateTimeType.DATE_AND_TIME) {
-            value = "DEFAULT_DATE_TIME";
-        } else if (memberType instanceof DurationType) {
-            value = "DEFAULT_DURATION";
-        }
-        return value;
+    public String getDefaultDurationValue() {
+        return this.transformer.getDefaultDurationValue();
     }
 }

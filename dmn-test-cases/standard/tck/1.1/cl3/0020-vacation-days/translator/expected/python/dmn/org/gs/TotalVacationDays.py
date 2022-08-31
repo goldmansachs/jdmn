@@ -23,16 +23,16 @@ import jdmn.runtime.listener.DRGElement
 import jdmn.runtime.listener.EventListener
 import jdmn.runtime.listener.Rule
 
-import BaseVacationDays
-import ExtraDaysCase1
-import ExtraDaysCase2
-import ExtraDaysCase3
+import org.gs.BaseVacationDays
+import org.gs.ExtraDaysCase1
+import org.gs.ExtraDaysCase2
+import org.gs.ExtraDaysCase3
 
 
 # Generated(value = ["decision.ftl", "'Total Vacation Days'"])
 class TotalVacationDays(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
-        "",
+        "org.gs",
         "'Total Vacation Days'",
         "",
         jdmn.runtime.annotation.DRGElementKind.DRGElementKind.DECISION,
@@ -41,12 +41,12 @@ class TotalVacationDays(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecisi
         -1
     )
 
-    def __init__(self, baseVacationDays: BaseVacationDays.BaseVacationDays = None, extraDaysCase1: ExtraDaysCase1.ExtraDaysCase1 = None, extraDaysCase2: ExtraDaysCase2.ExtraDaysCase2 = None, extraDaysCase3: ExtraDaysCase3.ExtraDaysCase3 = None):
+    def __init__(self, baseVacationDays: org.gs.BaseVacationDays.BaseVacationDays = None, extraDaysCase1: org.gs.ExtraDaysCase1.ExtraDaysCase1 = None, extraDaysCase2: org.gs.ExtraDaysCase2.ExtraDaysCase2 = None, extraDaysCase3: org.gs.ExtraDaysCase3.ExtraDaysCase3 = None):
         jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision.__init__(self)
-        self.baseVacationDays = BaseVacationDays.BaseVacationDays() if baseVacationDays is None else baseVacationDays
-        self.extraDaysCase1 = ExtraDaysCase1.ExtraDaysCase1() if extraDaysCase1 is None else extraDaysCase1
-        self.extraDaysCase2 = ExtraDaysCase2.ExtraDaysCase2() if extraDaysCase2 is None else extraDaysCase2
-        self.extraDaysCase3 = ExtraDaysCase3.ExtraDaysCase3() if extraDaysCase3 is None else extraDaysCase3
+        self.baseVacationDays = org.gs.BaseVacationDays.BaseVacationDays() if baseVacationDays is None else baseVacationDays
+        self.extraDaysCase1 = org.gs.ExtraDaysCase1.ExtraDaysCase1() if extraDaysCase1 is None else extraDaysCase1
+        self.extraDaysCase2 = org.gs.ExtraDaysCase2.ExtraDaysCase2() if extraDaysCase2 is None else extraDaysCase2
+        self.extraDaysCase3 = org.gs.ExtraDaysCase3.ExtraDaysCase3() if extraDaysCase3 is None else extraDaysCase3
 
     def apply(self, age: typing.Optional[decimal.Decimal], yearsOfService: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[decimal.Decimal]:
         try:

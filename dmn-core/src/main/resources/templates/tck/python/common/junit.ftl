@@ -29,6 +29,18 @@ import ${transformer.jdmnRootPackage()}.runtime.listener.NopEventListener
 
 # Generated(value = ["junit.ftl", "${testCases.modelName}"])
 class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
+    <#if tckUtil.isMockTesting()>
+    # Default values for mock tests
+    DEFAULT_INTEGER_NUMBER: ${tckUtil.getNativeNumberType()} = ${tckUtil.getDefaultIntegerValue()}
+    DEFAULT_DECIMAL_NUMBER: ${tckUtil.getNativeNumberType()} = ${tckUtil.getDefaultDecimalValue()}
+    DEFAULT_STRING: typing.Optional[str] = ${tckUtil.getDefaultStringValue()}
+    DEFAULT_BOOLEAN: typing.Optional[bool] = ${tckUtil.getDefaultBooleanValue()}
+    DEFAULT_DATE: ${tckUtil.getNativeDateType()} = ${tckUtil.getDefaultDateValue()}
+    DEFAULT_TIME: ${tckUtil.getNativeTimeType()} = ${tckUtil.getDefaultTimeValue()}
+    DEFAULT_DATE_TIME: ${tckUtil.getNativeDateAndTimeType()} = ${tckUtil.getDefaultDateAndTimeValue()}
+    DEFAULT_DURATION: ${tckUtil.getNativeDurationType()} = ${tckUtil.getDefaultDurationValue()}
+
+    </#if>
     def __init__(self, methodName="runTest"):
         unittest.TestCase.__init__(self, methodName)
         ${decisionBaseClass}.__init__(self)
@@ -45,6 +57,12 @@ class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
         </#items>
     </#list>
     def checkValues(self, expected: typing.Any, actual: typing.Any):
+        <#if tckUtil.isMockTesting()>
+        if isinstance(expected, bool) and actual is None:
+            actual = self.DEFAULT_BOOLEAN
+        elif isinstance(expected, ${tckUtil.getNativeNumberType()}) and actual is None:
+            actual = self.DEFAULT_DECIMAL_NUMBER
+        </#if>
         ${tckUtil.defaultConstructor(tckUtil.assertClassName())}.assertEquals(expected, actual)
 </#macro>
 
@@ -53,6 +71,9 @@ class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
         ${tckUtil.eventListenerVariableName()} = ${tckUtil.defaultConstructor(tckUtil.defaultEventListenerClassName())}
         ${tckUtil.externalExecutorVariableName()} = ${tckUtil.defaultConstructor(tckUtil.defaultExternalExecutorClassName())}
         ${tckUtil.cacheVariableName()} = ${tckUtil.defaultConstructor(tckUtil.defaultCacheClassName())}
+    <#if tckUtil.isMockTesting()>
+        ${tckUtil.mockContextVariable()} = {}
+    </#if>
     <#list testCase.inputNode>
         # Initialize input data
         <#items as input>
@@ -62,6 +83,9 @@ class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
         ${inputVariableName}: ${tckUtil.toNativeType(inputInfo)} = ${inputValue}
         <#if tckUtil.isCached(inputInfo)>
         ${tckUtil.cacheVariableName()}.bind("${inputVariableName}", ${inputVariableName})
+        </#if>
+        <#if tckUtil.isMockTesting()>
+        ${tckUtil.mockContextVariable()}["${inputVariableName}"] = ${inputVariableName}
         </#if>
         </#items>
     </#list>

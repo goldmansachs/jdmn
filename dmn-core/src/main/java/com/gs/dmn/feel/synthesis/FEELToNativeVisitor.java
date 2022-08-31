@@ -132,8 +132,8 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
             // Evaluate as range
             boolean startIncluded = !element.isOpenStart();
             boolean endIncluded = !element.isOpenEnd();
-            String start = startEndpoint == null ? "null" : (String) startEndpoint.accept(this, context);
-            String end = endEndpoint == null ? "null" : (String) endEndpoint.accept(this, context);
+            String start = startEndpoint == null ? this.nativeFactory.nullLiteral() : (String) startEndpoint.accept(this, context);
+            String end = endEndpoint == null ? this.nativeFactory.nullLiteral() : (String) endEndpoint.accept(this, context);
 
             String clsName = this.dmnTransformer.qualifiedName(Range.class);
             String args = String.format("%s, %s, %s, %s", startIncluded, start, endIncluded, end);
@@ -556,7 +556,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
     protected Object convertArgument(Object param, Conversion<Type> conversion) {
         String conversionFunction = this.nativeFactory.conversionFunction(conversion, this.dmnTransformer.toNativeType(conversion.getTargetType()));
         if (conversionFunction != null) {
-            param = this.nativeFactory.makeBuiltinFunctionInvocation(conversionFunction, param == null ? "null" : param.toString());
+            param = this.nativeFactory.makeBuiltinFunctionInvocation(conversionFunction, param == null ? this.nativeFactory.nullLiteral() : param.toString());
         }
         return param;
     }

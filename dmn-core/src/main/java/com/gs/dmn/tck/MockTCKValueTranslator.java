@@ -55,36 +55,36 @@ public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
             if (path !=  null) {
                 return path;
             } else {
-                if ("null".equals(text)) {
-                    return text;
+                if ("null".equals(text.trim())) {
+                    return this.nativeFactory.nullLiteral();
                 } else if (type == null) {
                     return text;
                 } else if (type == StringType.STRING) {
                     return text;
                 } else if (type == BooleanType.BOOLEAN) {
-                    return text;
+                    return this.nativeFactory.booleanLiteral(text);
                 } else if (type == NumberType.NUMBER) {
                     text = text.trim();
                     if (text.startsWith("\"") && text.endsWith("\"")) {
                         text = text.substring(1, text.length() - 1);
                     }
                     if (element instanceof TInputData) {
-                        if (TCKUtil.isInteger(itemDefinition)) {
-                            return TCKUtil.makeIntegerForInput(text);
+                        if (this.transformer.isInteger(itemDefinition)) {
+                            return this.transformer.makeIntegerForInput(text);
                         } else {
-                            return TCKUtil.makeDecimalForInput(text);
+                            return this.transformer.makeDecimalForInput(text);
                         }
                     } else {
-                        return TCKUtil.makeDecimalForDecision(text);
+                        return this.transformer.makeDecimalForDecision(text);
                     }
                 } else if (type == DateType.DATE) {
-                    return text;
+                    return this.transformer.makeDate(text);
                 } else if (type == TimeType.TIME) {
-                    return text;
+                    return this.transformer.makeTime(text);
                 } else if (type == DateTimeType.DATE_AND_TIME) {
-                    return text;
+                    return this.transformer.makeDateTime(text);
                 } else if (type instanceof DurationType) {
-                    return text;
+                    return this.transformer.makeDuration(text);
                 } else if (type == AnyType.ANY) {
                     return text;
                 }
@@ -113,7 +113,8 @@ public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
             String value = toNativeExpression(listValueType, elementType, element, elementItemDefinition);
             javaList.add(value);
         }
-        return String.format("asList(%s)", String.join(", ", javaList));
+        String args = String.join(", ", javaList);
+        return this.nativeFactory.makeBuiltinFunctionInvocation("asList", args);
     }
 
     private String toNativeExpression(List<Component> components, ItemDefinitionType type, TDRGElement element, TItemDefinition itemDefinition) {
@@ -133,7 +134,7 @@ public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
             if (!present.contains(member)) {
                 Type memberType = type.getMemberType(member);
                 TItemDefinition memberItemDefinition = memberItemDefinition(itemDefinition, member);
-                String value = TCKUtil.getDefaultValue(memberType, memberItemDefinition);
+                String value = this.transformer.getDefaultValue(memberType, memberItemDefinition);
                 Pair<String, String> pair = new Pair<>(member, value);
                 argumentList.add(pair);
             }
@@ -226,8 +227,8 @@ public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
         String cleanText = removeWhiteSpaces(text);
         String[] parts = cleanText.split("\\.");
         StringBuilder result = new StringBuilder();
-        String root = String.format("%s.get(\"%s\")", TCKUtil.mockContextVariable(), parts[0]);
-        result.append(String.format("%s == null ? null : ((%s) %s)", root, childType, root));
+        String root = String.format("%s.%s", TCKUtil.mockContextVariable(), this.transformer.contextGetter(parts[0]));
+        result.append(this.nativeFactory.makeNullCheck(root, childType));
         for (int i=1; i<parts.length; i++) {
             result.append(String.format(".%s", this.transformer.getter(parts[i])));
         }

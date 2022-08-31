@@ -103,7 +103,7 @@ public class DMNExpressionToNativeTransformer {
     String defaultValue(TDRGElement element, TOutputClause output) {
         TLiteralExpression defaultOutputEntry = output.getDefaultOutputEntry();
         if (defaultOutputEntry == null) {
-            return "null";
+            return this.nativeFactory.nullLiteral();
         } else {
             return this.dmnTransformer.literalExpressionToNative(element, defaultOutputEntry.getText());
         }
@@ -373,7 +373,7 @@ public class DMNExpressionToNativeTransformer {
             // Analyze output expression
             String outputEntryText = outputEntryExpression.getText();
             if ("-".equals(outputEntryText)) {
-                outputEntryText = "null";
+                outputEntryText = this.nativeFactory.nullLiteral();
             }
             DMNContext outputEntryContext = this.dmnTransformer.makeGlobalContext(element);
             Expression<Type, DMNContext> feelOutputEntryExpression = this.feelTranslator.analyzeExpression(outputEntryText, outputEntryContext);
@@ -432,7 +432,7 @@ public class DMNExpressionToNativeTransformer {
             TExpression expression = entry.getExpression();
             if (expression == null) {
                 entryType = this.dmnEnvironmentFactory.entryType(element, entry, localContext);
-                value = this.nativeFactory.makeExpressionStatement("null", entryType);
+                value = this.nativeFactory.makeExpressionStatement(this.nativeFactory.nullLiteral(), entryType);
             } else if (expression instanceof TLiteralExpression) {
                 Expression<Type, DMNContext> feelExpression = literalExpressionMap.get(entry);
                 entryType = this.dmnEnvironmentFactory.entryType(element, entry, expression, feelExpression);
@@ -653,7 +653,7 @@ public class DMNExpressionToNativeTransformer {
         DMNContext relationContext = this.dmnTransformer.makeRelationContext(element, relation, parentContext);
         Type resultType = this.dmnTransformer.drgElementOutputFEELType(element);
         if (relation.getRow() == null) {
-            return this.nativeFactory.makeExpressionStatement("null", resultType);
+            return this.nativeFactory.makeExpressionStatement(this.nativeFactory.nullLiteral(), resultType);
         }
 
         // Type name
@@ -668,14 +668,14 @@ public class DMNExpressionToNativeTransformer {
             // Translate value
             List<TExpression> expList = row.getExpression();
             if (expList == null) {
-                rowValues.add("null");
+                rowValues.add(this.nativeFactory.nullLiteral());
             } else {
                 List<Pair<String, String>> argPairList = new ArrayList<>();
                 for(int i = 0; i < expList.size(); i++) {
                     TExpression expression = expList.get(i);
                     String argValue;
                     if (expression == null) {
-                        argValue = "null";
+                        argValue = this.nativeFactory.nullLiteral();
                     } else {
                         Statement statement = this.dmnTransformer.expressionToNative(element, expression, relationContext);
                         argValue = statement.getText();

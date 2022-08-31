@@ -23,13 +23,13 @@ import jdmn.runtime.listener.DRGElement
 import jdmn.runtime.listener.EventListener
 import jdmn.runtime.listener.Rule
 
-import ExtraDaysCase3RuleOutput
+import org.gs.ExtraDaysCase3RuleOutput
 
 
 # Generated(value = ["decision.ftl", "'Extra days case 3'"])
 class ExtraDaysCase3(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
-        "",
+        "org.gs",
         "'Extra days case 3'",
         "",
         jdmn.runtime.annotation.DRGElementKind.DRGElementKind.DECISION,
@@ -86,7 +86,7 @@ class ExtraDaysCase3(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
-        output_: ExtraDaysCase3RuleOutput.ExtraDaysCase3RuleOutput = ExtraDaysCase3RuleOutput.ExtraDaysCase3RuleOutput(False)
+        output_: org.gs.ExtraDaysCase3RuleOutput.ExtraDaysCase3RuleOutput = org.gs.ExtraDaysCase3RuleOutput.ExtraDaysCase3RuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
             True,
             (self.booleanAnd(self.numericGreaterEqualThan(yearsOfService, self.number("15")), self.numericLessThan(yearsOfService, self.number("30"))))
@@ -114,7 +114,7 @@ class ExtraDaysCase3(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
-        output_: ExtraDaysCase3RuleOutput.ExtraDaysCase3RuleOutput = ExtraDaysCase3RuleOutput.ExtraDaysCase3RuleOutput(False)
+        output_: org.gs.ExtraDaysCase3RuleOutput.ExtraDaysCase3RuleOutput = org.gs.ExtraDaysCase3RuleOutput.ExtraDaysCase3RuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
             (self.numericGreaterEqualThan(age, self.number("45"))),
             True

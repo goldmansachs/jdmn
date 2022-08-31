@@ -27,7 +27,7 @@ import jdmn.runtime.listener.Rule
 # Generated(value = ["decision.ftl", "'Base Vacation Days'"])
 class BaseVacationDays(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
-        "",
+        "org.gs",
         "'Base Vacation Days'",
         "",
         jdmn.runtime.annotation.DRGElementKind.DRGElementKind.DECISION,

@@ -93,11 +93,16 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
                 processTemplate(testCases, templateProvider.testBaseTemplatePath(), templateProvider.testTemplateName(), basicTransformer, outputPath, javaClassName);
             }
 
+            generateExtra(basicTransformer, basicTransformer.getDMNModelRepository(), outputPath);
+
             watch.stop();
             logger.info("TCK processing time: " + watch.toString());
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Error during transforming %s.", file.getName()), e);
         }
+    }
+
+    protected void generateExtra(BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
     }
 
     protected void processTemplate(TestCases testCases, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath, String testClassName) {
