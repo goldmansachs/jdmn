@@ -222,6 +222,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
+    public String itemDefinitionNativeQualifiedInterfaceName(TItemDefinition itemDefinition) {
+        Type type = toFEELType(itemDefinition);
+        return toNativeType(type);
+    }
+
+    @Override
     public String itemDefinitionNativeSimpleInterfaceName(String className) {
         return className.substring(0, className.length() - "Impl".length());
     }
@@ -229,12 +235,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String itemDefinitionNativeClassName(String interfaceName) {
         return interfaceName + "Impl";
-    }
-
-    @Override
-    public String itemDefinitionNativeQualifiedInterfaceName(TItemDefinition itemDefinition) {
-        Type type = toFEELType(itemDefinition);
-        return toNativeType(type);
     }
 
     @Override
@@ -246,6 +246,21 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             parameters.add(new Pair<>(namedElementVariableName(child), itemDefinitionNativeQualifiedInterfaceName(child)));
         }
         return parameters.stream().map(p -> this.nativeFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
+    }
+
+    @Override
+    public List<String> itemDefinitionComplexComponents(TItemDefinition itemDefinition) {
+        List<String> components = new ArrayList<>();
+        List<TItemDefinition> itemComponents = itemDefinition.getItemComponent();
+        this.dmnModelRepository.sortNamedElements(itemComponents);
+        for (TItemDefinition child : itemComponents) {
+            Type type = toFEELType(child);
+            if (type instanceof ItemDefinitionType) {
+                String name = this.upperCaseFirst(((ItemDefinitionType) type).getName());
+                components.add(name);
+            }
+        }
+        return components;
     }
 
     @Override

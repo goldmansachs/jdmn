@@ -82,13 +82,15 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String itemDefinitionNativeSimpleInterfaceName(TItemDefinition itemDefinition);
 
+    String itemDefinitionNativeQualifiedInterfaceName(TItemDefinition itemDefinition);
+
     String itemDefinitionNativeSimpleInterfaceName(String className);
 
     String itemDefinitionNativeClassName(String interfaceName);
 
-    String itemDefinitionNativeQualifiedInterfaceName(TItemDefinition itemDefinition);
-
     String itemDefinitionSignature(TItemDefinition itemDefinition);
+
+    List<String> itemDefinitionComplexComponents(TItemDefinition itemDefinition);
 
     String getter(TItemDefinition itemDefinition);
 

@@ -14,14 +14,12 @@ package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.ast.TDRGElement;
-import com.gs.dmn.ast.TDecision;
-import com.gs.dmn.ast.TInvocable;
-import com.gs.dmn.ast.TItemDefinition;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -65,12 +63,37 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     //
     @Override
     public String itemDefinitionNativeQualifiedInterfaceName(TItemDefinition itemDefinition) {
-        return this.nativeTypeFactory.nullableType(super.itemDefinitionNativeQualifiedInterfaceName(itemDefinition));
+        return super.itemDefinitionNativeQualifiedInterfaceName(itemDefinition);
     }
 
     @Override
     public String itemDefinitionNativeClassName(String interfaceName) {
-        return interfaceName + "Impl";
+        if (interfaceName.startsWith("typing.Optional[")) {
+            int first = interfaceName.indexOf("[");
+            int last = interfaceName.indexOf("]");
+            String simpleInterfaceName = interfaceName.substring(first + 1, last);
+            return interfaceName.replaceAll(simpleInterfaceName, simpleInterfaceName + "Impl");
+        } else {
+            int i = interfaceName.lastIndexOf(".");
+            if (i == -1) {
+                return interfaceName + "Impl";
+            } else {
+                // It's a qualified name p.I.I
+                String simpleInterfaceName = interfaceName.substring(i + 1);
+                return interfaceName.replaceAll(simpleInterfaceName, simpleInterfaceName + "Impl");
+            }
+        }
+    }
+
+    @Override
+    public String itemDefinitionSignature(TItemDefinition itemDefinition) {
+        List<Pair<String, String>> parameters = new ArrayList<>();
+        List<TItemDefinition> itemComponents = itemDefinition.getItemComponent();
+        this.dmnModelRepository.sortNamedElements(itemComponents);
+        for (TItemDefinition child : itemComponents) {
+            parameters.add(new Pair<>(namedElementVariableName(child), itemDefinitionNativeQualifiedInterfaceName(child)));
+        }
+        return parameters.stream().map(p -> this.nativeFactory.nullableParameter(p.getRight(), p.getLeft()) + " = None").collect(Collectors.joining(", "));
     }
 
     //
@@ -172,6 +195,11 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
         } else {
             return String.format("%s.%s", pkg, moduleName);
         }
+    }
+
+    @Override
+    public String getter(String name) {
+        return String.format("%s", lowerCaseFirst(name));
     }
 
     @Override
