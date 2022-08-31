@@ -24,9 +24,4 @@ public class PythonTreeTemplateProvider extends TreeTemplateProvider {
     public String testBaseTemplatePath() {
         return "/templates/tck/python";
     }
-
-    @Override
-    public String dsTemplateName() {
-        throw new DMNRuntimeException("DS are not supported for Kotlin");
-    }
 }

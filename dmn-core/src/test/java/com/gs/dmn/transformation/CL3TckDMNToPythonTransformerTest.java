@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
 public class CL3TckDMNToPythonTransformerTest extends AbstractTckDMNToPythonTransformerTest {
@@ -30,5 +31,8 @@ public class CL3TckDMNToPythonTransformerTest extends AbstractTckDMNToPythonTran
         // DMN 1.1
         doSingleModelTest("1.1", "0004-lending");
         doSingleModelTest("1.1","0020-vacation-days");
+
+        // DMN 1.3
+        doSingleModelTest("1.3","0085-decision-services", new Pair<>("caching", "true"));
     }
 }
