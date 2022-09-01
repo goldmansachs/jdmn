@@ -76,7 +76,7 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.DefaultDMNBase
         com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
 
         // Check decision_007_1
-        checkValues(true, new Decision_007_1().apply(annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(Boolean.TRUE, new Decision_007_1().apply(annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
     @org.junit.Test

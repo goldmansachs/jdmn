@@ -13,7 +13,7 @@ public class _0010MultiOutputUTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         // Initialize input data
         java.math.BigDecimal age = number("18");
         String riskCategory = "Medium";
-        Boolean isAffordable = true;
+        Boolean isAffordable = Boolean.TRUE;
 
         // Check Approval
         checkValues(new type.TApprovalImpl("Standard", "Approved"), new Approval().apply(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_, cache_));
@@ -28,7 +28,7 @@ public class _0010MultiOutputUTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         // Initialize input data
         java.math.BigDecimal age = number("17");
         String riskCategory = "Medium";
-        Boolean isAffordable = true;
+        Boolean isAffordable = Boolean.TRUE;
 
         // Check Approval
         checkValues(new type.TApprovalImpl("Standard", "Declined"), new Approval().apply(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_, cache_));
@@ -43,7 +43,7 @@ public class _0010MultiOutputUTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         // Initialize input data
         java.math.BigDecimal age = number("18");
         String riskCategory = "High";
-        Boolean isAffordable = true;
+        Boolean isAffordable = Boolean.TRUE;
 
         // Check Approval
         checkValues(new type.TApprovalImpl("Standard", "Declined"), new Approval().apply(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_, cache_));

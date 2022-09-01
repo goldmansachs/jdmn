@@ -1,0 +1,7 @@
+pytest>=7.1.2 # framework that makes it easy to write small tests
+coverage>=6 # allows generation of coverage reports
+pytest-cov>=3.0.0 # allows generation of coverage reports with pytest
+
+# pylint>=2.14.5 # checks style, syntax and other useful errors
+flake8>=4.0.1 # checks style, syntax and other useful errors
+

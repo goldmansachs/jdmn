@@ -82,13 +82,15 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String itemDefinitionNativeSimpleInterfaceName(TItemDefinition itemDefinition);
 
+    String itemDefinitionNativeQualifiedInterfaceName(TItemDefinition itemDefinition);
+
     String itemDefinitionNativeSimpleInterfaceName(String className);
 
     String itemDefinitionNativeClassName(String interfaceName);
 
-    String itemDefinitionNativeQualifiedInterfaceName(TItemDefinition itemDefinition);
-
     String itemDefinitionSignature(TItemDefinition itemDefinition);
+
+    List<String> itemDefinitionComplexComponents(TItemDefinition itemDefinition);
 
     String getter(TItemDefinition itemDefinition);
 
@@ -113,6 +115,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
     // DRGElement related functions
     //
     boolean hasListType(TDRGElement element);
+
+    String drgElementClassName(DRGElementReference<? extends TDRGElement> reference);
 
     String drgElementClassName(TDRGElement element);
 
@@ -154,6 +158,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     List<Pair<String, String>> drgElementSignatureParameters(DRGElementReference<? extends TDRGElement> reference);
 
+    List<String> drgElementComplexInputClassNames(TDRGElement element);
+
     String drgElementArgumentListWithMap(TDRGElement element);
 
     String drgElementArgumentListWithMap(DRGElementReference<? extends TDRGElement> reference);
@@ -180,7 +186,11 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String drgElementArgumentListWithConversionFromString(TDRGElement element);
 
+    boolean hasComplexInputDatas(TDRGElement element);
+
     boolean hasDirectSubDecisions(TDRGElement element);
+
+    boolean hasDirectSubInvocables(TDRGElement element);
 
     String drgElementConstructorSignature(TDRGElement element);
 
@@ -400,6 +410,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
     //
     String ruleOutputClassName(TDRGElement element);
 
+    String qualifiedRuleOutputClassName(TDRGElement element);
+
     String ruleId(List<TDecisionRule> rules, TDecisionRule rule);
 
     String abstractRuleOutputClassName();
@@ -461,11 +473,19 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String makeListType(String listType);
 
+    String nullableType(String type);
+
+    String jdmnRootPackage();
+
     String qualifiedName(String pkg, String name);
 
     String qualifiedName(DRGElementReference<? extends TDRGElement> reference);
 
     String qualifiedName(TDRGElement element);
+
+    String qualifiedName(Class<?> cls);
+
+    String qualifiedModuleName(String pkg, String moduleName);
 
     String getterName(String name);
 
@@ -732,4 +752,50 @@ public interface BasicDMNToNativeTransformer<T, C> {
     // Mock testing related methods
     //
     boolean isMockTesting();
+
+    boolean isGenerateExtra();
+
+    String getNativeNumberType();
+
+    String getNativeDateType();
+
+    String getNativeTimeType();
+
+    String getNativeDateAndTimeType();
+
+    String getNativeDurationType();
+
+    String getDefaultIntegerValue();
+
+    String getDefaultDecimalValue();
+
+    String getDefaultStringValue();
+
+    String getDefaultBooleanValue();
+
+    String getDefaultDateValue();
+
+    String getDefaultTimeValue();
+
+    String getDefaultDateAndTimeValue();
+
+    String getDefaultDurationValue();
+
+    boolean isInteger(TItemDefinition element);
+
+    String makeIntegerForInput(String text);
+
+    String makeDecimalForInput(String text);
+
+    String makeDecimalForDecision(String text);
+
+    String makeDate(String text);
+
+    String makeTime(String text);
+
+    String makeDateTime(String text);
+
+    String makeDuration(String text);
+
+    String getDefaultValue(Type memberType, TItemDefinition memberItemDefinition);
 }

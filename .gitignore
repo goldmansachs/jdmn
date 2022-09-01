@@ -32,3 +32,18 @@ buildNumber.properties
 
 # Binary files
 *.class
+
+# Python related
+.pytest_cache/
+.cache
+__pychache__
+**/.ipynb_checkpoints
+.eggs
+*egg-info
+dist/
+.coverage
+.venv
+build/
+sphink-doc/
+test-reports/
+.tox

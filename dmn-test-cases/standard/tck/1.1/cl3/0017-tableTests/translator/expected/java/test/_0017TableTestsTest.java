@@ -14,7 +14,7 @@ public class _0017TableTestsTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         type.TA structA = new type.TAImpl("widget", number("20"));
 
         // Check priceGt10
-        checkValues(true, new PriceGt10().apply(structA, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(Boolean.TRUE, new PriceGt10().apply(structA, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
     @org.junit.Test
@@ -42,7 +42,7 @@ public class _0017TableTestsTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         javax.xml.datatype.XMLGregorianCalendar dateD = date("2016-11-01");
 
         // Check dateCompare1
-        checkValues(true, new DateCompare1().apply(dateD, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(Boolean.TRUE, new DateCompare1().apply(dateD, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
     @org.junit.Test
@@ -56,7 +56,7 @@ public class _0017TableTestsTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         javax.xml.datatype.XMLGregorianCalendar dateE = date("2016-11-02");
 
         // Check dateCompare2
-        checkValues(false, new DateCompare2().apply(dateD, dateE, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(Boolean.FALSE, new DateCompare2().apply(dateD, dateE, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
     private void checkValues(Object expected, Object actual) {

@@ -16,11 +16,13 @@ package com.gs.dmn.transformation.native_.expression;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.ast.TItemDefinition;
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.FunctionType;
 import com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral;
 import com.gs.dmn.runtime.Pair;
 
 import java.util.List;
@@ -52,6 +54,8 @@ public interface NativeExpressionFactory {
 
     String makeContextSelectExpression(String contextClassName, String source, String memberName);
 
+    String prefixWithSelf(String text);
+
     //
     // Expressions
     //
@@ -61,11 +65,15 @@ public interface NativeExpressionFactory {
 
     String makeIfExpression(String condition, String thenExp, String elseExp);
 
+    String makeNullCheck(String exp, String type);
+
     String makeForExpression(List<Pair<String, String>> domainIterators, String body);
 
     String makeSomeExpression(String list);
 
     String makeEveryExpression(String list);
+
+    String makeInstanceOf(String value, String type);
 
     //
     // Decision Table aggregators
@@ -95,11 +103,14 @@ public interface NativeExpressionFactory {
     //
     // Equality
     //
+    String isNull(String exp);
     String makeEquality(String left, String right);
 
     //
     // Functions
     //
+    String makeBuiltinFunctionInvocation(String javaFunctionCode, String argumentsText);
+
     String makeApplyInvocation(String javaFunctionCode, String argumentsText);
 
     String applyMethod(FunctionType functionType, String signature, boolean convertTypeToContext, String body);
@@ -120,9 +131,17 @@ public interface NativeExpressionFactory {
     //
     // Literal
     //
+    String numericLiteral(String lexeme);
+
+    String booleanLiteral(String lexeme);
+
     String trueConstant();
 
     String falseConstant();
+
+    String dateTimeLiteral(DateTimeLiteral<Type, DMNContext> element);
+
+    String nullLiteral();
 
     //
     // Conversions

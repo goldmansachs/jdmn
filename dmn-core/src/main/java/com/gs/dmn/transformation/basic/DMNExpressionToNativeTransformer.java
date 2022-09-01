@@ -93,7 +93,7 @@ public class DMNExpressionToNativeTransformer {
                     return defaultValue(element, outputClause);
                 }
             } else {
-                return "null";
+                return this.nativeFactory.nullLiteral();
             }
         } else {
             throw new DMNRuntimeException(String.format("Cannot compute default value for '%s' '%s'", element.getClass().getSimpleName(), element.getName()));
@@ -103,7 +103,7 @@ public class DMNExpressionToNativeTransformer {
     String defaultValue(TDRGElement element, TOutputClause output) {
         TLiteralExpression defaultOutputEntry = output.getDefaultOutputEntry();
         if (defaultOutputEntry == null) {
-            return "null";
+            return this.nativeFactory.nullLiteral();
         } else {
             return this.dmnTransformer.literalExpressionToNative(element, defaultOutputEntry.getText());
         }
@@ -235,12 +235,19 @@ public class DMNExpressionToNativeTransformer {
         return this.dmnTransformer.upperCaseFirst(element.getName() + DECISION_RULE_OUTPUT_CLASS_SUFFIX);
     }
 
+    String qualifiedRuleOutputClassName(TDRGElement element) {
+        String clsName = this.dmnTransformer.upperCaseFirst(element.getName() + DECISION_RULE_OUTPUT_CLASS_SUFFIX);
+        String modelName = this.dmnModelRepository.getModelName(element);
+        String nativePackage = this.dmnTransformer.nativeModelPackageName(modelName);;
+        return this.dmnTransformer.qualifiedName(nativePackage, clsName);
+    }
+
     String abstractRuleOutputClassName() {
-        return RuleOutput.class.getName();
+        return this.dmnTransformer.qualifiedName(RuleOutput.class);
     }
 
     String ruleOutputListClassName() {
-        return RuleOutputList.class.getName();
+        return this.dmnTransformer.qualifiedName(RuleOutputList.class);
     }
 
     String ruleId(List<TDecisionRule> rules, TDecisionRule rule) {
@@ -329,7 +336,8 @@ public class DMNExpressionToNativeTransformer {
             String operands = conditionParts.stream().collect(Collectors.joining(",\n" + indent3tabs));
             String eventListenerVariable = this.dmnTransformer.eventListenerVariableName();
             String ruleMetadataVariable = this.dmnTransformer.drgRuleMetadataFieldName();
-            return String.format("%s(%s, %s,\n%s%s\n%s)", ruleMatchesMethodName(), eventListenerVariable, ruleMetadataVariable, indent3tabs, operands, indent2tabs);
+            String args = String.format("%s, %s,\n%s%s\n%s", eventListenerVariable, ruleMetadataVariable, indent3tabs, operands, indent2tabs);
+            return this.nativeFactory.makeBuiltinFunctionInvocation(ruleMatchesMethodName(), args);
         }
         throw new DMNRuntimeException("Cannot build condition for " + decisionTable.getClass().getSimpleName());
     }
@@ -365,7 +373,7 @@ public class DMNExpressionToNativeTransformer {
             // Analyze output expression
             String outputEntryText = outputEntryExpression.getText();
             if ("-".equals(outputEntryText)) {
-                outputEntryText = "null";
+                outputEntryText = this.nativeFactory.nullLiteral();
             }
             DMNContext outputEntryContext = this.dmnTransformer.makeGlobalContext(element);
             Expression<Type, DMNContext> feelOutputEntryExpression = this.feelTranslator.analyzeExpression(outputEntryText, outputEntryContext);
@@ -391,11 +399,11 @@ public class DMNExpressionToNativeTransformer {
     }
 
     String ruleAnnotationClassName() {
-        return Rule.class.getName();
+        return this.dmnTransformer.qualifiedName(Rule.class);
     }
 
     String hitPolicyAnnotationClassName() {
-        return HitPolicy.class.getName();
+        return this.dmnTransformer.qualifiedName(HitPolicy.class);
     }
 
     //
@@ -424,7 +432,7 @@ public class DMNExpressionToNativeTransformer {
             TExpression expression = entry.getExpression();
             if (expression == null) {
                 entryType = this.dmnEnvironmentFactory.entryType(element, entry, localContext);
-                value = this.nativeFactory.makeExpressionStatement("null", entryType);
+                value = this.nativeFactory.makeExpressionStatement(this.nativeFactory.nullLiteral(), entryType);
             } else if (expression instanceof TLiteralExpression) {
                 Expression<Type, DMNContext> feelExpression = literalExpressionMap.get(entry);
                 entryType = this.dmnEnvironmentFactory.entryType(element, entry, expression, feelExpression);
@@ -645,7 +653,7 @@ public class DMNExpressionToNativeTransformer {
         DMNContext relationContext = this.dmnTransformer.makeRelationContext(element, relation, parentContext);
         Type resultType = this.dmnTransformer.drgElementOutputFEELType(element);
         if (relation.getRow() == null) {
-            return this.nativeFactory.makeExpressionStatement("null", resultType);
+            return this.nativeFactory.makeExpressionStatement(this.nativeFactory.nullLiteral(), resultType);
         }
 
         // Type name
@@ -660,14 +668,14 @@ public class DMNExpressionToNativeTransformer {
             // Translate value
             List<TExpression> expList = row.getExpression();
             if (expList == null) {
-                rowValues.add("null");
+                rowValues.add(this.nativeFactory.nullLiteral());
             } else {
                 List<Pair<String, String>> argPairList = new ArrayList<>();
                 for(int i = 0; i < expList.size(); i++) {
                     TExpression expression = expList.get(i);
                     String argValue;
                     if (expression == null) {
-                        argValue = "null";
+                        argValue = this.nativeFactory.nullLiteral();
                     } else {
                         Statement statement = this.dmnTransformer.expressionToNative(element, expression, relationContext);
                         argValue = statement.getText();

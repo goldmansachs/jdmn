@@ -35,7 +35,7 @@ public class TCKValueTranslatorTest {
         doTest(AnySimpleType.of("abc"), StringType.STRING, "\"abc\"");
         doTest(AnySimpleType.of(" abc"), StringType.STRING, "\" abc\"");
         doTest(AnySimpleType.of("\na\nbc\n"), StringType.STRING, "\"\\na\\nbc\\n\"");
-        doTest(AnySimpleType.of("true\n"), BooleanType.BOOLEAN, "true");
+        doTest(AnySimpleType.of("true\n"), BooleanType.BOOLEAN, "Boolean.TRUE");
         doTest(AnySimpleType.of("2021-02-03"), DateType.DATE, "date(\"2021-02-03\")");
         doTest(AnySimpleType.of("2021-02-03 "), DateType.DATE, "date(\"2021-02-03\")");
     }

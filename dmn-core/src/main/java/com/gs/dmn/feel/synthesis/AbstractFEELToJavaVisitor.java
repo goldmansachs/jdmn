@@ -26,7 +26,6 @@ import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.ImportContextType;
@@ -34,12 +33,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
-import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
-import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME_DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MONTHS_DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor<Type, DMNContext> {
     private static final Map<String, String> FEEL_2_JAVA_FUNCTION = new LinkedHashMap<>();
@@ -198,27 +191,12 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor<
     }
 
     protected String functionalExpression(String javaOperator, String leftOpd, String rightOpd) {
-        return String.format("%s(%s, %s)", javaOperator, leftOpd, rightOpd);
+        String args = String.format("%s, %s", leftOpd, rightOpd);
+        return this.nativeFactory.makeBuiltinFunctionInvocation(javaOperator, args);
     }
 
     protected String infixExpression(String javaOperator, String leftOpd, String rightOpd) {
         return String.format("(%s) %s (%s)", leftOpd, javaOperator, rightOpd);
-    }
-
-    protected Object dateTimeLiteralToJava(DateTimeLiteral<Type, DMNContext> element) {
-        Type type = element.getType();
-        String value = element.getLexeme();
-        if (type == DATE) {
-            return String.format("date(%s)", value);
-        } else if (type == TIME) {
-            return String.format("time(%s)", value);
-        } else if (type == DATE_AND_TIME) {
-            return String.format("dateAndTime(%s)", value);
-        } else if (type == DAYS_AND_TIME_DURATION || type == YEARS_AND_MONTHS_DURATION) {
-            return String.format("duration(%s)", value);
-        } else {
-            throw new DMNRuntimeException("Illegal date literal kind '" + type + "'. Expected 'date', 'time', 'date and time' or 'duration'.");
-        }
     }
 
     protected String functionName(Expression<Type, DMNContext> function) {

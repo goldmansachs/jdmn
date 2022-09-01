@@ -96,12 +96,16 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     @Override
     public String makeCollectionNumericFilter(String javaElementType, String source, String filter) {
         String nullableType = this.typeFactory.nullableType(javaElementType);
-        return String.format("(elementAt(%s, %s) as %s)", source, filter, nullableType);
+        String args = String.format("%s, %s", source, filter);
+        String call = this.makeBuiltinFunctionInvocation("elementAt", args);
+        return String.format("(%s as %s)", call, nullableType);
     }
 
     @Override
     public String makeIfExpression(String condition, String thenExp, String elseExp) {
-        return String.format("(if (booleanEqual(%s, %s)) %s else %s)", condition, trueConstant(), thenExp, elseExp);
+        String args = String.format("%s, %s", condition, trueConstant());
+        String call = this.makeBuiltinFunctionInvocation("booleanEqual", args);
+        return String.format("(if (%s) %s else %s)", call, thenExp, elseExp);
     }
 
     @Override
@@ -128,12 +132,14 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
 
     @Override
     public String makeSomeExpression(String list) {
-        return String.format("booleanOr(%s?.toList())", list);
+        String args = String.format("%s?.toList()", list);
+        return makeBuiltinFunctionInvocation("booleanOr", args);
     }
 
     @Override
     public String makeEveryExpression(String list) {
-        return String.format("booleanAnd(%s?.toList())", list);
+        String args = String.format("%s?.toList()", list);
+        return makeBuiltinFunctionInvocation("booleanAnd", args);
     }
 
     //

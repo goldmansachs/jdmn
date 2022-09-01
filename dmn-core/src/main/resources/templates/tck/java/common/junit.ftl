@@ -21,11 +21,14 @@ import java.util.stream.Collectors;
 public class ${testClassName} extends ${decisionBaseClass} {
     <#if tckUtil.isMockTesting()>
     // Default values for mock tests
-    private static final ${tckUtil.defaultMockNumberType()} DEFAULT_INTEGER_NUMBER = ${tckUtil.defaultMockIntegerValue()};
-    private static final ${tckUtil.defaultMockNumberType()} DEFAULT_DECIMAL_NUMBER = ${tckUtil.defaultMockDecimalValue()};
-    private static final java.lang.String DEFAULT_STRING = ${tckUtil.defaultMockStringValue()};
-    private static final Boolean DEFAULT_BOOLEAN = ${tckUtil.defaultMockBooleanValue()};
-    private static final ${tckUtil.defaultMockDateType()} DEFAULT_DATE = ${tckUtil.defaultMockDateValue()};
+    private static final ${tckUtil.getNativeNumberType()} DEFAULT_INTEGER_NUMBER = ${tckUtil.getDefaultIntegerValue()};
+    private static final ${tckUtil.getNativeNumberType()} DEFAULT_DECIMAL_NUMBER = ${tckUtil.getDefaultDecimalValue()};
+    private static final java.lang.String DEFAULT_STRING = ${tckUtil.getDefaultStringValue()};
+    private static final Boolean DEFAULT_BOOLEAN = ${tckUtil.getDefaultBooleanValue()};
+    private static final ${tckUtil.getNativeDateType()} DEFAULT_DATE = ${tckUtil.getDefaultDateValue()};
+    private static final ${tckUtil.getNativeTimeType()} DEFAULT_TIME = ${tckUtil.getDefaultTimeValue()};
+    private static final ${tckUtil.getNativeDateAndTimeType()} DEFAULT_DATE_TIME = ${tckUtil.getDefaultDateAndTimeValue()};
+    private static final ${tckUtil.getNativeDurationType()} DEFAULT_DURATION = ${tckUtil.getDefaultDurationValue()};
 
     </#if>
     <@addTestCases />

@@ -13,7 +13,7 @@ public class _0006SimpletableP1Test extends com.gs.dmn.runtime.DefaultDMNBaseDec
         // Initialize input data
         java.math.BigDecimal age = number("18");
         String riskCategory = "Medium";
-        Boolean isAffordable = true;
+        Boolean isAffordable = Boolean.TRUE;
 
         // Check 'Approval Status'
         checkValues("Approved", new ApprovalStatus().apply(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_, cache_));
@@ -28,7 +28,7 @@ public class _0006SimpletableP1Test extends com.gs.dmn.runtime.DefaultDMNBaseDec
         // Initialize input data
         java.math.BigDecimal age = number("17");
         String riskCategory = "Medium";
-        Boolean isAffordable = true;
+        Boolean isAffordable = Boolean.TRUE;
 
         // Check 'Approval Status'
         checkValues("Declined", new ApprovalStatus().apply(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_, cache_));
@@ -43,7 +43,7 @@ public class _0006SimpletableP1Test extends com.gs.dmn.runtime.DefaultDMNBaseDec
         // Initialize input data
         java.math.BigDecimal age = number("18");
         String riskCategory = "High";
-        Boolean isAffordable = true;
+        Boolean isAffordable = Boolean.TRUE;
 
         // Check 'Approval Status'
         checkValues("Declined", new ApprovalStatus().apply(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_, cache_));

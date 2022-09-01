@@ -350,7 +350,7 @@
 -->
 <#macro startDRGElement drgElement>
             // ${transformer.startElementCommentText(drgElement)}
-            long ${transformer.namedElementVariableName(drgElement)}StartTime_ = System.currentTimeMillis();
+            long ${transformer.namedElementVariableName(drgElement)}StartTime_ = <@currentTimeMillis/>;
             ${transformer.argumentsClassName()} ${transformer.argumentsVariableName(drgElement)} = ${transformer.defaultConstructor(transformer.argumentsClassName())};
             <#assign elementNames = transformer.drgElementArgumentDisplayNameList(drgElement)/>
             <#list transformer.drgElementArgumentNameList(drgElement)>
@@ -367,7 +367,7 @@
 
 <#macro endDRGElementIndent extraIndent drgElement output>
             ${extraIndent}// ${transformer.endElementCommentText(drgElement)}
-            ${extraIndent}${transformer.eventListenerVariableName()}.endDRGElement(<@drgElementAnnotation drgElement/>, ${transformer.argumentsVariableName(drgElement)}, ${output}, (System.currentTimeMillis() - ${transformer.namedElementVariableName(drgElement)}StartTime_));
+            ${extraIndent}${transformer.eventListenerVariableName()}.endDRGElement(<@drgElementAnnotation drgElement/>, ${transformer.argumentsVariableName(drgElement)}, ${output}, (<@currentTimeMillis/> - ${transformer.namedElementVariableName(drgElement)}StartTime_));
 </#macro>
 
 <#macro endDRGElementAndReturn drgElement output>
@@ -406,3 +406,5 @@
             // Add annotation
             ${transformer.annotationSetVariableName()}.addAnnotation("${drgElement.name}", ${rule_index}, ${transformer.annotation(drgElement, rule)});
 </#macro>
+
+<#macro currentTimeMillis>System.currentTimeMillis()</#macro>

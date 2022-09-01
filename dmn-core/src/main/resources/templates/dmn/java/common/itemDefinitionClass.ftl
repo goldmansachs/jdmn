@@ -25,7 +25,7 @@ public class ${javaClassName} implements ${transformer.itemDefinitionNativeSimpl
     }
 
     public ${javaClassName}(${transformer.itemDefinitionSignature(itemDefinition)}) {
-    <@addAssigmentForFields itemDefinition />
+    <@addAssignmentForFields itemDefinition />
     }
 
     <@addAccessors itemDefinition />
@@ -40,7 +40,7 @@ public class ${javaClassName} implements ${transformer.itemDefinitionNativeSimpl
     </#list>
 </#macro>
 
-<#macro addAssigmentForFields itemDefinition>
+<#macro addAssignmentForFields itemDefinition>
     <#list itemDefinition.itemComponent as child>
         this.${transformer.setter(child, "${transformer.namedElementVariableName(child)}")};
     </#list>

@@ -34,6 +34,9 @@ import com.gs.dmn.validation.DMNValidator;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 
 public class StandardDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     //
@@ -66,5 +69,30 @@ public class StandardDMNDialectDefinition extends AbstractStandardDMNDialectDefi
     @Override
     public String getDecisionBaseClass() {
         return DefaultDMNBaseDecision.class.getName();
+    }
+
+    @Override
+    public String getNativeNumberType() {
+        return BigDecimal.class.getName();
+    }
+
+    @Override
+    public String getNativeDateType() {
+        return XMLGregorianCalendar.class.getName();
+    }
+
+    @Override
+    public String getNativeTimeType() {
+        return XMLGregorianCalendar.class.getName();
+    }
+
+    @Override
+    public String getNativeDateAndTimeType() {
+        return XMLGregorianCalendar.class.getName();
+    }
+
+    @Override
+    public String getNativeDurationType() {
+        return Duration.class.getName();
     }
 }
