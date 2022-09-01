@@ -21,23 +21,19 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class PythonFactory extends JavaFactory implements NativeFactory {
     private static final Set<String> PYTHON_KEYWORDS = new LinkedHashSet<>(
             Arrays.asList(
-                "False","class","from", "or",
-                        "None","continue            global              pass\n" +
-                        "True","def                 if                  raise\n" +
-                        "and","del                 import              return\n" +
-                        "as","elif                in                  try\n" +
-                        "assert","else                is                  while\n" +
-                        "async", "except              lambda              with\n" +
-                        "await","finally             nonlocal            yield\n" +
-                        "break","for                 not\n"
+                    "False", "None", "True",
+                    "and", "as", "assert", "async", "await",
+                    "class", "continue", "def", "del", "elif",
+                    "else", "except", "finally", "for", "from",
+                    "global", "if", "import", "in", "is",
+                    "lambda", "nonlocal", "not", "or", "pass",
+                    "raisen", "return", "try", "while", "with",
+                    "yieldbreak"
             )
     );
 
