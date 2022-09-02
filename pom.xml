@@ -98,7 +98,7 @@
         <io.grpc.version>1.44.0</io.grpc.version>
         <google.protobuf.version>3.19.2</google.protobuf.version>
 
-        <jacoco.plugin.version>0.8.5</jacoco.plugin.version>
+        <jacoco.plugin.version>0.8.8</jacoco.plugin.version>
         <sonar.language>java</sonar.language>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
