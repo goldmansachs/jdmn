@@ -36,7 +36,7 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
             return null;
         }
 
-        return n.setScale(scale.intValue(), RoundingMode.HALF_EVEN);
+        return round(n, scale, RoundingMode.HALF_EVEN);
     }
 
     @Override
