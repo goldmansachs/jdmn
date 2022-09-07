@@ -39,15 +39,6 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
         super(dialect, dmnModelRepository, environmentFactory, feelTypeTranslator, lazyEvaluationDetector, inputParameters);
     }
 
-    //
-    // DRGElement related functions
-    //
-    @Override
-    public String drgElementSignature(DRGElementReference<? extends TDRGElement> reference) {
-        String result = super.drgElementSignature(reference);
-        return augmentWithSelf(result);
-    }
-
     @Override
     protected void setProtoBufferFactory(BasicDMNToJavaTransformer transformer) {
         this.protoFactory = new ProtoBufferPythonFactory(this);
@@ -115,8 +106,22 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     }
 
     @Override
+    public String drgElementSignature(DRGElementReference<? extends TDRGElement> reference) {
+        String result = super.drgElementSignature(reference);
+        return augmentWithSelf(result);
+    }
+
+    @Override
     public String drgElementConstructorSignature(TDRGElement element) {
         return augmentWithSelf(super.drgElementConstructorSignature(element));
+    }
+
+    //
+    // NamedElement functions
+    //
+    @Override
+    public String lambdaApplySignature() {
+        return "*" + lambdaArgsVariableName();
     }
 
     //
@@ -226,11 +231,11 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     //
     @Override
     public String makeIntegerForInput(String text) {
-        return this.nativeFactory.constructor(getNativeNumberType(), String.format("str(int(%s))", text));
+        return this.nativeFactory.constructor(getNativeNumberType(), String.format("str(int(\"%s\"))", text));
     }
 
     @Override
     public String makeDecimalForInput(String text) {
-        return this.nativeFactory.constructor(getNativeNumberType(), String.format("str(float(%s))", text));
+        return this.nativeFactory.constructor(getNativeNumberType(), String.format("str(float(\"%s\"))", text));
     }
 }

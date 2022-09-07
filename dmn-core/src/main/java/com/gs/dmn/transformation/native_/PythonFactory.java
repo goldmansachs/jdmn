@@ -20,6 +20,7 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
@@ -56,7 +57,7 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
 
     @Override
     public String functionalInterfaceConstructor(String functionalInterface, String returnType, String applyMethod) {
-        throw new DMNRuntimeException("Not supported yet for Python");
+        return String.format("%s(lambda *%s: (%s))", functionalInterface, this.transformer.lambdaArgsVariableName(), applyMethod);
     }
 
     //
@@ -242,16 +243,16 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
 
     @Override
     protected String applyMethod(String returnType, String signature, String parametersAssignment, String body) {
-        return String.format(
-                "%s" +
-                        "%s",
-                parametersAssignment, body);
+        if (StringUtils.isEmpty(parametersAssignment)) {
+            return body;
+        } else {
+            return String.format("%s %s", parametersAssignment, body);
+        }
     }
 
     @Override
     protected String makeLambdaParameterAssignment(String type, String name, int i) {
-        String nullableType = this.typeFactory.nullableType(type);
-        return String.format("%s: %s = %s[%s];", name, nullableType, transformer.lambdaArgsVariableName(), i);
+        return String.format("%s := %s[%s],", name, transformer.lambdaArgsVariableName(), i);
     }
 
     @Override
@@ -318,6 +319,13 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     public String makeListConversion(String javaExpression, ItemDefinitionType expectedElementType) {
         String elementConversion = convertToItemDefinitionType("x", expectedElementType);
         return String.format("list(map(lambda x: %s, %s))", elementConversion, javaExpression);
+    }
+
+    @Override
+    public String convertToItemDefinitionType(String expression, ItemDefinitionType type) {
+        String convertMethodName = convertMethodName(type);
+        String interfaceName = transformer.toNativeType(type);
+        return String.format("%s().%s(%s)", interfaceName, convertMethodName, expression);
     }
 
     @Override

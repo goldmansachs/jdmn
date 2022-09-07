@@ -208,10 +208,11 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
 
     @Override
     protected String applyMethod(String returnType, String signature, String parametersAssignment, String body) {
-        return String.format(
-                "%s" +
-                        "%s",
-                parametersAssignment, body);
+        if (StringUtils.isEmpty(parametersAssignment)) {
+            return body;
+        } else {
+            return String.format("%s %s", parametersAssignment, body);
+        }
     }
 
     @Override

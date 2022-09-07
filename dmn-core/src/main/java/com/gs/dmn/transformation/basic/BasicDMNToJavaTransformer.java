@@ -40,6 +40,7 @@ import com.gs.dmn.runtime.discovery.ModelElementRegistry;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.JavaExternalFunction;
+import com.gs.dmn.runtime.external.JavaFunctionInfo;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.*;
 import com.gs.dmn.serialization.DMNConstants;
@@ -513,20 +514,22 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public List<String> drgElementComplexInputClassNames(TDRGElement element) {
-        List<String> result = new ArrayList<>();
+        Set<String> nameSet = new LinkedHashSet<>();
         // Input
         List<Pair<String, Type>> parameters = drgElementTypeSignature(element);
         for (Pair<String, Type> parameter : parameters) {
             Type type = parameter.getRight();
-            addClassName(type, result);
+            addClassName(type, nameSet);
         }
         // Output
         Type type = drgElementOutputFEELType(element);
-        addClassName(type, result);
-        return result;
+        addClassName(type, nameSet);
+        ArrayList<String> list = new ArrayList<>(nameSet);
+        Collections.sort(list);
+        return list;
     }
 
-    private void addClassName(Type type, List<String> result) {
+    private void addClassName(Type type, Set<String> result) {
         while (type instanceof ListType) {
             type = ((ListType) type).getElementType();
         }
@@ -1329,6 +1332,21 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         return qualifiedName(Assert.class);
     }
 
+    @Override
+    public String javaExternalFunctionClassName() {
+        return qualifiedName(JavaExternalFunction.class);
+    }
+
+    @Override
+    public String lambdaExpressionClassName() {
+        return qualifiedName(LambdaExpression.class);
+    }
+
+    @Override
+    public String javaFunctionInfoClassName() {
+        return qualifiedName(JavaFunctionInfo.class);
+    }
+
     //
     // Decision Table related functions
     //
@@ -1710,18 +1728,18 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             if (type instanceof FEELFunctionType) {
                 String returnType = toNativeType(((FunctionType) type).getReturnType());
                 if (((FEELFunctionType) type).isExternal()) {
-                    return makeFunctionType(qualifiedName(JavaExternalFunction.class), returnType);
+                    return makeFunctionType(javaExternalFunctionClassName(), returnType);
                 } else {
-                    return makeFunctionType(qualifiedName(LambdaExpression.class), returnType);
+                    return makeFunctionType(lambdaExpressionClassName(), returnType);
                 }
             } else if (type instanceof DMNFunctionType) {
                 TFunctionKind kind = ((DMNFunctionType) type).getKind();
                 if (isFEELFunction(kind)) {
                     String returnType = toNativeType(((FunctionType) type).getReturnType());
-                    return makeFunctionType(qualifiedName(LambdaExpression.class), returnType);
+                    return makeFunctionType(lambdaExpressionClassName(), returnType);
                 } else if (isJavaFunction(kind)) {
                     String returnType = toNativeType(((FunctionType) type).getReturnType());
-                    return makeFunctionType(qualifiedName(JavaExternalFunction.class), returnType);
+                    return makeFunctionType(javaExternalFunctionClassName(), returnType);
                 }
                 throw new DMNRuntimeException(String.format("Type %s is not supported yet", type));
             }

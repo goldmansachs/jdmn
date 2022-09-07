@@ -1020,7 +1020,6 @@
                     </execution>
 -->
 
-<!--
                     <execution>
                         <id>cl3-0013-sort</id>
                         <phase>generate-sources</phase>
@@ -1050,7 +1049,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
 <!--
                     <execution>

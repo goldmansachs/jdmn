@@ -360,6 +360,12 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String assertClassName();
 
+    String javaExternalFunctionClassName();
+
+    String lambdaExpressionClassName();
+
+    String javaFunctionInfoClassName();
+
     //
     // Decision Table related functions
     //

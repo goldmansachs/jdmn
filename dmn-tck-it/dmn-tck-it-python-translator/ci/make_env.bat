@@ -9,7 +9,7 @@ if "%1"=="" (
 
 @REM set PIP_INDEX_URL=https://pypi.python.org/pypi
 @REM set PIP_TRUSTED_HOST=pypi.python.org
-@REM set PIP_EXTRA_INDEX_URL=https://test.pypi.org/pypi
+set PIP_EXTRA_INDEX_URL=https://test.pypi.org/pypi
 
 set PYTHON_ENV_DIR=%1
 python -m venv %PYTHON_ENV_DIR%

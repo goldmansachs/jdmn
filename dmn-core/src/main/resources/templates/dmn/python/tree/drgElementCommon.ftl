@@ -384,7 +384,13 @@ import datetime
 import isodate
 import time
 
+import ${transformer.jdmnRootPackage()}.runtime.Context
 import ${transformer.jdmnRootPackage()}.runtime.DefaultDMNBaseDecision
+import ${transformer.jdmnRootPackage()}.runtime.ExecutionContext
+import ${transformer.jdmnRootPackage()}.runtime.LambdaExpression
+import ${transformer.jdmnRootPackage()}.runtime.LazyEval
+import ${transformer.jdmnRootPackage()}.runtime.Pair
+import ${transformer.jdmnRootPackage()}.runtime.Range
 import ${transformer.jdmnRootPackage()}.runtime.RuleOutput
 import ${transformer.jdmnRootPackage()}.runtime.RuleOutputList
 
