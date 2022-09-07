@@ -29,4 +29,5 @@ class ${javaClassName}(${decisionBaseClass}):
 
     def apply(${transformer.drgElementSignature(drgElement)}) -> ${transformer.drgElementOutputType(drgElement)}:
         <@applyServiceMethodBody drgElement />
+
     <@addEvaluateServiceMethod drgElement />

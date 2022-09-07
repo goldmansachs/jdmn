@@ -218,7 +218,7 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
 
     @Override
     public String makeContextMemberAssignment(String complexTypeVariable, String memberName, String value) {
-        return String.format("%s.%s %s);", complexTypeVariable, this.transformer.contextSetter(memberName), value);
+        return String.format("%s.%s %s)", complexTypeVariable, this.transformer.contextSetter(memberName), value);
     }
 
     //

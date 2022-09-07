@@ -143,6 +143,7 @@
                         <platformVersion>${platform.version}</platformVersion>
                         <xsdValidation>false</xsdValidation>
                         <caching>true</caching>
+                        <generateExtra>true</generateExtra>
                     </inputParameters>
                 </configuration>
                 <executions>
@@ -537,7 +538,6 @@
                         </configuration>
                     </execution>
 
-<!--
                     <execution>
                         <id>cl2-0105-feel-math</id>
                         <phase>generate-sources</phase>
@@ -567,9 +567,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>cl2-0106-feel-ternary-logic</id>
                         <phase>generate-sources</phase>
@@ -599,9 +597,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>cl2-0107-feel-ternary-logic-not</id>
                         <phase>generate-sources</phase>
@@ -631,10 +627,8 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
                     <!-- tck cl3 -->
-<!--
                     <execution>
                         <id>cl3-0001-filter</id>
                         <phase>generate-sources</phase>
@@ -664,8 +658,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
-
 <!--
                     <execution>
                         <id>cl3-0002-string-functions</id>
@@ -698,7 +690,6 @@
                     </execution>
 -->
 
-<!--
                     <execution>
                         <id>cl3-0003-iteration.dmn</id>
                         <phase>generate-sources</phase>
@@ -728,7 +719,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
                     <execution>
                         <id>cl3-0004-lending-lazy</id>
@@ -796,7 +786,6 @@
                         </configuration>
                     </execution>
 
-<!--
                     <execution>
                         <id>cl3-0006-join</id>
                         <phase>generate-sources</phase>
@@ -826,7 +815,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
 <!--
                     <execution>
@@ -860,7 +848,6 @@
                     </execution>
 -->
 
-<!--
                     <execution>
                         <id>cl3-0008-listGen.dmn</id>
                         <phase>generate-sources</phase>
@@ -890,7 +877,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
 <!--
                     <execution>
@@ -924,7 +910,6 @@
                     </execution>
 -->
 
-<!--
                     <execution>
                         <id>cl3-0010-concatenate</id>
                         <phase>generate-sources</phase>
@@ -954,7 +939,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
 <!--
                     <execution>
@@ -1019,7 +1003,6 @@
                         </configuration>
                     </execution>
 -->
-
                     <execution>
                         <id>cl3-0013-sort</id>
                         <phase>generate-sources</phase>
@@ -1082,7 +1065,6 @@
                     </execution>
 -->
 
-<!--
                     <execution>
                         <id>cl3-0016-some-every</id>
                         <phase>generate-sources</phase>
@@ -1112,9 +1094,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>cl3-0017-tableTests</id>
                         <phase>generate-sources</phase>
@@ -1144,7 +1124,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
                     <execution>
                         <id>cl3-0020-vacation-days</id>
@@ -1434,7 +1413,6 @@
                     </execution>
 -->
 
-<!--
                     <execution>
                         <id>cl3-0085-decision-services</id>
                         <phase>generate-sources</phase>
@@ -1464,7 +1442,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
 <!--
                     <execution>
@@ -1532,7 +1509,6 @@
                     </execution>
 -->
 
-<!--
                     <execution>
                         <id>cl3-1100-feel-decimal-function</id>
                         <phase>generate-sources</phase>
@@ -1562,7 +1538,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
 <!--
                     <execution>
@@ -1707,7 +1682,6 @@
                     </execution>
 -->
 
-<!--
                     <execution>
                         <id>cl3-1106-feel-lower-case-function</id>
                         <phase>generate-sources</phase>
@@ -1737,7 +1711,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
 <!--
                     <execution>
@@ -1835,7 +1808,6 @@
                     </execution>
 -->
 
-<!--
                     <execution>
                         <id>cl3-1110-feel-contains-function</id>
                         <phase>generate-sources</phase>
@@ -1865,7 +1837,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
 <!--
                     <execution>
@@ -2124,7 +2095,9 @@
                             </inputParameters>
                         </configuration>
                     </execution>
+-->
 
+<!--
                     <execution>
                         <id>composite-0002-no-name-conflicts</id>
                         <phase>generate-sources</phase>
@@ -2154,7 +2127,9 @@
                             </inputParameters>
                         </configuration>
                     </execution>
+-->
 
+<!--
                     <execution>
                         <id>composite-0003-name-conflicts</id>
                         <phase>generate-sources</phase>
@@ -2184,7 +2159,9 @@
                             </inputParameters>
                         </configuration>
                     </execution>
+-->
 
+<!--
                     <execution>
                         <id>composite-0004-decision-tables-one-package</id>
                         <phase>generate-sources</phase>
@@ -2216,7 +2193,9 @@
                             </inputParameters>
                         </configuration>
                     </execution>
+-->
 
+<!--
                     <execution>
                         <id>composite-0004-decision-tables</id>
                         <phase>generate-sources</phase>
@@ -2246,7 +2225,9 @@
                             </inputParameters>
                         </configuration>
                     </execution>
+-->
 
+<!--
                     <execution>
                         <id>composite-0005-decision-tables-name-conflicts</id>
                         <phase>generate-sources</phase>
@@ -2276,7 +2257,9 @@
                             </inputParameters>
                         </configuration>
                     </execution>
+-->
 
+<!--
                     <execution>
                         <id>composite-0006-multiple-input-data</id>
                         <phase>generate-sources</phase>
@@ -2310,7 +2293,9 @@
                             </inputParameters>
                         </configuration>
                     </execution>
+-->
 
+<!--
                     <execution>
                         <id>composite-0007-name-conflicts-same-decision-singleton</id>
                         <phase>generate-sources</phase>
@@ -2342,7 +2327,9 @@
                             </inputParameters>
                         </configuration>
                     </execution>
+-->
 
+<!--
                     <execution>
                         <id>composite-0008-name-conflicts-same-decision-no-singleton</id>
                         <phase>generate-sources</phase>
@@ -2376,7 +2363,9 @@
                             </inputParameters>
                         </configuration>
                     </execution>
+-->
 
+<!--
                     <execution>
                         <id>lazy-composite-0008-name-conflicts-same-decision-no-singleton</id>
                         <phase>generate-sources</phase>
@@ -2416,7 +2405,9 @@
                             </inputParameters>
                         </configuration>
                     </execution>
+-->
 
+<!--
                     <execution>
                         <id>composite-0009-type-name-conflicts</id>
                         <phase>generate-sources</phase>
@@ -2446,7 +2437,9 @@
                             </inputParameters>
                         </configuration>
                     </execution>
+-->
 
+<!--
                     <execution>
                         <id>composite-0010-bkm-name-conflicts</id>
                         <phase>generate-sources</phase>
@@ -2478,7 +2471,9 @@
                     </execution>
 -->
 
+
                     <!-- gRPC models -->
+
 <!--
                     <execution>
                         <id>cl3-0004-lending-proto-cache</id>
@@ -2581,7 +2576,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
-<!--
+
                     <execution>
                         <id>test-cl3-0004-lending-singleton</id>
                         <phase>generate-sources</phase>
@@ -2598,7 +2593,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
+
 
                     <!-- non-compliant-->
                     <!--

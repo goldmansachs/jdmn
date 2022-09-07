@@ -75,7 +75,7 @@ class Decision_014_1(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
 
         decisionService_014: typing.Optional[str] = DecisionService_014.DecisionService_014.instance().apply("A", "B", annotationSet_, eventListener_, externalExecutor_, cache_)
         decision_014_1: typing.Optional[jdmn.runtime.Context.Context] = jdmn.runtime.Context.Context()
-        decision_014_1.put("inputData_014_1",  inputData_014_1);
-        decision_014_1.put("decision_014_3",  decision_014_3);
-        decision_014_1.put("decisionService_014",  decisionService_014);
+        decision_014_1.put("inputData_014_1",  inputData_014_1)
+        decision_014_1.put("decision_014_3",  decision_014_3)
+        decision_014_1.put("decisionService_014",  decisionService_014)
         return decision_014_1

@@ -76,6 +76,7 @@ class DecisionService_001(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
         except Exception as e:
             self.logError("Exception caught in 'decisionService_001' evaluation", e)
             return None
+
     def evaluate(self, annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
         # Apply child decisions
         decision_001: typing.Optional[str] = self.decision_001.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
