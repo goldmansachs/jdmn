@@ -20,6 +20,7 @@ import type_.TBureauData
 import type_.TBureauDataImpl
 import type_.TRequestedProduct
 import type_.TRequestedProductImpl
+
 # DRG Elements to test
 import Adjudication
 import ApplicationRiskScore

@@ -2063,7 +2063,6 @@
 -->
 
                     <!-- Composite models -->
-<!--
                     <execution>
                         <id>composite-0001-no-name-conflicts-one-package</id>
                         <phase>generate-sources</phase>
@@ -2095,9 +2094,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>composite-0002-no-name-conflicts</id>
                         <phase>generate-sources</phase>
@@ -2127,9 +2124,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>composite-0003-name-conflicts</id>
                         <phase>generate-sources</phase>
@@ -2159,9 +2154,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>composite-0004-decision-tables-one-package</id>
                         <phase>generate-sources</phase>
@@ -2193,9 +2186,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>composite-0004-decision-tables</id>
                         <phase>generate-sources</phase>
@@ -2225,9 +2216,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>composite-0005-decision-tables-name-conflicts</id>
                         <phase>generate-sources</phase>
@@ -2257,9 +2246,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>composite-0006-multiple-input-data</id>
                         <phase>generate-sources</phase>
@@ -2293,9 +2280,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>composite-0007-name-conflicts-same-decision-singleton</id>
                         <phase>generate-sources</phase>
@@ -2327,9 +2312,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>composite-0008-name-conflicts-same-decision-no-singleton</id>
                         <phase>generate-sources</phase>
@@ -2363,9 +2346,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>lazy-composite-0008-name-conflicts-same-decision-no-singleton</id>
                         <phase>generate-sources</phase>
@@ -2405,9 +2386,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>composite-0009-type-name-conflicts</id>
                         <phase>generate-sources</phase>
@@ -2437,9 +2416,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>composite-0010-bkm-name-conflicts</id>
                         <phase>generate-sources</phase>
@@ -2469,7 +2446,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
 
                     <!-- gRPC models -->

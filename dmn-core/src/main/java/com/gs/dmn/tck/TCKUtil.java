@@ -252,11 +252,11 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     // Translator - Result nodes
     //
     public List<String> findComplexInputDatas(TestCases testCases) {
+        List<TDRGElement> drgElementList = findDRGElementsUnderTest(testCases);
         Set<String> set = new LinkedHashSet<>();
-        List<TItemDefinition> itemDefinitions = this.dmnModelRepository.compositeItemDefinitions(getRootModel(testCases));
-        for (TItemDefinition itemDefinition: itemDefinitions) {
-            String interfaceName = this.transformer.itemDefinitionNativeSimpleInterfaceName(itemDefinition);
-            set.add(interfaceName);
+        for (TDRGElement drgElement: drgElementList) {
+            List<String> moduleNames = this.transformer.drgElementComplexInputClassNames(drgElement);
+            set.addAll(moduleNames);
         }
         ArrayList<String> list = new ArrayList<>(set);
         Collections.sort(list);

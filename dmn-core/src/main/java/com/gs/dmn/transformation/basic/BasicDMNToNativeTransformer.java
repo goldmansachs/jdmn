@@ -491,6 +491,10 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String qualifiedName(Class<?> cls);
 
+    String qualifiedModuleName(DRGElementReference<? extends TDRGElement> reference);
+
+    String qualifiedModuleName(TDRGElement element);
+
     String qualifiedModuleName(String pkg, String moduleName);
 
     String getterName(String name);

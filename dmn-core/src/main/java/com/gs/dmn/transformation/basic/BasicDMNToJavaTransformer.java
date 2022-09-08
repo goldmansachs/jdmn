@@ -534,7 +534,25 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             type = ((ListType) type).getElementType();
         }
         if (type instanceof ItemDefinitionType) {
-            result.add(upperCaseFirst(((ItemDefinitionType) type).getName()));
+            ItemDefinitionType itemType = (ItemDefinitionType) type;
+            Set<ItemDefinitionType> types = new LinkedHashSet<>();
+            collect(itemType, types);
+            for (ItemDefinitionType node: types) {
+                String packageName = nativeTypePackageName(node.getModelName());
+                String moduleName = this.upperCaseFirst(node.getName());
+                result.add(qualifiedModuleName(packageName, moduleName));
+                result.add(qualifiedModuleName(packageName, itemDefinitionNativeClassName(moduleName)));
+            }
+        }
+    }
+
+    private void collect(ItemDefinitionType itemType, Set<ItemDefinitionType> types) {
+        types.add(itemType);
+        for (String member: itemType.getMembers()) {
+            Type memberType = itemType.getMemberType(member);
+            if (memberType instanceof ItemDefinitionType && !types.contains(memberType)) {
+                collect((ItemDefinitionType) memberType, types);
+            }
         }
     }
 
@@ -1797,6 +1815,16 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String qualifiedName(Class<?> cls) {
         return cls.getName();
+    }
+
+    @Override
+    public String qualifiedModuleName(DRGElementReference<? extends TDRGElement> reference) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public String qualifiedModuleName(TDRGElement element) {
+        throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override

@@ -73,8 +73,14 @@ public class DMNToPythonTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
 
     private static void createInitFile(File currentDir) {
         try {
-            File initFile = new File(currentDir, "__init__.py");
-            FileUtils.write(initFile, "", StandardCharsets.UTF_8);
+            // Do not generate if folder is empty
+            if (currentDir.exists()) {
+                File[] files = currentDir.listFiles();
+                if (files != null && files.length > 0) {
+                    File initFile = new File(currentDir, "__init__.py");
+                    FileUtils.write(initFile, "", StandardCharsets.UTF_8);
+                }
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

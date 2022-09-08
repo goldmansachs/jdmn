@@ -30,6 +30,7 @@ import jdmn.runtime.listener.EventListener
 import jdmn.runtime.listener.Rule
 
 import type_.TRequestedProduct
+import type_.TRequestedProductImpl
 
 import InstallmentCalculation
 

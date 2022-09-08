@@ -29,7 +29,10 @@ import jdmn.runtime.listener.DRGElement
 import jdmn.runtime.listener.EventListener
 import jdmn.runtime.listener.Rule
 
+import type_.Monthly
+import type_.MonthlyImpl
 import type_.TApplicantData
+import type_.TApplicantDataImpl
 
 import ApplicationRiskScoreModel
 

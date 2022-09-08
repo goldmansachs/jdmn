@@ -431,8 +431,8 @@ import ${transformer.qualifiedModuleName(javaPackageName, transformer.ruleOutput
 
 <#macro importComplexInputDatas drgElement>
     <#list transformer.drgElementComplexInputClassNames(drgElement)>
-        <#items as className>
-import ${transformer.qualifiedModuleName(transformer.nativeTypePackageName(modelName), className)}
+        <#items as module>
+import ${module}
         </#items>
     </#list>
 </#macro>
@@ -440,7 +440,7 @@ import ${transformer.qualifiedModuleName(transformer.nativeTypePackageName(model
 <#macro importSubDecisions drgElement>
     <#list modelRepository.directSubDecisions(drgElement)>
         <#items as subDecision>
-import ${transformer.qualifiedModuleName(javaPackageName, transformer.drgElementClassName(subDecision))}
+import ${transformer.qualifiedModuleName(subDecision)}
         </#items>
     </#list>
 </#macro>
@@ -448,7 +448,7 @@ import ${transformer.qualifiedModuleName(javaPackageName, transformer.drgElement
 <#macro importSubInvocables drgElement>
     <#list modelRepository.directSubInvocables(drgElement)>
         <#items as bkm>
-import ${transformer.qualifiedModuleName(javaPackageName, transformer.drgElementClassName(bkm))}
+import ${transformer.qualifiedModuleName(bkm)}
         </#items>
     </#list>
 </#macro>

@@ -194,6 +194,19 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     }
 
     @Override
+    public String qualifiedModuleName(DRGElementReference<? extends TDRGElement> reference) {
+        return qualifiedModuleName(reference.getElement());
+    }
+
+    @Override
+    public String qualifiedModuleName(TDRGElement element) {
+        TDefinitions definitions = this.dmnModelRepository.getModel(element);
+        String pkg = this.nativeModelPackageName(definitions.getName());
+        String name = drgElementClassName(element);
+        return qualifiedModuleName(pkg, name);
+    }
+
+    @Override
     public String qualifiedModuleName(String pkg, String moduleName) {
         if (StringUtils.isBlank(pkg)) {
             return moduleName;
