@@ -90,6 +90,7 @@
                                 <phase>test</phase>
                                 <configuration>
                                     <executable>${project.basedir}/ci_build.sh</executable>
+                                    <workingDirectory>${project.basedir}</workingDirectory>
                                 </configuration>
                                 <goals>
                                     <goal>exec</goal>

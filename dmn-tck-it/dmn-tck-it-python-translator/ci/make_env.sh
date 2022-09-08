@@ -8,7 +8,7 @@ fi
 # export PIP_TRUSTED_HOST='pypi.python.org'
 export PIP_EXTRA_INDEX_URL='https://test.pypi.org/pypi'
 
-export PYTHON_ENV_DIR=%1
+export PYTHON_ENV_DIR=$1
 python -m venv $PYTHON_ENV_DIR
 source $PYTHON_ENV_DIR/bin/activate
 

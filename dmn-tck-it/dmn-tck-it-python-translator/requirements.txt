@@ -1,1 +1,1 @@
-jdmn-python-runtime==0.0.19
+jdmn-python-runtime

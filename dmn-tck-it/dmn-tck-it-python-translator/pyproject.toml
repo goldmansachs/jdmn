@@ -3,8 +3,7 @@ pythonpath = [
     "target/generated-sources/dmn"
 ]
 testpaths = [
-    "target/generated-test-sources/tck",
-    "tests"
+    "target/generated-test-sources/tck"
 ]
 norecursedirs = ".git .* *.egg* docs dist build"
 python_files = "*Test.py"

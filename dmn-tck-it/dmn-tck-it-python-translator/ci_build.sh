@@ -15,6 +15,9 @@ else
   exit 1
 fi
 
+pwd
+ls -la
+
 python -m pytest
 status=$?
 if [ $status -eq 0 ]
