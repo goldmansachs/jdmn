@@ -109,15 +109,15 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor<
             String filter = makeNavigation(element, ((ListType) sourceType).getElementType(), "x", memberName, memberVariableName);
             return this.nativeFactory.makeCollectionMap(source, filter);
         } else if (sourceType instanceof DateType) {
-            return String.format("%s(%s)", javaMemberFunctionName(memberName), source);
+            return this.nativeFactory.makeBuiltinFunctionInvocation(propertyFunctionName(memberName), source);
         } else if (sourceType instanceof TimeType) {
-            return String.format("%s(%s)", javaMemberFunctionName(memberName), source);
+            return this.nativeFactory.makeBuiltinFunctionInvocation(propertyFunctionName(memberName), source);
         } else if (sourceType instanceof DateTimeType) {
-            return String.format("%s(%s)", javaMemberFunctionName(memberName), source);
+            return this.nativeFactory.makeBuiltinFunctionInvocation(propertyFunctionName(memberName), source);
         } else if (sourceType instanceof DurationType) {
-            return String.format("%s(%s)", javaMemberFunctionName(memberName), source);
+            return this.nativeFactory.makeBuiltinFunctionInvocation(propertyFunctionName(memberName), source);
         } else if (sourceType instanceof RangeType) {
-            return String.format("%s.%s", source, javaRangeGetter(memberName));
+            return String.format("%s.%s", source, rangeGetter(memberName));
         } else if (sourceType instanceof AnyType) {
             // source is Context
             return this.nativeFactory.makeContextSelectExpression(this.dmnTransformer.contextClassName(), source, memberName);
@@ -126,7 +126,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor<
         }
     }
 
-    protected String javaMemberFunctionName(String memberName) {
+    protected String propertyFunctionName(String memberName) {
         memberName = NameUtils.removeSingleQuotes(memberName);
         if ("time offset".equalsIgnoreCase(memberName)) {
             return "timeOffset";
@@ -135,7 +135,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor<
         }
     }
 
-    private String javaRangeGetter(String memberName) {
+    private String rangeGetter(String memberName) {
         memberName = NameUtils.removeSingleQuotes(memberName);
         if ("start included".equalsIgnoreCase(memberName)) {
             return "isStartIncluded()";

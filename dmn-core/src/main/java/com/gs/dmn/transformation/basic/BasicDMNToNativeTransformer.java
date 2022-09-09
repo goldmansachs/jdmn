@@ -304,6 +304,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String contextClassName();
 
+    String rangeClassName();
+
     String executorClassName();
 
     String registryClassName();

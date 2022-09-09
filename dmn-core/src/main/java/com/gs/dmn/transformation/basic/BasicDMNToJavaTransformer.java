@@ -1198,6 +1198,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
+    public String rangeClassName() {
+        return qualifiedName(Range.class);
+    }
+
+    @Override
     public String executorClassName() {
         return qualifiedName(Executor.class);
     }

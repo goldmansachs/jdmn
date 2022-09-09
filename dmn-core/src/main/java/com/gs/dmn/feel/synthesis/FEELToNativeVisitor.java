@@ -130,12 +130,12 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
         Expression<Type, DMNContext> endEndpoint = element.getEnd();
         if (context.isExpressionContext()) {
             // Evaluate as range
-            boolean startIncluded = !element.isOpenStart();
-            boolean endIncluded = !element.isOpenEnd();
+            String startIncluded = this.nativeFactory.booleanValueLiteral("" + !element.isOpenStart());
+            String endIncluded = this.nativeFactory.booleanValueLiteral("" + !element.isOpenEnd());
             String start = startEndpoint == null ? this.nativeFactory.nullLiteral() : (String) startEndpoint.accept(this, context);
             String end = endEndpoint == null ? this.nativeFactory.nullLiteral() : (String) endEndpoint.accept(this, context);
 
-            String clsName = this.dmnTransformer.qualifiedName(Range.class);
+            String clsName = this.dmnTransformer.rangeClassName();
             String args = String.format("%s, %s, %s, %s", startIncluded, start, endIncluded, end);
             return this.dmnTransformer.constructor(clsName, args);
         } else {

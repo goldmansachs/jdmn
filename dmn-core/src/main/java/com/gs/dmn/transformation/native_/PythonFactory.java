@@ -320,6 +320,16 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
+    public String trueValueConstant() {
+        return trueConstant();
+    }
+
+    @Override
+    public String falseValueConstant() {
+        return falseConstant();
+    }
+
+    @Override
     public String nullLiteral() {
         return "None";
     }
