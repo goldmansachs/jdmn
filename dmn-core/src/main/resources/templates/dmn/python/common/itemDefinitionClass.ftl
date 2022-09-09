@@ -16,7 +16,6 @@ import datetime
 import time
 import isodate
 
-import ${transformer.qualifiedModuleName(javaPackageName, transformer.itemDefinitionNativeSimpleInterfaceName(javaClassName))}
 <@importItemDefinitionComplexComponents itemDefinition />
 
 
@@ -52,8 +51,8 @@ class ${javaClassName}(${qualifiedInterfaceName}):
 
 <#macro importItemDefinitionComplexComponents itemDefinition>
     <#list transformer.itemDefinitionComplexComponents(itemDefinition)>
-        <#items as component>
-import ${transformer.qualifiedModuleName(javaPackageName, component)}
+        <#items as module>
+import ${module}
         </#items>
     </#list>
 </#macro>

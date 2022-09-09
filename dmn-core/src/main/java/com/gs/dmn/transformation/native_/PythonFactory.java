@@ -47,16 +47,28 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     //
     @Override
     public String constructor(String className, String arguments) {
+        className = removeOptionalParts(className);
         return String.format("%s(%s)", className, arguments);
+    }
+
+    protected String removeOptionalParts(String name) {
+        while (name.startsWith("typing.Optional[")) {
+            int first = name.indexOf("[");
+            int last = name.lastIndexOf("]");
+            name = name.substring(first + 1, last);
+        }
+        return name;
     }
 
     @Override
     public String fluentConstructor(String className, String addMethods) {
+        className = removeOptionalParts(className);
         return String.format("%s()%s", className, addMethods);
     }
 
     @Override
     public String functionalInterfaceConstructor(String functionalInterface, String returnType, String applyMethod) {
+        functionalInterface = removeOptionalParts(functionalInterface);
         return String.format("%s(lambda *%s: (%s))", functionalInterface, this.transformer.lambdaArgsVariableName(), applyMethod);
     }
 

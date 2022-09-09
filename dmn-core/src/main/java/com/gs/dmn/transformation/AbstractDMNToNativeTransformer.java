@@ -45,7 +45,6 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     public static final String PRIORITY_SUFFIX = "Priority";
 
     public static final String LIST_TYPE = "List";
-    public static final String CONTEXT_CLASS_NAME = Context.class.getName();
 
     private static final String REGISTRY_CLASS_NAME = "ModelElementRegistry";
 

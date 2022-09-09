@@ -199,7 +199,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(Context<Type, DMNContext> element, DMNContext context) {
         String addMethods = element.getEntries().stream().map(e -> (String) e.accept(this, context)).collect(Collectors.joining(""));
-        return this.nativeFactory.fluentConstructor(DMNToJavaTransformer.CONTEXT_CLASS_NAME, addMethods);
+        return this.nativeFactory.fluentConstructor(this.dmnTransformer.contextClassName(), addMethods);
     }
 
     @Override

@@ -251,17 +251,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public List<String> itemDefinitionComplexComponents(TItemDefinition itemDefinition) {
-        List<String> components = new ArrayList<>();
-        List<TItemDefinition> itemComponents = itemDefinition.getItemComponent();
-        this.dmnModelRepository.sortNamedElements(itemComponents);
-        for (TItemDefinition child : itemComponents) {
-            Type type = toFEELType(child);
-            if (type instanceof ItemDefinitionType) {
-                String name = this.upperCaseFirst(((ItemDefinitionType) type).getName());
-                components.add(name);
-            }
-        }
-        return components;
+        Type type = toFEELType(itemDefinition);
+        Set<String> nameSet = new LinkedHashSet<>();
+        addClassName(type, nameSet, false);
+        return sortNames(nameSet);
     }
 
     @Override
@@ -519,17 +512,21 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         List<Pair<String, Type>> parameters = drgElementTypeSignature(element);
         for (Pair<String, Type> parameter : parameters) {
             Type type = parameter.getRight();
-            addClassName(type, nameSet);
+            addClassName(type, nameSet, true);
         }
         // Output
         Type type = drgElementOutputFEELType(element);
-        addClassName(type, nameSet);
+        addClassName(type, nameSet, true);
+        return sortNames(nameSet);
+    }
+
+    private ArrayList<String> sortNames(Set<String> nameSet) {
         ArrayList<String> list = new ArrayList<>(nameSet);
         Collections.sort(list);
         return list;
     }
 
-    private void addClassName(Type type, Set<String> result) {
+    private void addClassName(Type type, Set<String> result, boolean addClass) {
         while (type instanceof ListType) {
             type = ((ListType) type).getElementType();
         }
@@ -541,7 +538,9 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
                 String packageName = nativeTypePackageName(node.getModelName());
                 String moduleName = this.upperCaseFirst(node.getName());
                 result.add(qualifiedModuleName(packageName, moduleName));
-                result.add(qualifiedModuleName(packageName, itemDefinitionNativeClassName(moduleName)));
+                if (addClass) {
+                    result.add(qualifiedModuleName(packageName, itemDefinitionNativeClassName(moduleName)));
+                }
             }
         }
     }
@@ -550,6 +549,9 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         types.add(itemType);
         for (String member: itemType.getMembers()) {
             Type memberType = itemType.getMemberType(member);
+            while (memberType instanceof ListType) {
+                memberType = ((ListType) memberType).getElementType();
+            }
             if (memberType instanceof ItemDefinitionType && !types.contains(memberType)) {
                 collect((ItemDefinitionType) memberType, types);
             }
