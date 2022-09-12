@@ -1280,7 +1280,6 @@
                     </execution>
 -->
 
-<!--
                     <execution>
                         <id>cl3-0033-for-loops</id>
                         <phase>generate-sources</phase>
@@ -1310,7 +1309,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
 <!--
                     <execution>

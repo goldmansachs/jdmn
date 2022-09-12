@@ -151,7 +151,7 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
         // Flatten nested lists
         StringBuilder finalResult = new StringBuilder();
         for (int i = 0; i < domainIterators.size() - 1; i++) {
-            finalResult.append("list(flatmap(lambda x: x, ");
+            finalResult.append("list(self.flattenFirstLevel(");
         }
         // Append nested lists
         finalResult.append(nestedLists);
