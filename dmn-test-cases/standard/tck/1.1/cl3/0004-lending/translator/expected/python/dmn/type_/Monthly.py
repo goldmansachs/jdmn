@@ -65,8 +65,8 @@ class Monthly(jdmn.runtime.DMNType.DMNType):
 
     def asString(self) -> str:
         result_ = "{"
-        result_ += ("Expenses=" + self.expenses)
-        result_ += (", Income=" + self.income)
-        result_ += (", Repayments=" + self.repayments)
+        result_ += ("Expenses=" + str(self.expenses))
+        result_ += (", Income=" + str(self.income))
+        result_ += (", Repayments=" + str(self.repayments))
         result_ += "}"
         return result_

@@ -71,9 +71,9 @@ class TRequestedProduct(jdmn.runtime.DMNType.DMNType):
 
     def asString(self) -> str:
         result_ = "{"
-        result_ += ("Amount=" + self.amount)
-        result_ += (", ProductType=" + self.productType)
-        result_ += (", Rate=" + self.rate)
-        result_ += (", Term=" + self.term)
+        result_ += ("Amount=" + str(self.amount))
+        result_ += (", ProductType=" + str(self.productType))
+        result_ += (", Rate=" + str(self.rate))
+        result_ += (", Term=" + str(self.term))
         result_ += "}"
         return result_

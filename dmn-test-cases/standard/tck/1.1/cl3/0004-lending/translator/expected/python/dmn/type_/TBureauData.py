@@ -59,7 +59,7 @@ class TBureauData(jdmn.runtime.DMNType.DMNType):
 
     def asString(self) -> str:
         result_ = "{"
-        result_ += ("Bankrupt=" + self.bankrupt)
-        result_ += (", CreditScore=" + self.creditScore)
+        result_ += ("Bankrupt=" + str(self.bankrupt))
+        result_ += (", CreditScore=" + str(self.creditScore))
         result_ += "}"
         return result_

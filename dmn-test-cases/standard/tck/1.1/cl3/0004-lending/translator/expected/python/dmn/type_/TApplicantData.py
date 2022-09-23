@@ -77,10 +77,10 @@ class TApplicantData(jdmn.runtime.DMNType.DMNType):
 
     def asString(self) -> str:
         result_ = "{"
-        result_ += ("Age=" + self.age)
-        result_ += (", EmploymentStatus=" + self.employmentStatus)
-        result_ += (", ExistingCustomer=" + self.existingCustomer)
-        result_ += (", MaritalStatus=" + self.maritalStatus)
-        result_ += (", Monthly=" + self.monthly)
+        result_ += ("Age=" + str(self.age))
+        result_ += (", EmploymentStatus=" + str(self.employmentStatus))
+        result_ += (", ExistingCustomer=" + str(self.existingCustomer))
+        result_ += (", MaritalStatus=" + str(self.maritalStatus))
+        result_ += (", Monthly=" + str(self.monthly))
         result_ += "}"
         return result_

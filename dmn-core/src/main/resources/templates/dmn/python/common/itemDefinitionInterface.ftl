@@ -107,9 +107,9 @@ class ${javaClassName}(${transformer.dmnTypeClassName()}):
         <#assign label = transformer.escapeInString(modelRepository.displayName(child))/>
         <#assign member = transformer.namedElementVariableName(child)/>
         <#if child_index == 0>
-        result_ += ("${label}=" + self.${member})
+        result_ += ("${label}=" + str(self.${member}))
         <#else>
-        result_ += (", ${label}=" + self.${member})
+        result_ += (", ${label}=" + str(self.${member}))
         </#if>
     </#list>
         result_ += "}"
