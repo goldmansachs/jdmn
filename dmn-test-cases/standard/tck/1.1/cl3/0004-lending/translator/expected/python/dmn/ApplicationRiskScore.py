@@ -72,4 +72,4 @@ class ApplicationRiskScore(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDec
             return None
 
     def evaluate(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[decimal.Decimal]:
-        return ApplicationRiskScoreModel.ApplicationRiskScoreModel.instance().apply((None if applicantData is None else applicantData.age), (None if applicantData is None else applicantData.maritalStatus), (None if applicantData is None else applicantData.employmentStatus), annotationSet_, eventListener_, externalExecutor_, cache_)
+        return ApplicationRiskScoreModel.ApplicationRiskScoreModel.instance().apply(None if (applicantData is None) else (applicantData.age), None if (applicantData is None) else (applicantData.maritalStatus), None if (applicantData is None) else (applicantData.employmentStatus), annotationSet_, eventListener_, externalExecutor_, cache_)

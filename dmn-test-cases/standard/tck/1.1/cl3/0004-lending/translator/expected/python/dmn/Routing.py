@@ -87,4 +87,4 @@ class Routing(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
         postBureauAffordability: typing.Optional[bool] = self.postBureauAffordability.apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
         postBureauRiskCategory: typing.Optional[str] = self.postBureauRiskCategory.apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-        return RoutingRules.RoutingRules.instance().apply(postBureauRiskCategory, postBureauAffordability, (None if bureauData is None else bureauData.bankrupt), (None if bureauData is None else bureauData.creditScore), annotationSet_, eventListener_, externalExecutor_, cache_)
+        return RoutingRules.RoutingRules.instance().apply(postBureauRiskCategory, postBureauAffordability, None if (bureauData is None) else (bureauData.bankrupt), None if (bureauData is None) else (bureauData.creditScore), annotationSet_, eventListener_, externalExecutor_, cache_)

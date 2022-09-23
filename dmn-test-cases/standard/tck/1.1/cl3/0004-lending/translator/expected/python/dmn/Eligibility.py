@@ -84,4 +84,4 @@ class Eligibility(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
         preBureauAffordability: typing.Optional[bool] = self.preBureauAffordability.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
         preBureauRiskCategory: typing.Optional[str] = self.preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-        return EligibilityRules.EligibilityRules.instance().apply(preBureauRiskCategory, preBureauAffordability, (None if applicantData is None else applicantData.age), annotationSet_, eventListener_, externalExecutor_, cache_)
+        return EligibilityRules.EligibilityRules.instance().apply(preBureauRiskCategory, preBureauAffordability, None if (applicantData is None) else (applicantData.age), annotationSet_, eventListener_, externalExecutor_, cache_)

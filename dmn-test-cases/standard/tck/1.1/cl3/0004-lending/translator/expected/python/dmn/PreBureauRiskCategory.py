@@ -78,4 +78,4 @@ class PreBureauRiskCategory(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDe
         # Apply child decisions
         applicationRiskScore: typing.Optional[decimal.Decimal] = self.applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-        return PreBureauRiskCategoryTable.PreBureauRiskCategoryTable.instance().apply((None if applicantData is None else applicantData.existingCustomer), applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_)
+        return PreBureauRiskCategoryTable.PreBureauRiskCategoryTable.instance().apply(None if (applicantData is None) else (applicantData.existingCustomer), applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_)

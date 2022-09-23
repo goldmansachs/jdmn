@@ -81,4 +81,4 @@ class PostBureauRiskCategory(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseD
         # Apply child decisions
         applicationRiskScore: typing.Optional[decimal.Decimal] = self.applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-        return PostBureauRiskCategoryTable.PostBureauRiskCategoryTable.instance().apply((None if applicantData is None else applicantData.existingCustomer), applicationRiskScore, (None if bureauData is None else bureauData.creditScore), annotationSet_, eventListener_, externalExecutor_, cache_)
+        return PostBureauRiskCategoryTable.PostBureauRiskCategoryTable.instance().apply(None if (applicantData is None) else (applicantData.existingCustomer), applicationRiskScore, None if (bureauData is None) else (bureauData.creditScore), annotationSet_, eventListener_, externalExecutor_, cache_)

@@ -78,7 +78,7 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     @Override
     public String makeItemDefinitionAccessor(String javaType, String source, String memberName) {
         memberName = this.transformer.lowerCaseFirst(memberName);
-        return String.format("(%s if %s else %s.%s)", this.nullLiteral(), isNull(source), source, memberName);
+        return String.format("%s if (%s) else (%s.%s)", this.nullLiteral(), isNull(source), source, memberName);
 
     }
 
