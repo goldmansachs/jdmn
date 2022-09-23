@@ -14,6 +14,7 @@ package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import com.gs.dmn.runtime.Assert;
+import com.gs.dmn.runtime.Context;
 import org.junit.Test;
 
 import javax.xml.datatype.Duration;
@@ -1030,6 +1031,69 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
         assertTrue(getLib().listNotEqual(Arrays.asList("a"), Arrays.asList("b")));
         assertFalse(getLib().listNotEqual(Arrays.asList("a"), Arrays.asList("a")));
+    }
+
+    //
+    // Context operators
+    //
+    @Test
+    public void testIsContext() {
+        Context c1 = new Context();
+
+        assertFalse(getLib().isContext(null));
+        assertFalse(getLib().isContext(getLib().number("1")));
+        assertTrue(getLib().isContext(c1));
+    }
+
+    @Test
+    public void testContextValue() {
+        Context c1 = new Context();
+
+        assertNull(getLib().contextValue(null));
+        assertEquals(c1, getLib().contextValue(c1));
+    }
+
+    @Test
+    public void testContextIs() {
+        Context c1 = new Context().add("m", "a");
+        Context c2 = new Context().add("m", "b");
+        Context c3 = new Context().add("m", "a");
+
+        assertTrue(getLib().contextIs(null, null));
+        assertFalse(getLib().contextIs(c1, null));
+        assertFalse(getLib().contextIs(null, c1));
+
+        assertTrue(getLib().contextIs(c1, c1));
+        assertFalse(getLib().contextIs(c1, c2));
+        assertTrue(getLib().contextIs(c1, c3));
+    }
+
+    @Test
+    public void testContextEqual() {
+        Context c1 = new Context().add("m", "a");
+        Context c2 = new Context().add("m", "b");
+        Context c3 = new Context().add("m", "a");
+
+        assertTrue(getLib().contextEqual(null, null));
+        assertFalse(getLib().contextEqual(c1, null));
+        assertFalse(getLib().contextEqual(null, c1));
+
+        assertFalse(getLib().contextEqual(c1, c2));
+        assertTrue(getLib().contextEqual(c1, c3));
+    }
+
+    @Test
+    public void testContextNotEqual() {
+        Context c1 = new Context().add("m", "a");
+        Context c2 = new Context().add("m", "b");
+        Context c3 = new Context().add("m", "a");
+
+        assertFalse(getLib().contextNotEqual(null, null));
+        assertTrue(getLib().contextNotEqual(c1, null));
+        assertTrue(getLib().contextNotEqual(null, c1));
+
+        assertTrue(getLib().contextNotEqual(c1, c2));
+        assertFalse(getLib().contextNotEqual(c1, c3));
     }
 
     protected NUMBER makeNumber(String literal) {

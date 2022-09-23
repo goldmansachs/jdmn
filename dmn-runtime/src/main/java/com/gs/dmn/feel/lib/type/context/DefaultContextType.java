@@ -39,12 +39,12 @@ public class DefaultContextType extends BaseType implements ContextType {
     }
 
     @Override
-    public Boolean contextIs(Object c1, Object c2) {
+    public Boolean contextIs(Context c1, Context c2) {
         return contextEqual(c1, c2);
     }
 
     @Override
-    public Boolean contextEqual(Object c1, Object c2) {
+    public Boolean contextEqual(Context c1, Context c2) {
         if (c1 == null && c2 == null) {
             return true;
         } else if (c1 == null) {
@@ -57,18 +57,17 @@ public class DefaultContextType extends BaseType implements ContextType {
     }
 
     @Override
-    public Boolean contextNotEqual(Object c1, Object c2) {
+    public Boolean contextNotEqual(Context c1, Context c2) {
         return booleanType.booleanNot(contextEqual(c1, c2));
     }
 
     @Override
-    public List getEntries(Object m) {
-        if (m instanceof Context) {
+    public List getEntries(Context m) {
+        if (m != null) {
             List result = new ArrayList<>();
-            Context context = (Context) m;
-            Set keys = context.getBindings().keySet();
+            Set keys = m.getBindings().keySet();
             for (Object key: keys) {
-                Context c = new Context().add("key", key).add("value", context.get(key));
+                Context c = new Context().add("key", key).add("value", m.get(key));
                 result.add(c);
             }
             return result;
@@ -78,9 +77,9 @@ public class DefaultContextType extends BaseType implements ContextType {
     }
 
     @Override
-    public Object getValue(Object context, Object key) {
-        if (context instanceof Context) {
-            return ((Context) context).get(key);
+    public Object getValue(Context context, Object key) {
+        if (context != null) {
+            return context.get(key);
         } else {
             return null;
         }

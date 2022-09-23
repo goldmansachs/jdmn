@@ -341,7 +341,6 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     @Test
     public void testGetEntries() {
         assertNull(getLib().getEntries(null));
-        assertNull(getLib().getEntries(makeNumber("1")));
 
         assertEquals(Arrays.asList(), getLib().getEntries(new Context()));
         assertEquals(Arrays.asList(new Context().add("key", "a").add("value", makeNumber("1"))), getLib().getEntries(new Context().add("a", makeNumber("1"))));
