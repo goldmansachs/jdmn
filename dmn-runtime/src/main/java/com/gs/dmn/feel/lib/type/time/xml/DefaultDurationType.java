@@ -44,9 +44,6 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
         }
     }
 
-    //
-    // Duration operators
-    //
     @Override
     public BigDecimal durationDivide(Duration first, Duration second) {
         if (first == null || second == null) {
@@ -56,11 +53,11 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
         if (isYearsAndMonthsDuration(first) && isYearsAndMonthsDuration(second)) {
             Long firstValue = monthsValue(first);
             Long secondValue = monthsValue(second);
-            return secondValue == 0 ? null : BigDecimal.valueOf(firstValue).divide(BigDecimal.valueOf(secondValue), RoundingMode.HALF_DOWN);
+            return divideNumbers(secondValue, firstValue);
         } else if (isDaysAndTimeDuration(first) && isDaysAndTimeDuration(second)) {
             Long firstValue = secondsValue(first);
             Long secondValue = secondsValue(second);
-            return secondValue == 0 ? null : BigDecimal.valueOf(firstValue).divide(BigDecimal.valueOf(secondValue), RoundingMode.HALF_DOWN);
+            return divideNumbers(secondValue, firstValue);
         } else {
             throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
         }
@@ -73,13 +70,15 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
         }
 
         if (isYearsAndMonthsDuration(first)) {
-            BigDecimal months = BigDecimal.valueOf(monthsValue(first)).multiply(second);
+            Long firstValue = monthsValue(first);
+            BigDecimal months = multiplyNumbers(firstValue, second);
             return XMLDurationFactory.INSTANCE.yearMonthFromValue(months.longValue());
         } else if (isDaysAndTimeDuration(first)) {
-            BigDecimal seconds = BigDecimal.valueOf(secondsValue(first)).multiply(second);
+            Long firstValue = secondsValue(first);
+            BigDecimal seconds = multiplyNumbers(firstValue, second);
             return XMLDurationFactory.INSTANCE.dayTimeFromValue(seconds.longValue());
         } else {
-            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+            throw new DMNRuntimeException(String.format("Cannot multiply '%s' by '%s'", first, second));
         }
     }
 
@@ -93,13 +92,27 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
         }
 
         if (isYearsAndMonthsDuration(first)) {
-            BigDecimal months = BigDecimal.valueOf(monthsValue(first)).divide(second, RoundingMode.HALF_DOWN);
+            Long firstValue = monthsValue(first);
+            BigDecimal months = divideNumbers(firstValue, second);
             return XMLDurationFactory.INSTANCE.yearMonthFromValue(months.longValue());
         } else if (isDaysAndTimeDuration(first)) {
-            BigDecimal seconds = BigDecimal.valueOf(secondsValue(first)).divide(second, RoundingMode.HALF_DOWN);
+            Long firstValue = secondsValue(first);
+            BigDecimal seconds = divideNumbers(firstValue, second);
             return XMLDurationFactory.INSTANCE.dayTimeFromValue(seconds.longValue());
         } else {
             throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
         }
+    }
+
+    private BigDecimal multiplyNumbers(Long firstValue, BigDecimal second) {
+        return BigDecimal.valueOf(firstValue).multiply(second);
+    }
+
+    private BigDecimal divideNumbers(Long secondValue, Long firstValue) {
+        return secondValue == 0 ? null : BigDecimal.valueOf(firstValue).divide(BigDecimal.valueOf(secondValue), RoundingMode.HALF_DOWN);
+    }
+
+    private BigDecimal divideNumbers(Long firstValue, BigDecimal second) {
+        return BigDecimal.ZERO.equals(second) ? null : BigDecimal.valueOf(firstValue).divide(second, RoundingMode.HALF_DOWN);
     }
 }

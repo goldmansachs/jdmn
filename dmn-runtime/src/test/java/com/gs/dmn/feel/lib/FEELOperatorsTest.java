@@ -646,6 +646,23 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     // Duration operators
     //
     @Test
+    public void testIsDuration() {
+        assertFalse(getLib().isDuration(null));
+
+        // years and months
+        assertTrue(getLib().isYearsAndMonthsDuration(makeDuration("P1Y2M")));
+        assertTrue(getLib().isYearsAndMonthsDuration(makeDuration("-P1Y2M")));
+
+        // days and time
+        assertTrue(getLib().isDaysAndTimeDuration(makeDuration("P1DT2H3M4S")));
+        assertTrue(getLib().isDaysAndTimeDuration(makeDuration("-P1DT2H3M4S")));
+
+        // mixture
+        assertTrue(getLib().isDuration(makeDuration("P1Y2M1DT2H3M4S")));
+        assertTrue(getLib().isDuration(makeDuration("-P1Y2M1DT2H3M4S")));
+    }
+
+    @Test
     public void testDurationValue() {
         assertNull(getLib().durationValue(null));
 
