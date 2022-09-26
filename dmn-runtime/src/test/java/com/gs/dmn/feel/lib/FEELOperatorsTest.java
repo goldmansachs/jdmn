@@ -15,6 +15,7 @@ package com.gs.dmn.feel.lib;
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import com.gs.dmn.runtime.Assert;
 import com.gs.dmn.runtime.Context;
+import com.gs.dmn.runtime.Range;
 import org.junit.Test;
 
 import javax.xml.datatype.Duration;
@@ -1094,6 +1095,69 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
         assertTrue(getLib().contextNotEqual(c1, c2));
         assertFalse(getLib().contextNotEqual(c1, c3));
+    }
+
+    //
+    // Range operators
+    //
+    @Test
+    public void testIsRange() {
+        Range r1 = new Range(true, getLib().number("1"), true, getLib().number("2"));
+
+        assertFalse(getLib().isRange(null));
+        assertFalse(getLib().isRange(getLib().number("1")));
+        assertTrue(getLib().isRange(r1));
+    }
+
+    @Test
+    public void testRangeValue() {
+        Range r1 = new Range(true, getLib().number("1"), true, getLib().number("2"));
+
+        assertNull(getLib().rangeValue(null));
+        assertEquals(r1, getLib().rangeValue(r1));
+    }
+
+    @Test
+    public void testRangeIs() {
+        Range r1 = new Range(true, getLib().number("1"), true, getLib().number("2"));
+        Range r2 = new Range(true, getLib().number("1"), true, getLib().number("3"));
+        Range r3 = new Range(true, getLib().number("1"), true, getLib().number("2"));
+
+        assertTrue(getLib().rangeIs(null, null));
+        assertFalse(getLib().rangeIs(r1, null));
+        assertFalse(getLib().rangeIs(null, r1));
+
+        assertTrue(getLib().rangeIs(r1, r1));
+        assertFalse(getLib().rangeIs(r1, r2));
+        assertTrue(getLib().rangeIs(r1, r3));
+    }
+
+    @Test
+    public void testRangeEqual() {
+        Range r1 = new Range(true, getLib().number("1"), true, getLib().number("2"));
+        Range r2 = new Range(true, getLib().number("1"), true, getLib().number("3"));
+        Range r3 = new Range(true, getLib().number("1"), true, getLib().number("2"));
+
+        assertTrue(getLib().rangeEqual(null, null));
+        assertFalse(getLib().rangeEqual(r1, null));
+        assertFalse(getLib().rangeEqual(null, r1));
+
+        assertFalse(getLib().rangeEqual(r1, r2));
+        assertTrue(getLib().rangeEqual(r1, r3));
+    }
+
+    @Test
+    public void testRangeNotEqual() {
+        Range r1 = new Range(true, getLib().number("1"), true, getLib().number("2"));
+        Range r2 = new Range(true, getLib().number("1"), true, getLib().number("3"));
+        Range r3 = new Range(true, getLib().number("1"), true, getLib().number("2"));
+
+        assertFalse(getLib().rangeNotEqual(null, null));
+        assertTrue(getLib().rangeNotEqual(r1, null));
+        assertTrue(getLib().rangeNotEqual(null, r1));
+
+        assertTrue(getLib().rangeNotEqual(r1, r2));
+        assertFalse(getLib().rangeNotEqual(r1, r3));
     }
 
     protected NUMBER makeNumber(String literal) {
