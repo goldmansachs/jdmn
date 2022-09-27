@@ -38,6 +38,21 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     // Numeric operators
     //
     @Test
+    public void testIsNumeric() {
+        assertFalse(getLib().isNumber(null));
+        assertTrue(getLib().isNumber(getLib().number("1")));
+        assertFalse(getLib().isNumber("abc"));
+        assertFalse(getLib().isNumber(true));
+        assertFalse(getLib().isNumber(getLib().date("2020-01-01")));
+        assertFalse(getLib().isNumber(getLib().time("12:00:00")));
+        assertFalse(getLib().isNumber(getLib().dateAndTime("2020-01-01T12:00:00")));
+        assertFalse(getLib().isNumber(getLib().duration("P1Y1M")));
+        assertFalse(getLib().isNumber(getLib().asList("a")));
+        assertFalse(getLib().isNumber(new Context()));
+        assertFalse(getLib().isNumber(new Range(true, BigDecimal.ZERO, true, BigDecimal.ONE)));
+    }
+
+    @Test
     public void testNumericValue() {
         assertNull(getLib().numericValue(null));
 
@@ -184,6 +199,21 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     // Date operators
     //
     @Test
+    public void testIsDate() {
+        assertFalse(getLib().isDate(null));
+        assertFalse(getLib().isDate(getLib().number("1")));
+        assertFalse(getLib().isDate("abc"));
+        assertFalse(getLib().isDate(true));
+        assertTrue(getLib().isDate(getLib().date("2020-01-01")));
+        assertFalse(getLib().isDate(getLib().time("12:00:00")));
+        assertFalse(getLib().isDate(getLib().dateAndTime("2020-01-01T12:00:00")));
+        assertFalse(getLib().isDate(getLib().duration("P1Y1M")));
+        assertFalse(getLib().isDate(getLib().asList("a")));
+        assertFalse(getLib().isDate(new Context()));
+        assertFalse(getLib().isDate(new Range(true, BigDecimal.ZERO, true, BigDecimal.ONE)));
+    }
+
+    @Test
     public void testDateValue() {
         assertNull(getLib().dateValue(null));
 
@@ -300,6 +330,21 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     //
     // Time operators
     //
+    @Test
+    public void testIsTime() {
+        assertFalse(getLib().isTime(null));
+        assertFalse(getLib().isTime(getLib().number("1")));
+        assertFalse(getLib().isTime("abc"));
+        assertFalse(getLib().isTime(true));
+        assertFalse(getLib().isTime(getLib().date("2020-01-01")));
+        assertTrue(getLib().isTime(getLib().time("12:00:00")));
+        assertFalse(getLib().isTime(getLib().dateAndTime("2020-01-01T12:00:00")));
+        assertFalse(getLib().isTime(getLib().duration("P1Y1M")));
+        assertFalse(getLib().isTime(getLib().asList("a")));
+        assertFalse(getLib().isTime(new Context()));
+        assertFalse(getLib().isTime(new Range(true, BigDecimal.ZERO, true, BigDecimal.ONE)));
+    }
+
     @Test
     public void testTimeValue() {
         assertNull(getLib().timeValue(null));
@@ -465,6 +510,21 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     //
     // Date and time operators
     //
+    @Test
+    public void testIsDateTime() {
+        assertFalse(getLib().isDateTime(null));
+        assertFalse(getLib().isDateTime(getLib().number("1")));
+        assertFalse(getLib().isDateTime("abc"));
+        assertFalse(getLib().isDateTime(true));
+        assertFalse(getLib().isDateTime(getLib().date("2020-01-01")));
+        assertFalse(getLib().isDateTime(getLib().time("12:00:00")));
+        assertTrue(getLib().isDateTime(getLib().dateAndTime("2020-01-01T12:00:00")));
+        assertFalse(getLib().isDateTime(getLib().duration("P1Y1M")));
+        assertFalse(getLib().isDateTime(getLib().asList("a")));
+        assertFalse(getLib().isDateTime(new Context()));
+        assertFalse(getLib().isDateTime(new Range(true, BigDecimal.ZERO, true, BigDecimal.ONE)));
+    }
+
     @Test
     public void testDateTimeValue() {
         assertNull(getLib().dateTimeValue(null));
@@ -843,6 +903,21 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     // String operators
     //
     @Test
+    public void testIsString() {
+        assertFalse(getLib().isString(null));
+        assertFalse(getLib().isString(getLib().number("1")));
+        assertTrue(getLib().isString("abc"));
+        assertFalse(getLib().isString(true));
+        assertFalse(getLib().isString(getLib().date("2020-01-01")));
+        assertFalse(getLib().isString(getLib().time("12:00:00")));
+        assertFalse(getLib().isString(getLib().dateAndTime("2020-01-01T12:00:00")));
+        assertFalse(getLib().isString(getLib().duration("P1Y1M")));
+        assertFalse(getLib().isString(getLib().asList("a")));
+        assertFalse(getLib().isString(new Context()));
+        assertFalse(getLib().isString(new Range(true, BigDecimal.ZERO, true, BigDecimal.ONE)));
+    }
+
+    @Test
     public void testStringValue() {
         assertNull(getLib().stringValue(null));
         assertEquals("a", getLib().stringValue("a"));
@@ -891,6 +966,21 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     //
     // Boolean operators
     //
+    @Test
+    public void testIsBoolean() {
+        assertFalse(getLib().isBoolean(null));
+        assertFalse(getLib().isBoolean(getLib().number("1")));
+        assertFalse(getLib().isBoolean("abc"));
+        assertTrue(getLib().isBoolean(true));
+        assertFalse(getLib().isBoolean(getLib().date("2020-01-01")));
+        assertFalse(getLib().isBoolean(getLib().time("12:00:00")));
+        assertFalse(getLib().isBoolean(getLib().dateAndTime("2020-01-01T12:00:00")));
+        assertFalse(getLib().isBoolean(getLib().duration("P1Y1M")));
+        assertFalse(getLib().isBoolean(getLib().asList("a")));
+        assertFalse(getLib().isBoolean(new Context()));
+        assertFalse(getLib().isBoolean(new Range(true, BigDecimal.ZERO, true, BigDecimal.ONE)));
+    }
+
     @Test
     public void testBooleanValue() {
         assertNull(getLib().booleanValue(null));
@@ -1022,6 +1112,21 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     // List operators
     //
     @Test
+    public void testIsList() {
+        assertFalse(getLib().isList(null));
+        assertFalse(getLib().isList(getLib().number("1")));
+        assertFalse(getLib().isList("abc"));
+        assertFalse(getLib().isList(true));
+        assertFalse(getLib().isList(getLib().date("2020-01-01")));
+        assertFalse(getLib().isList(getLib().time("12:00:00")));
+        assertFalse(getLib().isList(getLib().dateAndTime("2020-01-01T12:00:00")));
+        assertFalse(getLib().isList(getLib().duration("P1Y1M")));
+        assertTrue(getLib().isList(getLib().asList("a")));
+        assertFalse(getLib().isList(new Context()));
+        assertFalse(getLib().isList(new Range(true, BigDecimal.ZERO, true, BigDecimal.ONE)));
+    }
+
+    @Test
     public void testListIs() {
         assertTrue(getLib().listIs(null, null));
         assertFalse(getLib().listIs(Arrays.asList("a"), null));
@@ -1056,11 +1161,18 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     //
     @Test
     public void testIsContext() {
-        Context c1 = new Context();
-
         assertFalse(getLib().isContext(null));
         assertFalse(getLib().isContext(getLib().number("1")));
-        assertTrue(getLib().isContext(c1));
+        assertFalse(getLib().isContext("abc"));
+        assertFalse(getLib().isContext(true));
+        assertFalse(getLib().isContext(getLib().date("2020-01-01")));
+        assertFalse(getLib().isContext(getLib().time("12:00:00")));
+        assertFalse(getLib().isContext(getLib().dateAndTime("2020-01-01T12:00:00")));
+        assertFalse(getLib().isContext(getLib().dateAndTime("2020-01-01T12:00:00")));
+        assertFalse(getLib().isContext(getLib().duration("P1Y1M")));
+        assertFalse(getLib().isContext(getLib().asList("a")));
+        assertTrue(getLib().isContext(new Context()));
+        assertFalse(getLib().isContext(new Range(true, BigDecimal.ZERO, true, BigDecimal.ONE)));
     }
 
     @Test
@@ -1119,11 +1231,18 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     //
     @Test
     public void testIsRange() {
-        Range r1 = new Range(true, getLib().number("1"), true, getLib().number("2"));
-
         assertFalse(getLib().isRange(null));
         assertFalse(getLib().isRange(getLib().number("1")));
-        assertTrue(getLib().isRange(r1));
+        assertFalse(getLib().isRange("abc"));
+        assertFalse(getLib().isRange(true));
+        assertFalse(getLib().isRange(getLib().date("2020-01-01")));
+        assertFalse(getLib().isRange(getLib().time("12:00:00")));
+        assertFalse(getLib().isRange(getLib().dateAndTime("2020-01-01T12:00:00")));
+        assertFalse(getLib().isRange(getLib().dateAndTime("2020-01-01T12:00:00")));
+        assertFalse(getLib().isRange(getLib().duration("P1Y1M")));
+        assertFalse(getLib().isRange(getLib().asList("a")));
+        assertFalse(getLib().isRange(new Context()));
+        assertTrue(getLib().isRange(new Range(true, BigDecimal.ZERO, true, BigDecimal.ONE)));
     }
 
     @Test
@@ -1175,6 +1294,61 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
         assertTrue(getLib().rangeNotEqual(r1, r2));
         assertFalse(getLib().rangeNotEqual(r1, r3));
+    }
+
+    //
+    // Function operators
+    //
+    @Test
+    public void testIsFunction() {
+        assertTrue(getLib().isFunction(null));
+        assertFalse(getLib().isFunction(getLib().number("1")));
+        assertFalse(getLib().isFunction("abc"));
+        assertFalse(getLib().isFunction(true));
+        assertFalse(getLib().isFunction(getLib().date("2020-01-01")));
+        assertFalse(getLib().isFunction(getLib().time("12:00:00")));
+        assertFalse(getLib().isFunction(getLib().dateAndTime("2020-01-01T12:00:00")));
+        assertFalse(getLib().isFunction(getLib().dateAndTime("2020-01-01T12:00:00")));
+        assertFalse(getLib().isFunction(getLib().duration("P1Y1M")));
+        assertFalse(getLib().isFunction(getLib().asList("a")));
+        assertFalse(getLib().isFunction(new Context()));
+        assertFalse(getLib().isFunction(new Range(true, BigDecimal.ZERO, true, BigDecimal.ONE)));
+    }
+
+    @Test
+    public void testFunctionValue() {
+        assertNull(getLib().functionValue(null));
+        assertNull(getLib().functionValue("a"));
+    }
+
+    @Test
+    public void testFunctionIs() {
+        assertTrue(getLib().functionIs(null, null));
+        assertNull(getLib().functionIs("a", null));
+        assertNull(getLib().functionIs(null, "b"));
+
+        assertNull(getLib().functionIs("a", "b"));
+        assertNull(getLib().functionIs("b", "b"));
+    }
+
+    @Test
+    public void testFunctionEqual() {
+        assertTrue(getLib().functionEqual(null, null));
+        assertNull(getLib().functionEqual("a", null));
+        assertNull(getLib().functionEqual(null, "b"));
+
+        assertNull(getLib().functionEqual("a", "b"));
+        assertNull(getLib().functionEqual("b", "b"));
+    }
+
+    @Test
+    public void testFunctionNotEqual() {
+        assertFalse(getLib().functionNotEqual(null, null));
+        assertNull(getLib().functionNotEqual("a", null));
+        assertNull(getLib().functionNotEqual(null, "b"));
+
+        assertNull(getLib().functionNotEqual("a", "b"));
+        assertNull(getLib().functionNotEqual("b", "b"));
     }
 
     protected NUMBER makeNumber(String literal) {

@@ -26,22 +26,34 @@ public class DefaultFunctionType extends BaseType implements FunctionType {
 
     @Override
     public boolean isFunction(Object value) {
+        if (value == null) {
+            return true;
+        }
+
         throw new DMNRuntimeException("isFunction is not supported yet");
     }
 
     @Override
     public Object functionValue(Object value) {
-        return value;
+        if (isFunction(value)) {
+            return value;
+        } else {
+            return null;
+        }
     }
 
     @Override
     public Boolean functionIs(Object function1, Object function2) {
-        return function1 == function2;
+        return functionEqual(function1, function2);
     }
 
     @Override
     public Boolean functionEqual(Object function1, Object function2) {
-        return function1 == function2;
+        if (isFunction(function1) && isFunction(function2)) {
+            return function1 == function2;
+        } else {
+            return null;
+        }
     }
 
     @Override
