@@ -839,15 +839,6 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     // List functions
     //
     @Test
-    public void testListContains() {
-        assertNull(getLib().listContains(null, makeNumber(2)));
-        assertNull(getLib().listContains(null, makeNumber(2)));
-
-        assertEquals(false, getLib().listContains(makeNumberList(1, 2, 3), null));
-        assertEquals(true, getLib().listContains(makeNumberList(1, 2, 3), makeNumber(2)));
-    }
-
-    @Test
     public void testAppend() {
         assertEqualsList("[null]", getLib().append(null, null));
         assertEquals(Arrays.asList("3"), getLib().append(null, "3"));

@@ -96,8 +96,8 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Doub
 
     @Override
     @Test
-    public void testDateTime() {
-        super.testDateTime();
+    public void testDateAndTime() {
+        super.testDateAndTime();
 
         //
         // conversion from string
@@ -174,6 +174,17 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Doub
         assertEquals("2017-09-05T09:15:30.987654321+01:00", getLib().string(getLib().dateAndTime(getLib().dateAndTime("2017-09-05T10:20:00"), getLib().time("09:15:30.987654321@Europe/Paris"))));
         assertEquals("2017-09-05T09:15:30.987654321+01:00", getLib().string(getLib().dateAndTime(getLib().dateAndTime("2017-09-05T10:20:00-01:00"), getLib().time("09:15:30.987654321@Europe/Paris"))));
         assertEquals("2017-09-05T09:15:30.987654321+01:00", getLib().string(getLib().dateAndTime(getLib().dateAndTime("2017-09-05T10:20:00@Europe/Paris"), getLib().time("09:15:30.987654321@Europe/Paris"))));
+    }
+
+    //
+    // Extra conversion functions
+    //
+    @Test
+    public void testToDateTime() {
+        super.testToDateTime();
+
+        assertEqualsDateTime("2016-08-01T00:00:00Z@UTC", getLib().toDateTime(makeDate("2016-08-01")));
+        assertEqualsDateTime("2016-08-01T12:00:00Z", getLib().toDateTime(makeDateAndTime("2016-08-01T12:00:00Z")));
     }
 
     //

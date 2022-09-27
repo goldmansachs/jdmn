@@ -109,7 +109,7 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
 
     @Override
     @Test
-    public void testDateTime() {
+    public void testDateAndTime() {
         //
         // conversion from string
         //
@@ -212,6 +212,17 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
         assertEquals("null", getLib().string(getLib().dateAndTime(getLib().date("2017-09-05T10:20:00"), getLib().time("09:15:30.987654321@Europe/Paris"))));
         assertEquals("null", getLib().string(getLib().dateAndTime(getLib().date("2017-09-05T10:20:00-01:00"), getLib().time("09:15:30.987654321@Europe/Paris"))));
         assertEquals("null", getLib().string(getLib().dateAndTime(getLib().date("2017-09-05T10:20:00@Europe/Paris"), getLib().time("09:15:30.987654321@Europe/Paris"))));
+    }
+
+    //
+    // Extra conversion functions
+    //
+    @Test
+    public void testToDateTime() {
+        super.testToDateTime();
+
+        assertEqualsDateTime("2016-08-01T00:00:00Z@UTC", getLib().toDateTime(makeDate("2016-08-01")));
+        assertEqualsDateTime("2016-08-01T12:00:00Z@UTC", getLib().toDateTime(makeDateAndTime("2016-08-01T12:00:00Z")));
     }
 
     //

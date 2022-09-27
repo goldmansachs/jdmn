@@ -20,6 +20,8 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.*;
 
+import static com.gs.dmn.feel.lib.type.numeric.DefaultNumericType.MATH_CONTEXT;
+
 public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements NumericLib<BigDecimal> {
     @Override
     public BigDecimal number(String literal) {
@@ -27,7 +29,7 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
             return null;
         }
 
-        return new BigDecimal(literal, DefaultNumericType.MATH_CONTEXT);
+        return new BigDecimal(literal, MATH_CONTEXT);
     }
 
     @Override
@@ -100,6 +102,7 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
             return null;
         }
 
+        // TODO use method with context
         double value = Math.sqrt(number.doubleValue());
         return BigDecimal.valueOf(value);
     }
@@ -258,7 +261,7 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
             BigDecimal dv = dm.multiply(dm);
             variance = variance.add(dv);
         }
-        variance = variance.divide(length, MathContext.DECIMAL128);
+        variance = variance.divide(length, MATH_CONTEXT);
         BigDecimal stddev = sqrt(variance);
         return stddev;
     }

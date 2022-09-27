@@ -196,6 +196,215 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     //
+    // Boolean operators
+    //
+    @Test
+    public void testIsBoolean() {
+        assertFalse(getLib().isBoolean(null));
+        assertFalse(getLib().isBoolean(getLib().number("1")));
+        assertFalse(getLib().isBoolean("abc"));
+        assertTrue(getLib().isBoolean(true));
+        assertFalse(getLib().isBoolean(getLib().date("2020-01-01")));
+        assertFalse(getLib().isBoolean(getLib().time("12:00:00")));
+        assertFalse(getLib().isBoolean(getLib().dateAndTime("2020-01-01T12:00:00")));
+        assertFalse(getLib().isBoolean(getLib().duration("P1Y1M")));
+        assertFalse(getLib().isBoolean(getLib().asList("a")));
+        assertFalse(getLib().isBoolean(new Context()));
+        assertFalse(getLib().isBoolean(new Range(true, BigDecimal.ZERO, true, BigDecimal.ONE)));
+    }
+
+    @Test
+    public void testBooleanValue() {
+        assertNull(getLib().booleanValue(null));
+        assertTrue(getLib().booleanValue(true));
+        assertFalse(getLib().booleanValue(false));
+    }
+
+    @Test
+    public void testBooleanIs() {
+        assertTrue(getLib().booleanIs(null, null));
+        assertFalse(getLib().booleanIs(Boolean.TRUE, null));
+        assertFalse(getLib().booleanIs(null, Boolean.TRUE));
+
+        assertFalse(getLib().booleanIs(Boolean.FALSE, Boolean.TRUE));
+        assertTrue(getLib().booleanIs(Boolean.TRUE, Boolean.TRUE));
+    }
+
+    @Test
+    public void testBooleanEqual() {
+        assertTrue(getLib().booleanEqual(null, null));
+        assertFalse(getLib().booleanEqual(Boolean.TRUE, null));
+        assertFalse(getLib().booleanEqual(null, Boolean.TRUE));
+
+        assertFalse(getLib().booleanEqual(Boolean.FALSE, Boolean.TRUE));
+        assertTrue(getLib().booleanEqual(Boolean.TRUE, Boolean.TRUE));
+    }
+
+    @Test
+    public void testBooleanNotEqual() {
+        assertFalse(getLib().booleanNotEqual(null, null));
+        assertTrue(getLib().booleanNotEqual(Boolean.TRUE, null));
+        assertTrue(getLib().booleanNotEqual(null, Boolean.TRUE));
+
+        assertTrue(getLib().booleanNotEqual(Boolean.FALSE, Boolean.TRUE));
+        assertFalse(getLib().booleanNotEqual(Boolean.TRUE, Boolean.TRUE));
+    }
+
+    @Test
+    public void testBooleanNot() {
+        assertTrue(getLib().booleanNot(Boolean.FALSE));
+        assertFalse(getLib().booleanNot(Boolean.TRUE));
+        assertNull(getLib().booleanNot(null));
+
+        assertNull(getLib().booleanNot("abc"));
+        assertNull(getLib().booleanNot(makeNumber("123")));
+    }
+
+    @Test
+    public void testBooleanOr() {
+        assertFalse(getLib().booleanOr(Boolean.FALSE, Boolean.FALSE));
+        assertTrue(getLib().booleanOr(Boolean.FALSE, Boolean.TRUE));
+        assertTrue(getLib().booleanOr(Boolean.TRUE, Boolean.FALSE));
+        assertTrue(getLib().booleanOr(Boolean.TRUE, Boolean.TRUE));
+        assertNull(getLib().booleanOr(Boolean.FALSE, null));
+        assertNull(getLib().booleanOr(null, Boolean.FALSE));
+        assertTrue(getLib().booleanOr(Boolean.TRUE, null));
+        assertTrue(getLib().booleanOr(null, Boolean.TRUE));
+        assertTrue(getLib().booleanOr(Boolean.TRUE, getLib().number("123")));
+        assertTrue(getLib().booleanOr(getLib().number("123"), Boolean.TRUE));
+        assertTrue(getLib().booleanOr(Boolean.TRUE, "123"));
+        assertTrue(getLib().booleanOr(Boolean.TRUE, null));
+        assertTrue(getLib().booleanOr(null, Boolean.TRUE));
+        assertTrue(getLib().booleanOr("123", Boolean.TRUE));
+        assertNull(getLib().booleanOr(null, null));
+        assertNull(getLib().booleanOr("123", "123"));
+    }
+
+    @Test
+    public void testBinaryBooleanOr() {
+        assertFalse(getLib().binaryBooleanOr(Boolean.FALSE, Boolean.FALSE));
+        assertTrue(getLib().binaryBooleanOr(Boolean.FALSE, Boolean.TRUE));
+        assertTrue(getLib().binaryBooleanOr(Boolean.TRUE, Boolean.FALSE));
+        assertTrue(getLib().binaryBooleanOr(Boolean.TRUE, Boolean.TRUE));
+        assertNull(getLib().binaryBooleanOr(Boolean.FALSE, null));
+        assertNull(getLib().binaryBooleanOr(null, Boolean.FALSE));
+        assertTrue(getLib().binaryBooleanOr(Boolean.TRUE, null));
+        assertTrue(getLib().binaryBooleanOr(null, Boolean.TRUE));
+        assertTrue(getLib().binaryBooleanOr(Boolean.TRUE, getLib().number("123")));
+        assertTrue(getLib().binaryBooleanOr(getLib().number("123"), Boolean.TRUE));
+        assertTrue(getLib().binaryBooleanOr(Boolean.TRUE, "123"));
+        assertTrue(getLib().binaryBooleanOr(Boolean.TRUE, null));
+        assertTrue(getLib().binaryBooleanOr(null, Boolean.TRUE));
+        assertTrue(getLib().binaryBooleanOr("123", Boolean.TRUE));
+        assertNull(getLib().binaryBooleanOr(null, null));
+        assertNull(getLib().binaryBooleanOr("123", "123"));
+    }
+
+    @Test
+    public void testBooleanAnd() {
+        assertFalse(getLib().booleanAnd(Boolean.FALSE, Boolean.FALSE));
+        assertFalse(getLib().booleanAnd(Boolean.FALSE, Boolean.TRUE));
+        assertFalse(getLib().booleanAnd(Boolean.TRUE, Boolean.FALSE));
+        assertTrue(getLib().booleanAnd(Boolean.TRUE, Boolean.TRUE));
+        assertFalse(getLib().booleanAnd(Boolean.FALSE, null));
+        assertFalse(getLib().booleanAnd(null, Boolean.FALSE));
+        assertFalse(getLib().booleanAnd(Boolean.FALSE, getLib().number("123")));
+        assertFalse(getLib().booleanAnd(getLib().number("123"), Boolean.FALSE));
+        assertFalse(getLib().booleanAnd(Boolean.FALSE, "123"));
+        assertFalse(getLib().booleanAnd(Boolean.FALSE, null));
+        assertFalse(getLib().booleanAnd(null, Boolean.FALSE));
+        assertFalse(getLib().booleanAnd("123", Boolean.FALSE));
+        assertNull(getLib().booleanAnd(Boolean.TRUE, null));
+        assertNull(getLib().booleanAnd(null, Boolean.TRUE));
+        assertNull(getLib().booleanAnd(null, null));
+        assertNull(getLib().booleanAnd("123", "123"));
+    }
+
+    @Test
+    public void testBinaryBooleanAnd() {
+        assertFalse(getLib().binaryBooleanAnd(Boolean.FALSE, Boolean.FALSE));
+        assertFalse(getLib().binaryBooleanAnd(Boolean.FALSE, Boolean.TRUE));
+        assertFalse(getLib().binaryBooleanAnd(Boolean.TRUE, Boolean.FALSE));
+        assertTrue(getLib().binaryBooleanAnd(Boolean.TRUE, Boolean.TRUE));
+        assertFalse(getLib().binaryBooleanAnd(Boolean.FALSE, null));
+        assertFalse(getLib().binaryBooleanAnd(null, Boolean.FALSE));
+        assertFalse(getLib().binaryBooleanAnd(Boolean.FALSE, getLib().number("123")));
+        assertFalse(getLib().binaryBooleanAnd(getLib().number("123"), Boolean.FALSE));
+        assertFalse(getLib().binaryBooleanAnd(Boolean.FALSE, "123"));
+        assertFalse(getLib().binaryBooleanAnd(Boolean.FALSE, null));
+        assertFalse(getLib().binaryBooleanAnd(null, Boolean.FALSE));
+        assertFalse(getLib().binaryBooleanAnd("123", Boolean.FALSE));
+        assertNull(getLib().binaryBooleanAnd(Boolean.TRUE, null));
+        assertNull(getLib().binaryBooleanAnd(null, Boolean.TRUE));
+        assertNull(getLib().binaryBooleanAnd(null, null));
+        assertNull(getLib().binaryBooleanAnd("123", "123"));
+    }
+
+    //
+    // String operators
+    //
+    @Test
+    public void testIsString() {
+        assertFalse(getLib().isString(null));
+        assertFalse(getLib().isString(getLib().number("1")));
+        assertTrue(getLib().isString("abc"));
+        assertFalse(getLib().isString(true));
+        assertFalse(getLib().isString(getLib().date("2020-01-01")));
+        assertFalse(getLib().isString(getLib().time("12:00:00")));
+        assertFalse(getLib().isString(getLib().dateAndTime("2020-01-01T12:00:00")));
+        assertFalse(getLib().isString(getLib().duration("P1Y1M")));
+        assertFalse(getLib().isString(getLib().asList("a")));
+        assertFalse(getLib().isString(new Context()));
+        assertFalse(getLib().isString(new Range(true, BigDecimal.ZERO, true, BigDecimal.ONE)));
+    }
+
+    @Test
+    public void testStringValue() {
+        assertNull(getLib().stringValue(null));
+        assertEquals("a", getLib().stringValue("a"));
+    }
+
+    @Test
+    public void testStringIs() {
+        assertTrue(getLib().stringIs(null, null));
+        assertFalse(getLib().stringIs("a", null));
+        assertFalse(getLib().stringIs(null, "b"));
+
+        assertFalse(getLib().stringIs("a", "b"));
+        assertTrue(getLib().stringIs("b", "b"));
+    }
+
+    @Test
+    public void testStringEqual() {
+        assertTrue(getLib().stringEqual(null, null));
+        assertFalse(getLib().stringEqual("a", null));
+        assertFalse(getLib().stringEqual(null, "b"));
+
+        assertFalse(getLib().stringEqual("a", "b"));
+        assertTrue(getLib().stringEqual("b", "b"));
+    }
+
+    @Test
+    public void testStringNotEqual() {
+        assertFalse(getLib().stringNotEqual(null, null));
+        assertTrue(getLib().stringNotEqual("a", null));
+        assertTrue(getLib().stringNotEqual(null, "b"));
+
+        assertTrue(getLib().stringNotEqual("a", "b"));
+        assertFalse(getLib().stringNotEqual("b", "b"));
+    }
+
+    @Test
+    public void testStringAdd() {
+        assertNull(getLib().stringAdd(null, null));
+        assertNull(getLib().stringAdd("a", null));
+        assertNull(getLib().stringAdd(null, "b"));
+
+        assertEquals("ab", getLib().stringAdd("a", "b"));
+        assertEquals("ba", getLib().stringAdd("b", "a"));
+    }
+
+    //
     // Date operators
     //
     @Test
@@ -254,7 +463,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertTrue(getLib().dateNotEqual(makeDate("2016-08-01"), null));
 
         assertFalse(getLib().dateNotEqual(makeDate("2016-08-01"), makeDate("2016-08-01")));
-        assertTrue(getLib().dateEqual(makeDate("2016-08-01"), makeDate("2016-08-01")));
+        assertTrue(getLib().dateNotEqual(makeDate("2016-08-01"), makeDate("2016-08-02")));
     }
 
     @Test
@@ -589,7 +798,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
         assertTrue(getLib().dateTimeEqual(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:00Z")));
         assertFalse(getLib().dateTimeEqual(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:01Z")));
-        
+
         // same datetimes are equal
         assertTrue(getLib().dateTimeEqual(makeDateAndTime("2018-12-08T10:30:00"), makeDateAndTime("2018-12-08T10:30:00")));
         // datetimes with no time is equal to datetime with zero time
@@ -897,215 +1106,6 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
         assertEquals(makeDuration("P0DT12H30M"), getLib().durationDivideNumber(makeDuration("P1DT1H"),  makeNumber("2")));
         assertEquals(makeDuration("P1DT1H"), getLib().durationDivideNumber(makeDuration("P2DT2H"),  makeNumber("2")));
-    }
-
-    //
-    // String operators
-    //
-    @Test
-    public void testIsString() {
-        assertFalse(getLib().isString(null));
-        assertFalse(getLib().isString(getLib().number("1")));
-        assertTrue(getLib().isString("abc"));
-        assertFalse(getLib().isString(true));
-        assertFalse(getLib().isString(getLib().date("2020-01-01")));
-        assertFalse(getLib().isString(getLib().time("12:00:00")));
-        assertFalse(getLib().isString(getLib().dateAndTime("2020-01-01T12:00:00")));
-        assertFalse(getLib().isString(getLib().duration("P1Y1M")));
-        assertFalse(getLib().isString(getLib().asList("a")));
-        assertFalse(getLib().isString(new Context()));
-        assertFalse(getLib().isString(new Range(true, BigDecimal.ZERO, true, BigDecimal.ONE)));
-    }
-
-    @Test
-    public void testStringValue() {
-        assertNull(getLib().stringValue(null));
-        assertEquals("a", getLib().stringValue("a"));
-    }
-
-    @Test
-    public void testStringIs() {
-        assertTrue(getLib().stringIs(null, null));
-        assertFalse(getLib().stringIs("a", null));
-        assertFalse(getLib().stringIs(null, "b"));
-
-        assertFalse(getLib().stringIs("a", "b"));
-        assertTrue(getLib().stringIs("b", "b"));
-    }
-
-    @Test
-    public void testStringEqual() {
-        assertTrue(getLib().stringEqual(null, null));
-        assertFalse(getLib().stringEqual("a", null));
-        assertFalse(getLib().stringEqual(null, "b"));
-
-        assertFalse(getLib().stringEqual("a", "b"));
-        assertTrue(getLib().stringEqual("b", "b"));
-    }
-
-    @Test
-    public void testStringNotEqual() {
-        assertFalse(getLib().stringNotEqual(null, null));
-        assertTrue(getLib().stringNotEqual("a", null));
-        assertTrue(getLib().stringNotEqual(null, "b"));
-
-        assertTrue(getLib().stringNotEqual("a", "b"));
-        assertFalse(getLib().stringNotEqual("b", "b"));
-    }
-
-    @Test
-    public void testStringAdd() {
-        assertNull(getLib().stringAdd(null, null));
-        assertNull(getLib().stringAdd("a", null));
-        assertNull(getLib().stringAdd(null, "b"));
-
-        assertEquals("ab", getLib().stringAdd("a", "b"));
-        assertEquals("ba", getLib().stringAdd("b", "a"));
-    }
-
-    //
-    // Boolean operators
-    //
-    @Test
-    public void testIsBoolean() {
-        assertFalse(getLib().isBoolean(null));
-        assertFalse(getLib().isBoolean(getLib().number("1")));
-        assertFalse(getLib().isBoolean("abc"));
-        assertTrue(getLib().isBoolean(true));
-        assertFalse(getLib().isBoolean(getLib().date("2020-01-01")));
-        assertFalse(getLib().isBoolean(getLib().time("12:00:00")));
-        assertFalse(getLib().isBoolean(getLib().dateAndTime("2020-01-01T12:00:00")));
-        assertFalse(getLib().isBoolean(getLib().duration("P1Y1M")));
-        assertFalse(getLib().isBoolean(getLib().asList("a")));
-        assertFalse(getLib().isBoolean(new Context()));
-        assertFalse(getLib().isBoolean(new Range(true, BigDecimal.ZERO, true, BigDecimal.ONE)));
-    }
-
-    @Test
-    public void testBooleanValue() {
-        assertNull(getLib().booleanValue(null));
-        assertTrue(getLib().booleanValue(true));
-        assertFalse(getLib().booleanValue(false));
-    }
-
-    @Test
-    public void testBooleanIs() {
-        assertTrue(getLib().booleanIs(null, null));
-        assertFalse(getLib().booleanIs(Boolean.TRUE, null));
-        assertFalse(getLib().booleanIs(null, Boolean.TRUE));
-
-        assertFalse(getLib().booleanIs(Boolean.FALSE, Boolean.TRUE));
-        assertTrue(getLib().booleanIs(Boolean.TRUE, Boolean.TRUE));
-    }
-
-    @Test
-    public void testBooleanEqual() {
-        assertTrue(getLib().booleanEqual(null, null));
-        assertFalse(getLib().booleanEqual(Boolean.TRUE, null));
-        assertFalse(getLib().booleanEqual(null, Boolean.TRUE));
-
-        assertFalse(getLib().booleanEqual(Boolean.FALSE, Boolean.TRUE));
-        assertTrue(getLib().booleanEqual(Boolean.TRUE, Boolean.TRUE));
-    }
-
-    @Test
-    public void testBooleanNotEqual() {
-        assertFalse(getLib().booleanNotEqual(null, null));
-        assertTrue(getLib().booleanNotEqual(Boolean.TRUE, null));
-        assertTrue(getLib().booleanNotEqual(null, Boolean.TRUE));
-
-        assertTrue(getLib().booleanNotEqual(Boolean.FALSE, Boolean.TRUE));
-        assertFalse(getLib().booleanNotEqual(Boolean.TRUE, Boolean.TRUE));
-    }
-
-    @Test
-    public void testBooleanNot() {
-        assertTrue(getLib().booleanNot(Boolean.FALSE));
-        assertFalse(getLib().booleanNot(Boolean.TRUE));
-        assertNull(getLib().booleanNot(null));
-
-        assertNull(getLib().booleanNot("abc"));
-        assertNull(getLib().booleanNot(makeNumber("123")));
-    }
-
-    @Test
-    public void testBooleanOr() {
-        assertFalse(getLib().booleanOr(Boolean.FALSE, Boolean.FALSE));
-        assertTrue(getLib().booleanOr(Boolean.FALSE, Boolean.TRUE));
-        assertTrue(getLib().booleanOr(Boolean.TRUE, Boolean.FALSE));
-        assertTrue(getLib().booleanOr(Boolean.TRUE, Boolean.TRUE));
-        assertNull(getLib().booleanOr(Boolean.FALSE, null));
-        assertNull(getLib().booleanOr(null, Boolean.FALSE));
-        assertTrue(getLib().booleanOr(Boolean.TRUE, null));
-        assertTrue(getLib().booleanOr(null, Boolean.TRUE));
-        assertTrue(getLib().booleanOr(Boolean.TRUE, getLib().number("123")));
-        assertTrue(getLib().booleanOr(getLib().number("123"), Boolean.TRUE));
-        assertTrue(getLib().booleanOr(Boolean.TRUE, "123"));
-        assertTrue(getLib().booleanOr(Boolean.TRUE, null));
-        assertTrue(getLib().booleanOr(null, Boolean.TRUE));
-        assertTrue(getLib().booleanOr("123", Boolean.TRUE));
-        assertNull(getLib().booleanOr(null, null));
-        assertNull(getLib().booleanOr("123", "123"));
-    }
-
-    @Test
-    public void testBinaryBooleanOr() {
-        assertFalse(getLib().binaryBooleanOr(Boolean.FALSE, Boolean.FALSE));
-        assertTrue(getLib().binaryBooleanOr(Boolean.FALSE, Boolean.TRUE));
-        assertTrue(getLib().binaryBooleanOr(Boolean.TRUE, Boolean.FALSE));
-        assertTrue(getLib().binaryBooleanOr(Boolean.TRUE, Boolean.TRUE));
-        assertNull(getLib().binaryBooleanOr(Boolean.FALSE, null));
-        assertNull(getLib().binaryBooleanOr(null, Boolean.FALSE));
-        assertTrue(getLib().binaryBooleanOr(Boolean.TRUE, null));
-        assertTrue(getLib().binaryBooleanOr(null, Boolean.TRUE));
-        assertTrue(getLib().binaryBooleanOr(Boolean.TRUE, getLib().number("123")));
-        assertTrue(getLib().binaryBooleanOr(getLib().number("123"), Boolean.TRUE));
-        assertTrue(getLib().binaryBooleanOr(Boolean.TRUE, "123"));
-        assertTrue(getLib().binaryBooleanOr(Boolean.TRUE, null));
-        assertTrue(getLib().binaryBooleanOr(null, Boolean.TRUE));
-        assertTrue(getLib().binaryBooleanOr("123", Boolean.TRUE));
-        assertNull(getLib().binaryBooleanOr(null, null));
-        assertNull(getLib().binaryBooleanOr("123", "123"));
-    }
-
-    @Test
-    public void testBooleanAnd() {
-        assertFalse(getLib().booleanAnd(Boolean.FALSE, Boolean.FALSE));
-        assertFalse(getLib().booleanAnd(Boolean.FALSE, Boolean.TRUE));
-        assertFalse(getLib().booleanAnd(Boolean.TRUE, Boolean.FALSE));
-        assertTrue(getLib().booleanAnd(Boolean.TRUE, Boolean.TRUE));
-        assertFalse(getLib().booleanAnd(Boolean.FALSE, null));
-        assertFalse(getLib().booleanAnd(null, Boolean.FALSE));
-        assertFalse(getLib().booleanAnd(Boolean.FALSE, getLib().number("123")));
-        assertFalse(getLib().booleanAnd(getLib().number("123"), Boolean.FALSE));
-        assertFalse(getLib().booleanAnd(Boolean.FALSE, "123"));
-        assertFalse(getLib().booleanAnd(Boolean.FALSE, null));
-        assertFalse(getLib().booleanAnd(null, Boolean.FALSE));
-        assertFalse(getLib().booleanAnd("123", Boolean.FALSE));
-        assertNull(getLib().booleanAnd(Boolean.TRUE, null));
-        assertNull(getLib().booleanAnd(null, Boolean.TRUE));
-        assertNull(getLib().booleanAnd(null, null));
-        assertNull(getLib().booleanAnd("123", "123"));
-    }
-
-    @Test
-    public void testBinaryBooleanAnd() {
-        assertFalse(getLib().binaryBooleanAnd(Boolean.FALSE, Boolean.FALSE));
-        assertFalse(getLib().binaryBooleanAnd(Boolean.FALSE, Boolean.TRUE));
-        assertFalse(getLib().binaryBooleanAnd(Boolean.TRUE, Boolean.FALSE));
-        assertTrue(getLib().binaryBooleanAnd(Boolean.TRUE, Boolean.TRUE));
-        assertFalse(getLib().binaryBooleanAnd(Boolean.FALSE, null));
-        assertFalse(getLib().binaryBooleanAnd(null, Boolean.FALSE));
-        assertFalse(getLib().binaryBooleanAnd(Boolean.FALSE, getLib().number("123")));
-        assertFalse(getLib().binaryBooleanAnd(getLib().number("123"), Boolean.FALSE));
-        assertFalse(getLib().binaryBooleanAnd(Boolean.FALSE, "123"));
-        assertFalse(getLib().binaryBooleanAnd(Boolean.FALSE, null));
-        assertFalse(getLib().binaryBooleanAnd(null, Boolean.FALSE));
-        assertFalse(getLib().binaryBooleanAnd("123", Boolean.FALSE));
-        assertNull(getLib().binaryBooleanAnd(Boolean.TRUE, null));
-        assertNull(getLib().binaryBooleanAnd(null, Boolean.TRUE));
-        assertNull(getLib().binaryBooleanAnd(null, null));
-        assertNull(getLib().binaryBooleanAnd("123", "123"));
     }
 
     //

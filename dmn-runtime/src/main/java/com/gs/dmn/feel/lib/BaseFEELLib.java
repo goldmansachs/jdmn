@@ -1384,7 +1384,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     //
-    // Conversion functions
+    // Implicit conversion functions
     //
     @Override
     public<T> List<T> asList(T ...objects) {
@@ -1409,7 +1409,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     //
-    // Other functions
+    // Extra conversion functions
     //
     @Override
     public List<NUMBER> rangeToList(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end) {

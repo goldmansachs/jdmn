@@ -28,7 +28,7 @@ public class DefaultNumericType extends BaseNumericType implements NumericType<B
             return null;
         }
 
-        return first.divide(second, MathContext.DECIMAL128);
+        return first.divide(second, MATH_CONTEXT);
     }
 
     private final ComparableComparator<BigDecimal> comparator;
