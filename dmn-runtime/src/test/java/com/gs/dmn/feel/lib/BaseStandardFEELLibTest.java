@@ -446,6 +446,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     public void testCeiling() {
         assertNull(getLib().ceiling(null));
         assertNull(getLib().ceiling(null, null));
+        assertNull(getLib().ceiling(makeNumber(1), null));
 
         assertEqualsNumber(makeNumber("1"), getLib().ceiling(makeNumber(1)));
         assertEqualsNumber(makeNumber("2"), getLib().ceiling(makeNumber(1.23)));
@@ -650,6 +651,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertNull(getLib().substringAfter("foobar", null));
 
         assertEquals("ar", getLib().substringAfter("foobar", "ob"));
+        assertEquals("", getLib().substringAfter("foobar", "xyz"));
     }
 
     @Test
