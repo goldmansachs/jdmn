@@ -278,6 +278,11 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertTrue(getLib().booleanOr("123", Boolean.TRUE));
         assertNull(getLib().booleanOr(null, null));
         assertNull(getLib().booleanOr("123", "123"));
+
+        assertNull(getLib().booleanOr(true));
+        assertTrue(getLib().booleanOr(false, false, true));
+        assertTrue(getLib().booleanOr(Arrays.asList(false, false, true)));
+        assertNull(getLib().booleanOr(Arrays.asList(Arrays.asList(false, false, true))));
     }
 
     @Test
@@ -318,6 +323,11 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().booleanAnd(null, Boolean.TRUE));
         assertNull(getLib().booleanAnd(null, null));
         assertNull(getLib().booleanAnd("123", "123"));
+
+        assertNull(getLib().booleanAnd(true));
+        assertFalse(getLib().booleanAnd(true, true, false));
+        assertFalse(getLib().booleanAnd(Arrays.asList(false, false, true)));
+        assertNull(getLib().booleanAnd(Arrays.asList(Arrays.asList(false, false, true))));
     }
 
     @Test
@@ -883,6 +893,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertEquals(makeDuration("PT1H"), getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T13:00:00Z"), makeDateAndTime("2016-08-01T12:00:00Z")));
         assertEquals(makeDuration("PT0S"), getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-01T12:00:00Z")));
         assertEquals(makeDuration("-P2DT1H"), getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-03T13:00:00Z")));
+
+        assertEquals(makeDuration("P367DT6H58M59S"), getLib().dateTimeSubtract(makeDateAndTime("2016-12-24T23:59:00-08:00"), makeDateAndTime("2015-12-24T00:00:01-01:00")));
     }
 
     @Test
@@ -921,12 +933,25 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         // years and months
         assertTrue(getLib().isYearsAndMonthsDuration(makeDuration("P1Y2M")));
         assertTrue(getLib().isYearsAndMonthsDuration(makeDuration("-P1Y2M")));
+        assertFalse(getLib().isYearsAndMonthsDuration(makeDuration("P1DT2H3M4S")));
+        assertFalse(getLib().isYearsAndMonthsDuration(makeDuration("-P1DT2H3M4S")));
+        assertFalse(getLib().isYearsAndMonthsDuration(makeDuration("P1Y2M1DT2H3M4S")));
+        assertFalse(getLib().isYearsAndMonthsDuration(makeDuration("-P1Y2M1DT2H3M4S")));
 
         // days and time
+        assertFalse(getLib().isDaysAndTimeDuration(makeDuration("P1Y2M")));
+        assertFalse(getLib().isDaysAndTimeDuration(makeDuration("-P1Y2M")));
         assertTrue(getLib().isDaysAndTimeDuration(makeDuration("P1DT2H3M4S")));
         assertTrue(getLib().isDaysAndTimeDuration(makeDuration("-P1DT2H3M4S")));
+//      Fail in Pure lib
+//        assertFalse(getLib().isDaysAndTimeDuration(makeDuration("P1Y2M1DT2H3M4S")));
+//        assertFalse(getLib().isDaysAndTimeDuration(makeDuration("-P1Y2M1DT2H3M4S")));
 
         // mixture
+        assertTrue(getLib().isDuration(makeDuration("P1Y2M")));
+        assertTrue(getLib().isDuration(makeDuration("-P1Y2M")));
+        assertTrue(getLib().isDuration(makeDuration("P1DT2H3M4S")));
+        assertTrue(getLib().isDuration(makeDuration("-P1DT2H3M4S")));
         assertTrue(getLib().isDuration(makeDuration("P1Y2M1DT2H3M4S")));
         assertTrue(getLib().isDuration(makeDuration("-P1Y2M1DT2H3M4S")));
     }
@@ -1067,6 +1092,10 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
         assertEquals(makeDuration("P2DT2H"), getLib().durationAdd(makeDuration("P1DT1H"), makeDuration("P1DT1H")));
         assertEquals(makeDuration("P2DT3H"), getLib().durationAdd(makeDuration("P1DT1H"), makeDuration("P1DT2H")));
+
+        assertEquals(makeDuration("P380DT8H59M13S"), getLib().durationAdd(
+                makeDuration("P13DT2H14S"), getLib().dateTimeSubtract(makeDateAndTime("2016-12-24T23:59:00-08:00"), makeDateAndTime("2015-12-24T00:00:01-01:00"))));
+
     }
 
     @Test

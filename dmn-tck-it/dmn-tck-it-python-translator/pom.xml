@@ -659,7 +659,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
-<!--
                     <execution>
                         <id>cl3-0002-string-functions</id>
                         <phase>generate-sources</phase>
@@ -689,7 +688,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
                     <execution>
                         <id>cl3-0003-iteration.dmn</id>
@@ -817,7 +815,6 @@
                         </configuration>
                     </execution>
 
-<!--
                     <execution>
                         <id>cl3-0007-date-time</id>
                         <phase>generate-sources</phase>
@@ -847,7 +844,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
                     <execution>
                         <id>cl3-0008-listGen.dmn</id>
@@ -879,7 +875,6 @@
                         </configuration>
                     </execution>
 
-<!--
                     <execution>
                         <id>cl3-0009-append-flatten</id>
                         <phase>generate-sources</phase>
@@ -909,7 +904,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
                     <execution>
                         <id>cl3-0010-concatenate</id>
@@ -941,7 +935,6 @@
                         </configuration>
                     </execution>
 
-<!--
                     <execution>
                         <id>cl3-0011-insert-remove</id>
                         <phase>generate-sources</phase>
@@ -971,9 +964,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>cl3-0012-list-functions</id>
                         <phase>generate-sources</phase>
@@ -1003,7 +994,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
+
                     <execution>
                         <id>cl3-0013-sort</id>
                         <phase>generate-sources</phase>
@@ -1034,7 +1025,6 @@
                         </configuration>
                     </execution>
 
-<!--
                     <execution>
                         <id>cl3-0014-loan-comparison</id>
                         <phase>generate-sources</phase>
@@ -1064,7 +1054,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
                     <execution>
                         <id>cl3-0016-some-every</id>
@@ -1156,7 +1145,6 @@
                         </configuration>
                     </execution>
 
-<!--
                     <execution>
                         <id>cl3-0021-singleton-list</id>
                         <phase>generate-sources</phase>
@@ -1186,7 +1174,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
                     <execution>
                         <id>cl3-0030-static-user-defined-functions</id>
@@ -1228,7 +1215,7 @@
                             <inputFileDirectory>${tck.11.diagram.folder}/cl3/0031-static-user-defined-functions/translator/0031-static-user-defined-functions.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_0031_static_user_defined_functions</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_static_0031_user_defined_functions</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1243,12 +1230,11 @@
                             <inputModelFileDirectory>${tck.11.diagram.folder}/cl3/0031-static-user-defined-functions/translator/0031-static-user-defined-functions.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_0031_static_user_defined_functions</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_static_0031_user_defined_functions</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
 
-<!--
                     <execution>
                         <id>cl3-0032-conditionals</id>
                         <phase>generate-sources</phase>
@@ -1278,7 +1264,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
                     <execution>
                         <id>cl3-0033-for-loops</id>
@@ -1310,7 +1295,6 @@
                         </configuration>
                     </execution>
 
-<!--
                     <execution>
                         <id>cl3-0068-feel-equality</id>
                         <phase>generate-sources</phase>
@@ -1342,7 +1326,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
 <!--
                     <execution>
@@ -1376,7 +1359,6 @@
                     </execution>
 -->
 
-<!--
                     <execution>
                         <id>cl3-0083-feel-unicode</id>
                         <phase>generate-sources</phase>
@@ -1406,7 +1388,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
                     <execution>
                         <id>cl3-0085-decision-services</id>
@@ -1472,7 +1453,6 @@
                     </execution>
 -->
 
-<!--
                     <execution>
                         <id>0093-feel-at-literals</id>
                         <phase>generate-sources</phase>
@@ -1502,7 +1482,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
                     <execution>
                         <id>cl3-1100-feel-decimal-function</id>
@@ -1534,7 +1513,6 @@
                         </configuration>
                     </execution>
 
-<!--
                     <execution>
                         <id>cl3-1101-feel-floor-function</id>
                         <phase>generate-sources</phase>
@@ -1564,7 +1542,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
                     <execution>
                         <id>cl3-1102-feel-ceiling-function</id>
@@ -1581,7 +1558,6 @@
                         </configuration>
                     </execution>
 
-<!--
                     <execution>
                         <id>cl3-1103-feel-substring-function</id>
                         <phase>generate-sources</phase>
@@ -1611,9 +1587,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>cl3-1104-feel-string-length-function</id>
                         <phase>generate-sources</phase>
@@ -1643,9 +1617,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>cl3-1105-feel-upper-case-function</id>
                         <phase>generate-sources</phase>
@@ -1675,7 +1647,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
                     <execution>
                         <id>cl3-1106-feel-lower-case-function</id>
@@ -1707,7 +1678,6 @@
                         </configuration>
                     </execution>
 
-<!--
                     <execution>
                         <id>cl3-1107-feel-substring-before-function</id>
                         <phase>generate-sources</phase>
@@ -1737,9 +1707,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>cl3-1108-feel-substring-after-function</id>
                         <phase>generate-sources</phase>
@@ -1769,9 +1737,7 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
-<!--
                     <execution>
                         <id>cl3-1109-feel-replace-function</id>
                         <phase>generate-sources</phase>
@@ -1801,7 +1767,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
                     <execution>
                         <id>cl3-1110-feel-contains-function</id>
@@ -1993,7 +1958,6 @@
                     </execution>
 -->
 
-<!--
                     <execution>
                         <id>cl3-1130-feel-interval</id>
                         <phase>generate-sources</phase>
@@ -2023,7 +1987,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
 <!--
                     <execution>
@@ -2443,7 +2406,7 @@
                     </execution>
 
 
-                    <!-- gRPC models -->
+<!-- gRPC models -->
 
 <!--
                     <execution>
@@ -2567,67 +2530,67 @@
 
 
                     <!-- non-compliant-->
-                    <!--
-                                        <execution>
-                                            <id>nc-0015-all-any</id>
-                                            <phase>generate-sources</phase>
-                                            <goals>
-                                                <goal>dmn-to-python</goal>
-                                            </goals>
-                                            <configuration>
-                                                <inputFileDirectory>${tck.11.diagram.folder}/nc/0015-all-any.dmn</inputFileDirectory>
-                                                <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
-                                                <inputParameters>
-                                                    <javaRootPackage>${generated.root.package}.tck.nc_0015_all_any</javaRootPackage>
-                                                </inputParameters>
-                                            </configuration>
-                                        </execution>
-                                        <execution>
-                                            <id>test-nc-0015-all-any</id>
-                                            <phase>generate-sources</phase>
-                                            <goals>
-                                                <goal>tck-to-python</goal>
-                                            </goals>
-                                            <configuration>
-                                                <inputTestFileDirectory>${tck.11.diagram.folder}/nc/0015-all-any-test-01.xml</inputTestFileDirectory>
-                                                <inputModelFileDirectory>${tck.11.diagram.folder}/nc/0015-all-any.dmn</inputModelFileDirectory>
-                                                <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
-                                                <inputParameters>
-                                                    <javaRootPackage>${generated.root.package}.tck.nc_0015_all_any</javaRootPackage>
-                                                </inputParameters>
-                                            </configuration>
-                                        </execution>
+<!--
+                    <execution>
+                        <id>nc-0015-all-any</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-python</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.11.diagram.folder}/nc/0015-all-any.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.nc_0015_all_any</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-nc-0015-all-any</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-python</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.11.diagram.folder}/nc/0015-all-any-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.11.diagram.folder}/nc/0015-all-any.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.nc_0015_all_any</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
 
-                                        <execution>
-                                            <id>nc-0019-flight-rebooking</id>
-                                            <phase>generate-sources</phase>
-                                            <goals>
-                                                <goal>dmn-to-python</goal>
-                                            </goals>
-                                            <configuration>
-                                                <inputFileDirectory>${tck.11.diagram.folder}/nc/0019-flight-rebooking.dmn</inputFileDirectory>
-                                                <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
-                                                <inputParameters>
-                                                    <javaRootPackage>${generated.root.package}.tck.nc_0019_flight_rebooking</javaRootPackage>
-                                                </inputParameters>
-                                            </configuration>
-                                        </execution>
-                                        <execution>
-                                            <id>test-nc-0019-flight-rebooking</id>
-                                            <phase>generate-sources</phase>
-                                            <goals>
-                                                <goal>tck-to-python</goal>
-                                            </goals>
-                                            <configuration>
-                                                <inputTestFileDirectory>${tck.11.diagram.folder}/nc/0019-flight-rebooking-test-01.xml</inputTestFileDirectory>
-                                                <inputModelFileDirectory>${tck.11.diagram.folder}/nc/0019-flight-rebooking.dmn</inputModelFileDirectory>
-                                                <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
-                                                <inputParameters>
-                                                    <javaRootPackage>${generated.root.package}.tck.nc_0019_flight_rebooking</javaRootPackage>
-                                                </inputParameters>
-                                            </configuration>
-                                        </execution>
-                    -->
+                    <execution>
+                        <id>nc-0019-flight-rebooking</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-python</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.11.diagram.folder}/nc/0019-flight-rebooking.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.nc_0019_flight_rebooking</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-nc-0019-flight-rebooking</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-python</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.11.diagram.folder}/nc/0019-flight-rebooking-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.11.diagram.folder}/nc/0019-flight-rebooking.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.nc_0019_flight_rebooking</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+-->
 
                 </executions>
             </plugin>

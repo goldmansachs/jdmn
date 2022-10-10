@@ -129,8 +129,6 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
         assertEqualsDateTime("P7Y6M", getLib().yearsAndMonthsDuration(makeDateAndTime("2010-05-30T03:55:58"), makeDateAndTime("2017-12-15T00:59:59")));
         assertEqualsDateTime("-P4033Y2M", getLib().yearsAndMonthsDuration(makeDateAndTime("2014-12-31T23:59:59"), makeDateAndTime("-2019-10-01T12:32:59")));
         assertEqualsDateTime("-P4035Y11M", getLib().yearsAndMonthsDuration(makeDateAndTime("2017-09-05T10:20:00-01:00"), makeDateAndTime("-2019-10-01T12:32:59+02:00")));
-
-        assertEqualsDateTime("P0Y0M", getLib().yearsAndMonthsDuration(getLib().dateAndTime("2015-12-24T12:15:00.000+01:00"), getLib().dateAndTime("2015-12-24T12:15:00.000+01:00")));
     }
 
     @Test
