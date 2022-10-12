@@ -1988,7 +1988,6 @@
                         </configuration>
                     </execution>
 
-<!--
                     <execution>
                         <id>cl3-9001-recursive-function</id>
                         <phase>generate-sources</phase>
@@ -2018,7 +2017,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
                     <!-- Composite models -->
                     <execution>

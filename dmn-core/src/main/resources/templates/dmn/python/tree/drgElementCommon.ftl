@@ -423,6 +423,7 @@ import ${transformer.jdmnRootPackage()}.runtime.listener.Rule
 
 <@importSubInvocables drgElement/>
 </#if>
+<@importRecursiveBKM drgElement/>
 <#if modelRepository.isDecisionTableExpression(drgElement)>
 
 import ${transformer.qualifiedModuleName(javaPackageName, transformer.ruleOutputClassName(drgElement))}
@@ -451,6 +452,13 @@ import ${transformer.qualifiedModuleName(subDecision)}
 import ${transformer.qualifiedModuleName(bkm)}
         </#items>
     </#list>
+</#macro>
+
+<#macro importRecursiveBKM drgElement>
+    <#if modelRepository.isRecursiveBKM(drgElement)>
+
+import ${transformer.qualifiedModuleName(drgElement)}
+    </#if>
 </#macro>
 
 <#macro singletonPattern drgElement>
