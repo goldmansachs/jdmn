@@ -111,7 +111,7 @@ public class ResultNodeConverter extends DMNBaseElementConverter {
         }
         Boolean errorResult = element.getErrorResultField();
         if (errorResult != null) {
-            writer.addAttribute(ERROR_RESULT, Boolean.valueOf(errorResult).toString());
+            writer.addAttribute(ERROR_RESULT, errorResult.toString());
         }
     }
 }
