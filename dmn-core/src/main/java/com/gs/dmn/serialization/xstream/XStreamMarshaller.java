@@ -265,6 +265,9 @@ public class XStreamMarshaller implements DMNMarshaller {
         try {
             URL schemaURL = this.getClass().getClassLoader().getResource(schemaPath).toURI().toURL();
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            // Prohibit the use of all protocols by external entities:
+            factory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            factory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
             Schema schema = factory.newSchema(schemaURL);
             Validator validator = schema.newValidator();
             validator.validate(source);
