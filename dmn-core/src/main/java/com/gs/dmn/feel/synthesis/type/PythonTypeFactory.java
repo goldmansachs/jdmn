@@ -12,8 +12,6 @@
  */
 package com.gs.dmn.feel.synthesis.type;
 
-import com.gs.dmn.runtime.DMNRuntimeException;
-
 public abstract class PythonTypeFactory implements NativeTypeFactory {
     @Override
     public String nullableType(String type) {

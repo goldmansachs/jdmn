@@ -29,8 +29,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.namespace.QName;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> {

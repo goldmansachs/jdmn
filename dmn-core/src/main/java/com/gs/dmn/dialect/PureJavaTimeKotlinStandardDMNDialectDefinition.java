@@ -32,7 +32,6 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 
-import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetTime;

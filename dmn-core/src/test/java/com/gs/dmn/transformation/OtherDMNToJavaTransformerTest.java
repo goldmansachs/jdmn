@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.transformation;
 
-import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
 public class OtherDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransformerTest {
