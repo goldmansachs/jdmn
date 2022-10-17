@@ -117,7 +117,7 @@ public class XStreamMarshaller implements DMNMarshaller {
     public TDefinitions unmarshal(String input, boolean validateSchema) {
         try (Reader firstStringReader = new StringReader(input); Reader secondStringReader = new StringReader(input)) {
             DMNVersion dmnVersion = inferDMNVersion(firstStringReader);
-            if (validateSchema) {
+            if (validateSchema && dmnVersion != null) {
                 try (StringReader reader = new StringReader(input)) {
                     validateXMLSchema(new StreamSource(reader), dmnVersion.getSchemaLocation());
                 }
@@ -133,7 +133,7 @@ public class XStreamMarshaller implements DMNMarshaller {
     public TDefinitions unmarshal(File input, boolean validateSchema) {
         try (Reader firstStringReader = new FileReader(input); Reader secondStringReader = new FileReader(input)) {
             DMNVersion dmnVersion = inferDMNVersion(firstStringReader);
-            if (validateSchema) {
+            if (validateSchema && dmnVersion != null) {
                 try (FileInputStream inputStream = new FileInputStream(input)) {
                     validateXMLSchema(new StreamSource(inputStream), dmnVersion.getSchemaLocation());
                 }
@@ -149,7 +149,7 @@ public class XStreamMarshaller implements DMNMarshaller {
     public TDefinitions unmarshal(URL input, boolean validateSchema) {
         try (Reader firstStringReader = new InputStreamReader(input.openStream()); Reader secondStringReader = new InputStreamReader(input.openStream())) {
             DMNVersion dmnVersion = inferDMNVersion(firstStringReader);
-            if (validateSchema) {
+            if (validateSchema && dmnVersion != null) {
                 try (InputStreamReader reader = new InputStreamReader(input.openStream())) {
                     validateXMLSchema(new StreamSource(reader), dmnVersion.getSchemaLocation());
                 }
@@ -165,7 +165,7 @@ public class XStreamMarshaller implements DMNMarshaller {
     public TDefinitions unmarshal(InputStream input, boolean validateSchema) {
         try (Reader firstStringReader = new InputStreamReader(input); Reader secondStringReader = new InputStreamReader(input)) {
             DMNVersion dmnVersion = inferDMNVersion(firstStringReader);
-            if (validateSchema) {
+            if (validateSchema && dmnVersion != null) {
                 try (InputStreamReader reader = new InputStreamReader(input)) {
                     validateXMLSchema(new StreamSource(reader), dmnVersion.getSchemaLocation());
                 }
