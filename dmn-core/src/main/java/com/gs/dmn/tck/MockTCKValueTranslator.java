@@ -13,7 +13,10 @@
 package com.gs.dmn.tck;
 
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.ast.*;
+import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.ast.TInformationItem;
+import com.gs.dmn.ast.TInputData;
+import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
@@ -53,7 +56,7 @@ public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
             if (path !=  null) {
                 return path;
             } else {
-                if ("null".equals(text.trim())) {
+                if ("null".equals(text.trim()) || value.isNil()) {
                     return this.nativeFactory.nullLiteral();
                 } else if (type == null) {
                     return text;
@@ -115,48 +118,41 @@ public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
         return this.nativeFactory.makeBuiltinFunctionInvocation("asList", args);
     }
 
-    private String toNativeExpression(List<Component> components, ItemDefinitionType type, TDRGElement element, TItemDefinition itemDefinition) {
-        List<Pair<String, String>> argumentList = new ArrayList<>();
-        Set<String> members = type.getMembers();
+    private String toNativeExpression(List<Component> components, CompositeDataType type, TDRGElement element, TItemDefinition itemDefinition) {
+        // Build list of members
+        List<Pair<String, String>> memberList = new ArrayList<>();
         Set<String> present = new LinkedHashSet<>();
         for (Component c : components) {
             String member = c.getName();
             Type memberType = type.getMemberType(member);
             TItemDefinition memberItemDefinition = memberItemDefinition(itemDefinition, member);
             String value = toNativeExpression(c, memberType, element, memberItemDefinition);
-            argumentList.add(new Pair<>(member, value));
+            memberList.add(new Pair<>(member, value));
             present.add(member);
         }
         // Add the missing members
+        Set<String> members = type.getMembers();
         for (String member: members) {
             if (!present.contains(member)) {
                 Type memberType = type.getMemberType(member);
                 TItemDefinition memberItemDefinition = memberItemDefinition(itemDefinition, member);
                 String value = this.transformer.getDefaultValue(memberType, memberItemDefinition);
                 Pair<String, String> pair = new Pair<>(member, value);
-                argumentList.add(pair);
+                memberList.add(pair);
             }
         }
-        sortParameters(argumentList);
-        String interfaceName = this.transformer.toNativeType(type);
-        String arguments = argumentList.stream().map(Pair::getRight).collect(Collectors.joining(", "));
-        return this.transformer.constructor(this.transformer.itemDefinitionNativeClassName(interfaceName), arguments);
-    }
-
-    private String toNativeExpression(List<Component> components, ContextType type, TDRGElement element, TItemDefinition itemDefinition) {
-        // Initialized members
-        List<Pair<String, String>> membersList = new ArrayList<>();
-        for (Component c : components) {
-            String name = c.getName();
-            Type memberType = type.getMemberType(name);
-            String value = toNativeExpression(c, memberType, element);
-            membersList.add(new Pair<>(name, value));
+        sortParameters(memberList);
+        if (type instanceof ItemDefinitionType) {
+            // Use constructor
+            String interfaceName = this.transformer.toNativeType((ItemDefinitionType) type);
+            String arguments = memberList.stream().map(Pair::getRight).collect(Collectors.joining(", "));
+            return this.transformer.constructor(this.transformer.itemDefinitionNativeClassName(interfaceName), arguments);
+        } else {
+            // Use builder pattern in Context
+            String builder = this.transformer.defaultConstructor(this.transformer.contextClassName());
+            String parts = memberList.stream().map(a -> String.format("add(\"%s\", %s)", a.getLeft(), a.getRight())).collect(Collectors.joining("."));
+            return String.format("%s.%s", builder, parts);
         }
-        // Use builder pattern in Context
-        sortParameters(membersList);
-        String builder = this.transformer.defaultConstructor(this.transformer.contextClassName());
-        String parts = membersList.stream().map(a -> String.format("add(\"%s\", %s)", a.getLeft(), a.getRight())).collect(Collectors.joining("."));
-        return String.format("%s.%s", builder, parts);
     }
 
     private TItemDefinition findItemDefinition(TDRGElement element) {
