@@ -4,10 +4,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Test0004LendingSingleton extends AbstractTest0004Lending {
+    @Override
     protected Routing makeRouting() {
         return Routing.instance();
     }
 
+    @Override
     protected Strategy makeStrategy() {
         return Strategy.instance();
     }

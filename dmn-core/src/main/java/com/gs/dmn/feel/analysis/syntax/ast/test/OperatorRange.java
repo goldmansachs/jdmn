@@ -45,6 +45,7 @@ public class OperatorRange<T, C> extends Range<T, C> {
         return this.endpoint;
     }
 
+    @Override
     public T getEndpointType() {
         return this.endpoint.getType();
     }

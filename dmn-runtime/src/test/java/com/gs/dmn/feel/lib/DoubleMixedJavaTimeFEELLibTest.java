@@ -177,6 +177,7 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Doub
     //
     // Extra conversion functions
     //
+    @Override
     @Test
     public void testToDateTime() {
         super.testToDateTime();

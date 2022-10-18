@@ -233,10 +233,12 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
         }
     }
 
+    @Override
     public LocalDate date(LocalDate date) {
         return this.mixedFeelLib.date(date);
     }
 
+    @Override
     public OffsetTime time(OffsetTime time) {
         return this.mixedFeelLib.time(time);
     }

@@ -20,6 +20,7 @@ import java.time.ZonedDateTime;
 import static org.junit.Assert.assertNull;
 
 public abstract class BaseMixedJavaTimeFEELLibExceptionsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends BaseStandardFEELLibExceptionsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+    @Override
     @Test
     public void testDate() {
         super.testDate();
@@ -27,6 +28,7 @@ public abstract class BaseMixedJavaTimeFEELLibExceptionsTest<NUMBER, DATE, TIME,
         assertNull(getBaseMixedJavaTimeLib().date((ZonedDateTime) null));
     }
 
+    @Override
     @Test
     public void testTime() {
         super.testTime();
@@ -35,6 +37,7 @@ public abstract class BaseMixedJavaTimeFEELLibExceptionsTest<NUMBER, DATE, TIME,
         assertNull(getBaseMixedJavaTimeLib().time((LocalDate) null));
     }
 
+    @Override
     @Test
     public void testDateAndTime() {
         super.testDateAndTime();
@@ -42,6 +45,7 @@ public abstract class BaseMixedJavaTimeFEELLibExceptionsTest<NUMBER, DATE, TIME,
         assertNull(getBaseMixedJavaTimeLib().dateAndTime((Object) null, null));
     }
 
+    @Override
     @Test
     public void testYearsAndMonthsDuration() {
         super.testYearsAndMonthsDuration();
@@ -51,6 +55,7 @@ public abstract class BaseMixedJavaTimeFEELLibExceptionsTest<NUMBER, DATE, TIME,
         assertNull(getBaseMixedJavaTimeLib().yearsAndMonthsDuration((LocalDate) null, (ZonedDateTime) null));
     }
 
+    @Override
     @Test
     public void testYear() {
         super.testYear();
@@ -58,6 +63,7 @@ public abstract class BaseMixedJavaTimeFEELLibExceptionsTest<NUMBER, DATE, TIME,
         assertNull(getBaseMixedJavaTimeLib().year((ZonedDateTime) null));
     }
 
+    @Override
     @Test
     public void testMonth() {
         super.testMonth();
@@ -65,6 +71,7 @@ public abstract class BaseMixedJavaTimeFEELLibExceptionsTest<NUMBER, DATE, TIME,
         assertNull(getBaseMixedJavaTimeLib().month((ZonedDateTime) null));
     }
 
+    @Override
     @Test
     public void testDay() {
         super.testDay();
@@ -72,6 +79,7 @@ public abstract class BaseMixedJavaTimeFEELLibExceptionsTest<NUMBER, DATE, TIME,
         assertNull(getBaseMixedJavaTimeLib().day((ZonedDateTime) null));
     }
 
+    @Override
     @Test
     public void testWeekday() {
         super.testWeekday();
@@ -79,6 +87,7 @@ public abstract class BaseMixedJavaTimeFEELLibExceptionsTest<NUMBER, DATE, TIME,
         assertNull(getBaseMixedJavaTimeLib().weekday((ZonedDateTime) null));
     }
 
+    @Override
     @Test
     public void testHour() {
         super.testHour();
@@ -86,6 +95,7 @@ public abstract class BaseMixedJavaTimeFEELLibExceptionsTest<NUMBER, DATE, TIME,
         assertNull(getBaseMixedJavaTimeLib().hour((ZonedDateTime) null));
     }
 
+    @Override
     @Test
     public void testMinute() {
         super.testMinute();
@@ -93,6 +103,7 @@ public abstract class BaseMixedJavaTimeFEELLibExceptionsTest<NUMBER, DATE, TIME,
         assertNull(getBaseMixedJavaTimeLib().minute((ZonedDateTime) null));
     }
 
+    @Override
     @Test
     public void testSecond() {
         super.testSecond();
@@ -100,6 +111,7 @@ public abstract class BaseMixedJavaTimeFEELLibExceptionsTest<NUMBER, DATE, TIME,
         assertNull(getBaseMixedJavaTimeLib().second((ZonedDateTime) null));
     }
 
+    @Override
     @Test
     public void testTimeOffset() {
         super.testTimeOffset();
@@ -107,6 +119,7 @@ public abstract class BaseMixedJavaTimeFEELLibExceptionsTest<NUMBER, DATE, TIME,
         assertNull(getBaseMixedJavaTimeLib().timeOffset((ZonedDateTime) null));
     }
 
+    @Override
     @Test
     public void testTimezone() {
         super.testTimezone();

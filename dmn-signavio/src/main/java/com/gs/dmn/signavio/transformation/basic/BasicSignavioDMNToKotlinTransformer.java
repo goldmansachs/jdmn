@@ -88,6 +88,7 @@ public class BasicSignavioDMNToKotlinTransformer extends BasicSignavioDMNToJavaT
         return isLazyEvaluated(elementName) ? String.format("%s?.getOrCompute()", nativeName) : nativeName;
     }
 
+    @Override
     protected String inputClassName() {
         return "MutableMap<String, String>";
     }

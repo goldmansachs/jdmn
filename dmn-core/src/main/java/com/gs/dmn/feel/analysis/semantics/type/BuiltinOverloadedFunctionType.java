@@ -53,18 +53,22 @@ public class BuiltinOverloadedFunctionType extends FunctionType {
         return false;
     }
 
+    @Override
     public List<FormalParameter<Type, DMNContext>> getParameters() {
         throw new SemanticError("Not supported yet");
     }
 
+    @Override
     public List<Type> getParameterTypes() {
         throw new SemanticError("Not supported yet");
     }
 
+    @Override
     public Type getReturnType() {
         throw new SemanticError("Not supported yet");
     }
 
+    @Override
     public void setReturnType(Type returnType) {
         throw new SemanticError("Not supported yet");
     }

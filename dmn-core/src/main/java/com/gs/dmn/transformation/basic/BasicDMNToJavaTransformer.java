@@ -442,6 +442,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         return augmentSignature(decisionSignature);
     }
 
+    @Override
     public List<Pair<String, String>> drgElementSignatureParameters(TDRGElement element) {
         DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
         return drgElementSignatureParameters(reference);
@@ -717,6 +718,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         return subDecisionReferences.stream().map(d -> this.nativeFactory.decisionConstructorParameter(d)).collect(Collectors.joining(", "));
     }
 
+    @Override
     public String drgElementConstructorNewArgumentList(TDRGElement element) {
         List<DRGElementReference<TDecision>> directSubDecisionReferences = this.dmnModelRepository.directSubDecisions(element);
         this.dmnModelRepository.sortNamedElementReferences(directSubDecisionReferences);

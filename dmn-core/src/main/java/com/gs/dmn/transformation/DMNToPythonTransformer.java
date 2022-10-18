@@ -37,6 +37,7 @@ public class DMNToPythonTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
     }
 
+    @Override
     protected void generateExtra(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
         if (dmnTransformer.isGenerateExtra()) {
             generateInitFiles(dmnTransformer, dmnModelRepository, outputPath, true);

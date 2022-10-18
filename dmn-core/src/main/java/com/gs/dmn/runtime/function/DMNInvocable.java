@@ -35,6 +35,7 @@ public class DMNInvocable extends Function {
         return invocable;
     }
 
+    @Override
     public Type getType() {
         return type;
     }

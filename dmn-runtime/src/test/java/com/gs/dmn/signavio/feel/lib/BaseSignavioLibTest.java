@@ -464,6 +464,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertFalse(getLib().isAlphanumeric("+-"));
     }
 
+    @Override
     @Test
     public void testIsNumeric() {
         assertNull(getLib().isNumeric(null));

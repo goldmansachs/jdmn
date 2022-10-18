@@ -22,6 +22,7 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
 public class ZonedDateTimeDefaultRangeLibTest extends AbstractDefaultRangeLibTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+    @Override
     protected final StandardFEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> getLib() {
         return new MixedJavaTimeFEELLib();
     }

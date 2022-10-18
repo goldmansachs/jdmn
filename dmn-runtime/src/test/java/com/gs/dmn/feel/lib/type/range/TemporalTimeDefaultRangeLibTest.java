@@ -21,6 +21,7 @@ import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
 public class TemporalTimeDefaultRangeLibTest extends AbstractDefaultRangeLibTest<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
+    @Override
     protected StandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> getLib() {
         return new PureJavaTimeFEELLib();
     }

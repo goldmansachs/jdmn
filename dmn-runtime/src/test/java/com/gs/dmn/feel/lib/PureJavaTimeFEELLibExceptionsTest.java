@@ -63,6 +63,7 @@ public class PureJavaTimeFEELLibExceptionsTest extends BaseStandardFEELLibExcept
         );
     }
 
+    @Override
     @Test
     public void testYearsAndMonthsDuration() {
         super.testYearsAndMonthsDuration();
@@ -70,6 +71,7 @@ public class PureJavaTimeFEELLibExceptionsTest extends BaseStandardFEELLibExcept
         assertNull(getLib().yearsAndMonthsDuration((Temporal) null, null));
     }
 
+    @Override
     @Test
     public void testYear() {
         super.testYear();
@@ -77,6 +79,7 @@ public class PureJavaTimeFEELLibExceptionsTest extends BaseStandardFEELLibExcept
         assertNull(getLib().year((Temporal) null));
     }
 
+    @Override
     @Test
     public void testMonth() {
         super.testMonth();
@@ -84,6 +87,7 @@ public class PureJavaTimeFEELLibExceptionsTest extends BaseStandardFEELLibExcept
         assertNull(getLib().month((Temporal) null));
     }
 
+    @Override
     @Test
     public void testDay() {
         super.testDay();
@@ -91,6 +95,7 @@ public class PureJavaTimeFEELLibExceptionsTest extends BaseStandardFEELLibExcept
         assertNull(getLib().day((Temporal) null));
     }
 
+    @Override
     @Test
     public void testWeekday() {
         assertNull(getLib().weekday((Temporal) null));
