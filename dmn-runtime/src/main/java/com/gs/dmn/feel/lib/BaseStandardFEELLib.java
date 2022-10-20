@@ -943,7 +943,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             } else if (value1 instanceof Range) {
                 return this.rangeType.rangeIs((Range) value1, (Range) value2);
             } else if (value1 instanceof Context) {
-                return this.contextType.contextIs(value1, value2);
+                return this.contextType.contextIs((Context) value1, (Context) value2);
             } else {
                 logError(String.format("'%s' is not supported yet", value1.getClass().getSimpleName()));
                 return false;

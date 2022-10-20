@@ -104,7 +104,7 @@ public class DMNShapeConverter extends ShapeConverter {
             writer.addAttribute("isListedInputData", shape.isIsListedInputData().toString());
         }
         if (shape.getIsCollapsedField() != null) {
-            writer.addAttribute("isCollapsed", Boolean.valueOf(shape.getIsCollapsedField()).toString());
+            writer.addAttribute("isCollapsed", shape.getIsCollapsedField().toString());
         }
     }
 }

@@ -17,9 +17,9 @@ import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
@@ -46,17 +46,29 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     //
     @Override
     public String constructor(String className, String arguments) {
+        className = removeOptionalParts(className);
         return String.format("%s(%s)", className, arguments);
+    }
+
+    protected String removeOptionalParts(String name) {
+        while (name.startsWith("typing.Optional[")) {
+            int first = name.indexOf("[");
+            int last = name.lastIndexOf("]");
+            name = name.substring(first + 1, last);
+        }
+        return name;
     }
 
     @Override
     public String fluentConstructor(String className, String addMethods) {
+        className = removeOptionalParts(className);
         return String.format("%s()%s", className, addMethods);
     }
 
     @Override
     public String functionalInterfaceConstructor(String functionalInterface, String returnType, String applyMethod) {
-        throw new DMNRuntimeException("Not supported yet for Python");
+        functionalInterface = removeOptionalParts(functionalInterface);
+        return String.format("%s(lambda *%s: (%s))", functionalInterface, this.transformer.lambdaArgsVariableName(), applyMethod);
     }
 
     //
@@ -65,7 +77,7 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     @Override
     public String makeItemDefinitionAccessor(String javaType, String source, String memberName) {
         memberName = this.transformer.lowerCaseFirst(memberName);
-        return String.format("(%s if %s else %s.%s)", this.nullLiteral(), isNull(source), source, memberName);
+        return String.format("%s if (%s) else (%s.%s)", this.nullLiteral(), isNull(source), source, memberName);
 
     }
 
@@ -138,7 +150,7 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
         // Flatten nested lists
         StringBuilder finalResult = new StringBuilder();
         for (int i = 0; i < domainIterators.size() - 1; i++) {
-            finalResult.append("list(flatmap(lambda x: x, ");
+            finalResult.append("list(self.flattenFirstLevel(");
         }
         // Append nested lists
         finalResult.append(nestedLists);
@@ -217,7 +229,7 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
 
     @Override
     public String makeContextMemberAssignment(String complexTypeVariable, String memberName, String value) {
-        return String.format("%s.%s %s);", complexTypeVariable, this.transformer.contextSetter(memberName), value);
+        return String.format("%s.%s %s)", complexTypeVariable, this.transformer.contextSetter(memberName), value);
     }
 
     //
@@ -242,16 +254,16 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
 
     @Override
     protected String applyMethod(String returnType, String signature, String parametersAssignment, String body) {
-        return String.format(
-                "%s" +
-                        "%s",
-                parametersAssignment, body);
+        if (StringUtils.isEmpty(parametersAssignment)) {
+            return body;
+        } else {
+            return String.format("%s %s", parametersAssignment, body);
+        }
     }
 
     @Override
     protected String makeLambdaParameterAssignment(String type, String name, int i) {
-        String nullableType = this.typeFactory.nullableType(type);
-        return String.format("%s: %s = %s[%s];", name, nullableType, transformer.lambdaArgsVariableName(), i);
+        return String.format("%s := %s[%s],", name, transformer.lambdaArgsVariableName(), i);
     }
 
     @Override
@@ -307,6 +319,16 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
+    public String trueValueConstant() {
+        return trueConstant();
+    }
+
+    @Override
+    public String falseValueConstant() {
+        return falseConstant();
+    }
+
+    @Override
     public String nullLiteral() {
         return "None";
     }
@@ -318,6 +340,13 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     public String makeListConversion(String javaExpression, ItemDefinitionType expectedElementType) {
         String elementConversion = convertToItemDefinitionType("x", expectedElementType);
         return String.format("list(map(lambda x: %s, %s))", elementConversion, javaExpression);
+    }
+
+    @Override
+    public String convertToItemDefinitionType(String expression, ItemDefinitionType type) {
+        String convertMethodName = convertMethodName(type);
+        String interfaceName = transformer.toNativeType(type);
+        return String.format("%s().%s(%s)", interfaceName, convertMethodName, expression);
     }
 
     @Override

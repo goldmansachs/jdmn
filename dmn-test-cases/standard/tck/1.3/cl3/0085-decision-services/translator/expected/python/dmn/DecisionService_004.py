@@ -4,7 +4,13 @@ import datetime
 import isodate
 import time
 
+import jdmn.runtime.Context
 import jdmn.runtime.DefaultDMNBaseDecision
+import jdmn.runtime.ExecutionContext
+import jdmn.runtime.LambdaExpression
+import jdmn.runtime.LazyEval
+import jdmn.runtime.Pair
+import jdmn.runtime.Range
 import jdmn.runtime.RuleOutput
 import jdmn.runtime.RuleOutputList
 
@@ -70,6 +76,7 @@ class DecisionService_004(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
         except Exception as e:
             self.logError("Exception caught in 'decisionService_004' evaluation", e)
             return None
+
     def evaluate(self, annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
         # Apply child decisions
         decision_004_2: typing.Optional[str] = self.decision_004_2.apply(annotationSet_, eventListener_, externalExecutor_, cache_)

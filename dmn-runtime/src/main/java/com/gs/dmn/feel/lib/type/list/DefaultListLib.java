@@ -188,10 +188,10 @@ public class DefaultListLib implements ListLib {
     }
 
     @Override
-    public <T> List<T> sort(List<T> list, LambdaExpression<Boolean> comparator) {
+    public <T> List<T> sort(List<T> list, LambdaExpression<Boolean> precedes) {
         List<T> clone = new ArrayList<>(list);
         Comparator<? super T> comp = (Comparator<T>) (o1, o2) -> {
-            if (comparator.apply(o1, o2)) {
+            if (precedes.apply(o1, o2)) {
                 return -1;
             } else if (o1 != null && o1.equals(o2)) {
                 return 0;

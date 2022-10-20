@@ -20,14 +20,17 @@ import java.time.LocalDate;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
-public class TemporalDateTimeDefaultRangeLibTest extends AbstractDefaultRangeLibTest {
-    private final StandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> feelLib = new PureJavaTimeFEELLib();
+public class TemporalDateTimeDefaultRangeLibTest extends AbstractDefaultRangeLibTest<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
+    @Override
+    protected StandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> getLib() {
+        return new PureJavaTimeFEELLib();
+    }
 
     @Override
     protected Temporal makePoint(int number) {
         if (number < 0 || number > 60) {
             throw new IllegalArgumentException("Illegal day");
         }
-        return this.feelLib.dateAndTime(String.format("2020-01-01T12:00:%02d", number));
+        return this.getLib().dateAndTime(String.format("2020-01-01T12:00:%02d", number));
     }
 }

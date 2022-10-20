@@ -353,6 +353,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
     //
     // Extra conversion functions
     //
+    @Override
     public LocalDate toDate(Object from) {
         if (from instanceof Temporal) {
             return date((Temporal) from);
@@ -360,6 +361,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         return null;
     }
 
+    @Override
     public Temporal toTime(Object from) {
         if (from instanceof Temporal) {
             return time((Temporal) from);

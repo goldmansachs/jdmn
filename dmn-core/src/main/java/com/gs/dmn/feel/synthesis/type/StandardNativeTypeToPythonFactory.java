@@ -31,7 +31,7 @@ public class StandardNativeTypeToPythonFactory extends PythonTypeFactory {
     private static final Map<String, String> FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE = new LinkedHashMap<>();
     static {
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(ENUMERATION.getName(), "str");
-        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), "datetime.timedelta");
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), "isodate.Duration");
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(DAYS_AND_TIME_DURATION.getName(), "datetime.timedelta");
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(DATE_AND_TIME.getName(), "datetime.datetime");
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(TIME.getName(), "datetime.time");

@@ -46,6 +46,7 @@ public abstract class AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         return result.toString().toLowerCase();
     }
 
+    @Override
     protected Map<String, String> makeInputParametersMap() {
         Map<String, String> inputParams = new LinkedHashMap<>();
         inputParams.put("dmnVersion", "1.1");

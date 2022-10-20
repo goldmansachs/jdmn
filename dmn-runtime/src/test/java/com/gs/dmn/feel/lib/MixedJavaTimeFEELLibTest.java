@@ -97,8 +97,8 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
 
     @Override
     @Test
-    public void testDateTime() {
-        super.testDateTime();
+    public void testDateAndTime() {
+        super.testDateAndTime();
 
         //
         // conversion from string
@@ -129,8 +129,6 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
         assertEqualsDateTime("P7Y6M", getLib().yearsAndMonthsDuration(makeDateAndTime("2010-05-30T03:55:58"), makeDateAndTime("2017-12-15T00:59:59")));
         assertEqualsDateTime("-P4033Y2M", getLib().yearsAndMonthsDuration(makeDateAndTime("2014-12-31T23:59:59"), makeDateAndTime("-2019-10-01T12:32:59")));
         assertEqualsDateTime("-P4035Y11M", getLib().yearsAndMonthsDuration(makeDateAndTime("2017-09-05T10:20:00-01:00"), makeDateAndTime("-2019-10-01T12:32:59+02:00")));
-
-        assertEqualsDateTime("P0Y0M", getLib().yearsAndMonthsDuration(getLib().dateAndTime("2015-12-24T12:15:00.000+01:00"), getLib().dateAndTime("2015-12-24T12:15:00.000+01:00")));
     }
 
     @Test
@@ -175,6 +173,18 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
         assertEquals("2017-09-05T09:15:30.987654321+01:00", getLib().string(getLib().dateAndTime(getLib().dateAndTime("2017-09-05T10:20:00"), getLib().time("09:15:30.987654321@Europe/Paris"))));
         assertEquals("2017-09-05T09:15:30.987654321+01:00", getLib().string(getLib().dateAndTime(getLib().dateAndTime("2017-09-05T10:20:00-01:00"), getLib().time("09:15:30.987654321@Europe/Paris"))));
         assertEquals("2017-09-05T09:15:30.987654321+01:00", getLib().string(getLib().dateAndTime(getLib().dateAndTime("2017-09-05T10:20:00@Europe/Paris"), getLib().time("09:15:30.987654321@Europe/Paris"))));
+    }
+
+    //
+    // Extra conversion functions
+    //
+    @Override
+    @Test
+    public void testToDateTime() {
+        super.testToDateTime();
+
+        assertEqualsDateTime("2016-08-01T00:00:00Z@UTC", getLib().toDateTime(makeDate("2016-08-01")));
+        assertEqualsDateTime("2016-08-01T12:00:00Z", getLib().toDateTime(makeDateAndTime("2016-08-01T12:00:00Z")));
     }
 
     //

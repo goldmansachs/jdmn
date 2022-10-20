@@ -35,6 +35,7 @@ public class DMNFunction extends Function {
         return functionDefinition;
     }
 
+    @Override
     public Type getType() {
         return type;
     }

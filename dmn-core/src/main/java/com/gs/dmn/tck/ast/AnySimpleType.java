@@ -148,6 +148,10 @@ public class AnySimpleType extends DMNBaseElement {
         }
     }
 
+    public boolean isNil() {
+        return "nil".equals(getType());
+    }
+
     private String getType() {
         for (Map.Entry<QName, String> entry : this.otherAttributes.entrySet()) {
             QName qName = entry.getKey();

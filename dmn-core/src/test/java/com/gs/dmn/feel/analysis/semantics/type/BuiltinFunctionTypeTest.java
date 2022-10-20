@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics.type;
 
 public class BuiltinFunctionTypeTest extends FunctionTypeTest {
+    @Override
     protected FunctionType makeFunctionType() {
         return new BuiltinFunctionType(null);
     }

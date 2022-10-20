@@ -100,7 +100,7 @@ public class ItemDefinitionConverter extends NamedElementConverter {
             writer.addAttribute(TYPE_LANGUAGE, id.getTypeLanguage());
         }
         if (id.getIsCollectionField() != null) {
-            writer.addAttribute(IS_COLLECTION, Boolean.valueOf(id.getIsCollectionField()).toString());
+            writer.addAttribute(IS_COLLECTION, id.getIsCollectionField().toString());
         }
     }
 }

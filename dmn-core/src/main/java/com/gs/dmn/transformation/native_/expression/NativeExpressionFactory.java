@@ -139,6 +139,12 @@ public interface NativeExpressionFactory {
 
     String falseConstant();
 
+    String booleanValueLiteral(String lexeme);
+
+    String trueValueConstant();
+
+    String falseValueConstant();
+
     String dateTimeLiteral(DateTimeLiteral<Type, DMNContext> element);
 
     String nullLiteral();

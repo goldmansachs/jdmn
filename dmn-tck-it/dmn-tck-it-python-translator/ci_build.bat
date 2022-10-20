@@ -1,9 +1,9 @@
 @ECHO OFF
 
 @REM mvn clean does not remove them
-if exist .pytest_cache del /F /Q .pytest_cache
-if exist .tox del /F /Q .tox
-if exist .venv del /F /Q .venv
+if exist .pytest_cache rmdir /s /q .pytest_cache
+if exist .tox rmdir /s /q .tox
+if exist .venv rmdir /s /q .venv
 
 call ci/make_env.bat .venv && (
   echo Python venv was created

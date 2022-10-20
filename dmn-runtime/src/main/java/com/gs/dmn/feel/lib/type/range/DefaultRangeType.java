@@ -36,7 +36,15 @@ public class DefaultRangeType extends BaseType implements RangeType {
 
     @Override
     public Boolean rangeEqual(Range range1, Range range2) {
-        return range1 != null && range1.equals(range2);
+        if (range1 == null && range2 == null) {
+            return true;
+        } else if (range1 == null) {
+            return false;
+        } else if (range2 == null) {
+            return false;
+        } else {
+            return range1.equals(range2);
+        }
     }
 
     @Override

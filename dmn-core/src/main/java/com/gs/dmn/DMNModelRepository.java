@@ -24,6 +24,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.ast.TBuiltinAggregator.COUNT;
@@ -32,6 +34,7 @@ import static com.gs.dmn.ast.TBuiltinAggregator.SUM;
 public class DMNModelRepository {
     public static final String FREE_TEXT_LANGUAGE = "free_text";
     protected static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
+    private static Pattern WORD = Pattern.compile("\\w+");
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(DMNModelRepository.class);
 
@@ -275,6 +278,10 @@ public class DMNModelRepository {
             }
         }
         return this.itemDefinitions;
+    }
+
+    public boolean isRecursiveBKM(TDRGElement element) {
+        return element instanceof TBusinessKnowledgeModel && isRecursive(((TBusinessKnowledgeModel) element).getEncapsulatedLogic().getExpression(), element.getName());
     }
 
     public List<TDRGElement> findDRGElements(TDefinitions definitions) {
@@ -1237,4 +1244,16 @@ public class DMNModelRepository {
         }
     }
 
+    private boolean isRecursive(TExpression exp, String bkm) {
+        if (exp instanceof TLiteralExpression) {
+            String text = ((TLiteralExpression) exp).getText();
+            Matcher matcher = WORD.matcher(text);
+            while (matcher.find()) {
+                if (bkm.equals(matcher.group())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

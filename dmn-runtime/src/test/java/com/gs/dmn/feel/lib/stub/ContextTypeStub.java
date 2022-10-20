@@ -30,26 +30,26 @@ public class ContextTypeStub implements ContextType {
     }
 
     @Override
-    public Boolean contextIs(Object c1, Object c2) {
+    public Boolean contextIs(Context c1, Context c2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean contextEqual(Object c1, Object c2) {
+    public Boolean contextEqual(Context c1, Context c2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean contextNotEqual(Object c1, Object c2) {
+    public Boolean contextNotEqual(Context c1, Context c2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public List getEntries(Object context) {
+    public List getEntries(Context context) {
         throw new DMNRuntimeException("Not supported yet");    }
 
     @Override
-    public Object getValue(Object context, Object key) {
+    public Object getValue(Context context, Object key) {
         throw new DMNRuntimeException("Not supported yet");
     }
 }

@@ -1191,7 +1191,7 @@
                             <inputFileDirectory>${tck.11.diagram.folder}/cl3/0031-static-user-defined-functions/translator/0031-static-user-defined-functions.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_static_0031_user_defined_functions</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0031_static_user_defined_functions</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1206,7 +1206,7 @@
                             <inputModelFileDirectory>${tck.11.diagram.folder}/cl3/0031-static-user-defined-functions/translator/0031-static-user-defined-functions.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_static_0031_user_defined_functions</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0031_static_user_defined_functions</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>

@@ -12,8 +12,6 @@
  */
 package com.gs.dmn.transformation.template;
 
-import com.gs.dmn.runtime.DMNRuntimeException;
-
 public class PythonTreeTemplateProvider extends TreeTemplateProvider {
     @Override
     public String baseTemplatePath() {

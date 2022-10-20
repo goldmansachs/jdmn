@@ -4,8 +4,8 @@ import datetime
 import time
 import isodate
 
-import type_.TApplicantData
 import type_.Monthly
+import type_.TApplicantData
 
 
 # Generated(value = {"itemDefinition.ftl", "tApplicantData"})

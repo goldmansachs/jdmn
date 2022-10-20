@@ -384,7 +384,13 @@ import datetime
 import isodate
 import time
 
+import ${transformer.jdmnRootPackage()}.runtime.Context
 import ${transformer.jdmnRootPackage()}.runtime.DefaultDMNBaseDecision
+import ${transformer.jdmnRootPackage()}.runtime.ExecutionContext
+import ${transformer.jdmnRootPackage()}.runtime.LambdaExpression
+import ${transformer.jdmnRootPackage()}.runtime.LazyEval
+import ${transformer.jdmnRootPackage()}.runtime.Pair
+import ${transformer.jdmnRootPackage()}.runtime.Range
 import ${transformer.jdmnRootPackage()}.runtime.RuleOutput
 import ${transformer.jdmnRootPackage()}.runtime.RuleOutputList
 
@@ -417,6 +423,7 @@ import ${transformer.jdmnRootPackage()}.runtime.listener.Rule
 
 <@importSubInvocables drgElement/>
 </#if>
+<@importRecursiveBKM drgElement/>
 <#if modelRepository.isDecisionTableExpression(drgElement)>
 
 import ${transformer.qualifiedModuleName(javaPackageName, transformer.ruleOutputClassName(drgElement))}
@@ -425,8 +432,8 @@ import ${transformer.qualifiedModuleName(javaPackageName, transformer.ruleOutput
 
 <#macro importComplexInputDatas drgElement>
     <#list transformer.drgElementComplexInputClassNames(drgElement)>
-        <#items as className>
-import ${transformer.qualifiedModuleName(transformer.nativeTypePackageName(modelName), className)}
+        <#items as module>
+import ${module}
         </#items>
     </#list>
 </#macro>
@@ -434,7 +441,7 @@ import ${transformer.qualifiedModuleName(transformer.nativeTypePackageName(model
 <#macro importSubDecisions drgElement>
     <#list modelRepository.directSubDecisions(drgElement)>
         <#items as subDecision>
-import ${transformer.qualifiedModuleName(javaPackageName, transformer.drgElementClassName(subDecision))}
+import ${transformer.qualifiedModuleName(subDecision)}
         </#items>
     </#list>
 </#macro>
@@ -442,9 +449,16 @@ import ${transformer.qualifiedModuleName(javaPackageName, transformer.drgElement
 <#macro importSubInvocables drgElement>
     <#list modelRepository.directSubInvocables(drgElement)>
         <#items as bkm>
-import ${transformer.qualifiedModuleName(javaPackageName, transformer.drgElementClassName(bkm))}
+import ${transformer.qualifiedModuleName(bkm)}
         </#items>
     </#list>
+</#macro>
+
+<#macro importRecursiveBKM drgElement>
+    <#if modelRepository.isRecursiveBKM(drgElement)>
+
+import ${transformer.qualifiedModuleName(drgElement)}
+    </#if>
 </#macro>
 
 <#macro singletonPattern drgElement>

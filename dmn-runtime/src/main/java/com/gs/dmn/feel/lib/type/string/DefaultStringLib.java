@@ -187,6 +187,8 @@ public class DefaultStringLib implements StringLib {
     }
 
     @Override
+    // Semantics according to DMN
+    // https://www.w3.org/TR/xquery-operators/#func-replace
     public String replace(String input, String pattern, String replacement, String flags) throws Exception {
         if (input == null || pattern == null || replacement == null) {
             return null;
@@ -195,11 +197,12 @@ public class DefaultStringLib implements StringLib {
             flags = "";
         }
 
-        String expression = String.format("replace(/root, '%s', '%s', '%s')", pattern, replacement, flags);
-        return evaluateXPath(input, expression);
+        return evaluateReplace(input, pattern, replacement, flags);
     }
 
     @Override
+    // Semantics according to DMN
+    // See https://www.w3.org/TR/xquery-operators/#func-matches
     public Boolean matches(String input, String pattern, String flags) throws Exception {
         if (input == null || pattern == null) {
             return false;
@@ -208,9 +211,7 @@ public class DefaultStringLib implements StringLib {
             flags = "";
         }
 
-        String expression = String.format("/root[matches(., '%s', '%s')]", pattern, flags);
-        String value = evaluateXPath(input, expression);
-        return input.equals(value);
+        return evaluateMatches(input, pattern, flags);
     }
 
     @Override
@@ -238,6 +239,17 @@ public class DefaultStringLib implements StringLib {
             result.add(token);
         }
         return result;
+    }
+
+    private String evaluateReplace(String input, String pattern, String replacement, String flags) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
+        String expression = String.format("replace(/root, '%s', '%s', '%s')", pattern, replacement, flags);
+        return evaluateXPath(input, expression);
+    }
+
+    private boolean evaluateMatches(String input, String pattern, String flags) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
+        String expression = String.format("/root[matches(., '%s', '%s')]", pattern, flags);
+        String value = evaluateXPath(input, expression);
+        return input.equals(value);
     }
 
     private String evaluateXPath(String input, String expression) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {

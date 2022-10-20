@@ -68,7 +68,6 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
                     return negate == -1 ? dayTimePart.negated() : dayTimePart;
                 }
             }
-
         }
         throw new DateTimeParseException("Text cannot be parsed to a Duration", text, 0);
     }

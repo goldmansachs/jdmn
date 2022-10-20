@@ -15,8 +15,6 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
-import java.net.URI;
-
 public class DMNToJavaProtoTransformerTest extends AbstractTckDMNToJavaTransformerTest {
     @Override
     protected String getInputPath() {

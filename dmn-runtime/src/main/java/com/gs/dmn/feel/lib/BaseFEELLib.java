@@ -1210,7 +1210,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     @Override
-    public Boolean contextIs(Object c1, Object c2) {
+    public Boolean contextIs(Context c1, Context c2) {
         try {
             return contextType.contextIs(c1, c2);
         } catch (Exception e) {
@@ -1221,7 +1221,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     @Override
-    public Boolean contextEqual(Object c1, Object c2) {
+    public Boolean contextEqual(Context c1, Context c2) {
         try {
             return contextType.contextEqual(c1, c2);
         } catch (Exception e) {
@@ -1232,7 +1232,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     @Override
-    public Boolean contextNotEqual(Object c1, Object c2) {
+    public Boolean contextNotEqual(Context c1, Context c2) {
         try {
             return contextType.contextNotEqual(c1, c2);
         } catch (Exception e) {
@@ -1246,7 +1246,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     // Context functions
     //
     @Override
-    public List getEntries(Object m) {
+    public List getEntries(Context m) {
         try {
             return contextType.getEntries(m);
         } catch (Exception e) {
@@ -1257,7 +1257,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     @Override
-    public Object getValue(Object m, Object key) {
+    public Object getValue(Context m, Object key) {
         try {
             return contextType.getValue(m, key);
         } catch (Exception e) {
@@ -1384,7 +1384,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     //
-    // Conversion functions
+    // Implicit conversion functions
     //
     @Override
     public<T> List<T> asList(T ...objects) {
@@ -1409,7 +1409,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     //
-    // Other functions
+    // Extra conversion functions
     //
     @Override
     public List<NUMBER> rangeToList(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end) {

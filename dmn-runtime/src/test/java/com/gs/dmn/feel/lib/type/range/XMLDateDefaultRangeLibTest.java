@@ -19,14 +19,17 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
-public class XMLDateDefaultRangeLibTest extends AbstractDefaultRangeLibTest {
-    private final StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> feelLib = new DefaultFEELLib();
+public class XMLDateDefaultRangeLibTest extends AbstractDefaultRangeLibTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+    @Override
+    protected final StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> getLib() {
+        return new DefaultFEELLib();
+    }
 
     @Override
     protected XMLGregorianCalendar makePoint(int number) {
         if (number < 1 || number > 31) {
             throw new IllegalArgumentException("Illegal day");
         }
-        return this.feelLib.date(String.format("2010-01-%02d", number));
+        return this.getLib().date(String.format("2010-01-%02d", number));
     }
 }

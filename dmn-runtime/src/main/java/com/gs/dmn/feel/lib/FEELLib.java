@@ -23,6 +23,7 @@ import com.gs.dmn.feel.lib.type.time.DateTimeType;
 import com.gs.dmn.feel.lib.type.time.DateType;
 import com.gs.dmn.feel.lib.type.time.DurationType;
 import com.gs.dmn.feel.lib.type.time.TimeType;
+import com.gs.dmn.runtime.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -107,9 +108,9 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     // Context functions
     //
     @Override
-    List getEntries(Object m);
+    List getEntries(Context m);
     @Override
-    Object getValue(Object m, Object key);
+    Object getValue(Context m, Object key);
 
     //
     // Date time properties

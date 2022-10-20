@@ -29,8 +29,8 @@ public class Component extends ValueType {
         return name;
     }
 
-    public void setName(String value) {
-        this.name = value;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

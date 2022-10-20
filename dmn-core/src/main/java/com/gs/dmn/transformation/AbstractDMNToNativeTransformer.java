@@ -18,7 +18,6 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNVersion;
@@ -45,7 +44,6 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     public static final String PRIORITY_SUFFIX = "Priority";
 
     public static final String LIST_TYPE = "List";
-    public static final String CONTEXT_CLASS_NAME = Context.class.getName();
 
     private static final String REGISTRY_CLASS_NAME = "ModelElementRegistry";
 

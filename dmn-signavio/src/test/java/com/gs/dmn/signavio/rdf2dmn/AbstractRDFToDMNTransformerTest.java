@@ -119,6 +119,7 @@ public abstract class AbstractRDFToDMNTransformerTest extends AbstractSignavioFi
         return new RDFToDMNTransformer(inputParameters, logger);
     }
 
+    @Override
     protected Map<String, String> makeInputParametersMap() {
         Map<String, String> map = super.makeInputParametersMap();
         map.put("namespace", "http://www.gs.com/cip");

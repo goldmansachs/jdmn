@@ -21,13 +21,13 @@ public interface ContextType {
 
     Context contextValue(Context value);
 
-    Boolean contextIs(Object c1, Object c2);
+    Boolean contextIs(Context c1, Context c2);
 
-    Boolean contextEqual(Object c1, Object c2);
+    Boolean contextEqual(Context c1, Context c2);
 
-    Boolean contextNotEqual(Object c1, Object c2);
+    Boolean contextNotEqual(Context c1, Context c2);
 
-    List getEntries(Object context);
+    List getEntries(Context context);
 
-    Object getValue(Object context, Object key);
+    Object getValue(Context context, Object key);
 }

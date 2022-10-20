@@ -27,7 +27,6 @@ import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.HitPolicy;
 import com.gs.dmn.runtime.annotation.Rule;
-import com.gs.dmn.runtime.external.JavaExternalFunction;
 import com.gs.dmn.runtime.external.JavaFunctionInfo;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.native_.NativeFactory;
@@ -541,9 +540,9 @@ public class DMNExpressionToNativeTransformer {
     private String javaFunctionToNative(JavaFunctionInfo javaInfo, FunctionType functionType) {
         String paramTypesArg = javaInfo.getParamTypes().stream().map(p -> String.format("\"%s\"", p)).collect(Collectors.joining(", "));
         String javaInfoArgs = String.format("\"%s\", \"%s\", Arrays.asList(%s)", javaInfo.getClassName(), javaInfo.getMethodName(), paramTypesArg);
-        String javaInfoArg = this.dmnTransformer.constructor(JavaFunctionInfo.class.getName(), javaInfoArgs);
+        String javaInfoArg = this.dmnTransformer.constructor(this.dmnTransformer.javaFunctionInfoClassName(), javaInfoArgs);
         String returnType = this.dmnTransformer.toNativeType(functionType.getReturnType());
-        String className = this.nativeTypeFactory.constructorOfGenericType(JavaExternalFunction.class.getName(), returnType);
+        String className = this.nativeTypeFactory.constructorOfGenericType(this.dmnTransformer.javaExternalFunctionClassName(), returnType);
         String javaClassOfReturnType = this.nativeTypeFactory.javaClass(returnType);
         return this.dmnTransformer.constructor(className, String.format("%s, %s, %s", javaInfoArg, this.dmnTransformer.externalExecutorVariableName(), javaClassOfReturnType));
     }
@@ -566,7 +565,7 @@ public class DMNExpressionToNativeTransformer {
             }
         } else if (functionType instanceof DMNFunctionType) {
             String returnType = this.dmnTransformer.toNativeType(this.dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
-            String signature = dmnTransformer.lambdaApplySignature();
+            String signature = this.dmnTransformer.lambdaApplySignature();
             String applyMethod = this.nativeFactory.applyMethod(functionType, signature, convertToContext, body);
             return functionDefinitionToNative(returnType, applyMethod);
         }
@@ -574,7 +573,7 @@ public class DMNExpressionToNativeTransformer {
     }
 
     private String functionDefinitionToNative(String returnType, String applyMethod) {
-        String functionalInterface = LambdaExpression.class.getName();
+        String functionalInterface = this.dmnTransformer.lambdaExpressionClassName();
         return this.nativeFactory.functionalInterfaceConstructor(functionalInterface, returnType, applyMethod);
     }
 

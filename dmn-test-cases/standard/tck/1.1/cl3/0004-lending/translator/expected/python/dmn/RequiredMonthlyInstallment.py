@@ -4,7 +4,13 @@ import datetime
 import isodate
 import time
 
+import jdmn.runtime.Context
 import jdmn.runtime.DefaultDMNBaseDecision
+import jdmn.runtime.ExecutionContext
+import jdmn.runtime.LambdaExpression
+import jdmn.runtime.LazyEval
+import jdmn.runtime.Pair
+import jdmn.runtime.Range
 import jdmn.runtime.RuleOutput
 import jdmn.runtime.RuleOutputList
 
@@ -24,6 +30,7 @@ import jdmn.runtime.listener.EventListener
 import jdmn.runtime.listener.Rule
 
 import type_.TRequestedProduct
+import type_.TRequestedProductImpl
 
 import InstallmentCalculation
 
@@ -63,4 +70,4 @@ class RequiredMonthlyInstallment(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             return None
 
     def evaluate(self, requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[decimal.Decimal]:
-        return InstallmentCalculation.InstallmentCalculation.instance().apply((None if requestedProduct is None else requestedProduct.productType), (None if requestedProduct is None else requestedProduct.rate), (None if requestedProduct is None else requestedProduct.term), (None if requestedProduct is None else requestedProduct.amount), annotationSet_, eventListener_, externalExecutor_, cache_)
+        return InstallmentCalculation.InstallmentCalculation.instance().apply(None if (requestedProduct is None) else (requestedProduct.productType), None if (requestedProduct is None) else (requestedProduct.rate), None if (requestedProduct is None) else (requestedProduct.term), None if (requestedProduct is None) else (requestedProduct.amount), annotationSet_, eventListener_, externalExecutor_, cache_)

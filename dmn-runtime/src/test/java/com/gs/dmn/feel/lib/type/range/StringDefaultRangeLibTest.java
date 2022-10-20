@@ -12,7 +12,18 @@
  */
 package com.gs.dmn.feel.lib.type.range;
 
-public class StringDefaultRangeLibTest extends AbstractDefaultRangeLibTest {
+import com.gs.dmn.feel.lib.DefaultFEELLib;
+import com.gs.dmn.feel.lib.StandardFEELLib;
+
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
+
+public class StringDefaultRangeLibTest extends AbstractDefaultRangeLibTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+    @Override
+    protected final StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> getLib() {
+        return new DefaultFEELLib();
+    }
     @Override
     protected String makePoint(int number) {
         return String.format("%03d", number);

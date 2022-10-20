@@ -4,7 +4,13 @@ import datetime
 import isodate
 import time
 
+import jdmn.runtime.Context
 import jdmn.runtime.DefaultDMNBaseDecision
+import jdmn.runtime.ExecutionContext
+import jdmn.runtime.LambdaExpression
+import jdmn.runtime.LazyEval
+import jdmn.runtime.Pair
+import jdmn.runtime.Range
 import jdmn.runtime.RuleOutput
 import jdmn.runtime.RuleOutputList
 
@@ -69,7 +75,7 @@ class Decision_013_1(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
 
         decisionService_013: typing.Optional[str] = DecisionService_013.DecisionService_013.instance().apply("A", "B", annotationSet_, eventListener_, externalExecutor_, cache_)
         decision_013_1: typing.Optional[jdmn.runtime.Context.Context] = jdmn.runtime.Context.Context()
-        decision_013_1.put("decisionService_013",  decisionService_013);
-        decision_013_1.put("inputData_013_1",  inputData_013_1);
-        decision_013_1.put("decision_013_3",  decision_013_3);
+        decision_013_1.put("decisionService_013",  decisionService_013)
+        decision_013_1.put("inputData_013_1",  inputData_013_1)
+        decision_013_1.put("decision_013_3",  decision_013_3)
         return decision_013_1

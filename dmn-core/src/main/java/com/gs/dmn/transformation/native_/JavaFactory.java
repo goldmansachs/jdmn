@@ -352,6 +352,22 @@ public class JavaFactory implements NativeFactory {
     }
 
     @Override
+    public String booleanValueLiteral(String lexeme) {
+        lexeme = lexeme.trim();
+        return "true".equals(lexeme) ? trueValueConstant() : falseValueConstant();
+    }
+
+    @Override
+    public String trueValueConstant() {
+        return "true";
+    }
+
+    @Override
+    public String falseValueConstant() {
+        return "false";
+    }
+
+    @Override
     public String nullLiteral() {
         return "null";
     }

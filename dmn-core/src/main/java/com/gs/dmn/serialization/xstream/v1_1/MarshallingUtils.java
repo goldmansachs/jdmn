@@ -50,15 +50,6 @@ public final class MarshallingUtils {
         }
     }
 
-    public static String formatQName(String str) {
-        QName qname = parseQNameString(str);
-        if (!XMLConstants.DEFAULT_NS_PREFIX.equals(qname.getPrefix())) {
-            return qname.getPrefix() + ":" + qname.getLocalPart();
-        } else {
-            return qname.toString();
-        }
-    }
-
     public static String defineExpressionNodeName(TExpression e) {
         String nodeName = "expression";
         if (e instanceof TContext) {

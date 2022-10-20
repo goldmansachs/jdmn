@@ -14,14 +14,15 @@ package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.ast.*;
+import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.ast.TInvocable;
+import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.InputParameters;
@@ -37,15 +38,6 @@ import java.util.stream.Collectors;
 public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     public BasicDMNToPythonTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
         super(dialect, dmnModelRepository, environmentFactory, feelTypeTranslator, lazyEvaluationDetector, inputParameters);
-    }
-
-    //
-    // DRGElement related functions
-    //
-    @Override
-    public String drgElementSignature(DRGElementReference<? extends TDRGElement> reference) {
-        String result = super.drgElementSignature(reference);
-        return augmentWithSelf(result);
     }
 
     @Override
@@ -67,22 +59,29 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     }
 
     @Override
-    public String itemDefinitionNativeClassName(String interfaceName) {
-        if (interfaceName.startsWith("typing.Optional[")) {
-            int first = interfaceName.indexOf("[");
-            int last = interfaceName.indexOf("]");
-            String simpleInterfaceName = interfaceName.substring(first + 1, last);
-            return interfaceName.replaceAll(simpleInterfaceName, simpleInterfaceName + "Impl");
+    public String itemDefinitionNativeClassName(String qInterfaceName) {
+        String name = qInterfaceName;
+        // Remove Optional parts
+        name = removeOptionalParts(name);
+        //  Find simple name from qualified name p.I.I
+        String simpleInterfaceName;
+        int i = name.lastIndexOf(".");
+        if (i == -1) {
+            simpleInterfaceName = name;
         } else {
-            int i = interfaceName.lastIndexOf(".");
-            if (i == -1) {
-                return interfaceName + "Impl";
-            } else {
-                // It's a qualified name p.I.I
-                String simpleInterfaceName = interfaceName.substring(i + 1);
-                return interfaceName.replaceAll(simpleInterfaceName, simpleInterfaceName + "Impl");
-            }
+            simpleInterfaceName = name.substring(i + 1);
         }
+        String simpleClassName = simpleInterfaceName + "Impl";
+        return qInterfaceName.replaceAll(simpleInterfaceName, simpleClassName);
+    }
+
+    protected String removeOptionalParts(String name) {
+        while (name.startsWith("typing.Optional[")) {
+            int first = name.indexOf("[");
+            int last = name.lastIndexOf("]");
+            name = name.substring(first + 1, last);
+        }
+        return name;
     }
 
     @Override
@@ -115,8 +114,22 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     }
 
     @Override
+    public String drgElementSignature(DRGElementReference<? extends TDRGElement> reference) {
+        String result = super.drgElementSignature(reference);
+        return augmentWithSelf(result);
+    }
+
+    @Override
     public String drgElementConstructorSignature(TDRGElement element) {
         return augmentWithSelf(super.drgElementConstructorSignature(element));
+    }
+
+    //
+    // NamedElement functions
+    //
+    @Override
+    public String lambdaApplySignature() {
+        return "*" + lambdaArgsVariableName();
     }
 
     //
@@ -132,6 +145,7 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
         return isLazyEvaluated(elementName) ? String.format("%s.getOrCompute()", nativeName) : nativeName;
     }
 
+    @Override
     protected String inputClassName() {
         return "dict";
     }
@@ -162,7 +176,7 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
 
     @Override
     protected String makeFunctionType(String name, String returnType) {
-        throw new DMNRuntimeException("Not supported yet for Python");
+        return name;
     }
 
     @Override
@@ -186,6 +200,19 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
         String superRoot = super.jdmnRootPackage();
         qName = qName.replace(superRoot, jdmnRootPackage());
         return qName;
+    }
+
+    @Override
+    public String qualifiedModuleName(DRGElementReference<? extends TDRGElement> reference) {
+        return qualifiedModuleName(reference.getElement());
+    }
+
+    @Override
+    public String qualifiedModuleName(TDRGElement element) {
+        TDefinitions definitions = this.dmnModelRepository.getModel(element);
+        String pkg = this.nativeModelPackageName(definitions.getName());
+        String name = drgElementClassName(element);
+        return qualifiedModuleName(pkg, name);
     }
 
     @Override
@@ -226,11 +253,11 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     //
     @Override
     public String makeIntegerForInput(String text) {
-        return this.nativeFactory.constructor(getNativeNumberType(), String.format("str(int(%s))", text));
+        return this.nativeFactory.constructor(getNativeNumberType(), String.format("str(int(\"%s\"))", text));
     }
 
     @Override
     public String makeDecimalForInput(String text) {
-        return this.nativeFactory.constructor(getNativeNumberType(), String.format("str(float(%s))", text));
+        return this.nativeFactory.constructor(getNativeNumberType(), String.format("str(float(\"%s\"))", text));
     }
 }

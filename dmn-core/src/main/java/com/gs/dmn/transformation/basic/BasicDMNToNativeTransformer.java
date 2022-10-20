@@ -304,6 +304,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String contextClassName();
 
+    String rangeClassName();
+
     String executorClassName();
 
     String registryClassName();
@@ -359,6 +361,12 @@ public interface BasicDMNToNativeTransformer<T, C> {
     String drgRuleMetadataFieldName();
 
     String assertClassName();
+
+    String javaExternalFunctionClassName();
+
+    String lambdaExpressionClassName();
+
+    String javaFunctionInfoClassName();
 
     //
     // Decision Table related functions
@@ -484,6 +492,10 @@ public interface BasicDMNToNativeTransformer<T, C> {
     String qualifiedName(TDRGElement element);
 
     String qualifiedName(Class<?> cls);
+
+    String qualifiedModuleName(DRGElementReference<? extends TDRGElement> reference);
+
+    String qualifiedModuleName(TDRGElement element);
 
     String qualifiedModuleName(String pkg, String moduleName);
 

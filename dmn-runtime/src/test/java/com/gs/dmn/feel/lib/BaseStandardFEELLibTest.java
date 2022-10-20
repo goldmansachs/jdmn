@@ -64,6 +64,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         // Overflow in duration(from)
         assertEqualsDateTime("P11999999988M", getLib().duration("P11999999988M"));
         assertEqualsDateTime("P2129706043D", getLib().duration("P2129706043D"));
+        assertEqualsDateTime("PT0S", getLib().duration("PT0.S"));
     }
 
     @Test
@@ -71,6 +72,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertNull(getLib().yearsAndMonthsDuration(null, null));
 
         assertEqualsDateTime("P0Y0M", getLib().yearsAndMonthsDuration(makeDate("2015-12-24"), makeDate("2015-12-24")));
+        assertEqualsDateTime("P1Y0M", getLib().yearsAndMonthsDuration(makeDate("2015-12-24"), makeDate("2016-12-24")));
         assertEqualsDateTime("P1Y2M", getLib().yearsAndMonthsDuration(makeDate("2016-09-30"), makeDate("2017-12-28")));
         assertEqualsDateTime("P7Y6M", getLib().yearsAndMonthsDuration(makeDate("2010-05-30"), makeDate("2017-12-15")));
         assertEqualsDateTime("-P4033Y2M", getLib().yearsAndMonthsDuration(makeDate("2014-12-31"), makeDate("-2019-10-01")));
@@ -446,6 +448,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     public void testCeiling() {
         assertNull(getLib().ceiling(null));
         assertNull(getLib().ceiling(null, null));
+        assertNull(getLib().ceiling(makeNumber(1), null));
 
         assertEqualsNumber(makeNumber("1"), getLib().ceiling(makeNumber(1)));
         assertEqualsNumber(makeNumber("2"), getLib().ceiling(makeNumber(1.23)));
@@ -650,6 +653,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertNull(getLib().substringAfter("foobar", null));
 
         assertEquals("ar", getLib().substringAfter("foobar", "ob"));
+        assertEquals("", getLib().substringAfter("foobar", "xyz"));
     }
 
     @Test
@@ -663,6 +667,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertNull(getLib().replace(null, "(ab)|(a)", "[1=$1][2=$2]"));
         assertNull(getLib().replace("abcd", null, "[1=$1][2=$2]"));
         assertNull(getLib().replace("abcd", "(ab)|(a)", null));
+        assertNull(getLib().replace("abcd", "(ab)|(a)", "$"));
 
         assertEquals("[1=ab][2=]cd", getLib().replace("abcd", "(ab)|(a)", "[1=$1][2=$2]"));
 
@@ -671,7 +676,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertEquals("*c*bra", getLib().replace("abracadabra", "a.*?a", "*"));
         assertEquals("brcdbr", getLib().replace("abracadabra", "a", ""));
         assertEquals("abbraccaddabbra", getLib().replace("abracadabra", "a(.)", "a$1$1"));
-        assertEquals(null, getLib().replace("abracadabra", ".*?", "$1"));
+        assertNull(getLib().replace("abracadabra", ".*?", "$1"));
         assertEquals("b", getLib().replace("AAAA", "A+", "b"));
         assertEquals("bbbb", getLib().replace("AAAA", "A+?", "b"));
         assertEquals("carted", getLib().replace("darted", "^(.*?)d(.*)$", "$1c$2"));
@@ -688,6 +693,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertTrue(getLib().matches("abracadabra", "bra"));
         assertTrue(getLib().matches("abracadabra", "^a.*a$"));
         assertFalse(getLib().matches("abracadabra", "^bra"));
+        assertTrue(getLib().matches("abracadabra", "^abra"));
 
         String input = "Kaum hat dies der Hahn gesehen,\n" +
                 "Fangt er auch schon an zu krahen:\n" +
@@ -726,16 +732,16 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     @Test
     public void testDateProperties() {
         assertNull(getLib().year(null));
-        assertEqualsNumber(makeNumber("2018"), getLib().year(getLib().date("2018-12-10")));
+        assertEqualsNumber(makeNumber("2018"), getLib().year(makeDate("2018-12-10")));
 
         assertNull(getLib().month(null));
-        assertEqualsNumber(makeNumber("12"), getLib().month(getLib().date("2018-12-10")));
+        assertEqualsNumber(makeNumber("12"), getLib().month(makeDate("2018-12-10")));
 
         assertNull(getLib().day(null));
-        assertEqualsNumber(makeNumber("10"), getLib().day(getLib().date("2018-12-10")));
+        assertEqualsNumber(makeNumber("10"), getLib().day(makeDate("2018-12-10")));
 
         assertNull(getLib().weekday(null));
-        assertEqualsNumber(makeNumber("1"), getLib().weekday(getLib().date("2018-12-10")));
+        assertEqualsNumber(makeNumber("1"), getLib().weekday(makeDate("2018-12-10")));
     }
 
     //
@@ -838,15 +844,6 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     //
     // List functions
     //
-    @Test
-    public void testListContains() {
-        assertNull(getLib().listContains(null, makeNumber(2)));
-        assertNull(getLib().listContains(null, makeNumber(2)));
-
-        assertEquals(false, getLib().listContains(makeNumberList(1, 2, 3), null));
-        assertEquals(true, getLib().listContains(makeNumberList(1, 2, 3), makeNumber(2)));
-    }
-
     @Test
     public void testAppend() {
         assertEqualsList("[null]", getLib().append(null, null));

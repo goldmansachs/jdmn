@@ -21,14 +21,17 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
-public class OffsetTimeDefaultRangeLibTest extends AbstractDefaultRangeLibTest {
-    private final StandardFEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> feelLib = new MixedJavaTimeFEELLib();
+public class OffsetTimeDefaultRangeLibTest extends AbstractDefaultRangeLibTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+    @Override
+    protected StandardFEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> getLib() {
+        return new MixedJavaTimeFEELLib();
+    }
 
     @Override
     protected OffsetTime makePoint(int number) {
         if (number < 0 || number > 60) {
             throw new IllegalArgumentException("Illegal second");
         }
-        return this.feelLib.time(String.format("12:00:%02d", number));
+        return this.getLib().time(String.format("12:00:%02d", number));
     }
 }

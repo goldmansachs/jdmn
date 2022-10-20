@@ -4,7 +4,13 @@ import datetime
 import isodate
 import time
 
+import jdmn.runtime.Context
 import jdmn.runtime.DefaultDMNBaseDecision
+import jdmn.runtime.ExecutionContext
+import jdmn.runtime.LambdaExpression
+import jdmn.runtime.LazyEval
+import jdmn.runtime.Pair
+import jdmn.runtime.Range
 import jdmn.runtime.RuleOutput
 import jdmn.runtime.RuleOutputList
 
@@ -23,9 +29,14 @@ import jdmn.runtime.listener.DRGElement
 import jdmn.runtime.listener.EventListener
 import jdmn.runtime.listener.Rule
 
+import type_.Monthly
+import type_.MonthlyImpl
 import type_.TApplicantData
+import type_.TApplicantDataImpl
 import type_.TBureauData
+import type_.TBureauDataImpl
 import type_.TRequestedProduct
+import type_.TRequestedProductImpl
 
 import PostBureauAffordability
 import PostBureauRiskCategory
@@ -76,4 +87,4 @@ class Routing(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
         postBureauAffordability: typing.Optional[bool] = self.postBureauAffordability.apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
         postBureauRiskCategory: typing.Optional[str] = self.postBureauRiskCategory.apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_)
 
-        return RoutingRules.RoutingRules.instance().apply(postBureauRiskCategory, postBureauAffordability, (None if bureauData is None else bureauData.bankrupt), (None if bureauData is None else bureauData.creditScore), annotationSet_, eventListener_, externalExecutor_, cache_)
+        return RoutingRules.RoutingRules.instance().apply(postBureauRiskCategory, postBureauAffordability, None if (bureauData is None) else (bureauData.bankrupt), None if (bureauData is None) else (bureauData.creditScore), annotationSet_, eventListener_, externalExecutor_, cache_)

@@ -124,15 +124,15 @@ class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
 <#macro importElements testCases>
     <#list tckUtil.findComplexInputDatas(testCases)>
 # Complex input datas
-        <#items as element>
-import ${transformer.qualifiedModuleName(transformer.nativeTypePackageName(modelName), element)}
-import ${transformer.qualifiedModuleName(transformer.nativeTypePackageName(modelName), transformer.itemDefinitionNativeClassName(element))}
+        <#items as module>
+import ${module}
         </#items>
+
     </#list>
     <#list tckUtil.findDRGElementsUnderTest(testCases)>
 # DRG Elements to test
         <#items as element>
-import ${transformer.qualifiedModuleName(packageName, transformer.drgElementClassName(element))}
+import ${transformer.qualifiedModuleName(element)}
         </#items>
     </#list>
 </#macro>

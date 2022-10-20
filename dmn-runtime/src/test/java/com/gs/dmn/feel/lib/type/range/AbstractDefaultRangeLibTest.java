@@ -12,240 +12,241 @@
  */
 package com.gs.dmn.feel.lib.type.range;
 
+import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.runtime.Range;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public abstract class AbstractDefaultRangeLibTest {
-    private final DefaultRangeLib rangeLib = new DefaultRangeLib();
-
+public abstract class AbstractDefaultRangeLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+    protected abstract StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> getLib();
+    
     @Test
     public void testBefore() {
-        assertNull(rangeLib.before((Number) null, (Number) null));
-        assertNull(rangeLib.before((Number) null, (Range) null));
-        assertNull(rangeLib.before((Range) null, (Number) null));
-        assertNull(rangeLib.before((Range) null, (Range) null));
+        assertNull(getLib().before(null, null));
+        assertNull(getLib().before(null, (Range) null));
+        assertNull(getLib().before((Range) null, null));
+        assertNull(getLib().before((Range) null, (Range) null));
 
-        assertTrue(rangeLib.before(makePoint(1), makePoint(10)));
-        assertFalse(rangeLib.before(makePoint(10), makePoint(1)));
-        assertFalse(rangeLib.before( makePoint(1), makeRange("[", 1, 10, "]") ));
-        assertTrue(rangeLib.before( makePoint(1), makeRange("(", 1, 10, "]") ));
-        assertTrue(rangeLib.before( makePoint(1), makeRange("[", 5, 10, "]") ));
-        assertFalse(rangeLib.before( makeRange("[", 1, 10, "]"), makePoint(10) ));
-        assertTrue(rangeLib.before( makeRange("[", 1, 10, ")"), makePoint(10) ));
-        assertTrue(rangeLib.before( makeRange("[", 1, 10, "]"), makePoint(15) ));
-        assertTrue(rangeLib.before( makeRange("[", 1, 10, "]"), makeRange("[", 15, 20, "]") ));
-        assertFalse(rangeLib.before( makeRange("[", 1, 10, "]"), makeRange("[", 10, 20, "]") ));
-        assertTrue(rangeLib.before( makeRange("[", 1, 10, ")"), makeRange("[", 10, 20, "]") ));
-        assertTrue(rangeLib.before( makeRange("[", 1, 10, "]"), makeRange("(", 10, 20, "]") ));
+        assertTrue(getLib().before(makePoint(1), makePoint(10)));
+        assertFalse(getLib().before(makePoint(10), makePoint(1)));
+        assertFalse(getLib().before( makePoint(1), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().before( makePoint(1), makeRange("(", 1, 10, "]") ));
+        assertTrue(getLib().before( makePoint(1), makeRange("[", 5, 10, "]") ));
+        assertFalse(getLib().before( makeRange("[", 1, 10, "]"), makePoint(10) ));
+        assertTrue(getLib().before( makeRange("[", 1, 10, ")"), makePoint(10) ));
+        assertTrue(getLib().before( makeRange("[", 1, 10, "]"), makePoint(15) ));
+        assertTrue(getLib().before( makeRange("[", 1, 10, "]"), makeRange("[", 15, 20, "]") ));
+        assertFalse(getLib().before( makeRange("[", 1, 10, "]"), makeRange("[", 10, 20, "]") ));
+        assertTrue(getLib().before( makeRange("[", 1, 10, ")"), makeRange("[", 10, 20, "]") ));
+        assertTrue(getLib().before( makeRange("[", 1, 10, "]"), makeRange("(", 10, 20, "]") ));
     }
 
     @Test
     public void testAfter() {
-        assertNull(rangeLib.after((Number) null, (Number) null));
-        assertNull(rangeLib.after((Number) null, (Range) null));
-        assertNull(rangeLib.after((Range) null, (Number) null));
-        assertNull(rangeLib.after((Range) null, (Range) null));
+        assertNull(getLib().after(null, null));
+        assertNull(getLib().after(null, (Range) null));
+        assertNull(getLib().after((Range) null, null));
+        assertNull(getLib().after((Range) null, (Range) null));
 
-        assertTrue(rangeLib.after(makePoint(10), makePoint(5)));
-        assertFalse(rangeLib.after(makePoint(5), makePoint(10)));
-        assertTrue(rangeLib.after( makePoint(12), makeRange("[", 1, 10, "]") ));
-        assertTrue(rangeLib.after( makePoint(10), makeRange("[", 1, 10, ")") ));
-        assertFalse(rangeLib.after( makePoint(10), makeRange("[", 1, 10, "]") ));
-        assertFalse(rangeLib.after( makeRange("[", 11, 20, "]"), makePoint(12) ));
-        assertTrue(rangeLib.after( makeRange("[", 11, 20, "]"), makePoint(10) ));
-        assertTrue(rangeLib.after( makeRange("(", 11, 20, "]"), makePoint(11) ));
-        assertFalse(rangeLib.after( makeRange("[", 11, 20, "]"), makePoint(11) ));
-        assertTrue(rangeLib.after( makeRange("[", 11, 20, "]"), makeRange("[", 1, 10, "]") ));
-        assertFalse(rangeLib.after( makeRange("[", 1, 10, "]"), makeRange("[", 11, 20, "]") ));
-        assertTrue(rangeLib.after( makeRange("[", 11, 20, "]"), makeRange("[", 1, 11, ")") ));
-        assertTrue(rangeLib.after( makeRange("(", 11, 20, "]"), makeRange("[", 1, 11, "]") ));
+        assertTrue(getLib().after(makePoint(10), makePoint(5)));
+        assertFalse(getLib().after(makePoint(5), makePoint(10)));
+        assertTrue(getLib().after( makePoint(12), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().after( makePoint(10), makeRange("[", 1, 10, ")") ));
+        assertFalse(getLib().after( makePoint(10), makeRange("[", 1, 10, "]") ));
+        assertFalse(getLib().after( makeRange("[", 11, 20, "]"), makePoint(12) ));
+        assertTrue(getLib().after( makeRange("[", 11, 20, "]"), makePoint(10) ));
+        assertTrue(getLib().after( makeRange("(", 11, 20, "]"), makePoint(11) ));
+        assertFalse(getLib().after( makeRange("[", 11, 20, "]"), makePoint(11) ));
+        assertTrue(getLib().after( makeRange("[", 11, 20, "]"), makeRange("[", 1, 10, "]") ));
+        assertFalse(getLib().after( makeRange("[", 1, 10, "]"), makeRange("[", 11, 20, "]") ));
+        assertTrue(getLib().after( makeRange("[", 11, 20, "]"), makeRange("[", 1, 11, ")") ));
+        assertTrue(getLib().after( makeRange("(", 11, 20, "]"), makeRange("[", 1, 11, "]") ));
     }
 
     @Test
     public void testMeets() {
-        assertNull(rangeLib.meets(null, null));
+        assertNull(getLib().meets(null, null));
 
-        assertTrue(rangeLib.meets( makeRange("[", 1, 5, "]"), makeRange("[", 5, 10, "]") ));
-        assertFalse(rangeLib.meets( makeRange("[", 1, 5, ")"), makeRange("[", 5, 10, "]") ));
-        assertFalse(rangeLib.meets( makeRange("[", 1, 5, "]"), makeRange("(", 5, 10, "]") ));
-        assertFalse(rangeLib.meets( makeRange("[", 1, 5, "]"), makeRange("[", 6, 10, "]") ));
+        assertTrue(getLib().meets( makeRange("[", 1, 5, "]"), makeRange("[", 5, 10, "]") ));
+        assertFalse(getLib().meets( makeRange("[", 1, 5, ")"), makeRange("[", 5, 10, "]") ));
+        assertFalse(getLib().meets( makeRange("[", 1, 5, "]"), makeRange("(", 5, 10, "]") ));
+        assertFalse(getLib().meets( makeRange("[", 1, 5, "]"), makeRange("[", 6, 10, "]") ));
     }
 
     @Test
     public void testMetBy() {
-        assertNull(rangeLib.metBy(null, null));
+        assertNull(getLib().metBy(null, null));
 
-        assertTrue(rangeLib.metBy( makeRange("[", 5, 10, "]"), makeRange("[", 1, 5, "]") ));
-        assertFalse(rangeLib.metBy( makeRange("[", 5, 10, "]"), makeRange("[", 1, 5, ")") ));
-        assertFalse(rangeLib.metBy( makeRange("(", 5, 10, "]"), makeRange("[", 1, 5, "]") ));
-        assertFalse(rangeLib.metBy( makeRange("[", 6, 10, "]"), makeRange("[", 1, 5, "]") ));
+        assertTrue(getLib().metBy( makeRange("[", 5, 10, "]"), makeRange("[", 1, 5, "]") ));
+        assertFalse(getLib().metBy( makeRange("[", 5, 10, "]"), makeRange("[", 1, 5, ")") ));
+        assertFalse(getLib().metBy( makeRange("(", 5, 10, "]"), makeRange("[", 1, 5, "]") ));
+        assertFalse(getLib().metBy( makeRange("[", 6, 10, "]"), makeRange("[", 1, 5, "]") ));
     }
 
     @Test
     public void testOverlaps() {
-        assertNull(rangeLib.overlaps(null, null));
+        assertNull(getLib().overlaps(null, null));
 
-        assertTrue(rangeLib.overlaps( makeRange("[", 1, 5, "]"), makeRange("[", 3, 8, "]") ));
-        assertTrue(rangeLib.overlaps( makeRange("[", 3, 8, "]"), makeRange("[", 1, 5, "]") ));
-        assertTrue(rangeLib.overlaps( makeRange("[", 1, 8, "]"), makeRange("[", 3, 5, "]") ));
-        assertTrue(rangeLib.overlaps( makeRange("[", 3, 5, "]"), makeRange("[", 1, 8, "]") ));
-        assertFalse(rangeLib.overlaps( makeRange("[", 1, 5, "]"), makeRange("[", 6, 8, "]") ));
-        assertFalse(rangeLib.overlaps( makeRange("[", 6, 8, "]"), makeRange("[", 1, 5, "]") ));
-        assertTrue(rangeLib.overlaps( makeRange("[", 1, 5, "]"), makeRange("[", 5, 8, "]") ));
-        assertFalse(rangeLib.overlaps( makeRange("[", 1, 5, "]"), makeRange("(", 5, 8, "]") ));
-        assertFalse(rangeLib.overlaps( makeRange("[", 1, 5, ")"), makeRange("[", 5, 8, "]") ));
-        assertFalse(rangeLib.overlaps( makeRange("[", 1, 5, ")"), makeRange("(", 5, 8, "]") ));
-        assertTrue(rangeLib.overlaps( makeRange("[", 5, 8, "]"), makeRange("[", 1, 5, "]") ));
-        assertFalse(rangeLib.overlaps( makeRange("(", 5, 8, "]"), makeRange("[", 1, 5, "]") ));
-        assertFalse(rangeLib.overlaps( makeRange("[", 5, 8, "]"), makeRange("[", 1, 5, ")") ));
-        assertFalse(rangeLib.overlaps( makeRange("(", 5, 8, "]"), makeRange("[", 1, 5, ")") ));
+        assertTrue(getLib().overlaps( makeRange("[", 1, 5, "]"), makeRange("[", 3, 8, "]") ));
+        assertTrue(getLib().overlaps( makeRange("[", 3, 8, "]"), makeRange("[", 1, 5, "]") ));
+        assertTrue(getLib().overlaps( makeRange("[", 1, 8, "]"), makeRange("[", 3, 5, "]") ));
+        assertTrue(getLib().overlaps( makeRange("[", 3, 5, "]"), makeRange("[", 1, 8, "]") ));
+        assertFalse(getLib().overlaps( makeRange("[", 1, 5, "]"), makeRange("[", 6, 8, "]") ));
+        assertFalse(getLib().overlaps( makeRange("[", 6, 8, "]"), makeRange("[", 1, 5, "]") ));
+        assertTrue(getLib().overlaps( makeRange("[", 1, 5, "]"), makeRange("[", 5, 8, "]") ));
+        assertFalse(getLib().overlaps( makeRange("[", 1, 5, "]"), makeRange("(", 5, 8, "]") ));
+        assertFalse(getLib().overlaps( makeRange("[", 1, 5, ")"), makeRange("[", 5, 8, "]") ));
+        assertFalse(getLib().overlaps( makeRange("[", 1, 5, ")"), makeRange("(", 5, 8, "]") ));
+        assertTrue(getLib().overlaps( makeRange("[", 5, 8, "]"), makeRange("[", 1, 5, "]") ));
+        assertFalse(getLib().overlaps( makeRange("(", 5, 8, "]"), makeRange("[", 1, 5, "]") ));
+        assertFalse(getLib().overlaps( makeRange("[", 5, 8, "]"), makeRange("[", 1, 5, ")") ));
+        assertFalse(getLib().overlaps( makeRange("(", 5, 8, "]"), makeRange("[", 1, 5, ")") ));
     }
 
     @Test
     public void testOverlapsBefore() {
-        assertNull(rangeLib.overlapsBefore(null, null));
+        assertNull(getLib().overlapsBefore(null, null));
 
-        assertTrue(rangeLib.overlapsBefore( makeRange("[", 1, 5, "]"), makeRange("[", 3, 8, "]") ));
-        assertFalse(rangeLib.overlapsBefore( makeRange("[", 1, 5, "]"), makeRange("[", 6, 8, "]") ));
-        assertTrue(rangeLib.overlapsBefore( makeRange("[", 1, 5, "]"), makeRange("[", 5, 8, "]") ));
-        assertFalse(rangeLib.overlapsBefore( makeRange("[", 1, 5, "]"), makeRange("(", 5, 8, "]") ));
-        assertFalse(rangeLib.overlapsBefore( makeRange("[", 1, 5, ")"), makeRange("[", 5, 8, "]") ));
-        assertTrue(rangeLib.overlapsBefore( makeRange("[", 1, 5, ")"), makeRange("(", 1, 5, "]") ));
-        assertTrue(rangeLib.overlapsBefore( makeRange("[", 1, 5, "]"), makeRange("(", 1, 5, "]") ));
-        assertFalse(rangeLib.overlapsBefore( makeRange("[", 1, 5, ")"), makeRange("[", 1, 5, "]") ));
-        assertFalse(rangeLib.overlapsBefore( makeRange("[", 1, 5, "]"), makeRange("[", 1, 5, "]") ));
+        assertTrue(getLib().overlapsBefore( makeRange("[", 1, 5, "]"), makeRange("[", 3, 8, "]") ));
+        assertFalse(getLib().overlapsBefore( makeRange("[", 1, 5, "]"), makeRange("[", 6, 8, "]") ));
+        assertTrue(getLib().overlapsBefore( makeRange("[", 1, 5, "]"), makeRange("[", 5, 8, "]") ));
+        assertFalse(getLib().overlapsBefore( makeRange("[", 1, 5, "]"), makeRange("(", 5, 8, "]") ));
+        assertFalse(getLib().overlapsBefore( makeRange("[", 1, 5, ")"), makeRange("[", 5, 8, "]") ));
+        assertTrue(getLib().overlapsBefore( makeRange("[", 1, 5, ")"), makeRange("(", 1, 5, "]") ));
+        assertTrue(getLib().overlapsBefore( makeRange("[", 1, 5, "]"), makeRange("(", 1, 5, "]") ));
+        assertFalse(getLib().overlapsBefore( makeRange("[", 1, 5, ")"), makeRange("[", 1, 5, "]") ));
+        assertFalse(getLib().overlapsBefore( makeRange("[", 1, 5, "]"), makeRange("[", 1, 5, "]") ));
     }
 
     @Test
     public void testOverlapsAfter() {
-        assertNull(rangeLib.overlapsAfter(null, null));
+        assertNull(getLib().overlapsAfter(null, null));
 
-        assertTrue(rangeLib.overlapsAfter( makeRange("[", 3, 8, "]"), makeRange("[", 1, 5, "]")));
-        assertFalse(rangeLib.overlapsAfter( makeRange("[", 6, 8, "]"), makeRange("[", 1, 5, "]")));
-        assertTrue(rangeLib.overlapsAfter( makeRange("[", 5, 8, "]"), makeRange("[", 1, 5, "]")));
-        assertFalse(rangeLib.overlapsAfter( makeRange("(", 5, 8, "]"), makeRange("[", 1, 5, "]")));
-        assertFalse(rangeLib.overlapsAfter( makeRange("[", 5, 8, "]"), makeRange("[", 1, 5, ")")));
-        assertTrue(rangeLib.overlapsAfter( makeRange("(", 1, 5, "]"), makeRange("[", 1, 5, ")") ));
-        assertTrue(rangeLib.overlapsAfter( makeRange("(", 1, 5, "]"), makeRange("[", 1, 5, "]") ));
-        assertFalse(rangeLib.overlapsAfter( makeRange("[", 1, 5, "]"), makeRange("[", 1, 5, ")") ));
-        assertFalse(rangeLib.overlapsAfter( makeRange("[", 1, 5, "]"), makeRange("[", 1, 5, "]") ));
+        assertTrue(getLib().overlapsAfter( makeRange("[", 3, 8, "]"), makeRange("[", 1, 5, "]")));
+        assertFalse(getLib().overlapsAfter( makeRange("[", 6, 8, "]"), makeRange("[", 1, 5, "]")));
+        assertTrue(getLib().overlapsAfter( makeRange("[", 5, 8, "]"), makeRange("[", 1, 5, "]")));
+        assertFalse(getLib().overlapsAfter( makeRange("(", 5, 8, "]"), makeRange("[", 1, 5, "]")));
+        assertFalse(getLib().overlapsAfter( makeRange("[", 5, 8, "]"), makeRange("[", 1, 5, ")")));
+        assertTrue(getLib().overlapsAfter( makeRange("(", 1, 5, "]"), makeRange("[", 1, 5, ")") ));
+        assertTrue(getLib().overlapsAfter( makeRange("(", 1, 5, "]"), makeRange("[", 1, 5, "]") ));
+        assertFalse(getLib().overlapsAfter( makeRange("[", 1, 5, "]"), makeRange("[", 1, 5, ")") ));
+        assertFalse(getLib().overlapsAfter( makeRange("[", 1, 5, "]"), makeRange("[", 1, 5, "]") ));
     }
 
     @Test
     public void testFinishes() {
-        assertNull(rangeLib.finishes((Number) null, (Range) null));
-        assertNull(rangeLib.finishes((Range) null, (Range) null));
+        assertNull(getLib().finishes(null, (Range) null));
+        assertNull(getLib().finishes((Range) null, (Range) null));
 
-        assertTrue(rangeLib.finishes( makePoint(10), makeRange("[", 1, 10, "]") ));
-        assertFalse(rangeLib.finishes( makePoint(10), makeRange("[", 1, 10, ")") ));
-        assertTrue(rangeLib.finishes( makeRange("[", 5, 10, "]"), makeRange("[", 1, 10, "]") ));
-        assertFalse(rangeLib.finishes( makeRange("[", 5, 10, ")"), makeRange("[", 1, 10, "]") ));
-        assertTrue(rangeLib.finishes( makeRange("[", 5, 10, ")"), makeRange("[", 1, 10, ")") ));
-        assertTrue(rangeLib.finishes( makeRange("[", 1, 10, "]"), makeRange("[", 1, 10, "]") ));
-        assertTrue(rangeLib.finishes( makeRange("(", 1, 10, "]"), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().finishes( makePoint(10), makeRange("[", 1, 10, "]") ));
+        assertFalse(getLib().finishes( makePoint(10), makeRange("[", 1, 10, ")") ));
+        assertTrue(getLib().finishes( makeRange("[", 5, 10, "]"), makeRange("[", 1, 10, "]") ));
+        assertFalse(getLib().finishes( makeRange("[", 5, 10, ")"), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().finishes( makeRange("[", 5, 10, ")"), makeRange("[", 1, 10, ")") ));
+        assertTrue(getLib().finishes( makeRange("[", 1, 10, "]"), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().finishes( makeRange("(", 1, 10, "]"), makeRange("[", 1, 10, "]") ));
     }
 
     @Test
     public void testFinishedBy() {
-        assertNull(rangeLib.finishedBy((Range) null, (Number) null));
-        assertNull(rangeLib.finishedBy((Range) null, (Range) null));
+        assertNull(getLib().finishedBy((Range) null, null));
+        assertNull(getLib().finishedBy((Range) null, (Range) null));
 
-        assertTrue(rangeLib.finishedBy( makeRange("[", 1, 10, "]"), makePoint(10) ));
-        assertFalse(rangeLib.finishedBy( makeRange("[", 1, 10, ")"), makePoint(10) ));
-        assertTrue(rangeLib.finishedBy( makeRange("[", 1, 10, "]"), makeRange("[", 5, 10, "]") ));
-        assertFalse(rangeLib.finishedBy( makeRange("[", 1, 10, "]"), makeRange("[", 5, 10, ")") ));
-        assertTrue(rangeLib.finishedBy( makeRange("[", 1, 10, ")"), makeRange("[", 5, 10, ")") ));
-        assertTrue(rangeLib.finishedBy( makeRange("[", 1, 10, "]"), makeRange("[", 1, 10, "]") ));
-        assertTrue(rangeLib.finishedBy( makeRange("[", 1, 10, "]"), makeRange("(", 1, 10, "]") ));
+        assertTrue(getLib().finishedBy( makeRange("[", 1, 10, "]"), makePoint(10) ));
+        assertFalse(getLib().finishedBy( makeRange("[", 1, 10, ")"), makePoint(10) ));
+        assertTrue(getLib().finishedBy( makeRange("[", 1, 10, "]"), makeRange("[", 5, 10, "]") ));
+        assertFalse(getLib().finishedBy( makeRange("[", 1, 10, "]"), makeRange("[", 5, 10, ")") ));
+        assertTrue(getLib().finishedBy( makeRange("[", 1, 10, ")"), makeRange("[", 5, 10, ")") ));
+        assertTrue(getLib().finishedBy( makeRange("[", 1, 10, "]"), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().finishedBy( makeRange("[", 1, 10, "]"), makeRange("(", 1, 10, "]") ));
     }
 
     @Test
     public void testIncludes() {
-        assertNull(rangeLib.includes((Range) null, (Number) null));
-        assertNull(rangeLib.includes((Range) null, (Range) null));
+        assertNull(getLib().includes((Range) null, null));
+        assertNull(getLib().includes((Range) null, (Range) null));
 
-        assertTrue(rangeLib.includes( makeRange("[", 1, 10, "]"), makePoint(5) ));
-        assertFalse(rangeLib.includes( makeRange("[", 1, 10, "]"), makePoint(12) ));
-        assertTrue(rangeLib.includes( makeRange("[", 1, 10, "]"), makePoint(1) ));
-        assertTrue(rangeLib.includes( makeRange("[", 1, 10, "]"), makePoint(10) ));
-        assertFalse(rangeLib.includes( makeRange("(", 1, 10, "]"), makePoint(1) ));
-        assertFalse(rangeLib.includes( makeRange("[", 1, 10, ")"), makePoint(10) ));
-        assertTrue(rangeLib.includes( makeRange("[", 1, 10, "]"), makeRange("[", 4, 6, "]") ));
-        assertTrue(rangeLib.includes( makeRange("[", 1, 10, "]"), makeRange("[", 1, 5, "]") ));
-        assertTrue(rangeLib.includes( makeRange("(", 1, 10, "]"), makeRange("(", 1, 5, "]") ));
-        assertTrue(rangeLib.includes( makeRange("[", 1, 10, "]"), makeRange("(", 1, 10, ")") ));
-        assertTrue(rangeLib.includes( makeRange("[", 1, 10, ")"), makeRange("[", 5, 10, ")") ));
-        assertTrue(rangeLib.includes( makeRange("[", 1, 10, "]"), makeRange("[", 1, 10, ")") ));
-        assertTrue(rangeLib.includes( makeRange("[", 1, 10, "]"), makeRange("(", 1, 10, "]") ));
-        assertTrue(rangeLib.includes( makeRange("[", 1, 10, "]"), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().includes( makeRange("[", 1, 10, "]"), makePoint(5) ));
+        assertFalse(getLib().includes( makeRange("[", 1, 10, "]"), makePoint(12) ));
+        assertTrue(getLib().includes( makeRange("[", 1, 10, "]"), makePoint(1) ));
+        assertTrue(getLib().includes( makeRange("[", 1, 10, "]"), makePoint(10) ));
+        assertFalse(getLib().includes( makeRange("(", 1, 10, "]"), makePoint(1) ));
+        assertFalse(getLib().includes( makeRange("[", 1, 10, ")"), makePoint(10) ));
+        assertTrue(getLib().includes( makeRange("[", 1, 10, "]"), makeRange("[", 4, 6, "]") ));
+        assertTrue(getLib().includes( makeRange("[", 1, 10, "]"), makeRange("[", 1, 5, "]") ));
+        assertTrue(getLib().includes( makeRange("(", 1, 10, "]"), makeRange("(", 1, 5, "]") ));
+        assertTrue(getLib().includes( makeRange("[", 1, 10, "]"), makeRange("(", 1, 10, ")") ));
+        assertTrue(getLib().includes( makeRange("[", 1, 10, ")"), makeRange("[", 5, 10, ")") ));
+        assertTrue(getLib().includes( makeRange("[", 1, 10, "]"), makeRange("[", 1, 10, ")") ));
+        assertTrue(getLib().includes( makeRange("[", 1, 10, "]"), makeRange("(", 1, 10, "]") ));
+        assertTrue(getLib().includes( makeRange("[", 1, 10, "]"), makeRange("[", 1, 10, "]") ));
     }
 
     @Test
     public void testDuring() {
-        assertNull(rangeLib.during((Number) null, (Range) null));
-        assertNull(rangeLib.during((Range) null, (Range) null));
+        assertNull(getLib().during(null, (Range) null));
+        assertNull(getLib().during((Range) null, (Range) null));
 
-        assertTrue(rangeLib.during( makePoint(5), makeRange("[", 1, 10, "]") ));
-        assertFalse(rangeLib.during( makePoint(12), makeRange("[", 1, 10, "]") ));
-        assertTrue(rangeLib.during( makePoint(1), makeRange("[", 1, 10, "]") ));
-        assertTrue(rangeLib.during( makePoint(10), makeRange("[", 1, 10, "]") ));
-        assertFalse(rangeLib.during( makePoint(1), makeRange("(", 1, 10, "]") ));
-        assertFalse(rangeLib.during( makePoint(10), makeRange("[", 1, 10, ")") ));
-        assertTrue(rangeLib.during( makeRange("[", 4, 6, "]"), makeRange("[", 1, 10, "]") ));
-        assertTrue(rangeLib.during( makeRange("[", 1, 5, "]"), makeRange("[", 1, 10, "]") ));
-        assertTrue(rangeLib.during( makeRange("(", 1, 5, "]"), makeRange("(", 1, 10, "]") ));
-        assertTrue(rangeLib.during( makeRange("(", 1, 10, ")"), makeRange("[", 1, 10, "]") ));
-        assertTrue(rangeLib.during( makeRange("[", 5, 10, ")"), makeRange("[", 1, 10, ")") ));
-        assertTrue(rangeLib.during( makeRange("[", 1, 10, ")"), makeRange("[", 1, 10, "]") ));
-        assertTrue(rangeLib.during( makeRange("(", 1, 10, "]"), makeRange("[", 1, 10, "]") ));
-        assertTrue(rangeLib.during( makeRange("[", 1, 10, "]"), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().during( makePoint(5), makeRange("[", 1, 10, "]") ));
+        assertFalse(getLib().during( makePoint(12), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().during( makePoint(1), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().during( makePoint(10), makeRange("[", 1, 10, "]") ));
+        assertFalse(getLib().during( makePoint(1), makeRange("(", 1, 10, "]") ));
+        assertFalse(getLib().during( makePoint(10), makeRange("[", 1, 10, ")") ));
+        assertTrue(getLib().during( makeRange("[", 4, 6, "]"), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().during( makeRange("[", 1, 5, "]"), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().during( makeRange("(", 1, 5, "]"), makeRange("(", 1, 10, "]") ));
+        assertTrue(getLib().during( makeRange("(", 1, 10, ")"), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().during( makeRange("[", 5, 10, ")"), makeRange("[", 1, 10, ")") ));
+        assertTrue(getLib().during( makeRange("[", 1, 10, ")"), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().during( makeRange("(", 1, 10, "]"), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().during( makeRange("[", 1, 10, "]"), makeRange("[", 1, 10, "]") ));
     }
 
     @Test
     public void testStarts() {
-        assertNull(rangeLib.starts((Number) null, (Range) null));
-        assertNull(rangeLib.starts((Range) null, (Range) null));
+        assertNull(getLib().starts(null, (Range) null));
+        assertNull(getLib().starts((Range) null, (Range) null));
 
-        assertTrue(rangeLib.starts( makePoint(1), makeRange("[", 1, 10, "]") ));
-        assertFalse(rangeLib.starts( makePoint(1), makeRange("(", 1, 10, "]") ));
-        assertFalse(rangeLib.starts( makePoint(2), makeRange("[", 1, 10, "]") ));
-        assertTrue(rangeLib.starts( makeRange("[", 1, 5, "]"), makeRange("[", 1, 10, "]") ));
-        assertTrue(rangeLib.starts( makeRange("(", 1, 5, "]"), makeRange("(", 1, 10, "]") ));
-        assertFalse(rangeLib.starts( makeRange("(", 1, 5, "]"), makeRange("[", 1, 10, "]") ));
-        assertFalse(rangeLib.starts( makeRange("[", 1, 5, "]"), makeRange("(", 1, 10, "]") ));
-        assertTrue(rangeLib.starts( makeRange("[", 1, 10, "]"), makeRange("[", 1, 10, "]") ));
-        assertTrue(rangeLib.starts( makeRange("[", 1, 10, ")"), makeRange("[", 1, 10, "]") ));
-        assertTrue(rangeLib.starts( makeRange("(", 1, 10, ")"), makeRange("(", 1, 10, ")") ));
+        assertTrue(getLib().starts( makePoint(1), makeRange("[", 1, 10, "]") ));
+        assertFalse(getLib().starts( makePoint(1), makeRange("(", 1, 10, "]") ));
+        assertFalse(getLib().starts( makePoint(2), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().starts( makeRange("[", 1, 5, "]"), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().starts( makeRange("(", 1, 5, "]"), makeRange("(", 1, 10, "]") ));
+        assertFalse(getLib().starts( makeRange("(", 1, 5, "]"), makeRange("[", 1, 10, "]") ));
+        assertFalse(getLib().starts( makeRange("[", 1, 5, "]"), makeRange("(", 1, 10, "]") ));
+        assertTrue(getLib().starts( makeRange("[", 1, 10, "]"), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().starts( makeRange("[", 1, 10, ")"), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().starts( makeRange("(", 1, 10, ")"), makeRange("(", 1, 10, ")") ));
     }
 
     @Test
     public void testStartedBy() {
-        assertNull(rangeLib.startedBy((Range) null, (Number) null));
-        assertNull(rangeLib.startedBy((Range) null, (Range) null));
+        assertNull(getLib().startedBy((Range) null, null));
+        assertNull(getLib().startedBy((Range) null, (Range) null));
 
-        assertTrue(rangeLib.startedBy( makeRange("[", 1, 10, "]"), makePoint(1)));
-        assertFalse(rangeLib.startedBy( makeRange("(", 1, 10, "]"), makePoint(1)));
-        assertFalse(rangeLib.startedBy( makeRange("[", 1, 10, "]"), makePoint(2)));
-        assertTrue(rangeLib.startedBy( makeRange("[", 1, 10, "]"), makeRange("[", 1, 5, "]") ));
-        assertTrue(rangeLib.startedBy( makeRange("(", 1, 10, "]"), makeRange("(", 1, 5, "]") ));
-        assertFalse(rangeLib.startedBy( makeRange("[", 1, 10, "]"), makeRange("(", 1, 5, "]") ));
-        assertFalse(rangeLib.startedBy( makeRange("(", 1, 10, "]"), makeRange("[", 1, 5, "]") ));
-        assertTrue(rangeLib.startedBy( makeRange("[", 1, 10, "]"), makeRange("[", 1, 10, "]") ));
-        assertTrue(rangeLib.startedBy( makeRange("[", 1, 10, "]"), makeRange("[", 1, 10, ")") ));
-        assertTrue(rangeLib.startedBy( makeRange("(", 1, 10, ")"), makeRange("(", 1, 10, ")") ));    }
+        assertTrue(getLib().startedBy( makeRange("[", 1, 10, "]"), makePoint(1)));
+        assertFalse(getLib().startedBy( makeRange("(", 1, 10, "]"), makePoint(1)));
+        assertFalse(getLib().startedBy( makeRange("[", 1, 10, "]"), makePoint(2)));
+        assertTrue(getLib().startedBy( makeRange("[", 1, 10, "]"), makeRange("[", 1, 5, "]") ));
+        assertTrue(getLib().startedBy( makeRange("(", 1, 10, "]"), makeRange("(", 1, 5, "]") ));
+        assertFalse(getLib().startedBy( makeRange("[", 1, 10, "]"), makeRange("(", 1, 5, "]") ));
+        assertFalse(getLib().startedBy( makeRange("(", 1, 10, "]"), makeRange("[", 1, 5, "]") ));
+        assertTrue(getLib().startedBy( makeRange("[", 1, 10, "]"), makeRange("[", 1, 10, "]") ));
+        assertTrue(getLib().startedBy( makeRange("[", 1, 10, "]"), makeRange("[", 1, 10, ")") ));
+        assertTrue(getLib().startedBy( makeRange("(", 1, 10, ")"), makeRange("(", 1, 10, ")") ));    }
 
     @Test
     public void testCoincides() {
-        assertNull(rangeLib.coincides((Number) null, (Number) null));
-        assertNull(rangeLib.coincides((Range) null, (Range) null));
+        assertNull(getLib().coincides(null, null));
+        assertNull(getLib().coincides((Range) null, (Range) null));
 
-        assertTrue(rangeLib.coincides(makePoint(5), makePoint(5)));
-        assertFalse(rangeLib.coincides(makePoint(3), makePoint(4)));
-        assertTrue(rangeLib.coincides( makeRange("[", 1, 5, "]"), makeRange("[", 1, 5, "]") ));
-        assertFalse(rangeLib.coincides( makeRange("(", 1, 5, ")"), makeRange("[", 1, 5, "]") ));
-        assertFalse(rangeLib.coincides( makeRange("[", 1, 5, "]"), makeRange("[", 2, 6, "]") ));
+        assertTrue(getLib().coincides(makePoint(5), makePoint(5)));
+        assertFalse(getLib().coincides(makePoint(3), makePoint(4)));
+        assertTrue(getLib().coincides( makeRange("[", 1, 5, "]"), makeRange("[", 1, 5, "]") ));
+        assertFalse(getLib().coincides( makeRange("(", 1, 5, ")"), makeRange("[", 1, 5, "]") ));
+        assertFalse(getLib().coincides( makeRange("[", 1, 5, "]"), makeRange("[", 2, 6, "]") ));
     }
 
     private Range makeRange(String startIncluded, int start, int end, String endIncluded) {

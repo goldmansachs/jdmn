@@ -40,6 +40,7 @@ import com.gs.dmn.runtime.discovery.ModelElementRegistry;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.JavaExternalFunction;
+import com.gs.dmn.runtime.external.JavaFunctionInfo;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.*;
 import com.gs.dmn.serialization.DMNConstants;
@@ -250,17 +251,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public List<String> itemDefinitionComplexComponents(TItemDefinition itemDefinition) {
-        List<String> components = new ArrayList<>();
-        List<TItemDefinition> itemComponents = itemDefinition.getItemComponent();
-        this.dmnModelRepository.sortNamedElements(itemComponents);
-        for (TItemDefinition child : itemComponents) {
-            Type type = toFEELType(child);
-            if (type instanceof ItemDefinitionType) {
-                String name = this.upperCaseFirst(((ItemDefinitionType) type).getName());
-                components.add(name);
-            }
-        }
-        return components;
+        Type type = toFEELType(itemDefinition);
+        Set<String> nameSet = new LinkedHashSet<>();
+        addClassName(type, nameSet, false);
+        return sortNames(nameSet);
     }
 
     @Override
@@ -448,6 +442,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         return augmentSignature(decisionSignature);
     }
 
+    @Override
     public List<Pair<String, String>> drgElementSignatureParameters(TDRGElement element) {
         DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
         return drgElementSignatureParameters(reference);
@@ -513,25 +508,54 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public List<String> drgElementComplexInputClassNames(TDRGElement element) {
-        List<String> result = new ArrayList<>();
+        Set<String> nameSet = new LinkedHashSet<>();
         // Input
         List<Pair<String, Type>> parameters = drgElementTypeSignature(element);
         for (Pair<String, Type> parameter : parameters) {
             Type type = parameter.getRight();
-            addClassName(type, result);
+            addClassName(type, nameSet, true);
         }
         // Output
         Type type = drgElementOutputFEELType(element);
-        addClassName(type, result);
-        return result;
+        addClassName(type, nameSet, true);
+        return sortNames(nameSet);
     }
 
-    private void addClassName(Type type, List<String> result) {
+    private ArrayList<String> sortNames(Set<String> nameSet) {
+        ArrayList<String> list = new ArrayList<>(nameSet);
+        Collections.sort(list);
+        return list;
+    }
+
+    private void addClassName(Type type, Set<String> result, boolean addClass) {
         while (type instanceof ListType) {
             type = ((ListType) type).getElementType();
         }
         if (type instanceof ItemDefinitionType) {
-            result.add(upperCaseFirst(((ItemDefinitionType) type).getName()));
+            ItemDefinitionType itemType = (ItemDefinitionType) type;
+            Set<ItemDefinitionType> types = new LinkedHashSet<>();
+            collect(itemType, types);
+            for (ItemDefinitionType node: types) {
+                String packageName = nativeTypePackageName(node.getModelName());
+                String moduleName = this.upperCaseFirst(node.getName());
+                result.add(qualifiedModuleName(packageName, moduleName));
+                if (addClass) {
+                    result.add(qualifiedModuleName(packageName, itemDefinitionNativeClassName(moduleName)));
+                }
+            }
+        }
+    }
+
+    private void collect(ItemDefinitionType itemType, Set<ItemDefinitionType> types) {
+        types.add(itemType);
+        for (String member: itemType.getMembers()) {
+            Type memberType = itemType.getMemberType(member);
+            while (memberType instanceof ListType) {
+                memberType = ((ListType) memberType).getElementType();
+            }
+            if (memberType instanceof ItemDefinitionType && !types.contains(memberType)) {
+                collect((ItemDefinitionType) memberType, types);
+            }
         }
     }
 
@@ -694,6 +718,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         return subDecisionReferences.stream().map(d -> this.nativeFactory.decisionConstructorParameter(d)).collect(Collectors.joining(", "));
     }
 
+    @Override
     public String drgElementConstructorNewArgumentList(TDRGElement element) {
         List<DRGElementReference<TDecision>> directSubDecisionReferences = this.dmnModelRepository.directSubDecisions(element);
         this.dmnModelRepository.sortNamedElementReferences(directSubDecisionReferences);
@@ -1175,6 +1200,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
+    public String rangeClassName() {
+        return qualifiedName(Range.class);
+    }
+
+    @Override
     public String executorClassName() {
         return qualifiedName(Executor.class);
     }
@@ -1327,6 +1357,21 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String assertClassName() {
         return qualifiedName(Assert.class);
+    }
+
+    @Override
+    public String javaExternalFunctionClassName() {
+        return qualifiedName(JavaExternalFunction.class);
+    }
+
+    @Override
+    public String lambdaExpressionClassName() {
+        return qualifiedName(LambdaExpression.class);
+    }
+
+    @Override
+    public String javaFunctionInfoClassName() {
+        return qualifiedName(JavaFunctionInfo.class);
     }
 
     //
@@ -1710,18 +1755,18 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             if (type instanceof FEELFunctionType) {
                 String returnType = toNativeType(((FunctionType) type).getReturnType());
                 if (((FEELFunctionType) type).isExternal()) {
-                    return makeFunctionType(qualifiedName(JavaExternalFunction.class), returnType);
+                    return makeFunctionType(javaExternalFunctionClassName(), returnType);
                 } else {
-                    return makeFunctionType(qualifiedName(LambdaExpression.class), returnType);
+                    return makeFunctionType(lambdaExpressionClassName(), returnType);
                 }
             } else if (type instanceof DMNFunctionType) {
                 TFunctionKind kind = ((DMNFunctionType) type).getKind();
                 if (isFEELFunction(kind)) {
                     String returnType = toNativeType(((FunctionType) type).getReturnType());
-                    return makeFunctionType(qualifiedName(LambdaExpression.class), returnType);
+                    return makeFunctionType(lambdaExpressionClassName(), returnType);
                 } else if (isJavaFunction(kind)) {
                     String returnType = toNativeType(((FunctionType) type).getReturnType());
-                    return makeFunctionType(qualifiedName(JavaExternalFunction.class), returnType);
+                    return makeFunctionType(javaExternalFunctionClassName(), returnType);
                 }
                 throw new DMNRuntimeException(String.format("Type %s is not supported yet", type));
             }
@@ -1779,6 +1824,16 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String qualifiedName(Class<?> cls) {
         return cls.getName();
+    }
+
+    @Override
+    public String qualifiedModuleName(DRGElementReference<? extends TDRGElement> reference) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public String qualifiedModuleName(TDRGElement element) {
+        throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override

@@ -35,10 +35,12 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class DomConverter implements Converter {
+    @Override
     public boolean canConvert(Class clazz) {
         return Document.class.isAssignableFrom(clazz) || Element.class.isAssignableFrom(clazz);
     }
 
+    @Override
     public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext unmarshallingContext) {
         // Read DOM
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -61,6 +63,7 @@ public class DomConverter implements Converter {
         return new NSElement(documentElement, namespace, prefix);
     }
 
+    @Override
     public void marshal(Object object, HierarchicalStreamWriter writer, MarshallingContext marshallingContext) {
         // Calculate all element names
         NSElement element = (NSElement) object;

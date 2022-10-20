@@ -12,8 +12,6 @@
  */
 package com.gs.dmn.feel.synthesis.type;
 
-import com.gs.dmn.runtime.DMNRuntimeException;
-
 public abstract class PythonTypeFactory implements NativeTypeFactory {
     @Override
     public String nullableType(String type) {
@@ -26,11 +24,11 @@ public abstract class PythonTypeFactory implements NativeTypeFactory {
 
     @Override
     public String constructorOfGenericType(String typeName, String... typeParameters) {
-        throw new DMNRuntimeException("Generic types are not supported for Python");
+        return typeName;
     }
 
     @Override
     public String javaClass(String className) {
-        throw new DMNRuntimeException("Class metadata is not supported for Python");
+        return String.format("%s.__class__", className);
     }
 }

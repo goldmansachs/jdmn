@@ -23,6 +23,7 @@ public class Conversion<T> implements com.gs.dmn.el.analysis.syntax.ast.expressi
         this.targetType = elementType;
     }
 
+    @Override
     public ConversionKind getKind() {
         return this.kind;
     }
