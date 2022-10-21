@@ -10,7 +10,9 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations under the License.
 -->
-<#include "drgElementCommon.ftl">
+<#import "/tree/common/metadata.ftl" as metadata />
+<#import "/tree/common/constructor.ftl" as constructor />
+<#import "/tree/common/apply.ftl" as apply />
 <#if javaPackageName?has_content>
 package ${javaPackageName}
 </#if>
@@ -18,53 +20,16 @@ package ${javaPackageName}
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["bkm.ftl", "${transformer.escapeInString(modelRepository.name(drgElement))}"])
-@${transformer.drgElementAnnotationClassName()}(
-    namespace = "${javaPackageName}",
-    name = "${modelRepository.name(drgElement)}",
-    label = "${modelRepository.label(drgElement)}",
-    elementKind = ${transformer.elementKindAnnotationClassName()}.${transformer.elementKind(drgElement)},
-    expressionKind = ${transformer.expressionKindAnnotationClassName()}.${transformer.expressionKind(drgElement)},
-    hitPolicy = ${transformer.hitPolicyAnnotationClassName()}.${transformer.hitPolicy(drgElement)},
-    rulesCount = ${modelRepository.rulesCount(drgElement)}
-)
+<@metadata.classAnnotation "bkm.ftl" drgElement/>
 class ${javaClassName} : ${decisionBaseClass} {
     private constructor() {}
 
-    override fun apply(${transformer.drgElementSignatureWithMap(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
-    <#if transformer.canGenerateApplyWithMap(drgElement)>
-        try {
-            return apply(${transformer.drgElementArgumentListWithMap(drgElement)})
-        } catch (e: Exception) {
-            logError("Cannot apply decision '${javaClassName}'", e)
-            return null
-        }
-    <#else>
-        throw ${transformer.constructor(transformer.dmnRuntimeExceptionClassName(), "Not all arguments can be serialized")}
-    </#if>
-    }
-
-    fun apply(${transformer.drgElementSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
-        <@applyMethodBody drgElement />
-    }
-    <@evaluateExpressionMethod drgElement />
+    <@apply.applyMethods drgElement />
+    <@apply.evaluateExpressionMethod drgElement />
 
     companion object {
-        val ${transformer.drgElementMetadataFieldName()} = ${transformer.drgElementMetadataClassName()}(
-            "${javaPackageName}",
-            "${modelRepository.name(drgElement)}",
-            "${modelRepository.label(drgElement)}",
-            ${transformer.elementKindAnnotationClassName()}.${transformer.elementKind(drgElement)},
-            ${transformer.expressionKindAnnotationClassName()}.${transformer.expressionKind(drgElement)},
-            ${transformer.hitPolicyAnnotationClassName()}.${transformer.hitPolicy(drgElement)},
-            ${modelRepository.rulesCount(drgElement)}
-        )
+        <@metadata.elementMetadataField drgElement />
 
-        private val INSTANCE = ${javaClassName}()
-
-        @JvmStatic
-        fun instance(): ${javaClassName} {
-            return INSTANCE
-        }
+        <@constructor.bkmConstructor drgElement javaClassName />
     }
 }

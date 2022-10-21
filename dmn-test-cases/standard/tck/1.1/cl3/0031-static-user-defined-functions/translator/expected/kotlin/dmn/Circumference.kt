@@ -50,7 +50,7 @@ class Circumference : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     companion object {
-        val DRG_ELEMENT_METADATA = com.gs.dmn.runtime.listener.DRGElement(
+        val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
             "",
             "Circumference",
             "",

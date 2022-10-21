@@ -10,6 +10,58 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations under the License.
 -->
+<#import "events.ftl" as events />
+
+<#macro applyMethods drgElement>
+<#if drgElement.class.simpleName == "TDecision">
+    <@apply.applyMap drgElement />
+
+    <@apply.applyString drgElement />
+<#elseif drgElement.class.simpleName == "TBusinessKnowledgeModel">
+    <@apply.applyMap drgElement />
+
+<#elseif drgElement.class.simpleName == "TDecisionService">
+    <@apply.applyMap drgElement />
+
+</#if>
+    <@apply.applyPojo drgElement />
+</#macro>
+
+<#macro applyMap drgElement >
+    override fun apply(${transformer.drgElementSignatureWithMap(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    <#if transformer.canGenerateApplyWithMap(drgElement)>
+        try {
+            return apply(${transformer.drgElementArgumentListWithMap(drgElement)})
+        } catch (e: Exception) {
+            logError("Cannot apply decision '${javaClassName}'", e)
+            return null
+        }
+    <#else>
+        throw ${transformer.constructor(transformer.dmnRuntimeExceptionClassName(), "Not all arguments can be serialized")}
+    </#if>
+    }
+</#macro>
+
+<#macro applyString drgElement >
+    <#if transformer.shouldGenerateApplyWithConversionFromString(drgElement)>
+    fun apply(${transformer.drgElementSignatureWithConversionFromString(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+        return try {
+            apply(${transformer.drgElementArgumentListWithConversionFromString(drgElement)})
+        } catch (e: Exception) {
+            logError("Cannot apply decision '${javaClassName}'", e)
+            null
+        }
+    }
+
+    </#if>
+</#macro>
+
+<#macro applyPojo drgElement >
+    fun apply(${transformer.drgElementSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+        <@applyMethodBody drgElement />
+    }
+</#macro>
+
 <#--
     Apply method body
 -->
@@ -19,14 +71,18 @@
 
         <#if modelRepository.isDecisionTableExpression(drgElement)>
             <@expressionApplyBody drgElement />
-        <#elseif modelRepository.isLiteralExpression(drgElement)>
-            <@expressionApplyBody drgElement/>
-        <#elseif modelRepository.isInvocationExpression(drgElement)>
-            <@expressionApplyBody drgElement/>
+       <#elseif modelRepository.isLiteralExpression(drgElement)>
+           <@expressionApplyBody drgElement/>
+       <#elseif modelRepository.isInvocationExpression(drgElement)>
+           <@expressionApplyBody drgElement/>
         <#elseif modelRepository.isContextExpression(drgElement)>
             <@expressionApplyBody drgElement/>
         <#elseif modelRepository.isRelationExpression(drgElement)>
             <@expressionApplyBody drgElement/>
+        <#elseif modelRepository.isBKMLinkedToDecision(drgElement)>
+             <@expressionApplyBody drgElement/>
+        <#elseif modelRepository.isMultiInstanceDecision(drgElement)>
+             <@multiInstanceDecisionApplyBody drgElement/>
         <#else >
             logError("${modelRepository.expression(drgElement).class.simpleName} is not implemented yet")
             return null
@@ -58,7 +114,83 @@
     <#elseif modelRepository.isRelationExpression(drgElement)>
 
         <@addEvaluateExpressionMethod drgElement/>
+    <#elseif modelRepository.isBKMLinkedToDecision(drgElement)>
+
+        <@addEvaluateBKMLinkedToDecisionMethod drgElement/>
+    <#elseif modelRepository.isMultiInstanceDecision(drgElement)>
+
+        <@addEvaluateIterationMethod drgElement/>
     </#if>
+</#macro>
+
+<#--
+    Multi Instance drgElement
+-->
+<#macro multiInstanceDecisionApplyBody drgElement>
+        <#if transformer.isCached(modelRepository.name(drgElement))>
+            if (cache_.contains("${modelRepository.name(drgElement)}")) {
+                // Retrieve value from cache
+                var output_: ${transformer.drgElementOutputType(drgElement)} = cache_.lookup("${modelRepository.name(drgElement)}") as ${transformer.drgElementOutputType(drgElement)}
+
+                <@endDRGElementAndReturnIndent "    " drgElement "output_" />
+            } else {
+                // Iterate and aggregate
+                var output_: ${transformer.drgElementOutputType(drgElement)} = evaluate(${transformer.drgElementArgumentList(drgElement)})
+                cache_.bind("${modelRepository.name(drgElement)}", output_)
+
+                <@endDRGElementAndReturnIndent "    " drgElement "output_" />
+            }
+        <#else>
+            // Iterate and aggregate
+            var output_: ${transformer.drgElementOutputType(drgElement)} = evaluate(${transformer.drgElementArgumentList(drgElement)})
+
+            <@endDRGElementAndReturn drgElement "output_" />
+        </#if>
+</#macro>
+
+<#macro addEvaluateIterationMethod drgElement>
+    private inline fun evaluate(${transformer.drgElementSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+        <@applySubDecisions drgElement/>
+        <#assign multiInstanceDecision = transformer.multiInstanceDecisionLogic(drgElement)/>
+        <#assign iterationExpression = multiInstanceDecision.iterationExpression/>
+        <#assign iterator = multiInstanceDecision.iterator/>
+        <#assign aggregator = multiInstanceDecision.aggregator/>
+        <#assign topLevelDecision = multiInstanceDecision.topLevelDecision/>
+        <#assign sourceList = transformer.iterationExpressionToNative(drgElement, iterationExpression) />
+        <#assign lambdaParamName = transformer.namedElementVariableName(iterator) />
+        <#assign lambdaBody = "${transformer.namedElementVariableName(topLevelDecision)}.apply(${transformer.drgElementConvertedArgumentList(topLevelDecision)})" />
+        val ${transformer.namedElementVariableName(topLevelDecision)}: ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(topLevelDecision))} = ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(topLevelDecision))}()
+        <#if aggregator == "COLLECT">
+        return ${sourceList}?.${transformer.getStream()}?.map({${lambdaParamName} -> ${lambdaBody}})?.collect(Collectors.toList())
+        <#elseif aggregator == "SUM">
+        return sum(${sourceList}?.${transformer.getStream()}?.map({${lambdaParamName} -> ${lambdaBody}})?.collect(Collectors.toList()))
+        <#elseif aggregator == "MIN">
+        return = min(${sourceList}?.${transformer.getStream()}?.map({${lambdaParamName} -> ${lambdaBody}})?.collect(Collectors.toList()))
+        <#elseif aggregator == "MAX">
+        return max(${sourceList}?.${transformer.getStream()}?.map({${lambdaParamName} -> ${lambdaBody}})?.collect(Collectors.toList()))
+        <#elseif aggregator == "COUNT">
+        return count(${sourceList}?.${transformer.getStream()}?.map({${lambdaParamName} -> ${lambdaBody}})?.collect(Collectors.toList()))
+        <#elseif aggregator == "ALLTRUE">
+        return ${sourceList}?.${transformer.getStream()}?.allMatch({${lambdaParamName} -> ${lambdaBody} as Boolean})
+        <#elseif aggregator == "ANYTRUE">
+        return ${sourceList}?.${transformer.getStream()}?.anyMatch({${lambdaParamName} -> ${lambdaBody} as Boolean})
+        <#elseif aggregator == "ALLFALSE">
+        return ${sourceList}?.${transformer.getStream()}?.allMatch({${lambdaParamName} -> not(${lambdaBody})})
+        <#else>
+        logError("${aggregator} is not implemented yet")
+        return null
+        </#if>
+    }
+</#macro>
+
+<#--
+    BKM linked to Decision
+-->
+<#macro addEvaluateBKMLinkedToDecisionMethod drgElement>
+    private inline fun evaluate(${transformer.drgElementSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+        <@applySubDecisions drgElement/>
+        return ${transformer.bkmLinkedToDecisionToNative(drgElement)}
+    }
 </#macro>
 
 <#--
@@ -90,6 +222,11 @@
         if (ruleOutputList_.noMatchedRules()) {
             // Default value
             output_ = ${transformer.defaultValue(drgElement)}
+            <#if !modelRepository.hasAggregator(expression)>
+            if (output_ == null) {
+                output_ = this.asList()
+            }
+            </#if>
         } else {
             val ruleOutputs_: List<${transformer.abstractRuleOutputClassName()}> = ruleOutputList_.applyMultiple(${transformer.hitPolicyAnnotationClassName()}.${transformer.hitPolicy(drgElement)})
         <#if modelRepository.isCompoundDecisionTable(drgElement)>
@@ -220,13 +357,17 @@
 <#macro addEvaluateExpressionMethod drgElement>
     private inline fun evaluate(${transformer.drgElementSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
     <@applySubDecisions drgElement/>
-    <#assign stm = transformer.expressionToNative(drgElement)>
-    <#if transformer.isCompoundStatement(stm)>
-        <#list stm.statements as child>
-        ${child.text}
-        </#list>
+    <#if modelRepository.isFreeTextLiteralExpression(drgElement)>
+        return ${transformer.freeTextLiteralExpressionToNative(drgElement)}
     <#else>
+        <#assign stm = transformer.expressionToNative(drgElement)>
+        <#if transformer.isCompoundStatement(stm)>
+            <#list stm.statements as child>
+        ${child.text}
+            </#list>
+        <#else>
         return ${stm.text} as ${transformer.drgElementOutputType(drgElement)}
+        </#if>
     </#if>
     }
 </#macro>
@@ -243,9 +384,9 @@
         ${extraIndent}// Apply child decisions
         <#items as subDecision>
             <#if transformer.isLazyEvaluated(subDecision)>
-        ${extraIndent}val ${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> = ${transformer.lazyEvalClassName()}({ this@${javaClassName}.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)}) })
+        ${extraIndent}val ${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> = ${transformer.lazyEvalClassName()}({ this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)}) })
             <#else>
-        ${extraIndent}val ${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.drgElementOutputType(subDecision)} = this@${javaClassName}.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)})
+        ${extraIndent}val ${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.drgElementOutputType(subDecision)} = this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)})
             </#if>
         </#items>
 
