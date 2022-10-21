@@ -32,7 +32,7 @@ import jdmn.runtime.listener.Rule
 import ApplicationRiskScoreModelRuleOutput
 
 
-# Generated(value = {"bkm.ftl", "ApplicationRiskScoreModel"})
+# Generated(value = ["bkm.ftl", "ApplicationRiskScoreModel"])
 class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
         "",

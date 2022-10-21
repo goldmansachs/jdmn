@@ -30,7 +30,7 @@ import jdmn.runtime.listener.EventListener
 import jdmn.runtime.listener.Rule
 
 
-# Generated(value = {"bkm.ftl", "InstallmentCalculation"})
+# Generated(value = ["bkm.ftl", "InstallmentCalculation"])
 class InstallmentCalculation(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
         "",

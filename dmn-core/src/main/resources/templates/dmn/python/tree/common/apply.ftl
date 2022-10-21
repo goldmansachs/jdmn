@@ -10,12 +10,27 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations under the License.
 -->
+<#import "events.ftl" as events />
+
+<#macro applyMethods drgElement>
+    <@apply.applyPojo drgElement />
+</#macro>
+
+<#macro applyPojo drgElement >
+    def apply(${transformer.drgElementSignature(drgElement)}) -> ${transformer.drgElementOutputType(drgElement)}:
+        <#if drgElement.class.simpleName == "TDecisionService">
+        <@applyServiceMethodBody drgElement />
+        <#else>
+        <@applyMethodBody drgElement />
+        </#if>
+</#macro>
+
 <#--
     Apply method body
 -->
 <#macro applyMethodBody drgElement>
         try:
-        <@startDRGElement drgElement/>
+        <@events.startDRGElement drgElement/>
 
         <#if modelRepository.isDecisionTableExpression(drgElement)>
             <@expressionApplyBody drgElement />
@@ -38,7 +53,7 @@
 
 <#macro applyServiceMethodBody drgElement>
         try:
-        <@startDRGElement drgElement/>
+        <@events.startDRGElement drgElement/>
 
         <@bindInputDecisions drgElement/>
         <@expressionApplyBody drgElement/>
@@ -69,23 +84,6 @@
 
         <@addEvaluateExpressionMethod drgElement/>
     </#if>
-</#macro>
-
-<#--
-    Sub decisions fields
--->
-<#macro setSubDecisionFields drgElement>
-    <#list modelRepository.directSubDecisions(drgElement)>
-        <#items as subDecision>
-        <#assign member = transformer.drgElementReferenceVariableName(subDecision)>
-        <#if transformer.isSingletonDecision()>
-            <#assign defaultValue = transformer.singletonDecisionInstance(transformer.qualifiedName(subDecision))/>
-        <#else>
-            <#assign defaultValue = transformer.defaultConstructor(transformer.qualifiedName(subDecision))/>
-        </#if>
-        self.${member} = ${defaultValue} if ${member} is None else ${member}
-        </#items>
-    </#list>
 </#macro>
 
 <#--
@@ -148,12 +146,12 @@
         # Rule metadata
         ${transformer.drgRuleMetadataFieldName()}: ${transformer.drgRuleMetadataClassName()} = ${transformer.drgRuleMetadataClassName()}(${rule_index}, "${transformer.annotationEscapedText(rule)}")
 
-        <@startRule drgElement rule_index />
+        <@events.startRule drgElement rule_index />
 
         # Apply rule
         output_: ${transformer.qualifiedRuleOutputClassName(drgElement)} = ${transformer.qualifiedRuleOutputClassName(drgElement)}(False)
         if (${transformer.condition(drgElement, rule, rule_index)}):
-            <@matchRule drgElement rule_index />
+            <@events.matchRule drgElement rule_index />
 
             # Compute output
             output_.setMatched(True)
@@ -166,7 +164,7 @@
 
             <@addAnnotation drgElement rule rule_index />
 
-        <@endRule drgElement rule_index "output_" />
+        <@events.endRule drgElement rule_index "output_" />
 
         return output_
         <#if rule_has_next>
@@ -224,18 +222,18 @@
                 # Retrieve value from cache
                 output_: ${transformer.drgElementOutputType(drgElement)} = cache_.lookup("${modelRepository.name(drgElement)}")
 
-                <@endDRGElementAndReturnIndent "    " drgElement "output_" />
+                <@events.endDRGElementAndReturnIndent "    " drgElement "output_" />
             else:
                 # ${transformer.evaluateElementCommentText(drgElement)}
                 output_: ${transformer.drgElementOutputType(drgElement)} = self.evaluate(${transformer.drgElementArgumentList(drgElement)})
                 cache_.bind("${modelRepository.name(drgElement)}", output_)
 
-                <@endDRGElementAndReturnIndent "    " drgElement "output_" />
+                <@events.endDRGElementAndReturnIndent "    " drgElement "output_" />
         <#else>
             # ${transformer.evaluateElementCommentText(drgElement)}
             output_: ${transformer.drgElementOutputType(drgElement)} = self.evaluate(${transformer.drgElementArgumentList(drgElement)})
 
-            <@endDRGElementAndReturn drgElement "output_" />
+            <@events.endDRGElementAndReturn drgElement "output_" />
         </#if>
 </#macro>
 
@@ -306,179 +304,9 @@
 </#macro>
 
 <#--
-    Events
--->
-<#macro startDRGElement drgElement>
-            # ${transformer.startElementCommentText(drgElement)}
-            ${transformer.namedElementVariableName(drgElement)}StartTime_ = <@currentTimeMillis/>
-            ${transformer.argumentsVariableName(drgElement)} = ${transformer.defaultConstructor(transformer.argumentsClassName())}
-            <#assign elementNames = transformer.drgElementArgumentDisplayNameList(drgElement)/>
-            <#list transformer.drgElementArgumentNameList(drgElement)>
-            <#items as arg>
-            ${transformer.argumentsVariableName(drgElement)}.put("${transformer.escapeInString(elementNames[arg?index])}", ${arg})
-            </#items>
-            </#list>
-            ${transformer.eventListenerVariableName()}.startDRGElement(<@drgElementAnnotation drgElement/>, ${transformer.argumentsVariableName(drgElement)})
-</#macro>
-
-<#macro endDRGElement drgElement output>
-    <@endDRGElementIndent "" drgElement output/>
-</#macro>
-
-<#macro endDRGElementIndent extraIndent drgElement output>
-            ${extraIndent}# ${transformer.endElementCommentText(drgElement)}
-            ${extraIndent}${transformer.eventListenerVariableName()}.endDRGElement(<@drgElementAnnotation drgElement/>, ${transformer.argumentsVariableName(drgElement)}, ${output}, (<@currentTimeMillis/> - ${transformer.namedElementVariableName(drgElement)}StartTime_))
-</#macro>
-
-<#macro endDRGElementAndReturn drgElement output>
-            <@endDRGElementAndReturnIndent "" drgElement output/>
-</#macro>
-
-<#macro endDRGElementAndReturnIndent extraIndent drgElement output>
-            <@endDRGElementIndent extraIndent drgElement output/>
-
-            ${extraIndent}return ${output}
-</#macro>
-
-<#macro startRule drgElement rule_index>
-        # Rule start
-        ${transformer.eventListenerVariableName()}.startRule(<@drgElementAnnotation drgElement/>, <@ruleAnnotation/>)
-</#macro>
-
-<#macro matchRule drgElement rule_index>
-            # Rule match
-            ${transformer.eventListenerVariableName()}.matchRule(<@drgElementAnnotation drgElement/>, <@ruleAnnotation/>)
-</#macro>
-
-<#macro endRule drgElement rule_index output>
-        # Rule end
-        ${transformer.eventListenerVariableName()}.endRule(<@drgElementAnnotation drgElement/>, <@ruleAnnotation/>, ${output})
-</#macro>
-
-<#macro drgElementAnnotation drgElement>self.${transformer.drgElementMetadataFieldName()}</#macro>
-
-<#macro ruleAnnotation>${transformer.drgRuleMetadataFieldName()}</#macro>
-
-<#--
     Annotations
 -->
 <#macro addAnnotation drgElement rule rule_index>
             # Add annotation
             ${transformer.annotationSetVariableName()}.addAnnotation("${drgElement.name}", ${rule_index}, ${transformer.annotation(drgElement, rule)})
-</#macro>
-
-<#macro currentTimeMillis>int(time.time_ns()/1000)</#macro>
-
-<#--
-    Import
--->
-<#macro importStatements drgElement>
-<@importRuntimeStatements drgElement/>
-<@importModelElementStatements drgElement/>
-</#macro>
-
-<#macro importRuntimeStatements drgElement>
-import typing
-import decimal
-import datetime
-import isodate
-import time
-
-import ${transformer.jdmnRootPackage()}.runtime.Context
-import ${transformer.jdmnRootPackage()}.runtime.DefaultDMNBaseDecision
-import ${transformer.jdmnRootPackage()}.runtime.ExecutionContext
-import ${transformer.jdmnRootPackage()}.runtime.LambdaExpression
-import ${transformer.jdmnRootPackage()}.runtime.LazyEval
-import ${transformer.jdmnRootPackage()}.runtime.Pair
-import ${transformer.jdmnRootPackage()}.runtime.Range
-import ${transformer.jdmnRootPackage()}.runtime.RuleOutput
-import ${transformer.jdmnRootPackage()}.runtime.RuleOutputList
-
-import ${transformer.jdmnRootPackage()}.runtime.annotation.Annotation
-import ${transformer.jdmnRootPackage()}.runtime.annotation.AnnotationSet
-import ${transformer.jdmnRootPackage()}.runtime.annotation.DRGElementKind
-import ${transformer.jdmnRootPackage()}.runtime.annotation.ExpressionKind
-import ${transformer.jdmnRootPackage()}.runtime.annotation.HitPolicy
-
-import ${transformer.jdmnRootPackage()}.runtime.cache.Cache
-
-import ${transformer.jdmnRootPackage()}.runtime.external.ExternalFunctionExecutor
-
-import ${transformer.jdmnRootPackage()}.runtime.listener.Arguments
-import ${transformer.jdmnRootPackage()}.runtime.listener.DRGElement
-import ${transformer.jdmnRootPackage()}.runtime.listener.EventListener
-import ${transformer.jdmnRootPackage()}.runtime.listener.Rule
-</#macro>
-
-<#macro importModelElementStatements drgElement>
-<#if transformer.hasComplexInputDatas(drgElement)>
-
-<@importComplexInputDatas drgElement/>
-</#if>
-<#if transformer.hasDirectSubDecisions(drgElement)>
-
-<@importSubDecisions drgElement/>
-</#if>
-<#if transformer.hasDirectSubInvocables(drgElement)>
-
-<@importSubInvocables drgElement/>
-</#if>
-<@importRecursiveBKM drgElement/>
-<#if modelRepository.isDecisionTableExpression(drgElement)>
-
-import ${transformer.qualifiedModuleName(javaPackageName, transformer.ruleOutputClassName(drgElement))}
-</#if>
-</#macro>
-
-<#macro importComplexInputDatas drgElement>
-    <#list transformer.drgElementComplexInputClassNames(drgElement)>
-        <#items as module>
-import ${module}
-        </#items>
-    </#list>
-</#macro>
-
-<#macro importSubDecisions drgElement>
-    <#list modelRepository.directSubDecisions(drgElement)>
-        <#items as subDecision>
-import ${transformer.qualifiedModuleName(subDecision)}
-        </#items>
-    </#list>
-</#macro>
-
-<#macro importSubInvocables drgElement>
-    <#list modelRepository.directSubInvocables(drgElement)>
-        <#items as bkm>
-import ${transformer.qualifiedModuleName(bkm)}
-        </#items>
-    </#list>
-</#macro>
-
-<#macro importRecursiveBKM drgElement>
-    <#if modelRepository.isRecursiveBKM(drgElement)>
-
-import ${transformer.qualifiedModuleName(drgElement)}
-    </#if>
-</#macro>
-
-<#macro singletonPattern drgElement>
-    _instance = None
-
-    def __init__(self):
-        raise RuntimeError("Call instance() instead")
-
-    @classmethod
-    def instance(cls):
-        if cls._instance is None:
-            cls._instance = cls.__new__(cls)
-            ${decisionBaseClass}.__init__(cls._instance)
-    <#if transformer.hasDirectSubDecisions(drgElement)>
-            cls._instance.initSubDecisions()
-        return cls._instance
-
-    def initSubDecisions(${transformer.drgElementConstructorSignature(drgElement)}):
-        <@setSubDecisionFields drgElement/>
-    <#else>
-        return cls._instance
-    </#if>
 </#macro>

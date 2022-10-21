@@ -32,7 +32,7 @@ import jdmn.runtime.listener.Rule
 import PreBureauRiskCategoryTableRuleOutput
 
 
-# Generated(value = {"bkm.ftl", "'Pre-bureauRiskCategoryTable'"})
+# Generated(value = ["bkm.ftl", "'Pre-bureauRiskCategoryTable'"])
 class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
         "",

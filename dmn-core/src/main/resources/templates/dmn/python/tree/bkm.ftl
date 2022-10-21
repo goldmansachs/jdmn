@@ -10,23 +10,17 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations under the License.
 -->
-<#include "drgElementCommon.ftl">
-<@importStatements drgElement/>
+<#import "/tree/common/import.ftl" as import />
+<#import "/tree/common/metadata.ftl" as metadata />
+<#import "/tree/common/constructor.ftl" as constructor />
+<#import "/tree/common/apply.ftl" as apply />
+<@import.importStatements drgElement/>
 
 
-# Generated(value = {"bkm.ftl", "${transformer.escapeInString(modelRepository.name(drgElement))}"})
+<@metadata.classAnnotation "bkm.ftl" drgElement/>
 class ${javaClassName}(${decisionBaseClass}):
-    ${transformer.drgElementMetadataFieldName()}: ${transformer.drgElementMetadataClassName()} = ${transformer.drgElementMetadataClassName()}(
-        "${javaPackageName}",
-        "${modelRepository.name(drgElement)}",
-        "${modelRepository.label(drgElement)}",
-        ${transformer.elementKindAnnotationClassName()}.${transformer.elementKind(drgElement)},
-        ${transformer.expressionKindAnnotationClassName()}.${transformer.expressionKind(drgElement)},
-        ${transformer.hitPolicyAnnotationClassName()}.${transformer.hitPolicy(drgElement)},
-        ${modelRepository.rulesCount(drgElement)}
-    )
-    <@singletonPattern drgElement />
+    <@metadata.elementMetadataField drgElement />
+    <@constructor.bkmConstructor drgElement />
 
-    def apply(${transformer.drgElementSignature(drgElement)}) -> ${transformer.drgElementOutputType(drgElement)}:
-        <@applyMethodBody drgElement />
-    <@evaluateExpressionMethod drgElement />
+    <@apply.applyMethods drgElement />
+    <@apply.evaluateExpressionMethod drgElement />

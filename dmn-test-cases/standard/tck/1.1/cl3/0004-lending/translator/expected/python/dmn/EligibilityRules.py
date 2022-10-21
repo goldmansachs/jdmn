@@ -32,7 +32,7 @@ import jdmn.runtime.listener.Rule
 import EligibilityRulesRuleOutput
 
 
-# Generated(value = {"bkm.ftl", "EligibilityRules"})
+# Generated(value = ["bkm.ftl", "EligibilityRules"])
 class EligibilityRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
         "",

@@ -32,7 +32,7 @@ import jdmn.runtime.listener.Rule
 import BureauCallTypeTableRuleOutput
 
 
-# Generated(value = {"bkm.ftl", "BureauCallTypeTable"})
+# Generated(value = ["bkm.ftl", "BureauCallTypeTable"])
 class BureauCallTypeTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
         "",

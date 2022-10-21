@@ -32,7 +32,7 @@ import jdmn.runtime.listener.Rule
 import CreditContingencyFactorTableRuleOutput
 
 
-# Generated(value = {"bkm.ftl", "CreditContingencyFactorTable"})
+# Generated(value = ["bkm.ftl", "CreditContingencyFactorTable"])
 class CreditContingencyFactorTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
         "",

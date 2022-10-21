@@ -32,7 +32,7 @@ import jdmn.runtime.listener.Rule
 import Decision_001
 
 
-# Generated(value = {"ds.ftl", "decisionService_001"})
+# Generated(value = ["ds.ftl", "decisionService_001"])
 class DecisionService_001(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
         "",

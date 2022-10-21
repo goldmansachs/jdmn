@@ -32,7 +32,7 @@ import jdmn.runtime.listener.Rule
 import RoutingRulesRuleOutput
 
 
-# Generated(value = {"bkm.ftl", "RoutingRules"})
+# Generated(value = ["bkm.ftl", "RoutingRules"])
 class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
         "",
