@@ -11,7 +11,6 @@
     specific language governing permissions and limitations under the License.
 -->
 <#include "drgElementCommon.ftl">
-<#assign repository = transformer.getDMNModelRepository() />
 <@importStatements drgElement/>
 
 

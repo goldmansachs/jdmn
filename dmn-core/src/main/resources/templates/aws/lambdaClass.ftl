@@ -1,7 +1,6 @@
 <#if javaPackageName?has_content>
 package ${javaPackageName};
 </#if>
-<#assign repository = transformer.getDMNModelRepository() />
 <#assign eventVariable = "event_" />
 <#assign contextVariable = "context_" />
 <#assign outputVariable = "output_" />

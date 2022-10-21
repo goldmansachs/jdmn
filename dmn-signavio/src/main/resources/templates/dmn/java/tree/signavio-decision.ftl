@@ -14,7 +14,6 @@
 <#if javaPackageName?has_content>
 package ${javaPackageName};
 </#if>
-<#assign repository = transformer.getDMNModelRepository() />
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -143,13 +142,13 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     <@makeArgumentsFromRequestMessage drgElement true/>
 
     <#assign mapVariable = "map_" />
-    <#assign reference = repository.makeDRGElementReference(drgElement) />
+    <#assign reference = modelRepository.makeDRGElementReference(drgElement) />
     <#assign inputDataClosure = transformer.inputDataClosure(reference) />
         // Create map
         java.util.Map<String, Object> ${mapVariable} = new java.util.LinkedHashMap<>();
         <#list inputDataClosure as r >
             <#assign inputData = r.element />
-            <#assign displayName = repository.displayName(inputData) />
+            <#assign displayName = modelRepository.displayName(inputData) />
             <#assign variableName = transformer.nativeName(inputData) />
         ${mapVariable}.put("${displayName}", ${variableName});
         </#list>

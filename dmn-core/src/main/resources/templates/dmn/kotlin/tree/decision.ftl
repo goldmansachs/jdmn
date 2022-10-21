@@ -14,7 +14,6 @@
 <#if javaPackageName?has_content>
 package ${javaPackageName}
 </#if>
-<#assign repository = transformer.getDMNModelRepository() />
 
 import java.util.*
 import java.util.stream.Collectors
@@ -127,13 +126,13 @@ class ${javaClassName}(${transformer.drgElementConstructorSignature(drgElement)}
      <@makeArgumentsFromRequestMessage drgElement true "    "/>
 
     <#assign mapVariable = "map_" />
-    <#assign reference = repository.makeDRGElementReference(drgElement) />
+    <#assign reference = modelRepository.makeDRGElementReference(drgElement) />
     <#assign inputDataClosure = transformer.inputDataClosure(reference) />
             // Create map
             val ${mapVariable}: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
             <#list inputDataClosure as r >
                 <#assign inputData = r.element />
-                <#assign displayName = repository.displayName(inputData) />
+                <#assign displayName = modelRepository.displayName(inputData) />
                 <#assign variableName = transformer.nativeName(inputData) />
             ${mapVariable}.put("${displayName}", ${variableName})
             </#list>
