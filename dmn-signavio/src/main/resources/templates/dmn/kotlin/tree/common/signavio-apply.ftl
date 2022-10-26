@@ -67,7 +67,7 @@
 -->
 <#macro applyMethodBody drgElement>
         try {
-        <@startDRGElement drgElement/>
+        <@events.startDRGElement drgElement/>
 
         <#if modelRepository.isDecisionTableExpression(drgElement)>
             <@expressionApplyBody drgElement />
@@ -128,23 +128,23 @@
 -->
 <#macro multiInstanceDecisionApplyBody drgElement>
         <#if transformer.isCached(modelRepository.name(drgElement))>
-            if (cache_.contains("${modelRepository.name(drgElement)}")) {
+            if (${transformer.cacheVariableName()}.contains("${modelRepository.name(drgElement)}")) {
                 // Retrieve value from cache
-                var output_: ${transformer.drgElementOutputType(drgElement)} = cache_.lookup("${modelRepository.name(drgElement)}") as ${transformer.drgElementOutputType(drgElement)}
+                var output_: ${transformer.drgElementOutputType(drgElement)} = ${transformer.cacheVariableName()}.lookup("${modelRepository.name(drgElement)}") as ${transformer.drgElementOutputType(drgElement)}
 
-                <@endDRGElementAndReturnIndent "    " drgElement "output_" />
+                <@events.endDRGElementAndReturnIndent "    " drgElement "output_" />
             } else {
                 // Iterate and aggregate
                 var output_: ${transformer.drgElementOutputType(drgElement)} = evaluate(${transformer.drgElementArgumentList(drgElement)})
-                cache_.bind("${modelRepository.name(drgElement)}", output_)
+                ${transformer.cacheVariableName()}.bind("${modelRepository.name(drgElement)}", output_)
 
-                <@endDRGElementAndReturnIndent "    " drgElement "output_" />
+                <@events.endDRGElementAndReturnIndent "    " drgElement "output_" />
             }
         <#else>
             // Iterate and aggregate
             var output_: ${transformer.drgElementOutputType(drgElement)} = evaluate(${transformer.drgElementArgumentList(drgElement)})
 
-            <@endDRGElementAndReturn drgElement "output_" />
+            <@events.endDRGElementAndReturn drgElement "output_" />
         </#if>
 </#macro>
 
@@ -262,12 +262,12 @@
         // Rule metadata
         val ${transformer.drgRuleMetadataFieldName()}: ${transformer.drgRuleMetadataClassName()} = ${transformer.drgRuleMetadataClassName()}(${rule_index}, "${transformer.annotationEscapedText(rule)}")
 
-        <@startRule drgElement rule_index />
+        <@events.startRule drgElement rule_index />
 
         // Apply rule
         var output_: ${transformer.ruleOutputClassName(drgElement)} = ${transformer.ruleOutputClassName(drgElement)}(false)
         if (${transformer.condition(drgElement, rule, rule_index)}) {
-            <@matchRule drgElement rule_index />
+            <@events.matchRule drgElement rule_index />
 
             // Compute output
             output_.setMatched(true)
@@ -281,7 +281,7 @@
             <@addAnnotation drgElement rule rule_index />
         }
 
-        <@endRule drgElement rule_index "output_" />
+        <@events.endRule drgElement rule_index "output_" />
 
         return output_
     }
@@ -334,23 +334,23 @@
 -->
 <#macro expressionApplyBody drgElement>
         <#if transformer.isCached(modelRepository.name(drgElement))>
-            if (cache_.contains("${modelRepository.name(drgElement)}")) {
+            if (${transformer.cacheVariableName()}.contains("${modelRepository.name(drgElement)}")) {
                 // Retrieve value from cache
-                var output_:${transformer.drgElementOutputType(drgElement)} = cache_.lookup("${modelRepository.name(drgElement)}") as ${transformer.drgElementOutputType(drgElement)}
+                var output_:${transformer.drgElementOutputType(drgElement)} = ${transformer.cacheVariableName()}.lookup("${modelRepository.name(drgElement)}") as ${transformer.drgElementOutputType(drgElement)}
 
-                <@endDRGElementAndReturnIndent "    " drgElement "output_" />
+                <@events.endDRGElementAndReturnIndent "    " drgElement "output_" />
             } else {
                 // ${transformer.evaluateElementCommentText(drgElement)}
                 val output_: ${transformer.drgElementOutputType(drgElement)} = evaluate(${transformer.drgElementArgumentList(drgElement)})
-                cache_.bind("${modelRepository.name(drgElement)}", output_)
+                ${transformer.cacheVariableName()}.bind("${modelRepository.name(drgElement)}", output_)
 
-                <@endDRGElementAndReturnIndent "    " drgElement "output_" />
+                <@events.endDRGElementAndReturnIndent "    " drgElement "output_" />
             }
         <#else>
             // ${transformer.evaluateElementCommentText(drgElement)}
             val output_: ${transformer.drgElementOutputType(drgElement)} = evaluate(${transformer.drgElementArgumentList(drgElement)})
 
-            <@endDRGElementAndReturn drgElement "output_" />
+            <@events.endDRGElementAndReturn drgElement "output_" />
         </#if>
 </#macro>
 
@@ -394,65 +394,9 @@
 </#macro>
 
 <#--
-    Events
--->
-<#macro startDRGElement drgElement>
-            // ${transformer.startElementCommentText(drgElement)}
-            val ${transformer.namedElementVariableName(drgElement)}StartTime_ = <@currentTimeMillis/>
-            val ${transformer.argumentsVariableName(drgElement)} = ${transformer.defaultConstructor(transformer.argumentsClassName())}
-            <#assign elementNames = transformer.drgElementArgumentDisplayNameList(drgElement)/>
-            <#list transformer.drgElementArgumentNameList(drgElement)>
-            <#items as arg>
-            ${transformer.argumentsVariableName(drgElement)}.put("${transformer.escapeInString(elementNames[arg?index])}", ${arg})
-            </#items>
-            </#list>
-            ${transformer.eventListenerVariableName()}.startDRGElement(<@drgElementAnnotation drgElement/>, ${transformer.argumentsVariableName(drgElement)})
-</#macro>
-
-<#macro endDRGElement drgElement output>
-    <@endDRGElementIndent "" drgElement output/>
-</#macro>
-
-<#macro endDRGElementIndent extraIndent drgElement output>
-            ${extraIndent}// ${transformer.endElementCommentText(drgElement)}
-            ${extraIndent}${transformer.eventListenerVariableName()}.endDRGElement(<@drgElementAnnotation drgElement/>, ${transformer.argumentsVariableName(drgElement)}, ${output}, (<@currentTimeMillis/> - ${transformer.namedElementVariableName(drgElement)}StartTime_))
-</#macro>
-
-<#macro endDRGElementAndReturn drgElement output>
-            <@endDRGElementAndReturnIndent "" drgElement output/>
-</#macro>
-
-<#macro endDRGElementAndReturnIndent extraIndent drgElement output>
-            <@endDRGElementIndent extraIndent drgElement output/>
-
-            ${extraIndent}return ${output}
-</#macro>
-
-<#macro startRule drgElement rule_index>
-        // Rule start
-        ${transformer.eventListenerVariableName()}.startRule(<@drgElementAnnotation drgElement/>, <@ruleAnnotation/>)
-</#macro>
-
-<#macro matchRule drgElement rule_index>
-            // Rule match
-            ${transformer.eventListenerVariableName()}.matchRule(<@drgElementAnnotation drgElement/>, <@ruleAnnotation/>)
-</#macro>
-
-<#macro endRule drgElement rule_index output>
-        // Rule end
-        ${transformer.eventListenerVariableName()}.endRule(<@drgElementAnnotation drgElement/>, <@ruleAnnotation/>, ${output})
-</#macro>
-
-<#macro drgElementAnnotation drgElement>${transformer.drgElementMetadataFieldName()}</#macro>
-
-<#macro ruleAnnotation>${transformer.drgRuleMetadataFieldName()}</#macro>
-
-<#--
     Annotations
 -->
 <#macro addAnnotation drgElement rule rule_index>
             // Add annotation
             ${transformer.annotationSetVariableName()}.addAnnotation("${drgElement.name}", ${rule_index}, ${transformer.annotation(drgElement, rule)})
 </#macro>
-
-<#macro currentTimeMillis>System.currentTimeMillis()</#macro>
