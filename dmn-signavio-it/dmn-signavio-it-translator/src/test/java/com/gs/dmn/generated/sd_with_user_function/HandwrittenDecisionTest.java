@@ -13,8 +13,10 @@
 package com.gs.dmn.generated.sd_with_user_function;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
 import org.junit.Test;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -23,16 +25,22 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void testApply() {
-        assertEquals(true, decision.apply(decision.number("-1"), annotationSet, eventListener, externalFunctionExecutor, cache));
-        assertEquals(true, decision.apply(decision.number("0"), annotationSet, eventListener, externalFunctionExecutor, cache));
-        assertEquals(true, decision.apply(decision.number("1"), annotationSet, eventListener, externalFunctionExecutor, cache));
-        assertEquals(true, decision.apply(decision.number("20"), annotationSet, eventListener, externalFunctionExecutor, cache));
-        assertEquals(false, decision.apply(decision.number("21"), annotationSet, eventListener, externalFunctionExecutor, cache));
-        assertEquals(false, decision.apply(decision.number("22"), annotationSet, eventListener, externalFunctionExecutor, cache));
+        assertEquals(true, applyDecision("-1"));
+        assertEquals(true, applyDecision("0"));
+        assertEquals(true, applyDecision("1"));
+        assertEquals(true, applyDecision("20"));
+        assertEquals(false, applyDecision("21"));
+        assertEquals(false, applyDecision("22"));
     }
 
     @Override
     protected void applyDecision() {
-        decision.apply((String)null, annotationSet, eventListener, externalFunctionExecutor, cache);
+        applyDecision(null);
+    }
+
+    private Boolean applyDecision(String age) {
+        Map<String, String> input = new LinkedHashMap<>();
+        input.put("Age", age);
+        return decision.apply(input, context);
     }
 }

@@ -13,10 +13,10 @@
 package com.gs.dmn.generated.cd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
 import org.junit.Test;
 
-import java.math.BigDecimal;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -30,13 +30,22 @@ public class HandwrittenCompoundOutputCompoundDecisionTest extends AbstractHandw
     }
 
     private void check(String booleanInput, String enumerationInput, String numberInput, String textInput, String expectedFirstOutput, String expectedSecondOutput) {
-        com.gs.dmn.generated.cd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy.type.CompoundOutputCompoundDecision output = decision.apply(booleanInput, textInput, numberInput, enumerationInput, annotationSet, eventListener, externalFunctionExecutor, cache);
+        com.gs.dmn.generated.cd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy.type.CompoundOutputCompoundDecision output = applyDecision(booleanInput, enumerationInput, numberInput, textInput);
         assertEquals(expectedFirstOutput, output.getFirstOutput());
         assertEquals(expectedSecondOutput, output.getSecondOutput());
     }
 
     @Override
     protected void applyDecision() {
-        decision.apply(Boolean.TRUE, "e1", BigDecimal.ONE, "a", annotationSet, eventListener, externalFunctionExecutor, cache);
+        applyDecision("true", "e1", "1", "a");
+    }
+
+    private com.gs.dmn.generated.cd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy.type.CompoundOutputCompoundDecision applyDecision(String booleanInput, String enumerationInput, String numberInput, String textInput) {
+        Map<String, String> input = new LinkedHashMap<>();
+        input.put("BooleanInput", booleanInput);
+        input.put("EnumerationInput", enumerationInput);
+        input.put("DD2 Number Input", numberInput);
+        input.put("DD1 Text Input", textInput);
+        return decision.apply(input, context);
     }
 }

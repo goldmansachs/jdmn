@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.generated.tck.cl3_0020_vacation_days;
 
+import com.gs.dmn.runtime.ExecutionContext;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import com.gs.dmn.runtime.cache.DefaultCache;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
@@ -22,7 +23,9 @@ import org.junit.Test;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -31,13 +34,13 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
 
     @Test
     public void testListener() throws Exception {
-        AnnotationSet annotationSet = new AnnotationSet();
         PostorderTraceEventListener listener = new PostorderTraceEventListener();
+        ExecutionContext context = new ExecutionContext(new AnnotationSet(), listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
 
         String expectedResult = "27";
         String age = "16";
         String yearsOfService = "1";
-        BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
+        BigDecimal actualResult = applyDecision(age, yearsOfService, context);
         assertEquals(expectedResult, actualResult.toPlainString());
 
         List<DRGElementNode> elementTraces = listener.postorderNodes();
@@ -48,13 +51,13 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
 
     @Test
     public void testListenerWithFilter() throws Exception {
-        AnnotationSet annotationSet = new AnnotationSet();
         PostorderTraceEventListener listener = new PostorderTraceEventListener(Arrays.asList("'Extra days case 1'", "'Extra days case 2'"));
+        ExecutionContext context = new ExecutionContext(new AnnotationSet(), listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
 
         String expectedResult = "27";
         String age = "16";
         String yearsOfService = "1";
-        BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
+        BigDecimal actualResult = applyDecision(age, yearsOfService, context);
         assertEquals(expectedResult, actualResult.toPlainString());
 
         List<DRGElementNode> elementTraces = listener.postorderNodes();
@@ -65,5 +68,12 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
 
     private String getExpectedPath() {
         return "traces/cl3_0020_vacation_days";
+    }
+
+    private BigDecimal applyDecision(String age, String yearsOfService, ExecutionContext context) {
+        Map<String, String> result = new LinkedHashMap<>();
+        result.put("Age", age);
+        result.put("'Years of Service'", yearsOfService);
+        return decision.apply(result, context);
     }
 }

@@ -15,6 +15,7 @@ package com.gs.dmn.generated.example_credit_decision;
 import com.gs.dmn.generated.example_credit_decision.type.Applicant;
 import com.gs.dmn.generated.example_credit_decision.type.ApplicantImpl;
 import com.gs.dmn.runtime.Assert;
+import com.gs.dmn.runtime.ExecutionContext;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import com.gs.dmn.runtime.cache.DefaultCache;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
@@ -23,6 +24,7 @@ import com.gs.dmn.runtime.listener.node.DRGElementNode;
 import org.junit.Test;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,14 +33,13 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
 
     @Test
     public void testListener() throws Exception {
-        AnnotationSet annotationSet = new AnnotationSet();
         PostorderTraceEventListener listener = new PostorderTraceEventListener();
 
         List<com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData> expectedResult = decision.asList(new com.gs.dmn.generated.example_credit_decision.type.GenerateOutputDataImpl(decision.number("27.5"), "Accept", decision.numericUnaryMinus(decision.number("7.5"))));
         java.math.BigDecimal currentRiskAppetite = decision.number("50");
         java.math.BigDecimal lendingThreshold = decision.number("25");
         Applicant applicant = new ApplicantImpl(decision.number("38"), decision.number("100"), "Amy", decision.asList("Late payment"));
-        List<?> actualResult = decision.apply(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, annotationSet, listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
+        List<?> actualResult = applyDecision(applicant, currentRiskAppetite, lendingThreshold, listener);
 
         Assert.assertEquals(expectedResult, actualResult);
 
@@ -50,14 +51,13 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
 
     @Test
     public void testListenerWithFilter() throws Exception {
-        AnnotationSet annotationSet = new AnnotationSet();
         PostorderTraceEventListener listener = new PostorderTraceEventListener(Arrays.asList("Make credit decision"));
 
         List<com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData> expectedResult = decision.asList(new com.gs.dmn.generated.example_credit_decision.type.GenerateOutputDataImpl(decision.number("27.5"), "Accept", decision.numericUnaryMinus(decision.number("7.5"))));
         java.math.BigDecimal currentRiskAppetite = decision.number("50");
         java.math.BigDecimal lendingThreshold = decision.number("25");
         Applicant applicant = new ApplicantImpl(decision.number("38"), decision.number("100"), "Amy", decision.asList("Late payment"));
-        List<?> actualResult = decision.apply(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, annotationSet, listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
+        List<?> actualResult = applyDecision(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, listener);
 
         Assert.assertEquals(expectedResult, actualResult);
 
@@ -66,6 +66,14 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
         File expectedOutputFile = new File(resource(getExpectedPath() + "/50-25-postorder-with-filter.json"));
         checkTrace(expectedOutputFile, actualOutputFile);
     }
+
+    private List<?> applyDecision(Applicant toApplicant, BigDecimal currentRiskAppetite, BigDecimal lendingThreshold, PostorderTraceEventListener listener) {
+        AnnotationSet annotationSet = new AnnotationSet();
+        ExecutionContext context = new ExecutionContext(annotationSet, listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
+
+        return decision.apply(toApplicant, currentRiskAppetite, lendingThreshold, context.getAnnotations(), context.getEventListener(), context.getExternalFunctionExecutor(), context.getCache());
+    }
+
 
     private String getExpectedPath() {
         return "traces/example_credit_decision";

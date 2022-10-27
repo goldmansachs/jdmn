@@ -17,7 +17,6 @@ import com.gs.dmn.generated.example_credit_decision_mixed_proto.type.Applicant;
 import com.gs.dmn.generated.example_credit_decision_mixed_proto.type.ApplicantImpl;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;

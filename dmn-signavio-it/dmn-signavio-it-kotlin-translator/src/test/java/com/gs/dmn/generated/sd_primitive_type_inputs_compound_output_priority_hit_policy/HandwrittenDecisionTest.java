@@ -13,8 +13,10 @@
 package com.gs.dmn.generated.sd_primitive_type_inputs_compound_output_priority_hit_policy;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
 import org.junit.Test;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -23,25 +25,32 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void testApply() {
-        com.gs.dmn.generated.sd_primitive_type_inputs_compound_output_priority_hit_policy.type.Decision output = decision.apply("1", "1", annotationSet, eventListener, externalFunctionExecutor, cache);
+        com.gs.dmn.generated.sd_primitive_type_inputs_compound_output_priority_hit_policy.type.Decision output = applyDecision("1", "1");
         assertEquals("r2", output.getOutput1());
         assertEquals("r6", output.getOutput2());
 
-        output = decision.apply("1", null, annotationSet, eventListener, externalFunctionExecutor, cache);
+        output = applyDecision("1", null);
         assertEquals("r2", output.getOutput1());
         assertEquals("r7", output.getOutput2());
 
-        output = decision.apply((String) null, "1", annotationSet, eventListener, externalFunctionExecutor, cache);
+        output = applyDecision(null, "1");
         assertEquals("r2", output.getOutput1());
         assertEquals("r8", output.getOutput2());
 
-        output = decision.apply((String) null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
+        output = applyDecision(null, null);
         assertEquals("r2", output.getOutput1());
         assertEquals("r9", output.getOutput2());
     }
 
     @Override
     protected void applyDecision() {
-        decision.apply(decision.number("1"), "1", annotationSet, eventListener, externalFunctionExecutor, cache);
+        applyDecision("1", "1");
+    }
+
+    private com.gs.dmn.generated.sd_primitive_type_inputs_compound_output_priority_hit_policy.type.Decision applyDecision(String numberInput, String textInput) {
+        Map<String, String> input = new LinkedHashMap<>();
+        input.put("NumberInput", numberInput);
+        input.put("TextInput", textInput);
+        return decision.apply(input, context);
     }
 }

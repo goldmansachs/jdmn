@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.generated.tck.cl3_0020_vacation_days;
 
+import com.gs.dmn.runtime.ExecutionContext;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import com.gs.dmn.runtime.cache.DefaultCache;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
@@ -21,7 +22,9 @@ import org.junit.Test;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -30,13 +33,13 @@ public class TreeTraceListenerTest extends AbstractTraceListenerTest {
 
     @Test
     public void testTree() throws Exception {
-        AnnotationSet annotationSet = new AnnotationSet();
         TreeTraceEventListener listener = new TreeTraceEventListener();
+        ExecutionContext context = new ExecutionContext(new AnnotationSet(), listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
 
         String expectedResult = "27";
         String age = "16";
         String yearsOfService = "1";
-        BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
+        BigDecimal actualResult = applyDecision(age, yearsOfService, context);
         assertEquals(expectedResult, actualResult.toPlainString());
 
         DRGElementNode root = listener.getRoot();
@@ -47,13 +50,13 @@ public class TreeTraceListenerTest extends AbstractTraceListenerTest {
 
     @Test
     public void testPreorder() throws Exception {
-        AnnotationSet annotationSet = new AnnotationSet();
         TreeTraceEventListener listener = new TreeTraceEventListener();
+        ExecutionContext context = new ExecutionContext(new AnnotationSet(), listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
 
         String expectedResult = "27";
         String age = "16";
         String yearsOfService = "1";
-        BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
+        BigDecimal actualResult = applyDecision(age, yearsOfService, context);
         assertEquals(expectedResult, actualResult.toPlainString());
 
         List<DRGElementNode> nodes = listener.preorderNodes();
@@ -64,19 +67,26 @@ public class TreeTraceListenerTest extends AbstractTraceListenerTest {
 
     @Test
     public void testPostorder() throws Exception {
-        AnnotationSet annotationSet = new AnnotationSet();
         TreeTraceEventListener listener = new TreeTraceEventListener();
+        ExecutionContext context = new ExecutionContext(new AnnotationSet(), listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
 
         String expectedResult = "27";
         String age = "16";
         String yearsOfService = "1";
-        BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
+        BigDecimal actualResult = applyDecision(age, yearsOfService, context);
         assertEquals(expectedResult, actualResult.toPlainString());
 
         List<DRGElementNode> nodes = listener.postorderNodes();
         File actualOutputFile = writeNodes(nodes);
         File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-tree-postorder.json"));
         checkTrace(expectedOutputFile, actualOutputFile);
+    }
+
+    private BigDecimal applyDecision(String age, String yearsOfService, ExecutionContext context) {
+        Map<String, String> result = new LinkedHashMap<>();
+        result.put("Age", age);
+        result.put("'Years of Service'", yearsOfService);
+        return decision.apply(result, context);
     }
 
     private String getExpectedPath() {

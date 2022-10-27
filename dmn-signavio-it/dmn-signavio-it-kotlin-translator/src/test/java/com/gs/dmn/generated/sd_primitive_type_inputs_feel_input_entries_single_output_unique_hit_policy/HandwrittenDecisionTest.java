@@ -13,8 +13,10 @@
 package com.gs.dmn.generated.sd_primitive_type_inputs_feel_input_entries_single_output_unique_hit_policy;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
 import org.junit.Test;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertNull;
 
@@ -23,7 +25,7 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void testApply() {
-        assertNull(decision.apply("true", "2016-08-01T12:00:00+01:00", "2016-08-01", "e1", "-1", "abc", "12:00:00+00:00", annotationSet, eventListener, externalFunctionExecutor, cache));
+        assertNull(applyDecision("true", "2016-08-01T12:00:00+01:00", "2016-08-01", "e1", "-1", "abc", "12:00:00+00:00"));
     }
 
     @Override
@@ -35,6 +37,18 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         String numberInput = "-1";
         String textInput = "abc";
         String timeInput = "12:00:00+00:00";
-        decision.apply(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet, eventListener, externalFunctionExecutor, cache);
+        applyDecision(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput);
+    }
+
+    private String applyDecision(String booleanInput, String dateAndTimeInput, String dateInput, String enumerationInput, String numberInput, String textInput, String timeInput) {
+        Map<String, String> input = new LinkedHashMap<>();
+        input.put("BooleanInput", booleanInput);
+        input.put("DateAndTimeInput", dateAndTimeInput);
+        input.put("DateInput", dateInput);
+        input.put("EnumerationInput", enumerationInput);
+        input.put("NumberInput", numberInput);
+        input.put("TextInput", textInput);
+        input.put("TimeInput", timeInput);
+        return decision.apply(input, context);
     }
 }

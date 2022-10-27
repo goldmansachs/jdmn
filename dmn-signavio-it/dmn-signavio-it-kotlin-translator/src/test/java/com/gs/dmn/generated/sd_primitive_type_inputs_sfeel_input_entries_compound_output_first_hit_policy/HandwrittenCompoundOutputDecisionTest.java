@@ -13,8 +13,10 @@
 package com.gs.dmn.generated.sd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
 import org.junit.Test;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,15 +30,20 @@ public class HandwrittenCompoundOutputDecisionTest extends AbstractHandwrittenDe
         assertEquals("r12", output.getSecondOutput());
     }
 
-    private com.gs.dmn.generated.sd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy.type.CompoundOutputDecision applyDecision(
-            String booleanString, String dateAndTimeString, String dateString, String enumerationString,
-            String numberString, String text, String timeString) {
-
-        return decision.apply(booleanString, dateAndTimeString, dateString, enumerationString, numberString, text, timeString, annotationSet, eventListener, externalFunctionExecutor, cache);
-    }
-
     @Override
     protected void applyDecision() {
-        decision.apply(null, (String)null, null, null, null, null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
+        applyDecision(null, null, null, null, null, null, null);
+    }
+
+    private com.gs.dmn.generated.sd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy.type.CompoundOutputDecision applyDecision(String booleanInput, String dateAndTimeInput, String dateInput, String enumerationInput, String numberInput, String textInput, String timeInput) {
+        Map<String, String> input = new LinkedHashMap<>();
+        input.put("BooleanInput", booleanInput);
+        input.put("DateAndTimeInput", dateAndTimeInput);
+        input.put("DateInput", dateInput);
+        input.put("EnumerationInput", enumerationInput);
+        input.put("NumberInput", numberInput);
+        input.put("TextInput", textInput);
+        input.put("TimeInput", timeInput);
+        return decision.apply(input, context);
     }
 }

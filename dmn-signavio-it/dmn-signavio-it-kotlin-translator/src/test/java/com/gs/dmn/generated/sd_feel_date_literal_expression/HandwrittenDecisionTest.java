@@ -13,10 +13,11 @@
 package com.gs.dmn.generated.sd_feel_date_literal_expression;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,18 +26,28 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void testApply() throws Exception {
-        BigDecimal output = decision.apply(null, "1965-03-29", null, null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
+        BigDecimal output = applyDecision(null, "1965-03-29", null, null, null);
         assertEquals("29", output.toString());
     }
 
     @Test(expected = NullPointerException.class)
-    public void testApplyWhenNull() throws Exception {
-        BigDecimal output = decision.apply(null, (String)null, null, null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
+    public void testApplyWhenNull() {
+        BigDecimal output = applyDecision(null, null, null, null, null);
         assertEquals(29, output.intValue());
     }
 
     @Override
     protected void applyDecision() {
-        decision.apply(null, "1965-03-29", null, null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
+        applyDecision(null, "1965-03-29", null, null, null);
+    }
+
+    private BigDecimal applyDecision(String booleanInput, String dateInput, String enumerationInput, String numberInput, String stringInput) {
+        Map<String, String> input = new LinkedHashMap<>();
+        input.put("BooleanInput", booleanInput);
+        input.put("DateInput", dateInput);
+        input.put("EnumerationInput", enumerationInput);
+        input.put("NumberInput", numberInput);
+        input.put("StringInput", stringInput);
+        return decision.apply(input, context);
     }
 }
