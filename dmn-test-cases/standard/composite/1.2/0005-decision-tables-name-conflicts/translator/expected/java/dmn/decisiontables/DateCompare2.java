@@ -30,7 +30,7 @@ public class DateCompare2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     @java.lang.Override()
     public Boolean apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("dateD"), input_.get("dateD"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply(input_.get("decisionInputs1.dateD"), input_.get("decisionInputs2.dateD"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'DateCompare2'", e);
             return null;

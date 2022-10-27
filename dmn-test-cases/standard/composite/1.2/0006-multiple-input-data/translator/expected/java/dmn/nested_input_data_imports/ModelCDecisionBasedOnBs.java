@@ -39,7 +39,7 @@ public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.DefaultDMNBaseDe
     @java.lang.Override()
     public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("'Person name'"), input_.get("'Person name'"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply(input_.get("'Model B2'.modelA.'Person name'"), input_.get("'Model B'.modelA.'Person name'"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'ModelCDecisionBasedOnBs'", e);
             return null;

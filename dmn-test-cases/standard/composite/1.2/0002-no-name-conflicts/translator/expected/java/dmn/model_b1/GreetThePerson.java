@@ -30,7 +30,7 @@ public class GreetThePerson extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     @java.lang.Override()
     public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("Person Name"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply(input_.get("model-a.Person Name"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'GreetThePerson'", e);
             return null;

@@ -484,9 +484,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public String drgElementArgumentListWithMap(DRGElementReference<? extends TDRGElement> reference) {
         TDRGElement element = reference.getElement();
         if (element instanceof TDecision) {
-            List<DRGElementReference<TInputData>> drgElementReferences = this.inputDataClosure((DRGElementReference<TDecision>) reference);
-            List<String> nameList = drgElementReferences.stream().map(e -> dmnModelRepository.displayName(e.getElement())).collect(Collectors.toList());
-            String arguments = nameList.stream().map(name -> String.format("%s.%s", inputVariableName(), contextGetter(name))).collect(Collectors.joining(", "));
+            List<Pair<String, Type>> parameters = drgElementTypeSignature(reference, this::displayName);
+            String arguments = parameters.stream().map(p -> extractInputMember(p.getLeft())).collect(Collectors.joining(", "));
             return augmentArgumentListFromContext(arguments);
         } else if (element instanceof TInvocable) {
             List<Pair<String, Type>> parameters = drgElementTypeSignature(reference, this::displayName);

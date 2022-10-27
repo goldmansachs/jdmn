@@ -30,7 +30,7 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     @java.lang.Override()
     public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("numB"), input_.get("numC"), input_.get("structA"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply(input_.get("decisionInputs.numB"), input_.get("decisionInputs.numC"), input_.get("decisionInputs.structA"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'PriceInRange'", e);
             return null;
