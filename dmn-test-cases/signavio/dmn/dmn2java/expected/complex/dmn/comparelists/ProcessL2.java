@@ -27,27 +27,22 @@ public class ProcessL2 extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("L1"), input_.get("L2"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("L1") != null ? number(input_.get("L1")) : null), (input_.get("L2") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("L2"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'ProcessL2'", e);
             return null;
         }
     }
 
-    public java.math.BigDecimal apply(String l12_iterator, String l23, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((l12_iterator != null ? number(l12_iterator) : null), (l23 != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(l23, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'ProcessL2'", e);
-            return null;
-        }
-    }
-
-    public java.math.BigDecimal apply(java.math.BigDecimal l12_iterator, List<java.math.BigDecimal> l23, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public java.math.BigDecimal apply(java.math.BigDecimal l12_iterator, List<java.math.BigDecimal> l23, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'processL2'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long processL2StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments processL2Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
             processL2Arguments_.put("L1", l12_iterator);
@@ -55,7 +50,7 @@ public class ProcessL2 extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, processL2Arguments_);
 
             // Iterate and aggregate
-            java.math.BigDecimal output_ = evaluate(l12_iterator, l23, annotationSet_, eventListener_, externalExecutor_, cache_);
+            java.math.BigDecimal output_ = evaluate(l12_iterator, l23, context_);
 
             // End decision 'processL2'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, processL2Arguments_, output_, (System.currentTimeMillis() - processL2StartTime_));
@@ -67,8 +62,12 @@ public class ProcessL2 extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal l12_iterator, List<java.math.BigDecimal> l23, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected java.math.BigDecimal evaluate(java.math.BigDecimal l12_iterator, List<java.math.BigDecimal> l23, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         CompareLists compareLists = new CompareLists();
-        return sum(l23.stream().map(l2_iterator -> compareLists.apply(l12_iterator, l2_iterator, annotationSet_, eventListener_, externalExecutor_, cache_)).collect(Collectors.toList()));
+        return sum(l23.stream().map(l2_iterator -> compareLists.apply(l12_iterator, l2_iterator, context_)).collect(Collectors.toList()));
     }
 }

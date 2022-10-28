@@ -34,34 +34,29 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDeci
     }
 
     @java.lang.Override()
-    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("ApplicantData"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("ApplicantData") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("ApplicantData"), new com.fasterxml.jackson.core.type.TypeReference<type.TApplicantDataImpl>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'PreBureauRiskCategory'", e);
             return null;
         }
     }
 
-    public String apply(String applicantData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((applicantData != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(applicantData, new com.fasterxml.jackson.core.type.TypeReference<type.TApplicantDataImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'PreBureauRiskCategory'", e);
-            return null;
-        }
-    }
-
-    public String apply(type.TApplicantData applicantData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(type.TApplicantData applicantData, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision ''Pre-bureauRiskCategory''
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long preBureauRiskCategoryStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments preBureauRiskCategoryArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             preBureauRiskCategoryArguments_.put("ApplicantData", applicantData);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryArguments_);
 
             // Evaluate decision ''Pre-bureauRiskCategory''
-            String output_ = lambda.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(applicantData, context_);
 
             // End decision ''Pre-bureauRiskCategory''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryArguments_, output_, (System.currentTimeMillis() - preBureauRiskCategoryStartTime_));
@@ -77,15 +72,16 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         new com.gs.dmn.runtime.LambdaExpression<String>() {
             public String apply(Object... args_) {
                 type.TApplicantData applicantData = 0 < args_.length ? (type.TApplicantData) args_[0] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 1 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[1] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 2 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[2] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 3 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[3] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 4 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[4] : null;
+                com.gs.dmn.runtime.ExecutionContext context_ = 1 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 // Apply child decisions
-                java.math.BigDecimal applicationRiskScore = PreBureauRiskCategory.this.applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
+                java.math.BigDecimal applicationRiskScore = PreBureauRiskCategory.this.applicationRiskScore.apply(applicantData, context_);
 
-                return PreBureauRiskCategoryTable.instance().apply(((Boolean)(applicantData != null ? applicantData.getExistingCustomer() : null)), applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_);
+                return PreBureauRiskCategoryTable.instance().apply(((Boolean)(applicantData != null ? applicantData.getExistingCustomer() : null)), applicationRiskScore, context_);
             }
         };
 }

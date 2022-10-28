@@ -15,18 +15,22 @@ import java.util.stream.Collectors
 class AffordabilityCalculation : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
         try {
-            return apply(input_.get("MonthlyIncome")?.let({ number(it) }), input_.get("MonthlyRepayments")?.let({ number(it) }), input_.get("MonthlyExpenses")?.let({ number(it) }), input_.get("RiskCategory"), input_.get("RequiredMonthlyInstallment")?.let({ number(it) }), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(input_.get("MonthlyIncome")?.let({ number(it) }), input_.get("MonthlyRepayments")?.let({ number(it) }), input_.get("MonthlyExpenses")?.let({ number(it) }), input_.get("RiskCategory"), input_.get("RequiredMonthlyInstallment")?.let({ number(it) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'AffordabilityCalculation'", e)
             return null
         }
     }
 
-    fun apply(monthlyIncome: java.math.BigDecimal?, monthlyRepayments: java.math.BigDecimal?, monthlyExpenses: java.math.BigDecimal?, riskCategory: String?, requiredMonthlyInstallment: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
+    fun apply(monthlyIncome: java.math.BigDecimal?, monthlyRepayments: java.math.BigDecimal?, monthlyExpenses: java.math.BigDecimal?, riskCategory: String?, requiredMonthlyInstallment: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
         try {
             // Start BKM 'AffordabilityCalculation'
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val affordabilityCalculationStartTime_ = System.currentTimeMillis()
             val affordabilityCalculationArguments_ = com.gs.dmn.runtime.listener.Arguments()
             affordabilityCalculationArguments_.put("MonthlyIncome", monthlyIncome)
@@ -37,7 +41,7 @@ class AffordabilityCalculation : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, affordabilityCalculationArguments_)
 
             // Evaluate BKM 'AffordabilityCalculation'
-            val output_: Boolean? = evaluate(monthlyIncome, monthlyRepayments, monthlyExpenses, riskCategory, requiredMonthlyInstallment, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: Boolean? = evaluate(monthlyIncome, monthlyRepayments, monthlyExpenses, riskCategory, requiredMonthlyInstallment, context_)
 
             // End BKM 'AffordabilityCalculation'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, affordabilityCalculationArguments_, output_, (System.currentTimeMillis() - affordabilityCalculationStartTime_))
@@ -49,9 +53,13 @@ class AffordabilityCalculation : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(monthlyIncome: java.math.BigDecimal?, monthlyRepayments: java.math.BigDecimal?, monthlyExpenses: java.math.BigDecimal?, riskCategory: String?, requiredMonthlyInstallment: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
+    private inline fun evaluate(monthlyIncome: java.math.BigDecimal?, monthlyRepayments: java.math.BigDecimal?, monthlyExpenses: java.math.BigDecimal?, riskCategory: String?, requiredMonthlyInstallment: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         val disposableIncome: java.math.BigDecimal? = numericSubtract(monthlyIncome, numericAdd(monthlyExpenses, monthlyRepayments)) as java.math.BigDecimal?
-        val creditContingencyFactor: java.math.BigDecimal? = CreditContingencyFactorTable.instance().apply(riskCategory, annotationSet_, eventListener_, externalExecutor_, cache_) as java.math.BigDecimal?
+        val creditContingencyFactor: java.math.BigDecimal? = CreditContingencyFactorTable.instance().apply(riskCategory, context_) as java.math.BigDecimal?
         val affordability: Boolean? = (if (booleanEqual(numericGreaterThan(numericMultiply(disposableIncome, creditContingencyFactor), requiredMonthlyInstallment), true)) true else false) as Boolean?
         return affordability
     }

@@ -41,6 +41,6 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     private Boolean applyDecision(String age) {
         Map<String, String> input = new LinkedHashMap<>();
         input.put("Age", age);
-        return decision.apply(input, context);
+        return decision.applyMap(input, context);
     }
 }

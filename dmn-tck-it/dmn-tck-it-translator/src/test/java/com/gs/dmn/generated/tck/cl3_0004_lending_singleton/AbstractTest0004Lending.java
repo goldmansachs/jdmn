@@ -35,12 +35,12 @@ public abstract class AbstractTest0004Lending extends com.gs.dmn.runtime.Default
 
     private Object invokeStrategy(Strategy strategy, TApplicantData applicantData, TRequestedProduct requestedProduct) {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
-        return strategy.apply(applicantData, requestedProduct, context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        return strategy.apply(applicantData, requestedProduct, context_);
     }
 
     private Object invokeRouting(Routing routing, TApplicantData applicantData, TBureauData bureauData, TRequestedProduct requestedProduct) {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
-        return routing.apply(applicantData, bureauData, requestedProduct, context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+        return routing.apply(applicantData, bureauData, requestedProduct, context_);
     }
 
     protected abstract Routing makeRouting();

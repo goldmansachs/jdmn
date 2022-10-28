@@ -27,27 +27,22 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @java.lang.Override()
-    public List<type.Compile> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<type.Compile> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("name"), input_.get("numbers"), input_.get("Traffic Light"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply(input_.get("name"), (input_.get("numbers") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("numbers"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (input_.get("Traffic Light") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("Traffic Light"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Compile'", e);
             return null;
         }
     }
 
-    public List<type.Compile> apply(String name, String numbers, String trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply(name, (numbers != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numbers, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (trafficLight != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(trafficLight, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'Compile'", e);
-            return null;
-        }
-    }
-
-    public List<type.Compile> apply(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public List<type.Compile> apply(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'compile'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long compileStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments compileArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             compileArguments_.put("name", name);
@@ -56,7 +51,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compileArguments_);
 
             // Evaluate decision 'compile'
-            List<type.Compile> output_ = evaluate(name, numbers, trafficLight, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<type.Compile> output_ = evaluate(name, numbers, trafficLight, context_);
 
             // End decision 'compile'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, compileArguments_, output_, (System.currentTimeMillis() - compileStartTime_));
@@ -68,17 +63,21 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         }
     }
 
-    protected List<type.Compile> evaluate(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected List<type.Compile> evaluate(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        ruleOutputList_.add(rule0(name, numbers, trafficLight, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule1(name, numbers, trafficLight, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule2(name, numbers, trafficLight, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule3(name, numbers, trafficLight, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule4(name, numbers, trafficLight, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule5(name, numbers, trafficLight, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule6(name, numbers, trafficLight, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule7(name, numbers, trafficLight, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule0(name, numbers, trafficLight, context_));
+        ruleOutputList_.add(rule1(name, numbers, trafficLight, context_));
+        ruleOutputList_.add(rule2(name, numbers, trafficLight, context_));
+        ruleOutputList_.add(rule3(name, numbers, trafficLight, context_));
+        ruleOutputList_.add(rule4(name, numbers, trafficLight, context_));
+        ruleOutputList_.add(rule5(name, numbers, trafficLight, context_));
+        ruleOutputList_.add(rule6(name, numbers, trafficLight, context_));
+        ruleOutputList_.add(rule7(name, numbers, trafficLight, context_));
 
         // Return results based on hit policy
         List<type.Compile> output_;
@@ -97,11 +96,15 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule0(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -131,11 +134,15 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule1(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -165,11 +172,15 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule2(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule2(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -199,11 +210,15 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule3(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule3(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -233,11 +248,15 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule4(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule4(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -267,11 +286,15 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 5, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule5(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule5(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(5, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -301,11 +324,15 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 6, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule6(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule6(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(6, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -335,11 +362,15 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 7, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule7(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule7(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(7, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule

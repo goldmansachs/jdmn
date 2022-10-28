@@ -27,27 +27,22 @@ public class FormattingAndCoercing extends com.gs.dmn.signavio.runtime.DefaultSi
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("numberB"), input_.get("string"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("numberB") != null ? number(input_.get("numberB")) : null), input_.get("string"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'FormattingAndCoercing'", e);
             return null;
         }
     }
 
-    public java.math.BigDecimal apply(String numberB, String string, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((numberB != null ? number(numberB) : null), string, annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'FormattingAndCoercing'", e);
-            return null;
-        }
-    }
-
-    public java.math.BigDecimal apply(java.math.BigDecimal numberB, String string, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public java.math.BigDecimal apply(java.math.BigDecimal numberB, String string, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'formattingAndCoercing'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long formattingAndCoercingStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments formattingAndCoercingArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             formattingAndCoercingArguments_.put("numberB", numberB);
@@ -55,7 +50,7 @@ public class FormattingAndCoercing extends com.gs.dmn.signavio.runtime.DefaultSi
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, formattingAndCoercingArguments_);
 
             // Evaluate decision 'formattingAndCoercing'
-            java.math.BigDecimal output_ = evaluate(numberB, string, annotationSet_, eventListener_, externalExecutor_, cache_);
+            java.math.BigDecimal output_ = evaluate(numberB, string, context_);
 
             // End decision 'formattingAndCoercing'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, formattingAndCoercingArguments_, output_, (System.currentTimeMillis() - formattingAndCoercingStartTime_));
@@ -67,7 +62,11 @@ public class FormattingAndCoercing extends com.gs.dmn.signavio.runtime.DefaultSi
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal numberB, String string, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected java.math.BigDecimal evaluate(java.math.BigDecimal numberB, String string, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         return number(text(numberB, string));
     }
 }

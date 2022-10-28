@@ -6,44 +6,38 @@ import java.util.stream.Collectors;
 public class _0031UserDefinedFunctionsTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     @org.junit.Test
     public void testCase001() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
         java.math.BigDecimal inputA = number("10");
         java.math.BigDecimal inputB = number("5");
 
         // Check 'fn invocation positional parameters'
-        checkValues(new type.TFnInvocationPositionalResultImpl(number("2"), number("50"), number("15")), new FnInvocationPositionalParameters().apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(new type.TFnInvocationPositionalResultImpl(number("2"), number("50"), number("15")), new FnInvocationPositionalParameters().apply(inputA, inputB, context_));
     }
 
     @org.junit.Test
     public void testCase002() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
         java.math.BigDecimal inputA = number("10");
         java.math.BigDecimal inputB = number("5");
 
         // Check 'fn invocation named parameters'
-        checkValues(new type.TFnInvocationNamedResultImpl(number("2"), number("50"), number("5"), number("-5")), new FnInvocationNamedParameters().apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(new type.TFnInvocationNamedResultImpl(number("2"), number("50"), number("5"), number("-5")), new FnInvocationNamedParameters().apply(inputA, inputB, context_));
     }
 
     @org.junit.Test
     public void testCase003() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
         java.math.BigDecimal inputA = number("10");
         java.math.BigDecimal inputB = number("5");
 
         // Check 'fn invocation complex parameters'
-        checkValues(new type.TFnInvocationComplexParamsResultImpl(number("94.247760"), number("200"), number("500")), new FnInvocationComplexParameters().apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(new type.TFnInvocationComplexParamsResultImpl(number("94.247760"), number("200"), number("500")), new FnInvocationComplexParameters().apply(inputA, inputB, context_));
     }
 
     private void checkValues(Object expected, Object actual) {

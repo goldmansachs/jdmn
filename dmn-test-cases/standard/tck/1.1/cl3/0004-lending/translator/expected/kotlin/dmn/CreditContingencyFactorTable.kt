@@ -15,25 +15,29 @@ import java.util.stream.Collectors
 class CreditContingencyFactorTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
         try {
-            return apply(input_.get("RiskCategory"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(input_.get("RiskCategory"), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'CreditContingencyFactorTable'", e)
             return null
         }
     }
 
-    fun apply(riskCategory: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    fun apply(riskCategory: String?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
         try {
             // Start BKM 'CreditContingencyFactorTable'
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val creditContingencyFactorTableStartTime_ = System.currentTimeMillis()
             val creditContingencyFactorTableArguments_ = com.gs.dmn.runtime.listener.Arguments()
             creditContingencyFactorTableArguments_.put("RiskCategory", riskCategory)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, creditContingencyFactorTableArguments_)
 
             // Evaluate BKM 'CreditContingencyFactorTable'
-            val output_: java.math.BigDecimal? = evaluate(riskCategory, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: java.math.BigDecimal? = evaluate(riskCategory, context_)
 
             // End BKM 'CreditContingencyFactorTable'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, creditContingencyFactorTableArguments_, output_, (System.currentTimeMillis() - creditContingencyFactorTableStartTime_))
@@ -45,12 +49,16 @@ class CreditContingencyFactorTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(riskCategory: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    private inline fun evaluate(riskCategory: String?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()
-        ruleOutputList_.add(rule0(riskCategory, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(rule1(riskCategory, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(rule2(riskCategory, annotationSet_, eventListener_, externalExecutor_, cache_))
+        ruleOutputList_.add(rule0(riskCategory, context_))
+        ruleOutputList_.add(rule1(riskCategory, context_))
+        ruleOutputList_.add(rule2(riskCategory, context_))
 
         // Return results based on hit policy
         var output_: java.math.BigDecimal?
@@ -66,11 +74,15 @@ class CreditContingencyFactorTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    private fun rule0(riskCategory: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule0(riskCategory: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(0, "")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule
@@ -96,11 +108,15 @@ class CreditContingencyFactorTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    private fun rule1(riskCategory: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule1(riskCategory: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(1, "")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule
@@ -126,11 +142,15 @@ class CreditContingencyFactorTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    private fun rule2(riskCategory: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule2(riskCategory: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(2, "")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule

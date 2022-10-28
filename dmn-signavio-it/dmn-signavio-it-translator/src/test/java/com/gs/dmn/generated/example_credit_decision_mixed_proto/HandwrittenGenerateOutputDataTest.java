@@ -68,7 +68,7 @@ public class HandwrittenGenerateOutputDataTest {
 
     private GenerateOutputDataResponse applyDecision(GenerateOutputDataRequest request) {
         ExecutionContext context = new ExecutionContext();
-        return decision.apply(request, context.getAnnotations(), context.getEventListener(), context.getExternalFunctionExecutor(), context.getCache());
+        return decision.applyProto(request, context);
     }
 
     private void checkValues(Object expected, Object actual) {

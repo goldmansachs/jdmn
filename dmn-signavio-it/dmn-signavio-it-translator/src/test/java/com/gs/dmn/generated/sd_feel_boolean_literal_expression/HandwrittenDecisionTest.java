@@ -51,6 +51,6 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         input.put("EnumerationInput", enumerationInput);
         input.put("NumberInput", numberInput);
         input.put("StringInput", stringInput);
-        return decision.apply(input, context);
+        return decision.applyMap(input, context);
     }
 }

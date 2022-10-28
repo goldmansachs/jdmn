@@ -27,34 +27,29 @@ public class AgeClassification extends com.gs.dmn.runtime.DefaultDMNBaseDecision
     }
 
     @java.lang.Override()
-    public com.gs.dmn.runtime.Context apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.Context applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("student"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("student") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("student"), new com.fasterxml.jackson.core.type.TypeReference<type.StudentImpl>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'AgeClassification'", e);
             return null;
         }
     }
 
-    public com.gs.dmn.runtime.Context apply(String student, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((student != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(student, new com.fasterxml.jackson.core.type.TypeReference<type.StudentImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'AgeClassification'", e);
-            return null;
-        }
-    }
-
-    public com.gs.dmn.runtime.Context apply(type.Student student, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.Context apply(type.Student student, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'ageClassification'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long ageClassificationStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments ageClassificationArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             ageClassificationArguments_.put("student", student);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, ageClassificationArguments_);
 
             // Evaluate decision 'ageClassification'
-            com.gs.dmn.runtime.Context output_ = lambda.apply(student, annotationSet_, eventListener_, externalExecutor_, cache_);
+            com.gs.dmn.runtime.Context output_ = lambda.apply(student, context_);
 
             // End decision 'ageClassification'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, ageClassificationArguments_, output_, (System.currentTimeMillis() - ageClassificationStartTime_));
@@ -70,16 +65,17 @@ public class AgeClassification extends com.gs.dmn.runtime.DefaultDMNBaseDecision
         new com.gs.dmn.runtime.LambdaExpression<com.gs.dmn.runtime.Context>() {
             public com.gs.dmn.runtime.Context apply(Object... args_) {
                 type.Student student = 0 < args_.length ? (type.Student) args_[0] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 1 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[1] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 2 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[2] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 3 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[3] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 4 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[4] : null;
+                com.gs.dmn.runtime.ExecutionContext context_ = 1 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 // Apply rules and collect results
                 com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-                ruleOutputList_.add(rule0(student, annotationSet_, eventListener_, externalExecutor_, cache_));
-                ruleOutputList_.add(rule1(student, annotationSet_, eventListener_, externalExecutor_, cache_));
-                ruleOutputList_.add(rule2(student, annotationSet_, eventListener_, externalExecutor_, cache_));
+                ruleOutputList_.add(rule0(student, context_));
+                ruleOutputList_.add(rule1(student, context_));
+                ruleOutputList_.add(rule2(student, context_));
 
                 // Return results based on hit policy
                 com.gs.dmn.runtime.Context output_;
@@ -96,11 +92,15 @@ public class AgeClassification extends com.gs.dmn.runtime.DefaultDMNBaseDecision
     };
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(type.Student student, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(type.Student student, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -127,11 +127,15 @@ public class AgeClassification extends com.gs.dmn.runtime.DefaultDMNBaseDecision
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(type.Student student, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(type.Student student, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -158,11 +162,15 @@ public class AgeClassification extends com.gs.dmn.runtime.DefaultDMNBaseDecision
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule2(type.Student student, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule2(type.Student student, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule

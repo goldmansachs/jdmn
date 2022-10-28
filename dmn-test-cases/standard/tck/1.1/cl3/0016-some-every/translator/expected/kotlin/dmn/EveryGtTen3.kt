@@ -13,24 +13,28 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class EveryGtTen3(val priceTable1 : PriceTable1 = PriceTable1()) : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
         try {
-            return apply(context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'EveryGtTen3'", e)
             return null
         }
     }
 
-    fun apply(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
+    fun apply(context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
         try {
             // Start decision 'everyGtTen3'
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val everyGtTen3StartTime_ = System.currentTimeMillis()
             val everyGtTen3Arguments_ = com.gs.dmn.runtime.listener.Arguments()
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, everyGtTen3Arguments_)
 
             // Evaluate decision 'everyGtTen3'
-            val output_: Boolean? = evaluate(annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: Boolean? = evaluate(context_)
 
             // End decision 'everyGtTen3'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, everyGtTen3Arguments_, output_, (System.currentTimeMillis() - everyGtTen3StartTime_))
@@ -42,11 +46,15 @@ class EveryGtTen3(val priceTable1 : PriceTable1 = PriceTable1()) : com.gs.dmn.ru
         }
     }
 
-    private inline fun evaluate(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
+    private inline fun evaluate(context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         // Apply child decisions
-        val priceTable1: List<type.TItemPrice?>? = this@EveryGtTen3.priceTable1.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
+        val priceTable1: List<type.TItemPrice?>? = this@EveryGtTen3.priceTable1.apply(context_)
 
-        return booleanAnd(priceTable1?.stream()?.map({ i -> booleanEqual(GtTen.instance()?.apply(i?.let({ it.price as java.math.BigDecimal? }), annotationSet_, eventListener_, externalExecutor_, cache_), true) })?.collect(Collectors.toList())?.toList()) as Boolean?
+        return booleanAnd(priceTable1?.stream()?.map({ i -> booleanEqual(GtTen.instance()?.apply(i?.let({ it.price as java.math.BigDecimal? }), context_), true) })?.collect(Collectors.toList())?.toList()) as Boolean?
     }
 
     companion object {

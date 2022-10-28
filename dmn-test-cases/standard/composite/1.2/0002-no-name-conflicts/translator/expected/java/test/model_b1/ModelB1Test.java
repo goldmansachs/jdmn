@@ -7,15 +7,13 @@ import java.util.stream.Collectors;
 public class ModelB1Test extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     @org.junit.Test
     public void testCase001() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
         String model_a_personName = "B.A.John";
 
         // Check greetThePerson
-        checkValues("Hello, B.A.John", new model_b1.GreetThePerson().apply(model_a_personName, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues("Hello, B.A.John", new model_b1.GreetThePerson().apply(model_a_personName, context_));
     }
 
     private void checkValues(Object expected, Object actual) {

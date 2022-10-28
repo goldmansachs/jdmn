@@ -34,27 +34,22 @@ public class FnInvocationComplexParameters extends com.gs.dmn.runtime.DefaultDMN
     }
 
     @java.lang.Override()
-    public type.TFnInvocationComplexParamsResult apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public type.TFnInvocationComplexParamsResult applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("inputA"), input_.get("inputB"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("inputA") != null ? number(input_.get("inputA")) : null), (input_.get("inputB") != null ? number(input_.get("inputB")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'FnInvocationComplexParameters'", e);
             return null;
         }
     }
 
-    public type.TFnInvocationComplexParamsResult apply(String inputA, String inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((inputA != null ? number(inputA) : null), (inputB != null ? number(inputB) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'FnInvocationComplexParameters'", e);
-            return null;
-        }
-    }
-
-    public type.TFnInvocationComplexParamsResult apply(java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public type.TFnInvocationComplexParamsResult apply(java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision ''fn invocation complex parameters''
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long fnInvocationComplexParametersStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments fnInvocationComplexParametersArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             fnInvocationComplexParametersArguments_.put("inputA", inputA);
@@ -62,7 +57,7 @@ public class FnInvocationComplexParameters extends com.gs.dmn.runtime.DefaultDMN
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationComplexParametersArguments_);
 
             // Evaluate decision ''fn invocation complex parameters''
-            type.TFnInvocationComplexParamsResult output_ = lambda.apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_);
+            type.TFnInvocationComplexParamsResult output_ = lambda.apply(inputA, inputB, context_);
 
             // End decision ''fn invocation complex parameters''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnInvocationComplexParametersArguments_, output_, (System.currentTimeMillis() - fnInvocationComplexParametersStartTime_));
@@ -79,17 +74,18 @@ public class FnInvocationComplexParameters extends com.gs.dmn.runtime.DefaultDMN
             public type.TFnInvocationComplexParamsResult apply(Object... args_) {
                 java.math.BigDecimal inputA = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
                 java.math.BigDecimal inputB = 1 < args_.length ? (java.math.BigDecimal) args_[1] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[2] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[3] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[4] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[5] : null;
+                com.gs.dmn.runtime.ExecutionContext context_ = 2 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[2] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 // Apply child decisions
-                type.TFnLibrary fnLibrary = FnInvocationComplexParameters.this.fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+                type.TFnLibrary fnLibrary = FnInvocationComplexParameters.this.fnLibrary.apply(context_);
 
-                java.math.BigDecimal functionInvocationInParameter = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getMultiplyFn() : null)).apply(((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSumFn() : null)).apply(inputA, inputA, annotationSet_, eventListener_, externalExecutor_, cache_), ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSumFn() : null)).apply(inputB, inputB, annotationSet_, eventListener_, externalExecutor_, cache_), annotationSet_, eventListener_, externalExecutor_, cache_);
-                java.math.BigDecimal functionInvocationLiteralExpressionInParameter = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getMultiplyFn() : null)).apply(numericMultiply(inputA, inputA), (booleanEqual((booleanAnd(numericGreaterEqualThan(((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSubFn() : null)).apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_), number("0")), numericLessEqualThan(((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSubFn() : null)).apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_), number("10")))), Boolean.TRUE)) ? number("5") : number("10"), annotationSet_, eventListener_, externalExecutor_, cache_);
-                java.math.BigDecimal circumference = Circumference.instance().apply(numericAdd(inputA, inputB), annotationSet_, eventListener_, externalExecutor_, cache_);
+                java.math.BigDecimal functionInvocationInParameter = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getMultiplyFn() : null)).apply(((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSumFn() : null)).apply(inputA, inputA, context_), ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSumFn() : null)).apply(inputB, inputB, context_), context_);
+                java.math.BigDecimal functionInvocationLiteralExpressionInParameter = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getMultiplyFn() : null)).apply(numericMultiply(inputA, inputA), (booleanEqual((booleanAnd(numericGreaterEqualThan(((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSubFn() : null)).apply(inputA, inputB, context_), number("0")), numericLessEqualThan(((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSubFn() : null)).apply(inputA, inputB, context_), number("10")))), Boolean.TRUE)) ? number("5") : number("10"), context_);
+                java.math.BigDecimal circumference = Circumference.instance().apply(numericAdd(inputA, inputB), context_);
                 type.TFnInvocationComplexParamsResultImpl fnInvocationComplexParameters = new type.TFnInvocationComplexParamsResultImpl();
                 fnInvocationComplexParameters.setFunctionInvocationInParameter(functionInvocationInParameter);
                 fnInvocationComplexParameters.setFunctionInvocationLiteralExpressionInParameter(functionInvocationLiteralExpressionInParameter);

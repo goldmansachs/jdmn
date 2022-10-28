@@ -27,24 +27,28 @@ public class Literal_007_a extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @java.lang.Override()
-    public Object apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public Object applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply(context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Literal_007_a'", e);
             return null;
         }
     }
 
-    public Object apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public Object apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'literal_007_a'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long literal_007_aStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments literal_007_aArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, literal_007_aArguments_);
 
             // Evaluate decision 'literal_007_a'
-            Object output_ = lambda.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+            Object output_ = lambda.apply(context_);
 
             // End decision 'literal_007_a'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, literal_007_aArguments_, output_, (System.currentTimeMillis() - literal_007_aStartTime_));
@@ -59,10 +63,11 @@ public class Literal_007_a extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public com.gs.dmn.runtime.LambdaExpression<Object> lambda =
         new com.gs.dmn.runtime.LambdaExpression<Object>() {
             public Object apply(Object... args_) {
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 0 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[0] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 1 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[1] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 2 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[2] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 3 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[3] : null;
+                com.gs.dmn.runtime.ExecutionContext context_ = 0 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[0] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 com.gs.dmn.runtime.external.JavaExternalFunction<Object> valueOf = new com.gs.dmn.runtime.external.JavaExternalFunction<>(new com.gs.dmn.runtime.external.JavaFunctionInfo("java.lang.String", "valueOf", Arrays.asList("char")), externalExecutor_, Object.class);
                 return valueOf.apply("abc");

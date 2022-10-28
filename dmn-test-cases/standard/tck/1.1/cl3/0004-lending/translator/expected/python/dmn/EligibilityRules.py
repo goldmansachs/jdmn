@@ -55,9 +55,13 @@ class EligibilityRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecisio
             jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision.__init__(cls._instance)
         return cls._instance
 
-    def apply(self, preBureauRiskCategory: typing.Optional[str], preBureauAffordability: typing.Optional[bool], age: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def apply(self, preBureauRiskCategory: typing.Optional[str], preBureauAffordability: typing.Optional[bool], age: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         try:
             # Start BKM 'EligibilityRules'
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             eligibilityRulesStartTime_ = int(time.time_ns()/1000)
             eligibilityRulesArguments_ = jdmn.runtime.listener.Arguments.Arguments()
             eligibilityRulesArguments_.put("'Pre-bureauRiskCategory'", preBureauRiskCategory)
@@ -66,7 +70,7 @@ class EligibilityRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecisio
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, eligibilityRulesArguments_)
 
             # Evaluate BKM 'EligibilityRules'
-            output_: typing.Optional[str] = self.evaluate(preBureauRiskCategory, preBureauAffordability, age, annotationSet_, eventListener_, externalExecutor_, cache_)
+            output_: typing.Optional[str] = self.evaluate(preBureauRiskCategory, preBureauAffordability, age, context_)
 
             # End BKM 'EligibilityRules'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, eligibilityRulesArguments_, output_, (int(time.time_ns()/1000) - eligibilityRulesStartTime_))
@@ -76,13 +80,17 @@ class EligibilityRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecisio
             self.logError("Exception caught in 'EligibilityRules' evaluation", e)
             return None
 
-    def evaluate(self, preBureauRiskCategory: typing.Optional[str], preBureauAffordability: typing.Optional[bool], age: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def evaluate(self, preBureauRiskCategory: typing.Optional[str], preBureauAffordability: typing.Optional[bool], age: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         # Apply rules and collect results
         ruleOutputList_ = jdmn.runtime.RuleOutputList.RuleOutputList()
-        ruleOutputList_.add(self.rule0(preBureauRiskCategory, preBureauAffordability, age, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule1(preBureauRiskCategory, preBureauAffordability, age, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule2(preBureauRiskCategory, preBureauAffordability, age, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule3(preBureauRiskCategory, preBureauAffordability, age, annotationSet_, eventListener_, externalExecutor_, cache_))
+        ruleOutputList_.add(self.rule0(preBureauRiskCategory, preBureauAffordability, age, context_))
+        ruleOutputList_.add(self.rule1(preBureauRiskCategory, preBureauAffordability, age, context_))
+        ruleOutputList_.add(self.rule2(preBureauRiskCategory, preBureauAffordability, age, context_))
+        ruleOutputList_.add(self.rule3(preBureauRiskCategory, preBureauAffordability, age, context_))
 
         # Return results based on hit policy
         output_: typing.Optional[str]
@@ -95,11 +103,15 @@ class EligibilityRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecisio
 
         return output_
 
-    def rule0(self, preBureauRiskCategory: typing.Optional[str], preBureauAffordability: typing.Optional[bool], age: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule0(self, preBureauRiskCategory: typing.Optional[str], preBureauAffordability: typing.Optional[bool], age: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(0, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -125,11 +137,15 @@ class EligibilityRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecisio
 
         return output_
 
-    def rule1(self, preBureauRiskCategory: typing.Optional[str], preBureauAffordability: typing.Optional[bool], age: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule1(self, preBureauRiskCategory: typing.Optional[str], preBureauAffordability: typing.Optional[bool], age: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(1, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -155,11 +171,15 @@ class EligibilityRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecisio
 
         return output_
 
-    def rule2(self, preBureauRiskCategory: typing.Optional[str], preBureauAffordability: typing.Optional[bool], age: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule2(self, preBureauRiskCategory: typing.Optional[str], preBureauAffordability: typing.Optional[bool], age: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(2, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -185,11 +205,15 @@ class EligibilityRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecisio
 
         return output_
 
-    def rule3(self, preBureauRiskCategory: typing.Optional[str], preBureauAffordability: typing.Optional[bool], age: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule3(self, preBureauRiskCategory: typing.Optional[str], preBureauAffordability: typing.Optional[bool], age: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(3, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule

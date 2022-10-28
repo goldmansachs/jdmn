@@ -34,27 +34,22 @@ public class DotProduct extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     }
 
     @java.lang.Override()
-    public type.DotProduct apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public type.DotProduct applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("A"), input_.get("B"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("A") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("A"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (input_.get("B") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("B"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'DotProduct'", e);
             return null;
         }
     }
 
-    public type.DotProduct apply(String a, String b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((a != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(a, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (b != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(b, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'DotProduct'", e);
-            return null;
-        }
-    }
-
-    public type.DotProduct apply(List<java.math.BigDecimal> a, List<java.math.BigDecimal> b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public type.DotProduct apply(List<java.math.BigDecimal> a, List<java.math.BigDecimal> b, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'dotProduct'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long dotProductStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments dotProductArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             dotProductArguments_.put("A", a);
@@ -62,7 +57,7 @@ public class DotProduct extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dotProductArguments_);
 
             // Evaluate decision 'dotProduct'
-            type.DotProduct output_ = evaluate(a, b, annotationSet_, eventListener_, externalExecutor_, cache_);
+            type.DotProduct output_ = evaluate(a, b, context_);
 
             // End decision 'dotProduct'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, dotProductArguments_, output_, (System.currentTimeMillis() - dotProductStartTime_));
@@ -74,14 +69,18 @@ public class DotProduct extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
         }
     }
 
-    protected type.DotProduct evaluate(List<java.math.BigDecimal> a, List<java.math.BigDecimal> b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected type.DotProduct evaluate(List<java.math.BigDecimal> a, List<java.math.BigDecimal> b, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply child decisions
-        java.math.BigDecimal calculateDotProduct = this.calculateDotProduct.apply(a, b, annotationSet_, eventListener_, externalExecutor_, cache_);
+        java.math.BigDecimal calculateDotProduct = this.calculateDotProduct.apply(a, b, context_);
 
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        ruleOutputList_.add(rule0(a, b, calculateDotProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule1(a, b, calculateDotProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule0(a, b, calculateDotProduct, context_));
+        ruleOutputList_.add(rule1(a, b, calculateDotProduct, context_));
 
         // Return results based on hit policy
         type.DotProduct output_;
@@ -97,11 +96,15 @@ public class DotProduct extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule0(List<java.math.BigDecimal> a, List<java.math.BigDecimal> b, java.math.BigDecimal calculateDotProduct, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(List<java.math.BigDecimal> a, List<java.math.BigDecimal> b, java.math.BigDecimal calculateDotProduct, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -128,11 +131,15 @@ public class DotProduct extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule1(List<java.math.BigDecimal> a, List<java.math.BigDecimal> b, java.math.BigDecimal calculateDotProduct, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(List<java.math.BigDecimal> a, List<java.math.BigDecimal> b, java.math.BigDecimal calculateDotProduct, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule

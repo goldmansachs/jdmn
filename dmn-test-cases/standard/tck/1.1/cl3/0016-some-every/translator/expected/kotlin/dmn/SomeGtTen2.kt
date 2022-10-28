@@ -13,34 +13,29 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class SomeGtTen2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
         try {
-            return apply(input_.get("priceTable2"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(input_.get("priceTable2")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TItemPrice?>?>() {}) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'SomeGtTen2'", e)
             return null
         }
     }
 
-    fun apply(priceTable2: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
-        return try {
-            apply(priceTable2?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TItemPrice?>?>() {}) }), annotationSet_, eventListener_, externalExecutor_, cache_)
-        } catch (e: Exception) {
-            logError("Cannot apply decision 'SomeGtTen2'", e)
-            null
-        }
-    }
-
-    fun apply(priceTable2: List<type.TItemPrice?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
+    fun apply(priceTable2: List<type.TItemPrice?>?, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
         try {
             // Start decision 'someGtTen2'
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val someGtTen2StartTime_ = System.currentTimeMillis()
             val someGtTen2Arguments_ = com.gs.dmn.runtime.listener.Arguments()
             someGtTen2Arguments_.put("priceTable2", priceTable2)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, someGtTen2Arguments_)
 
             // Evaluate decision 'someGtTen2'
-            val output_: Boolean? = evaluate(priceTable2, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: Boolean? = evaluate(priceTable2, context_)
 
             // End decision 'someGtTen2'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, someGtTen2Arguments_, output_, (System.currentTimeMillis() - someGtTen2StartTime_))
@@ -52,7 +47,11 @@ class SomeGtTen2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(priceTable2: List<type.TItemPrice?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
+    private inline fun evaluate(priceTable2: List<type.TItemPrice?>?, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         return booleanOr(priceTable2?.stream()?.map({ i -> numericGreaterThan(i?.let({ it.price as java.math.BigDecimal? }), number("10")) })?.collect(Collectors.toList())?.toList()) as Boolean?
     }
 

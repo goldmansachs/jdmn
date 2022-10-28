@@ -26,7 +26,7 @@
 <#macro applyMethod drgElement>
     <#if transformer.isGenerateProto()>
 
-    public ${transformer.qualifiedResponseMessageName(drgElement)} apply(${transformer.drgElementSignatureProto(drgElement)}) {
+    public ${transformer.qualifiedResponseMessageName(drgElement)} applyProto(${transformer.drgElementSignatureProto(drgElement)}) {
     <@applyRequest drgElement />
     }
     </#if>

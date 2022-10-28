@@ -27,34 +27,29 @@ public class KeepInputallFalse extends com.gs.dmn.signavio.runtime.DefaultSignav
     }
 
     @java.lang.Override()
-    public Boolean apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public Boolean applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("booleanAllFalse"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("booleanAllFalse") != null ? Boolean.valueOf(input_.get("booleanAllFalse")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'KeepInputallFalse'", e);
             return null;
         }
     }
 
-    public Boolean apply(String booleanAllFalse_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((booleanAllFalse_iterator != null ? Boolean.valueOf(booleanAllFalse_iterator) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'KeepInputallFalse'", e);
-            return null;
-        }
-    }
-
-    public Boolean apply(Boolean booleanAllFalse_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public Boolean apply(Boolean booleanAllFalse_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'keepInputallFalse'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long keepInputallFalseStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments keepInputallFalseArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             keepInputallFalseArguments_.put("booleanAllFalse", booleanAllFalse_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, keepInputallFalseArguments_);
 
             // Evaluate decision 'keepInputallFalse'
-            Boolean output_ = evaluate(booleanAllFalse_iterator, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean output_ = evaluate(booleanAllFalse_iterator, context_);
 
             // End decision 'keepInputallFalse'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, keepInputallFalseArguments_, output_, (System.currentTimeMillis() - keepInputallFalseStartTime_));
@@ -66,7 +61,11 @@ public class KeepInputallFalse extends com.gs.dmn.signavio.runtime.DefaultSignav
         }
     }
 
-    protected Boolean evaluate(Boolean booleanAllFalse_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected Boolean evaluate(Boolean booleanAllFalse_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         return booleanAllFalse_iterator;
     }
 }

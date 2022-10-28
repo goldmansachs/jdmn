@@ -55,16 +55,20 @@ class BureauCallType(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
         jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision.__init__(self)
         self.preBureauRiskCategory = PreBureauRiskCategory.PreBureauRiskCategory() if preBureauRiskCategory is None else preBureauRiskCategory
 
-    def apply(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def apply(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         try:
             # Start decision 'BureauCallType'
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             bureauCallTypeStartTime_ = int(time.time_ns()/1000)
             bureauCallTypeArguments_ = jdmn.runtime.listener.Arguments.Arguments()
             bureauCallTypeArguments_.put("ApplicantData", applicantData)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, bureauCallTypeArguments_)
 
             # Evaluate decision 'BureauCallType'
-            output_: typing.Optional[str] = self.evaluate(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+            output_: typing.Optional[str] = self.evaluate(applicantData, context_)
 
             # End decision 'BureauCallType'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, bureauCallTypeArguments_, output_, (int(time.time_ns()/1000) - bureauCallTypeStartTime_))
@@ -74,8 +78,8 @@ class BureauCallType(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
             self.logError("Exception caught in 'BureauCallType' evaluation", e)
             return None
 
-    def evaluate(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def evaluate(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         # Apply child decisions
-        preBureauRiskCategory: typing.Optional[str] = self.preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+        preBureauRiskCategory: typing.Optional[str] = self.preBureauRiskCategory.apply(applicantData, context_)
 
-        return BureauCallTypeTable.BureauCallTypeTable.instance().apply(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_)
+        return BureauCallTypeTable.BureauCallTypeTable.instance().apply(preBureauRiskCategory, context_)

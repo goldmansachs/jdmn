@@ -6,23 +6,21 @@ import java.util.stream.Collectors;
 public class _0021SingletonListTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     @org.junit.Test
     public void testCase001() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
         List<String> employees = asList("Jack", "John", "Bob", "Zack");
 
         // Check decision1
-        checkValues(asList("John"), new Decision1().apply(employees, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(asList("John"), new Decision1().apply(employees, context_));
         // Check decision2
-        checkValues("John", new Decision2().apply(employees, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues("John", new Decision2().apply(employees, context_));
         // Check decision3
-        checkValues(asList("Bob"), new Decision3().apply(employees, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(asList("Bob"), new Decision3().apply(employees, context_));
         // Check decision4
-        checkValues("Bob", new Decision4().apply(employees, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues("Bob", new Decision4().apply(employees, context_));
         // Check decision5
-        checkValues("BOB", new Decision5().apply(employees, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues("BOB", new Decision5().apply(employees, context_));
     }
 
     private void checkValues(Object expected, Object actual) {

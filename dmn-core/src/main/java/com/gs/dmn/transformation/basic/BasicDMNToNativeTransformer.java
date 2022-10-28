@@ -264,6 +264,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String augmentArgumentList(String arguments);
 
+    List<String> extractExtraParametersFromExecutionContext();
+
     List<DRGElementReference<TInputData>> inputDataClosure(DRGElementReference<TDecision> reference);
 
     List<Pair<String, Type>> inputDataParametersClosure(DRGElementReference<TDecision> reference);
@@ -311,6 +313,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
     String registryClassName();
 
     String executionContextClassName();
+
+    String executionContextVariableName();
 
     String annotationSetClassName();
 

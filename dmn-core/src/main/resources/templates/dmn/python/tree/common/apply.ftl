@@ -91,6 +91,7 @@
 -->
 <#macro addEvaluateDecisionTableMethod drgElement>
     def evaluate(${transformer.drgElementSignature(drgElement)}) -> ${transformer.drgElementOutputType(drgElement)}:
+    <@extractParametersFromArgs transformer.drgElementSignatureParameters(drgElement)/>
     <@applySubDecisions drgElement/>
     <#assign expression = modelRepository.expression(drgElement)>
         <@collectRuleResults drgElement expression />
@@ -261,6 +262,12 @@
     <#else>
         return ${stm.text}
     </#if>
+</#macro>
+
+<#macro extractParametersFromArgs arguments>
+    <#list transformer.extractExtraParametersFromExecutionContext() as stm>
+        ${stm}
+    </#list>
 </#macro>
 
 <#--

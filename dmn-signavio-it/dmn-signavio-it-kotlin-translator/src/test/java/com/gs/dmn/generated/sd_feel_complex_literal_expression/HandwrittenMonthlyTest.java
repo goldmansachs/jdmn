@@ -58,7 +58,7 @@ public class HandwrittenMonthlyTest extends AbstractHandwrittenDecisionTest {
     private BigDecimal applyDecision(String loan) {
         Map<String, String> input = new LinkedHashMap<>();
         input.put("Loan", loan);
-        return decision.apply(input, context);
+        return decision.applyMap(input, context);
     }
 
 }

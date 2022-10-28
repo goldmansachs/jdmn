@@ -34,18 +34,22 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
     }
 
     @java.lang.Override()
-    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("ExistingCustomer") != null ? Boolean.valueOf(input_.get("ExistingCustomer")) : null), (input_.get("ApplicationRiskScore") != null ? number(input_.get("ApplicationRiskScore")) : null), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("ExistingCustomer") != null ? Boolean.valueOf(input_.get("ExistingCustomer")) : null), (input_.get("ApplicationRiskScore") != null ? number(input_.get("ApplicationRiskScore")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'PreBureauRiskCategoryTable'", e);
             return null;
         }
     }
 
-    public String apply(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM ''Pre-bureauRiskCategoryTable''
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long preBureauRiskCategoryTableStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments preBureauRiskCategoryTableArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             preBureauRiskCategoryTableArguments_.put("ExistingCustomer", existingCustomer);
@@ -53,7 +57,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryTableArguments_);
 
             // Evaluate BKM ''Pre-bureauRiskCategoryTable''
-            String output_ = lambda.apply(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(existingCustomer, applicationRiskScore, context_);
 
             // End BKM ''Pre-bureauRiskCategoryTable''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryTableArguments_, output_, (System.currentTimeMillis() - preBureauRiskCategoryTableStartTime_));
@@ -70,21 +74,22 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             public String apply(Object... args_) {
                 Boolean existingCustomer = 0 < args_.length ? (Boolean) args_[0] : null;
                 java.math.BigDecimal applicationRiskScore = 1 < args_.length ? (java.math.BigDecimal) args_[1] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[2] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[3] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[4] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[5] : null;
+                com.gs.dmn.runtime.ExecutionContext context_ = 2 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[2] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 // Apply rules and collect results
                 com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-                ruleOutputList_.add(rule0(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_));
-                ruleOutputList_.add(rule1(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_));
-                ruleOutputList_.add(rule2(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_));
-                ruleOutputList_.add(rule3(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_));
-                ruleOutputList_.add(rule4(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_));
-                ruleOutputList_.add(rule5(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_));
-                ruleOutputList_.add(rule6(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_));
-                ruleOutputList_.add(rule7(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_));
+                ruleOutputList_.add(rule0(existingCustomer, applicationRiskScore, context_));
+                ruleOutputList_.add(rule1(existingCustomer, applicationRiskScore, context_));
+                ruleOutputList_.add(rule2(existingCustomer, applicationRiskScore, context_));
+                ruleOutputList_.add(rule3(existingCustomer, applicationRiskScore, context_));
+                ruleOutputList_.add(rule4(existingCustomer, applicationRiskScore, context_));
+                ruleOutputList_.add(rule5(existingCustomer, applicationRiskScore, context_));
+                ruleOutputList_.add(rule6(existingCustomer, applicationRiskScore, context_));
+                ruleOutputList_.add(rule7(existingCustomer, applicationRiskScore, context_));
 
                 // Return results based on hit policy
                 String output_;
@@ -101,11 +106,15 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
     };
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -132,11 +141,15 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -163,11 +176,15 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule2(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule2(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -194,11 +211,15 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule3(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule3(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -225,11 +246,15 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule4(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule4(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -256,11 +281,15 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 5, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule5(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule5(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(5, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -287,11 +316,15 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 6, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule6(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule6(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(6, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -318,11 +351,15 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 7, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule7(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule7(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(7, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule

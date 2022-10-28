@@ -180,6 +180,15 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     }
 
     @Override
+    protected String extractParameter(Pair<Pair<String, String>, String> param) {
+        String type = param.getLeft().getLeft();
+        String varName = param.getLeft().getRight();
+        String propertyName = param.getRight();
+        return String.format("%s: %s = None if %s is None else %s.%s",
+                varName, type, executionContextVariableName(), executionContextVariableName(), getter(propertyName));
+    }
+
+    @Override
     public String jdmnRootPackage() {
         return "jdmn";
     }

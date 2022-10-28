@@ -49,6 +49,6 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         Map<String, String> result = new LinkedHashMap<>();
         result.put("Age", age);
         result.put("'Years of Service'", yearsOfService);
-        return decision.apply(result, context);
+        return decision.applyMap(result, context);
     }
 }

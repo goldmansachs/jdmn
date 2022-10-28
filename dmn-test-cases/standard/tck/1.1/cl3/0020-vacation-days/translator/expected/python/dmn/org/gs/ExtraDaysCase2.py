@@ -47,9 +47,13 @@ class ExtraDaysCase2(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
     def __init__(self):
         jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision.__init__(self)
 
-    def apply(self, age: typing.Optional[decimal.Decimal], yearsOfService: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[decimal.Decimal]:
+    def apply(self, age: typing.Optional[decimal.Decimal], yearsOfService: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[decimal.Decimal]:
         try:
             # Start decision ''Extra days case 2''
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             extraDaysCase2StartTime_ = int(time.time_ns()/1000)
             extraDaysCase2Arguments_ = jdmn.runtime.listener.Arguments.Arguments()
             extraDaysCase2Arguments_.put("Age", age)
@@ -57,7 +61,7 @@ class ExtraDaysCase2(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, extraDaysCase2Arguments_)
 
             # Evaluate decision ''Extra days case 2''
-            output_: typing.Optional[decimal.Decimal] = self.evaluate(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_)
+            output_: typing.Optional[decimal.Decimal] = self.evaluate(age, yearsOfService, context_)
 
             # End decision ''Extra days case 2''
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, extraDaysCase2Arguments_, output_, (int(time.time_ns()/1000) - extraDaysCase2StartTime_))
@@ -67,11 +71,15 @@ class ExtraDaysCase2(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
             self.logError("Exception caught in ''Extra days case 2'' evaluation", e)
             return None
 
-    def evaluate(self, age: typing.Optional[decimal.Decimal], yearsOfService: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[decimal.Decimal]:
+    def evaluate(self, age: typing.Optional[decimal.Decimal], yearsOfService: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[decimal.Decimal]:
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         # Apply rules and collect results
         ruleOutputList_ = jdmn.runtime.RuleOutputList.RuleOutputList()
-        ruleOutputList_.add(self.rule0(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule1(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_, cache_))
+        ruleOutputList_.add(self.rule0(age, yearsOfService, context_))
+        ruleOutputList_.add(self.rule1(age, yearsOfService, context_))
 
         # Return results based on hit policy
         output_: typing.Optional[decimal.Decimal]
@@ -84,11 +92,15 @@ class ExtraDaysCase2(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
 
         return output_
 
-    def rule0(self, age: typing.Optional[decimal.Decimal], yearsOfService: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule0(self, age: typing.Optional[decimal.Decimal], yearsOfService: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(0, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -112,11 +124,15 @@ class ExtraDaysCase2(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
 
         return output_
 
-    def rule1(self, age: typing.Optional[decimal.Decimal], yearsOfService: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule1(self, age: typing.Optional[decimal.Decimal], yearsOfService: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(1, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule

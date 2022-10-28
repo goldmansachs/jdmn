@@ -48,7 +48,7 @@ public class CredDecSignavioBenchmarkTest {
         BigDecimal currentRiskAppetite = decision.number("50");
         BigDecimal lendingThreshold = decision.number("25");
 
-        List<?> result = decision.apply(applicant, currentRiskAppetite, lendingThreshold, context.getAnnotations(), context.getEventListener(), context.getExternalFunctionExecutor(), context.getCache());
+        List<?> result = decision.apply(applicant, currentRiskAppetite, lendingThreshold, context);
         System.out.println(result);
 
         long endTime = System.currentTimeMillis();

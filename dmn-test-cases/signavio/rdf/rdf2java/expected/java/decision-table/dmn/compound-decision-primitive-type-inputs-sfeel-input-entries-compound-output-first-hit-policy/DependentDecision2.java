@@ -27,34 +27,29 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSigna
     }
 
     @java.lang.Override()
-    public type.DependentDecision2 apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public type.DependentDecision2 applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("DD2 Number Input"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("DD2 Number Input") != null ? number(input_.get("DD2 Number Input")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'DependentDecision2'", e);
             return null;
         }
     }
 
-    public type.DependentDecision2 apply(String dD2NumberInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((dD2NumberInput != null ? number(dD2NumberInput) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'DependentDecision2'", e);
-            return null;
-        }
-    }
-
-    public type.DependentDecision2 apply(java.math.BigDecimal dD2NumberInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public type.DependentDecision2 apply(java.math.BigDecimal dD2NumberInput, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'dependentDecision2'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long dependentDecision2StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments dependentDecision2Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
             dependentDecision2Arguments_.put("DD2 Number Input", dD2NumberInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dependentDecision2Arguments_);
 
             // Evaluate decision 'dependentDecision2'
-            type.DependentDecision2 output_ = evaluate(dD2NumberInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+            type.DependentDecision2 output_ = evaluate(dD2NumberInput, context_);
 
             // End decision 'dependentDecision2'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, dependentDecision2Arguments_, output_, (System.currentTimeMillis() - dependentDecision2StartTime_));
@@ -66,10 +61,14 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
-    protected type.DependentDecision2 evaluate(java.math.BigDecimal dD2NumberInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected type.DependentDecision2 evaluate(java.math.BigDecimal dD2NumberInput, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        ruleOutputList_.add(rule0(dD2NumberInput, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule0(dD2NumberInput, context_));
 
         // Return results based on hit policy
         type.DependentDecision2 output_;
@@ -85,11 +84,15 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSigna
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal dD2NumberInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal dD2NumberInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule

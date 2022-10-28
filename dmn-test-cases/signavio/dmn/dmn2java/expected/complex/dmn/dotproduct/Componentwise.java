@@ -27,27 +27,22 @@ public class Componentwise extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
     }
 
     @java.lang.Override()
-    public List<type.Componentwise> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<type.Componentwise> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("A"), input_.get("B"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("A") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("A"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (input_.get("B") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("B"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Componentwise'", e);
             return null;
         }
     }
 
-    public List<type.Componentwise> apply(String a, String b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((a != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(a, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (b != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(b, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'Componentwise'", e);
-            return null;
-        }
-    }
-
-    public List<type.Componentwise> apply(List<java.math.BigDecimal> a, List<java.math.BigDecimal> b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public List<type.Componentwise> apply(List<java.math.BigDecimal> a, List<java.math.BigDecimal> b, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'componentwise'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long componentwiseStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments componentwiseArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             componentwiseArguments_.put("A", a);
@@ -55,7 +50,7 @@ public class Componentwise extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, componentwiseArguments_);
 
             // Evaluate decision 'componentwise'
-            List<type.Componentwise> output_ = evaluate(a, b, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<type.Componentwise> output_ = evaluate(a, b, context_);
 
             // End decision 'componentwise'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, componentwiseArguments_, output_, (System.currentTimeMillis() - componentwiseStartTime_));
@@ -67,7 +62,11 @@ public class Componentwise extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         }
     }
 
-    protected List<type.Componentwise> evaluate(List<java.math.BigDecimal> a, List<java.math.BigDecimal> b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected List<type.Componentwise> evaluate(List<java.math.BigDecimal> a, List<java.math.BigDecimal> b, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         return zip(asList("A", "B"), asList(a, b)).stream().map(x -> type.Componentwise.toComponentwise(x)).collect(Collectors.toList());
     }
 }

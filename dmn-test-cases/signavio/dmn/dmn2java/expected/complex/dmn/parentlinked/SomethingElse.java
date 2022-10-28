@@ -34,34 +34,29 @@ public class SomethingElse extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("num"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("num") != null ? number(input_.get("num")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'SomethingElse'", e);
             return null;
         }
     }
 
-    public java.math.BigDecimal apply(String num, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((num != null ? number(num) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'SomethingElse'", e);
-            return null;
-        }
-    }
-
-    public java.math.BigDecimal apply(java.math.BigDecimal num, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public java.math.BigDecimal apply(java.math.BigDecimal num, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'somethingElse'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long somethingElseStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments somethingElseArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             somethingElseArguments_.put("num", num);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, somethingElseArguments_);
 
             // Evaluate decision 'somethingElse'
-            java.math.BigDecimal output_ = evaluate(num, annotationSet_, eventListener_, externalExecutor_, cache_);
+            java.math.BigDecimal output_ = evaluate(num, context_);
 
             // End decision 'somethingElse'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, somethingElseArguments_, output_, (System.currentTimeMillis() - somethingElseStartTime_));
@@ -73,13 +68,17 @@ public class SomethingElse extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal num, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected java.math.BigDecimal evaluate(java.math.BigDecimal num, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply child decisions
-        java.math.BigDecimal childObject = this.childObject.apply(num, annotationSet_, eventListener_, externalExecutor_, cache_);
+        java.math.BigDecimal childObject = this.childObject.apply(num, context_);
 
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        ruleOutputList_.add(rule0(childObject, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule0(childObject, context_));
 
         // Return results based on hit policy
         java.math.BigDecimal output_;
@@ -95,11 +94,15 @@ public class SomethingElse extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal childObject, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal childObject, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule

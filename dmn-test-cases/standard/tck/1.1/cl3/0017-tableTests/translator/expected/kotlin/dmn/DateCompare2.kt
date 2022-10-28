@@ -13,27 +13,22 @@ import java.util.stream.Collectors
     rulesCount = 2
 )
 class DateCompare2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
         try {
-            return apply(input_.get("dateD"), input_.get("dateE"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(input_.get("dateD")?.let({ date(it) }), input_.get("dateE")?.let({ date(it) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'DateCompare2'", e)
             return null
         }
     }
 
-    fun apply(dateD: String?, dateE: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
-        return try {
-            apply(dateD?.let({ date(it) }), dateE?.let({ date(it) }), annotationSet_, eventListener_, externalExecutor_, cache_)
-        } catch (e: Exception) {
-            logError("Cannot apply decision 'DateCompare2'", e)
-            null
-        }
-    }
-
-    fun apply(dateD: javax.xml.datatype.XMLGregorianCalendar?, dateE: javax.xml.datatype.XMLGregorianCalendar?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
+    fun apply(dateD: javax.xml.datatype.XMLGregorianCalendar?, dateE: javax.xml.datatype.XMLGregorianCalendar?, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
         try {
             // Start decision 'dateCompare2'
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val dateCompare2StartTime_ = System.currentTimeMillis()
             val dateCompare2Arguments_ = com.gs.dmn.runtime.listener.Arguments()
             dateCompare2Arguments_.put("dateD", dateD)
@@ -41,7 +36,7 @@ class DateCompare2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dateCompare2Arguments_)
 
             // Evaluate decision 'dateCompare2'
-            val output_: Boolean? = evaluate(dateD, dateE, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: Boolean? = evaluate(dateD, dateE, context_)
 
             // End decision 'dateCompare2'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, dateCompare2Arguments_, output_, (System.currentTimeMillis() - dateCompare2StartTime_))
@@ -53,11 +48,15 @@ class DateCompare2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(dateD: javax.xml.datatype.XMLGregorianCalendar?, dateE: javax.xml.datatype.XMLGregorianCalendar?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
+    private inline fun evaluate(dateD: javax.xml.datatype.XMLGregorianCalendar?, dateE: javax.xml.datatype.XMLGregorianCalendar?, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()
-        ruleOutputList_.add(rule0(dateD, dateE, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(rule1(dateD, dateE, annotationSet_, eventListener_, externalExecutor_, cache_))
+        ruleOutputList_.add(rule0(dateD, dateE, context_))
+        ruleOutputList_.add(rule1(dateD, dateE, context_))
 
         // Return results based on hit policy
         var output_: Boolean?
@@ -73,11 +72,15 @@ class DateCompare2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    private fun rule0(dateD: javax.xml.datatype.XMLGregorianCalendar?, dateE: javax.xml.datatype.XMLGregorianCalendar?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule0(dateD: javax.xml.datatype.XMLGregorianCalendar?, dateE: javax.xml.datatype.XMLGregorianCalendar?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(0, "")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule
@@ -103,11 +106,15 @@ class DateCompare2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    private fun rule1(dateD: javax.xml.datatype.XMLGregorianCalendar?, dateE: javax.xml.datatype.XMLGregorianCalendar?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule1(dateD: javax.xml.datatype.XMLGregorianCalendar?, dateE: javax.xml.datatype.XMLGregorianCalendar?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(1, "")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule

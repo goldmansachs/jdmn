@@ -59,9 +59,13 @@ class Eligibility(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
         self.preBureauAffordability = PreBureauAffordability.PreBureauAffordability() if preBureauAffordability is None else preBureauAffordability
         self.preBureauRiskCategory = PreBureauRiskCategory.PreBureauRiskCategory() if preBureauRiskCategory is None else preBureauRiskCategory
 
-    def apply(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def apply(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         try:
             # Start decision 'Eligibility'
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             eligibilityStartTime_ = int(time.time_ns()/1000)
             eligibilityArguments_ = jdmn.runtime.listener.Arguments.Arguments()
             eligibilityArguments_.put("ApplicantData", applicantData)
@@ -69,7 +73,7 @@ class Eligibility(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, eligibilityArguments_)
 
             # Evaluate decision 'Eligibility'
-            output_: typing.Optional[str] = self.evaluate(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
+            output_: typing.Optional[str] = self.evaluate(applicantData, requestedProduct, context_)
 
             # End decision 'Eligibility'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, eligibilityArguments_, output_, (int(time.time_ns()/1000) - eligibilityStartTime_))
@@ -79,9 +83,9 @@ class Eligibility(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             self.logError("Exception caught in 'Eligibility' evaluation", e)
             return None
 
-    def evaluate(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def evaluate(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         # Apply child decisions
-        preBureauAffordability: typing.Optional[bool] = self.preBureauAffordability.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
-        preBureauRiskCategory: typing.Optional[str] = self.preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+        preBureauAffordability: typing.Optional[bool] = self.preBureauAffordability.apply(applicantData, requestedProduct, context_)
+        preBureauRiskCategory: typing.Optional[str] = self.preBureauRiskCategory.apply(applicantData, context_)
 
-        return EligibilityRules.EligibilityRules.instance().apply(preBureauRiskCategory, preBureauAffordability, None if (applicantData is None) else (applicantData.age), annotationSet_, eventListener_, externalExecutor_, cache_)
+        return EligibilityRules.EligibilityRules.instance().apply(preBureauRiskCategory, preBureauAffordability, None if (applicantData is None) else (applicantData.age), context_)

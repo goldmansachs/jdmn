@@ -34,18 +34,22 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
     }
 
     @java.lang.Override()
-    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("'Pre-bureauRiskCategory'"), (input_.get("'Pre-bureauAffordability'") != null ? Boolean.valueOf(input_.get("'Pre-bureauAffordability'")) : null), (input_.get("Age") != null ? number(input_.get("Age")) : null), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply(input_.get("'Pre-bureauRiskCategory'"), (input_.get("'Pre-bureauAffordability'") != null ? Boolean.valueOf(input_.get("'Pre-bureauAffordability'")) : null), (input_.get("Age") != null ? number(input_.get("Age")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'EligibilityRules'", e);
             return null;
         }
     }
 
-    public String apply(String preBureauRiskCategory, Boolean preBureauAffordability, java.math.BigDecimal age, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(String preBureauRiskCategory, Boolean preBureauAffordability, java.math.BigDecimal age, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'EligibilityRules'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long eligibilityRulesStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments eligibilityRulesArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             eligibilityRulesArguments_.put("'Pre-bureauRiskCategory'", preBureauRiskCategory);
@@ -54,7 +58,7 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, eligibilityRulesArguments_);
 
             // Evaluate BKM 'EligibilityRules'
-            String output_ = lambda.apply(preBureauRiskCategory, preBureauAffordability, age, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(preBureauRiskCategory, preBureauAffordability, age, context_);
 
             // End BKM 'EligibilityRules'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, eligibilityRulesArguments_, output_, (System.currentTimeMillis() - eligibilityRulesStartTime_));
@@ -72,17 +76,18 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
                 String preBureauRiskCategory = 0 < args_.length ? (String) args_[0] : null;
                 Boolean preBureauAffordability = 1 < args_.length ? (Boolean) args_[1] : null;
                 java.math.BigDecimal age = 2 < args_.length ? (java.math.BigDecimal) args_[2] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 3 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[3] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 4 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[4] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 5 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[5] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 6 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[6] : null;
+                com.gs.dmn.runtime.ExecutionContext context_ = 3 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[3] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 // Apply rules and collect results
                 com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-                ruleOutputList_.add(rule0(preBureauRiskCategory, preBureauAffordability, age, annotationSet_, eventListener_, externalExecutor_, cache_));
-                ruleOutputList_.add(rule1(preBureauRiskCategory, preBureauAffordability, age, annotationSet_, eventListener_, externalExecutor_, cache_));
-                ruleOutputList_.add(rule2(preBureauRiskCategory, preBureauAffordability, age, annotationSet_, eventListener_, externalExecutor_, cache_));
-                ruleOutputList_.add(rule3(preBureauRiskCategory, preBureauAffordability, age, annotationSet_, eventListener_, externalExecutor_, cache_));
+                ruleOutputList_.add(rule0(preBureauRiskCategory, preBureauAffordability, age, context_));
+                ruleOutputList_.add(rule1(preBureauRiskCategory, preBureauAffordability, age, context_));
+                ruleOutputList_.add(rule2(preBureauRiskCategory, preBureauAffordability, age, context_));
+                ruleOutputList_.add(rule3(preBureauRiskCategory, preBureauAffordability, age, context_));
 
                 // Return results based on hit policy
                 String output_;
@@ -99,11 +104,15 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
     };
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(String preBureauRiskCategory, Boolean preBureauAffordability, java.math.BigDecimal age, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(String preBureauRiskCategory, Boolean preBureauAffordability, java.math.BigDecimal age, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -132,11 +141,15 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(String preBureauRiskCategory, Boolean preBureauAffordability, java.math.BigDecimal age, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(String preBureauRiskCategory, Boolean preBureauAffordability, java.math.BigDecimal age, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -165,11 +178,15 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule2(String preBureauRiskCategory, Boolean preBureauAffordability, java.math.BigDecimal age, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule2(String preBureauRiskCategory, Boolean preBureauAffordability, java.math.BigDecimal age, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -198,11 +215,15 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule3(String preBureauRiskCategory, Boolean preBureauAffordability, java.math.BigDecimal age, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule3(String preBureauRiskCategory, Boolean preBureauAffordability, java.math.BigDecimal age, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule

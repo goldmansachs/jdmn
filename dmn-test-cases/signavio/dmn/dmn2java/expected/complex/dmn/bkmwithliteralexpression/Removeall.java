@@ -27,27 +27,22 @@ public class Removeall extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
     }
 
     @java.lang.Override()
-    public List<String> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<String> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("blacklist"), input_.get("names"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("blacklist") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("blacklist"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (input_.get("names") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("names"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Removeall'", e);
             return null;
         }
     }
 
-    public List<String> apply(String blacklist, String names, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((blacklist != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(blacklist, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (names != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(names, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'Removeall'", e);
-            return null;
-        }
-    }
-
-    public List<String> apply(List<String> blacklist, List<String> names, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public List<String> apply(List<String> blacklist, List<String> names, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'removeall'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long removeallStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments removeallArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             removeallArguments_.put("blacklist", blacklist);
@@ -55,7 +50,7 @@ public class Removeall extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, removeallArguments_);
 
             // Evaluate decision 'removeall'
-            List<String> output_ = evaluate(blacklist, names, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<String> output_ = evaluate(blacklist, names, context_);
 
             // End decision 'removeall'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, removeallArguments_, output_, (System.currentTimeMillis() - removeallStartTime_));
@@ -67,7 +62,11 @@ public class Removeall extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
         }
     }
 
-    protected List<String> evaluate(List<String> blacklist, List<String> names, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected List<String> evaluate(List<String> blacklist, List<String> names, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         return removeAll(names, blacklist);
     }
 }

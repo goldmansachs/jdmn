@@ -6,16 +6,14 @@ import java.util.stream.Collectors;
 public class ModelCTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     @org.junit.Test
     public void testCase001() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
         java.math.BigDecimal aa = number("1000");
         String ba = "$";
 
         // Check c
-        checkValues("AA: 1000; BA: $", new C().apply(aa, ba, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues("AA: 1000; BA: $", new C().apply(aa, ba, context_));
     }
 
     private void checkValues(Object expected, Object actual) {

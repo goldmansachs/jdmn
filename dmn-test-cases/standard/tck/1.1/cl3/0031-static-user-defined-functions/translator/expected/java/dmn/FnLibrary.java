@@ -27,24 +27,28 @@ public class FnLibrary extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @java.lang.Override()
-    public type.TFnLibrary apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public type.TFnLibrary applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply(context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'FnLibrary'", e);
             return null;
         }
     }
 
-    public type.TFnLibrary apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public type.TFnLibrary apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision ''fn library''
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long fnLibraryStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments fnLibraryArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnLibraryArguments_);
 
             // Evaluate decision ''fn library''
-            type.TFnLibrary output_ = lambda.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+            type.TFnLibrary output_ = lambda.apply(context_);
 
             // End decision ''fn library''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnLibraryArguments_, output_, (System.currentTimeMillis() - fnLibraryStartTime_));
@@ -59,10 +63,11 @@ public class FnLibrary extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public com.gs.dmn.runtime.LambdaExpression<type.TFnLibrary> lambda =
         new com.gs.dmn.runtime.LambdaExpression<type.TFnLibrary>() {
             public type.TFnLibrary apply(Object... args_) {
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 0 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[0] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 1 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[1] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 2 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[2] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 3 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[3] : null;
+                com.gs.dmn.runtime.ExecutionContext context_ = 0 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[0] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> sumFn = new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {public java.math.BigDecimal apply(Object... args_) {java.math.BigDecimal a = (java.math.BigDecimal)args_[0]; java.math.BigDecimal b = (java.math.BigDecimal)args_[1];return numericAdd(a, b);}};
                 com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> subFn = new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {public java.math.BigDecimal apply(Object... args_) {java.math.BigDecimal a = (java.math.BigDecimal)args_[0]; java.math.BigDecimal b = (java.math.BigDecimal)args_[1];return numericSubtract(a, b);}};

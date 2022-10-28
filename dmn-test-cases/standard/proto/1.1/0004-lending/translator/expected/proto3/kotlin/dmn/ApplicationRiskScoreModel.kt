@@ -15,18 +15,22 @@ import java.util.stream.Collectors
 class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
         try {
-            return apply(input_.get("Age")?.let({ number(it) }), input_.get("MaritalStatus"), input_.get("EmploymentStatus"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(input_.get("Age")?.let({ number(it) }), input_.get("MaritalStatus"), input_.get("EmploymentStatus"), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'ApplicationRiskScoreModel'", e)
             return null
         }
     }
 
-    fun apply(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    fun apply(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
         try {
             // Start BKM 'ApplicationRiskScoreModel'
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val applicationRiskScoreModelStartTime_ = System.currentTimeMillis()
             val applicationRiskScoreModelArguments_ = com.gs.dmn.runtime.listener.Arguments()
             applicationRiskScoreModelArguments_.put("Age", age)
@@ -35,7 +39,7 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreModelArguments_)
 
             // Evaluate BKM 'ApplicationRiskScoreModel'
-            val output_: java.math.BigDecimal? = evaluate(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: java.math.BigDecimal? = evaluate(age, maritalStatus, employmentStatus, context_)
 
             // End BKM 'ApplicationRiskScoreModel'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreModelArguments_, output_, (System.currentTimeMillis() - applicationRiskScoreModelStartTime_))
@@ -47,20 +51,24 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    private inline fun evaluate(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()
-        ruleOutputList_.add(rule0(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(rule1(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(rule2(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(rule3(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(rule4(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(rule5(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(rule6(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(rule7(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(rule8(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(rule9(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(rule10(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
+        ruleOutputList_.add(rule0(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(rule1(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(rule2(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(rule3(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(rule4(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(rule5(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(rule6(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(rule7(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(rule8(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(rule9(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(rule10(age, maritalStatus, employmentStatus, context_))
 
         // Return results based on hit policy
         var output_: java.math.BigDecimal?
@@ -76,11 +84,15 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    private fun rule0(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule0(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(0, "")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule
@@ -108,11 +120,15 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    private fun rule1(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule1(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(1, "")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule
@@ -140,11 +156,15 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    private fun rule2(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule2(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(2, "")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule
@@ -172,11 +192,15 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
-    private fun rule3(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule3(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(3, "")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule
@@ -204,11 +228,15 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "")
-    private fun rule4(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule4(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(4, "")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule
@@ -236,11 +264,15 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 5, annotation = "")
-    private fun rule5(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule5(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(5, "")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule
@@ -268,11 +300,15 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 6, annotation = "")
-    private fun rule6(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule6(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(6, "")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule
@@ -300,11 +336,15 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 7, annotation = "")
-    private fun rule7(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule7(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(7, "")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule
@@ -332,11 +372,15 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 8, annotation = "")
-    private fun rule8(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule8(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(8, "")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule
@@ -364,11 +408,15 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 9, annotation = "")
-    private fun rule9(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule9(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(9, "")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule
@@ -396,11 +444,15 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 10, annotation = "")
-    private fun rule10(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule10(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(10, "")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule

@@ -68,7 +68,7 @@ public class HandwrittenGenerateOutputDataTest {
 
     private com.gs.dmn.generated.example_credit_decision_mixed_proto.proto.GenerateOutputDataResponse applyDecision(GenerateOutputDataRequest request) {
         ExecutionContext context = new ExecutionContext();
-        return decision.apply(request, context.getAnnotations(), context.getEventListener(), context.getExternalFunctionExecutor(), context.getCache());
+        return decision.applyProto(request, context);
     }
 
     private void checkValues(Object expected, Object actual) {

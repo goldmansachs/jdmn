@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class PureJavaTimeDMNBaseDecision extends PureJavaTimeFEELLib implements DMNDecision<BigDecimal, LocalDate, Temporal, Temporal, Duration>, AnnotationTarget {
     @Override
-    public Object apply(Map<String, String> input_, ExecutionContext context_) {
+    public Object applyMap(Map<String, String> input_, ExecutionContext context_) {
         return null;
     }
 

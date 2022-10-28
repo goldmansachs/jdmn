@@ -13,34 +13,29 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class Sort2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): List<type.TRow?>? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): List<type.TRow?>? {
         try {
-            return apply(input_.get("tableB"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(input_.get("tableB")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TRow?>?>() {}) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'Sort2'", e)
             return null
         }
     }
 
-    fun apply(tableB: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): List<type.TRow?>? {
-        return try {
-            apply(tableB?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TRow?>?>() {}) }), annotationSet_, eventListener_, externalExecutor_, cache_)
-        } catch (e: Exception) {
-            logError("Cannot apply decision 'Sort2'", e)
-            null
-        }
-    }
-
-    fun apply(tableB: List<type.TRow?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): List<type.TRow?>? {
+    fun apply(tableB: List<type.TRow?>?, context_: com.gs.dmn.runtime.ExecutionContext): List<type.TRow?>? {
         try {
             // Start decision 'sort2'
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val sort2StartTime_ = System.currentTimeMillis()
             val sort2Arguments_ = com.gs.dmn.runtime.listener.Arguments()
             sort2Arguments_.put("tableB", tableB)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sort2Arguments_)
 
             // Evaluate decision 'sort2'
-            val output_: List<type.TRow?>? = evaluate(tableB, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: List<type.TRow?>? = evaluate(tableB, context_)
 
             // End decision 'sort2'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, sort2Arguments_, output_, (System.currentTimeMillis() - sort2StartTime_))
@@ -52,7 +47,11 @@ class Sort2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(tableB: List<type.TRow?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): List<type.TRow?>? {
+    private inline fun evaluate(tableB: List<type.TRow?>?, context_: com.gs.dmn.runtime.ExecutionContext): List<type.TRow?>? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         return sort(tableB, com.gs.dmn.runtime.LambdaExpression<Boolean> { args_ -> val x: type.TRow? = args_[0] as type.TRow?; val y: type.TRow? = args_[1] as type.TRow?; numericLessThan(x?.let({ it.col2 as java.math.BigDecimal? }), y?.let({ it.col2 as java.math.BigDecimal? })) })?.map({ x -> type.TRow.toTRow(x) }) as List<type.TRow?>?
     }
 

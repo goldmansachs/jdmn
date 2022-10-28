@@ -21,6 +21,7 @@ import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.native_.KotlinFactory;
@@ -84,6 +85,15 @@ public class BasicDMNToKotlinTransformer extends BasicDMNToJavaTransformer {
     @Override
     public String drgElementSignatureWithMap(TDRGElement element) {
         return String.format("%s: %s, %s: %s", inputVariableName(), inputClassName(), executionContextVariableName(), executionContextClassName());
+    }
+
+    @Override
+    protected String extractParameter(Pair<Pair<String, String>, String> param) {
+        String type = param.getLeft().getLeft();
+        String varName = param.getLeft().getRight();
+        String propertyName = param.getRight();
+        return String.format("var %s: %s = %s.%s",
+                varName, type, executionContextVariableName(), getter(propertyName));
     }
 
     @Override

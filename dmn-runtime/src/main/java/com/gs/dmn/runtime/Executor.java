@@ -27,7 +27,7 @@ public class Executor {
 
     public Object execute(String qName, Map<String, String> input, ExecutionContext context) {
         DMNDecision dmnDecision = makeInstance(qName);
-        return dmnDecision.apply(input, context);
+        return dmnDecision.applyMap(input, context);
     }
 
     private DMNDecision makeInstance(String qName) {

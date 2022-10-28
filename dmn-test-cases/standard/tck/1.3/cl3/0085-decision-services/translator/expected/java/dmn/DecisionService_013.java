@@ -41,18 +41,22 @@ public class DecisionService_013 extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
     }
 
     @java.lang.Override()
-    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("inputData_013_1"), input_.get("decision_013_3"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply(input_.get("inputData_013_1"), input_.get("decision_013_3"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'DecisionService_013'", e);
             return null;
         }
     }
 
-    public String apply(String inputData_013_1, String decision_013_3, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(String inputData_013_1, String decision_013_3, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start DS 'decisionService_013'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decisionService_013StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decisionService_013Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
             decisionService_013Arguments_.put("inputData_013_1", inputData_013_1);
@@ -63,7 +67,7 @@ public class DecisionService_013 extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
             cache_.bind("decision_013_3", decision_013_3);
 
             // Evaluate DS 'decisionService_013'
-            String output_ = lambda.apply(inputData_013_1, decision_013_3, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(inputData_013_1, decision_013_3, context_);
 
             // End DS 'decisionService_013'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decisionService_013Arguments_, output_, (System.currentTimeMillis() - decisionService_013StartTime_));
@@ -80,13 +84,14 @@ public class DecisionService_013 extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
             public String apply(Object... args_) {
                 String inputData_013_1 = 0 < args_.length ? (String) args_[0] : null;
                 String decision_013_3 = 1 < args_.length ? (String) args_[1] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 2 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[2] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 3 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[3] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 4 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[4] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 5 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[5] : null;
+                com.gs.dmn.runtime.ExecutionContext context_ = 2 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[2] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 // Apply child decisions
-                String decision_013_2 = DecisionService_013.this.decision_013_2.apply(inputData_013_1, annotationSet_, eventListener_, externalExecutor_, cache_);
+                String decision_013_2 = DecisionService_013.this.decision_013_2.apply(inputData_013_1, context_);
 
                 return decision_013_2;
             }

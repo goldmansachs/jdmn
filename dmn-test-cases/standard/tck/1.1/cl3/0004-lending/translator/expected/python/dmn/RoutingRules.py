@@ -55,9 +55,13 @@ class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision.__init__(cls._instance)
         return cls._instance
 
-    def apply(self, postBureauRiskCategory: typing.Optional[str], postBureauAffordability: typing.Optional[bool], bankrupt: typing.Optional[bool], creditScore: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def apply(self, postBureauRiskCategory: typing.Optional[str], postBureauAffordability: typing.Optional[bool], bankrupt: typing.Optional[bool], creditScore: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         try:
             # Start BKM 'RoutingRules'
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             routingRulesStartTime_ = int(time.time_ns()/1000)
             routingRulesArguments_ = jdmn.runtime.listener.Arguments.Arguments()
             routingRulesArguments_.put("'Post-bureauRiskCategory'", postBureauRiskCategory)
@@ -67,7 +71,7 @@ class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, routingRulesArguments_)
 
             # Evaluate BKM 'RoutingRules'
-            output_: typing.Optional[str] = self.evaluate(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_, cache_)
+            output_: typing.Optional[str] = self.evaluate(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, context_)
 
             # End BKM 'RoutingRules'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, routingRulesArguments_, output_, (int(time.time_ns()/1000) - routingRulesStartTime_))
@@ -77,14 +81,18 @@ class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             self.logError("Exception caught in 'RoutingRules' evaluation", e)
             return None
 
-    def evaluate(self, postBureauRiskCategory: typing.Optional[str], postBureauAffordability: typing.Optional[bool], bankrupt: typing.Optional[bool], creditScore: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def evaluate(self, postBureauRiskCategory: typing.Optional[str], postBureauAffordability: typing.Optional[bool], bankrupt: typing.Optional[bool], creditScore: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         # Apply rules and collect results
         ruleOutputList_ = jdmn.runtime.RuleOutputList.RuleOutputList()
-        ruleOutputList_.add(self.rule0(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule1(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule2(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule3(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule4(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_, cache_))
+        ruleOutputList_.add(self.rule0(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, context_))
+        ruleOutputList_.add(self.rule1(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, context_))
+        ruleOutputList_.add(self.rule2(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, context_))
+        ruleOutputList_.add(self.rule3(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, context_))
+        ruleOutputList_.add(self.rule4(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, context_))
 
         # Return results based on hit policy
         output_: typing.Optional[str]
@@ -97,11 +105,15 @@ class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
 
         return output_
 
-    def rule0(self, postBureauRiskCategory: typing.Optional[str], postBureauAffordability: typing.Optional[bool], bankrupt: typing.Optional[bool], creditScore: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule0(self, postBureauRiskCategory: typing.Optional[str], postBureauAffordability: typing.Optional[bool], bankrupt: typing.Optional[bool], creditScore: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(0, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -128,11 +140,15 @@ class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
 
         return output_
 
-    def rule1(self, postBureauRiskCategory: typing.Optional[str], postBureauAffordability: typing.Optional[bool], bankrupt: typing.Optional[bool], creditScore: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule1(self, postBureauRiskCategory: typing.Optional[str], postBureauAffordability: typing.Optional[bool], bankrupt: typing.Optional[bool], creditScore: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(1, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -159,11 +175,15 @@ class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
 
         return output_
 
-    def rule2(self, postBureauRiskCategory: typing.Optional[str], postBureauAffordability: typing.Optional[bool], bankrupt: typing.Optional[bool], creditScore: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule2(self, postBureauRiskCategory: typing.Optional[str], postBureauAffordability: typing.Optional[bool], bankrupt: typing.Optional[bool], creditScore: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(2, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -190,11 +210,15 @@ class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
 
         return output_
 
-    def rule3(self, postBureauRiskCategory: typing.Optional[str], postBureauAffordability: typing.Optional[bool], bankrupt: typing.Optional[bool], creditScore: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule3(self, postBureauRiskCategory: typing.Optional[str], postBureauAffordability: typing.Optional[bool], bankrupt: typing.Optional[bool], creditScore: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(3, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -221,11 +245,15 @@ class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
 
         return output_
 
-    def rule4(self, postBureauRiskCategory: typing.Optional[str], postBureauAffordability: typing.Optional[bool], bankrupt: typing.Optional[bool], creditScore: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule4(self, postBureauRiskCategory: typing.Optional[str], postBureauAffordability: typing.Optional[bool], bankrupt: typing.Optional[bool], creditScore: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(4, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule

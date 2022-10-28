@@ -13,27 +13,22 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class AssessIssue() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
         try {
-            return apply(input_.get("Current risk appetite"), input_.get("Prior issue"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(input_.get("Current risk appetite")?.let({ number(it) }), input_.get("Prior issue")?.let({ number(it) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'AssessIssue'", e)
             return null
         }
     }
 
-    fun apply(currentRiskAppetite: String?, priorIssue_iterator: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
-        return try {
-            apply(currentRiskAppetite?.let({ number(it) }), priorIssue_iterator?.let({ number(it) }), annotationSet_, eventListener_, externalExecutor_, cache_)
-        } catch (e: Exception) {
-            logError("Cannot apply decision 'AssessIssue'", e)
-            null
-        }
-    }
-
-    fun apply(currentRiskAppetite: java.math.BigDecimal?, priorIssue_iterator: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    fun apply(currentRiskAppetite: java.math.BigDecimal?, priorIssue_iterator: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
         try {
             // Start decision 'assessIssue'
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val assessIssueStartTime_ = System.currentTimeMillis()
             val assessIssueArguments_ = com.gs.dmn.runtime.listener.Arguments()
             assessIssueArguments_.put("Current risk appetite", currentRiskAppetite)
@@ -41,7 +36,7 @@ class AssessIssue() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() 
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, assessIssueArguments_)
 
             // Evaluate decision 'assessIssue'
-            val output_: java.math.BigDecimal? = evaluate(currentRiskAppetite, priorIssue_iterator, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: java.math.BigDecimal? = evaluate(currentRiskAppetite, priorIssue_iterator, context_)
 
             // End decision 'assessIssue'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, assessIssueArguments_, output_, (System.currentTimeMillis() - assessIssueStartTime_))
@@ -53,13 +48,13 @@ class AssessIssue() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() 
         }
     }
 
-    fun apply(assessIssueRequest_: proto.AssessIssueRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.AssessIssueResponse {
+    fun applyProto(assessIssueRequest_: proto.AssessIssueRequest, context_: com.gs.dmn.runtime.ExecutionContext): proto.AssessIssueResponse {
         // Create arguments from Request Message
         val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRequest_.getCurrentRiskAppetite())
         val priorIssue_iterator: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRequest_.getPriorIssueIterator())
 
         // Invoke apply method
-        val output_: java.math.BigDecimal? = apply(currentRiskAppetite, priorIssue_iterator, annotationSet_, eventListener_, externalExecutor_, cache_)
+        val output_: java.math.BigDecimal? = apply(currentRiskAppetite, priorIssue_iterator, context_)
 
         // Convert output to Response Message
         val builder_: proto.AssessIssueResponse.Builder = proto.AssessIssueResponse.newBuilder()
@@ -68,7 +63,11 @@ class AssessIssue() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() 
         return builder_.build()
     }
 
-    private inline fun evaluate(currentRiskAppetite: java.math.BigDecimal?, priorIssue_iterator: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    private inline fun evaluate(currentRiskAppetite: java.math.BigDecimal?, priorIssue_iterator: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         return numericMultiply(priorIssue_iterator, numericMultiply(max(asList(number("0"), numericSubtract(number("100"), currentRiskAppetite))), number("0.01"))) as java.math.BigDecimal?
     }
 

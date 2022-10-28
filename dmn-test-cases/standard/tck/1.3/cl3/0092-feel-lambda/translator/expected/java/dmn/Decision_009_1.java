@@ -27,24 +27,28 @@ public class Decision_009_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply(context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Decision_009_1'", e);
             return null;
         }
     }
 
-    public java.math.BigDecimal apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public java.math.BigDecimal apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'decision_009_1'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decision_009_1StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decision_009_1Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision_009_1Arguments_);
 
             // Evaluate decision 'decision_009_1'
-            java.math.BigDecimal output_ = lambda.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+            java.math.BigDecimal output_ = lambda.apply(context_);
 
             // End decision 'decision_009_1'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decision_009_1Arguments_, output_, (System.currentTimeMillis() - decision_009_1StartTime_));
@@ -59,13 +63,14 @@ public class Decision_009_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
         new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
             public java.math.BigDecimal apply(Object... args_) {
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 0 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[0] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 1 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[1] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 2 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[2] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 3 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[3] : null;
+                com.gs.dmn.runtime.ExecutionContext context_ = 0 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[0] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 java.math.BigDecimal a = number("10");
-                return Bkm_009_1.instance().apply(number("100"), annotationSet_, eventListener_, externalExecutor_, cache_).apply(number("2"), annotationSet_, eventListener_, externalExecutor_, cache_);
+                return Bkm_009_1.instance().apply(number("100"), context_).apply(number("2"), context_);
             }
         };
 }

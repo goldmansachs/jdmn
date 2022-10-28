@@ -13,34 +13,29 @@ import java.util.stream.Collectors
     rulesCount = 5
 )
 class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): List<java.math.BigDecimal?>? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): List<java.math.BigDecimal?>? {
         try {
-            return apply(input_.get("Applicant"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(input_.get("Applicant")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'ProcessPriorIssues'", e)
             return null
         }
     }
 
-    fun apply(applicant: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): List<java.math.BigDecimal?>? {
-        return try {
-            apply(applicant?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) }), annotationSet_, eventListener_, externalExecutor_, cache_)
-        } catch (e: Exception) {
-            logError("Cannot apply decision 'ProcessPriorIssues'", e)
-            null
-        }
-    }
-
-    fun apply(applicant: type.Applicant?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): List<java.math.BigDecimal?>? {
+    fun apply(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): List<java.math.BigDecimal?>? {
         try {
             // Start decision 'processPriorIssues'
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val processPriorIssuesStartTime_ = System.currentTimeMillis()
             val processPriorIssuesArguments_ = com.gs.dmn.runtime.listener.Arguments()
             processPriorIssuesArguments_.put("Applicant", applicant)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, processPriorIssuesArguments_)
 
             // Evaluate decision 'processPriorIssues'
-            val output_: List<java.math.BigDecimal?>? = evaluate(applicant, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: List<java.math.BigDecimal?>? = evaluate(applicant, context_)
 
             // End decision 'processPriorIssues'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, processPriorIssuesArguments_, output_, (System.currentTimeMillis() - processPriorIssuesStartTime_))
@@ -52,12 +47,12 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         }
     }
 
-    fun apply(processPriorIssuesRequest_: proto.ProcessPriorIssuesRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.ProcessPriorIssuesResponse {
+    fun applyProto(processPriorIssuesRequest_: proto.ProcessPriorIssuesRequest, context_: com.gs.dmn.runtime.ExecutionContext): proto.ProcessPriorIssuesResponse {
         // Create arguments from Request Message
         val applicant: type.Applicant? = type.Applicant.toApplicant(processPriorIssuesRequest_.getApplicant())
 
         // Invoke apply method
-        val output_: List<java.math.BigDecimal?>? = apply(applicant, annotationSet_, eventListener_, externalExecutor_, cache_)
+        val output_: List<java.math.BigDecimal?>? = apply(applicant, context_)
 
         // Convert output to Response Message
         val builder_: proto.ProcessPriorIssuesResponse.Builder = proto.ProcessPriorIssuesResponse.newBuilder()
@@ -68,14 +63,18 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return builder_.build()
     }
 
-    private inline fun evaluate(applicant: type.Applicant?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): List<java.math.BigDecimal?>? {
+    private inline fun evaluate(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): List<java.math.BigDecimal?>? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()
-        ruleOutputList_.add(rule0(applicant, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(rule1(applicant, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(rule2(applicant, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(rule3(applicant, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(rule4(applicant, annotationSet_, eventListener_, externalExecutor_, cache_))
+        ruleOutputList_.add(rule0(applicant, context_))
+        ruleOutputList_.add(rule1(applicant, context_))
+        ruleOutputList_.add(rule2(applicant, context_))
+        ruleOutputList_.add(rule3(applicant, context_))
+        ruleOutputList_.add(rule4(applicant, context_))
 
         // Return results based on hit policy
         var output_: List<java.math.BigDecimal?>?
@@ -94,11 +93,15 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
-    private fun rule0(applicant: type.Applicant?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule0(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(0, "\"\"")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule
@@ -124,11 +127,15 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
-    private fun rule1(applicant: type.Applicant?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule1(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(1, "\"\"")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule
@@ -154,11 +161,15 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
-    private fun rule2(applicant: type.Applicant?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule2(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(2, "\"\"")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule
@@ -184,11 +195,15 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "\"\"")
-    private fun rule3(applicant: type.Applicant?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule3(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(3, "\"\"")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule
@@ -214,11 +229,15 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "\"\"")
-    private fun rule4(applicant: type.Applicant?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): com.gs.dmn.runtime.RuleOutput {
+    private fun rule4(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(4, "\"\"")
 
         // Rule start
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         // Apply rule

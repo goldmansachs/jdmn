@@ -34,24 +34,28 @@ public class EveryGtTen3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @java.lang.Override()
-    public Boolean apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public Boolean applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply(context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'EveryGtTen3'", e);
             return null;
         }
     }
 
-    public Boolean apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public Boolean apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'everyGtTen3'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long everyGtTen3StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments everyGtTen3Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, everyGtTen3Arguments_);
 
             // Evaluate decision 'everyGtTen3'
-            Boolean output_ = lambda.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean output_ = lambda.apply(context_);
 
             // End decision 'everyGtTen3'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, everyGtTen3Arguments_, output_, (System.currentTimeMillis() - everyGtTen3StartTime_));
@@ -66,15 +70,16 @@ public class EveryGtTen3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public com.gs.dmn.runtime.LambdaExpression<Boolean> lambda =
         new com.gs.dmn.runtime.LambdaExpression<Boolean>() {
             public Boolean apply(Object... args_) {
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 0 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[0] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 1 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[1] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 2 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[2] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 3 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[3] : null;
+                com.gs.dmn.runtime.ExecutionContext context_ = 0 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[0] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 // Apply child decisions
-                List<type.TItemPrice> priceTable1 = EveryGtTen3.this.priceTable1.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+                List<type.TItemPrice> priceTable1 = EveryGtTen3.this.priceTable1.apply(context_);
 
-                return booleanAnd((List)priceTable1.stream().map(i -> booleanEqual(GtTen.instance().apply(((java.math.BigDecimal)(i != null ? i.getPrice() : null)), annotationSet_, eventListener_, externalExecutor_, cache_), Boolean.TRUE)).collect(Collectors.toList()));
+                return booleanAnd((List)priceTable1.stream().map(i -> booleanEqual(GtTen.instance().apply(((java.math.BigDecimal)(i != null ? i.getPrice() : null)), context_), Boolean.TRUE)).collect(Collectors.toList()));
             }
         };
 }

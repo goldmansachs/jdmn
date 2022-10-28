@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class DoubleMixedJavaTimeDMNBaseDecision extends DoubleMixedJavaTimeFEELLib implements DMNDecision<Double, LocalDate, OffsetTime, ZonedDateTime, Duration>, AnnotationTarget {
     @Override
-    public Object apply(Map<String, String> input_, ExecutionContext context_) {
+    public Object applyMap(Map<String, String> input_, ExecutionContext context_) {
         return null;
     }
 

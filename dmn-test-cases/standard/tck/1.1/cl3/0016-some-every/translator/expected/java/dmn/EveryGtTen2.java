@@ -27,34 +27,29 @@ public class EveryGtTen2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @java.lang.Override()
-    public Boolean apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public Boolean applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("priceTable2"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("priceTable2") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("priceTable2"), new com.fasterxml.jackson.core.type.TypeReference<List<type.TItemPrice>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'EveryGtTen2'", e);
             return null;
         }
     }
 
-    public Boolean apply(String priceTable2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((priceTable2 != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(priceTable2, new com.fasterxml.jackson.core.type.TypeReference<List<type.TItemPrice>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'EveryGtTen2'", e);
-            return null;
-        }
-    }
-
-    public Boolean apply(List<type.TItemPrice> priceTable2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public Boolean apply(List<type.TItemPrice> priceTable2, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'everyGtTen2'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long everyGtTen2StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments everyGtTen2Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
             everyGtTen2Arguments_.put("priceTable2", priceTable2);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, everyGtTen2Arguments_);
 
             // Evaluate decision 'everyGtTen2'
-            Boolean output_ = lambda.apply(priceTable2, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean output_ = lambda.apply(priceTable2, context_);
 
             // End decision 'everyGtTen2'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, everyGtTen2Arguments_, output_, (System.currentTimeMillis() - everyGtTen2StartTime_));
@@ -70,10 +65,11 @@ public class EveryGtTen2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         new com.gs.dmn.runtime.LambdaExpression<Boolean>() {
             public Boolean apply(Object... args_) {
                 List<type.TItemPrice> priceTable2 = 0 < args_.length ? (List<type.TItemPrice>) args_[0] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 1 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[1] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 2 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[2] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 3 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[3] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 4 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[4] : null;
+                com.gs.dmn.runtime.ExecutionContext context_ = 1 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 return booleanAnd((List)priceTable2.stream().map(i -> numericGreaterThan(((java.math.BigDecimal)(i != null ? i.getPrice() : null)), number("10"))).collect(Collectors.toList()));
             }

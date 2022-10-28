@@ -157,6 +157,6 @@ public class HandwrittenAllTogetherTest extends AbstractHandwrittenDecisionTest 
         input.put("string", string);
         input.put("stringList", stringList);
         input.put("time", time);
-        return decision.apply(input, context);
+        return decision.applyMap(input, context);
     }
 }

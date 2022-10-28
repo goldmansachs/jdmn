@@ -13,24 +13,28 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class FnLibrary() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): type.TFnLibrary? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): type.TFnLibrary? {
         try {
-            return apply(context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'FnLibrary'", e)
             return null
         }
     }
 
-    fun apply(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TFnLibrary? {
+    fun apply(context_: com.gs.dmn.runtime.ExecutionContext): type.TFnLibrary? {
         try {
             // Start decision ''fn library''
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val fnLibraryStartTime_ = System.currentTimeMillis()
             val fnLibraryArguments_ = com.gs.dmn.runtime.listener.Arguments()
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnLibraryArguments_)
 
             // Evaluate decision ''fn library''
-            val output_: type.TFnLibrary? = evaluate(annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: type.TFnLibrary? = evaluate(context_)
 
             // End decision ''fn library''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnLibraryArguments_, output_, (System.currentTimeMillis() - fnLibraryStartTime_))
@@ -42,7 +46,11 @@ class FnLibrary() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TFnLibrary? {
+    private inline fun evaluate(context_: com.gs.dmn.runtime.ExecutionContext): type.TFnLibrary? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         val sumFn: com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? = com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> { args_ -> val a: java.math.BigDecimal? = args_[0] as java.math.BigDecimal?; val b: java.math.BigDecimal? = args_[1] as java.math.BigDecimal?; numericAdd(a, b) } as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>?
         val subFn: com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? = com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> { args_ -> val a: java.math.BigDecimal? = args_[0] as java.math.BigDecimal?; val b: java.math.BigDecimal? = args_[1] as java.math.BigDecimal?; numericSubtract(a, b) } as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>?
         val multiplyFn: com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? = com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> { args_ -> val a: java.math.BigDecimal? = args_[0] as java.math.BigDecimal?; val b: java.math.BigDecimal? = args_[1] as java.math.BigDecimal?; numericMultiply(a, b) } as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>?

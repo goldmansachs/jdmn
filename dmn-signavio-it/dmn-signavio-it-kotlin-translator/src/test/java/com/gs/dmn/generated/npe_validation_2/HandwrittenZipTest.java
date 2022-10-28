@@ -85,6 +85,6 @@ public class HandwrittenZipTest extends AbstractHandwrittenDecisionTest {
     }
 
     private List<?> applyDecision(List<BigDecimal> ages, BigDecimal day, BigDecimal hour, BigDecimal minute, BigDecimal month, List<String> names, BigDecimal second, BigDecimal year) {
-        return zip.apply(ages, day, hour, minute, month, names, second, year, context.getAnnotations(), context.getEventListener(), context.getExternalFunctionExecutor(), context.getCache());
+        return zip.apply(ages, day, hour, minute, month, names, second, year, context);
     }
 }

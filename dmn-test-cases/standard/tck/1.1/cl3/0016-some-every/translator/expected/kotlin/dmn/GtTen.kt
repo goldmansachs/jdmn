@@ -15,25 +15,29 @@ import java.util.stream.Collectors
 class GtTen : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
         try {
-            return apply(input_.get("theNumber")?.let({ number(it) }), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(input_.get("theNumber")?.let({ number(it) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'GtTen'", e)
             return null
         }
     }
 
-    fun apply(theNumber: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
+    fun apply(theNumber: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
         try {
             // Start BKM 'gtTen'
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val gtTenStartTime_ = System.currentTimeMillis()
             val gtTenArguments_ = com.gs.dmn.runtime.listener.Arguments()
             gtTenArguments_.put("theNumber", theNumber)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, gtTenArguments_)
 
             // Evaluate BKM 'gtTen'
-            val output_: Boolean? = evaluate(theNumber, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: Boolean? = evaluate(theNumber, context_)
 
             // End BKM 'gtTen'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, gtTenArguments_, output_, (System.currentTimeMillis() - gtTenStartTime_))
@@ -45,7 +49,11 @@ class GtTen : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(theNumber: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
+    private inline fun evaluate(theNumber: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         return numericGreaterThan(theNumber, number("10")) as Boolean?
     }
 

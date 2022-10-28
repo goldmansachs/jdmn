@@ -48,27 +48,22 @@ public class CompositeDateTime extends com.gs.dmn.signavio.runtime.DefaultSignav
     }
 
     @java.lang.Override()
-    public type.TCompositeDateTime apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public type.TCompositeDateTime applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("CompositeInputDateTime"), input_.get("InputDate"), input_.get("InputDateTime"), input_.get("InputTime"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("CompositeInputDateTime") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("CompositeInputDateTime"), new com.fasterxml.jackson.core.type.TypeReference<type.TCompositeDateTimeImpl>() {}) : null), (input_.get("InputDate") != null ? date(input_.get("InputDate")) : null), (input_.get("InputDateTime") != null ? dateAndTime(input_.get("InputDateTime")) : null), (input_.get("InputTime") != null ? time(input_.get("InputTime")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'CompositeDateTime'", e);
             return null;
         }
     }
 
-    public type.TCompositeDateTime apply(String compositeInputDateTime, String inputDate, String inputDateTime, String inputTime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((compositeInputDateTime != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(compositeInputDateTime, new com.fasterxml.jackson.core.type.TypeReference<type.TCompositeDateTimeImpl>() {}) : null), (inputDate != null ? date(inputDate) : null), (inputDateTime != null ? dateAndTime(inputDateTime) : null), (inputTime != null ? time(inputTime) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'CompositeDateTime'", e);
-            return null;
-        }
-    }
-
-    public type.TCompositeDateTime apply(type.TCompositeDateTime compositeInputDateTime, javax.xml.datatype.XMLGregorianCalendar inputDate, javax.xml.datatype.XMLGregorianCalendar inputDateTime, javax.xml.datatype.XMLGregorianCalendar inputTime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public type.TCompositeDateTime apply(type.TCompositeDateTime compositeInputDateTime, javax.xml.datatype.XMLGregorianCalendar inputDate, javax.xml.datatype.XMLGregorianCalendar inputDateTime, javax.xml.datatype.XMLGregorianCalendar inputTime, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'CompositeDateTime'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long compositeDateTimeStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments compositeDateTimeArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             compositeDateTimeArguments_.put("CompositeInputDateTime", compositeInputDateTime);
@@ -78,7 +73,7 @@ public class CompositeDateTime extends com.gs.dmn.signavio.runtime.DefaultSignav
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compositeDateTimeArguments_);
 
             // Evaluate decision 'CompositeDateTime'
-            type.TCompositeDateTime output_ = evaluate(compositeInputDateTime, inputDate, inputDateTime, inputTime, annotationSet_, eventListener_, externalExecutor_, cache_);
+            type.TCompositeDateTime output_ = evaluate(compositeInputDateTime, inputDate, inputDateTime, inputTime, context_);
 
             // End decision 'CompositeDateTime'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, compositeDateTimeArguments_, output_, (System.currentTimeMillis() - compositeDateTimeStartTime_));
@@ -90,7 +85,7 @@ public class CompositeDateTime extends com.gs.dmn.signavio.runtime.DefaultSignav
         }
     }
 
-    public proto.CompositeDateTimeResponse apply(proto.CompositeDateTimeRequest compositeDateTimeRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public proto.CompositeDateTimeResponse applyProto(proto.CompositeDateTimeRequest compositeDateTimeRequest_, com.gs.dmn.runtime.ExecutionContext context_) {
         // Create arguments from Request Message
         type.TCompositeDateTime compositeInputDateTime = type.TCompositeDateTime.toTCompositeDateTime(compositeDateTimeRequest_.getCompositeInputDateTime());
         javax.xml.datatype.XMLGregorianCalendar inputDate = date(compositeDateTimeRequest_.getInputDate());
@@ -98,7 +93,7 @@ public class CompositeDateTime extends com.gs.dmn.signavio.runtime.DefaultSignav
         javax.xml.datatype.XMLGregorianCalendar inputTime = time(compositeDateTimeRequest_.getInputTime());
 
         // Invoke apply method
-        type.TCompositeDateTime output_ = apply(compositeInputDateTime, inputDate, inputDateTime, inputTime, annotationSet_, eventListener_, externalExecutor_, cache_);
+        type.TCompositeDateTime output_ = apply(compositeInputDateTime, inputDate, inputDateTime, inputTime, context_);
 
         // Convert output to Response Message
         proto.CompositeDateTimeResponse.Builder builder_ = proto.CompositeDateTimeResponse.newBuilder();
@@ -109,7 +104,11 @@ public class CompositeDateTime extends com.gs.dmn.signavio.runtime.DefaultSignav
         return builder_.build();
     }
 
-    protected type.TCompositeDateTime evaluate(type.TCompositeDateTime compositeInputDateTime, javax.xml.datatype.XMLGregorianCalendar inputDate, javax.xml.datatype.XMLGregorianCalendar inputDateTime, javax.xml.datatype.XMLGregorianCalendar inputTime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected type.TCompositeDateTime evaluate(type.TCompositeDateTime compositeInputDateTime, javax.xml.datatype.XMLGregorianCalendar inputDate, javax.xml.datatype.XMLGregorianCalendar inputDateTime, javax.xml.datatype.XMLGregorianCalendar inputTime, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         return type.TCompositeDateTime.toTCompositeDateTime(compositeInputDateTime);
     }
 }

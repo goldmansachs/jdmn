@@ -27,27 +27,22 @@ public class GenerateTemporalObjects extends com.gs.dmn.signavio.runtime.Default
     }
 
     @java.lang.Override()
-    public type.GenerateTemporalObjects apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public type.GenerateTemporalObjects applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("day"), input_.get("hour"), input_.get("minute"), input_.get("month"), input_.get("second"), input_.get("year"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("day") != null ? number(input_.get("day")) : null), (input_.get("hour") != null ? number(input_.get("hour")) : null), (input_.get("minute") != null ? number(input_.get("minute")) : null), (input_.get("month") != null ? number(input_.get("month")) : null), (input_.get("second") != null ? number(input_.get("second")) : null), (input_.get("year") != null ? number(input_.get("year")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'GenerateTemporalObjects'", e);
             return null;
         }
     }
 
-    public type.GenerateTemporalObjects apply(String day, String hour, String minute, String month, String second, String year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((day != null ? number(day) : null), (hour != null ? number(hour) : null), (minute != null ? number(minute) : null), (month != null ? number(month) : null), (second != null ? number(second) : null), (year != null ? number(year) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'GenerateTemporalObjects'", e);
-            return null;
-        }
-    }
-
-    public type.GenerateTemporalObjects apply(java.math.BigDecimal day, java.math.BigDecimal hour, java.math.BigDecimal minute, java.math.BigDecimal month, java.math.BigDecimal second, java.math.BigDecimal year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public type.GenerateTemporalObjects apply(java.math.BigDecimal day, java.math.BigDecimal hour, java.math.BigDecimal minute, java.math.BigDecimal month, java.math.BigDecimal second, java.math.BigDecimal year, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'generateTemporalObjects'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long generateTemporalObjectsStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments generateTemporalObjectsArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             generateTemporalObjectsArguments_.put("day", day);
@@ -59,7 +54,7 @@ public class GenerateTemporalObjects extends com.gs.dmn.signavio.runtime.Default
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, generateTemporalObjectsArguments_);
 
             // Evaluate decision 'generateTemporalObjects'
-            type.GenerateTemporalObjects output_ = evaluate(day, hour, minute, month, second, year, annotationSet_, eventListener_, externalExecutor_, cache_);
+            type.GenerateTemporalObjects output_ = evaluate(day, hour, minute, month, second, year, context_);
 
             // End decision 'generateTemporalObjects'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, generateTemporalObjectsArguments_, output_, (System.currentTimeMillis() - generateTemporalObjectsStartTime_));
@@ -71,10 +66,14 @@ public class GenerateTemporalObjects extends com.gs.dmn.signavio.runtime.Default
         }
     }
 
-    protected type.GenerateTemporalObjects evaluate(java.math.BigDecimal day, java.math.BigDecimal hour, java.math.BigDecimal minute, java.math.BigDecimal month, java.math.BigDecimal second, java.math.BigDecimal year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected type.GenerateTemporalObjects evaluate(java.math.BigDecimal day, java.math.BigDecimal hour, java.math.BigDecimal minute, java.math.BigDecimal month, java.math.BigDecimal second, java.math.BigDecimal year, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        ruleOutputList_.add(rule0(day, hour, minute, month, second, year, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule0(day, hour, minute, month, second, year, context_));
 
         // Return results based on hit policy
         type.GenerateTemporalObjects output_;
@@ -90,11 +89,15 @@ public class GenerateTemporalObjects extends com.gs.dmn.signavio.runtime.Default
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal day, java.math.BigDecimal hour, java.math.BigDecimal minute, java.math.BigDecimal month, java.math.BigDecimal second, java.math.BigDecimal year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal day, java.math.BigDecimal hour, java.math.BigDecimal minute, java.math.BigDecimal month, java.math.BigDecimal second, java.math.BigDecimal year, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule

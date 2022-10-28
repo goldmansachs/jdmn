@@ -33,10 +33,7 @@ class ${testClassName} : ${decisionBaseClass}() {
         <#items as testCase>
     @org.junit.Test
     fun testCase${(testCase?index + 1)?c}() {
-        val ${testLabUtil.annotationSetVariableName()} = ${testLabUtil.annotationSetClassName()}()
-        val ${testLabUtil.eventListenerVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.defaultEventListenerClassName())}
-        val ${testLabUtil.externalExecutorVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.defaultExternalExecutorClassName())}
-        val ${testLabUtil.cacheVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.defaultCacheClassName())}
+        val ${testLabUtil.executionContextVariableName()} = ${testLabUtil.executionContextClassName()}()
         <@addApplyPart testCase/>
 
         <@addAssertPart testCase/>
@@ -101,7 +98,7 @@ class ${testClassName} : ${decisionBaseClass}() {
         val ${testLabUtil.requestVariableName(rootOutputParameter)}: ${testLabUtil.qualifiedRequestMessageName(rootOutputParameter)} = builder_.build()
 
         // Invoke apply method
-        val ${testLabUtil.responseVariableName(rootOutputParameter)}: ${testLabUtil.qualifiedResponseMessageName(rootOutputParameter)} = this.${testLabUtil.drgElementVariableName(rootOutputParameter)}.apply(${testLabUtil.drgElementArgumentListProto(rootOutputParameter)})
+        val ${testLabUtil.responseVariableName(rootOutputParameter)}: ${testLabUtil.qualifiedResponseMessageName(rootOutputParameter)} = this.${testLabUtil.drgElementVariableName(rootOutputParameter)}.applyProto(${testLabUtil.drgElementArgumentListProto(rootOutputParameter)})
         val ${testLabUtil.drgElementVariableNameProto(rootOutputParameter)}: ${testLabUtil.drgElementOutputTypeProto(rootOutputParameter)} = ${testLabUtil.responseVariableName(rootOutputParameter)}.${testLabUtil.protoGetter(rootOutputParameter)}
 </#macro>
 

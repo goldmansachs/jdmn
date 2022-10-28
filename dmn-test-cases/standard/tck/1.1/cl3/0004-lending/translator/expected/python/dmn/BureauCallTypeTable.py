@@ -55,16 +55,20 @@ class BureauCallTypeTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
             jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision.__init__(cls._instance)
         return cls._instance
 
-    def apply(self, preBureauRiskCategory: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def apply(self, preBureauRiskCategory: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         try:
             # Start BKM 'BureauCallTypeTable'
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             bureauCallTypeTableStartTime_ = int(time.time_ns()/1000)
             bureauCallTypeTableArguments_ = jdmn.runtime.listener.Arguments.Arguments()
             bureauCallTypeTableArguments_.put("'Pre-bureauRiskCategory'", preBureauRiskCategory)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, bureauCallTypeTableArguments_)
 
             # Evaluate BKM 'BureauCallTypeTable'
-            output_: typing.Optional[str] = self.evaluate(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_)
+            output_: typing.Optional[str] = self.evaluate(preBureauRiskCategory, context_)
 
             # End BKM 'BureauCallTypeTable'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, bureauCallTypeTableArguments_, output_, (int(time.time_ns()/1000) - bureauCallTypeTableStartTime_))
@@ -74,12 +78,16 @@ class BureauCallTypeTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
             self.logError("Exception caught in 'BureauCallTypeTable' evaluation", e)
             return None
 
-    def evaluate(self, preBureauRiskCategory: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def evaluate(self, preBureauRiskCategory: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         # Apply rules and collect results
         ruleOutputList_ = jdmn.runtime.RuleOutputList.RuleOutputList()
-        ruleOutputList_.add(self.rule0(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule1(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule2(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_))
+        ruleOutputList_.add(self.rule0(preBureauRiskCategory, context_))
+        ruleOutputList_.add(self.rule1(preBureauRiskCategory, context_))
+        ruleOutputList_.add(self.rule2(preBureauRiskCategory, context_))
 
         # Return results based on hit policy
         output_: typing.Optional[str]
@@ -92,11 +100,15 @@ class BureauCallTypeTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
 
         return output_
 
-    def rule0(self, preBureauRiskCategory: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule0(self, preBureauRiskCategory: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(0, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -119,11 +131,15 @@ class BureauCallTypeTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
 
         return output_
 
-    def rule1(self, preBureauRiskCategory: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule1(self, preBureauRiskCategory: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(1, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -146,11 +162,15 @@ class BureauCallTypeTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
 
         return output_
 
-    def rule2(self, preBureauRiskCategory: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule2(self, preBureauRiskCategory: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(2, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule

@@ -36,27 +36,22 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
     }
 
     @java.lang.Override()
-    public type.CompoundOutputCompoundDecision apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public type.CompoundOutputCompoundDecision applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("BooleanInput"), input_.get("DD1 Text Input"), input_.get("DD2 Number Input"), input_.get("EnumerationInput"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("BooleanInput") != null ? Boolean.valueOf(input_.get("BooleanInput")) : null), input_.get("DD1 Text Input"), (input_.get("DD2 Number Input") != null ? number(input_.get("DD2 Number Input")) : null), input_.get("EnumerationInput"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'CompoundOutputCompoundDecision'", e);
             return null;
         }
     }
 
-    public type.CompoundOutputCompoundDecision apply(String booleanInput, String dD1TextInput, String dD2NumberInput, String enumerationInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((booleanInput != null ? Boolean.valueOf(booleanInput) : null), dD1TextInput, (dD2NumberInput != null ? number(dD2NumberInput) : null), enumerationInput, annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'CompoundOutputCompoundDecision'", e);
-            return null;
-        }
-    }
-
-    public type.CompoundOutputCompoundDecision apply(Boolean booleanInput, String dD1TextInput, java.math.BigDecimal dD2NumberInput, String enumerationInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public type.CompoundOutputCompoundDecision apply(Boolean booleanInput, String dD1TextInput, java.math.BigDecimal dD2NumberInput, String enumerationInput, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'compoundOutputCompoundDecision'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long compoundOutputCompoundDecisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments compoundOutputCompoundDecisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             compoundOutputCompoundDecisionArguments_.put("BooleanInput", booleanInput);
@@ -66,7 +61,7 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compoundOutputCompoundDecisionArguments_);
 
             // Evaluate decision 'compoundOutputCompoundDecision'
-            type.CompoundOutputCompoundDecision output_ = evaluate(booleanInput, dD1TextInput, dD2NumberInput, enumerationInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+            type.CompoundOutputCompoundDecision output_ = evaluate(booleanInput, dD1TextInput, dD2NumberInput, enumerationInput, context_);
 
             // End decision 'compoundOutputCompoundDecision'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, compoundOutputCompoundDecisionArguments_, output_, (System.currentTimeMillis() - compoundOutputCompoundDecisionStartTime_));
@@ -78,18 +73,22 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
         }
     }
 
-    protected type.CompoundOutputCompoundDecision evaluate(Boolean booleanInput, String dD1TextInput, java.math.BigDecimal dD2NumberInput, String enumerationInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected type.CompoundOutputCompoundDecision evaluate(Boolean booleanInput, String dD1TextInput, java.math.BigDecimal dD2NumberInput, String enumerationInput, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply child decisions
-        type.DependentDecision1 dependentDecision1 = this.dependentDecision1.apply(dD1TextInput, annotationSet_, eventListener_, externalExecutor_, cache_);
-        type.DependentDecision2 dependentDecision2 = this.dependentDecision2.apply(dD2NumberInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+        type.DependentDecision1 dependentDecision1 = this.dependentDecision1.apply(dD1TextInput, context_);
+        type.DependentDecision2 dependentDecision2 = this.dependentDecision2.apply(dD2NumberInput, context_);
 
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        com.gs.dmn.runtime.RuleOutput tempRuleOutput_ = rule0(booleanInput, dependentDecision1, dependentDecision2, enumerationInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+        com.gs.dmn.runtime.RuleOutput tempRuleOutput_ = rule0(booleanInput, dependentDecision1, dependentDecision2, enumerationInput, context_);
         ruleOutputList_.add(tempRuleOutput_);
         boolean matched_ = tempRuleOutput_.isMatched();
         if (!matched_) {
-            tempRuleOutput_ = rule1(booleanInput, dependentDecision1, dependentDecision2, enumerationInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+            tempRuleOutput_ = rule1(booleanInput, dependentDecision1, dependentDecision2, enumerationInput, context_);
             ruleOutputList_.add(tempRuleOutput_);
             matched_ = tempRuleOutput_.isMatched();
         }
@@ -108,11 +107,15 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(Boolean booleanInput, type.DependentDecision1 dependentDecision1, type.DependentDecision2 dependentDecision2, String enumerationInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(Boolean booleanInput, type.DependentDecision1 dependentDecision1, type.DependentDecision2 dependentDecision2, String enumerationInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -144,11 +147,15 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(Boolean booleanInput, type.DependentDecision1 dependentDecision1, type.DependentDecision2 dependentDecision2, String enumerationInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(Boolean booleanInput, type.DependentDecision1 dependentDecision1, type.DependentDecision2 dependentDecision2, String enumerationInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule

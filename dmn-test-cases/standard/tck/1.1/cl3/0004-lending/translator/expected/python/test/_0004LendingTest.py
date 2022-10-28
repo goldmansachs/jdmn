@@ -6,6 +6,7 @@ import unittest
 
 import jdmn.runtime.Assert
 import jdmn.runtime.DefaultDMNBaseDecision
+import jdmn.runtime.ExecutionContext
 import jdmn.runtime.annotation.AnnotationSet
 import jdmn.runtime.cache.DefaultCache
 import jdmn.runtime.external.DefaultExternalFunctionExecutor
@@ -42,10 +43,8 @@ class _0004LendingTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecision.De
         jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision.__init__(self)
 
     def testCase001(self):
-        annotationSet_ = jdmn.runtime.annotation.AnnotationSet.AnnotationSet()
-        eventListener_ = jdmn.runtime.listener.NopEventListener.NopEventListener()
-        externalExecutor_ = jdmn.runtime.external.DefaultExternalFunctionExecutor.DefaultExternalFunctionExecutor()
-        cache_ = jdmn.runtime.cache.DefaultCache.DefaultCache()
+        context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
+        cache_ = context_.cache
         # Initialize input data
         applicantData: typing.Optional[type_.TApplicantData.TApplicantData] = type_.TApplicantDataImpl.TApplicantDataImpl(self.number("35"), "EMPLOYED", True, "M", type_.MonthlyImpl.MonthlyImpl(self.number("2000"), self.number("6000"), self.number("0")))
         requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct] = type_.TRequestedProductImpl.TRequestedProductImpl(self.number("350000"), "STANDARD LOAN", self.number("0.0395"), self.number("360"))
@@ -53,27 +52,27 @@ class _0004LendingTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecision.De
         supportingDocuments: typing.Optional[str] = "YES"
 
         # Check Adjudication
-        self.checkValues("ACCEPT", Adjudication.Adjudication().apply(applicantData, bureauData, supportingDocuments, annotationSet_, eventListener_, externalExecutor_, cache_))
+        self.checkValues("ACCEPT", Adjudication.Adjudication().apply(applicantData, bureauData, supportingDocuments, context_))
         # Check ApplicationRiskScore
-        self.checkValues(self.number("130"), ApplicationRiskScore.ApplicationRiskScore().apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_))
+        self.checkValues(self.number("130"), ApplicationRiskScore.ApplicationRiskScore().apply(applicantData, context_))
         # Check 'Pre-bureauRiskCategory'
-        self.checkValues("LOW", PreBureauRiskCategory.PreBureauRiskCategory().apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_))
+        self.checkValues("LOW", PreBureauRiskCategory.PreBureauRiskCategory().apply(applicantData, context_))
         # Check BureauCallType
-        self.checkValues("MINI", BureauCallType.BureauCallType().apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_))
+        self.checkValues("MINI", BureauCallType.BureauCallType().apply(applicantData, context_))
         # Check 'Post-bureauRiskCategory'
-        self.checkValues("LOW", PostBureauRiskCategory.PostBureauRiskCategory().apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_))
+        self.checkValues("LOW", PostBureauRiskCategory.PostBureauRiskCategory().apply(applicantData, bureauData, context_))
         # Check RequiredMonthlyInstallment
-        self.checkValues(self.number("1680.880325608555"), RequiredMonthlyInstallment.RequiredMonthlyInstallment().apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_))
+        self.checkValues(self.number("1680.880325608555"), RequiredMonthlyInstallment.RequiredMonthlyInstallment().apply(requestedProduct, context_))
         # Check 'Pre-bureauAffordability'
-        self.checkValues(True, PreBureauAffordability.PreBureauAffordability().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_))
+        self.checkValues(True, PreBureauAffordability.PreBureauAffordability().apply(applicantData, requestedProduct, context_))
         # Check Eligibility
-        self.checkValues("ELIGIBLE", Eligibility.Eligibility().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_))
+        self.checkValues("ELIGIBLE", Eligibility.Eligibility().apply(applicantData, requestedProduct, context_))
         # Check Strategy
-        self.checkValues("BUREAU", Strategy.Strategy().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_))
+        self.checkValues("BUREAU", Strategy.Strategy().apply(applicantData, requestedProduct, context_))
         # Check 'Post-bureauAffordability'
-        self.checkValues(True, PostBureauAffordability.PostBureauAffordability().apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_))
+        self.checkValues(True, PostBureauAffordability.PostBureauAffordability().apply(applicantData, bureauData, requestedProduct, context_))
         # Check Routing
-        self.checkValues("ACCEPT", Routing.Routing().apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_))
+        self.checkValues("ACCEPT", Routing.Routing().apply(applicantData, bureauData, requestedProduct, context_))
 
     def checkValues(self, expected: typing.Any, actual: typing.Any):
         jdmn.runtime.Assert.Assert().assertEquals(expected, actual)

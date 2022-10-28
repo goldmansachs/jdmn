@@ -68,10 +68,9 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
     }
 
     private List<?> applyDecision(Applicant toApplicant, BigDecimal currentRiskAppetite, BigDecimal lendingThreshold, PostorderTraceEventListener listener) {
-        AnnotationSet annotationSet = new AnnotationSet();
-        ExecutionContext context = new ExecutionContext(annotationSet, listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
+        ExecutionContext context = new ExecutionContext(new AnnotationSet(), listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
 
-        return decision.apply(toApplicant, currentRiskAppetite, lendingThreshold, context.getAnnotations(), context.getEventListener(), context.getExternalFunctionExecutor(), context.getCache());
+        return decision.apply(toApplicant, currentRiskAppetite, lendingThreshold, context);
     }
 
 

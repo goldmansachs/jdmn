@@ -27,27 +27,22 @@ public class Logical extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @java.lang.Override()
-    public Boolean apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public Boolean applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("booleanA"), input_.get("booleanB"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("booleanA") != null ? Boolean.valueOf(input_.get("booleanA")) : null), (input_.get("booleanB") != null ? Boolean.valueOf(input_.get("booleanB")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Logical'", e);
             return null;
         }
     }
 
-    public Boolean apply(String booleanA, String booleanB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((booleanA != null ? Boolean.valueOf(booleanA) : null), (booleanB != null ? Boolean.valueOf(booleanB) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'Logical'", e);
-            return null;
-        }
-    }
-
-    public Boolean apply(Boolean booleanA, Boolean booleanB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public Boolean apply(Boolean booleanA, Boolean booleanB, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'logical'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long logicalStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments logicalArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             logicalArguments_.put("booleanA", booleanA);
@@ -55,7 +50,7 @@ public class Logical extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, logicalArguments_);
 
             // Evaluate decision 'logical'
-            Boolean output_ = evaluate(booleanA, booleanB, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean output_ = evaluate(booleanA, booleanB, context_);
 
             // End decision 'logical'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, logicalArguments_, output_, (System.currentTimeMillis() - logicalStartTime_));
@@ -67,7 +62,11 @@ public class Logical extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         }
     }
 
-    protected Boolean evaluate(Boolean booleanA, Boolean booleanB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected Boolean evaluate(Boolean booleanA, Boolean booleanB, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         return booleanNot(booleanOr(booleanAnd(booleanA, booleanB), booleanA));
     }
 }

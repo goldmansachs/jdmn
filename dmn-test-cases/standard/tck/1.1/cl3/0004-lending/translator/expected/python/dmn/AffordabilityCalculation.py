@@ -55,9 +55,13 @@ class AffordabilityCalculation(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBas
             jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision.__init__(cls._instance)
         return cls._instance
 
-    def apply(self, monthlyIncome: typing.Optional[decimal.Decimal], monthlyRepayments: typing.Optional[decimal.Decimal], monthlyExpenses: typing.Optional[decimal.Decimal], riskCategory: typing.Optional[str], requiredMonthlyInstallment: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[bool]:
+    def apply(self, monthlyIncome: typing.Optional[decimal.Decimal], monthlyRepayments: typing.Optional[decimal.Decimal], monthlyExpenses: typing.Optional[decimal.Decimal], riskCategory: typing.Optional[str], requiredMonthlyInstallment: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[bool]:
         try:
             # Start BKM 'AffordabilityCalculation'
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             affordabilityCalculationStartTime_ = int(time.time_ns()/1000)
             affordabilityCalculationArguments_ = jdmn.runtime.listener.Arguments.Arguments()
             affordabilityCalculationArguments_.put("MonthlyIncome", monthlyIncome)
@@ -68,7 +72,7 @@ class AffordabilityCalculation(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBas
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, affordabilityCalculationArguments_)
 
             # Evaluate BKM 'AffordabilityCalculation'
-            output_: typing.Optional[bool] = self.evaluate(monthlyIncome, monthlyRepayments, monthlyExpenses, riskCategory, requiredMonthlyInstallment, annotationSet_, eventListener_, externalExecutor_, cache_)
+            output_: typing.Optional[bool] = self.evaluate(monthlyIncome, monthlyRepayments, monthlyExpenses, riskCategory, requiredMonthlyInstallment, context_)
 
             # End BKM 'AffordabilityCalculation'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, affordabilityCalculationArguments_, output_, (int(time.time_ns()/1000) - affordabilityCalculationStartTime_))
@@ -78,8 +82,8 @@ class AffordabilityCalculation(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBas
             self.logError("Exception caught in 'AffordabilityCalculation' evaluation", e)
             return None
 
-    def evaluate(self, monthlyIncome: typing.Optional[decimal.Decimal], monthlyRepayments: typing.Optional[decimal.Decimal], monthlyExpenses: typing.Optional[decimal.Decimal], riskCategory: typing.Optional[str], requiredMonthlyInstallment: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[bool]:
+    def evaluate(self, monthlyIncome: typing.Optional[decimal.Decimal], monthlyRepayments: typing.Optional[decimal.Decimal], monthlyExpenses: typing.Optional[decimal.Decimal], riskCategory: typing.Optional[str], requiredMonthlyInstallment: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[bool]:
         disposableIncome: typing.Optional[decimal.Decimal] = self.numericSubtract(monthlyIncome, self.numericAdd(monthlyExpenses, monthlyRepayments))
-        creditContingencyFactor: typing.Optional[decimal.Decimal] = CreditContingencyFactorTable.CreditContingencyFactorTable.instance().apply(riskCategory, annotationSet_, eventListener_, externalExecutor_, cache_)
+        creditContingencyFactor: typing.Optional[decimal.Decimal] = CreditContingencyFactorTable.CreditContingencyFactorTable.instance().apply(riskCategory, context_)
         affordability: typing.Optional[bool] = (True if self.booleanEqual(self.numericGreaterThan(self.numericMultiply(disposableIncome, creditContingencyFactor), requiredMonthlyInstallment), True) else False)
         return affordability

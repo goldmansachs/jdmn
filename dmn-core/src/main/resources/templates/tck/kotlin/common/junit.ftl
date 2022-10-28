@@ -43,10 +43,8 @@ class ${testClassName} : ${decisionBaseClass}() {
 </#macro>
 
 <#macro initializeInputs testCase>
-        val ${tckUtil.annotationSetVariableName()} = ${tckUtil.defaultConstructor(tckUtil.annotationSetClassName())}
-        val ${tckUtil.eventListenerVariableName()} = ${tckUtil.defaultConstructor(tckUtil.defaultEventListenerClassName())}
-        val ${tckUtil.externalExecutorVariableName()} = ${tckUtil.defaultConstructor(tckUtil.defaultExternalExecutorClassName())}
-        val ${tckUtil.cacheVariableName()} = ${tckUtil.defaultConstructor(tckUtil.defaultCacheClassName())}
+        val ${tckUtil.executionContextVariableName()} = ${tckUtil.defaultConstructor(tckUtil.executionContextClassName())}
+        val ${tckUtil.cacheVariableName()} = ${tckUtil.executionContextVariableName()}.getCache()
     <#list testCase.inputNode>
         // Initialize input data
         <#items as input>
@@ -87,7 +85,7 @@ class ${testClassName} : ${decisionBaseClass}() {
         </#if>
         </#list>
         val ${tckUtil.requestVariableName(resultInfo)}: ${tckUtil.qualifiedRequestMessageName(resultInfo)} = ${tckUtil.builderVariableName(resultInfo)}.build()
-        checkValues(${tckUtil.toNativeExpressionProto(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.apply(${tckUtil.drgElementArgumentListProto(resultInfo)}).${tckUtil.protoGetter(resultInfo)})
+        checkValues(${tckUtil.toNativeExpressionProto(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.applyProto(${tckUtil.drgElementArgumentListProto(resultInfo)}).${tckUtil.protoGetter(resultInfo)})
         </#items>
     </#list>
 </#macro>

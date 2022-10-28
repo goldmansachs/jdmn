@@ -13,34 +13,29 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class RankedProducts(val bankrates : Bankrates = Bankrates()) : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): type.TRankedProducts? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): type.TRankedProducts? {
         try {
-            return apply(input_.get("RequestedAmt"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(input_.get("RequestedAmt")?.let({ number(it) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'RankedProducts'", e)
             return null
         }
     }
 
-    fun apply(requestedAmt: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TRankedProducts? {
-        return try {
-            apply(requestedAmt?.let({ number(it) }), annotationSet_, eventListener_, externalExecutor_, cache_)
-        } catch (e: Exception) {
-            logError("Cannot apply decision 'RankedProducts'", e)
-            null
-        }
-    }
-
-    fun apply(requestedAmt: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TRankedProducts? {
+    fun apply(requestedAmt: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): type.TRankedProducts? {
         try {
             // Start decision 'RankedProducts'
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val rankedProductsStartTime_ = System.currentTimeMillis()
             val rankedProductsArguments_ = com.gs.dmn.runtime.listener.Arguments()
             rankedProductsArguments_.put("RequestedAmt", requestedAmt)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, rankedProductsArguments_)
 
             // Evaluate decision 'RankedProducts'
-            val output_: type.TRankedProducts? = evaluate(requestedAmt, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: type.TRankedProducts? = evaluate(requestedAmt, context_)
 
             // End decision 'RankedProducts'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, rankedProductsArguments_, output_, (System.currentTimeMillis() - rankedProductsStartTime_))
@@ -52,11 +47,15 @@ class RankedProducts(val bankrates : Bankrates = Bankrates()) : com.gs.dmn.runti
         }
     }
 
-    private inline fun evaluate(requestedAmt: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TRankedProducts? {
+    private inline fun evaluate(requestedAmt: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): type.TRankedProducts? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         // Apply child decisions
-        val bankrates: List<type.TLoanProduct?>? = this@RankedProducts.bankrates.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
+        val bankrates: List<type.TLoanProduct?>? = this@RankedProducts.bankrates.apply(context_)
 
-        val metricsTable: List<type.TMetric?>? = bankrates?.stream()?.map({ i -> FinancialMetrics.instance()?.apply(i, requestedAmt, annotationSet_, eventListener_, externalExecutor_, cache_) })?.collect(Collectors.toList()) as List<type.TMetric?>?
+        val metricsTable: List<type.TMetric?>? = bankrates?.stream()?.map({ i -> FinancialMetrics.instance()?.apply(i, requestedAmt, context_) })?.collect(Collectors.toList()) as List<type.TMetric?>?
         val rankByRate: List<type.TMetric?>? = sort(metricsTable, com.gs.dmn.runtime.LambdaExpression<Boolean> { args_ -> val x: type.TMetric? = args_[0] as type.TMetric?; val y: type.TMetric? = args_[1] as type.TMetric?; numericLessThan(x?.let({ it.rate as java.math.BigDecimal? }), y?.let({ it.rate as java.math.BigDecimal? })) }) as List<type.TMetric?>?
         val rankByDownPmt: List<type.TMetric?>? = sort(metricsTable, com.gs.dmn.runtime.LambdaExpression<Boolean> { args_ -> val x: type.TMetric? = args_[0] as type.TMetric?; val y: type.TMetric? = args_[1] as type.TMetric?; numericLessThan(x?.let({ it.downPmtAmt as java.math.BigDecimal? }), y?.let({ it.downPmtAmt as java.math.BigDecimal? })) }) as List<type.TMetric?>?
         val rankByMonthlyPmt: List<type.TMetric?>? = sort(metricsTable, com.gs.dmn.runtime.LambdaExpression<Boolean> { args_ -> val x: type.TMetric? = args_[0] as type.TMetric?; val y: type.TMetric? = args_[1] as type.TMetric?; numericLessThan(x?.let({ it.paymentAmt as java.math.BigDecimal? }), y?.let({ it.paymentAmt as java.math.BigDecimal? })) }) as List<type.TMetric?>?

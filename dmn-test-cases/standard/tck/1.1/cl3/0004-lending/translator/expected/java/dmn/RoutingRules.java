@@ -34,18 +34,22 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @java.lang.Override()
-    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("'Post-bureauRiskCategory'"), (input_.get("'Post-bureauAffordability'") != null ? Boolean.valueOf(input_.get("'Post-bureauAffordability'")) : null), (input_.get("Bankrupt") != null ? Boolean.valueOf(input_.get("Bankrupt")) : null), (input_.get("CreditScore") != null ? number(input_.get("CreditScore")) : null), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply(input_.get("'Post-bureauRiskCategory'"), (input_.get("'Post-bureauAffordability'") != null ? Boolean.valueOf(input_.get("'Post-bureauAffordability'")) : null), (input_.get("Bankrupt") != null ? Boolean.valueOf(input_.get("Bankrupt")) : null), (input_.get("CreditScore") != null ? number(input_.get("CreditScore")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'RoutingRules'", e);
             return null;
         }
     }
 
-    public String apply(String postBureauRiskCategory, Boolean postBureauAffordability, Boolean bankrupt, java.math.BigDecimal creditScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(String postBureauRiskCategory, Boolean postBureauAffordability, Boolean bankrupt, java.math.BigDecimal creditScore, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'RoutingRules'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long routingRulesStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments routingRulesArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             routingRulesArguments_.put("'Post-bureauRiskCategory'", postBureauRiskCategory);
@@ -55,7 +59,7 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, routingRulesArguments_);
 
             // Evaluate BKM 'RoutingRules'
-            String output_ = lambda.apply(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = lambda.apply(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, context_);
 
             // End BKM 'RoutingRules'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, routingRulesArguments_, output_, (System.currentTimeMillis() - routingRulesStartTime_));
@@ -74,18 +78,19 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
                 Boolean postBureauAffordability = 1 < args_.length ? (Boolean) args_[1] : null;
                 Boolean bankrupt = 2 < args_.length ? (Boolean) args_[2] : null;
                 java.math.BigDecimal creditScore = 3 < args_.length ? (java.math.BigDecimal) args_[3] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 4 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[4] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 5 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[5] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 6 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[6] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 7 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[7] : null;
+                com.gs.dmn.runtime.ExecutionContext context_ = 4 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[4] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 // Apply rules and collect results
                 com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-                ruleOutputList_.add(rule0(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_, cache_));
-                ruleOutputList_.add(rule1(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_, cache_));
-                ruleOutputList_.add(rule2(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_, cache_));
-                ruleOutputList_.add(rule3(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_, cache_));
-                ruleOutputList_.add(rule4(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_, cache_));
+                ruleOutputList_.add(rule0(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, context_));
+                ruleOutputList_.add(rule1(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, context_));
+                ruleOutputList_.add(rule2(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, context_));
+                ruleOutputList_.add(rule3(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, context_));
+                ruleOutputList_.add(rule4(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, context_));
 
                 // Return results based on hit policy
                 String output_;
@@ -102,11 +107,15 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     };
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(String postBureauRiskCategory, Boolean postBureauAffordability, Boolean bankrupt, java.math.BigDecimal creditScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(String postBureauRiskCategory, Boolean postBureauAffordability, Boolean bankrupt, java.math.BigDecimal creditScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -136,11 +145,15 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(String postBureauRiskCategory, Boolean postBureauAffordability, Boolean bankrupt, java.math.BigDecimal creditScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(String postBureauRiskCategory, Boolean postBureauAffordability, Boolean bankrupt, java.math.BigDecimal creditScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -170,11 +183,15 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule2(String postBureauRiskCategory, Boolean postBureauAffordability, Boolean bankrupt, java.math.BigDecimal creditScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule2(String postBureauRiskCategory, Boolean postBureauAffordability, Boolean bankrupt, java.math.BigDecimal creditScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -204,11 +221,15 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule3(String postBureauRiskCategory, Boolean postBureauAffordability, Boolean bankrupt, java.math.BigDecimal creditScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule3(String postBureauRiskCategory, Boolean postBureauAffordability, Boolean bankrupt, java.math.BigDecimal creditScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -238,11 +259,15 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule4(String postBureauRiskCategory, Boolean postBureauAffordability, Boolean bankrupt, java.math.BigDecimal creditScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule4(String postBureauRiskCategory, Boolean postBureauAffordability, Boolean bankrupt, java.math.BigDecimal creditScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule

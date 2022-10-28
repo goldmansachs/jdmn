@@ -8,15 +8,12 @@ public class DateTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
     @org.junit.Test
     public void testCase1() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         javax.xml.datatype.XMLGregorianCalendar inputDate = date("2020-09-21");
         javax.xml.datatype.XMLGregorianCalendar inputTime = time("13:00:00+00:00");
         javax.xml.datatype.XMLGregorianCalendar inputDateTime = dateAndTime("2015-01-01T12:00:00+00:00");
         type.TCompositeDateTime compositeInputDateTime = new type.TCompositeDateTimeImpl(date("2020-09-21"), dateAndTime("2015-01-01T12:00:00+00:00"), time("13:00:00+00:00"));
-        javax.xml.datatype.XMLGregorianCalendar date = this.date.apply(compositeInputDateTime, inputDate, inputDateTime, inputTime, annotationSet_, eventListener_, externalExecutor_, cache_);
+        javax.xml.datatype.XMLGregorianCalendar date = this.date.apply(compositeInputDateTime, inputDate, inputDateTime, inputTime, context_);
 
         checkValues(date("2020-09-21"), date);
 
@@ -35,7 +32,7 @@ public class DateTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         proto.DateRequest dateRequest_ = builder_.build();
 
         // Invoke apply method
-        proto.DateResponse dateResponse_ = this.date.apply(dateRequest_, annotationSet_, eventListener_, externalExecutor_, cache_);
+        proto.DateResponse dateResponse_ = this.date.applyProto(dateRequest_, context_);
         String dateProto_ = dateResponse_.getDate();
 
         // Check results

@@ -32,8 +32,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
 import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
@@ -358,6 +358,14 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     public String assertClassName() {
         return this.transformer.assertClassName();
+    }
+
+    public String executionContextClassName() {
+        return this.transformer.executionContextClassName();
+    }
+
+    public String executionContextVariableName() {
+        return this.transformer.executionContextVariableName();
     }
 
     public String annotationSetClassName() {

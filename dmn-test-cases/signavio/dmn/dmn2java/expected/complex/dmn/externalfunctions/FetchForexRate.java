@@ -34,27 +34,22 @@ public class FetchForexRate extends com.gs.dmn.signavio.runtime.DefaultSignavioB
     }
 
     @java.lang.Override()
-    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("DerivativeType"), input_.get("TaxChargeType"), input_.get("Transaction"), input_.get("TransactionTaxMetaData"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply(input_.get("DerivativeType"), input_.get("TaxChargeType"), (input_.get("Transaction") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("Transaction"), new com.fasterxml.jackson.core.type.TypeReference<type.TransactionImpl>() {}) : null), (input_.get("TransactionTaxMetaData") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("TransactionTaxMetaData"), new com.fasterxml.jackson.core.type.TypeReference<type.TransactionTaxMetaDataImpl>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'FetchForexRate'", e);
             return null;
         }
     }
 
-    public String apply(String derivativeType, String taxChargeType, String transaction, String transactionTaxMetaData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply(derivativeType, taxChargeType, (transaction != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(transaction, new com.fasterxml.jackson.core.type.TypeReference<type.TransactionImpl>() {}) : null), (transactionTaxMetaData != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(transactionTaxMetaData, new com.fasterxml.jackson.core.type.TypeReference<type.TransactionTaxMetaDataImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'FetchForexRate'", e);
-            return null;
-        }
-    }
-
-    public String apply(String derivativeType, String taxChargeType, type.Transaction transaction, type.TransactionTaxMetaData transactionTaxMetaData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(String derivativeType, String taxChargeType, type.Transaction transaction, type.TransactionTaxMetaData transactionTaxMetaData, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'fetchForexRate'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long fetchForexRateStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments fetchForexRateArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             fetchForexRateArguments_.put("DerivativeType", derivativeType);
@@ -64,7 +59,7 @@ public class FetchForexRate extends com.gs.dmn.signavio.runtime.DefaultSignavioB
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fetchForexRateArguments_);
 
             // Evaluate decision 'fetchForexRate'
-            String output_ = evaluate(derivativeType, taxChargeType, transaction, transactionTaxMetaData, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(derivativeType, taxChargeType, transaction, transactionTaxMetaData, context_);
 
             // End decision 'fetchForexRate'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fetchForexRateArguments_, output_, (System.currentTimeMillis() - fetchForexRateStartTime_));
@@ -76,9 +71,13 @@ public class FetchForexRate extends com.gs.dmn.signavio.runtime.DefaultSignavioB
         }
     }
 
-    protected String evaluate(String derivativeType, String taxChargeType, type.Transaction transaction, type.TransactionTaxMetaData transactionTaxMetaData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(String derivativeType, String taxChargeType, type.Transaction transaction, type.TransactionTaxMetaData transactionTaxMetaData, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply child decisions
-        Boolean isForexRateRequired = this.isForexRateRequired.apply(derivativeType, taxChargeType, transactionTaxMetaData, annotationSet_, eventListener_, externalExecutor_, cache_);
+        Boolean isForexRateRequired = this.isForexRateRequired.apply(derivativeType, taxChargeType, transactionTaxMetaData, context_);
 
         return ((com.gs.dmn.runtime.external.JavaExternalFunction<String>)((com.gs.dmn.runtime.Context)new com.gs.dmn.runtime.Context().add("f", new com.gs.dmn.runtime.external.JavaExternalFunction<>(new com.gs.dmn.runtime.external.JavaFunctionInfo("com.gs.dmn.generated.external_functions.ForexRateService", "fetchECBForexRateFor", Arrays.asList("com.gs.dmn.generated.external_functions.type.Transaction", "java.lang.Boolean")), externalExecutor_, String.class))).get("f")).apply(transaction, isForexRateRequired);
     }

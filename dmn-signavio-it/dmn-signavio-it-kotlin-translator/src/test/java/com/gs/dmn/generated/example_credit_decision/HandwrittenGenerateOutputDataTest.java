@@ -87,6 +87,6 @@ public class HandwrittenGenerateOutputDataTest extends AbstractHandwrittenDecisi
     }
 
     private List<com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData> applyDecision(Applicant applicant, BigDecimal currentRiskAppetite, BigDecimal lendingThreshold) {
-        return decision.apply(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, context.getAnnotations(), context.getEventListener(), context.getExternalFunctionExecutor(), context.getCache());
+        return decision.apply(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, context);
     }
 }

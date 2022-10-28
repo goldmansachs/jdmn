@@ -59,15 +59,19 @@ class DecisionService_004(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
     def initSubDecisions(self, decision_004_2: Decision_004_2.Decision_004_2 = None):
         self.decision_004_2 = Decision_004_2.Decision_004_2() if decision_004_2 is None else decision_004_2
 
-    def apply(self, annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def apply(self, context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         try:
             # Start DS 'decisionService_004'
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             decisionService_004StartTime_ = int(time.time_ns()/1000)
             decisionService_004Arguments_ = jdmn.runtime.listener.Arguments.Arguments()
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, decisionService_004Arguments_)
 
             # Evaluate DS 'decisionService_004'
-            output_: typing.Optional[str] = self.evaluate(annotationSet_, eventListener_, externalExecutor_, cache_)
+            output_: typing.Optional[str] = self.evaluate(context_)
 
             # End DS 'decisionService_004'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, decisionService_004Arguments_, output_, (int(time.time_ns()/1000) - decisionService_004StartTime_))
@@ -77,8 +81,8 @@ class DecisionService_004(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
             self.logError("Exception caught in 'decisionService_004' evaluation", e)
             return None
 
-    def evaluate(self, annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def evaluate(self, context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         # Apply child decisions
-        decision_004_2: typing.Optional[str] = self.decision_004_2.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
+        decision_004_2: typing.Optional[str] = self.decision_004_2.apply(context_)
 
         return decision_004_2

@@ -27,27 +27,22 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     @java.lang.Override()
-    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("BooleanInput"), input_.get("DateAndTimeInput"), input_.get("DateInput"), input_.get("EnumerationInput"), input_.get("NumberInput"), input_.get("TextInput"), input_.get("TimeInput"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("BooleanInput") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("BooleanInput"), new com.fasterxml.jackson.core.type.TypeReference<List<Boolean>>() {}) : null), (input_.get("DateAndTimeInput") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("DateAndTimeInput"), new com.fasterxml.jackson.core.type.TypeReference<List<javax.xml.datatype.XMLGregorianCalendar>>() {}) : null), (input_.get("DateInput") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("DateInput"), new com.fasterxml.jackson.core.type.TypeReference<List<javax.xml.datatype.XMLGregorianCalendar>>() {}) : null), (input_.get("EnumerationInput") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("EnumerationInput"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (input_.get("NumberInput") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("NumberInput"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (input_.get("TextInput") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("TextInput"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (input_.get("TimeInput") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("TimeInput"), new com.fasterxml.jackson.core.type.TypeReference<List<javax.xml.datatype.XMLGregorianCalendar>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Decision'", e);
             return null;
         }
     }
 
-    public String apply(String booleanInput, String dateAndTimeInput, String dateInput, String enumerationInput, String numberInput, String textInput, String timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((booleanInput != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(booleanInput, new com.fasterxml.jackson.core.type.TypeReference<List<Boolean>>() {}) : null), (dateAndTimeInput != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(dateAndTimeInput, new com.fasterxml.jackson.core.type.TypeReference<List<javax.xml.datatype.XMLGregorianCalendar>>() {}) : null), (dateInput != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(dateInput, new com.fasterxml.jackson.core.type.TypeReference<List<javax.xml.datatype.XMLGregorianCalendar>>() {}) : null), (enumerationInput != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(enumerationInput, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (numberInput != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numberInput, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (textInput != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(textInput, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (timeInput != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(timeInput, new com.fasterxml.jackson.core.type.TypeReference<List<javax.xml.datatype.XMLGregorianCalendar>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'Decision'", e);
-            return null;
-        }
-    }
-
-    public String apply(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'decision'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             decisionArguments_.put("BooleanInput", booleanInput);
@@ -60,7 +55,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionArguments_);
 
             // Evaluate decision 'decision'
-            String output_ = evaluate(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, context_);
 
             // End decision 'decision'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decisionArguments_, output_, (System.currentTimeMillis() - decisionStartTime_));
@@ -72,20 +67,24 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         }
     }
 
-    protected String evaluate(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        ruleOutputList_.add(rule0(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule1(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule2(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule3(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule4(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule5(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule6(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule7(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule8(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule9(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule10(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule0(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, context_));
+        ruleOutputList_.add(rule1(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, context_));
+        ruleOutputList_.add(rule2(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, context_));
+        ruleOutputList_.add(rule3(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, context_));
+        ruleOutputList_.add(rule4(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, context_));
+        ruleOutputList_.add(rule5(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, context_));
+        ruleOutputList_.add(rule6(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, context_));
+        ruleOutputList_.add(rule7(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, context_));
+        ruleOutputList_.add(rule8(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, context_));
+        ruleOutputList_.add(rule9(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, context_));
+        ruleOutputList_.add(rule10(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, context_));
 
         // Return results based on hit policy
         String output_;
@@ -101,11 +100,15 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -137,11 +140,15 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -173,11 +180,15 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule2(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule2(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -209,11 +220,15 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule3(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule3(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -245,11 +260,15 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule4(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule4(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -281,11 +300,15 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 5, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule5(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule5(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(5, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -317,11 +340,15 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 6, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule6(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule6(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(6, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -353,11 +380,15 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 7, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule7(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule7(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(7, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -389,11 +420,15 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 8, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule8(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule8(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(8, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -425,11 +460,15 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 9, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule9(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule9(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(9, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -461,11 +500,15 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 10, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule10(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule10(List<Boolean> booleanInput, List<javax.xml.datatype.XMLGregorianCalendar> dateAndTimeInput, List<javax.xml.datatype.XMLGregorianCalendar> dateInput, List<String> enumerationInput, List<java.math.BigDecimal> numberInput, List<String> textInput, List<javax.xml.datatype.XMLGregorianCalendar> timeInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(10, "");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule

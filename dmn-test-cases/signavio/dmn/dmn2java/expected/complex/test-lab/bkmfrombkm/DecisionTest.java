@@ -8,13 +8,10 @@ public class DecisionTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
 
     @org.junit.Test
     public void testCase1() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         javax.xml.datatype.XMLGregorianCalendar t = time("12:00:00+01:00");
         javax.xml.datatype.XMLGregorianCalendar d = date("2017-06-09");
-        String decision = this.decision.apply(d, t, annotationSet_, eventListener_, externalExecutor_, cache_);
+        String decision = this.decision.apply(d, t, context_);
 
         checkValues("good", decision);
     }

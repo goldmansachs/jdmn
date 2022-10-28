@@ -40,6 +40,6 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         Map<String, String> input = new LinkedHashMap<>();
         input.put("A", a);
         input.put("B", b);
-        return decision.apply(input, context);
+        return decision.applyMap(input, context);
     }
 }

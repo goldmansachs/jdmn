@@ -13,34 +13,29 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class RequiredMonthlyInstallment() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
         try {
-            return apply(input_.get("RequestedProduct"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(input_.get("RequestedProduct")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TRequestedProductImpl>() {}) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'RequiredMonthlyInstallment'", e)
             return null
         }
     }
 
-    fun apply(requestedProduct: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
-        return try {
-            apply(requestedProduct?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TRequestedProductImpl>() {}) }), annotationSet_, eventListener_, externalExecutor_, cache_)
-        } catch (e: Exception) {
-            logError("Cannot apply decision 'RequiredMonthlyInstallment'", e)
-            null
-        }
-    }
-
-    fun apply(requestedProduct: type.TRequestedProduct?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    fun apply(requestedProduct: type.TRequestedProduct?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
         try {
             // Start decision 'RequiredMonthlyInstallment'
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val requiredMonthlyInstallmentStartTime_ = System.currentTimeMillis()
             val requiredMonthlyInstallmentArguments_ = com.gs.dmn.runtime.listener.Arguments()
             requiredMonthlyInstallmentArguments_.put("RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, requiredMonthlyInstallmentArguments_)
 
             // Evaluate decision 'RequiredMonthlyInstallment'
-            val output_: java.math.BigDecimal? = evaluate(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: java.math.BigDecimal? = evaluate(requestedProduct, context_)
 
             // End decision 'RequiredMonthlyInstallment'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, requiredMonthlyInstallmentArguments_, output_, (System.currentTimeMillis() - requiredMonthlyInstallmentStartTime_))
@@ -52,8 +47,12 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.DefaultDMNBaseDecision()
         }
     }
 
-    private inline fun evaluate(requestedProduct: type.TRequestedProduct?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
-        return InstallmentCalculation.instance().apply(requestedProduct?.let({ it.productType as String? }), requestedProduct?.let({ it.rate as java.math.BigDecimal? }), requestedProduct?.let({ it.term as java.math.BigDecimal? }), requestedProduct?.let({ it.amount as java.math.BigDecimal? }), annotationSet_, eventListener_, externalExecutor_, cache_) as java.math.BigDecimal?
+    private inline fun evaluate(requestedProduct: type.TRequestedProduct?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
+        return InstallmentCalculation.instance().apply(requestedProduct?.let({ it.productType as String? }), requestedProduct?.let({ it.rate as java.math.BigDecimal? }), requestedProduct?.let({ it.term as java.math.BigDecimal? }), requestedProduct?.let({ it.amount as java.math.BigDecimal? }), context_) as java.math.BigDecimal?
     }
 
     companion object {

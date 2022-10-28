@@ -34,18 +34,22 @@ public class AffordabilityCalculation extends com.gs.dmn.runtime.DefaultDMNBaseD
     }
 
     @java.lang.Override()
-    public Boolean apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public Boolean applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("MonthlyIncome") != null ? number(input_.get("MonthlyIncome")) : null), (input_.get("MonthlyRepayments") != null ? number(input_.get("MonthlyRepayments")) : null), (input_.get("MonthlyExpenses") != null ? number(input_.get("MonthlyExpenses")) : null), input_.get("RiskCategory"), (input_.get("RequiredMonthlyInstallment") != null ? number(input_.get("RequiredMonthlyInstallment")) : null), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("MonthlyIncome") != null ? number(input_.get("MonthlyIncome")) : null), (input_.get("MonthlyRepayments") != null ? number(input_.get("MonthlyRepayments")) : null), (input_.get("MonthlyExpenses") != null ? number(input_.get("MonthlyExpenses")) : null), input_.get("RiskCategory"), (input_.get("RequiredMonthlyInstallment") != null ? number(input_.get("RequiredMonthlyInstallment")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'AffordabilityCalculation'", e);
             return null;
         }
     }
 
-    public Boolean apply(java.math.BigDecimal monthlyIncome, java.math.BigDecimal monthlyRepayments, java.math.BigDecimal monthlyExpenses, String riskCategory, java.math.BigDecimal requiredMonthlyInstallment, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public Boolean apply(java.math.BigDecimal monthlyIncome, java.math.BigDecimal monthlyRepayments, java.math.BigDecimal monthlyExpenses, String riskCategory, java.math.BigDecimal requiredMonthlyInstallment, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'AffordabilityCalculation'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long affordabilityCalculationStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments affordabilityCalculationArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             affordabilityCalculationArguments_.put("MonthlyIncome", monthlyIncome);
@@ -56,7 +60,7 @@ public class AffordabilityCalculation extends com.gs.dmn.runtime.DefaultDMNBaseD
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, affordabilityCalculationArguments_);
 
             // Evaluate BKM 'AffordabilityCalculation'
-            Boolean output_ = lambda.apply(monthlyIncome, monthlyRepayments, monthlyExpenses, riskCategory, requiredMonthlyInstallment, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean output_ = lambda.apply(monthlyIncome, monthlyRepayments, monthlyExpenses, riskCategory, requiredMonthlyInstallment, context_);
 
             // End BKM 'AffordabilityCalculation'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, affordabilityCalculationArguments_, output_, (System.currentTimeMillis() - affordabilityCalculationStartTime_));
@@ -76,13 +80,14 @@ public class AffordabilityCalculation extends com.gs.dmn.runtime.DefaultDMNBaseD
                 java.math.BigDecimal monthlyExpenses = 2 < args_.length ? (java.math.BigDecimal) args_[2] : null;
                 String riskCategory = 3 < args_.length ? (String) args_[3] : null;
                 java.math.BigDecimal requiredMonthlyInstallment = 4 < args_.length ? (java.math.BigDecimal) args_[4] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 5 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[5] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 6 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[6] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 7 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[7] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 8 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[8] : null;
+                com.gs.dmn.runtime.ExecutionContext context_ = 5 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[5] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 java.math.BigDecimal disposableIncome = numericSubtract(monthlyIncome, numericAdd(monthlyExpenses, monthlyRepayments));
-                java.math.BigDecimal creditContingencyFactor = CreditContingencyFactorTable.instance().apply(riskCategory, annotationSet_, eventListener_, externalExecutor_, cache_);
+                java.math.BigDecimal creditContingencyFactor = CreditContingencyFactorTable.instance().apply(riskCategory, context_);
                 Boolean affordability = (booleanEqual(numericGreaterThan(numericMultiply(disposableIncome, creditContingencyFactor), requiredMonthlyInstallment), Boolean.TRUE)) ? Boolean.TRUE : Boolean.FALSE;
                 return affordability;
             }

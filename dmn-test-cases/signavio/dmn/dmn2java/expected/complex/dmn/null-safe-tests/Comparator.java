@@ -27,34 +27,29 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     }
 
     @java.lang.Override()
-    public List<String> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<String> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("numberA"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("numberA") != null ? number(input_.get("numberA")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Comparator'", e);
             return null;
         }
     }
 
-    public List<String> apply(String numberA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((numberA != null ? number(numberA) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'Comparator'", e);
-            return null;
-        }
-    }
-
-    public List<String> apply(java.math.BigDecimal numberA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public List<String> apply(java.math.BigDecimal numberA, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'comparator'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long comparatorStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments comparatorArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             comparatorArguments_.put("numberA", numberA);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, comparatorArguments_);
 
             // Evaluate decision 'comparator'
-            List<String> output_ = evaluate(numberA, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<String> output_ = evaluate(numberA, context_);
 
             // End decision 'comparator'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, comparatorArguments_, output_, (System.currentTimeMillis() - comparatorStartTime_));
@@ -66,15 +61,19 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
         }
     }
 
-    protected List<String> evaluate(java.math.BigDecimal numberA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected List<String> evaluate(java.math.BigDecimal numberA, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        ruleOutputList_.add(rule0(numberA, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule1(numberA, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule2(numberA, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule3(numberA, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule4(numberA, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule5(numberA, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule0(numberA, context_));
+        ruleOutputList_.add(rule1(numberA, context_));
+        ruleOutputList_.add(rule2(numberA, context_));
+        ruleOutputList_.add(rule3(numberA, context_));
+        ruleOutputList_.add(rule4(numberA, context_));
+        ruleOutputList_.add(rule5(numberA, context_));
 
         // Return results based on hit policy
         List<String> output_;
@@ -93,11 +92,15 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal numberA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal numberA, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -123,11 +126,15 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule1(java.math.BigDecimal numberA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(java.math.BigDecimal numberA, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -153,11 +160,15 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule2(java.math.BigDecimal numberA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule2(java.math.BigDecimal numberA, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -183,11 +194,15 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule3(java.math.BigDecimal numberA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule3(java.math.BigDecimal numberA, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -213,11 +228,15 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule4(java.math.BigDecimal numberA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule4(java.math.BigDecimal numberA, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -243,11 +262,15 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 5, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule5(java.math.BigDecimal numberA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule5(java.math.BigDecimal numberA, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(5, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule

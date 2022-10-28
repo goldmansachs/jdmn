@@ -15,6 +15,9 @@
 -->
 <#macro startDRGElement drgElement>
             // ${transformer.startElementCommentText(drgElement)}
+        <#list transformer.extractExtraParametersFromExecutionContext() as stm>
+            ${stm}
+        </#list>
             long ${transformer.namedElementVariableName(drgElement)}StartTime_ = <@currentTimeMillis/>;
             ${transformer.argumentsClassName()} ${transformer.argumentsVariableName(drgElement)} = ${transformer.defaultConstructor(transformer.argumentsClassName())};
             <#assign elementNames = transformer.drgElementArgumentDisplayNameList(drgElement)/>
@@ -47,6 +50,9 @@
 
 <#macro startRule drgElement rule_index>
         // Rule start
+    <#list transformer.extractExtraParametersFromExecutionContext() as stm>
+        ${stm}
+    </#list>
         ${transformer.eventListenerVariableName()}.startRule(<@drgElementAnnotation drgElement/>, <@ruleAnnotation/>);
 </#macro>
 

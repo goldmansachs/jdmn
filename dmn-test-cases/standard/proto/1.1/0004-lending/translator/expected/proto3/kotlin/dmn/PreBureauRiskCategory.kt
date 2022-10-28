@@ -13,27 +13,22 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class PreBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = ApplicationRiskScore()) : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
-            return apply(input_.get("ApplicantData"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(input_.get("ApplicantData")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TApplicantDataImpl>() {}) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'PreBureauRiskCategory'", e)
             return null
         }
     }
 
-    fun apply(applicantData: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
-        return try {
-            apply(applicantData?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TApplicantDataImpl>() {}) }), annotationSet_, eventListener_, externalExecutor_, cache_)
-        } catch (e: Exception) {
-            logError("Cannot apply decision 'PreBureauRiskCategory'", e)
-            null
-        }
-    }
-
-    fun apply(applicantData: type.TApplicantData?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
+    fun apply(applicantData: type.TApplicantData?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
             // Start decision ''Pre-bureauRiskCategory''
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val preBureauRiskCategoryStartTime_ = System.currentTimeMillis()
             val preBureauRiskCategoryArguments_ = com.gs.dmn.runtime.listener.Arguments()
             preBureauRiskCategoryArguments_.put("ApplicantData", applicantData)
@@ -49,7 +44,7 @@ class PreBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = Ap
                 return output_
             } else {
                 // Evaluate decision ''Pre-bureauRiskCategory''
-                val output_: String? = evaluate(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+                val output_: String? = evaluate(applicantData, context_)
                 cache_.bind("'Pre-bureauRiskCategory'", output_)
 
                 // End decision ''Pre-bureauRiskCategory''
@@ -63,12 +58,12 @@ class PreBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = Ap
         }
     }
 
-    fun apply(preBureauRiskCategoryRequest_: proto.PreBureauRiskCategoryRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.PreBureauRiskCategoryResponse {
+    fun applyProto(preBureauRiskCategoryRequest_: proto.PreBureauRiskCategoryRequest, context_: com.gs.dmn.runtime.ExecutionContext): proto.PreBureauRiskCategoryResponse {
         // Create arguments from Request Message
         val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(preBureauRiskCategoryRequest_.getApplicantData())
 
         // Invoke apply method
-        val output_: String? = apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+        val output_: String? = apply(applicantData, context_)
 
         // Convert output to Response Message
         val builder_: proto.PreBureauRiskCategoryResponse.Builder = proto.PreBureauRiskCategoryResponse.newBuilder()
@@ -77,11 +72,15 @@ class PreBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = Ap
         return builder_.build()
     }
 
-    private inline fun evaluate(applicantData: type.TApplicantData?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
+    private inline fun evaluate(applicantData: type.TApplicantData?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         // Apply child decisions
-        val applicationRiskScore: java.math.BigDecimal? = this@PreBureauRiskCategory.applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+        val applicationRiskScore: java.math.BigDecimal? = this@PreBureauRiskCategory.applicationRiskScore.apply(applicantData, context_)
 
-        return PreBureauRiskCategoryTable.instance().apply(applicantData?.let({ it.existingCustomer as Boolean? }), applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_) as String?
+        return PreBureauRiskCategoryTable.instance().apply(applicantData?.let({ it.existingCustomer as Boolean? }), applicationRiskScore, context_) as String?
     }
 
     companion object {

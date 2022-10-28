@@ -52,6 +52,6 @@ public class HandwrittenMonthlyPaymentTest extends AbstractHandwrittenDecisionTe
     }
 
     private BigDecimal applyDecision(TLoanImpl loan, BigDecimal fee) {
-        return decision.apply(loan, fee, context.getAnnotations(), context.getEventListener(), context.getExternalFunctionExecutor(), context.getCache());
+        return decision.apply(loan, fee, context);
     }
 }

@@ -39,6 +39,6 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     }
 
     private String applyDecision(String derivativeType, String taxChargeType, Transaction transaction, TransactionTaxMetaData transactionTaxMetaData) {
-        return decision.apply(derivativeType, taxChargeType, transaction, transactionTaxMetaData, context.getAnnotations(), context.getEventListener(), context.getExternalFunctionExecutor(), context.getCache());
+        return decision.apply(derivativeType, taxChargeType, transaction, transactionTaxMetaData, context);
     }
 }

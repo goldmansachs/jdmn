@@ -34,27 +34,22 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("Current risk appetite"), input_.get("Prior issue"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("Current risk appetite") != null ? number(input_.get("Current risk appetite")) : null), (input_.get("Prior issue") != null ? number(input_.get("Prior issue")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'AssessIssue'", e);
             return null;
         }
     }
 
-    public java.math.BigDecimal apply(String currentRiskAppetite, String priorIssue_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((currentRiskAppetite != null ? number(currentRiskAppetite) : null), (priorIssue_iterator != null ? number(priorIssue_iterator) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'AssessIssue'", e);
-            return null;
-        }
-    }
-
-    public java.math.BigDecimal apply(java.math.BigDecimal currentRiskAppetite, java.math.BigDecimal priorIssue_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public java.math.BigDecimal apply(java.math.BigDecimal currentRiskAppetite, java.math.BigDecimal priorIssue_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'assessIssue'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long assessIssueStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments assessIssueArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             assessIssueArguments_.put("Current risk appetite", currentRiskAppetite);
@@ -62,7 +57,7 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, assessIssueArguments_);
 
             // Evaluate decision 'assessIssue'
-            java.math.BigDecimal output_ = evaluate(currentRiskAppetite, priorIssue_iterator, annotationSet_, eventListener_, externalExecutor_, cache_);
+            java.math.BigDecimal output_ = evaluate(currentRiskAppetite, priorIssue_iterator, context_);
 
             // End decision 'assessIssue'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, assessIssueArguments_, output_, (System.currentTimeMillis() - assessIssueStartTime_));
@@ -74,7 +69,11 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal currentRiskAppetite, java.math.BigDecimal priorIssue_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected java.math.BigDecimal evaluate(java.math.BigDecimal currentRiskAppetite, java.math.BigDecimal priorIssue_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         return numericMultiply(priorIssue_iterator, numericMultiply(max(asList(number("0"), numericSubtract(number("100"), currentRiskAppetite))), number("0.01")));
     }
 }

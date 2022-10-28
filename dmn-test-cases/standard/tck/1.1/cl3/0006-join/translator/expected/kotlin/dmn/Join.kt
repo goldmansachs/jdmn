@@ -13,27 +13,22 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class Join() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
-            return apply(input_.get("DeptTable"), input_.get("EmployeeTable"), input_.get("LastName"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(input_.get("DeptTable")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TDeptTable?>?>() {}) }), input_.get("EmployeeTable")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TEmployeeTable?>?>() {}) }), input_.get("LastName"), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'Join'", e)
             return null
         }
     }
 
-    fun apply(deptTable: String?, employeeTable: String?, lastName: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
-        return try {
-            apply(deptTable?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TDeptTable?>?>() {}) }), employeeTable?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TEmployeeTable?>?>() {}) }), lastName, annotationSet_, eventListener_, externalExecutor_, cache_)
-        } catch (e: Exception) {
-            logError("Cannot apply decision 'Join'", e)
-            null
-        }
-    }
-
-    fun apply(deptTable: List<type.TDeptTable?>?, employeeTable: List<type.TEmployeeTable?>?, lastName: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
+    fun apply(deptTable: List<type.TDeptTable?>?, employeeTable: List<type.TEmployeeTable?>?, lastName: String?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
             // Start decision 'Join'
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val joinStartTime_ = System.currentTimeMillis()
             val joinArguments_ = com.gs.dmn.runtime.listener.Arguments()
             joinArguments_.put("DeptTable", deptTable)
@@ -42,7 +37,7 @@ class Join() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, joinArguments_)
 
             // Evaluate decision 'Join'
-            val output_: String? = evaluate(deptTable, employeeTable, lastName, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: String? = evaluate(deptTable, employeeTable, lastName, context_)
 
             // End decision 'Join'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, joinArguments_, output_, (System.currentTimeMillis() - joinStartTime_))
@@ -54,7 +49,11 @@ class Join() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(deptTable: List<type.TDeptTable?>?, employeeTable: List<type.TEmployeeTable?>?, lastName: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
+    private inline fun evaluate(deptTable: List<type.TDeptTable?>?, employeeTable: List<type.TEmployeeTable?>?, lastName: String?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         return (elementAt(deptTable?.filter({ item -> numericEqual(item?.let({ it.number as java.math.BigDecimal? }), (elementAt(employeeTable?.filter({ item_1_ -> stringEqual(item_1_?.let({ it.name as String? }), lastName) })?.map({ x -> x?.let({ it.deptNum as java.math.BigDecimal? }) }), number("1")) as java.math.BigDecimal?)) })?.map({ x -> x?.let({ it.manager as String? }) }), number("1")) as String?) as String?
     }
 

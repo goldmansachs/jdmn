@@ -15,6 +15,7 @@ package com.gs.dmn.generated.example_credit_decision;
 import com.gs.dmn.generated.example_credit_decision.type.Applicant;
 import com.gs.dmn.generated.example_credit_decision.type.ApplicantImpl;
 import com.gs.dmn.runtime.Assert;
+import com.gs.dmn.runtime.ExecutionContext;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import com.gs.dmn.runtime.cache.DefaultCache;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
@@ -84,7 +85,7 @@ public class TreeTraceListenerTest extends AbstractTraceListenerTest {
     }
 
     private List<?> applyDecision(Applicant applicant, BigDecimal currentRiskAppetite, BigDecimal lendingThreshold, TreeTraceEventListener listener) {
-        return decision.apply(applicant, currentRiskAppetite, lendingThreshold, new AnnotationSet(), listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
+        return decision.apply(applicant, currentRiskAppetite, lendingThreshold, new ExecutionContext(new AnnotationSet(), listener, new DefaultExternalFunctionExecutor(), new DefaultCache()));
     }
 
     private String getExpectedPath() {

@@ -170,7 +170,7 @@ public interface NativeExpressionFactory {
 
     boolean isSerializable(Type type);
 
-    String convertDecisionArgumentFromString(String paramName, Type type);
+    String convertArgumentFromString(String paramName, Type type);
 
     String conversionFunction(Conversion<Type, ConversionKind> conversion, String javaType);
 

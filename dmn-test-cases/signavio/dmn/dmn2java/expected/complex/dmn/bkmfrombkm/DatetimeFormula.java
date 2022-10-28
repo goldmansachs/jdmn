@@ -27,34 +27,29 @@ public class DatetimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavio
     }
 
     @java.lang.Override()
-    public List<java.math.BigDecimal> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<java.math.BigDecimal> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("datetime"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("datetime") != null ? dateAndTime(input_.get("datetime")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'DatetimeFormula'", e);
             return null;
         }
     }
 
-    public List<java.math.BigDecimal> apply(String datetime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((datetime != null ? dateAndTime(datetime) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'DatetimeFormula'", e);
-            return null;
-        }
-    }
-
-    public List<java.math.BigDecimal> apply(javax.xml.datatype.XMLGregorianCalendar datetime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public List<java.math.BigDecimal> apply(javax.xml.datatype.XMLGregorianCalendar datetime, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'datetimeFormula'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long datetimeFormulaStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments datetimeFormulaArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             datetimeFormulaArguments_.put("datetime", datetime);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, datetimeFormulaArguments_);
 
             // Evaluate decision 'datetimeFormula'
-            List<java.math.BigDecimal> output_ = evaluate(datetime, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<java.math.BigDecimal> output_ = evaluate(datetime, context_);
 
             // End decision 'datetimeFormula'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, datetimeFormulaArguments_, output_, (System.currentTimeMillis() - datetimeFormulaStartTime_));
@@ -66,11 +61,15 @@ public class DatetimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavio
         }
     }
 
-    protected List<java.math.BigDecimal> evaluate(javax.xml.datatype.XMLGregorianCalendar datetime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected List<java.math.BigDecimal> evaluate(javax.xml.datatype.XMLGregorianCalendar datetime, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        ruleOutputList_.add(rule0(datetime, annotationSet_, eventListener_, externalExecutor_, cache_));
-        ruleOutputList_.add(rule1(datetime, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule0(datetime, context_));
+        ruleOutputList_.add(rule1(datetime, context_));
 
         // Return results based on hit policy
         List<java.math.BigDecimal> output_;
@@ -89,11 +88,15 @@ public class DatetimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavio
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "string(\"D6R1\")")
-    public com.gs.dmn.runtime.RuleOutput rule0(javax.xml.datatype.XMLGregorianCalendar datetime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(javax.xml.datatype.XMLGregorianCalendar datetime, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "string(\"D6R1\")");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule
@@ -119,11 +122,15 @@ public class DatetimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavio
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "string(\"D6R2\")")
-    public com.gs.dmn.runtime.RuleOutput rule1(javax.xml.datatype.XMLGregorianCalendar datetime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(javax.xml.datatype.XMLGregorianCalendar datetime, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "string(\"D6R2\")");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule

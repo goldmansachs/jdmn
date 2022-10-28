@@ -8,39 +8,30 @@ public class DecisionTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
 
     @org.junit.Test
     public void testCase1() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         Boolean employed = null;
         type.Person person = new type.PersonImpl(null, null, null, null, null, null, asList(), null, null);
-        List<String> decision = this.decision.apply(employed, person, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<String> decision = this.decision.apply(employed, person, context_);
 
         checkValues(asList(), decision);
     }
 
     @org.junit.Test
     public void testCase2() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         Boolean employed = Boolean.TRUE;
         type.Person person = new type.PersonImpl(date("2016-11-01"), null, "John", "male", number("1"), "Smith", asList(), Boolean.TRUE, null);
-        List<String> decision = this.decision.apply(employed, person, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<String> decision = this.decision.apply(employed, person, context_);
 
         checkValues(asList(), decision);
     }
 
     @org.junit.Test
     public void testCase3() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         Boolean employed = Boolean.TRUE;
         type.Person person = new type.PersonImpl(date("2016-10-01"), dateAndTime("2016-10-01T01:00:00+01:00"), "Peter", "male", number("4"), "Sellers", asList("abc"), Boolean.FALSE, time("01:00:00+00:00"));
-        List<String> decision = this.decision.apply(employed, person, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<String> decision = this.decision.apply(employed, person, context_);
 
         checkValues(asList(), decision);
     }

@@ -51,6 +51,6 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         input.put("NumberInput", numberInput);
         input.put("TextInput", textInput);
         input.put("TimeInput", timeInput);
-        return decision.apply(input, context);
+        return decision.applyMap(input, context);
     }
 }

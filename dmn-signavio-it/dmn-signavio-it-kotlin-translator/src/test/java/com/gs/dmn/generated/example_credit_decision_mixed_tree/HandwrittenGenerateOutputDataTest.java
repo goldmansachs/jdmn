@@ -87,6 +87,6 @@ public class HandwrittenGenerateOutputDataTest extends AbstractHandwrittenDecisi
     }
 
     private List<?> applyDecision(Applicant applicant, BigDecimal currentRiskAppetite, BigDecimal lendingThreshold) {
-        return decision.apply(applicant, currentRiskAppetite, lendingThreshold, context.getAnnotations(), context.getEventListener(), context.getExternalFunctionExecutor(), context.getCache());
+        return decision.apply(applicant, currentRiskAppetite, lendingThreshold, context);
     }
 }

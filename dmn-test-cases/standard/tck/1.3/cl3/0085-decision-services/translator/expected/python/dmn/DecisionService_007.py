@@ -59,9 +59,13 @@ class DecisionService_007(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
     def initSubDecisions(self, decision_007_2: Decision_007_2.Decision_007_2 = None):
         self.decision_007_2 = Decision_007_2.Decision_007_2() if decision_007_2 is None else decision_007_2
 
-    def apply(self, decision_007_3: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[bool]:
+    def apply(self, decision_007_3: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[bool]:
         try:
             # Start DS 'decisionService_007'
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             decisionService_007StartTime_ = int(time.time_ns()/1000)
             decisionService_007Arguments_ = jdmn.runtime.listener.Arguments.Arguments()
             decisionService_007Arguments_.put("decision_007_3", decision_007_3)
@@ -71,7 +75,7 @@ class DecisionService_007(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
             cache_.bind("decision_007_3", decision_007_3)
 
             # Evaluate DS 'decisionService_007'
-            output_: typing.Optional[bool] = self.evaluate(decision_007_3, annotationSet_, eventListener_, externalExecutor_, cache_)
+            output_: typing.Optional[bool] = self.evaluate(decision_007_3, context_)
 
             # End DS 'decisionService_007'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, decisionService_007Arguments_, output_, (int(time.time_ns()/1000) - decisionService_007StartTime_))
@@ -81,8 +85,8 @@ class DecisionService_007(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
             self.logError("Exception caught in 'decisionService_007' evaluation", e)
             return None
 
-    def evaluate(self, decision_007_3: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[bool]:
+    def evaluate(self, decision_007_3: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[bool]:
         # Apply child decisions
-        decision_007_2: typing.Optional[bool] = self.decision_007_2.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
+        decision_007_2: typing.Optional[bool] = self.decision_007_2.apply(context_)
 
         return decision_007_2

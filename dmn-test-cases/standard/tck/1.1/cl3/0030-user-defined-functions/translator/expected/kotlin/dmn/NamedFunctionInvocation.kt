@@ -13,18 +13,22 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class NamedFunctionInvocation() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
-            return apply(input_.get("stringInputA"), input_.get("stringInputB"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(input_.get("stringInputA"), input_.get("stringInputB"), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'NamedFunctionInvocation'", e)
             return null
         }
     }
 
-    fun apply(stringInputA: String?, stringInputB: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
+    fun apply(stringInputA: String?, stringInputB: String?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
             // Start decision ''named function invocation''
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val namedFunctionInvocationStartTime_ = System.currentTimeMillis()
             val namedFunctionInvocationArguments_ = com.gs.dmn.runtime.listener.Arguments()
             namedFunctionInvocationArguments_.put("stringInputA", stringInputA)
@@ -32,7 +36,7 @@ class NamedFunctionInvocation() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, namedFunctionInvocationArguments_)
 
             // Evaluate decision ''named function invocation''
-            val output_: String? = evaluate(stringInputA, stringInputB, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: String? = evaluate(stringInputA, stringInputB, context_)
 
             // End decision ''named function invocation''
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, namedFunctionInvocationArguments_, output_, (System.currentTimeMillis() - namedFunctionInvocationStartTime_))
@@ -44,10 +48,14 @@ class NamedFunctionInvocation() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(stringInputA: String?, stringInputB: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
+    private inline fun evaluate(stringInputA: String?, stringInputB: String?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         val boxedFnDefinition: com.gs.dmn.runtime.LambdaExpression<String?>? = com.gs.dmn.runtime.LambdaExpression<String> { args_ -> val a: String? = args_[0] as String?; val b: String? = args_[1] as String?; stringAdd(a, b) } as com.gs.dmn.runtime.LambdaExpression<String?>?
         val literalFnDefinition: com.gs.dmn.runtime.LambdaExpression<String?>? = com.gs.dmn.runtime.LambdaExpression<String> { args_ -> val a: String? = args_[0] as String?; val b: String? = args_[1] as String?; stringAdd(a, b) } as com.gs.dmn.runtime.LambdaExpression<String?>?
-        return stringAdd(boxedFnDefinition?.apply(stringInputB, stringInputA, annotationSet_, eventListener_, externalExecutor_, cache_), literalFnDefinition?.apply(stringInputB, stringInputA, annotationSet_, eventListener_, externalExecutor_, cache_))
+        return stringAdd(boxedFnDefinition?.apply(stringInputB, stringInputA, context_), literalFnDefinition?.apply(stringInputB, stringInputA, context_))
     }
 
     companion object {

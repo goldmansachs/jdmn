@@ -46,6 +46,6 @@ public class HandwrittenCompoundOutputCompoundDecisionTest extends AbstractHandw
         input.put("EnumerationInput", enumerationInput);
         input.put("DD2 Number Input", numberInput);
         input.put("DD1 Text Input", textInput);
-        return decision.apply(input, context);
+        return decision.applyMap(input, context);
     }
 }

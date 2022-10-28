@@ -61,9 +61,13 @@ class PostBureauAffordability(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBase
         self.postBureauRiskCategory = PostBureauRiskCategory.PostBureauRiskCategory() if postBureauRiskCategory is None else postBureauRiskCategory
         self.requiredMonthlyInstallment = RequiredMonthlyInstallment.RequiredMonthlyInstallment() if requiredMonthlyInstallment is None else requiredMonthlyInstallment
 
-    def apply(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], bureauData: typing.Optional[type_.TBureauData.TBureauData], requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[bool]:
+    def apply(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], bureauData: typing.Optional[type_.TBureauData.TBureauData], requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[bool]:
         try:
             # Start decision ''Post-bureauAffordability''
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             postBureauAffordabilityStartTime_ = int(time.time_ns()/1000)
             postBureauAffordabilityArguments_ = jdmn.runtime.listener.Arguments.Arguments()
             postBureauAffordabilityArguments_.put("ApplicantData", applicantData)
@@ -72,7 +76,7 @@ class PostBureauAffordability(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBase
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, postBureauAffordabilityArguments_)
 
             # Evaluate decision ''Post-bureauAffordability''
-            output_: typing.Optional[bool] = self.evaluate(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
+            output_: typing.Optional[bool] = self.evaluate(applicantData, bureauData, requestedProduct, context_)
 
             # End decision ''Post-bureauAffordability''
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, postBureauAffordabilityArguments_, output_, (int(time.time_ns()/1000) - postBureauAffordabilityStartTime_))
@@ -82,9 +86,9 @@ class PostBureauAffordability(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBase
             self.logError("Exception caught in ''Post-bureauAffordability'' evaluation", e)
             return None
 
-    def evaluate(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], bureauData: typing.Optional[type_.TBureauData.TBureauData], requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[bool]:
+    def evaluate(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], bureauData: typing.Optional[type_.TBureauData.TBureauData], requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[bool]:
         # Apply child decisions
-        postBureauRiskCategory: typing.Optional[str] = self.postBureauRiskCategory.apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_)
-        requiredMonthlyInstallment: typing.Optional[decimal.Decimal] = self.requiredMonthlyInstallment.apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
+        postBureauRiskCategory: typing.Optional[str] = self.postBureauRiskCategory.apply(applicantData, bureauData, context_)
+        requiredMonthlyInstallment: typing.Optional[decimal.Decimal] = self.requiredMonthlyInstallment.apply(requestedProduct, context_)
 
-        return AffordabilityCalculation.AffordabilityCalculation.instance().apply(None if (None if (applicantData is None) else (applicantData.monthly) is None) else (None if (applicantData is None) else (applicantData.monthly).income), None if (None if (applicantData is None) else (applicantData.monthly) is None) else (None if (applicantData is None) else (applicantData.monthly).repayments), None if (None if (applicantData is None) else (applicantData.monthly) is None) else (None if (applicantData is None) else (applicantData.monthly).expenses), postBureauRiskCategory, requiredMonthlyInstallment, annotationSet_, eventListener_, externalExecutor_, cache_)
+        return AffordabilityCalculation.AffordabilityCalculation.instance().apply(None if (None if (applicantData is None) else (applicantData.monthly) is None) else (None if (applicantData is None) else (applicantData.monthly).income), None if (None if (applicantData is None) else (applicantData.monthly) is None) else (None if (applicantData is None) else (applicantData.monthly).repayments), None if (None if (applicantData is None) else (applicantData.monthly) is None) else (None if (applicantData is None) else (applicantData.monthly).expenses), postBureauRiskCategory, requiredMonthlyInstallment, context_)

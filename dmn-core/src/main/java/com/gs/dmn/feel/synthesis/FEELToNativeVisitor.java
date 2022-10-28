@@ -545,10 +545,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
     }
 
     private void addExtraArguments(List<Object> argList) {
-        argList.add(String.format("%s", dmnTransformer.annotationSetVariableName()));
-        argList.add(String.format("%s", dmnTransformer.eventListenerVariableName()));
-        argList.add(String.format("%s", dmnTransformer.externalExecutorVariableName()));
-        argList.add(String.format("%s", dmnTransformer.cacheVariableName()));
+        argList.add(String.format("%s", dmnTransformer.executionContextVariableName()));
     }
 
     protected Object convertArgument(Object param, Conversion<Type> conversion) {

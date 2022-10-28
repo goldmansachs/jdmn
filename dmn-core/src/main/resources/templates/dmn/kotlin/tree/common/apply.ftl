@@ -13,22 +13,13 @@
 <#import "events.ftl" as events />
 
 <#macro applyMethods drgElement>
-<#if drgElement.class.simpleName == "TDecision">
     <@apply.applyMap drgElement />
 
-    <@apply.applyString drgElement />
-<#elseif drgElement.class.simpleName == "TBusinessKnowledgeModel">
-    <@apply.applyMap drgElement />
-
-<#elseif drgElement.class.simpleName == "TDecisionService">
-    <@apply.applyMap drgElement />
-
-</#if>
     <@apply.applyPojo drgElement />
 </#macro>
 
 <#macro applyMap drgElement >
-    override fun apply(${transformer.drgElementSignatureWithMap(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    override fun applyMap(${transformer.drgElementSignatureWithMap(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
     <#if transformer.canGenerateApplyWithMap(drgElement)>
         try {
             return apply(${transformer.drgElementArgumentListWithMap(drgElement)})
@@ -44,7 +35,7 @@
 
 <#macro applyString drgElement >
     <#if transformer.shouldGenerateApplyWithConversionFromString(drgElement)>
-    fun apply(${transformer.drgElementSignatureWithConversionFromString(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    fun applyString(${transformer.drgElementSignatureWithConversionFromString(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         return try {
             apply(${transformer.drgElementArgumentListWithConversionFromString(drgElement)})
         } catch (e: Exception) {
@@ -118,6 +109,7 @@
 -->
 <#macro addEvaluateDecisionTableMethod drgElement>
     private inline fun evaluate(${transformer.drgElementSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    <@extractParametersFromArgs transformer.drgElementSignatureParameters(drgElement)/>
     <@applySubDecisions drgElement/>
     <#assign expression = modelRepository.expression(drgElement)>
         <@collectRuleResults drgElement expression />
@@ -271,6 +263,7 @@
 
 <#macro addEvaluateExpressionMethod drgElement>
     private inline fun evaluate(${transformer.drgElementSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    <@extractParametersFromArgs transformer.drgElementSignatureParameters(drgElement)/>
     <@applySubDecisions drgElement/>
     <#assign stm = transformer.expressionToNative(drgElement)>
     <#if transformer.isCompoundStatement(stm)>
@@ -281,6 +274,12 @@
         return ${stm.text} as ${transformer.drgElementOutputType(drgElement)}
     </#if>
     }
+</#macro>
+
+<#macro extractParametersFromArgs arguments>
+    <#list transformer.extractExtraParametersFromExecutionContext() as stm>
+        ${stm}
+    </#list>
 </#macro>
 
 <#--
@@ -311,4 +310,3 @@
             // Add annotation
             ${transformer.annotationSetVariableName()}.addAnnotation("${drgElement.name}", ${rule_index}, ${transformer.annotation(drgElement, rule)})
 </#macro>
-

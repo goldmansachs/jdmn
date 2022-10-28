@@ -57,9 +57,13 @@ class PostBureauRiskCategory(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseD
         jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision.__init__(self)
         self.applicationRiskScore = ApplicationRiskScore.ApplicationRiskScore() if applicationRiskScore is None else applicationRiskScore
 
-    def apply(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], bureauData: typing.Optional[type_.TBureauData.TBureauData], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def apply(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], bureauData: typing.Optional[type_.TBureauData.TBureauData], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         try:
             # Start decision ''Post-bureauRiskCategory''
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             postBureauRiskCategoryStartTime_ = int(time.time_ns()/1000)
             postBureauRiskCategoryArguments_ = jdmn.runtime.listener.Arguments.Arguments()
             postBureauRiskCategoryArguments_.put("ApplicantData", applicantData)
@@ -67,7 +71,7 @@ class PostBureauRiskCategory(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseD
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, postBureauRiskCategoryArguments_)
 
             # Evaluate decision ''Post-bureauRiskCategory''
-            output_: typing.Optional[str] = self.evaluate(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_)
+            output_: typing.Optional[str] = self.evaluate(applicantData, bureauData, context_)
 
             # End decision ''Post-bureauRiskCategory''
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, postBureauRiskCategoryArguments_, output_, (int(time.time_ns()/1000) - postBureauRiskCategoryStartTime_))
@@ -77,8 +81,8 @@ class PostBureauRiskCategory(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseD
             self.logError("Exception caught in ''Post-bureauRiskCategory'' evaluation", e)
             return None
 
-    def evaluate(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], bureauData: typing.Optional[type_.TBureauData.TBureauData], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def evaluate(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], bureauData: typing.Optional[type_.TBureauData.TBureauData], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         # Apply child decisions
-        applicationRiskScore: typing.Optional[decimal.Decimal] = self.applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+        applicationRiskScore: typing.Optional[decimal.Decimal] = self.applicationRiskScore.apply(applicantData, context_)
 
-        return PostBureauRiskCategoryTable.PostBureauRiskCategoryTable.instance().apply(None if (applicantData is None) else (applicantData.existingCustomer), applicationRiskScore, None if (bureauData is None) else (bureauData.creditScore), annotationSet_, eventListener_, externalExecutor_, cache_)
+        return PostBureauRiskCategoryTable.PostBureauRiskCategoryTable.instance().apply(None if (applicantData is None) else (applicantData.existingCustomer), applicationRiskScore, None if (bureauData is None) else (bureauData.creditScore), context_)

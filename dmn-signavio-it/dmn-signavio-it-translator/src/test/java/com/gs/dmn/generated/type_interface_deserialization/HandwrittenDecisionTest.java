@@ -14,7 +14,7 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     public void testDeserializedDecisionInput() {
         com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfiles marginEquityOptionTradableProfiles = new com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfilesImpl(decision.asList(new com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfileImpl(Boolean.TRUE, "abc")));
 
-        String esmaEquityOptionIndicator = decision.apply(marginEquityOptionTradableProfiles, context.getAnnotations(), context.getEventListener(), context.getExternalFunctionExecutor(), context.getCache());
+        String esmaEquityOptionIndicator = decision.apply(marginEquityOptionTradableProfiles, context);
 
         checkValues("Yes", esmaEquityOptionIndicator);
     }
@@ -34,13 +34,13 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     protected void applyDecision() {
         com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfiles marginEquityOptionTradableProfiles = new com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfilesImpl(decision.asList(new com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfileImpl(Boolean.TRUE, "abc")));
 
-        decision.apply(marginEquityOptionTradableProfiles, context.getAnnotations(), context.getEventListener(), context.getExternalFunctionExecutor(), context.getCache());
+        decision.apply(marginEquityOptionTradableProfiles, context);
     }
 
     private String applyDecision(String marginEquityOptionTradableProfiles) {
         Map<String, String> input = new LinkedHashMap<>();
         input.put("Margin Equity Option Tradable Profiles", marginEquityOptionTradableProfiles);
-        return decision.apply(input, context);
+        return decision.applyMap(input, context);
     }
 
     private void checkValues(Object expected, Object actual) {

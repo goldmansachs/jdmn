@@ -13,23 +13,14 @@
 <#import "events.ftl" as events />
 
 <#macro applyMethods drgElement>
-<#if drgElement.class.simpleName == "TDecision">
     <@apply.applyMap drgElement />
 
-    <@apply.applyString drgElement />
-<#elseif drgElement.class.simpleName == "TBusinessKnowledgeModel">
-    <@apply.applyMap drgElement />
-
-<#elseif drgElement.class.simpleName == "TDecisionService">
-    <@apply.applyMap drgElement />
-
-</#if>
     <@apply.applyPojo drgElement />
 </#macro>
 
 <#macro applyMap drgElement >
     @java.lang.Override()
-    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureWithMap(drgElement)}) {
+    public ${transformer.drgElementOutputType(drgElement)} applyMap(${transformer.drgElementSignatureWithMap(drgElement)}) {
     <#if transformer.canGenerateApplyWithMap(drgElement)>
         try {
             return apply(${transformer.drgElementArgumentListWithMap(drgElement)});
@@ -45,7 +36,7 @@
 
 <#macro applyString drgElement >
     <#if transformer.shouldGenerateApplyWithConversionFromString(drgElement)>
-    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureWithConversionFromString(drgElement)}) {
+    public ${transformer.drgElementOutputType(drgElement)} applyString(${transformer.drgElementSignatureWithConversionFromString(drgElement)}) {
         try {
             return apply(${transformer.drgElementArgumentListWithConversionFromString(drgElement)});
         } catch (Exception e) {
@@ -155,6 +146,7 @@
 
 <#macro addEvaluateIterationMethod drgElement>
     protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementSignature(drgElement)}) {
+        <@extractParametersFromArgs transformer.drgElementSignatureParameters(drgElement)/>
         <@applySubDecisions drgElement/>
         <#assign multiInstanceDecision = transformer.multiInstanceDecisionLogic(drgElement)/>
         <#assign iterationExpression = multiInstanceDecision.iterationExpression/>
@@ -193,6 +185,7 @@
 -->
 <#macro addEvaluateBKMLinkedToDecisionMethod drgElement>
     protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementSignature(drgElement)}) {
+        <@extractParametersFromArgs transformer.drgElementSignatureParameters(drgElement)/>
         <@applySubDecisions drgElement/>
         return ${transformer.bkmLinkedToDecisionToNative(drgElement)};
     }
@@ -223,6 +216,7 @@
 -->
 <#macro addEvaluateDecisionTableMethod drgElement>
     protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementSignature(drgElement)}) {
+    <@extractParametersFromArgs transformer.drgElementSignatureParameters(drgElement)/>
     <@applySubDecisions drgElement/>
     <#assign expression = modelRepository.expression(drgElement)>
         <@collectRuleResults drgElement expression />
@@ -354,6 +348,12 @@
     </#if>
 </#macro>
 
+<#macro extractParametersFromArgs arguments>
+    <#list transformer.extractExtraParametersFromExecutionContext() as stm>
+        ${stm}
+    </#list>
+</#macro>
+
 <#--
     Expression
 -->
@@ -381,6 +381,9 @@
 
 <#macro addEvaluateExpressionMethod drgElement>
     protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementSignature(drgElement)}) {
+    <#list transformer.extractExtraParametersFromExecutionContext() as stm>
+        ${stm}
+    </#list>
     <@applySubDecisions drgElement/>
     <#if modelRepository.isFreeTextLiteralExpression(drgElement)>
         return ${transformer.freeTextLiteralExpressionToNative(drgElement)};
