@@ -11,7 +11,7 @@ class _0008LXArithmeticTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         // Initialize input data
         val loan: type.TLoan? = type.TLoanImpl(number("600000"), number("0.0375"), number("360"))
 
-        // Check payment
+        // Check 'payment'
         checkValues(number("2778.69354943277"), Payment().apply(loan, context_))
     }
 
@@ -22,7 +22,7 @@ class _0008LXArithmeticTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         // Initialize input data
         val loan: type.TLoan? = type.TLoanImpl(number("30000"), number("0.0475"), number("60"))
 
-        // Check payment
+        // Check 'payment'
         checkValues(number("562.707359373292"), Payment().apply(loan, context_))
     }
 
@@ -33,7 +33,7 @@ class _0008LXArithmeticTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         // Initialize input data
         val loan: type.TLoan? = type.TLoanImpl(number("600000"), number("0.0399"), number("360"))
 
-        // Check payment
+        // Check 'payment'
         checkValues(number("2861.03377700389"), Payment().apply(loan, context_))
     }
 

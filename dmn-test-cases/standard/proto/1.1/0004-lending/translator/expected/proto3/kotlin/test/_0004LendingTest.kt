@@ -14,30 +14,30 @@ class _0004LendingTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val bureauData: type.TBureauData? = type.TBureauDataImpl(false, number("649"))
         val supportingDocuments: String? = "YES"
 
-        // Check Adjudication
+        // Check 'Adjudication'
         checkValues("ACCEPT", Adjudication().apply(applicantData, bureauData, supportingDocuments, context_))
-        // Check ApplicationRiskScore
+        // Check 'ApplicationRiskScore'
         checkValues(number("130"), ApplicationRiskScore().apply(applicantData, context_))
-        // Check 'Pre-bureauRiskCategory'
+        // Check ''Pre-bureauRiskCategory''
         checkValues("LOW", PreBureauRiskCategory().apply(applicantData, context_))
-        // Check BureauCallType
+        // Check 'BureauCallType'
         checkValues("MINI", BureauCallType().apply(applicantData, context_))
-        // Check 'Post-bureauRiskCategory'
+        // Check ''Post-bureauRiskCategory''
         checkValues("LOW", PostBureauRiskCategory().apply(applicantData, bureauData, context_))
-        // Check RequiredMonthlyInstallment
+        // Check 'RequiredMonthlyInstallment'
         checkValues(number("1680.880325608555"), RequiredMonthlyInstallment().apply(requestedProduct, context_))
-        // Check 'Pre-bureauAffordability'
+        // Check ''Pre-bureauAffordability''
         checkValues(true, PreBureauAffordability().apply(applicantData, requestedProduct, context_))
-        // Check Eligibility
+        // Check 'Eligibility'
         checkValues("ELIGIBLE", Eligibility().apply(applicantData, requestedProduct, context_))
-        // Check Strategy
+        // Check 'Strategy'
         checkValues("BUREAU", Strategy().apply(applicantData, requestedProduct, context_))
-        // Check 'Post-bureauAffordability'
+        // Check ''Post-bureauAffordability''
         checkValues(true, PostBureauAffordability().apply(applicantData, bureauData, requestedProduct, context_))
-        // Check Routing
+        // Check 'Routing'
         checkValues("ACCEPT", Routing().apply(applicantData, bureauData, requestedProduct, context_))
 
-        // Check Adjudication with proto request
+        // Check 'Adjudication' with proto request
         val adjudicationBuilder_: proto.AdjudicationRequest.Builder = proto.AdjudicationRequest.newBuilder()
         val applicantDataProto0: proto.TApplicantData = type.TApplicantData.toProto(applicantData)
         if (applicantDataProto0 != null) {
@@ -51,7 +51,7 @@ class _0004LendingTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         adjudicationBuilder_.setSupportingDocuments(supportingDocumentsProto0)
         val adjudicationRequest_: proto.AdjudicationRequest = adjudicationBuilder_.build()
         checkValues("ACCEPT", Adjudication().applyProto(adjudicationRequest_, context_).getAdjudication())
-        // Check ApplicationRiskScore with proto request
+        // Check 'ApplicationRiskScore' with proto request
         val applicationRiskScoreBuilder_: proto.ApplicationRiskScoreRequest.Builder = proto.ApplicationRiskScoreRequest.newBuilder()
         val applicantDataProto1: proto.TApplicantData = type.TApplicantData.toProto(applicantData)
         if (applicantDataProto1 != null) {
@@ -59,7 +59,7 @@ class _0004LendingTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
         val applicationRiskScoreRequest_: proto.ApplicationRiskScoreRequest = applicationRiskScoreBuilder_.build()
         checkValues(number("130"), ApplicationRiskScore().applyProto(applicationRiskScoreRequest_, context_).getApplicationRiskScore())
-        // Check 'Pre-bureauRiskCategory' with proto request
+        // Check ''Pre-bureauRiskCategory'' with proto request
         val preBureauRiskCategoryBuilder_: proto.PreBureauRiskCategoryRequest.Builder = proto.PreBureauRiskCategoryRequest.newBuilder()
         val applicantDataProto2: proto.TApplicantData = type.TApplicantData.toProto(applicantData)
         if (applicantDataProto2 != null) {
@@ -67,7 +67,7 @@ class _0004LendingTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
         val preBureauRiskCategoryRequest_: proto.PreBureauRiskCategoryRequest = preBureauRiskCategoryBuilder_.build()
         checkValues("LOW", PreBureauRiskCategory().applyProto(preBureauRiskCategoryRequest_, context_).getPreBureauRiskCategory())
-        // Check BureauCallType with proto request
+        // Check 'BureauCallType' with proto request
         val bureauCallTypeBuilder_: proto.BureauCallTypeRequest.Builder = proto.BureauCallTypeRequest.newBuilder()
         val applicantDataProto3: proto.TApplicantData = type.TApplicantData.toProto(applicantData)
         if (applicantDataProto3 != null) {
@@ -75,7 +75,7 @@ class _0004LendingTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
         val bureauCallTypeRequest_: proto.BureauCallTypeRequest = bureauCallTypeBuilder_.build()
         checkValues("MINI", BureauCallType().applyProto(bureauCallTypeRequest_, context_).getBureauCallType())
-        // Check 'Post-bureauRiskCategory' with proto request
+        // Check ''Post-bureauRiskCategory'' with proto request
         val postBureauRiskCategoryBuilder_: proto.PostBureauRiskCategoryRequest.Builder = proto.PostBureauRiskCategoryRequest.newBuilder()
         val applicantDataProto4: proto.TApplicantData = type.TApplicantData.toProto(applicantData)
         if (applicantDataProto4 != null) {
@@ -87,7 +87,7 @@ class _0004LendingTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
         val postBureauRiskCategoryRequest_: proto.PostBureauRiskCategoryRequest = postBureauRiskCategoryBuilder_.build()
         checkValues("LOW", PostBureauRiskCategory().applyProto(postBureauRiskCategoryRequest_, context_).getPostBureauRiskCategory())
-        // Check RequiredMonthlyInstallment with proto request
+        // Check 'RequiredMonthlyInstallment' with proto request
         val requiredMonthlyInstallmentBuilder_: proto.RequiredMonthlyInstallmentRequest.Builder = proto.RequiredMonthlyInstallmentRequest.newBuilder()
         val requestedProductProto5: proto.TRequestedProduct = type.TRequestedProduct.toProto(requestedProduct)
         if (requestedProductProto5 != null) {
@@ -95,7 +95,7 @@ class _0004LendingTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
         val requiredMonthlyInstallmentRequest_: proto.RequiredMonthlyInstallmentRequest = requiredMonthlyInstallmentBuilder_.build()
         checkValues(number("1680.880325608555"), RequiredMonthlyInstallment().applyProto(requiredMonthlyInstallmentRequest_, context_).getRequiredMonthlyInstallment())
-        // Check 'Pre-bureauAffordability' with proto request
+        // Check ''Pre-bureauAffordability'' with proto request
         val preBureauAffordabilityBuilder_: proto.PreBureauAffordabilityRequest.Builder = proto.PreBureauAffordabilityRequest.newBuilder()
         val applicantDataProto6: proto.TApplicantData = type.TApplicantData.toProto(applicantData)
         if (applicantDataProto6 != null) {
@@ -107,7 +107,7 @@ class _0004LendingTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
         val preBureauAffordabilityRequest_: proto.PreBureauAffordabilityRequest = preBureauAffordabilityBuilder_.build()
         checkValues(true, PreBureauAffordability().applyProto(preBureauAffordabilityRequest_, context_).getPreBureauAffordability())
-        // Check Eligibility with proto request
+        // Check 'Eligibility' with proto request
         val eligibilityBuilder_: proto.EligibilityRequest.Builder = proto.EligibilityRequest.newBuilder()
         val applicantDataProto7: proto.TApplicantData = type.TApplicantData.toProto(applicantData)
         if (applicantDataProto7 != null) {
@@ -119,7 +119,7 @@ class _0004LendingTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
         val eligibilityRequest_: proto.EligibilityRequest = eligibilityBuilder_.build()
         checkValues("ELIGIBLE", Eligibility().applyProto(eligibilityRequest_, context_).getEligibility())
-        // Check Strategy with proto request
+        // Check 'Strategy' with proto request
         val strategyBuilder_: proto.StrategyRequest.Builder = proto.StrategyRequest.newBuilder()
         val applicantDataProto8: proto.TApplicantData = type.TApplicantData.toProto(applicantData)
         if (applicantDataProto8 != null) {
@@ -131,7 +131,7 @@ class _0004LendingTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
         val strategyRequest_: proto.StrategyRequest = strategyBuilder_.build()
         checkValues("BUREAU", Strategy().applyProto(strategyRequest_, context_).getStrategy())
-        // Check 'Post-bureauAffordability' with proto request
+        // Check ''Post-bureauAffordability'' with proto request
         val postBureauAffordabilityBuilder_: proto.PostBureauAffordabilityRequest.Builder = proto.PostBureauAffordabilityRequest.newBuilder()
         val applicantDataProto9: proto.TApplicantData = type.TApplicantData.toProto(applicantData)
         if (applicantDataProto9 != null) {
@@ -147,7 +147,7 @@ class _0004LendingTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
         val postBureauAffordabilityRequest_: proto.PostBureauAffordabilityRequest = postBureauAffordabilityBuilder_.build()
         checkValues(true, PostBureauAffordability().applyProto(postBureauAffordabilityRequest_, context_).getPostBureauAffordability())
-        // Check Routing with proto request
+        // Check 'Routing' with proto request
         val routingBuilder_: proto.RoutingRequest.Builder = proto.RoutingRequest.newBuilder()
         val applicantDataProto10: proto.TApplicantData = type.TApplicantData.toProto(applicantData)
         if (applicantDataProto10 != null) {

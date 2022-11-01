@@ -13,7 +13,7 @@ public class ModelCTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         String modela_a = "B.A.John";
         String modelb_a = "B.A.John2";
 
-        // Check c
+        // Check 'c'
         checkValues("A: B.A.John; B: B.A.John2", new model_c.C().apply(modela_a, modelb_a, context_));
     }
 

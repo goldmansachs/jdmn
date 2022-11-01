@@ -12,7 +12,7 @@ public class ModelB1Test extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Initialize input data
         String model_a_personName = "B.A.John";
 
-        // Check greetThePerson
+        // Check 'greetThePerson'
         checkValues("Hello, B.A.John", new model_b1.GreetThePerson().apply(model_a_personName, context_));
     }
 

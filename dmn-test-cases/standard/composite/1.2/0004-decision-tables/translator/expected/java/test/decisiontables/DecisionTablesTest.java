@@ -12,7 +12,7 @@ public class DecisionTablesTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisio
         // Initialize input data
         decisioninputs.type.TA decisioninputs_structA = new decisioninputs.type.TAImpl("widget", number("20"));
 
-        // Check priceGt10
+        // Check 'priceGt10'
         checkValues(Boolean.TRUE, new decisiontables.PriceGt10().apply(decisioninputs_structA, context_));
     }
 
@@ -25,7 +25,7 @@ public class DecisionTablesTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisio
         java.math.BigDecimal decisioninputs_numB = number("9");
         java.math.BigDecimal decisioninputs_numC = number("10");
 
-        // Check priceInRange
+        // Check 'priceInRange'
         checkValues("Not in range", new decisiontables.PriceInRange().apply(decisioninputs_numB, decisioninputs_numC, decisioninputs_structA, context_));
     }
 
@@ -36,7 +36,7 @@ public class DecisionTablesTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisio
         // Initialize input data
         javax.xml.datatype.XMLGregorianCalendar decisioninputs_dateD = date("2016-11-01");
 
-        // Check dateCompare1
+        // Check 'dateCompare1'
         checkValues(Boolean.TRUE, new decisiontables.DateCompare1().apply(decisioninputs_dateD, context_));
     }
 
@@ -48,7 +48,7 @@ public class DecisionTablesTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisio
         javax.xml.datatype.XMLGregorianCalendar decisioninputs_dateD = date("2016-11-01");
         javax.xml.datatype.XMLGregorianCalendar decisioninputs_dateE = date("2016-11-02");
 
-        // Check dateCompare2
+        // Check 'dateCompare2'
         checkValues(Boolean.FALSE, new decisiontables.DateCompare2().apply(decisioninputs_dateD, decisioninputs_dateE, context_));
     }
 

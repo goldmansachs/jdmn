@@ -13,7 +13,7 @@ public class _0010MultiOutputUTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         String riskCategory = "Medium";
         Boolean isAffordable = Boolean.TRUE;
 
-        // Check Approval
+        // Check 'Approval'
         checkValues(new type.TApprovalImpl("Standard", "Approved"), new Approval().apply(age, riskCategory, isAffordable, context_));
     }
 
@@ -26,7 +26,7 @@ public class _0010MultiOutputUTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         String riskCategory = "Medium";
         Boolean isAffordable = Boolean.TRUE;
 
-        // Check Approval
+        // Check 'Approval'
         checkValues(new type.TApprovalImpl("Standard", "Declined"), new Approval().apply(age, riskCategory, isAffordable, context_));
     }
 
@@ -39,7 +39,7 @@ public class _0010MultiOutputUTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         String riskCategory = "High";
         Boolean isAffordable = Boolean.TRUE;
 
-        // Check Approval
+        // Check 'Approval'
         checkValues(new type.TApprovalImpl("Standard", "Declined"), new Approval().apply(age, riskCategory, isAffordable, context_));
     }
 

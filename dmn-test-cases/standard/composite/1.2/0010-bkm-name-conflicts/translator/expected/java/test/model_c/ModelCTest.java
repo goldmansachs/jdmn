@@ -13,7 +13,7 @@ public class ModelCTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         java.math.BigDecimal aa = number("1000");
         String ba = "$";
 
-        // Check c
+        // Check 'c'
         checkValues("AA: 1000; BA: $", new model_c.C().apply(aa, ba, context_));
     }
 

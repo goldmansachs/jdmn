@@ -12,7 +12,7 @@ class _0009InvocationArithmeticTest : com.gs.dmn.runtime.DefaultDMNBaseDecision(
         val loan: type.TLoan? = type.TLoanImpl(number("600000"), number("0.0375"), number("360"))
         val fee: java.math.BigDecimal? = number("100")
 
-        // Check MonthlyPayment
+        // Check 'MonthlyPayment'
         checkValues(number("2878.69354943277"), MonthlyPayment().apply(loan, fee, context_))
     }
 
@@ -24,7 +24,7 @@ class _0009InvocationArithmeticTest : com.gs.dmn.runtime.DefaultDMNBaseDecision(
         val loan: type.TLoan? = type.TLoanImpl(number("30000"), number("0.0475"), number("60"))
         val fee: java.math.BigDecimal? = number("100")
 
-        // Check MonthlyPayment
+        // Check 'MonthlyPayment'
         checkValues(number("662.707359373292"), MonthlyPayment().apply(loan, fee, context_))
     }
 
@@ -36,7 +36,7 @@ class _0009InvocationArithmeticTest : com.gs.dmn.runtime.DefaultDMNBaseDecision(
         val loan: type.TLoan? = type.TLoanImpl(number("600000"), number("0.0399"), number("360"))
         val fee: java.math.BigDecimal? = number("100")
 
-        // Check MonthlyPayment
+        // Check 'MonthlyPayment'
         checkValues(number("2961.03377700389"), MonthlyPayment().apply(loan, fee, context_))
     }
 

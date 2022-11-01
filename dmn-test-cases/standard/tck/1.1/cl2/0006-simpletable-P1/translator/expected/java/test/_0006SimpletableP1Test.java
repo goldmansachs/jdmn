@@ -13,7 +13,7 @@ public class _0006SimpletableP1Test extends com.gs.dmn.runtime.DefaultDMNBaseDec
         String riskCategory = "Medium";
         Boolean isAffordable = Boolean.TRUE;
 
-        // Check 'Approval Status'
+        // Check ''Approval Status''
         checkValues("Approved", new ApprovalStatus().apply(age, riskCategory, isAffordable, context_));
     }
 
@@ -26,7 +26,7 @@ public class _0006SimpletableP1Test extends com.gs.dmn.runtime.DefaultDMNBaseDec
         String riskCategory = "Medium";
         Boolean isAffordable = Boolean.TRUE;
 
-        // Check 'Approval Status'
+        // Check ''Approval Status''
         checkValues("Declined", new ApprovalStatus().apply(age, riskCategory, isAffordable, context_));
     }
 
@@ -39,7 +39,7 @@ public class _0006SimpletableP1Test extends com.gs.dmn.runtime.DefaultDMNBaseDec
         String riskCategory = "High";
         Boolean isAffordable = Boolean.TRUE;
 
-        // Check 'Approval Status'
+        // Check ''Approval Status''
         checkValues("Declined", new ApprovalStatus().apply(age, riskCategory, isAffordable, context_));
     }
 

@@ -11,7 +11,7 @@ public class _9001RecursiveFunctionTest extends com.gs.dmn.runtime.DefaultDMNBas
         // Initialize input data
         java.math.BigDecimal n = number("0");
 
-        // Check main
+        // Check 'main'
         checkValues(number("1"), new Main().apply(n, context_));
     }
 
@@ -22,7 +22,7 @@ public class _9001RecursiveFunctionTest extends com.gs.dmn.runtime.DefaultDMNBas
         // Initialize input data
         java.math.BigDecimal n = number("1");
 
-        // Check main
+        // Check 'main'
         checkValues(number("1"), new Main().apply(n, context_));
     }
 
@@ -33,7 +33,7 @@ public class _9001RecursiveFunctionTest extends com.gs.dmn.runtime.DefaultDMNBas
         // Initialize input data
         java.math.BigDecimal n = number("3");
 
-        // Check main
+        // Check 'main'
         checkValues(number("6"), new Main().apply(n, context_));
     }
 
@@ -44,7 +44,7 @@ public class _9001RecursiveFunctionTest extends com.gs.dmn.runtime.DefaultDMNBas
         // Initialize input data
         java.math.BigDecimal n = number("-1");
 
-        // Check main
+        // Check 'main'
         checkValues(null, new Main().apply(n, context_));
     }
 

@@ -11,15 +11,15 @@ public class _0021SingletonListTest extends com.gs.dmn.runtime.DefaultDMNBaseDec
         // Initialize input data
         List<String> employees = asList("Jack", "John", "Bob", "Zack");
 
-        // Check decision1
+        // Check 'decision1'
         checkValues(asList("John"), new Decision1().apply(employees, context_));
-        // Check decision2
+        // Check 'decision2'
         checkValues("John", new Decision2().apply(employees, context_));
-        // Check decision3
+        // Check 'decision3'
         checkValues(asList("Bob"), new Decision3().apply(employees, context_));
-        // Check decision4
+        // Check 'decision4'
         checkValues("Bob", new Decision4().apply(employees, context_));
-        // Check decision5
+        // Check 'decision5'
         checkValues("BOB", new Decision5().apply(employees, context_));
     }
 

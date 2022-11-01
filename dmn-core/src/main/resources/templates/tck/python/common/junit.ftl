@@ -93,7 +93,7 @@ class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
 <#macro checkResults testCase>
     <#list testCase.resultNode>
         <#items as result>
-        # Check ${result.name}
+        # Check '${result.name}'
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
         <#assign elementQName = tckUtil.qualifiedName(resultInfo) >
         <#assign expectedValue = tckUtil.toNativeExpression(resultInfo) >

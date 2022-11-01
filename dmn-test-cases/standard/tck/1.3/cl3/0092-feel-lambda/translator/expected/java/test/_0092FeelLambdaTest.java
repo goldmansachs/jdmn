@@ -9,7 +9,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_001_1
+        // Check 'decision_001_1'
         checkValues(number("3"), new Decision_001_1().apply(context_));
     }
 
@@ -18,7 +18,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_002_1
+        // Check 'decision_002_1'
         checkValues(number("4"), new Decision_002_1().apply(context_));
     }
 
@@ -27,7 +27,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_003_1
+        // Check 'decision_003_1'
         checkValues(number("5"), new Decision_003_1().apply(context_));
     }
 
@@ -36,7 +36,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_004_1
+        // Check 'decision_004_1'
         checkValues(number("6"), new Decision_004_1().apply(context_));
     }
 
@@ -45,7 +45,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_005_1
+        // Check 'decision_005_1'
         checkValues(number("20"), new Decision_005_1().apply(context_));
     }
 
@@ -54,7 +54,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_006_1
+        // Check 'decision_006_1'
         checkValues(number("30"), new Decision_006_1().apply(context_));
     }
 
@@ -65,7 +65,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         // Initialize input data
         java.math.BigDecimal input_007_1 = number("20");
 
-        // Check decision_007_1
+        // Check 'decision_007_1'
         checkValues(number("100"), new Decision_007_1().apply(input_007_1, context_));
     }
 
@@ -74,7 +74,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_008_1
+        // Check 'decision_008_1'
         checkValues(number("6"), new Decision_008_1().apply(context_));
     }
 
@@ -83,7 +83,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_009_1
+        // Check 'decision_009_1'
         checkValues(number("200"), new Decision_009_1().apply(context_));
     }
 
@@ -92,7 +92,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_010_1
+        // Check 'decision_010_1'
         checkValues(number("120"), new Decision_010_1().apply(context_));
     }
 
@@ -101,7 +101,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_010_1_a
+        // Check 'decision_010_1_a'
         checkValues(number("120"), new Decision_010_1_a().apply(context_));
     }
 
@@ -112,7 +112,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         // Initialize input data
         java.math.BigDecimal input_011_1 = number("10");
 
-        // Check decision_011_1
+        // Check 'decision_011_1'
         checkValues(number("5000"), new Decision_011_1().apply(input_011_1, context_));
     }
 
@@ -121,7 +121,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_012_1
+        // Check 'decision_012_1'
         checkValues(number("5000"), new Decision_012_1().apply(context_));
     }
 
@@ -130,7 +130,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_013_1
+        // Check 'decision_013_1'
         checkValues(number("5000"), new Decision_013_1().apply(context_));
     }
 
@@ -141,7 +141,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         // Initialize input data
         String input_017_1 = "a";
 
-        // Check decision_017_1
+        // Check 'decision_017_1'
         checkValues(asList("a", "a", "z", "z"), new Decision_017_1().apply(input_017_1, context_));
     }
 
@@ -150,7 +150,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_018
+        // Check 'decision_018'
         checkValues(asList("a", "a", "z", "z"), new Decision_018().apply(context_));
     }
 

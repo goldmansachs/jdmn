@@ -87,7 +87,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
 <#macro checkResults testCase>
     <#list testCase.resultNode>
         <#items as result>
-        // Check ${result.name}
+        // Check '${result.name}'
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
         <#assign elementQName = tckUtil.qualifiedName(resultInfo) >
         <#assign expectedValue = tckUtil.toNativeExpression(resultInfo) >
@@ -109,7 +109,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
 <#macro checkProtoResults testCase>
     <#list testCase.resultNode>
         <#items as result>
-        // Check ${result.name} with proto request
+        // Check '${result.name}' with proto request
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
         ${tckUtil.qualifiedRequestMessageName(resultInfo)}.Builder ${tckUtil.builderVariableName(resultInfo)} = ${tckUtil.qualifiedRequestMessageName(resultInfo)}.newBuilder();
         <#list tckUtil.drgElementTypeSignature(resultInfo) as parameter>

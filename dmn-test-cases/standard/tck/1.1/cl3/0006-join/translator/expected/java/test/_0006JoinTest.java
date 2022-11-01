@@ -13,7 +13,7 @@ public class _0006JoinTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         List<type.TDeptTable> deptTable = asList(new type.TDeptTableImpl("Smith", "Sales", number("10")), new type.TDeptTableImpl("Jones", "Finance", number("20")), new type.TDeptTableImpl("King", "Engineering", number("30")));
         String lastName = "Clark";
 
-        // Check Join
+        // Check 'Join'
         checkValues("Smith", new Join().apply(deptTable, employeeTable, lastName, context_));
     }
 

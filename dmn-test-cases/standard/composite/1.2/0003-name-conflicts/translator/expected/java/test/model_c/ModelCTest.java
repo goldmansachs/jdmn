@@ -12,7 +12,7 @@ public class ModelCTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Initialize input data
         String model_a_personName = "B.A.John";
 
-        // Check modelCDecisionBasedOnBs
+        // Check 'modelCDecisionBasedOnBs'
         checkValues("B1: Evaluating Say Hello to: Hello, B.A.John; B2: Evaluating Say Hello to: Hello, B.A.John", new model_c.ModelCDecisionBasedOnBs().apply(model_a_personName, context_));
     }
 

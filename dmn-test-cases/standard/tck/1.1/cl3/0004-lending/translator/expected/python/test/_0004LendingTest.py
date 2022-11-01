@@ -51,27 +51,27 @@ class _0004LendingTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecision.De
         bureauData: typing.Optional[type_.TBureauData.TBureauData] = type_.TBureauDataImpl.TBureauDataImpl(False, self.number("649"))
         supportingDocuments: typing.Optional[str] = "YES"
 
-        # Check Adjudication
+        # Check 'Adjudication'
         self.checkValues("ACCEPT", Adjudication.Adjudication().apply(applicantData, bureauData, supportingDocuments, context_))
-        # Check ApplicationRiskScore
+        # Check 'ApplicationRiskScore'
         self.checkValues(self.number("130"), ApplicationRiskScore.ApplicationRiskScore().apply(applicantData, context_))
-        # Check 'Pre-bureauRiskCategory'
+        # Check ''Pre-bureauRiskCategory''
         self.checkValues("LOW", PreBureauRiskCategory.PreBureauRiskCategory().apply(applicantData, context_))
-        # Check BureauCallType
+        # Check 'BureauCallType'
         self.checkValues("MINI", BureauCallType.BureauCallType().apply(applicantData, context_))
-        # Check 'Post-bureauRiskCategory'
+        # Check ''Post-bureauRiskCategory''
         self.checkValues("LOW", PostBureauRiskCategory.PostBureauRiskCategory().apply(applicantData, bureauData, context_))
-        # Check RequiredMonthlyInstallment
+        # Check 'RequiredMonthlyInstallment'
         self.checkValues(self.number("1680.880325608555"), RequiredMonthlyInstallment.RequiredMonthlyInstallment().apply(requestedProduct, context_))
-        # Check 'Pre-bureauAffordability'
+        # Check ''Pre-bureauAffordability''
         self.checkValues(True, PreBureauAffordability.PreBureauAffordability().apply(applicantData, requestedProduct, context_))
-        # Check Eligibility
+        # Check 'Eligibility'
         self.checkValues("ELIGIBLE", Eligibility.Eligibility().apply(applicantData, requestedProduct, context_))
-        # Check Strategy
+        # Check 'Strategy'
         self.checkValues("BUREAU", Strategy.Strategy().apply(applicantData, requestedProduct, context_))
-        # Check 'Post-bureauAffordability'
+        # Check ''Post-bureauAffordability''
         self.checkValues(True, PostBureauAffordability.PostBureauAffordability().apply(applicantData, bureauData, requestedProduct, context_))
-        # Check Routing
+        # Check 'Routing'
         self.checkValues("ACCEPT", Routing.Routing().apply(applicantData, bureauData, requestedProduct, context_))
 
     def checkValues(self, expected: typing.Any, actual: typing.Any):

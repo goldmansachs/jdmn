@@ -13,7 +13,7 @@ public class NestedInputDataImportsTest extends com.gs.dmn.runtime.DefaultDMNBas
         String model_b_modela_personName = "B.A.John";
         String model_b2_modela_personName = "B2.A.John2";
 
-        // Check 'Model C Decision based on Bs'
+        // Check ''Model C Decision based on Bs''
         checkValues("B: Evaluating Say Hello to: Hello, B.A.John; B2: Evaluating Say Hello to: Hello, B2.A.John2", new nested_input_data_imports.ModelCDecisionBasedOnBs().apply(model_b2_modela_personName, model_b_modela_personName, context_));
     }
 

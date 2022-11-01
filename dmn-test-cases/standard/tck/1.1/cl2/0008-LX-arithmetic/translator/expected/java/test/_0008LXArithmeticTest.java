@@ -11,7 +11,7 @@ public class _0008LXArithmeticTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         // Initialize input data
         type.TLoan loan = new type.TLoanImpl(number("600000"), number("0.0375"), number("360"));
 
-        // Check payment
+        // Check 'payment'
         checkValues(number("2778.69354943277"), new Payment().apply(loan, context_));
     }
 
@@ -22,7 +22,7 @@ public class _0008LXArithmeticTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         // Initialize input data
         type.TLoan loan = new type.TLoanImpl(number("30000"), number("0.0475"), number("60"));
 
-        // Check payment
+        // Check 'payment'
         checkValues(number("562.707359373292"), new Payment().apply(loan, context_));
     }
 
@@ -33,7 +33,7 @@ public class _0008LXArithmeticTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         // Initialize input data
         type.TLoan loan = new type.TLoanImpl(number("600000"), number("0.0399"), number("360"));
 
-        // Check payment
+        // Check 'payment'
         checkValues(number("2861.03377700389"), new Payment().apply(loan, context_));
     }
 

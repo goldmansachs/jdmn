@@ -13,7 +13,7 @@ class _0010MultiOutputUTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val riskCategory: String? = "Medium"
         val isAffordable: Boolean? = true
 
-        // Check Approval
+        // Check 'Approval'
         checkValues(type.TApprovalImpl("Standard", "Approved"), Approval().apply(age, riskCategory, isAffordable, context_))
     }
 
@@ -26,7 +26,7 @@ class _0010MultiOutputUTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val riskCategory: String? = "Medium"
         val isAffordable: Boolean? = true
 
-        // Check Approval
+        // Check 'Approval'
         checkValues(type.TApprovalImpl("Standard", "Declined"), Approval().apply(age, riskCategory, isAffordable, context_))
     }
 
@@ -39,7 +39,7 @@ class _0010MultiOutputUTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val riskCategory: String? = "High"
         val isAffordable: Boolean? = true
 
-        // Check Approval
+        // Check 'Approval'
         checkValues(type.TApprovalImpl("Standard", "Declined"), Approval().apply(age, riskCategory, isAffordable, context_))
     }
 

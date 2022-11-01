@@ -11,10 +11,10 @@ class DateTimeProtoTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         // Initialize input data
         val inputDate: javax.xml.datatype.XMLGregorianCalendar? = date("2020-09-10")
 
-        // Check Date
+        // Check 'Date'
         checkValues(date("2020-09-10"), Date().apply(inputDate, context_))
 
-        // Check Date with proto request
+        // Check 'Date' with proto request
         val dateBuilder_: proto.DateRequest.Builder = proto.DateRequest.newBuilder()
         val inputDateProto0: String = string(inputDate)
         dateBuilder_.setInputDate(inputDateProto0)
@@ -29,10 +29,10 @@ class DateTimeProtoTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         // Initialize input data
         val inputTime: javax.xml.datatype.XMLGregorianCalendar? = time("12:10:10")
 
-        // Check Time
+        // Check 'Time'
         checkValues(time("12:10:10"), Time().apply(inputTime, context_))
 
-        // Check Time with proto request
+        // Check 'Time' with proto request
         val timeBuilder_: proto.TimeRequest.Builder = proto.TimeRequest.newBuilder()
         val inputTimeProto0: String = string(inputTime)
         timeBuilder_.setInputTime(inputTimeProto0)
@@ -47,10 +47,10 @@ class DateTimeProtoTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         // Initialize input data
         val inputDateTime: javax.xml.datatype.XMLGregorianCalendar? = dateAndTime("2020-09-19T12:10:10")
 
-        // Check DateTime
+        // Check 'DateTime'
         checkValues(dateAndTime("2020-09-19T12:10:10"), DateTime().apply(inputDateTime, context_))
 
-        // Check DateTime with proto request
+        // Check 'DateTime' with proto request
         val dateTimeBuilder_: proto.DateTimeRequest.Builder = proto.DateTimeRequest.newBuilder()
         val inputDateTimeProto0: String = string(inputDateTime)
         dateTimeBuilder_.setInputDateTime(inputDateTimeProto0)
@@ -65,10 +65,10 @@ class DateTimeProtoTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         // Initialize input data
         val compositeInputDateTime: type.CompositeDateTime? = type.CompositeDateTimeImpl(date("2020-09-19"), dateAndTime("2020-09-19T12:10:10"), duration("P1D"), time("12:10:10"), duration("P1Y"))
 
-        // Check CompositeDateTime
+        // Check 'CompositeDateTime'
         checkValues(type.CompositeDateTimeImpl(date("2020-09-19"), dateAndTime("2020-09-19T12:10:10"), duration("P1D"), time("12:10:10"), duration("P1Y")), CompositeDateTime().apply(compositeInputDateTime, context_))
 
-        // Check CompositeDateTime with proto request
+        // Check 'CompositeDateTime' with proto request
         val compositeDateTimeBuilder_: proto.CompositeDateTimeRequest.Builder = proto.CompositeDateTimeRequest.newBuilder()
         val compositeInputDateTimeProto0: proto.CompositeDateTime = type.CompositeDateTime.toProto(compositeInputDateTime)
         if (compositeInputDateTimeProto0 != null) {

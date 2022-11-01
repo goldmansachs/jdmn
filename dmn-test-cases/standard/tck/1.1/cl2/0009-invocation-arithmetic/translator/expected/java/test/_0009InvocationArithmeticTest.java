@@ -12,7 +12,7 @@ public class _0009InvocationArithmeticTest extends com.gs.dmn.runtime.DefaultDMN
         type.TLoan loan = new type.TLoanImpl(number("600000"), number("0.0375"), number("360"));
         java.math.BigDecimal fee = number("100");
 
-        // Check MonthlyPayment
+        // Check 'MonthlyPayment'
         checkValues(number("2878.69354943277"), new MonthlyPayment().apply(loan, fee, context_));
     }
 
@@ -24,7 +24,7 @@ public class _0009InvocationArithmeticTest extends com.gs.dmn.runtime.DefaultDMN
         type.TLoan loan = new type.TLoanImpl(number("30000"), number("0.0475"), number("60"));
         java.math.BigDecimal fee = number("100");
 
-        // Check MonthlyPayment
+        // Check 'MonthlyPayment'
         checkValues(number("662.707359373292"), new MonthlyPayment().apply(loan, fee, context_));
     }
 
@@ -36,7 +36,7 @@ public class _0009InvocationArithmeticTest extends com.gs.dmn.runtime.DefaultDMN
         type.TLoan loan = new type.TLoanImpl(number("600000"), number("0.0399"), number("360"));
         java.math.BigDecimal fee = number("100");
 
-        // Check MonthlyPayment
+        // Check 'MonthlyPayment'
         checkValues(number("2961.03377700389"), new MonthlyPayment().apply(loan, fee, context_));
     }
 

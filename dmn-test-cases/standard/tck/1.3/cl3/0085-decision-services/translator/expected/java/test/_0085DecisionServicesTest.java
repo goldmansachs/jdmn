@@ -9,7 +9,7 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.DefaultDMNBase
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_001
+        // Check 'decision_001'
         checkValues("foo", DecisionService_001.instance().apply(context_));
     }
 
@@ -21,7 +21,7 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.DefaultDMNBase
         String decision_002_input = "baz";
         cache_.bind("decision_002_input", decision_002_input);
 
-        // Check decision_002
+        // Check 'decision_002'
         checkValues("foo baz", DecisionService_002.instance().apply(decision_002_input, context_));
     }
 
@@ -36,7 +36,7 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.DefaultDMNBase
         cache_.bind("decision_003_input_2", decision_003_input_2);
         String inputData_003 = "D";
 
-        // Check decision_003
+        // Check 'decision_003'
         checkValues("A B C D", DecisionService_003.instance().apply(inputData_003, decision_003_input_1, decision_003_input_2, context_));
     }
 
@@ -45,7 +45,7 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.DefaultDMNBase
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_004_1
+        // Check 'decision_004_1'
         checkValues("foo", new Decision_004_1().apply(context_));
     }
 
@@ -54,7 +54,7 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.DefaultDMNBase
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_006_1
+        // Check 'decision_006_1'
         checkValues("foo bar", new Decision_006_1().apply(context_));
     }
 
@@ -63,7 +63,7 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.DefaultDMNBase
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_007_1
+        // Check 'decision_007_1'
         checkValues(Boolean.TRUE, new Decision_007_1().apply(context_));
     }
 
@@ -72,7 +72,7 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.DefaultDMNBase
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_009_1
+        // Check 'decision_009_1'
         checkValues("foo bar", new Decision_009_1().apply(context_));
     }
 
@@ -81,7 +81,7 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.DefaultDMNBase
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_011_1
+        // Check 'decision_011_1'
         checkValues("A B C D", new Decision_011_1().apply(context_));
     }
 
@@ -90,7 +90,7 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.DefaultDMNBase
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
-        // Check decision_012_1
+        // Check 'decision_012_1'
         checkValues("A B C D", new Decision_012_1().apply(context_));
     }
 
@@ -101,7 +101,7 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.DefaultDMNBase
         // Initialize input data
         String inputData_013_1 = "C";
 
-        // Check decision_013_1
+        // Check 'decision_013_1'
         checkValues(new com.gs.dmn.runtime.Context().add("decisionService_013", "A B").add("decision_013_3", "D").add("inputData_013_1", "C"), new Decision_013_1().apply(inputData_013_1, context_));
     }
 
@@ -112,7 +112,7 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.DefaultDMNBase
         // Initialize input data
         String inputData_014_1 = "C";
 
-        // Check decision_014_1
+        // Check 'decision_014_1'
         checkValues(new com.gs.dmn.runtime.Context().add("decisionService_014", "A B").add("decision_014_3", "D").add("inputData_014_1", "C"), new Decision_014_1().apply(inputData_014_1, context_));
     }
 

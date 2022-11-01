@@ -13,7 +13,7 @@ class _0007SimpletableP2Test : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val riskCategory: String? = "Medium"
         val isAffordable: Boolean? = true
 
-        // Check 'Approval Status'
+        // Check ''Approval Status''
         checkValues("Approved", ApprovalStatus().apply(age, riskCategory, isAffordable, context_))
     }
 
@@ -26,7 +26,7 @@ class _0007SimpletableP2Test : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val riskCategory: String? = "Medium"
         val isAffordable: Boolean? = true
 
-        // Check 'Approval Status'
+        // Check ''Approval Status''
         checkValues("Declined", ApprovalStatus().apply(age, riskCategory, isAffordable, context_))
     }
 
@@ -39,7 +39,7 @@ class _0007SimpletableP2Test : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val riskCategory: String? = "High"
         val isAffordable: Boolean? = true
 
-        // Check 'Approval Status'
+        // Check ''Approval Status''
         checkValues("Declined", ApprovalStatus().apply(age, riskCategory, isAffordable, context_))
     }
 

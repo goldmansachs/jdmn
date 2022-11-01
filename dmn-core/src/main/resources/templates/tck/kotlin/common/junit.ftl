@@ -60,7 +60,7 @@ class ${testClassName} : ${decisionBaseClass}() {
 <#macro checkResults testCase>
     <#list testCase.resultNode>
         <#items as result>
-        // Check ${result.name}
+        // Check '${result.name}'
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
         checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.apply(${tckUtil.drgElementArgumentList(resultInfo)}))
         </#items>
@@ -70,7 +70,7 @@ class ${testClassName} : ${decisionBaseClass}() {
 <#macro checkProtoResults testCase>
     <#list testCase.resultNode>
         <#items as result>
-        // Check ${result.name} with proto request
+        // Check '${result.name}' with proto request
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
         val ${tckUtil.builderVariableName(resultInfo)}: ${tckUtil.qualifiedRequestMessageName(resultInfo)}.Builder = ${tckUtil.qualifiedRequestMessageName(resultInfo)}.newBuilder()
         <#list tckUtil.drgElementTypeSignature(resultInfo) as parameter>
