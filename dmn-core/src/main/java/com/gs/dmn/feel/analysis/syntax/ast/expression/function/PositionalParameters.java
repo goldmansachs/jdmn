@@ -14,6 +14,7 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,7 +114,11 @@ public class PositionalParameters<T, C> extends Parameters<T, C> {
         if (0 > position || position > this.parameters.size()) {
             return null;
         } else {
-            return this.parameters.get(position).getType();
+            Expression<T, C> expression = this.parameters.get(position);
+            if (expression == null) {
+                throw new DMNRuntimeException(String.format("Cannot find parameter '%s'", name));
+            }
+            return expression.getType();
         }
     }
 

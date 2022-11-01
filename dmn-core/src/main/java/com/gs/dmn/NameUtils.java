@@ -49,4 +49,8 @@ public class NameUtils {
         }
         return name;
     }
+
+    public static String bkmName(String text) {
+        return text;
+    }
 }

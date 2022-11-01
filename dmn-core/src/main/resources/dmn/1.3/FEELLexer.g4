@@ -284,12 +284,16 @@ NAME:
     { setText("week of year"); }
     |
     'round' WhiteSpace+ 'up'
+    { setText("round up"); }
     |
     'round' WhiteSpace+ 'down'
+    { setText("round down"); }
     |
     'round' WhiteSpace+ 'half' WhiteSpace+ 'up'
+    { setText("round half up"); }
     |
     'round' WhiteSpace+ 'half' WhiteSpace+ 'down'
+    { setText("round half down"); }
     |
     // Properties
     'time' WhiteSpace+ 'offset'

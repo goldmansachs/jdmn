@@ -12,10 +12,7 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
-import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.ImportPath;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.*;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
@@ -579,7 +576,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         TExpression body = invocation.getExpression();
         if (body instanceof TLiteralExpression) {
             // Find BKM
-            String bkmName = ((TLiteralExpression) body).getText();
+            String bkmName = NameUtils.bkmName(((TLiteralExpression) body).getText());
             TBusinessKnowledgeModel bkm = this.repository.findKnowledgeModelByName(bkmName);
             if (bkm == null) {
                 throw new DMNRuntimeException(String.format("Cannot find BKM for '%s'", bkmName));

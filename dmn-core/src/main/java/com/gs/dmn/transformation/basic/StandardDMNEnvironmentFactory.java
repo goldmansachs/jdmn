@@ -12,10 +12,7 @@
  */
 package com.gs.dmn.transformation.basic;
 
-import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.ImportPath;
-import com.gs.dmn.QualifiedName;
+import com.gs.dmn.*;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
@@ -233,7 +230,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             // Infer type from expression
             TExpression body = ((TInvocation) expression).getExpression();
             if (body instanceof TLiteralExpression) {
-                String bkmName = ((TLiteralExpression) body).getText();
+                String bkmName = NameUtils.bkmName(((TLiteralExpression) body).getText());
                 TBusinessKnowledgeModel bkm = this.dmnModelRepository.findKnowledgeModelByName(bkmName);
                 if (bkm == null) {
                     throw new DMNRuntimeException(String.format("Cannot find BKM for '%s'", bkmName));

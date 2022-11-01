@@ -382,6 +382,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         lexicalContext.addName("grouping separator");
         lexicalContext.addName("decimal separator");
         lexicalContext.addName("start position");
+        lexicalContext.addName("new item");
 
         if (!StringUtils.isEmpty(text)) {
             int index = 0;
