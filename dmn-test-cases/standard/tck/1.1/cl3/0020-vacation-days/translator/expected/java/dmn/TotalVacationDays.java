@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "'Total Vacation Days'"})
+@javax.annotation.Generated(value = {"decision.ftl", "Total Vacation Days"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "'Total Vacation Days'",
+    name = "Total Vacation Days",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.LITERAL_EXPRESSION,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class TotalVacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "'Total Vacation Days'",
+        "Total Vacation Days",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.LITERAL_EXPRESSION,
@@ -42,7 +42,7 @@ public class TotalVacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecision
     @java.lang.Override()
     public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("Age") != null ? number(input_.get("Age")) : null), (input_.get("'Years of Service'") != null ? number(input_.get("'Years of Service'")) : null), context_);
+            return apply((input_.get("Age") != null ? number(input_.get("Age")) : null), (input_.get("Years of Service") != null ? number(input_.get("Years of Service")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'TotalVacationDays'", e);
             return null;
@@ -51,7 +51,7 @@ public class TotalVacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecision
 
     public java.math.BigDecimal apply(java.math.BigDecimal age, java.math.BigDecimal yearsOfService, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            // Start decision ''Total Vacation Days''
+            // Start decision 'Total Vacation Days'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
             com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
             com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -59,18 +59,18 @@ public class TotalVacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecision
             long totalVacationDaysStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments totalVacationDaysArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             totalVacationDaysArguments_.put("Age", age);
-            totalVacationDaysArguments_.put("'Years of Service'", yearsOfService);
+            totalVacationDaysArguments_.put("Years of Service", yearsOfService);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, totalVacationDaysArguments_);
 
-            // Evaluate decision ''Total Vacation Days''
+            // Evaluate decision 'Total Vacation Days'
             java.math.BigDecimal output_ = lambda.apply(age, yearsOfService, context_);
 
-            // End decision ''Total Vacation Days''
+            // End decision 'Total Vacation Days'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, totalVacationDaysArguments_, output_, (System.currentTimeMillis() - totalVacationDaysStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in ''Total Vacation Days'' evaluation", e);
+            logError("Exception caught in 'Total Vacation Days' evaluation", e);
             return null;
         }
     }

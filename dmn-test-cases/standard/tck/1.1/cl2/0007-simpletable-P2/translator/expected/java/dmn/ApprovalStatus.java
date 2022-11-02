@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "'Approval Status'"})
+@javax.annotation.Generated(value = {"decision.ftl", "Approval Status"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "'Approval Status'",
+    name = "Approval Status",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "'Approval Status'",
+        "Approval Status",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,
@@ -38,7 +38,7 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public String apply(java.math.BigDecimal age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            // Start decision ''Approval Status''
+            // Start decision 'Approval Status'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
             com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
             com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -50,15 +50,15 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             approvalStatusArguments_.put("isAffordable", isAffordable);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, approvalStatusArguments_);
 
-            // Evaluate decision ''Approval Status''
+            // Evaluate decision 'Approval Status'
             String output_ = lambda.apply(age, riskCategory, isAffordable, context_);
 
-            // End decision ''Approval Status''
+            // End decision 'Approval Status'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, approvalStatusArguments_, output_, (System.currentTimeMillis() - approvalStatusStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in ''Approval Status'' evaluation", e);
+            logError("Exception caught in 'Approval Status' evaluation", e);
             return null;
         }
     }
@@ -122,7 +122,7 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setApprovalStatusPriority(2);
 
             // Add annotation
-            annotationSet_.addAnnotation("'Approval Status'", 0, "");
+            annotationSet_.addAnnotation("Approval Status", 0, "");
         }
 
         // Rule end
@@ -159,7 +159,7 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setApprovalStatusPriority(1);
 
             // Add annotation
-            annotationSet_.addAnnotation("'Approval Status'", 1, "");
+            annotationSet_.addAnnotation("Approval Status", 1, "");
         }
 
         // Rule end

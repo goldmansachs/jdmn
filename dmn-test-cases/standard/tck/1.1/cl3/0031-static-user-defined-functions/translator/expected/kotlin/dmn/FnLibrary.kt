@@ -2,10 +2,10 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["decision.ftl", "'fn library'"])
+@javax.annotation.Generated(value = ["decision.ftl", "fn library"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "'fn library'",
+    name = "fn library",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -24,7 +24,7 @@ class FnLibrary() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(context_: com.gs.dmn.runtime.ExecutionContext): type.TFnLibrary? {
         try {
-            // Start decision ''fn library''
+            // Start decision 'fn library'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
             var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
             var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -33,15 +33,15 @@ class FnLibrary() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             val fnLibraryArguments_ = com.gs.dmn.runtime.listener.Arguments()
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnLibraryArguments_)
 
-            // Evaluate decision ''fn library''
+            // Evaluate decision 'fn library'
             val output_: type.TFnLibrary? = evaluate(context_)
 
-            // End decision ''fn library''
+            // End decision 'fn library'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnLibraryArguments_, output_, (System.currentTimeMillis() - fnLibraryStartTime_))
 
             return output_
         } catch (e: Exception) {
-            logError("Exception caught in ''fn library'' evaluation", e)
+            logError("Exception caught in 'fn library' evaluation", e)
             return null
         }
     }
@@ -66,7 +66,7 @@ class FnLibrary() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
             "",
-            "'fn library'",
+            "fn library",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
             com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,

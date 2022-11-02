@@ -32,11 +32,11 @@ import jdmn.runtime.listener.Rule
 import PostBureauRiskCategoryTableRuleOutput
 
 
-# Generated(value = ["bkm.ftl", "'Post-bureauRiskCategoryTable'"])
+# Generated(value = ["bkm.ftl", "Post-bureauRiskCategoryTable"])
 class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
         "",
-        "'Post-bureauRiskCategoryTable'",
+        "Post-bureauRiskCategoryTable",
         "",
         jdmn.runtime.annotation.DRGElementKind.DRGElementKind.BUSINESS_KNOWLEDGE_MODEL,
         jdmn.runtime.annotation.ExpressionKind.ExpressionKind.DECISION_TABLE,
@@ -57,7 +57,7 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
 
     def apply(self, existingCustomer: typing.Optional[bool], applicationRiskScore: typing.Optional[decimal.Decimal], creditScore: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         try:
-            # Start BKM ''Post-bureauRiskCategoryTable''
+            # Start BKM 'Post-bureauRiskCategoryTable'
             annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
             eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
             externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
@@ -69,15 +69,15 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
             postBureauRiskCategoryTableArguments_.put("CreditScore", creditScore)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, postBureauRiskCategoryTableArguments_)
 
-            # Evaluate BKM ''Post-bureauRiskCategoryTable''
+            # Evaluate BKM 'Post-bureauRiskCategoryTable'
             output_: typing.Optional[str] = self.evaluate(existingCustomer, applicationRiskScore, creditScore, context_)
 
-            # End BKM ''Post-bureauRiskCategoryTable''
+            # End BKM 'Post-bureauRiskCategoryTable'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, postBureauRiskCategoryTableArguments_, output_, (int(time.time_ns()/1000) - postBureauRiskCategoryTableStartTime_))
 
             return output_
         except Exception as e:
-            self.logError("Exception caught in ''Post-bureauRiskCategoryTable'' evaluation", e)
+            self.logError("Exception caught in 'Post-bureauRiskCategoryTable' evaluation", e)
             return None
 
     def evaluate(self, existingCustomer: typing.Optional[bool], applicationRiskScore: typing.Optional[decimal.Decimal], creditScore: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
@@ -138,7 +138,7 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
             output_.postBureauRiskCategoryTable = "HIGH"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 0, "")
+            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 0, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -171,7 +171,7 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
             output_.postBureauRiskCategoryTable = "MEDIUM"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 1, "")
+            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 1, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -204,7 +204,7 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
             output_.postBureauRiskCategoryTable = "LOW"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 2, "")
+            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 2, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -237,7 +237,7 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
             output_.postBureauRiskCategoryTable = "HIGH"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 3, "")
+            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 3, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -270,7 +270,7 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
             output_.postBureauRiskCategoryTable = "MEDIUM"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 4, "")
+            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 4, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -303,7 +303,7 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
             output_.postBureauRiskCategoryTable = "LOW"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 5, "")
+            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 5, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -336,7 +336,7 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
             output_.postBureauRiskCategoryTable = "VERY LOW"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 6, "")
+            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 6, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -369,7 +369,7 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
             output_.postBureauRiskCategoryTable = "HIGH"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 7, "")
+            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 7, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -402,7 +402,7 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
             output_.postBureauRiskCategoryTable = "MEDIUM"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 8, "")
+            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 8, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -435,7 +435,7 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
             output_.postBureauRiskCategoryTable = "LOW"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 9, "")
+            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 9, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -468,7 +468,7 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
             output_.postBureauRiskCategoryTable = "HIGH"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 10, "")
+            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 10, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -501,7 +501,7 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
             output_.postBureauRiskCategoryTable = "MEDIUM"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 11, "")
+            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 11, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -534,7 +534,7 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
             output_.postBureauRiskCategoryTable = "LOW"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Post-bureauRiskCategoryTable'", 12, "")
+            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 12, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)

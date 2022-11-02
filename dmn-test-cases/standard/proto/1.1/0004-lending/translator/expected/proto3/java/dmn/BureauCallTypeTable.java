@@ -36,7 +36,7 @@ public class BureauCallTypeTable extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("'Pre-bureauRiskCategory'"), context_);
+            return apply(input_.get("Pre-bureauRiskCategory"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'BureauCallTypeTable'", e);
             return null;
@@ -52,7 +52,7 @@ public class BureauCallTypeTable extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long bureauCallTypeTableStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments bureauCallTypeTableArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            bureauCallTypeTableArguments_.put("'Pre-bureauRiskCategory'", preBureauRiskCategory);
+            bureauCallTypeTableArguments_.put("Pre-bureauRiskCategory", preBureauRiskCategory);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeTableArguments_);
 
             // Evaluate BKM 'BureauCallTypeTable'

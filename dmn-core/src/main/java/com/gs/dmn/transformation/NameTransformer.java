@@ -36,6 +36,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
     protected final BuildLogger logger;
     private boolean transformDefinition = true;
+    private boolean renameElements = false;
     private final Set<TDMNElement> renamedElements = new LinkedHashSet<>();
 
     protected NameTransformer() {
@@ -72,10 +73,12 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         }
 
         // Transform test cases
-        for (TestCases testCases: testCasesList) {
-            if (testCases != null) {
-                for (TestCase testCase: testCases.getTestCase()) {
-                    transform(testCase);
+        if (renameElements) {
+            for (TestCases testCases: testCasesList) {
+                if (testCases != null) {
+                    for (TestCase testCase: testCases.getTestCase()) {
+                        transform(testCase);
+                    }
                 }
             }
         }
@@ -117,7 +120,9 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
     protected void transformDefinitions(DMNModelRepository repository) {
         replace(repository);
-        rename(repository);
+        if (renameElements) {
+            rename(repository);
+        }
     }
 
     // Replace old names with new names in expressions

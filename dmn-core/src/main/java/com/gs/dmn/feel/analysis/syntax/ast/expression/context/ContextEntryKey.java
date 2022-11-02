@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.context;
 
+import com.gs.dmn.NameUtils;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
@@ -20,9 +21,9 @@ public class ContextEntryKey<T, C> extends Element<T, C> {
 
     public ContextEntryKey(String key) {
         // Remove quotes from key if key is string
-        if (key.startsWith("\"") && key.endsWith("\"")) {
-            key = key.substring(1, key.length() - 1);
-        }
+        key = NameUtils.removeDoubleQuotes(key);
+        // Remove quotes from key if key is a name
+        key = NameUtils.removeSingleQuotes(key);
         this.key = key;
     }
 

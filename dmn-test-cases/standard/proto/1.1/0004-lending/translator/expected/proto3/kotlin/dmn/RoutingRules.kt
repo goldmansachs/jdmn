@@ -17,7 +17,7 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
-            return apply(input_.get("'Post-bureauRiskCategory'"), input_.get("'Post-bureauAffordability'")?.let({ it.toBoolean() }), input_.get("Bankrupt")?.let({ it.toBoolean() }), input_.get("CreditScore")?.let({ number(it) }), context_)
+            return apply(input_.get("Post-bureauRiskCategory"), input_.get("Post-bureauAffordability")?.let({ it.toBoolean() }), input_.get("Bankrupt")?.let({ it.toBoolean() }), input_.get("CreditScore")?.let({ number(it) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'RoutingRules'", e)
             return null
@@ -33,8 +33,8 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val routingRulesStartTime_ = System.currentTimeMillis()
             val routingRulesArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            routingRulesArguments_.put("'Post-bureauRiskCategory'", postBureauRiskCategory)
-            routingRulesArguments_.put("'Post-bureauAffordability'", postBureauAffordability)
+            routingRulesArguments_.put("Post-bureauRiskCategory", postBureauRiskCategory)
+            routingRulesArguments_.put("Post-bureauAffordability", postBureauAffordability)
             routingRulesArguments_.put("Bankrupt", bankrupt)
             routingRulesArguments_.put("CreditScore", creditScore)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, routingRulesArguments_)

@@ -2,10 +2,10 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["decision.ftl", "'Extra days case 1'"])
+@javax.annotation.Generated(value = ["decision.ftl", "Extra days case 1"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "'Extra days case 1'",
+    name = "Extra days case 1",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class ExtraDaysCase1() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
         try {
-            return apply(input_.get("Age")?.let({ number(it) }), input_.get("'Years of Service'")?.let({ number(it) }), context_)
+            return apply(input_.get("Age")?.let({ number(it) }), input_.get("Years of Service")?.let({ number(it) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'ExtraDaysCase1'", e)
             return null
@@ -24,7 +24,7 @@ class ExtraDaysCase1() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(age: java.math.BigDecimal?, yearsOfService: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
         try {
-            // Start decision ''Extra days case 1''
+            // Start decision 'Extra days case 1'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
             var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
             var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -32,18 +32,18 @@ class ExtraDaysCase1() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             val extraDaysCase1StartTime_ = System.currentTimeMillis()
             val extraDaysCase1Arguments_ = com.gs.dmn.runtime.listener.Arguments()
             extraDaysCase1Arguments_.put("Age", age)
-            extraDaysCase1Arguments_.put("'Years of Service'", yearsOfService)
+            extraDaysCase1Arguments_.put("Years of Service", yearsOfService)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, extraDaysCase1Arguments_)
 
-            // Evaluate decision ''Extra days case 1''
+            // Evaluate decision 'Extra days case 1'
             val output_: java.math.BigDecimal? = evaluate(age, yearsOfService, context_)
 
-            // End decision ''Extra days case 1''
+            // End decision 'Extra days case 1'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, extraDaysCase1Arguments_, output_, (System.currentTimeMillis() - extraDaysCase1StartTime_))
 
             return output_
         } catch (e: Exception) {
-            logError("Exception caught in ''Extra days case 1'' evaluation", e)
+            logError("Exception caught in 'Extra days case 1' evaluation", e)
             return null
         }
     }
@@ -97,7 +97,7 @@ class ExtraDaysCase1() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             output_.extraDaysCase1 = number("5")
 
             // Add annotation
-            annotationSet_.addAnnotation("'Extra days case 1'", 0, "")
+            annotationSet_.addAnnotation("Extra days case 1", 0, "")
         }
 
         // Rule end
@@ -132,7 +132,7 @@ class ExtraDaysCase1() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             output_.extraDaysCase1 = number("5")
 
             // Add annotation
-            annotationSet_.addAnnotation("'Extra days case 1'", 1, "")
+            annotationSet_.addAnnotation("Extra days case 1", 1, "")
         }
 
         // Rule end
@@ -145,7 +145,7 @@ class ExtraDaysCase1() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
             "",
-            "'Extra days case 1'",
+            "Extra days case 1",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
             com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,

@@ -302,6 +302,7 @@ NAME:
     NameStartChar ( NamePartChar )*
     |
     ('\'' ( ~(['] | [\u000A-\u000D]) | '\'\'')*  '\'' )
+    { setText(com.gs.dmn.NameUtils.removeSingleQuotes(getText())); }
     ;
 
 fragment StringEscSeq:

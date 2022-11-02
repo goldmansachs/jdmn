@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"bkm.ftl", "'Pre-bureauRiskCategoryTable'"})
+@javax.annotation.Generated(value = {"bkm.ftl", "Pre-bureauRiskCategoryTable"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "'Pre-bureauRiskCategoryTable'",
+    name = "Pre-bureauRiskCategoryTable",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.BUSINESS_KNOWLEDGE_MODEL,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "'Pre-bureauRiskCategoryTable'",
+        "Pre-bureauRiskCategoryTable",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.BUSINESS_KNOWLEDGE_MODEL,
         com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,
@@ -45,7 +45,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
 
     public String apply(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            // Start BKM ''Pre-bureauRiskCategoryTable''
+            // Start BKM 'Pre-bureauRiskCategoryTable'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
             com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
             com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -56,15 +56,15 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             preBureauRiskCategoryTableArguments_.put("ApplicationRiskScore", applicationRiskScore);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryTableArguments_);
 
-            // Evaluate BKM ''Pre-bureauRiskCategoryTable''
+            // Evaluate BKM 'Pre-bureauRiskCategoryTable'
             String output_ = lambda.apply(existingCustomer, applicationRiskScore, context_);
 
-            // End BKM ''Pre-bureauRiskCategoryTable''
+            // End BKM 'Pre-bureauRiskCategoryTable'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryTableArguments_, output_, (System.currentTimeMillis() - preBureauRiskCategoryTableStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in ''Pre-bureauRiskCategoryTable'' evaluation", e);
+            logError("Exception caught in 'Pre-bureauRiskCategoryTable' evaluation", e);
             return null;
         }
     }
@@ -131,7 +131,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             output_.setPreBureauRiskCategoryTable("HIGH");
 
             // Add annotation
-            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 0, "");
+            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 0, "");
         }
 
         // Rule end
@@ -166,7 +166,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             output_.setPreBureauRiskCategoryTable("MEDIUM");
 
             // Add annotation
-            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 1, "");
+            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 1, "");
         }
 
         // Rule end
@@ -201,7 +201,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             output_.setPreBureauRiskCategoryTable("LOW");
 
             // Add annotation
-            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 2, "");
+            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 2, "");
         }
 
         // Rule end
@@ -236,7 +236,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             output_.setPreBureauRiskCategoryTable("VERY LOW");
 
             // Add annotation
-            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 3, "");
+            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 3, "");
         }
 
         // Rule end
@@ -271,7 +271,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             output_.setPreBureauRiskCategoryTable("DECLINE");
 
             // Add annotation
-            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 4, "");
+            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 4, "");
         }
 
         // Rule end
@@ -306,7 +306,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             output_.setPreBureauRiskCategoryTable("HIGH");
 
             // Add annotation
-            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 5, "");
+            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 5, "");
         }
 
         // Rule end
@@ -341,7 +341,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             output_.setPreBureauRiskCategoryTable("MEDIUM");
 
             // Add annotation
-            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 6, "");
+            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 6, "");
         }
 
         // Rule end
@@ -376,7 +376,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             output_.setPreBureauRiskCategoryTable("LOW");
 
             // Add annotation
-            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 7, "");
+            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 7, "");
         }
 
         // Rule end

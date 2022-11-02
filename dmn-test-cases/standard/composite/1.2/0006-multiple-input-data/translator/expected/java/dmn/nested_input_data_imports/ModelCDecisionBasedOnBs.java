@@ -3,10 +3,10 @@ package nested_input_data_imports;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "'Model C Decision based on Bs'"})
+@javax.annotation.Generated(value = {"decision.ftl", "Model C Decision based on Bs"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "nested_input_data_imports",
-    name = "'Model C Decision based on Bs'",
+    name = "Model C Decision based on Bs",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.LITERAL_EXPRESSION,
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "nested_input_data_imports",
-        "'Model C Decision based on Bs'",
+        "Model C Decision based on Bs",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.LITERAL_EXPRESSION,
@@ -39,7 +39,7 @@ public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.DefaultDMNBaseDe
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("'Model B2'.modelA.'Person name'"), input_.get("'Model B'.modelA.'Person name'"), context_);
+            return apply(input_.get("Model B2.modelA.Person name"), input_.get("Model B.modelA.Person name"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'ModelCDecisionBasedOnBs'", e);
             return null;
@@ -48,26 +48,26 @@ public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.DefaultDMNBaseDe
 
     public String apply(String model_b2_modela_personName, String model_b_modela_personName, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            // Start decision ''Model C Decision based on Bs''
+            // Start decision 'Model C Decision based on Bs'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
             com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
             com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long modelCDecisionBasedOnBsStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments modelCDecisionBasedOnBsArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            modelCDecisionBasedOnBsArguments_.put("'Model B2'.modelA.'Person name'", model_b2_modela_personName);
-            modelCDecisionBasedOnBsArguments_.put("'Model B'.modelA.'Person name'", model_b_modela_personName);
+            modelCDecisionBasedOnBsArguments_.put("Model B2.modelA.Person name", model_b2_modela_personName);
+            modelCDecisionBasedOnBsArguments_.put("Model B.modelA.Person name", model_b_modela_personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, modelCDecisionBasedOnBsArguments_);
 
-            // Evaluate decision ''Model C Decision based on Bs''
+            // Evaluate decision 'Model C Decision based on Bs'
             String output_ = lambda.apply(model_b2_modela_personName, model_b_modela_personName, context_);
 
-            // End decision ''Model C Decision based on Bs''
+            // End decision 'Model C Decision based on Bs'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, modelCDecisionBasedOnBsArguments_, output_, (System.currentTimeMillis() - modelCDecisionBasedOnBsStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in ''Model C Decision based on Bs'' evaluation", e);
+            logError("Exception caught in 'Model C Decision based on Bs' evaluation", e);
             return null;
         }
     }

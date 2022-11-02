@@ -17,7 +17,7 @@ class BureauCallTypeTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
-            return apply(input_.get("'Pre-bureauRiskCategory'"), context_)
+            return apply(input_.get("Pre-bureauRiskCategory"), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'BureauCallTypeTable'", e)
             return null
@@ -33,7 +33,7 @@ class BureauCallTypeTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val bureauCallTypeTableStartTime_ = System.currentTimeMillis()
             val bureauCallTypeTableArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            bureauCallTypeTableArguments_.put("'Pre-bureauRiskCategory'", preBureauRiskCategory)
+            bureauCallTypeTableArguments_.put("Pre-bureauRiskCategory", preBureauRiskCategory)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeTableArguments_)
 
             // Evaluate BKM 'BureauCallTypeTable'

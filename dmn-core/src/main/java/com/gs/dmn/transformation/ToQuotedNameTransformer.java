@@ -27,15 +27,18 @@ public class ToQuotedNameTransformer extends NameTransformer {
 
     @Override
     public String transformName(String oldName) {
-        if (StringUtils.isEmpty(oldName)) {
-            return oldName;
-        } else if (NameUtils.isSimpleName(oldName)) {
-            return oldName;
-        } else if (NameUtils.isQuotedName(oldName)) {
+        if (StringUtils.isBlank(oldName)) {
             return oldName;
         } else {
-            String newName = oldName.replace("'", "''");
-            return "'" + newName + "'";
+            oldName = oldName.trim();
+            if (NameUtils.isSimpleName(oldName)) {
+                return oldName;
+            } else if (NameUtils.isQuotedName(oldName)) {
+                return oldName;
+            } else {
+                String newName = oldName.replace("'", "''");
+                return "'" + newName + "'";
+            }
         }
     }
 }

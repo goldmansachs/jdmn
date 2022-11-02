@@ -41,11 +41,11 @@ import ApplicationRiskScore
 import PostBureauRiskCategoryTable
 
 
-# Generated(value = ["decision.ftl", "'Post-bureauRiskCategory'"])
+# Generated(value = ["decision.ftl", "Post-bureauRiskCategory"])
 class PostBureauRiskCategory(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
         "",
-        "'Post-bureauRiskCategory'",
+        "Post-bureauRiskCategory",
         "",
         jdmn.runtime.annotation.DRGElementKind.DRGElementKind.DECISION,
         jdmn.runtime.annotation.ExpressionKind.ExpressionKind.INVOCATION,
@@ -59,7 +59,7 @@ class PostBureauRiskCategory(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseD
 
     def apply(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], bureauData: typing.Optional[type_.TBureauData.TBureauData], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         try:
-            # Start decision ''Post-bureauRiskCategory''
+            # Start decision 'Post-bureauRiskCategory'
             annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
             eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
             externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
@@ -70,15 +70,15 @@ class PostBureauRiskCategory(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseD
             postBureauRiskCategoryArguments_.put("BureauData", bureauData)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, postBureauRiskCategoryArguments_)
 
-            # Evaluate decision ''Post-bureauRiskCategory''
+            # Evaluate decision 'Post-bureauRiskCategory'
             output_: typing.Optional[str] = self.evaluate(applicantData, bureauData, context_)
 
-            # End decision ''Post-bureauRiskCategory''
+            # End decision 'Post-bureauRiskCategory'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, postBureauRiskCategoryArguments_, output_, (int(time.time_ns()/1000) - postBureauRiskCategoryStartTime_))
 
             return output_
         except Exception as e:
-            self.logError("Exception caught in ''Post-bureauRiskCategory'' evaluation", e)
+            self.logError("Exception caught in 'Post-bureauRiskCategory' evaluation", e)
             return None
 
     def evaluate(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], bureauData: typing.Optional[type_.TBureauData.TBureauData], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:

@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "'Extra days case 2'"})
+@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "Extra days case 2"})
 public class ExtraDaysCase2RuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private java.math.BigDecimal extraDaysCase2;
 
@@ -9,12 +9,12 @@ public class ExtraDaysCase2RuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
-    @com.fasterxml.jackson.annotation.JsonGetter("'Extra days case 2'")
+    @com.fasterxml.jackson.annotation.JsonGetter("Extra days case 2")
     public java.math.BigDecimal getExtraDaysCase2() {
         return this.extraDaysCase2;
     }
 
-    @com.fasterxml.jackson.annotation.JsonSetter("'Extra days case 2'")
+    @com.fasterxml.jackson.annotation.JsonSetter("Extra days case 2")
     public void setExtraDaysCase2(java.math.BigDecimal extraDaysCase2) {
         this.extraDaysCase2 = extraDaysCase2;
     }

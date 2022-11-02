@@ -32,11 +32,11 @@ import jdmn.runtime.listener.Rule
 import org.gs.ExtraDaysCase3RuleOutput
 
 
-# Generated(value = ["decision.ftl", "'Extra days case 3'"])
+# Generated(value = ["decision.ftl", "Extra days case 3"])
 class ExtraDaysCase3(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
         "org.gs",
-        "'Extra days case 3'",
+        "Extra days case 3",
         "",
         jdmn.runtime.annotation.DRGElementKind.DRGElementKind.DECISION,
         jdmn.runtime.annotation.ExpressionKind.ExpressionKind.DECISION_TABLE,
@@ -49,7 +49,7 @@ class ExtraDaysCase3(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
 
     def apply(self, age: typing.Optional[decimal.Decimal], yearsOfService: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[decimal.Decimal]:
         try:
-            # Start decision ''Extra days case 3''
+            # Start decision 'Extra days case 3'
             annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
             eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
             externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
@@ -57,18 +57,18 @@ class ExtraDaysCase3(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
             extraDaysCase3StartTime_ = int(time.time_ns()/1000)
             extraDaysCase3Arguments_ = jdmn.runtime.listener.Arguments.Arguments()
             extraDaysCase3Arguments_.put("Age", age)
-            extraDaysCase3Arguments_.put("'Years of Service'", yearsOfService)
+            extraDaysCase3Arguments_.put("Years of Service", yearsOfService)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, extraDaysCase3Arguments_)
 
-            # Evaluate decision ''Extra days case 3''
+            # Evaluate decision 'Extra days case 3'
             output_: typing.Optional[decimal.Decimal] = self.evaluate(age, yearsOfService, context_)
 
-            # End decision ''Extra days case 3''
+            # End decision 'Extra days case 3'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, extraDaysCase3Arguments_, output_, (int(time.time_ns()/1000) - extraDaysCase3StartTime_))
 
             return output_
         except Exception as e:
-            self.logError("Exception caught in ''Extra days case 3'' evaluation", e)
+            self.logError("Exception caught in 'Extra days case 3' evaluation", e)
             return None
 
     def evaluate(self, age: typing.Optional[decimal.Decimal], yearsOfService: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[decimal.Decimal]:
@@ -117,7 +117,7 @@ class ExtraDaysCase3(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
             output_.extraDaysCase3 = self.number("2")
 
             # Add annotation
-            annotationSet_.addAnnotation("'Extra days case 3'", 0, "")
+            annotationSet_.addAnnotation("Extra days case 3", 0, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -149,7 +149,7 @@ class ExtraDaysCase3(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
             output_.extraDaysCase3 = self.number("2")
 
             # Add annotation
-            annotationSet_.addAnnotation("'Extra days case 3'", 1, "")
+            annotationSet_.addAnnotation("Extra days case 3", 1, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)

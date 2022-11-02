@@ -64,8 +64,8 @@ class EligibilityRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecisio
             cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             eligibilityRulesStartTime_ = int(time.time_ns()/1000)
             eligibilityRulesArguments_ = jdmn.runtime.listener.Arguments.Arguments()
-            eligibilityRulesArguments_.put("'Pre-bureauRiskCategory'", preBureauRiskCategory)
-            eligibilityRulesArguments_.put("'Pre-bureauAffordability'", preBureauAffordability)
+            eligibilityRulesArguments_.put("Pre-bureauRiskCategory", preBureauRiskCategory)
+            eligibilityRulesArguments_.put("Pre-bureauAffordability", preBureauAffordability)
             eligibilityRulesArguments_.put("Age", age)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, eligibilityRulesArguments_)
 

@@ -29,7 +29,7 @@ class _0020VacationDaysTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecisi
         age: typing.Optional[decimal.Decimal] = self.number("16")
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("1")
 
-        # Check ''Total Vacation Days''
+        # Check 'Total Vacation Days'
         self.checkValues(self.number("27"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, context_))
 
     def testCase002(self):
@@ -39,7 +39,7 @@ class _0020VacationDaysTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecisi
         age: typing.Optional[decimal.Decimal] = self.number("25")
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("5")
 
-        # Check ''Total Vacation Days''
+        # Check 'Total Vacation Days'
         self.checkValues(self.number("22"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, context_))
 
     def testCase003(self):
@@ -49,7 +49,7 @@ class _0020VacationDaysTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecisi
         age: typing.Optional[decimal.Decimal] = self.number("25")
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("20")
 
-        # Check ''Total Vacation Days''
+        # Check 'Total Vacation Days'
         self.checkValues(self.number("24"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, context_))
 
     def testCase004(self):
@@ -59,7 +59,7 @@ class _0020VacationDaysTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecisi
         age: typing.Optional[decimal.Decimal] = self.number("44")
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("30")
 
-        # Check ''Total Vacation Days''
+        # Check 'Total Vacation Days'
         self.checkValues(self.number("30"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, context_))
 
     def testCase005(self):
@@ -69,7 +69,7 @@ class _0020VacationDaysTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecisi
         age: typing.Optional[decimal.Decimal] = self.number("50")
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("20")
 
-        # Check ''Total Vacation Days''
+        # Check 'Total Vacation Days'
         self.checkValues(self.number("24"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, context_))
 
     def testCase006(self):
@@ -79,7 +79,7 @@ class _0020VacationDaysTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecisi
         age: typing.Optional[decimal.Decimal] = self.number("50")
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("30")
 
-        # Check ''Total Vacation Days''
+        # Check 'Total Vacation Days'
         self.checkValues(self.number("30"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, context_))
 
     def testCase007(self):
@@ -89,7 +89,7 @@ class _0020VacationDaysTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecisi
         age: typing.Optional[decimal.Decimal] = self.number("60")
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("20")
 
-        # Check ''Total Vacation Days''
+        # Check 'Total Vacation Days'
         self.checkValues(self.number("30"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, context_))
 
     def checkValues(self, expected: typing.Any, actual: typing.Any):

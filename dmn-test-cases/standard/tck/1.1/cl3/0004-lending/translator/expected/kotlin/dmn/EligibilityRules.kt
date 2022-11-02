@@ -17,7 +17,7 @@ class EligibilityRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
-            return apply(input_.get("'Pre-bureauRiskCategory'"), input_.get("'Pre-bureauAffordability'")?.let({ it.toBoolean() }), input_.get("Age")?.let({ number(it) }), context_)
+            return apply(input_.get("Pre-bureauRiskCategory"), input_.get("Pre-bureauAffordability")?.let({ it.toBoolean() }), input_.get("Age")?.let({ number(it) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'EligibilityRules'", e)
             return null
@@ -33,8 +33,8 @@ class EligibilityRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val eligibilityRulesStartTime_ = System.currentTimeMillis()
             val eligibilityRulesArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            eligibilityRulesArguments_.put("'Pre-bureauRiskCategory'", preBureauRiskCategory)
-            eligibilityRulesArguments_.put("'Pre-bureauAffordability'", preBureauAffordability)
+            eligibilityRulesArguments_.put("Pre-bureauRiskCategory", preBureauRiskCategory)
+            eligibilityRulesArguments_.put("Pre-bureauAffordability", preBureauAffordability)
             eligibilityRulesArguments_.put("Age", age)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, eligibilityRulesArguments_)
 

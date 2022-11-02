@@ -64,8 +64,8 @@ class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             routingRulesStartTime_ = int(time.time_ns()/1000)
             routingRulesArguments_ = jdmn.runtime.listener.Arguments.Arguments()
-            routingRulesArguments_.put("'Post-bureauRiskCategory'", postBureauRiskCategory)
-            routingRulesArguments_.put("'Post-bureauAffordability'", postBureauAffordability)
+            routingRulesArguments_.put("Post-bureauRiskCategory", postBureauRiskCategory)
+            routingRulesArguments_.put("Post-bureauAffordability", postBureauAffordability)
             routingRulesArguments_.put("Bankrupt", bankrupt)
             routingRulesArguments_.put("CreditScore", creditScore)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, routingRulesArguments_)

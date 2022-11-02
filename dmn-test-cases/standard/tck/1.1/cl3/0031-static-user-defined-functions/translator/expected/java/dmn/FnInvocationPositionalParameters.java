@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "'fn invocation positional parameters'"})
+@javax.annotation.Generated(value = {"decision.ftl", "fn invocation positional parameters"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "'fn invocation positional parameters'",
+    name = "fn invocation positional parameters",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "'fn invocation positional parameters'",
+        "fn invocation positional parameters",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -45,7 +45,7 @@ public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.Default
 
     public type.TFnInvocationPositionalResult apply(java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            // Start decision ''fn invocation positional parameters''
+            // Start decision 'fn invocation positional parameters'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
             com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
             com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -56,15 +56,15 @@ public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.Default
             fnInvocationPositionalParametersArguments_.put("inputB", inputB);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationPositionalParametersArguments_);
 
-            // Evaluate decision ''fn invocation positional parameters''
+            // Evaluate decision 'fn invocation positional parameters'
             type.TFnInvocationPositionalResult output_ = lambda.apply(inputA, inputB, context_);
 
-            // End decision ''fn invocation positional parameters''
+            // End decision 'fn invocation positional parameters'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnInvocationPositionalParametersArguments_, output_, (System.currentTimeMillis() - fnInvocationPositionalParametersStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in ''fn invocation positional parameters'' evaluation", e);
+            logError("Exception caught in 'fn invocation positional parameters' evaluation", e);
             return null;
         }
     }

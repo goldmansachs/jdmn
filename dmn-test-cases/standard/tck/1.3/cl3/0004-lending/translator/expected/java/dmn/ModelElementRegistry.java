@@ -14,12 +14,12 @@ public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElem
         register("Eligibility", "Eligibility");
         register("EligibilityRules", "EligibilityRules");
         register("InstallmentCalculation", "InstallmentCalculation");
-        register("'Post-bureauAffordability'", "PostBureauAffordability");
-        register("'Post-bureauRiskCategory'", "PostBureauRiskCategory");
-        register("'Post-bureauRiskCategoryTable'", "PostBureauRiskCategoryTable");
-        register("'Pre-bureauAffordability'", "PreBureauAffordability");
-        register("'Pre-bureauRiskCategory'", "PreBureauRiskCategory");
-        register("'Pre-bureauRiskCategoryTable'", "PreBureauRiskCategoryTable");
+        register("Post-bureauAffordability", "PostBureauAffordability");
+        register("Post-bureauRiskCategory", "PostBureauRiskCategory");
+        register("Post-bureauRiskCategoryTable", "PostBureauRiskCategoryTable");
+        register("Pre-bureauAffordability", "PreBureauAffordability");
+        register("Pre-bureauRiskCategory", "PreBureauRiskCategory");
+        register("Pre-bureauRiskCategoryTable", "PreBureauRiskCategoryTable");
         register("RequestedProduct", "RequestedProduct");
         register("RequiredMonthlyInstallment", "RequiredMonthlyInstallment");
         register("Routing", "Routing");

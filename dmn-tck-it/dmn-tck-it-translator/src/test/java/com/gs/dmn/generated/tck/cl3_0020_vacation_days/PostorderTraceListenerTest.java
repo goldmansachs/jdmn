@@ -51,7 +51,7 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
 
     @Test
     public void testListenerWithFilter() throws Exception {
-        PostorderTraceEventListener listener = new PostorderTraceEventListener(Arrays.asList("'Extra days case 1'", "'Extra days case 2'"));
+        PostorderTraceEventListener listener = new PostorderTraceEventListener(Arrays.asList("Extra days case 1", "Extra days case 2"));
         ExecutionContext context = new ExecutionContext(new AnnotationSet(), listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
 
         String expectedResult = "27";
@@ -73,7 +73,7 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
     private BigDecimal applyDecision(String age, String yearsOfService, ExecutionContext context) {
         Map<String, String> result = new LinkedHashMap<>();
         result.put("Age", age);
-        result.put("'Years of Service'", yearsOfService);
+        result.put("Years of Service", yearsOfService);
         return decision.applyMap(result, context);
     }
 }

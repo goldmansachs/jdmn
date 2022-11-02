@@ -80,7 +80,7 @@
         <value>130</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="'Pre-bureauRiskCategory'">
+    <resultNode type="decision" name="Pre-bureauRiskCategory">
       <expected>
         <value>LOW</value>
       </expected>
@@ -90,7 +90,7 @@
         <value>MINI</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="'Post-bureauRiskCategory'">
+    <resultNode type="decision" name="Post-bureauRiskCategory">
       <expected>
         <value>LOW</value>
       </expected>
@@ -100,7 +100,7 @@
         <value>1680.880325608555</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="'Pre-bureauAffordability'">
+    <resultNode type="decision" name="Pre-bureauAffordability">
       <expected>
         <value>true</value>
       </expected>
@@ -115,7 +115,7 @@
         <value>BUREAU</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="'Post-bureauAffordability'">
+    <resultNode type="decision" name="Post-bureauAffordability">
       <expected>
         <value>true</value>
       </expected>

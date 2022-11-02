@@ -2,10 +2,10 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["decision.ftl", "'fn invocation named parameters'"])
+@javax.annotation.Generated(value = ["decision.ftl", "fn invocation named parameters"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "'fn invocation named parameters'",
+    name = "fn invocation named parameters",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -24,7 +24,7 @@ class FnInvocationNamedParameters(val fnLibrary : FnLibrary = FnLibrary()) : com
 
     fun apply(inputA: java.math.BigDecimal?, inputB: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): type.TFnInvocationNamedResult? {
         try {
-            // Start decision ''fn invocation named parameters''
+            // Start decision 'fn invocation named parameters'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
             var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
             var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -35,15 +35,15 @@ class FnInvocationNamedParameters(val fnLibrary : FnLibrary = FnLibrary()) : com
             fnInvocationNamedParametersArguments_.put("inputB", inputB)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationNamedParametersArguments_)
 
-            // Evaluate decision ''fn invocation named parameters''
+            // Evaluate decision 'fn invocation named parameters'
             val output_: type.TFnInvocationNamedResult? = evaluate(inputA, inputB, context_)
 
-            // End decision ''fn invocation named parameters''
+            // End decision 'fn invocation named parameters'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnInvocationNamedParametersArguments_, output_, (System.currentTimeMillis() - fnInvocationNamedParametersStartTime_))
 
             return output_
         } catch (e: Exception) {
-            logError("Exception caught in ''fn invocation named parameters'' evaluation", e)
+            logError("Exception caught in 'fn invocation named parameters' evaluation", e)
             return null
         }
     }
@@ -71,7 +71,7 @@ class FnInvocationNamedParameters(val fnLibrary : FnLibrary = FnLibrary()) : com
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
             "",
-            "'fn invocation named parameters'",
+            "fn invocation named parameters",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
             com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,

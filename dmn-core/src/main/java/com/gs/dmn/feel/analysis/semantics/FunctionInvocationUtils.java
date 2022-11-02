@@ -65,7 +65,7 @@ public class FunctionInvocationUtils {
             return StandardEnvironmentFactory.makeConcatenateBuiltinFunctionType(listType);
         } else if("insert before".equals(functionName)) {
             Type listType = parameters.getParameterType(0, "list");
-            Type newItemType = parameters.getParameterType(2, "'new item'");
+            Type newItemType = parameters.getParameterType(2, "new item");
             return StandardEnvironmentFactory.makeInsertBeforeBuiltinFunctionType(listType, newItemType);
         } else if("remove".equals(functionName)) {
             FormalParameter<Type, DMNContext> formalParameter = ((FunctionType) functionDeclaration.getType()).getParameters().get(1);

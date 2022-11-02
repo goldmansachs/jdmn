@@ -2,10 +2,10 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["decision.ftl", "'simple function invocation'"])
+@javax.annotation.Generated(value = ["decision.ftl", "simple function invocation"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "'simple function invocation'",
+    name = "simple function invocation",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -24,7 +24,7 @@ class SimpleFunctionInvocation() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(stringInputA: String?, stringInputB: String?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
-            // Start decision ''simple function invocation''
+            // Start decision 'simple function invocation'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
             var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
             var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -35,15 +35,15 @@ class SimpleFunctionInvocation() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             simpleFunctionInvocationArguments_.put("stringInputB", stringInputB)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, simpleFunctionInvocationArguments_)
 
-            // Evaluate decision ''simple function invocation''
+            // Evaluate decision 'simple function invocation'
             val output_: String? = evaluate(stringInputA, stringInputB, context_)
 
-            // End decision ''simple function invocation''
+            // End decision 'simple function invocation'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, simpleFunctionInvocationArguments_, output_, (System.currentTimeMillis() - simpleFunctionInvocationStartTime_))
 
             return output_
         } catch (e: Exception) {
-            logError("Exception caught in ''simple function invocation'' evaluation", e)
+            logError("Exception caught in 'simple function invocation' evaluation", e)
             return null
         }
     }
@@ -61,7 +61,7 @@ class SimpleFunctionInvocation() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
             "",
-            "'simple function invocation'",
+            "simple function invocation",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
             com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,

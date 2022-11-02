@@ -85,7 +85,7 @@ public class TreeTraceListenerTest extends AbstractTraceListenerTest {
     private BigDecimal applyDecision(String age, String yearsOfService, ExecutionContext context) {
         Map<String, String> result = new LinkedHashMap<>();
         result.put("Age", age);
-        result.put("'Years of Service'", yearsOfService);
+        result.put("Years of Service", yearsOfService);
         return decision.applyMap(result, context);
     }
 

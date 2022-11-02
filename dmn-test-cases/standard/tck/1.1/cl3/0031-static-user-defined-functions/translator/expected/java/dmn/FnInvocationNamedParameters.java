@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "'fn invocation named parameters'"})
+@javax.annotation.Generated(value = {"decision.ftl", "fn invocation named parameters"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "'fn invocation named parameters'",
+    name = "fn invocation named parameters",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class FnInvocationNamedParameters extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "'fn invocation named parameters'",
+        "fn invocation named parameters",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -45,7 +45,7 @@ public class FnInvocationNamedParameters extends com.gs.dmn.runtime.DefaultDMNBa
 
     public type.TFnInvocationNamedResult apply(java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            // Start decision ''fn invocation named parameters''
+            // Start decision 'fn invocation named parameters'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
             com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
             com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -56,15 +56,15 @@ public class FnInvocationNamedParameters extends com.gs.dmn.runtime.DefaultDMNBa
             fnInvocationNamedParametersArguments_.put("inputB", inputB);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationNamedParametersArguments_);
 
-            // Evaluate decision ''fn invocation named parameters''
+            // Evaluate decision 'fn invocation named parameters'
             type.TFnInvocationNamedResult output_ = lambda.apply(inputA, inputB, context_);
 
-            // End decision ''fn invocation named parameters''
+            // End decision 'fn invocation named parameters'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnInvocationNamedParametersArguments_, output_, (System.currentTimeMillis() - fnInvocationNamedParametersStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in ''fn invocation named parameters'' evaluation", e);
+            logError("Exception caught in 'fn invocation named parameters' evaluation", e);
             return null;
         }
     }

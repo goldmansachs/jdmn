@@ -42,11 +42,11 @@ import RequiredMonthlyInstallment
 import AffordabilityCalculation
 
 
-# Generated(value = ["decision.ftl", "'Pre-bureauAffordability'"])
+# Generated(value = ["decision.ftl", "Pre-bureauAffordability"])
 class PreBureauAffordability(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
         "",
-        "'Pre-bureauAffordability'",
+        "Pre-bureauAffordability",
         "",
         jdmn.runtime.annotation.DRGElementKind.DRGElementKind.DECISION,
         jdmn.runtime.annotation.ExpressionKind.ExpressionKind.INVOCATION,
@@ -61,7 +61,7 @@ class PreBureauAffordability(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseD
 
     def apply(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[bool]:
         try:
-            # Start decision ''Pre-bureauAffordability''
+            # Start decision 'Pre-bureauAffordability'
             annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
             eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
             externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
@@ -72,15 +72,15 @@ class PreBureauAffordability(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseD
             preBureauAffordabilityArguments_.put("RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, preBureauAffordabilityArguments_)
 
-            # Evaluate decision ''Pre-bureauAffordability''
+            # Evaluate decision 'Pre-bureauAffordability'
             output_: typing.Optional[bool] = self.evaluate(applicantData, requestedProduct, context_)
 
-            # End decision ''Pre-bureauAffordability''
+            # End decision 'Pre-bureauAffordability'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, preBureauAffordabilityArguments_, output_, (int(time.time_ns()/1000) - preBureauAffordabilityStartTime_))
 
             return output_
         except Exception as e:
-            self.logError("Exception caught in ''Pre-bureauAffordability'' evaluation", e)
+            self.logError("Exception caught in 'Pre-bureauAffordability' evaluation", e)
             return None
 
     def evaluate(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[bool]:

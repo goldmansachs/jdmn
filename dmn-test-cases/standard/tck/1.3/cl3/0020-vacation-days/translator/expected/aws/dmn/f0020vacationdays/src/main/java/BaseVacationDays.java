@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "'Base Vacation Days'"})
+@javax.annotation.Generated(value = {"decision.ftl", "Base Vacation Days"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "'Base Vacation Days'",
+    name = "Base Vacation Days",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.LITERAL_EXPRESSION,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class BaseVacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "'Base Vacation Days'",
+        "Base Vacation Days",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.LITERAL_EXPRESSION,
@@ -38,7 +38,7 @@ public class BaseVacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
 
     public java.math.BigDecimal apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            // Start decision ''Base Vacation Days''
+            // Start decision 'Base Vacation Days'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
             com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
             com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -47,15 +47,15 @@ public class BaseVacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
             com.gs.dmn.runtime.listener.Arguments baseVacationDaysArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, baseVacationDaysArguments_);
 
-            // Evaluate decision ''Base Vacation Days''
+            // Evaluate decision 'Base Vacation Days'
             java.math.BigDecimal output_ = lambda.apply(context_);
 
-            // End decision ''Base Vacation Days''
+            // End decision 'Base Vacation Days'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, baseVacationDaysArguments_, output_, (System.currentTimeMillis() - baseVacationDaysStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in ''Base Vacation Days'' evaluation", e);
+            logError("Exception caught in 'Base Vacation Days' evaluation", e);
             return null;
         }
     }

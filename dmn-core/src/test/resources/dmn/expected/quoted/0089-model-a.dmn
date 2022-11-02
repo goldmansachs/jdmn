@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" triso:logoChoice="Default" id="_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9" name="Say hello 1ID1D" namespace="http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9" exporter="DMN Modeler" exporterVersion="6.2.4.2">
-  <decision triso:useOutputTypeAsAnswer="false" id="_f7fdaec4-d669-4797-b3b4-12b860de2eb5" name="'Greet the Person'">
-    <variable id="_85193e88-cb32-41da-9181-fb8e5450753a" name="'Greet the Person'" typeRef="string"></variable>
+  <decision triso:useOutputTypeAsAnswer="false" id="_f7fdaec4-d669-4797-b3b4-12b860de2eb5" name="Greet the Person">
+    <variable id="_85193e88-cb32-41da-9181-fb8e5450753a" name="Greet the Person" typeRef="string"></variable>
     <informationRequirement id="b1507384-44a9-4da7-8223-fa49ffa65410">
       <requiredInput href="#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063"></requiredInput>
     </informationRequirement>
@@ -9,7 +9,7 @@
       <text>"Hello, "+'Person name'</text>
     </literalExpression>
   </decision>
-  <inputData id="_4f6c136c-8512-4d71-8bbf-7c9eb6e74063" name="'Person name'">
-    <variable id="_46b6677b-4a26-4bca-9532-9a57dd55b8ec" name="'Person name'" typeRef="string"></variable>
+  <inputData id="_4f6c136c-8512-4d71-8bbf-7c9eb6e74063" name="Person name">
+    <variable id="_46b6677b-4a26-4bca-9532-9a57dd55b8ec" name="Person name" typeRef="string"></variable>
   </inputData>
 </definitions>

@@ -3,10 +3,10 @@ package model_b2;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "'Evaluating B2 Say Hello'"})
+@javax.annotation.Generated(value = {"decision.ftl", "Evaluating B2 Say Hello"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "model_b2",
-    name = "'Evaluating B2 Say Hello'",
+    name = "Evaluating B2 Say Hello",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.LITERAL_EXPRESSION,
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class EvaluatingB2SayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "model_b2",
-        "'Evaluating B2 Say Hello'",
+        "Evaluating B2 Say Hello",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.LITERAL_EXPRESSION,
@@ -37,7 +37,7 @@ public class EvaluatingB2SayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecis
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("modelA.'Person name'"), context_);
+            return apply(input_.get("modelA.Person name"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'EvaluatingB2SayHello'", e);
             return null;
@@ -46,25 +46,25 @@ public class EvaluatingB2SayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecis
 
     public String apply(String modela_personName, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            // Start decision ''Evaluating B2 Say Hello''
+            // Start decision 'Evaluating B2 Say Hello'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
             com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
             com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long evaluatingB2SayHelloStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments evaluatingB2SayHelloArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            evaluatingB2SayHelloArguments_.put("modelA.'Person name'", modela_personName);
+            evaluatingB2SayHelloArguments_.put("modelA.Person name", modela_personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, evaluatingB2SayHelloArguments_);
 
-            // Evaluate decision ''Evaluating B2 Say Hello''
+            // Evaluate decision 'Evaluating B2 Say Hello'
             String output_ = lambda.apply(modela_personName, context_);
 
-            // End decision ''Evaluating B2 Say Hello''
+            // End decision 'Evaluating B2 Say Hello'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, evaluatingB2SayHelloArguments_, output_, (System.currentTimeMillis() - evaluatingB2SayHelloStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in ''Evaluating B2 Say Hello'' evaluation", e);
+            logError("Exception caught in 'Evaluating B2 Say Hello' evaluation", e);
             return null;
         }
     }

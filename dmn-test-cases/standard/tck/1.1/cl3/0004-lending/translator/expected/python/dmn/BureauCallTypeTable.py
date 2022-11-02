@@ -64,7 +64,7 @@ class BureauCallTypeTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
             cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             bureauCallTypeTableStartTime_ = int(time.time_ns()/1000)
             bureauCallTypeTableArguments_ = jdmn.runtime.listener.Arguments.Arguments()
-            bureauCallTypeTableArguments_.put("'Pre-bureauRiskCategory'", preBureauRiskCategory)
+            bureauCallTypeTableArguments_.put("Pre-bureauRiskCategory", preBureauRiskCategory)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, bureauCallTypeTableArguments_)
 
             # Evaluate BKM 'BureauCallTypeTable'

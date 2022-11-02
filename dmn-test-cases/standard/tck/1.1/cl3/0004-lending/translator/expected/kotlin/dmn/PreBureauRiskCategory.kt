@@ -2,10 +2,10 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["decision.ftl", "'Pre-bureauRiskCategory'"])
+@javax.annotation.Generated(value = ["decision.ftl", "Pre-bureauRiskCategory"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "'Pre-bureauRiskCategory'",
+    name = "Pre-bureauRiskCategory",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.INVOCATION,
@@ -24,7 +24,7 @@ class PreBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = Ap
 
     fun apply(applicantData: type.TApplicantData?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
-            // Start decision ''Pre-bureauRiskCategory''
+            // Start decision 'Pre-bureauRiskCategory'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
             var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
             var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -34,15 +34,15 @@ class PreBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = Ap
             preBureauRiskCategoryArguments_.put("ApplicantData", applicantData)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryArguments_)
 
-            // Evaluate decision ''Pre-bureauRiskCategory''
+            // Evaluate decision 'Pre-bureauRiskCategory'
             val output_: String? = evaluate(applicantData, context_)
 
-            // End decision ''Pre-bureauRiskCategory''
+            // End decision 'Pre-bureauRiskCategory'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryArguments_, output_, (System.currentTimeMillis() - preBureauRiskCategoryStartTime_))
 
             return output_
         } catch (e: Exception) {
-            logError("Exception caught in ''Pre-bureauRiskCategory'' evaluation", e)
+            logError("Exception caught in 'Pre-bureauRiskCategory' evaluation", e)
             return null
         }
     }
@@ -61,7 +61,7 @@ class PreBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = Ap
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
             "",
-            "'Pre-bureauRiskCategory'",
+            "Pre-bureauRiskCategory",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
             com.gs.dmn.runtime.annotation.ExpressionKind.INVOCATION,

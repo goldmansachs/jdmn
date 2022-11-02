@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "'fn library'"})
+@javax.annotation.Generated(value = {"decision.ftl", "fn library"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "'fn library'",
+    name = "fn library",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class FnLibrary extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "'fn library'",
+        "fn library",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -38,7 +38,7 @@ public class FnLibrary extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public type.TFnLibrary apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            // Start decision ''fn library''
+            // Start decision 'fn library'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
             com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
             com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -47,15 +47,15 @@ public class FnLibrary extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             com.gs.dmn.runtime.listener.Arguments fnLibraryArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnLibraryArguments_);
 
-            // Evaluate decision ''fn library''
+            // Evaluate decision 'fn library'
             type.TFnLibrary output_ = lambda.apply(context_);
 
-            // End decision ''fn library''
+            // End decision 'fn library'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnLibraryArguments_, output_, (System.currentTimeMillis() - fnLibraryStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in ''fn library'' evaluation", e);
+            logError("Exception caught in 'fn library' evaluation", e);
             return null;
         }
     }

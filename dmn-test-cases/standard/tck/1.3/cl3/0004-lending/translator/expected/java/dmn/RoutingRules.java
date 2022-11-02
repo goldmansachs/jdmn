@@ -36,7 +36,7 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("'Post-bureauRiskCategory'"), (input_.get("'Post-bureauAffordability'") != null ? Boolean.valueOf(input_.get("'Post-bureauAffordability'")) : null), (input_.get("Bankrupt") != null ? Boolean.valueOf(input_.get("Bankrupt")) : null), (input_.get("CreditScore") != null ? number(input_.get("CreditScore")) : null), context_);
+            return apply(input_.get("Post-bureauRiskCategory"), (input_.get("Post-bureauAffordability") != null ? Boolean.valueOf(input_.get("Post-bureauAffordability")) : null), (input_.get("Bankrupt") != null ? Boolean.valueOf(input_.get("Bankrupt")) : null), (input_.get("CreditScore") != null ? number(input_.get("CreditScore")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'RoutingRules'", e);
             return null;
@@ -52,8 +52,8 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long routingRulesStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments routingRulesArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            routingRulesArguments_.put("'Post-bureauRiskCategory'", postBureauRiskCategory);
-            routingRulesArguments_.put("'Post-bureauAffordability'", postBureauAffordability);
+            routingRulesArguments_.put("Post-bureauRiskCategory", postBureauRiskCategory);
+            routingRulesArguments_.put("Post-bureauAffordability", postBureauAffordability);
             routingRulesArguments_.put("Bankrupt", bankrupt);
             routingRulesArguments_.put("CreditScore", creditScore);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, routingRulesArguments_);

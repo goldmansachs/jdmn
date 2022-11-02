@@ -10,7 +10,7 @@ import jdmn.runtime.Pair
 import jdmn.runtime.PairComparator
 
 
-# Generated(value = ["decisionTableRuleOutput.ftl", "'Extra days case 2'"])
+# Generated(value = ["decisionTableRuleOutput.ftl", "Extra days case 2"])
 class ExtraDaysCase2RuleOutput(jdmn.runtime.RuleOutput.RuleOutput):
     def __init__(self, matched: bool):
         super().__init__(matched)

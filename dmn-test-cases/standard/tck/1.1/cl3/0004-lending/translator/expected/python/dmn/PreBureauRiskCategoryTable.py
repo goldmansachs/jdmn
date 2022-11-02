@@ -32,11 +32,11 @@ import jdmn.runtime.listener.Rule
 import PreBureauRiskCategoryTableRuleOutput
 
 
-# Generated(value = ["bkm.ftl", "'Pre-bureauRiskCategoryTable'"])
+# Generated(value = ["bkm.ftl", "Pre-bureauRiskCategoryTable"])
 class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
         "",
-        "'Pre-bureauRiskCategoryTable'",
+        "Pre-bureauRiskCategoryTable",
         "",
         jdmn.runtime.annotation.DRGElementKind.DRGElementKind.BUSINESS_KNOWLEDGE_MODEL,
         jdmn.runtime.annotation.ExpressionKind.ExpressionKind.DECISION_TABLE,
@@ -57,7 +57,7 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
 
     def apply(self, existingCustomer: typing.Optional[bool], applicationRiskScore: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         try:
-            # Start BKM ''Pre-bureauRiskCategoryTable''
+            # Start BKM 'Pre-bureauRiskCategoryTable'
             annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
             eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
             externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
@@ -68,15 +68,15 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             preBureauRiskCategoryTableArguments_.put("ApplicationRiskScore", applicationRiskScore)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, preBureauRiskCategoryTableArguments_)
 
-            # Evaluate BKM ''Pre-bureauRiskCategoryTable''
+            # Evaluate BKM 'Pre-bureauRiskCategoryTable'
             output_: typing.Optional[str] = self.evaluate(existingCustomer, applicationRiskScore, context_)
 
-            # End BKM ''Pre-bureauRiskCategoryTable''
+            # End BKM 'Pre-bureauRiskCategoryTable'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, preBureauRiskCategoryTableArguments_, output_, (int(time.time_ns()/1000) - preBureauRiskCategoryTableStartTime_))
 
             return output_
         except Exception as e:
-            self.logError("Exception caught in ''Pre-bureauRiskCategoryTable'' evaluation", e)
+            self.logError("Exception caught in 'Pre-bureauRiskCategoryTable' evaluation", e)
             return None
 
     def evaluate(self, existingCustomer: typing.Optional[bool], applicationRiskScore: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
@@ -131,7 +131,7 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             output_.preBureauRiskCategoryTable = "HIGH"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 0, "")
+            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 0, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -163,7 +163,7 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             output_.preBureauRiskCategoryTable = "MEDIUM"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 1, "")
+            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 1, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -195,7 +195,7 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             output_.preBureauRiskCategoryTable = "LOW"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 2, "")
+            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 2, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -227,7 +227,7 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             output_.preBureauRiskCategoryTable = "VERY LOW"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 3, "")
+            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 3, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -259,7 +259,7 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             output_.preBureauRiskCategoryTable = "DECLINE"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 4, "")
+            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 4, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -291,7 +291,7 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             output_.preBureauRiskCategoryTable = "HIGH"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 5, "")
+            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 5, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -323,7 +323,7 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             output_.preBureauRiskCategoryTable = "MEDIUM"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 6, "")
+            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 6, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -355,7 +355,7 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             output_.preBureauRiskCategoryTable = "LOW"
 
             # Add annotation
-            annotationSet_.addAnnotation("'Pre-bureauRiskCategoryTable'", 7, "")
+            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 7, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)

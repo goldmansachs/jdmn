@@ -1,7 +1,7 @@
 {
   "element": {
     "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
-    "name": "'Total Vacation Days'",
+    "name": "Total Vacation Days",
     "label": "",
     "elementKind": "DECISION",
     "expressionKind": "LITERAL_EXPRESSION",
@@ -10,7 +10,7 @@
   },
   "arguments": {
     "Age": 16,
-    "'Years of Service'": 1
+    "Years of Service": 1
   },
   "output": 27,
   "ruleNodes": [],
@@ -18,7 +18,7 @@
     {
       "element": {
         "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
-        "name": "'Base Vacation Days'",
+        "name": "Base Vacation Days",
         "label": "",
         "elementKind": "DECISION",
         "expressionKind": "LITERAL_EXPRESSION",
@@ -33,7 +33,7 @@
     {
       "element": {
         "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
-        "name": "'Extra days case 1'",
+        "name": "Extra days case 1",
         "label": "",
         "elementKind": "DECISION",
         "expressionKind": "DECISION_TABLE",
@@ -42,7 +42,7 @@
       },
       "arguments": {
         "Age": 16,
-        "'Years of Service'": 1
+        "Years of Service": 1
       },
       "output": 5,
       "ruleNodes": [
@@ -54,7 +54,7 @@
           "matched": true,
           "result": {
             "matched": true,
-            "'Extra days case 1'": 5
+            "Extra days case 1": 5
           },
           "columnNodes": [
             {
@@ -75,7 +75,7 @@
           "matched": false,
           "result": {
             "matched": false,
-            "'Extra days case 1'": null
+            "Extra days case 1": null
           },
           "columnNodes": [
             {
@@ -94,7 +94,7 @@
     {
       "element": {
         "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
-        "name": "'Extra days case 2'",
+        "name": "Extra days case 2",
         "label": "",
         "elementKind": "DECISION",
         "expressionKind": "DECISION_TABLE",
@@ -103,7 +103,7 @@
       },
       "arguments": {
         "Age": 16,
-        "'Years of Service'": 1
+        "Years of Service": 1
       },
       "output": 0,
       "ruleNodes": [
@@ -115,7 +115,7 @@
           "matched": false,
           "result": {
             "matched": false,
-            "'Extra days case 2'": null
+            "Extra days case 2": null
           },
           "columnNodes": [
             {
@@ -136,7 +136,7 @@
           "matched": false,
           "result": {
             "matched": false,
-            "'Extra days case 2'": null
+            "Extra days case 2": null
           },
           "columnNodes": [
             {
@@ -151,7 +151,7 @@
     {
       "element": {
         "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
-        "name": "'Extra days case 3'",
+        "name": "Extra days case 3",
         "label": "",
         "elementKind": "DECISION",
         "expressionKind": "DECISION_TABLE",
@@ -160,7 +160,7 @@
       },
       "arguments": {
         "Age": 16,
-        "'Years of Service'": 1
+        "Years of Service": 1
       },
       "output": 0,
       "ruleNodes": [
@@ -172,7 +172,7 @@
           "matched": false,
           "result": {
             "matched": false,
-            "'Extra days case 3'": null
+            "Extra days case 3": null
           },
           "columnNodes": [
             {
@@ -193,7 +193,7 @@
           "matched": false,
           "result": {
             "matched": false,
-            "'Extra days case 3'": null
+            "Extra days case 3": null
           },
           "columnNodes": [
             {

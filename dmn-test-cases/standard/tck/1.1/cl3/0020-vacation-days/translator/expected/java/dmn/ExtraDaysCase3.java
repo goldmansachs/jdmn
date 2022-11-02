@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "'Extra days case 3'"})
+@javax.annotation.Generated(value = {"decision.ftl", "Extra days case 3"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "'Extra days case 3'",
+    name = "Extra days case 3",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class ExtraDaysCase3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "'Extra days case 3'",
+        "Extra days case 3",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,
@@ -29,7 +29,7 @@ public class ExtraDaysCase3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     @java.lang.Override()
     public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("Age") != null ? number(input_.get("Age")) : null), (input_.get("'Years of Service'") != null ? number(input_.get("'Years of Service'")) : null), context_);
+            return apply((input_.get("Age") != null ? number(input_.get("Age")) : null), (input_.get("Years of Service") != null ? number(input_.get("Years of Service")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'ExtraDaysCase3'", e);
             return null;
@@ -38,7 +38,7 @@ public class ExtraDaysCase3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public java.math.BigDecimal apply(java.math.BigDecimal age, java.math.BigDecimal yearsOfService, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            // Start decision ''Extra days case 3''
+            // Start decision 'Extra days case 3'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
             com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
             com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -46,18 +46,18 @@ public class ExtraDaysCase3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             long extraDaysCase3StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments extraDaysCase3Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
             extraDaysCase3Arguments_.put("Age", age);
-            extraDaysCase3Arguments_.put("'Years of Service'", yearsOfService);
+            extraDaysCase3Arguments_.put("Years of Service", yearsOfService);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, extraDaysCase3Arguments_);
 
-            // Evaluate decision ''Extra days case 3''
+            // Evaluate decision 'Extra days case 3'
             java.math.BigDecimal output_ = lambda.apply(age, yearsOfService, context_);
 
-            // End decision ''Extra days case 3''
+            // End decision 'Extra days case 3'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, extraDaysCase3Arguments_, output_, (System.currentTimeMillis() - extraDaysCase3StartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in ''Extra days case 3'' evaluation", e);
+            logError("Exception caught in 'Extra days case 3' evaluation", e);
             return null;
         }
     }
@@ -118,7 +118,7 @@ public class ExtraDaysCase3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setExtraDaysCase3(number("2"));
 
             // Add annotation
-            annotationSet_.addAnnotation("'Extra days case 3'", 0, "");
+            annotationSet_.addAnnotation("Extra days case 3", 0, "");
         }
 
         // Rule end
@@ -153,7 +153,7 @@ public class ExtraDaysCase3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setExtraDaysCase3(number("2"));
 
             // Add annotation
-            annotationSet_.addAnnotation("'Extra days case 3'", 1, "");
+            annotationSet_.addAnnotation("Extra days case 3", 1, "");
         }
 
         // Rule end

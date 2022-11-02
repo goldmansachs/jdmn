@@ -43,14 +43,35 @@ public class NameUtils {
     }
 
     public static String removeSingleQuotes(String name) {
-        if (isQuotedName(name)) {
-            name = name.replaceAll("''", "'");
-            name = name.substring(1, name.length() - 1);
+        if (StringUtils.isBlank(name)) {
+            return name;
+        } else {
+            name = name.trim();
+            if (isQuotedName(name)) {
+                name = name.replaceAll("''", "'");
+                name = name.substring(1, name.length() - 1);
+            }
+            return name;
         }
-        return name;
+    }
+
+    public static String removeDoubleQuotes(String key) {
+        if (StringUtils.isBlank(key)) {
+            return key;
+        } else {
+            key = key.trim();
+            if (!StringUtils.isBlank(key) && key.startsWith("\"") && key.endsWith("\"")) {
+                key = key.substring(1, key.length() - 1);
+            }
+            return key;
+        }
     }
 
     public static String bkmName(String text) {
-        return text;
+        if (StringUtils.isBlank(text)) {
+            return text;
+        } else {
+            return removeSingleQuotes(text.trim());
+        }
     }
 }

@@ -2,10 +2,10 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["decision.ftl", "'Approval Status'"])
+@javax.annotation.Generated(value = ["decision.ftl", "Approval Status"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "'Approval Status'",
+    name = "Approval Status",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,
@@ -24,7 +24,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(age: java.math.BigDecimal?, riskCategory: String?, isAffordable: Boolean?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
-            // Start decision ''Approval Status''
+            // Start decision 'Approval Status'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
             var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
             var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -36,15 +36,15 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             approvalStatusArguments_.put("isAffordable", isAffordable)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, approvalStatusArguments_)
 
-            // Evaluate decision ''Approval Status''
+            // Evaluate decision 'Approval Status'
             val output_: String? = evaluate(age, riskCategory, isAffordable, context_)
 
-            // End decision ''Approval Status''
+            // End decision 'Approval Status'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, approvalStatusArguments_, output_, (System.currentTimeMillis() - approvalStatusStartTime_))
 
             return output_
         } catch (e: Exception) {
-            logError("Exception caught in ''Approval Status'' evaluation", e)
+            logError("Exception caught in 'Approval Status' evaluation", e)
             return null
         }
     }
@@ -100,7 +100,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             output_.approvalStatusPriority = 2
 
             // Add annotation
-            annotationSet_.addAnnotation("'Approval Status'", 0, "")
+            annotationSet_.addAnnotation("Approval Status", 0, "")
         }
 
         // Rule end
@@ -137,7 +137,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             output_.approvalStatusPriority = 1
 
             // Add annotation
-            annotationSet_.addAnnotation("'Approval Status'", 1, "")
+            annotationSet_.addAnnotation("Approval Status", 1, "")
         }
 
         // Rule end
@@ -150,7 +150,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
             "",
-            "'Approval Status'",
+            "Approval Status",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
             com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,

@@ -2,10 +2,10 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["decision.ftl", "'Base Vacation Days'"])
+@javax.annotation.Generated(value = ["decision.ftl", "Base Vacation Days"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "'Base Vacation Days'",
+    name = "Base Vacation Days",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.LITERAL_EXPRESSION,
@@ -24,7 +24,7 @@ class BaseVacationDays() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
         try {
-            // Start decision ''Base Vacation Days''
+            // Start decision 'Base Vacation Days'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
             var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
             var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -33,15 +33,15 @@ class BaseVacationDays() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             val baseVacationDaysArguments_ = com.gs.dmn.runtime.listener.Arguments()
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, baseVacationDaysArguments_)
 
-            // Evaluate decision ''Base Vacation Days''
+            // Evaluate decision 'Base Vacation Days'
             val output_: java.math.BigDecimal? = evaluate(context_)
 
-            // End decision ''Base Vacation Days''
+            // End decision 'Base Vacation Days'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, baseVacationDaysArguments_, output_, (System.currentTimeMillis() - baseVacationDaysStartTime_))
 
             return output_
         } catch (e: Exception) {
-            logError("Exception caught in ''Base Vacation Days'' evaluation", e)
+            logError("Exception caught in 'Base Vacation Days' evaluation", e)
             return null
         }
     }
@@ -57,7 +57,7 @@ class BaseVacationDays() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
             "",
-            "'Base Vacation Days'",
+            "Base Vacation Days",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
             com.gs.dmn.runtime.annotation.ExpressionKind.LITERAL_EXPRESSION,

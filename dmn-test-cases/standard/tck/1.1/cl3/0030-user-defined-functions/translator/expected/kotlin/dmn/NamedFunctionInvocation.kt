@@ -2,10 +2,10 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["decision.ftl", "'named function invocation'"])
+@javax.annotation.Generated(value = ["decision.ftl", "named function invocation"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "'named function invocation'",
+    name = "named function invocation",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -24,7 +24,7 @@ class NamedFunctionInvocation() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(stringInputA: String?, stringInputB: String?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
-            // Start decision ''named function invocation''
+            // Start decision 'named function invocation'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
             var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
             var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -35,15 +35,15 @@ class NamedFunctionInvocation() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             namedFunctionInvocationArguments_.put("stringInputB", stringInputB)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, namedFunctionInvocationArguments_)
 
-            // Evaluate decision ''named function invocation''
+            // Evaluate decision 'named function invocation'
             val output_: String? = evaluate(stringInputA, stringInputB, context_)
 
-            // End decision ''named function invocation''
+            // End decision 'named function invocation'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, namedFunctionInvocationArguments_, output_, (System.currentTimeMillis() - namedFunctionInvocationStartTime_))
 
             return output_
         } catch (e: Exception) {
-            logError("Exception caught in ''named function invocation'' evaluation", e)
+            logError("Exception caught in 'named function invocation' evaluation", e)
             return null
         }
     }
@@ -61,7 +61,7 @@ class NamedFunctionInvocation() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     companion object {
         val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
             "",
-            "'named function invocation'",
+            "named function invocation",
             "",
             com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
             com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,

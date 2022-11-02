@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "'fn invocation complex parameters'"})
+@javax.annotation.Generated(value = {"decision.ftl", "fn invocation complex parameters"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "'fn invocation complex parameters'",
+    name = "fn invocation complex parameters",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class FnInvocationComplexParameters extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "'fn invocation complex parameters'",
+        "fn invocation complex parameters",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -45,7 +45,7 @@ public class FnInvocationComplexParameters extends com.gs.dmn.runtime.DefaultDMN
 
     public type.TFnInvocationComplexParamsResult apply(java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            // Start decision ''fn invocation complex parameters''
+            // Start decision 'fn invocation complex parameters'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
             com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
             com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -56,15 +56,15 @@ public class FnInvocationComplexParameters extends com.gs.dmn.runtime.DefaultDMN
             fnInvocationComplexParametersArguments_.put("inputB", inputB);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationComplexParametersArguments_);
 
-            // Evaluate decision ''fn invocation complex parameters''
+            // Evaluate decision 'fn invocation complex parameters'
             type.TFnInvocationComplexParamsResult output_ = lambda.apply(inputA, inputB, context_);
 
-            // End decision ''fn invocation complex parameters''
+            // End decision 'fn invocation complex parameters'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnInvocationComplexParametersArguments_, output_, (System.currentTimeMillis() - fnInvocationComplexParametersStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in ''fn invocation complex parameters'' evaluation", e);
+            logError("Exception caught in 'fn invocation complex parameters' evaluation", e);
             return null;
         }
     }

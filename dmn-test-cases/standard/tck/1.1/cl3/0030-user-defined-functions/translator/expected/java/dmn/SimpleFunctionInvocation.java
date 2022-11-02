@@ -2,10 +2,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "'simple function invocation'"})
+@javax.annotation.Generated(value = {"decision.ftl", "simple function invocation"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "'simple function invocation'",
+    name = "simple function invocation",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class SimpleFunctionInvocation extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "'simple function invocation'",
+        "simple function invocation",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -38,7 +38,7 @@ public class SimpleFunctionInvocation extends com.gs.dmn.runtime.DefaultDMNBaseD
 
     public String apply(String stringInputA, String stringInputB, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            // Start decision ''simple function invocation''
+            // Start decision 'simple function invocation'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
             com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
             com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -49,15 +49,15 @@ public class SimpleFunctionInvocation extends com.gs.dmn.runtime.DefaultDMNBaseD
             simpleFunctionInvocationArguments_.put("stringInputB", stringInputB);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, simpleFunctionInvocationArguments_);
 
-            // Evaluate decision ''simple function invocation''
+            // Evaluate decision 'simple function invocation'
             String output_ = lambda.apply(stringInputA, stringInputB, context_);
 
-            // End decision ''simple function invocation''
+            // End decision 'simple function invocation'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, simpleFunctionInvocationArguments_, output_, (System.currentTimeMillis() - simpleFunctionInvocationStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in ''simple function invocation'' evaluation", e);
+            logError("Exception caught in 'simple function invocation' evaluation", e);
             return null;
         }
     }

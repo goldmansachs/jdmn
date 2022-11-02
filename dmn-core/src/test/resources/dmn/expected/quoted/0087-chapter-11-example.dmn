@@ -108,30 +108,30 @@
       <semantic:requiredAuthority href="#_989d137f-86ff-4249-813f-af67c08a2762"></semantic:requiredAuthority>
     </semantic:authorityRequirement>
   </semantic:decision>
-  <semantic:businessKnowledgeModel id="_ee893e8d-f393-4e2c-b871-611a9cd30bf5" name="'Affordability calculation'">
+  <semantic:businessKnowledgeModel id="_ee893e8d-f393-4e2c-b871-611a9cd30bf5" name="Affordability calculation">
     <semantic:description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Affordability calculation&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic defines a boxed function deriving Affordability from&amp;nbsp;&lt;/span&gt;Monthly Income, Monthly Repayments, Monthly Expenses and Required Monthly Installment. One step in this calculation derives Credit contingency factor by invoking the Credit contingency factor table business&lt;/span&gt;&lt;/p&gt;</semantic:description>
-    <semantic:variable id="_80af1aa7-e29c-47fc-9cce-1959a3e1e717" name="'Affordability calculation'"></semantic:variable>
+    <semantic:variable id="_80af1aa7-e29c-47fc-9cce-1959a3e1e717" name="Affordability calculation"></semantic:variable>
     <semantic:encapsulatedLogic id="_b3f131dd-5572-4d63-a693-05af46940267" kind="FEEL">
-      <semantic:formalParameter id="_f916b091-cd6d-44cb-b32b-cc83cc27e333" name="'Monthly Income'" typeRef="number"></semantic:formalParameter>
-      <semantic:formalParameter id="_d68b6438-cba5-4c02-a708-bce0d2762d35" name="'Monthly Repayments'" typeRef="number"></semantic:formalParameter>
-      <semantic:formalParameter id="_5fd5609d-89ce-463e-a882-6827921edf54" name="'Monthly Expenses'" typeRef="number"></semantic:formalParameter>
-      <semantic:formalParameter id="_2acfe2aa-892f-4a5c-b9ab-111c7a8bbd40" name="'Risk Category'" typeRef="tRiskCategory"></semantic:formalParameter>
-      <semantic:formalParameter id="_3a423c76-11c7-4b66-b86a-07928181a631" name="'Required Monthly Installment'" typeRef="number"></semantic:formalParameter>
+      <semantic:formalParameter id="_f916b091-cd6d-44cb-b32b-cc83cc27e333" name="Monthly Income" typeRef="number"></semantic:formalParameter>
+      <semantic:formalParameter id="_d68b6438-cba5-4c02-a708-bce0d2762d35" name="Monthly Repayments" typeRef="number"></semantic:formalParameter>
+      <semantic:formalParameter id="_5fd5609d-89ce-463e-a882-6827921edf54" name="Monthly Expenses" typeRef="number"></semantic:formalParameter>
+      <semantic:formalParameter id="_2acfe2aa-892f-4a5c-b9ab-111c7a8bbd40" name="Risk Category" typeRef="tRiskCategory"></semantic:formalParameter>
+      <semantic:formalParameter id="_3a423c76-11c7-4b66-b86a-07928181a631" name="Required Monthly Installment" typeRef="number"></semantic:formalParameter>
       <semantic:context id="_2f1ed114-938b-49ac-b696-9c1a1ceb0256">
         <semantic:contextEntry id="_ec37158d-b49b-4ffd-88e0-1e2f05c9a023">
-          <semantic:variable id="_3cc56162-97c1-416e-acb9-3ae81d692e58" name="'Disposable Income'" typeRef="number"></semantic:variable>
+          <semantic:variable id="_3cc56162-97c1-416e-acb9-3ae81d692e58" name="Disposable Income" typeRef="number"></semantic:variable>
           <semantic:literalExpression id="_2fcda742-6d7b-49c5-afe6-6b334c8f049b">
             <semantic:text>'Monthly Income' - ('Monthly Repayments' + 'Monthly Expenses')</semantic:text>
           </semantic:literalExpression>
         </semantic:contextEntry>
         <semantic:contextEntry id="_fccafa17-121e-436a-bbed-1927f01a898d">
-          <semantic:variable id="_0f406bed-56f5-422e-b6c3-ad4892a38291" name="'Credit Contingency Factor'" typeRef="number"></semantic:variable>
+          <semantic:variable id="_0f406bed-56f5-422e-b6c3-ad4892a38291" name="Credit Contingency Factor" typeRef="number"></semantic:variable>
           <semantic:invocation id="_78bc74d6-25a4-4639-8509-186534b3c67a">
             <semantic:literalExpression id="literal__78bc74d6-25a4-4639-8509-186534b3c67a">
               <semantic:text>'Credit contingency factor table'</semantic:text>
             </semantic:literalExpression>
             <semantic:binding>
-              <semantic:parameter id="_7fed77e8-7d20-4f3f-9504-2c0c0706bd39" name="'Risk Category'"></semantic:parameter>
+              <semantic:parameter id="_7fed77e8-7d20-4f3f-9504-2c0c0706bd39" name="Risk Category"></semantic:parameter>
               <semantic:literalExpression id="_a02265a9-3dd1-48cd-a254-84531f28a058">
                 <semantic:text>'Risk Category'</semantic:text>
               </semantic:literalExpression>
@@ -162,12 +162,12 @@
   </semantic:businessKnowledgeModel>
   <semantic:knowledgeSource id="_18d836e7-6d61-490c-b9a8-be3ce0c60c1e" name="Affordability spreadsheet"></semantic:knowledgeSource>
   <semantic:knowledgeSource id="_821a6840-e910-418f-809e-4c7d60b0b21a" name="Analytics"></semantic:knowledgeSource>
-  <semantic:inputData id="_d14df033-f4a2-47e3-9590-84e9ff04db4e" name="'Applicant data'">
-    <semantic:variable id="_76597f43-a435-4d85-bc82-98007b9e0d1d" name="'Applicant data'" typeRef="tApplicantData"></semantic:variable>
+  <semantic:inputData id="_d14df033-f4a2-47e3-9590-84e9ff04db4e" name="Applicant data">
+    <semantic:variable id="_76597f43-a435-4d85-bc82-98007b9e0d1d" name="Applicant data" typeRef="tApplicantData"></semantic:variable>
   </semantic:inputData>
-  <semantic:decision id="_e905f02c-c5d9-4f2a-ba57-7912ff523b46" name="'Application risk score'">
+  <semantic:decision id="_e905f02c-c5d9-4f2a-ba57-7912ff523b46" name="Application risk score">
     <semantic:description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Application Risk Score&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic invokes the Application&amp;nbsp;&lt;/span&gt;risk score model business knowledge model, passing Applicant data.Age as the Age parameter, Applicant data.MaritalStatus as the Marital Status parameter and Applicant data.EmploymentStatus as the Employment Status parameter.&lt;/span&gt;&lt;/p&gt;</semantic:description>
-    <semantic:variable id="_f2abe78f-d5d0-4b9e-8d05-f1ea2bd7fc9b" name="'Application risk score'" typeRef="number"></semantic:variable>
+    <semantic:variable id="_f2abe78f-d5d0-4b9e-8d05-f1ea2bd7fc9b" name="Application risk score" typeRef="number"></semantic:variable>
     <semantic:informationRequirement id="_fb44eebf-50e6-47db-9894-cd3fd2e135d4">
       <semantic:requiredInput href="#_d14df033-f4a2-47e3-9590-84e9ff04db4e"></semantic:requiredInput>
     </semantic:informationRequirement>
@@ -185,26 +185,26 @@
         </semantic:literalExpression>
       </semantic:binding>
       <semantic:binding>
-        <semantic:parameter id="_259966f2-bf40-4139-b587-6c9b989f1aa0" name="'Marital Status'"></semantic:parameter>
+        <semantic:parameter id="_259966f2-bf40-4139-b587-6c9b989f1aa0" name="Marital Status"></semantic:parameter>
         <semantic:literalExpression id="_610941db-8c4e-483c-9d75-789b3d5c2333">
           <semantic:text>'Applicant data'.MartitalStatus</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
       <semantic:binding>
-        <semantic:parameter id="_dc6d2bc7-3bde-4994-838d-b3fa1fe1ab2c" name="'Employment Status'"></semantic:parameter>
+        <semantic:parameter id="_dc6d2bc7-3bde-4994-838d-b3fa1fe1ab2c" name="Employment Status"></semantic:parameter>
         <semantic:literalExpression id="_c08280b8-beb0-4eb1-a0d0-f022de521d25">
           <semantic:text>'Applicant data'.EmploymentStatus</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
     </semantic:invocation>
   </semantic:decision>
-  <semantic:businessKnowledgeModel id="_e9e07f04-0ff2-40c4-bd14-e5f06a91f942" name="'Application risk score model'">
+  <semantic:businessKnowledgeModel id="_e9e07f04-0ff2-40c4-bd14-e5f06a91f942" name="Application risk score model">
     <semantic:description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Application risk score model&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic&amp;nbsp;defines a complete, no-order multiple-hit table&amp;nbsp;&lt;/span&gt;with aggregation, deriving Application risk score from Age, Marital Status and Employment Status, as the sum of the Partial scores of all matching rows (this is therefore a predictive scorecard represented as a decision table).&lt;/span&gt;&lt;/p&gt;</semantic:description>
-    <semantic:variable id="_645f4911-6a95-4dbd-8efb-13fac8154fa2" name="'Application risk score model'"></semantic:variable>
+    <semantic:variable id="_645f4911-6a95-4dbd-8efb-13fac8154fa2" name="Application risk score model"></semantic:variable>
     <semantic:encapsulatedLogic>
       <semantic:formalParameter name="Age" typeRef="number"></semantic:formalParameter>
-      <semantic:formalParameter name="'Marital Status'" typeRef="string"></semantic:formalParameter>
-      <semantic:formalParameter name="'Employment Status'" typeRef="string"></semantic:formalParameter>
+      <semantic:formalParameter name="Marital Status" typeRef="string"></semantic:formalParameter>
+      <semantic:formalParameter name="Employment Status" typeRef="string"></semantic:formalParameter>
       <semantic:decisionTable id="_26378922-484b-42f3-a609-5aecb81afbd2" hitPolicy="COLLECT" aggregation="SUM" outputLabel="Application risk score model">
         <semantic:input id="_09b90043-cccb-4cf7-b8bc-44e97787443f">
           <semantic:inputExpression typeRef="number">
@@ -403,9 +403,9 @@
     <semantic:inputData href="#_d14df033-f4a2-47e3-9590-84e9ff04db4e"></semantic:inputData>
     <semantic:inputData href="#_fe938494-ee59-425e-8728-2347ea703563"></semantic:inputData>
   </semantic:decisionService>
-  <semantic:decision id="_5b8356f3-2cf2-40e8-8f80-324937e8b276" name="'Bureau call type'">
+  <semantic:decision id="_5b8356f3-2cf2-40e8-8f80-324937e8b276" name="Bureau call type">
     <semantic:description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Bureau call type&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic&amp;nbsp;invokes the Bureau call type&amp;nbsp;&lt;/span&gt;table, passing the output of the Pre-bureau risk category decision as the Pre-Bureau Risk Category parameter.&lt;/span&gt;&lt;/p&gt;</semantic:description>
-    <semantic:variable id="_207da57c-29a0-487b-b591-751807636337" name="'Bureau call type'" typeRef="tBureauCallType"></semantic:variable>
+    <semantic:variable id="_207da57c-29a0-487b-b591-751807636337" name="Bureau call type" typeRef="tBureauCallType"></semantic:variable>
     <semantic:informationRequirement id="_a34e38e6-5d10-46d5-ae80-41c3045c73df">
       <semantic:requiredDecision href="#_9997fcfd-0f50-4933-939e-88a235b5e2a0"></semantic:requiredDecision>
     </semantic:informationRequirement>
@@ -417,18 +417,18 @@
         <semantic:text>'Bureau call type table'</semantic:text>
       </semantic:literalExpression>
       <semantic:binding>
-        <semantic:parameter id="_8f5b7ce8-b4f9-4af4-8aa5-5580682382c6" name="'Pre-Bureau Risk Category'"></semantic:parameter>
+        <semantic:parameter id="_8f5b7ce8-b4f9-4af4-8aa5-5580682382c6" name="Pre-Bureau Risk Category"></semantic:parameter>
         <semantic:literalExpression id="_40020f96-0afd-405c-828a-0aa6684d150d">
           <semantic:text>'Pre-bureau risk category'</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
     </semantic:invocation>
   </semantic:decision>
-  <semantic:businessKnowledgeModel id="_a654be71-b54d-4d6e-90f0-ae505125e9a6" name="'Bureau call type table'">
+  <semantic:businessKnowledgeModel id="_a654be71-b54d-4d6e-90f0-ae505125e9a6" name="Bureau call type table">
     <semantic:description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Bureau call type table&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic defines a complete, unique-hit decision table deriving&amp;nbsp;&lt;/span&gt;Bureau Call Type from Pre-Bureau Risk Category.&lt;/span&gt;&lt;/p&gt;</semantic:description>
-    <semantic:variable id="_86c4fcfd-1e5a-41ec-9b62-966cf0eed2d3" name="'Bureau call type table'"></semantic:variable>
+    <semantic:variable id="_86c4fcfd-1e5a-41ec-9b62-966cf0eed2d3" name="Bureau call type table"></semantic:variable>
     <semantic:encapsulatedLogic>
-      <semantic:formalParameter name="'Pre-Bureau Risk Category'" typeRef="tRiskCategory"></semantic:formalParameter>
+      <semantic:formalParameter name="Pre-Bureau Risk Category" typeRef="tRiskCategory"></semantic:formalParameter>
       <semantic:decisionTable id="_ebd84888-6db0-4b91-94f4-b3a228bb2901" hitPolicy="UNIQUE" outputLabel="Bureau call type table">
         <semantic:input id="_92e35546-27e5-43a5-b8e6-85a692f42eb8">
           <semantic:inputExpression typeRef="tRiskCategory">
@@ -473,15 +473,15 @@
       <semantic:requiredAuthority href="#_974b09c2-2ff1-4eb4-bb7c-2b68fa24ddf9"></semantic:requiredAuthority>
     </semantic:authorityRequirement>
   </semantic:businessKnowledgeModel>
-  <semantic:inputData id="_e91de815-22ba-431c-8b46-55891f2a1ef6" name="'Bureau data'">
-    <semantic:variable id="_aa8440f8-8f48-4e37-b775-ab8d771d24eb" name="'Bureau data'" typeRef="tBureauData"></semantic:variable>
+  <semantic:inputData id="_e91de815-22ba-431c-8b46-55891f2a1ef6" name="Bureau data">
+    <semantic:variable id="_aa8440f8-8f48-4e37-b775-ab8d771d24eb" name="Bureau data" typeRef="tBureauData"></semantic:variable>
   </semantic:inputData>
-  <semantic:businessKnowledgeModel id="_b982a42a-0b62-47fa-8911-6c9d1145d982" name="'Credit contingency factor table'">
+  <semantic:businessKnowledgeModel id="_b982a42a-0b62-47fa-8911-6c9d1145d982" name="Credit contingency factor table">
     <semantic:description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;/span&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Credit contingency factor table&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;&lt;span style="font-size: 10pt; font-family: arial, helvetica, sans-serif;"&gt;decision&lt;/span&gt; logic defines a complete, unique-hit decision table&amp;nbsp;&lt;/span&gt;deriving Credit contingency factor from Risk Category.&lt;/p&gt;
 			&lt;p&gt;&amp;nbsp;&lt;/p&gt;</semantic:description>
-    <semantic:variable id="_40c0f987-7b90-4c3e-9dcd-411e56f66c92" name="'Credit contingency factor table'"></semantic:variable>
+    <semantic:variable id="_40c0f987-7b90-4c3e-9dcd-411e56f66c92" name="Credit contingency factor table"></semantic:variable>
     <semantic:encapsulatedLogic>
-      <semantic:formalParameter name="'Risk Category'" typeRef="tRiskCategory"></semantic:formalParameter>
+      <semantic:formalParameter name="Risk Category" typeRef="tRiskCategory"></semantic:formalParameter>
       <semantic:decisionTable id="_ad7c587e-64cc-47ec-adc4-515b586f9474" hitPolicy="UNIQUE" outputLabel="Credit contingency factor table">
         <semantic:input id="_2b8fecfd-e00f-4d4b-acf3-660ca3560ca0">
           <semantic:inputExpression typeRef="tRiskCategory">
@@ -549,25 +549,25 @@
         </semantic:literalExpression>
       </semantic:binding>
       <semantic:binding>
-        <semantic:parameter id="_a2bc5321-7041-40c0-be9d-4e53c22442d1" name="'Pre-Bureau Risk Category'"></semantic:parameter>
+        <semantic:parameter id="_a2bc5321-7041-40c0-be9d-4e53c22442d1" name="Pre-Bureau Risk Category"></semantic:parameter>
         <semantic:literalExpression id="_91986b6f-d45e-4aa7-926d-00b35a47686f">
           <semantic:text>'Pre-bureau risk category'</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
       <semantic:binding>
-        <semantic:parameter id="_c3432a72-40b0-4213-9f94-7f5e8e15ee85" name="'Pre-Bureau Affordability'"></semantic:parameter>
+        <semantic:parameter id="_c3432a72-40b0-4213-9f94-7f5e8e15ee85" name="Pre-Bureau Affordability"></semantic:parameter>
         <semantic:literalExpression id="_719504be-6121-4c16-9c00-1480b58f2ecb">
           <semantic:text>'Pre-bureau affordability'</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
     </semantic:invocation>
   </semantic:decision>
-  <semantic:businessKnowledgeModel id="_dc2ca64d-2044-4806-9d0e-e705b3b14447" name="'Eligibility rules'">
+  <semantic:businessKnowledgeModel id="_dc2ca64d-2044-4806-9d0e-e705b3b14447" name="Eligibility rules">
     <semantic:description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Eligibility rules&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic&amp;nbsp;defines a complete, priority-ordered single hit decision table&amp;nbsp;&lt;/span&gt;deriving Eligibility from Pre-Bureau Risk Category, Pre-Bureau Affordability and Age.&lt;/span&gt;&lt;/p&gt;</semantic:description>
-    <semantic:variable id="_fe2d2049-704b-4a88-88be-3d1a56c3d376" name="'Eligibility rules'"></semantic:variable>
+    <semantic:variable id="_fe2d2049-704b-4a88-88be-3d1a56c3d376" name="Eligibility rules"></semantic:variable>
     <semantic:encapsulatedLogic>
-      <semantic:formalParameter name="'Pre-Bureau Risk Category'" typeRef="tRiskCategory"></semantic:formalParameter>
-      <semantic:formalParameter name="'Pre-Bureau Affordability'" typeRef="boolean"></semantic:formalParameter>
+      <semantic:formalParameter name="Pre-Bureau Risk Category" typeRef="tRiskCategory"></semantic:formalParameter>
+      <semantic:formalParameter name="Pre-Bureau Affordability" typeRef="boolean"></semantic:formalParameter>
       <semantic:formalParameter name="Age" typeRef="number"></semantic:formalParameter>
       <semantic:decisionTable id="_7d663660-b2e1-47d1-9870-777b5a695e7f" hitPolicy="PRIORITY" outputLabel="Eligibility rules">
         <semantic:input id="_2bab5dc0-be18-4098-b9b4-6b3486955d1b">
@@ -655,17 +655,17 @@
       <semantic:requiredAuthority href="#_a5f9b126-7853-4037-9e23-3dd7e93c4032"></semantic:requiredAuthority>
     </semantic:authorityRequirement>
   </semantic:businessKnowledgeModel>
-  <semantic:businessKnowledgeModel id="_7235d875-2426-4869-b6df-92ca06ae80c5" name="'Installment calculation'">
+  <semantic:businessKnowledgeModel id="_7235d875-2426-4869-b6df-92ca06ae80c5" name="Installment calculation">
     <semantic:description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Installment calculation&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic&amp;nbsp;defines a boxed function deriving monthly installment&amp;nbsp;&lt;/span&gt;from Product Type, Rate, Term and Amount.&lt;/span&gt;&lt;/p&gt;</semantic:description>
-    <semantic:variable id="_c02274e9-a6c8-4498-9d43-eaa33be7a0d9" name="'Installment calculation'"></semantic:variable>
+    <semantic:variable id="_c02274e9-a6c8-4498-9d43-eaa33be7a0d9" name="Installment calculation"></semantic:variable>
     <semantic:encapsulatedLogic id="_5362b6d5-9520-4081-809c-ee85881e2dfa" kind="FEEL">
-      <semantic:formalParameter id="_f6831cd9-3eab-4399-8d29-42b141fd9968" name="'Product Type'" typeRef="string"></semantic:formalParameter>
+      <semantic:formalParameter id="_f6831cd9-3eab-4399-8d29-42b141fd9968" name="Product Type" typeRef="string"></semantic:formalParameter>
       <semantic:formalParameter id="_c6f48aeb-b65d-4307-8722-dd44f7335566" name="Rate" typeRef="number"></semantic:formalParameter>
       <semantic:formalParameter id="_708eb9af-fe19-418c-8547-1647cb50f596" name="Term" typeRef="number"></semantic:formalParameter>
       <semantic:formalParameter id="_fddc99bb-3be6-45b0-bf8c-d8d4c016a90b" name="Amount" typeRef="number"></semantic:formalParameter>
       <semantic:context id="_2661f418-77f3-4bab-824a-a4968b8a96d4">
         <semantic:contextEntry id="_d773da17-a45c-4a3b-8b70-565058cb6e1d">
-          <semantic:variable id="_2db6ada1-2a67-4c84-bb31-e78178cf6b32" name="'Monthly Fee'" typeRef="number"></semantic:variable>
+          <semantic:variable id="_2db6ada1-2a67-4c84-bb31-e78178cf6b32" name="Monthly Fee" typeRef="number"></semantic:variable>
           <semantic:literalExpression id="_ad1e4499-e806-42f1-8069-254e98f5d498">
             <semantic:text>if 'Product Type' = "STANDARD LOAN"
 							then 20.00
@@ -675,7 +675,7 @@
           </semantic:literalExpression>
         </semantic:contextEntry>
         <semantic:contextEntry id="_f4156a0c-ea28-475d-8025-9e209280bd2c">
-          <semantic:variable id="_594996b3-1aea-4557-bf8e-f3bc91470fee" name="'Monthly Repayment'" typeRef="number"></semantic:variable>
+          <semantic:variable id="_594996b3-1aea-4557-bf8e-f3bc91470fee" name="Monthly Repayment" typeRef="number"></semantic:variable>
           <semantic:literalExpression id="_27a56668-bc99-4a6a-8f4f-5b67ab4e3df3">
             <semantic:text>PMT(Rate, Term, Amount)</semantic:text>
           </semantic:literalExpression>
@@ -702,9 +702,9 @@
       </semantic:literalExpression>
     </semantic:encapsulatedLogic>
   </semantic:businessKnowledgeModel>
-  <semantic:decision id="_728e3a50-f00f-42c0-b3ee-1ee5aabd5474" name="'Post-bureau affordability'">
+  <semantic:decision id="_728e3a50-f00f-42c0-b3ee-1ee5aabd5474" name="Post-bureau affordability">
     <semantic:description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Post-bureau affordability&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic invokes the&amp;nbsp;&lt;/span&gt;Affordability calculation business knowledge model, passing Applicant data.Monthly.Income as the Monthly Income parameter, Applicant data.Monthly.Repayments as the Monthly Repayments parameter, Applicant data.Monthly.Expenses as the Monthly Expenses parameter, the output of the Post-bureau risk category decision as the Risk Category parameter, and the output of the Required monthly installment decision as the Required Monthly Installment parameter.&lt;/span&gt;&lt;/p&gt;</semantic:description>
-    <semantic:variable id="_b6f25146-5302-470e-a242-3d71c4311add" name="'Post-bureau affordability'" typeRef="boolean"></semantic:variable>
+    <semantic:variable id="_b6f25146-5302-470e-a242-3d71c4311add" name="Post-bureau affordability" typeRef="boolean"></semantic:variable>
     <semantic:informationRequirement id="_f7991b2e-6fee-4e49-a79e-fcc667dc8e84">
       <semantic:requiredDecision href="#_40b45659-9299-43a6-af30-04c948c5c0ec"></semantic:requiredDecision>
     </semantic:informationRequirement>
@@ -722,40 +722,40 @@
         <semantic:text>'Affordability calculation'</semantic:text>
       </semantic:literalExpression>
       <semantic:binding>
-        <semantic:parameter id="_ecb484a1-1ca6-40d8-863f-ba95fea13779" name="'Monthly Income'"></semantic:parameter>
+        <semantic:parameter id="_ecb484a1-1ca6-40d8-863f-ba95fea13779" name="Monthly Income"></semantic:parameter>
         <semantic:literalExpression id="_610d5776-9163-4707-85c4-c4f0ff35db0a">
           <semantic:text>'Applicant data'.Monthly.Income</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
       <semantic:binding>
-        <semantic:parameter id="_b5f0835b-4dba-418b-a11c-3a23a76f3ae6" name="'Monthly Repayments'"></semantic:parameter>
+        <semantic:parameter id="_b5f0835b-4dba-418b-a11c-3a23a76f3ae6" name="Monthly Repayments"></semantic:parameter>
         <semantic:literalExpression id="_309f04dc-a3cf-483c-98e0-65dbd1ed8c36">
           <semantic:text>'Applicant data'.Monthly.Repayments</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
       <semantic:binding>
-        <semantic:parameter id="_f8edc4a3-5000-4558-80f0-45efaee7e339" name="'Monthly Expenses'"></semantic:parameter>
+        <semantic:parameter id="_f8edc4a3-5000-4558-80f0-45efaee7e339" name="Monthly Expenses"></semantic:parameter>
         <semantic:literalExpression id="_3d3c099c-c287-45ff-82de-ca3079da67b0">
           <semantic:text>'Applicant data'.Monthly.Expenses</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
       <semantic:binding>
-        <semantic:parameter id="_a8c6984b-8bca-41cc-b284-d056a18b43af" name="'Risk Category'"></semantic:parameter>
+        <semantic:parameter id="_a8c6984b-8bca-41cc-b284-d056a18b43af" name="Risk Category"></semantic:parameter>
         <semantic:literalExpression id="_45a5cc86-5fe5-422c-ab9d-b2c73dc52113">
           <semantic:text>'Post-bureau risk category'</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
       <semantic:binding>
-        <semantic:parameter id="_cac9db30-48f9-4b43-b9fa-699171ac858b" name="'Required Monthly Installment'"></semantic:parameter>
+        <semantic:parameter id="_cac9db30-48f9-4b43-b9fa-699171ac858b" name="Required Monthly Installment"></semantic:parameter>
         <semantic:literalExpression id="_8b2bd0c8-28eb-4e2d-91d9-80fc07f81227">
           <semantic:text>'Required monthly installment'</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
     </semantic:invocation>
   </semantic:decision>
-  <semantic:decision id="_40b45659-9299-43a6-af30-04c948c5c0ec" name="'Post-bureau risk category'">
+  <semantic:decision id="_40b45659-9299-43a6-af30-04c948c5c0ec" name="Post-bureau risk category">
     <semantic:description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Post-bureau risk category&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic invokes the Post-bureau&amp;nbsp;&lt;/span&gt;risk category business knowledge model, passing Applicant data.ExistingCustomer as the Existing Customer parameter, Bureau data.CreditScore as the Credit Score parameter, and the output of the Application risk score decision as the Application Risk Score parameter. Note that if Bureau data is null (due to the THROUGH strategy bypassing the Collect bureau data task) the Credit Score parameter will be null.&lt;/span&gt;&lt;/p&gt;</semantic:description>
-    <semantic:variable id="_34b85411-de9d-4d9a-8b03-ad1b1cec8777" name="'Post-bureau risk category'" typeRef="tRiskCategory"></semantic:variable>
+    <semantic:variable id="_34b85411-de9d-4d9a-8b03-ad1b1cec8777" name="Post-bureau risk category" typeRef="tRiskCategory"></semantic:variable>
     <semantic:informationRequirement id="_afa8490a-52e3-48cd-94a6-1602e00ffe59">
       <semantic:requiredInput href="#_e91de815-22ba-431c-8b46-55891f2a1ef6"></semantic:requiredInput>
     </semantic:informationRequirement>
@@ -773,32 +773,32 @@
         <semantic:text>'Post-bureau risk category table'</semantic:text>
       </semantic:literalExpression>
       <semantic:binding>
-        <semantic:parameter id="_a7faf416-0247-43c1-8827-9346540d13c3" name="'Existing Customer'"></semantic:parameter>
+        <semantic:parameter id="_a7faf416-0247-43c1-8827-9346540d13c3" name="Existing Customer"></semantic:parameter>
         <semantic:literalExpression id="_9eb92498-0de3-44b1-a8e2-301a2bc091d4">
           <semantic:text>'Applicant data'.ExistingCustomer</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
       <semantic:binding>
-        <semantic:parameter id="_b0bb0d61-0ea4-4c10-8a97-94be610bee0b" name="'Credit Score'"></semantic:parameter>
+        <semantic:parameter id="_b0bb0d61-0ea4-4c10-8a97-94be610bee0b" name="Credit Score"></semantic:parameter>
         <semantic:literalExpression id="_ad652244-9438-4a76-9637-2ca8dde2cee4">
           <semantic:text>'Bureau data'.CreditScore</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
       <semantic:binding>
-        <semantic:parameter id="_4bb7604e-18d8-4d57-8097-cd2585c59266" name="'Application Risk Score'"></semantic:parameter>
+        <semantic:parameter id="_4bb7604e-18d8-4d57-8097-cd2585c59266" name="Application Risk Score"></semantic:parameter>
         <semantic:literalExpression id="_9ead8557-599e-4900-80b8-7157c0653d82">
           <semantic:text>'Application risk score'</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
     </semantic:invocation>
   </semantic:decision>
-  <semantic:businessKnowledgeModel id="_1c72ed95-ec72-47b4-8639-5ed14ccb77df" name="'Post-bureau risk category table'">
+  <semantic:businessKnowledgeModel id="_1c72ed95-ec72-47b4-8639-5ed14ccb77df" name="Post-bureau risk category table">
     <semantic:description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Post-bureau risk category table&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic defines a complete, unique-hit decision table&amp;nbsp;&lt;/span&gt;deriving Post-Bureau Risk Category from Existing Customer, Application Risk Score and Credit Score.&lt;/span&gt;&lt;/p&gt;</semantic:description>
-    <semantic:variable id="_689c96f3-6dd3-4c74-9a8f-721a966eb1af" name="'Post-bureau risk category table'"></semantic:variable>
+    <semantic:variable id="_689c96f3-6dd3-4c74-9a8f-721a966eb1af" name="Post-bureau risk category table"></semantic:variable>
     <semantic:encapsulatedLogic>
-      <semantic:formalParameter name="'Existing Customer'" typeRef="boolean"></semantic:formalParameter>
-      <semantic:formalParameter name="'Application Risk Score'" typeRef="number"></semantic:formalParameter>
-      <semantic:formalParameter name="'Credit Score'" typeRef="number"></semantic:formalParameter>
+      <semantic:formalParameter name="Existing Customer" typeRef="boolean"></semantic:formalParameter>
+      <semantic:formalParameter name="Application Risk Score" typeRef="number"></semantic:formalParameter>
+      <semantic:formalParameter name="Credit Score" typeRef="number"></semantic:formalParameter>
       <semantic:decisionTable id="_c494b824-7c60-4115-8773-00f103b636a0" hitPolicy="UNIQUE" outputLabel="Post-bureau risk category table">
         <semantic:input id="_fc4cfa6b-926b-4751-81d9-d363b6f19299">
           <semantic:inputExpression typeRef="boolean">
@@ -1008,9 +1008,9 @@
       <semantic:requiredAuthority href="#_974b09c2-2ff1-4eb4-bb7c-2b68fa24ddf9"></semantic:requiredAuthority>
     </semantic:authorityRequirement>
   </semantic:businessKnowledgeModel>
-  <semantic:decision id="_ed60265c-25e2-400f-a99f-fafd3b489838" name="'Pre-bureau affordability'">
+  <semantic:decision id="_ed60265c-25e2-400f-a99f-fafd3b489838" name="Pre-bureau affordability">
     <semantic:description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Pre-bureau affordability&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic&amp;nbsp;invokes the&amp;nbsp;&lt;/span&gt;Affordability calculation business knowledge model, passing Applicant data.Monthly.Income as the Monthly Income parameter, Applicant data.Monthly.Repayments as the Monthly Repayments parameter, Applicant data.Monthly.Expenses as the Monthly Expenses parameter, the output of the Pre-bureau risk category decision as the Risk Category parameter, and the output of the Required monthly installment decision as the Required Monthly Installment parameter.&lt;/span&gt;&lt;/p&gt;</semantic:description>
-    <semantic:variable id="_bd744aca-06aa-4438-81de-0754fc15a44e" name="'Pre-bureau affordability'" typeRef="boolean"></semantic:variable>
+    <semantic:variable id="_bd744aca-06aa-4438-81de-0754fc15a44e" name="Pre-bureau affordability" typeRef="boolean"></semantic:variable>
     <semantic:informationRequirement id="_00c137a3-a81c-42ff-af6d-5c3247151273">
       <semantic:requiredDecision href="#_9997fcfd-0f50-4933-939e-88a235b5e2a0"></semantic:requiredDecision>
     </semantic:informationRequirement>
@@ -1028,40 +1028,40 @@
         <semantic:text>'Affordability calculation'</semantic:text>
       </semantic:literalExpression>
       <semantic:binding>
-        <semantic:parameter id="_ea45f34e-c7f7-41fe-a2fa-c9329dc03ead" name="'Monthly Income'"></semantic:parameter>
+        <semantic:parameter id="_ea45f34e-c7f7-41fe-a2fa-c9329dc03ead" name="Monthly Income"></semantic:parameter>
         <semantic:literalExpression id="_63cbd20f-fab4-480e-9471-1367b2e1fc6c">
           <semantic:text>'Applicant data'.Monthly.Income</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
       <semantic:binding>
-        <semantic:parameter id="_28b8d43b-e005-42f0-a432-5ea3c6547247" name="'Monthly Repayments'"></semantic:parameter>
+        <semantic:parameter id="_28b8d43b-e005-42f0-a432-5ea3c6547247" name="Monthly Repayments"></semantic:parameter>
         <semantic:literalExpression id="_c35a57bf-208c-4333-973f-c8a9e9ce85f4">
           <semantic:text>'Applicant data'.Monthly.Repayments</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
       <semantic:binding>
-        <semantic:parameter id="_650b93d6-d6cd-46dc-8ebc-d1d80c5c4fa7" name="'Monthly Expenses'"></semantic:parameter>
+        <semantic:parameter id="_650b93d6-d6cd-46dc-8ebc-d1d80c5c4fa7" name="Monthly Expenses"></semantic:parameter>
         <semantic:literalExpression id="_174c9fb3-c940-455f-ab97-035989e83446">
           <semantic:text>'Applicant data'.Monthly.Expenses</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
       <semantic:binding>
-        <semantic:parameter id="_70836844-402b-49b0-b07a-347c81e0f345" name="'Risk Category'"></semantic:parameter>
+        <semantic:parameter id="_70836844-402b-49b0-b07a-347c81e0f345" name="Risk Category"></semantic:parameter>
         <semantic:literalExpression id="_34d3db82-c899-45f6-b46c-ef7cb2f550c3">
           <semantic:text>'Pre-bureau risk category'</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
       <semantic:binding>
-        <semantic:parameter id="_b94f43b0-69d0-4f20-9698-5f91b85f026a" name="'Required Monthly Installment'"></semantic:parameter>
+        <semantic:parameter id="_b94f43b0-69d0-4f20-9698-5f91b85f026a" name="Required Monthly Installment"></semantic:parameter>
         <semantic:literalExpression id="_47e0147f-030a-4020-a5d3-728c563c0bd2">
           <semantic:text>'Required monthly installment'</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
     </semantic:invocation>
   </semantic:decision>
-  <semantic:decision id="_9997fcfd-0f50-4933-939e-88a235b5e2a0" name="'Pre-bureau risk category'">
+  <semantic:decision id="_9997fcfd-0f50-4933-939e-88a235b5e2a0" name="Pre-bureau risk category">
     <semantic:description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Pre-Bureau Risk Category&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic&amp;nbsp;invokes the Pre-bureau&amp;nbsp;&lt;/span&gt;risk category table business knowledge model, passing Applicant data.ExistingCustomer as the Existing Customer parameter and the output of the Application risk score decision as the Application Risk Score parameter.&lt;/span&gt;&lt;/p&gt;</semantic:description>
-    <semantic:variable id="_a739014d-8c5e-438b-b76a-805e3689c977" name="'Pre-bureau risk category'" typeRef="tRiskCategory"></semantic:variable>
+    <semantic:variable id="_a739014d-8c5e-438b-b76a-805e3689c977" name="Pre-bureau risk category" typeRef="tRiskCategory"></semantic:variable>
     <semantic:informationRequirement id="_7b60cf6f-1265-4460-bf43-8d10272fe9f2">
       <semantic:requiredInput href="#_d14df033-f4a2-47e3-9590-84e9ff04db4e"></semantic:requiredInput>
     </semantic:informationRequirement>
@@ -1076,25 +1076,25 @@
         <semantic:text>'Pre-bureau risk category table'</semantic:text>
       </semantic:literalExpression>
       <semantic:binding>
-        <semantic:parameter id="_74d8aa6b-838e-4d87-8d64-8b734146aac6" name="'Existing Customer'"></semantic:parameter>
+        <semantic:parameter id="_74d8aa6b-838e-4d87-8d64-8b734146aac6" name="Existing Customer"></semantic:parameter>
         <semantic:literalExpression id="_4b5e5cfb-d6fa-4d41-a13a-783170887126">
           <semantic:text>'Applicant data'.ExistingCustomer</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
       <semantic:binding>
-        <semantic:parameter id="_929d5796-6174-41eb-b27c-52f956fd44dd" name="'Application Risk Score'"></semantic:parameter>
+        <semantic:parameter id="_929d5796-6174-41eb-b27c-52f956fd44dd" name="Application Risk Score"></semantic:parameter>
         <semantic:literalExpression id="_b93f253e-7f93-4356-a98b-3fae510485e3">
           <semantic:text>'Application risk score'</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
     </semantic:invocation>
   </semantic:decision>
-  <semantic:businessKnowledgeModel id="_51cc9510-3bfa-4e5a-a119-9bf83efdd266" name="'Pre-bureau risk category table'">
+  <semantic:businessKnowledgeModel id="_51cc9510-3bfa-4e5a-a119-9bf83efdd266" name="Pre-bureau risk category table">
     <semantic:description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Pre-bureau risk category table&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic defines a complete, unique-hit decision table&amp;nbsp;&lt;/span&gt;deriving Pre-bureau risk category from Existing Customer and Application Risk Score.&lt;/span&gt;&lt;/p&gt;</semantic:description>
-    <semantic:variable id="_cfb1bb8c-ad27-42e2-b52a-50eadea198a6" name="'Pre-bureau risk category table'"></semantic:variable>
+    <semantic:variable id="_cfb1bb8c-ad27-42e2-b52a-50eadea198a6" name="Pre-bureau risk category table"></semantic:variable>
     <semantic:encapsulatedLogic>
-      <semantic:formalParameter name="'Existing Customer'" typeRef="boolean"></semantic:formalParameter>
-      <semantic:formalParameter name="'Application Risk Score'" typeRef="number"></semantic:formalParameter>
+      <semantic:formalParameter name="Existing Customer" typeRef="boolean"></semantic:formalParameter>
+      <semantic:formalParameter name="Application Risk Score" typeRef="number"></semantic:formalParameter>
       <semantic:decisionTable id="_3f0a3259-2862-44d3-baff-5bd71f4dd24f" hitPolicy="UNIQUE" outputLabel="Pre-bureau risk category table">
         <semantic:input id="_1ee6291f-423f-47d9-8774-858b392d4762">
           <semantic:inputExpression typeRef="boolean">
@@ -1206,12 +1206,12 @@
     </semantic:authorityRequirement>
   </semantic:businessKnowledgeModel>
   <semantic:knowledgeSource id="_a5f9b126-7853-4037-9e23-3dd7e93c4032" name="Product specification"></semantic:knowledgeSource>
-  <semantic:inputData id="_fe938494-ee59-425e-8728-2347ea703563" name="'Requested product'">
-    <semantic:variable id="_480bcfd2-2643-4d1c-852b-3034dfa62790" name="'Requested product'" typeRef="tRequestedProduct"></semantic:variable>
+  <semantic:inputData id="_fe938494-ee59-425e-8728-2347ea703563" name="Requested product">
+    <semantic:variable id="_480bcfd2-2643-4d1c-852b-3034dfa62790" name="Requested product" typeRef="tRequestedProduct"></semantic:variable>
   </semantic:inputData>
-  <semantic:decision id="_3c8cee68-99dd-418c-847d-0b54697354f2" name="'Required monthly installment'">
+  <semantic:decision id="_3c8cee68-99dd-418c-847d-0b54697354f2" name="Required monthly installment">
     <semantic:description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Required monthly installment&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic invokes the&amp;nbsp;&lt;/span&gt;Installment calculation business knowledge model, passing Requested product.ProductType as the Product Type parameter, Requested product.Rate as the Rate parameter, Requested product.Term as the Term parameter, and Requested product.Amount as the Amount parameter.&lt;/span&gt;&lt;/p&gt;</semantic:description>
-    <semantic:variable id="_f581169e-828d-45cd-9af5-e401eebc8f27" name="'Required monthly installment'" typeRef="number"></semantic:variable>
+    <semantic:variable id="_f581169e-828d-45cd-9af5-e401eebc8f27" name="Required monthly installment" typeRef="number"></semantic:variable>
     <semantic:informationRequirement id="_c5e79286-ea8f-4340-bd38-e878054891f2">
       <semantic:requiredInput href="#_fe938494-ee59-425e-8728-2347ea703563"></semantic:requiredInput>
     </semantic:informationRequirement>
@@ -1223,7 +1223,7 @@
         <semantic:text>'Installment calculation'</semantic:text>
       </semantic:literalExpression>
       <semantic:binding>
-        <semantic:parameter id="_fa5953c6-c8f2-449e-ac2b-4bc04cb000c2" name="'Product Type'"></semantic:parameter>
+        <semantic:parameter id="_fa5953c6-c8f2-449e-ac2b-4bc04cb000c2" name="Product Type"></semantic:parameter>
         <semantic:literalExpression id="_87dccb4c-d416-42ca-9c72-a0b591b4ba88">
           <semantic:text>'Requested product'.ProductType</semantic:text>
         </semantic:literalExpression>
@@ -1275,19 +1275,19 @@
         </semantic:literalExpression>
       </semantic:binding>
       <semantic:binding>
-        <semantic:parameter id="_5b79a0ff-62ed-4d3d-b512-ea706cc06f62" name="'Credit score'"></semantic:parameter>
+        <semantic:parameter id="_5b79a0ff-62ed-4d3d-b512-ea706cc06f62" name="Credit score"></semantic:parameter>
         <semantic:literalExpression id="_d0e623e6-f72e-47fc-8c2b-5729a72fcf3a">
           <semantic:text>'Bureau data'.CreditScore</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
       <semantic:binding>
-        <semantic:parameter id="_79216390-7bf1-4b14-9b3e-91ee83a5cd4a" name="'Post-bureau risk category'"></semantic:parameter>
+        <semantic:parameter id="_79216390-7bf1-4b14-9b3e-91ee83a5cd4a" name="Post-bureau risk category"></semantic:parameter>
         <semantic:literalExpression id="_30a91838-0f0a-4843-a6d0-6b5a655f36b2">
           <semantic:text>'Post-bureau risk category'</semantic:text>
         </semantic:literalExpression>
       </semantic:binding>
       <semantic:binding>
-        <semantic:parameter id="_6edce48a-be0d-4896-af06-f5c05980970b" name="'Post-bureau affordability'"></semantic:parameter>
+        <semantic:parameter id="_6edce48a-be0d-4896-af06-f5c05980970b" name="Post-bureau affordability"></semantic:parameter>
         <semantic:literalExpression id="_7a672677-fd20-4174-87f9-ba5e9146ddba">
           <semantic:text>'Post-bureau affordability'</semantic:text>
         </semantic:literalExpression>
@@ -1305,14 +1305,14 @@
     <semantic:inputData href="#_d14df033-f4a2-47e3-9590-84e9ff04db4e"></semantic:inputData>
     <semantic:inputData href="#_fe938494-ee59-425e-8728-2347ea703563"></semantic:inputData>
   </semantic:decisionService>
-  <semantic:businessKnowledgeModel id="_536d7a39-87a6-4651-b743-6ee03e16e535" name="'Routing rules'">
+  <semantic:businessKnowledgeModel id="_536d7a39-87a6-4651-b743-6ee03e16e535" name="Routing rules">
     <semantic:description>&lt;p&gt;&lt;span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"&gt;&lt;span lang="JA"&gt;The&amp;nbsp;&lt;/span&gt;&lt;strong&gt;&lt;span lang="JA"&gt;Routing Rules&amp;nbsp;&lt;/span&gt;&lt;/strong&gt;&lt;span lang="JA"&gt;decision logic defines a complete, priority-ordered single hit decision table&amp;nbsp;&lt;/span&gt;deriving Routing from Post-Bureau Risk Category, Post-Bureau Affordability, Bankrupt and Credit Score.&lt;/span&gt;&lt;/p&gt;</semantic:description>
-    <semantic:variable id="_08f4f63e-54e4-4b19-b0d2-08aeed21605c" name="'Routing rules'"></semantic:variable>
+    <semantic:variable id="_08f4f63e-54e4-4b19-b0d2-08aeed21605c" name="Routing rules"></semantic:variable>
     <semantic:encapsulatedLogic>
-      <semantic:formalParameter name="'Post-bureau risk category'" typeRef="tRiskCategory"></semantic:formalParameter>
-      <semantic:formalParameter name="'Post-bureau affordability'" typeRef="boolean"></semantic:formalParameter>
+      <semantic:formalParameter name="Post-bureau risk category" typeRef="tRiskCategory"></semantic:formalParameter>
+      <semantic:formalParameter name="Post-bureau affordability" typeRef="boolean"></semantic:formalParameter>
       <semantic:formalParameter name="Bankrupt" typeRef="boolean"></semantic:formalParameter>
-      <semantic:formalParameter name="'Credit score'" typeRef="number"></semantic:formalParameter>
+      <semantic:formalParameter name="Credit score" typeRef="number"></semantic:formalParameter>
       <semantic:decisionTable id="_4dfddea8-3c8e-400a-97bc-dcba00876c34" hitPolicy="PRIORITY" outputLabel="Routing rules">
         <semantic:input id="_b3bde44f-2274-41d5-8e04-5cb2f7529e6c">
           <semantic:inputExpression typeRef="tRiskCategory">
@@ -1502,8 +1502,8 @@
       </semantic:rule>
     </semantic:decisionTable>
   </semantic:decision>
-  <semantic:inputData id="_34cd3187-8764-4249-959d-2664bf9f1847" name="'Supporting documents'">
-    <semantic:variable id="_d996b907-be17-4ff1-a54e-6fe7d62f55b1" name="'Supporting documents'" typeRef="string"></semantic:variable>
+  <semantic:inputData id="_34cd3187-8764-4249-959d-2664bf9f1847" name="Supporting documents">
+    <semantic:variable id="_d996b907-be17-4ff1-a54e-6fe7d62f55b1" name="Supporting documents" typeRef="string"></semantic:variable>
   </semantic:inputData>
   <dmndi:DMNDI xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/">
     <dmndi:DMNDiagram id="_5c111794-4c6b-4747-8dfc-99d2ad0b6313" name="Bureau Strategy Decision Service">

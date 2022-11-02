@@ -18,21 +18,21 @@ public class _0004LendingTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
         checkValues("ACCEPT", new Adjudication().apply(applicantData, bureauData, supportingDocuments, context_));
         // Check 'ApplicationRiskScore'
         checkValues(number("130"), new ApplicationRiskScore().apply(applicantData, context_));
-        // Check ''Pre-bureauRiskCategory''
+        // Check 'Pre-bureauRiskCategory'
         checkValues("LOW", new PreBureauRiskCategory().apply(applicantData, context_));
         // Check 'BureauCallType'
         checkValues("MINI", new BureauCallType().apply(applicantData, context_));
-        // Check ''Post-bureauRiskCategory''
+        // Check 'Post-bureauRiskCategory'
         checkValues("LOW", new PostBureauRiskCategory().apply(applicantData, bureauData, context_));
         // Check 'RequiredMonthlyInstallment'
         checkValues(number("1680.880325608555"), new RequiredMonthlyInstallment().apply(requestedProduct, context_));
-        // Check ''Pre-bureauAffordability''
+        // Check 'Pre-bureauAffordability'
         checkValues(Boolean.TRUE, new PreBureauAffordability().apply(applicantData, requestedProduct, context_));
         // Check 'Eligibility'
         checkValues("ELIGIBLE", new Eligibility().apply(applicantData, requestedProduct, context_));
         // Check 'Strategy'
         checkValues("BUREAU", new Strategy().apply(applicantData, requestedProduct, context_));
-        // Check ''Post-bureauAffordability''
+        // Check 'Post-bureauAffordability'
         checkValues(Boolean.TRUE, new PostBureauAffordability().apply(applicantData, bureauData, requestedProduct, context_));
         // Check 'Routing'
         checkValues("ACCEPT", new Routing().apply(applicantData, bureauData, requestedProduct, context_));
@@ -59,7 +59,7 @@ public class _0004LendingTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
         }
         proto.ApplicationRiskScoreRequest applicationRiskScoreRequest_ = applicationRiskScoreBuilder_.build();
         checkValues(number("130"), new ApplicationRiskScore().applyProto(applicationRiskScoreRequest_, context_).getApplicationRiskScore());
-        // Check ''Pre-bureauRiskCategory'' with proto request
+        // Check 'Pre-bureauRiskCategory' with proto request
         proto.PreBureauRiskCategoryRequest.Builder preBureauRiskCategoryBuilder_ = proto.PreBureauRiskCategoryRequest.newBuilder();
         proto.TApplicantData applicantDataProto2 = type.TApplicantData.toProto(applicantData);
         if (applicantDataProto2 != null) {
@@ -75,7 +75,7 @@ public class _0004LendingTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
         }
         proto.BureauCallTypeRequest bureauCallTypeRequest_ = bureauCallTypeBuilder_.build();
         checkValues("MINI", new BureauCallType().applyProto(bureauCallTypeRequest_, context_).getBureauCallType());
-        // Check ''Post-bureauRiskCategory'' with proto request
+        // Check 'Post-bureauRiskCategory' with proto request
         proto.PostBureauRiskCategoryRequest.Builder postBureauRiskCategoryBuilder_ = proto.PostBureauRiskCategoryRequest.newBuilder();
         proto.TApplicantData applicantDataProto4 = type.TApplicantData.toProto(applicantData);
         if (applicantDataProto4 != null) {
@@ -95,7 +95,7 @@ public class _0004LendingTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
         }
         proto.RequiredMonthlyInstallmentRequest requiredMonthlyInstallmentRequest_ = requiredMonthlyInstallmentBuilder_.build();
         checkValues(number("1680.880325608555"), new RequiredMonthlyInstallment().applyProto(requiredMonthlyInstallmentRequest_, context_).getRequiredMonthlyInstallment());
-        // Check ''Pre-bureauAffordability'' with proto request
+        // Check 'Pre-bureauAffordability' with proto request
         proto.PreBureauAffordabilityRequest.Builder preBureauAffordabilityBuilder_ = proto.PreBureauAffordabilityRequest.newBuilder();
         proto.TApplicantData applicantDataProto6 = type.TApplicantData.toProto(applicantData);
         if (applicantDataProto6 != null) {
@@ -131,7 +131,7 @@ public class _0004LendingTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
         }
         proto.StrategyRequest strategyRequest_ = strategyBuilder_.build();
         checkValues("BUREAU", new Strategy().applyProto(strategyRequest_, context_).getStrategy());
-        // Check ''Post-bureauAffordability'' with proto request
+        // Check 'Post-bureauAffordability' with proto request
         proto.PostBureauAffordabilityRequest.Builder postBureauAffordabilityBuilder_ = proto.PostBureauAffordabilityRequest.newBuilder();
         proto.TApplicantData applicantDataProto9 = type.TApplicantData.toProto(applicantData);
         if (applicantDataProto9 != null) {

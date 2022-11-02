@@ -63,7 +63,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     }
 
     public static BuiltinFunctionType makeSublistBuiltInFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new FormalParameter<>("list", listType), new FormalParameter<>("'start position'", NUMBER), new FormalParameter<>("length", NUMBER, true, false));
+        return new BuiltinFunctionType(listType, new FormalParameter<>("list", listType), new FormalParameter<>("start position", NUMBER), new FormalParameter<>("length", NUMBER, true, false));
     }
 
     public static BuiltinFunctionType makeAppendBuiltinFunctionType(Type listType, Type itemType) {
@@ -75,7 +75,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     }
 
     public static BuiltinFunctionType makeInsertBeforeBuiltinFunctionType(Type listType, Type itemType) {
-        return new BuiltinFunctionType(listType, new FormalParameter<>("list", listType), new FormalParameter<>("position", NUMBER), new FormalParameter<>("'new item'", itemType));
+        return new BuiltinFunctionType(listType, new FormalParameter<>("list", listType), new FormalParameter<>("position", NUMBER), new FormalParameter<>("new item", itemType));
     }
 
     public static BuiltinFunctionType makeRemoveBuiltinFunctionType(Type listType) {
@@ -159,7 +159,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         addFunctionDeclaration(environment, "time", new BuiltinFunctionType(TIME, new FormalParameter<>("from", DATE)));
         addFunctionDeclaration(environment, "time", new BuiltinFunctionType(TIME, new FormalParameter<>("from", DATE_AND_TIME)));
         addFunctionDeclaration(environment, "time", new BuiltinFunctionType(TIME, new FormalParameter<>("hour", NUMBER), new FormalParameter<>("minute", NUMBER), new FormalParameter<>("second", NUMBER), new FormalParameter<>("offset", DAYS_AND_TIME_DURATION, true, false)));
-        addFunctionDeclaration(environment, "number", new BuiltinFunctionType(NUMBER, new FormalParameter<>("from", STRING), new FormalParameter<>("'grouping separator'", STRING), new FormalParameter<>("'decimal separator'", STRING)));
+        addFunctionDeclaration(environment, "number", new BuiltinFunctionType(NUMBER, new FormalParameter<>("from", STRING), new FormalParameter<>("grouping separator", STRING), new FormalParameter<>("decimal separator", STRING)));
         addFunctionDeclaration(environment, "number", new BuiltinFunctionType(NUMBER, new FormalParameter<>("from", STRING), new FormalParameter<>("groupingSeparator", STRING), new FormalParameter<>("decimalSeparator", STRING)));
         addFunctionDeclaration(environment, "string", new BuiltinFunctionType(STRING, new FormalParameter<>("from", ANY)));
         addFunctionDeclaration(environment, "duration", new BuiltinFunctionType(ANY_DURATION, new FormalParameter<>("from", STRING)));
@@ -196,7 +196,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     }
 
     private static void addStringFunctions(Environment environment) {
-        addFunctionDeclaration(environment, "substring", new BuiltinFunctionType(STRING, new FormalParameter<>("string", STRING), new FormalParameter<>("'start position'", NUMBER), new FormalParameter<>("length", NUMBER, true, false)));
+        addFunctionDeclaration(environment, "substring", new BuiltinFunctionType(STRING, new FormalParameter<>("string", STRING), new FormalParameter<>("start position", NUMBER), new FormalParameter<>("length", NUMBER, true, false)));
         addFunctionDeclaration(environment, "substring", new BuiltinFunctionType(STRING, new FormalParameter<>("string", STRING), new FormalParameter<>("startPosition", NUMBER), new FormalParameter<>("length", NUMBER, true, false)));
         addFunctionDeclaration(environment, "string length", new BuiltinFunctionType(NUMBER, new FormalParameter<>("string", STRING)));
         addFunctionDeclaration(environment, "upper case", new BuiltinFunctionType(STRING, new FormalParameter<>("string", STRING)));

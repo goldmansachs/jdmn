@@ -18,21 +18,21 @@ public class _0004LendingTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
         checkValues("ACCEPT", Adjudication.instance().apply(applicantData, bureauData, supportingDocuments, context_));
         // Check 'ApplicationRiskScore'
         checkValues(number("130"), ApplicationRiskScore.instance().apply(applicantData, context_));
-        // Check ''Pre-bureauRiskCategory''
+        // Check 'Pre-bureauRiskCategory'
         checkValues("LOW", PreBureauRiskCategory.instance().apply(applicantData, context_));
         // Check 'BureauCallType'
         checkValues("MINI", BureauCallType.instance().apply(applicantData, context_));
-        // Check ''Post-bureauRiskCategory''
+        // Check 'Post-bureauRiskCategory'
         checkValues("LOW", PostBureauRiskCategory.instance().apply(applicantData, bureauData, context_));
         // Check 'RequiredMonthlyInstallment'
         checkValues(number("1680.880325608555"), RequiredMonthlyInstallment.instance().apply(requestedProduct, context_));
-        // Check ''Pre-bureauAffordability''
+        // Check 'Pre-bureauAffordability'
         checkValues(Boolean.TRUE, PreBureauAffordability.instance().apply(applicantData, requestedProduct, context_));
         // Check 'Eligibility'
         checkValues("ELIGIBLE", Eligibility.instance().apply(applicantData, requestedProduct, context_));
         // Check 'Strategy'
         checkValues("BUREAU", Strategy.instance().apply(applicantData, requestedProduct, context_));
-        // Check ''Post-bureauAffordability''
+        // Check 'Post-bureauAffordability'
         checkValues(Boolean.TRUE, PostBureauAffordability.instance().apply(applicantData, bureauData, requestedProduct, context_));
         // Check 'Routing'
         checkValues("ACCEPT", Routing.instance().apply(applicantData, bureauData, requestedProduct, context_));
