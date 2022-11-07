@@ -44,7 +44,7 @@ public class F0020VacationDaysLambda implements com.amazonaws.services.lambda.ru
             }
             return response_;
         } catch (Exception e) {
-            throw new IllegalArgumentException(String.format("Error executing DRG Element '%s'", elementName));
+            throw new IllegalArgumentException(String.format("Error executing DRG Element '%s'", elementName), e);
         }
     }
 }

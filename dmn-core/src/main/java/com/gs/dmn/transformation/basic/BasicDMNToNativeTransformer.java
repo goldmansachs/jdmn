@@ -274,6 +274,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String bindingName(DRGElementReference<? extends TDRGElement> reference);
 
+    String registryId(TDRGElement element);
+
     String parameterNativeType(TDefinitions model, TInformationItem element);
 
     String parameterNativeType(TDRGElement element);

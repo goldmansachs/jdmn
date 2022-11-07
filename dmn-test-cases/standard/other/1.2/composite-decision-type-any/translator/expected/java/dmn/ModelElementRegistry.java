@@ -4,7 +4,5 @@ public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElem
         // Register elements from model 'ageClassificationDtFeelFn'
         register("ageClassification", "AgeClassification");
         register("calculateDiscountedPrice", "CalculateDiscountedPrice");
-        register("price", "Price");
-        register("student", "Student");
     }
 }

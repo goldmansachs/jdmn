@@ -1109,6 +1109,17 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
+    public String registryId(TDRGElement element) {
+        if (this.dmnModelRepository.getAllDefinitions().size() == 1 || this.onePackage) {
+            return displayName(element);
+        } else {
+            TDefinitions model = this.dmnModelRepository.getModel(element);
+            String modelId = model.getNamespace();
+            return String.format("%s#%s", modelId, displayName(element));
+        }
+    }
+
+    @Override
     public String parameterNativeType(TDefinitions model, TInformationItem element) {
         return parameterType(model, element);
     }
