@@ -22,12 +22,12 @@ Globals:
       ProvisionedConcurrentExecutions: 5
 
 Resources:
-  F0020VacationDaysLambda:
+  F0020VacationDaysMapRequestHandler:
     Type: AWS::Serverless::Function # More info about Function Resource: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
     Properties:
-      FunctionName: F0020VacationDaysLambda
+      FunctionName: F0020VacationDaysMapRequestHandler
       CodeUri: f0020vacationdays
-      Handler: .F0020VacationDaysLambda::handleRequest
+      Handler: .F0020VacationDaysMapRequestHandler::handleRequest
       Runtime: java11
       MemorySize: 512
       Tracing: Active # Tracing https://docs.aws.amazon.com/lambda/latest/dg/java-tracing.html
@@ -35,7 +35,7 @@ Resources:
         Variables:
           PARAM1: VALUE
       Events:
-        F0020VacationDaysLambda:
+        F0020VacationDaysMapRequestHandler:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /apply/f0020-vacation-days
@@ -45,13 +45,13 @@ Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  F0020VacationDaysLambdaApi:
-    Description: "API Gateway endpoint URL for Prod stage for F0020VacationDaysLambda"
+  F0020VacationDaysMapRequestHandlerApi:
+    Description: "API Gateway endpoint URL for Prod stage for F0020VacationDaysMapRequestHandler"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/apply/f0020-vacation-days"
-  F0020VacationDaysLambda:
-    Description: "ARN of F0020VacationDaysLambda"
-    Value: !GetAtt F0020VacationDaysLambda.Arn
-  F0020VacationDaysLambdaIamRole:
-    Description: "Implicit IAM Role created for F0020VacationDaysLambda"
-    Value: !GetAtt F0020VacationDaysLambdaRole.Arn
+  F0020VacationDaysMapRequestHandler:
+    Description: "ARN of F0020VacationDaysMapRequestHandler"
+    Value: !GetAtt F0020VacationDaysMapRequestHandler.Arn
+  F0020VacationDaysMapRequestHandlerIamRole:
+    Description: "Implicit IAM Role created for F0020VacationDaysMapRequestHandler"
+    Value: !GetAtt F0020VacationDaysMapRequestHandlerRole.Arn
 

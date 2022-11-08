@@ -39,7 +39,7 @@
         <dependency>
             <groupId>com.goldmansachs.jdmn</groupId>
             <artifactId>jdmn-runtime</artifactId>
-            <version>5.0.0</version>
+            <version>8.0.0</version>
         </dependency>
 
         <dependency>

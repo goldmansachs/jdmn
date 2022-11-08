@@ -13,7 +13,6 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
@@ -73,22 +72,17 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         super.transform(basicTransformer, repository, targetPath);
 
         // Generate handlers
-        generateLambdaRequestHandler(modelName, definitions, Paths.get(outputFolder.toPath().toString(), lambdaFolderName, "src", "main", "java"), basicTransformer);
+        generateLambdaRequestHandler(modelName, Paths.get(outputFolder.toPath().toString(), lambdaFolderName, "src", "main", "java"), basicTransformer);
 
         // Generate SAM template
-        generateTemplate(modelName, lambdaFolderName, definitions, outputFolder, basicTransformer);
+        generateTemplate(modelName, lambdaFolderName, outputFolder, basicTransformer);
     }
 
-    private List<? extends TDRGElement> findRootElements(DMNModelRepository repository, TDefinitions definitions, InputParameters inputParameters) {
-        return repository.findDecisions(definitions);
-    }
-
-    private void generateLambdaRequestHandler(String modelName, TDefinitions element, Path functionPath, BasicDMNToJavaTransformer transformer) {
+    private void generateLambdaRequestHandler(String modelName, Path functionPath, BasicDMNToJavaTransformer transformer) {
         // Template
         String baseTemplatePath = getAWSBaseTemplatePath();
         String templateName = "lambdaClass.ftl";
-        String elementName = element.getName();
-        String lambdaName = lambdaName(elementName, transformer);
+        String lambdaName = lambdaName(modelName, transformer);
 
         try {
             // Output file
@@ -101,7 +95,6 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
             // Make parameters
             Map<String, Object> params = new HashMap<>();
             params.put("modelName", modelName);
-            params.put("element", element);
             params.put("transformer", transformer);
             params.put("javaPackageName", javaPackageName);
             params.put("javaClassName", outputFileName);
@@ -138,12 +131,12 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         }
     }
 
-    private void generateTemplate(String modelName, String stackName, TDefinitions definitions, File outputFolder, BasicDMNToJavaTransformer transformer) {
+    private void generateTemplate(String modelName, String stackName, File outputFolder, BasicDMNToJavaTransformer transformer) {
         // Template
         String baseTemplatePath = getAWSBaseTemplatePath();
         String templateName = "template.ftl";
 
-        List<FunctionResource> functionResources = makeFunctionResources(modelName, definitions, transformer);
+        List<FunctionResource> functionResources = makeFunctionResources(modelName, transformer);
 
         try {
             // Output file
@@ -161,21 +154,20 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
 
             processTemplate(baseTemplatePath, templateName, params, outputFile);
         } catch (Exception e) {
-            throw new RuntimeException(String.format("Cannot generate from template '%s' for '%s'", templateName, definitions), e);
+            throw new RuntimeException(String.format("Cannot generate from template '%s' for '%s'", templateName, modelName), e);
         }
     }
 
-    private List<FunctionResource> makeFunctionResources(String modelName, TDefinitions element, BasicDMNToJavaTransformer transformer) {
+    private List<FunctionResource> makeFunctionResources(String modelName, BasicDMNToJavaTransformer transformer) {
         List<FunctionResource> resources = new ArrayList<>();
 
-        String elementName = element.getName();
-        String lambdaName = lambdaName(elementName, transformer);
+        String lambdaName = lambdaName(modelName, transformer);
         String folderName = lambdaFolderName(modelName, transformer);
         String codeUri = String.format("%s", folderName);
         String javaPackageName = transformer.nativeModelPackageName(modelName);
         String javaClassName = transformer.upperCaseFirst(lambdaName);
         String handler = String.format("%s.%s::handleRequest", javaPackageName, javaClassName);
-        String path = restPath(elementName);
+        String path = restPath(modelName);
         resources.add(new FunctionResource(javaClassName, codeUri, handler, path));
 
         return resources;
@@ -217,8 +209,8 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         return name.toLowerCase();
     }
 
-    public String lambdaName(String elementName, BasicDMNToJavaTransformer transformer) {
-        String name = transformer.upperCaseFirst(elementName) + "Lambda";
+    public String lambdaName(String modelName, BasicDMNToJavaTransformer transformer) {
+        String name = transformer.upperCaseFirst(modelName) + "MapRequestHandler";
         return Character.isLetter(name.charAt(0)) ? name : "F" + name;
     }
 

@@ -4,7 +4,7 @@ import java.util.Map;
 /**
  * Handler for requests to Lambda function for DRG elements in model '0020-vacation-days'.
  */
-public class F0020VacationDaysLambda implements com.amazonaws.services.lambda.runtime.RequestHandler<Map<String, String>, Object> {
+public class F0020VacationDaysMapRequestHandler implements com.amazonaws.services.lambda.runtime.RequestHandler<Map<String, String>, Object> {
     private static final com.gs.dmn.runtime.Executor EXECUTOR = new com.gs.dmn.runtime.Executor(new ModelElementRegistry());
 
     public Object handleRequest(Map<String, String> event_, com.amazonaws.services.lambda.runtime.Context context_) {
