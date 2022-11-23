@@ -127,7 +127,7 @@ public class DecisionConverter extends DRGElementConverter {
         }
         if (dec.getExpression() != null) {
             TExpression e = dec.getExpression();
-            String nodeName = MarshallingUtils.defineExpressionNodeName(xstream, e);
+            String nodeName = DMNBaseConverter.defineExpressionNodeName(xstream, e);
             writeChildrenNode(writer, context, e, nodeName);
         }
     }

@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.serialization.xstream.v1_1;
 
-import com.gs.dmn.ast.DMNBaseElement;
+import com.gs.dmn.ast.*;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.converters.collections.AbstractCollectionConverter;
@@ -20,9 +20,64 @@ import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.mapper.Mapper;
 
+import javax.xml.XMLConstants;
+import javax.xml.namespace.QName;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public abstract class DMNBaseConverter extends AbstractCollectionConverter {
+    private final static Pattern QNAME_PAT = Pattern.compile("(\\{([^\\}]*)\\})?(([^:]*):)?(.*)");
+
     public DMNBaseConverter(Mapper mapper) {
         super(mapper);
+    }
+
+    public static QName parseQNameString(String qns) {
+        if (qns != null) {
+            Matcher m = QNAME_PAT.matcher(qns);
+            if (m.matches()) {
+                String namespaceURI = m.group(2);
+                String prefix = m.group(4);
+                String localPart = m.group(5);
+                if (prefix != null) {
+                    return new QName(namespaceURI, localPart, prefix);
+                } else {
+                    return new QName(namespaceURI, localPart);
+                }
+            } else {
+                return new QName(qns);
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public static String formatQName(QName qname) {
+        if (!XMLConstants.DEFAULT_NS_PREFIX.equals(qname.getPrefix())) {
+            return qname.getPrefix() + ":" + qname.getLocalPart();
+        } else {
+            return qname.toString();
+        }
+    }
+
+    public static String defineExpressionNodeName(TExpression e) {
+        String nodeName = "expression";
+        if (e instanceof TContext) {
+            nodeName = "context";
+        } else if (e instanceof TDecisionTable) {
+            nodeName = "decisionTable";
+        } else if (e instanceof TFunctionDefinition) {
+            nodeName = "functionDefinition";
+        } else if (e instanceof TInvocation) {
+            nodeName = "invocation";
+        } else if (e instanceof TLiteralExpression) {
+            nodeName = "literalExpression";
+        } else if (e instanceof TRelation) {
+            nodeName = "relation";
+        } else if (e instanceof TList) {
+            nodeName = "list";
+        }
+        return nodeName;
     }
 
     @Override

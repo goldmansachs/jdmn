@@ -63,7 +63,7 @@ public class InvocationConverter extends ExpressionConverter {
         TInvocation i = (TInvocation) parent;
 
         if (i.getExpression() != null)
-            writeChildrenNode(writer, context, i.getExpression(), MarshallingUtils.defineExpressionNodeName(xstream, i.getExpression()));
+            writeChildrenNode(writer, context, i.getExpression(), DMNBaseConverter.defineExpressionNodeName(xstream, i.getExpression()));
         for (TBinding b : i.getBinding()) {
             writeChildrenNode(writer, context, b, BINDING);
         }

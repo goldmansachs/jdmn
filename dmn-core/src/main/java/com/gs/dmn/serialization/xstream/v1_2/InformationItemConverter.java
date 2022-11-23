@@ -42,7 +42,7 @@ public class InformationItemConverter extends NamedElementConverter {
         TInformationItem ii = (TInformationItem) parent;
 
         String typeRef = reader.getAttribute(TYPE_REF);
-        ii.setTypeRef(MarshallingUtils.parseQNameString(typeRef));
+        ii.setTypeRef(DMNBaseConverter.parseQNameString(typeRef));
     }
 
     @Override
@@ -61,7 +61,7 @@ public class InformationItemConverter extends NamedElementConverter {
         TInformationItem ii = (TInformationItem) parent;
 
         if (ii.getTypeRef() != null) {
-            writer.addAttribute(TYPE_REF, MarshallingUtils.formatQName(ii.getTypeRef(), ii));
+            writer.addAttribute(TYPE_REF, DMNBaseConverter.formatQName(ii.getTypeRef(), ii));
         }
     }
 }

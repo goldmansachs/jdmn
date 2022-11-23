@@ -58,7 +58,7 @@ public class DMNEdgeConverter extends EdgeConverter {
         String dmnElementRef = reader.getAttribute(DMN_ELEMENT_REF);
 
         if (dmnElementRef != null) {
-            concrete.setDmnElementRef(MarshallingUtils.parseQNameString(dmnElementRef));
+            concrete.setDmnElementRef(DMNBaseConverter.parseQNameString(dmnElementRef));
         }
     }
 
@@ -78,7 +78,7 @@ public class DMNEdgeConverter extends EdgeConverter {
 
         DMNEdge concrete = (DMNEdge) parent;
         if (concrete.getDmnElementRef() != null) {
-            writer.addAttribute(DMN_ELEMENT_REF, MarshallingUtils.formatQName(concrete.getDmnElementRef(), concrete));
+            writer.addAttribute(DMN_ELEMENT_REF, DMNBaseConverter.formatQName(concrete.getDmnElementRef(), concrete));
         }
     }
 }

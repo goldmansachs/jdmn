@@ -66,7 +66,7 @@ public class BindingConverter extends DMNBaseElementConverter {
 
         writeChildrenNode(writer, context, b.getParameter(), PARAMETER);
         if (b.getExpression() != null) {
-            writeChildrenNode(writer, context, b.getExpression(), MarshallingUtils.defineExpressionNodeName(xstream, b.getExpression()));
+            writeChildrenNode(writer, context, b.getExpression(), DMNBaseConverter.defineExpressionNodeName(xstream, b.getExpression()));
         }
     }
 

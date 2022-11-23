@@ -61,13 +61,13 @@ public class DMNEdgeConverter extends EdgeConverter {
         String targetElement = reader.getAttribute(TARGET_ELEMENT);
 
         if (dmnElementRef != null) {
-            concrete.setDmnElementRef(MarshallingUtils.parseQNameString(dmnElementRef));
+            concrete.setDmnElementRef(DMNBaseConverter.parseQNameString(dmnElementRef));
         }
         if (sourceElement != null) {
-            concrete.setSourceElement(MarshallingUtils.parseQNameString(sourceElement));
+            concrete.setSourceElement(DMNBaseConverter.parseQNameString(sourceElement));
         }
         if (targetElement != null) {
-            concrete.setTargetElement(MarshallingUtils.parseQNameString(targetElement));
+            concrete.setTargetElement(DMNBaseConverter.parseQNameString(targetElement));
         }
     }
 
@@ -88,13 +88,13 @@ public class DMNEdgeConverter extends EdgeConverter {
         DMNEdge concrete = (DMNEdge) parent;
 
         if (concrete.getDmnElementRef() != null) {
-            writer.addAttribute(DMN_ELEMENT_REF, MarshallingUtils.formatQName(concrete.getDmnElementRef(), concrete));
+            writer.addAttribute(DMN_ELEMENT_REF, DMNBaseConverter.formatQName(concrete.getDmnElementRef(), concrete));
         }
         if (concrete.getSourceElement() != null) {
-            writer.addAttribute(SOURCE_ELEMENT, MarshallingUtils.formatQName(concrete.getSourceElement(), concrete));
+            writer.addAttribute(SOURCE_ELEMENT, DMNBaseConverter.formatQName(concrete.getSourceElement(), concrete));
         }
         if (concrete.getTargetElement() != null) {
-            writer.addAttribute(TARGET_ELEMENT, MarshallingUtils.formatQName(concrete.getTargetElement(), concrete));
+            writer.addAttribute(TARGET_ELEMENT, DMNBaseConverter.formatQName(concrete.getTargetElement(), concrete));
         }
     }
 }

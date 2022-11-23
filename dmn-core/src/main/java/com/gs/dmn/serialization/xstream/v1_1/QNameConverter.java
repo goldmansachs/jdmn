@@ -33,7 +33,7 @@ public class QNameConverter implements Converter {
 
     @Override
     public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
-        QName qname = MarshallingUtils.parseQNameString(reader.getValue());
+        QName qname = DMNBaseConverter.parseQNameString(reader.getValue());
         CustomStaxReader customStaxReader = (CustomStaxReader) reader.underlyingReader();
         Map<String, String> currentNSCtx = customStaxReader.getElementInfo().getNsContext();
         String qnameURI = currentNSCtx.get(qname.getPrefix());
@@ -55,6 +55,6 @@ public class QNameConverter implements Converter {
                 e.printStackTrace();
             }
         }
-        writer.setValue(MarshallingUtils.formatQName(qname));
+        writer.setValue(DMNBaseConverter.formatQName(qname));
     }
 }

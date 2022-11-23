@@ -55,7 +55,7 @@ public class FunctionItemConverter extends DMNElementConverter {
         TFunctionItem ii = (TFunctionItem) parent;
 
         String typeRef = reader.getAttribute(OUTPUT_TYPE_REF);
-        ii.setOutputTypeRef(MarshallingUtils.parseQNameString(typeRef));
+        ii.setOutputTypeRef(DMNBaseConverter.parseQNameString(typeRef));
     }
 
     @Override
@@ -75,7 +75,7 @@ public class FunctionItemConverter extends DMNElementConverter {
         TFunctionItem ii = (TFunctionItem) parent;
 
         if (ii.getOutputTypeRef() != null) {
-            writer.addAttribute(OUTPUT_TYPE_REF, MarshallingUtils.formatQName(ii.getOutputTypeRef(), ii));
+            writer.addAttribute(OUTPUT_TYPE_REF, DMNBaseConverter.formatQName(ii.getOutputTypeRef(), ii));
         }
     }
 

@@ -63,7 +63,7 @@ public class OutputClauseConverter extends DMNElementConverter {
         String typeRefValue = reader.getAttribute(TYPE_REF);
 
         oc.setName(name);
-        if (typeRefValue != null) oc.setTypeRef(MarshallingUtils.parseQNameString(typeRefValue));
+        if (typeRefValue != null) oc.setTypeRef(DMNBaseConverter.parseQNameString(typeRefValue));
     }
 
     @Override
@@ -85,7 +85,7 @@ public class OutputClauseConverter extends DMNElementConverter {
             writer.addAttribute(NAME, oc.getName());
         }
         if (oc.getTypeRef() != null) {
-            writer.addAttribute(TYPE_REF, MarshallingUtils.formatQName(oc.getTypeRef(), oc));
+            writer.addAttribute(TYPE_REF, DMNBaseConverter.formatQName(oc.getTypeRef(), oc));
         }
     }
 }

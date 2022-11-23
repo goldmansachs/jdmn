@@ -31,7 +31,7 @@ public abstract class ExpressionConverter extends DMNElementConverter {
         String typeRef = reader.getAttribute(TYPE_REF);
 
         if (typeRef != null) {
-            ((TExpression) parent).setTypeRef(MarshallingUtils.parseQNameString(typeRef));
+            ((TExpression) parent).setTypeRef(DMNBaseConverter.parseQNameString(typeRef));
         }
     }
 
@@ -41,7 +41,7 @@ public abstract class ExpressionConverter extends DMNElementConverter {
         TExpression e = (TExpression) parent;
 
         if (!(e instanceof TUnaryTests) && e.getTypeRef() != null) {
-            writer.addAttribute(TYPE_REF, MarshallingUtils.formatQName(e.getTypeRef()));
+            writer.addAttribute(TYPE_REF, DMNBaseConverter.formatQName(e.getTypeRef()));
         }
     }
 }

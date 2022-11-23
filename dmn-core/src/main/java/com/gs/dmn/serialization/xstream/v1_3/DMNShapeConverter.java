@@ -67,7 +67,7 @@ public class DMNShapeConverter extends ShapeConverter {
         super.assignAttributes(reader, parent);
         DMNShape shape = (DMNShape) parent;
 
-        shape.setDmnElementRef(MarshallingUtils.parseQNameString(reader.getAttribute("dmnElementRef")));
+        shape.setDmnElementRef(DMNBaseConverter.parseQNameString(reader.getAttribute("dmnElementRef")));
 
         String isListedInputData = reader.getAttribute("isListedInputData");
         String isCollapsed = reader.getAttribute("isCollapsed");
@@ -98,7 +98,7 @@ public class DMNShapeConverter extends ShapeConverter {
         super.writeAttributes(writer, parent);
         DMNShape shape = (DMNShape) parent;
 
-        writer.addAttribute("dmnElementRef", MarshallingUtils.formatQName(shape.getDmnElementRef(), shape));
+        writer.addAttribute("dmnElementRef", DMNBaseConverter.formatQName(shape.getDmnElementRef(), shape));
 
         if (shape.isIsListedInputData() != null) {
             writer.addAttribute("isListedInputData", shape.isIsListedInputData().toString());
