@@ -51,7 +51,7 @@ public final class MarshallingUtils {
         if (!XMLConstants.DEFAULT_NS_PREFIX.equals(qname.getPrefix())) {
             String nsForPrefix = parent.getNamespaceURI(qname.getPrefix());
             if (DMNVersion.DMN_13.getFeelNamespace().equals(nsForPrefix)) {
-                return qname.getPrefix() + ":" + qname.getLocalPart();
+                return qname.getPrefix() + "." + qname.getLocalPart();
             } else if (parent instanceof DMNShape || parent instanceof DMNEdge) {
                 return qname.getPrefix() + ":" + qname.getLocalPart();
             } else {
