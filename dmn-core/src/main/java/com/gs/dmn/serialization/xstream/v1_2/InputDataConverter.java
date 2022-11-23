@@ -15,6 +15,7 @@ package com.gs.dmn.serialization.xstream.v1_2;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TInformationItem;
 import com.gs.dmn.ast.TInputData;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -23,8 +24,8 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 public class InputDataConverter extends DRGElementConverter {
     private static final String VARIABLE = "variable";
 
-    public InputDataConverter(XStream xstream) {
-        super(xstream);
+    public InputDataConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

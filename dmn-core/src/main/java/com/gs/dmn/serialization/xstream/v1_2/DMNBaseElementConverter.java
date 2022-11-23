@@ -35,8 +35,8 @@ import java.util.Map.Entry;
 public abstract class DMNBaseElementConverter extends DMNBaseConverter {
     private static final Logger LOG = LoggerFactory.getLogger(DMNBaseElementConverter.class);
 
-    public DMNBaseElementConverter(XStream xstream) {
-        super(xstream.getMapper());
+    public DMNBaseElementConverter(XStream xstream, DMNVersion version) {
+        super(xstream.getMapper(), version);
     }
 
     @Override

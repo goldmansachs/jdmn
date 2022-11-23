@@ -15,6 +15,7 @@ package com.gs.dmn.serialization.xstream.v1_2;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.ast.TUnaryTests;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -29,8 +30,8 @@ public class ItemDefinitionConverter extends NamedElementConverter {
     public static final String TYPE_LANGUAGE = "typeLanguage";
     public static final String IS_COLLECTION = "isCollection";
 
-    public ItemDefinitionConverter(XStream xstream) {
-        super(xstream);
+    public ItemDefinitionConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

@@ -14,6 +14,7 @@ package com.gs.dmn.serialization.xstream.v1_2;
 
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TRuleAnnotationClause;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -22,8 +23,8 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 public class RuleAnnotationClauseConverter extends DMNBaseElementConverter {
     public static final String NAME = "name";
 
-    public RuleAnnotationClauseConverter(XStream xstream) {
-        super(xstream);
+    public RuleAnnotationClauseConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

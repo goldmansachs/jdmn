@@ -13,6 +13,7 @@
 package com.gs.dmn.serialization.xstream.v1_2;
 
 import com.gs.dmn.ast.TDMNElement;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -24,8 +25,8 @@ public abstract class DMNElementConverter extends DMNBaseElementConverter {
     public static final String DESCRIPTION = "description";
     public static final String EXTENSION_ELEMENTS = "extensionElements";
 
-    public DMNElementConverter(XStream xstream) {
-        super(xstream);
+    public DMNElementConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

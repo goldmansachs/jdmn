@@ -14,6 +14,7 @@ package com.gs.dmn.serialization.xstream.v1_2;
 
 import com.gs.dmn.ast.TExpression;
 import com.gs.dmn.ast.TUnaryTests;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
@@ -21,8 +22,8 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 public abstract class ExpressionConverter extends DMNElementConverter {
     public static final String TYPE_REF = "typeRef";
 
-    public ExpressionConverter(XStream xstream) {
-        super(xstream);
+    public ExpressionConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

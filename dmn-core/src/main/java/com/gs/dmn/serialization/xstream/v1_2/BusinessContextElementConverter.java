@@ -13,6 +13,7 @@
 package com.gs.dmn.serialization.xstream.v1_2;
 
 import com.gs.dmn.ast.TBusinessContextElement;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -21,8 +22,8 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 public abstract class BusinessContextElementConverter extends NamedElementConverter {
     public static final String URI = "URI";
 
-    public BusinessContextElementConverter(XStream xstream) {
-        super(xstream);
+    public BusinessContextElementConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

@@ -31,10 +31,6 @@ import java.util.regex.Pattern;
 public abstract class DMNBaseConverter extends AbstractCollectionConverter {
     private final static Pattern QNAME_PAT = Pattern.compile("(\\{([^\\}]*)\\})?(([^:]*):)?(.*)");
 
-    public DMNBaseConverter(Mapper mapper) {
-        super(mapper);
-    }
-
     public static QName parseQNameString(String qns) {
         if (qns != null) {
             Matcher m = QNAME_PAT.matcher(qns);
@@ -89,6 +85,13 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
             nodeName = "list";
         }
         return nodeName;
+    }
+
+    private final DMNVersion version;
+
+    public DMNBaseConverter(Mapper mapper, DMNVersion version) {
+        super(mapper);
+        this.version = version;
     }
 
     @Override

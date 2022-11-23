@@ -14,6 +14,7 @@ package com.gs.dmn.serialization.xstream.v1_2;
 
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.dmndi.Bounds;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -25,8 +26,8 @@ public class BoundsConverter extends DMNBaseElementConverter {
     private static final String Y = "y";
     private static final String X = "x";
 
-    public BoundsConverter(XStream xstream) {
-        super(xstream);
+    public BoundsConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override
