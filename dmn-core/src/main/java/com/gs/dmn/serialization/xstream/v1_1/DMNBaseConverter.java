@@ -26,6 +26,24 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
     }
 
     @Override
+    public void marshal(Object object, HierarchicalStreamWriter writer, MarshallingContext context) {
+        writeAttributes(writer, object);
+        writeChildren(writer, context, object);
+    }
+
+    protected void writeChildrenNode(HierarchicalStreamWriter writer, MarshallingContext context, Object node, String nodeAlias) {
+        writer.startNode(nodeAlias);
+        context.convertAnother(node);
+        writer.endNode();
+    }
+
+    protected void writeChildrenNodeAsValue(HierarchicalStreamWriter writer, MarshallingContext context, String nodeValue, String nodeAlias) {
+        writer.startNode(nodeAlias);
+        writer.setValue(nodeValue);
+        writer.endNode();
+    }
+
+    @Override
     public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
         DMNBaseElement obj = createModelObject();
         assignAttributes(reader, obj);
@@ -45,24 +63,6 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
             reader.moveUp();
             assignChildElement(parent, nodeName, object);
         }
-    }
-
-    @Override
-    public void marshal(Object object, HierarchicalStreamWriter writer, MarshallingContext context) {
-        writeAttributes(writer, object);
-        writeChildren(writer, context, object);
-    }
-
-    protected void writeChildrenNode(HierarchicalStreamWriter writer, MarshallingContext context, Object node, String nodeAlias) {
-        writer.startNode(nodeAlias);
-        context.convertAnother(node);
-        writer.endNode();
-    }
-
-    protected void writeChildrenNodeAsValue(HierarchicalStreamWriter writer, MarshallingContext context, String nodeValue, String nodeAlias) {
-        writer.startNode(nodeAlias);
-        writer.setValue(nodeValue);
-        writer.endNode();
     }
 
     protected abstract DMNBaseElement createModelObject();
