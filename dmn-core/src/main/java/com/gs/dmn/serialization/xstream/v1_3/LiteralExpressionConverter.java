@@ -15,6 +15,7 @@ package com.gs.dmn.serialization.xstream.v1_3;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TImportedValues;
 import com.gs.dmn.ast.TLiteralExpression;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -25,8 +26,8 @@ public class LiteralExpressionConverter extends ExpressionConverter {
     public static final String TEXT = "text";
     public static final String EXPR_LANGUAGE = "expressionLanguage";
 
-    public LiteralExpressionConverter(XStream xstream) {
-        super(xstream);
+    public LiteralExpressionConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

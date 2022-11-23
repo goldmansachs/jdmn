@@ -14,6 +14,7 @@ package com.gs.dmn.serialization.xstream.v1_3;
 
 import com.gs.dmn.ast.dmndi.Edge;
 import com.gs.dmn.ast.dmndi.Point;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -22,8 +23,8 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 public abstract class EdgeConverter extends DiagramElementConverter {
     private static final String WAYPOINT = "waypoint";
 
-    public EdgeConverter(XStream xstream) {
-        super(xstream);
+    public EdgeConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

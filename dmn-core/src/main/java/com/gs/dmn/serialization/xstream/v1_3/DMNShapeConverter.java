@@ -16,6 +16,7 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.dmndi.DMNDecisionServiceDividerLine;
 import com.gs.dmn.ast.dmndi.DMNLabel;
 import com.gs.dmn.ast.dmndi.DMNShape;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -35,8 +36,8 @@ public class DMNShapeConverter extends ShapeConverter {
     private static final String LABEL_HORIZONTAL_ALIGNMENT = "labelHorizontalAlignement";
     private static final String LABEL_VERTICAL_ALIGNMENT = "labelVerticalAlignment";
 
-    public DMNShapeConverter(XStream xstream) {
-        super(xstream);
+    public DMNShapeConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

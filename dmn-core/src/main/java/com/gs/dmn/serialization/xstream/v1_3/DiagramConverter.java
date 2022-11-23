@@ -13,6 +13,7 @@
 package com.gs.dmn.serialization.xstream.v1_3;
 
 import com.gs.dmn.ast.dmndi.Diagram;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -23,8 +24,8 @@ public abstract class DiagramConverter extends DiagramElementConverter {
     private static final String DOCUMENTATION = "documentation";
     private static final String NAME = "name";
 
-    public DiagramConverter(XStream xstream) {
-        super(xstream);
+    public DiagramConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

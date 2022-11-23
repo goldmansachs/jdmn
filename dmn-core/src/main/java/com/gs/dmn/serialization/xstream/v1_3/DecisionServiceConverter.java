@@ -15,6 +15,7 @@ package com.gs.dmn.serialization.xstream.v1_3;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDMNElementReference;
 import com.gs.dmn.ast.TDecisionService;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
@@ -27,8 +28,8 @@ public class DecisionServiceConverter extends InvocableConverter {
     public static final String INPUT_DECISION = "inputDecision";
     public static final String INPUT_DATA = "inputData";
 
-    public DecisionServiceConverter(XStream xstream) {
-        super(xstream);
+    public DecisionServiceConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

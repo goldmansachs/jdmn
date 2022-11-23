@@ -16,6 +16,7 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TAssociation;
 import com.gs.dmn.ast.TAssociationDirection;
 import com.gs.dmn.ast.TDMNElementReference;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -26,8 +27,8 @@ public class AssociationConverter extends ArtifactConverter {
     public static final String SOURCE_REF = "sourceRef";
     public static final String ASSOCIATION_DIRECTION = "associationDirection";
 
-    public AssociationConverter(XStream xstream) {
-        super(xstream);
+    public AssociationConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

@@ -16,6 +16,7 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TLiteralExpression;
 import com.gs.dmn.ast.TOutputClause;
 import com.gs.dmn.ast.TUnaryTests;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -27,8 +28,8 @@ public class OutputClauseConverter extends DMNElementConverter {
     public static final String NAME = "name";
     public static final String TYPE_REF = "typeRef";
 
-    public OutputClauseConverter(XStream xstream) {
-        super(xstream);
+    public OutputClauseConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

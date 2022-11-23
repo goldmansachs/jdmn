@@ -15,6 +15,7 @@ package com.gs.dmn.serialization.xstream.v1_3;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.dmndi.DMNEdge;
 import com.gs.dmn.ast.dmndi.DMNLabel;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -26,8 +27,8 @@ public class DMNEdgeConverter extends EdgeConverter {
     private static final String TARGET_ELEMENT = "targetElement";
     private static final String DMN_LABEL = "DMNLabel";
 
-    public DMNEdgeConverter(XStream xstream) {
-        super(xstream);
+    public DMNEdgeConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

@@ -14,6 +14,7 @@ package com.gs.dmn.serialization.xstream.v1_3;
 
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TTextAnnotation;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -23,8 +24,8 @@ public class TextAnnotationConverter extends ArtifactConverter {
     public static final String TEXT = "text";
     public static final String TEXT_FORMAT = "textFormat";
 
-    public TextAnnotationConverter(XStream xstream) {
-        super(xstream);
+    public TextAnnotationConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

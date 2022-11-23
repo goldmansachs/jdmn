@@ -14,6 +14,7 @@ package com.gs.dmn.serialization.xstream.v1_3;
 
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TInformationItem;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -22,8 +23,8 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 public class InformationItemConverter extends NamedElementConverter {
     private static final String TYPE_REF = "typeRef";
 
-    public InformationItemConverter(XStream xstream) {
-        super(xstream);
+    public InformationItemConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

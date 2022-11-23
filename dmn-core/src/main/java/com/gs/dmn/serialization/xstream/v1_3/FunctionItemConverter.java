@@ -15,6 +15,7 @@ package com.gs.dmn.serialization.xstream.v1_3;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TFunctionItem;
 import com.gs.dmn.ast.TInformationItem;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -24,8 +25,8 @@ public class FunctionItemConverter extends DMNElementConverter {
     private static final String OUTPUT_TYPE_REF = "outputTypeRef";
     private static final String PARAMETERS = "parameters";
 
-    public FunctionItemConverter(XStream xstream) {
-        super(xstream);
+    public FunctionItemConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

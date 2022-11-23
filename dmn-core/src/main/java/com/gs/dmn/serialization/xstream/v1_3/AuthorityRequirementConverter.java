@@ -15,6 +15,7 @@ package com.gs.dmn.serialization.xstream.v1_3;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TAuthorityRequirement;
 import com.gs.dmn.ast.TDMNElementReference;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -25,8 +26,8 @@ public class AuthorityRequirementConverter extends DMNElementConverter {
     public static final String REQUIRED_INPUT = "requiredInput";
     public static final String REQUIRED_DECISION = "requiredDecision";
 
-    public AuthorityRequirementConverter(XStream xstream) {
-        super(xstream);
+    public AuthorityRequirementConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

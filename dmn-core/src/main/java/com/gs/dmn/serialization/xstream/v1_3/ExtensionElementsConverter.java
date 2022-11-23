@@ -14,6 +14,7 @@ package com.gs.dmn.serialization.xstream.v1_3;
 
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDMNElement;
+import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.serialization.xstream.dom.DomConverter;
 import com.thoughtworks.xstream.XStream;
@@ -35,15 +36,15 @@ public class ExtensionElementsConverter extends DMNBaseElementConverter {
 
     private final List<DMNExtensionRegister> extensionRegisters = new ArrayList<>();
 
-    public ExtensionElementsConverter(XStream xStream, List<DMNExtensionRegister> extensionRegisters) {
-        super(xStream);
+    public ExtensionElementsConverter(XStream xStream, DMNVersion version, List<DMNExtensionRegister> extensionRegisters) {
+        super(xStream, version);
         if (!extensionRegisters.isEmpty()) {
             this.extensionRegisters.addAll(extensionRegisters);
         }
     }
 
-    public ExtensionElementsConverter(XStream xstream) {
-        super(xstream);
+    public ExtensionElementsConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

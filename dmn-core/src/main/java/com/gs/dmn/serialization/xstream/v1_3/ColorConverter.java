@@ -14,6 +14,7 @@ package com.gs.dmn.serialization.xstream.v1_3;
 
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.dmndi.Color;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -24,8 +25,8 @@ public class ColorConverter extends DMNBaseElementConverter {
     private static final String GREEN = "green";
     private static final String BLUE = "blue";
 
-    public ColorConverter(XStream xstream) {
-        super(xstream);
+    public ColorConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

@@ -37,8 +37,8 @@ public abstract class DMNBaseElementConverter extends DMNBaseConverter {
 
     protected XStream xstream;
 
-    public DMNBaseElementConverter(XStream xstream) {
-        super(xstream.getMapper());
+    public DMNBaseElementConverter(XStream xstream, DMNVersion version) {
+        super(xstream.getMapper(), version);
         this.xstream = xstream;
     }
 

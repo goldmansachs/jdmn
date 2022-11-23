@@ -16,6 +16,7 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.dmndi.AlignmentKind;
 import com.gs.dmn.ast.dmndi.Color;
 import com.gs.dmn.ast.dmndi.DMNStyle;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -35,8 +36,8 @@ public class DMNStyleConverter extends StyleConverter {
     private static final String LABEL_HORIZONTAL_ALIGNMENT = "labelHorizontalAlignement";
     private static final String LABEL_VERTICAL_ALIGNMENT = "labelVerticalAlignment";
 
-    public DMNStyleConverter(XStream xstream) {
-        super(xstream);
+    public DMNStyleConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

@@ -14,6 +14,7 @@ package com.gs.dmn.serialization.xstream.v1_3;
 
 import com.gs.dmn.ast.dmndi.Bounds;
 import com.gs.dmn.ast.dmndi.Shape;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -22,8 +23,8 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 public abstract class ShapeConverter extends DiagramElementConverter {
     private static final String BOUNDS = "Bounds";
 
-    public ShapeConverter(XStream xstream) {
-        super(xstream);
+    public ShapeConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

@@ -16,6 +16,7 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TAuthorityRequirement;
 import com.gs.dmn.ast.TDMNElementReference;
 import com.gs.dmn.ast.TKnowledgeSource;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -27,8 +28,8 @@ public class KnowledgeSourceConverter extends DRGElementConverter {
     public static final String AUTHORITY_REQUIREMENT = "authorityRequirement";
     public static final String LOCATION_URI = "locationURI";
 
-    public KnowledgeSourceConverter(XStream xstream) {
-        super(xstream);
+    public KnowledgeSourceConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

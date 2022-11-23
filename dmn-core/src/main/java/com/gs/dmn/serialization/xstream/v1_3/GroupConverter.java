@@ -14,6 +14,7 @@ package com.gs.dmn.serialization.xstream.v1_3;
 
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TGroup;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
@@ -21,8 +22,8 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 public class GroupConverter extends ArtifactConverter {
     public static final String NAME = "name";
 
-    public GroupConverter(XStream xstream) {
-        super(xstream);
+    public GroupConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override
