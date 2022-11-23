@@ -12,14 +12,15 @@
  */
 package com.gs.dmn.serialization.xstream.v1_1;
 
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 public abstract class DRGElementConverter extends NamedElementConverter {
-    public DRGElementConverter(XStream xstream) {
-        super(xstream);
+    public DRGElementConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

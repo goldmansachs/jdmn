@@ -13,6 +13,7 @@
 package com.gs.dmn.serialization.xstream.v1_1;
 
 import com.gs.dmn.ast.*;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.converters.collections.AbstractCollectionConverter;
@@ -27,10 +28,6 @@ import java.util.regex.Pattern;
 
 public abstract class DMNBaseConverter extends AbstractCollectionConverter {
     private final static Pattern QNAME_PAT = Pattern.compile("(\\{([^\\}]*)\\})?(([^:]*):)?(.*)");
-
-    public DMNBaseConverter(Mapper mapper) {
-        super(mapper);
-    }
 
     public static QName parseQNameString(String qns) {
         if (qns != null) {
@@ -78,6 +75,13 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
             nodeName = "list";
         }
         return nodeName;
+    }
+
+    private final DMNVersion version;
+
+    public DMNBaseConverter(Mapper mapper, DMNVersion version) {
+        super(mapper);
+        this.version = version;
     }
 
     @Override

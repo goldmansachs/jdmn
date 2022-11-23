@@ -16,6 +16,7 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDMNElement;
 import com.gs.dmn.ast.dmndi.DiagramElement;
 import com.gs.dmn.ast.dmndi.Style;
+import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.xstream.CustomStaxReader;
 import com.gs.dmn.serialization.xstream.CustomStaxWriter;
 import com.thoughtworks.xstream.XStream;
@@ -33,8 +34,8 @@ import java.util.Map.Entry;
 public abstract class DMNBaseElementConverter extends DMNBaseConverter {
     private static final Logger LOG = LoggerFactory.getLogger(DMNBaseElementConverter.class);
 
-    public DMNBaseElementConverter(XStream xstream) {
-        super(xstream.getMapper());
+    public DMNBaseElementConverter(XStream xstream, DMNVersion version) {
+        super(xstream.getMapper(), version);
     }
 
     @Override

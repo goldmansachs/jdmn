@@ -16,6 +16,7 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TContextEntry;
 import com.gs.dmn.ast.TExpression;
 import com.gs.dmn.ast.TInformationItem;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -25,8 +26,8 @@ public class ContextEntryConverter extends DMNBaseElementConverter {
     public static final String EXPRESSION = "expression";
     public static final String VARIABLE = "variable";
 
-    public ContextEntryConverter(XStream xstream) {
-        super(xstream);
+    public ContextEntryConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

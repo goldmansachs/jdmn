@@ -13,6 +13,7 @@
 package com.gs.dmn.serialization.xstream.v1_1;
 
 import com.gs.dmn.ast.*;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -31,8 +32,8 @@ public class DefinitionsConverter extends NamedElementConverter {
     private static final String EXPORTER = "exporter";
     private static final String EXPORTER_VERSION = "exporterVersion";
 
-    public DefinitionsConverter(XStream xstream) {
-        super(xstream);
+    public DefinitionsConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

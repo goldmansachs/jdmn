@@ -14,6 +14,7 @@ package com.gs.dmn.serialization.xstream.v1_1;
 
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TImportedValues;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -23,8 +24,8 @@ public class ImportedValuesConverter extends ImportConverter {
     public static final String IMPORTED_ELEMENT = "importedElement";
     public static final String EXPRESSION_LANGUAGE = "expressionLanguage";
 
-    public ImportedValuesConverter(XStream xstream) {
-        super(xstream);
+    public ImportedValuesConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override
