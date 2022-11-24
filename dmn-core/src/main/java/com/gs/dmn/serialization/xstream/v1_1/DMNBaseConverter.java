@@ -79,37 +79,10 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
         }
     }
 
-    public static String defineExpressionNodeName(XStream xstream, TExpression e) {
-//        Converter converter = xstream.getConverterLookup().lookupConverterForType(e.getClass());
-        return defineExpressionNodeName(e);
-    }
-
-    public static String defineExpressionNodeName(TExpression e) {
-        String nodeName = "expression";
-        if (e instanceof TContext) {
-            nodeName = "context";
-        } else if (e instanceof TDecisionTable) {
-            nodeName = "decisionTable";
-        } else if (e instanceof TFunctionDefinition) {
-            nodeName = "functionDefinition";
-        } else if (e instanceof TInvocation) {
-            nodeName = "invocation";
-        } else if (e instanceof TLiteralExpression) {
-            nodeName = "literalExpression";
-        } else if (e instanceof TRelation) {
-            nodeName = "relation";
-        } else if (e instanceof TList) {
-            nodeName = "list";
-        }
-        return nodeName;
-    }
-
-    protected final XStream xstream;
     protected final DMNVersion version;
 
     public DMNBaseConverter(XStream xstream, DMNVersion version) {
         super(xstream.getMapper());
-        this.xstream = xstream;
         this.version = version;
     }
 
@@ -151,6 +124,26 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
             reader.moveUp();
             assignChildElement(parent, nodeName, object);
         }
+    }
+
+    protected String defineExpressionNodeName(TExpression e) {
+        String nodeName = "expression";
+        if (e instanceof TContext) {
+            nodeName = "context";
+        } else if (e instanceof TDecisionTable) {
+            nodeName = "decisionTable";
+        } else if (e instanceof TFunctionDefinition) {
+            nodeName = "functionDefinition";
+        } else if (e instanceof TInvocation) {
+            nodeName = "invocation";
+        } else if (e instanceof TLiteralExpression) {
+            nodeName = "literalExpression";
+        } else if (e instanceof TRelation) {
+            nodeName = "relation";
+        } else if (e instanceof TList) {
+            nodeName = "list";
+        }
+        return nodeName;
     }
 
     protected abstract DMNBaseElement createModelObject();

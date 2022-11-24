@@ -67,7 +67,7 @@ public class BindingConverter extends DMNBaseElementConverter {
 
         writeChildrenNode(writer, context, b.getParameter(), PARAMETER);
         if (b.getExpression() != null) {
-            writeChildrenNode(writer, context, b.getExpression(), DMNBaseConverter.defineExpressionNodeName(b.getExpression()));
+            writeChildrenNode(writer, context, b.getExpression(), defineExpressionNodeName(b.getExpression()));
         }
     }
 

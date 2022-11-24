@@ -48,8 +48,7 @@ public class QNameConverter implements Converter {
                 try {
                     staxWriter.writeNamespace(qname.getPrefix(), qname.getNamespaceURI());
                 } catch (XMLStreamException e) {
-                    // TODO what to do?
-                    e.printStackTrace();
+                    throw new DMNRuntimeException(String.format("Cannot marshall QName '%s'", object));
                 }
             }
             writer.setValue(DMNBaseConverter.formatQName(qname, null, version));

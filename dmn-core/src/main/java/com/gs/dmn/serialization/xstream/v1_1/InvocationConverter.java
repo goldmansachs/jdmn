@@ -64,7 +64,7 @@ public class InvocationConverter extends ExpressionConverter {
         TInvocation i = (TInvocation) parent;
 
         if (i.getExpression() != null) {
-            writeChildrenNode(writer, context, i.getExpression(), DMNBaseConverter.defineExpressionNodeName(i.getExpression()));
+            writeChildrenNode(writer, context, i.getExpression(), defineExpressionNodeName(i.getExpression()));
         }
         for (TBinding b : i.getBinding()) {
             writeChildrenNode(writer, context, b, BINDING);
