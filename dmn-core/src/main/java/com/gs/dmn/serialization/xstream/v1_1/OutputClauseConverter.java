@@ -74,9 +74,12 @@ public class OutputClauseConverter extends DMNElementConverter {
         super.writeChildren(writer, context, parent);
         TOutputClause oc = (TOutputClause) parent;
 
-        if (oc.getOutputValues() != null) writeChildrenNode(writer, context, oc.getOutputValues(), OUTPUT_VALUES);
-        if (oc.getDefaultOutputEntry() != null)
+        if (oc.getOutputValues() != null) {
+            writeChildrenNode(writer, context, oc.getOutputValues(), OUTPUT_VALUES);
+        }
+        if (oc.getDefaultOutputEntry() != null) {
             writeChildrenNode(writer, context, oc.getDefaultOutputEntry(), DEFAULT_OUTPUT_ENTRY);
+        }
     }
 
     @Override

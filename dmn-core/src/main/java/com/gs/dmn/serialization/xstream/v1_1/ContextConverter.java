@@ -25,7 +25,7 @@ public class ContextConverter extends ExpressionConverter {
     public static final String CONTEXT_ENTRY = "contextEntry";
 
     public ContextConverter(XStream xstream, DMNVersion version) {
-        super(xstream,  version);
+        super(xstream, version);
     }
 
     @Override

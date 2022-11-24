@@ -60,7 +60,7 @@ public class DMNListConverter extends ExpressionConverter {
         TList list = (TList) parent;
 
         for (TExpression e : list.getExpression()) {
-            writeChildrenNode(writer, context, e, DMNBaseConverter.defineExpressionNodeName(e));
+            writeChildrenNode(writer, context, e, DMNBaseConverter.defineExpressionNodeName(xstream, e));
         }
     }
 

@@ -15,7 +15,7 @@ package com.gs.dmn.tck.serialization.xstream.v1;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.TCKVersion;
 import com.gs.dmn.serialization.xstream.*;
-import com.gs.dmn.serialization.xstream.v1_3.ExtensionElementsConverter;
+import com.gs.dmn.serialization.xstream.v1_1.ExtensionElementsConverter;
 import com.gs.dmn.serialization.xstream.v1_1.QNameConverter;
 import com.gs.dmn.tck.ast.*;
 import com.thoughtworks.xstream.XStream;
