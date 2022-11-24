@@ -17,6 +17,7 @@ import com.gs.dmn.ast.dmndi.AlignmentKind;
 import com.gs.dmn.ast.dmndi.Color;
 import com.gs.dmn.ast.dmndi.DMNStyle;
 import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_2.StyleConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;

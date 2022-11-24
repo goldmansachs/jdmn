@@ -18,6 +18,7 @@ import com.gs.dmn.ast.dmndi.DMNLabel;
 import com.gs.dmn.ast.dmndi.DMNShape;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.xstream.v1_1.DMNBaseConverter;
+import com.gs.dmn.serialization.xstream.v1_2.ShapeConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
