@@ -14,11 +14,14 @@ package com.gs.dmn.serialization.xstream.v1_1;
 
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDMNElement;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.dmndi.DiagramElement;
 import com.gs.dmn.ast.dmndi.Style;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.xstream.CustomStaxReader;
 import com.gs.dmn.serialization.xstream.CustomStaxWriter;
+import com.gs.dmn.serialization.xstream.v1_2.DMNLabelConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -35,7 +38,7 @@ public abstract class DMNBaseElementConverter extends DMNBaseConverter {
     private static final Logger LOG = LoggerFactory.getLogger(DMNBaseElementConverter.class);
 
     public DMNBaseElementConverter(XStream xstream, DMNVersion version) {
-        super(xstream.getMapper(), version);
+        super(xstream, version);
     }
 
     @Override
@@ -73,6 +76,43 @@ public abstract class DMNBaseElementConverter extends DMNBaseConverter {
         Map<QName, String> otherAttributes = getOtherAttributes(parent);
         for (Entry<QName, String> kv : otherAttributes.entrySet()) {
             staxWriter.addAttribute(kv.getKey().getPrefix() + ":" + kv.getKey().getLocalPart(), kv.getValue());
+        }
+
+        if (parent instanceof TDefinitions) {
+            if (version == DMNVersion.DMN_11) {
+                // Do nothing
+            } else if (version == DMNVersion.DMN_12 || version == DMNVersion.DMN_13) {
+                TDefinitions tDefinitions = (TDefinitions) parent;
+
+                String dmndiURI = version.getPrefixToNamespaceMap().get("dmndi");
+                String diURI = version.getPrefixToNamespaceMap().get("di");
+                String dcURI = version.getPrefixToNamespaceMap().get("dc");
+
+                String dmndiPrefix = tDefinitions.getPrefixForNamespaceURI(dmndiURI).orElse("dmndi");
+                String diPrefix = tDefinitions.getPrefixForNamespaceURI(diURI).orElse("di");
+                String dcPrefix = tDefinitions.getPrefixForNamespaceURI(dcURI).orElse("dc");
+
+                staxWriter.getQNameMap().registerMapping(new QName(dmndiURI, "DMNDI", dmndiPrefix), "DMNDI");
+                staxWriter.getQNameMap().registerMapping(new QName(dmndiURI, "DMNDiagram", dmndiPrefix), "DMNDiagram");
+                staxWriter.getQNameMap().registerMapping(new QName(dmndiURI, "DMNStyle", dmndiPrefix), "style");
+                staxWriter.getQNameMap().registerMapping(new QName(dmndiURI, "DMNStyle", dmndiPrefix), "DMNStyle");
+                staxWriter.getQNameMap().registerMapping(new QName(dmndiURI, "DMNShape", dmndiPrefix), "DMNShape");
+                staxWriter.getQNameMap().registerMapping(new QName(dmndiURI, "DMNEdge", dmndiPrefix), "DMNEdge");
+                staxWriter.getQNameMap().registerMapping(new QName(dmndiURI, "DMNDecisionServiceDividerLine", dmndiPrefix), "DMNDecisionServiceDividerLine");
+                staxWriter.getQNameMap().registerMapping(new QName(dmndiURI, "DMNLabel", dmndiPrefix), "DMNLabel");
+                staxWriter.getQNameMap().registerMapping(new QName(dmndiURI, DMNLabelConverter.TEXT, dmndiPrefix), DMNLabelConverter.TEXT);
+                staxWriter.getQNameMap().registerMapping(new QName(dmndiURI, "Size", dmndiPrefix), "Size");
+
+                staxWriter.getQNameMap().registerMapping(new QName(dmndiURI, "FillColor", dmndiPrefix), "FillColor");
+                staxWriter.getQNameMap().registerMapping(new QName(dmndiURI, "StrokeColor", dmndiPrefix), "StrokeColor");
+                staxWriter.getQNameMap().registerMapping(new QName(dmndiURI, "FontColor", dmndiPrefix), "FontColor");
+
+                staxWriter.getQNameMap().registerMapping(new QName(diURI, "waypoint", diPrefix), "waypoint");
+                staxWriter.getQNameMap().registerMapping(new QName(diURI, "extension", diPrefix), "extension");
+                staxWriter.getQNameMap().registerMapping(new QName(dcURI, "Bounds", dcPrefix), "Bounds");
+            } else {
+                throw new DMNRuntimeException(String.format("Unknown DMN version '%s'", version));
+            }
         }
     }
 

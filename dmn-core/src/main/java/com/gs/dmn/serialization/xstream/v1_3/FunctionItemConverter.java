@@ -16,6 +16,8 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TFunctionItem;
 import com.gs.dmn.ast.TInformationItem;
 import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_1.DMNBaseConverter;
+import com.gs.dmn.serialization.xstream.v1_1.DMNElementConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -76,7 +78,7 @@ public class FunctionItemConverter extends DMNElementConverter {
         TFunctionItem ii = (TFunctionItem) parent;
 
         if (ii.getOutputTypeRef() != null) {
-            writer.addAttribute(OUTPUT_TYPE_REF, DMNBaseConverter.formatQName(ii.getOutputTypeRef(), ii));
+            writer.addAttribute(OUTPUT_TYPE_REF, DMNBaseConverter.formatQName(ii.getOutputTypeRef(), ii, version));
         }
     }
 

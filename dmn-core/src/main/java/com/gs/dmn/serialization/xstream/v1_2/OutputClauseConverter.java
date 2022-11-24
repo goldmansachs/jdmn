@@ -17,6 +17,8 @@ import com.gs.dmn.ast.TLiteralExpression;
 import com.gs.dmn.ast.TOutputClause;
 import com.gs.dmn.ast.TUnaryTests;
 import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_1.DMNBaseConverter;
+import com.gs.dmn.serialization.xstream.v1_1.DMNElementConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -87,7 +89,7 @@ public class OutputClauseConverter extends DMNElementConverter {
 
         if (oc.getName() != null) writer.addAttribute(NAME, oc.getName());
         if (oc.getTypeRef() != null) {
-            writer.addAttribute(TYPE_REF, DMNBaseConverter.formatQName(oc.getTypeRef(), oc));
+            writer.addAttribute(TYPE_REF, DMNBaseConverter.formatQName(oc.getTypeRef(), oc, version));
         }
     }
 }

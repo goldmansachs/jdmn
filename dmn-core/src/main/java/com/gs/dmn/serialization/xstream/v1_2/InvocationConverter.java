@@ -17,6 +17,8 @@ import com.gs.dmn.ast.TBinding;
 import com.gs.dmn.ast.TExpression;
 import com.gs.dmn.ast.TInvocation;
 import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_1.DMNBaseConverter;
+import com.gs.dmn.serialization.xstream.v1_1.ExpressionConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;

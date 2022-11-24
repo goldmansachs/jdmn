@@ -42,7 +42,7 @@ public abstract class ExpressionConverter extends DMNElementConverter {
         TExpression e = (TExpression) parent;
 
         if (!(e instanceof TUnaryTests) && e.getTypeRef() != null) {
-            writer.addAttribute(TYPE_REF, DMNBaseConverter.formatQName(e.getTypeRef()));
+            writer.addAttribute(TYPE_REF, DMNBaseConverter.formatQName(e.getTypeRef(), e, version));
         }
     }
 }

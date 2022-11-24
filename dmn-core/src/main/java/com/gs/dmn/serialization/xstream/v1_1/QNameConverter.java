@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.serialization.xstream.v1_1;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.xstream.CustomStaxReader;
 import com.gs.dmn.serialization.xstream.CustomStaxWriter;
 import com.thoughtworks.xstream.converters.Converter;
@@ -26,35 +28,57 @@ import javax.xml.stream.XMLStreamException;
 import java.util.Map;
 
 public class QNameConverter implements Converter {
+    private final DMNVersion version;
+
+    public QNameConverter(DMNVersion version) {
+        this.version = version;
+    }
+
     @Override
     public boolean canConvert(Class clazz) {
         return clazz.equals(QName.class);
     }
 
     @Override
-    public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
-        QName qname = DMNBaseConverter.parseQNameString(reader.getValue());
-        CustomStaxReader customStaxReader = (CustomStaxReader) reader.underlyingReader();
-        Map<String, String> currentNSCtx = customStaxReader.getElementInfo().getNsContext();
-        String qnameURI = currentNSCtx.get(qname.getPrefix());
-        if (qnameURI != null) {
-            return new QName(qnameURI, qname.getLocalPart(), qname.getPrefix());
+    public void marshal(Object object, HierarchicalStreamWriter writer, MarshallingContext context) {
+        if (version == DMNVersion.DMN_11) {
+            QName qname = (QName) object;
+            if (!XMLConstants.NULL_NS_URI.equals(qname.getNamespaceURI()) && !XMLConstants.DEFAULT_NS_PREFIX.equals(qname.getPrefix())) {
+                CustomStaxWriter staxWriter = ((CustomStaxWriter) writer.underlyingWriter());
+                try {
+                    staxWriter.writeNamespace(qname.getPrefix(), qname.getNamespaceURI());
+                } catch (XMLStreamException e) {
+                    // TODO what to do?
+                    e.printStackTrace();
+                }
+            }
+            writer.setValue(DMNBaseConverter.formatQName(qname, null, version));
+        } else if (version == DMNVersion.DMN_12 || version == DMNVersion.DMN_13) {
+            // DMN v1.2 semantic always local part.
+            QName qname = (QName) object;
+            writer.setValue(qname.getLocalPart());
+        } else {
+            throw new DMNRuntimeException(String.format("Unknown DMN version '%s'", version));
         }
-        return qname;
     }
 
     @Override
-    public void marshal(Object object, HierarchicalStreamWriter writer, MarshallingContext context) {
-        QName qname = (QName) object;
-        if (!XMLConstants.NULL_NS_URI.equals(qname.getNamespaceURI()) && !XMLConstants.DEFAULT_NS_PREFIX.equals(qname.getPrefix())) {
-            CustomStaxWriter staxWriter = ((CustomStaxWriter) writer.underlyingWriter());
-            try {
-                staxWriter.writeNamespace(qname.getPrefix(), qname.getNamespaceURI());
-            } catch (XMLStreamException e) {
-                // TODO what to do?
-                e.printStackTrace();
+    public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
+        if (version == DMNVersion.DMN_11) {
+            QName qname = DMNBaseConverter.parseQNameString(reader.getValue());
+            CustomStaxReader customStaxReader = (CustomStaxReader) reader.underlyingReader();
+            Map<String, String> currentNSCtx = customStaxReader.getElementInfo().getNsContext();
+            String qnameURI = currentNSCtx.get(qname.getPrefix());
+            if (qnameURI != null) {
+                return new QName(qnameURI, qname.getLocalPart(), qname.getPrefix());
             }
+            return qname;
+        } else if (version == DMNVersion.DMN_12 || version == DMNVersion.DMN_13) {
+            // DMN v1.2 semantic always local part.
+            QName qname = new QName(reader.getValue());
+            return qname;
+        } else {
+            throw new DMNRuntimeException(String.format("Unknown DMN version '%s'", version));
         }
-        writer.setValue(DMNBaseConverter.formatQName(qname));
     }
 }

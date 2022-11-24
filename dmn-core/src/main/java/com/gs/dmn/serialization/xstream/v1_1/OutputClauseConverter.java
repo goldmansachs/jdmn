@@ -88,7 +88,7 @@ public class OutputClauseConverter extends DMNElementConverter {
             writer.addAttribute(NAME, oc.getName());
         }
         if (oc.getTypeRef() != null) {
-            writer.addAttribute(TYPE_REF, DMNBaseConverter.formatQName(oc.getTypeRef()));
+            writer.addAttribute(TYPE_REF, DMNBaseConverter.formatQName(oc.getTypeRef(), oc, version));
         }
     }
 }

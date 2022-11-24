@@ -16,6 +16,8 @@ import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.dmndi.*;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.xstream.*;
+import com.gs.dmn.serialization.xstream.v1_1.DMNElementConverter;
+import com.gs.dmn.serialization.xstream.v1_1.QNameConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.AbstractPullReader;
 import com.thoughtworks.xstream.io.xml.QNameMap;
@@ -332,7 +334,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
         xStream.registerConverter(new TextAnnotationConverter(xStream, DMNVersion.DMN_12));
         xStream.registerConverter(new UnaryTestsConverter(xStream, DMNVersion.DMN_12));
 
-        xStream.registerConverter(new QNameConverter());
+        xStream.registerConverter(new QNameConverter(DMNVersion.DMN_12));
         xStream.registerConverter(new DMNListConverter(xStream, DMNVersion.DMN_12));
         xStream.registerConverter(new ElementCollectionConverter(xStream, DMNVersion.DMN_12));
         xStream.registerConverter(new ExtensionElementsConverter(xStream, DMNVersion.DMN_12, extensionRegisters));

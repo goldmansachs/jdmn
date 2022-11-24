@@ -13,7 +13,11 @@
 package com.gs.dmn.serialization.xstream.v1_1;
 
 import com.gs.dmn.ast.*;
+import com.gs.dmn.ast.dmndi.DMNEdge;
+import com.gs.dmn.ast.dmndi.DMNShape;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNVersion;
+import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.converters.collections.AbstractCollectionConverter;
@@ -49,12 +53,35 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
         }
     }
 
-    public static String formatQName(QName qname) {
-        if (!XMLConstants.DEFAULT_NS_PREFIX.equals(qname.getPrefix())) {
-            return qname.getPrefix() + ":" + qname.getLocalPart();
+    public static String formatQName(QName qname, DMNBaseElement parent, DMNVersion version) {
+        if (version == DMNVersion.DMN_11) {
+            if (!XMLConstants.DEFAULT_NS_PREFIX.equals(qname.getPrefix())) {
+                return qname.getPrefix() + ":" + qname.getLocalPart();
+            } else {
+                return qname.toString();
+            }
+        } else if (version == DMNVersion.DMN_12 || version == DMNVersion.DMN_13) {
+            // DMN v1.2 namespace typeRef is imported with dot.
+            if (!XMLConstants.DEFAULT_NS_PREFIX.equals(qname.getPrefix())) {
+                String nsForPrefix = parent.getNamespaceURI(qname.getPrefix());
+                if (version.getFeelNamespace().equals(nsForPrefix)) {
+                    return qname.getPrefix() + "." + qname.getLocalPart();
+                } else if (parent instanceof DMNShape || parent instanceof DMNEdge) {
+                    return qname.getPrefix() + ":" + qname.getLocalPart();
+                } else {
+                    return qname.getPrefix() + "." + qname.getLocalPart();
+                }
+            } else {
+                return qname.toString();
+            }
         } else {
-            return qname.toString();
+            throw new DMNRuntimeException(String.format("Unknown DMN version '%s'", version));
         }
+    }
+
+    public static String defineExpressionNodeName(XStream xstream, TExpression e) {
+//        Converter converter = xstream.getConverterLookup().lookupConverterForType(e.getClass());
+        return defineExpressionNodeName(e);
     }
 
     public static String defineExpressionNodeName(TExpression e) {
@@ -77,10 +104,12 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
         return nodeName;
     }
 
-    private final DMNVersion version;
+    protected final XStream xstream;
+    protected final DMNVersion version;
 
-    public DMNBaseConverter(Mapper mapper, DMNVersion version) {
-        super(mapper);
+    public DMNBaseConverter(XStream xstream, DMNVersion version) {
+        super(xstream.getMapper());
+        this.xstream = xstream;
         this.version = version;
     }
 

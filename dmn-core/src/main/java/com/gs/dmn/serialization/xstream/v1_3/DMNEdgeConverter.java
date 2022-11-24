@@ -16,6 +16,7 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.dmndi.DMNEdge;
 import com.gs.dmn.ast.dmndi.DMNLabel;
 import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_1.DMNBaseConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -89,13 +90,13 @@ public class DMNEdgeConverter extends EdgeConverter {
         DMNEdge concrete = (DMNEdge) parent;
 
         if (concrete.getDmnElementRef() != null) {
-            writer.addAttribute(DMN_ELEMENT_REF, DMNBaseConverter.formatQName(concrete.getDmnElementRef(), concrete));
+            writer.addAttribute(DMN_ELEMENT_REF, DMNBaseConverter.formatQName(concrete.getDmnElementRef(), concrete, version));
         }
         if (concrete.getSourceElement() != null) {
-            writer.addAttribute(SOURCE_ELEMENT, DMNBaseConverter.formatQName(concrete.getSourceElement(), concrete));
+            writer.addAttribute(SOURCE_ELEMENT, DMNBaseConverter.formatQName(concrete.getSourceElement(), concrete, version));
         }
         if (concrete.getTargetElement() != null) {
-            writer.addAttribute(TARGET_ELEMENT, DMNBaseConverter.formatQName(concrete.getTargetElement(), concrete));
+            writer.addAttribute(TARGET_ELEMENT, DMNBaseConverter.formatQName(concrete.getTargetElement(), concrete, version));
         }
     }
 }

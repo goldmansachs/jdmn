@@ -17,6 +17,7 @@ import com.gs.dmn.ast.TAssociation;
 import com.gs.dmn.ast.TAssociationDirection;
 import com.gs.dmn.ast.TDMNElementReference;
 import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_1.ArtifactConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;

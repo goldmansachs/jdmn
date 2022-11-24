@@ -62,7 +62,7 @@ public class InformationItemConverter extends NamedElementConverter {
         TInformationItem ii = (TInformationItem) parent;
 
         if (ii.getTypeRef() != null) {
-            writer.addAttribute(TYPE_REF, DMNBaseConverter.formatQName(ii.getTypeRef()));
+            writer.addAttribute(TYPE_REF, DMNBaseConverter.formatQName(ii.getTypeRef(), ii, version));
         }
     }
 }

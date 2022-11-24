@@ -15,6 +15,8 @@ package com.gs.dmn.serialization.xstream.v1_3;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TInformationItem;
 import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_1.DMNBaseConverter;
+import com.gs.dmn.serialization.xstream.v1_1.NamedElementConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -62,7 +64,7 @@ public class InformationItemConverter extends NamedElementConverter {
         TInformationItem ii = (TInformationItem) parent;
 
         if (ii.getTypeRef() != null) {
-            writer.addAttribute(TYPE_REF, DMNBaseConverter.formatQName(ii.getTypeRef(), ii));
+            writer.addAttribute(TYPE_REF, DMNBaseConverter.formatQName(ii.getTypeRef(), ii, version));
         }
     }
 }

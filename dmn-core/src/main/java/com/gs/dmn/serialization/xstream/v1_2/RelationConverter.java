@@ -17,6 +17,7 @@ import com.gs.dmn.ast.TInformationItem;
 import com.gs.dmn.ast.TList;
 import com.gs.dmn.ast.TRelation;
 import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_1.ExpressionConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
