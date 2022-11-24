@@ -23,7 +23,6 @@ import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 public class DMNEdgeConverter extends EdgeConverter {
-
     private static final String DMN_ELEMENT_REF = "dmnElementRef";
     private static final String DMN_LABEL = "DMNLabel";
 

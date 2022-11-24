@@ -77,6 +77,4 @@ public class InformationRequirementConverter extends DMNElementConverter {
 
         // no attributes.
     }
-
-
 }
