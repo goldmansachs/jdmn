@@ -27,27 +27,22 @@ public class ListHandling extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
     }
 
     @java.lang.Override()
-    public Boolean apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public Boolean applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("numberB"), input_.get("numberList"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("numberB") != null ? number(input_.get("numberB")) : null), (input_.get("numberList") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("numberList"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'ListHandling'", e);
             return null;
         }
     }
 
-    public Boolean apply(String numberB, String numberList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((numberB != null ? number(numberB) : null), (numberList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numberList, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'ListHandling'", e);
-            return null;
-        }
-    }
-
-    public Boolean apply(java.math.BigDecimal numberB, List<java.math.BigDecimal> numberList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public Boolean apply(java.math.BigDecimal numberB, List<java.math.BigDecimal> numberList, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'listHandling'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long listHandlingStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments listHandlingArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             listHandlingArguments_.put("numberB", numberB);
@@ -55,7 +50,7 @@ public class ListHandling extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, listHandlingArguments_);
 
             // Evaluate decision 'listHandling'
-            Boolean output_ = evaluate(numberB, numberList, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean output_ = evaluate(numberB, numberList, context_);
 
             // End decision 'listHandling'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, listHandlingArguments_, output_, (System.currentTimeMillis() - listHandlingStartTime_));
@@ -67,7 +62,11 @@ public class ListHandling extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         }
     }
 
-    protected Boolean evaluate(java.math.BigDecimal numberB, List<java.math.BigDecimal> numberList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected Boolean evaluate(java.math.BigDecimal numberB, List<java.math.BigDecimal> numberList, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         return booleanOr(booleanOr(booleanOr(numericEqual(count(appendAll(numberList, append(numberList, numberB))), number("5")), containsOnly(numberList, numberList)), notContainsAny(numberList, numberList)), areElementsOf(numberList, numberList));
     }
 }

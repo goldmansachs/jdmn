@@ -5,7 +5,7 @@
     <label>Compliance Level 3</label>
   </labels>
   <testCase id="001" type="decision">
-    <inputNode name="'Applicant data'">
+    <inputNode name="Applicant data">
       <component name="Age">
         <value xsi:type="xsd:double">51</value>
       </component>
@@ -30,7 +30,7 @@
         </component>
       </component>
     </inputNode>
-    <inputNode name="'Requested product'">
+    <inputNode name="Requested product">
       <component name="ProductType">
         <value xsi:type="xsd:string">STANDARD LOAN</value>
       </component>
@@ -44,7 +44,7 @@
         <value xsi:type="xsd:double">100000</value>
       </component>
     </inputNode>
-    <inputNode name="'Bureau data'">
+    <inputNode name="Bureau data">
       <component name="Bankrupt">
         <value xsi:type="xsd:boolean">false</value>
       </component>
@@ -59,7 +59,7 @@
     </resultNode>
   </testCase>
   <testCase id="002" type="decision">
-    <inputNode name="'Applicant data'">
+    <inputNode name="Applicant data">
       <component name="Age">
         <value xsi:type="xsd:double">51</value>
       </component>
@@ -84,7 +84,7 @@
         </component>
       </component>
     </inputNode>
-    <inputNode name="'Requested product'">
+    <inputNode name="Requested product">
       <component name="ProductType">
         <value xsi:type="xsd:string">STANDARD LOAN</value>
       </component>
@@ -98,7 +98,7 @@
         <value xsi:type="xsd:double">100000</value>
       </component>
     </inputNode>
-    <inputNode name="'Bureau data'">
+    <inputNode name="Bureau data">
       <component name="Bankrupt">
         <value xsi:type="xsd:boolean">false</value>
       </component>
@@ -113,7 +113,7 @@
     </resultNode>
   </testCase>
   <testCase id="003a" type="decision">
-    <inputNode name="'Applicant data'">
+    <inputNode name="Applicant data">
       <component name="Age">
         <value xsi:type="xsd:double">51</value>
       </component>
@@ -138,7 +138,7 @@
         </component>
       </component>
     </inputNode>
-    <inputNode name="'Requested product'">
+    <inputNode name="Requested product">
       <component name="ProductType">
         <value xsi:type="xsd:string">STANDARD LOAN</value>
       </component>
@@ -152,7 +152,7 @@
         <value xsi:type="xsd:double">100000</value>
       </component>
     </inputNode>
-    <inputNode name="'Bureau data'">
+    <inputNode name="Bureau data">
       <component name="Bankrupt">
         <value xsi:type="xsd:boolean">false</value>
       </component>
@@ -160,14 +160,14 @@
         <value xsi:type="xsd:double">600</value>
       </component>
     </inputNode>
-    <resultNode type="decision" name="'Application risk score'">
+    <resultNode type="decision" name="Application risk score">
       <expected>
         <value xsi:type="xsd:double">138</value>
       </expected>
     </resultNode>
   </testCase>
   <testCase id="003b" type="decision">
-    <inputNode name="'Applicant data'">
+    <inputNode name="Applicant data">
       <component name="Age">
         <value xsi:type="xsd:double">51</value>
       </component>
@@ -192,7 +192,7 @@
         </component>
       </component>
     </inputNode>
-    <inputNode name="'Requested product'">
+    <inputNode name="Requested product">
       <component name="ProductType">
         <value xsi:type="xsd:string">STANDARD LOAN</value>
       </component>
@@ -206,7 +206,7 @@
         <value xsi:type="xsd:double">100000</value>
       </component>
     </inputNode>
-    <inputNode name="'Bureau data'">
+    <inputNode name="Bureau data">
       <component name="Bankrupt">
         <value xsi:type="xsd:boolean">false</value>
       </component>
@@ -214,14 +214,14 @@
         <value xsi:type="xsd:double">600</value>
       </component>
     </inputNode>
-    <resultNode type="decision" name="'Pre-bureau risk category'">
+    <resultNode type="decision" name="Pre-bureau risk category">
       <expected>
         <value xsi:type="xsd:string">VERY LOW</value>
       </expected>
     </resultNode>
   </testCase>
   <testCase id="003c" type="decision">
-    <inputNode name="'Applicant data'">
+    <inputNode name="Applicant data">
       <component name="Age">
         <value xsi:type="xsd:double">51</value>
       </component>
@@ -246,7 +246,7 @@
         </component>
       </component>
     </inputNode>
-    <inputNode name="'Requested product'">
+    <inputNode name="Requested product">
       <component name="ProductType">
         <value xsi:type="xsd:string">STANDARD LOAN</value>
       </component>
@@ -260,7 +260,7 @@
         <value xsi:type="xsd:double">100000</value>
       </component>
     </inputNode>
-    <inputNode name="'Bureau data'">
+    <inputNode name="Bureau data">
       <component name="Bankrupt">
         <value xsi:type="xsd:boolean">false</value>
       </component>
@@ -268,14 +268,14 @@
         <value xsi:type="xsd:double">600</value>
       </component>
     </inputNode>
-    <resultNode type="decision" name="'Bureau call type'">
+    <resultNode type="decision" name="Bureau call type">
       <expected>
         <value xsi:type="xsd:string">NONE</value>
       </expected>
     </resultNode>
   </testCase>
   <testCase id="003d" type="decision">
-    <inputNode name="'Applicant data'">
+    <inputNode name="Applicant data">
       <component name="Age">
         <value xsi:type="xsd:double">51</value>
       </component>
@@ -300,7 +300,7 @@
         </component>
       </component>
     </inputNode>
-    <inputNode name="'Requested product'">
+    <inputNode name="Requested product">
       <component name="ProductType">
         <value xsi:type="xsd:string">STANDARD LOAN</value>
       </component>
@@ -314,7 +314,7 @@
         <value xsi:type="xsd:double">100000</value>
       </component>
     </inputNode>
-    <inputNode name="'Bureau data'">
+    <inputNode name="Bureau data">
       <component name="Bankrupt">
         <value xsi:type="xsd:boolean">false</value>
       </component>
@@ -329,7 +329,7 @@
     </resultNode>
   </testCase>
   <testCase id="003e" type="decision">
-    <inputNode name="'Applicant data'">
+    <inputNode name="Applicant data">
       <component name="Age">
         <value xsi:type="xsd:double">51</value>
       </component>
@@ -354,7 +354,7 @@
         </component>
       </component>
     </inputNode>
-    <inputNode name="'Requested product'">
+    <inputNode name="Requested product">
       <component name="ProductType">
         <value xsi:type="xsd:string">STANDARD LOAN</value>
       </component>
@@ -368,7 +368,7 @@
         <value xsi:type="xsd:double">100000</value>
       </component>
     </inputNode>
-    <inputNode name="'Bureau data'">
+    <inputNode name="Bureau data">
       <component name="Bankrupt">
         <value xsi:type="xsd:boolean">false</value>
       </component>
@@ -376,14 +376,14 @@
         <value xsi:type="xsd:double">600</value>
       </component>
     </inputNode>
-    <resultNode type="decision" name="'Post-bureau affordability'">
+    <resultNode type="decision" name="Post-bureau affordability">
       <expected>
         <value xsi:type="xsd:boolean">true</value>
       </expected>
     </resultNode>
   </testCase>
   <testCase id="004" type="decision">
-    <inputNode name="'Applicant data'">
+    <inputNode name="Applicant data">
       <component name="Age">
         <value xsi:type="xsd:double">51</value>
       </component>
@@ -408,7 +408,7 @@
         </component>
       </component>
     </inputNode>
-    <inputNode name="'Requested product'">
+    <inputNode name="Requested product">
       <component name="ProductType">
         <value xsi:type="xsd:string">STANDARD LOAN</value>
       </component>
@@ -422,7 +422,7 @@
         <value xsi:type="xsd:double">100000</value>
       </component>
     </inputNode>
-    <inputNode name="'Bureau data'">
+    <inputNode name="Bureau data">
       <component name="Bankrupt">
         <value xsi:type="xsd:boolean">false</value>
       </component>

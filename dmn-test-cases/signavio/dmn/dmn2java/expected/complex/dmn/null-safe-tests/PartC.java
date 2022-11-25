@@ -40,27 +40,22 @@ public class PartC extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
     }
 
     @java.lang.Override()
-    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("booleanA"), input_.get("booleanB"), input_.get("date"), input_.get("dateTime"), input_.get("time"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("booleanA") != null ? Boolean.valueOf(input_.get("booleanA")) : null), (input_.get("booleanB") != null ? Boolean.valueOf(input_.get("booleanB")) : null), (input_.get("date") != null ? date(input_.get("date")) : null), (input_.get("dateTime") != null ? dateAndTime(input_.get("dateTime")) : null), (input_.get("time") != null ? time(input_.get("time")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'PartC'", e);
             return null;
         }
     }
 
-    public String apply(String booleanA, String booleanB, String date, String dateTime, String time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((booleanA != null ? Boolean.valueOf(booleanA) : null), (booleanB != null ? Boolean.valueOf(booleanB) : null), (date != null ? date(date) : null), (dateTime != null ? dateAndTime(dateTime) : null), (time != null ? time(time) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'PartC'", e);
-            return null;
-        }
-    }
-
-    public String apply(Boolean booleanA, Boolean booleanB, javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(Boolean booleanA, Boolean booleanB, javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'partC'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long partCStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments partCArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             partCArguments_.put("booleanA", booleanA);
@@ -71,7 +66,7 @@ public class PartC extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, partCArguments_);
 
             // Evaluate decision 'partC'
-            String output_ = evaluate(booleanA, booleanB, date, dateTime, time, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(booleanA, booleanB, date, dateTime, time, context_);
 
             // End decision 'partC'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, partCArguments_, output_, (System.currentTimeMillis() - partCStartTime_));
@@ -83,16 +78,20 @@ public class PartC extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         }
     }
 
-    protected String evaluate(Boolean booleanA, Boolean booleanB, javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(Boolean booleanA, Boolean booleanB, javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply child decisions
-        Boolean logical = this.logical.apply(booleanA, booleanB, annotationSet_, eventListener_, externalExecutor_, cache_);
-        Boolean temporal = this.temporal.apply(dateTime, annotationSet_, eventListener_, externalExecutor_, cache_);
-        List<String> temporalComparator = this.temporalComparator.apply(dateTime, annotationSet_, eventListener_, externalExecutor_, cache_);
-        Boolean temporalDiff = this.temporalDiff.apply(date, dateTime, time, annotationSet_, eventListener_, externalExecutor_, cache_);
+        Boolean logical = this.logical.apply(booleanA, booleanB, context_);
+        Boolean temporal = this.temporal.apply(dateTime, context_);
+        List<String> temporalComparator = this.temporalComparator.apply(dateTime, context_);
+        Boolean temporalDiff = this.temporalDiff.apply(date, dateTime, time, context_);
 
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        ruleOutputList_.add(rule0(logical, temporal, temporalComparator, temporalDiff, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule0(logical, temporal, temporalComparator, temporalDiff, context_));
 
         // Return results based on hit policy
         String output_;
@@ -108,11 +107,15 @@ public class PartC extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule0(Boolean logical, Boolean temporal, List<String> temporalComparator, Boolean temporalDiff, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(Boolean logical, Boolean temporal, List<String> temporalComparator, Boolean temporalDiff, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule

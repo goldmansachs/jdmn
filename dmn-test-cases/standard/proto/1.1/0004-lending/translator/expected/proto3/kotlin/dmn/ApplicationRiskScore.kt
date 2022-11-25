@@ -13,27 +13,22 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class ApplicationRiskScore() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
         try {
-            return apply(input_.get("ApplicantData"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(input_.get("ApplicantData")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TApplicantDataImpl>() {}) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'ApplicationRiskScore'", e)
             return null
         }
     }
 
-    fun apply(applicantData: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
-        return try {
-            apply(applicantData?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TApplicantDataImpl>() {}) }), annotationSet_, eventListener_, externalExecutor_, cache_)
-        } catch (e: Exception) {
-            logError("Cannot apply decision 'ApplicationRiskScore'", e)
-            null
-        }
-    }
-
-    fun apply(applicantData: type.TApplicantData?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    fun apply(applicantData: type.TApplicantData?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
         try {
             // Start decision 'ApplicationRiskScore'
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val applicationRiskScoreStartTime_ = System.currentTimeMillis()
             val applicationRiskScoreArguments_ = com.gs.dmn.runtime.listener.Arguments()
             applicationRiskScoreArguments_.put("ApplicantData", applicantData)
@@ -49,7 +44,7 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
                 return output_
             } else {
                 // Evaluate decision 'ApplicationRiskScore'
-                val output_: java.math.BigDecimal? = evaluate(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+                val output_: java.math.BigDecimal? = evaluate(applicantData, context_)
                 cache_.bind("ApplicationRiskScore", output_)
 
                 // End decision 'ApplicationRiskScore'
@@ -63,12 +58,12 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    fun apply(applicationRiskScoreRequest_: proto.ApplicationRiskScoreRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.ApplicationRiskScoreResponse {
+    fun applyProto(applicationRiskScoreRequest_: proto.ApplicationRiskScoreRequest, context_: com.gs.dmn.runtime.ExecutionContext): proto.ApplicationRiskScoreResponse {
         // Create arguments from Request Message
         val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(applicationRiskScoreRequest_.getApplicantData())
 
         // Invoke apply method
-        val output_: java.math.BigDecimal? = apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+        val output_: java.math.BigDecimal? = apply(applicantData, context_)
 
         // Convert output to Response Message
         val builder_: proto.ApplicationRiskScoreResponse.Builder = proto.ApplicationRiskScoreResponse.newBuilder()
@@ -77,8 +72,12 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         return builder_.build()
     }
 
-    private inline fun evaluate(applicantData: type.TApplicantData?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
-        return ApplicationRiskScoreModel.instance().apply(applicantData?.let({ it.age as java.math.BigDecimal? }), applicantData?.let({ it.maritalStatus as String? }), applicantData?.let({ it.employmentStatus as String? }), annotationSet_, eventListener_, externalExecutor_, cache_) as java.math.BigDecimal?
+    private inline fun evaluate(applicantData: type.TApplicantData?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
+        return ApplicationRiskScoreModel.instance().apply(applicantData?.let({ it.age as java.math.BigDecimal? }), applicantData?.let({ it.maritalStatus as String? }), applicantData?.let({ it.employmentStatus as String? }), context_) as java.math.BigDecimal?
     }
 
     companion object {

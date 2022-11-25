@@ -10,7 +10,7 @@ import jdmn.runtime.Pair
 import jdmn.runtime.PairComparator
 
 
-# Generated(value = ["decisionTableRuleOutput.ftl", "'Post-bureauRiskCategoryTable'"])
+# Generated(value = ["decisionTableRuleOutput.ftl", "Post-bureauRiskCategoryTable"])
 class PostBureauRiskCategoryTableRuleOutput(jdmn.runtime.RuleOutput.RuleOutput):
     def __init__(self, matched: bool):
         super().__init__(matched)

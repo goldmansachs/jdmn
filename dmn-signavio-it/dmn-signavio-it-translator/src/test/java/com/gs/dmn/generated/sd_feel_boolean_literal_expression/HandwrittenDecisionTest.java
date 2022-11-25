@@ -13,31 +13,44 @@
 package com.gs.dmn.generated.sd_feel_boolean_literal_expression;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
 import org.junit.Test;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     private final Decision decision = new Decision();
 
     @Test
     public void testApply() {
-        Boolean output = decision.apply("true", null, null, null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
+        Boolean output = applyDecision("true", null, null, null, null);
         assertEquals(true, output);
 
-        output = decision.apply("false", null, null, null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
+        output = applyDecision("false", null, null, null, null);
         assertEquals(false, output);
     }
 
     @Test
     public void testApplyWhenNull() {
-        Boolean output = decision.apply((String)null, null, null, null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
-        assertEquals(null, output);
+        Boolean output = applyDecision(null, null, null, null, null);
+        assertNull(output);
     }
 
     @Override
     protected void applyDecision() {
-        decision.apply("false", null, null, null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
+        applyDecision("false", null, null, null, null);
+    }
+
+    private Boolean applyDecision(String booleanInput, String dateInput, String enumerationInput, String numberInput, String stringInput) {
+        Map<String, String> input = new LinkedHashMap<>();
+        input.put("BooleanInput", booleanInput);
+        input.put("DateInput", dateInput);
+        input.put("EnumerationInput", enumerationInput);
+        input.put("NumberInput", numberInput);
+        input.put("StringInput", stringInput);
+        return decision.applyMap(input, context);
     }
 }

@@ -27,27 +27,22 @@ public class Arithmetic extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("numberA"), input_.get("numberB"), input_.get("numberList"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("numberA") != null ? number(input_.get("numberA")) : null), (input_.get("numberB") != null ? number(input_.get("numberB")) : null), (input_.get("numberList") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("numberList"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Arithmetic'", e);
             return null;
         }
     }
 
-    public java.math.BigDecimal apply(String numberA, String numberB, String numberList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((numberA != null ? number(numberA) : null), (numberB != null ? number(numberB) : null), (numberList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numberList, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'Arithmetic'", e);
-            return null;
-        }
-    }
-
-    public java.math.BigDecimal apply(java.math.BigDecimal numberA, java.math.BigDecimal numberB, List<java.math.BigDecimal> numberList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public java.math.BigDecimal apply(java.math.BigDecimal numberA, java.math.BigDecimal numberB, List<java.math.BigDecimal> numberList, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'arithmetic'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long arithmeticStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments arithmeticArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             arithmeticArguments_.put("numberA", numberA);
@@ -56,7 +51,7 @@ public class Arithmetic extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arithmeticArguments_);
 
             // Evaluate decision 'arithmetic'
-            java.math.BigDecimal output_ = evaluate(numberA, numberB, numberList, annotationSet_, eventListener_, externalExecutor_, cache_);
+            java.math.BigDecimal output_ = evaluate(numberA, numberB, numberList, context_);
 
             // End decision 'arithmetic'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arithmeticArguments_, output_, (System.currentTimeMillis() - arithmeticStartTime_));
@@ -68,7 +63,11 @@ public class Arithmetic extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal numberA, java.math.BigDecimal numberB, List<java.math.BigDecimal> numberList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected java.math.BigDecimal evaluate(java.math.BigDecimal numberA, java.math.BigDecimal numberB, List<java.math.BigDecimal> numberList, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         return numericAdd(numericAdd(numericAdd(numericAdd(numericAdd(numericAdd(numericAdd(numericAdd(numericAdd(numericAdd(numericAdd(numericAdd(numericAdd(numericAdd(numericDivide(numericMultiply(numericSubtract(numericAdd(numberA, number("2")), number("2")), number("2")), numericAdd(numberA, number("1"))), abs(numberB)), count(numberList)), round(numberB, number("2"))), roundDown(numberB, number("2"))), roundUp(numberB, number("2"))), ceiling(numberB)), floor(numberB)), integer(numberB)), modulo(numberB, numberA)), modulo(numberB, number("2"))), power(numberB, number("2"))), percent(numberB)), product(numberList)), sum(numberList));
     }
 }

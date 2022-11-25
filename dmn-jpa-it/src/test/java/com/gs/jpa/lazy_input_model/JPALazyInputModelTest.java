@@ -20,7 +20,6 @@ import org.junit.BeforeClass;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 import java.math.BigDecimal;
 
 public class JPALazyInputModelTest extends com.gs.dmn.runtime.MixedJavaTimeDMNBaseDecision {
@@ -42,76 +41,61 @@ public class JPALazyInputModelTest extends com.gs.dmn.runtime.MixedJavaTimeDMNBa
 
     @org.junit.Test
     public void testCase001() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
         String creditRisk = "HIGH";
         Person applicant = makeLazyPerson(1);
 
         // Check generateOutputData
-        BigDecimal score = new Decision().apply(applicant, creditRisk, annotationSet_, eventListener_, externalExecutor_, cache_);
+        BigDecimal score = new Decision().apply(applicant, creditRisk, context);
         checkValues(number("1"), score);
     }
 
     @org.junit.Test
     public void testCase002() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
         String creditRisk = "MEDIUM";
         Person applicant = makeLazyPerson(2);
 
         // Check generateOutputData
-        BigDecimal score = new Decision().apply(applicant, creditRisk, annotationSet_, eventListener_, externalExecutor_, cache_);
+        BigDecimal score = new Decision().apply(applicant, creditRisk, context);
         checkValues(number("2"), score);
     }
 
     @org.junit.Test
     public void testCase003() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
         String creditRisk = "MEDIUM";
         Person applicant = makeLazyPerson(3);
 
         // Check generateOutputData
-        BigDecimal score = new Decision().apply(applicant, creditRisk, annotationSet_, eventListener_, externalExecutor_, cache_);
+        BigDecimal score = new Decision().apply(applicant, creditRisk, context);
         checkValues(number("3"), score);
     }
 
     @org.junit.Test
     public void testCase004() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
         String creditRisk = "MEDIUM";
         Person applicant = makeLazyPerson(4);
 
         // Check generateOutputData
-        BigDecimal score = new Decision().apply(applicant, creditRisk, annotationSet_, eventListener_, externalExecutor_, cache_);
+        BigDecimal score = new Decision().apply(applicant, creditRisk, context);
         checkValues(number("4"), score);
     }
 
     @org.junit.Test
     public void testCase005() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
         String creditRisk = "LOW";
         Person applicant = makeLazyPerson(1);
 
         // Check generateOutputData
-        BigDecimal score = new Decision().apply(applicant, creditRisk, annotationSet_, eventListener_, externalExecutor_, cache_);
+        BigDecimal score = new Decision().apply(applicant, creditRisk, context);
         checkValues(number("5"), score);
     }
 

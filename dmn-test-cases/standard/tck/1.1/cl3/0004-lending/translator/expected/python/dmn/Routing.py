@@ -61,9 +61,13 @@ class Routing(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
         self.postBureauAffordability = PostBureauAffordability.PostBureauAffordability() if postBureauAffordability is None else postBureauAffordability
         self.postBureauRiskCategory = PostBureauRiskCategory.PostBureauRiskCategory() if postBureauRiskCategory is None else postBureauRiskCategory
 
-    def apply(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], bureauData: typing.Optional[type_.TBureauData.TBureauData], requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def apply(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], bureauData: typing.Optional[type_.TBureauData.TBureauData], requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         try:
             # Start decision 'Routing'
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             routingStartTime_ = int(time.time_ns()/1000)
             routingArguments_ = jdmn.runtime.listener.Arguments.Arguments()
             routingArguments_.put("ApplicantData", applicantData)
@@ -72,7 +76,7 @@ class Routing(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, routingArguments_)
 
             # Evaluate decision 'Routing'
-            output_: typing.Optional[str] = self.evaluate(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
+            output_: typing.Optional[str] = self.evaluate(applicantData, bureauData, requestedProduct, context_)
 
             # End decision 'Routing'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, routingArguments_, output_, (int(time.time_ns()/1000) - routingStartTime_))
@@ -82,9 +86,9 @@ class Routing(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             self.logError("Exception caught in 'Routing' evaluation", e)
             return None
 
-    def evaluate(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], bureauData: typing.Optional[type_.TBureauData.TBureauData], requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def evaluate(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], bureauData: typing.Optional[type_.TBureauData.TBureauData], requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         # Apply child decisions
-        postBureauAffordability: typing.Optional[bool] = self.postBureauAffordability.apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
-        postBureauRiskCategory: typing.Optional[str] = self.postBureauRiskCategory.apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_)
+        postBureauAffordability: typing.Optional[bool] = self.postBureauAffordability.apply(applicantData, bureauData, requestedProduct, context_)
+        postBureauRiskCategory: typing.Optional[str] = self.postBureauRiskCategory.apply(applicantData, bureauData, context_)
 
-        return RoutingRules.RoutingRules.instance().apply(postBureauRiskCategory, postBureauAffordability, None if (bureauData is None) else (bureauData.bankrupt), None if (bureauData is None) else (bureauData.creditScore), annotationSet_, eventListener_, externalExecutor_, cache_)
+        return RoutingRules.RoutingRules.instance().apply(postBureauRiskCategory, postBureauAffordability, None if (bureauData is None) else (bureauData.bankrupt), None if (bureauData is None) else (bureauData.creditScore), context_)

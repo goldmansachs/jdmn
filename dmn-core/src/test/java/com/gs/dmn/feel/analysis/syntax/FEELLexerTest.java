@@ -166,8 +166,8 @@ public class FEELLexerTest extends AbstractLexerTest {
 
     @Test
     public void testQuotedNames() {
-        checkToken(" 'not' ", NAME, "'not'");
-        checkToken(" 'Student''s name'", NAME, "'Student''s name'");
+        checkToken(" 'not' ", NAME, "not");
+        checkToken(" 'Student''s name'", NAME, "Student's name");
     }
 
     @Test

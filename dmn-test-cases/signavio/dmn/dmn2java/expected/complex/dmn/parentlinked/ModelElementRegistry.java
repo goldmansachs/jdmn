@@ -4,7 +4,6 @@ public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElem
         // Register elements from model 'ParentLinked'
         register("abc", "Abc");
         register("ChildObject", "ChildObject");
-        register("num", "Num");
         register("SomethingElse", "SomethingElse");
     }
 }

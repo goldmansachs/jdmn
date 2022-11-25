@@ -27,27 +27,22 @@ public class TemporalDiff extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
     }
 
     @java.lang.Override()
-    public Boolean apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public Boolean applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("date"), input_.get("dateTime"), input_.get("time"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("date") != null ? date(input_.get("date")) : null), (input_.get("dateTime") != null ? dateAndTime(input_.get("dateTime")) : null), (input_.get("time") != null ? time(input_.get("time")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'TemporalDiff'", e);
             return null;
         }
     }
 
-    public Boolean apply(String date, String dateTime, String time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((date != null ? date(date) : null), (dateTime != null ? dateAndTime(dateTime) : null), (time != null ? time(time) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'TemporalDiff'", e);
-            return null;
-        }
-    }
-
-    public Boolean apply(javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public Boolean apply(javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'temporalDiff'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long temporalDiffStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments temporalDiffArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             temporalDiffArguments_.put("date", date);
@@ -56,7 +51,7 @@ public class TemporalDiff extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, temporalDiffArguments_);
 
             // Evaluate decision 'temporalDiff'
-            Boolean output_ = evaluate(date, dateTime, time, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean output_ = evaluate(date, dateTime, time, context_);
 
             // End decision 'temporalDiff'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, temporalDiffArguments_, output_, (System.currentTimeMillis() - temporalDiffStartTime_));
@@ -68,7 +63,11 @@ public class TemporalDiff extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         }
     }
 
-    protected Boolean evaluate(javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected Boolean evaluate(javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         return numericEqual(number("3"), numericAdd(numericAdd(numericAdd(numericAdd(dayDiff(date, dayAdd(date, number("1"))), monthDiff(date, monthAdd(date, number("1")))), yearDiff(date, yearAdd(date, number("1")))), hourDiff(dateTime, dateTime)), minutesDiff(time, time)));
     }
 }

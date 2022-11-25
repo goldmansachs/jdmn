@@ -42,34 +42,29 @@ public class CompositeDateTime extends com.gs.dmn.runtime.DefaultDMNBaseDecision
     }
 
     @java.lang.Override()
-    public type.CompositeDateTime apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public type.CompositeDateTime applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("CompositeInputDateTime"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("CompositeInputDateTime") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("CompositeInputDateTime"), new com.fasterxml.jackson.core.type.TypeReference<type.CompositeDateTimeImpl>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'CompositeDateTime'", e);
             return null;
         }
     }
 
-    public type.CompositeDateTime apply(String compositeInputDateTime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((compositeInputDateTime != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(compositeInputDateTime, new com.fasterxml.jackson.core.type.TypeReference<type.CompositeDateTimeImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'CompositeDateTime'", e);
-            return null;
-        }
-    }
-
-    public type.CompositeDateTime apply(type.CompositeDateTime compositeInputDateTime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public type.CompositeDateTime apply(type.CompositeDateTime compositeInputDateTime, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'CompositeDateTime'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long compositeDateTimeStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments compositeDateTimeArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             compositeDateTimeArguments_.put("CompositeInputDateTime", compositeInputDateTime);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compositeDateTimeArguments_);
 
             // Evaluate decision 'CompositeDateTime'
-            type.CompositeDateTime output_ = lambda.apply(compositeInputDateTime, annotationSet_, eventListener_, externalExecutor_, cache_);
+            type.CompositeDateTime output_ = lambda.apply(compositeInputDateTime, context_);
 
             // End decision 'CompositeDateTime'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, compositeDateTimeArguments_, output_, (System.currentTimeMillis() - compositeDateTimeStartTime_));
@@ -81,12 +76,12 @@ public class CompositeDateTime extends com.gs.dmn.runtime.DefaultDMNBaseDecision
         }
     }
 
-    public proto.CompositeDateTimeResponse apply(proto.CompositeDateTimeRequest compositeDateTimeRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public proto.CompositeDateTimeResponse applyProto(proto.CompositeDateTimeRequest compositeDateTimeRequest_, com.gs.dmn.runtime.ExecutionContext context_) {
         // Create arguments from Request Message
         type.CompositeDateTime compositeInputDateTime = type.CompositeDateTime.toCompositeDateTime(compositeDateTimeRequest_.getCompositeInputDateTime());
 
         // Invoke apply method
-        type.CompositeDateTime output_ = apply(compositeInputDateTime, annotationSet_, eventListener_, externalExecutor_, cache_);
+        type.CompositeDateTime output_ = apply(compositeInputDateTime, context_);
 
         // Convert output to Response Message
         proto.CompositeDateTimeResponse.Builder builder_ = proto.CompositeDateTimeResponse.newBuilder();
@@ -101,10 +96,11 @@ public class CompositeDateTime extends com.gs.dmn.runtime.DefaultDMNBaseDecision
         new com.gs.dmn.runtime.LambdaExpression<type.CompositeDateTime>() {
             public type.CompositeDateTime apply(Object... args_) {
                 type.CompositeDateTime compositeInputDateTime = 0 < args_.length ? (type.CompositeDateTime) args_[0] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 1 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[1] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 2 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[2] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 3 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[3] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 4 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[4] : null;
+                com.gs.dmn.runtime.ExecutionContext context_ = 1 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 return type.CompositeDateTime.toCompositeDateTime(compositeInputDateTime);
             }

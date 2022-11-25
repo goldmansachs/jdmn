@@ -2,12 +2,8 @@
 public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElementRegistry {
     public ModelElementRegistry() {
         // Register elements from model 'BKMfromBKM'
-        register("d", "D");
-        register("date", "Date");
         register("date formula", "DateFormula");
-        register("date input", "DateInput");
         register("date operators", "DateOperators");
-        register("datetime", "Datetime");
         register("datetime formula", "DatetimeFormula");
         register("datetime operators", "DatetimeOperators");
         register("decide", "Decide");
@@ -20,11 +16,7 @@ public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElem
         register("logic", "Logic");
         register("pick", "Pick");
         register("sum", "Sum");
-        register("t", "T");
-        register("time", "Time");
-        register("time 2", "Time2");
         register("time formula", "TimeFormula");
-        register("time input", "TimeInput");
         register("time operators", "TimeOperators");
     }
 }

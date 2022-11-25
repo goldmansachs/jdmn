@@ -52,16 +52,20 @@ class ApplicationRiskScore(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDec
     def __init__(self):
         jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision.__init__(self)
 
-    def apply(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[decimal.Decimal]:
+    def apply(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[decimal.Decimal]:
         try:
             # Start decision 'ApplicationRiskScore'
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             applicationRiskScoreStartTime_ = int(time.time_ns()/1000)
             applicationRiskScoreArguments_ = jdmn.runtime.listener.Arguments.Arguments()
             applicationRiskScoreArguments_.put("ApplicantData", applicantData)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, applicationRiskScoreArguments_)
 
             # Evaluate decision 'ApplicationRiskScore'
-            output_: typing.Optional[decimal.Decimal] = self.evaluate(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+            output_: typing.Optional[decimal.Decimal] = self.evaluate(applicantData, context_)
 
             # End decision 'ApplicationRiskScore'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, applicationRiskScoreArguments_, output_, (int(time.time_ns()/1000) - applicationRiskScoreStartTime_))
@@ -71,5 +75,5 @@ class ApplicationRiskScore(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDec
             self.logError("Exception caught in 'ApplicationRiskScore' evaluation", e)
             return None
 
-    def evaluate(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[decimal.Decimal]:
-        return ApplicationRiskScoreModel.ApplicationRiskScoreModel.instance().apply(None if (applicantData is None) else (applicantData.age), None if (applicantData is None) else (applicantData.maritalStatus), None if (applicantData is None) else (applicantData.employmentStatus), annotationSet_, eventListener_, externalExecutor_, cache_)
+    def evaluate(self, applicantData: typing.Optional[type_.TApplicantData.TApplicantData], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[decimal.Decimal]:
+        return ApplicationRiskScoreModel.ApplicationRiskScoreModel.instance().apply(None if (applicantData is None) else (applicantData.age), None if (applicantData is None) else (applicantData.maritalStatus), None if (applicantData is None) else (applicantData.employmentStatus), context_)

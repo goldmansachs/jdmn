@@ -13,8 +13,11 @@
 package com.gs.dmn.generated.sd_primitive_type_inputs_single_output_collect_sum_hit_policy;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
 import org.junit.Test;
+
+import java.math.BigDecimal;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -23,14 +26,21 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void testApply() {
-        assertEquals(10, decision.apply("1", "1", annotationSet, eventListener, externalFunctionExecutor, cache).intValue());
-        assertEquals(6, decision.apply("1", null, annotationSet, eventListener, externalFunctionExecutor, cache).intValue());
-        assertEquals(7, decision.apply((String)null, "1", annotationSet, eventListener, externalFunctionExecutor, cache).intValue());
-        assertEquals(4, decision.apply((String)null, null, annotationSet, eventListener, externalFunctionExecutor, cache).intValue());
+        assertEquals(10, applyDecision("1", "1").intValue());
+        assertEquals(6, applyDecision("1", null).intValue());
+        assertEquals(7, applyDecision(null, "1").intValue());
+        assertEquals(4, applyDecision(null, null).intValue());
     }
 
     @Override
     protected void applyDecision() {
-        decision.apply((String)null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
+        applyDecision(null, null);
+    }
+
+    private BigDecimal applyDecision(String numberInput, String textInput) {
+        Map<String, String> input = new LinkedHashMap<>();
+        input.put("NumberInput", numberInput);
+        input.put("TextInput", textInput);
+        return decision.applyMap(input, context);
     }
 }

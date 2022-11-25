@@ -6,18 +6,16 @@ import java.util.stream.Collectors;
 public class _0030UserDefinedFunctionsTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     @org.junit.Test
     public void testCase001() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
         String stringInputA = "feel";
         String stringInputB = "#";
 
         // Check 'simple function invocation'
-        checkValues("feel#feel#", new SimpleFunctionInvocation().apply(stringInputA, stringInputB, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues("feel#feel#", new SimpleFunctionInvocation().apply(stringInputA, stringInputB, context_));
         // Check 'named function invocation'
-        checkValues("#feel#feel", new NamedFunctionInvocation().apply(stringInputA, stringInputB, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues("#feel#feel", new NamedFunctionInvocation().apply(stringInputA, stringInputB, context_));
     }
 
     private void checkValues(Object expected, Object actual) {

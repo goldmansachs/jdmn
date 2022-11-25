@@ -39,9 +39,5 @@ public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElem
         register("decision_013_2", "Decision_013_2");
         register("decision_017_1", "Decision_017_1");
         register("decision_018", "Decision_018");
-        register("input_007_1", "Input_007_1");
-        register("input_011_1", "Input_011_1");
-        register("input_013_1", "Input_013_1");
-        register("input_017_1", "Input_017_1");
     }
 }

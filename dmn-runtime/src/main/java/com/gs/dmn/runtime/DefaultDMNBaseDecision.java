@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class DefaultDMNBaseDecision extends DefaultFEELLib implements DMNDecision<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration>, AnnotationTarget {
     @Override
-    public Object apply(Map<String, String> input_, ExecutionContext context_) {
+    public Object applyMap(Map<String, String> input_, ExecutionContext context_) {
         return null;
     }
 

@@ -27,34 +27,29 @@ public class DecisionTime extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
     }
 
     @java.lang.Override()
-    public List<String> apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<String> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("time input"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("time input") != null ? time(input_.get("time input")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'DecisionTime'", e);
             return null;
         }
     }
 
-    public List<String> apply(String timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((timeInput != null ? time(timeInput) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'DecisionTime'", e);
-            return null;
-        }
-    }
-
-    public List<String> apply(javax.xml.datatype.XMLGregorianCalendar timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public List<String> apply(javax.xml.datatype.XMLGregorianCalendar timeInput, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'decisionTime'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decisionTimeStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decisionTimeArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             decisionTimeArguments_.put("time input", timeInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionTimeArguments_);
 
             // Evaluate decision 'decisionTime'
-            List<String> output_ = evaluate(timeInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<String> output_ = evaluate(timeInput, context_);
 
             // End decision 'decisionTime'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decisionTimeArguments_, output_, (System.currentTimeMillis() - decisionTimeStartTime_));
@@ -66,7 +61,11 @@ public class DecisionTime extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         }
     }
 
-    protected List<String> evaluate(javax.xml.datatype.XMLGregorianCalendar timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return ImportedLogicTime.instance().apply(timeInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+    protected List<String> evaluate(javax.xml.datatype.XMLGregorianCalendar timeInput, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
+        return ImportedLogicTime.instance().apply(timeInput, context_);
     }
 }

@@ -13,14 +13,12 @@
 package com.gs.dmn.generated.tck.cl3_0020_vacation_days;
 
 import com.gs.dmn.generated.tck.AbstractHandwrittenDecisionTest;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
-import com.gs.dmn.runtime.cache.Cache;
-import com.gs.dmn.runtime.cache.DefaultCache;
-import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
-import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
-import com.gs.dmn.runtime.listener.EventListener;
-import com.gs.dmn.runtime.listener.NopEventListener;
+import com.gs.dmn.runtime.ExecutionContext;
 import org.junit.Test;
+
+import java.math.BigDecimal;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -29,27 +27,28 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void applyCompiler() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        EventListener eventListener = new NopEventListener();
-        ExternalFunctionExecutor externalFunctionExecutor = new DefaultExternalFunctionExecutor();
-        Cache cache = new DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
 
-        assertEquals("27", decision.apply("16", "1", annotationSet, eventListener, externalFunctionExecutor, cache).toPlainString());
-        assertEquals("22", decision.apply("25", "5", annotationSet, eventListener, externalFunctionExecutor, cache).toPlainString());
-        assertEquals("24", decision.apply("25", "20", annotationSet, eventListener, externalFunctionExecutor, cache).toPlainString());
-        assertEquals("30", decision.apply("44", "30", annotationSet, eventListener, externalFunctionExecutor, cache).toPlainString());
-        assertEquals("24", decision.apply("50", "20", annotationSet, eventListener, externalFunctionExecutor, cache).toPlainString());
-        assertEquals("30", decision.apply("50", "30", annotationSet, eventListener, externalFunctionExecutor, cache).toPlainString());
-        assertEquals("30", decision.apply("60", "20", annotationSet, eventListener, externalFunctionExecutor, cache).toPlainString());
+        assertEquals("27", applyDecision("16", "1", context).toPlainString());
+        assertEquals("22", applyDecision("25", "5", context).toPlainString());
+        assertEquals("24", applyDecision("25", "20", context).toPlainString());
+        assertEquals("30", applyDecision("44", "30", context).toPlainString());
+        assertEquals("24", applyDecision("50", "20", context).toPlainString());
+        assertEquals("30", applyDecision("50", "30", context).toPlainString());
+        assertEquals("30", applyDecision("60", "20", context).toPlainString());
     }
 
     @Override
     protected void applyDecision() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        EventListener eventListener = new NopEventListener();
-        ExternalFunctionExecutor externalFunctionExecutor = new DefaultExternalFunctionExecutor();
-        Cache cache = new DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
 
-        decision.apply((String) null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
+        applyDecision(null, null, context);
+    }
+
+    private BigDecimal applyDecision(String age, String yearsOfService, ExecutionContext context) {
+        Map<String, String> result = new LinkedHashMap<>();
+        result.put("Age", age);
+        result.put("Years of Service", yearsOfService);
+        return decision.applyMap(result, context);
     }
 }

@@ -327,7 +327,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 this.lib.number("1 000", " ", "."),
                 this.lib.number("1000"));
         doExpressionTest(entries, "", "number(from: \"1.000.000,01\", 'decimal separator':\",\", 'grouping separator':\".\")",
-                "FunctionInvocation(Name(number) -> NamedParameters(from : StringLiteral(\"1.000.000,01\"), 'decimal separator' : StringLiteral(\",\"), 'grouping separator' : StringLiteral(\".\")))",
+                "FunctionInvocation(Name(number) -> NamedParameters(from : StringLiteral(\"1.000.000,01\"), decimal separator : StringLiteral(\",\"), grouping separator : StringLiteral(\".\")))",
                 "number",
                 "number(\"1.000.000,01\", \".\", \",\")",
                 this.lib.number("1.000.000,01", ".", ","),
@@ -519,7 +519,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 this.lib.substring("abc", this.lib.number("3")),
                 "c");
         doExpressionTest(entries, "", "substring(string: \"abc\", 'start position': 3)",
-                "FunctionInvocation(Name(substring) -> NamedParameters(string : StringLiteral(\"abc\"), 'start position' : NumericLiteral(3)))",
+                "FunctionInvocation(Name(substring) -> NamedParameters(string : StringLiteral(\"abc\"), start position : NumericLiteral(3)))",
                 "string",
                 "substring(\"abc\", number(\"3\"))",
                 this.lib.substring("abc", this.lib.number("3")),

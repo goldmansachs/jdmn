@@ -8,36 +8,27 @@ public class FruitColourTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
 
     @org.junit.Test
     public void testCase1() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         String fruits = "Apples";
-        String fruitColour = this.fruitColour.apply(fruits, annotationSet_, eventListener_, externalExecutor_, cache_);
+        String fruitColour = this.fruitColour.apply(fruits, context_);
 
         checkValues("Red", fruitColour);
     }
 
     @org.junit.Test
     public void testCase2() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         String fruits = "Bananas";
-        String fruitColour = this.fruitColour.apply(fruits, annotationSet_, eventListener_, externalExecutor_, cache_);
+        String fruitColour = this.fruitColour.apply(fruits, context_);
 
         checkValues("Yellow", fruitColour);
     }
 
     @org.junit.Test
     public void testCase3() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         String fruits = "Grapes";
-        String fruitColour = this.fruitColour.apply(fruits, annotationSet_, eventListener_, externalExecutor_, cache_);
+        String fruitColour = this.fruitColour.apply(fruits, context_);
 
         checkValues("Green", fruitColour);
     }

@@ -484,14 +484,13 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public String drgElementArgumentListWithMap(DRGElementReference<? extends TDRGElement> reference) {
         TDRGElement element = reference.getElement();
         if (element instanceof TDecision) {
-            List<DRGElementReference<TInputData>> drgElementReferences = this.inputDataClosure((DRGElementReference<TDecision>) reference);
-            List<String> nameList = drgElementReferences.stream().map(e -> dmnModelRepository.displayName(e.getElement())).collect(Collectors.toList());
-            String arguments = nameList.stream().map(name -> String.format("%s.%s", inputVariableName(), contextGetter(name))).collect(Collectors.joining(", "));
-            return augmentArgumentListFromContext(arguments);
+            List<Pair<String, Type>> parameters = drgElementTypeSignature(reference, this::displayName);
+            String arguments = parameters.stream().map(p -> extractAndConvertInputMember(p)).collect(Collectors.joining(", "));
+            return augmentArgumentList(arguments);
         } else if (element instanceof TInvocable) {
             List<Pair<String, Type>> parameters = drgElementTypeSignature(reference, this::displayName);
             String arguments = parameters.stream().map(p -> extractAndConvertInputMember(p)).collect(Collectors.joining(", "));
-            return augmentArgumentListFromContext(arguments);
+            return augmentArgumentList(arguments);
         } else {
             throw new DMNRuntimeException(String.format("Not supported yet for '%s'", element.getClass().getSimpleName()));
         }
@@ -503,7 +502,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     private String extractAndConvertInputMember(Pair<String, Type> pair) {
         String member = extractInputMember(pair.getLeft());
-        return String.format("%s", this.nativeFactory.convertDecisionArgumentFromString(member, pair.getRight()));
+        return String.format("%s", this.nativeFactory.convertArgumentFromString(member, pair.getRight()));
     }
 
     @Override
@@ -689,7 +688,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public String drgElementArgumentListWithConversionFromString(TDRGElement element) {
         if (element instanceof TDecision) {
             List<Pair<String, Type>> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
-            String arguments = parameters.stream().map(p -> String.format("%s", this.nativeFactory.convertDecisionArgumentFromString(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
+            String arguments = parameters.stream().map(p -> String.format("%s", this.nativeFactory.convertArgumentFromString(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
@@ -975,37 +974,28 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String augmentSignature(String signature) {
-        String annotationParameter = this.nativeFactory.parameter(annotationSetClassName(), annotationSetVariableName());
-        String listenerParameter = this.nativeFactory.parameter(eventListenerClassName(), eventListenerVariableName());
-        String executorParameter = this.nativeFactory.parameter(externalExecutorClassName(), externalExecutorVariableName());
-        String cacheParameter = this.nativeFactory.parameter(cacheInterfaceName(), cacheVariableName());
+        String contextParameter = this.nativeFactory.parameter(executionContextClassName(), executionContextVariableName());
         if (StringUtils.isBlank(signature)) {
-            return String.format("%s, %s, %s, %s", annotationParameter, listenerParameter, executorParameter, cacheParameter);
+            return String.format("%s", contextParameter);
         } else {
-            return String.format("%s, %s, %s, %s, %s", signature, annotationParameter, listenerParameter, executorParameter, cacheParameter);
+            return String.format("%s, %s", signature, contextParameter);
         }
     }
 
     @Override
     public List<Pair<String, String>> augmentSignatureParameters(List<Pair<String, String>> signature) {
         List<Pair<String, String>> result = new ArrayList<>(signature);
-        result.add(new Pair<>(annotationSetClassName(), annotationSetVariableName()));
-        result.add(new Pair<>(eventListenerClassName(), eventListenerVariableName()));
-        result.add(new Pair<>(externalExecutorClassName(), externalExecutorVariableName()));
-        result.add(new Pair<>(cacheInterfaceName(), cacheVariableName()));
+        result.add(new Pair<>(executionContextClassName(), executionContextVariableName()));
         return result;
     }
 
     @Override
     public String augmentArgumentList(String arguments) {
-        String annotationsVar = annotationSetVariableName();
-        String listenerVar = eventListenerVariableName();
-        String executorVar = externalExecutorVariableName();
-        String cacheVar = cacheVariableName();
+        String contextVar = executionContextVariableName();
         if (StringUtils.isBlank(arguments)) {
-            return String.format("%s, %s, %s, %s", annotationsVar, listenerVar, executorVar, cacheVar);
+            return String.format("%s", contextVar);
         } else {
-            return String.format("%s, %s, %s, %s, %s", arguments, annotationsVar, listenerVar, executorVar, cacheVar);
+            return String.format("%s, %s", arguments, contextVar);
         }
     }
 
@@ -1019,6 +1009,25 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         } else {
             return String.format("%s, %s, %s, %s, %s", arguments, annotations, listener, executor, cache);
         }
+    }
+
+    @Override
+    public List<String> extractExtraParametersFromExecutionContext() {
+        List<Pair<Pair<String, String>, String>> result = new ArrayList<>();
+        result.add(new Pair<>(new Pair<>(annotationSetClassName(), annotationSetVariableName()), "annotations"));
+        result.add(new Pair<>(new Pair<>(eventListenerClassName(), eventListenerVariableName()), "eventListener"));
+        result.add(new Pair<>(new Pair<>(externalExecutorClassName(), externalExecutorVariableName()), "externalFunctionExecutor"));
+        result.add(new Pair<>(new Pair<>(cacheInterfaceName(), cacheVariableName()), "cache"));
+
+        return result.stream().map(this::extractParameter).collect(Collectors.toList());
+    }
+
+    protected String extractParameter(Pair<Pair<String, String>, String> param) {
+        String type = param.getLeft().getLeft();
+        String varName = param.getLeft().getRight();
+        String propertyName = param.getRight();
+        return String.format("%s %s = %s != null ? %s.%s : null;",
+                type, varName, executionContextVariableName(), executionContextVariableName(), getter(propertyName));
     }
 
     @Override
@@ -1096,6 +1105,17 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             return new Pair<>(Collections.singletonList(modelName), elementName);
         } else {
             return new Pair<>(importPath.getPathElements(), elementName);
+        }
+    }
+
+    @Override
+    public String registryId(TDRGElement element) {
+        if (this.dmnModelRepository.getAllDefinitions().size() == 1 || this.onePackage) {
+            return displayName(element);
+        } else {
+            TDefinitions model = this.dmnModelRepository.getModel(element);
+            String modelId = model.getNamespace();
+            return String.format("%s#%s", modelId, displayName(element));
         }
     }
 
@@ -1227,7 +1247,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         return qualifiedName(ExecutionContext.class);
     }
 
-    protected String executionContextVariableName() {
+    @Override
+    public String executionContextVariableName() {
         return "context_";
     }
 

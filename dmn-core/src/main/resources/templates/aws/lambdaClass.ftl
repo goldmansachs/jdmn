@@ -1,7 +1,6 @@
 <#if javaPackageName?has_content>
 package ${javaPackageName};
 </#if>
-<#assign repository = transformer.getDMNModelRepository() />
 <#assign eventVariable = "event_" />
 <#assign contextVariable = "context_" />
 <#assign outputVariable = "output_" />
@@ -41,8 +40,8 @@ public class ${javaClassName} implements com.amazonaws.services.lambda.runtime.R
             ${transformer.annotationSetClassName()} annotations_ = ${transformer.defaultConstructor(transformer.annotationSetClassName())};
             ${transformer.eventListenerClassName()} listener_ = ${traceVariable} ? ${transformer.defaultConstructor(transformer.treeTraceEventListenerClassName())} : ${transformer.defaultConstructor(transformer.defaultEventListenerClassName())};
             ${transformer.externalExecutorClassName()} executor_ = ${transformer.defaultConstructor(transformer.defaultExternalExecutorClassName())};
-            ${transformer.cacheInterfaceName()} cache_ = ${transformer.defaultConstructor(transformer.defaultCacheClassName())};
-            ${transformer.executionContextClassName()} executionContext_ = ${transformer.constructor(transformer.executionContextClassName(), "annotations_, listener_, executor_, cache_")};
+            ${transformer.cacheInterfaceName()} ${transformer.cacheVariableName()} = ${transformer.defaultConstructor(transformer.defaultCacheClassName())};
+            ${transformer.executionContextClassName()} executionContext_ = ${transformer.constructor(transformer.executionContextClassName(), "annotations_, listener_, executor_, ${transformer.cacheVariableName()}")};
 
             // Execute element
             Object output_ = EXECUTOR.execute(elementName, event_, executionContext_);
@@ -55,7 +54,7 @@ public class ${javaClassName} implements com.amazonaws.services.lambda.runtime.R
             }
             return response_;
         } catch (Exception e) {
-            throw new IllegalArgumentException(String.format("Error executing DRG Element '%s'", elementName));
+            throw new IllegalArgumentException(String.format("Error executing DRG Element '%s'", elementName), e);
         }
     }
 }

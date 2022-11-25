@@ -18,6 +18,8 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -32,14 +34,14 @@ public class HandwrittenMonthlyTest extends AbstractHandwrittenDecisionTest {
         loan.setRate(new BigDecimal("5", MathContext.DECIMAL128));
         loan.setTerm(new BigDecimal("10", MathContext.DECIMAL128));
 
-        BigDecimal output = decision.apply(toJson(loan), annotationSet, eventListener, externalFunctionExecutor, cache);
+        BigDecimal output = applyDecision(toJson(loan));
 
         assertEquals("100.00", output.toString());
     }
 
     @Test
     public void testApplyWhenNull() {
-        BigDecimal output = decision.apply((String)null, annotationSet, eventListener, externalFunctionExecutor, cache);
+        BigDecimal output = applyDecision(null);
         assertNull(output);
     }
 
@@ -50,6 +52,13 @@ public class HandwrittenMonthlyTest extends AbstractHandwrittenDecisionTest {
         loan.setRate(new BigDecimal("5", MathContext.DECIMAL128));
         loan.setTerm(new BigDecimal("10", MathContext.DECIMAL128));
 
-        decision.apply(loan, annotationSet, eventListener, externalFunctionExecutor, cache);
+        applyDecision(toJson(loan));
     }
+
+    private BigDecimal applyDecision(String loan) {
+        Map<String, String> input = new LinkedHashMap<>();
+        input.put("Loan", loan);
+        return decision.applyMap(input, context);
+    }
+
 }

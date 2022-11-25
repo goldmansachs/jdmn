@@ -29,7 +29,7 @@ public class DoubleMixedJavaTimeSignavioBaseDecision extends DoubleMixedJavaTime
         AnnotationTarget
 {
     @Override
-    public Object apply(Map<String, String> input_, ExecutionContext context_) {
+    public Object applyMap(Map<String, String> input_, ExecutionContext context_) {
         return null;
     }
 

@@ -14,6 +14,7 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -109,7 +110,11 @@ public class NamedParameters<T, C> extends Parameters<T, C> {
 
     @Override
     public T getParameterType(int position, String name) {
-        return this.getParameters().get(name).getType();
+        Expression<T, C> expression = this.getParameters().get(name);
+        if (expression == null) {
+            throw new DMNRuntimeException(String.format("Cannot find parameter '%s'", name));
+        }
+        return expression.getType();
     }
 
     private boolean requiresConversion() {

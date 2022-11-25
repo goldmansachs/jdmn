@@ -393,7 +393,7 @@
         <text>BureauCallTypeTable</text>
       </literalExpression>
       <binding>
-        <parameter id="_65deeb90-626c-4cce-9485-eae9455b2194" name="'Pre-bureauRiskCategory'"></parameter>
+        <parameter id="_65deeb90-626c-4cce-9485-eae9455b2194" name="Pre-bureauRiskCategory"></parameter>
         <literalExpression>
           <text>'Pre-bureauRiskCategory'</text>
         </literalExpression>
@@ -403,7 +403,7 @@
   <businessKnowledgeModel id="b_BureauCallTypeTable" name="BureauCallTypeTable">
     <variable name="BureauCallTypeTable"></variable>
     <encapsulatedLogic>
-      <formalParameter name="'Pre-bureauRiskCategory'" typeRef="tRiskCategory"></formalParameter>
+      <formalParameter name="Pre-bureauRiskCategory" typeRef="tRiskCategory"></formalParameter>
       <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="BureauCallTypeTable">
         <input id="_fcd1287d-7572-4523-ab27-33eff68d965b" label="Pre-bureauRiskCategory">
           <inputExpression typeRef="feel.string">
@@ -501,13 +501,13 @@
         <text>EligibilityRules</text>
       </literalExpression>
       <binding>
-        <parameter id="_83d27025-44c2-4bb2-8747-ae3d40e97f25" name="'Pre-bureauAffordability'"></parameter>
+        <parameter id="_83d27025-44c2-4bb2-8747-ae3d40e97f25" name="Pre-bureauAffordability"></parameter>
         <literalExpression>
           <text>'Pre-bureauAffordability'</text>
         </literalExpression>
       </binding>
       <binding>
-        <parameter id="_b5fe2d0c-1d71-4c98-b0c6-a821b854ffc4" name="'Pre-bureauRiskCategory'"></parameter>
+        <parameter id="_b5fe2d0c-1d71-4c98-b0c6-a821b854ffc4" name="Pre-bureauRiskCategory"></parameter>
         <literalExpression>
           <text>'Pre-bureauRiskCategory'</text>
         </literalExpression>
@@ -523,8 +523,8 @@
   <businessKnowledgeModel id="b_EligibilityRules" name="EligibilityRules">
     <variable name="EligibilityRules"></variable>
     <encapsulatedLogic>
-      <formalParameter name="'Pre-bureauRiskCategory'" typeRef="tRiskCategory"></formalParameter>
-      <formalParameter name="'Pre-bureauAffordability'" typeRef="feel.boolean"></formalParameter>
+      <formalParameter name="Pre-bureauRiskCategory" typeRef="tRiskCategory"></formalParameter>
+      <formalParameter name="Pre-bureauAffordability" typeRef="feel.boolean"></formalParameter>
       <formalParameter name="Age" typeRef="feel.number"></formalParameter>
       <decisionTable hitPolicy="PRIORITY" preferredOrientation="Rule-as-Row" outputLabel="EligibilityRules">
         <input id="_2bc2f208-6c1d-4411-8a19-c5b424fb8fa9" label="Pre-bureauRiskCategory">
@@ -634,8 +634,8 @@
       </context>
     </encapsulatedLogic>
   </businessKnowledgeModel>
-  <decision id="d_Post-bureauAffordability" name="'Post-bureauAffordability'">
-    <variable name="'Post-bureauAffordability'" typeRef="feel.boolean"></variable>
+  <decision id="d_Post-bureauAffordability" name="Post-bureauAffordability">
+    <variable name="Post-bureauAffordability" typeRef="feel.boolean"></variable>
     <informationRequirement>
       <requiredDecision href="#d_RequiredMonthlyInstallment"></requiredDecision>
     </informationRequirement>
@@ -684,8 +684,8 @@
       </binding>
     </invocation>
   </decision>
-  <decision id="d_Post-bureauRiskCategory" name="'Post-bureauRiskCategory'">
-    <variable name="'Post-bureauRiskCategory'" typeRef="tRiskCategory"></variable>
+  <decision id="d_Post-bureauRiskCategory" name="Post-bureauRiskCategory">
+    <variable name="Post-bureauRiskCategory" typeRef="tRiskCategory"></variable>
     <informationRequirement>
       <requiredDecision href="#d_ApplicationRiskScore"></requiredDecision>
     </informationRequirement>
@@ -722,8 +722,8 @@
       </binding>
     </invocation>
   </decision>
-  <businessKnowledgeModel id="b_Post-bureauRiskCategoryTable" name="'Post-bureauRiskCategoryTable'">
-    <variable name="'Post-bureauRiskCategoryTable'"></variable>
+  <businessKnowledgeModel id="b_Post-bureauRiskCategoryTable" name="Post-bureauRiskCategoryTable">
+    <variable name="Post-bureauRiskCategoryTable"></variable>
     <encapsulatedLogic>
       <formalParameter name="ExistingCustomer" typeRef="feel.boolean"></formalParameter>
       <formalParameter name="ApplicationRiskScore" typeRef="feel.number"></formalParameter>
@@ -930,8 +930,8 @@
       </decisionTable>
     </encapsulatedLogic>
   </businessKnowledgeModel>
-  <decision id="d_Pre-bureauAffordability" name="'Pre-bureauAffordability'">
-    <variable name="'Pre-bureauAffordability'" typeRef="feel.boolean"></variable>
+  <decision id="d_Pre-bureauAffordability" name="Pre-bureauAffordability">
+    <variable name="Pre-bureauAffordability" typeRef="feel.boolean"></variable>
     <informationRequirement>
       <requiredDecision href="#d_RequiredMonthlyInstallment"></requiredDecision>
     </informationRequirement>
@@ -980,8 +980,8 @@
       </binding>
     </invocation>
   </decision>
-  <decision id="d_Pre-bureauRiskCategory" name="'Pre-bureauRiskCategory'">
-    <variable name="'Pre-bureauRiskCategory'" typeRef="tRiskCategory"></variable>
+  <decision id="d_Pre-bureauRiskCategory" name="Pre-bureauRiskCategory">
+    <variable name="Pre-bureauRiskCategory" typeRef="tRiskCategory"></variable>
     <informationRequirement>
       <requiredDecision href="#d_ApplicationRiskScore"></requiredDecision>
     </informationRequirement>
@@ -1009,8 +1009,8 @@
       </binding>
     </invocation>
   </decision>
-  <businessKnowledgeModel id="b_Pre-bureauRiskCategoryTable" name="'Pre-bureauRiskCategoryTable'">
-    <variable name="'Pre-bureauRiskCategoryTable'"></variable>
+  <businessKnowledgeModel id="b_Pre-bureauRiskCategoryTable" name="Pre-bureauRiskCategoryTable">
+    <variable name="Pre-bureauRiskCategoryTable"></variable>
     <encapsulatedLogic>
       <formalParameter name="ExistingCustomer" typeRef="feel.boolean"></formalParameter>
       <formalParameter name="ApplicationRiskScore" typeRef="feel.number"></formalParameter>
@@ -1189,13 +1189,13 @@
         </literalExpression>
       </binding>
       <binding>
-        <parameter id="_4b461288-5d18-44ab-b102-835a91946890" name="'Post-bureauRiskCategory'"></parameter>
+        <parameter id="_4b461288-5d18-44ab-b102-835a91946890" name="Post-bureauRiskCategory"></parameter>
         <literalExpression>
           <text>'Post-bureauRiskCategory'</text>
         </literalExpression>
       </binding>
       <binding>
-        <parameter id="_8846c6e3-65ff-4d46-87b9-7c7cad86ee67" name="'Post-bureauAffordability'"></parameter>
+        <parameter id="_8846c6e3-65ff-4d46-87b9-7c7cad86ee67" name="Post-bureauAffordability"></parameter>
         <literalExpression>
           <text>'Post-bureauAffordability'</text>
         </literalExpression>
@@ -1205,8 +1205,8 @@
   <businessKnowledgeModel id="b_RoutingRules" name="RoutingRules">
     <variable name="RoutingRules"></variable>
     <encapsulatedLogic>
-      <formalParameter name="'Post-bureauRiskCategory'" typeRef="tRiskCategory"></formalParameter>
-      <formalParameter name="'Post-bureauAffordability'" typeRef="feel.boolean"></formalParameter>
+      <formalParameter name="Post-bureauRiskCategory" typeRef="tRiskCategory"></formalParameter>
+      <formalParameter name="Post-bureauAffordability" typeRef="feel.boolean"></formalParameter>
       <formalParameter name="Bankrupt" typeRef="feel.boolean"></formalParameter>
       <formalParameter name="CreditScore" typeRef="feel.number"></formalParameter>
       <decisionTable hitPolicy="PRIORITY" preferredOrientation="Rule-as-Row" outputLabel="RoutingRules">

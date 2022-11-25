@@ -38,34 +38,29 @@ public class PartA extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
     }
 
     @java.lang.Override()
-    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("booleanList"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("booleanList") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("booleanList"), new com.fasterxml.jackson.core.type.TypeReference<List<Boolean>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'PartA'", e);
             return null;
         }
     }
 
-    public String apply(String booleanList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((booleanList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(booleanList, new com.fasterxml.jackson.core.type.TypeReference<List<Boolean>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'PartA'", e);
-            return null;
-        }
-    }
-
-    public String apply(List<Boolean> booleanList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(List<Boolean> booleanList, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'partA'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long partAStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments partAArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             partAArguments_.put("booleanList", booleanList);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, partAArguments_);
 
             // Evaluate decision 'partA'
-            String output_ = evaluate(booleanList, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(booleanList, context_);
 
             // End decision 'partA'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, partAArguments_, output_, (System.currentTimeMillis() - partAStartTime_));
@@ -77,15 +72,19 @@ public class PartA extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         }
     }
 
-    protected String evaluate(List<Boolean> booleanList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    protected String evaluate(List<Boolean> booleanList, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply child decisions
-        Boolean allFalseAggregation = this.allFalseAggregation.apply(booleanList, annotationSet_, eventListener_, externalExecutor_, cache_);
-        Boolean allTrueAggregation = this.allTrueAggregation.apply(booleanList, annotationSet_, eventListener_, externalExecutor_, cache_);
-        Boolean anyTrueAggregation = this.anyTrueAggregation.apply(booleanList, annotationSet_, eventListener_, externalExecutor_, cache_);
+        Boolean allFalseAggregation = this.allFalseAggregation.apply(booleanList, context_);
+        Boolean allTrueAggregation = this.allTrueAggregation.apply(booleanList, context_);
+        Boolean anyTrueAggregation = this.anyTrueAggregation.apply(booleanList, context_);
 
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-        ruleOutputList_.add(rule0(allFalseAggregation, allTrueAggregation, anyTrueAggregation, annotationSet_, eventListener_, externalExecutor_, cache_));
+        ruleOutputList_.add(rule0(allFalseAggregation, allTrueAggregation, anyTrueAggregation, context_));
 
         // Return results based on hit policy
         String output_;
@@ -101,11 +100,15 @@ public class PartA extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
-    public com.gs.dmn.runtime.RuleOutput rule0(Boolean allFalseAggregation, Boolean allTrueAggregation, Boolean anyTrueAggregation, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(Boolean allFalseAggregation, Boolean allTrueAggregation, Boolean anyTrueAggregation, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
 
         // Rule start
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
         // Apply rule

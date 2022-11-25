@@ -90,6 +90,9 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor<
         if (sourceType instanceof ImportContextType) {
             ImportContextType importContextType = (ImportContextType) sourceType;
             DRGElementReference<? extends TDRGElement> memberReference = importContextType.getMemberReference(memberName);
+            if (memberReference == null) {
+                throw new DMNRuntimeException(String.format("Cannot find reference for '%s'", memberName));
+            }
             TDRGElement drgElement = memberReference.getElement();
             if (drgElement instanceof TBusinessKnowledgeModel) {
                 return this.dmnTransformer.singletonInvocableInstance((TBusinessKnowledgeModel) drgElement);

@@ -6,21 +6,19 @@ import java.util.stream.Collectors;
 public class _0013SortTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     @org.junit.Test
     public void testCase001() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
         List<java.math.BigDecimal> listA = asList(number("3"), number("1"), number("5"), number("4"));
         List<String> stringList = asList("a", "8", "Aa", "A", "10", "9");
         List<type.TRow> tableB = asList(new type.TRowImpl(number("16"), number("4"), number("25"), number("1")), new type.TRowImpl(number("16"), number("43"), number("2"), number("10")), new type.TRowImpl(number("1"), number("0"), number("1"), number("1")));
 
-        // Check sort1
-        checkValues(asList(number("5"), number("4"), number("3"), number("1")), new Sort1().apply(listA, annotationSet_, eventListener_, externalExecutor_, cache_));
-        // Check sort2
-        checkValues(asList(new type.TRowImpl(number("1"), number("0"), number("1"), number("1")), new type.TRowImpl(number("16"), number("4"), number("25"), number("1")), new type.TRowImpl(number("16"), number("43"), number("2"), number("10"))), new Sort2().apply(tableB, annotationSet_, eventListener_, externalExecutor_, cache_));
-        // Check sort3
-        checkValues(asList("10", "8", "9", "A", "Aa", "a"), new Sort3().apply(stringList, annotationSet_, eventListener_, externalExecutor_, cache_));
+        // Check 'sort1'
+        checkValues(asList(number("5"), number("4"), number("3"), number("1")), new Sort1().apply(listA, context_));
+        // Check 'sort2'
+        checkValues(asList(new type.TRowImpl(number("1"), number("0"), number("1"), number("1")), new type.TRowImpl(number("16"), number("4"), number("25"), number("1")), new type.TRowImpl(number("16"), number("43"), number("2"), number("10"))), new Sort2().apply(tableB, context_));
+        // Check 'sort3'
+        checkValues(asList("10", "8", "9", "A", "Aa", "a"), new Sort3().apply(stringList, context_));
     }
 
     private void checkValues(Object expected, Object actual) {

@@ -17,7 +17,6 @@ import com.gs.dmn.generated.external_functions.type.Transaction;
 import com.gs.dmn.generated.external_functions.type.TransactionImpl;
 import com.gs.dmn.generated.external_functions.type.TransactionTaxMetaData;
 import com.gs.dmn.generated.external_functions.type.TransactionTaxMetaDataImpl;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -31,11 +30,15 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         String taxChargeType = "2";
         Transaction transaction = new TransactionImpl();
         TransactionTaxMetaData transactionTaxMetaData = new TransactionTaxMetaDataImpl();
-        assertEquals("forexRate", decision.apply(derivativeType, taxChargeType, transaction, transactionTaxMetaData, annotationSet, eventListener, externalFunctionExecutor, cache));
+        assertEquals("forexRate", applyDecision(derivativeType, taxChargeType, transaction, transactionTaxMetaData));
     }
 
     @Override
     protected void applyDecision() {
-        decision.apply(null, null, (Transaction) null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
+        applyDecision(null, null, null, null);
+    }
+
+    private String applyDecision(String derivativeType, String taxChargeType, Transaction transaction, TransactionTaxMetaData transactionTaxMetaData) {
+        return decision.apply(derivativeType, taxChargeType, transaction, transactionTaxMetaData, context);
     }
 }

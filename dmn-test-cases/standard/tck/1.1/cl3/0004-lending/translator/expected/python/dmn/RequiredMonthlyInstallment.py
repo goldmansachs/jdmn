@@ -50,16 +50,20 @@ class RequiredMonthlyInstallment(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
     def __init__(self):
         jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision.__init__(self)
 
-    def apply(self, requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[decimal.Decimal]:
+    def apply(self, requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[decimal.Decimal]:
         try:
             # Start decision 'RequiredMonthlyInstallment'
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             requiredMonthlyInstallmentStartTime_ = int(time.time_ns()/1000)
             requiredMonthlyInstallmentArguments_ = jdmn.runtime.listener.Arguments.Arguments()
             requiredMonthlyInstallmentArguments_.put("RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, requiredMonthlyInstallmentArguments_)
 
             # Evaluate decision 'RequiredMonthlyInstallment'
-            output_: typing.Optional[decimal.Decimal] = self.evaluate(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
+            output_: typing.Optional[decimal.Decimal] = self.evaluate(requestedProduct, context_)
 
             # End decision 'RequiredMonthlyInstallment'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, requiredMonthlyInstallmentArguments_, output_, (int(time.time_ns()/1000) - requiredMonthlyInstallmentStartTime_))
@@ -69,5 +73,5 @@ class RequiredMonthlyInstallment(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             self.logError("Exception caught in 'RequiredMonthlyInstallment' evaluation", e)
             return None
 
-    def evaluate(self, requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[decimal.Decimal]:
-        return InstallmentCalculation.InstallmentCalculation.instance().apply(None if (requestedProduct is None) else (requestedProduct.productType), None if (requestedProduct is None) else (requestedProduct.rate), None if (requestedProduct is None) else (requestedProduct.term), None if (requestedProduct is None) else (requestedProduct.amount), annotationSet_, eventListener_, externalExecutor_, cache_)
+    def evaluate(self, requestedProduct: typing.Optional[type_.TRequestedProduct.TRequestedProduct], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[decimal.Decimal]:
+        return InstallmentCalculation.InstallmentCalculation.instance().apply(None if (requestedProduct is None) else (requestedProduct.productType), None if (requestedProduct is None) else (requestedProduct.rate), None if (requestedProduct is None) else (requestedProduct.term), None if (requestedProduct is None) else (requestedProduct.amount), context_)

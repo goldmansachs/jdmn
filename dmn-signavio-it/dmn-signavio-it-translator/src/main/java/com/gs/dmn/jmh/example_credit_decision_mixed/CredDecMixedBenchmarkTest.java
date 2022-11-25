@@ -14,13 +14,7 @@ package com.gs.dmn.jmh.example_credit_decision_mixed;
 
 import com.gs.dmn.generated.example_credit_decision_mixed.GenerateOutputData;
 import com.gs.dmn.generated.example_credit_decision_mixed.type.ApplicantImpl;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
-import com.gs.dmn.runtime.cache.Cache;
-import com.gs.dmn.runtime.cache.DefaultCache;
-import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
-import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
-import com.gs.dmn.runtime.listener.EventListener;
-import com.gs.dmn.runtime.listener.NopEventListener;
+import com.gs.dmn.runtime.ExecutionContext;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -43,10 +37,7 @@ public class CredDecMixedBenchmarkTest {
     }
 
     private void executeCompiled(long startTime) {
-        AnnotationSet annotationSet = new AnnotationSet();
-        EventListener eventListener = new NopEventListener();
-        ExternalFunctionExecutor externalFunctionExecutor = new DefaultExternalFunctionExecutor();
-        Cache cache = new DefaultCache();
+        ExecutionContext context = new ExecutionContext();
 
         ApplicantImpl applicant = new ApplicantImpl();
         applicant.setName("Amy");
@@ -57,7 +48,7 @@ public class CredDecMixedBenchmarkTest {
         BigDecimal currentRiskAppetite = decision.number("50");
         BigDecimal lendingThreshold = decision.number("25");
 
-        List<?> result = decision.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet, eventListener, externalFunctionExecutor, cache);
+        List<?> result = decision.apply(applicant, currentRiskAppetite, lendingThreshold, context);
         System.out.println(result);
 
         long endTime = System.currentTimeMillis();

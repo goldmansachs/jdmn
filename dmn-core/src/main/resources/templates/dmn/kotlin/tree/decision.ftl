@@ -10,141 +10,25 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations under the License.
 -->
-<#include "drgElementCommon.ftl">
+<#import "/tree/common/metadata.ftl" as metadata />
+<#import "/tree/common/constructor.ftl" as constructor />
+<#import "/tree/common/apply.ftl" as apply />
+<#import "/tree/common/proto.ftl" as proto />
 <#if javaPackageName?has_content>
 package ${javaPackageName}
 </#if>
-<#assign repository = transformer.getDMNModelRepository() />
 
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["decision.ftl", "${transformer.escapeInString(modelRepository.name(drgElement))}"])
-@${transformer.drgElementAnnotationClassName()}(
-    namespace = "${javaPackageName}",
-    name = "${modelRepository.name(drgElement)}",
-    label = "${modelRepository.label(drgElement)}",
-    elementKind = ${transformer.elementKindAnnotationClassName()}.${transformer.elementKind(drgElement)},
-    expressionKind = ${transformer.expressionKindAnnotationClassName()}.${transformer.expressionKind(drgElement)},
-    hitPolicy = ${transformer.hitPolicyAnnotationClassName()}.${transformer.hitPolicy(drgElement)},
-    rulesCount = ${modelRepository.rulesCount(drgElement)}
-)
+<@metadata.classAnnotation "decision.ftl" drgElement/>
 class ${javaClassName}(${transformer.drgElementConstructorSignature(drgElement)}) : ${decisionBaseClass}() {
-    override fun apply(${transformer.drgElementSignatureWithMap(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
-    <#if transformer.canGenerateApplyWithMap(drgElement)>
-        try {
-            return apply(${transformer.drgElementArgumentListWithMap(drgElement)})
-        } catch (e: Exception) {
-            logError("Cannot apply decision '${javaClassName}'", e)
-            return null
-        }
-    <#else>
-        throw ${transformer.constructor(transformer.dmnRuntimeExceptionClassName(), "Not all arguments can be serialized")}
-    </#if>
-    }
-
-    <#if transformer.shouldGenerateApplyWithConversionFromString(drgElement)>
-    fun apply(${transformer.drgElementSignatureWithConversionFromString(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
-        return try {
-            apply(${transformer.drgElementArgumentListWithConversionFromString(drgElement)})
-        } catch (e: Exception) {
-            logError("Cannot apply decision '${javaClassName}'", e)
-            null
-        }
-    }
-
-    </#if>
-    fun apply(${transformer.drgElementSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
-        <@applyMethodBody drgElement />
-    }
-    <#if transformer.isGenerateProto()>
-
-    fun apply(${transformer.drgElementSignatureProto(drgElement)}): ${transformer.qualifiedResponseMessageName(drgElement)} {
-    <@applyRequest drgElement />
-    }
-    </#if>
-    <@evaluateExpressionMethod drgElement />
+    <@apply.applyMethods drgElement />
+    <@proto.applyMethod drgElement />
+    <@apply.evaluateExpressionMethod drgElement />
 
     companion object {
-        val ${transformer.drgElementMetadataFieldName()} : ${transformer.drgElementMetadataClassName()} = ${transformer.drgElementMetadataClassName()}(
-            "${javaPackageName}",
-            "${modelRepository.name(drgElement)}",
-            "${modelRepository.label(drgElement)}",
-            ${transformer.elementKindAnnotationClassName()}.${transformer.elementKind(drgElement)},
-            ${transformer.expressionKindAnnotationClassName()}.${transformer.expressionKind(drgElement)},
-            ${transformer.hitPolicyAnnotationClassName()}.${transformer.hitPolicy(drgElement)},
-            ${modelRepository.rulesCount(drgElement)}
-        )
-    <#if transformer.isGenerateProto()>
-
-        @JvmStatic
-        fun requestToMap(${transformer.requestVariableName(drgElement)}: ${transformer.qualifiedRequestMessageName(drgElement)}): kotlin.collections.Map<String, Any?> {
-            <@convertProtoRequestToMap drgElement />
-        }
-
-        @JvmStatic
-        fun responseToOutput(${transformer.responseVariableName(drgElement)}: ${transformer.qualifiedResponseMessageName(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
-            <@convertProtoResponseToOutput drgElement />
-        }
-    </#if>
+        <@metadata.elementMetadataField drgElement />
+        <@proto.protoAdapters drgElement />
     }
 }
-<#macro makeArgumentsFromRequestMessage drgElement staticContext indent>
-    <#assign parameters = transformer.drgElementTypeSignature(drgElement) />
-        ${indent}// Create arguments from Request Message
-    <#list parameters as parameter>
-        ${indent}val ${parameter.left}: ${transformer.toNativeType(parameter.right)}? = ${transformer.extractParameterFromRequestMessage(drgElement, parameter, staticContext)}
-    </#list>
-</#macro>
-
-<#macro applyRequest drgElement>
-    <@makeArgumentsFromRequestMessage drgElement false ""/>
-
-    <#assign outputVariable = "output_" />
-    <#assign outputVariableProto = "outputProto_" />
-    <#assign responseMessageName = transformer.qualifiedResponseMessageName(drgElement) />
-    <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
-        // Invoke apply method
-        <#assign outputVariable = "output_" />
-        val ${outputVariable}: ${transformer.drgElementOutputType(drgElement)} = apply(${transformer.drgElementArgumentList(drgElement)})
-
-        // Convert output to Response Message
-        <#assign responseMessageName = transformer.qualifiedResponseMessageName(drgElement) />
-        val builder_: ${responseMessageName}.Builder = ${responseMessageName}.newBuilder()
-        <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
-        val ${outputVariableProto} = ${transformer.convertValueToProtoNativeType(outputVariable, outputType, false)}
-    <#if transformer.isProtoReference(outputType)>
-        if (${outputVariableProto} != null) {
-            builder_.${transformer.protoSetter(drgElement, "${outputVariableProto}")}
-        }
-    <#else>
-        builder_.${transformer.protoSetter(drgElement, "${outputVariableProto}")}
-    </#if>
-        return builder_.build()
-</#macro>
-
-<#macro convertProtoRequestToMap drgElement>
-     <@makeArgumentsFromRequestMessage drgElement true "    "/>
-
-    <#assign mapVariable = "map_" />
-    <#assign reference = repository.makeDRGElementReference(drgElement) />
-    <#assign inputDataClosure = transformer.inputDataClosure(reference) />
-            // Create map
-            val ${mapVariable}: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
-            <#list inputDataClosure as r >
-                <#assign inputData = r.element />
-                <#assign displayName = repository.displayName(inputData) />
-                <#assign variableName = transformer.nativeName(inputData) />
-            ${mapVariable}.put("${displayName}", ${variableName})
-            </#list>
-            return ${mapVariable}
-</#macro>
-
-<#macro convertProtoResponseToOutput drgElement>
-            // Extract and convert output
-            <#assign source = transformer.responseVariableName(drgElement) />
-            <#assign memberType = transformer.drgElementOutputFEELType(drgElement) />
-            <#assign value>${source}.${transformer.protoGetter(drgElement)}</#assign>
-            <#assign exp = transformer.extractMemberFromProtoValue(value, memberType, true) />
-            return ${exp}
-</#macro>

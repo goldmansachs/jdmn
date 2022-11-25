@@ -32,7 +32,7 @@ import jdmn.runtime.listener.Rule
 import Decision_011_2
 
 
-# Generated(value = {"ds.ftl", "decisionService_011"})
+# Generated(value = ["ds.ftl", "decisionService_011"])
 class DecisionService_011(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
         "",
@@ -59,9 +59,13 @@ class DecisionService_011(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
     def initSubDecisions(self, decision_011_2: Decision_011_2.Decision_011_2 = None):
         self.decision_011_2 = Decision_011_2.Decision_011_2() if decision_011_2 is None else decision_011_2
 
-    def apply(self, inputData_011_1: typing.Optional[str], inputData_011_2: typing.Optional[str], decision_011_3: typing.Optional[str], decision_011_4: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def apply(self, inputData_011_1: typing.Optional[str], inputData_011_2: typing.Optional[str], decision_011_3: typing.Optional[str], decision_011_4: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         try:
             # Start DS 'decisionService_011'
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             decisionService_011StartTime_ = int(time.time_ns()/1000)
             decisionService_011Arguments_ = jdmn.runtime.listener.Arguments.Arguments()
             decisionService_011Arguments_.put("inputData_011_1", inputData_011_1)
@@ -75,7 +79,7 @@ class DecisionService_011(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
             cache_.bind("decision_011_4", decision_011_4)
 
             # Evaluate DS 'decisionService_011'
-            output_: typing.Optional[str] = self.evaluate(inputData_011_1, inputData_011_2, decision_011_3, decision_011_4, annotationSet_, eventListener_, externalExecutor_, cache_)
+            output_: typing.Optional[str] = self.evaluate(inputData_011_1, inputData_011_2, decision_011_3, decision_011_4, context_)
 
             # End DS 'decisionService_011'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, decisionService_011Arguments_, output_, (int(time.time_ns()/1000) - decisionService_011StartTime_))
@@ -85,8 +89,8 @@ class DecisionService_011(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
             self.logError("Exception caught in 'decisionService_011' evaluation", e)
             return None
 
-    def evaluate(self, inputData_011_1: typing.Optional[str], inputData_011_2: typing.Optional[str], decision_011_3: typing.Optional[str], decision_011_4: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def evaluate(self, inputData_011_1: typing.Optional[str], inputData_011_2: typing.Optional[str], decision_011_3: typing.Optional[str], decision_011_4: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         # Apply child decisions
-        decision_011_2: typing.Optional[str] = self.decision_011_2.apply(inputData_011_1, inputData_011_2, annotationSet_, eventListener_, externalExecutor_, cache_)
+        decision_011_2: typing.Optional[str] = self.decision_011_2.apply(inputData_011_1, inputData_011_2, context_)
 
         return decision_011_2

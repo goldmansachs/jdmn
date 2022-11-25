@@ -34,18 +34,22 @@ public class Logic extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
     }
 
     @java.lang.Override()
-    public String apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("dateInput") != null ? date(input_.get("dateInput")) : null), (input_.get("timeInput") != null ? time(input_.get("timeInput")) : null), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("dateInput") != null ? date(input_.get("dateInput")) : null), (input_.get("timeInput") != null ? time(input_.get("timeInput")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Logic'", e);
             return null;
         }
     }
 
-    public String apply(javax.xml.datatype.XMLGregorianCalendar dateInput, javax.xml.datatype.XMLGregorianCalendar timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public String apply(javax.xml.datatype.XMLGregorianCalendar dateInput, javax.xml.datatype.XMLGregorianCalendar timeInput, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'logic'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long logicStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments logicArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             logicArguments_.put("date input", dateInput);
@@ -53,7 +57,7 @@ public class Logic extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, logicArguments_);
 
             // Evaluate BKM 'logic'
-            String output_ = evaluate(dateInput, timeInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+            String output_ = evaluate(dateInput, timeInput, context_);
 
             // End BKM 'logic'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, logicArguments_, output_, (System.currentTimeMillis() - logicStartTime_));
@@ -65,7 +69,11 @@ public class Logic extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         }
     }
 
-    protected String evaluate(javax.xml.datatype.XMLGregorianCalendar dateInput, javax.xml.datatype.XMLGregorianCalendar timeInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        return new FinalDecision().apply(dateInput, timeInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+    protected String evaluate(javax.xml.datatype.XMLGregorianCalendar dateInput, javax.xml.datatype.XMLGregorianCalendar timeInput, com.gs.dmn.runtime.ExecutionContext context_) {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+        com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
+        return new FinalDecision().apply(dateInput, timeInput, context_);
     }
 }

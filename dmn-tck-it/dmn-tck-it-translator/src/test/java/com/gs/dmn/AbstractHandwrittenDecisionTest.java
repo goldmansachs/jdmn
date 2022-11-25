@@ -12,6 +12,7 @@
  */
 package com.gs.dmn;
 
+import com.gs.dmn.runtime.ExecutionContext;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import com.gs.dmn.runtime.cache.Cache;
 import com.gs.dmn.runtime.cache.DefaultCache;
@@ -29,6 +30,7 @@ public abstract class AbstractHandwrittenDecisionTest {
     protected EventListener eventListener;
     protected ExternalFunctionExecutor externalFunctionExecutor;
     protected Cache cache;
+    protected ExecutionContext context;
 
     protected abstract void applyDecision();
 
@@ -46,5 +48,6 @@ public abstract class AbstractHandwrittenDecisionTest {
         this.eventListener = new NopEventListener();
         this.externalFunctionExecutor = new DefaultExternalFunctionExecutor();
         this.cache = new DefaultCache();
+        this.context = new ExecutionContext(annotationSet, eventListener, externalFunctionExecutor, cache);
     }
 }

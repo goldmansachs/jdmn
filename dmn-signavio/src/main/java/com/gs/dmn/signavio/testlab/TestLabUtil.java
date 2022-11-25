@@ -94,6 +94,14 @@ public class TestLabUtil {
         return transformer.assertClassName();
     }
 
+    public String executionContextClassName() {
+        return this.transformer.executionContextClassName();
+    }
+
+    public String executionContextVariableName() {
+        return this.transformer.executionContextVariableName();
+    }
+
     public String annotationSetClassName() {
         return transformer.annotationSetClassName();
     }

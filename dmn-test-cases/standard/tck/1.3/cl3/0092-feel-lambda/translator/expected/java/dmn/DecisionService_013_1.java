@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"bkm.ftl", "decisionService_013_1"})
+@javax.annotation.Generated(value = {"ds.ftl", "decisionService_013_1"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "decisionService_013_1",
@@ -41,25 +41,29 @@ public class DecisionService_013_1 extends com.gs.dmn.runtime.DefaultDMNBaseDeci
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("input_013_1") != null ? number(input_.get("input_013_1")) : null), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("input_013_1") != null ? number(input_.get("input_013_1")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'DecisionService_013_1'", e);
             return null;
         }
     }
 
-    public java.math.BigDecimal apply(java.math.BigDecimal input_013_1, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public java.math.BigDecimal apply(java.math.BigDecimal input_013_1, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start DS 'decisionService_013_1'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decisionService_013_1StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decisionService_013_1Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
             decisionService_013_1Arguments_.put("input_013_1", input_013_1);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionService_013_1Arguments_);
 
             // Evaluate DS 'decisionService_013_1'
-            java.math.BigDecimal output_ = lambda.apply(input_013_1, annotationSet_, eventListener_, externalExecutor_, cache_);
+            java.math.BigDecimal output_ = lambda.apply(input_013_1, context_);
 
             // End DS 'decisionService_013_1'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decisionService_013_1Arguments_, output_, (System.currentTimeMillis() - decisionService_013_1StartTime_));
@@ -75,13 +79,14 @@ public class DecisionService_013_1 extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
             public java.math.BigDecimal apply(Object... args_) {
                 java.math.BigDecimal input_013_1 = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 1 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[1] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 2 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[2] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 3 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[3] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 4 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[4] : null;
+                com.gs.dmn.runtime.ExecutionContext context_ = 1 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 // Apply child decisions
-                java.math.BigDecimal decision_013_2 = DecisionService_013_1.this.decision_013_2.apply(input_013_1, annotationSet_, eventListener_, externalExecutor_, cache_);
+                java.math.BigDecimal decision_013_2 = DecisionService_013_1.this.decision_013_2.apply(input_013_1, context_);
 
                 return decision_013_2;
             }

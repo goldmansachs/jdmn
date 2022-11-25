@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class MixedJavaTimeDMNBaseDecision extends MixedJavaTimeFEELLib implements DMNDecision<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration>, AnnotationTarget {
     @Override
-    public Object apply(Map<String, String> input_, ExecutionContext context_) {
+    public Object applyMap(Map<String, String> input_, ExecutionContext context_) {
         return null;
     }
 

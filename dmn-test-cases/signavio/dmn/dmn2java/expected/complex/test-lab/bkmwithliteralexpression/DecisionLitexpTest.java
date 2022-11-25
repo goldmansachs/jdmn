@@ -8,10 +8,7 @@ public class DecisionLitexpTest extends com.gs.dmn.signavio.runtime.DefaultSigna
 
     @org.junit.Test
     public void testCase1() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         List<java.math.BigDecimal> numz = asList(number("1"), number("43"));
         List<String> redgreenbluelist1 = asList("Red", "Green");
         String redgreenblue1 = "Green";
@@ -19,7 +16,7 @@ public class DecisionLitexpTest extends com.gs.dmn.signavio.runtime.DefaultSigna
         List<String> censored = asList("abc", "xyz");
         List<String> labels = asList("abc", "def", "stu", "xyz");
         String redgreenblue2 = "Blue";
-        List<type.Zip> decisionLitexp = this.decisionLitexp.apply(censored, labels, numz, redgreenblue1, redgreenblue2, redgreenbluelist1, redgreenbluelist2, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<type.Zip> decisionLitexp = this.decisionLitexp.apply(censored, labels, numz, redgreenblue1, redgreenblue2, redgreenbluelist1, redgreenbluelist2, context_);
 
         checkValues(asList(new type.ZipImpl("Green", number("1"), "def"), new type.ZipImpl("Blue", number("43"), "stu"), new type.ZipImpl("Red", number("1"), null), new type.ZipImpl("Red", number("3"), null), new type.ZipImpl(null, number("5"), null), new type.ZipImpl(null, number("7"), null), new type.ZipImpl(null, number("9"), null)), decisionLitexp);
     }

@@ -52,7 +52,7 @@
     <inputNode name="durationString">
       <value>P13DT2H14S</value>
     </inputNode>
-    <resultNode type="decision" name="'Date-Time'">
+    <resultNode type="decision" name="Date-Time">
       <expected>
         <value xsi:type="xsd:dateTime">2016-12-24T23:59:00-08:00</value>
       </expected>
@@ -75,7 +75,7 @@
         <value xsi:type="xsd:time">00:00:01-01:00</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="'Date-Time2'">
+    <resultNode type="decision" name="Date-Time2">
       <expected>
         <value xsi:type="xsd:dateTime">2015-12-24T00:00:01-01:00</value>
       </expected>

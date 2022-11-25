@@ -27,7 +27,7 @@ public class Executor {
 
     public Object execute(String qName, Map<String, String> input, ExecutionContext context) {
         DMNDecision dmnDecision = makeInstance(qName);
-        return dmnDecision.apply(input, context);
+        return dmnDecision.applyMap(input, context);
     }
 
     private DMNDecision makeInstance(String qName) {
@@ -35,7 +35,7 @@ public class Executor {
         if (dmnDecision == null) {
             String clsName = registry.discover(qName);
             if (clsName == null) {
-                throw new DMNRuntimeException(String.format("Element %s is not registered in %s", qName, registry.keys()));
+                throw new DMNRuntimeException(String.format("Element '%s' is not registered. Registered elements are %s", qName, registry.keys()));
             }
             try {
                 dmnDecision = (DMNDecision) Class.forName(clsName).getConstructor().newInstance();

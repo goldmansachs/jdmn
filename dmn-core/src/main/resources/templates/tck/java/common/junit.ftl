@@ -62,10 +62,8 @@ public class ${testClassName} extends ${decisionBaseClass} {
 </#macro>
 
 <#macro initializeInputs testCase>
-        ${tckUtil.annotationSetClassName()} ${tckUtil.annotationSetVariableName()} = ${tckUtil.defaultConstructor(tckUtil.annotationSetClassName())};
-        ${tckUtil.eventListenerClassName()} ${tckUtil.eventListenerVariableName()} = ${tckUtil.defaultConstructor(tckUtil.defaultEventListenerClassName())};
-        ${tckUtil.externalExecutorClassName()} ${tckUtil.externalExecutorVariableName()} = ${tckUtil.defaultConstructor(tckUtil.defaultExternalExecutorClassName())};
-        ${tckUtil.cacheInterfaceName()} ${tckUtil.cacheVariableName()} = ${tckUtil.defaultConstructor(tckUtil.defaultCacheClassName())};
+        ${tckUtil.executionContextClassName()} ${tckUtil.executionContextVariableName()} = ${tckUtil.defaultConstructor(tckUtil.executionContextClassName())};
+        ${tckUtil.cacheInterfaceName()} ${tckUtil.cacheVariableName()} = ${tckUtil.executionContextVariableName()}.getCache();
     <#if tckUtil.isMockTesting()>
         java.util.Map<String, Object> ${tckUtil.mockContextVariable()} = new java.util.LinkedHashMap<>();
     </#if>
@@ -89,7 +87,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
 <#macro checkResults testCase>
     <#list testCase.resultNode>
         <#items as result>
-        // Check ${result.name}
+        // Check '${result.name}'
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
         <#assign elementQName = tckUtil.qualifiedName(resultInfo) >
         <#assign expectedValue = tckUtil.toNativeExpression(resultInfo) >
@@ -111,7 +109,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
 <#macro checkProtoResults testCase>
     <#list testCase.resultNode>
         <#items as result>
-        // Check ${result.name} with proto request
+        // Check '${result.name}' with proto request
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
         ${tckUtil.qualifiedRequestMessageName(resultInfo)}.Builder ${tckUtil.builderVariableName(resultInfo)} = ${tckUtil.qualifiedRequestMessageName(resultInfo)}.newBuilder();
         <#list tckUtil.drgElementTypeSignature(resultInfo) as parameter>
@@ -126,7 +124,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
         </#if>
         </#list>
         ${tckUtil.qualifiedRequestMessageName(resultInfo)} ${tckUtil.requestVariableName(resultInfo)} = ${tckUtil.builderVariableName(resultInfo)}.build();
-        checkValues(${tckUtil.toNativeExpressionProto(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.apply(${tckUtil.drgElementArgumentListProto(resultInfo)}).${tckUtil.protoGetter(resultInfo)});
+        checkValues(${tckUtil.toNativeExpressionProto(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.applyProto(${tckUtil.drgElementArgumentListProto(resultInfo)}).${tckUtil.protoGetter(resultInfo)});
         </#items>
     </#list>
 </#macro>

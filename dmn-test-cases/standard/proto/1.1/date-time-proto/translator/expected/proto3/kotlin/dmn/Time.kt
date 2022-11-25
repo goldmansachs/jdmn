@@ -13,34 +13,29 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class Time() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): javax.xml.datatype.XMLGregorianCalendar? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): javax.xml.datatype.XMLGregorianCalendar? {
         try {
-            return apply(input_.get("InputTime"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(input_.get("InputTime")?.let({ time(it) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'Time'", e)
             return null
         }
     }
 
-    fun apply(inputTime: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): javax.xml.datatype.XMLGregorianCalendar? {
-        return try {
-            apply(inputTime?.let({ time(it) }), annotationSet_, eventListener_, externalExecutor_, cache_)
-        } catch (e: Exception) {
-            logError("Cannot apply decision 'Time'", e)
-            null
-        }
-    }
-
-    fun apply(inputTime: javax.xml.datatype.XMLGregorianCalendar?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): javax.xml.datatype.XMLGregorianCalendar? {
+    fun apply(inputTime: javax.xml.datatype.XMLGregorianCalendar?, context_: com.gs.dmn.runtime.ExecutionContext): javax.xml.datatype.XMLGregorianCalendar? {
         try {
             // Start decision 'Time'
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val timeStartTime_ = System.currentTimeMillis()
             val timeArguments_ = com.gs.dmn.runtime.listener.Arguments()
             timeArguments_.put("InputTime", inputTime)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, timeArguments_)
 
             // Evaluate decision 'Time'
-            val output_: javax.xml.datatype.XMLGregorianCalendar? = evaluate(inputTime, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val output_: javax.xml.datatype.XMLGregorianCalendar? = evaluate(inputTime, context_)
 
             // End decision 'Time'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, timeArguments_, output_, (System.currentTimeMillis() - timeStartTime_))
@@ -52,12 +47,12 @@ class Time() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    fun apply(timeRequest_: proto.TimeRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.TimeResponse {
+    fun applyProto(timeRequest_: proto.TimeRequest, context_: com.gs.dmn.runtime.ExecutionContext): proto.TimeResponse {
         // Create arguments from Request Message
         val inputTime: javax.xml.datatype.XMLGregorianCalendar? = time(timeRequest_.getInputTime())
 
         // Invoke apply method
-        val output_: javax.xml.datatype.XMLGregorianCalendar? = apply(inputTime, annotationSet_, eventListener_, externalExecutor_, cache_)
+        val output_: javax.xml.datatype.XMLGregorianCalendar? = apply(inputTime, context_)
 
         // Convert output to Response Message
         val builder_: proto.TimeResponse.Builder = proto.TimeResponse.newBuilder()
@@ -66,7 +61,11 @@ class Time() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         return builder_.build()
     }
 
-    private inline fun evaluate(inputTime: javax.xml.datatype.XMLGregorianCalendar?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): javax.xml.datatype.XMLGregorianCalendar? {
+    private inline fun evaluate(inputTime: javax.xml.datatype.XMLGregorianCalendar?, context_: com.gs.dmn.runtime.ExecutionContext): javax.xml.datatype.XMLGregorianCalendar? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         return inputTime as javax.xml.datatype.XMLGregorianCalendar?
     }
 

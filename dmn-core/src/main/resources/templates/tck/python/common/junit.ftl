@@ -19,6 +19,7 @@ import unittest
 
 import ${transformer.jdmnRootPackage()}.runtime.Assert
 import ${transformer.jdmnRootPackage()}.runtime.DefaultDMNBaseDecision
+import ${transformer.jdmnRootPackage()}.runtime.ExecutionContext
 import ${transformer.jdmnRootPackage()}.runtime.annotation.AnnotationSet
 import ${transformer.jdmnRootPackage()}.runtime.cache.DefaultCache
 import ${transformer.jdmnRootPackage()}.runtime.external.DefaultExternalFunctionExecutor
@@ -67,10 +68,8 @@ class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
 </#macro>
 
 <#macro initializeInputs testCase>
-        ${tckUtil.annotationSetVariableName()} = ${tckUtil.defaultConstructor(tckUtil.annotationSetClassName())}
-        ${tckUtil.eventListenerVariableName()} = ${tckUtil.defaultConstructor(tckUtil.defaultEventListenerClassName())}
-        ${tckUtil.externalExecutorVariableName()} = ${tckUtil.defaultConstructor(tckUtil.defaultExternalExecutorClassName())}
-        ${tckUtil.cacheVariableName()} = ${tckUtil.defaultConstructor(tckUtil.defaultCacheClassName())}
+        ${tckUtil.executionContextVariableName()} = ${tckUtil.defaultConstructor(tckUtil.executionContextClassName())}
+        ${tckUtil.cacheVariableName()} = ${tckUtil.executionContextVariableName()}.cache
     <#if tckUtil.isMockTesting()>
         ${tckUtil.mockContextVariable()} = {}
     </#if>
@@ -94,7 +93,7 @@ class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
 <#macro checkResults testCase>
     <#list testCase.resultNode>
         <#items as result>
-        # Check ${result.name}
+        # Check '${result.name}'
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
         <#assign elementQName = tckUtil.qualifiedName(resultInfo) >
         <#assign expectedValue = tckUtil.toNativeExpression(resultInfo) >

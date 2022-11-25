@@ -8,10 +8,7 @@ public class ZipTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
 
     @org.junit.Test
     public void testCase1() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         java.math.BigDecimal day = number("25");
         java.math.BigDecimal month = number("12");
         List<java.math.BigDecimal> ages = asList(number("25"), number("40"), number("65"), number("80"), number("105"));
@@ -20,17 +17,14 @@ public class ZipTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         java.math.BigDecimal hour = number("8");
         java.math.BigDecimal minute = number("5");
         java.math.BigDecimal year = number("2016");
-        List<type.Zip> zip = this.zip.apply(ages, day, hour, minute, month, names, second, year, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<type.Zip> zip = this.zip.apply(ages, day, hour, minute, month, names, second, year, context_);
 
         checkValues(asList(new type.ZipImpl(number("25"), "not exactly 1 to 5", number("0"), number("0"), "Fred", number("12")), new type.ZipImpl(number("40"), "non of the numbers 1 to 5", number("0"), number("0"), "Jim", number("2016")), new type.ZipImpl(number("65"), null, number("0"), number("0"), "Tom", number("7")), new type.ZipImpl(number("80"), null, numericUnaryMinus(number("359")), numericUnaryMinus(number("8612")), "Sarah", number("25")), new type.ZipImpl(number("105"), null, null, null, "Kate", number("5"))), zip);
     }
 
     @org.junit.Test
     public void testCase2() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         java.math.BigDecimal day = number("1");
         java.math.BigDecimal month = number("2");
         List<java.math.BigDecimal> ages = asList(number("3"), number("4"), number("5"), number("2"), number("1"));
@@ -39,7 +33,7 @@ public class ZipTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         java.math.BigDecimal hour = number("1");
         java.math.BigDecimal minute = number("2");
         java.math.BigDecimal year = number("3");
-        List<type.Zip> zip = this.zip.apply(ages, day, hour, minute, month, names, second, year, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<type.Zip> zip = this.zip.apply(ages, day, hour, minute, month, names, second, year, context_);
 
         checkValues(asList(new type.ZipImpl(number("3"), "not exactly 1 to 5", number("0"), number("0"), "John", number("2")), new type.ZipImpl(number("4"), "only numbers between 1 and 5", number("0"), number("0"), "Amy", number("3")), new type.ZipImpl(number("5"), "at least one number betwen 1 and 5", number("0"), number("0"), "Tim", number("6")), new type.ZipImpl(number("2"), "only numbers between 1 and 5", number("735202"), number("17644858"), "James", number("1")), new type.ZipImpl(number("1"), null, null, null, "Ewa", number("2"))), zip);
     }

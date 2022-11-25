@@ -42,34 +42,29 @@ public class DateTime extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @java.lang.Override()
-    public javax.xml.datatype.XMLGregorianCalendar apply(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public javax.xml.datatype.XMLGregorianCalendar applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("InputDateTime"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache());
+            return apply((input_.get("InputDateTime") != null ? dateAndTime(input_.get("InputDateTime")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'DateTime'", e);
             return null;
         }
     }
 
-    public javax.xml.datatype.XMLGregorianCalendar apply(String inputDateTime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            return apply((inputDateTime != null ? dateAndTime(inputDateTime) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'DateTime'", e);
-            return null;
-        }
-    }
-
-    public javax.xml.datatype.XMLGregorianCalendar apply(javax.xml.datatype.XMLGregorianCalendar inputDateTime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public javax.xml.datatype.XMLGregorianCalendar apply(javax.xml.datatype.XMLGregorianCalendar inputDateTime, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'DateTime'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long dateTimeStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments dateTimeArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             dateTimeArguments_.put("InputDateTime", inputDateTime);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dateTimeArguments_);
 
             // Evaluate decision 'DateTime'
-            javax.xml.datatype.XMLGregorianCalendar output_ = lambda.apply(inputDateTime, annotationSet_, eventListener_, externalExecutor_, cache_);
+            javax.xml.datatype.XMLGregorianCalendar output_ = lambda.apply(inputDateTime, context_);
 
             // End decision 'DateTime'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, dateTimeArguments_, output_, (System.currentTimeMillis() - dateTimeStartTime_));
@@ -81,12 +76,12 @@ public class DateTime extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    public proto.DateTimeResponse apply(proto.DateTimeRequest dateTimeRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public proto.DateTimeResponse applyProto(proto.DateTimeRequest dateTimeRequest_, com.gs.dmn.runtime.ExecutionContext context_) {
         // Create arguments from Request Message
         javax.xml.datatype.XMLGregorianCalendar inputDateTime = dateAndTime(dateTimeRequest_.getInputDateTime());
 
         // Invoke apply method
-        javax.xml.datatype.XMLGregorianCalendar output_ = apply(inputDateTime, annotationSet_, eventListener_, externalExecutor_, cache_);
+        javax.xml.datatype.XMLGregorianCalendar output_ = apply(inputDateTime, context_);
 
         // Convert output to Response Message
         proto.DateTimeResponse.Builder builder_ = proto.DateTimeResponse.newBuilder();
@@ -99,10 +94,11 @@ public class DateTime extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         new com.gs.dmn.runtime.LambdaExpression<javax.xml.datatype.XMLGregorianCalendar>() {
             public javax.xml.datatype.XMLGregorianCalendar apply(Object... args_) {
                 javax.xml.datatype.XMLGregorianCalendar inputDateTime = 0 < args_.length ? (javax.xml.datatype.XMLGregorianCalendar) args_[0] : null;
-                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = 1 < args_.length ? (com.gs.dmn.runtime.annotation.AnnotationSet) args_[1] : null;
-                com.gs.dmn.runtime.listener.EventListener eventListener_ = 2 < args_.length ? (com.gs.dmn.runtime.listener.EventListener) args_[2] : null;
-                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = 3 < args_.length ? (com.gs.dmn.runtime.external.ExternalFunctionExecutor) args_[3] : null;
-                com.gs.dmn.runtime.cache.Cache cache_ = 4 < args_.length ? (com.gs.dmn.runtime.cache.Cache) args_[4] : null;
+                com.gs.dmn.runtime.ExecutionContext context_ = 1 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[1] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 return inputDateTime;
             }

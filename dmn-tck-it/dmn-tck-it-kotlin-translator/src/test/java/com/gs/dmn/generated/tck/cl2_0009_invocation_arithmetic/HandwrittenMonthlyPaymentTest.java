@@ -14,13 +14,6 @@ package com.gs.dmn.generated.tck.cl2_0009_invocation_arithmetic;
 
 import com.gs.dmn.generated.tck.AbstractHandwrittenDecisionTest;
 import com.gs.dmn.generated.tck.cl2_0009_invocation_arithmetic.type.TLoanImpl;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
-import com.gs.dmn.runtime.cache.Cache;
-import com.gs.dmn.runtime.cache.DefaultCache;
-import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
-import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
-import com.gs.dmn.runtime.listener.EventListener;
-import com.gs.dmn.runtime.listener.NopEventListener;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -33,43 +26,32 @@ public class HandwrittenMonthlyPaymentTest extends AbstractHandwrittenDecisionTe
 
     @Test
     public void testApply1() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        EventListener eventListener = new NopEventListener();
-        ExternalFunctionExecutor externalFunctionExecutor = new DefaultExternalFunctionExecutor();
-        Cache cache = new DefaultCache();
-
         TLoanImpl loan = new TLoanImpl();
         loan.setAmount(decision.number("600000"));
         loan.setRate(decision.number("0.0375"));
         loan.setTerm(decision.number("360"));
         BigDecimal fee = decision.number("100");
-        BigDecimal output = decision.apply(loan, fee, annotationSet, eventListener, externalFunctionExecutor, cache);
+        BigDecimal output = applyDecision(loan, fee);
         assertEquals("2878.69", output.setScale(2, RoundingMode.FLOOR).toPlainString());
     }
 
     @Test
     public void testApply2() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        EventListener eventListener = new NopEventListener();
-        ExternalFunctionExecutor externalFunctionExecutor = new DefaultExternalFunctionExecutor();
-        Cache cache = new DefaultCache();
-
         TLoanImpl loan = new TLoanImpl();
         loan.setAmount(decision.number("30000"));
         loan.setRate(decision.number("0.0475"));
         loan.setTerm(decision.number("60"));
         BigDecimal fee = decision.number("100");
-        BigDecimal output = decision.apply(loan, fee, annotationSet, eventListener, externalFunctionExecutor, cache);
+        BigDecimal output = applyDecision(loan, fee);
         assertEquals("662.70", output.setScale(2, RoundingMode.FLOOR).toPlainString());
     }
 
     @Override
     protected void applyDecision() {
-        AnnotationSet annotationSet = new AnnotationSet();
-        EventListener eventListener = new NopEventListener();
-        ExternalFunctionExecutor externalFunctionExecutor = new DefaultExternalFunctionExecutor();
-        Cache cache = new DefaultCache();
+        applyDecision(null, null);
+    }
 
-        decision.apply((String)null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
+    private BigDecimal applyDecision(TLoanImpl loan, BigDecimal fee) {
+        return decision.apply(loan, fee, context);
     }
 }

@@ -13,14 +13,10 @@
 package com.gs.dmn.generated.sd_primitive_type_inputs_single_output_priority_hit_policy;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
-import com.gs.dmn.runtime.cache.Cache;
-import com.gs.dmn.runtime.cache.DefaultCache;
-import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
-import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
-import com.gs.dmn.runtime.listener.EventListener;
-import com.gs.dmn.runtime.listener.NopEventListener;
 import org.junit.Test;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -29,14 +25,21 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void apply() throws Exception {
-        assertEquals("r2", decision.apply("1", "1", annotationSet, eventListener, externalFunctionExecutor, cache));
-        assertEquals("r2", decision.apply("1", null, annotationSet, eventListener, externalFunctionExecutor, cache));
-        assertEquals("r2", decision.apply((String)null, "1", annotationSet, eventListener, externalFunctionExecutor, cache));
-        assertEquals("r2", decision.apply((String)null, null, annotationSet, eventListener, externalFunctionExecutor, cache));
+        assertEquals("r2", applyDecision("1", "1"));
+        assertEquals("r2", applyDecision("1", null));
+        assertEquals("r2", applyDecision(null, "1"));
+        assertEquals("r2", applyDecision(null, null));
     }
 
     @Override
     protected void applyDecision() {
-        decision.apply((String)null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
+        applyDecision(null, null);
+    }
+
+    private String applyDecision(String numberInput, String textInput) {
+        Map<String, String> input = new LinkedHashMap<>();
+        input.put("NumberInput", numberInput);
+        input.put("TextInput", textInput);
+        return decision.applyMap(input, context);
     }
 }

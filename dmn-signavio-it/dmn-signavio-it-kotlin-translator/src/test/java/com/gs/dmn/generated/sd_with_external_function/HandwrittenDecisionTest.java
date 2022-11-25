@@ -13,22 +13,33 @@
 package com.gs.dmn.generated.sd_with_external_function;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     private final Decision decision = new Decision();
 
     @Test
     public void testApply() {
-        assertEquals(decision.number("3"), decision.apply(decision.number("1"), decision.number("2"), annotationSet, eventListener, externalFunctionExecutor, cache));
-        assertEquals(null, decision.apply(null, decision.number("2"), annotationSet, eventListener, externalFunctionExecutor, cache));
+        assertEquals(decision.number("3"), applyDecision("1", "2"));
+        assertNull(applyDecision(null, "2"));
     }
 
     @Override
     protected void applyDecision() {
-        decision.apply((String)null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
+        applyDecision(null, null);
+    }
+
+    private BigDecimal applyDecision(String a, String b) {
+        Map<String, String> input = new LinkedHashMap<>();
+        input.put("A", a);
+        input.put("B", b);
+        return decision.applyMap(input, context);
     }
 }

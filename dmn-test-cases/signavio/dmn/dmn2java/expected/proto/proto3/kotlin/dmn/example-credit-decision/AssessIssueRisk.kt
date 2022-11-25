@@ -13,27 +13,22 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class AssessIssueRisk(val processPriorIssues : ProcessPriorIssues = ProcessPriorIssues()) : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
-    override fun apply(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
         try {
-            return apply(input_.get("Applicant"), input_.get("Current risk appetite"), context_.getAnnotations(), context_.getEventListener(), context_.getExternalFunctionExecutor(), context_.getCache())
+            return apply(input_.get("Applicant")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) }), input_.get("Current risk appetite")?.let({ number(it) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'AssessIssueRisk'", e)
             return null
         }
     }
 
-    fun apply(applicant: String?, currentRiskAppetite: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
-        return try {
-            apply(applicant?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) }), currentRiskAppetite?.let({ number(it) }), annotationSet_, eventListener_, externalExecutor_, cache_)
-        } catch (e: Exception) {
-            logError("Cannot apply decision 'AssessIssueRisk'", e)
-            null
-        }
-    }
-
-    fun apply(applicant: type.Applicant?, currentRiskAppetite: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    fun apply(applicant: type.Applicant?, currentRiskAppetite: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
         try {
             // Start decision 'assessIssueRisk'
+            var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+            var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+            var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+            var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
             val assessIssueRiskStartTime_ = System.currentTimeMillis()
             val assessIssueRiskArguments_ = com.gs.dmn.runtime.listener.Arguments()
             assessIssueRiskArguments_.put("Applicant", applicant)
@@ -41,7 +36,7 @@ class AssessIssueRisk(val processPriorIssues : ProcessPriorIssues = ProcessPrior
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, assessIssueRiskArguments_)
 
             // Iterate and aggregate
-            var output_: java.math.BigDecimal? = evaluate(applicant, currentRiskAppetite, annotationSet_, eventListener_, externalExecutor_, cache_)
+            var output_: java.math.BigDecimal? = evaluate(applicant, currentRiskAppetite, context_)
 
             // End decision 'assessIssueRisk'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, assessIssueRiskArguments_, output_, (System.currentTimeMillis() - assessIssueRiskStartTime_))
@@ -53,13 +48,13 @@ class AssessIssueRisk(val processPriorIssues : ProcessPriorIssues = ProcessPrior
         }
     }
 
-    fun apply(assessIssueRiskRequest_: proto.AssessIssueRiskRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.AssessIssueRiskResponse {
+    fun applyProto(assessIssueRiskRequest_: proto.AssessIssueRiskRequest, context_: com.gs.dmn.runtime.ExecutionContext): proto.AssessIssueRiskResponse {
         // Create arguments from Request Message
         val applicant: type.Applicant? = type.Applicant.toApplicant(assessIssueRiskRequest_.getApplicant())
         val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite())
 
         // Invoke apply method
-        val output_: java.math.BigDecimal? = apply(applicant, currentRiskAppetite, annotationSet_, eventListener_, externalExecutor_, cache_)
+        val output_: java.math.BigDecimal? = apply(applicant, currentRiskAppetite, context_)
 
         // Convert output to Response Message
         val builder_: proto.AssessIssueRiskResponse.Builder = proto.AssessIssueRiskResponse.newBuilder()
@@ -68,12 +63,16 @@ class AssessIssueRisk(val processPriorIssues : ProcessPriorIssues = ProcessPrior
         return builder_.build()
     }
 
-    private inline fun evaluate(applicant: type.Applicant?, currentRiskAppetite: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+    private inline fun evaluate(applicant: type.Applicant?, currentRiskAppetite: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+        var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
+        var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
+        var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
+        var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         // Apply child decisions
-        val processPriorIssues: List<java.math.BigDecimal?>? = this.processPriorIssues.apply(applicant, annotationSet_, eventListener_, externalExecutor_, cache_)
+        val processPriorIssues: List<java.math.BigDecimal?>? = this.processPriorIssues.apply(applicant, context_)
 
         val assessIssue: AssessIssue = AssessIssue()
-        return sum(processPriorIssues?.stream()?.map({priorIssue_iterator -> assessIssue.apply(currentRiskAppetite, priorIssue_iterator, annotationSet_, eventListener_, externalExecutor_, cache_)})?.collect(Collectors.toList()))
+        return sum(processPriorIssues?.stream()?.map({priorIssue_iterator -> assessIssue.apply(currentRiskAppetite, priorIssue_iterator, context_)})?.collect(Collectors.toList()))
     }
 
     companion object {

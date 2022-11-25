@@ -30,7 +30,7 @@ import jdmn.runtime.listener.EventListener
 import jdmn.runtime.listener.Rule
 
 
-# Generated(value = {"bkm.ftl", "InstallmentCalculation"})
+# Generated(value = ["bkm.ftl", "InstallmentCalculation"])
 class InstallmentCalculation(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
         "",
@@ -53,9 +53,13 @@ class InstallmentCalculation(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseD
             jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision.__init__(cls._instance)
         return cls._instance
 
-    def apply(self, productType: typing.Optional[str], rate: typing.Optional[decimal.Decimal], term: typing.Optional[decimal.Decimal], amount: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[decimal.Decimal]:
+    def apply(self, productType: typing.Optional[str], rate: typing.Optional[decimal.Decimal], term: typing.Optional[decimal.Decimal], amount: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[decimal.Decimal]:
         try:
             # Start BKM 'InstallmentCalculation'
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             installmentCalculationStartTime_ = int(time.time_ns()/1000)
             installmentCalculationArguments_ = jdmn.runtime.listener.Arguments.Arguments()
             installmentCalculationArguments_.put("ProductType", productType)
@@ -65,7 +69,7 @@ class InstallmentCalculation(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseD
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, installmentCalculationArguments_)
 
             # Evaluate BKM 'InstallmentCalculation'
-            output_: typing.Optional[decimal.Decimal] = self.evaluate(productType, rate, term, amount, annotationSet_, eventListener_, externalExecutor_, cache_)
+            output_: typing.Optional[decimal.Decimal] = self.evaluate(productType, rate, term, amount, context_)
 
             # End BKM 'InstallmentCalculation'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, installmentCalculationArguments_, output_, (int(time.time_ns()/1000) - installmentCalculationStartTime_))
@@ -75,7 +79,7 @@ class InstallmentCalculation(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseD
             self.logError("Exception caught in 'InstallmentCalculation' evaluation", e)
             return None
 
-    def evaluate(self, productType: typing.Optional[str], rate: typing.Optional[decimal.Decimal], term: typing.Optional[decimal.Decimal], amount: typing.Optional[decimal.Decimal], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[decimal.Decimal]:
+    def evaluate(self, productType: typing.Optional[str], rate: typing.Optional[decimal.Decimal], term: typing.Optional[decimal.Decimal], amount: typing.Optional[decimal.Decimal], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[decimal.Decimal]:
         monthlyFee: typing.Optional[decimal.Decimal] = (self.number("20.00") if self.booleanEqual(self.stringEqual(productType, "STANDARD LOAN"), True) else (self.number("25.00") if self.booleanEqual(self.stringEqual(productType, "SPECIAL LOAN"), True) else None))
         monthlyRepayment: typing.Optional[decimal.Decimal] = self.numericDivide(self.numericDivide(self.numericMultiply(amount, rate), self.number("12")), self.numericSubtract(self.number("1"), self.numericExponentiation(self.numericAdd(self.number("1"), self.numericDivide(rate, self.number("12"))), self.numericUnaryMinus(term))))
         return self.numericAdd(monthlyRepayment, monthlyFee)

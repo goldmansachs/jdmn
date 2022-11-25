@@ -8,10 +8,7 @@ public class DecisionTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
 
     @org.junit.Test
     public void testCase1() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         javax.xml.datatype.XMLGregorianCalendar timeInput = null;
         String textInput = null;
         java.math.BigDecimal numberInput = numericUnaryMinus(number("1"));
@@ -19,17 +16,14 @@ public class DecisionTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         String enumerationInput = "e1";
         javax.xml.datatype.XMLGregorianCalendar dateAndTimeInput = null;
         Boolean booleanInput = Boolean.TRUE;
-        String decision = this.decision.apply(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+        String decision = this.decision.apply(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, context_);
 
         checkValues("r7", decision);
     }
 
     @org.junit.Test
     public void testCase2() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         javax.xml.datatype.XMLGregorianCalendar timeInput = null;
         String textInput = null;
         java.math.BigDecimal numberInput = null;
@@ -37,7 +31,7 @@ public class DecisionTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         String enumerationInput = null;
         javax.xml.datatype.XMLGregorianCalendar dateAndTimeInput = null;
         Boolean booleanInput = null;
-        String decision = this.decision.apply(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, annotationSet_, eventListener_, externalExecutor_, cache_);
+        String decision = this.decision.apply(booleanInput, dateAndTimeInput, dateInput, enumerationInput, numberInput, textInput, timeInput, context_);
 
         checkValues("r9", decision);
     }

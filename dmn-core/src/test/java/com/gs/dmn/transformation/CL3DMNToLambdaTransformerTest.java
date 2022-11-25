@@ -86,7 +86,7 @@ public class CL3DMNToLambdaTransformerTest extends AbstractTckDMNToJavaTransform
         Map<String, String> map = new LinkedHashMap<>();
         map.put("dmnVersion", "1.3");
         map.put("modelVersion", "1.1");
-        map.put("platformVersion", "5.0.0");
+        map.put("platformVersion", "8.0.0");
 
         map.put("javaRootPackage", "com.gs.lambda");
         map.put("caching", "true");

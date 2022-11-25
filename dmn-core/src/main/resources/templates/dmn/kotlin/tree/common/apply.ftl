@@ -10,12 +10,55 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations under the License.
 -->
+<#import "events.ftl" as events />
+
+<#macro applyMethods drgElement>
+    <@apply.applyMap drgElement />
+
+    <@apply.applyPojo drgElement />
+</#macro>
+
+<#macro applyMap drgElement >
+    override fun applyMap(${transformer.drgElementSignatureWithMap(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    <#if transformer.canGenerateApplyWithMap(drgElement)>
+        try {
+            return apply(${transformer.drgElementArgumentListWithMap(drgElement)})
+        } catch (e: Exception) {
+            logError("Cannot apply decision '${javaClassName}'", e)
+            return null
+        }
+    <#else>
+        throw ${transformer.constructor(transformer.dmnRuntimeExceptionClassName(), "Not all arguments can be serialized")}
+    </#if>
+    }
+</#macro>
+
+<#macro applyString drgElement >
+    <#if transformer.shouldGenerateApplyWithConversionFromString(drgElement)>
+    fun applyString(${transformer.drgElementSignatureWithConversionFromString(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+        return try {
+            apply(${transformer.drgElementArgumentListWithConversionFromString(drgElement)})
+        } catch (e: Exception) {
+            logError("Cannot apply decision '${javaClassName}'", e)
+            null
+        }
+    }
+
+    </#if>
+</#macro>
+
+<#macro applyPojo drgElement >
+    fun apply(${transformer.drgElementSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+        <@applyMethodBody drgElement />
+    }
+</#macro>
+
 <#--
     Apply method body
 -->
 <#macro applyMethodBody drgElement>
         try {
-        <@startDRGElement drgElement/>
+        <@events.startDRGElement drgElement/>
 
         <#if modelRepository.isDecisionTableExpression(drgElement)>
             <@expressionApplyBody drgElement />
@@ -66,6 +109,7 @@
 -->
 <#macro addEvaluateDecisionTableMethod drgElement>
     private inline fun evaluate(${transformer.drgElementSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    <@extractParametersFromArgs transformer.drgElementSignatureParameters(drgElement)/>
     <@applySubDecisions drgElement/>
     <#assign expression = modelRepository.expression(drgElement)>
         <@collectRuleResults drgElement expression />
@@ -125,12 +169,12 @@
         // Rule metadata
         val ${transformer.drgRuleMetadataFieldName()}: ${transformer.drgRuleMetadataClassName()} = ${transformer.drgRuleMetadataClassName()}(${rule_index}, "${transformer.annotationEscapedText(rule)}")
 
-        <@startRule drgElement rule_index />
+        <@events.startRule drgElement rule_index />
 
         // Apply rule
         var output_: ${transformer.ruleOutputClassName(drgElement)} = ${transformer.ruleOutputClassName(drgElement)}(false)
         if (${transformer.condition(drgElement, rule, rule_index)}) {
-            <@matchRule drgElement rule_index />
+            <@events.matchRule drgElement rule_index />
 
             // Compute output
             output_.setMatched(true)
@@ -144,7 +188,7 @@
             <@addAnnotation drgElement rule rule_index />
         }
 
-        <@endRule drgElement rule_index "output_" />
+        <@events.endRule drgElement rule_index "output_" />
 
         return output_
     }
@@ -197,28 +241,29 @@
 -->
 <#macro expressionApplyBody drgElement>
         <#if transformer.isCached(modelRepository.name(drgElement))>
-            if (cache_.contains("${modelRepository.name(drgElement)}")) {
+            if (${transformer.cacheVariableName()}.contains("${modelRepository.name(drgElement)}")) {
                 // Retrieve value from cache
-                var output_:${transformer.drgElementOutputType(drgElement)} = cache_.lookup("${modelRepository.name(drgElement)}") as ${transformer.drgElementOutputType(drgElement)}
+                var output_:${transformer.drgElementOutputType(drgElement)} = ${transformer.cacheVariableName()}.lookup("${modelRepository.name(drgElement)}") as ${transformer.drgElementOutputType(drgElement)}
 
-                <@endDRGElementAndReturnIndent "    " drgElement "output_" />
+                <@events.endDRGElementAndReturnIndent "    " drgElement "output_" />
             } else {
                 // ${transformer.evaluateElementCommentText(drgElement)}
                 val output_: ${transformer.drgElementOutputType(drgElement)} = evaluate(${transformer.drgElementArgumentList(drgElement)})
-                cache_.bind("${modelRepository.name(drgElement)}", output_)
+                ${transformer.cacheVariableName()}.bind("${modelRepository.name(drgElement)}", output_)
 
-                <@endDRGElementAndReturnIndent "    " drgElement "output_" />
+                <@events.endDRGElementAndReturnIndent "    " drgElement "output_" />
             }
         <#else>
             // ${transformer.evaluateElementCommentText(drgElement)}
             val output_: ${transformer.drgElementOutputType(drgElement)} = evaluate(${transformer.drgElementArgumentList(drgElement)})
 
-            <@endDRGElementAndReturn drgElement "output_" />
+            <@events.endDRGElementAndReturn drgElement "output_" />
         </#if>
 </#macro>
 
 <#macro addEvaluateExpressionMethod drgElement>
     private inline fun evaluate(${transformer.drgElementSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    <@extractParametersFromArgs transformer.drgElementSignatureParameters(drgElement)/>
     <@applySubDecisions drgElement/>
     <#assign stm = transformer.expressionToNative(drgElement)>
     <#if transformer.isCompoundStatement(stm)>
@@ -229,6 +274,12 @@
         return ${stm.text} as ${transformer.drgElementOutputType(drgElement)}
     </#if>
     }
+</#macro>
+
+<#macro extractParametersFromArgs arguments>
+    <#list transformer.extractExtraParametersFromExecutionContext() as stm>
+        ${stm}
+    </#list>
 </#macro>
 
 <#--
@@ -253,65 +304,9 @@
 </#macro>
 
 <#--
-    Events
--->
-<#macro startDRGElement drgElement>
-            // ${transformer.startElementCommentText(drgElement)}
-            val ${transformer.namedElementVariableName(drgElement)}StartTime_ = <@currentTimeMillis/>
-            val ${transformer.argumentsVariableName(drgElement)} = ${transformer.defaultConstructor(transformer.argumentsClassName())}
-            <#assign elementNames = transformer.drgElementArgumentDisplayNameList(drgElement)/>
-            <#list transformer.drgElementArgumentNameList(drgElement)>
-            <#items as arg>
-            ${transformer.argumentsVariableName(drgElement)}.put("${transformer.escapeInString(elementNames[arg?index])}", ${arg})
-            </#items>
-            </#list>
-            ${transformer.eventListenerVariableName()}.startDRGElement(<@drgElementAnnotation drgElement/>, ${transformer.argumentsVariableName(drgElement)})
-</#macro>
-
-<#macro endDRGElement drgElement output>
-    <@endDRGElementIndent "" drgElement output/>
-</#macro>
-
-<#macro endDRGElementIndent extraIndent drgElement output>
-            ${extraIndent}// ${transformer.endElementCommentText(drgElement)}
-            ${extraIndent}${transformer.eventListenerVariableName()}.endDRGElement(<@drgElementAnnotation drgElement/>, ${transformer.argumentsVariableName(drgElement)}, ${output}, (<@currentTimeMillis/> - ${transformer.namedElementVariableName(drgElement)}StartTime_))
-</#macro>
-
-<#macro endDRGElementAndReturn drgElement output>
-            <@endDRGElementAndReturnIndent "" drgElement output/>
-</#macro>
-
-<#macro endDRGElementAndReturnIndent extraIndent drgElement output>
-            <@endDRGElementIndent extraIndent drgElement output/>
-
-            ${extraIndent}return ${output}
-</#macro>
-
-<#macro startRule drgElement rule_index>
-        // Rule start
-        ${transformer.eventListenerVariableName()}.startRule(<@drgElementAnnotation drgElement/>, <@ruleAnnotation/>)
-</#macro>
-
-<#macro matchRule drgElement rule_index>
-            // Rule match
-            ${transformer.eventListenerVariableName()}.matchRule(<@drgElementAnnotation drgElement/>, <@ruleAnnotation/>)
-</#macro>
-
-<#macro endRule drgElement rule_index output>
-        // Rule end
-        ${transformer.eventListenerVariableName()}.endRule(<@drgElementAnnotation drgElement/>, <@ruleAnnotation/>, ${output})
-</#macro>
-
-<#macro drgElementAnnotation drgElement>${transformer.drgElementMetadataFieldName()}</#macro>
-
-<#macro ruleAnnotation>${transformer.drgRuleMetadataFieldName()}</#macro>
-
-<#--
     Annotations
 -->
 <#macro addAnnotation drgElement rule rule_index>
             // Add annotation
             ${transformer.annotationSetVariableName()}.addAnnotation("${drgElement.name}", ${rule_index}, ${transformer.annotation(drgElement, rule)})
 </#macro>
-
-<#macro currentTimeMillis>System.currentTimeMillis()</#macro>

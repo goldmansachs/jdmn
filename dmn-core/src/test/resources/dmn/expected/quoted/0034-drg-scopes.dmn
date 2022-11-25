@@ -149,60 +149,60 @@
     </layout:container>
   </extensionElements>
   <itemDefinition id="_Vvl3APRQEeeUEfOdtC13fQ" name="TypeDecisionA1">
-    <itemComponent id="_fMLGMPRQEeeUEfOdtC13fQ" name="'resolve A'">
+    <itemComponent id="_fMLGMPRQEeeUEfOdtC13fQ" name="resolve A">
       <typeRef>feel.string</typeRef>
     </itemComponent>
   </itemDefinition>
   <itemDefinition id="_Zp-B4PRQEeeUEfOdtC13fQ" name="TypeDecisionA2.x">
-    <itemComponent id="_HRrmgPRREeeUEfOdtC13fQ" name="'resolve A 1'">
+    <itemComponent id="_HRrmgPRREeeUEfOdtC13fQ" name="resolve A 1">
       <typeRef>TypeDecisionA1</typeRef>
     </itemComponent>
   </itemDefinition>
   <itemDefinition id="_cErw0PRQEeeUEfOdtC13fQ" name="TypeDecisionA3">
-    <itemComponent id="_X6vqgPRREeeUEfOdtC13fQ" name="'resolve A 2.1'">
+    <itemComponent id="_X6vqgPRREeeUEfOdtC13fQ" name="resolve A 2.1">
       <typeRef>TypeDecisionA2.x</typeRef>
     </itemComponent>
-    <itemComponent id="_YDCq4PRREeeUEfOdtC13fQ" name="'resolve A 2.2'">
+    <itemComponent id="_YDCq4PRREeeUEfOdtC13fQ" name="resolve A 2.2">
       <typeRef>TypeDecisionA2.x</typeRef>
     </itemComponent>
   </itemDefinition>
   <itemDefinition id="_dGucoPRQEeeUEfOdtC13fQ" name="TypeDecisionB1">
-    <itemComponent id="_CJ7pkPRREeeUEfOdtC13fQ" name="'resolve B'">
+    <itemComponent id="_CJ7pkPRREeeUEfOdtC13fQ" name="resolve B">
       <typeRef>feel.string</typeRef>
     </itemComponent>
-    <itemComponent id="_Rv7fUPRXEeeUEfOdtC13fQ" name="'resolve A'">
+    <itemComponent id="_Rv7fUPRXEeeUEfOdtC13fQ" name="resolve A">
       <typeRef>feel.string</typeRef>
     </itemComponent>
   </itemDefinition>
   <itemDefinition id="_xac0gPRQEeeUEfOdtC13fQ" name="TypeDecisionB2.x">
-    <itemComponent id="_jeTNQPRREeeUEfOdtC13fQ" name="'resolve B 1'">
+    <itemComponent id="_jeTNQPRREeeUEfOdtC13fQ" name="resolve B 1">
       <typeRef>TypeDecisionB1</typeRef>
     </itemComponent>
   </itemDefinition>
   <itemDefinition id="_0XWDcPRQEeeUEfOdtC13fQ" name="TypeDecisionB3">
-    <itemComponent id="_slUcIPRREeeUEfOdtC13fQ" name="'resolve B 2.1'">
+    <itemComponent id="_slUcIPRREeeUEfOdtC13fQ" name="resolve B 2.1">
       <typeRef>TypeDecisionB2.x</typeRef>
     </itemComponent>
-    <itemComponent id="_ssyWEPRREeeUEfOdtC13fQ" name="'resolve B 2.2'">
+    <itemComponent id="_ssyWEPRREeeUEfOdtC13fQ" name="resolve B 2.2">
       <typeRef>TypeDecisionB2.x</typeRef>
     </itemComponent>
-    <itemComponent id="_s0jK8PRREeeUEfOdtC13fQ" name="'resolve A 3'">
+    <itemComponent id="_s0jK8PRREeeUEfOdtC13fQ" name="resolve A 3">
       <typeRef>TypeDecisionA3</typeRef>
     </itemComponent>
   </itemDefinition>
   <itemDefinition id="_11IQEPRQEeeUEfOdtC13fQ" name="TypeDecisionC1">
-    <itemComponent id="_8-PyYPRREeeUEfOdtC13fQ" name="'resolve C'">
+    <itemComponent id="_8-PyYPRREeeUEfOdtC13fQ" name="resolve C">
       <typeRef>feel.string</typeRef>
     </itemComponent>
-    <itemComponent id="_9kn14PRREeeUEfOdtC13fQ" name="'resolve A 3'">
+    <itemComponent id="_9kn14PRREeeUEfOdtC13fQ" name="resolve A 3">
       <typeRef>TypeDecisionA3</typeRef>
     </itemComponent>
-    <itemComponent id="_9u4lIPRREeeUEfOdtC13fQ" name="'resolve B 3'">
+    <itemComponent id="_9u4lIPRREeeUEfOdtC13fQ" name="resolve B 3">
       <typeRef>TypeDecisionB3</typeRef>
     </itemComponent>
   </itemDefinition>
   <itemDefinition id="_5G3GkPRQEeeUEfOdtC13fQ" name="TypeDecisionC4">
-    <itemComponent id="_WmQuYPRSEeeUEfOdtC13fQ" name="'resolve C 3'">
+    <itemComponent id="_WmQuYPRSEeeUEfOdtC13fQ" name="resolve C 3">
       <typeRef>feel.string</typeRef>
     </itemComponent>
   </itemDefinition>
@@ -212,7 +212,7 @@
   <inputData id="_AV-tYPQJEeecaNY7kk20yA" name="B">
     <variable id="_vFQJofROEeeUEfOdtC13fQ" name="B" typeRef="feel.string"></variable>
   </inputData>
-  <businessKnowledgeModel id="_TCzY4PQJEeecaNY7kk20yA" name="'BKM I'">
+  <businessKnowledgeModel id="_TCzY4PQJEeecaNY7kk20yA" name="BKM I">
     <extensionElements>
       <layout:container href="#_TCzY4PQJEeecaNY7kk20yA" id="_3_-kYPQLEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
@@ -226,7 +226,7 @@
       <requiredKnowledge href="#_UL_1kPQJEeecaNY7kk20yA"></requiredKnowledge>
     </knowledgeRequirement>
   </businessKnowledgeModel>
-  <businessKnowledgeModel id="_UL_1kPQJEeecaNY7kk20yA" name="'BKM II'">
+  <businessKnowledgeModel id="_UL_1kPQJEeecaNY7kk20yA" name="BKM II">
     <extensionElements>
       <layout:container href="#_UL_1kPQJEeecaNY7kk20yA" id="_68UZsPQLEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
@@ -243,7 +243,7 @@
       <requiredKnowledge href="#_UgthUPQJEeecaNY7kk20yA"></requiredKnowledge>
     </knowledgeRequirement>
   </businessKnowledgeModel>
-  <businessKnowledgeModel id="_U6fTQPQJEeecaNY7kk20yA" name="'BKM III'">
+  <businessKnowledgeModel id="_U6fTQPQJEeecaNY7kk20yA" name="BKM III">
     <extensionElements>
       <layout:container href="#_U6fTQPQJEeecaNY7kk20yA" id="_HJ1fcPQMEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
@@ -254,7 +254,7 @@
       </literalExpression>
     </encapsulatedLogic>
   </businessKnowledgeModel>
-  <businessKnowledgeModel id="_UgthUPQJEeecaNY7kk20yA" name="'BKM IV'">
+  <businessKnowledgeModel id="_UgthUPQJEeecaNY7kk20yA" name="BKM IV">
     <extensionElements>
       <layout:container href="#_UgthUPQJEeecaNY7kk20yA" id="_MvwmIPQMEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
@@ -271,62 +271,62 @@
   <inputData id="_3kDvUPQJEeecaNY7kk20yA" name="C">
     <variable id="_fPmDEfRPEeeUEfOdtC13fQ" name="C" typeRef="feel.string"></variable>
   </inputData>
-  <decision id="_DMwGMPQJEeecaNY7kk20yA" name="'decision A 1'">
+  <decision id="_DMwGMPQJEeecaNY7kk20yA" name="decision A 1">
     <extensionElements>
       <layout:container href="#_DMwGMPQJEeecaNY7kk20yA" id="_ZsYfgPQKEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
-    <variable id="_iX6XgfRSEeeUEfOdtC13fQ" name="'decision A 1'" typeRef="TypeDecisionA1"></variable>
+    <variable id="_iX6XgfRSEeeUEfOdtC13fQ" name="decision A 1" typeRef="TypeDecisionA1"></variable>
     <informationRequirement>
       <requiredInput href="#_9z0SoPQIEeecaNY7kk20yA"></requiredInput>
     </informationRequirement>
     <context id="_a-zwsPQKEeecaNY7kk20yA">
       <contextEntry>
-        <variable id="_bAS-d_QKEeecaNY7kk20yA" name="'resolve A'" typeRef="feel.string"></variable>
+        <variable id="_bAS-d_QKEeecaNY7kk20yA" name="resolve A" typeRef="feel.string"></variable>
         <literalExpression id="_bAS-ePQKEeecaNY7kk20yA">
           <text>A</text>
         </literalExpression>
       </contextEntry>
     </context>
   </decision>
-  <decision id="_HQN7oPQJEeecaNY7kk20yA" name="'decision A 2.1'">
+  <decision id="_HQN7oPQJEeecaNY7kk20yA" name="decision A 2.1">
     <extensionElements>
       <layout:container href="#_HQN7oPQJEeecaNY7kk20yA" id="_eyKtkPQKEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
-    <variable id="_2VW6MfROEeeUEfOdtC13fQ" name="'decision A 2.1'" typeRef="TypeDecisionA2.x"></variable>
+    <variable id="_2VW6MfROEeeUEfOdtC13fQ" name="decision A 2.1" typeRef="TypeDecisionA2.x"></variable>
     <informationRequirement>
       <requiredDecision href="#_DMwGMPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
     <context id="_fHePMPQKEeecaNY7kk20yA">
       <contextEntry>
-        <variable id="_fgqLQPQKEeecaNY7kk20yA" name="'resolve A 1'" typeRef="TypeDecisionA1"></variable>
+        <variable id="_fgqLQPQKEeecaNY7kk20yA" name="resolve A 1" typeRef="TypeDecisionA1"></variable>
         <literalExpression id="_fgqLQfQKEeecaNY7kk20yA">
           <text>'decision A 1'</text>
         </literalExpression>
       </contextEntry>
     </context>
   </decision>
-  <decision id="_HrMAYPQJEeecaNY7kk20yA" name="'decision A 2.2'">
+  <decision id="_HrMAYPQJEeecaNY7kk20yA" name="decision A 2.2">
     <extensionElements>
       <layout:container href="#_HrMAYPQJEeecaNY7kk20yA" id="_nOMesPQKEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
-    <variable id="_r7oJcfRSEeeUEfOdtC13fQ" name="'decision A 2.2'" typeRef="TypeDecisionA2.x"></variable>
+    <variable id="_r7oJcfRSEeeUEfOdtC13fQ" name="decision A 2.2" typeRef="TypeDecisionA2.x"></variable>
     <informationRequirement>
       <requiredDecision href="#_DMwGMPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
     <context id="_nk2rMPQKEeecaNY7kk20yA">
       <contextEntry>
-        <variable id="_pel0APQKEeecaNY7kk20yA" name="'resolve A 1'" typeRef="TypeDecisionA1"></variable>
+        <variable id="_pel0APQKEeecaNY7kk20yA" name="resolve A 1" typeRef="TypeDecisionA1"></variable>
         <literalExpression id="_pel0AfQKEeecaNY7kk20yA">
           <text>'decision A 1'</text>
         </literalExpression>
       </contextEntry>
     </context>
   </decision>
-  <decision id="_LGRAIPQJEeecaNY7kk20yA" name="'decision A 3'">
+  <decision id="_LGRAIPQJEeecaNY7kk20yA" name="decision A 3">
     <extensionElements>
       <layout:container href="#_LGRAIPQJEeecaNY7kk20yA" id="_tooykPQKEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
-    <variable id="_42grgfRSEeeUEfOdtC13fQ" name="'decision A 3'" typeRef="TypeDecisionA3"></variable>
+    <variable id="_42grgfRSEeeUEfOdtC13fQ" name="decision A 3" typeRef="TypeDecisionA3"></variable>
     <informationRequirement>
       <requiredDecision href="#_HQN7oPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
@@ -335,24 +335,24 @@
     </informationRequirement>
     <context id="_t-lNYPQKEeecaNY7kk20yA">
       <contextEntry>
-        <variable id="_uV0ox_QKEeecaNY7kk20yA" name="'resolve A 2.1'" typeRef="TypeDecisionA2.x"></variable>
+        <variable id="_uV0ox_QKEeecaNY7kk20yA" name="resolve A 2.1" typeRef="TypeDecisionA2.x"></variable>
         <literalExpression id="_uV0oyfQKEeecaNY7kk20yA">
           <text>'decision A 2.1'</text>
         </literalExpression>
       </contextEntry>
       <contextEntry>
-        <variable id="_uUCgAPQKEeecaNY7kk20yA" name="'resolve A 2.2'" typeRef="TypeDecisionA2.x"></variable>
+        <variable id="_uUCgAPQKEeecaNY7kk20yA" name="resolve A 2.2" typeRef="TypeDecisionA2.x"></variable>
         <literalExpression id="_uUCgAfQKEeecaNY7kk20yA">
           <text>'decision A 2.2'</text>
         </literalExpression>
       </contextEntry>
     </context>
   </decision>
-  <decision id="_EL7rQPQJEeecaNY7kk20yA" name="'decision B 1'">
+  <decision id="_EL7rQPQJEeecaNY7kk20yA" name="decision B 1">
     <extensionElements>
       <layout:container href="#_EL7rQPQJEeecaNY7kk20yA" id="_3WFvUPQKEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
-    <variable id="_Lnbz4fRTEeeUEfOdtC13fQ" name="'decision B 1'" typeRef="TypeDecisionB1"></variable>
+    <variable id="_Lnbz4fRTEeeUEfOdtC13fQ" name="decision B 1" typeRef="TypeDecisionB1"></variable>
     <informationRequirement>
       <requiredInput href="#_9z0SoPQIEeecaNY7kk20yA"></requiredInput>
     </informationRequirement>
@@ -361,58 +361,58 @@
     </informationRequirement>
     <context id="_31avoPQKEeecaNY7kk20yA">
       <contextEntry>
-        <variable id="_3259Z_QKEeecaNY7kk20yA" name="'resolve B'" typeRef="feel.string"></variable>
+        <variable id="_3259Z_QKEeecaNY7kk20yA" name="resolve B" typeRef="feel.string"></variable>
         <literalExpression id="_3259aPQKEeecaNY7kk20yA">
           <text>B</text>
         </literalExpression>
       </contextEntry>
       <contextEntry>
-        <variable id="_OjGW8PRXEeeUEfOdtC13fQ" name="'resolve A'" typeRef="feel.string"></variable>
+        <variable id="_OjGW8PRXEeeUEfOdtC13fQ" name="resolve A" typeRef="feel.string"></variable>
         <literalExpression id="_OjGW8fRXEeeUEfOdtC13fQ">
           <text>A</text>
         </literalExpression>
       </contextEntry>
     </context>
   </decision>
-  <decision id="_I_HtcPQJEeecaNY7kk20yA" name="'decision B 2.1'">
+  <decision id="_I_HtcPQJEeecaNY7kk20yA" name="decision B 2.1">
     <extensionElements>
       <layout:container href="#_I_HtcPQJEeecaNY7kk20yA" id="_51714PQKEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
-    <variable id="_QZqMwfRTEeeUEfOdtC13fQ" name="'decision B 2.1'" typeRef="TypeDecisionB2.x"></variable>
+    <variable id="_QZqMwfRTEeeUEfOdtC13fQ" name="decision B 2.1" typeRef="TypeDecisionB2.x"></variable>
     <informationRequirement>
       <requiredDecision href="#_EL7rQPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
     <context id="_6LkusPQKEeecaNY7kk20yA">
       <contextEntry>
-        <variable id="_6ijrUPQKEeecaNY7kk20yA" name="'resolve B 1'" typeRef="TypeDecisionB1"></variable>
+        <variable id="_6ijrUPQKEeecaNY7kk20yA" name="resolve B 1" typeRef="TypeDecisionB1"></variable>
         <literalExpression id="_6ijrUfQKEeecaNY7kk20yA">
           <text>'decision B 1'</text>
         </literalExpression>
       </contextEntry>
     </context>
   </decision>
-  <decision id="_JhYtAPQJEeecaNY7kk20yA" name="'decision B 2.2'">
+  <decision id="_JhYtAPQJEeecaNY7kk20yA" name="decision B 2.2">
     <extensionElements>
       <layout:container href="#_JhYtAPQJEeecaNY7kk20yA" id="_-iazIPQKEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
-    <variable id="_XAogwfRTEeeUEfOdtC13fQ" name="'decision B 2.2'" typeRef="TypeDecisionB2.x"></variable>
+    <variable id="_XAogwfRTEeeUEfOdtC13fQ" name="decision B 2.2" typeRef="TypeDecisionB2.x"></variable>
     <informationRequirement>
       <requiredDecision href="#_EL7rQPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
     <context id="_-2Y4APQKEeecaNY7kk20yA">
       <contextEntry>
-        <variable id="__NOqsPQKEeecaNY7kk20yA" name="'resolve B 1'" typeRef="TypeDecisionB1"></variable>
+        <variable id="__NOqsPQKEeecaNY7kk20yA" name="resolve B 1" typeRef="TypeDecisionB1"></variable>
         <literalExpression id="__NOqsfQKEeecaNY7kk20yA">
           <text>'decision B 1'</text>
         </literalExpression>
       </contextEntry>
     </context>
   </decision>
-  <decision id="_Mk9LsPQJEeecaNY7kk20yA" name="'decision B 3'">
+  <decision id="_Mk9LsPQJEeecaNY7kk20yA" name="decision B 3">
     <extensionElements>
       <layout:container href="#_Mk9LsPQJEeecaNY7kk20yA" id="_DB-usPQLEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
-    <variable id="_cNLeIfRTEeeUEfOdtC13fQ" name="'decision B 3'" typeRef="TypeDecisionB3"></variable>
+    <variable id="_cNLeIfRTEeeUEfOdtC13fQ" name="decision B 3" typeRef="TypeDecisionB3"></variable>
     <informationRequirement>
       <requiredDecision href="#_I_HtcPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
@@ -424,30 +424,30 @@
     </informationRequirement>
     <context id="_DaII8PQLEeecaNY7kk20yA">
       <contextEntry>
-        <variable id="_DuFmwPQLEeecaNY7kk20yA" name="'resolve B 2.1'" typeRef="TypeDecisionB2.x"></variable>
+        <variable id="_DuFmwPQLEeecaNY7kk20yA" name="resolve B 2.1" typeRef="TypeDecisionB2.x"></variable>
         <literalExpression id="_DuFmwfQLEeecaNY7kk20yA">
           <text>'decision B 2.1'</text>
         </literalExpression>
       </contextEntry>
       <contextEntry>
-        <variable id="_DsTeEPQLEeecaNY7kk20yA" name="'resolve B 2.2'" typeRef="TypeDecisionB2.x"></variable>
+        <variable id="_DsTeEPQLEeecaNY7kk20yA" name="resolve B 2.2" typeRef="TypeDecisionB2.x"></variable>
         <literalExpression id="_DsTeEfQLEeecaNY7kk20yA">
           <text>'decision B 2.2'</text>
         </literalExpression>
       </contextEntry>
       <contextEntry>
-        <variable id="_jrA5kPQPEeecaNY7kk20yA" name="'resolve A 3'" typeRef="TypeDecisionA3"></variable>
+        <variable id="_jrA5kPQPEeecaNY7kk20yA" name="resolve A 3" typeRef="TypeDecisionA3"></variable>
         <literalExpression id="_jrA5kfQPEeecaNY7kk20yA">
           <text>'decision A 3'</text>
         </literalExpression>
       </contextEntry>
     </context>
   </decision>
-  <decision id="_OWzj0PQJEeecaNY7kk20yA" name="'decision C 1'">
+  <decision id="_OWzj0PQJEeecaNY7kk20yA" name="decision C 1">
     <extensionElements>
       <layout:container href="#_OWzj0PQJEeecaNY7kk20yA" id="_LZBSIPQLEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
-    <variable id="_tu_IAfRTEeeUEfOdtC13fQ" name="'decision C 1'" typeRef="TypeDecisionC1"></variable>
+    <variable id="_tu_IAfRTEeeUEfOdtC13fQ" name="decision C 1" typeRef="TypeDecisionC1"></variable>
     <informationRequirement>
       <requiredDecision href="#_LGRAIPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
@@ -459,30 +459,30 @@
     </informationRequirement>
     <context id="_L3HjYPQLEeecaNY7kk20yA">
       <contextEntry>
-        <variable id="_L4mxIfQLEeecaNY7kk20yA" name="'resolve C'" typeRef="feel.string"></variable>
+        <variable id="_L4mxIfQLEeecaNY7kk20yA" name="resolve C" typeRef="feel.string"></variable>
         <literalExpression id="_L4mxIvQLEeecaNY7kk20yA">
           <text>C</text>
         </literalExpression>
       </contextEntry>
       <contextEntry>
-        <variable id="_N3kYMPQLEeecaNY7kk20yA" name="'resolve A 3'" typeRef="TypeDecisionA3"></variable>
+        <variable id="_N3kYMPQLEeecaNY7kk20yA" name="resolve A 3" typeRef="TypeDecisionA3"></variable>
         <literalExpression id="_N3kYMfQLEeecaNY7kk20yA">
           <text>'decision A 3'</text>
         </literalExpression>
       </contextEntry>
       <contextEntry>
-        <variable id="_N1oegPQLEeecaNY7kk20yA" name="'resolve B 3'" typeRef="TypeDecisionB3"></variable>
+        <variable id="_N1oegPQLEeecaNY7kk20yA" name="resolve B 3" typeRef="TypeDecisionB3"></variable>
         <literalExpression id="_N1oegfQLEeecaNY7kk20yA">
           <text>'decision B 3'</text>
         </literalExpression>
       </contextEntry>
     </context>
   </decision>
-  <decision id="_Zf4KAPQJEeecaNY7kk20yA" name="'decision C 2'">
+  <decision id="_Zf4KAPQJEeecaNY7kk20yA" name="decision C 2">
     <extensionElements>
       <layout:container href="#_Zf4KAPQJEeecaNY7kk20yA" id="_hzhwUPQLEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
-    <variable id="_7jmHYfRTEeeUEfOdtC13fQ" name="'decision C 2'" typeRef="feel.string"></variable>
+    <variable id="_7jmHYfRTEeeUEfOdtC13fQ" name="decision C 2" typeRef="feel.string"></variable>
     <informationRequirement>
       <requiredDecision href="#_OWzj0PQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
@@ -501,11 +501,11 @@
       </binding>
     </invocation>
   </decision>
-  <decision id="_XsZaMPQJEeecaNY7kk20yA" name="'decision C 3'">
+  <decision id="_XsZaMPQJEeecaNY7kk20yA" name="decision C 3">
     <extensionElements>
       <layout:container href="#_XsZaMPQJEeecaNY7kk20yA" id="_s3udkPQLEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
-    <variable id="_9uAJcfRTEeeUEfOdtC13fQ" name="'decision C 3'" typeRef="feel.string"></variable>
+    <variable id="_9uAJcfRTEeeUEfOdtC13fQ" name="decision C 3" typeRef="feel.string"></variable>
     <informationRequirement>
       <requiredDecision href="#_Zf4KAPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
@@ -524,17 +524,17 @@
       </binding>
     </invocation>
   </decision>
-  <decision id="_tX2SoPQMEeecaNY7kk20yA" name="'decision C 4'">
+  <decision id="_tX2SoPQMEeecaNY7kk20yA" name="decision C 4">
     <extensionElements>
       <layout:container href="#_tX2SoPQMEeecaNY7kk20yA" id="_1LM6MPQMEeecaNY7kk20yA" name="" type="DMN_Expression"></layout:container>
     </extensionElements>
-    <variable id="_B1nfEfRUEeeUEfOdtC13fQ" name="'decision C 4'" typeRef="TypeDecisionC4"></variable>
+    <variable id="_B1nfEfRUEeeUEfOdtC13fQ" name="decision C 4" typeRef="TypeDecisionC4"></variable>
     <informationRequirement>
       <requiredDecision href="#_XsZaMPQJEeecaNY7kk20yA"></requiredDecision>
     </informationRequirement>
     <context id="_1pWOwPQMEeecaNY7kk20yA">
       <contextEntry>
-        <variable id="_4nGZbPQMEeecaNY7kk20yA" name="'resolve C 3'" typeRef="feel.string"></variable>
+        <variable id="_4nGZbPQMEeecaNY7kk20yA" name="resolve C 3" typeRef="feel.string"></variable>
         <literalExpression id="_4nGZbvQMEeecaNY7kk20yA">
           <text>'decision C 3'</text>
         </literalExpression>

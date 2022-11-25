@@ -14,6 +14,7 @@ package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.NameUtils;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
@@ -597,7 +598,7 @@ public class DMNExpressionToNativeTransformer {
         // Build call
         TExpression body = invocation.getExpression();
         if (body instanceof TLiteralExpression) {
-            String bkmName = ((TLiteralExpression) body).getText();
+            String bkmName = NameUtils.bkmName(((TLiteralExpression) body).getText());
             TBusinessKnowledgeModel bkm = this.dmnModelRepository.findKnowledgeModelByName(bkmName);
             if (bkm == null) {
                 throw new DMNRuntimeException(String.format("Cannot find BKM for '%s'", bkmName));

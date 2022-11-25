@@ -10,31 +10,17 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations under the License.
 -->
-<#include "drgElementCommon.ftl">
-<#assign repository = transformer.getDMNModelRepository() />
-<@importStatements drgElement/>
+<#import "/tree/common/import.ftl" as import />
+<#import "/tree/common/metadata.ftl" as metadata />
+<#import "/tree/common/constructor.ftl" as constructor />
+<#import "/tree/common/apply.ftl" as apply />
+<@import.importStatements drgElement/>
 
 
-# Generated(value = ["decision.ftl", "${transformer.escapeInString(modelRepository.name(drgElement))}"])
+<@metadata.classAnnotation "decision.ftl" drgElement/>
 class ${javaClassName}(${decisionBaseClass}):
-    ${transformer.drgElementMetadataFieldName()}: ${transformer.drgElementMetadataClassName()} = ${transformer.drgElementMetadataClassName()}(
-        "${javaPackageName}",
-        "${modelRepository.name(drgElement)}",
-        "${modelRepository.label(drgElement)}",
-        ${transformer.elementKindAnnotationClassName()}.${transformer.elementKind(drgElement)},
-        ${transformer.expressionKindAnnotationClassName()}.${transformer.expressionKind(drgElement)},
-        ${transformer.hitPolicyAnnotationClassName()}.${transformer.hitPolicy(drgElement)},
-        ${modelRepository.rulesCount(drgElement)}
-    )
-    <#if transformer.isSingletonDecision()>
-    <@singletonPattern drgElement />
-    <#else>
+    <@metadata.elementMetadataField drgElement />
+    <@constructor.decisionConstructor drgElement />
 
-    def __init__(${transformer.drgElementConstructorSignature(drgElement)}):
-        ${decisionBaseClass}.__init__(self)
-        <@setSubDecisionFields drgElement/>
-    </#if>
-
-    def apply(${transformer.drgElementSignature(drgElement)}) -> ${transformer.drgElementOutputType(drgElement)}:
-        <@applyMethodBody drgElement />
-    <@evaluateExpressionMethod drgElement />
+    <@apply.applyMethods drgElement />
+    <@apply.evaluateExpressionMethod drgElement />

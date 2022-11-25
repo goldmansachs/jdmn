@@ -9,6 +9,5 @@ public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElem
         // Register elements from model 'Model C'
         register("http://www.provider.com/definitions/model-c#Model C Decision based on Bs", "model_c.ModelCDecisionBasedOnBs");
         // Register elements from model 'model-a'
-        register("http://www.provider.com/definitions/model-a#Person Name", "model_a.PersonName");
     }
 }

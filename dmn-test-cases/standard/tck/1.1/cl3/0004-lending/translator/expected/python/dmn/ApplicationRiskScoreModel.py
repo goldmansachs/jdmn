@@ -32,7 +32,7 @@ import jdmn.runtime.listener.Rule
 import ApplicationRiskScoreModelRuleOutput
 
 
-# Generated(value = {"bkm.ftl", "ApplicationRiskScoreModel"})
+# Generated(value = ["bkm.ftl", "ApplicationRiskScoreModel"])
 class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
         "",
@@ -55,9 +55,13 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
             jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision.__init__(cls._instance)
         return cls._instance
 
-    def apply(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[decimal.Decimal]:
+    def apply(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[decimal.Decimal]:
         try:
             # Start BKM 'ApplicationRiskScoreModel'
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             applicationRiskScoreModelStartTime_ = int(time.time_ns()/1000)
             applicationRiskScoreModelArguments_ = jdmn.runtime.listener.Arguments.Arguments()
             applicationRiskScoreModelArguments_.put("Age", age)
@@ -66,7 +70,7 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, applicationRiskScoreModelArguments_)
 
             # Evaluate BKM 'ApplicationRiskScoreModel'
-            output_: typing.Optional[decimal.Decimal] = self.evaluate(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_)
+            output_: typing.Optional[decimal.Decimal] = self.evaluate(age, maritalStatus, employmentStatus, context_)
 
             # End BKM 'ApplicationRiskScoreModel'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, applicationRiskScoreModelArguments_, output_, (int(time.time_ns()/1000) - applicationRiskScoreModelStartTime_))
@@ -76,20 +80,24 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
             self.logError("Exception caught in 'ApplicationRiskScoreModel' evaluation", e)
             return None
 
-    def evaluate(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[decimal.Decimal]:
+    def evaluate(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[decimal.Decimal]:
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         # Apply rules and collect results
         ruleOutputList_ = jdmn.runtime.RuleOutputList.RuleOutputList()
-        ruleOutputList_.add(self.rule0(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule1(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule2(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule3(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule4(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule5(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule6(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule7(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule8(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule9(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
-        ruleOutputList_.add(self.rule10(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_, cache_))
+        ruleOutputList_.add(self.rule0(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(self.rule1(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(self.rule2(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(self.rule3(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(self.rule4(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(self.rule5(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(self.rule6(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(self.rule7(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(self.rule8(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(self.rule9(age, maritalStatus, employmentStatus, context_))
+        ruleOutputList_.add(self.rule10(age, maritalStatus, employmentStatus, context_))
 
         # Return results based on hit policy
         output_: typing.Optional[decimal.Decimal]
@@ -102,11 +110,15 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
 
         return output_
 
-    def rule0(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule0(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(0, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -131,11 +143,15 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
 
         return output_
 
-    def rule1(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule1(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(1, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -160,11 +176,15 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
 
         return output_
 
-    def rule2(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule2(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(2, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -189,11 +209,15 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
 
         return output_
 
-    def rule3(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule3(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(3, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -218,11 +242,15 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
 
         return output_
 
-    def rule4(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule4(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(4, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -247,11 +275,15 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
 
         return output_
 
-    def rule5(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule5(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(5, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -276,11 +308,15 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
 
         return output_
 
-    def rule6(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule6(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(6, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -305,11 +341,15 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
 
         return output_
 
-    def rule7(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule7(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(7, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -334,11 +374,15 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
 
         return output_
 
-    def rule8(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule8(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(8, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -363,11 +407,15 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
 
         return output_
 
-    def rule9(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule9(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(9, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule
@@ -392,11 +440,15 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
 
         return output_
 
-    def rule10(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> jdmn.runtime.RuleOutput.RuleOutput:
+    def rule10(self, age: typing.Optional[decimal.Decimal], maritalStatus: typing.Optional[str], employmentStatus: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> jdmn.runtime.RuleOutput.RuleOutput:
         # Rule metadata
         drgRuleMetadata: jdmn.runtime.listener.Rule.Rule = jdmn.runtime.listener.Rule.Rule(10, "")
 
         # Rule start
+        annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+        eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+        externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+        cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
         eventListener_.startRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
 
         # Apply rule

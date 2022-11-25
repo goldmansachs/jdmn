@@ -32,7 +32,7 @@ import jdmn.runtime.listener.Rule
 import Decision_003
 
 
-# Generated(value = {"ds.ftl", "decisionService_003"})
+# Generated(value = ["ds.ftl", "decisionService_003"])
 class DecisionService_003(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
         "",
@@ -59,9 +59,13 @@ class DecisionService_003(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
     def initSubDecisions(self, decision_003: Decision_003.Decision_003 = None):
         self.decision_003 = Decision_003.Decision_003() if decision_003 is None else decision_003
 
-    def apply(self, inputData_003: typing.Optional[str], decision_003_input_1: typing.Optional[str], decision_003_input_2: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def apply(self, inputData_003: typing.Optional[str], decision_003_input_1: typing.Optional[str], decision_003_input_2: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         try:
             # Start DS 'decisionService_003'
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             decisionService_003StartTime_ = int(time.time_ns()/1000)
             decisionService_003Arguments_ = jdmn.runtime.listener.Arguments.Arguments()
             decisionService_003Arguments_.put("inputData_003", inputData_003)
@@ -74,7 +78,7 @@ class DecisionService_003(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
             cache_.bind("decision_003_input_2", decision_003_input_2)
 
             # Evaluate DS 'decisionService_003'
-            output_: typing.Optional[str] = self.evaluate(inputData_003, decision_003_input_1, decision_003_input_2, annotationSet_, eventListener_, externalExecutor_, cache_)
+            output_: typing.Optional[str] = self.evaluate(inputData_003, decision_003_input_1, decision_003_input_2, context_)
 
             # End DS 'decisionService_003'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, decisionService_003Arguments_, output_, (int(time.time_ns()/1000) - decisionService_003StartTime_))
@@ -84,8 +88,8 @@ class DecisionService_003(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
             self.logError("Exception caught in 'decisionService_003' evaluation", e)
             return None
 
-    def evaluate(self, inputData_003: typing.Optional[str], decision_003_input_1: typing.Optional[str], decision_003_input_2: typing.Optional[str], annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[str]:
+    def evaluate(self, inputData_003: typing.Optional[str], decision_003_input_1: typing.Optional[str], decision_003_input_2: typing.Optional[str], context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[str]:
         # Apply child decisions
-        decision_003: typing.Optional[str] = self.decision_003.apply(inputData_003, annotationSet_, eventListener_, externalExecutor_, cache_)
+        decision_003: typing.Optional[str] = self.decision_003.apply(inputData_003, context_)
 
         return decision_003

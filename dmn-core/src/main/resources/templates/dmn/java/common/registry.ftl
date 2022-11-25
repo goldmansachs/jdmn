@@ -26,7 +26,9 @@ public class ${javaClassName} extends ${transformer.registryClassName()} {
 <#list definitionsList as definitions>
         // Register elements from model '${definitions.name}'
     <#list modelRepository.findDRGElements(definitions) as element>
-        register("${modelRepository.registryId(element)}", "${transformer.qualifiedName(element)}");
+        <#if element.class.simpleName != "TInputData">
+        register("${transformer.registryId(element)}", "${transformer.qualifiedName(element)}");
+        </#if>
     </#list>
 </#list>
 </#macro>

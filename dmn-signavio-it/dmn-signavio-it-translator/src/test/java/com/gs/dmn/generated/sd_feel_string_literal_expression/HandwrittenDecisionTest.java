@@ -13,28 +13,41 @@
 package com.gs.dmn.generated.sd_feel_string_literal_expression;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
 import org.junit.Test;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     private final Decision decision = new Decision();
 
     @Test
     public void apply() throws Exception {
-        String output = decision.apply(null, (String)null, null, null, "123", annotationSet, eventListener, externalFunctionExecutor, cache);
+        String output = applyDecision(null, null, null, null, "123");
         assertEquals("123abc", output);
     }
 
     @Test
-    public void applyWhenNull() throws Exception {
-        String output = decision.apply(null, (String)null, null, null, null, annotationSet, eventListener, externalFunctionExecutor, cache);
-        assertEquals(null, output);
+    public void applyWhenNull() {
+        String output = applyDecision(null, null, null, null, null);
+        assertNull(output);
     }
 
     @Override
     protected void applyDecision() {
-        decision.apply(null, (String)null, null, null, "123", annotationSet, eventListener, externalFunctionExecutor, cache);
+        applyDecision(null, null, null, null, "123");
+    }
+
+    private String applyDecision(String booleanInput, String dateInput, String enumerationInput, String numberInput, String stringInput) {
+        Map<String, String> input = new LinkedHashMap<>();
+        input.put("BooleanInput", booleanInput);
+        input.put("DateInput", dateInput);
+        input.put("EnumerationInput", enumerationInput);
+        input.put("NumberInput", numberInput);
+        input.put("StringInput", stringInput);
+        return decision.applyMap(input, context);
     }
 }

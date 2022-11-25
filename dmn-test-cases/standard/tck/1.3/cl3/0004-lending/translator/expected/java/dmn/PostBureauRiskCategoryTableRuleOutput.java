@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "'Post-bureauRiskCategoryTable'"})
+@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "Post-bureauRiskCategoryTable"})
 public class PostBureauRiskCategoryTableRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private String postBureauRiskCategoryTable;
 
@@ -9,12 +9,12 @@ public class PostBureauRiskCategoryTableRuleOutput extends com.gs.dmn.runtime.Ru
         super(matched);
     }
 
-    @com.fasterxml.jackson.annotation.JsonGetter("'Post-bureauRiskCategoryTable'")
+    @com.fasterxml.jackson.annotation.JsonGetter("Post-bureauRiskCategoryTable")
     public String getPostBureauRiskCategoryTable() {
         return this.postBureauRiskCategoryTable;
     }
 
-    @com.fasterxml.jackson.annotation.JsonSetter("'Post-bureauRiskCategoryTable'")
+    @com.fasterxml.jackson.annotation.JsonSetter("Post-bureauRiskCategoryTable")
     public void setPostBureauRiskCategoryTable(String postBureauRiskCategoryTable) {
         this.postBureauRiskCategoryTable = postBureauRiskCategoryTable;
     }

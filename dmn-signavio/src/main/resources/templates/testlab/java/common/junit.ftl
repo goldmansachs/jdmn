@@ -39,10 +39,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
         <#items as testCase>
     @org.junit.Test
     public void testCase${(testCase?index + 1)?c}() {
-        ${testLabUtil.annotationSetClassName()} ${testLabUtil.annotationSetVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.annotationSetClassName())};
-        ${testLabUtil.eventListenerClassName()} ${testLabUtil.eventListenerVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.defaultEventListenerClassName())};
-        ${testLabUtil.externalExecutorClassName()} ${testLabUtil.externalExecutorVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.defaultExternalExecutorClassName())};
-        ${testLabUtil.cacheInterfaceName()} ${testLabUtil.cacheVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.defaultCacheClassName())};
+        ${testLabUtil.executionContextClassName()} ${testLabUtil.executionContextVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.executionContextClassName())};
         <@addApplyPart testCase/>
 
         <@addAssertPart testCase/>
@@ -105,7 +102,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
         ${testLabUtil.qualifiedRequestMessageName(rootOutputParameter)} ${testLabUtil.requestVariableName(rootOutputParameter)} = builder_.build();
 
         // Invoke apply method
-        ${testLabUtil.qualifiedResponseMessageName(rootOutputParameter)} ${testLabUtil.responseVariableName(rootOutputParameter)} = this.${testLabUtil.drgElementVariableName(rootOutputParameter)}.apply(${testLabUtil.drgElementArgumentListProto(rootOutputParameter)});
+        ${testLabUtil.qualifiedResponseMessageName(rootOutputParameter)} ${testLabUtil.responseVariableName(rootOutputParameter)} = this.${testLabUtil.drgElementVariableName(rootOutputParameter)}.applyProto(${testLabUtil.drgElementArgumentListProto(rootOutputParameter)});
         ${testLabUtil.drgElementOutputTypeProto(rootOutputParameter)} ${testLabUtil.drgElementVariableNameProto(rootOutputParameter)} = ${testLabUtil.responseVariableName(rootOutputParameter)}.${testLabUtil.protoGetter(rootOutputParameter)};
 </#macro>
 

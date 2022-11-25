@@ -30,11 +30,11 @@ import jdmn.runtime.listener.EventListener
 import jdmn.runtime.listener.Rule
 
 
-# Generated(value = ["decision.ftl", "'Base Vacation Days'"])
+# Generated(value = ["decision.ftl", "Base Vacation Days"])
 class BaseVacationDays(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
         "org.gs",
-        "'Base Vacation Days'",
+        "Base Vacation Days",
         "",
         jdmn.runtime.annotation.DRGElementKind.DRGElementKind.DECISION,
         jdmn.runtime.annotation.ExpressionKind.ExpressionKind.LITERAL_EXPRESSION,
@@ -45,23 +45,27 @@ class BaseVacationDays(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecisio
     def __init__(self):
         jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision.__init__(self)
 
-    def apply(self, annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[decimal.Decimal]:
+    def apply(self, context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[decimal.Decimal]:
         try:
-            # Start decision ''Base Vacation Days''
+            # Start decision 'Base Vacation Days'
+            annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet = None if context_ is None else context_.annotations
+            eventListener_: jdmn.runtime.listener.EventListener.EventListener = None if context_ is None else context_.eventListener
+            externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor = None if context_ is None else context_.externalFunctionExecutor
+            cache_: jdmn.runtime.cache.Cache.Cache = None if context_ is None else context_.cache
             baseVacationDaysStartTime_ = int(time.time_ns()/1000)
             baseVacationDaysArguments_ = jdmn.runtime.listener.Arguments.Arguments()
             eventListener_.startDRGElement(self.DRG_ELEMENT_METADATA, baseVacationDaysArguments_)
 
-            # Evaluate decision ''Base Vacation Days''
-            output_: typing.Optional[decimal.Decimal] = self.evaluate(annotationSet_, eventListener_, externalExecutor_, cache_)
+            # Evaluate decision 'Base Vacation Days'
+            output_: typing.Optional[decimal.Decimal] = self.evaluate(context_)
 
-            # End decision ''Base Vacation Days''
+            # End decision 'Base Vacation Days'
             eventListener_.endDRGElement(self.DRG_ELEMENT_METADATA, baseVacationDaysArguments_, output_, (int(time.time_ns()/1000) - baseVacationDaysStartTime_))
 
             return output_
         except Exception as e:
-            self.logError("Exception caught in ''Base Vacation Days'' evaluation", e)
+            self.logError("Exception caught in 'Base Vacation Days' evaluation", e)
             return None
 
-    def evaluate(self, annotationSet_: jdmn.runtime.annotation.AnnotationSet.AnnotationSet, eventListener_: jdmn.runtime.listener.EventListener.EventListener, externalExecutor_: jdmn.runtime.external.ExternalFunctionExecutor.ExternalFunctionExecutor, cache_: jdmn.runtime.cache.Cache.Cache) -> typing.Optional[decimal.Decimal]:
+    def evaluate(self, context_: jdmn.runtime.ExecutionContext.ExecutionContext) -> typing.Optional[decimal.Decimal]:
         return self.number("22")
