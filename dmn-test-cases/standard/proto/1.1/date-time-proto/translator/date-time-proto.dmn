@@ -8,7 +8,7 @@
 			<typeRef>feel:time</typeRef>
 		</itemComponent>
 		<itemComponent name="DateTime" isCollection="false">
-			<typeRef>feel:date and time</typeRef>
+			<typeRef>feel:dateTime</typeRef>
 		</itemComponent>
 		<itemComponent name="YearMonthDuration" isCollection="false">
 			<typeRef>feel:yearMonthDuration</typeRef>
@@ -25,7 +25,7 @@
   		<variable name="Time" typeRef="feel:time"/>
   	</inputData>
   	<inputData id="i-date-time" name="InputDateTime">
-  		<variable name="DateTime" typeRef="feel:date and time"/>
+  		<variable name="DateTime" typeRef="feel:dateTime"/>
   	</inputData>
 
 	<inputData id="c-date-time" name="CompositeInputDateTime">
@@ -51,7 +51,7 @@
 		</literalExpression>
 	</decision>
 	<decision id="d-DateTime" name="DateTime">
-		<variable name="DateTime" typeRef="feel:date and time"/>
+		<variable name="DateTime" typeRef="feel:dateTime"/>
 		<informationRequirement>
 			<requiredInput href="#i-date-time"/>
 		</informationRequirement>

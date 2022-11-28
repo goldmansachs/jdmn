@@ -94,7 +94,7 @@
                         <dmnVersion>${dmn.version}</dmnVersion>
                         <modelVersion>${model.version}</modelVersion>
                         <platformVersion>${platform.version}</platformVersion>
-                        <xsdValidation>false</xsdValidation>
+                        <xsdValidation>true</xsdValidation>
                         <semanticValidation>false</semanticValidation>
                     </inputParameters>
                 </configuration>
