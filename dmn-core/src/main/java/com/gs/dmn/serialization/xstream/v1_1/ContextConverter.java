@@ -15,6 +15,7 @@ package com.gs.dmn.serialization.xstream.v1_1;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TContext;
 import com.gs.dmn.ast.TContextEntry;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -23,8 +24,8 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 public class ContextConverter extends ExpressionConverter {
     public static final String CONTEXT_ENTRY = "contextEntry";
 
-    public ContextConverter(XStream xstream) {
-        super(xstream);
+    public ContextConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

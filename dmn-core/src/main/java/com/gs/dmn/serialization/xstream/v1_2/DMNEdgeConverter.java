@@ -15,18 +15,19 @@ package com.gs.dmn.serialization.xstream.v1_2;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.dmndi.DMNEdge;
 import com.gs.dmn.ast.dmndi.DMNLabel;
+import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_1.DMNBaseConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 public class DMNEdgeConverter extends EdgeConverter {
-
     private static final String DMN_ELEMENT_REF = "dmnElementRef";
     private static final String DMN_LABEL = "DMNLabel";
 
-    public DMNEdgeConverter(XStream xstream) {
-        super(xstream);
+    public DMNEdgeConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override
@@ -58,7 +59,7 @@ public class DMNEdgeConverter extends EdgeConverter {
         String dmnElementRef = reader.getAttribute(DMN_ELEMENT_REF);
 
         if (dmnElementRef != null) {
-            concrete.setDmnElementRef(MarshallingUtils.parseQNameString(dmnElementRef));
+            concrete.setDmnElementRef(DMNBaseConverter.parseQNameString(dmnElementRef));
         }
     }
 
@@ -78,7 +79,7 @@ public class DMNEdgeConverter extends EdgeConverter {
 
         DMNEdge concrete = (DMNEdge) parent;
         if (concrete.getDmnElementRef() != null) {
-            writer.addAttribute(DMN_ELEMENT_REF, MarshallingUtils.formatQName(concrete.getDmnElementRef(), concrete));
+            writer.addAttribute(DMN_ELEMENT_REF, DMNBaseConverter.formatQName(concrete.getDmnElementRef(), concrete, version));
         }
     }
 }

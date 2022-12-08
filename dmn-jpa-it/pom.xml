@@ -51,21 +51,21 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>5.3.15</version>
+            <version>6.0.0</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
-            <version>2.6.1</version>
+            <version>3.0.0</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>2.1.210</version>
+            <version>2.1.214</version>
             <scope>test</scope>
         </dependency>
 
@@ -78,7 +78,7 @@
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.jpa</artifactId>
-            <version>2.7.7</version>
+            <version>2.7.11</version>
         </dependency>
     </dependencies>
 
@@ -94,7 +94,7 @@
                         <dmnVersion>${dmn.version}</dmnVersion>
                         <modelVersion>${model.version}</modelVersion>
                         <platformVersion>${platform.version}</platformVersion>
-                        <xsdValidation>false</xsdValidation>
+                        <xsdValidation>true</xsdValidation>
                         <semanticValidation>false</semanticValidation>
                     </inputParameters>
                 </configuration>

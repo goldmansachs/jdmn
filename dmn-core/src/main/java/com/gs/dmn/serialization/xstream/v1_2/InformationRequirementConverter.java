@@ -15,6 +15,8 @@ package com.gs.dmn.serialization.xstream.v1_2;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDMNElementReference;
 import com.gs.dmn.ast.TInformationRequirement;
+import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_1.DMNElementConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -24,8 +26,8 @@ public class InformationRequirementConverter extends DMNElementConverter {
     private static final String REQUIRED_INPUT = "requiredInput";
     private static final String REQUIRED_DECISION = "requiredDecision";
 
-    public InformationRequirementConverter(XStream xstream) {
-        super(xstream);
+    public InformationRequirementConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override
@@ -75,6 +77,4 @@ public class InformationRequirementConverter extends DMNElementConverter {
 
         // no attributes.
     }
-
-
 }

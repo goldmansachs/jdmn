@@ -14,6 +14,8 @@ package com.gs.dmn.serialization.xstream.v1_2;
 
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TImport;
+import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_1.NamedElementConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -24,8 +26,8 @@ public class ImportConverter extends NamedElementConverter {
     public static final String LOCATION_URI = "locationURI";
     public static final String IMPORT_TYPE = "importType";
 
-    public ImportConverter(XStream xstream) {
-        super(xstream);
+    public ImportConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

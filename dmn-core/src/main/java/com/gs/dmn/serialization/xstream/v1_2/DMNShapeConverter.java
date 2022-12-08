@@ -16,6 +16,8 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.dmndi.DMNDecisionServiceDividerLine;
 import com.gs.dmn.ast.dmndi.DMNLabel;
 import com.gs.dmn.ast.dmndi.DMNShape;
+import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_1.DMNBaseConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -35,8 +37,8 @@ public class DMNShapeConverter extends ShapeConverter {
     private static final String LABEL_HORIZONTAL_ALIGNMENT = "labelHorizontalAlignement";
     private static final String LABEL_VERTICAL_ALIGNMENT = "labelVerticalAlignment";
 
-    public DMNShapeConverter(XStream xstream) {
-        super(xstream);
+    public DMNShapeConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override
@@ -67,7 +69,7 @@ public class DMNShapeConverter extends ShapeConverter {
         super.assignAttributes(reader, parent);
         DMNShape shape = (DMNShape) parent;
 
-        shape.setDmnElementRef(MarshallingUtils.parseQNameString(reader.getAttribute("dmnElementRef")));
+        shape.setDmnElementRef(DMNBaseConverter.parseQNameString(reader.getAttribute("dmnElementRef")));
 
         String isListedInputData = reader.getAttribute("isListedInputData");
         String isCollapsed = reader.getAttribute("isCollapsed");
@@ -98,7 +100,7 @@ public class DMNShapeConverter extends ShapeConverter {
         super.writeAttributes(writer, parent);
         DMNShape shape = (DMNShape) parent;
 
-        writer.addAttribute("dmnElementRef", MarshallingUtils.formatQName(shape.getDmnElementRef(), shape));
+        writer.addAttribute("dmnElementRef", DMNBaseConverter.formatQName(shape.getDmnElementRef(), shape, version));
 
         if (shape.isIsListedInputData() != null) {
             writer.addAttribute("isListedInputData", shape.isIsListedInputData().toString());

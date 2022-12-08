@@ -14,8 +14,10 @@ package com.gs.dmn.serialization.xstream.v1_2;
 
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.dmndi.DiagramElement;
+import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.serialization.xstream.dom.DomConverter;
+import com.gs.dmn.serialization.xstream.v1_1.DMNBaseElementConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
@@ -35,15 +37,15 @@ public class DiagramElementExtensionConverter extends DMNBaseElementConverter {
 
     private final List<DMNExtensionRegister> extensionRegisters = new ArrayList<>();
 
-    public DiagramElementExtensionConverter(XStream xStream, List<DMNExtensionRegister> extensionRegisters) {
-        super(xStream);
+    public DiagramElementExtensionConverter(XStream xStream, DMNVersion version, List<DMNExtensionRegister> extensionRegisters) {
+        super(xStream, version);
         if (!extensionRegisters.isEmpty()) {
             this.extensionRegisters.addAll(extensionRegisters);
         }
     }
 
-    public DiagramElementExtensionConverter(XStream xstream) {
-        super(xstream);
+    public DiagramElementExtensionConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

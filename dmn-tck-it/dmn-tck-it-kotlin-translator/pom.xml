@@ -139,7 +139,7 @@
                         <dmnVersion>${dmn.version}</dmnVersion>
                         <modelVersion>${model.version}</modelVersion>
                         <platformVersion>${platform.version}</platformVersion>
-                        <xsdValidation>false</xsdValidation>
+                        <xsdValidation>true</xsdValidation>
                         <caching>true</caching>
                     </inputParameters>
                 </configuration>

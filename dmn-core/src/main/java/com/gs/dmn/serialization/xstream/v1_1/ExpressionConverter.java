@@ -14,6 +14,7 @@ package com.gs.dmn.serialization.xstream.v1_1;
 
 import com.gs.dmn.ast.TExpression;
 import com.gs.dmn.ast.TUnaryTests;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
@@ -21,8 +22,8 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 public abstract class ExpressionConverter extends DMNElementConverter {
     public static final String TYPE_REF = "typeRef";
 
-    public ExpressionConverter(XStream xstream) {
-        super(xstream);
+    public ExpressionConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override
@@ -31,7 +32,7 @@ public abstract class ExpressionConverter extends DMNElementConverter {
         String typeRef = reader.getAttribute(TYPE_REF);
 
         if (typeRef != null) {
-            ((TExpression) parent).setTypeRef(MarshallingUtils.parseQNameString(typeRef));
+            ((TExpression) parent).setTypeRef(DMNBaseConverter.parseQNameString(typeRef));
         }
     }
 
@@ -41,7 +42,7 @@ public abstract class ExpressionConverter extends DMNElementConverter {
         TExpression e = (TExpression) parent;
 
         if (!(e instanceof TUnaryTests) && e.getTypeRef() != null) {
-            writer.addAttribute(TYPE_REF, MarshallingUtils.formatQName(e.getTypeRef()));
+            writer.addAttribute(TYPE_REF, DMNBaseConverter.formatQName(e.getTypeRef(), e, version));
         }
     }
 }

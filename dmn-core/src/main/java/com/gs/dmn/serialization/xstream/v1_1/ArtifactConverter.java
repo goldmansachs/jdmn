@@ -12,10 +12,11 @@
  */
 package com.gs.dmn.serialization.xstream.v1_1;
 
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 
 public abstract class ArtifactConverter extends DMNElementConverter {
-    public ArtifactConverter(XStream xstream) {
-        super(xstream);
+    public ArtifactConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 }

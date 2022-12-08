@@ -16,6 +16,7 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TLiteralExpression;
 import com.gs.dmn.ast.TOutputClause;
 import com.gs.dmn.ast.TUnaryTests;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -27,8 +28,8 @@ public class OutputClauseConverter extends DMNElementConverter {
     public static final String NAME = "name";
     public static final String TYPE_REF = "typeRef";
 
-    public OutputClauseConverter(XStream xstream) {
-        super(xstream);
+    public OutputClauseConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class OutputClauseConverter extends DMNElementConverter {
 
         oc.setName(name);
         if (typeRefValue != null) {
-            oc.setTypeRef(MarshallingUtils.parseQNameString(typeRefValue));
+            oc.setTypeRef(DMNBaseConverter.parseQNameString(typeRefValue));
         }
     }
 
@@ -73,9 +74,12 @@ public class OutputClauseConverter extends DMNElementConverter {
         super.writeChildren(writer, context, parent);
         TOutputClause oc = (TOutputClause) parent;
 
-        if (oc.getOutputValues() != null) writeChildrenNode(writer, context, oc.getOutputValues(), OUTPUT_VALUES);
-        if (oc.getDefaultOutputEntry() != null)
+        if (oc.getOutputValues() != null) {
+            writeChildrenNode(writer, context, oc.getOutputValues(), OUTPUT_VALUES);
+        }
+        if (oc.getDefaultOutputEntry() != null) {
             writeChildrenNode(writer, context, oc.getDefaultOutputEntry(), DEFAULT_OUTPUT_ENTRY);
+        }
     }
 
     @Override
@@ -87,7 +91,7 @@ public class OutputClauseConverter extends DMNElementConverter {
             writer.addAttribute(NAME, oc.getName());
         }
         if (oc.getTypeRef() != null) {
-            writer.addAttribute(TYPE_REF, MarshallingUtils.formatQName(oc.getTypeRef()));
+            writer.addAttribute(TYPE_REF, DMNBaseConverter.formatQName(oc.getTypeRef(), oc, version));
         }
     }
 }

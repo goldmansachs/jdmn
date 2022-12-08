@@ -13,6 +13,7 @@
 package com.gs.dmn.serialization.xstream.v1_1;
 
 import com.gs.dmn.ast.*;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -24,8 +25,8 @@ public class BusinessKnowledgeModelConverter extends DRGElementConverter {
     public static final String KNOWLEDGE_REQUIREMENT = "knowledgeRequirement";
     public static final String AUTHORITY_REQUIREMENT = "authorityRequirement";
 
-    public BusinessKnowledgeModelConverter(XStream xstream) {
-        super(xstream);
+    public BusinessKnowledgeModelConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

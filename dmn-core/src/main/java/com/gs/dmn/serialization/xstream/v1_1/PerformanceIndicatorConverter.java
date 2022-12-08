@@ -15,6 +15,7 @@ package com.gs.dmn.serialization.xstream.v1_1;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDMNElementReference;
 import com.gs.dmn.ast.TPerformanceIndicator;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -23,8 +24,8 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 public class PerformanceIndicatorConverter extends BusinessContextElementConverter {
     public static final String IMPACTING_DECISION = "impactingDecision";
 
-    public PerformanceIndicatorConverter(XStream xstream) {
-        super(xstream);
+    public PerformanceIndicatorConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

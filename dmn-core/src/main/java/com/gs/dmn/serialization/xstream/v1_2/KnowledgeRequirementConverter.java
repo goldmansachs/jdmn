@@ -15,6 +15,8 @@ package com.gs.dmn.serialization.xstream.v1_2;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDMNElementReference;
 import com.gs.dmn.ast.TKnowledgeRequirement;
+import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_1.DMNElementConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -23,8 +25,8 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 public class KnowledgeRequirementConverter extends DMNElementConverter {
     public static final String REQUIRED_KNOWLEDGE = "requiredKnowledge";
 
-    public KnowledgeRequirementConverter(XStream xstream) {
-        super(xstream);
+    public KnowledgeRequirementConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

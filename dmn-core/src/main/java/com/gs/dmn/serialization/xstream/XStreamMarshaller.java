@@ -267,14 +267,14 @@ public class XStreamMarshaller implements DMNMarshaller {
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             // Prohibit the use of all protocols by external entities:
             factory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            factory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+            factory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "file");
             Schema schema = factory.newSchema(schemaURL);
             Validator validator = schema.newValidator();
             validator.validate(source);
             return true;
         } catch (Exception e){
             LOGGER.error("Invalid DMN file: " + e.getMessage());
-            return false;
+            throw new DMNRuntimeException(e);
         }
     }
 }

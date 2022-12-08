@@ -15,6 +15,9 @@ package com.gs.dmn.serialization.xstream.v1_3;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.dmndi.DMNEdge;
 import com.gs.dmn.ast.dmndi.DMNLabel;
+import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_1.DMNBaseConverter;
+import com.gs.dmn.serialization.xstream.v1_2.EdgeConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -26,8 +29,8 @@ public class DMNEdgeConverter extends EdgeConverter {
     private static final String TARGET_ELEMENT = "targetElement";
     private static final String DMN_LABEL = "DMNLabel";
 
-    public DMNEdgeConverter(XStream xstream) {
-        super(xstream);
+    public DMNEdgeConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override
@@ -61,13 +64,13 @@ public class DMNEdgeConverter extends EdgeConverter {
         String targetElement = reader.getAttribute(TARGET_ELEMENT);
 
         if (dmnElementRef != null) {
-            concrete.setDmnElementRef(MarshallingUtils.parseQNameString(dmnElementRef));
+            concrete.setDmnElementRef(DMNBaseConverter.parseQNameString(dmnElementRef));
         }
         if (sourceElement != null) {
-            concrete.setSourceElement(MarshallingUtils.parseQNameString(sourceElement));
+            concrete.setSourceElement(DMNBaseConverter.parseQNameString(sourceElement));
         }
         if (targetElement != null) {
-            concrete.setTargetElement(MarshallingUtils.parseQNameString(targetElement));
+            concrete.setTargetElement(DMNBaseConverter.parseQNameString(targetElement));
         }
     }
 
@@ -88,13 +91,13 @@ public class DMNEdgeConverter extends EdgeConverter {
         DMNEdge concrete = (DMNEdge) parent;
 
         if (concrete.getDmnElementRef() != null) {
-            writer.addAttribute(DMN_ELEMENT_REF, MarshallingUtils.formatQName(concrete.getDmnElementRef(), concrete));
+            writer.addAttribute(DMN_ELEMENT_REF, DMNBaseConverter.formatQName(concrete.getDmnElementRef(), concrete, version));
         }
         if (concrete.getSourceElement() != null) {
-            writer.addAttribute(SOURCE_ELEMENT, MarshallingUtils.formatQName(concrete.getSourceElement(), concrete));
+            writer.addAttribute(SOURCE_ELEMENT, DMNBaseConverter.formatQName(concrete.getSourceElement(), concrete, version));
         }
         if (concrete.getTargetElement() != null) {
-            writer.addAttribute(TARGET_ELEMENT, MarshallingUtils.formatQName(concrete.getTargetElement(), concrete));
+            writer.addAttribute(TARGET_ELEMENT, DMNBaseConverter.formatQName(concrete.getTargetElement(), concrete, version));
         }
     }
 }

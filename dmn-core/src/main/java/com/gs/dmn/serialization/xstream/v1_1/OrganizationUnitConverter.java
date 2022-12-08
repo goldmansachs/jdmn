@@ -15,6 +15,7 @@ package com.gs.dmn.serialization.xstream.v1_1;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDMNElementReference;
 import com.gs.dmn.ast.TOrganizationUnit;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -24,8 +25,8 @@ public class OrganizationUnitConverter extends BusinessContextElementConverter {
     public static final String DECISION_OWNED = "decisionOwned";
     public static final String DECISION_MADE = "decisionMade";
 
-    public OrganizationUnitConverter(XStream xstream) {
-        super(xstream);
+    public OrganizationUnitConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

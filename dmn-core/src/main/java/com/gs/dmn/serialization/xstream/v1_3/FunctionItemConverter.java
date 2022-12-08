@@ -15,6 +15,9 @@ package com.gs.dmn.serialization.xstream.v1_3;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TFunctionItem;
 import com.gs.dmn.ast.TInformationItem;
+import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_1.DMNBaseConverter;
+import com.gs.dmn.serialization.xstream.v1_1.DMNElementConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -24,8 +27,8 @@ public class FunctionItemConverter extends DMNElementConverter {
     private static final String OUTPUT_TYPE_REF = "outputTypeRef";
     private static final String PARAMETERS = "parameters";
 
-    public FunctionItemConverter(XStream xstream) {
-        super(xstream);
+    public FunctionItemConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override
@@ -55,7 +58,7 @@ public class FunctionItemConverter extends DMNElementConverter {
         TFunctionItem ii = (TFunctionItem) parent;
 
         String typeRef = reader.getAttribute(OUTPUT_TYPE_REF);
-        ii.setOutputTypeRef(MarshallingUtils.parseQNameString(typeRef));
+        ii.setOutputTypeRef(DMNBaseConverter.parseQNameString(typeRef));
     }
 
     @Override
@@ -75,7 +78,7 @@ public class FunctionItemConverter extends DMNElementConverter {
         TFunctionItem ii = (TFunctionItem) parent;
 
         if (ii.getOutputTypeRef() != null) {
-            writer.addAttribute(OUTPUT_TYPE_REF, MarshallingUtils.formatQName(ii.getOutputTypeRef(), ii));
+            writer.addAttribute(OUTPUT_TYPE_REF, DMNBaseConverter.formatQName(ii.getOutputTypeRef(), ii, version));
         }
     }
 

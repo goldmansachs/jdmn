@@ -13,6 +13,8 @@
 package com.gs.dmn.serialization.xstream.v1_2;
 
 import com.gs.dmn.ast.*;
+import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_1.ExpressionConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -28,8 +30,8 @@ public class DecisionTableConverter extends ExpressionConverter {
     public static final String OUTPUT_LABEL = "outputLabel";
     public static final String ANNOTATION = "annotation";
 
-    public DecisionTableConverter(XStream xstream) {
-        super(xstream);
+    public DecisionTableConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

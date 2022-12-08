@@ -16,6 +16,7 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TInformationItem;
 import com.gs.dmn.ast.TList;
 import com.gs.dmn.ast.TRelation;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -26,8 +27,8 @@ public class RelationConverter extends ExpressionConverter {
     public static final String ROW = "row";
     public static final String COLUMN = "column";
 
-    public RelationConverter(XStream xstream) {
-        super(xstream);
+    public RelationConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

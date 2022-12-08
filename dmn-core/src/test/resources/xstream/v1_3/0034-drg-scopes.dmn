@@ -150,7 +150,7 @@
     </extensionElements>
     <itemDefinition id="_Vvl3APRQEeeUEfOdtC13fQ" name="TypeDecisionA1">
         <itemComponent id="_fMLGMPRQEeeUEfOdtC13fQ" name="resolve A">
-            <typeRef>feel:string</typeRef>
+            <typeRef>feel.string</typeRef>
         </itemComponent>
     </itemDefinition>
     <itemDefinition id="_Zp-B4PRQEeeUEfOdtC13fQ" name="TypeDecisionA2.x">
@@ -168,10 +168,10 @@
     </itemDefinition>
     <itemDefinition id="_dGucoPRQEeeUEfOdtC13fQ" name="TypeDecisionB1">
         <itemComponent id="_CJ7pkPRREeeUEfOdtC13fQ" name="resolve B">
-            <typeRef>feel:string</typeRef>
+            <typeRef>feel.string</typeRef>
         </itemComponent>
         <itemComponent id="_Rv7fUPRXEeeUEfOdtC13fQ" name="resolve A">
-            <typeRef>feel:string</typeRef>
+            <typeRef>feel.string</typeRef>
         </itemComponent>
     </itemDefinition>
     <itemDefinition id="_xac0gPRQEeeUEfOdtC13fQ" name="TypeDecisionB2.x">
@@ -192,7 +192,7 @@
     </itemDefinition>
     <itemDefinition id="_11IQEPRQEeeUEfOdtC13fQ" name="TypeDecisionC1">
         <itemComponent id="_8-PyYPRREeeUEfOdtC13fQ" name="resolve C">
-            <typeRef>feel:string</typeRef>
+            <typeRef>feel.string</typeRef>
         </itemComponent>
         <itemComponent id="_9kn14PRREeeUEfOdtC13fQ" name="resolve A 3">
             <typeRef>TypeDecisionA3</typeRef>
@@ -203,7 +203,7 @@
     </itemDefinition>
     <itemDefinition id="_5G3GkPRQEeeUEfOdtC13fQ" name="TypeDecisionC4">
         <itemComponent id="_WmQuYPRSEeeUEfOdtC13fQ" name="resolve C 3">
-            <typeRef>feel:string</typeRef>
+            <typeRef>feel.string</typeRef>
         </itemComponent>
     </itemDefinition>
     <decision id="_DMwGMPQJEeecaNY7kk20yA" name="decision A 1">
@@ -216,7 +216,7 @@
         </informationRequirement>
         <context id="_a-zwsPQKEeecaNY7kk20yA">
             <contextEntry>
-                <variable id="_bAS-d_QKEeecaNY7kk20yA" name="resolve A" typeRef="feel:string"/>
+                <variable id="_bAS-d_QKEeecaNY7kk20yA" name="resolve A" typeRef="feel.string"/>
                 <literalExpression id="_bAS-ePQKEeecaNY7kk20yA">
                     <text>A</text>
                 </literalExpression>
@@ -236,13 +236,13 @@
         </informationRequirement>
         <context id="_31avoPQKEeecaNY7kk20yA">
             <contextEntry>
-                <variable id="_3259Z_QKEeecaNY7kk20yA" name="resolve B" typeRef="feel:string"/>
+                <variable id="_3259Z_QKEeecaNY7kk20yA" name="resolve B" typeRef="feel.string"/>
                 <literalExpression id="_3259aPQKEeecaNY7kk20yA">
                     <text>B</text>
                 </literalExpression>
             </contextEntry>
             <contextEntry>
-                <variable id="_OjGW8PRXEeeUEfOdtC13fQ" name="resolve A" typeRef="feel:string"/>
+                <variable id="_OjGW8PRXEeeUEfOdtC13fQ" name="resolve A" typeRef="feel.string"/>
                 <literalExpression id="_OjGW8fRXEeeUEfOdtC13fQ">
                     <text>A</text>
                 </literalExpression>
@@ -394,7 +394,7 @@
         </informationRequirement>
         <context id="_L3HjYPQLEeecaNY7kk20yA">
             <contextEntry>
-                <variable id="_L4mxIfQLEeecaNY7kk20yA" name="resolve C" typeRef="feel:string"/>
+                <variable id="_L4mxIfQLEeecaNY7kk20yA" name="resolve C" typeRef="feel.string"/>
                 <literalExpression id="_L4mxIvQLEeecaNY7kk20yA">
                     <text>C</text>
                 </literalExpression>
@@ -417,7 +417,7 @@
         <extensionElements>
             <layout:container id="_s3udkPQLEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_XsZaMPQJEeecaNY7kk20yA"/>
         </extensionElements>
-        <variable id="_9uAJcfRTEeeUEfOdtC13fQ" name="decision C 3" typeRef="feel:string"/>
+        <variable id="_9uAJcfRTEeeUEfOdtC13fQ" name="decision C 3" typeRef="feel.string"/>
         <informationRequirement>
             <requiredDecision href="#_Zf4KAPQJEeecaNY7kk20yA"/>
         </informationRequirement>
@@ -429,7 +429,7 @@
                 <text>BKM II</text>
             </literalExpression>
             <binding>
-                <parameter id="_tlgJpvQLEeecaNY7kk20yA" name="param" typeRef="feel:string"/>
+                <parameter id="_tlgJpvQLEeecaNY7kk20yA" name="param" typeRef="feel.string"/>
                 <literalExpression id="_tlgJp_QLEeecaNY7kk20yA">
                     <text>&quot;decision C 3&quot;</text>
                 </literalExpression>
@@ -440,7 +440,7 @@
         <extensionElements>
             <layout:container id="_hzhwUPQLEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_Zf4KAPQJEeecaNY7kk20yA"/>
         </extensionElements>
-        <variable id="_7jmHYfRTEeeUEfOdtC13fQ" name="decision C 2" typeRef="feel:string"/>
+        <variable id="_7jmHYfRTEeeUEfOdtC13fQ" name="decision C 2" typeRef="feel.string"/>
         <informationRequirement>
             <requiredDecision href="#_OWzj0PQJEeecaNY7kk20yA"/>
         </informationRequirement>
@@ -452,7 +452,7 @@
                 <text>BKM I</text>
             </literalExpression>
             <binding>
-                <parameter id="_lWdEivQLEeecaNY7kk20yA" name="param" typeRef="feel:string"/>
+                <parameter id="_lWdEivQLEeecaNY7kk20yA" name="param" typeRef="feel.string"/>
                 <literalExpression id="_lWdEi_QLEeecaNY7kk20yA">
                     <text>&quot;decision C 2&quot;</text>
                 </literalExpression>
@@ -469,7 +469,7 @@
         </informationRequirement>
         <context id="_1pWOwPQMEeecaNY7kk20yA">
             <contextEntry>
-                <variable id="_4nGZbPQMEeecaNY7kk20yA" name="resolve C 3" typeRef="feel:string"/>
+                <variable id="_4nGZbPQMEeecaNY7kk20yA" name="resolve C 3" typeRef="feel.string"/>
                 <literalExpression id="_4nGZbvQMEeecaNY7kk20yA">
                     <text>decision C 3</text>
                 </literalExpression>
@@ -481,8 +481,8 @@
             <layout:container id="_3_-kYPQLEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_TCzY4PQJEeecaNY7kk20yA"/>
         </extensionElements>
         <encapsulatedLogic id="_3_-kYfQLEeecaNY7kk20yA">
-            <formalParameter id="_5F-jIPQLEeecaNY7kk20yA" name="param" typeRef="feel:string"/>
-            <literalExpression id="_3_-kYvQLEeecaNY7kk20yA" typeRef="feel:string">
+            <formalParameter id="_5F-jIPQLEeecaNY7kk20yA" name="param" typeRef="feel.string"/>
+            <literalExpression id="_3_-kYvQLEeecaNY7kk20yA" typeRef="feel.string">
                 <text>&quot;BKM I&quot; + &quot; # &quot; + BKM II(param)</text>
             </literalExpression>
         </encapsulatedLogic>
@@ -495,8 +495,8 @@
             <layout:container id="_68UZsPQLEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_UL_1kPQJEeecaNY7kk20yA"/>
         </extensionElements>
         <encapsulatedLogic id="_68UZsfQLEeecaNY7kk20yA">
-            <formalParameter id="_7lAxYPQLEeecaNY7kk20yA" name="param" typeRef="feel:string"/>
-            <literalExpression id="_68UZsvQLEeecaNY7kk20yA" typeRef="feel:string">
+            <formalParameter id="_7lAxYPQLEeecaNY7kk20yA" name="param" typeRef="feel.string"/>
+            <literalExpression id="_68UZsvQLEeecaNY7kk20yA" typeRef="feel.string">
                 <text>&quot;BKM II&quot; + &quot; # &quot; + BKM III(param) + &quot; # &quot; + BKM IV(param)</text>
             </literalExpression>
         </encapsulatedLogic>
@@ -512,8 +512,8 @@
             <layout:container id="_MvwmIPQMEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_UgthUPQJEeecaNY7kk20yA"/>
         </extensionElements>
         <encapsulatedLogic id="_MvwmIfQMEeecaNY7kk20yA">
-            <formalParameter id="_N8gGEPQMEeecaNY7kk20yA" name="param" typeRef="feel:string"/>
-            <literalExpression id="_MvwmIvQMEeecaNY7kk20yA" typeRef="feel:string">
+            <formalParameter id="_N8gGEPQMEeecaNY7kk20yA" name="param" typeRef="feel.string"/>
+            <literalExpression id="_MvwmIvQMEeecaNY7kk20yA" typeRef="feel.string">
                 <text>&quot;BKM IV&quot; + &quot; # &quot; + BKM III(param)</text>
             </literalExpression>
         </encapsulatedLogic>
@@ -526,19 +526,19 @@
             <layout:container id="_HJ1fcPQMEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_U6fTQPQJEeecaNY7kk20yA"/>
         </extensionElements>
         <encapsulatedLogic id="_HJ1fcfQMEeecaNY7kk20yA">
-            <formalParameter id="_H52AEPQMEeecaNY7kk20yA" name="param" typeRef="feel:string"/>
-            <literalExpression id="_HJ1fcvQMEeecaNY7kk20yA" typeRef="feel:string">
+            <formalParameter id="_H52AEPQMEeecaNY7kk20yA" name="param" typeRef="feel.string"/>
+            <literalExpression id="_HJ1fcvQMEeecaNY7kk20yA" typeRef="feel.string">
                 <text>&quot;BKM III&quot; + &quot; # &quot; + param</text>
             </literalExpression>
         </encapsulatedLogic>
     </businessKnowledgeModel>
     <inputData id="_9z0SoPQIEeecaNY7kk20yA" name="A">
-        <variable id="_twf9MPROEeeUEfOdtC13fQ" name="A" typeRef="feel:string"/>
+        <variable id="_twf9MPROEeeUEfOdtC13fQ" name="A" typeRef="feel.string"/>
     </inputData>
     <inputData id="_AV-tYPQJEeecaNY7kk20yA" name="B">
-        <variable id="_vFQJofROEeeUEfOdtC13fQ" name="B" typeRef="feel:string"/>
+        <variable id="_vFQJofROEeeUEfOdtC13fQ" name="B" typeRef="feel.string"/>
     </inputData>
     <inputData id="_3kDvUPQJEeecaNY7kk20yA" name="C">
-        <variable id="_fPmDEfRPEeeUEfOdtC13fQ" name="C" typeRef="feel:string"/>
+        <variable id="_fPmDEfRPEeeUEfOdtC13fQ" name="C" typeRef="feel.string"/>
     </inputData>
 </definitions>

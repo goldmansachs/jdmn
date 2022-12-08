@@ -16,6 +16,7 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDecisionRule;
 import com.gs.dmn.ast.TLiteralExpression;
 import com.gs.dmn.ast.TUnaryTests;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -25,8 +26,8 @@ public class DecisionRuleConverter extends DMNElementConverter {
     public static final String OUTPUT_ENTRY = "outputEntry";
     public static final String INPUT_ENTRY = "inputEntry";
 
-    public DecisionRuleConverter(XStream xstream) {
-        super(xstream);
+    public DecisionRuleConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

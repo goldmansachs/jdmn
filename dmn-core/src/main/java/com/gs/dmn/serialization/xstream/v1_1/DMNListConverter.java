@@ -15,14 +15,15 @@ package com.gs.dmn.serialization.xstream.v1_1;
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TExpression;
 import com.gs.dmn.ast.TList;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 public class DMNListConverter extends ExpressionConverter {
-    public DMNListConverter(XStream xstream) {
-        super(xstream);
+    public DMNListConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override
@@ -59,7 +60,7 @@ public class DMNListConverter extends ExpressionConverter {
         TList list = (TList) parent;
 
         for (TExpression e : list.getExpression()) {
-            writeChildrenNode(writer, context, e, MarshallingUtils.defineExpressionNodeName(e));
+            writeChildrenNode(writer, context, e, defineExpressionNodeName(e));
         }
     }
 

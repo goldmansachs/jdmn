@@ -14,6 +14,7 @@ package com.gs.dmn.serialization.xstream.v1_1;
 
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TInformationItem;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -22,8 +23,8 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 public class InformationItemConverter extends NamedElementConverter {
     private static final String TYPE_REF = "typeRef";
 
-    public InformationItemConverter(XStream xstream) {
-        super(xstream);
+    public InformationItemConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override
@@ -47,7 +48,7 @@ public class InformationItemConverter extends NamedElementConverter {
         TInformationItem ii = (TInformationItem) parent;
 
         String typeRef = reader.getAttribute(TYPE_REF);
-        ii.setTypeRef(MarshallingUtils.parseQNameString(typeRef));
+        ii.setTypeRef(DMNBaseConverter.parseQNameString(typeRef));
     }
 
     @Override
@@ -61,7 +62,7 @@ public class InformationItemConverter extends NamedElementConverter {
         TInformationItem ii = (TInformationItem) parent;
 
         if (ii.getTypeRef() != null) {
-            writer.addAttribute(TYPE_REF, MarshallingUtils.formatQName(ii.getTypeRef()));
+            writer.addAttribute(TYPE_REF, DMNBaseConverter.formatQName(ii.getTypeRef(), ii, version));
         }
     }
 }

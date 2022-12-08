@@ -16,6 +16,9 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TContextEntry;
 import com.gs.dmn.ast.TExpression;
 import com.gs.dmn.ast.TInformationItem;
+import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_1.DMNBaseConverter;
+import com.gs.dmn.serialization.xstream.v1_1.DMNElementConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -25,8 +28,8 @@ public class ContextEntryConverter extends DMNElementConverter {
     public static final String EXPRESSION = "expression";
     public static final String VARIABLE = "variable";
 
-    public ContextEntryConverter(XStream xstream) {
-        super(xstream);
+    public ContextEntryConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override
@@ -67,7 +70,7 @@ public class ContextEntryConverter extends DMNElementConverter {
         if (ce.getVariable() != null) {
             writeChildrenNode(writer, context, ce.getVariable(), VARIABLE);
         }
-        writeChildrenNode(writer, context, ce.getExpression(), MarshallingUtils.defineExpressionNodeName(ce.getExpression()));
+        writeChildrenNode(writer, context, ce.getExpression(), defineExpressionNodeName(ce.getExpression()));
     }
 
     @Override

@@ -13,26 +13,28 @@
 package com.gs.dmn.serialization.xstream.v1_1;
 
 import com.gs.dmn.ast.*;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 public class DefinitionsConverter extends NamedElementConverter {
-    public static final String IMPORT = "import";
-    public static final String ITEM_DEFINITION = "itemDefinition";
-    public static final String DRG_ELEMENT = "drgElement";
-    public static final String ARTIFACT = "artifact";
-    public static final String ELEMENT_COLLECTION = "elementCollection";
-    public static final String BUSINESS_CONTEXT_ELEMENT = "businessContextElement";
     private static final String EXPRESSION_LANGUAGE = "expressionLanguage";
     private static final String TYPE_LANGUAGE = "typeLanguage";
     private static final String NAMESPACE = "namespace";
     private static final String EXPORTER = "exporter";
     private static final String EXPORTER_VERSION = "exporterVersion";
 
-    public DefinitionsConverter(XStream xstream) {
-        super(xstream);
+    public static final String IMPORT = "import";
+    public static final String ITEM_DEFINITION = "itemDefinition";
+    public static final String DRG_ELEMENT = "drgElement";
+    public static final String ARTIFACT = "artifact";
+    public static final String ELEMENT_COLLECTION = "elementCollection";
+    public static final String BUSINESS_CONTEXT_ELEMENT = "businessContextElement";
+
+    public DefinitionsConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

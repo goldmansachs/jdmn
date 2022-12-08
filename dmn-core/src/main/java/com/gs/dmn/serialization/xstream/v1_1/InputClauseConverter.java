@@ -16,6 +16,7 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TInputClause;
 import com.gs.dmn.ast.TLiteralExpression;
 import com.gs.dmn.ast.TUnaryTests;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -25,8 +26,8 @@ public class InputClauseConverter extends DMNElementConverter {
     public static final String INPUT_VALUES = "inputValues";
     public static final String INPUT_EXPRESSION = "inputExpression";
 
-    public InputClauseConverter(XStream xstream) {
-        super(xstream);
+    public InputClauseConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

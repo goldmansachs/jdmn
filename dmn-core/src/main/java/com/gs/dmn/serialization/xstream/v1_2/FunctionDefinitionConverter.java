@@ -13,6 +13,9 @@
 package com.gs.dmn.serialization.xstream.v1_2;
 
 import com.gs.dmn.ast.*;
+import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_1.DMNBaseConverter;
+import com.gs.dmn.serialization.xstream.v1_1.ExpressionConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -23,8 +26,8 @@ public class FunctionDefinitionConverter extends ExpressionConverter {
     public static final String EXPRESSION = "expression";
     public static final String FORMAL_PARAMETER = "formalParameter";
 
-    public FunctionDefinitionConverter(XStream xstream) {
-        super(xstream);
+    public FunctionDefinitionConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override
@@ -71,7 +74,7 @@ public class FunctionDefinitionConverter extends ExpressionConverter {
             writeChildrenNode(writer, context, fparam, FORMAL_PARAMETER);
         }
         if (fd.getExpression() != null)
-            writeChildrenNode(writer, context, fd.getExpression(), MarshallingUtils.defineExpressionNodeName(fd.getExpression()));
+            writeChildrenNode(writer, context, fd.getExpression(), defineExpressionNodeName(fd.getExpression()));
     }
 
     @Override

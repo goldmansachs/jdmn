@@ -12,10 +12,11 @@
  */
 package com.gs.dmn.tck.serialization.xstream.v1;
 
+import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.TCKVersion;
 import com.gs.dmn.serialization.xstream.*;
-import com.gs.dmn.serialization.xstream.v1_3.ExtensionElementsConverter;
-import com.gs.dmn.serialization.xstream.v1_3.QNameConverter;
+import com.gs.dmn.serialization.xstream.v1_1.ExtensionElementsConverter;
+import com.gs.dmn.serialization.xstream.v1_1.QNameConverter;
 import com.gs.dmn.tck.ast.*;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.AbstractPullReader;
@@ -209,8 +210,8 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
         xStream.registerConverter(new ComponentConverter(xStream));
         xStream.registerConverter(new LabelsConverter(xStream));
 
-        xStream.registerConverter(new QNameConverter());
-        xStream.registerConverter(new ExtensionElementsConverter(xStream, extensionRegisters));
+        xStream.registerConverter(new QNameConverter(DMNVersion.DMN_13));
+        xStream.registerConverter(new ExtensionElementsConverter(xStream, DMNVersion.DMN_13, extensionRegisters));
         xStream.registerConverter(new AnySimpleTypeConverter(xStream));
 
         for (DMNExtensionRegister extensionRegister : extensionRegisters) {

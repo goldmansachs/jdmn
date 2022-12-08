@@ -16,6 +16,7 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TBinding;
 import com.gs.dmn.ast.TExpression;
 import com.gs.dmn.ast.TInvocation;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -25,8 +26,8 @@ public class InvocationConverter extends ExpressionConverter {
     public static final String BINDING = "binding";
     public static final String EXPRESSION = "expression";
 
-    public InvocationConverter(XStream xstream) {
-        super(xstream);
+    public InvocationConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override
@@ -62,8 +63,9 @@ public class InvocationConverter extends ExpressionConverter {
         super.writeChildren(writer, context, parent);
         TInvocation i = (TInvocation) parent;
 
-        if (i.getExpression() != null)
-            writeChildrenNode(writer, context, i.getExpression(), MarshallingUtils.defineExpressionNodeName(i.getExpression()));
+        if (i.getExpression() != null) {
+            writeChildrenNode(writer, context, i.getExpression(), defineExpressionNodeName(i.getExpression()));
+        }
         for (TBinding b : i.getBinding()) {
             writeChildrenNode(writer, context, b, BINDING);
         }

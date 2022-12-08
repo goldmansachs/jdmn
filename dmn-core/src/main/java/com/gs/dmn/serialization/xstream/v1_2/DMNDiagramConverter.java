@@ -16,6 +16,7 @@ import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.dmndi.DMNDiagram;
 import com.gs.dmn.ast.dmndi.DiagramElement;
 import com.gs.dmn.ast.dmndi.Dimension;
+import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -24,8 +25,8 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 public class DMNDiagramConverter extends DiagramConverter {
     private static final String SIZE = "Size";
 
-    public DMNDiagramConverter(XStream xstream) {
-        super(xstream);
+    public DMNDiagramConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override

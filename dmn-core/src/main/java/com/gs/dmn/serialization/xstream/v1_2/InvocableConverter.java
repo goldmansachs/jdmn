@@ -14,6 +14,8 @@ package com.gs.dmn.serialization.xstream.v1_2;
 
 import com.gs.dmn.ast.TInformationItem;
 import com.gs.dmn.ast.TInvocable;
+import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.xstream.v1_1.DRGElementConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -22,8 +24,8 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 public abstract class InvocableConverter extends DRGElementConverter {
     public static final String VARIABLE = "variable";
 
-    public InvocableConverter(XStream xstream) {
-        super(xstream);
+    public InvocableConverter(XStream xstream, DMNVersion version) {
+        super(xstream, version);
     }
 
     @Override
