@@ -1,0 +1,15 @@
+DMN 1.1
+
+TDefinitions.<xsd:attribute name="expressionLanguage" type="xsd:anyURI" use="optional" default="http://www.omg.org/spec/FEEL/20140401"/>
+TDefinitions.<xsd:attribute name="typeLanguage" type="xsd:anyURI" use="optional" default="http://www.omg.org/spec/FEEL/20140401"/>
+TItemDefinition.<xsd:attribute name="isCollection" type="xsd:boolean" use="optional" default="false"/>
+TDecisionTable.<xsd:attribute name="hitPolicy" type="tHitPolicy" use="optional" default="UNIQUE"/>
+TDecisionTable.<xsd:attribute name="preferredOrientation" type="tDecisionTableOrientation" use="optional" default="Rule-as-Row"/>
+TTextAnnotation.<xsd:attribute name="textFormat" type="xsd:string" default="text/plain"/>
+TAssociation.<xsd:attribute name="associationDirection" type="tAssociationDirection" default="None"/>
+
+DMN 1.2
+TFunctionDefinition.<xsd:attribute name="kind" type="tFunctionKind" default="FEEL"/>
+DMNShape.<xsd:attribute name="isCollapsed" type="xsd:boolean" use="optional" default="false"/>
+
+DMN 1.3
