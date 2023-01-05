@@ -34,10 +34,10 @@ public class PositionalSignavioBuiltinFunctionsResolutionTest extends AbstractSi
         testFunctionInvocation("count(null)", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
         testFunctionInvocation("round(null, null)", "BuiltinFunctionType(FormalParameter(number, number, false, false), FormalParameter(digits, number, false, false), number)", false);
         testFunctionInvocation("round(" + number + ", " + number + ")", "BuiltinFunctionType(FormalParameter(number, number, false, false), FormalParameter(digits, number, false, false), number)", false);
-        testFunctionInvocation("ceiling(null)", "BuiltinFunctionType(FormalParameter(n, number, false, false), number)", false);
-        testFunctionInvocation("ceiling(" + number + ")", "BuiltinFunctionType(FormalParameter(n, number, false, false), number)", false);
-        testFunctionInvocation("floor(null)", "BuiltinFunctionType(FormalParameter(n, number, false, false), number)", false);
-        testFunctionInvocation("floor(" + number + ")", "BuiltinFunctionType(FormalParameter(n, number, false, false), number)", false);
+        testFunctionInvocation("ceiling(null)", "BuiltinFunctionType(FormalParameter(number, number, false, false), number)", false);
+        testFunctionInvocation("ceiling(" + number + ")", "BuiltinFunctionType(FormalParameter(number, number, false, false), number)", false);
+        testFunctionInvocation("floor(null)", "BuiltinFunctionType(FormalParameter(number, number, false, false), number)", false);
+        testFunctionInvocation("floor(" + number + ")", "BuiltinFunctionType(FormalParameter(number, number, false, false), number)", false);
         testFunctionInvocation("integer(null)", "BuiltinFunctionType(FormalParameter(number, number, false, false), number)", false);
         testFunctionInvocation("integer(" + number + ")", "BuiltinFunctionType(FormalParameter(number, number, false, false), number)", false);
         testFunctionInvocation("modulo(null, null)", "BuiltinFunctionType(FormalParameter(dividend, number, false, false), FormalParameter(divisor, number, false, false), number)", false);
@@ -75,15 +75,15 @@ public class PositionalSignavioBuiltinFunctionsResolutionTest extends AbstractSi
         testFunctionInvocation("hour(null)", "BuiltinFunctionType(FormalParameter(datetime, time, false, false), number)", false);
         testFunctionInvocation("hour(" + date + ")", "BuiltinFunctionType(FormalParameter(datetime, date and time, false, false), number)", false);
         testFunctionInvocation("hour(" + dateTime + ")", "BuiltinFunctionType(FormalParameter(datetime, date and time, false, false), number)", false);
-        testFunctionInvocation("hourDiff(null, null)", "BuiltinFunctionType(FormalParameter(datetime1, time, false, false), FormalParameter(datetime2, time, false, false), number)", false);
-        testFunctionInvocation("hourDiff(" + time + ", " + time + ")", "BuiltinFunctionType(FormalParameter(datetime1, time, false, false), FormalParameter(datetime2, time, false, false), number)", false);
-        testFunctionInvocation("hourDiff(" + dateTime + ", " + dateTime + ")", "BuiltinFunctionType(FormalParameter(datetime1, date and time, false, false), FormalParameter(datetime2, date and time, false, false), number)", false);
+        testFunctionInvocation("hourDiff(null, null)", "BuiltinFunctionType(FormalParameter(datetime1, temporal, false, false), FormalParameter(datetime2, temporal, false, false), number)", false);
+        testFunctionInvocation("hourDiff(" + time + ", " + time + ")", "BuiltinFunctionType(FormalParameter(datetime1, temporal, false, false), FormalParameter(datetime2, temporal, false, false), number)", false);
+        testFunctionInvocation("hourDiff(" + dateTime + ", " + dateTime + ")", "BuiltinFunctionType(FormalParameter(datetime1, temporal, false, false), FormalParameter(datetime2, temporal, false, false), number)", false);
         testFunctionInvocation("minute(null)", "BuiltinFunctionType(FormalParameter(datetime, time, false, false), number)", false);
         testFunctionInvocation("minute(" + time + ")", "BuiltinFunctionType(FormalParameter(datetime, time, false, false), number)", false);
         testFunctionInvocation("minute(" + dateTime + ")", "BuiltinFunctionType(FormalParameter(datetime, date and time, false, false), number)", false);
-        testFunctionInvocation("minutesDiff(null, null)", "BuiltinFunctionType(FormalParameter(datetime1, time, false, false), FormalParameter(datetime2, time, false, false), number)", false);
-        testFunctionInvocation("minutesDiff(" + time + ", " + time + ")", "BuiltinFunctionType(FormalParameter(datetime1, time, false, false), FormalParameter(datetime2, time, false, false), number)", false);
-        testFunctionInvocation("minutesDiff(" + dateTime + ", " + dateTime + ")", "BuiltinFunctionType(FormalParameter(datetime1, date and time, false, false), FormalParameter(datetime2, date and time, false, false), number)", false);
+        testFunctionInvocation("minutesDiff(null, null)", "BuiltinFunctionType(FormalParameter(datetime1, temporal, false, false), FormalParameter(datetime2, temporal, false, false), number)", false);
+        testFunctionInvocation("minutesDiff(" + time + ", " + time + ")", "BuiltinFunctionType(FormalParameter(datetime1, temporal, false, false), FormalParameter(datetime2, temporal, false, false), number)", false);
+        testFunctionInvocation("minutesDiff(" + dateTime + ", " + dateTime + ")", "BuiltinFunctionType(FormalParameter(datetime1, temporal, false, false), FormalParameter(datetime2, temporal, false, false), number)", false);
         testFunctionInvocation("month(null)", "BuiltinFunctionType(FormalParameter(datetime, date, false, false), number)", false);
         testFunctionInvocation("month(" + date + ")", "BuiltinFunctionType(FormalParameter(datetime, date, false, false), number)", false);
         testFunctionInvocation("month(" + dateTime + ")", "BuiltinFunctionType(FormalParameter(datetime, date and time, false, false), number)", false);
@@ -192,5 +192,4 @@ public class PositionalSignavioBuiltinFunctionsResolutionTest extends AbstractSi
         testFunctionInvocation("not(null)", "LogicNegation", false);
         testFunctionInvocation("not(true)", "LogicNegation", false);
     }
-
 }

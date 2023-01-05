@@ -20,7 +20,7 @@ import java.util.Map;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 
-public class DateTimeType extends ComparableDataType {
+public class DateTimeType extends TemporalType {
     // Main type
     public static final DateTimeType DATE_AND_TIME = new DateTimeType("date and time");
 
@@ -54,7 +54,7 @@ public class DateTimeType extends ComparableDataType {
 
     @Override
     public boolean conformsTo(Type other) {
-        return equivalentTo(other) || other == COMPARABLE;
+        return equivalentTo(other) || other == TEMPORAL || other == COMPARABLE;
     }
 
     public DateTimeType(String datetime) {
