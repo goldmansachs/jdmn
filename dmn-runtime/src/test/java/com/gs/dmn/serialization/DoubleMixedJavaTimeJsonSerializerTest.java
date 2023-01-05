@@ -13,7 +13,7 @@
 package com.gs.dmn.serialization;
 
 import com.gs.dmn.feel.lib.DoubleMixedJavaTimeFEELLib;
-import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.runtime.Pair;
 
 import javax.xml.datatype.Duration;
@@ -27,7 +27,7 @@ import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
 
 public class DoubleMixedJavaTimeJsonSerializerTest extends AbstractJavaTimeJsonSerializerTest<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override
-    protected FEELLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> makeFEELLib() {
+    protected StandardFEELLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> makeFEELLib() {
         return new DoubleMixedJavaTimeFEELLib();
     }
 

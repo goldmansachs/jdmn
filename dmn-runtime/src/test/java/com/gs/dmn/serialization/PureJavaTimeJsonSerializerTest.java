@@ -13,8 +13,8 @@
 package com.gs.dmn.serialization;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.PureJavaTimeFEELLib;
+import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.runtime.Pair;
 
 import java.math.BigDecimal;
@@ -31,7 +31,7 @@ import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
 
 public class PureJavaTimeJsonSerializerTest extends AbstractJavaTimeJsonSerializerTest<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
     @Override
-    protected FEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> makeFEELLib() {
+    protected StandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> makeFEELLib() {
         return new PureJavaTimeFEELLib();
     }
 

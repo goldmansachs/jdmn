@@ -12,9 +12,9 @@
  */
 package com.gs.dmn.signavio.feel.lib;
 
-import com.gs.dmn.feel.lib.DoubleMixedJavaTimeFEELLib;
-import com.gs.dmn.feel.lib.StandardFEELLib;
+import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
+import com.gs.dmn.feel.lib.type.bool.DefaultBooleanLib;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.context.ContextType;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
@@ -26,10 +26,9 @@ import com.gs.dmn.feel.lib.type.numeric.NumericType;
 import com.gs.dmn.feel.lib.type.range.DefaultRangeType;
 import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringType;
-import com.gs.dmn.feel.lib.type.time.DateTimeType;
-import com.gs.dmn.feel.lib.type.time.DateType;
-import com.gs.dmn.feel.lib.type.time.DurationType;
-import com.gs.dmn.feel.lib.type.time.TimeType;
+import com.gs.dmn.feel.lib.type.time.*;
+import com.gs.dmn.feel.lib.type.time.mixed.MixedDurationLib;
+import com.gs.dmn.signavio.feel.lib.type.list.DefaultSignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DoubleSignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DoubleSignavioNumericType;
@@ -62,15 +61,14 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
     private static final RangeType RANGE_TYPE = new DefaultRangeType();
     private static final FunctionType FUNCTION_TYPE = new DefaultFunctionType();
 
-    private static final DoubleMixedJavaTimeFEELLib FEEL_LIB = new DoubleMixedJavaTimeFEELLib();
     private static final SignavioNumberLib<Double> NUMBER_LIB = new DoubleSignavioNumberLib();
     private static final SignavioStringLib STRING_LIB = new DefaultSignavioStringLib();
+    private static final BooleanLib BOOLEAN_LIB = new DefaultBooleanLib();
     private static final SignavioDateTimeLib DATE_TIME_LIB = new MixedSignavioDateTimeLib();
-    private static final SignavioListLib LIST_LIB = new SignavioListLib();
+    private static final DurationLib<LocalDate, Duration> DURATION_LIB = new MixedDurationLib();
+    private static final SignavioListLib LIST_LIB = new DefaultSignavioListLib();
 
     public static final DoubleMixedJavaTimeSignavioLib INSTANCE = new DoubleMixedJavaTimeSignavioLib();
-
-    private final DoubleMixedJavaTimeFEELLib mixedFeelLib;
 
     public DoubleMixedJavaTimeSignavioLib() {
         this(NUMERIC_TYPE,
@@ -84,10 +82,11 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
                 CONTEXT_TYPE,
                 RANGE_TYPE,
                 FUNCTION_TYPE,
-                FEEL_LIB,
                 NUMBER_LIB,
                 STRING_LIB,
+                BOOLEAN_LIB,
                 DATE_TIME_LIB,
+                DURATION_LIB,
                 LIST_LIB
         );
     }
@@ -96,23 +95,29 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
             NumericType<Double> numericType, BooleanType booleanType, StringType stringType,
             DateType<LocalDate, Duration> dateType, TimeType<OffsetTime, Duration> timeType, DateTimeType<ZonedDateTime, Duration> dateTimeType, DurationType<Duration, Double> durationType,
             ListType listType, ContextType contextType, RangeType rangeType, FunctionType functionType,
-            StandardFEELLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> feelLib,
             SignavioNumberLib<Double> numberLib,
             SignavioStringLib stringLib,
+            BooleanLib booleanLib,
             SignavioDateTimeLib<Double, LocalDate, OffsetTime, ZonedDateTime> dateTimeLib,
+            DurationLib<LocalDate, Duration> durationLib,
             SignavioListLib listLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
                 listType, contextType, rangeType, functionType,
-                feelLib, numberLib, stringLib, dateTimeLib, listLib);
-        this.mixedFeelLib = (DoubleMixedJavaTimeFEELLib) this.feelLib;
+                numberLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib);
     }
 
     //
     // Date and time operations
     //
     public Double day(ZonedDateTime date) {
-        return this.mixedFeelLib.day(date);
+        try {
+            return valueOf(this.dateTimeLib.dayDateTime(date));
+        } catch (Exception e) {
+            String message = String.format("day(%s)", date);
+            logError(message, e);
+            return null;
+        }
     }
 
     public LocalDate dayAdd(ZonedDateTime dateTime, Double daysToAdd) {
@@ -136,12 +141,18 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
     }
 
     public Double hour(ZonedDateTime dateTime) {
-        return this.mixedFeelLib.hour(dateTime);
+        try {
+            return valueOf(this.dateTimeLib.hourDateTime(dateTime));
+        } catch (Exception e) {
+            String message = String.format("hour(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
     }
 
     public Double hourDiff(ZonedDateTime time1, ZonedDateTime time2) {
         try {
-            return Double.valueOf(this.dateTimeLib.hourDiffDateTime(time1, time2));
+            return valueOf(this.dateTimeLib.hourDiffDateTime(time1, time2));
         } catch (Exception e) {
             String message = String.format("hourDiff(%s, %s)", time1, time2);
             logError(message, e);
@@ -150,24 +161,18 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
     }
 
     public Double minute(ZonedDateTime dateTime) {
-        return this.mixedFeelLib.minute(dateTime);
-    }
-
-    public Double second(ZonedDateTime time) {
-        return this.mixedFeelLib.second(time);
-    }
-
-    public Duration timeOffset(ZonedDateTime time) {
-        return this.mixedFeelLib.timeOffset(time);
-    }
-
-    public String timezone(ZonedDateTime time) {
-        return this.mixedFeelLib.timezone(time);
+        try {
+            return valueOf(this.dateTimeLib.minuteDateTime(dateTime));
+        } catch (Exception e) {
+            String message = String.format("minute(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
     }
 
     public Double minutesDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         try {
-            return Double.valueOf(this.dateTimeLib.minutesDiffDateTime(dateTime1, dateTime2));
+            return valueOf(this.dateTimeLib.minutesDiffDateTime(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("minutesDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
@@ -176,7 +181,13 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
     }
 
     public Double month(ZonedDateTime dateTime) {
-        return this.mixedFeelLib.month(dateTime);
+        try {
+            return valueOf(this.dateTimeLib.monthDateTime(dateTime));
+        } catch (Exception e) {
+            String message = String.format("month(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
     }
 
     public ZonedDateTime monthAdd(ZonedDateTime dateTime, Double monthsToAdd) {
@@ -191,7 +202,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
 
     public Double monthDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         try {
-            return Double.valueOf(this.dateTimeLib.monthDiffDateTime(dateTime1, dateTime2));
+            return valueOf(this.dateTimeLib.monthDiffDateTime(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("monthDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
@@ -201,7 +212,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
 
     public Double weekday(ZonedDateTime dateTime) {
         try {
-            return Double.valueOf(this.dateTimeLib.weekdayDateTime(dateTime));
+            return valueOf(this.dateTimeLib.weekdayDateTime(dateTime));
         } catch (Exception e) {
             String message = String.format("weekday(%s)", dateTime);
             logError(message, e);
@@ -210,7 +221,13 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
     }
 
     public Double year(ZonedDateTime dateTime) {
-        return this.mixedFeelLib.year(dateTime);
+        try {
+            return valueOf(this.dateTimeLib.yearDateTime(dateTime));
+        } catch (Exception e) {
+            String message = String.format("year(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
     }
 
     public ZonedDateTime yearAdd(ZonedDateTime dateTime, Double yearsToAdd) {
@@ -225,7 +242,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
 
     public Double yearDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
         try {
-            return Double.valueOf(this.dateTimeLib.yearDiffDateTime(dateTime1, dateTime2));
+            return valueOf(this.dateTimeLib.yearDiffDateTime(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("yearDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
@@ -233,13 +250,16 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
         }
     }
 
+    //
+    // Extra conversion functions
+    //
     @Override
-    public LocalDate date(LocalDate date) {
-        return this.mixedFeelLib.date(date);
+    protected Double valueOf(long number) {
+        return Double.valueOf(number);
     }
 
     @Override
-    public OffsetTime time(OffsetTime time) {
-        return this.mixedFeelLib.time(time);
+    protected int intValue(Double number) {
+        return number.intValue();
     }
 }

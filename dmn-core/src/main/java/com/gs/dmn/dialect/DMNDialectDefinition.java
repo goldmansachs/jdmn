@@ -41,7 +41,7 @@ public interface DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
     //
     EnvironmentFactory createEnvironmentFactory();
 
-    ELInterpreter createFEELInterpreter(DMNModelRepository repository, InputParameters inputParameters);
+    ELInterpreter createELInterpreter(DMNModelRepository repository, InputParameters inputParameters);
 
     ELTranslator createFEELTranslator(DMNModelRepository repository, InputParameters inputParameters);
 

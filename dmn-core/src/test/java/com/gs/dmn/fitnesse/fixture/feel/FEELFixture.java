@@ -29,7 +29,7 @@ public abstract class FEELFixture extends AbstractFixture {
     public FEELFixture() {
         this.repository = new DMNModelRepository();
         InputParameters inputParameters = makeInputParameters();
-        this.feelInterpreter = this.dialectDefinition.createFEELInterpreter(this.repository, inputParameters);
+        this.feelInterpreter = this.dialectDefinition.createELInterpreter(this.repository, inputParameters);
     }
 
     protected InputParameters makeInputParameters() {

@@ -23,7 +23,6 @@ import com.gs.dmn.feel.lib.type.time.DateTimeType;
 import com.gs.dmn.feel.lib.type.time.DateType;
 import com.gs.dmn.feel.lib.type.time.DurationType;
 import com.gs.dmn.feel.lib.type.time.TimeType;
-import com.gs.dmn.runtime.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,23 +43,22 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     }
 
     //
-    // Conversion functions
+    // Conversions from string
     //
     NUMBER number(String literal);
 
     DATE date(String literal);
-    DATE date(DATE dateTime);
 
     TIME time(String literal);
-    TIME time(TIME dateTime);
-    TIME time(NUMBER hour, NUMBER minute, NUMBER second, DURATION offset);
 
     DATE_TIME dateAndTime(String literal);
-    DATE_TIME dateAndTime(DATE date, TIME time);
 
     DURATION duration(String literal);
 
-    String string(Object object);
+    //
+    // Conversion to string
+    //
+    String string(Object from);
 
     //
     // Implicit conversion functions
@@ -96,42 +94,12 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     //
     // List functions
     //
-    Object elementAt(List list, NUMBER index);
-    Boolean listContains(List list, Object value);
-    List flattenFirstLevel(List list);
-    NUMBER count(List numbers);
-    NUMBER min(List<NUMBER> numbers);
-    NUMBER max(List<NUMBER> numbers);
-    NUMBER sum(List<NUMBER> numbers);
-
-    //
-    // Context functions
-    //
-    @Override
-    List getEntries(Context m);
-    @Override
-    Object getValue(Context m, Object key);
-
-    //
-    // Date time properties
-    //
-    NUMBER year(DATE date);
-    NUMBER month(DATE date);
-    NUMBER day(DATE date);
-    NUMBER weekday(DATE date);
-    NUMBER hour(TIME time);
-    NUMBER minute(TIME time);
-    NUMBER second(TIME time);
-    DURATION timeOffset(TIME time);
-    String timezone(TIME time);
-
-    //
-    // Duration properties
-    //
-    NUMBER years(DURATION duration);
-    NUMBER months(DURATION duration);
-    NUMBER days(DURATION duration);
-    NUMBER hours(DURATION duration);
-    NUMBER minutes(DURATION duration);
-    NUMBER seconds(DURATION duration);
+    <T> T elementAt(List<?> list, NUMBER index);
+    Boolean listContains(List<?> list, Object element);
+    List flattenFirstLevel(List<?> list);
+    // Used in HIT policies
+    NUMBER count(List<?> numbers);
+    NUMBER min(List<?> numbers);
+    NUMBER max(List<?> numbers);
+    NUMBER sum(List<?> numbers);
 }

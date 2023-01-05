@@ -13,7 +13,7 @@
 package com.gs.dmn.serialization;
 
 import com.gs.dmn.feel.lib.DefaultFEELLib;
-import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.feel.lib.StandardFEELLib;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -23,7 +23,7 @@ import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
 
 public class StandardJsonSerializerTest extends AbstractJsonSerializerTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
-    protected FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> makeFEELLib() {
+    protected StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> makeFEELLib() {
         return new DefaultFEELLib();
     }
 

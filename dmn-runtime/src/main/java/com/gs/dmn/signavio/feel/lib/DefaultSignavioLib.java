@@ -12,9 +12,9 @@
  */
 package com.gs.dmn.signavio.feel.lib;
 
-import com.gs.dmn.feel.lib.DefaultFEELLib;
-import com.gs.dmn.feel.lib.StandardFEELLib;
+import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
+import com.gs.dmn.feel.lib.type.bool.DefaultBooleanLib;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.context.ContextType;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
@@ -26,10 +26,9 @@ import com.gs.dmn.feel.lib.type.numeric.NumericType;
 import com.gs.dmn.feel.lib.type.range.DefaultRangeType;
 import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringType;
-import com.gs.dmn.feel.lib.type.time.DateTimeType;
-import com.gs.dmn.feel.lib.type.time.DateType;
-import com.gs.dmn.feel.lib.type.time.DurationType;
-import com.gs.dmn.feel.lib.type.time.TimeType;
+import com.gs.dmn.feel.lib.type.time.*;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationLib;
+import com.gs.dmn.signavio.feel.lib.type.list.DefaultSignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumericType;
@@ -57,11 +56,12 @@ public class DefaultSignavioLib extends BaseSignavioLib<BigDecimal, XMLGregorian
     private static final RangeType RANGE_TYPE = new DefaultRangeType();
     private static final FunctionType FUNCTION_TYPE = new DefaultFunctionType();
 
-    private static final DefaultFEELLib FEEL_LIB = new DefaultFEELLib();
     private static final SignavioNumberLib<BigDecimal> NUMBER_LIB = new DefaultSignavioNumberLib();
     private static final SignavioStringLib STRING_LIB = new DefaultSignavioStringLib();
+    private static final BooleanLib BOOLEAN_LIB = new DefaultBooleanLib();
+    private static final DurationLib<XMLGregorianCalendar, Duration> DURATION_LIB = new DefaultDurationLib();
     private static final SignavioDateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar> DATE_TIME_LIB = new DefaultSignavioDateTimeLib();
-    private static final SignavioListLib LIST_LIB = new SignavioListLib();
+    private static final SignavioListLib<BigDecimal> LIST_LIB = new DefaultSignavioListLib();
 
     public static final DefaultSignavioLib INSTANCE = new DefaultSignavioLib();
 
@@ -77,10 +77,12 @@ public class DefaultSignavioLib extends BaseSignavioLib<BigDecimal, XMLGregorian
                 CONTEXT_TYPE,
                 RANGE_TYPE,
                 FUNCTION_TYPE,
-                FEEL_LIB,
+
                 NUMBER_LIB,
                 STRING_LIB,
+                BOOLEAN_LIB,
                 DATE_TIME_LIB,
+                DURATION_LIB,
                 LIST_LIB
         );
     }
@@ -89,14 +91,28 @@ public class DefaultSignavioLib extends BaseSignavioLib<BigDecimal, XMLGregorian
             NumericType<BigDecimal> numericType, BooleanType booleanType, StringType stringType,
             DateType<XMLGregorianCalendar, Duration> dateType, TimeType<XMLGregorianCalendar, Duration> timeType, DateTimeType<XMLGregorianCalendar, Duration> dateTimeType, DurationType<Duration, BigDecimal> durationType,
             ListType listType, ContextType contextType, RangeType rangeType, FunctionType functionType,
-            StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> feelLib,
             SignavioNumberLib<BigDecimal> numberLib,
             SignavioStringLib stringLib,
+            BooleanLib booleanLib,
             SignavioDateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar> dateTimeLib,
-            SignavioListLib listLib) {
+            DurationLib<XMLGregorianCalendar, Duration> durationLib,
+            SignavioListLib<BigDecimal> listLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
                 listType, contextType, rangeType, functionType,
-                feelLib, numberLib, stringLib, dateTimeLib, listLib);
+                numberLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib);
+    }
+
+    //
+    // Extra conversion functions
+    //
+    @Override
+    protected BigDecimal valueOf(long number) {
+        return BigDecimal.valueOf(number);
+    }
+
+    @Override
+    protected int intValue(BigDecimal number) {
+        return number.intValue();
     }
 }

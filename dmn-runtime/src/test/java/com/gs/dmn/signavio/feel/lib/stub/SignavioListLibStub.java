@@ -15,46 +15,52 @@ package com.gs.dmn.signavio.feel.lib.stub;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 
+import java.math.BigDecimal;
 import java.util.List;
 
-public class SignavioListLibStub extends SignavioListLib {
+public class SignavioListLibStub implements SignavioListLib<BigDecimal> {
     @Override
-    public List appendAll(List list1, List list2) {
+    public <T> List<T> append(List<T> list, T... items) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public List remove(List list, Object element) {
+    public <T> List<T> appendAll(List<T> list1, List<T> list2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public List removeAll(List list1, List list2) {
+    public <T> List<T> remove(List<T> list, T element) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean notContainsAny(List list1, List list2) {
+    public <T> List<T> removeAll(List<T> list1, List<T> list2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean containsOnly(List list1, List list2) {
+    public Boolean notContainsAny(List<?> list1, List<?> list2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean areElementsOf(List list1, List list2) {
+    public Boolean containsOnly(List<?> list1, List<?> list2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public List<?> zip(List attributes, List values) {
+    public Boolean areElementsOf(List<?> list1, List<?> list2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Object mode(List numbers) {
+    public Boolean elementOf(List<?> list1, List<?> list2) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public List<?> zip(List<?> attributes, List<?> values) {
         throw new DMNRuntimeException("Not supported yet");
     }
 }

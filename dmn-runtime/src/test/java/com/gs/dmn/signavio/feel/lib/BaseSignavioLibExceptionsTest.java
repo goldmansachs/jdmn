@@ -14,9 +14,6 @@ package com.gs.dmn.signavio.feel.lib;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.Assert.*;
 
 public abstract class BaseSignavioLibExceptionsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
@@ -122,8 +119,7 @@ public abstract class BaseSignavioLibExceptionsTest<NUMBER, DATE, TIME, DATE_TIM
 
     @Test
     public void testDate() {
-        assertNull(getLib().date((String) null));
-        assertNull(getLib().date((DATE) null));
+        assertNull(getLib().date(null));
         assertNull(getLib().date(null, null, null));
         assertNull(getLib().date(makeNumber(), makeNumber(), makeNumber()));
     }
@@ -149,56 +145,6 @@ public abstract class BaseSignavioLibExceptionsTest<NUMBER, DATE, TIME, DATE_TIM
     @Test
     public void testMinute() {
         assertNull(getLib().minute(null));
-    }
-
-    @Test
-    public void testSecond() {
-        assertNull(getLib().second(null));
-    }
-
-    @Test
-    public void testTimeOffset() {
-        assertNull(getLib().timeOffset(null));
-    }
-
-    @Test
-    public void testTimezone() {
-        assertNull(getLib().timezone(null));
-    }
-
-    @Test
-    public void testYears() {
-        assertNull(getLib().years(null));
-    }
-
-    @Test
-    public void testMonths() {
-        assertNull(getLib().months(null));
-    }
-
-    @Test
-    public void testDays() {
-        assertNull(getLib().days(null));
-    }
-
-    @Test
-    public void testHours() {
-        assertNull(getLib().hours(null));
-    }
-
-    @Test
-    public void testMinutes() {
-        assertNull(getLib().minutes(null));
-    }
-
-    @Test
-    public void testSeconds() {
-        assertNull(getLib().seconds(null));
-    }
-
-    @Test
-    public void testString() {
-        assertEquals("null", getLib().string(null));
     }
 
     @Test
@@ -253,9 +199,7 @@ public abstract class BaseSignavioLibExceptionsTest<NUMBER, DATE, TIME, DATE_TIM
 
     @Test
     public void testAppend() {
-        List nullSingleton = new ArrayList();
-        nullSingleton.add(null);
-        assertEquals(nullSingleton, getLib().append(null, null));
+        assertEquals(null, getLib().append(null, null));
     }
 
     @Test
@@ -311,20 +255,12 @@ public abstract class BaseSignavioLibExceptionsTest<NUMBER, DATE, TIME, DATE_TIM
 
     @Test
     public void testTime() {
-        assertNull(getLib().time((String) null));
-        assertNull(getLib().time((TIME) null));
-        assertNull(getLib().time(null, null, null, null));
+        assertNull(getLib().time(null));
     }
 
     @Test
     public void testDateAndTime() {
         assertNull(getLib().dateAndTime(null));
-        assertNull(getLib().dateAndTime(null, null));
-    }
-
-    @Test
-    public void testDuration() {
-        assertNull(getLib().duration(null));
     }
 
     @Test

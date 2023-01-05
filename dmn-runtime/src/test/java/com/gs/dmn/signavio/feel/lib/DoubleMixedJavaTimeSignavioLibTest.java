@@ -256,19 +256,6 @@ public class DoubleMixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<Doub
 
         assertNull(getLib().minute((OffsetTime) null));
         assertEqualsNumber(makeNumber("1"), getLib().minute(getLib().time("12:01:02Z")));
-
-        assertNull(getLib().second((OffsetTime) null));
-        assertEqualsNumber(makeNumber("2"), getLib().second(getLib().time("12:01:02Z")));
-
-        assertNull(getLib().timeOffset((OffsetTime) null));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02Z@Etc/UTC")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02Z")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02")));
-
-        assertNull(getLib().timezone((OffsetTime) null));
-        assertEquals("Z", getLib().timezone(getLib().time("12:01:02Z@Etc/UTC")));
-        assertEquals("Z", getLib().timezone(getLib().time("12:01:02@Etc/UTC")));
-        assertEquals("Z", getLib().timezone(getLib().time("12:01:02")));
     }
 
     //
@@ -294,19 +281,6 @@ public class DoubleMixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<Doub
 
         assertNull(getLib().minute((ZonedDateTime) null));
         assertEqualsNumber(makeNumber("1"), getLib().minute(getLib().dateAndTime("2018-12-10T12:01:02Z")));
-
-        assertNull(getLib().second((ZonedDateTime) null));
-        assertEqualsNumber(makeNumber("2"), getLib().second(getLib().dateAndTime("2018-12-10T12:01:02Z")));
-
-        assertNull(getLib().timeOffset((ZonedDateTime) null));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02")));
-
-        assertNull(getLib().timezone((ZonedDateTime) null));
-        assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
-        assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02@Etc/UTC")));
-        assertEquals("Z", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02")));
     }
 }
 

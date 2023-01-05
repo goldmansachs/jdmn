@@ -16,7 +16,11 @@ import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
+import static com.gs.dmn.feel.lib.type.numeric.DefaultNumericType.MATH_CONTEXT;
 
 public class DefaultSignavioNumberLib extends DefaultNumericLib implements SignavioNumberLib<BigDecimal> {
     @Override
@@ -52,21 +56,13 @@ public class DefaultSignavioNumberLib extends DefaultNumericLib implements Signa
     }
 
     @Override
-    public BigDecimal roundDown(BigDecimal number, BigDecimal digits) {
-        if (number == null || digits == null) {
-            return null;
-        }
-
-        return number.setScale(digits.intValue(), RoundingMode.DOWN);
+    public BigDecimal ceiling(BigDecimal number) {
+        return this.ceiling(number, valueOf(0));
     }
 
     @Override
-    public BigDecimal roundUp(BigDecimal number, BigDecimal digits) {
-        if (number == null || digits == null) {
-            return null;
-        }
-
-        return number.setScale(digits.intValue(), RoundingMode.UP);
+    public BigDecimal floor(BigDecimal number) {
+        return this.floor(number, valueOf(0));
     }
 
     @Override
@@ -86,6 +82,66 @@ public class DefaultSignavioNumberLib extends DefaultNumericLib implements Signa
     @Override
     public BigDecimal power(BigDecimal base, BigDecimal exponent) {
         return BigDecimal.valueOf(Math.pow(base.doubleValue(), exponent.intValue()));
+    }
+
+    @Override
+    public BigDecimal percent(BigDecimal number) {
+        if (number == null) {
+            return null;
+        }
+
+        return number.divide(BigDecimal.valueOf(100), MATH_CONTEXT);
+    }
+
+    @Override
+    public BigDecimal roundDown(BigDecimal number, BigDecimal digits) {
+        if (number == null || digits == null) {
+            return null;
+        }
+
+        return number.setScale(digits.intValue(), RoundingMode.DOWN);
+    }
+
+    @Override
+    public BigDecimal roundUp(BigDecimal number, BigDecimal digits) {
+        if (number == null || digits == null) {
+            return null;
+        }
+
+        return number.setScale(digits.intValue(), RoundingMode.UP);
+    }
+
+    @Override
+    public BigDecimal avg(List<?> list) {
+        return this.mean(list);
+    }
+
+    @Override
+    public Object signavioMode(List numbers) {
+        Map<Object, Integer> map = new LinkedHashMap<>();
+        for (Object n : numbers) {
+            if (n == null) {
+                return null;
+            }
+            Integer counter = map.get(n);
+            if (counter == null) {
+                counter = 1;
+            } else {
+                counter++;
+            }
+            map.put(n, counter);
+        }
+        Object resultKey = null;
+        Integer resultCounter = null;
+        for (Map.Entry<Object, Integer> entry : map.entrySet()) {
+            Object key = entry.getKey();
+            Integer counter = entry.getValue();
+            if (resultCounter == null || counter > resultCounter) {
+                resultKey = key;
+                resultCounter = counter;
+            }
+        }
+        return resultKey;
     }
 
     @Override

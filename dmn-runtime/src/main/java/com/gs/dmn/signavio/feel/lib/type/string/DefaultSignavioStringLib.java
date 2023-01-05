@@ -12,10 +12,18 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.string;
 
+import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 import java.util.List;
+
+import static com.gs.dmn.feel.lib.type.string.DefaultStringLib.DECIMAL_FORMAT;
 
 public class DefaultSignavioStringLib implements SignavioStringLib {
     @Override
@@ -175,5 +183,53 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
     @Override
     public String upper(String text) {
         return text == null ? null : text.toUpperCase();
+    }
+
+    @Override
+    public Boolean contains(String string, String match) {
+        if (string == null || match == null) {
+            return null;
+        }
+
+        return string.contains(match);
+    }
+
+    @Override
+    public Boolean startsWith(String string, String match) {
+        if (string == null || match == null) {
+            return null;
+        }
+
+        return string.startsWith(match);
+    }
+
+    @Override
+    public Boolean endsWith(String string, String match) {
+        if (string == null || match == null) {
+            return null;
+        }
+
+        return string.endsWith(match);
+    }
+
+    @Override
+    public String string(Object from) {
+        if (from == null) {
+            return "null";
+        } else if (from instanceof Double) {
+            return DECIMAL_FORMAT.get().format(from);
+        } else if (from instanceof BigDecimal) {
+            return ((BigDecimal) from).toPlainString();
+        } else if (from instanceof LocalDate) {
+            return ((LocalDate) from).format(BaseDateTimeLib.FEEL_DATE_FORMAT);
+        } else if (from instanceof OffsetTime) {
+            return ((OffsetTime) from).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
+        } else if (from instanceof ZonedDateTime) {
+            return ((ZonedDateTime) from).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
+        } else if (from instanceof XMLGregorianCalendar) {
+            return from.toString();
+        } else {
+            return from.toString();
+        }
     }
 }

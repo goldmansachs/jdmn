@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.serialization;
 
-import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.runtime.Assert;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
@@ -24,7 +24,7 @@ import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractJsonSerializerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
-    private final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib = makeFEELLib();
+    private final StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib = makeFEELLib();
 
     @Test
     public void testNumber() throws Exception {
@@ -140,7 +140,7 @@ public abstract class AbstractJsonSerializerTest<NUMBER, DATE, TIME, DATE_TIME, 
         assertEquals(literal, expectedSerialization, actualSerialization);
     }
 
-    protected abstract FEELLib<NUMBER,DATE,TIME,DATE_TIME,DURATION> makeFEELLib();
+    protected abstract StandardFEELLib<NUMBER,DATE,TIME,DATE_TIME,DURATION> makeFEELLib();
 
     protected abstract NUMBER readNumber(String literal) throws Exception;
     protected abstract DATE readDate(String literal) throws Exception;

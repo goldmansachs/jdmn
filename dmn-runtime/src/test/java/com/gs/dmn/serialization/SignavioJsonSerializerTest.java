@@ -31,7 +31,7 @@ import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class JsonSerializerTest {
+public class SignavioJsonSerializerTest {
     private final DefaultSignavioLib lib = new DefaultSignavioLib();
     private final String personText = "{\"514 AT\":\"at\",\"AT\":\"AT\",\"Addresses\":null,\"Date and Time List\":[\"2016-08-01T12:00:00Z\"],\"Date and Time of Birth\":\"2016-08-01T12:00:00Z\",\"Date of Birth\":\"2017-01-03\",\"Days and Time Duration\":\"P2DT20H\",\"First Name\":\"Amy\",\"Gender\":\"female\",\"ID\":38,\"Last Name\":\"Smith\",\"List\":[\"Late payment\"],\"Married\":true,\"Time of Birth\":\"11:20:30Z\",\"Years and Months Duration\":\"P1Y1M\"}";
     private final String listOfPersonText = "[{\"514 AT\":null,\"AT\":null,\"Addresses\":[{\"Line\":\"11\",\"Postcode\":\"11\"},{\"Line\":\"12\",\"Postcode\":\"12\"}],\"Date and Time List\":null,\"Date and Time of Birth\":null,\"Date of Birth\":null,\"Days and Time Duration\":null,\"First Name\":null,\"Gender\":null,\"ID\":1,\"Last Name\":null,\"List\":null,\"Married\":null,\"Time of Birth\":null,\"Years and Months Duration\":null}]";

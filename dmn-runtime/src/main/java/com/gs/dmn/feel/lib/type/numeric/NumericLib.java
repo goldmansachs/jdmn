@@ -48,39 +48,39 @@ public interface NumericLib<NUMBER> {
     //
     // List functions
     //
-    NUMBER count(List list);
+    NUMBER count(List<?> list);
 
-    NUMBER min(List list);
+    NUMBER min(List<?> list);
 
     NUMBER min(Object... args);
 
-    NUMBER max(List list);
+    NUMBER max(List<?> list);
 
     NUMBER max(Object... args);
 
-    NUMBER sum(List list);
+    NUMBER sum(List<?> list);
 
     NUMBER sum(Object... args);
 
-    NUMBER mean(List list);
+    NUMBER mean(List<?> list);
 
     NUMBER mean(Object... args);
 
-    NUMBER product(List list);
+    NUMBER product(List<?> list);
 
     NUMBER product(Object... numbers);
 
-    NUMBER median(List list);
+    NUMBER median(List<?> list);
 
     NUMBER median(Object... numbers);
 
-    NUMBER stddev(List list);
+    NUMBER stddev(List<?> list);
 
     NUMBER stddev(Object... numbers);
 
-    List mode(List list);
+    List<?> mode(List<?> list);
 
-    List mode(Object... numbers);
+    List<?> mode(Object... numbers);
 
     Number toNumber(NUMBER number);
 }

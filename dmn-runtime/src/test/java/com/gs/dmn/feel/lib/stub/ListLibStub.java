@@ -20,11 +20,6 @@ import java.util.List;
 
 public class ListLibStub implements ListLib {
     @Override
-    public <T> Boolean listContains(List<T> list, T element) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-
-    @Override
     public <T> List<T> append(List<T> list, T... items) {
         throw new DMNRuntimeException("Not supported yet");
     }

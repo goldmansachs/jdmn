@@ -12,161 +12,24 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.list;
 
-import com.gs.dmn.runtime.Context;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
-public class SignavioListLib {
-    public List appendAll(List list1, List list2) {
-        List result = new ArrayList();
-        if (list1 != null) {
-            result.addAll(list1);
-        }
-        if (list2 != null) {
-            result.addAll(list2);
-        }
-        return result;
-    }
+public interface SignavioListLib<NUMBER> {
+    <T> List<T> append(List<T> list, T... items);
 
-    public List remove(List list, Object element) {
-        if (list == null || list.isEmpty()) {
-            return new ArrayList();
-        }
-        List result = new ArrayList();
-        for(Object obj: list) {
-            if (element == null) {
-                if (element != obj) {
-                    result.add(obj);
-                }
-            } else {
-                if (!element.equals(obj)) {
-                    result.add(obj);
-                }
-            }
-        }
-        result.remove(element);
-        return result;
-    }
+    <T> List<T> appendAll(List<T> list1, List<T> list2);
 
-    public List removeAll(List list1, List list2) {
-        if (list1 == null || list2 == null) {
-            return new ArrayList();
-        }
-        List result = new ArrayList(list1);
-        result.removeAll(list2);
-        return result;
-    }
+    <T> List<T> remove(List<T> list, T element);
 
-    public Boolean notContainsAny(List list1, List list2) {
-        if (list1 == null || list2 == null) {
-            return null;
-        }
-        for(Object obj2: list2) {
-            if (list1.contains(obj2)) {
-                return false;
-            }
-        }
-        return true;
-    }
+    <T> List<T> removeAll(List<T> list1, List<T> list2);
 
-    public Boolean containsOnly(List list1, List list2) {
-        if (list1 == null || list2 == null) {
-            return null;
-        }
+    Boolean notContainsAny(List<?> list1, List<?> list2);
 
-        for(Object obj1: list1) {
-            if (!list2.contains(obj1)) {
-                return false;
-            }
-        }
-        return true;
-    }
+    Boolean containsOnly(List<?> list1, List<?> list2);
 
-    public Boolean areElementsOf(List list1, List list2) {
-        if (list1 == null || list2 == null) {
-            return null;
-        }
-        for(Object obj1: list1) {
-            if (!list2.contains(obj1)) {
-                return false;
-            }
-        }
-        return true;
-    }
+    Boolean areElementsOf(List<?> list1, List<?> list2);
 
-    public List<?> zip(List attributes, List values) {
-        List result = new ArrayList<>();
-        if (attributes == null || values == null) {
-            return result;
-        }
-        for (Object dimension: values) {
-            if (dimension == null) {
-                return result;
-            }
-        }
+    Boolean elementOf(List<?> list1, List<?> list2);
 
-        int card = cardinal(values);
-        for (int i = 0; i < card; i++) {
-            Context context = new Context();
-            for (int j = 0; j < attributes.size(); j++) {
-                Object key = attributes.get(j);
-                Object value = values.get(j);
-                List list = (List) value;
-                if (i < list.size()) {
-                    context.add(key, list.get(i));
-                } else {
-                    context.add(key, null);
-                }
-            }
-            result.add(context);
-        }
-        return result;
-    }
-
-    private int cardinal(List values) {
-        int card = 0;
-        for (Object value : values) {
-            if (value instanceof List) {
-                List list = (List) value;
-                if (card < list.size()) {
-                    card = list.size();
-                }
-            } else {
-                if (card < 1) {
-                    card = 1;
-                }
-            }
-        }
-        return card;
-    }
-
-    public Object mode(List numbers) {
-        Map<Object, Integer> map = new LinkedHashMap<>();
-        for (Object n : numbers) {
-            if (n == null) {
-                return null;
-            }
-            Integer counter = map.get(n);
-            if (counter == null) {
-                counter = 1;
-            } else {
-                counter++;
-            }
-            map.put(n, counter);
-        }
-        Object resultKey = null;
-        Integer resultCounter = null;
-        for (Map.Entry<Object, Integer> entry : map.entrySet()) {
-            Object key = entry.getKey();
-            Integer counter = entry.getValue();
-            if (resultCounter == null || counter > resultCounter) {
-                resultKey = key;
-                resultCounter = counter;
-            }
-        }
-        return resultKey;
-    }
+    List<?> zip(List<?> attributes, List<?> values);
 }

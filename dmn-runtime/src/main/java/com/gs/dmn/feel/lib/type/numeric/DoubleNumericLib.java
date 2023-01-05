@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
-import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
@@ -164,12 +163,12 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
     // List functions
     //
     @Override
-    public Double count(List list) {
+    public Double count(List<?> list) {
         return list == null ? Double.valueOf(0) : Double.valueOf(list.size());
     }
 
     @Override
-    public Double min(List list) {
+    public Double min(List<?> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -185,7 +184,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
     }
 
     @Override
-    public Double max(List list) {
+    public Double max(List<?> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -201,7 +200,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
     }
 
     @Override
-    public Double sum(List list) {
+    public Double sum(List<?> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -215,7 +214,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
     }
 
     @Override
-    public Double mean(List list) {
+    public Double mean(List<?> list) {
         if (list == null) {
             return null;
         }
@@ -225,7 +224,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
     }
 
     @Override
-    public Double product(List list) {
+    public Double product(List<?> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -239,12 +238,12 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
     }
 
     @Override
-    public Double median(List list) {
+    public Double median(List<?> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
 
-        Collections.sort(list);
+        Collections.sort((List<Double>)list);
         Double median;
         int size = list.size();
         if (size % 2 == 0) {
@@ -258,7 +257,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
     }
 
     @Override
-    public Double stddev(List list) {
+    public Double stddev(List<?> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -278,7 +277,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
     }
 
     @Override
-    public List mode(List list) {
+    public List mode(List<?> list) {
         if (list == null) {
             return null;
         }

@@ -17,8 +17,6 @@ import com.gs.dmn.runtime.LambdaExpression;
 import java.util.List;
 
 public interface ListLib {
-    <T> Boolean listContains(List<T> list, T element);
-
     <T> List<T> append(List<T> list, T... items);
 
     <T> List<T> sublist(List<T> list, int position);

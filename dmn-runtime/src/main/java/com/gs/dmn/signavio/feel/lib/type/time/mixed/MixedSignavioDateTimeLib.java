@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.time.mixed;
 
+import com.gs.dmn.feel.lib.type.time.mixed.MixedDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioBaseDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
 
@@ -21,6 +22,95 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 
 public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements SignavioDateTimeLib<Number, LocalDate, OffsetTime, ZonedDateTime> {
+    private static final MixedDateTimeLib MIXED_DATE_TIME_LIB = new MixedDateTimeLib();
+
+    @Override
+    public LocalDate date(String literal) {
+        return MIXED_DATE_TIME_LIB.date(literal);
+    }
+
+    @Override
+    public OffsetTime time(String literal) {
+        return MIXED_DATE_TIME_LIB.time(literal);
+    }
+
+    @Override
+    public ZonedDateTime dateAndTime(String from) {
+        return MIXED_DATE_TIME_LIB.dateAndTime(from);
+    }
+
+    @Override
+    public Integer year(LocalDate date) {
+        return MIXED_DATE_TIME_LIB.year(date);
+    }
+
+    @Override
+    public Integer yearDateTime(ZonedDateTime dateTime) {
+        return MIXED_DATE_TIME_LIB.yearDateTime(dateTime);
+    }
+
+    @Override
+    public Integer month(LocalDate date) {
+        return MIXED_DATE_TIME_LIB.month(date);
+    }
+
+    @Override
+    public Integer monthDateTime(ZonedDateTime dateTime) {
+        return MIXED_DATE_TIME_LIB.monthDateTime(dateTime);
+    }
+
+    @Override
+    public Integer day(LocalDate date) {
+        return MIXED_DATE_TIME_LIB.day(date);
+    }
+
+    @Override
+    public Integer dayDateTime(ZonedDateTime dateTime) {
+        return MIXED_DATE_TIME_LIB.dayDateTime(dateTime);
+    }
+
+    @Override
+    public Integer hour(OffsetTime time) {
+        return MIXED_DATE_TIME_LIB.hour(time);
+    }
+
+    @Override
+    public Integer hourDateTime(ZonedDateTime dateTime) {
+        return MIXED_DATE_TIME_LIB.hourDateTime(dateTime);
+    }
+
+    @Override
+    public Integer minute(OffsetTime time) {
+        return MIXED_DATE_TIME_LIB.minute(time);
+    }
+
+    @Override
+    public Integer minuteDateTime(ZonedDateTime dateTime) {
+        return MIXED_DATE_TIME_LIB.minuteDateTime(dateTime);
+    }
+
+    @Override
+    public LocalDate toDate(Object from) {
+        return MIXED_DATE_TIME_LIB.toDate(from);
+    }
+
+    @Override
+    public OffsetTime toTime(Object from) {
+        return MIXED_DATE_TIME_LIB.toTime(from);
+    }
+
+    @Override
+    public ZonedDateTime toDateTime(Object from) {
+        return MIXED_DATE_TIME_LIB.toDateTime(from);
+    }
+
+    //
+    // Common methods
+    //
+
+    //
+    // Specific methods
+    //
     @Override
     public LocalDate yearAdd(LocalDate date, Number yearsToAdd) {
         return date.plusYears(yearsToAdd.longValue());

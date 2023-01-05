@@ -15,28 +15,52 @@ package com.gs.dmn.signavio.feel.lib.type.numeric;
 import java.util.List;
 
 public interface SignavioNumberLib<NUMBER> {
+    //
+    // Conversion
+    //
+    NUMBER number(String text);
     NUMBER number(String text, NUMBER defaultValue);
 
-    NUMBER count(List list);
+    NUMBER abs(NUMBER number);
+
+    NUMBER count(List<?> list);
 
     NUMBER round(NUMBER number, NUMBER digits);
+
+    NUMBER ceiling(NUMBER number);
+
+    NUMBER floor(NUMBER number);
 
     NUMBER integer(NUMBER number);
 
     NUMBER modulo(NUMBER dividend, NUMBER divisor);
 
+    NUMBER percent(NUMBER base);
+
+    NUMBER power(NUMBER base, NUMBER exponent);
+
+    NUMBER product(List<?> factors);
+
     NUMBER roundDown(NUMBER number, NUMBER digits);
 
     NUMBER roundUp(NUMBER number, NUMBER digits);
 
-    NUMBER power(NUMBER base, NUMBER exponent);
+    NUMBER sum(List<?> numbers);
+
+    NUMBER avg(List<?> list);
+
+    NUMBER max(List<?> numbers);
+
+    NUMBER median(List<?> numbers);
+
+    NUMBER min(List<?> numbers);
+
+    Object signavioMode(List<?> numbers);
 
     NUMBER valueOf(long number);
 
     int intValue(NUMBER number);
 
     Number toNumber(NUMBER number);
-
-    NUMBER abs(NUMBER number);
 }
 

@@ -1006,17 +1006,6 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     // List functions
     //
     @Override
-    public Boolean listContains(List list, Object element) {
-        try {
-            return this.listLib.listContains(list, element);
-        } catch (Exception e) {
-            String message = String.format("listContains(%s, %s)", list, element);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
     public List append(List list, Object... items) {
         try {
             return this.listLib.append(list, items);

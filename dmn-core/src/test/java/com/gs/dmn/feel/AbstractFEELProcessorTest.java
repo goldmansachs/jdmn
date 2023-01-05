@@ -69,7 +69,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         this.lib = dialectDefinition.createFEELLib();
         this.feelTranslator = dialectDefinition.createFEELTranslator(repository, inputParameters);
         this.dmnInterpreter = dialectDefinition.createDMNInterpreter(repository, inputParameters);
-        this.feelInterpreter = dialectDefinition.createFEELInterpreter(repository, inputParameters);
+        this.feelInterpreter = dialectDefinition.createELInterpreter(repository, inputParameters);
         this.dmnTransformer = dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters);
     }
 
@@ -2196,7 +2196,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "FunctionInvocation(Name(date) -> PositionalParameters(NullLiteral()))",
                 "date",
                 "contains(null)",
-                this.lib.date((DATE) null),
+                this.lib.date(null),
                 true);
     }
 
@@ -2212,32 +2212,6 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "listEqual(asList(new com.gs.dmn.runtime.Context().add(\"b\", number(\"1\")), new com.gs.dmn.runtime.Context().add(\"b\", asList(number(\"2.1\"), number(\"2.2\"))), new com.gs.dmn.runtime.Context().add(\"b\", number(\"3\")), new com.gs.dmn.runtime.Context().add(\"b\", number(\"4\")), new com.gs.dmn.runtime.Context().add(\"b\", number(\"5\"))).stream().map(x -> ((com.gs.dmn.runtime.Context)(x)).get(\"b\", asList())).collect(Collectors.toList()), asList(number(\"1\"), asList(number(\"2.1\"), number(\"2.2\")), number(\"3\"), number(\"4\"), number(\"5\")))",
                 null,
                 null);
-
-        doExpressionTest(entries, "", "date(\"2018-12-10\").weekday",
-                "PathExpression(DateTimeLiteral(date, \"2018-12-10\"), weekday)",
-                "number",
-                "weekday(date(\"2018-12-10\"))",
-                this.lib.weekday(this.lib.date("2018-12-10")),
-                this.lib.number("1"));
-        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:01\").weekday",
-                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:01\"), weekday)",
-                "number",
-                "weekday(dateAndTime(\"2018-12-10T10:30:01\"))",
-                this.lib.weekday((DATE) this.lib.dateAndTime("2018-12-10T10:30:01")),
-                this.lib.number("1"));
-
-        doExpressionTest(entries, "", "time(\"10:30:01\").hour",
-                "PathExpression(DateTimeLiteral(time, \"10:30:01\"), hour)",
-                "number",
-                "hour(time(\"10:30:01\"))",
-                this.lib.hour(this.lib.time("10:30:01")),
-                this.lib.number("10"));
-        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:01\").hour",
-                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:01\"), hour)",
-                "number",
-                "hour(dateAndTime(\"2018-12-10T10:30:01\"))",
-                this.lib.hour((TIME) this.lib.dateAndTime("2018-12-10T10:30:01")),
-                this.lib.number("10"));
     }
 
     @Test
@@ -2253,55 +2227,6 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "((String)(((type.B)(a != null ? a.getB() : null)) != null ? ((type.B)(a != null ? a.getB() : null)).getC() : null))",
                 null,
                 null);
-    }
-
-    @Test
-    public void testDateAndTimeProperties() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-        );
-
-        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00\").time offset",
-                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00\"), time offset)",
-                "days and time duration",
-                "timeOffset(dateAndTime(\"2018-12-10T10:30:00\"))",
-                this.lib.timeOffset((TIME) this.lib.dateAndTime("2018-12-10T10:30:00")),
-                null
-        );
-        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00@Etc/UTC\").timezone",
-                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00@Etc/UTC\"), timezone)",
-                "string",
-                "timezone(dateAndTime(\"2018-12-10T10:30:00@Etc/UTC\"))",
-                this.lib.timezone((TIME) this.lib.dateAndTime("2018-12-10T10:30:00@Etc/UTC")),
-                "Etc/UTC"
-        );
-        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00\").timezone",
-                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00\"), timezone)",
-                "string",
-                "timezone(dateAndTime(\"2018-12-10T10:30:00\"))",
-                this.lib.timezone((TIME) this.lib.dateAndTime("2018-12-10T10:30:00")),
-                null
-        );
-        doExpressionTest(entries, "", "time(\"10:30:00\").time offset",
-                "PathExpression(DateTimeLiteral(time, \"10:30:00\"), time offset)",
-                "days and time duration",
-                "timeOffset(time(\"10:30:00\"))",
-                this.lib.timeOffset(this.lib.time("10:30:00")),
-                null
-        );
-        doExpressionTest(entries, "", "time(\"10:30:00@Etc/UTC\").timezone",
-                "PathExpression(DateTimeLiteral(time, \"10:30:00@Etc/UTC\"), timezone)",
-                "string",
-                "timezone(time(\"10:30:00@Etc/UTC\"))",
-                this.lib.timezone(this.lib.time("10:30:00@Etc/UTC")),
-                "Etc/UTC"
-        );
-        doExpressionTest(entries, "", "time(\"10:30:00\").timezone",
-                "PathExpression(DateTimeLiteral(time, \"10:30:00\"), timezone)",
-                "string",
-                "timezone(time(\"10:30:00\"))",
-                this.lib.timezone(this.lib.time("10:30:00")),
-                null
-        );
     }
 
     @Test

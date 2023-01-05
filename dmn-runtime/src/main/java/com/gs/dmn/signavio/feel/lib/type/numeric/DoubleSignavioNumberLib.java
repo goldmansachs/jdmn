@@ -16,9 +16,11 @@ import com.gs.dmn.feel.lib.type.numeric.DoubleNumericLib;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
-public class DoubleSignavioNumberLib extends DoubleNumericLib implements SignavioNumberLib<Double>{
+public class DoubleSignavioNumberLib extends DoubleNumericLib implements SignavioNumberLib<Double> {
     @Override
     public Double number(String text, Double defaultValue) {
         if (text == null || defaultValue ==  null) {
@@ -34,7 +36,7 @@ public class DoubleSignavioNumberLib extends DoubleNumericLib implements Signavi
     }
 
     @Override
-    public Double count(List list) {
+    public Double count(List<?> list) {
         if (list == null) {
             return null;
         }
@@ -49,6 +51,44 @@ public class DoubleSignavioNumberLib extends DoubleNumericLib implements Signavi
         }
 
         return BigDecimal.valueOf(number).setScale(digits.intValue(), RoundingMode.HALF_EVEN).doubleValue();
+    }
+
+    @Override
+    public Double ceiling(Double number) {
+        return this.ceiling(number, valueOf(0));
+    }
+
+    @Override
+    public Double floor(Double number) {
+        return this.floor(number, valueOf(0));
+    }
+
+    @Override
+    public Double integer(Double number) {
+        return Double.valueOf(number.intValue());
+    }
+
+    @Override
+    public Double modulo(Double dividend, Double divisor) {
+        if (dividend == null || divisor == null || divisor == 0) {
+            return null;
+        }
+
+        return dividend % divisor;
+    }
+
+    @Override
+    public Double power(Double base, Double exponent) {
+        return Math.pow(base, exponent.intValue());
+    }
+
+    @Override
+    public Double percent(Double number) {
+        if (number == null) {
+            return null;
+        }
+
+        return number / 100;
     }
 
     @Override
@@ -70,22 +110,36 @@ public class DoubleSignavioNumberLib extends DoubleNumericLib implements Signavi
     }
 
     @Override
-    public Double integer(Double number) {
-        return Double.valueOf(number.intValue());
+    public Double avg(List<?> list) {
+        return this.mean(list);
     }
 
     @Override
-    public Double modulo(Double dividend, Double divisor) {
-        if (dividend == null || divisor == null) {
-            return null;
+    public Object signavioMode(List numbers) {
+        Map<Object, Integer> map = new LinkedHashMap<>();
+        for (Object n : numbers) {
+            if (n == null) {
+                return null;
+            }
+            Integer counter = map.get(n);
+            if (counter == null) {
+                counter = 1;
+            } else {
+                counter++;
+            }
+            map.put(n, counter);
         }
-
-        return dividend % divisor;
-    }
-
-    @Override
-    public Double power(Double base, Double exponent) {
-        return Math.pow(base, exponent.intValue());
+        Object resultKey = null;
+        Integer resultCounter = null;
+        for (Map.Entry<Object, Integer> entry : map.entrySet()) {
+            Object key = entry.getKey();
+            Integer counter = entry.getValue();
+            if (resultCounter == null || counter > resultCounter) {
+                resultKey = key;
+                resultCounter = counter;
+            }
+        }
+        return resultKey;
     }
 
     @Override

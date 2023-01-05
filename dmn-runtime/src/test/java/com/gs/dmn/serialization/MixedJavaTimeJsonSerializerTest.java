@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.serialization;
 
-import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.MixedJavaTimeFEELLib;
+import com.gs.dmn.feel.lib.StandardFEELLib;
 
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
@@ -25,7 +25,7 @@ import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
 
 public class MixedJavaTimeJsonSerializerTest extends AbstractJavaTimeJsonSerializerTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override
-    protected FEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> makeFEELLib() {
+    protected StandardFEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> makeFEELLib() {
         return new MixedJavaTimeFEELLib();
     }
 

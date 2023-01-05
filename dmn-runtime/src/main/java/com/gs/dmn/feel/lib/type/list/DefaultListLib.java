@@ -20,11 +20,6 @@ import java.util.List;
 
 public class DefaultListLib implements ListLib {
     @Override
-    public <T> Boolean listContains(List<T> list, T element) {
-        return list == null ? null : list.contains(element);
-    }
-
-    @Override
     public <T> List<T> append(List<T> list, T... items) {
         List<T> result = new ArrayList<>();
         if (list != null) {

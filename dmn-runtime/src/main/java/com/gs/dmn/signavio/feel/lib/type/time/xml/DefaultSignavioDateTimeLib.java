@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.time.xml;
 
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import com.gs.dmn.feel.lib.type.time.xml.FEELXMLGregorianCalendar;
 import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioBaseDateTimeLib;
@@ -26,6 +27,94 @@ import java.time.ZonedDateTime;
 import java.util.Calendar;
 
 public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implements SignavioDateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar> {
+    private static final DefaultDateTimeLib DEFAULT_DATE_TIME_LIB = new DefaultDateTimeLib();
+
+    //
+    // Common methods
+    //
+    @Override
+    public XMLGregorianCalendar date(String literal) {
+        return DEFAULT_DATE_TIME_LIB.date(literal);
+    }
+
+    @Override
+    public XMLGregorianCalendar time(String literal) {
+        return DEFAULT_DATE_TIME_LIB.time(literal);
+    }
+
+    @Override
+    public XMLGregorianCalendar dateAndTime(String literal) {
+        return DEFAULT_DATE_TIME_LIB.dateAndTime(literal);
+    }
+
+    @Override
+    public Integer year(XMLGregorianCalendar date) {
+        return DEFAULT_DATE_TIME_LIB.year(date);
+    }
+
+    @Override
+    public Integer yearDateTime(XMLGregorianCalendar dateTime) {
+        return DEFAULT_DATE_TIME_LIB.yearDateTime(dateTime);
+    }
+
+    @Override
+    public Integer month(XMLGregorianCalendar date) {
+        return DEFAULT_DATE_TIME_LIB.month(date);
+    }
+
+    @Override
+    public Integer monthDateTime(XMLGregorianCalendar dateTime) {
+        return DEFAULT_DATE_TIME_LIB.monthDateTime(dateTime);
+    }
+
+    @Override
+    public Integer day(XMLGregorianCalendar date) {
+        return DEFAULT_DATE_TIME_LIB.day(date);
+    }
+
+    @Override
+    public Integer dayDateTime(XMLGregorianCalendar dateTime) {
+        return DEFAULT_DATE_TIME_LIB.dayDateTime(dateTime);
+    }
+
+    @Override
+    public Integer hour(XMLGregorianCalendar date) {
+        return DEFAULT_DATE_TIME_LIB.hour(date);
+    }
+
+    @Override
+    public Integer hourDateTime(XMLGregorianCalendar dateTime) {
+        return DEFAULT_DATE_TIME_LIB.hourDateTime(dateTime);
+    }
+
+    @Override
+    public Integer minute(XMLGregorianCalendar date) {
+        return DEFAULT_DATE_TIME_LIB.minute(date);
+    }
+
+    @Override
+    public Integer minuteDateTime(XMLGregorianCalendar dateTime) {
+        return DEFAULT_DATE_TIME_LIB.minuteDateTime(dateTime);
+    }
+
+    @Override
+    public XMLGregorianCalendar toDate(Object from) {
+        return DEFAULT_DATE_TIME_LIB.toDate(from);
+    }
+
+    @Override
+    public XMLGregorianCalendar toTime(Object from) {
+        return DEFAULT_DATE_TIME_LIB.toTime(from);
+    }
+
+    @Override
+    public XMLGregorianCalendar toDateTime(Object from) {
+        return DEFAULT_DATE_TIME_LIB.toDateTime(from);
+    }
+
+    //
+    // Specific methods
+    //
     @Override
     public XMLGregorianCalendar yearAdd(XMLGregorianCalendar date, BigDecimal yearsToAdd) {
         XMLGregorianCalendar result = (XMLGregorianCalendar) date.clone();

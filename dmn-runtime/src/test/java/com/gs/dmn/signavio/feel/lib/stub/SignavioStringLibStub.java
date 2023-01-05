@@ -20,7 +20,7 @@ import java.util.List;
 public class SignavioStringLibStub implements SignavioStringLib {
     @Override
     public Integer len(String text) {
-        return text == null ? null : text.length();
+        throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
@@ -90,6 +90,26 @@ public class SignavioStringLibStub implements SignavioStringLib {
 
     @Override
     public String upper(String text) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Boolean contains(String text, String substring) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Boolean startsWith(String text, String prefix) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Boolean endsWith(String text, String suffix) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public String string(Object from) {
         throw new DMNRuntimeException("Not supported yet");
     }
 }

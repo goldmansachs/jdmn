@@ -259,19 +259,6 @@ public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLG
 
         assertNull(getLib().minute(null));
         assertEqualsNumber(makeNumber("1"), getLib().minute(getLib().time("12:01:02Z")));
-
-        assertNull(getLib().second(null));
-        assertEqualsNumber(makeNumber("2"), getLib().second(getLib().time("12:01:02Z")));
-
-        assertNull(getLib().timeOffset(null));
-        assertNull(getLib().timeOffset(getLib().time("12:01:02Z@Etc/UTC")));
-        assertNull(getLib().timeOffset(getLib().time("12:01:02")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02Z")));
-
-        assertNull(getLib().timezone(null));
-        assertNull(getLib().timezone(getLib().time("12:01:02Z@Etc/UTC")));
-        assertNull(getLib().timezone(getLib().time("12:01:02")));
-        assertEquals("Etc/UTC", getLib().timezone(getLib().time("12:01:02@Etc/UTC")));
     }
 
     //
@@ -297,19 +284,6 @@ public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLG
 
         assertNull(getLib().minute(null));
         assertEqualsNumber(makeNumber("1"), getLib().minute(getLib().dateAndTime("2018-12-10T12:01:02Z")));
-
-        assertNull(getLib().second(null));
-        assertEqualsNumber(makeNumber("2"), getLib().second(getLib().dateAndTime("2018-12-10T12:01:02Z")));
-
-        assertNull(getLib().timeOffset(null));
-        assertNull(getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
-        assertNull(getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z")));
-
-        assertNull(getLib().timezone(null));
-        assertNull(getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
-        assertNull(getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02")));
-        assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02@Etc/UTC")));
     }
 }
 
