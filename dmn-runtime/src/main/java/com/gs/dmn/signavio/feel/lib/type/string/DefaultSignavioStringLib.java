@@ -83,7 +83,7 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
 
     @Override
     public String left(String text, Number numChar) {
-        if (!SignavioUtil.areNullSafe(text, numChar)) {
+        if (!SignavioUtil.areNullSafe(text, numChar) || numChar.intValue() < 0) {
             return null;
         }
 
@@ -96,7 +96,7 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
 
     @Override
     public String right(String text, Number numChar) {
-        if (!SignavioUtil.areNullSafe(text, numChar)) {
+        if (!SignavioUtil.areNullSafe(text, numChar) || numChar.intValue() < 0) {
             return null;
         }
 
