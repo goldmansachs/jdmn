@@ -181,7 +181,7 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
 
     @Override
     public String trim(String text) {
-        return text == null ? null : text.trim();
+        return text == null ? null : text.trim().replaceAll(" +", " ");
     }
 
     @Override

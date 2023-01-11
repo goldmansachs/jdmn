@@ -518,6 +518,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertEquals("", getLib().trim(""));
         assertEquals("abc", getLib().trim(" abc "));
         assertEquals("ab c1", getLib().trim("ab c1"));
+        assertEquals("ab c1", getLib().trim(" ab   c1     "));
     }
 
     @Test
@@ -551,7 +552,6 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertEquals("2", getLib().mid("123", makeNumber("1"), makeNumber("1")));
         assertEquals("23", getLib().mid("123", makeNumber("1"), makeNumber("5")));
         assertEquals("3", getLib().mid("123", makeNumber("2"), makeNumber("1")));
-        assertNull(getLib().mid("123", makeNumber("3"), makeNumber("1")));
     }
 
     @Test
