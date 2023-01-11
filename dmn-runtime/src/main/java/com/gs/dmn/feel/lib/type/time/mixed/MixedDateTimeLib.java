@@ -453,5 +453,4 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         }
         throw new IllegalArgumentException(String.format("Cannot convert '%s' to date time", from.getClass().getSimpleName()));
     }
-
 }

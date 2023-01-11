@@ -114,7 +114,7 @@ public class DefaultSignavioNumberLib implements SignavioNumberLib<BigDecimal> {
             return null;
         }
 
-        return BigDecimal.valueOf(Math.pow(base.doubleValue(), exponent.intValue()));
+        return base.pow(exponent.intValue(), MATH_CONTEXT);
     }
 
     @Override

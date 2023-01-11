@@ -119,7 +119,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertNull(getLib().power(null, makeNumber("3")));
         assertNull(getLib().power(makeNumber("3"), null));
 
-        assertEqualsNumber(makeNumber("1"), getLib().numericExponentiation(makeNumber("3"), makeNumber("0")));
+        assertEqualsNumber(makeNumber("1"), getLib().power(makeNumber("3"), makeNumber("0")));
 
         assertEqualsNumber(makeNumber("8"), getLib().power(makeNumber("2"), makeNumber("3")));
         assertEqualsNumber(makeNumber("4"), getLib().power(makeNumber("2"), makeNumber("2.5")));
@@ -135,10 +135,20 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     public void testProduct() {
         assertNull(getLib().product(null));
         assertNull(getLib().product(makeNumberList()));
+        assertNull(getLib().product(makeNumberList(1, null, 3)));
 
         assertEqualsNumber(makeNumber("2"), getLib().product(makeNumberList(2)));
         assertEqualsNumber(makeNumber("24"), getLib().product(makeNumberList(2, 3, 4)));
-        assertNull(getLib().product(makeNumberList(1, null, 3)));
+    }
+
+    @Test
+    public void testSum() {
+        assertNull(getLib().sum(null));
+        assertNull(getLib().sum(makeNumberList()));
+        assertNull(getLib().sum(makeNumberList(1, null, 3)));
+
+        assertEqualsNumber(makeNumber("2"), getLib().sum(makeNumberList(2)));
+        assertEqualsNumber(makeNumber("9"), getLib().sum(makeNumberList(2, 3, 4)));
     }
 
     @Test

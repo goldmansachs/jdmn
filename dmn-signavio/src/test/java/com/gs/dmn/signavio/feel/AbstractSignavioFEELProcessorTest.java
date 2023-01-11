@@ -226,7 +226,7 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "number",
                 "power(number(\"10\"), number(\"2\"))",
                 this.lib.power(this.lib.number("10"), this.lib.number("2")),
-                this.lib.number("100.0"));
+                this.lib.number("100"));
         doExpressionTest(entries, "", "product([100])",
                 "FunctionInvocation(Name(product) -> PositionalParameters(ListLiteral(NumericLiteral(100))))",
                 "number",

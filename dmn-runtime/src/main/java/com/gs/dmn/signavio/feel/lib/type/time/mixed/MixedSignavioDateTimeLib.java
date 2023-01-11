@@ -113,10 +113,18 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
     //
     @Override
     public LocalDate yearAdd(LocalDate date, Number yearsToAdd) {
+        if (date == null || yearsToAdd == null) {
+            return null;
+        }
+
         return date.plusYears(yearsToAdd.longValue());
     }
     @Override
     public ZonedDateTime yearAddDateTime(ZonedDateTime dateTime, Number yearsToAdd) {
+        if (dateTime == null || yearsToAdd == null) {
+            return null;
+        }
+
         return dateTime.plusYears(yearsToAdd.longValue());
     }
 
@@ -133,20 +141,36 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
 
     @Override
     public LocalDate monthAdd(LocalDate date, Number monthsToAdd) {
+        if (date == null || monthsToAdd == null) {
+            return null;
+        }
+
         return date.plusMonths(monthsToAdd.longValue());
     }
     @Override
     public ZonedDateTime monthAddDateTime(ZonedDateTime dateTime, Number monthsToAdd) {
+        if (dateTime == null || monthsToAdd == null) {
+            return null;
+        }
+
         return dateTime.plusMonths(monthsToAdd.longValue());
     }
 
     @Override
     public Long monthDiff(LocalDate date1, LocalDate date2) {
+        if (date1 == null || date2 == null) {
+            return null;
+        }
+
         Period period = periodBetween(date1, date2);
         return period.toTotalMonths();
     }
     @Override
     public Long monthDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
+        if (dateTime1 == null || dateTime2 == null) {
+            return null;
+        }
+
         Period period = periodBetween(dateTime1, dateTime2);
         return period.toTotalMonths();
     }
@@ -157,51 +181,81 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
     }
     @Override
     public ZonedDateTime dayAddDateTime(ZonedDateTime dateTime, Number daysToAdd) {
+        if (dateTime == null || daysToAdd == null) {
+            return null;
+        }
+
         return dateTime.plusDays(daysToAdd.intValue());
     }
 
     @Override
     public Long dayDiff(LocalDate date1, LocalDate date2) {
-        long diff = durationBetween(date1, date2).getSeconds() / (60 * 60 * 24);
-        return diff;
+        if (date1 == null || date2 == null) {
+            return null;
+        }
+
+        return durationBetween(date1, date2).getSeconds() / (60 * 60 * 24);
     }
+
     @Override
     public Long dayDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        long diff = durationBetween(dateTime1, dateTime2).getSeconds() / (60 * 60 * 24);
-        return diff;
+        if (dateTime1 == null || dateTime2 == null) {
+            return null;
+        }
+
+        return durationBetween(dateTime1, dateTime2).getSeconds() / (60 * 60 * 24);
     }
 
     @Override
     public Long hourDiff(OffsetTime time1, OffsetTime time2) {
-        long diff = durationBetween(time1, time2).getSeconds() / (60 * 60);
-        return diff;
+        if (time1 == null || time2 == null) {
+            return null;
+        }
+
+        return durationBetween(time1, time2).getSeconds() / (60 * 60);
     }
+
     @Override
     public Long hourDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        long diff = durationBetween(dateTime1, dateTime2).getSeconds() / (60 * 60);
-        return diff;
+        if (dateTime1 == null || dateTime2 == null) {
+            return null;
+        }
+
+        return durationBetween(dateTime1, dateTime2).getSeconds() / (60 * 60);
     }
 
     @Override
     public Long minutesDiff(OffsetTime time1, OffsetTime time2) {
-        long diff = durationBetween(time1, time2).getSeconds() / 60;
-        return diff;
+        if (time1 == null || time2 == null) {
+            return null;
+        }
+
+        return durationBetween(time1, time2).getSeconds() / 60;
     }
     @Override
     public Long minutesDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        long diff = durationBetween(dateTime1, dateTime2).getSeconds() / 60;
-        return diff;
+        if (dateTime1 == null || dateTime2 == null) {
+            return null;
+        }
+
+        return durationBetween(dateTime1, dateTime2).getSeconds() / 60;
     }
 
     @Override
     public Integer weekday(LocalDate date) {
-        int weekDay = date.getDayOfWeek().getValue();
-        return weekDay;
+        if (date == null) {
+            return null;
+        }
+
+        return date.getDayOfWeek().getValue();
     }
     @Override
     public Integer weekdayDateTime(ZonedDateTime dateTime) {
-        int weekDay = dateTime.getDayOfWeek().getValue();
-        return weekDay;
+        if (dateTime == null) {
+            return null;
+        }
+
+        return dateTime.getDayOfWeek().getValue();
     }
 
     @Override
