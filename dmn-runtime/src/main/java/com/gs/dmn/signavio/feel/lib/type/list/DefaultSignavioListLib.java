@@ -18,58 +18,52 @@ import com.gs.dmn.signavio.feel.lib.SignavioUtil;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
     @Override
-    public <T> List<T> append(List<T> list, T item) {
-        List<T> result = new ArrayList<>();
-        if (list != null) {
-            result.addAll(list);
+    public <T> List<T> append(List<T> list, T element) {
+        if (!SignavioUtil.areNullSafe(list)) {
+            return null;
         }
-        result.add(item);
-        return result;
-    }
 
-    @Override
-    public <T> List<T> appendAll(List<T> list1, List<T> list2) {
-        List<T> result = new ArrayList<>();
-        if (list1 != null) {
-            result.addAll(list1);
-        }
-        if (list2 != null) {
-            result.addAll(list2);
-        }
+        List<T> result = new ArrayList<>(list);
+        result.add(element);
         return result;
     }
 
     @Override
     public <T> List<T> remove(List<T> list, T element) {
-        if (list == null || list.isEmpty()) {
-            return new ArrayList<>();
+        if (!SignavioUtil.areNullSafe(list)) {
+            return null;
         }
-        List<T> result = new ArrayList<>();
-        for(T obj: list) {
-            if (element == null) {
-                if (element != obj) {
-                    result.add(obj);
-                }
-            } else {
-                if (!element.equals(obj)) {
-                    result.add(obj);
-                }
-            }
+
+        List<T> result = new ArrayList<>(list);
+        result.removeIf(e -> Objects.equals(element, e));
+        return result;
+    }
+
+    @Override
+    public <T> List<T> appendAll(List<T> list1, List<T> list2) {
+        if (!SignavioUtil.areNullSafe(list1, list2)) {
+            return null;
         }
-        result.remove(element);
+
+        List<T> result = new ArrayList<>(list1);
+        result.addAll(list2);
         return result;
     }
 
     @Override
     public <T> List<T> removeAll(List<T> list1, List<T> list2) {
         if (!SignavioUtil.areNullSafe(list1, list2)) {
-            return new ArrayList<>();
+            return null;
         }
+
         List<T> result = new ArrayList<>(list1);
-        result.removeAll(list2);
+        for (T element: list2) {
+            result.removeIf(e -> Objects.equals(e, element));
+        }
         return result;
     }
 
@@ -94,7 +88,7 @@ public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
         }
 
         for(Object obj1: list1) {
-            if (!list2.contains(obj1)) {
+            if (!SignavioUtil.matchesAnyOf(obj1, list2)) {
                 return false;
             }
         }
@@ -108,7 +102,7 @@ public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
         }
 
         for(Object obj1: list1) {
-            if (!list2.contains(obj1)) {
+            if (!SignavioUtil.matchesAnyOf(obj1, list2)) {
                 return false;
             }
         }

@@ -243,20 +243,21 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     //
     @Test
     public void testAppend() {
-        assertEquals(Arrays.asList(new Object[] {null}), getLib().append(null, null));
+        assertNull(getLib().append(null, null));
+        assertNull(getLib().append(null, Arrays.asList()));
         assertEquals(Arrays.asList("1", "2", null), getLib().append(Arrays.asList("1", "2"), null));
         assertEquals(Arrays.asList("1", "2", "3"), getLib().append(Arrays.asList("1", "2"), "3"));
     }
 
     @Test
     public void testAppendAll() {
-        assertEquals(Arrays.asList(), getLib().appendAll(null, null));
-        assertEquals(Arrays.asList(), getLib().appendAll(null, Arrays.asList()));
-        assertEquals(Arrays.asList(), getLib().appendAll(Arrays.asList(), null));
+        assertNull(getLib().appendAll(null, null));
+        assertNull(getLib().appendAll(null, Arrays.asList()));
+        assertNull(getLib().appendAll(Arrays.asList(), null));
         assertEquals(Arrays.asList(), getLib().appendAll(Arrays.asList(), Arrays.asList()));
 
-        assertEquals(Arrays.asList("1", "2"), getLib().appendAll(Arrays.asList("1", "2"), null));
-        assertEquals(Arrays.asList("1", "2"), getLib().appendAll(null, Arrays.asList("1", "2")));
+        assertNull(getLib().appendAll(Arrays.asList("1", "2"), null));
+        assertNull(getLib().appendAll(null, Arrays.asList("1", "2")));
 
         assertEquals(Arrays.asList("1", "2", "3", "4"), getLib().appendAll(Arrays.asList("1", "2"), Arrays.asList("3", "4")));
     }
@@ -302,8 +303,8 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
 
     @Test
     public void testRemove() {
-        assertEquals(Arrays.asList(), getLib().remove(null, null));
-        assertEquals(Arrays.asList(), getLib().remove(null, "1"));
+        assertNull(getLib().remove(null, null));
+        assertNull(getLib().remove(null, "1"));
 
         assertEquals(Arrays.asList(), getLib().remove(Arrays.asList(), null));
         assertEquals(Arrays.asList(), getLib().remove(Arrays.asList(), "1"));
@@ -316,15 +317,15 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
 
     @Test
     public void testRemoveAll() {
-        assertEquals(Arrays.asList(), getLib().removeAll(null, null));
-        assertEquals(Arrays.asList(), getLib().removeAll(null, Arrays.asList()));
-        assertEquals(Arrays.asList(), getLib().removeAll(null, Arrays.asList("1", "2")));
+        assertNull(getLib().removeAll(null, null));
+        assertNull(getLib().removeAll(null, Arrays.asList()));
+        assertNull(getLib().removeAll(null, Arrays.asList("1", "2")));
 
-        assertEquals(Arrays.asList(), getLib().removeAll(Arrays.asList(), null));
+        assertNull(getLib().removeAll(Arrays.asList(), null));
         assertEquals(Arrays.asList(), getLib().removeAll(Arrays.asList(), Arrays.asList()));
         assertEquals(Arrays.asList(), getLib().removeAll(Arrays.asList(), Arrays.asList("1", "2")));
 
-        assertEquals(Arrays.asList(), getLib().removeAll(Arrays.asList("1", "2"), null));
+        assertNull(getLib().removeAll(Arrays.asList("1", "2"), null));
         assertEquals(Arrays.asList("1", "2"), getLib().removeAll(Arrays.asList("1", "2"), Arrays.asList()));
         assertEquals(Arrays.asList("1", "2"), getLib().removeAll(Arrays.asList("1", "2"), Arrays.asList("3")));
     }
