@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.feel.lib.type.list;
 
 import com.gs.dmn.runtime.Context;
+import com.gs.dmn.signavio.feel.lib.SignavioUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
 
     @Override
     public <T> List<T> removeAll(List<T> list1, List<T> list2) {
-        if (list1 == null || list2 == null) {
+        if (!SignavioUtil.areNullSafe(list1, list2)) {
             return new ArrayList<>();
         }
         List<T> result = new ArrayList<>(list1);
@@ -74,11 +75,12 @@ public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
 
     @Override
     public Boolean notContainsAny(List<?> list1, List<?> list2) {
-        if (list1 == null || list2 == null) {
+        if (!SignavioUtil.areNullSafe(list1, list2)) {
             return null;
         }
-        for(Object obj2: list2) {
-            if (list1.contains(obj2)) {
+
+        for (Object obj1: list1) {
+            if (SignavioUtil.matchesAnyOf(obj1, list2)) {
                 return false;
             }
         }
@@ -87,7 +89,7 @@ public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
 
     @Override
     public Boolean containsOnly(List<?> list1, List<?> list2) {
-        if (list1 == null || list2 == null) {
+        if (!SignavioUtil.areNullSafe(list1, list2)) {
             return null;
         }
 
@@ -101,9 +103,10 @@ public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
 
     @Override
     public Boolean areElementsOf(List<?> list1, List<?> list2) {
-        if (list1 == null || list2 == null) {
+        if (!SignavioUtil.areNullSafe(list1, list2)) {
             return null;
         }
+
         for(Object obj1: list1) {
             if (!list2.contains(obj1)) {
                 return false;
@@ -114,7 +117,7 @@ public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
 
     @Override
     public Boolean elementOf(List<?> list1, List<?> list2) {
-        return areElementsOf(list1, list2);
+        return this.areElementsOf(list1, list2);
     }
 
     @Override

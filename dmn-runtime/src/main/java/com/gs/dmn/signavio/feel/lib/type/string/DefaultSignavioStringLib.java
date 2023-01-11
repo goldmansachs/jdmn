@@ -13,15 +13,20 @@
 package com.gs.dmn.signavio.feel.lib.type.string;
 
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
+import com.gs.dmn.signavio.feel.lib.SignavioUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.gs.dmn.feel.lib.type.string.DefaultStringLib.DECIMAL_FORMAT;
 
@@ -46,12 +51,12 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
 
     @Override
     public String concat(List<?> texts) {
-        if (texts == null || texts.isEmpty()) {
+        if (!SignavioUtil.areNullSafe(texts) || texts.isEmpty()) {
             return null;
         }
 
         StringBuilder result = new StringBuilder();
-        for (Object o: texts) {
+        for(Object o: texts) {
             if (o instanceof String) {
                 result.append(o);
             } else {
@@ -63,26 +68,25 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
 
     @Override
     public String mid(String text, Number start, Number numChar) {
-        if (text == null || start == null || numChar == null) {
-            return null;
-        }
-        if (start.intValue() < 0 || numChar.intValue() < 0) {
+        if (!SignavioUtil.areNullSafe(text, start, numChar) || start.intValue() < 0 || numChar.intValue() < 0)  {
             return null;
         }
 
-        int endIndex = start.intValue() + numChar.intValue();
+        int s = start.intValue();
+        int endIndex = s + numChar.intValue();
         if (endIndex > text.length()) {
             endIndex = text.length();
         }
         if (endIndex == start.intValue()) {
             return null;
         }
-        return text.substring(start.intValue(), endIndex);
+
+        return text.substring(s, endIndex);
     }
 
     @Override
     public String left(String text, Number numChar) {
-        if (text == null || numChar == null) {
+        if (!SignavioUtil.areNullSafe(text, numChar)) {
             return null;
         }
 
@@ -95,7 +99,7 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
 
     @Override
     public String right(String text, Number numChar) {
-        if (text == null || numChar == null) {
+        if (!SignavioUtil.areNullSafe(text, numChar)) {
             return null;
         }
 
@@ -108,24 +112,25 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
 
     @Override
     public String text(Number num, String formatText) {
-        DecimalFormat df = new DecimalFormat(formatText);
+        if (!SignavioUtil.areNullSafe(num, formatText)) {
+            return null;
+        }
+
+        DecimalFormat df = new DecimalFormat(formatText, new DecimalFormatSymbols(Locale.US));
         return df.format(num);
     }
 
     @Override
     public Integer textOccurrences(String findText, String withinText) {
-        if (findText == null || withinText == null) {
+        if (!SignavioUtil.areNullSafe(findText, withinText)) {
             return null;
         }
+
+        Pattern pattern = Pattern.compile(findText);
+        Matcher matcher = pattern.matcher(withinText);
         int count = 0;
-        int i = 0;
-        while (i < withinText.length()) {
-            if (withinText.substring(i).startsWith(findText)) {
-                count++;
-                i += findText.length();
-            } else {
-                i++;
-            }
+        while (matcher.find()) {
+            count++;
         }
         return count;
     }
@@ -141,7 +146,7 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
 
     @Override
     public Boolean isAlphanumeric(String text) {
-        if (text == null) {
+        if (!SignavioUtil.areNullSafe(text)) {
             return null;
         }
 
@@ -150,7 +155,7 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
 
     @Override
     public Boolean isNumeric(String text) {
-        if (text == null) {
+        if (!SignavioUtil.areNullSafe(text)) {
             return null;
         }
 
@@ -159,13 +164,13 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
 
     @Override
     public Boolean isSpaces(String text) {
-        if (text == null) {
+        if (!SignavioUtil.areNullSafe(text)) {
             return null;
         }
+
         if (text.isEmpty()) {
             return false;
         }
-
         return StringUtils.isBlank(text);
     }
 
@@ -186,7 +191,7 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
 
     @Override
     public Boolean contains(String string, String match) {
-        if (string == null || match == null) {
+        if (!SignavioUtil.areNullSafe(string, match)) {
             return null;
         }
 
@@ -195,7 +200,7 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
 
     @Override
     public Boolean startsWith(String string, String match) {
-        if (string == null || match == null) {
+        if (!SignavioUtil.areNullSafe(string, match)) {
             return null;
         }
 

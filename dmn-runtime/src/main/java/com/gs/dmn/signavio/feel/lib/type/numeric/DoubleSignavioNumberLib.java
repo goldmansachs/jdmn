@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.numeric;
 
+import com.gs.dmn.signavio.feel.lib.SignavioUtil;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Collections;
@@ -22,7 +24,7 @@ import java.util.Map;
 public class DoubleSignavioNumberLib implements SignavioNumberLib<Double> {
     @Override
     public Double number(String literal) {
-        if (literal == null) {
+        if (!SignavioUtil.areNullSafe(literal)) {
             return null;
         }
 
@@ -31,7 +33,7 @@ public class DoubleSignavioNumberLib implements SignavioNumberLib<Double> {
 
     @Override
     public Double number(String text, Double defaultValue) {
-        if (text == null || defaultValue ==  null) {
+        if (!SignavioUtil.areNullSafe(text, defaultValue)) {
             return null;
         }
 
@@ -45,7 +47,7 @@ public class DoubleSignavioNumberLib implements SignavioNumberLib<Double> {
 
     @Override
     public Double abs(Double number) {
-        if (number == null) {
+        if (!SignavioUtil.areNullSafe(number)) {
             return null;
         }
 
@@ -54,16 +56,16 @@ public class DoubleSignavioNumberLib implements SignavioNumberLib<Double> {
 
     @Override
     public Double count(List<?> list) {
-        if (list == null) {
+        if (!SignavioUtil.areNullSafe(list)) {
             return null;
         }
 
-        return Double.valueOf(list.size());
+        return (double) list.size();
     }
 
     @Override
     public Double round(Double number, Double digits) {
-        if (number == null || digits == null) {
+        if (!SignavioUtil.areNullSafe(number, digits)) {
             return null;
         }
 
@@ -72,7 +74,7 @@ public class DoubleSignavioNumberLib implements SignavioNumberLib<Double> {
 
     @Override
     public Double ceiling(Double number) {
-        if (number == null) {
+        if (!SignavioUtil.areNullSafe(number)) {
             return null;
         }
 
@@ -81,7 +83,7 @@ public class DoubleSignavioNumberLib implements SignavioNumberLib<Double> {
 
     @Override
     public Double floor(Double number) {
-        if (number == null) {
+        if (!SignavioUtil.areNullSafe(number)) {
             return null;
         }
 
@@ -90,16 +92,16 @@ public class DoubleSignavioNumberLib implements SignavioNumberLib<Double> {
 
     @Override
     public Double integer(Double number) {
-        if (number == null) {
+        if (!SignavioUtil.areNullSafe(number)) {
             return null;
         }
 
-        return Double.valueOf(number.intValue());
+        return (double) number.intValue();
     }
 
     @Override
     public Double modulo(Double dividend, Double divisor) {
-        if (dividend == null || divisor == null || divisor == 0) {
+        if (!SignavioUtil.areNullSafe(dividend, divisor) || divisor == 0) {
             return null;
         }
 
@@ -108,7 +110,7 @@ public class DoubleSignavioNumberLib implements SignavioNumberLib<Double> {
 
     @Override
     public Double power(Double base, Double exponent) {
-        if (base == null || exponent == null) {
+        if (!SignavioUtil.areNullSafe(base, exponent)) {
             return null;
         }
 
@@ -117,7 +119,7 @@ public class DoubleSignavioNumberLib implements SignavioNumberLib<Double> {
 
     @Override
     public Double percent(Double number) {
-        if (number == null) {
+        if (!SignavioUtil.areNullSafe(number)) {
             return null;
         }
 
@@ -126,21 +128,20 @@ public class DoubleSignavioNumberLib implements SignavioNumberLib<Double> {
 
     @Override
     public Double product(List<?> numbers) {
-        if (numbers == null || numbers.isEmpty()) {
+        if (!SignavioUtil.verifyValidityOfListArgument(numbers)) {
             return null;
         }
 
         Double result = 1.0;
-        for (Object e : numbers) {
-            Double number = (Double) e;
-            result = result * number;
+        for (Double number : SignavioUtil.asDoubles(numbers)) {
+            result *= number;
         }
         return result;
     }
 
     @Override
     public Double roundDown(Double number, Double digits) {
-        if (number == null || digits == null) {
+        if (!SignavioUtil.areNullSafe(number)) {
             return null;
         }
 
@@ -149,7 +150,7 @@ public class DoubleSignavioNumberLib implements SignavioNumberLib<Double> {
 
     @Override
     public Double roundUp(Double number, Double digits) {
-        if (number == null || digits == null) {
+        if (!SignavioUtil.areNullSafe(number)) {
             return null;
         }
 
@@ -158,14 +159,13 @@ public class DoubleSignavioNumberLib implements SignavioNumberLib<Double> {
 
     @Override
     public Double sum(List<?> list) {
-        if (list == null || list.isEmpty()) {
+        if (!SignavioUtil.verifyValidityOfListArgument(list)) {
             return null;
         }
 
-        Double result = Double.valueOf(0);
-        for (Object e : list) {
-            Double number = (Double) e;
-            result = result + number;
+        Double result = 0.0;
+        for (Double e : SignavioUtil.asDoubles(list)) {
+            result += e;
         }
         return result;
     }
@@ -181,7 +181,7 @@ public class DoubleSignavioNumberLib implements SignavioNumberLib<Double> {
 
     @Override
     public Double max(List<?> list) {
-        if (list == null || list.isEmpty()) {
+        if (!SignavioUtil.verifyValidityOfListArgument(list)) {
             return null;
         }
 
@@ -197,7 +197,7 @@ public class DoubleSignavioNumberLib implements SignavioNumberLib<Double> {
 
     @Override
     public Double median(List<?> list) {
-        if (list == null || list.isEmpty()) {
+        if (!SignavioUtil.verifyValidityOfListArgument(list)) {
             return null;
         }
 
@@ -216,46 +216,39 @@ public class DoubleSignavioNumberLib implements SignavioNumberLib<Double> {
 
     @Override
     public Double min(List<?> list) {
-        if (list == null || list.isEmpty()) {
+        if (!SignavioUtil.verifyValidityOfListArgument(list)) {
             return null;
         }
 
-        Double result = (Double) list.get(0);
-        for (int i = 1; i < list.size(); i++) {
-            Double x = (Double) list.get(i);
-            if (result.compareTo(x) > 0) {
-                result = x;
+        List<Double> numbers = SignavioUtil.asDoubles(list);
+        Double result = numbers.get(0);
+        for (Double number: numbers) {
+            if (number < result) {
+                result = number;
             }
         }
         return result;
     }
 
-    @Override
-    public Double mode(List<?> numbers) {
+    public Double mode(List<?> list) {
+        if (!SignavioUtil.verifyValidityOfListArgument(list)) {
+            return null;
+        }
+
         Map<Object, Integer> map = new LinkedHashMap<>();
-        for (Object n : numbers) {
-            if (n == null) {
-                return null;
-            }
-            Integer counter = map.get(n);
-            if (counter == null) {
-                counter = 1;
-            } else {
-                counter++;
-            }
-            map.put(n, counter);
-        }
-        Object resultKey = null;
-        Integer resultCounter = null;
-        for (Map.Entry<Object, Integer> entry : map.entrySet()) {
-            Object key = entry.getKey();
-            Integer counter = entry.getValue();
-            if (resultCounter == null || counter > resultCounter) {
-                resultKey = key;
-                resultCounter = counter;
+        int top = -1;
+        List<Double> numbers = SignavioUtil.asDoubles(list);
+        Double returnValue = numbers.get(0);
+        for (Double value : numbers) {
+            Integer count = map.get(value);
+            int currentCount = count == null ? 1 : count + 1;
+            map.put(value, currentCount);
+            if (currentCount > top) {
+                top = currentCount;
+                returnValue = value;
             }
         }
-        return (Double) resultKey;
+        return returnValue;
     }
 
     @Override

@@ -136,6 +136,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertNull(getLib().product(null));
         assertNull(getLib().product(makeNumberList()));
         assertNull(getLib().product(makeNumberList(1, null, 3)));
+        assertNull(getLib().product(makeNumberList(1, null, 3)));
 
         assertEqualsNumber(makeNumber("2"), getLib().product(makeNumberList(2)));
         assertEqualsNumber(makeNumber("24"), getLib().product(makeNumberList(2, 3, 4)));
@@ -161,6 +162,9 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertEqualsNumber(1.33, getLib().roundDown(makeNumber("1.333"), makeNumber("2")), 0.001);
         assertEqualsNumber(0, getLib().roundDown(makeNumber("1.344"), makeNumber("-1")), 0.001);
         assertEqualsNumber(0, getLib().roundDown(makeNumber("1.344"), makeNumber("-2")), 0.001);
+
+        assertEqualsNumber(12000, getLib().roundDown(makeNumber("12345"), makeNumber("-3")), 0.001);
+        assertEqualsNumber(12345, getLib().roundDown(makeNumber("12345"), makeNumber("3")), 0.001);
     }
 
     @Test
@@ -173,6 +177,9 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertEqualsNumber(1.34, getLib().roundUp(makeNumber("1.333"), makeNumber("2")), 0.001);
         assertEqualsNumber(10, getLib().roundUp(makeNumber("1.344"), makeNumber("-1")), 0.001);
         assertEqualsNumber(100, getLib().roundUp(makeNumber("1.344"), makeNumber("-2")), 0.001);
+
+        assertEqualsNumber(13000, getLib().roundUp(makeNumber("12345"), makeNumber("-3")), 0.001);
+        assertEqualsNumber(12345, getLib().roundUp(makeNumber("12345"), makeNumber("3")), 0.001);
     }
 
     //
@@ -401,20 +408,23 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     public void testMedian() {
         assertNull(getLib().median(null));
         assertNull(getLib().median(Arrays.asList()));
-
-        assertEqualsNumber(makeNumber("2"), getLib().median(Arrays.asList(makeNumber("1"), makeNumber("3"))));
-        assertEqualsNumber(makeNumber("3"), getLib().median(Arrays.asList(makeNumber("1"), makeNumber("5"), makeNumber("3"))));
         assertNull(getLib().median(Arrays.asList(makeNumber("1"), null)));
+
+        assertEqualsNumber(makeNumber("2"), getLib().median(Arrays.asList(makeNumber("1"), makeNumber("2"), makeNumber("3"))));
+        assertEqualsNumber(makeNumber("2.5"), getLib().median(Arrays.asList(makeNumber("1"), makeNumber("2"), makeNumber("3"), makeNumber("4"))));
     }
 
     @Test
     public void testMode() {
         assertNull(getLib().mode(null));
         assertNull(getLib().mode(Arrays.asList()));
+        assertNull(getLib().mode(Arrays.asList(makeNumber("1"), null)));
 
         assertEqualsNumber(makeNumber("1"), getLib().mode(Arrays.asList(makeNumber("1"), makeNumber("3"))));
         assertEqualsNumber(makeNumber("3"), getLib().mode(Arrays.asList(makeNumber("1"), makeNumber("3"), makeNumber("3"))));
-        assertNull(getLib().mode(Arrays.asList(makeNumber("1"), null)));
+
+        assertEqualsNumber(makeNumber("3"), getLib().mode(Arrays.asList(makeNumber("1"), makeNumber("3"), makeNumber("3"), makeNumber("1"))));
+        assertEqualsNumber(makeNumber("1"), getLib().mode(Arrays.asList(makeNumber("1"), makeNumber("3"), makeNumber("1"))));
     }
 
     //
@@ -477,7 +487,8 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertNull(getLib().isSpaces(null));
 
         assertFalse(getLib().isSpaces(""));
-        assertTrue(getLib().isSpaces("  \t\n\f"));
+        assertTrue(getLib().isSpaces("    "));
+        assertTrue(getLib().isSpaces("\t\n\f"));
         assertFalse(getLib().isSpaces("abc1"));
         assertFalse(getLib().isSpaces("123"));
         assertFalse(getLib().isSpaces("+-"));
