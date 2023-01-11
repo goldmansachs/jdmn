@@ -68,7 +68,7 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
 
     @Override
     public String mid(String text, Number start, Number numChar) {
-        if (!SignavioUtil.areNullSafe(text, start, numChar) || start.intValue() < 0 || numChar.intValue() < 0)  {
+        if (!SignavioUtil.areNullSafe(text, start, numChar) || start.intValue() < 0 || start.intValue() >= text.length() || numChar.intValue() < 0)  {
             return null;
         }
 
@@ -76,9 +76,6 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
         int endIndex = s + numChar.intValue();
         if (endIndex > text.length()) {
             endIndex = text.length();
-        }
-        if (endIndex == start.intValue()) {
-            return null;
         }
 
         return text.substring(s, endIndex);

@@ -548,6 +548,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertNull(getLib().mid(null, makeNumber("1"), null));
         assertNull(getLib().mid("123", makeNumber("-1"), makeNumber("1")));
         assertNull(getLib().mid("123", makeNumber("1"), makeNumber("-1")));
+        assertNull(getLib().mid("123", makeNumber("3"), makeNumber("1")));
 
         assertEquals("2", getLib().mid("123", makeNumber("1"), makeNumber("1")));
         assertEquals("23", getLib().mid("123", makeNumber("1"), makeNumber("5")));
