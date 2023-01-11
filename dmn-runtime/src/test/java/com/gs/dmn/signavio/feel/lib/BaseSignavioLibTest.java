@@ -263,15 +263,14 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
 
     @Test
     public void testZip() {
-        assertEquals(Arrays.asList(), getLib().zip(null, null));
-        assertEquals(Arrays.asList(), getLib().zip(null, Arrays.asList()));
+        assertNull(getLib().zip(null, null));
+        assertNull(getLib().zip(null, Arrays.asList()));
+        assertNull(getLib().zip(Arrays.asList(), Arrays.asList(null, null)));
+        assertNull(getLib().zip(Arrays.asList(), Arrays.asList(null, Arrays.asList())));
+        assertNull(getLib().zip(Arrays.asList(), Arrays.asList(Arrays.asList(), null)));
         assertEquals(Arrays.asList(), getLib().zip(Arrays.asList(), Arrays.asList()));
-        assertEquals(Arrays.asList(), getLib().zip(Arrays.asList(), Arrays.asList(null, null)));
-        assertEquals(Arrays.asList(), getLib().zip(Arrays.asList(), Arrays.asList(null, Arrays.asList())));
-        assertEquals(Arrays.asList(), getLib().zip(Arrays.asList(), Arrays.asList(Arrays.asList(), null)));
 
-        assertEquals(Arrays.asList(),
-                getLib().zip(Arrays.asList(), Arrays.asList(Arrays.asList(), Arrays.asList())));
+        assertNull(getLib().zip(Arrays.asList(), Arrays.asList(Arrays.asList(), Arrays.asList())));
 
         List<String> attributes = Arrays.asList("k1", "k2");
         assertEquals(Arrays.asList(

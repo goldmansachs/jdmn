@@ -122,16 +122,13 @@ public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
 
     @Override
     public List<?> zip(List<?> attributes, List<?> values) {
-        List<Context> result = new ArrayList<>();
-        if (attributes == null || values == null) {
-            return result;
-        }
-        for (Object dimension: values) {
-            if (dimension == null) {
-                return result;
-            }
+        if (!SignavioUtil.areNullSafe(attributes, values)) {
+            return null;
+        } else if (!SignavioUtil.validFieldNamesAndValueList(attributes, values)) {
+            return null;
         }
 
+        List<Context> result = new ArrayList<>();
         int card = cardinal(values);
         for (int i = 0; i < card; i++) {
             Context context = new Context();
@@ -153,15 +150,9 @@ public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
     private int cardinal(List<?> values) {
         int card = 0;
         for (Object value : values) {
-            if (value instanceof List) {
-                List<?> list = (List<?>) value;
-                if (card < list.size()) {
-                    card = list.size();
-                }
-            } else {
-                if (card < 1) {
-                    card = 1;
-                }
+            int size = ((List<?>) value).size();
+            if (card < size) {
+                card = size;
             }
         }
         return card;
